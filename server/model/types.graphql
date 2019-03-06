@@ -1,0 +1,30 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission]
+  properties: [Property!]! @relation(name: "PropertyOwner")
+  createdProperties: [Property!]! @relation(name: "PropertyCreator")
+}
+
+type File {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String! @unique
+}
+
+type Property {
+  id: ID! @unique
+  location: String!
+  locationLat: Float!
+  locationLon: Float!
+  owners: [User!]! @relation(name: "PropertyOwner")
+  creator: User! @relation(name: "PropertyCreator")
+}

@@ -5,7 +5,7 @@ const db = require("./db")
 const server = createServer()
 
 const expressLogger = function(req, res, next) {
-  console.log("express endpoint called")
+  console.log("express endpoint called", )
   next()
 }
 

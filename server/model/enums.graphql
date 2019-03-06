@@ -1,0 +1,5 @@
+enum Permission {
+  ADMIN
+  USER
+  PERMISSIONUPDATE
+}

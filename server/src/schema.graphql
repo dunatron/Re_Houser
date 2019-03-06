@@ -1,5 +1,9 @@
 # import * from './generated/prisma.graphql'
 
+scalar Json
+scalar Float
+scalar Upload
+
 type SuccessMessage {
   message: String
 }
@@ -15,14 +19,23 @@ type Mutation {
     confirmPassword: String!
   ): User!
   updatePermissions(permissions: [Permission], userId: ID!): User
+  singleUpload(file: Upload!): File!
+  uploadFile(file: Upload!): File!
+  uploadFiles(files: [Upload!]!): [File!]!
+  deleteFile(id: ID!): File
+  renameFile(id: ID!, filename: String!): File
 }
 
 type Query {
   me: User
   users: [User]!
+  file(id: ID!): File
+  files: [File!]!
 }
 
 type User {
   id: ID!
   name: String!
+  email: String!
+  permissions: [Permission!]!
 }

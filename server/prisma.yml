@@ -1,5 +1,11 @@
 endpoint: ${env:PRISMA_ENDPOINT}
-datamodel: datamodel.graphql
+#endpoint: https://the-trader-prod-658deb489b.herokuapp.com/the-trader-prod/prod
+# endpoint: https://the-trader-prod-a9c5b680a7.herokuapp.com/trader-prod/prod
+datamodel:
+  - model/types.graphql
+  - model/enums.graphql
+# secret is the database password, ommiting it in dev means easier development
+secret: ${env:PRISMA_SECRET}
 hooks:
   post-deploy:
     - graphql get-schema -p prisma
