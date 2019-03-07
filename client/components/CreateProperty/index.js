@@ -23,6 +23,7 @@ class Signup extends Component {
     location: "",
     locationLat: "",
     locationLng: "",
+    images: [],
   }
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value })
@@ -60,6 +61,9 @@ class Signup extends Component {
       },
     }
   }
+
+  _renderImages = urls =>
+    urls.map(url => <img src={url} height="100" width="100" />)
   render() {
     return (
       <Mutation
@@ -83,6 +87,7 @@ class Signup extends Component {
                     locationLat: data.lat,
                     locationLng: data.lng,
                     location: data.desc,
+                    images: data.images,
                   })
                 }
               />
@@ -118,6 +123,8 @@ class Signup extends Component {
                 value={this.state.locationLng}
                 onChange={this.saveToState}
               />
+
+              {this._renderImages(this.state.images)}
 
               <FabButton
                 type="submit"

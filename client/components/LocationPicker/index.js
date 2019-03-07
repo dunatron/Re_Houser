@@ -3,6 +3,15 @@ import Head from "next/head"
 import Geosuggest from "react-geosuggest"
 // import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 import Map from "../Map/index"
+import SelectOption from "../Inputs/SelectOption"
+// Advanced Expansion
+import ExpansionPanel from "@material-ui/core/ExpansionPanel"
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
+import Typography from "@material-ui/core/Typography"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import { CountryCodesArray } from "../../lib/countryCodes"
+import { LOCATION_TYPES } from "../../lib/locationTypes"
 
 export default class index extends Component {
   state = {
@@ -11,6 +20,8 @@ export default class index extends Component {
     lng: 0,
     showMap: true,
     images: [],
+    country: "NZ",
+    type: "geocode",
   }
   /**
    * When the input receives focus
@@ -38,6 +49,7 @@ export default class index extends Component {
     let lat,
       lng,
       desc = ""
+    let images = []
     if (!suggestion) {
       return
     }
@@ -55,18 +67,24 @@ export default class index extends Component {
     if (gmaps) {
       console.log("A PHOTO => ", gmaps.photos)
       if (gmaps.photos) {
-        console.log("A PHOTO => ", gmaps.photos[0].getUrl())
+        // console.log("A PHOTO => ", gmaps.photos[0].getUrl())
+        // console.log("A PHOTO => ", gmaps.photos[0].getUrl())
+        images = gmaps.photos.map(photo => photo.getUrl())
+        console.log("Image Urls => ", images)
       }
     }
     this.props.selection({
       lat: lat,
       lng,
       desc,
+      images: images,
     })
+
     this.setState({
       lat: lat,
       lng,
       desc: desc,
+      images: images,
     })
   }
   /**
@@ -129,10 +147,34 @@ export default class index extends Component {
           onSuggestSelect={suggestion => this._suggest(suggestion)}
           onSuggestNoResults={this.onSuggestNoResults}
           location={new google.maps.LatLng(-40.4338295, 166.3289194)}
-          types={["geocode"]}
+          // types={["geocode"]}
           radius="20"
-          country="nz"
+          country={this.state.country === "ALL" ? null : this.state.country}
         />
+        <div>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>Location advanced Options</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <SelectOption
+                label="Country"
+                value={this.state.country}
+                options={[{ name: "ALL", value: "ALL" }].concat(
+                  CountryCodesArray
+                )}
+                handleChange={v => this.setState({ country: v })}
+              />
+
+              <SelectOption
+                label="Type"
+                value={this.state.type}
+                options={[{ name: "ALL", value: null }].concat(LOCATION_TYPES)}
+                handleChange={v => this.setState({ type: v })}
+              />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
         {this.state.showMap && (
           <Map
             center={{
