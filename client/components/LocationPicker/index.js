@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import { CountryCodesArray } from "../../lib/countryCodes"
 import { LOCATION_TYPES } from "../../lib/locationTypes"
+import { WORLD_FIXTURES } from "../../lib/locationFixtures"
 
 export default class index extends Component {
   state = {
@@ -117,6 +118,14 @@ export default class index extends Component {
     return 18
   }
 
+  _getFixtures = () => {
+    if (this.state.country)
+      WORLD_FIXTURES.filter(
+        fixture => fixture.countyCode === this.state.country
+      )
+    return false
+  }
+
   // ToDo: compose the google props into a global to be able to be used
   render() {
     const fixtures = [
@@ -139,15 +148,15 @@ export default class index extends Component {
     return (
       <div>
         <Geosuggest
-          fixtures={fixtures}
+          // fixtures={fixtures}
+          fixtures={this._getFixtures()}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onChange={this.onChange}
-          // onSuggestSelect={this.onSuggestSelect}
           onSuggestSelect={suggestion => this._suggest(suggestion)}
           onSuggestNoResults={this.onSuggestNoResults}
           location={new google.maps.LatLng(-40.4338295, 166.3289194)}
-          // types={["geocode"]}
+          types={this.state.type === "ALL" ? null : this.state.types}
           radius="20"
           country={this.state.country === "ALL" ? null : this.state.country}
         />
@@ -169,7 +178,7 @@ export default class index extends Component {
               <SelectOption
                 label="Type"
                 value={this.state.type}
-                options={[{ name: "ALL", value: null }].concat(LOCATION_TYPES)}
+                options={[{ name: "ALL", value: "ALL" }].concat(LOCATION_TYPES)}
                 handleChange={v => this.setState({ type: v })}
               />
             </ExpansionPanelDetails>

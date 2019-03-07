@@ -64,6 +64,13 @@ class Signup extends Component {
 
   _renderImages = urls =>
     urls.map(url => <img src={url} height="100" width="100" />)
+  _canSubmit = () => {
+    const { location, locationLat, locationLng } = this.state
+    if (location.length < 1) {
+      return false
+    }
+    return true
+  }
   render() {
     return (
       <Mutation
@@ -127,6 +134,7 @@ class Signup extends Component {
               {this._renderImages(this.state.images)}
 
               <FabButton
+                disabled={!this._canSubmit()}
                 type="submit"
                 variant="extended"
                 color="primary"
