@@ -30,7 +30,7 @@ type Property {
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
-  locationLon: Float!
+  locationLng: Float!
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]!

@@ -13,6 +13,9 @@ import NoSsr from "@material-ui/core/NoSsr"
 import muiTheme from "../../styles/_muiTheme"
 import Notifier, { openSnackbar } from "../Notifier/index"
 
+// Google
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
+
 const theme = createMuiTheme(muiTheme)
 
 const StyledPage = styled.div`
@@ -101,10 +104,12 @@ const GlobalStyle = createGlobalStyle`
 };
     }
   }
+  
 `
 
 class Page extends Component {
   render() {
+    const { google } = this.props
     return (
       <NoSsr>
         <MuiThemeProvider theme={theme}>
@@ -123,4 +128,6 @@ class Page extends Component {
   }
 }
 
-export default Page
+export default GoogleApiWrapper({
+  apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
+})(Page)
