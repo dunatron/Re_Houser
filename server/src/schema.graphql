@@ -9,7 +9,13 @@ type SuccessMessage {
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): User!
+  signup(
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    phone: String!
+  ): User!
   signin(email: String!, password: String!): User!
   signout: SuccessMessage
   requestReset(email: String!): SuccessMessage
@@ -24,6 +30,7 @@ type Mutation {
   uploadFiles(files: [Upload!]!): [File!]!
   deleteFile(id: ID!): File
   renameFile(id: ID!, filename: String!): File
+  createProperty(data: PropertyCreateInput!, files: [Upload]): Property
 }
 
 type Query {
@@ -35,7 +42,9 @@ type Query {
 
 type User {
   id: ID!
-  name: String!
+  firstName: String!
+  lastName: String!
+  phone: String!
   email: String!
   permissions: [Permission!]!
 }

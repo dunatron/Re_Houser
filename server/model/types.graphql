@@ -1,6 +1,8 @@
 type User {
   id: ID! @unique
-  name: String!
+  firstName: String!
+  lastName: String!
+  phone: String!
   email: String! @unique
   password: String!
   resetToken: String
@@ -22,9 +24,14 @@ type File {
 
 type Property {
   id: ID! @unique
+  rooms: Int!
+  rent: Float!
+  moveInDate: DateTime
+  onTheMarket: Boolean!
   location: String!
   locationLat: Float!
   locationLon: Float!
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
+  images: [File!]!
 }

@@ -24,6 +24,9 @@ const Inner = styled.div`
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
   padding: 1rem;
+  @media (max-width: ${props => props.theme.breakpoints.values.md}px) {
+    padding: 0;
+  }
 `
 
 const GlobalStyle = createGlobalStyle`

@@ -7,7 +7,9 @@ const CURRENT_USER_QUERY = gql`
     me {
       id
       email
-      name
+      firstName
+      lastName
+      phone
       permissions
     }
   }

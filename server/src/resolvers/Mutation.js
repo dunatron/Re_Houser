@@ -36,6 +36,7 @@ const mutations = {
   async signin(parent, { email, password }, ctx, info) {
     // 1. check if there is a user with that email
     const user = await ctx.db.query.user({ where: { email } })
+    console.log("FETCHED USER => ", user)
     if (!user) {
       throw new Error(`No such user found for email ${email}`)
     }
@@ -177,6 +178,13 @@ const mutations = {
     }
     return { id }
     // return await ctx.db.mutation.deleteFile({ where: { id } }, info)
+  },
+  // ToDo: Shift into own directoy e.g. Properties
+  async createProperty(parent, { data, files }, ctx, info) {
+    console.group("__MUTATION__createProperty__MUTATION__")
+    console.log("data => ", data)
+    console.log("files => ", files)
+    console.groupEnd()
   },
 }
 
