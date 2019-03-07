@@ -128,28 +128,12 @@ export default class index extends Component {
   }
 
   // ToDo: compose the google props into a global to be able to be used
+  // ToDo: make sure a selection ends in refocusing the input field
   render() {
-    const fixtures = [
-      {
-        label: "Dunedin",
-        className: "",
-        location: { lat: -45.8726082, lng: 170.3870355 },
-      },
-      {
-        label: "Dunedin Fairfield",
-        className: "",
-        location: { lat: -45.9092488, lng: 170.3752489 },
-      },
-
-      { label: "Auckland", location: { lat: -36.8621432, lng: 174.5846042 } },
-      { label: "Wellington", location: { lat: -41.2440266, lng: 174.6214293 } },
-    ]
-    console.log("PROPS => ", this.props)
-
+    console.log("WORLD_FIXTURES => ", WORLD_FIXTURES)
     return (
       <div>
         <Geosuggest
-          // fixtures={fixtures}
           fixtures={this._getFixtures()}
           onFocus={this.onFocus}
           onBlur={this.onBlur}

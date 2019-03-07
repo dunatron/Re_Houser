@@ -44,8 +44,8 @@ class Signup extends Component {
       data: {
         rent: 45.65,
         location: this.state.location,
-        locationLat: 4512.0125,
-        locationLon: 125454,
+        locationLat: this.state.locationLat,
+        locationLon: this.state.locationLng,
         rooms: 6,
         owners: {
           connect: {
