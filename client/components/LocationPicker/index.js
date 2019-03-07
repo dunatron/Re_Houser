@@ -119,10 +119,11 @@ export default class index extends Component {
   }
 
   _getFixtures = () => {
-    if (this.state.country)
-      WORLD_FIXTURES.filter(
+    if (this.state.country) {
+      return WORLD_FIXTURES.filter(
         fixture => fixture.countyCode === this.state.country
       )
+    }
     return false
   }
 
@@ -165,7 +166,8 @@ export default class index extends Component {
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>Location advanced Options</Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails
+              style={{ display: "flex", flexWrap: "wrap" }}>
               <SelectOption
                 label="Country"
                 value={this.state.country}
