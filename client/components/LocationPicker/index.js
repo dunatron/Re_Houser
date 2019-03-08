@@ -130,7 +130,6 @@ export default class index extends Component {
   // ToDo: compose the google props into a global to be able to be used
   // ToDo: make sure a selection ends in refocusing the input field
   render() {
-    console.log("WORLD_FIXTURES => ", WORLD_FIXTURES)
     return (
       <div>
         <Geosuggest

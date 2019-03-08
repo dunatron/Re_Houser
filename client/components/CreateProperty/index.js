@@ -9,6 +9,8 @@ import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
 import TextInput from "../../styles/TextInput"
 import LocationPicker from "../LocationPicker/index"
+import ImagePicker from "../ImagePicker/index"
+import DragDropUploader from "../DragDropUploader/index"
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($data: PropertyCreateInput!, $files: [Upload]) {
@@ -19,11 +21,16 @@ const SIGNUP_MUTATION = gql`
 `
 
 class Signup extends Component {
-  state = {
+  defaultState = {
     location: "",
     locationLat: "",
     locationLng: "",
+    rooms: 0,
+    rent: 0.0,
     images: [],
+  }
+  state = {
+    ...this.defaultState,
   }
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value })
@@ -35,17 +42,17 @@ class Signup extends Component {
       duration: 6000,
     })
     this.setState({
-      location: "",
+      ...this.defaultState,
     })
   }
 
   _propertyVariables = () => {
-    return {
+    const data = {
       data: {
         rent: 45.65,
-        location: this.state.location,
-        locationLat: this.state.locationLat,
-        locationLon: this.state.locationLng,
+        location: "A test location",
+        locationLat: 4512.0125,
+        locationLng: 125454,
         rooms: 6,
         owners: {
           connect: {
@@ -58,12 +65,65 @@ class Signup extends Component {
             id: "cjsy33qhd7aax0b35l0igfy64",
           },
         },
+        images: {
+          create: [
+            ...this.state.images
+              .filter(img => img.type !== "rawImage")
+              .map(img => {
+                return {
+                  filename: "Test file name",
+                  mimetype: "MIMETYPE",
+                  encoding: "encoding",
+                  url: "test url",
+                }
+              }),
+          ],
+        },
+        // images: [
+        //   ...this.state.images
+        //     .filter(img => img.type !== "rawImage")
+        //     .map(img => {
+        //       return {
+        //         create: {
+        //           filename: "Test file name",
+        //           mimetype: "MIMETYPE",
+        //           encoding: "encoding",
+        //           url: "test url",
+        //         },
+        //       }
+        //     }),
+        //   // So do a map here and filter out "rawImage" images
+        //   // create: {
+        //   //   filename: "Test file name",
+        //   //   mimetype: "MIMETYPE",
+        //   //   encoding: "encoding",
+        //   //   url: "test url",
+        //   // },
+        // ],
       },
     }
+    console.log("Property Vars => ", data)
+    return data
   }
 
   _renderImages = urls =>
-    urls.map(url => <img src={url} height="100" width="100" />)
+    urls.map((url, i) => <img src={url} height="100" width="100" />)
+
+  removeImageFromState = idx => {
+    let images = this.state.images
+    images.splice(idx, 1)
+    this.setState({
+      images: images,
+    })
+  }
+  setFileInState = file => {
+    const files = this.state.images
+    files.push({ type: "rawImage", data: file })
+
+    this.setState({
+      images: files,
+    })
+  }
   _canSubmit = () => {
     const { location, locationLat, locationLng } = this.state
     if (location.length < 1) {
@@ -71,6 +131,7 @@ class Signup extends Component {
     }
     return true
   }
+  // Make most of these Pure Components please
   render() {
     return (
       <Mutation
@@ -94,7 +155,9 @@ class Signup extends Component {
                     locationLat: data.lat,
                     locationLng: data.lng,
                     location: data.desc,
-                    images: data.images,
+                    images: data.images.map(url => {
+                      return { type: "googleImage", data: url }
+                    }),
                   })
                 }
               />
@@ -130,8 +193,37 @@ class Signup extends Component {
                 value={this.state.locationLng}
                 onChange={this.saveToState}
               />
+              <TextInput
+                id="rooms"
+                label="Room Number"
+                fullWidth={true}
+                type="number"
+                name="rooms"
+                value={this.state.rooms}
+                onChange={this.saveToState}
+              />
+              <TextInput
+                id="rent"
+                label="Rent"
+                fullWidth={true}
+                type="number"
+                name="rent"
+                value={this.state.rent}
+                onChange={this.saveToState}
+              />
+              <ImagePicker
+                images={this.state.images}
+                remove={idx => this.removeImageFromState(idx)}
+              />
+              <DragDropUploader
+                disabled={loading}
+                multiple={true}
+                types={["image"]}
+                extensions={[".jpg", ".png"]}
+                receiveFile={file => this.setFileInState(file)}
+              />
 
-              {this._renderImages(this.state.images)}
+              {/* {this._renderImages(this.state.images)} */}
 
               <FabButton
                 disabled={!this._canSubmit()}

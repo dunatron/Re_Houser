@@ -30,7 +30,7 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
     "rent": 45.65,
     "location": "A test location",
     "locationLat": 4512.0125,
-    "locationLon": 125454,
+    "locationLng": 125454,
     "rooms": 6,
     "owners": {
       "connect": {
@@ -41,6 +41,14 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
     "creator": {
       "connect": {
         "id": "cjsy33qhd7aax0b35l0igfy64"
+      }
+    },
+    "images": {
+      "create": {
+        "filename": "Test file name",
+        "mimetype": "MIMETYPE",
+        "encoding": "encoding",
+        "url": "test url"
       }
     }
   }

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Mar 07 2019 18:12:00 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Fri Mar 08 2019 12:53:58 GMT+1300 (New Zealand Daylight Time)
 
 type AggregateFile {
   count: Int!
@@ -766,7 +766,7 @@ type Property implements Node {
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
-  locationLon: Float!
+  locationLng: Float!
   owners(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   creator: User!
   images(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
@@ -789,7 +789,7 @@ input PropertyCreateInput {
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
-  locationLon: Float!
+  locationLng: Float!
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -812,7 +812,7 @@ input PropertyCreateWithoutCreatorInput {
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
-  locationLon: Float!
+  locationLng: Float!
   owners: UserCreateManyWithoutPropertiesInput
   images: FileCreateManyInput
 }
@@ -824,7 +824,7 @@ input PropertyCreateWithoutOwnersInput {
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
-  locationLon: Float!
+  locationLng: Float!
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
 }
@@ -853,8 +853,8 @@ enum PropertyOrderByInput {
   location_DESC
   locationLat_ASC
   locationLat_DESC
-  locationLon_ASC
-  locationLon_DESC
+  locationLng_ASC
+  locationLng_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -869,7 +869,7 @@ type PropertyPreviousValues {
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
-  locationLon: Float!
+  locationLng: Float!
 }
 
 input PropertyScalarWhereInput {
@@ -1053,28 +1053,28 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   locationLat_gte: Float
-  locationLon: Float
+  locationLng: Float
 
   """All values that are not equal to given value."""
-  locationLon_not: Float
+  locationLng_not: Float
 
   """All values that are contained in given list."""
-  locationLon_in: [Float!]
+  locationLng_in: [Float!]
 
   """All values that are not contained in given list."""
-  locationLon_not_in: [Float!]
+  locationLng_not_in: [Float!]
 
   """All values less than the given value."""
-  locationLon_lt: Float
+  locationLng_lt: Float
 
   """All values less than or equal the given value."""
-  locationLon_lte: Float
+  locationLng_lte: Float
 
   """All values greater than the given value."""
-  locationLon_gt: Float
+  locationLng_gt: Float
 
   """All values greater than or equal the given value."""
-  locationLon_gte: Float
+  locationLng_gte: Float
 }
 
 type PropertySubscriptionPayload {
@@ -1123,7 +1123,7 @@ input PropertyUpdateInput {
   onTheMarket: Boolean
   location: String
   locationLat: Float
-  locationLon: Float
+  locationLng: Float
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -1136,7 +1136,7 @@ input PropertyUpdateManyDataInput {
   onTheMarket: Boolean
   location: String
   locationLat: Float
-  locationLon: Float
+  locationLng: Float
 }
 
 input PropertyUpdateManyMutationInput {
@@ -1146,7 +1146,7 @@ input PropertyUpdateManyMutationInput {
   onTheMarket: Boolean
   location: String
   locationLat: Float
-  locationLon: Float
+  locationLng: Float
 }
 
 input PropertyUpdateManyWithoutCreatorInput {
@@ -1185,7 +1185,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   onTheMarket: Boolean
   location: String
   locationLat: Float
-  locationLon: Float
+  locationLng: Float
   owners: UserUpdateManyWithoutPropertiesInput
   images: FileUpdateManyInput
 }
@@ -1197,7 +1197,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   onTheMarket: Boolean
   location: String
   locationLat: Float
-  locationLon: Float
+  locationLng: Float
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
 }
@@ -1405,28 +1405,28 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   locationLat_gte: Float
-  locationLon: Float
+  locationLng: Float
 
   """All values that are not equal to given value."""
-  locationLon_not: Float
+  locationLng_not: Float
 
   """All values that are contained in given list."""
-  locationLon_in: [Float!]
+  locationLng_in: [Float!]
 
   """All values that are not contained in given list."""
-  locationLon_not_in: [Float!]
+  locationLng_not_in: [Float!]
 
   """All values less than the given value."""
-  locationLon_lt: Float
+  locationLng_lt: Float
 
   """All values less than or equal the given value."""
-  locationLon_lte: Float
+  locationLng_lte: Float
 
   """All values greater than the given value."""
-  locationLon_gt: Float
+  locationLng_gt: Float
 
   """All values greater than or equal the given value."""
-  locationLon_gte: Float
+  locationLng_gte: Float
   owners_every: UserWhereInput
   owners_some: UserWhereInput
   owners_none: UserWhereInput
