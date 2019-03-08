@@ -49,57 +49,36 @@ class Signup extends Component {
   _propertyVariables = () => {
     const data = {
       data: {
-        rent: 45.65,
-        location: "A test location",
-        locationLat: 4512.0125,
-        locationLng: 125454,
-        rooms: 6,
+        rent: parseFloat(this.state.rent),
+        location: this.state.location,
+        locationLat: this.state.locationLat,
+        locationLng: this.state.locationLng,
+        rooms: parseInt(this.state.rooms),
         owners: {
           connect: {
-            id: "cjsy33qhd7aax0b35l0igfy64",
+            id: "cjszagrrzcnh90b357ezhvukl",
           },
         },
         onTheMarket: false,
         creator: {
           connect: {
-            id: "cjsy33qhd7aax0b35l0igfy64",
+            id: "cjszagrrzcnh90b357ezhvukl",
           },
         },
         images: {
           create: [
             ...this.state.images
               .filter(img => img.type !== "rawImage")
-              .map(img => {
+              .map((img, i) => {
                 return {
-                  filename: "Test file name",
+                  filename: `${this.state.location}_${i}`,
                   mimetype: "MIMETYPE",
                   encoding: "encoding",
-                  url: "test url",
+                  url: img.data,
                 }
               }),
           ],
         },
-        // images: [
-        //   ...this.state.images
-        //     .filter(img => img.type !== "rawImage")
-        //     .map(img => {
-        //       return {
-        //         create: {
-        //           filename: "Test file name",
-        //           mimetype: "MIMETYPE",
-        //           encoding: "encoding",
-        //           url: "test url",
-        //         },
-        //       }
-        //     }),
-        //   // So do a map here and filter out "rawImage" images
-        //   // create: {
-        //   //   filename: "Test file name",
-        //   //   mimetype: "MIMETYPE",
-        //   //   encoding: "encoding",
-        //   //   url: "test url",
-        //   // },
-        // ],
       },
     }
     console.log("Property Vars => ", data)

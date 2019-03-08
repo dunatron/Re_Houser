@@ -38,6 +38,7 @@ type Query {
   users: [User]!
   file(id: ID!): File
   files: [File!]!
+  properties: [Property!]!
 }
 
 type User {

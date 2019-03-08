@@ -185,6 +185,19 @@ const mutations = {
     console.log("data => ", data)
     console.log("files => ", files)
     console.groupEnd()
+    const property = await ctx.db.mutation.createProperty(
+      {
+        data,
+        // data: {
+        //   ...args,
+        //   password,
+        //   permissions: { set: ["USER"] },
+        // },
+      },
+      info
+    )
+    console.log("CREATED NEW PROPERTY => ", property)
+    return property
   },
 }
 

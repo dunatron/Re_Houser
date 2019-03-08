@@ -30,6 +30,9 @@ const Query = {
   files(parent, args, context, info) {
     return context.db.query.files(args, info)
   },
+  async properties(parent, args, ctx, info) {
+    return ctx.db.query.properties({}, info)
+  },
 }
 
 module.exports = Query

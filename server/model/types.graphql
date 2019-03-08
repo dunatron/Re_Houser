@@ -19,7 +19,7 @@ type File {
   filename: String!
   mimetype: String!
   encoding: String!
-  url: String! @unique
+  url: String
 }
 
 type Property {
