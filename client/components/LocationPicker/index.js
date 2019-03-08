@@ -17,8 +17,8 @@ import { WORLD_FIXTURES } from "../../lib/locationFixtures"
 export default class index extends Component {
   state = {
     desc: "",
-    lat: 0,
-    lng: 0,
+    lat: -46.1326615,
+    lng: 168.89592100000004,
     showMap: true,
     images: [],
     country: "NZ",
@@ -139,7 +139,7 @@ export default class index extends Component {
           onChange={this.onChange}
           onSuggestSelect={suggestion => this._suggest(suggestion)}
           onSuggestNoResults={this.onSuggestNoResults}
-          location={new google.maps.LatLng(-40.4338295, 166.3289194)}
+          location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
           types={this.state.type === "ALL" ? null : this.state.types}
           radius="20"
           country={this.state.country === "ALL" ? null : this.state.country}

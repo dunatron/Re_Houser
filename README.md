@@ -16,6 +16,34 @@ ToDo
 
 ####
 
+## Querys
+
+####
+
+```js
+query properties() {
+  properties {
+    id
+    rooms
+    rent
+    moveInDate
+    onTheMarket
+    location
+    locationLat
+    locationLng
+    owners {
+      id
+      email
+    }
+    images {
+      url
+    }
+  }
+}
+```
+
+## Mutations
+
 #### createProperty
 
 ```js
@@ -54,3 +82,9 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
   }
 }
 ```
+
+## NOTES
+
+### testing
+
+- ideal situation for an analysis of how well the system works is to have all dwellings in a mock database

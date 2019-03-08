@@ -3,7 +3,6 @@ import NavButton from "../../styles/NavButton"
 import Router from "next/router"
 import User from "../User/index"
 import AccountIcon from "../AccountIcon/index"
-import Signout from "../Signout/index"
 
 const handleLink = (route = "/", query = {}) => {
   Router.push({
@@ -18,7 +17,7 @@ const Nav = () => (
       const me = data ? data.me : null
       return (
         <NavStyles>
-          <NavButton color="secondary" onClick={() => handleLink("/")}>
+          <NavButton color="secondary" onClick={() => handleLink("/look")}>
             Look
           </NavButton>
           <NavButton

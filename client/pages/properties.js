@@ -1,9 +1,9 @@
 import PropertiesList from "../components/PropertiesList/index"
 
-const LookPage = props => (
+const PropertiesPage = props => (
   <div>
     <PropertiesList />
   </div>
 )
 
-export default LookPage
+export default PropertiesPage

@@ -4,14 +4,19 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 export class MapContainer extends Component {
   render() {
     const { center } = this.props
+
     return (
       <div style={{ position: "relative", height: 300 }}>
         <Map
           google={this.props.google}
           zoom={18}
           center={{
-            lat: 40.854885,
-            lng: -88.081807,
+            lat: center ? center.lat : -46.1326615,
+            lng: center ? center.lng : 168.89592100000004,
+          }}
+          initialCenter={{
+            lat: center ? center.lat : -46.1326615,
+            lng: center ? center.lng : 168.89592100000004,
           }}
           {...this.props}>
           <Marker onClick={this.onMarkerClick} name={"Current location"} />
@@ -19,8 +24,8 @@ export class MapContainer extends Component {
             title={"The marker`s title will appear as a tooltip."}
             name={"SOMA"}
             position={{
-              lat: center ? center.lat: 0,
-              lng: center ? center.lng: 0,
+              lat: center ? center.lat : -46.1326615,
+              lng: center ? center.lng : 168.89592100000004,
             }}
           />
 
