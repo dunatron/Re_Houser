@@ -11,6 +11,8 @@ import TextInput from "../../styles/TextInput"
 import LocationPicker from "../LocationPicker/index"
 import ImagePicker from "../ImagePicker/index"
 import DragDropUploader from "../DragDropUploader/index"
+import { adopt } from "react-adopt"
+import User from "../User/index"
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($data: PropertyCreateInput!, $files: [Upload]) {
@@ -19,6 +21,15 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `
+
+/* eslint-disable */
+const Composed = adopt({
+  user: ({ render }) => <User>{render}</User>,
+  signup: ({ render }) => (
+    <Mutation mutation={SIGNUP_MUTATION}>{render}</Mutation>
+  ),
+})
+/* eslint-enable */
 
 class Signup extends Component {
   defaultState = {
@@ -46,7 +57,7 @@ class Signup extends Component {
     })
   }
 
-  _propertyVariables = () => {
+  _propertyVariables = ({ me }) => {
     const data = {
       data: {
         rent: parseFloat(this.state.rent),
@@ -56,13 +67,13 @@ class Signup extends Component {
         rooms: parseInt(this.state.rooms),
         owners: {
           connect: {
-            id: "cjszagrrzcnh90b357ezhvukl",
+            id: me.id,
           },
         },
         onTheMarket: false,
         creator: {
           connect: {
-            id: "cjszagrrzcnh90b357ezhvukl",
+            id: me.id,
           },
         },
         images: {
@@ -113,111 +124,119 @@ class Signup extends Component {
   // Make most of these Pure Components please
   render() {
     return (
-      <Mutation
-        mutation={SIGNUP_MUTATION}
-        variables={this._propertyVariables()}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
-        {(createProperty, { error, loading }) => (
-          <Form
-            method="post"
-            onSubmit={async e => {
-              e.preventDefault()
-              // await signup()
-              this._createProperty(createProperty)
-            }}>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <Error error={error} />
+      <Composed>
+        {({ user, toggleCart, localState }) => {
+          const me = user.data.me
+          if (!me) return <h1>No User</h1>
+          return (
+            <Mutation
+              mutation={SIGNUP_MUTATION}
+              variables={this._propertyVariables({ me })}
+              refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
+              {(createProperty, { error, loading }) => (
+                <Form
+                  method="post"
+                  onSubmit={async e => {
+                    e.preventDefault()
+                    // await signup()
+                    this._createProperty(createProperty)
+                  }}>
+                  <fieldset disabled={loading} aria-busy={loading}>
+                    <Error error={error} />
 
-              <LocationPicker
-                selection={data =>
-                  this.setState({
-                    locationLat: data.lat,
-                    locationLng: data.lng,
-                    location: data.desc,
-                    images: data.images.map(url => {
-                      return { type: "googleImage", data: url }
-                    }),
-                  })
-                }
-              />
+                    <LocationPicker
+                      selection={data =>
+                        this.setState({
+                          locationLat: data.lat,
+                          locationLng: data.lng,
+                          location: data.desc,
+                          images: data.images.map(url => {
+                            return { type: "googleImage", data: url }
+                          }),
+                        })
+                      }
+                    />
 
-              <TextInput
-                id="location"
-                label="location"
-                disabled={true}
-                fullWidth={true}
-                type="text"
-                name="location"
-                placeholder="please enter your location"
-                value={this.state.location}
-                onChange={this.saveToState}
-              />
-              <TextInput
-                id="latitude"
-                label="Latitude"
-                disabled={true}
-                fullWidth={true}
-                type="text"
-                name="locationLat"
-                value={this.state.locationLat}
-                onChange={this.saveToState}
-              />
-              <TextInput
-                id="longitude"
-                label="Longitude"
-                disabled={true}
-                fullWidth={true}
-                type="text"
-                name="locationLng"
-                value={this.state.locationLng}
-                onChange={this.saveToState}
-              />
-              <TextInput
-                id="rooms"
-                label="Room Number"
-                fullWidth={true}
-                type="number"
-                name="rooms"
-                value={this.state.rooms}
-                onChange={this.saveToState}
-              />
-              <TextInput
-                id="rent"
-                label="Rent"
-                fullWidth={true}
-                type="number"
-                name="rent"
-                value={this.state.rent}
-                onChange={this.saveToState}
-              />
-              <ImagePicker
-                images={this.state.images}
-                remove={idx => this.removeImageFromState(idx)}
-              />
-              <DragDropUploader
-                disabled={loading}
-                multiple={true}
-                types={["image"]}
-                extensions={[".jpg", ".png"]}
-                receiveFile={file => this.setFileInState(file)}
-              />
+                    <TextInput
+                      id="location"
+                      label="location"
+                      disabled={true}
+                      fullWidth={true}
+                      type="text"
+                      name="location"
+                      placeholder="please enter your location"
+                      value={this.state.location}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="latitude"
+                      label="Latitude"
+                      disabled={true}
+                      fullWidth={true}
+                      type="text"
+                      name="locationLat"
+                      value={this.state.locationLat}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="longitude"
+                      label="Longitude"
+                      disabled={true}
+                      fullWidth={true}
+                      type="text"
+                      name="locationLng"
+                      value={this.state.locationLng}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="rooms"
+                      label="Room Number"
+                      fullWidth={true}
+                      type="number"
+                      name="rooms"
+                      value={this.state.rooms}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="rent"
+                      label="Rent"
+                      fullWidth={true}
+                      type="number"
+                      name="rent"
+                      value={this.state.rent}
+                      onChange={this.saveToState}
+                    />
+                    <ImagePicker
+                      images={this.state.images}
+                      remove={idx => this.removeImageFromState(idx)}
+                    />
+                    <DragDropUploader
+                      disabled={loading}
+                      multiple={true}
+                      types={["image"]}
+                      extensions={[".jpg", ".png"]}
+                      receiveFile={file => this.setFileInState(file)}
+                    />
 
-              {/* {this._renderImages(this.state.images)} */}
+                    {/* {this._renderImages(this.state.images)} */}
 
-              <FabButton
-                disabled={!this._canSubmit()}
-                type="submit"
-                variant="extended"
-                color="primary"
-                aria-label="Add"
-                style={{ minWidth: 160 }}>
-                <NavigationIcon style={{ marginRight: 5 }} />
-                Add Housing
-              </FabButton>
-            </fieldset>
-          </Form>
-        )}
-      </Mutation>
+                    <FabButton
+                      disabled={!this._canSubmit()}
+                      type="submit"
+                      variant="extended"
+                      color="primary"
+                      aria-label="Add"
+                      style={{ minWidth: 160 }}>
+                      <NavigationIcon style={{ marginRight: 5 }} />
+                      Add Housing
+                    </FabButton>
+                  </fieldset>
+                </Form>
+              )}
+            </Mutation>
+          )
+        }}
+      </Composed>
     )
   }
 }

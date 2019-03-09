@@ -1,10 +1,12 @@
 import withApollo from "next-with-apollo"
 import { ApolloClient } from "apollo-client"
-import { InMemoryCache } from "apollo-cache-inmemory"
 // import { ApolloLink } from "apollo-client-preset"
 import { ApolloLink } from "apollo-link"
 import { createUploadLink } from "apollo-upload-client"
 import { endpoint, prodEndpoint } from "../config"
+// store
+import cache from "./store/cache"
+import resolvers from "./store/resolvers"
 
 function createClient({ headers }) {
   const authLink = new ApolloLink((operation, forward) => {
@@ -25,7 +27,9 @@ function createClient({ headers }) {
         uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
       })
     ),
-    cache: new InMemoryCache(),
+    // local dat
+    cache: cache,
+    resolvers: resolvers(),
   })
   return client
 }

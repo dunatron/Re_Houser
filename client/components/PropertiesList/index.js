@@ -18,6 +18,7 @@ const PROPERTIES_QUERY = gql`
       owners {
         id
         email
+        firstName
       }
       images {
         url
