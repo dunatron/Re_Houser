@@ -1,6 +1,4 @@
 endpoint: ${env:PRISMA_ENDPOINT}
-#endpoint: https://the-trader-prod-658deb489b.herokuapp.com/the-trader-prod/prod
-# endpoint: https://the-trader-prod-a9c5b680a7.herokuapp.com/trader-prod/prod
 datamodel:
   - model/types.graphql
   - model/enums.graphql

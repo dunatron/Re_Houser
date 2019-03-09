@@ -11,6 +11,7 @@ class AppEntryPointExtension extends App {
     }
     // this exposes the query to the user
     pageProps.query = ctx.query
+    console.log("pageProps => ", pageProps)
     return { pageProps }
   }
   render() {

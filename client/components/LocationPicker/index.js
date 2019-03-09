@@ -27,9 +27,7 @@ export default class index extends Component {
   /**
    * When the input receives focus
    */
-  onFocus(e) {
-    // console.log("onFocus")
-  }
+  onFocus(e) {}
   /**
    * When the input loses focus
    */
@@ -46,7 +44,6 @@ export default class index extends Component {
    * When a suggest got selected
    */
   _suggest = suggestion => {
-    console.log("suggestion => ", suggestion)
     let lat,
       lng,
       desc = ""
@@ -66,12 +63,8 @@ export default class index extends Component {
     }
     // suggestion is returning map info
     if (gmaps) {
-      console.log("A PHOTO => ", gmaps.photos)
       if (gmaps.photos) {
-        // console.log("A PHOTO => ", gmaps.photos[0].getUrl())
-        // console.log("A PHOTO => ", gmaps.photos[0].getUrl())
         images = gmaps.photos.map(photo => photo.getUrl())
-        console.log("Image Urls => ", images)
       }
     }
     this.props.selection({
@@ -87,6 +80,10 @@ export default class index extends Component {
       desc: desc,
       images: images,
     })
+    this.shouldStayOpen()
+  }
+  shouldStayOpen = () => {
+    this._geoSuggest.focus()
   }
   /**
    * When there are no suggest results
@@ -96,7 +93,6 @@ export default class index extends Component {
   }
 
   _getZoom = desc => {
-    console.log("desc => ", desc)
     if (desc.length <= 3) {
       return 10
     }
@@ -133,6 +129,7 @@ export default class index extends Component {
     return (
       <div>
         <Geosuggest
+          ref={el => (this._geoSuggest = el)}
           fixtures={this._getFixtures()}
           onFocus={this.onFocus}
           onBlur={this.onBlur}

@@ -11,6 +11,11 @@ export default class MyDocument extends Document {
     return { ...page, styleTags }
   }
 
+  // static async getInitialProps(ctx) {
+  //   const initialProps = await Document.getInitialProps(ctx)
+  //   return { ...initialProps }
+  // }
+
   render() {
     return (
       <html>

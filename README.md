@@ -88,3 +88,9 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
 ### testing
 
 - ideal situation for an analysis of how well the system works is to have all dwellings in a mock database
+
+## Deployment
+
+#### backend
+
+- when setting up a new cluster you need to manually run `prisma deploy` from the backend and setup the new service
