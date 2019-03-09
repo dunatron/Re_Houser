@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+// 1.
 export default class index extends Component {
   render() {
     return (
@@ -24,7 +25,6 @@ export default class index extends Component {
         <ul>
           <li>1. Add property</li>
           <li>2. check your app/emails for successful applications/groups</li>
-          
         </ul>
       </div>
     )
