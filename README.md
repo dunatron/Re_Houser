@@ -91,6 +91,11 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
 
 ## Deployment
 
-#### backend
+#### server
 
 - when setting up a new cluster you need to manually run `prisma deploy` from the backend and setup the new service
+- `git subtree push --prefix server heroku-backend master`
+
+#### client
+
+- `git subtree push --prefix client heroku-frontend master`
