@@ -83,7 +83,7 @@ export default class index extends Component {
     this.shouldStayOpen()
   }
   shouldStayOpen = () => {
-    this._geoSuggest.focus()
+    // this._geoSuggest.focus()
   }
   /**
    * When there are no suggest results
