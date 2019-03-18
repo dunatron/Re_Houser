@@ -93,7 +93,7 @@ export default class index extends Component {
       {
         id: "showDetails", //votes.id
         numeric: false,
-        disablePadding: true,
+        disablePadding: false,
         label: "View",
         show: true,
         type: "btnFunc",
@@ -104,6 +104,21 @@ export default class index extends Component {
         ),
         funcName: "showDetails",
         found: "votes",
+        tableRenderKey: "th",
+      },
+      {
+        id: "manage", //votes.id
+        numeric: false,
+        disablePadding: false,
+        label: "View",
+        show: true,
+        type: "btnFunc",
+        icon: (
+          <Button color="primary" aria-label="Add to shopping cart">
+            Manage
+          </Button>
+        ),
+        funcName: "manageProperty",
         tableRenderKey: "th",
       },
     ]
@@ -123,14 +138,14 @@ export default class index extends Component {
               </Modal>
               <SuperTable
                 columnHeaders={this.columnHeaders()}
-                tags={{
-                  found: "tags",
-                  key: "id",
-                  options: [{ name: "one", value: "one" }],
-                  // options: allTags
-                  //   ? allTags.map(t => ({ name: t.name, value: t.id }))
-                  //   : [],
-                }}
+                // tags={{
+                //   found: "tags",
+                //   key: "id",
+                //   options: [{ name: "one", value: "one" }],
+                //   // options: allTags
+                //   //   ? allTags.map(t => ({ name: t.name, value: t.id }))
+                //   //   : [],
+                // }}
                 title="My Properties"
                 data={ownerProperties}
                 executeFunc={(funcName, obj) => {
@@ -176,11 +191,18 @@ export default class index extends Component {
     return <PropertyDetails />
   }
 
+  manageProperty = data => {
+    console.log("data => ", data)
+    alert("Just route to a new page")
+  }
+
   executeFunctionByName = (functionName, dataObj /*, args */) => {
     switch (functionName) {
       case "showDetails":
         this.showDetails(dataObj)
         break
+      case "manageProperty":
+        return this.manageProperty(dataObj)
       default:
         alert("No function specified")
     }
