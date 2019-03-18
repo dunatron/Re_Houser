@@ -39,6 +39,7 @@ type Query {
   file(id: ID!): File
   files: [File!]!
   properties: [Property!]!
+  ownerProperties: [Property!]!
 }
 
 type User {

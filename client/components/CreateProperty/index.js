@@ -58,6 +58,10 @@ class Signup extends Component {
   }
 
   _propertyVariables = ({ me }) => {
+    const theFiles = this.state.images
+      .filter(f => f.type === "rawImage")
+      .map(file => file.data.raw)
+    console.log("theFiles => ", theFiles)
     const data = {
       data: {
         rent: parseFloat(this.state.rent),
@@ -91,6 +95,7 @@ class Signup extends Component {
           ],
         },
       },
+      files: theFiles,
     }
     console.log("Property Vars => ", data)
     return data
@@ -150,9 +155,10 @@ class Signup extends Component {
                           locationLat: data.lat,
                           locationLng: data.lng,
                           location: data.desc,
-                          images: data.images.map(url => {
-                            return { type: "googleImage", data: url }
-                          }),
+                          // below is for google images. These seem to remove the temporary url after some time
+                          // images: data.images.map(url => {
+                          //   return { type: "googleImage", data: url }
+                          // }),
                         })
                       }
                     />

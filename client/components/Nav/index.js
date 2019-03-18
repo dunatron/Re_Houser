@@ -20,6 +20,15 @@ const Nav = () => (
           <NavButton color="secondary" onClick={() => handleLink("/look")}>
             Look
           </NavButton>
+          {me && (
+            <>
+              <NavButton
+                color="secondary"
+                onClick={() => handleLink("/properties")}>
+                Properties
+              </NavButton>
+            </>
+          )}
           <NavButton
             color="secondary"
             onClick={() => handleLink("/add/property")}>
@@ -35,9 +44,11 @@ const Nav = () => (
               sendRoute={route => handleLink(route)}
             />
           ) : (
-            <NavButton color="secondary" onClick={() => handleLink("/login")}>
-              Login
-            </NavButton>
+            <>
+              <NavButton color="secondary" onClick={() => handleLink("/login")}>
+                Login
+              </NavButton>
+            </>
           )}
         </NavStyles>
       )

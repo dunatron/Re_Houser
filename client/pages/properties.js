@@ -1,8 +1,8 @@
-import PropertiesList from "../components/PropertiesList/index"
+import OwnerProperties from "../components/OwnerProperties/index"
 
 const PropertiesPage = props => (
   <div>
-    <PropertiesList />
+    <OwnerProperties />
   </div>
 )
 

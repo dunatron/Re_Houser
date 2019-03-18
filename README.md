@@ -5,41 +5,74 @@
 To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
 
 ## Features
- - ToDo: Secure (Collects user data to enhance experience)
- - ToDo: complete rental appraisal
-    - consider locations
-    - renovations
-    - age
-    - insulation
-    - etc...
- - ToDo: User rating system
-    - Tenants
-    - Landlords
- - ToDo: Inspections
-    - Video
-    - Photos
-      - Required photos e.g. bathroom, kitchen, 
-      - auto delete after landlord has signed inspection off
- - ToDO: Tenancy agreements auto poulate depending on the requirements dictated by the landlord
- - ToDo: Tenancy agreements stored - anything on is reminded with notification in timely manner
- - ToDo: Bont and rent payments come throught the platform - Submitted to landlor when required. Bond is submitted directly to the tenancy tribunal - connection is made with them to make platform interconnected
- - ToDo: How do we list properties on other platforms - can it talk with tradme etc, Initially to market properties. Or do we aim to be completely independants
+
+- ToDo: Secure (Collects user data to enhance experience)
+- ToDo: complete rental appraisal
+  - Consider locations
+  - Renovations
+  - Age
+  - Insulation
+  - Number of bedrooms
+  - Garages
+    - space
+  - Parking
+  - Heating
+  - Furnishings
+    - Pre compiled list of selectable furnishings
+    - Other
+  - etc...
+- ToDo: User rating system
+  - some of these variables can be system calculated.
+    - i.e landlords and response time can be calculated by gathering all response time data and calculating where they fit based on others and what these response times were
+  - Tenants
+    - Payments made on time
+    - inspections submitted
+  - Landlords
+    - time it takes to respond through app
+- ToDo: Inspections
+  - Video
+  - Photos
+    - Required photos e.g. bathroom, kitchen,
+    - auto delete after landlord has signed inspection off
+- ToDO: Tenancy agreements auto poulate depending on the requirements dictated by the landlord
+- ToDo: Tenancy agreements stored - anything on is reminded with notification in timely manner
+- ToDo: Bont and rent payments come throught the platform - Submitted to landlor when required. Bond is submitted directly to the tenancy tribunal - connection is made with them to make platform interconnected
+- ToDo: How do we list properties on other platforms - can it talk with tradme etc, Initially to market properties. Or do we aim to be completely independants
+
+## Services
+
+- Cloudinary
+  - To store images and other files
+  - seemless and decoupled architecture
 
 ## Business Logic
 
-### Rental Appraisal 
+### Rental Appraisal
+
 ### Vacant Property
+
 ### Photos of house
+
 ### listing on multiple platforms
+
 ### Arrange viewings
+
 ### Hold viewings
+
 ### vetting potential tenants
+
 ### What makes a good tennat
+
 ### Signing contracts
+
 ### Taking bonds - Submit to tribunal
+
 ### Keys
-### move In 
+
+### move In
+
 ### Inspections
+
 ### address breakdown in unplanned situations
 
 ## Tech
@@ -269,6 +302,34 @@ query properties() {
 }
 ```
 
+#### properties for logged ion user
+
+```js
+query properties {
+  properties(where:{
+    owners_some:{
+      id: "cjtdzmemoa52x0b518kjp5jm8"
+    }
+  }) {
+    id
+    rooms
+    rent
+    moveInDate
+    onTheMarket
+    location
+    locationLat
+    locationLng
+    owners {
+      id
+      email
+    }
+    images {
+      url
+    }
+  }
+}
+```
+
 ## Mutations
 
 #### createProperty
@@ -289,22 +350,39 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
     "rooms": 6,
     "owners": {
       "connect": {
-        "id": "cjsy33qhd7aax0b35l0igfy64"
+        "id": "cjszagrrzcnh90b357ezhvukl"
       }
     },
     "onTheMarket": false,
     "creator": {
       "connect": {
-        "id": "cjsy33qhd7aax0b35l0igfy64"
+        "id": "cjszagrrzcnh90b357ezhvukl"
       }
     },
-    "images": {
-      "create": {
-        "filename": "Test file name",
-        "mimetype": "MIMETYPE",
-        "encoding": "encoding",
-        "url": "test url"
-      }
+    "images":{
+      "create":[
+        {
+        	"filename":"Test file name",
+        	"mimetype":"MIMETYPE",
+        	"encoding":"encoding",
+        	"url":"test url"
+        },
+        {
+        	"filename":"Test file name",
+        	"mimetype":"MIMETYPE",
+        	"encoding":"encoding",
+        	"url":"test url"
+      	}
+      ],
+      "connect": [
+        {
+          "id": "cjtdyd0t8a14l0b5138rl2grf"
+        },
+        {
+          "id": "cjtdyd128a27j0b76dxmy3vml"
+        }
+      ]
+
     }
   }
 }
@@ -333,18 +411,30 @@ mutation uploadFiles($files:[Upload!]!) {
 
 # ToDo
 
-## Rental Appraisal 
-## Vacant Property
-## Photos of house
-## listing on multiple platforms
-## Arrange viewings
-## Hold viewings
-## vetting potential tenants
-## What makes a good tennat
-## Signing contracts
-## Taking bonds - Submit to tribunal
-## Keys
-## move In 
-## Inspections
-## address breakdown in unplanned situations
+## Rental Appraisal
 
+## Vacant Property
+
+## Photos of house
+
+## listing on multiple platforms
+
+## Arrange viewings
+
+## Hold viewings
+
+## vetting potential tenants
+
+## What makes a good tennat
+
+## Signing contracts
+
+## Taking bonds - Submit to tribunal
+
+## Keys
+
+## move In
+
+## Inspections
+
+## address breakdown in unplanned situations

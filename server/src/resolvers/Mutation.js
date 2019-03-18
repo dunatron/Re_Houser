@@ -181,18 +181,18 @@ const mutations = {
   },
   // ToDo: Shift into own directoy e.g. Properties
   async createProperty(parent, { data, files }, ctx, info) {
-    console.group("__MUTATION__createProperty__MUTATION__")
-    console.log("data => ", data)
-    console.log("files => ", files)
-    console.groupEnd()
+    const uploadedFiles = files
+      ? await Promise.all(files.map(file => processUpload(file, ctx)))
+      : []
+    const connectFileIds = uploadedFiles.map(file => ({ id: file.id }))
     const property = await ctx.db.mutation.createProperty(
       {
-        data,
-        // data: {
-        //   ...args,
-        //   password,
-        //   permissions: { set: ["USER"] },
-        // },
+        data: {
+          ...data,
+          images: {
+            connect: connectFileIds,
+          },
+        },
       },
       info
     )

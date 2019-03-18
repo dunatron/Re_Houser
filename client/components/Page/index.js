@@ -123,6 +123,7 @@ class Page extends Component {
           </ThemeProvider>
         </MuiThemeProvider>
         <GlobalStyle />
+        <div id="modal-root" />
       </NoSsr>
     )
   }

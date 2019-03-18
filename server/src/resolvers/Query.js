@@ -33,6 +33,21 @@ const Query = {
   async properties(parent, args, ctx, info) {
     return ctx.db.query.properties({}, info)
   },
+  async ownerProperties(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to get your properties!")
+    }
+    return ctx.db.query.properties(
+      {
+        where: {
+          owners_some: {
+            id: ctx.request.userId,
+          },
+        },
+      },
+      info
+    )
+  },
 }
 
 module.exports = Query
