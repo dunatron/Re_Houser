@@ -1,10 +1,46 @@
 ## Re-Houser(ToDo:Rename)
 
-#### Mission
+## Mission
 
 To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
 
-#### Business Logic
+## Features
+ - ToDo: Secure (Collects user data to enhance experience)
+ - ToDo: complete rental appraisal
+    - consider locations
+    - renovations
+    - age
+    - insulation
+    - etc...
+ - ToDo: User rating system
+    - Tenants
+    - Landlords
+ - ToDo: Inspections
+    - Video
+    - Photos
+      - Required photos e.g. bathroom, kitchen, 
+      - auto delete after landlord has signed inspection off
+ - ToDO: Tenancy agreements auto poulate depending on the requirements dictated by the landlord
+ - ToDo: Tenancy agreements stored - anything on is reminded with notification in timely manner
+ - ToDo: Bont and rent payments come throught the platform - Submitted to landlor when required. Bond is submitted directly to the tenancy tribunal - connection is made with them to make platform interconnected
+ - ToDo: How do we list properties on other platforms - can it talk with tradme etc, Initially to market properties. Or do we aim to be completely independants
+
+## Business Logic
+
+### Rental Appraisal 
+### Vacant Property
+### Photos of house
+### listing on multiple platforms
+### Arrange viewings
+### Hold viewings
+### vetting potential tenants
+### What makes a good tennat
+### Signing contracts
+### Taking bonds - Submit to tribunal
+### Keys
+### move In 
+### Inspections
+### address breakdown in unplanned situations
 
 ## Tech
 
@@ -294,3 +330,21 @@ mutation uploadFiles($files:[Upload!]!) {
 - If it where a self server
   - https://www.youtube.com/watch?v=bLQqkeVT7os
 - deploying to heroukou use a external service such as cloudinary
+
+# ToDo
+
+## Rental Appraisal 
+## Vacant Property
+## Photos of house
+## listing on multiple platforms
+## Arrange viewings
+## Hold viewings
+## vetting potential tenants
+## What makes a good tennat
+## Signing contracts
+## Taking bonds - Submit to tribunal
+## Keys
+## move In 
+## Inspections
+## address breakdown in unplanned situations
+
