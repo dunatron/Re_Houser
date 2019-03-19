@@ -17,8 +17,8 @@ const styles = theme => ({
   open: {
     overflow: "auto",
     opacity: 1,
-    height: theme.spacing.unit * 8,
-    minHeight: theme.spacing.unit * 8,
+    // height: theme.spacing.unit * 8,
+    // minHeight: theme.spacing.unit * 8,
   },
 })
 

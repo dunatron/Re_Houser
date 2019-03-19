@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import TableBody from "@material-ui/core/TableBody/TableBody"
 import TableCell from "@material-ui/core/TableCell/TableCell"
+import Checkbox from "@material-ui/core/Checkbox"
 
 export default class RenderCell extends Component {
   render() {
@@ -24,6 +25,15 @@ export default class RenderCell extends Component {
         return <RenderMap data={data} index={index} allData={allData} />
       case "tag":
         return <RenderTag data={data} index={index} allData={allData} />
+      case "checkbox":
+        return (
+          <RenderCheckBox
+            data={data}
+            index={index}
+            allData={allData}
+            executeFunc={(func, data) => executeFunc(func, data)}
+          />
+        )
       default:
         return <RenderDefault data={data} index={index} allData={allData} />
     }
@@ -71,6 +81,20 @@ const RenderDeep = ({ data, index, allData }) => {
       <CellContent
         content={extractDeepValue(data.found, n)}
         limitChar={data.limitChar}
+      />
+    </TableCell>
+  )
+}
+
+const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
+  const value = allData[data.id]
+  console.log("RenderCheckBox Value => ", value)
+  return (
+    <TableCell padding="checkbox">
+      <Checkbox
+        checked={value}
+        color="primary"
+        onClick={() => executeFunc(data.funcName, allData)}
       />
     </TableCell>
   )

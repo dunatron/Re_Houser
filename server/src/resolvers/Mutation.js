@@ -199,6 +199,44 @@ const mutations = {
     console.log("CREATED NEW PROPERTY => ", property)
     return property
   },
+  async updateProperty(parent, args, ctx, info) {
+    console.log("args => ", args)
+    // first take a copy of the updates
+    const updates = { ...args }
+    const where = { id: args.id }
+    console.group("updateItem")
+    console.log("updates start => ", updates)
+    // remove the ID from the updates
+    delete updates.id
+    // new file to update
+    if (updates.file) {
+      // get the old item data
+      const item = await ctx.db.query.property(
+        { where },
+        `{ id title, image {id url} }`
+      )
+      if (item.image) {
+        deleteFile({ id: item.image.id, url: item.image.url, ctx })
+      }
+      const uploadedFile = await processUpload(await updates.file, ctx)
+      updates.image = {
+        connect: {
+          id: uploadedFile.id,
+        },
+      }
+    }
+    delete updates.file
+    // run the update method
+    return ctx.db.mutation.updateProperty(
+      {
+        data: updates,
+        where: {
+          id: args.id,
+        },
+      },
+      info
+    )
+  },
 }
 
 module.exports = mutations

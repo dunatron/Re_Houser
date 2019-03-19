@@ -1,14 +1,19 @@
 import React, { Component } from "react"
 import gql from "graphql-tag"
-import { Query } from "react-apollo"
+import { Query, Mutation } from "react-apollo"
 import Error from "../ErrorMessage/index"
-import { PropertiesTable } from "./styles"
-import PropertyStripHeaders from "./headers"
-import PropertyStrip from "./propertyStrip"
 import SuperTable from "../SuperTable/index"
 import Button from "@material-ui/core/Button"
 import Modal from "../Modal/index"
 import PropertyDetails from "../PropertyDetails/index"
+import Router from "next/router"
+import { graphql, compose, withApollo } from "react-apollo"
+const handleLink = (route = "/", query = {}) => {
+  Router.push({
+    pathname: route,
+    query: query,
+  })
+}
 
 const PROPERTIES_QUERY = gql`
   query PROPERTIES_QUERY {
@@ -33,7 +38,16 @@ const PROPERTIES_QUERY = gql`
   }
 `
 
-export default class index extends Component {
+const UPDATE_PROPERTY_MUTATION = gql`
+  mutation UPDATE_PROPERTY_MUTATION($id: ID!, $onTheMarket: Boolean) {
+    updateProperty(id: $id, onTheMarket: $onTheMarket) {
+      id
+      onTheMarket
+    }
+  }
+`
+
+class OwnerProperties extends Component {
   state = {
     modalIsOpen: false,
     modalDetailsObj: {},
@@ -48,6 +62,18 @@ export default class index extends Component {
         show: false,
         tableRenderKey: "th",
         found: "name",
+        searchable: true,
+      },
+      {
+        id: "onTheMarket",
+        numeric: false,
+        type: "checkbox",
+        // disablePadding: true,
+        label: "onTheMarket",
+        show: true,
+        tableRenderKey: "th",
+        found: "onTheMarket",
+        funcName: "toggleOnTheMarket",
         searchable: true,
       },
       {
@@ -110,7 +136,7 @@ export default class index extends Component {
         id: "manage", //votes.id
         numeric: false,
         disablePadding: false,
-        label: "View",
+        label: "Manage",
         show: true,
         type: "btnFunc",
         icon: (
@@ -123,6 +149,20 @@ export default class index extends Component {
       },
     ]
   }
+
+  _OptimisticResponse = () => {
+    console.log("this.state => ", this.state)
+    if (!this.state.updateData) return undefined
+    return {
+      __typename: "Mutation",
+      updateProperty: {
+        __typename: "Property",
+        id: this.state.updateData.id,
+        onTheMarket: !this.state.updateData.onTheMarket,
+      },
+    }
+  }
+
   render() {
     return (
       <Query query={PROPERTIES_QUERY}>
@@ -132,39 +172,67 @@ export default class index extends Component {
           const { ownerProperties } = data
           const { modalIsOpen, modalDetailsObj } = this.state
           return (
-            <>
-              <Modal open={modalIsOpen} close={() => this.closeModal()}>
-                {this.renderModalDetails()}
-              </Modal>
-              <SuperTable
-                columnHeaders={this.columnHeaders()}
-                // tags={{
-                //   found: "tags",
-                //   key: "id",
-                //   options: [{ name: "one", value: "one" }],
-                //   // options: allTags
-                //   //   ? allTags.map(t => ({ name: t.name, value: t.id }))
-                //   //   : [],
-                // }}
-                title="My Properties"
-                data={ownerProperties}
-                executeFunc={(funcName, obj) => {
-                  this.executeFunctionByName(funcName, obj)
-                }}
-              />
-            </>
+            <Mutation
+              mutation={UPDATE_PROPERTY_MUTATION}
+              optimisticResponse={this._OptimisticResponse()}
+              update={this.updateCache}>
+              {(updateProperty, { loading, error }) => (
+                <>
+                  <Modal open={modalIsOpen} close={() => this.closeModal()}>
+                    {this.renderModalDetails()}
+                  </Modal>
+                  <SuperTable
+                    columnHeaders={this.columnHeaders()}
+                    // tags={{
+                    //   found: "tags",
+                    //   key: "id",
+                    //   options: [{ name: "one", value: "one" }],
+                    //   // options: allTags
+                    //   //   ? allTags.map(t => ({ name: t.name, value: t.id }))
+                    //   //   : [],
+                    // }}
+                    title="My Properties"
+                    data={ownerProperties}
+                    executeFunc={async (funcName, obj) => {
+                      switch (funcName) {
+                        case "toggleOnTheMarket":
+                          await this.setState({ updateData: obj })
+                          return this._updateProperty(updateProperty, obj)
+                        default:
+                          return this.executeFunctionByName(funcName, obj)
+                      }
+                    }}
+                  />
+                </>
+              )}
+            </Mutation>
           )
-          // return (
-          //   <PropertiesTable>
-          //     <PropertyStripHeaders />
-          //     {ownerProperties.map((property, i) => (
-          //       <PropertyStrip key={i} property={property} />
-          //     ))}
-          //   </PropertiesTable>
-          // )
         }}
       </Query>
     )
+  }
+
+  _updateProperty = async (updateProperty, data) => {
+    const res = await updateProperty({
+      variables: {
+        id: data.id,
+        onTheMarket: !data.onTheMarket,
+      },
+    })
+    console.log("THE UPDATE RESPONSE +> ", res)
+  }
+
+  updateCache = (cache, payload) => {
+    const data = cache.readQuery({ query: PROPERTIES_QUERY })
+    const updatedPropertyData = payload.data.updateProperty
+    const allProperties = data.ownerProperties
+    const idToSearchBy = updatedPropertyData.id
+    const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
+    data.ownerProperties[foundIndex] = {
+      ...data.ownerProperties[foundIndex],
+      ...payload.data.updateProperty,
+    }
+    cache.writeQuery({ query: PROPERTIES_QUERY, data })
   }
 
   showDetails = dataObj => {
@@ -185,15 +253,23 @@ export default class index extends Component {
     })
   }
 
-  renderModalDetails = updateQuery => {
+  renderModalDetails = () => {
     const { modalDetailsObj } = this.state
-    // const { id, name, answers, links, notes, tags } = modalDetailsObj
-    return <PropertyDetails />
+    const { id, location, rent } = modalDetailsObj
+    return <PropertyDetails id={id} />
   }
 
   manageProperty = data => {
-    console.log("data => ", data)
-    alert("Just route to a new page")
+    handleLink("/my/property", { id: data.id })
+  }
+
+  toggleOnTheMarket = dataObj => {
+    console.log("EMPTY THE CLIP => ", dataObj)
+    const current = dataObj.onTheMarket
+    console.log("THE PROPS => ", this.props)
+    this.props.updateProperty({
+      variables: { id: dataObj.id, onTheMarket: !current },
+    })
   }
 
   executeFunctionByName = (functionName, dataObj /*, args */) => {
@@ -203,8 +279,15 @@ export default class index extends Component {
         break
       case "manageProperty":
         return this.manageProperty(dataObj)
+      case "toggleOnTheMarket":
+        return this.toggleOnTheMarket(dataObj)
       default:
         alert("No function specified")
     }
   }
 }
+
+export default compose(
+  graphql(UPDATE_PROPERTY_MUTATION, { name: "updateProperty" }),
+  withApollo
+)(OwnerProperties)

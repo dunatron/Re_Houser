@@ -31,6 +31,7 @@ type Mutation {
   deleteFile(id: ID!): File
   renameFile(id: ID!, filename: String!): File
   createProperty(data: PropertyCreateInput!, files: [Upload]): Property
+  updateProperty(id: ID!, onTheMarket: Boolean): Property!
 }
 
 type Query {
@@ -40,6 +41,7 @@ type Query {
   files: [File!]!
   properties: [Property!]!
   ownerProperties: [Property!]!
+  ownerProperty(id: ID!): Property
 }
 
 type User {

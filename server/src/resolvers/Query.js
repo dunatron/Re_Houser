@@ -33,6 +33,9 @@ const Query = {
   async properties(parent, args, ctx, info) {
     return ctx.db.query.properties({}, info)
   },
+  async ownerProperty(parent, { id }, ctx, info) {
+    return ctx.db.query.property({ where: { id: id } }, info)
+  },
   async ownerProperties(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error("You must be logged in to get your properties!")
