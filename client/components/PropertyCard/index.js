@@ -115,7 +115,7 @@ class PropertyCardComponent extends Component {
         </Tabs>
         {value === 0 && (
           <TabContainer>
-            <Apply />
+            <Apply property={property} />
           </TabContainer>
         )}
         {value === 1 && (

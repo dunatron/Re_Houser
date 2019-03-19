@@ -19,6 +19,15 @@ const PROPERTIES_QUERY = gql`
       images {
         url
       }
+      rentalApplications {
+        id
+        applicants {
+          id
+          firstName
+          lastName
+          email
+        }
+      }
     }
   }
 `

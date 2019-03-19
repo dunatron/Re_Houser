@@ -10,6 +10,7 @@ type User {
   permissions: [Permission]
   properties: [Property!]! @relation(name: "PropertyOwner")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
+  rentalApplications: [RentalApplication!]! @relation(name: "RentalApplicant")
 }
 
 type File {
@@ -34,4 +35,19 @@ type Property {
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]!
+  rentalApplications: [RentalApplication]
+    @relation(name: "PropertyRentalApplication")
+}
+
+type Test {
+  id: ID! @unique
+  title: String
+}
+
+type RentalApplication {
+  id: ID! @unique
+  title: String
+  stage: ApplicationStage!
+  property: Property! @relation(name: "PropertyRentalApplication")
+  applicants: [User!]! @relation(name: "RentalApplicant")
 }

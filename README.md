@@ -388,6 +388,43 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
 }
 ```
 
+#### createRentalApplication
+
+```js
+mutation createRentalApplication($data:RentalApplicationCreateInput!) {
+  createRentalApplication(data:$data) {
+    id
+    stage
+    applicants {
+      id
+      firstName
+    }
+    property {
+      id
+      location
+    }
+  }
+}
+// variables
+{
+  "data": {
+    "stage":"PENDING",
+    "property": {
+      "connect": {
+        "id": "cjtffdu3zekqf0b516qinba8p"
+      }
+    },
+    "applicants": {
+      "connect": [
+        {
+        	"id": "cjtffbnqbekkm0b51mw4j128d"
+      	}
+      ]
+    }
+  }
+}
+```
+
 #### bulk upload files
 
 ```js

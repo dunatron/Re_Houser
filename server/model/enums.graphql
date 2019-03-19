@@ -3,3 +3,9 @@ enum Permission {
   USER
   PERMISSIONUPDATE
 }
+
+enum ApplicationStage {
+  PENDING
+  DENIED
+  ACCEPTED
+}

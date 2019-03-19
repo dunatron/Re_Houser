@@ -32,6 +32,9 @@ type Mutation {
   renameFile(id: ID!, filename: String!): File
   createProperty(data: PropertyCreateInput!, files: [Upload]): Property
   updateProperty(id: ID!, onTheMarket: Boolean): Property!
+  createRentalApplication(
+    data: RentalApplicationCreateInput!
+  ): RentalApplication!
 }
 
 type Query {

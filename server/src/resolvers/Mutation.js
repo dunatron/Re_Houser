@@ -199,6 +199,19 @@ const mutations = {
     console.log("CREATED NEW PROPERTY => ", property)
     return property
   },
+  async createRentalApplication(parent, { data, files }, ctx, info) {
+    const rentalApplication = await ctx.db.mutation.createRentalApplication(
+      {
+        data: {
+          ...data,
+        },
+      },
+      info
+    )
+    console.log("rentalApplication => ", rentalApplication)
+    return rentalApplication
+  },
+
   async updateProperty(parent, args, ctx, info) {
     console.log("args => ", args)
     // first take a copy of the updates
