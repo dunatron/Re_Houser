@@ -3,29 +3,7 @@ import gql from "graphql-tag"
 import { Query } from "react-apollo"
 import Error from "../ErrorMessage/index"
 import PropertyCard from "../PropertyCard/index"
-
-const PROPERTIES_QUERY = gql`
-  query PROPERTIES_QUERY {
-    properties {
-      id
-      rooms
-      rent
-      moveInDate
-      onTheMarket
-      location
-      locationLat
-      locationLng
-      owners {
-        id
-        email
-        firstName
-      }
-      images {
-        url
-      }
-    }
-  }
-`
+import { PROPERTIES_QUERY } from "../../query/propertiesQuery"
 
 export default class index extends Component {
   render() {
@@ -39,7 +17,7 @@ export default class index extends Component {
             <div
               style={{
                 display: "flex",
-                alignItems: "center",
+                // alignItems: "center",
                 flexWrap: "wrap",
                 justifyContent: "center",
               }}>

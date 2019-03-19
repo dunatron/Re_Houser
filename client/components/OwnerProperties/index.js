@@ -8,6 +8,7 @@ import Modal from "../Modal/index"
 import PropertyDetails from "../PropertyDetails/index"
 import Router from "next/router"
 import { graphql, compose, withApollo } from "react-apollo"
+import { PROPERTIES_QUERY } from "../../query/index"
 const handleLink = (route = "/", query = {}) => {
   Router.push({
     pathname: route,
@@ -15,8 +16,8 @@ const handleLink = (route = "/", query = {}) => {
   })
 }
 
-const PROPERTIES_QUERY = gql`
-  query PROPERTIES_QUERY {
+const OWNER_PROPERTIES_QUERY = gql`
+  query OWNER_PROPERTIES_QUERY {
     ownerProperties {
       id
       rooms
@@ -165,7 +166,7 @@ class OwnerProperties extends Component {
 
   render() {
     return (
-      <Query query={PROPERTIES_QUERY}>
+      <Query query={OWNER_PROPERTIES_QUERY}>
         {({ data, loading, error }) => {
           if (error) return <Error error={error} />
           if (loading) return <p>Loading...</p>
@@ -175,6 +176,7 @@ class OwnerProperties extends Component {
             <Mutation
               mutation={UPDATE_PROPERTY_MUTATION}
               optimisticResponse={this._OptimisticResponse()}
+              refetchQueries={[{ query: PROPERTIES_QUERY }]}
               update={this.updateCache}>
               {(updateProperty, { loading, error }) => (
                 <>
@@ -291,3 +293,5 @@ export default compose(
   graphql(UPDATE_PROPERTY_MUTATION, { name: "updateProperty" }),
   withApollo
 )(OwnerProperties)
+
+export { OWNER_PROPERTIES_QUERY }

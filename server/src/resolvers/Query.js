@@ -31,7 +31,7 @@ const Query = {
     return context.db.query.files(args, info)
   },
   async properties(parent, args, ctx, info) {
-    return ctx.db.query.properties({}, info)
+    return ctx.db.query.properties({ where: { onTheMarket: true } }, info)
   },
   async ownerProperty(parent, { id }, ctx, info) {
     return ctx.db.query.property({ where: { id: id } }, info)

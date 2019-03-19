@@ -17,6 +17,14 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
 import MoreVertIcon from "@material-ui/icons/MoreVert"
 import HomeIcon from "@material-ui/icons/Home"
 import MoneyIcon from "@material-ui/icons/AttachMoney"
+// tabs
+import Tabs from "@material-ui/core/Tabs"
+import Tab from "../../styles/Tab"
+import TabContainer from "../TabContainer/index"
+// tab components
+import Details from "./Details"
+import Apply from "./Apply"
+import Rating from "./Rating"
 
 class SimpleSlider extends React.Component {
   render() {
@@ -45,7 +53,11 @@ class SimpleSlider extends React.Component {
 }
 
 class PropertyCardComponent extends Component {
-  state = { expanded: false }
+  state = { expanded: false, value: 1 }
+
+  handleChange = (event, value) => {
+    this.setState({ value })
+  }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }))
@@ -53,6 +65,7 @@ class PropertyCardComponent extends Component {
 
   render() {
     const { property } = this.props
+    const { value } = this.state
     console.log("The Property => ", property)
     const {
       rooms,
@@ -95,52 +108,20 @@ class PropertyCardComponent extends Component {
           image="/static/images/cards/paella.jpg"
           title="Paella dish"
         />
-        <CardContent>
-          <Typography component="p">rooms: {rooms}</Typography>
-          <Typography component="p">rent: {rent}</Typography>
-          <Typography component="p">moveInDate: {moveInDate}</Typography>
-          <Typography component="p">onTheMarket: {onTheMarket}</Typography>
-          <Typography component="p">locationLat: {locationLat}</Typography>
-          <Typography component="p">locationLng: {locationLng}</Typography>
-        </CardContent>
-        <SimpleSlider images={images} />
-        <CardContent>
-          <Typography component="p">
-            A description about this lot of land/dwelling
-          </Typography>
-          {owners &&
-            owners.map((owner, i) => {
-              return (
-                <Typography component="p">Owner: {owner.firstName}</Typography>
-              )
-            })}
-        </CardContent>
-
-        <CardActions className={"actions"} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
-          </IconButton>
-          <IconButton
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more">
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Map
-              center={{
-                lat: property.locationLat,
-                lng: property.locationLng,
-              }}
-              zoom={15}
-            />
-          </CardContent>
-        </Collapse>
+        <Tabs value={value} onChange={this.handleChange}>
+          <Tab label="Apply" />
+          <Tab label="Details" />
+          <Tab label="Rating" />
+        </Tabs>
+        {value === 0 && (
+          <TabContainer>
+            <Apply />
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>{<Details property={property} />}</TabContainer>
+        )}
+        {value === 2 && <TabContainer>{<Rating />}</TabContainer>}
       </PropertyCard>
     )
   }

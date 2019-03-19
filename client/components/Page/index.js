@@ -24,7 +24,7 @@ const StyledPage = styled.div`
 `
 
 const Inner = styled.div`
-  max-width: ${props => props.theme.maxWidth};
+  max-width: ${props => props.theme.maxWidth}px;
   margin: 0 auto;
   padding: 1rem;
   @media (max-width: ${props => props.theme.breakpoints.values.md}px) {

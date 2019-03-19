@@ -4,6 +4,9 @@ import gql from "graphql-tag"
 import Form from "../../styles/Form"
 import Error from "../ErrorMessage/index"
 import { CURRENT_USER_QUERY } from "../User/index"
+// import { OWNER_PROPERTIES_QUERY } from "../OwnerProperties/index"
+import { PROPERTIES_QUERY, OWNER_PROPERTIES_QUERY } from "../../query/index"
+import { CREATE_PROPERTY_MUTATION } from "../../mutation/index"
 import { openSnackbar } from "../Notifier/index"
 import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
@@ -14,24 +17,27 @@ import DragDropUploader from "../DragDropUploader/index"
 import { adopt } from "react-adopt"
 import User from "../User/index"
 
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION($data: PropertyCreateInput!, $files: [Upload]) {
-    createProperty(data: $data, files: $files) {
-      id
-    }
-  }
-`
+// const CREATE_PROPERTY_MUTATION = gql`
+//   mutation CREATE_PROPERTY_MUTATION(
+//     $data: PropertyCreateInput!
+//     $files: [Upload]
+//   ) {
+//     createProperty(data: $data, files: $files) {
+//       id
+//     }
+//   }
+// `
 
 /* eslint-disable */
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
-  signup: ({ render }) => (
-    <Mutation mutation={SIGNUP_MUTATION}>{render}</Mutation>
+  createProperty: ({ render }) => (
+    <Mutation mutation={CREATE_PROPERTY_MUTATION}>{render}</Mutation>
   ),
 })
 /* eslint-enable */
 
-class Signup extends Component {
+class CreateProperty extends Component {
   defaultState = {
     location: "",
     locationLat: "",
@@ -135,9 +141,12 @@ class Signup extends Component {
           if (!me) return <h1>No User</h1>
           return (
             <Mutation
-              mutation={SIGNUP_MUTATION}
+              mutation={CREATE_PROPERTY_MUTATION}
               variables={this._propertyVariables({ me })}
-              refetchQueries={[{ query: CURRENT_USER_QUERY }]}>
+              refetchQueries={[
+                { query: PROPERTIES_QUERY },
+                { query: OWNER_PROPERTIES_QUERY },
+              ]}>
               {(createProperty, { error, loading }) => (
                 <Form
                   method="post"
@@ -247,5 +256,5 @@ class Signup extends Component {
   }
 }
 
-export default Signup
-export { SIGNUP_MUTATION }
+export default CreateProperty
+export { CREATE_PROPERTY_MUTATION }
