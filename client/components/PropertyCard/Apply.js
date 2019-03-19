@@ -1,66 +1,67 @@
 import React, { Component } from "react"
 import { Mutation } from "react-apollo"
 import { CREATE_RENTAL_APPLICATION } from "../../mutation/index"
+import { adopt } from "react-adopt"
+import User from "../User/index"
+import RentalApplications from "./RentalApplications"
+import Button from "@material-ui/core/Button"
+
+const Composed = adopt({
+  user: ({ render }) => <User>{render}</User>,
+  createRentalApplication: ({ render }) => (
+    <Mutation mutation={CREATE_RENTAL_APPLICATION}>{render}</Mutation>
+  ),
+})
 
 export default class Apply extends Component {
   _apply = async createRentalApplication => {
     const res = await createRentalApplication()
     console.log("res => ", res)
   }
-  render() {
-    const { rentalApplications } = this.props.property
-    return (
-      <div>
-        <Mutation
-          mutation={CREATE_RENTAL_APPLICATION}
-          variables={{
-            data: {
-              stage: "PENDING",
-              property: {
-                connect: {
-                  id: "cjtffdu3zekqf0b516qinba8p",
-                },
-              },
-              applicants: {
-                connect: [
-                  {
-                    id: "cjtffbnqbekkm0b51mw4j128d",
-                  },
-                ],
-              },
+  _createRentalApplication = async (createRentalApplication, me) => {
+    const { id, rentalApplications } = this.props.property
+    const res = await createRentalApplication({
+      variables: {
+        data: {
+          stage: "PENDING",
+          property: {
+            connect: {
+              id: id,
             },
-          }}>
-          {(createRentalApplication, { error, loading }) => (
+          },
+          applicants: {
+            connect: [
+              {
+                id: me.id,
+              },
+            ],
+          },
+        },
+      },
+    })
+    console.log("res => ", res)
+  }
+  _variables = () => {}
+  render() {
+    const { id, rentalApplications } = this.props.property
+    return (
+      <Composed>
+        {({ user, createRentalApplication }) => {
+          const me = user.data.me
+          if (!me) return <h1>No User</h1>
+          return (
             <div>
-              <h1 onClick={() => this._apply(createRentalApplication)}>
-                Apply component
-              </h1>
-
-              {rentalApplications &&
-                rentalApplications.map((application, idx) => {
-                  return (
-                    <div>
-                      {application.id}
-                      {application.applicants &&
-                        application.applicants.map((applicant, idx) => {
-                          return (
-                            <div>
-                              <p> {applicant.id}</p>
-                              <p>{applicant.firstName}</p>
-                              <p> {applicant.lastName}</p>
-                              <p>{applicant.email}</p>
-                              <hr />
-                            </div>
-                          )
-                        })}
-                      <hr />
-                    </div>
-                  )
-                })}
+              <Button
+                onClick={() =>
+                  this._createRentalApplication(createRentalApplication, me)
+                }>
+                Create New Group Application
+              </Button>
+              <RentalApplications applications={rentalApplications} />
             </div>
-          )}
-        </Mutation>
-      </div>
+          )
+        }}
+      </Composed>
     )
   }
 }
