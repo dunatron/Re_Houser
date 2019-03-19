@@ -21,7 +21,8 @@ const PROPERTIES_QUERY = gql`
       }
       rentalApplications {
         id
-        applicants {
+        stage
+        members {
           id
           firstName
           lastName

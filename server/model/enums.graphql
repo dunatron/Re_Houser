@@ -5,6 +5,7 @@ enum Permission {
 }
 
 enum ApplicationStage {
+  INITIALIZING
   PENDING
   DENIED
   ACCEPTED

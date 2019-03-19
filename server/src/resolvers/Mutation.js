@@ -211,6 +211,34 @@ const mutations = {
     console.log("rentalApplication => ", rentalApplication)
     return rentalApplication
   },
+  async applyToRentalGroup(parent, { data }, ctx, info) {
+    // ToDo: send email to current group members
+    const userId = data.user.connect.id
+    const applicationId = data.application.connect.id
+    const application = await ctx.db.query.rentalApplication(
+      { where: { id: applicationId } },
+      `{ id, applicants { user { id}}, members {id} }`
+    )
+    applicantUserIds = application.applicants.map(
+      applicant => applicant.user.id
+    )
+    memberUserIds = application.members.map(member => member.id)
+    if (memberUserIds.includes(userId)) {
+      throw new Error("You are already a member of this group!")
+    }
+    if (applicantUserIds.includes(userId)) {
+      throw new Error("You have already applied for this group!")
+    }
+    const rentalApplication = await ctx.db.mutation.createRentalGroupApplicant(
+      {
+        data: {
+          ...data,
+        },
+      },
+      info
+    )
+    return rentalApplication
+  },
 
   async updateProperty(parent, args, ctx, info) {
     console.log("args => ", args)

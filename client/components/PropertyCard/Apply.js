@@ -29,7 +29,7 @@ export default class Apply extends Component {
               id: id,
             },
           },
-          applicants: {
+          members: {
             connect: [
               {
                 id: me.id,
@@ -52,6 +52,7 @@ export default class Apply extends Component {
           return (
             <div>
               <Button
+                color="primary"
                 onClick={() =>
                   this._createRentalApplication(createRentalApplication, me)
                 }>

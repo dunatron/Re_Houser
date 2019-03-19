@@ -39,9 +39,11 @@ type Property {
     @relation(name: "PropertyRentalApplication")
 }
 
-type Test {
+type RentalGroupApplicant {
   id: ID! @unique
-  title: String
+  user: User!
+  approved: Boolean!
+  application: RentalApplication @relation(name: "RentalGroupApplicant")
 }
 
 type RentalApplication {
@@ -49,5 +51,6 @@ type RentalApplication {
   title: String
   stage: ApplicationStage!
   property: Property! @relation(name: "PropertyRentalApplication")
-  applicants: [User!]! @relation(name: "RentalApplicant")
+  members: [User!]! @relation(name: "RentalApplicant")
+  applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")
 }

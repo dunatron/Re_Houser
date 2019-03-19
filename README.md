@@ -395,7 +395,7 @@ mutation createRentalApplication($data:RentalApplicationCreateInput!) {
   createRentalApplication(data:$data) {
     id
     stage
-    applicants {
+    members {
       id
       firstName
     }
@@ -411,15 +411,53 @@ mutation createRentalApplication($data:RentalApplicationCreateInput!) {
     "stage":"PENDING",
     "property": {
       "connect": {
-        "id": "cjtffdu3zekqf0b516qinba8p"
+        "id": "${PropertyID}"
       }
     },
-    "applicants": {
+    "members": {
       "connect": [
         {
-        	"id": "cjtffbnqbekkm0b51mw4j128d"
+        	"id": "${UserID}"
       	}
       ]
+    },
+    "applicants":{
+      "connect": []
+    }
+  }
+}
+```
+
+#### applyToRentalGroup
+
+```js
+mutation applyToRentalGroup($data:RentalGroupApplicantCreateInput!) {
+  createRentalGroupApplicant(data:$data) {
+    id
+    user {
+      id
+      firstName
+      email
+    }
+    approved
+    application {
+      id
+    }
+  }
+}
+// variables
+{
+  "data": {
+    "user": {
+      "connect": {
+        "id": "${UserID}"
+      }
+    },
+    "approved": false,
+    "application": {
+      "connect": {
+        "id": "${applicationID}"
+      }
     }
   }
 }

@@ -35,6 +35,9 @@ type Mutation {
   createRentalApplication(
     data: RentalApplicationCreateInput!
   ): RentalApplication!
+  applyToRentalGroup(
+    data: RentalGroupApplicantCreateInput!
+  ): RentalGroupApplicant!
 }
 
 type Query {

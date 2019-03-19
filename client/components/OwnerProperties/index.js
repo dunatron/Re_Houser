@@ -6,6 +6,7 @@ import SuperTable from "../SuperTable/index"
 import Button from "@material-ui/core/Button"
 import Modal from "../Modal/index"
 import PropertyDetails from "../PropertyDetails/index"
+import { openSnackbar } from "../Notifier/index"
 import Router from "next/router"
 import { graphql, compose, withApollo } from "react-apollo"
 import { PROPERTIES_QUERY } from "../../query/index"
@@ -44,6 +45,7 @@ const UPDATE_PROPERTY_MUTATION = gql`
     updateProperty(id: $id, onTheMarket: $onTheMarket) {
       id
       onTheMarket
+      location
     }
   }
 `
@@ -220,6 +222,19 @@ class OwnerProperties extends Component {
         id: data.id,
         onTheMarket: !data.onTheMarket,
       },
+    })
+
+    const message = data.onTheMarket
+      ? `<h3>Romoved from market</h3>Propertyy ${
+          res.data.updateProperty.location
+        } Now off the market`
+      : `<h3>On The market</h3>Property ${
+          res.data.updateProperty.location
+        } is now on the market`
+    openSnackbar({
+      message: message,
+      duration: 6000,
+      type: data.onTheMarket ? "info" : "success",
     })
     console.log("THE UPDATE RESPONSE +> ", res)
   }

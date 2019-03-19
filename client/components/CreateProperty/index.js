@@ -57,6 +57,7 @@ class CreateProperty extends Component {
     openSnackbar({
       message: `New Property Created`,
       duration: 6000,
+      type: "success",
     })
     this.setState({
       ...this.defaultState,
