@@ -208,7 +208,26 @@ const mutations = {
       },
       info
     )
+    const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant(
+      {
+        data: {
+          user: {
+            connect: {
+              id: ctx.request.userId,
+            },
+          },
+          approved: true,
+          application: {
+            connect: {
+              id: rentalApplication.id,
+            },
+          },
+        },
+      },
+      info
+    )
     console.log("rentalApplication => ", rentalApplication)
+    console.log("rentalGroupNode => ", rentalGroupNode)
     return rentalApplication
   },
   async applyToRentalGroup(parent, { data }, ctx, info) {
@@ -217,15 +236,11 @@ const mutations = {
     const applicationId = data.application.connect.id
     const application = await ctx.db.query.rentalApplication(
       { where: { id: applicationId } },
-      `{ id, applicants { user { id}}, members {id} }`
+      `{ id, applicants { user { id}} }`
     )
     applicantUserIds = application.applicants.map(
       applicant => applicant.user.id
     )
-    memberUserIds = application.members.map(member => member.id)
-    if (memberUserIds.includes(userId)) {
-      throw new Error("You are already a member of this group!")
-    }
     if (applicantUserIds.includes(userId)) {
       throw new Error("You have already applied for this group!")
     }
@@ -277,6 +292,13 @@ const mutations = {
       },
       info
     )
+  },
+  async createPreRentalDocument(parent, { rentalGroupApplicantId }, ctx, info) {
+    const application = await ctx.db.query.createRentalGroupApplicant({
+      where: { id: rentalGroupApplicantId },
+    })
+    console.log("application => ", application)
+    return application
   },
 }
 

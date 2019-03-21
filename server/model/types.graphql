@@ -10,7 +10,6 @@ type User {
   permissions: [Permission]
   properties: [Property!]! @relation(name: "PropertyOwner")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
-  rentalApplications: [RentalApplication!]! @relation(name: "RentalApplicant")
 }
 
 type File {
@@ -44,13 +43,14 @@ type RentalGroupApplicant {
   user: User!
   approved: Boolean!
   application: RentalApplication @relation(name: "RentalGroupApplicant")
+  preTenancyApplicationForm: File
 }
 
 type RentalApplication {
   id: ID! @unique
+  owner: User!
   title: String
   stage: ApplicationStage!
   property: Property! @relation(name: "PropertyRentalApplication")
-  members: [User!]! @relation(name: "RentalApplicant")
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")
 }

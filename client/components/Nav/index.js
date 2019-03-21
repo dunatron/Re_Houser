@@ -25,6 +25,11 @@ const Nav = () => (
             <>
               <NavButton
                 color="secondary"
+                onClick={() => handleLink("/my/dashboard")}>
+                Dashboard
+              </NavButton>
+              <NavButton
+                color="secondary"
                 onClick={() => handleLink("/my/properties")}>
                 Properties
               </NavButton>

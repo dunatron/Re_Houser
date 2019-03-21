@@ -38,6 +38,7 @@ type Mutation {
   applyToRentalGroup(
     data: RentalGroupApplicantCreateInput!
   ): RentalGroupApplicant!
+  createPreRentalDocument(rentalGroupApplicantId: ID!): RentalGroupApplicant!
 }
 
 type Query {
@@ -48,6 +49,8 @@ type Query {
   properties: [Property!]!
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property
+  myRentalApplications: [RentalApplication!]!
+  rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
 }
 
 type User {

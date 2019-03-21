@@ -19,16 +19,6 @@ const PROPERTIES_QUERY = gql`
       images {
         url
       }
-      rentalApplications {
-        id
-        stage
-        members {
-          id
-          firstName
-          lastName
-          email
-        }
-      }
     }
   }
 `

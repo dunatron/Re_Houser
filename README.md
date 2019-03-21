@@ -330,6 +330,63 @@ query properties {
 }
 ```
 
+#### rentalApplications
+
+```js
+query rentalApplications($where:RentalApplicationWhereInput!) {
+  rentalApplications(where:$where) {
+    id
+    property {
+      id
+    }
+  }
+}
+// variables
+{
+  "where": {
+   "property": {
+    	"id": "cjtftvcc8di8u0b768zue09z5"
+  	}
+  }
+}
+```
+
+#### get user rental applications
+
+```js
+query myRentalApplications{
+  rentalApplications(where:{
+    applicants_some:{ id:""}
+  }) {
+    id
+  }
+}
+query myRentalApplications{
+  rentalApplications {
+    id
+    owner {
+      id
+      firstName
+    }
+    stage
+    property {
+      id
+      location
+      rent
+      rooms
+    }
+    applicants {
+      id
+      preTenancyApplicationForm {
+        id
+        filename
+        url
+      }
+    }
+  }
+}
+```
+
 ## Mutations
 
 #### createProperty

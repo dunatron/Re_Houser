@@ -1,9 +1,12 @@
-import OwnerProperties from "../../components/OwnerProperties/index"
+import RentalApplications from "../../components/RentalApplications.js/index"
+import PleaseSignIn from "../../components/PleaseSignIn"
 
-const PropertiesPage = props => (
+const RentalApplicationsPage = props => (
   <div>
-    <OwnerProperties />
+    <PleaseSignIn>
+      <RentalApplications />
+    </PleaseSignIn>
   </div>
 )
 
-export default PropertiesPage
+export default RentalApplicationsPage

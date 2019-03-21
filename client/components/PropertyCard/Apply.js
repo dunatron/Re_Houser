@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { Mutation } from "react-apollo"
 import { CREATE_RENTAL_APPLICATION } from "../../mutation/index"
+
 import { adopt } from "react-adopt"
 import User from "../User/index"
 import RentalApplications from "./RentalApplications"
@@ -29,13 +30,18 @@ export default class Apply extends Component {
               id: id,
             },
           },
-          members: {
-            connect: [
-              {
-                id: me.id,
-              },
-            ],
+          owner: {
+            connect: {
+              id: me.id,
+            },
           },
+          // members: {
+          //   connect: [
+          //     {
+          //       id: me.id,
+          //     },
+          //   ],
+          // },
         },
       },
     })
@@ -58,7 +64,7 @@ export default class Apply extends Component {
                 }>
                 Create New Group Application
               </Button>
-              <RentalApplications applications={rentalApplications} />
+              <RentalApplications propertyId={id} applications={rentalApplications} />
             </div>
           )
         }}

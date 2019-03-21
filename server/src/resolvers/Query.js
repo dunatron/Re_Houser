@@ -51,6 +51,32 @@ const Query = {
       info
     )
   },
+  async rentalApplications(parent, { where }, ctx, info) {
+    // if (!ctx.request.userId) {
+    //   throw new Error("You must be logged in to get your properties!")
+    // }
+    return ctx.db.query.rentalApplications(
+      {
+        where: where,
+      },
+      info
+    )
+  },
+  async myRentalApplications(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to get your properties!")
+    }
+    return ctx.db.query.rentalApplications(
+      {
+        where: {
+          applicants_some: {
+            id: ctx.request.userId,
+          },
+        },
+      },
+      info
+    )
+  },
 }
 
 module.exports = Query

@@ -5,10 +5,10 @@ const CREATE_RENTAL_APPLICATION = gql`
     createRentalApplication(data: $data) {
       id
       stage
-      members {
-        id
-        firstName
-      }
+      # members {
+      #   id
+      #   firstName
+      # }
       property {
         id
         location

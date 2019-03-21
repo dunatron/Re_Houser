@@ -43,6 +43,7 @@ export default class ApplicationItem extends Component {
   }
   render() {
     const { application, index } = this.props
+    console.log("application => ", application)
     return (
       <Composed>
         {({ applyToRentalGroup, user }) => {
@@ -51,14 +52,16 @@ export default class ApplicationItem extends Component {
             <Item>
               <div>Application {index + 1}</div>
               <div>{application.stage}</div>
-              {application.members &&
-                application.members.map((applicant, idx) => {
+              {application.applicants &&
+                application.applicants.map((applicant, idx) => {
+                  console.log("applicant => ", applicant)
+                  const {
+                    user: { id, firstName, lastName },
+                  } = applicant
                   return (
                     <div className="user__strip">
                       <Tooltip
-                        title={`view ${applicant.firstName} ${
-                          applicant.lastName
-                        }`}
+                        title={`view ${firstName} ${lastName}`}
                         placement="top">
                         <IconButton className="person__btn" aria-label="Delete">
                           <PersonIcon className="person__icon" />
@@ -66,19 +69,22 @@ export default class ApplicationItem extends Component {
                       </Tooltip>
 
                       <p className="name">
-                        {applicant.firstName} {applicant.lastName}
+                        {firstName} {lastName}
                       </p>
                     </div>
                   )
                 })}
               {/* BELOW is avail if not already member */}
-              {!application.members
-                .map(member => member.id)
-                .includes(me.id) && (
-                <div className="user__strip">
-                  <ApplyToGroup applicationId={application.id} />
-                </div>
-              )}
+              {me.id
+                ? !application.applicants
+                    .map(applicant => applicant.user)
+                    .map(user => user.id)
+                    .includes(me.id) && (
+                    <div className="user__strip">
+                      <ApplyToGroup applicationId={application.id} />
+                    </div>
+                  )
+                : ""}
 
               <hr />
             </Item>

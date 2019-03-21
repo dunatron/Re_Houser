@@ -68,6 +68,7 @@ class PropertyCardComponent extends Component {
     const { value } = this.state
     console.log("The Property => ", property)
     const {
+      id,
       rooms,
       rent,
       moveInDate,
@@ -96,6 +97,7 @@ class PropertyCardComponent extends Component {
           subheader={
             <div style={{ display: "flex" }}>
               <HomeIcon />
+              {id}
               {rooms}
               <MoneyIcon />
               {rent} = {Math.ceil(rent / rooms)} per person

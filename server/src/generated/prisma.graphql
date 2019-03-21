@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Mar 20 2019 00:45:58 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Thu Mar 21 2019 15:39:43 GMT+1300 (New Zealand Daylight Time)
 
 type AggregateFile {
   count: Int!
@@ -56,6 +56,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -65,6 +66,11 @@ input FileCreateInput {
 input FileCreateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
+}
+
+input FileCreateOneInput {
+  create: FileCreateInput
+  connect: FileWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -442,9 +448,23 @@ input FileUpdateManyWithWhereNestedInput {
   data: FileUpdateManyDataInput!
 }
 
+input FileUpdateOneInput {
+  create: FileCreateInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateDataInput
+  upsert: FileUpsertNestedInput
+}
+
 input FileUpdateWithWhereUniqueNestedInput {
   where: FileWhereUniqueInput!
   data: FileUpdateDataInput!
+}
+
+input FileUpsertNestedInput {
+  update: FileUpdateDataInput!
+  create: FileCreateInput!
 }
 
 input FileUpsertWithWhereUniqueNestedInput {
@@ -810,6 +830,7 @@ type PropertyConnection {
 }
 
 input PropertyCreateInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -839,6 +860,7 @@ input PropertyCreateOneWithoutRentalApplicationsInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -852,6 +874,7 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -865,6 +888,7 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -1545,10 +1569,10 @@ type Query {
 
 type RentalApplication implements Node {
   id: ID!
+  owner: User!
   title: String
   stage: ApplicationStage!
   property: Property!
-  members(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   applicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant!]
 }
 
@@ -1563,16 +1587,12 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
+  id: ID
   title: String
   stage: ApplicationStage!
+  owner: UserCreateOneInput!
   property: PropertyCreateOneWithoutRentalApplicationsInput!
-  members: UserCreateManyWithoutRentalApplicationsInput
   applicants: RentalGroupApplicantCreateManyWithoutApplicationInput
-}
-
-input RentalApplicationCreateManyWithoutMembersInput {
-  create: [RentalApplicationCreateWithoutMembersInput!]
-  connect: [RentalApplicationWhereUniqueInput!]
 }
 
 input RentalApplicationCreateManyWithoutPropertyInput {
@@ -1586,23 +1606,18 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
+  id: ID
   title: String
   stage: ApplicationStage!
+  owner: UserCreateOneInput!
   property: PropertyCreateOneWithoutRentalApplicationsInput!
-  members: UserCreateManyWithoutRentalApplicationsInput
-}
-
-input RentalApplicationCreateWithoutMembersInput {
-  title: String
-  stage: ApplicationStage!
-  property: PropertyCreateOneWithoutRentalApplicationsInput!
-  applicants: RentalGroupApplicantCreateManyWithoutApplicationInput
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
+  id: ID
   title: String
   stage: ApplicationStage!
-  members: UserCreateManyWithoutRentalApplicationsInput
+  owner: UserCreateOneInput!
   applicants: RentalGroupApplicantCreateManyWithoutApplicationInput
 }
 
@@ -1777,8 +1792,8 @@ input RentalApplicationSubscriptionWhereInput {
 input RentalApplicationUpdateInput {
   title: String
   stage: ApplicationStage
+  owner: UserUpdateOneRequiredInput
   property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
-  members: UserUpdateManyWithoutRentalApplicationsInput
   applicants: RentalGroupApplicantUpdateManyWithoutApplicationInput
 }
 
@@ -1790,18 +1805,6 @@ input RentalApplicationUpdateManyDataInput {
 input RentalApplicationUpdateManyMutationInput {
   title: String
   stage: ApplicationStage
-}
-
-input RentalApplicationUpdateManyWithoutMembersInput {
-  create: [RentalApplicationCreateWithoutMembersInput!]
-  connect: [RentalApplicationWhereUniqueInput!]
-  set: [RentalApplicationWhereUniqueInput!]
-  disconnect: [RentalApplicationWhereUniqueInput!]
-  delete: [RentalApplicationWhereUniqueInput!]
-  update: [RentalApplicationUpdateWithWhereUniqueWithoutMembersInput!]
-  updateMany: [RentalApplicationUpdateManyWithWhereNestedInput!]
-  deleteMany: [RentalApplicationScalarWhereInput!]
-  upsert: [RentalApplicationUpsertWithWhereUniqueWithoutMembersInput!]
 }
 
 input RentalApplicationUpdateManyWithoutPropertyInput {
@@ -1833,27 +1836,15 @@ input RentalApplicationUpdateOneWithoutApplicantsInput {
 input RentalApplicationUpdateWithoutApplicantsDataInput {
   title: String
   stage: ApplicationStage
+  owner: UserUpdateOneRequiredInput
   property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
-  members: UserUpdateManyWithoutRentalApplicationsInput
-}
-
-input RentalApplicationUpdateWithoutMembersDataInput {
-  title: String
-  stage: ApplicationStage
-  property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
-  applicants: RentalGroupApplicantUpdateManyWithoutApplicationInput
 }
 
 input RentalApplicationUpdateWithoutPropertyDataInput {
   title: String
   stage: ApplicationStage
-  members: UserUpdateManyWithoutRentalApplicationsInput
+  owner: UserUpdateOneRequiredInput
   applicants: RentalGroupApplicantUpdateManyWithoutApplicationInput
-}
-
-input RentalApplicationUpdateWithWhereUniqueWithoutMembersInput {
-  where: RentalApplicationWhereUniqueInput!
-  data: RentalApplicationUpdateWithoutMembersDataInput!
 }
 
 input RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput {
@@ -1864,12 +1855,6 @@ input RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput {
 input RentalApplicationUpsertWithoutApplicantsInput {
   update: RentalApplicationUpdateWithoutApplicantsDataInput!
   create: RentalApplicationCreateWithoutApplicantsInput!
-}
-
-input RentalApplicationUpsertWithWhereUniqueWithoutMembersInput {
-  where: RentalApplicationWhereUniqueInput!
-  update: RentalApplicationUpdateWithoutMembersDataInput!
-  create: RentalApplicationCreateWithoutMembersInput!
 }
 
 input RentalApplicationUpsertWithWhereUniqueWithoutPropertyInput {
@@ -1977,10 +1962,8 @@ input RentalApplicationWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
+  owner: UserWhereInput
   property: PropertyWhereInput
-  members_every: UserWhereInput
-  members_some: UserWhereInput
-  members_none: UserWhereInput
   applicants_every: RentalGroupApplicantWhereInput
   applicants_some: RentalGroupApplicantWhereInput
   applicants_none: RentalGroupApplicantWhereInput
@@ -1995,6 +1978,7 @@ type RentalGroupApplicant implements Node {
   user: User!
   approved: Boolean!
   application: RentalApplication
+  preTenancyApplicationForm: File
 }
 
 """A connection to a list of items."""
@@ -2008,9 +1992,11 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
+  id: ID
   approved: Boolean!
   user: UserCreateOneInput!
   application: RentalApplicationCreateOneWithoutApplicantsInput
+  preTenancyApplicationForm: FileCreateOneInput
 }
 
 input RentalGroupApplicantCreateManyWithoutApplicationInput {
@@ -2019,8 +2005,10 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
+  id: ID
   approved: Boolean!
   user: UserCreateOneInput!
+  preTenancyApplicationForm: FileCreateOneInput
 }
 
 """An edge in a connection."""
@@ -2146,6 +2134,7 @@ input RentalGroupApplicantUpdateInput {
   approved: Boolean
   user: UserUpdateOneRequiredInput
   application: RentalApplicationUpdateOneWithoutApplicantsInput
+  preTenancyApplicationForm: FileUpdateOneInput
 }
 
 input RentalGroupApplicantUpdateManyDataInput {
@@ -2176,6 +2165,7 @@ input RentalGroupApplicantUpdateManyWithWhereNestedInput {
 input RentalGroupApplicantUpdateWithoutApplicationDataInput {
   approved: Boolean
   user: UserUpdateOneRequiredInput
+  preTenancyApplicationForm: FileUpdateOneInput
 }
 
 input RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput {
@@ -2244,6 +2234,7 @@ input RentalGroupApplicantWhereInput {
   approved_not: Boolean
   user: UserWhereInput
   application: RentalApplicationWhereInput
+  preTenancyApplicationForm: FileWhereInput
 }
 
 input RentalGroupApplicantWhereUniqueInput {
@@ -2270,7 +2261,6 @@ type User implements Node {
   permissions: [Permission!]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
   createdProperties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
-  rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication!]
 }
 
 """A connection to a list of items."""
@@ -2284,6 +2274,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2294,16 +2285,10 @@ input UserCreateInput {
   permissions: UserCreatepermissionsInput
   properties: PropertyCreateManyWithoutOwnersInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  rentalApplications: RentalApplicationCreateManyWithoutMembersInput
 }
 
 input UserCreateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
-  connect: [UserWhereUniqueInput!]
-}
-
-input UserCreateManyWithoutRentalApplicationsInput {
-  create: [UserCreateWithoutRentalApplicationsInput!]
   connect: [UserWhereUniqueInput!]
 }
 
@@ -2322,6 +2307,7 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2331,10 +2317,10 @@ input UserCreateWithoutCreatedPropertiesInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   properties: PropertyCreateManyWithoutOwnersInput
-  rentalApplications: RentalApplicationCreateManyWithoutMembersInput
 }
 
 input UserCreateWithoutPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2343,20 +2329,6 @@ input UserCreateWithoutPropertiesInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
-  createdProperties: PropertyCreateManyWithoutCreatorInput
-  rentalApplications: RentalApplicationCreateManyWithoutMembersInput
-}
-
-input UserCreateWithoutRentalApplicationsInput {
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserCreatepermissionsInput
-  properties: PropertyCreateManyWithoutOwnersInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
 }
 
@@ -2767,7 +2739,6 @@ input UserUpdateDataInput {
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  rentalApplications: RentalApplicationUpdateManyWithoutMembersInput
 }
 
 input UserUpdateInput {
@@ -2781,7 +2752,6 @@ input UserUpdateInput {
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  rentalApplications: RentalApplicationUpdateManyWithoutMembersInput
 }
 
 input UserUpdateManyDataInput {
@@ -2818,18 +2788,6 @@ input UserUpdateManyWithoutPropertiesInput {
   upsert: [UserUpsertWithWhereUniqueWithoutPropertiesInput!]
 }
 
-input UserUpdateManyWithoutRentalApplicationsInput {
-  create: [UserCreateWithoutRentalApplicationsInput!]
-  connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
-  disconnect: [UserWhereUniqueInput!]
-  delete: [UserWhereUniqueInput!]
-  update: [UserUpdateWithWhereUniqueWithoutRentalApplicationsInput!]
-  updateMany: [UserUpdateManyWithWhereNestedInput!]
-  deleteMany: [UserScalarWhereInput!]
-  upsert: [UserUpsertWithWhereUniqueWithoutRentalApplicationsInput!]
-}
-
 input UserUpdateManyWithWhereNestedInput {
   where: UserScalarWhereInput!
   data: UserUpdateManyDataInput!
@@ -2863,7 +2821,6 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
-  rentalApplications: RentalApplicationUpdateManyWithoutMembersInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -2876,30 +2833,11 @@ input UserUpdateWithoutPropertiesDataInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  rentalApplications: RentalApplicationUpdateManyWithoutMembersInput
-}
-
-input UserUpdateWithoutRentalApplicationsDataInput {
-  firstName: String
-  lastName: String
-  phone: String
-  email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserUpdatepermissionsInput
-  properties: PropertyUpdateManyWithoutOwnersInput
-  createdProperties: PropertyUpdateManyWithoutCreatorInput
 }
 
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutPropertiesDataInput!
-}
-
-input UserUpdateWithWhereUniqueWithoutRentalApplicationsInput {
-  where: UserWhereUniqueInput!
-  data: UserUpdateWithoutRentalApplicationsDataInput!
 }
 
 input UserUpsertNestedInput {
@@ -2916,12 +2854,6 @@ input UserUpsertWithWhereUniqueWithoutPropertiesInput {
   where: UserWhereUniqueInput!
   update: UserUpdateWithoutPropertiesDataInput!
   create: UserCreateWithoutPropertiesInput!
-}
-
-input UserUpsertWithWhereUniqueWithoutRentalApplicationsInput {
-  where: UserWhereUniqueInput!
-  update: UserUpdateWithoutRentalApplicationsDataInput!
-  create: UserCreateWithoutRentalApplicationsInput!
 }
 
 input UserWhereInput {
@@ -3241,9 +3173,6 @@ input UserWhereInput {
   createdProperties_every: PropertyWhereInput
   createdProperties_some: PropertyWhereInput
   createdProperties_none: PropertyWhereInput
-  rentalApplications_every: RentalApplicationWhereInput
-  rentalApplications_some: RentalApplicationWhereInput
-  rentalApplications_none: RentalApplicationWhereInput
 }
 
 input UserWhereUniqueInput {
