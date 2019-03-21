@@ -63,6 +63,7 @@ const Query = {
     )
   },
   async myRentalApplications(parent, args, ctx, info) {
+    // GOing to need to rethink this. Method to get applicants_some is of type RentalGroupApplicant
     if (!ctx.request.userId) {
       throw new Error("You must be logged in to get your properties!")
     }
@@ -74,6 +75,7 @@ const Query = {
           },
         },
       },
+      // {},
       info
     )
   },

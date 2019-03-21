@@ -11,6 +11,7 @@
     "deploy": "prisma deploy --env-file variables.env",
     "deploy-prod": "prisma deploy --env-file variables-prod.env",
     "reset": "prisma reset --env-file variables.env",
+    "reset-prod": "prisma reset --env-file variables-prod.env",
     "prisma-dev-token": "prisma token --env-file variables.env"
   },
   "dependencies": {

@@ -23,16 +23,19 @@ export default class RentalApplications extends Component {
                   if (error) return <Error error={error} />
                   if (loading) return <p>Loading...</p>
                   const { myRentalApplications } = data
+                  console.log("data => ", data)
                   return (
                     <div
-                      style={{
-                        display: "flex",
-                        // alignItems: "center",
-                        flexWrap: "wrap",
-                        justifyContent: "center",
-                      }}>
-                      {myRentalApplications.map((property, i) => (
-                        <div>{i} => </div>
+                      style={
+                        {
+                          // display: "flex",
+                          // // alignItems: "center",
+                          // flexWrap: "wrap",
+                          // justifyContent: "center",
+                        }
+                      }>
+                      {myRentalApplications.map((application, i) => (
+                        <div>{property.id}  </div>
                         // <PropertyCard key={i} property={property} />
                       ))}
                     </div>

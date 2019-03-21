@@ -200,6 +200,32 @@ const mutations = {
     return property
   },
   async createRentalApplication(parent, { data, files }, ctx, info) {
+    console.log("data for createRentalApplication => ", data)
+    const currentApplications = await ctx.db.query.rentalApplications(
+      {
+        where: {
+          property: {
+            id: data.property.connect.id,
+          },
+        },
+      },
+      `{ id, owner {id} applicants { user { id}} }`
+    )
+    const applicationOwnerIds = currentApplications.map(
+      application => application.owner.id
+    )
+    // applicantUserIds = currentApplications.applicants.map(
+    //   applicant => applicant.user.id
+    // )
+    if (applicationOwnerIds.includes(ctx.request.userId)) {
+      throw new Error(
+        "You have already created an application for this property!"
+      )
+    }
+    console.log(
+      "+++++++ ^^^^^^ currentApplications ^^^^^^^ => ",
+      currentApplications
+    )
     const rentalApplication = await ctx.db.mutation.createRentalApplication(
       {
         data: {
@@ -224,10 +250,12 @@ const mutations = {
           },
         },
       },
-      info
+      `{ id, approved ,user{id, firstName, lastName}}`
     )
     console.log("rentalApplication => ", rentalApplication)
+    console.log("========================================")
     console.log("rentalGroupNode => ", rentalGroupNode)
+    rentalApplication.applicants.push({ ...rentalGroupNode })
     return rentalApplication
   },
   async applyToRentalGroup(parent, { data }, ctx, info) {
@@ -252,6 +280,8 @@ const mutations = {
       },
       info
     )
+    // add user application to rent application
+
     return rentalApplication
   },
 
