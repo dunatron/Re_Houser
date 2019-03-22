@@ -2,6 +2,11 @@
 
 ## Mission
 
+FUCK UP WITH ALL THESE ROOKIES, SOUND LIKE A BUNCH OF PUSSIES TO ME, FUCK EM, FUCK EM GOOD, FUCK EM LONG, FUCK EM HARD, FUCK WHO?, FUCK EM ALL!
+
+- ^ Like that just like that
+- The motherfucking best yet, sorry for cussing
+
 To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
 
 ## Features
@@ -542,6 +547,121 @@ mutation uploadFiles($files:[Upload!]!) {
 - deploying to heroukou use a external service such as cloudinary
 
 # ToDo
+
+## apply for rental
+
+- form
+  - cover letter(message to landlord)
+  - profile picture
+  - Linkedin profile
+  - Facebook page
+  - Rent and lease details
+    - preferred lease start date
+    - earliest lease start date
+    - preferred lease length in months
+    - Weekly rent is \$650.00. Would you like to offer a higher or lower amount?
+    - Personal Details
+      - firstname
+      - lastname
+      - mobile
+      - dob
+      - gender
+
+## Property
+
+- beds/rooms
+- bathrooms
+- carpark
+- furnished?
+- OVERVIEW 2 Bed 1 Bath 1 Carpark Furnished
+- Indoor features
+  - Air conditioning
+  - furnished
+  - Internal Laundry
+  - Dishwasher
+  - built-in-wardrobes
+  - Balcony
+  - alarm system
+  - heating
+- Outdoor features
+  - Outdoor spa
+  - Outdoor entertainment
+  - Swimming pool
+- Lease
+  - 12 months lease preffered
+  - \$2600 Bond to be paid prior to movIn
+  - available from friday, 27th december
+  - Lease length and move in date can be discussed directly with Owner upon application. First rent payment is paid upon securing the property and deposited to the Owner on move in date.
+- Send a message to the Owner
+  - Tell the owner a little about yourself, why you love this place and any questions you have.
+
+## Property Types
+
+- House - Detached freestanding house. (no common walls or common areas)
+- Apartment - Usually a unit within a large multi story apartment building. Can be any level within the building.
+- Unit - Standard unit. If you're unsure if it's an apartment, villa or townhouse this should be your default choice.
+- Townhouse - Typically 2 story unit with common grounds like an apartment or villa. May or may not have an adjoining wall to another townhouse.
+- Villa - Typically single story as opposed to a Townhouse and is usually free standing without adjoining walls.
+- Retirement living - A community designed for older adults (typically 55 years or older) who are generally able to care for themselves.
+- Studio - A unit or apartment where the kitchen, bedroom and living space are combined.
+- farm land - A house on a farm. Usually more than 10 acres with the lease incorporating some farm work.
+- acreage Semi Rural - Usually less than 10 acres with a house on the property.
+- Other
+
+## Property Specifics
+
+- Basics
+  - Bedrooms - For a Studio leave it as one bedroom.
+  - Bathrooms - A bathroom must have a bath or shower (a toilet on it's own is not considered a bathroom).
+  - Garage spaces - Enclosed car spaces. Includes security parking.
+  - Carport spaces - Open car spaces with a cover.
+  - Off street spaces - Should be a proper space for a car that is not covered. Api for who owns these street parking spaces?
+- Indoor features
+  - Air conditioning
+  - Furnished
+  - Balcony
+  - Dishwahser
+  - Internal Laundry
+    - An internal laundry as opposed to communal laundry facilities. This feature is typically used for units and apartments.
+  - Alarm System
+  - Build in Wardrobes
+  - Heating
+  - Fireplace
+- Outdoor features
+  - Fully fenced
+  - Pet friendly
+  - 420 friendly
+  - Outdoor spa
+  - Swimming pool
+  - Outdoor entertainment
+- Headline
+  - Tips for a great headline
+    - What’s the main attraction?
+      - Think of one key feature that tenants are going to love about your property. Open plan? Large backyard? Close to transport? Renovated?
+    - Under 6 words
+      - A catchy and memorable phrase that captures their attention. e.g. "Wubbalubbadubdub", "And that's the wayyyyyy the news goes!"
+        - AIDS!
+        - And that's why I always say, 'Shumshumschilpiddydah!
+        - GRASSSSS... tastes bad
+    - Don't repeat what they already know
+      - They can already see the suburb, number of bedrooms and type of property so don't say ‘4 bedroom house'.
+    - Headline Examples
+      - North-facing and newly renovated
+      - Transport and amenities at your door
+      - Extra spacious open plan living
+    - Bullet points vs Paragraph of text
+      - Both work great together. Paragraphs help set the scene and build emotion. While bullet points are a great way to list specific features your potential tenants can check off.
+      - 100 words is enough
+        - Not a hard fast rule. You want to provide just enough information to make it worth an inspection.
+      - Call to action
+        - Give them a reason to take action. Here's an example: This house has always leased in a few days so get in quick before it's gone.
+- Description
+- Photos
+- Floorplans
+- Protection - helps you get setup with the right insurances and compliance. Select the protection you are interested in finding out more about.
+  - Landlord Insurance
+  - Building Insurance
+  - Smoke alarm policy
 
 ## Rental Appraisal
 

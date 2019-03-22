@@ -16,6 +16,11 @@ export default class index extends Component {
               <p>lastName: {lastName}</p>
               <p>email: {email}</p>
               <p>phone: {phone}</p>
+              <h1>License</h1>
+              <p>
+                License can be a form of identification when applying to lease a
+                property
+              </p>
             </div>
           )
         }}
