@@ -6,8 +6,9 @@ FUCK UP WITH ALL THESE ROOKIES, SOUND LIKE A BUNCH OF PUSSIES TO ME, FUCK EM, FU
 
 - ^ Like that just like that
 - The motherfucking best yet, sorry for cussing
-
-To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
+- I dont who care at the top of the stairs, I am stepping up
+  - deep down in the dirt there lies us
+    To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
 
 ## Features
 
@@ -661,7 +662,69 @@ mutation uploadFiles($files:[Upload!]!) {
 - Protection - helps you get setup with the right insurances and compliance. Select the protection you are interested in finding out more about.
   - Landlord Insurance
   - Building Insurance
-  - Smoke alarm policy
+  - Smoke alarm compliance
+    - {COMPANY_NAME} can help owners get and keep smoke alarm compliant without lifting a finger that may save your tenants life.
+  - Keep your home pest free
+    - The easiest way to avoid dealing with pest issues is to be proactive. Get a pre tenant inspection done and you will find the majority of pest issues become a tenant responsibility. (except possums, termites, bees etc). You will be advised if any treatment is required.
+  - Home Emergency Policy
+    - Get covered for a range of Home Emergency call outs 24-7, 365 days/year. It's like roadside assistance, except for your home. Plans to suit different budgets offering between 2-8 call-outs per year, up to \$300 toward each call-out.
+
+MONEY STUFF
+
+- Weekly Rent amount (300)
+  - LOL at cubi calulations/math
+  - 300 \* 52 = 15600
+  - 1200 \* 12
+  - Pr5obs more going on here than my initial lol
+  - obviously reserach this heavily
+- Frequency of rent payments
+  - weekly (\$300.00)
+  - fortnighlty (\$600.00)
+  - Four weekly (\$1200.00)
+  - Monthly (\$1303.57)
+
+Frequency of rent payments HELP
+
+- What does this mean?
+  - How often rent is paid. Your property will be advertised at the weekly rent regardless of which option you choose.
+- What is normal?
+  - Fortnightly. This is also the maximum allowed in NSW.
+- Can this be changed?
+  - Yes, anytime. You can change this when you secure your new tenant.
+- What is a bond?
+  - Money paid by the tenant before they move in and held by the bond authority. After the tenant moves out you can claim money from the bond if money is owing (for cleaning, rent, or damages etc).
+- How much can I charge?
+  - The standard is 4 weeks' rent in NSW. This is also the maximum amount you can charge regardless of the situation (pets, furnished or you increase the rent).
+- Can I change this later?
+  - Yes. In fact we recommend leaving the bond amount as per default for now. The bond can be changed anytime up until the lease is signed.
+- What's my place worth?
+  - Renters determine value by comparing each property on the market for rent. So you should do the same. If you have a few weeks before the property is vacant you might set the rent the same or a little higher (and vice versa).
+- Can I change it later?
+  - Yes, you can change the rent amount at anytime while advertising. You can also accept any price (higher or lower) than your listed price.
+- What if I price it too low?
+  - You will probably get offers to pay a higher rent. If you have more than 3 quality potential tenants wanting to rent your property (without higher offers) at once you could ask if they would like to offer more.
+- What if I price it too high?
+  - You should still get some enquiries but from people who are desperate. You're much better off waiting a week for a quality tenant.
+- IMPORTANT: what date is your property available for someone to move in
+  - My tenants are still in the property
+    - We recommend leaving at least 2 days between the move out date and available date so the condition report and any left over cleaning or repairs can be done.
+  - What if I don't know yet?
+    - Be conservative and give yourself a buffer. In the description you could mention a ‘Potentially earlier move in date' but set realistic expectations here.
+  - What if the date is in the past?
+    - pfft give me some respect... It will show as ‘Available Now'.
+  - How long would you like the initial lease to be?
+    - default 12 months(recommended)
+    - What does this mean?
+      - Think of it like a contract period. You can keep renewing the lease (contract period) as many times as you like. Don't mistake this with how long you want the tenants to be in your property.
+    - Can I change this?
+      - Yes, anytime, except after you've signed the lease! You can change this when you secure your new tenant.
+    - What's normal?
+      - 12 months but don't let that stop you. If you're after long term tenants feel free to put down 24 months (or even longer). There is no minimum. The maximum is 5 years. Some areas allow longer leases so talk to us for specific advice on this.
+    - Where is this displayed?
+      - TRON QUESTION: why is this the case? seems annoying and like a click bait to me. remove it shouldnt be part of our reasoning or thinking. i.e show it always
+      - Only when the tenant requests to rent your property. It is not listed on your advertisement.
+    - What happens when the lease is over?
+      - It automatically rolls over to a month to month lease until one of you give notice. We'll ask if you want to renew the lease well and truly before this anyway.
 
 ## Rental Appraisal
 
@@ -690,3 +753,8 @@ mutation uploadFiles($files:[Upload!]!) {
 ## Inspections
 
 ## address breakdown in unplanned situations
+
+###### FInal Notes
+
+- Sticking to the script,
+- while yall have been skipping scenes
