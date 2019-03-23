@@ -2,13 +2,7 @@
 
 ## Mission
 
-FUCK UP WITH ALL THESE ROOKIES, SOUND LIKE A BUNCH OF PUSSIES TO ME, FUCK EM, FUCK EM GOOD, FUCK EM LONG, FUCK EM HARD, FUCK WHO?, FUCK EM ALL!
-
-- ^ Like that just like that
-- The motherfucking best yet, sorry for cussing
-- I dont who care at the top of the stairs, I am stepping up
-  - deep down in the dirt there lies us
-    To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
+To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
 
 ## Features
 
@@ -178,6 +172,10 @@ FUCK UP WITH ALL THESE ROOKIES, SOUND LIKE A BUNCH OF PUSSIES TO ME, FUCK EM, FU
   - sits on top of apollo server
   - imports our resolvers _(Queries and Mutations)_ and sets them up with our server
   - _note: you would need to import everything graphql yoga does to get a working grahql server_
+
+- he so crazy look at the little baby
+- you wil repect me
+- and no matter how far i go you will need to reflect me
 
 ## Backend scripts
 
