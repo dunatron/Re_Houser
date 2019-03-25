@@ -263,6 +263,51 @@ PORT=4444
 
 - `git subtree push --prefix client heroku-frontend master`
 
+#### NEW HEROKU DEPLOYMENT
+
+Notes:
+
+- heroku has tight integration with Prisma and both are just fantastic
+- Prisma has a nice gui to interface with your databases data
+
+Step 1: Deploy Prisma
+
+- using the GUI in prisma create a new server and fill in details:
+  - serverName: rehouser-production
+  - serverDescription: prod of rehouser
+  - create a new db on heroku
+  - create new server n heroku
+  - Now we need to deploy. We have environment variables so...
+    - We run this regular deploy command + a few flags
+    - `prisma deploy --env-file variables.env -n`
+      - Deploy to the existing server you created on prisma as the option
+        - name: rehouser-prod
+        - stage: prod
+      - And the deployment of prisma shall be done
+      - This will alter your pisma.yml file
+        - Move these variables to a prod-variables.env file or something like that
+        - Note dont forget the ws
+          - http:
+          - ws:
+
+Step 2: Deploy Yoga/Business logic server(To heroku)
+
+- Yoo need heroku
+  - globally `brew install heroku/brew/heroku`
+    - Note: this if for mac and versions may also differ. Brew is great. get brew
+  - Now you want to be at the root of the app. i.e its folers would be
+    - server
+    - client
+  - run `heroku apps:create rehouser-yoga-prod`
+  - You will then get a new git remote e.g
+    - https://git.heroku.com/rehouser-yoga-prod.git
+  - run `git remote add heroku-backend {GIt repo for new heroku}`
+    - git remote add prod-backend https://git.heroku.com/rehouser-yoga-prod.git
+- run `git subtree push --prefix server prod-backend master`
+  - Now let that deploy and it should be fine
+  - ....
+- 
+
 ToDo
 
 # Model
