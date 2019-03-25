@@ -306,7 +306,13 @@ Step 2: Deploy Yoga/Business logic server(To heroku)
 - run `git subtree push --prefix server prod-backend master`
   - Now let that deploy and it should be fine
   - ....
-- 
+
+Step 3: Deploy front end/client
+
+- heroku apps:create rehouser-next-prod
+  - Yu will then get agit reote `https://git.heroku.com/rehouser-next-prod.git`
+  - git remote add prod-frontend https://git.heroku.com/rehouser-next-prod.git
+-
 
 ToDo
 
