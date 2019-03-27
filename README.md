@@ -312,7 +312,10 @@ Step 3: Deploy front end/client
 - heroku apps:create rehouser-next-prod
   - Yu will then get agit reote `https://git.heroku.com/rehouser-next-prod.git`
   - git remote add prod-frontend https://git.heroku.com/rehouser-next-prod.git
--
+
+Step 4: add a real domain
+
+- git subtree push --prefix server heroku-backend master
 
 ToDo
 
