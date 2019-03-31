@@ -45,6 +45,9 @@ const Item = styled.div`
 `
 
 export default class ApplicationItem extends Component {
+  state = {
+    creatingDoc: false,
+  }
   _applyToRentalGroup = async applyToRentalGroup => {
     const res = applyToRentalGroup()
   }
@@ -56,6 +59,7 @@ export default class ApplicationItem extends Component {
     })
     const fileName = "preRentalDocument.docx"
     const theBuf = docyBuff.data.createPreRentalDocument.data
+    this.setState({ creatingDoc: false })
     await save(theBuf, fileName)
   }
   render() {
@@ -68,10 +72,15 @@ export default class ApplicationItem extends Component {
           return (
             <Item>
               <div>Application {index + 1}</div>
+              {this.state.creatingDoc && (
+                <div>Generating your application please wait</div>
+              )}
               <button
-                onClick={() =>
+                disabled={this.state.creatingDoc}
+                onClick={() => {
+                  this.setState({ creatingDoc: true })
                   this._createPreRentalDocument(createPreRentalDocument)
-                }>
+                }}>
                 ADVANCE!!!
               </button>
               <div>{application.stage}</div>
