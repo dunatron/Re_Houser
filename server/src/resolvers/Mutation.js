@@ -5,6 +5,10 @@ const { promisify } = require("util")
 const { transport, makeANiceEmail } = require("../lib/mail")
 const { hasPermission } = require("../lib/utils")
 const { processUpload, deleteFile } = require("../lib/fileApi")
+const { convertDocument } = require("../lib/DocGenerator")
+var fs = require("fs"),
+  path = require("path"),
+  filePath = path.join(__dirname, "../lib/documents/test.docx")
 
 const mutations = {
   async signup(parent, args, ctx, info) {
@@ -323,12 +327,35 @@ const mutations = {
       info
     )
   },
-  async createPreRentalDocument(parent, { rentalGroupApplicantId }, ctx, info) {
-    const application = await ctx.db.query.createRentalGroupApplicant({
-      where: { id: rentalGroupApplicantId },
+  async createPreRentalDocument(
+    parent,
+    { rentalGroupApplicantId, file },
+    ctx,
+    info
+  ) {
+    const user = await ctx.db.query.user({
+      where: {
+        id: ctx.request.userId,
+      },
     })
-    console.log("application => ", application)
-    return application
+    const uploadedTemplateData = {
+      test: "I am test data for the document",
+      userId: ctx.request.userId,
+      userFirstName: user.firstName,
+      userLastName: user.lastName,
+      userEmail: user.email,
+    }
+
+    console.log("The user => ", user)
+    var myJSON = JSON.stringify(uploadedTemplateData)
+    var data = await fs.readFileSync(filePath)
+
+    var docyBuf = convertDocument(myJSON, data)
+    // fs.writeFileSync(
+    //   path.resolve(__dirname, "../lib/documents/docy-document.docx"),
+    //   buf
+    // )
+    return docyBuf
   },
 }
 

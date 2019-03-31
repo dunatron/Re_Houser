@@ -38,7 +38,7 @@ type Mutation {
   applyToRentalGroup(
     data: RentalGroupApplicantCreateInput!
   ): RentalGroupApplicant!
-  createPreRentalDocument(rentalGroupApplicantId: ID!): RentalGroupApplicant!
+  createPreRentalDocument(rentalGroupApplicantId: ID!): Json!
 }
 
 type Query {

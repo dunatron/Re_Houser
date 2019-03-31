@@ -9,14 +9,21 @@ import Tooltip from "@material-ui/core/Tooltip"
 import PersonIcon from "@material-ui/icons/Person"
 import PersonAddIcon from "@material-ui/icons/PersonAdd"
 // Mutations
-import { APPLY_TO_RENTAL_GROUP_APPLICATION } from "../../mutation/index"
+import {
+  APPLY_TO_RENTAL_GROUP_APPLICATION,
+  CREATE_PRE_RENTAL_DOCUMENT_MUTATION,
+} from "../../mutation/index"
 import ApplyToGroup from "./ApplyToGroup"
 import User from "../User/index"
+import { save } from "save-file"
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
   applyToRentalGroup: ({ render }) => (
     <Mutation mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}>{render}</Mutation>
+  ),
+  createPreRentalDocument: ({ render }) => (
+    <Mutation mutation={CREATE_PRE_RENTAL_DOCUMENT_MUTATION}>{render}</Mutation>
   ),
 })
 
@@ -41,16 +48,32 @@ export default class ApplicationItem extends Component {
   _applyToRentalGroup = async applyToRentalGroup => {
     const res = applyToRentalGroup()
   }
+  _createPreRentalDocument = async createPreRentalDocument => {
+    const docyBuff = await createPreRentalDocument({
+      variables: {
+        id: 1,
+      },
+    })
+    const fileName = "preRentalDocument.docx"
+    const theBuf = docyBuff.data.createPreRentalDocument.data
+    await save(theBuf, fileName)
+  }
   render() {
     const { application, index } = this.props
     console.log("application => ", application)
     return (
       <Composed>
-        {({ applyToRentalGroup, user }) => {
+        {({ applyToRentalGroup, user, createPreRentalDocument }) => {
           const me = user.data.me
           return (
             <Item>
               <div>Application {index + 1}</div>
+              <button
+                onClick={() =>
+                  this._createPreRentalDocument(createPreRentalDocument)
+                }>
+                ADVANCE!!!
+              </button>
               <div>{application.stage}</div>
               {application.applicants &&
                 application.applicants.map((applicant, idx) => {
@@ -85,6 +108,8 @@ export default class ApplicationItem extends Component {
                     </div>
                   )
                 : ""}
+
+              <div>Advance Application</div>
 
               <hr />
             </Item>

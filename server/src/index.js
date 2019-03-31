@@ -3,10 +3,13 @@ const jwt = require("jsonwebtoken")
 //deplioy
 
 require("dotenv").config({ path: "./variables.env" })
-
+const { convertDocument } = require("./lib/DocGenerator")
 const createServer = require("./createServer")
 const db = require("./db")
+
 const server = createServer()
+var path = require("path")
+var fs = require("fs")
 
 const expressLogger = function(req, res, next) {
   console.log("express endpoint called")
@@ -45,6 +48,19 @@ server.get("/tron-search", function(req, res) {
   var foo = require("../cronjob-files/pages.json")
   res.send(foo)
 })
+
+server.get("/docy", async function(req, res) {
+  const uploadedTemplateData = {
+    test: "I am test data for the document",
+  }
+  filePath = path.join(__dirname, "./lib/documents/test.docx")
+  var myJSON = JSON.stringify(uploadedTemplateData)
+  var data = await fs.readFileSync(filePath)
+  var docyBuf = convertDocument(myJSON, data)
+  res.status(200).send(docyBuf)
+})
+
+// document generator
 
 server.start(
   {
