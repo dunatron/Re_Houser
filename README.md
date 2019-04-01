@@ -578,6 +578,17 @@ mutation applyToRentalGroup($data:RentalGroupApplicantCreateInput!) {
 }
 ```
 
+#### updateUser
+
+```js
+mutation updateUser($data:UserUpdateInput! $photoFile:Upload) {
+  updateUser(data:$data, photoFile:$photoFile) {
+    id
+    email
+  }
+}
+```
+
 #### bulk upload files
 
 ```js
@@ -585,6 +596,12 @@ mutation uploadFiles($files:[Upload!]!) {
   uploadFiles(files:$files) {
     id
     filename
+  }
+}
+// variables
+{
+  "data": {
+    "email": "heath.dunlop.hd@gmail.com"
   }
 }
 ```

@@ -357,6 +357,14 @@ const mutations = {
     // )
     return docyBuf
   },
+  async updateUser(parent, { data }, ctx, info) {
+    console.log("data => ", data)
+    const updatedUser = await ctx.db.mutation.updateUser(
+      { data: data, where: { id: ctx.request.userId } },
+      info
+    )
+    return updatedUser
+  },
 }
 
 module.exports = mutations

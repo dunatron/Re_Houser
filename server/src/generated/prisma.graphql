@@ -1,5 +1,5 @@
-# source: https://houser-production-9af0d78ed1.herokuapp.com/houser-prod-api/prod
-# timestamp: Thu Mar 21 2019 17:58:50 GMT+1300 (New Zealand Daylight Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Mon Apr 01 2019 20:18:25 GMT+1300 (New Zealand Daylight Time)
 
 type AggregateFile {
   count: Int!
@@ -56,6 +56,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -380,9 +381,7 @@ input FileSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [FileSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -426,6 +425,7 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
+  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -828,6 +828,7 @@ type PropertyConnection {
 }
 
 input PropertyCreateInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -857,6 +858,7 @@ input PropertyCreateOneWithoutRentalApplicationsInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -870,6 +872,7 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -883,6 +886,7 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -1160,9 +1164,7 @@ input PropertySubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [PropertySubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -1219,6 +1221,7 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -1230,6 +1233,7 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -1579,6 +1583,7 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   owner: UserCreateOneInput!
@@ -1597,6 +1602,7 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   owner: UserCreateOneInput!
@@ -1604,6 +1610,7 @@ input RentalApplicationCreateWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   owner: UserCreateOneInput!
@@ -1756,9 +1763,7 @@ input RentalApplicationSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [RentalApplicationSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -1799,6 +1804,7 @@ input RentalApplicationUpdateManyMutationInput {
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
+  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -1980,6 +1986,7 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
+  id: ID
   approved: Boolean!
   user: UserCreateOneInput!
   application: RentalApplicationCreateOneWithoutApplicantsInput
@@ -1992,6 +1999,7 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
+  id: ID
   approved: Boolean!
   user: UserCreateOneInput!
   preTenancyApplicationForm: FileCreateOneInput
@@ -2094,9 +2102,7 @@ input RentalGroupApplicantSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [RentalGroupApplicantSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -2134,6 +2140,7 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
+  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -2246,6 +2253,17 @@ type User implements Node {
   permissions: [Permission!]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
   createdProperties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
+  photoIdentification: File
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
 }
 
 """A connection to a list of items."""
@@ -2259,6 +2277,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2266,9 +2285,20 @@ input UserCreateInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserCreatepermissionsInput
   properties: PropertyCreateManyWithoutOwnersInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
 }
 
 input UserCreateManyWithoutPropertiesInput {
@@ -2291,6 +2321,7 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2298,11 +2329,23 @@ input UserCreateWithoutCreatedPropertiesInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserCreatepermissionsInput
   properties: PropertyCreateManyWithoutOwnersInput
+  photoIdentification: FileCreateOneInput
 }
 
 input UserCreateWithoutPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2310,8 +2353,19 @@ input UserCreateWithoutPropertiesInput {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserCreatepermissionsInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
 }
 
 """An edge in a connection."""
@@ -2340,6 +2394,26 @@ enum UserOrderByInput {
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
+  identificationNumber_ASC
+  identificationNumber_DESC
+  emergencyContactName_ASC
+  emergencyContactName_DESC
+  emergencyContactNumber_ASC
+  emergencyContactNumber_DESC
+  emergencyContactEmail_ASC
+  emergencyContactEmail_DESC
+  referee1Name_ASC
+  referee1Name_DESC
+  referee1Phone_ASC
+  referee1Phone_DESC
+  referee1Email_ASC
+  referee1Email_DESC
+  referee2Name_ASC
+  referee2Name_DESC
+  referee2Phone_ASC
+  referee2Phone_DESC
+  referee2Email_ASC
+  referee2Email_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2356,6 +2430,16 @@ type UserPreviousValues {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
 }
 
 input UserScalarWhereInput {
@@ -2669,6 +2753,406 @@ input UserScalarWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  identificationNumber: String
+
+  """All values that are not equal to given value."""
+  identificationNumber_not: String
+
+  """All values that are contained in given list."""
+  identificationNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  identificationNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  identificationNumber_lt: String
+
+  """All values less than or equal the given value."""
+  identificationNumber_lte: String
+
+  """All values greater than the given value."""
+  identificationNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  identificationNumber_gte: String
+
+  """All values containing the given string."""
+  identificationNumber_contains: String
+
+  """All values not containing the given string."""
+  identificationNumber_not_contains: String
+
+  """All values starting with the given string."""
+  identificationNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  identificationNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  identificationNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  identificationNumber_not_ends_with: String
+  emergencyContactName: String
+
+  """All values that are not equal to given value."""
+  emergencyContactName_not: String
+
+  """All values that are contained in given list."""
+  emergencyContactName_in: [String!]
+
+  """All values that are not contained in given list."""
+  emergencyContactName_not_in: [String!]
+
+  """All values less than the given value."""
+  emergencyContactName_lt: String
+
+  """All values less than or equal the given value."""
+  emergencyContactName_lte: String
+
+  """All values greater than the given value."""
+  emergencyContactName_gt: String
+
+  """All values greater than or equal the given value."""
+  emergencyContactName_gte: String
+
+  """All values containing the given string."""
+  emergencyContactName_contains: String
+
+  """All values not containing the given string."""
+  emergencyContactName_not_contains: String
+
+  """All values starting with the given string."""
+  emergencyContactName_starts_with: String
+
+  """All values not starting with the given string."""
+  emergencyContactName_not_starts_with: String
+
+  """All values ending with the given string."""
+  emergencyContactName_ends_with: String
+
+  """All values not ending with the given string."""
+  emergencyContactName_not_ends_with: String
+  emergencyContactNumber: String
+
+  """All values that are not equal to given value."""
+  emergencyContactNumber_not: String
+
+  """All values that are contained in given list."""
+  emergencyContactNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  emergencyContactNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  emergencyContactNumber_lt: String
+
+  """All values less than or equal the given value."""
+  emergencyContactNumber_lte: String
+
+  """All values greater than the given value."""
+  emergencyContactNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  emergencyContactNumber_gte: String
+
+  """All values containing the given string."""
+  emergencyContactNumber_contains: String
+
+  """All values not containing the given string."""
+  emergencyContactNumber_not_contains: String
+
+  """All values starting with the given string."""
+  emergencyContactNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  emergencyContactNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  emergencyContactNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  emergencyContactNumber_not_ends_with: String
+  emergencyContactEmail: String
+
+  """All values that are not equal to given value."""
+  emergencyContactEmail_not: String
+
+  """All values that are contained in given list."""
+  emergencyContactEmail_in: [String!]
+
+  """All values that are not contained in given list."""
+  emergencyContactEmail_not_in: [String!]
+
+  """All values less than the given value."""
+  emergencyContactEmail_lt: String
+
+  """All values less than or equal the given value."""
+  emergencyContactEmail_lte: String
+
+  """All values greater than the given value."""
+  emergencyContactEmail_gt: String
+
+  """All values greater than or equal the given value."""
+  emergencyContactEmail_gte: String
+
+  """All values containing the given string."""
+  emergencyContactEmail_contains: String
+
+  """All values not containing the given string."""
+  emergencyContactEmail_not_contains: String
+
+  """All values starting with the given string."""
+  emergencyContactEmail_starts_with: String
+
+  """All values not starting with the given string."""
+  emergencyContactEmail_not_starts_with: String
+
+  """All values ending with the given string."""
+  emergencyContactEmail_ends_with: String
+
+  """All values not ending with the given string."""
+  emergencyContactEmail_not_ends_with: String
+  referee1Name: String
+
+  """All values that are not equal to given value."""
+  referee1Name_not: String
+
+  """All values that are contained in given list."""
+  referee1Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Name_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Name_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Name_lte: String
+
+  """All values greater than the given value."""
+  referee1Name_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Name_gte: String
+
+  """All values containing the given string."""
+  referee1Name_contains: String
+
+  """All values not containing the given string."""
+  referee1Name_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Name_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Name_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Name_not_ends_with: String
+  referee1Phone: String
+
+  """All values that are not equal to given value."""
+  referee1Phone_not: String
+
+  """All values that are contained in given list."""
+  referee1Phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Phone_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Phone_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Phone_lte: String
+
+  """All values greater than the given value."""
+  referee1Phone_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Phone_gte: String
+
+  """All values containing the given string."""
+  referee1Phone_contains: String
+
+  """All values not containing the given string."""
+  referee1Phone_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Phone_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Phone_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Phone_not_ends_with: String
+  referee1Email: String
+
+  """All values that are not equal to given value."""
+  referee1Email_not: String
+
+  """All values that are contained in given list."""
+  referee1Email_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Email_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Email_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Email_lte: String
+
+  """All values greater than the given value."""
+  referee1Email_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Email_gte: String
+
+  """All values containing the given string."""
+  referee1Email_contains: String
+
+  """All values not containing the given string."""
+  referee1Email_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Email_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Email_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Email_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Email_not_ends_with: String
+  referee2Name: String
+
+  """All values that are not equal to given value."""
+  referee2Name_not: String
+
+  """All values that are contained in given list."""
+  referee2Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Name_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Name_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Name_lte: String
+
+  """All values greater than the given value."""
+  referee2Name_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Name_gte: String
+
+  """All values containing the given string."""
+  referee2Name_contains: String
+
+  """All values not containing the given string."""
+  referee2Name_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Name_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Name_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Name_not_ends_with: String
+  referee2Phone: String
+
+  """All values that are not equal to given value."""
+  referee2Phone_not: String
+
+  """All values that are contained in given list."""
+  referee2Phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Phone_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Phone_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Phone_lte: String
+
+  """All values greater than the given value."""
+  referee2Phone_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Phone_gte: String
+
+  """All values containing the given string."""
+  referee2Phone_contains: String
+
+  """All values not containing the given string."""
+  referee2Phone_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Phone_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Phone_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Phone_not_ends_with: String
+  referee2Email: String
+
+  """All values that are not equal to given value."""
+  referee2Email_not: String
+
+  """All values that are contained in given list."""
+  referee2Email_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Email_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Email_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Email_lte: String
+
+  """All values greater than the given value."""
+  referee2Email_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Email_gte: String
+
+  """All values containing the given string."""
+  referee2Email_contains: String
+
+  """All values not containing the given string."""
+  referee2Email_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Email_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Email_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Email_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Email_not_ends_with: String
 }
 
 type UserSubscriptionPayload {
@@ -2688,9 +3172,7 @@ input UserSubscriptionWhereInput {
   """Logical NOT on all given filters combined by AND."""
   NOT: [UserSubscriptionWhereInput!]
 
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
+  """The subscription event gets dispatched when it's listed in mutation_in"""
   mutation_in: [MutationType!]
 
   """
@@ -2718,9 +3200,20 @@ input UserUpdateDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
 }
 
 input UserUpdateInput {
@@ -2731,9 +3224,20 @@ input UserUpdateInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
 }
 
 input UserUpdateManyDataInput {
@@ -2744,6 +3248,16 @@ input UserUpdateManyDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -2755,12 +3269,23 @@ input UserUpdateManyMutationInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserUpdatepermissionsInput
 }
 
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]
@@ -2800,8 +3325,19 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
+  photoIdentification: FileUpdateOneInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -2812,8 +3348,19 @@ input UserUpdateWithoutPropertiesDataInput {
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
   permissions: UserUpdatepermissionsInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
 }
 
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
@@ -3148,12 +3695,413 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  identificationNumber: String
+
+  """All values that are not equal to given value."""
+  identificationNumber_not: String
+
+  """All values that are contained in given list."""
+  identificationNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  identificationNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  identificationNumber_lt: String
+
+  """All values less than or equal the given value."""
+  identificationNumber_lte: String
+
+  """All values greater than the given value."""
+  identificationNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  identificationNumber_gte: String
+
+  """All values containing the given string."""
+  identificationNumber_contains: String
+
+  """All values not containing the given string."""
+  identificationNumber_not_contains: String
+
+  """All values starting with the given string."""
+  identificationNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  identificationNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  identificationNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  identificationNumber_not_ends_with: String
+  emergencyContactName: String
+
+  """All values that are not equal to given value."""
+  emergencyContactName_not: String
+
+  """All values that are contained in given list."""
+  emergencyContactName_in: [String!]
+
+  """All values that are not contained in given list."""
+  emergencyContactName_not_in: [String!]
+
+  """All values less than the given value."""
+  emergencyContactName_lt: String
+
+  """All values less than or equal the given value."""
+  emergencyContactName_lte: String
+
+  """All values greater than the given value."""
+  emergencyContactName_gt: String
+
+  """All values greater than or equal the given value."""
+  emergencyContactName_gte: String
+
+  """All values containing the given string."""
+  emergencyContactName_contains: String
+
+  """All values not containing the given string."""
+  emergencyContactName_not_contains: String
+
+  """All values starting with the given string."""
+  emergencyContactName_starts_with: String
+
+  """All values not starting with the given string."""
+  emergencyContactName_not_starts_with: String
+
+  """All values ending with the given string."""
+  emergencyContactName_ends_with: String
+
+  """All values not ending with the given string."""
+  emergencyContactName_not_ends_with: String
+  emergencyContactNumber: String
+
+  """All values that are not equal to given value."""
+  emergencyContactNumber_not: String
+
+  """All values that are contained in given list."""
+  emergencyContactNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  emergencyContactNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  emergencyContactNumber_lt: String
+
+  """All values less than or equal the given value."""
+  emergencyContactNumber_lte: String
+
+  """All values greater than the given value."""
+  emergencyContactNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  emergencyContactNumber_gte: String
+
+  """All values containing the given string."""
+  emergencyContactNumber_contains: String
+
+  """All values not containing the given string."""
+  emergencyContactNumber_not_contains: String
+
+  """All values starting with the given string."""
+  emergencyContactNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  emergencyContactNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  emergencyContactNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  emergencyContactNumber_not_ends_with: String
+  emergencyContactEmail: String
+
+  """All values that are not equal to given value."""
+  emergencyContactEmail_not: String
+
+  """All values that are contained in given list."""
+  emergencyContactEmail_in: [String!]
+
+  """All values that are not contained in given list."""
+  emergencyContactEmail_not_in: [String!]
+
+  """All values less than the given value."""
+  emergencyContactEmail_lt: String
+
+  """All values less than or equal the given value."""
+  emergencyContactEmail_lte: String
+
+  """All values greater than the given value."""
+  emergencyContactEmail_gt: String
+
+  """All values greater than or equal the given value."""
+  emergencyContactEmail_gte: String
+
+  """All values containing the given string."""
+  emergencyContactEmail_contains: String
+
+  """All values not containing the given string."""
+  emergencyContactEmail_not_contains: String
+
+  """All values starting with the given string."""
+  emergencyContactEmail_starts_with: String
+
+  """All values not starting with the given string."""
+  emergencyContactEmail_not_starts_with: String
+
+  """All values ending with the given string."""
+  emergencyContactEmail_ends_with: String
+
+  """All values not ending with the given string."""
+  emergencyContactEmail_not_ends_with: String
+  referee1Name: String
+
+  """All values that are not equal to given value."""
+  referee1Name_not: String
+
+  """All values that are contained in given list."""
+  referee1Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Name_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Name_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Name_lte: String
+
+  """All values greater than the given value."""
+  referee1Name_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Name_gte: String
+
+  """All values containing the given string."""
+  referee1Name_contains: String
+
+  """All values not containing the given string."""
+  referee1Name_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Name_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Name_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Name_not_ends_with: String
+  referee1Phone: String
+
+  """All values that are not equal to given value."""
+  referee1Phone_not: String
+
+  """All values that are contained in given list."""
+  referee1Phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Phone_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Phone_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Phone_lte: String
+
+  """All values greater than the given value."""
+  referee1Phone_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Phone_gte: String
+
+  """All values containing the given string."""
+  referee1Phone_contains: String
+
+  """All values not containing the given string."""
+  referee1Phone_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Phone_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Phone_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Phone_not_ends_with: String
+  referee1Email: String
+
+  """All values that are not equal to given value."""
+  referee1Email_not: String
+
+  """All values that are contained in given list."""
+  referee1Email_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Email_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Email_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Email_lte: String
+
+  """All values greater than the given value."""
+  referee1Email_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Email_gte: String
+
+  """All values containing the given string."""
+  referee1Email_contains: String
+
+  """All values not containing the given string."""
+  referee1Email_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Email_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Email_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Email_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Email_not_ends_with: String
+  referee2Name: String
+
+  """All values that are not equal to given value."""
+  referee2Name_not: String
+
+  """All values that are contained in given list."""
+  referee2Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Name_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Name_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Name_lte: String
+
+  """All values greater than the given value."""
+  referee2Name_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Name_gte: String
+
+  """All values containing the given string."""
+  referee2Name_contains: String
+
+  """All values not containing the given string."""
+  referee2Name_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Name_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Name_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Name_not_ends_with: String
+  referee2Phone: String
+
+  """All values that are not equal to given value."""
+  referee2Phone_not: String
+
+  """All values that are contained in given list."""
+  referee2Phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Phone_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Phone_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Phone_lte: String
+
+  """All values greater than the given value."""
+  referee2Phone_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Phone_gte: String
+
+  """All values containing the given string."""
+  referee2Phone_contains: String
+
+  """All values not containing the given string."""
+  referee2Phone_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Phone_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Phone_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Phone_not_ends_with: String
+  referee2Email: String
+
+  """All values that are not equal to given value."""
+  referee2Email_not: String
+
+  """All values that are contained in given list."""
+  referee2Email_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Email_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Email_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Email_lte: String
+
+  """All values greater than the given value."""
+  referee2Email_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Email_gte: String
+
+  """All values containing the given string."""
+  referee2Email_contains: String
+
+  """All values not containing the given string."""
+  referee2Email_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Email_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Email_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Email_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Email_not_ends_with: String
   properties_every: PropertyWhereInput
   properties_some: PropertyWhereInput
   properties_none: PropertyWhereInput
   createdProperties_every: PropertyWhereInput
   createdProperties_some: PropertyWhereInput
   createdProperties_none: PropertyWhereInput
+  photoIdentification: FileWhereInput
 }
 
 input UserWhereUniqueInput {

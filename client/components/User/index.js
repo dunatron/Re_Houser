@@ -11,6 +11,24 @@ const CURRENT_USER_QUERY = gql`
       lastName
       phone
       permissions
+      photoIdentification {
+        createdAt
+        updatedAt
+        filename
+        mimetype
+        encoding
+        url
+      }
+      identificationNumber
+      emergencyContactName
+      emergencyContactNumber
+      emergencyContactEmail
+      referee1Name
+      referee1Phone
+      referee1Email
+      referee2Name
+      referee2Phone
+      referee2Email
     }
   }
 `

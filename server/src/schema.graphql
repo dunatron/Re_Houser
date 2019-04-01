@@ -39,6 +39,7 @@ type Mutation {
     data: RentalGroupApplicantCreateInput!
   ): RentalGroupApplicant!
   createPreRentalDocument(rentalGroupApplicantId: ID!): Json!
+  updateUser(data: UserUpdateInput!, photoFile: Upload): User!
 }
 
 type Query {
@@ -60,4 +61,17 @@ type User {
   phone: String!
   email: String!
   permissions: [Permission!]!
+  properties: [Property!]!
+  createdProperties: [Property!]!
+  photoIdentification: File
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
 }

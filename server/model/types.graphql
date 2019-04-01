@@ -10,6 +10,17 @@ type User {
   permissions: [Permission]
   properties: [Property!]! @relation(name: "PropertyOwner")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
+  photoIdentification: File
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
 }
 
 type File {
