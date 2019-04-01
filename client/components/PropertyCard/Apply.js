@@ -44,24 +44,24 @@ export default class Apply extends Component {
   }
   _variables = () => {}
   update = (cache, payload) => {
-    const { id } = this.props.property
-    const variables = {
-      where: {
-        property: {
-          id: id,
-        },
-      },
-    }
-    const data = cache.readQuery({
-      query: RENTAL_APPLICATIONS_QUERY,
-      variables: variables,
-    })
-    data.rentalApplications.push({ ...payload.data.createRentalApplication })
-    cache.writeQuery({
-      query: RENTAL_APPLICATIONS_QUERY,
-      data,
-      variables: variables,
-    })
+    // const { id } = this.props.property
+    // const variables = {
+    //   where: {
+    //     property: {
+    //       id: id,
+    //     },
+    //   },
+    // }
+    // const data = cache.readQuery({
+    //   query: RENTAL_APPLICATIONS_QUERY,
+    //   variables: variables,
+    // })
+    // data.rentalApplications.push({ ...payload.data.createRentalApplication })
+    // cache.writeQuery({
+    //   query: RENTAL_APPLICATIONS_QUERY,
+    //   data,
+    //   variables: variables,
+    // })
   }
   render() {
     const { id } = this.props.property
@@ -74,6 +74,10 @@ export default class Apply extends Component {
             <div>
               <Mutation
                 mutation={CREATE_RENTAL_APPLICATION}
+                // refetchQueries={[
+                //   { query: PROPERTIES_QUERY },
+                //   { query: OWNER_PROPERTIES_QUERY },
+                // ]}
                 // variables={this._variables()}
                 update={this.update}>
                 {(createRentalApplication, { error }) => (
