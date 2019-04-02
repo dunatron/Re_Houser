@@ -87,7 +87,9 @@ import Snackbar from "@material-ui/core/Snackbar"
 import SnackbarContent from "@material-ui/core/SnackbarContent"
 import WarningIcon from "@material-ui/icons/Warning"
 import { withStyles } from "@material-ui/core/styles"
+
 let openSnackbarFn
+let closeSnackBarFn
 
 const variantIcon = {
   success: CheckCircleIcon,
@@ -95,6 +97,11 @@ const variantIcon = {
   error: ErrorIcon,
   info: InfoIcon,
 }
+const action = (
+  <Button color="secondary" size="small">
+    lorem ipsum dolorem
+  </Button>
+)
 
 const styles1 = theme => ({
   success: {
@@ -123,8 +130,18 @@ const styles1 = theme => ({
 })
 
 function MySnackbarContent(props) {
-  const { classes, className, message, onClose, variant, ...other } = props
+  const {
+    classes,
+    className,
+    message,
+    onClose,
+    variant,
+    actions,
+    ...other
+  } = props
   const Icon = variantIcon[variant]
+
+  console.log("ACTIONS IN MY SNACBAR => ", actions)
 
   return (
     <SnackbarContent
@@ -137,6 +154,7 @@ function MySnackbarContent(props) {
         </span>
       }
       action={[
+        actions,
         <IconButton
           key="close"
           aria-label="Close"
@@ -170,20 +188,23 @@ const styles2 = theme => ({
 class Notifier extends React.Component {
   componentDidMount() {
     openSnackbarFn = this.openSnackbar
+    closeSnackBarFn = this.closeSnackbar
   }
   // 2. define a function to open Snackbar and show a message
-  openSnackbar = ({ message, duration }) => {
-    this.setState({
-      open: true,
-      message,
-      duration,
-    })
-  }
+  // openSnackbar = ({ message, duration, actions }) => {
+  //   this.setState({
+  //     open: true,
+  //     message,
+  //     duration,
+  //     actions,
+  //   })
+  // }
   state = {
     open: false,
     message: "",
     duration: 3000,
     type: "info",
+    actions: [],
   }
 
   handleClick = () => {
@@ -199,13 +220,20 @@ class Notifier extends React.Component {
   }
 
   // 2. define a function to open Snackbar and show a message
-  openSnackbar = ({ message, duration, type }) => {
+  openSnackbar = ({ message, duration, type, actions }) => {
     console.log("openSnackbar called type => ", type)
     this.setState({
       open: true,
       message,
       duration,
       type: type ? type : "info",
+      actions: actions ? actions : [],
+    })
+  }
+  closeSnackbar = () => {
+    this.setState({
+      open: false,
+      message: "",
     })
   }
   // 3. define a function to close Snackbar when a user clicks away
@@ -240,6 +268,7 @@ class Notifier extends React.Component {
             onClose={this.handleSnackbarClose}
             variant={this.state.type ? this.state.type : "warning"} // [success, warning, error, info]
             message={message}
+            actions={this.state.actions}
           />
         </Snackbar>
       </div>
@@ -251,8 +280,12 @@ Notifier.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export function openSnackbar({ message, duration = 3000, type }) {
-  openSnackbarFn({ message, duration, type })
+export function openSnackbar({ message, duration = 3000, type, actions = [] }) {
+  openSnackbarFn({ message, duration, type, actions })
+}
+
+export function closeSnackBar() {
+  closeSnackBarFn()
 }
 
 export default withStyles(styles2)(Notifier)

@@ -15,7 +15,8 @@ import {
 } from "../../mutation/index"
 import ApplyToGroup from "./ApplyToGroup"
 import User from "../User/index"
-import { save } from "save-file"
+import { save } from "save-file" //432,310
+import { saveAs } from "file-saver" // more popular 432,310
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
@@ -57,10 +58,17 @@ export default class ApplicationItem extends Component {
         id: 1,
       },
     })
+
+    // file-saver
     const fileName = "preRentalDocument.docx"
     const theBuf = docyBuff.data.createPreRentalDocument.data
     this.setState({ creatingDoc: false })
     await save(theBuf, fileName)
+
+    // console.log("docyBuff ", docyBuff)
+
+    var file = new File(["Hello, world!"], "hello world.txt")
+    // saveAs(docyBuff, "test.docx")
   }
   render() {
     const { application, index } = this.props

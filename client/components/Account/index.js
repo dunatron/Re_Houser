@@ -7,11 +7,14 @@ import InputModal from "../Modal/InputModal"
 import { UPDATE_USER_MUTATION } from "../../mutation/index"
 import { CURRENT_USER_QUERY } from "../../query/index"
 // components
+import CompletionRating from "./CompletionRating"
 import TextInput from "../../styles/TextInput"
 import Error from "../ErrorMessage/index"
 import Button from "@material-ui/core/Button"
 import DoneIcon from "@material-ui/icons/Done"
 import ClearIcon from "@material-ui/icons/Clear"
+import blue from "@material-ui/core/colors/blue"
+import SvgIcon from "@material-ui/core/SvgIcon"
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
@@ -20,58 +23,71 @@ const Composed = adopt({
   ),
 })
 
-const config = [
+export const USER_PROFILE_CONF = [
   {
     label: "My Email",
     variableName: "email",
+    ratingVal: 10,
   },
   {
     label: "My First Name",
     variableName: "firstName",
+    ratingVal: 10,
   },
   {
     label: "My Last Name",
     variableName: "lastName",
+    ratingVal: 10,
   },
   {
     label: "My Phone",
     variableName: "phone",
+    ratingVal: 10,
   },
   {
     label: "Emergency Contact Name",
     variableName: "emergencyContactName",
+    ratingVal: 10,
   },
   {
     label: "Emergency Contact Number",
     variableName: "emergencyContactNumber",
+    ratingVal: 10,
   },
   {
     label: "Emergency Contact Email",
     variableName: "emergencyContactEmail",
+    ratingVal: 10,
   },
   {
     label: "Referee 1 Name",
     variableName: "referee1Name",
+    ratingVal: 10,
   },
   {
     label: "Referee 1 Phone",
     variableName: "referee1Phone",
+    ratingVal: 10,
   },
   {
     label: "Referee 1 Email",
     variableName: "referee1Email",
+    ratingVal: 10,
   },
   {
     label: "Referee 2 Name",
     variableName: "referee2Name",
+    ratingVal: 10,
   },
   {
     label: "Referee 2 Phone",
     variableName: "referee2Phone",
+    ratingVal: 10,
   },
   {
     label: "Referee 2 Email",
     variableName: "referee2Email",
+    ratingVal: 10,
   },
 ]
 export default class index extends Component {
@@ -153,6 +169,15 @@ export default class index extends Component {
     //   variables: variables,
     // })
   }
+  renderCompletedIcon = val => {
+    if (val === "" || val === null) {
+      return <ClearIcon color="secondary" />
+    }
+    if (val === undefined) {
+      return <ClearIcon color="secondary" />
+    }
+    return <DoneIcon color="primary" />
+  }
   render() {
     const { modalIsOpen } = this.state
     return (
@@ -162,10 +187,11 @@ export default class index extends Component {
           console.log("me => ", me)
           return (
             <div>
+              <CompletionRating me={me} />
               <InputModal open={modalIsOpen} close={() => this.closeModal()}>
                 {this.renderModalDetails()}
               </InputModal>
-              {config.map((conf, i) => {
+              {USER_PROFILE_CONF.map((conf, i) => {
                 return (
                   <div
                     style={{
@@ -173,11 +199,12 @@ export default class index extends Component {
                       alignItems: "center",
                       padding: "16px",
                     }}>
-                    {me[conf.variableName] !== null ? (
+                    {/* {me[conf.variableName] !== null ? (
                       <DoneIcon color="primary" />
                     ) : (
                       <ClearIcon color="secondary" />
-                    )}
+                    )} */}
+                    {this.renderCompletedIcon(me[conf.variableName])}
                     {conf.label}:{" "}
                     <span style={{ color: "green" }}>
                       {me[conf.variableName]}

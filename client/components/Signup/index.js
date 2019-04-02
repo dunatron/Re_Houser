@@ -4,10 +4,12 @@ import gql from "graphql-tag"
 import Form from "../../styles/Form"
 import Error from "../ErrorMessage/index"
 import { CURRENT_USER_QUERY } from "../User/index"
-import { openSnackbar } from "../Notifier/index"
+import { openSnackbar, closeSnackBar } from "../Notifier/index"
 import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
 import TextInput from "../../styles/TextInput"
+import Router from "next/router"
+import Button from "@material-ui/core/Button"
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -44,12 +46,31 @@ class Signup extends Component {
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
+  handleLink = (route = "/", query = {}) => {
+    console.log("THE QUERY => ", query)
+    Router.push({
+      pathname: route,
+      query: query,
+    })
+  }
   _signUp = async signup => {
     const res = await signup()
+    const accountBtn = (
+      <Button
+        color="secondary"
+        onClick={() => {
+          this.handleLink("/account")
+          closeSnackBar()
+        }}>
+        Update Profile
+      </Button>
+    )
     openSnackbar({
       message: `Welcome: ${res.data.signup.firstName} ${
         res.data.signup.lastName
-      }`,
+      } since this is your first time signing up we recomend filling out the rest of your profile to make applying easier later
+      `,
+      actions: [<div>{accountBtn}</div>],
       duration: 6000,
     })
     this.setState({

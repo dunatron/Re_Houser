@@ -405,18 +405,18 @@ const theme = {
     //   contrastText: "#ffffff",
     // },
     // Black on black below
-    primary: {
-      light: "#000",
-      main: "#000",
-      dark: "#000",
-      contrastText: "#ffffff",
-    },
-    secondary: {
-      light: "#000",
-      main: "#000",
-      dark: "#000",
-      contrastText: "#ffffff",
-    },
+    // primary: {
+    //   light: "#000",
+    //   main: "#000",
+    //   dark: "#000",
+    //   contrastText: "#ffffff",
+    // },
+    // secondary: {
+    //   light: "#000",
+    //   main: "#000",
+    //   dark: "#000",
+    //   contrastText: "#ffffff",
+    // },
     error: {
       light: "#e57373",
       main: "#f44336",
