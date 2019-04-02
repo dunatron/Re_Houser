@@ -21,6 +21,7 @@ function createClient({ headers }) {
 
   const client = new ApolloClient({
     // ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
+    // Endpoint deploy
     uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
     link: authLink.concat(
       createUploadLink({
