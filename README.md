@@ -317,6 +317,8 @@ Step 4: add a real domain
 
 - git subtree push --prefix server heroku-backend master
 
+ToDo: More notes on deployments
+
 ToDo
 
 # Model
