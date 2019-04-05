@@ -131,6 +131,7 @@ export default class index extends Component {
       <Composed>
         {({ user, updateUser }) => {
           const me = user.data.me
+          if (!me) return null
           return (
             <div>
               <CompletionRating me={me} />
