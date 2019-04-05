@@ -154,7 +154,6 @@ class OwnerProperties extends Component {
   }
 
   _OptimisticResponse = () => {
-    console.log("this.state => ", this.state)
     if (!this.state.updateData) return undefined
     return {
       __typename: "Mutation",
@@ -236,7 +235,6 @@ class OwnerProperties extends Component {
       duration: 6000,
       type: data.onTheMarket ? "info" : "success",
     })
-    console.log("THE UPDATE RESPONSE +> ", res)
   }
 
   updateCache = (cache, payload) => {
@@ -281,9 +279,7 @@ class OwnerProperties extends Component {
   }
 
   toggleOnTheMarket = dataObj => {
-    console.log("EMPTY THE CLIP => ", dataObj)
     const current = dataObj.onTheMarket
-    console.log("THE PROPS => ", this.props)
     this.props.updateProperty({
       variables: { id: dataObj.id, onTheMarket: !current },
     })

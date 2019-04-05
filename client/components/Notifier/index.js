@@ -141,8 +141,6 @@ function MySnackbarContent(props) {
   } = props
   const Icon = variantIcon[variant]
 
-  console.log("ACTIONS IN MY SNACBAR => ", actions)
-
   return (
     <SnackbarContent
       className={classNames(classes[variant], className)}
@@ -221,7 +219,6 @@ class Notifier extends React.Component {
 
   // 2. define a function to open Snackbar and show a message
   openSnackbar = ({ message, duration, type, actions }) => {
-    console.log("openSnackbar called type => ", type)
     this.setState({
       open: true,
       message,
@@ -253,7 +250,6 @@ class Notifier extends React.Component {
         dangerouslySetInnerHTML={{ __html: this.state.message }}
       />
     )
-    console.log("SNacbar state => ", this.state)
     return (
       <div>
         <Snackbar

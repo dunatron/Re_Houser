@@ -19,7 +19,6 @@ const Composed = adopt({
 export default class Apply extends Component {
   _apply = async createRentalApplication => {
     const res = await createRentalApplication()
-    console.log("res => ", res)
   }
   _createRentalApplication = async (createRentalApplication, me) => {
     const { id, rentalApplications } = this.props.property
@@ -40,7 +39,6 @@ export default class Apply extends Component {
         },
       },
     })
-    console.log("res => ", res)
   }
   _variables = () => {}
   update = (cache, payload) => {

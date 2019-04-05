@@ -64,6 +64,17 @@ export const USER_PROFILE_CONF = [
     variableName: "referee2Email",
     ratingVal: 10,
   },
+  {
+    label: "Photo URL",
+    variableName: "photoIdentification.url",
+    ratingVal: 30,
+    excludeFromDetails: true,
+  },
+  {
+    label: "Photo Identification Number",
+    variableName: "identificationNumber",
+    ratingVal: 30,
+  },
 ]
 
 // export { USER_PROFILE_CONF }

@@ -66,7 +66,6 @@ class PropertyCardComponent extends Component {
   render() {
     const { property } = this.props
     const { value } = this.state
-    console.log("The Property => ", property)
     const {
       id,
       rooms,

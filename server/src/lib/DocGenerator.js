@@ -111,7 +111,6 @@ var convertDocument = function(data, file) {
   if (docyBuf.error) {
     return docyBuf
   }
-  console.log("Te docy buff => ", docyBuf)
 
   // 5. return our docy buff
   return docyBuf

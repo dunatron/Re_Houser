@@ -59,7 +59,6 @@ export default class index extends Component {
       },
     })
     this.closeModal()
-    console.log("res => ", res)
   }
   closeModal() {
     this.setState({
@@ -132,7 +131,6 @@ export default class index extends Component {
       <Composed>
         {({ user, updateUser }) => {
           const me = user.data.me
-          console.log("me => ", me)
           return (
             <div>
               <CompletionRating me={me} />
@@ -150,7 +148,9 @@ export default class index extends Component {
                 index={tabIndex}
                 onChangeIndex={this.handleChangeIndex}>
                 <TabContainer>
-                  {USER_PROFILE_CONF.map((conf, i) => {
+                  {USER_PROFILE_CONF.filter(
+                    conf => !conf.excludeFromDetails
+                  ).map((conf, i) => {
                     return (
                       <div
                         style={{
@@ -187,7 +187,14 @@ export default class index extends Component {
                     flexWrap: "wrap",
                   }}>
                   <PhotoIdentification
-                    photoIdentification={me.photoIdentification}
+                    me={me}
+                    updateVariable={(name, val) => {
+                      this.setState({
+                        modalIsOpen: true,
+                        variable: name,
+                        variableVal: val,
+                      })
+                    }}
                   />
                 </TabContainer>
                 <TabContainer>

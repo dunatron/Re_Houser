@@ -47,7 +47,6 @@ class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
   handleLink = (route = "/", query = {}) => {
-    console.log("THE QUERY => ", query)
     Router.push({
       pathname: route,
       query: query,

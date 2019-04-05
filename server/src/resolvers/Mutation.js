@@ -40,7 +40,6 @@ const mutations = {
   async signin(parent, { email, password }, ctx, info) {
     // 1. check if there is a user with that email
     const user = await ctx.db.query.user({ where: { email } })
-    console.log("FETCHED USER => ", user)
     if (!user) {
       throw new Error(`No such user found for email ${email}`)
     }
@@ -200,11 +199,9 @@ const mutations = {
       },
       info
     )
-    console.log("CREATED NEW PROPERTY => ", property)
     return property
   },
   async createRentalApplication(parent, { data, files }, ctx, info) {
-    console.log("data for createRentalApplication => ", data)
     const currentApplications = await ctx.db.query.rentalApplications(
       {
         where: {
@@ -226,10 +223,6 @@ const mutations = {
         "You have already created an application for this property!"
       )
     }
-    console.log(
-      "+++++++ ^^^^^^ currentApplications ^^^^^^^ => ",
-      currentApplications
-    )
     const rentalApplication = await ctx.db.mutation.createRentalApplication(
       {
         data: {
@@ -256,9 +249,6 @@ const mutations = {
       },
       `{ id, approved ,user{id, firstName, lastName}}`
     )
-    console.log("rentalApplication => ", rentalApplication)
-    console.log("========================================")
-    console.log("rentalGroupNode => ", rentalGroupNode)
     rentalApplication.applicants.push({ ...rentalGroupNode })
     return rentalApplication
   },
@@ -290,12 +280,9 @@ const mutations = {
   },
 
   async updateProperty(parent, args, ctx, info) {
-    console.log("args => ", args)
     // first take a copy of the updates
     const updates = { ...args }
     const where = { id: args.id }
-    console.group("updateItem")
-    console.log("updates start => ", updates)
     // remove the ID from the updates
     delete updates.id
     // new file to update
@@ -345,8 +332,6 @@ const mutations = {
       userLastName: user.lastName,
       userEmail: user.email,
     }
-
-    console.log("The user => ", user)
     var myJSON = JSON.stringify(uploadedTemplateData)
     var data = await fs.readFileSync(filePath)
 

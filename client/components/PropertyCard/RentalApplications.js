@@ -20,18 +20,9 @@ export default class RentalApplications extends Component {
           {({ data, loading, error }) => {
             if (error) return <Error error={error} />
             if (loading) return <p>fetching applications...</p>
-            console.log("data => ", data)
             const { rentalApplications } = data
             return (
-              <div
-                style={
-                  {
-                    // display: "flex",
-                    // // alignItems: "center",
-                    // flexWrap: "wrap",
-                    // justifyContent: "center",
-                  }
-                }>
+              <div>
                 {rentalApplications &&
                   rentalApplications.map((application, idx) => {
                     return (

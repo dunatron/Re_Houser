@@ -4,35 +4,27 @@ import { Mutation } from "react-apollo"
 import { UPDATE_USER_MUTATION } from "../../mutation/index"
 import { CURRENT_USER_QUERY } from "../../query/index"
 import Error from "../ErrorMessage/index"
+import IconButton from "@material-ui/core/IconButton"
 // styles
 import PhotoID from "../../styles/PhotoID"
+// Icons
+import EditIcon from "../../styles/icons/EditIcon"
 
 export default class PhotoIdentification extends Component {
-  setFileInState = file => {
-    console.log("The PhotoIdentification FIle => ", file)
-  }
   _updateUserPhotoIdFile = async (file, updateUser) => {
-    console.log("file => ", file)
     const res = await updateUser({
       variables: {
         data: {},
         photoFile: file.raw,
       },
     })
-    console.log("The Upload Res => ", res)
-    // this.closeModal()
-    // console.log("res => ", res)
   }
   render() {
-    const { photoIdentification } = this.props
-    console.log("photoIdentification => ", photoIdentification)
-    // if (photoIdentification) {
-    //   return <div>
-
-    //   </div>
-    // }
+    const { me } = this.props
+    const { photoIdentification } = me
     return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
         <Mutation
           mutation={UPDATE_USER_MUTATION}
           // variables={this._variables()}
@@ -42,6 +34,25 @@ export default class PhotoIdentification extends Component {
             <>
               {photoIdentification && (
                 <PhotoID>
+                  <div class="id__strip">
+                    <h2 class="id__number">
+                      Photo ID Number{" "}
+                      <span style={{ color: "green" }}>
+                        {me.identificationNumber}
+                      </span>
+                    </h2>
+                    <IconButton
+                      aria-label="Edit"
+                      onClick={() =>
+                        this.props.updateVariable(
+                          "identificationNumber",
+                          me.identificationNumber
+                        )
+                      }>
+                      <EditIcon color="default" />
+                    </IconButton>
+                  </div>
+
                   <img src={photoIdentification.url} />
                 </PhotoID>
               )}

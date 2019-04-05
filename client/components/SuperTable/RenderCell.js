@@ -88,7 +88,6 @@ const RenderDeep = ({ data, index, allData }) => {
 
 const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
   const value = allData[data.id]
-  console.log("RenderCheckBox Value => ", value)
   return (
     <TableCell padding="checkbox">
       <Checkbox

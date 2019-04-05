@@ -83,7 +83,6 @@ class SingleItem extends Component {
             return <p>No Item Found for {this.props.id}</p>
           const property = data.ownerProperty
           const { value } = this.state
-          console.log("property => ", property)
           return (
             <SingleItemStyles>
               <Head>

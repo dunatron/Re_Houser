@@ -65,14 +65,11 @@ export default class ApplicationItem extends Component {
     this.setState({ creatingDoc: false })
     await save(theBuf, fileName)
 
-    // console.log("docyBuff ", docyBuff)
-
     var file = new File(["Hello, world!"], "hello world.txt")
     // saveAs(docyBuff, "test.docx")
   }
   render() {
     const { application, index } = this.props
-    console.log("application => ", application)
     return (
       <Composed>
         {({ applyToRentalGroup, user, createPreRentalDocument }) => {
@@ -94,7 +91,6 @@ export default class ApplicationItem extends Component {
               <div>{application.stage}</div>
               {application.applicants &&
                 application.applicants.map((applicant, idx) => {
-                  console.log("applicant => ", applicant)
                   const {
                     user: { id, firstName, lastName },
                   } = applicant

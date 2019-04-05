@@ -5,7 +5,6 @@ import User from "../User/index"
 import AccountIcon from "../AccountIcon/index"
 
 const handleLink = (route = "/", query = {}) => {
-  console.log("THE QUERY => ", query)
   Router.push({
     pathname: route,
     query: query,

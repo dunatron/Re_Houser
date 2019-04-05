@@ -39,7 +39,6 @@ const MultiSelectChip = ({
   handleChange,
   removeItem,
 }) => {
-  console.log("options => ", options)
   return (
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={selectID}>{label}</InputLabel>

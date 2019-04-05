@@ -4,6 +4,10 @@ import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig"
 import StarRating from "../StarRating/index"
 import ProfileSummaryText from "./ProfileSummaryText"
 
+const extractDeepValue = (str, dataObj) => {
+  const value = str.split(".").reduce((o, i) => o[i], dataObj)
+  return value ? value : ""
+}
 export default class CompletionRating extends Component {
   getTotalRating = () => {
     const total = USER_PROFILE_CONF.reduce((total, currentValue) => {
@@ -14,7 +18,7 @@ export default class CompletionRating extends Component {
 
   calculateUserRating = me => {
     const userTotalRating = USER_PROFILE_CONF.reduce((total, currentValue) => {
-      const currentVariableVal = me[currentValue.variableName]
+      const currentVariableVal = extractDeepValue(currentValue.variableName, me)
       if (currentVariableVal === "") return total
       if (currentVariableVal === null) return total
       if (currentVariableVal === undefined) return total
@@ -32,8 +36,6 @@ export default class CompletionRating extends Component {
 
   profileSummaryText = me => {
     const val = this.completionPercentage(me)
-    console.log("val => ", val)
-
     if (val < 10) {
       return "Your Profile is weak as shit"
     }

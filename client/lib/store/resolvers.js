@@ -16,7 +16,6 @@ const resolvers = () => {
   return {
     Mutation: {
       toggleCart(_, variables, { cache }) {
-        console.log("toggleCart => mutation")
         // read the cartOpen value from the cache
         const { cartOpen } = cache.readQuery({
           query: LOCAL_STATE_QUERY,

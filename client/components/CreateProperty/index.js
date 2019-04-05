@@ -68,7 +68,6 @@ class CreateProperty extends Component {
     const theFiles = this.state.images
       .filter(f => f.type === "rawImage")
       .map(file => file.data.raw)
-    console.log("theFiles => ", theFiles)
     const data = {
       data: {
         rent: parseFloat(this.state.rent),
@@ -104,7 +103,6 @@ class CreateProperty extends Component {
       },
       files: theFiles,
     }
-    console.log("Property Vars => ", data)
     return data
   }
 

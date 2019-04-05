@@ -3,7 +3,6 @@ import Router from "next/router"
 import NavButton from "../../styles/NavButton"
 
 const handleLink = (route = "/", query = {}) => {
-  console.log("THE QUERY => ", query)
   Router.push({
     pathname: route,
     query: query,

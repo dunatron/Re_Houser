@@ -25,7 +25,6 @@ const styles = theme => ({
 })
 
 const TextInput = ({ classes, value, onChange }) => {
-  console.log("options => ", options)
   return (
     <TextField
       id="standard-name"

@@ -41,7 +41,6 @@ const ImgTile = styled.div`
 class ImageTile extends PureComponent {
   render() {
     const { image } = this.props
-    console.log("imageTile image => ", image)
     const src =
       image.type === "googleImage"
         ? image.data
