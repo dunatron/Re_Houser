@@ -5,8 +5,13 @@ import StarRating from "../StarRating/index"
 import ProfileSummaryText from "./ProfileSummaryText"
 
 const extractDeepValue = (str, dataObj) => {
-  const value = str.split(".").reduce((o, i) => o[i], dataObj)
-  return value ? value : ""
+  try {
+    const value = str.split(".").reduce((o, i) => o[i], dataObj)
+    if (value === null) return ""
+    return value ? value : ""
+  } catch {
+    return ""
+  }
 }
 export default class CompletionRating extends Component {
   getTotalRating = () => {
