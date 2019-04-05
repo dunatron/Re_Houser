@@ -7,7 +7,8 @@ const PhotoID = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 0;
-  width: 70%;
+  width: 50%;
+  flex-grow: 3;
   padding: 0 16px;
   .id__strip {
     display: flex;
@@ -27,7 +28,7 @@ const PhotoID = styled.div`
     /* height: 380px; */
     object-fit: cover;
   }
-  @media (max-width: ${props => props.theme.breakpoints.values.md}px) {
+  @media (max-width: 800px) {
     width: 100%;
   }
 `
