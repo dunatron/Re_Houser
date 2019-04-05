@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import StarIcon from "@material-ui/icons/Star"
-import StarBorderIcon from "@material-ui/icons/StarBorder"
-import StarHalfIcon from "@material-ui/icons/StarHalf"
+import StarIcon from "../../styles/icons/StarIcon"
+import StarBorderIcon from "../../styles/icons/StarBorderIcon"
+import StarHalfIcon from "../../styles/icons/StarHalfIcon"
 
 export default class StarRating extends Component {
   render() {

@@ -357,10 +357,22 @@ const mutations = {
     // )
     return docyBuf
   },
-  async updateUser(parent, { data }, ctx, info) {
-    console.log("data => ", data)
+  async updateUser(parent, { data, photoFile }, ctx, info) {
+    const uploadedPhoto = photoFile
+      ? await processUpload(await photoFile, ctx)
+      : null
+    const userData = {
+      ...data,
+      photoIdentification: photoFile
+        ? {
+            connect: {
+              id: uploadedPhoto.id,
+            },
+          }
+        : {},
+    }
     const updatedUser = await ctx.db.mutation.updateUser(
-      { data: data, where: { id: ctx.request.userId } },
+      { data: userData, where: { id: ctx.request.userId } },
       info
     )
     return updatedUser

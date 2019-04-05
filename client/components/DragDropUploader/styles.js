@@ -1,4 +1,8 @@
 import styled, { keyframes } from "styled-components"
+import purple from "@material-ui/core/colors/purple"
+import pink from "@material-ui/core/colors/pink"
+const primary = pink[100] // #F44336
+const accent = purple[200] // #E040FB
 
 const DropZone = styled.div`
   /* border: ${p => `1px dashed ${p.theme.palette.primary.main}`}; */
@@ -18,7 +22,7 @@ const DropZone = styled.div`
   ${props => {
     const { disabled, theme } = props
     if (disabled) {
-      return `background: ${theme.palette.secondary.light};`
+      return `background: ${props.theme.palette.primary.light};`
     }
   }}
   svg {

@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button"
 import CloudUploadIcon from "@material-ui/icons/CloudUpload"
 import { DropZone, HiddenInput, InputLabel, ProgressBar } from "./styles"
 import LinearBuffer from "../LinearBuffer/index"
-
+import CircularProgress from "@material-ui/core/CircularProgress"
 import fileTypesGen from "./fileTypeGen"
 
 const readFileIntoMemory = (file, callback) => {
@@ -53,11 +53,71 @@ class DragDropUploader extends Component {
     return this.renderDropZone()
   }
 
+  renderDropText = () => {
+    const { dragging, processing } = this.state
+    const { addText, externalLoading } = this.props
+    const text = addText ? addText : "Click To Browse"
+    // Lokks bets when size doesn't change. So use btn for messages
+    // if (processing) return "Processing please wait..."
+    return <h2>{text}</h2>
+  }
+
+  renderBtnText = () => {
+    const { dragging, processing } = this.state
+    const { addBtnText, externalLoading } = this.props
+    const text = addBtnText ? addBtnText : "Click To Browse"
+
+    if (processing || externalLoading) return "Please Wait"
+    if (dragging) return "DROP"
+    return text
+  }
+
+  renderUploadButton = () => {
+    const {
+      classes,
+      title,
+      disabled,
+      multiple,
+      dropStyles,
+      externalLoading,
+    } = this.props
+    const { dragging, processing } = this.state
+    if (processing || externalLoading)
+      return (
+        <div>
+          <Button
+            disabled={disabled}
+            color={dragging ? "secondary" : "primary"}
+            variant="contained"
+            component="span"
+            //  className={classes.button}
+          >
+            {this.renderBtnText()}
+          </Button>
+        </div>
+      )
+
+    return (
+      <label htmlFor="file-multi-input">
+        <Button
+          disabled={disabled}
+          color={dragging ? "secondary" : "primary"}
+          variant="contained"
+          component="span"
+          //  className={classes.button}
+        >
+          {this.renderBtnText()}
+        </Button>
+      </label>
+    )
+  }
+
   renderDropZone = () => {
-    const { classes, title, disabled, multiple } = this.props
+    const { classes, title, disabled, multiple, dropStyles } = this.props
     const { dragging, processing } = this.state
     return (
       <DropZone
+        style={dropStyles ? dropStyles : {}}
         dragging={dragging}
         disabled={disabled}
         onClick={this.onZoneClick}
@@ -77,20 +137,10 @@ class DragDropUploader extends Component {
         <span
         // className={classes.dropSubTitle}
         >
-          {processing ? "Please Wait" : "Add some files"}
-          {"or click to browse"}
+          {/* {processing ? "Please Wait" : "Add some files"} */}
+          {this.renderDropText()}
         </span>
-        <label htmlFor="file-multi-input">
-          <Button
-            disabled={disabled}
-            color={dragging ? "secondary" : "primary"}
-            variant="contained"
-            component="span"
-            //  className={classes.button}
-          >
-            {dragging ? "Drop Files" : " Browse Files"}
-          </Button>
-        </label>
+        {this.renderUploadButton()}
       </DropZone>
     )
   }
@@ -190,6 +240,11 @@ DragDropUploader.propTypes = {
   types: PropTypes.array,
   extensions: PropTypes.array,
   receiveFile: PropTypes.func.isRequired,
+  dropStyles: PropTypes.object,
+  addBtnText: PropTypes.string,
+  addText: PropTypes.string,
+  externalLoading: PropTypes.bool,
+  disabled: PropTypes.bool,
 }
 
 export default DragDropUploader
