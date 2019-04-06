@@ -62,6 +62,8 @@ type RentalApplication {
   owner: User!
   title: String
   stage: ApplicationStage!
+  private: Boolean!
+  finalised: Boolean!
   property: Property! @relation(name: "PropertyRentalApplication")
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")
 }
