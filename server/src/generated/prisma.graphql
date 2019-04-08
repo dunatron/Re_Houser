@@ -1,5 +1,5 @@
-# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-prod/prod
-# timestamp: Tue Apr 02 2019 01:04:10 GMT+1300 (New Zealand Daylight Time)
+# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
+# timestamp: Tue Apr 09 2019 01:12:19 GMT+1200 (New Zealand Standard Time)
 
 type AggregateFile {
   count: Int!
@@ -1560,6 +1560,8 @@ type RentalApplication implements Node {
   owner: User!
   title: String
   stage: ApplicationStage!
+  private: Boolean
+  finalised: Boolean
   property: Property!
   applicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant!]
 }
@@ -1577,6 +1579,8 @@ type RentalApplicationConnection {
 input RentalApplicationCreateInput {
   title: String
   stage: ApplicationStage!
+  private: Boolean
+  finalised: Boolean
   owner: UserCreateOneInput!
   property: PropertyCreateOneWithoutRentalApplicationsInput!
   applicants: RentalGroupApplicantCreateManyWithoutApplicationInput
@@ -1595,6 +1599,8 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 input RentalApplicationCreateWithoutApplicantsInput {
   title: String
   stage: ApplicationStage!
+  private: Boolean
+  finalised: Boolean
   owner: UserCreateOneInput!
   property: PropertyCreateOneWithoutRentalApplicationsInput!
 }
@@ -1602,6 +1608,8 @@ input RentalApplicationCreateWithoutApplicantsInput {
 input RentalApplicationCreateWithoutPropertyInput {
   title: String
   stage: ApplicationStage!
+  private: Boolean
+  finalised: Boolean
   owner: UserCreateOneInput!
   applicants: RentalGroupApplicantCreateManyWithoutApplicationInput
 }
@@ -1622,6 +1630,10 @@ enum RentalApplicationOrderByInput {
   title_DESC
   stage_ASC
   stage_DESC
+  private_ASC
+  private_DESC
+  finalised_ASC
+  finalised_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1632,6 +1644,8 @@ type RentalApplicationPreviousValues {
   id: ID!
   title: String
   stage: ApplicationStage!
+  private: Boolean
+  finalised: Boolean
 }
 
 input RentalApplicationScalarWhereInput {
@@ -1733,6 +1747,14 @@ input RentalApplicationScalarWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
+  private: Boolean
+
+  """All values that are not equal to given value."""
+  private_not: Boolean
+  finalised: Boolean
+
+  """All values that are not equal to given value."""
+  finalised_not: Boolean
 }
 
 type RentalApplicationSubscriptionPayload {
@@ -1775,6 +1797,8 @@ input RentalApplicationSubscriptionWhereInput {
 input RentalApplicationUpdateInput {
   title: String
   stage: ApplicationStage
+  private: Boolean
+  finalised: Boolean
   owner: UserUpdateOneRequiredInput
   property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
   applicants: RentalGroupApplicantUpdateManyWithoutApplicationInput
@@ -1783,11 +1807,15 @@ input RentalApplicationUpdateInput {
 input RentalApplicationUpdateManyDataInput {
   title: String
   stage: ApplicationStage
+  private: Boolean
+  finalised: Boolean
 }
 
 input RentalApplicationUpdateManyMutationInput {
   title: String
   stage: ApplicationStage
+  private: Boolean
+  finalised: Boolean
 }
 
 input RentalApplicationUpdateManyWithoutPropertyInput {
@@ -1818,6 +1846,8 @@ input RentalApplicationUpdateOneWithoutApplicantsInput {
 input RentalApplicationUpdateWithoutApplicantsDataInput {
   title: String
   stage: ApplicationStage
+  private: Boolean
+  finalised: Boolean
   owner: UserUpdateOneRequiredInput
   property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
 }
@@ -1825,6 +1855,8 @@ input RentalApplicationUpdateWithoutApplicantsDataInput {
 input RentalApplicationUpdateWithoutPropertyDataInput {
   title: String
   stage: ApplicationStage
+  private: Boolean
+  finalised: Boolean
   owner: UserUpdateOneRequiredInput
   applicants: RentalGroupApplicantUpdateManyWithoutApplicationInput
 }
@@ -1944,6 +1976,14 @@ input RentalApplicationWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
+  private: Boolean
+
+  """All values that are not equal to given value."""
+  private_not: Boolean
+  finalised: Boolean
+
+  """All values that are not equal to given value."""
+  finalised_not: Boolean
   owner: UserWhereInput
   property: PropertyWhereInput
   applicants_every: RentalGroupApplicantWhereInput
@@ -1961,6 +2001,8 @@ type RentalGroupApplicant implements Node {
   approved: Boolean!
   application: RentalApplication
   preTenancyApplicationForm: File
+  firstName: String
+  email: String
 }
 
 """A connection to a list of items."""
@@ -1975,6 +2017,8 @@ type RentalGroupApplicantConnection {
 
 input RentalGroupApplicantCreateInput {
   approved: Boolean!
+  firstName: String
+  email: String
   user: UserCreateOneInput!
   application: RentalApplicationCreateOneWithoutApplicantsInput
   preTenancyApplicationForm: FileCreateOneInput
@@ -1987,6 +2031,8 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
   approved: Boolean!
+  firstName: String
+  email: String
   user: UserCreateOneInput!
   preTenancyApplicationForm: FileCreateOneInput
 }
@@ -2005,6 +2051,10 @@ enum RentalGroupApplicantOrderByInput {
   id_DESC
   approved_ASC
   approved_DESC
+  firstName_ASC
+  firstName_DESC
+  email_ASC
+  email_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -2014,6 +2064,8 @@ enum RentalGroupApplicantOrderByInput {
 type RentalGroupApplicantPreviousValues {
   id: ID!
   approved: Boolean!
+  firstName: String
+  email: String
 }
 
 input RentalGroupApplicantScalarWhereInput {
@@ -2069,6 +2121,86 @@ input RentalGroupApplicantScalarWhereInput {
 
   """All values that are not equal to given value."""
   approved_not: Boolean
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
 }
 
 type RentalGroupApplicantSubscriptionPayload {
@@ -2110,6 +2242,8 @@ input RentalGroupApplicantSubscriptionWhereInput {
 
 input RentalGroupApplicantUpdateInput {
   approved: Boolean
+  firstName: String
+  email: String
   user: UserUpdateOneRequiredInput
   application: RentalApplicationUpdateOneWithoutApplicantsInput
   preTenancyApplicationForm: FileUpdateOneInput
@@ -2117,10 +2251,14 @@ input RentalGroupApplicantUpdateInput {
 
 input RentalGroupApplicantUpdateManyDataInput {
   approved: Boolean
+  firstName: String
+  email: String
 }
 
 input RentalGroupApplicantUpdateManyMutationInput {
   approved: Boolean
+  firstName: String
+  email: String
 }
 
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
@@ -2141,6 +2279,8 @@ input RentalGroupApplicantUpdateManyWithWhereNestedInput {
 
 input RentalGroupApplicantUpdateWithoutApplicationDataInput {
   approved: Boolean
+  firstName: String
+  email: String
   user: UserUpdateOneRequiredInput
   preTenancyApplicationForm: FileUpdateOneInput
 }
@@ -2209,6 +2349,86 @@ input RentalGroupApplicantWhereInput {
 
   """All values that are not equal to given value."""
   approved_not: Boolean
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
   user: UserWhereInput
   application: RentalApplicationWhereInput
   preTenancyApplicationForm: FileWhereInput

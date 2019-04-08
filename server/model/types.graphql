@@ -55,6 +55,8 @@ type RentalGroupApplicant {
   approved: Boolean!
   application: RentalApplication @relation(name: "RentalGroupApplicant")
   preTenancyApplicationForm: File
+  firstName: String
+  email: String
 }
 
 type RentalApplication {
