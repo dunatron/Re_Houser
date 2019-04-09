@@ -96,7 +96,6 @@ class PropertyCardComponent extends Component {
           subheader={
             <div style={{ display: "flex" }}>
               <HomeIcon />
-              {id}
               {rooms}
               <MoneyIcon />
               {rent} = {Math.ceil(rent / rooms)} per person
