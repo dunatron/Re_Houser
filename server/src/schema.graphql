@@ -35,9 +35,7 @@ type Mutation {
   createRentalApplication(
     data: RentalApplicationCreateInput!
   ): RentalApplication!
-  applyToRentalGroup(
-    data: RentalGroupApplicantCreateInput!
-  ): RentalGroupApplicant!
+  applyToRentalGroup(data: RentalGroupApplicantCreateInput!): RentalApplication!
   createPreRentalDocument(rentalGroupApplicantId: ID!): Json!
   updateUser(data: UserUpdateInput!, photoFile: Upload): User!
   updateRentalGroupApplicant(

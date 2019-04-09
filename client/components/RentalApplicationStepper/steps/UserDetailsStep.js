@@ -12,8 +12,22 @@ class UserDetailsStep extends Component {
   }
 
   render() {
-    const { me, property, onChange, errorsBag } = this.props
+    const {
+      me,
+      property,
+      onChange,
+      errorsBag,
+      applicantData,
+      completed,
+    } = this.props
+
     const { userInfo } = this.state
+
+    console.log("applicantData => ", applicantData)
+
+    if (completed) {
+      return <div>Applicant data for the group application is complete</div>
+    }
 
     return (
       <div>
@@ -25,9 +39,7 @@ class UserDetailsStep extends Component {
               <TextInput
                 fullWidth={true}
                 name={userVar}
-                disabled={
-                  !this.props.userInfo[userVar].editableInRentalApplication
-                }
+                disabled={false}
                 label={this.props.userInfo[userVar].label}
                 value={this.props.userInfo[userVar].value}
                 onChange={e => onChange(e)}

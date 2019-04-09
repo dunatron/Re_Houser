@@ -5,14 +5,19 @@ const CREATE_RENTAL_APPLICATION = gql`
     createRentalApplication(data: $data) {
       id
       stage
+      visibility
+      finalised
       applicants {
         id
         approved
+        completed
         user {
           id
           firstName
           lastName
         }
+        email
+        firstName
       }
       property {
         id
@@ -20,6 +25,9 @@ const CREATE_RENTAL_APPLICATION = gql`
       }
       owner {
         id
+        email
+        firstName
+        lastName
       }
     }
   }

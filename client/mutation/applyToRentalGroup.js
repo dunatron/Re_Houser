@@ -4,12 +4,30 @@ const APPLY_TO_RENTAL_GROUP_APPLICATION = gql`
   mutation applyToRentalGroup($data: RentalGroupApplicantCreateInput!) {
     applyToRentalGroup(data: $data) {
       id
-      user {
+      stage
+      visibility
+      finalised
+      applicants {
         id
+        approved
+        completed
+        user {
+          id
+          firstName
+          lastName
+        }
+        email
+        firstName
       }
-      approved
-      application {
+      property {
         id
+        location
+      }
+      owner {
+        id
+        email
+        firstName
+        lastName
       }
     }
   }

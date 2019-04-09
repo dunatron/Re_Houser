@@ -17,6 +17,8 @@ const MY_RENTAL_APPLICATIONS_QUERY = gql`
       }
       applicants {
         id
+        completed
+        approved
         preTenancyApplicationForm {
           id
           filename

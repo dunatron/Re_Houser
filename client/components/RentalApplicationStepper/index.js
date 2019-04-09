@@ -13,9 +13,11 @@ import UserDetailsStep from "./steps/UserDetailsStep"
 import ApplicationDetailsStep from "./steps/ApplicationDetailsStep"
 // configs
 import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig"
+import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplicantConfig"
 import customErrorsBag from "../../lib/errorsBagGenerator"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../mutation/index"
 import { gql, graphql, compose } from "react-apollo"
+import { openSnackbar } from "../Notifier/index"
 
 import { isEmpty } from "ramda"
 
@@ -44,10 +46,13 @@ class RentalApplicationStepper extends Component {
     activeStep: 0,
     completed: {},
     userInfo: {},
+    applicationInfo: {},
     userErrorsBag: {},
   }
   getStepContent = (step, me, property, application) => {
     const { userErrorsBag } = this.state
+    const applicantData = this.getApplicantObject()
+    console.log("applicantData => for step component => ", applicantData)
     switch (step) {
       case 0:
         // return "Step 2: What is an ad group anyways?";
@@ -56,17 +61,31 @@ class RentalApplicationStepper extends Component {
             me={me}
             property={property}
             userInfo={this.state.userInfo}
+            applicantData={applicantData}
             onChange={this.handleDetailsChange}
             errorsBag={userErrorsBag}
+            completed={this.state.completed[0]}
           />
         )
       case 1:
-        return <ApplicationDetailsStep application={application} />
+        return (
+          <ApplicationDetailsStep
+            application={application}
+            me={me}
+            applicationInfo={this.state.applicationInfo}
+          />
+        )
       case 2:
         return "Step 3: This is the bit I really care about!"
       default:
         return "Unknown step"
     }
+  }
+  getApplicantObject = () => {
+    const userRentalApplicantData = this.props.application.applicants.find(
+      applicant => applicant.user.id === this.props.me.id
+    )
+    return userRentalApplicantData
   }
   handleDetailsChange = e => {
     console.log("handleDetailsChange => ", e)
@@ -87,23 +106,32 @@ class RentalApplicationStepper extends Component {
     // this.setState({ [e.target.name]: e.target.value })
   }
   componentDidMount() {
+    const { completed } = this.state
     const me = this.props.me
-    const userInfo = USER_PROFILE_CONF.filter(
-      conf => conf.includeInRentalApplication
-    ).reduce((bigObj, conf) => {
+    const applicantData = this.getApplicantObject()
+    console.log("applicantData ", applicantData)
+    // extract userInfo and set it in state
+    const userInfo = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
       // const objPiece = { [conf.variableName]: [me[conf.variableName]] };
       const objPiece = {
         [conf.variableName]: {
           ...conf,
           label: conf.label,
-          value: me[conf.variableName],
+          value: applicantData[conf.variableName]
+            ? applicantData[conf.variableName]
+            : me[conf.variableName],
+          // value: me[conf.variableName],
           editable: true,
         },
       }
       bigObj = { ...bigObj, ...objPiece }
       return bigObj
     }, {})
-    this.setState({ userInfo: userInfo })
+    // this.props.application
+    const applicationInfo = this.props.application
+    console.log("applicationInfo hasMounted => ", applicationInfo)
+    // completed[0] = applicantData.completed ? true : false
+    this.setState({ userInfo: userInfo, applicationInfo: applicationInfo })
   }
 
   totalSteps = () => getSteps().length
@@ -145,6 +173,16 @@ class RentalApplicationStepper extends Component {
         if (!didSave) {
           return
         }
+        break
+      }
+      case 1: {
+        const didSave = await this._saveApplicationDetails(
+          this.state.applicationInfo
+        )
+        if (!didSave) {
+          return
+        }
+        break
       }
     }
     // 0 === userDetails
@@ -183,6 +221,7 @@ class RentalApplicationStepper extends Component {
     const { activeStep } = this.state
 
     console.log("THE APPLICATION => ", application)
+    console.log("This.state => ", this.state)
 
     return (
       <div className={classes.root}>
@@ -226,18 +265,25 @@ class RentalApplicationStepper extends Component {
                 </Button>
                 {activeStep !== steps.length &&
                   (this.state.completed[this.state.activeStep] ? (
-                    <Typography variant="caption" className={classes.completed}>
-                      Step {activeStep + 1} already completed
-                    </Typography>
+                    <div>
+                      <Typography
+                        variant="caption"
+                        className={classes.completed}>
+                        Step {activeStep + 1} already completed
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                          const { completed } = this.state
+                          completed[this.state.activeStep] = false
+                          this.setState({ completed })
+                        }}>
+                        Redo Section
+                      </Button>
+                    </div>
                   ) : (
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={this.handleComplete}>
-                      {this.completedSteps() === this.totalSteps() - 1
-                        ? "Finish"
-                        : "Complete Step"}
-                    </Button>
+                    <div>{this._renderNextButtons()}</div>
                   ))}
               </div>
             </div>
@@ -246,6 +292,43 @@ class RentalApplicationStepper extends Component {
       </div>
     )
   }
+
+  _renderNextButtons = () => {
+    const { activeStep } = this.state
+    switch (activeStep) {
+      case 0: {
+        return (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleComplete}>
+            Complete User Details
+          </Button>
+        )
+      }
+      case 1: {
+        return (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleComplete}>
+            Complete Application Details
+          </Button>
+        )
+      }
+      default: {
+        return (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.handleComplete}>
+            Finish
+          </Button>
+        )
+      }
+    }
+  }
+
   // Validation on step Save
   _saveUserDetails = async userInfo => {
     console.log("userInfo => ", userInfo)
@@ -267,7 +350,7 @@ class RentalApplicationStepper extends Component {
       applicant => applicant.user.id === this.props.me.id
     )
     const rentalGroupApplicantData = {
-      approved: true,
+      completed: true,
       email: userData.email,
       firstName: userData.firstName,
     }
@@ -283,6 +366,24 @@ class RentalApplicationStepper extends Component {
         },
       },
     })
+    return true
+  }
+
+  _saveApplicationDetails = async application => {
+    const me = this.props.me
+    console.log("application _saveApplicationDetails", application)
+    // Only owner can update this section
+    if (application.owner.id !== me.id) {
+      openSnackbar({
+        message: `<h3>Only the owner can Update this section</h3>
+        <h3>${application.owner.firstName}</h3>
+        <h3>${application.owner.email}</h3>`,
+        duration: 6000,
+        type: "success",
+      })
+      return false
+    }
+    // Now we need to save the application details and at the same time handle the cache update
     return true
   }
 }

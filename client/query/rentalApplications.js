@@ -11,6 +11,7 @@ const RENTAL_APPLICATIONS_QUERY = gql`
       applicants {
         id
         approved
+        completed
         user {
           id
           firstName

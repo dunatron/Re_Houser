@@ -17,17 +17,21 @@ const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
 })
 
-class DeleteFile extends Component {
+class ApplyToGroup extends Component {
+  state = {
+    modalIsOpen: false,
+    applicationData: {},
+  }
   update = (cache, payload) => {
     // manually update the cache on the client, so it matches the server
     // 1. Read the cache for the items we want
-    const data = cache.readQuery({ query: ALL_FILES_QUERY })
-    // 2. Filter the deleted itemout of the page
-    data.files = data.files.filter(
-      file => file.id !== payload.data.deleteFile.id
-    )
-    // 3. Put the items back!
-    cache.writeQuery({ query: ALL_FILES_QUERY, data })
+    // const data = cache.readQuery({ query: ALL_FILES_QUERY })
+    // // 2. Filter the deleted itemout of the page
+    // data.files = data.files.filter(
+    //   file => file.id !== payload.data.deleteFile.id
+    // )
+    // // 3. Put the items back!
+    // cache.writeQuery({ query: ALL_FILES_QUERY, data })
   }
   _variables = () => {
     return {
@@ -65,41 +69,50 @@ class DeleteFile extends Component {
         },
       },
     })
-    openSnackbar({
-      message: `Successfully applied to group`,
-      duration: 6000,
-      type: "success",
-    })
+    const rentalData = res.data.applyToRentalGroup
+    // Do an update of the cache and lauch modal from parent container
+    console.log("rentalData => ", rentalData)
+    // STep 1 update cache
+    // STep 2 open modal through props
+    this.props.openRentalAppModal(rentalData  )
   }
   render() {
     return (
       <Composed>
         {({ user, createRentalApplication }) => {
           const me = user.data.me
+          const property = this.props.property
+          const application = this.props.application
           if (!me) return <h1>No User</h1>
+
           return (
-            <Mutation
-              mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}
-              // variables={this._variables()}
-              update={this.update}>
-              {(applyToRentalGroup, { error }) => (
-                <>
-                  <Error error={error} />
-                  <Tooltip title={`apply to group`} placement="top">
-                    <Fab
-                      size="small"
-                      color="secondary"
-                      aria-label="Delete"
-                      style={{ cursor: "pointer" }}
-                      onClick={() =>
-                        this._applyToGroup(applyToRentalGroup, me)
-                      }>
-                      <PersonAddIcon className="person__icon" />
-                    </Fab>
-                  </Tooltip>
-                </>
-              )}
-            </Mutation>
+            <div>
+              <Mutation
+                mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}
+                // variables={this._variables()}
+                update={this.update}>
+                {(applyToRentalGroup, { error }) => (
+                  <>
+                    <Error error={error} />
+                    <Tooltip title={`apply to group`} placement="top">
+                      <Fab
+                        size="small"
+                        color="secondary"
+                        aria-label="Delete"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          this._applyToGroup(applyToRentalGroup, me)
+                          this.setState({
+                            modalIsOpen: true,
+                          })
+                        }}>
+                        <PersonAddIcon className="person__icon" />
+                      </Fab>
+                    </Tooltip>
+                  </>
+                )}
+              </Mutation>
+            </div>
           )
         }}
       </Composed>
@@ -107,4 +120,4 @@ class DeleteFile extends Component {
   }
 }
 
-export default DeleteFile
+export default ApplyToGroup

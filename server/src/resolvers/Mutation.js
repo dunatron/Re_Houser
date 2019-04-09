@@ -277,17 +277,21 @@ const mutations = {
     if (applicantUserIds.includes(userId)) {
       throw new Error("You have already applied for this group!")
     }
-    const rentalApplication = await ctx.db.mutation.createRentalGroupApplicant(
+    // add user application to rent application
+    const rentalGroupApplicant = await ctx.db.mutation.createRentalGroupApplicant(
       {
         data: {
           ...data,
         },
       },
+      `{id}`
+    )
+    const fullApplicationData = await ctx.db.query.rentalApplication(
+      { where: { id: applicationId } },
       info
     )
-    // add user application to rent application
 
-    return rentalApplication
+    return fullApplicationData
   },
 
   async updateProperty(parent, args, ctx, info) {
@@ -375,7 +379,7 @@ const mutations = {
     return updatedUser
   },
   async updateRentalGroupApplicant(parent, { data, where }, ctx, info) {
-    data.approved = true
+    // data.completed = true
     const updatedGroupApplicant = await ctx.db.mutation.updateRentalGroupApplicant(
       {
         data,

@@ -53,6 +53,7 @@ type RentalGroupApplicant {
   id: ID! @unique
   user: User!
   approved: Boolean!
+  completed: Boolean
   application: RentalApplication @relation(name: "RentalGroupApplicant")
   preTenancyApplicationForm: File
   firstName: String
@@ -64,7 +65,7 @@ type RentalApplication {
   owner: User!
   title: String
   stage: ApplicationStage!
-  private: Boolean
+  visibility: VisibilityLevel @default(value: "PRIVATE")
   finalised: Boolean
   property: Property! @relation(name: "PropertyRentalApplication")
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")

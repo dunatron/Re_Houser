@@ -10,3 +10,9 @@ enum ApplicationStage {
   DENIED
   ACCEPTED
 }
+
+enum VisibilityLevel {
+  PUBLIC
+  FRIENDS_ONLY
+  PRIVATE
+}

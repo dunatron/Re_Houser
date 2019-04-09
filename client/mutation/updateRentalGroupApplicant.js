@@ -8,6 +8,7 @@ const UPDATE_RENTAL_GROUP_APPLICANT_MUTATION = gql`
     updateRentalGroupApplicant(data: $data, where: $where) {
       id
       approved
+      completed
       firstName
       email
     }

@@ -1,5 +1,5 @@
-# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Tue Apr 09 2019 01:12:19 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Tue Apr 09 2019 09:56:18 GMT+1200 (New Zealand Standard Time)
 
 type AggregateFile {
   count: Int!
@@ -56,6 +56,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -424,6 +425,7 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
+  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -826,6 +828,7 @@ type PropertyConnection {
 }
 
 input PropertyCreateInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -855,6 +858,7 @@ input PropertyCreateOneWithoutRentalApplicationsInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -868,6 +872,7 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -881,6 +886,7 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
+  id: ID
   rooms: Int!
   rent: Float!
   moveInDate: DateTime
@@ -1215,6 +1221,7 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -1226,6 +1233,7 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -1560,7 +1568,7 @@ type RentalApplication implements Node {
   owner: User!
   title: String
   stage: ApplicationStage!
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   property: Property!
   applicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant!]
@@ -1577,9 +1585,10 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
+  id: ID
   title: String
   stage: ApplicationStage!
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
   property: PropertyCreateOneWithoutRentalApplicationsInput!
@@ -1597,18 +1606,20 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
+  id: ID
   title: String
   stage: ApplicationStage!
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
   property: PropertyCreateOneWithoutRentalApplicationsInput!
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
+  id: ID
   title: String
   stage: ApplicationStage!
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
   applicants: RentalGroupApplicantCreateManyWithoutApplicationInput
@@ -1630,8 +1641,8 @@ enum RentalApplicationOrderByInput {
   title_DESC
   stage_ASC
   stage_DESC
-  private_ASC
-  private_DESC
+  visibility_ASC
+  visibility_DESC
   finalised_ASC
   finalised_DESC
   updatedAt_ASC
@@ -1644,7 +1655,7 @@ type RentalApplicationPreviousValues {
   id: ID!
   title: String
   stage: ApplicationStage!
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
 }
 
@@ -1747,10 +1758,16 @@ input RentalApplicationScalarWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
-  private: Boolean
+  visibility: VisibilityLevel
 
   """All values that are not equal to given value."""
-  private_not: Boolean
+  visibility_not: VisibilityLevel
+
+  """All values that are contained in given list."""
+  visibility_in: [VisibilityLevel!]
+
+  """All values that are not contained in given list."""
+  visibility_not_in: [VisibilityLevel!]
   finalised: Boolean
 
   """All values that are not equal to given value."""
@@ -1797,7 +1814,7 @@ input RentalApplicationSubscriptionWhereInput {
 input RentalApplicationUpdateInput {
   title: String
   stage: ApplicationStage
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
   property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
@@ -1807,20 +1824,21 @@ input RentalApplicationUpdateInput {
 input RentalApplicationUpdateManyDataInput {
   title: String
   stage: ApplicationStage
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
 }
 
 input RentalApplicationUpdateManyMutationInput {
   title: String
   stage: ApplicationStage
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
 }
 
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
+  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -1846,7 +1864,7 @@ input RentalApplicationUpdateOneWithoutApplicantsInput {
 input RentalApplicationUpdateWithoutApplicantsDataInput {
   title: String
   stage: ApplicationStage
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
   property: PropertyUpdateOneRequiredWithoutRentalApplicationsInput
@@ -1855,7 +1873,7 @@ input RentalApplicationUpdateWithoutApplicantsDataInput {
 input RentalApplicationUpdateWithoutPropertyDataInput {
   title: String
   stage: ApplicationStage
-  private: Boolean
+  visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
   applicants: RentalGroupApplicantUpdateManyWithoutApplicationInput
@@ -1976,10 +1994,16 @@ input RentalApplicationWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
-  private: Boolean
+  visibility: VisibilityLevel
 
   """All values that are not equal to given value."""
-  private_not: Boolean
+  visibility_not: VisibilityLevel
+
+  """All values that are contained in given list."""
+  visibility_in: [VisibilityLevel!]
+
+  """All values that are not contained in given list."""
+  visibility_not_in: [VisibilityLevel!]
   finalised: Boolean
 
   """All values that are not equal to given value."""
@@ -1999,6 +2023,7 @@ type RentalGroupApplicant implements Node {
   id: ID!
   user: User!
   approved: Boolean!
+  completed: Boolean
   application: RentalApplication
   preTenancyApplicationForm: File
   firstName: String
@@ -2016,7 +2041,9 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
+  id: ID
   approved: Boolean!
+  completed: Boolean
   firstName: String
   email: String
   user: UserCreateOneInput!
@@ -2030,7 +2057,9 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
+  id: ID
   approved: Boolean!
+  completed: Boolean
   firstName: String
   email: String
   user: UserCreateOneInput!
@@ -2051,6 +2080,8 @@ enum RentalGroupApplicantOrderByInput {
   id_DESC
   approved_ASC
   approved_DESC
+  completed_ASC
+  completed_DESC
   firstName_ASC
   firstName_DESC
   email_ASC
@@ -2064,6 +2095,7 @@ enum RentalGroupApplicantOrderByInput {
 type RentalGroupApplicantPreviousValues {
   id: ID!
   approved: Boolean!
+  completed: Boolean
   firstName: String
   email: String
 }
@@ -2121,6 +2153,10 @@ input RentalGroupApplicantScalarWhereInput {
 
   """All values that are not equal to given value."""
   approved_not: Boolean
+  completed: Boolean
+
+  """All values that are not equal to given value."""
+  completed_not: Boolean
   firstName: String
 
   """All values that are not equal to given value."""
@@ -2242,6 +2278,7 @@ input RentalGroupApplicantSubscriptionWhereInput {
 
 input RentalGroupApplicantUpdateInput {
   approved: Boolean
+  completed: Boolean
   firstName: String
   email: String
   user: UserUpdateOneRequiredInput
@@ -2251,12 +2288,14 @@ input RentalGroupApplicantUpdateInput {
 
 input RentalGroupApplicantUpdateManyDataInput {
   approved: Boolean
+  completed: Boolean
   firstName: String
   email: String
 }
 
 input RentalGroupApplicantUpdateManyMutationInput {
   approved: Boolean
+  completed: Boolean
   firstName: String
   email: String
 }
@@ -2264,6 +2303,7 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
+  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -2279,6 +2319,7 @@ input RentalGroupApplicantUpdateManyWithWhereNestedInput {
 
 input RentalGroupApplicantUpdateWithoutApplicationDataInput {
   approved: Boolean
+  completed: Boolean
   firstName: String
   email: String
   user: UserUpdateOneRequiredInput
@@ -2349,6 +2390,10 @@ input RentalGroupApplicantWhereInput {
 
   """All values that are not equal to given value."""
   approved_not: Boolean
+  completed: Boolean
+
+  """All values that are not equal to given value."""
+  completed_not: Boolean
   firstName: String
 
   """All values that are not equal to given value."""
@@ -2482,6 +2527,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2525,6 +2571,7 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -2548,6 +2595,7 @@ input UserCreateWithoutCreatedPropertiesInput {
 }
 
 input UserCreateWithoutPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -3487,6 +3535,7 @@ input UserUpdateManyMutationInput {
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]
@@ -4308,4 +4357,10 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+enum VisibilityLevel {
+  PUBLIC
+  FRIENDS_ONLY
+  PRIVATE
 }

@@ -234,7 +234,10 @@ class Notifier extends React.Component {
     })
   }
   // 3. define a function to close Snackbar when a user clicks away
-  handleSnackbarClose = () => {
+  handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return
+    }
     this.setState({
       open: false,
       message: "",

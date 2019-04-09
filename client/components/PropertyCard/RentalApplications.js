@@ -5,7 +5,7 @@ import { Query, Mutation } from "react-apollo"
 
 export default class RentalApplications extends Component {
   render() {
-    const { propertyId } = this.props
+    const { propertyId, property, me } = this.props
     return (
       <div>
         <Query
@@ -21,12 +21,20 @@ export default class RentalApplications extends Component {
             if (error) return <Error error={error} />
             if (loading) return <p>fetching applications...</p>
             const { rentalApplications } = data
+            console.log("Rental Application Data => ", rentalApplications)
             return (
               <div>
                 {rentalApplications &&
                   rentalApplications.map((application, idx) => {
                     return (
-                      <ApplicationItem application={application} index={idx} />
+                      <ApplicationItem
+                        application={application}
+                        index={idx}
+                        property={property}
+                        openRentalAppModal={rentalData =>
+                          this.props.openRentalAppModal(rentalData)
+                        }
+                      />
                     )
                   })}
               </div>
