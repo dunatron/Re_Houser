@@ -30,7 +30,8 @@ TabContainer.propTypes = {
 
 const SingleItemStyles = styled.div`
   max-width: 1200px;
-  margin: 2rem auto;
+  /* margin: 2rem auto; */
+  margin: 0;
   box-shadow: ${props => props.theme.bs};
   box-sizing: border-box;
   min-height: 800px;
