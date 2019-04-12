@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { randomBytes } = require("crypto")
 const { promisify } = require("util")
+// PropertySearchAPi
+const { addPropertySearchNode } = require("../lib/algolia/propertySearchApi")
 const { transport, makeANiceEmail } = require("../lib/mail")
 const { hasPermission } = require("../lib/utils")
 const { processUpload, deleteFile } = require("../lib/fileApi")
@@ -189,6 +191,7 @@ const mutations = {
       ? await Promise.all(files.map(file => processUpload(file, ctx)))
       : []
     const connectFileIds = uploadedFiles.map(file => ({ id: file.id }))
+
     const property = await ctx.db.mutation.createProperty(
       {
         data: {
@@ -200,6 +203,11 @@ const mutations = {
       },
       info
     )
+    const propertySearchNode = addPropertySearchNode({
+      propertyId: property.id,
+      ctx,
+    })
+    console.log("propertySearchNode => ", propertySearchNode)
     return property
   },
   // async createRentalApplication(parent, { data, files }, ctx, info) {

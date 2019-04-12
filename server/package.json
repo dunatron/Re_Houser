@@ -15,6 +15,7 @@
     "prisma-dev-token": "prisma token --env-file variables.env"
   },
   "dependencies": {
+    "algoliasearch": "^3.32.1",
     "babel-preset-env": "^1.7.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.13.2",
