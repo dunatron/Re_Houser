@@ -51,7 +51,7 @@ const Hit = ({ hit }) => (
 
 export default class PropertySearch extends Component {
   componentDidMount() {
-    require("instantsearch.css/themes/reset.css")
+    // require("instantsearch.css/themes/reset.css")
     // require("instantsearch.css/themes/algolia.css")
     // or include the full Algolia theme
   }
