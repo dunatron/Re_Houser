@@ -2,17 +2,28 @@ import React, { Component } from "react"
 
 export default class DetailItem extends Component {
   render() {
-    const { icon, label, value } = this.props
+    const { icon, label, value, type = "string" } = this.props
     return (
       <div style={{ padding: "8px" }}>
         <div>
           <span style={{ display: "flex" }}>
             {icon && icon}
-            {value}
+            {renderValue(value, type)}
           </span>
           <div>{label}</div>
         </div>
       </div>
     )
   }
+}
+
+const renderValue = (value, type) => {
+  if (type === "boolean") {
+    console.log("value => ", value)
+    if (value === true || value === "true") {
+      return "Yes"
+    }
+    return "No"
+  }
+  return value
 }

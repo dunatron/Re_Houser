@@ -56,9 +56,13 @@ export default class PropertySearch extends Component {
     // or include the full Algolia theme
   }
   render() {
+    // process.env.NODE_ENV === "development" ? endpoint : prodEndpoint
+    const indexSuffix = process.env.NODE_ENV === "development" ? "dev" : "prod"
     return (
       <div>
-        <InstantSearch indexName="PropertySearch" searchClient={searchClient}>
+        <InstantSearch
+          indexName={`PropertySearch_${indexSuffix}`}
+          searchClient={searchClient}>
           {/* <SearchBox />
            */}
           <CustomSearchBox />

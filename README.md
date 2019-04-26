@@ -447,6 +447,80 @@ query myRentalApplications{
 }
 ```
 
+#### properties with rental applications and user fragments
+
+```js
+fragment UserData on User {
+  id
+  firstName
+  lastName
+  phone
+  email
+  permissions
+  photoIdentification {
+    filename
+    url
+  }
+  identificationNumber
+  emergencyContactName
+  emergencyContactNumber
+  emergencyContactEmail
+  referee1Name
+  referee1Phone
+  referee1Email
+  referee2Name
+  referee2Phone
+  referee2Email
+}
+
+fragment RentalGroupApplicantData on RentalGroupApplicant {
+  id
+  email
+  approved
+  completed
+  firstName
+  email
+  user {
+    ...UserData
+  }
+}
+
+fragment RentalApplications on RentalApplication {
+  id
+  visibility
+  stage
+  finalised
+  applicants {
+    ...RentalGroupApplicantData
+  }
+}
+
+query OWNER_PROPERTIES_QUERY {
+  properties {
+    id
+    rooms
+    rent
+    moveInDate
+    onTheMarket
+    location
+    locationLat
+    locationLng
+    rentalApplications {
+      ...RentalApplications
+    }
+    owners {
+      id
+      email
+      firstName
+    }
+    images {
+      url
+    }
+  }
+}
+
+```
+
 ## Mutations
 
 #### createProperty

@@ -49,7 +49,11 @@ const PropertyCard = styled.div`
     flex-wrap: wrap; */
   }
 `
-
+/**
+ *
+ * Could be a good time to do a fragment
+ * i.e on the property query have a fragment for all of the applications
+ */
 const PropertyDetails = ({ id }) => {
   const [tabIndex, setTabIndex] = useState(0)
 
@@ -61,6 +65,8 @@ const PropertyDetails = ({ id }) => {
   if (loading) return "loading"
   if (error) return "error"
   const property = data.ownerProperty
+
+  console.log("The Property Data feteched => ", property)
 
   return (
     <PropertyCard>
@@ -88,7 +94,7 @@ const PropertyDetails = ({ id }) => {
       )}
       {tabIndex === 1 && (
         <TabContainer>
-          <Applications />
+          <Applications property={property} />
         </TabContainer>
       )}
       {tabIndex === 2 && (

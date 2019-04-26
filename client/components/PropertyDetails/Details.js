@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button"
 import { UPDATE_PROPERTY_MUTATION } from "../../mutation/index"
 import { OWNER_PROPERTIES_QUERY } from "../../query/index"
 import useKeyPress from "../../lib/useKeyPress"
+import Switch from "@material-ui/core/Switch"
 
 const sanitizeInput = (type, value) => {
   if (type === "number") {
@@ -118,15 +119,38 @@ const UpdatePropertyVariableModal = ({
           <div style={{ display: "flex", alignItems: "center" }}>
             <Error error={error} />
 
-            <TextInput
-              autoFocus="true"
-              style={{ margin: 0, paddingRight: "16px" }}
-              type={type}
-              disabled={loading}
-              label={label}
-              value={propertyValue}
-              onChange={e => setPropertyValue(e.target.value)}
-            />
+            {type === "checkbox" && (
+              <Switch
+                checked={propertyValue}
+                // onChange={this.handleChange}
+                onChange={e => {
+                  setPropertyValue(e.target.checked)
+                }}
+                aria-label="LoginSwitch"
+              />
+            )}
+            {type === "text" && (
+              <TextInput
+                autoFocus="true"
+                style={{ margin: 0, paddingRight: "16px" }}
+                type={type}
+                disabled={loading}
+                label={label}
+                value={propertyValue}
+                onChange={e => setPropertyValue(e.target.value)}
+              />
+            )}
+            {type === "number" && (
+              <TextInput
+                autoFocus="true"
+                style={{ margin: 0, paddingRight: "16px" }}
+                type={type}
+                disabled={loading}
+                label={label}
+                value={propertyValue}
+                onChange={e => setPropertyValue(e.target.value)}
+              />
+            )}
 
             <Button
               disabled={loading}
@@ -147,6 +171,8 @@ const UpdatePropertyVariableModal = ({
 const Details = props => {
   const { property } = props
 
+  console.log("The Propery => ", property)
+
   return (
     <div>
       <h4>
@@ -162,6 +188,21 @@ const Details = props => {
           label="Rent"
           type="number"
           value={property.rent}
+        />
+      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <DetailItem
+          icon={<CameraIcon />}
+          type={"boolean"}
+          label="On The Market"
+          value={property.onTheMarket}
+        />
+        <UpdatePropertyVariableModal
+          propertyId={property.id}
+          name="onTheMarket"
+          label="onTheMarket"
+          type="checkbox"
+          value={property.onTheMarket}
         />
       </div>
       <div>
