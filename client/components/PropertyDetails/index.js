@@ -1,7 +1,9 @@
-import React, { Component } from "react"
+import React, { Component, useState, useEffect } from "react"
 import PropTypes from "prop-types"
 import gql from "graphql-tag"
 import { Query } from "react-apollo"
+import { useQuery } from "react-apollo-hooks"
+import { SINGLE_OWNER_PROPERTY_QUERY } from "../../query/index"
 import Error from "../ErrorMessage/index"
 import styled from "styled-components"
 import Head from "next/head"
@@ -15,6 +17,8 @@ import Applications from "./Applications"
 // import Badge from "@material-ui/core/Badge"
 import Badge from "../../styles/Badge"
 import Typography from "@material-ui/core/Typography"
+// constants
+import { SITE_NAME } from "../../lib/const"
 
 function TabContainer(props) {
   return (
@@ -28,7 +32,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const SingleItemStyles = styled.div`
+const PropertyCard = styled.div`
   max-width: 1200px;
   /* margin: 2rem auto; */
   margin: 0;
@@ -41,27 +45,62 @@ const SingleItemStyles = styled.div`
     line-height: 1;
   }
   @media (max-width: ${props => props.theme.breakpoints.values.sm}px) {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
   }
 `
 
-const SINGLE_PROPERTY_QUERY = gql`
-  query SINGLE_PROPERTY_QUERY($id: ID!) {
-    ownerProperty(id: $id) {
-      id
-      location
-      locationLat
-      locationLng
-      rent
-      images {
-        id
-        filename
-        url
-      }
-    }
-  }
-`
+const PropertyDetails = ({ id }) => {
+  const [tabIndex, setTabIndex] = useState(0)
+
+  const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
+    variables: {
+      id: id,
+    },
+  })
+  if (loading) return "loading"
+  if (error) return "error"
+  const property = data.ownerProperty
+
+  return (
+    <PropertyCard>
+      <Head>
+        <title>
+          {SITE_NAME} | {property.location}
+        </title>
+      </Head>
+      <h1 className="location__name"> {property.location}</h1>
+      <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)}>
+        <Tab label="Details" />
+        <Tab
+          label={
+            <Badge color="secondary" badgeContent={4}>
+              Applications
+            </Badge>
+          }
+        />
+        <Tab label="Leases" />
+      </Tabs>
+      {tabIndex === 0 && (
+        <TabContainer>
+          <Details property={property} />
+        </TabContainer>
+      )}
+      {tabIndex === 1 && (
+        <TabContainer>
+          <Applications />
+        </TabContainer>
+      )}
+      {tabIndex === 2 && (
+        <TabContainer>
+          <Leases />
+        </TabContainer>
+      )}
+    </PropertyCard>
+  )
+}
+
+/*
 class SingleItem extends Component {
   state = {
     value: 0,
@@ -123,6 +162,6 @@ class SingleItem extends Component {
     )
   }
 }
+*/
 
-export default SingleItem
-export { SINGLE_PROPERTY_QUERY }
+export default PropertyDetails

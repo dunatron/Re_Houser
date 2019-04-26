@@ -327,9 +327,18 @@ const mutations = {
     }
     delete updates.file
     // run the update method
+    // return ctx.db.mutation.updateProperty(
+    //   {
+    //     updates,
+    //     where: {
+    //       id: args.id,
+    //     },
+    //   },
+    //   info
+    // )
     return ctx.db.mutation.updateProperty(
       {
-        data: updates,
+        updates,
         where: {
           id: args.id,
         },

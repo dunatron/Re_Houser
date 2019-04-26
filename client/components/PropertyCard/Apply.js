@@ -87,7 +87,14 @@ export default class Apply extends Component {
       <Composed>
         {({ user, createRentalApplication }) => {
           const me = user.data.me
-          if (!me) return <SuperLogin />
+          if (!me)
+            return (
+              <div>
+                <h4>You need to sign in or up to apply</h4>
+                <SuperLogin />
+              </div>
+            )
+          // if (!me) return <SuperLogin />
           return (
             <div>
               <Modal

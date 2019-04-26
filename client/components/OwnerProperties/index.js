@@ -41,8 +41,8 @@ const OWNER_PROPERTIES_QUERY = gql`
 `
 
 const UPDATE_PROPERTY_MUTATION = gql`
-  mutation UPDATE_PROPERTY_MUTATION($id: ID!, $onTheMarket: Boolean) {
-    updateProperty(id: $id, onTheMarket: $onTheMarket) {
+  mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
+    updateProperty(id: $id, data: $data) {
       id
       onTheMarket
       location
@@ -181,7 +181,10 @@ class OwnerProperties extends Component {
               update={this.updateCache}>
               {(updateProperty, { loading, error }) => (
                 <>
-                  <Modal open={modalIsOpen} close={() => this.closeModal()}>
+                  <Modal
+                    title={`Property Viewer`}
+                    open={modalIsOpen}
+                    close={() => this.closeModal()}>
                     {this.renderModalDetails()}
                   </Modal>
                   <SuperTable
@@ -219,7 +222,9 @@ class OwnerProperties extends Component {
     const res = await updateProperty({
       variables: {
         id: data.id,
-        onTheMarket: !data.onTheMarket,
+        data: {
+          onTheMarket: !data.onTheMarket,
+        },
       },
     })
 

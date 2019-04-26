@@ -70,7 +70,7 @@ class Signup extends Component {
       } since this is your first time signing up we recomend filling out the rest of your profile to make applying easier later
       `,
       actions: [<div>{accountBtn}</div>],
-      duration: 6000,
+      duration: 15000, // 15 sec
     })
     this.setState({
       firstName: "",

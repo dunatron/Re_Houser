@@ -151,7 +151,6 @@ class CreateProperty extends Component {
                   method="post"
                   onSubmit={async e => {
                     e.preventDefault()
-                    // await signup()
                     this._createProperty(createProperty)
                   }}>
                   <fieldset disabled={loading} aria-busy={loading}>

@@ -6,6 +6,8 @@ import CardActions from "@material-ui/core/CardActions"
 import Collapse from "@material-ui/core/Collapse"
 import Avatar from "@material-ui/core/Avatar"
 import IconButton from "@material-ui/core/IconButton"
+import CameraIcon from "../../styles/icons/CameraIcon"
+import DetailItem from "./DetailItem"
 
 import Map from "../Map/index"
 
@@ -43,6 +45,31 @@ export default class Details extends Component {
     return (
       <div>
         <CardContent>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <DetailItem icon={<CameraIcon />} label="Rooms" value={rooms} />
+            <DetailItem icon={<CameraIcon />} label="rent" value={rent} />
+            <DetailItem
+              icon={<CameraIcon />}
+              label="moveInDate"
+              value={moveInDate}
+            />
+            <DetailItem
+              icon={<CameraIcon />}
+              label="onTheMarket"
+              value={onTheMarket}
+            />
+            <DetailItem
+              icon={<CameraIcon />}
+              label="locationLat"
+              value={locationLat}
+            />
+            <DetailItem
+              icon={<CameraIcon />}
+              label="locationLng"
+              value={locationLng}
+            />
+          </div>
+
           <Typography component="p">rooms: {rooms}</Typography>
           <Typography component="p">rent: {rent}</Typography>
           <Typography component="p">moveInDate: {moveInDate}</Typography>

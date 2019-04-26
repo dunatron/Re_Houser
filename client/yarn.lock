@@ -5339,6 +5339,12 @@ react-adopt@^0.6.0:
     react "^16.3.2"
     react-display-name "^0.2.4"
 
+react-apollo-hooks@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/react-apollo-hooks/-/react-apollo-hooks-0.4.5.tgz#7fe6a8ddfdc92df2da664d399ea77a0da4a10bad"
+  dependencies:
+    lodash "^4.17.11"
+
 react-apollo@^2.5.2:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-2.5.3.tgz#9844a522894a6e0392f6a982c6052348d9a4ae12"

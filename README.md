@@ -505,6 +505,27 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
 }
 ```
 
+#### updateProperty
+
+```js
+mutation UPDATE_PROPERTY_MUTATION(
+  $id: ID!
+  $data: PropertyUpdateInput!
+) {
+  updateProperty(data: $data, id: $id) {
+    id
+    rent
+  }
+}
+// variables
+{
+  "id": "cju8wgaiqcjat0b99n5y4g8b8",
+  "data": {
+    "rent": 90
+  }
+}
+```
+
 #### createRentalApplication
 
 ```js

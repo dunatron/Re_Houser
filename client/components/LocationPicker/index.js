@@ -53,6 +53,8 @@ export default class index extends Component {
     }
     const { location, description, gmaps } = suggestion
 
+    console.log("The suggestion => ", suggestion)
+
     if (description) {
       desc = description
     }

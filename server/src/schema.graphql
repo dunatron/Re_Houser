@@ -31,7 +31,8 @@ type Mutation {
   deleteFile(id: ID!): File
   renameFile(id: ID!, filename: String!): File
   createProperty(data: PropertyCreateInput!, files: [Upload]): Property
-  updateProperty(id: ID!, onTheMarket: Boolean): Property!
+  # updateProperty(id: ID!, onTheMarket: Boolean): Property!
+  updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
   createRentalApplication(
     data: RentalApplicationCreateInput!
   ): RentalApplication!
