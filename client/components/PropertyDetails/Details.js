@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from "react"
+import React, { Component, useState, useRef, useEffect } from "react"
 
 import Map from "../Map/index"
 import ImageSlider from "../ImageSlider/index"
@@ -18,6 +18,7 @@ import Error from "../ErrorMessage/index"
 import Button from "@material-ui/core/Button"
 import { UPDATE_PROPERTY_MUTATION } from "../../mutation/index"
 import { OWNER_PROPERTIES_QUERY } from "../../query/index"
+import useKeyPress from "../../lib/useKeyPress"
 
 const sanitizeInput = (type, value) => {
   if (type === "number") {
@@ -37,6 +38,26 @@ const UpdatePropertyVariableModal = ({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState({})
   const [propertyValue, setPropertyValue] = useState(value)
+
+  // const escapePress = useKeyPress("Escape")
+  // if (escapePress === true) {
+  //   console.log("escapePress ?? => ", escapePress)
+  //   setModalIsOpen(false)
+  // }
+
+  function downHandler({ key }) {
+    if (key === "Escape") {
+      setModalIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", downHandler)
+    // Remove event listeners on cleanup
+    return () => {
+      window.removeEventListener("keydown", downHandler)
+    }
+  }, []) // Empty array ensures that effect is only run on mount and unmount
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
     mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
@@ -87,9 +108,10 @@ const UpdatePropertyVariableModal = ({
         <form
           onSubmit={async e => {
             e.preventDefault()
-            setLoading(true)
-            const res = await updateProperty()
-            setLoading(false)
+            updateProperty()
+            // setLoading(true)
+            // const res = await updateProperty()
+            // setLoading(false)
             setModalIsOpen(false)
           }}>
           {loading && <p>confirming on the server...</p>}
@@ -124,6 +146,7 @@ const UpdatePropertyVariableModal = ({
 
 const Details = props => {
   const { property } = props
+
   return (
     <div>
       <h4>
