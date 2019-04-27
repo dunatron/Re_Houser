@@ -66,10 +66,10 @@ const PropertyDetails = ({ id }) => {
     <PropertyCard>
       <Head>
         <title>
-          {SITE_NAME} | {property.location}
+          {SITE_NAME} | {property ? property.location : null}
         </title>
       </Head>
-      <h1 className="location__name"> {property.location}</h1>
+      <h1 className="location__name"> {property ? property.location : null}</h1>
       <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)}>
         <Tab label="Details" />
         <Tab
