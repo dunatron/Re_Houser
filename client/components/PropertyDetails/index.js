@@ -62,6 +62,10 @@ const PropertyDetails = ({ id }) => {
   if (error) return "error"
   const property = data.ownerProperty
 
+  if (!property) {
+    return "This shouldnt happen apologies 😭😭😭 🤢 🤮"
+  }
+
   return (
     <PropertyCard>
       <Head>
