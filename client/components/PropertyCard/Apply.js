@@ -50,24 +50,32 @@ export default class Apply extends Component {
   }
   _variables = () => {}
   update = (cache, payload) => {
-    // const { id } = this.props.property
-    // const variables = {
-    //   where: {
-    //     property: {
-    //       id: id,
-    //     },
-    //   },
-    // }
-    // const data = cache.readQuery({
-    //   query: RENTAL_APPLICATIONS_QUERY,
-    //   variables: variables,
-    // })
-    // data.rentalApplications.push({ ...payload.data.createRentalApplication })
-    // cache.writeQuery({
-    //   query: RENTAL_APPLICATIONS_QUERY,
-    //   data,
-    //   variables: variables,
-    // })
+    const { id } = this.props.property
+    const variables = {
+      where: {
+        property: {
+          id: id,
+        },
+      },
+    }
+    const data = cache.readQuery({
+      query: RENTAL_APPLICATIONS_QUERY,
+      variables: variables,
+    })
+    const applicationId = payload.data.createRentalApplication.id
+    const haveApplication = data.rentalApplications.find(
+      application => application.id === applicationId
+    )
+    // return early as to not add to cache
+    if (haveApplication) {
+      return
+    }
+    data.rentalApplications.push({ ...payload.data.createRentalApplication })
+    cache.writeQuery({
+      query: RENTAL_APPLICATIONS_QUERY,
+      data,
+      variables: variables,
+    })
   }
   rentalApplicationStepper = async (createRentalApplication, me) => {
     const application = await this._createRentalApplication(

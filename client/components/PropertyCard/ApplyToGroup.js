@@ -23,6 +23,7 @@ class ApplyToGroup extends Component {
     applicationData: {},
   }
   update = (cache, payload) => {
+    console.log("This ios the thiung handling apply to group mutation")
     // manually update the cache on the client, so it matches the server
     // 1. Read the cache for the items we want
     // const data = cache.readQuery({ query: ALL_FILES_QUERY })
@@ -32,23 +33,6 @@ class ApplyToGroup extends Component {
     // )
     // // 3. Put the items back!
     // cache.writeQuery({ query: ALL_FILES_QUERY, data })
-  }
-  _variables = () => {
-    return {
-      data: {
-        user: {
-          connect: {
-            id: "${UserID}",
-          },
-        },
-        approved: false,
-        application: {
-          connect: {
-            id: "${applicationID}",
-          },
-        },
-      },
-    }
   }
   _applyToGroup = async (applyToRentalGroup, me) => {
     const { applicationId } = this.props
@@ -71,15 +55,15 @@ class ApplyToGroup extends Component {
     })
     const rentalData = res.data.applyToRentalGroup
     // Do an update of the cache and lauch modal from parent container
-    console.log("rentalData => ", rentalData)
+    // console.log("rentalData => ", rentalData)
     // STep 1 update cache
     // STep 2 open modal through props
-    this.props.openRentalAppModal(rentalData  )
+    this.props.openRentalAppModal(rentalData)
   }
   render() {
     return (
       <Composed>
-        {({ user, createRentalApplication }) => {
+        {({ user }) => {
           const me = user.data.me
           const property = this.props.property
           const application = this.props.application
@@ -89,7 +73,6 @@ class ApplyToGroup extends Component {
             <div>
               <Mutation
                 mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}
-                // variables={this._variables()}
                 update={this.update}>
                 {(applyToRentalGroup, { error }) => (
                   <>

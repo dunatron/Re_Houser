@@ -28,6 +28,7 @@ export default class RentalApplications extends Component {
                   rentalApplications.map((application, idx) => {
                     return (
                       <ApplicationItem
+                        key={application.id}
                         application={application}
                         index={idx}
                         property={property}

@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 class ApplicationDetailsStep extends Component {
   render() {
     const { me, applicationInfo } = this.props
-    console.log("applicationInfo as Props => ", applicationInfo)
+    // console.log("applicationInfo as Props => ", applicationInfo)
     if (me.id !== applicationInfo.owner.id) {
       return (
         <div>

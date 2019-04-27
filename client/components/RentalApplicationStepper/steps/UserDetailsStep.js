@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import { USER_PROFILE_CONF } from "../../../lib/configs/userProfileConfig"
 import TextInput from "../../../styles/TextInput"
 import InputErrors from "../../InputErrors/index"
+import PhotoIdUploader from "../../PhotoIdUploader/index"
 
 class UserDetailsStep extends Component {
   state = {
@@ -23,7 +24,9 @@ class UserDetailsStep extends Component {
 
     const { userInfo } = this.state
 
-    console.log("applicantData => ", applicantData)
+    console.log("me => ", me)
+
+    // console.log("applicantData => ", applicantData)
 
     if (completed) {
       return <div>Applicant data for the group application is complete</div>
@@ -32,7 +35,7 @@ class UserDetailsStep extends Component {
     return (
       <div>
         {Object.keys(this.props.userInfo).map((userVar, i) => {
-          console.log("userVar => ", userVar)
+          // console.log("userVar => ", userVar)
 
           return (
             <div>
@@ -53,6 +56,13 @@ class UserDetailsStep extends Component {
             </div>
           )
         })}
+
+        {!me.photoIdentification && <h1>YOU NEED PHOTO IDENTIFICATION</h1>}
+        <p>
+          Perhaps a user Photo Identification uploaeder componen with a mutation
+          and all
+        </p>
+        <PhotoIdUploader me={me} />
       </div>
     )
   }

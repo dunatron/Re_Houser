@@ -52,7 +52,7 @@ class RentalApplicationStepper extends Component {
   getStepContent = (step, me, property, application) => {
     const { userErrorsBag } = this.state
     const applicantData = this.getApplicantObject()
-    console.log("applicantData => for step component => ", applicantData)
+    // console.log("applicantData => for step component => ", applicantData)
     switch (step) {
       case 0:
         // return "Step 2: What is an ad group anyways?";
@@ -88,11 +88,11 @@ class RentalApplicationStepper extends Component {
     return userRentalApplicantData
   }
   handleDetailsChange = e => {
-    console.log("handleDetailsChange => ", e)
+    // console.log("handleDetailsChange => ", e)
     const name = e.target.name
     const varName = `userInfo.${[e.target.name]}`
-    console.log("varName ?? => ", varName)
-    console.log("value name ", name)
+    // console.log("varName ?? => ", varName)
+    // console.log("value name ", name)
     this.setState({
       userInfo: {
         ...this.state.userInfo,
@@ -109,7 +109,7 @@ class RentalApplicationStepper extends Component {
     const { completed } = this.state
     const me = this.props.me
     const applicantData = this.getApplicantObject()
-    console.log("applicantData ", applicantData)
+    // console.log("applicantData ", applicantData)
     // extract userInfo and set it in state
     const userInfo = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
       // const objPiece = { [conf.variableName]: [me[conf.variableName]] };
@@ -129,7 +129,7 @@ class RentalApplicationStepper extends Component {
     }, {})
     // this.props.application
     const applicationInfo = this.props.application
-    console.log("applicationInfo hasMounted => ", applicationInfo)
+    // console.log("applicationInfo hasMounted => ", applicationInfo)
     // completed[0] = applicantData.completed ? true : false
     this.setState({ userInfo: userInfo, applicationInfo: applicationInfo })
   }
@@ -220,8 +220,8 @@ class RentalApplicationStepper extends Component {
     const steps = getSteps()
     const { activeStep } = this.state
 
-    console.log("THE APPLICATION => ", application)
-    console.log("This.state => ", this.state)
+    // console.log("THE APPLICATION => ", application)
+    // console.log("This.state => ", this.state)
 
     return (
       <div className={classes.root}>
@@ -331,21 +331,27 @@ class RentalApplicationStepper extends Component {
 
   // Validation on step Save
   _saveUserDetails = async userInfo => {
-    console.log("userInfo => ", userInfo)
+    // console.log("userInfo => ", userInfo)
+    const { classes, me, property, application } = this.props
+    if (!me.photoIdentification) {
+      alert("You need photo ID")
+      return
+    }
     await this.setState({ userErrorsBag: {} })
     const errorsBag = customErrorsBag(userInfo)
-    console.log("errorsBag => ", errorsBag)
+    // console.log("errorsBag => ", errorsBag)
     // if there are errors exit early and set userErrorsBag
     if (!isEmpty(errorsBag)) {
       this.setState({ userErrorsBag: errorsBag })
       return false
     }
+
     // update the application with a mutation
     const userData = Object.keys(userInfo).reduce((previous, key) => {
       previous[key] = userInfo[key].value
       return previous
     }, {})
-    console.log("userData => ", userData)
+    // console.log("userData => ", userData)
     const userRentalApplicantData = this.props.application.applicants.find(
       applicant => applicant.user.id === this.props.me.id
     )
@@ -354,7 +360,7 @@ class RentalApplicationStepper extends Component {
       email: userData.email,
       firstName: userData.firstName,
     }
-    console.log("rentalGroupApplicantData => ", rentalGroupApplicantData)
+    // console.log("rentalGroupApplicantData => ", rentalGroupApplicantData)
     const updatedUser = this.props.updateRentalGroupApplicant({
       variables: {
         data: rentalGroupApplicantData,
@@ -371,7 +377,7 @@ class RentalApplicationStepper extends Component {
 
   _saveApplicationDetails = async application => {
     const me = this.props.me
-    console.log("application _saveApplicationDetails", application)
+    // console.log("application _saveApplicationDetails", application)
     // Only owner can update this section
     if (application.owner.id !== me.id) {
       openSnackbar({

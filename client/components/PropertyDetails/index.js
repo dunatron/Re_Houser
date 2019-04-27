@@ -49,11 +49,7 @@ const PropertyCard = styled.div`
     flex-wrap: wrap; */
   }
 `
-/**
- *
- * Could be a good time to do a fragment
- * i.e on the property query have a fragment for all of the applications
- */
+
 const PropertyDetails = ({ id }) => {
   const [tabIndex, setTabIndex] = useState(0)
 
@@ -65,8 +61,6 @@ const PropertyDetails = ({ id }) => {
   if (loading) return "loading"
   if (error) return "error"
   const property = data.ownerProperty
-
-  console.log("The Property Data feteched => ", property)
 
   return (
     <PropertyCard>
@@ -80,7 +74,7 @@ const PropertyDetails = ({ id }) => {
         <Tab label="Details" />
         <Tab
           label={
-            <Badge color="secondary" badgeContent={4}>
+            <Badge color="secondary" badgeContent={3}>
               Applications
             </Badge>
           }
@@ -105,69 +99,5 @@ const PropertyDetails = ({ id }) => {
     </PropertyCard>
   )
 }
-
-/*
-class SingleItem extends Component {
-  state = {
-    value: 0,
-  }
-
-  handleChange = (event, value) => {
-    this.setState({ value })
-  }
-  render() {
-    return (
-      <Query
-        query={SINGLE_PROPERTY_QUERY}
-        variables={{
-          id: this.props.id,
-        }}>
-        {({ error, loading, data }) => {
-          if (error) return <Error error={error} />
-          if (loading) return <p>Loading...</p>
-          if (!data.ownerProperty)
-            return <p>No Item Found for {this.props.id}</p>
-          const property = data.ownerProperty
-          const { value } = this.state
-          return (
-            <SingleItemStyles>
-              <Head>
-                <title>Re_Houser | {property.location}</title>
-              </Head>
-              <h1 className="location__name"> {property.location}</h1>
-              <Tabs value={value} onChange={this.handleChange}>
-                <Tab label="Details" />
-                <Tab
-                  label={
-                    <Badge color="secondary" badgeContent={4}>
-                      Applications
-                    </Badge>
-                  }
-                />
-                <Tab label="Leases" />
-              </Tabs>
-              {value === 0 && (
-                <TabContainer>
-                  <Details property={property} />
-                </TabContainer>
-              )}
-              {value === 1 && (
-                <TabContainer>
-                  <Applications />
-                </TabContainer>
-              )}
-              {value === 2 && (
-                <TabContainer>
-                  <Leases />
-                </TabContainer>
-              )}
-            </SingleItemStyles>
-          )
-        }}
-      </Query>
-    )
-  }
-}
-*/
 
 export default PropertyDetails

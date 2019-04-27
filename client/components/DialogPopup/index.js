@@ -1,75 +1,46 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { withStyles } from "@material-ui/core/styles"
-import Dialog from "@material-ui/core/Dialog/Dialog"
+import React, { useState, useEffect } from "react"
+import Button from "@material-ui/core/Button"
+import Dialog from "@material-ui/core/Dialog"
+import DialogActions from "@material-ui/core/DialogActions"
+import DialogContent from "@material-ui/core/DialogContent"
+import DialogContentText from "@material-ui/core/DialogContentText"
+import DialogTitle from "@material-ui/core/DialogTitle"
+import Slide from "@material-ui/core/Slide"
 
-const styles = {}
-
-class SimpleDialog extends React.Component {
-  handleClose = () => {
-    this.props.onClose(this.props.selectedValue)
-  }
-
-  handleListItemClick = value => {
-    this.props.onClose(value)
-  }
-
-  render() {
-    const { classes, onClose, content, selectedValue, ...other } = this.props
-
-    return (
-      <Dialog
-        onClose={this.handleClose}
-        aria-labelledby="simple-dialog-title"
-        {...other}>
-        {/* <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle> */}
-        <div>{content}</div>
-        <div />
-      </Dialog>
-    )
-  }
+function Transition(props) {
+  return <Slide direction="up" {...props} />
 }
 
-SimpleDialog.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onClose: PropTypes.func,
-  selectedValue: PropTypes.string,
-}
-
-const SimpleDialogWrapped = withStyles(styles)(SimpleDialog)
-
-class DialogPopup extends React.Component {
-  state = {
-    open: false,
-  }
-
-  handleClickOpen = () => {
-    this.setState({
-      open: true,
-    })
-  }
-
-  handleClose = value => {
-    this.setState({ selectedValue: value, open: false })
-  }
-
-  render() {
-    const { text, content } = this.props
-    return (
-      <div style={{ display: "inline" }}>
-        <span onClick={this.handleClickOpen} style={{ cursor: "pointer" }}>
-          {text}
-        </span>
-        {/* <Button onClick={this.handleClickOpen}>{text}</Button> */}
-        <SimpleDialogWrapped
-          content={content}
-          selectedValue={this.state.selectedValue}
-          open={this.state.open}
-          onClose={this.handleClose}
-        />
-      </div>
-    )
-  }
+const DialogPopup = ({ isOpen }) => {
+  const [open, setOpen] = useState(isOpen)
+  useEffect(() => setOpen(isOpen), [isOpen])
+  return (
+    <Dialog
+      open={open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={() => setOpen(false)}
+      aria-labelledby="alert-dialog-slide-title"
+      aria-describedby="alert-dialog-slide-description">
+      <DialogTitle id="alert-dialog-slide-title">
+        {"Use Google's location service?"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">
+          Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setOpen(false)} color="primary">
+          Disagree
+        </Button>
+        <Button onClick={() => setOpen(false)} color="primary">
+          Agree
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
 }
 
 export default DialogPopup
