@@ -8,6 +8,7 @@
 .pnp.js
 
 /server/variables.env
+/server/variables-prod.env
 
 # testing
 /coverage
