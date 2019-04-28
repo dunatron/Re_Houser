@@ -40,7 +40,7 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
 
   application.applicants.forEach((applicant, i) => {
     transport.sendMail({
-      from: "heath.dunlop.hd.@gmail.com",
+      from: "heathd@rehouser.co.nz",
       to: applicant.user.email,
       subject: "Application stage: PENDING",
       html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
