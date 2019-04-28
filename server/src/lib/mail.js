@@ -9,15 +9,44 @@ const nodemailer = require("nodemailer")
 //   },
 // })
 
+// const transport = nodemailer.createTransport({
+//   // host: "gmail",
+//   service: "gmail",
+//   // port: process.env.MAIL_PORT,
+//   auth: {
+//     user: "heath.dunlop.hd@gmail.com",
+//     pass: "DDHDB@$92Dunlop24",
+//   },
+// })
+
 const transport = nodemailer.createTransport({
   // host: "gmail",
   service: "gmail",
   // port: process.env.MAIL_PORT,
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
-    user: "heath.dunlop.hd@gmail.com",
+    user: "heathd@rehouser.co.nz",
     pass: "DDHDB@$92Dunlop24",
   },
+  tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false,
+  },
 })
+
+// host: 'smtp.gmail.com',
+//     port: 465,
+//     secure: true,
+//     auth: {
+//         user: 'youremai@gmail.com', // Your email id
+//         pass: 'pwd123' // Your password
+//     },
+//     tls: {
+//         // do not fail on invalid certs
+//         rejectUnauthorized: false
+//     }
 
 //
 
