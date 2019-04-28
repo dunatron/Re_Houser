@@ -1,3 +1,5 @@
+const { transport, makeANiceEmail } = require("../../lib/mail")
+
 async function completeRentalApplication(parent, { applicationId }, ctx, info) {
   const loggedInUser = ctx.request.userId
   // need to be logged in
@@ -35,6 +37,14 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
     },
     info
   )
+
+  const mailRes = await transport.sendMail({
+    from: "heath.dunlop.hd.com",
+    to: "heath.dunlop.hd.com",
+    subject: "Your Password Reset Token",
+    html: makeANiceEmail(`Your Password Reset Token is here!
+    \n\n`),
+  })
 
   console.log("updatedApplicationStage ====> ", updatedApplication)
 

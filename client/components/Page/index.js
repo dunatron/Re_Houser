@@ -14,7 +14,8 @@ import muiTheme from "../../styles/_muiTheme"
 import Notifier, { openSnackbar } from "../Notifier/index"
 // alert
 import { transitions, positions, Provider as AlertProvider } from "react-alert"
-import AlertTemplate from "react-alert-template-basic"
+import AlertTemplate from "../AlertTemplate.js/index"
+import { ALERT_OPTIONS } from "../../lib/configs/alertConfig"
 
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
@@ -126,7 +127,7 @@ class Page extends Component {
       <NoSsr>
         <MuiThemeProvider theme={theme}>
           <ThemeProvider theme={theme}>
-            <AlertProvider template={AlertTemplate} {...alertOptions}>
+            <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
               <StyledPage>
                 <Meta />
                 <Header />

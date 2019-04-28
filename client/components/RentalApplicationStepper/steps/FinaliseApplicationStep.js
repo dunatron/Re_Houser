@@ -1,6 +1,7 @@
 import gql from "graphql-tag"
 import { useMutation } from "react-apollo-hooks"
 import { useAlert } from "react-alert"
+import Button from "@material-ui/core/Button"
 
 const COMPLETE_RENTAL_APPLICATION = gql`
   mutation COMPLETE_RENTAL_APPLICATION($applicationId: ID!) {
@@ -33,25 +34,26 @@ const FinaliseApplicationStep = ({ application }) => {
       {application.stage === "PENDING" && (
         <div>Your application is awaiting for approval from the land</div>
       )}
-      <button
-        onClick={() => {
-          completeApplication()
-            .then(res => {
-              // just to display message? or just let ui change when we update
-              console.log(
-                "We have oput the application into pending mode => ",
-                res
-              )
-              alert.show(
-                "Congrats the application is now in PENDING mode awaiting the landlords approval!"
-              )
-            })
-            .catch(e => alert.error(e.message))
-
-          // alert.show("Oh look, an alert!")
-        }}>
-        Complete
-      </button>
+      {application.stage === "INITIALIZING" && (
+        <Button
+          variant="contained"
+          onClick={() => {
+            completeApplication()
+              .then(res => {
+                // just to display message? or just let ui change when we update
+                console.log(
+                  "We have oput the application into pending mode => ",
+                  res
+                )
+                alert.show(
+                  "Congrats the application is now in PENDING mode awaiting the landlords approval!"
+                )
+              })
+              .catch(e => alert.error(e.message))
+          }}>
+          Complete Application
+        </Button>
+      )}
     </div>
   )
 }
