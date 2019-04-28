@@ -22,18 +22,19 @@ const nodemailer = require("nodemailer")
 const transport = nodemailer.createTransport({
   // host: "gmail",
   service: "gmail",
+  host: "gmail",
   // port: process.env.MAIL_PORT,
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  // host: "smtp.gmail.com",
+  // port: 465,
+  // secure: true,
   auth: {
     user: "heathd@rehouser.co.nz",
     pass: "DDHDB@$92Dunlop24",
   },
-  tls: {
-    // do not fail on invalid certs
-    rejectUnauthorized: false,
-  },
+  // tls: {
+  //   // do not fail on invalid certs
+  //   rejectUnauthorized: false,
+  // },
 })
 
 // host: 'smtp.gmail.com',
