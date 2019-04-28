@@ -9,6 +9,8 @@ const { hasPermission } = require("../lib/utils")
 const { processUpload, deleteFile } = require("../lib/fileApi")
 const { convertDocument } = require("../lib/DocGenerator")
 const createRentalApplication = require("./mutations/createRentalApplication")
+const updateRentalApplication = require("./mutations/updateRentalApplication")
+const completeRentalApplication = require("./mutations/completeRentalApplication")
 var fs = require("fs"),
   path = require("path"),
   filePath = path.join(__dirname, "../lib/documents/test.docx")
@@ -375,6 +377,8 @@ const mutations = {
     return docyBuf
   },
   createRentalApplication,
+  updateRentalApplication,
+  completeRentalApplication,
   async updateUser(parent, { data, photoFile }, ctx, info) {
     const uploadedPhoto = photoFile
       ? await processUpload(await photoFile, ctx)

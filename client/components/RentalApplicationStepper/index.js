@@ -11,6 +11,7 @@ import Error from "../ErrorMessage/index"
 // Steps
 import UserDetailsStep from "./steps/UserDetailsStep"
 import ApplicationDetailsStep from "./steps/ApplicationDetailsStep"
+import FinaliseApplicationStep from "./steps/FinaliseApplicationStep"
 // configs
 import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig"
 import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplicantConfig"
@@ -76,7 +77,7 @@ class RentalApplicationStepper extends Component {
           />
         )
       case 2:
-        return "Step 3: This is the bit I really care about!"
+        return <FinaliseApplicationStep application={application} />
       default:
         return "Unknown step"
     }
@@ -242,7 +243,7 @@ class RentalApplicationStepper extends Component {
               <Typography className={classes.instructions}>
                 All steps completed - you&apos;re finished
               </Typography>
-              <Button onClick={this.handleReset}>Reset</Button>
+              <Button onClick={this.handleReset}>Close</Button>
             </div>
           ) : (
             <div>

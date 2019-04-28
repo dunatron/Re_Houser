@@ -32,7 +32,7 @@ export default class Apply extends Component {
     const res = await createRentalApplication({
       variables: {
         data: {
-          stage: "PENDING",
+          stage: "INITIALIZING",
           property: {
             connect: {
               id: id,

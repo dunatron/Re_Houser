@@ -675,6 +675,44 @@ mutation applyToRentalGroup($data:RentalGroupApplicantCreateInput!) {
 }
 ```
 
+#### update rental application
+
+```js
+mutation UPDATE_RENTAL_APPLICATION($data: RentalApplicationUpdateInput! $where:RentalApplicationWhereUniqueInput!){
+  updateRentalApplication(data: $data, where:$where) {
+    id
+    title
+    stage
+    visibility
+  }
+}
+// variables
+{
+  "data": {
+    "stage": "ACCEPTED",
+    "visibility": "PRIVATE"
+  },
+  "where": {
+    "id": ""
+  }
+}
+```
+
+#### complete rental application
+
+```js
+mutation COMPLETE_RENTAL_APPLICATION($applicationId: ID!) {
+  completeRentalApplication(applicationId:$applicationId) {
+    id
+    stage
+  }
+}
+// variables
+{
+  "applicationId": "sdfdsf"
+}
+```
+
 #### updateUser
 
 ```js

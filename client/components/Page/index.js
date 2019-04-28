@@ -12,6 +12,9 @@ import Meta from "../Meta/index"
 import NoSsr from "@material-ui/core/NoSsr"
 import muiTheme from "../../styles/_muiTheme"
 import Notifier, { openSnackbar } from "../Notifier/index"
+// alert
+import { transitions, positions, Provider as AlertProvider } from "react-alert"
+import AlertTemplate from "react-alert-template-basic"
 
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
@@ -107,6 +110,15 @@ const GlobalStyle = createGlobalStyle`
   
 `
 
+const alertOptions = {
+  // you can also just use 'bottom center'
+  position: positions.BOTTOM_CENTER,
+  timeout: 5000,
+  offset: "30px",
+  // you can also just use 'scale'
+  transition: transitions.SCALE,
+}
+
 class Page extends Component {
   render() {
     const { google } = this.props
@@ -114,12 +126,14 @@ class Page extends Component {
       <NoSsr>
         <MuiThemeProvider theme={theme}>
           <ThemeProvider theme={theme}>
-            <StyledPage>
-              <Meta />
-              <Header />
-              <Notifier />
-              <Inner>{this.props.children}</Inner>
-            </StyledPage>
+            <AlertProvider template={AlertTemplate} {...alertOptions}>
+              <StyledPage>
+                <Meta />
+                <Header />
+                <Notifier />
+                <Inner>{this.props.children}</Inner>
+              </StyledPage>
+            </AlertProvider>
           </ThemeProvider>
         </MuiThemeProvider>
         <GlobalStyle />
