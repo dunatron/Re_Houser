@@ -534,7 +534,11 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
 // variables
 {
   "data": {
+    "type":"HOUSE",
     "rent": 45.65,
+    "carportSpaces":1,
+    "garageSpaces": 5,
+    "offStreetSpaces":2,
     "location": "A test location",
     "locationLat": 4512.0125,
     "locationLng": 125454,
@@ -573,7 +577,18 @@ mutation createProperty($data: PropertyCreateInput! $files:[Upload]) {
           "id": "cjtdyd128a27j0b76dxmy3vml"
         }
       ]
-
+    },
+    "outdoorFeatures":{
+      "set":[
+        "SWIMMING_POOL"
+      ]
+    },
+    "indoorFeatures":{
+      "set":[
+       	"AIR_CONDITIONING",
+				"FURNISHED",
+				"INTERNAL_LAUNDRY"
+      ]
     }
   }
 }

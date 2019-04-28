@@ -40,7 +40,7 @@ const SearchBar = ({
           label="Column Filter"
           value={searchCol}
           selectID={"SearchFilter"}
-          handleChange={selected => updateSearchCol(selected)}
+          handleChange={e => updateSearchCol(e.target.value)}
           options={options}
         />
         <SearchFilter

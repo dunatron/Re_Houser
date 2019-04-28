@@ -2,6 +2,7 @@ import gql from "graphql-tag"
 const PropertyInfoFragment = gql`
   fragment propertyInfo on Property {
     id
+    type
     rooms
     rent
     moveInDate
@@ -9,6 +10,11 @@ const PropertyInfoFragment = gql`
     location
     locationLat
     locationLng
+    carportSpaces
+    garageSpaces
+    offStreetSpaces
+    outdoorFeatures
+    indoorFeatures
   }
 `
 

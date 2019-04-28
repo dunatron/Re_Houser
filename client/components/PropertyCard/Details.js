@@ -31,6 +31,7 @@ export default class Details extends Component {
   }
   render() {
     const {
+      type,
       rooms,
       rent,
       moveInDate,
@@ -41,11 +42,34 @@ export default class Details extends Component {
       owners,
       creator,
       images,
+      imageUrls, // for algolia
+      carportSpaces,
+      garageSpaces,
+      offStreetSpaces,
+      outdoorFeatures,
+      indoorFeatures,
     } = this.props.property
+    console.log("imageUrls => ", imageUrls)
     return (
       <div>
         <CardContent>
           <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <Typography component="p">TYPE: {type}</Typography>
+            <Typography component="p">
+              carportSpaces: {carportSpaces}
+            </Typography>
+            <Typography component="p">garageSpaces: {garageSpaces}</Typography>
+            <Typography component="p">
+              offStreetSpaces: {offStreetSpaces}
+            </Typography>
+            <Typography component="p">
+              indoorFeatures:{" "}
+              {indoorFeatures.map((feature, i) => `${feature}, `)}
+            </Typography>
+            <Typography component="p">
+              outdoorFeatures:{" "}
+              {outdoorFeatures.map((feature, i) => `${feature},`)}
+            </Typography>
             <DetailItem icon={<CameraIcon />} label="Rooms" value={rooms} />
             <DetailItem icon={<CameraIcon />} label="rent" value={rent} />
             <DetailItem
@@ -78,7 +102,8 @@ export default class Details extends Component {
           <Typography component="p">locationLng: {locationLng}</Typography>
         </CardContent>
 
-        <ImageSlider images={images} />
+        {images && <ImageSlider images={images} />}
+        {imageUrls && <ImageSlider imageUrls={imageUrls} />}
         <CardContent>
           <Typography component="p">
             A description about this lot of land/dwelling

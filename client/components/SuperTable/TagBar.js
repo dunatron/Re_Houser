@@ -21,7 +21,7 @@ const TagBar = props => {
           { name: "match", value: "match" },
           { name: "contains", value: "contains" },
         ]}
-        handleChange={v => props.setTagType(v)}
+        handleChange={e => props.setTagType(e.target.value)}
       />
       <MultiSelectChip
         values={props.values}

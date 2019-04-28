@@ -24,11 +24,12 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
         id: propertyId,
       },
     },
-    `{id, rooms, rent, moveInDate, onTheMarket, location, locationLat, locationLng, images{url} }`
+    `{id, type, rooms, rent, moveInDate, onTheMarket, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
   )
   const propertiesObjectArr = []
   const propertyObject = {
     id: property.id,
+    type: property.type,
     rooms: property.rooms,
     rent: property.rent,
     moveInDate: property.moveInDate,
@@ -36,7 +37,12 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     location: property.location,
     locationLat: property.locationLat,
     locationLng: property.locationLng,
-    imageUrls: "url1, url2, url3",
+    imageUrls: property.images.map(image => image.url),
+    carportSpaces: property.carportSpaces,
+    garageSpaces: property.garageSpaces,
+    offStreetSpaces: property.offStreetSpaces,
+    outdoorFeatures: property.outdoorFeatures, // If you add an array in the list of attributes to index, we extract and index all strings in the array.
+    indoorFeatures: property.indoorFeatures, // https://www.algolia.com/doc/faq/index-configuration/do-you-support-indexing-of-arrays/
   }
   propertiesObjectArr.push(propertyObject)
   console.log("propertiesObjectArr => ", propertiesObjectArr)

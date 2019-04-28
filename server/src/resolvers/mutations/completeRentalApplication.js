@@ -39,9 +39,6 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
   )
 
   application.applicants.forEach((applicant, i) => {
-    console.log(" YOOOO WE HAVE AN APPLICANT DUDE")
-    console.log("applicantemail => ", applicant.email)
-    console.log("applicantemail => ", applicant.user.email)
     transport.sendMail({
       from: "heath.dunlop.hd.@gmail.com",
       to: applicant.user.email,

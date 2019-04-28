@@ -156,14 +156,14 @@ export default class index extends Component {
                 options={[{ name: "ALL", value: "ALL" }].concat(
                   CountryCodesArray
                 )}
-                handleChange={v => this.setState({ country: v })}
+                handleChange={e => this.setState({ country: e.target.value })}
               />
 
               <SelectOption
                 label="Type"
                 value={this.state.type}
                 options={[{ name: "ALL", value: "ALL" }].concat(LOCATION_TYPES)}
-                handleChange={v => this.setState({ type: v })}
+                handleChange={e => this.setState({ type: e.target.value })}
               />
             </ExpansionPanelDetails>
           </ExpansionPanel>

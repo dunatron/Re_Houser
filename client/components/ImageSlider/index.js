@@ -10,15 +10,24 @@ class SimpleSlider extends React.Component {
       slidesToShow: 1,
       slidesToScroll: 1,
     }
-    const { images } = this.props
+    const { images, imageUrls } = this.props
     return (
       <Slider {...settings}>
         {images &&
           images.map((image, i) => (
-            <div>
+            <div key={i}>
               <img
                 style={{ width: "100%", height: "300px", objectFit: "cover" }}
                 src={image.url}
+              />
+            </div>
+          ))}
+        {imageUrls &&
+          imageUrls.map((url, i) => (
+            <div key={i}>
+              <img
+                style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                src={url}
               />
             </div>
           ))}

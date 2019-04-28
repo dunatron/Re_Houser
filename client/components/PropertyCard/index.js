@@ -78,6 +78,12 @@ class PropertyCardComponent extends Component {
       owners,
       creator,
       images,
+      imageUrls, // for algolia
+      carportSpaces,
+      garageSpaces,
+      offStreetSpaces,
+      outdoorFeatures,
+      indoorFeatures,
     } = property
     return (
       <PropertyCard>

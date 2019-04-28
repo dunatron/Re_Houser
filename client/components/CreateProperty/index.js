@@ -16,6 +16,11 @@ import ImagePicker from "../ImagePicker/index"
 import DragDropUploader from "../DragDropUploader/index"
 import { adopt } from "react-adopt"
 import User from "../User/index"
+import MultiSelectChip from "../Inputs/MultiSelectChip"
+import SelectOption from "../Inputs/SelectOption"
+import { INDOOR_FEATURES_CONF } from "../../lib/configs/indoorFeaturesConf"
+import { OUTDOOR_FEATURES_CONF } from "../../lib/configs/outdoorFeaturesConf"
+import { PROPERTY_TYPES_CONF } from "../../lib/configs/propertyTypesConf"
 
 // const CREATE_PROPERTY_MUTATION = gql`
 //   mutation CREATE_PROPERTY_MUTATION(
@@ -39,12 +44,18 @@ const Composed = adopt({
 
 class CreateProperty extends Component {
   defaultState = {
+    type: "HOUSE",
     location: "",
     locationLat: "",
     locationLng: "",
     rooms: 0,
     rent: 0.0,
     images: [],
+    indoorFeatures: [],
+    outdoorFeatures: [],
+    carportSpaces: 1,
+    garageSpaces: 5,
+    offStreetSpaces: 2,
   }
   state = {
     ...this.defaultState,
@@ -70,11 +81,22 @@ class CreateProperty extends Component {
       .map(file => file.data.raw)
     const data = {
       data: {
+        type: this.state.type,
         rent: parseFloat(this.state.rent),
         location: this.state.location,
         locationLat: this.state.locationLat,
         locationLng: this.state.locationLng,
         rooms: parseInt(this.state.rooms),
+        carportSpaces: 1,
+        garageSpaces: 5,
+        offStreetSpaces: 2,
+        // outdoorFeatures: this.state.outdoorFeatures,
+        outdoorFeatures: {
+          set: this.state.outdoorFeatures,
+        },
+        indoorFeatures: {
+          set: this.state.indoorFeatures,
+        },
         owners: {
           connect: {
             id: me.id,
@@ -201,6 +223,42 @@ class CreateProperty extends Component {
                       value={this.state.locationLng}
                       onChange={this.saveToState}
                     />
+                    <SelectOption
+                      label="Type"
+                      name="type"
+                      value={this.state.type}
+                      options={PROPERTY_TYPES_CONF}
+                      handleChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="headline"
+                      label="Headline for property advertisement"
+                      fullWidth={true}
+                      type="number"
+                      name="carportSpaces"
+                      value={this.state.carportSpaces}
+                      onChange={this.saveToState}
+                    />
+                    <MultiSelectChip
+                      values={this.state.indoorFeatures}
+                      options={INDOOR_FEATURES_CONF}
+                      label="Indoor Feature"
+                      handleChange={value =>
+                        this.setState({ indoorFeatures: value })
+                      }
+                      removeItem={v => {
+                        console.log("Re3move enum value from array ", v)
+                        const indoorFeatures = this.state.indoorFeatures
+                        const featureIdx = indoorFeatures.findIndex(
+                          feature => feature === v
+                        )
+                        indoorFeatures.splice(featureIdx, 1)
+                        this.setState({
+                          indoorFeatures: indoorFeatures,
+                        })
+                      }}
+                    />
+
                     <TextInput
                       id="rooms"
                       label="Room Number"
@@ -208,6 +266,61 @@ class CreateProperty extends Component {
                       type="number"
                       name="rooms"
                       value={this.state.rooms}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="bathRooms"
+                      label="Number of Bath Rooms"
+                      fullWidth={true}
+                      type="number"
+                      name="bathRooms"
+                      value={this.state.bathRooms}
+                      onChange={this.saveToState}
+                    />
+                    <MultiSelectChip
+                      values={this.state.outdoorFeatures}
+                      options={OUTDOOR_FEATURES_CONF}
+                      label="Outdoor Feature"
+                      handleChange={value =>
+                        this.setState({ outdoorFeatures: value })
+                      }
+                      removeItem={v => {
+                        console.log("Re3move enum value from array ", v)
+                        const outdoorFeatures = this.state.outdoorFeatures
+                        const featureIdx = outdoorFeatures.findIndex(
+                          feature => feature === v
+                        )
+                        outdoorFeatures.splice(featureIdx, 1)
+                        this.setState({
+                          outdoorFeatures: outdoorFeatures,
+                        })
+                      }}
+                    />
+                    <TextInput
+                      id="garageSpaces"
+                      label="Number of Garage spaces"
+                      fullWidth={true}
+                      type="number"
+                      name="garageSpaces"
+                      value={this.state.garageSpaces}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="carportSpaces"
+                      label="Number of car port spaces"
+                      fullWidth={true}
+                      type="number"
+                      name="carportSpaces"
+                      value={this.state.carportSpaces}
+                      onChange={this.saveToState}
+                    />
+                    <TextInput
+                      id="offStreetSpaces"
+                      label="Number of off street spaces"
+                      fullWidth={true}
+                      type="number"
+                      name="carportSpaces"
+                      value={this.state.carportSpaces}
                       onChange={this.saveToState}
                     />
                     <TextInput

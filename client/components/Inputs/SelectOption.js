@@ -56,7 +56,8 @@ const SelectOption = ({
       {label && <InputLabel htmlFor={selectID}>{label}</InputLabel>}
       <Select
         value={value}
-        onChange={e => handleChange(e.target.value)}
+        // onChange={e => handleChange(e.target.value)}
+        onChange={handleChange}
         displayEmpty
         name={name}
         className={classes.selectEmpty}>

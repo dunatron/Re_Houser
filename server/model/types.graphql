@@ -1,5 +1,7 @@
 type User {
-  id: ID! @unique
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
   firstName: String!
   lastName: String!
   phone: String!
@@ -7,7 +9,7 @@ type User {
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  permissions: [Permission]
+  permissions: [Permission] @scalarList(strategy: RELATION)
   properties: [Property!]! @relation(name: "PropertyOwner")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
   photoIdentification: File
@@ -24,9 +26,9 @@ type User {
 }
 
 type File {
-  id: ID! @unique
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
   filename: String!
   mimetype: String!
   encoding: String!
@@ -34,8 +36,18 @@ type File {
 }
 
 type Property {
-  id: ID! @unique
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
+  outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
@@ -45,12 +57,15 @@ type Property {
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]!
+  # floorPlans: File
   rentalApplications: [RentalApplication]
     @relation(name: "PropertyRentalApplication")
 }
 
 type RentalGroupApplicant {
-  id: ID! @unique
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
   user: User!
   approved: Boolean!
   completed: Boolean
@@ -61,11 +76,13 @@ type RentalGroupApplicant {
 }
 
 type RentalApplication {
-  id: ID! @unique
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
   owner: User!
   title: String
   stage: ApplicationStage!
-  visibility: VisibilityLevel @default(value: "PRIVATE")
+  visibility: VisibilityLevel
   finalised: Boolean
   property: Property! @relation(name: "PropertyRentalApplication")
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")

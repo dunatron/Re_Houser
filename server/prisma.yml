@@ -1,10 +1,10 @@
 #endpoint: ${env:PRISMA_ENDPOINT}
-# endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: ${env:PRISMA_ENDPOINT}
 # endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
+# endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 datamodel:
   - model/types.graphql
   - model/enums.graphql

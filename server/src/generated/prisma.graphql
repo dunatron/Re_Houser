@@ -1,5 +1,5 @@
 # source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Tue Apr 09 2019 16:27:39 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Apr 29 2019 00:43:51 GMT+1200 (New Zealand Standard Time)
 
 type AggregateFile {
   count: Int!
@@ -37,8 +37,8 @@ scalar DateTime
 
 type File implements Node {
   id: ID!
-  createdAt: DateTime!
   updatedAt: DateTime!
+  createdAt: DateTime!
   filename: String!
   mimetype: String!
   encoding: String!
@@ -84,10 +84,10 @@ type FileEdge {
 enum FileOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   filename_ASC
   filename_DESC
   mimetype_ASC
@@ -100,8 +100,8 @@ enum FileOrderByInput {
 
 type FilePreviousValues {
   id: ID!
-  createdAt: DateTime!
   updatedAt: DateTime!
+  createdAt: DateTime!
   filename: String!
   mimetype: String!
   encoding: String!
@@ -157,28 +157,6 @@ input FileScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -201,6 +179,28 @@ input FileScalarWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   filename: String
 
   """All values that are not equal to given value."""
@@ -518,28 +518,6 @@ input FileWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -562,6 +540,28 @@ input FileWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   filename: String
 
   """All values that are not equal to given value."""
@@ -728,6 +728,17 @@ input FileWhereUniqueInput {
   id: ID
 }
 
+enum IndoorFeature {
+  AIR_CONDITIONING
+  FURNISHED
+  INTERNAL_LAUNDRY
+  DISHWASHER
+  BUILT_IN_WARDROBES
+  BALCONY
+  ALARM_SYSTEM
+  HEATING
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -779,6 +790,14 @@ interface Node {
   id: ID!
 }
 
+enum OutdoorFeature {
+  OUTDOOR_SPA
+  OUTDOOR_ENTERTAINMENT
+  SWIMMING_POOL
+  PET_FRIENDLY
+  FULLY_FENCED
+}
+
 """Information about pagination in a connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -802,7 +821,17 @@ enum Permission {
 
 type Property implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature!]!
+  outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
@@ -825,14 +854,26 @@ type PropertyConnection {
   aggregate: AggregateProperty!
 }
 
+input PropertyCreateindoorFeaturesInput {
+  set: [IndoorFeature!]
+}
+
 input PropertyCreateInput {
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
   locationLng: Float!
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -854,40 +895,68 @@ input PropertyCreateOneWithoutRentalApplicationsInput {
   connect: PropertyWhereUniqueInput
 }
 
+input PropertyCreateoutdoorFeaturesInput {
+  set: [OutdoorFeature!]
+}
+
 input PropertyCreateWithoutCreatorInput {
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
   locationLng: Float!
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   owners: UserCreateManyWithoutPropertiesInput
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutOwnersInput {
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
   locationLng: Float!
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
   locationLng: Float!
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -905,8 +974,24 @@ type PropertyEdge {
 enum PropertyOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  type_ASC
+  type_DESC
+  headline_ASC
+  headline_DESC
   rooms_ASC
   rooms_DESC
+  bathrooms_ASC
+  bathrooms_DESC
+  garageSpaces_ASC
+  garageSpaces_DESC
+  carportSpaces_ASC
+  carportSpaces_DESC
+  offStreetSpaces_ASC
+  offStreetSpaces_DESC
   rent_ASC
   rent_DESC
   moveInDate_ASC
@@ -919,15 +1004,21 @@ enum PropertyOrderByInput {
   locationLat_DESC
   locationLng_ASC
   locationLng_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type PropertyPreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  type: PropertyType
+  headline: String
   rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature!]!
+  outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
   moveInDate: DateTime
   onTheMarket: Boolean!
@@ -985,6 +1076,100 @@ input PropertyScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  type: PropertyType
+
+  """All values that are not equal to given value."""
+  type_not: PropertyType
+
+  """All values that are contained in given list."""
+  type_in: [PropertyType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [PropertyType!]
+  headline: String
+
+  """All values that are not equal to given value."""
+  headline_not: String
+
+  """All values that are contained in given list."""
+  headline_in: [String!]
+
+  """All values that are not contained in given list."""
+  headline_not_in: [String!]
+
+  """All values less than the given value."""
+  headline_lt: String
+
+  """All values less than or equal the given value."""
+  headline_lte: String
+
+  """All values greater than the given value."""
+  headline_gt: String
+
+  """All values greater than or equal the given value."""
+  headline_gte: String
+
+  """All values containing the given string."""
+  headline_contains: String
+
+  """All values not containing the given string."""
+  headline_not_contains: String
+
+  """All values starting with the given string."""
+  headline_starts_with: String
+
+  """All values not starting with the given string."""
+  headline_not_starts_with: String
+
+  """All values ending with the given string."""
+  headline_ends_with: String
+
+  """All values not ending with the given string."""
+  headline_not_ends_with: String
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -1007,6 +1192,94 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   rooms_gte: Int
+  bathrooms: Int
+
+  """All values that are not equal to given value."""
+  bathrooms_not: Int
+
+  """All values that are contained in given list."""
+  bathrooms_in: [Int!]
+
+  """All values that are not contained in given list."""
+  bathrooms_not_in: [Int!]
+
+  """All values less than the given value."""
+  bathrooms_lt: Int
+
+  """All values less than or equal the given value."""
+  bathrooms_lte: Int
+
+  """All values greater than the given value."""
+  bathrooms_gt: Int
+
+  """All values greater than or equal the given value."""
+  bathrooms_gte: Int
+  garageSpaces: Int
+
+  """All values that are not equal to given value."""
+  garageSpaces_not: Int
+
+  """All values that are contained in given list."""
+  garageSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  garageSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  garageSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  garageSpaces_lte: Int
+
+  """All values greater than the given value."""
+  garageSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  garageSpaces_gte: Int
+  carportSpaces: Int
+
+  """All values that are not equal to given value."""
+  carportSpaces_not: Int
+
+  """All values that are contained in given list."""
+  carportSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  carportSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  carportSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  carportSpaces_lte: Int
+
+  """All values greater than the given value."""
+  carportSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  carportSpaces_gte: Int
+  offStreetSpaces: Int
+
+  """All values that are not equal to given value."""
+  offStreetSpaces_not: Int
+
+  """All values that are contained in given list."""
+  offStreetSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  offStreetSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  offStreetSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  offStreetSpaces_lte: Int
+
+  """All values greater than the given value."""
+  offStreetSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  offStreetSpaces_gte: Int
   rent: Float
 
   """All values that are not equal to given value."""
@@ -1178,14 +1451,39 @@ input PropertySubscriptionWhereInput {
   node: PropertyWhereInput
 }
 
+enum PropertyType {
+  HOUSE
+  APARTMENT
+  UNIT
+  TOWNHOUSE
+  VILLA
+  RETIREMENT_LIVING
+  STUDIO
+  FARM_LAND
+  ACREAGE_SEMI_RURAL
+  OTHER
+}
+
+input PropertyUpdateindoorFeaturesInput {
+  set: [IndoorFeature!]
+}
+
 input PropertyUpdateInput {
+  type: PropertyType
+  headline: String
   rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
   onTheMarket: Boolean
   location: String
   locationLat: Float
   locationLng: Float
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -1193,23 +1491,39 @@ input PropertyUpdateInput {
 }
 
 input PropertyUpdateManyDataInput {
+  type: PropertyType
+  headline: String
   rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
   onTheMarket: Boolean
   location: String
   locationLat: Float
   locationLng: Float
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
 }
 
 input PropertyUpdateManyMutationInput {
+  type: PropertyType
+  headline: String
   rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
   onTheMarket: Boolean
   location: String
   locationLat: Float
   locationLng: Float
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
 }
 
 input PropertyUpdateManyWithoutCreatorInput {
@@ -1246,40 +1560,68 @@ input PropertyUpdateOneRequiredWithoutRentalApplicationsInput {
   upsert: PropertyUpsertWithoutRentalApplicationsInput
 }
 
+input PropertyUpdateoutdoorFeaturesInput {
+  set: [OutdoorFeature!]
+}
+
 input PropertyUpdateWithoutCreatorDataInput {
+  type: PropertyType
+  headline: String
   rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
   onTheMarket: Boolean
   location: String
   locationLat: Float
   locationLng: Float
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   owners: UserUpdateManyWithoutPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
+  type: PropertyType
+  headline: String
   rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
   onTheMarket: Boolean
   location: String
   locationLat: Float
   locationLng: Float
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutRentalApplicationsDataInput {
+  type: PropertyType
+  headline: String
   rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
   onTheMarket: Boolean
   location: String
   locationLat: Float
   locationLng: Float
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -1361,6 +1703,100 @@ input PropertyWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  type: PropertyType
+
+  """All values that are not equal to given value."""
+  type_not: PropertyType
+
+  """All values that are contained in given list."""
+  type_in: [PropertyType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [PropertyType!]
+  headline: String
+
+  """All values that are not equal to given value."""
+  headline_not: String
+
+  """All values that are contained in given list."""
+  headline_in: [String!]
+
+  """All values that are not contained in given list."""
+  headline_not_in: [String!]
+
+  """All values less than the given value."""
+  headline_lt: String
+
+  """All values less than or equal the given value."""
+  headline_lte: String
+
+  """All values greater than the given value."""
+  headline_gt: String
+
+  """All values greater than or equal the given value."""
+  headline_gte: String
+
+  """All values containing the given string."""
+  headline_contains: String
+
+  """All values not containing the given string."""
+  headline_not_contains: String
+
+  """All values starting with the given string."""
+  headline_starts_with: String
+
+  """All values not starting with the given string."""
+  headline_not_starts_with: String
+
+  """All values ending with the given string."""
+  headline_ends_with: String
+
+  """All values not ending with the given string."""
+  headline_not_ends_with: String
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -1383,6 +1819,94 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   rooms_gte: Int
+  bathrooms: Int
+
+  """All values that are not equal to given value."""
+  bathrooms_not: Int
+
+  """All values that are contained in given list."""
+  bathrooms_in: [Int!]
+
+  """All values that are not contained in given list."""
+  bathrooms_not_in: [Int!]
+
+  """All values less than the given value."""
+  bathrooms_lt: Int
+
+  """All values less than or equal the given value."""
+  bathrooms_lte: Int
+
+  """All values greater than the given value."""
+  bathrooms_gt: Int
+
+  """All values greater than or equal the given value."""
+  bathrooms_gte: Int
+  garageSpaces: Int
+
+  """All values that are not equal to given value."""
+  garageSpaces_not: Int
+
+  """All values that are contained in given list."""
+  garageSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  garageSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  garageSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  garageSpaces_lte: Int
+
+  """All values greater than the given value."""
+  garageSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  garageSpaces_gte: Int
+  carportSpaces: Int
+
+  """All values that are not equal to given value."""
+  carportSpaces_not: Int
+
+  """All values that are contained in given list."""
+  carportSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  carportSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  carportSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  carportSpaces_lte: Int
+
+  """All values greater than the given value."""
+  carportSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  carportSpaces_gte: Int
+  offStreetSpaces: Int
+
+  """All values that are not equal to given value."""
+  offStreetSpaces_not: Int
+
+  """All values that are contained in given list."""
+  offStreetSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  offStreetSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  offStreetSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  offStreetSpaces_lte: Int
+
+  """All values greater than the given value."""
+  offStreetSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  offStreetSpaces_gte: Int
   rent: Float
 
   """All values that are not equal to given value."""
@@ -1557,6 +2081,8 @@ type Query {
 
 type RentalApplication implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   owner: User!
   title: String
   stage: ApplicationStage!
@@ -1626,6 +2152,10 @@ type RentalApplicationEdge {
 enum RentalApplicationOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   title_ASC
   title_DESC
   stage_ASC
@@ -1634,14 +2164,12 @@ enum RentalApplicationOrderByInput {
   visibility_DESC
   finalised_ASC
   finalised_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type RentalApplicationPreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -1697,6 +2225,50 @@ input RentalApplicationScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   title: String
 
   """All values that are not equal to given value."""
@@ -1932,6 +2504,50 @@ input RentalApplicationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   title: String
 
   """All values that are not equal to given value."""
@@ -2009,6 +2625,8 @@ input RentalApplicationWhereUniqueInput {
 
 type RentalGroupApplicant implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   user: User!
   approved: Boolean!
   completed: Boolean
@@ -2064,6 +2682,10 @@ type RentalGroupApplicantEdge {
 enum RentalGroupApplicantOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   approved_ASC
   approved_DESC
   completed_ASC
@@ -2072,14 +2694,12 @@ enum RentalGroupApplicantOrderByInput {
   firstName_DESC
   email_ASC
   email_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type RentalGroupApplicantPreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -2135,6 +2755,50 @@ input RentalGroupApplicantScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   approved: Boolean
 
   """All values that are not equal to given value."""
@@ -2371,6 +3035,50 @@ input RentalGroupApplicantWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   approved: Boolean
 
   """All values that are not equal to given value."""
@@ -2478,6 +3186,8 @@ type Subscription {
 
 type User implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   firstName: String!
   lastName: String!
   phone: String!
@@ -2612,6 +3322,10 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -2646,14 +3360,12 @@ enum UserOrderByInput {
   referee2Phone_DESC
   referee2Email_ASC
   referee2Email_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   firstName: String!
   lastName: String!
   phone: String!
@@ -2723,6 +3435,50 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   firstName: String
 
   """All values that are not equal to given value."""
@@ -3664,6 +4420,50 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   firstName: String
 
   """All values that are not equal to given value."""
@@ -4341,7 +5141,7 @@ input UserWhereUniqueInput {
 }
 
 enum VisibilityLevel {
-  PUBLIC
-  FRIENDS_ONLY
   PRIVATE
+  FRIENDS_ONLY
+  PUBLIC
 }
