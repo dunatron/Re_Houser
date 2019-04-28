@@ -15,7 +15,7 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
       },
     },
     // {},
-    `{ owner{id} }`
+    `{ owner{id} applicants{email user{email}} }`
   )
   console.log("application ====> ", application)
   // check that loggedInUser is the owner of the application
@@ -38,13 +38,31 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
     info
   )
 
-  const mailRes = await transport.sendMail({
-    from: "heath.dunlop.hd.com",
-    to: "heath.dunlop.hd.com",
-    subject: "Your Password Reset Token",
-    html: makeANiceEmail(`Your Password Reset Token is here!
-    \n\n`),
+  application.applicants.forEach((applicant, i) => {
+    console.log(" YOOOO WE HAVE AN APPLICANT DUDE")
+    console.log("applicantemail => ", applicant.email)
+    console.log("applicantemail => ", applicant.user.email)
+    transport.sendMail({
+      from: "heath.dunlop.hd.@gmail.com",
+      to: applicant.user.email,
+      subject: "Application stage: PENDING",
+      html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
+      \n\n`),
+    })
   })
+
+  // sandwiches.forEach(function (sandwich, index) {
+  //   console.log(sandwich); // The element
+  //   console.log(index); // The index in the NodeList
+  // });
+
+  // const mailRes = await transport.sendMail({
+  //   from: "heath.dunlop.hd.@gmail.com",
+  //   to: "heath.dunlop.hd.@gmail.com",
+  //   subject: "Application stage: PENDING",
+  //   html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
+  //   \n\n`),
+  // })
 
   console.log("updatedApplicationStage ====> ", updatedApplication)
 

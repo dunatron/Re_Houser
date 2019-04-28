@@ -1,13 +1,34 @@
 const nodemailer = require("nodemailer")
 
+// const transport = nodemailer.createTransport({
+//   host: process.env.MAIL_HOST,
+//   port: process.env.MAIL_PORT,
+//   auth: {
+//     user: process.env.MAIL_USER,
+//     pass: process.env.MAIL_PASS,
+//   },
+// })
+
 const transport = nodemailer.createTransport({
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
+  // host: "gmail",
+  service: "gmail",
+  // port: process.env.MAIL_PORT,
   auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+    user: "heath.dunlop.hd@gmail.com",
+    pass: "DDHDB@$92Dunlop24",
   },
 })
+
+//
+
+//
+
+//
+
+// MAIL_HOST="gmail"
+// MAIL_PORT=""
+// MAIL_USER="heath.dunlop.hd@gmail.com"
+// MAIL_PASS="DDHDB@$92Dunlop24"
 
 const makeANiceEmail = text => `
   <div className="email" style="
