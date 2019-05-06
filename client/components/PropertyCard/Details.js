@@ -49,7 +49,7 @@ export default class Details extends Component {
       outdoorFeatures,
       indoorFeatures,
     } = this.props.property
-    console.log("imageUrls => ", imageUrls)
+    console.log("imageUrls  Right here=> ", imageUrls)
     return (
       <div>
         <CardContent>
