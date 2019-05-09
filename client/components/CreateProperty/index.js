@@ -234,9 +234,8 @@ class CreateProperty extends Component {
                       id="headline"
                       label="Headline for property advertisement"
                       fullWidth={true}
-                      type="number"
-                      name="carportSpaces"
-                      value={this.state.carportSpaces}
+                      name="headline"
+                      value={this.state.headline}
                       onChange={this.saveToState}
                     />
                     <MultiSelectChip
@@ -319,8 +318,8 @@ class CreateProperty extends Component {
                       label="Number of off street spaces"
                       fullWidth={true}
                       type="number"
-                      name="carportSpaces"
-                      value={this.state.carportSpaces}
+                      name="offStreetSpaces"
+                      value={this.state.offStreetSpaces}
                       onChange={this.saveToState}
                     />
                     <TextInput

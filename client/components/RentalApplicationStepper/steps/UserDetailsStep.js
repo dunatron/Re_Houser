@@ -1,11 +1,76 @@
-import React, { Component } from "react"
+import React, { Component, useState } from "react"
 import PropTypes from "prop-types"
 
 import { USER_PROFILE_CONF } from "../../../lib/configs/userProfileConfig"
 import TextInput from "../../../styles/TextInput"
 import InputErrors from "../../InputErrors/index"
 import PhotoIdUploader from "../../PhotoIdUploader/index"
+import { isEmptyObj } from "../../../lib/isEmpty"
 
+import { isEmpty } from "ramda"
+
+/**
+ * Remember the effects and the effects of when the component should update. i.e on new props recieved
+ * aswel as state change... state change should rerender,
+ * errorsBag props will need to be caught for 1
+ */
+const UserDetailsStep = ({
+  me,
+  userInfo,
+  property,
+  onChange,
+  errorsBag,
+  applicantData,
+  completed,
+}) => {
+  // const [activeStep, setActiveStep] = useState([]) // Um what was this meant to be
+  // just goes to show we need to refactor everything to useState, useEffect, useQuery etc, useMutation 90%
+  // just a thought, since a user can only update 1 rentalAPplication at a time, why not store it in local state
+  // then use hooks to update the local apollo state
+  // probably easy to get updates
+  const hasPhotoId = !isEmpty(me.photoIdentification)
+  console.log("me => ", me)
+  console.log("hasPhotoId => ", hasPhotoId)
+  const [showUploader, setShowUploader] = useState(!hasPhotoId)
+  return (
+    <div>
+      {Object.keys(userInfo).map((userVar, i) => {
+        return (
+          <div>
+            <TextInput
+              fullWidth={true}
+              name={userVar}
+              disabled={false}
+              label={userInfo[userVar].label}
+              value={userInfo[userVar].value}
+              onChange={e => onChange(e)}
+              // onChange={e => console.log("First step => ", e)}
+            />
+            {errorsBag[userVar] && (
+              <InputErrors
+                errors={errorsBag[userVar] ? errorsBag[userVar].errors : null}
+              />
+            )}
+          </div>
+        )
+      })}
+      {!me.photoIdentification && <h1>YOU NEED PHOTO IDENTIFICATION</h1>}
+      {me.photoIdentification && (
+        <div>
+          <h1>WE have your photo Id</h1>
+          <button onClick={() => setShowUploader(1)}>
+            Click here to see the details
+          </button>
+        </div>
+      )}
+      {showUploader && <PhotoIdUploader me={me} />}
+    </div>
+  )
+}
+
+export default UserDetailsStep
+
+/*
 class UserDetailsStep extends Component {
   state = {
     activeStep: 0,
@@ -58,10 +123,12 @@ class UserDetailsStep extends Component {
         })}
 
         {!me.photoIdentification && <h1>YOU NEED PHOTO IDENTIFICATION</h1>}
-        <p>
-          Perhaps a user Photo Identification uploaeder componen with a mutation
-          and all
-        </p>
+        {me.photoIdentification && (
+          <div>
+            <h1>WE have your photo Id</h1>
+            <button>Click here to see the details</button>
+          </div>
+        )}
         <PhotoIdUploader me={me} />
       </div>
     )
@@ -74,3 +141,5 @@ UserDetailsStep.propTypes = {
 }
 
 export default UserDetailsStep
+
+*/

@@ -26,6 +26,7 @@ type Mutation {
   ): User!
   updatePermissions(permissions: [Permission], userId: ID!): User
   singleUpload(file: Upload!): File!
+  uploadPhotoId(file: Upload!, photoId: String!): User
   uploadFile(file: Upload!): File!
   uploadFiles(files: [Upload!]!): [File!]!
   deleteFile(id: ID!): File
