@@ -87,10 +87,7 @@ const PhotoIdUploader = ({ me }) => {
       </Tabs>
       <SwipeableViews index={tabIndex}>
         <TabContainer>
-          <p>
-            Hold up wait a second, yall thought I was second? shoot you in the
-            head then just walk off like I did it
-          </p>
+          <p>Current Photo Id details</p>
           <img src={me.photoIdentification.url} />
         </TabContainer>
         <TabContainer>

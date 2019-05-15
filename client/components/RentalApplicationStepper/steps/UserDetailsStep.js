@@ -28,10 +28,10 @@ const UserDetailsStep = ({
   // just a thought, since a user can only update 1 rentalAPplication at a time, why not store it in local state
   // then use hooks to update the local apollo state
   // probably easy to get updates
-  const hasPhotoId = !isEmpty(me.photoIdentification)
-  console.log("me => ", me)
-  console.log("hasPhotoId => ", hasPhotoId)
+  // const hasPhotoId = !isEmpty(me.photoIdentification)
+  const hasPhotoId = me.identificationNumber
   const [showUploader, setShowUploader] = useState(!hasPhotoId)
+  console.log()
   return (
     <div>
       {Object.keys(userInfo).map((userVar, i) => {
@@ -64,6 +64,7 @@ const UserDetailsStep = ({
         </div>
       )}
       {showUploader && <PhotoIdUploader me={me} />}
+      {/* <PhotoIdUploader me={me} /> */}
     </div>
   )
 }
