@@ -1,9 +1,12 @@
 import React, { useState } from "react"
 
 import { useMutation } from "react-apollo-hooks"
+
 import { UPLOAD_PHOTO_IDENTIFICATION } from "../../mutation/index"
 import { CURRENT_USER_QUERY } from "../../query/index"
 import encodeImage from "../../lib/encodeImage"
+
+import { DetailStyles, UploaderStyles } from "./styles"
 
 import Card from "@material-ui/core/Card"
 import DragDropUploader from "../DragDropUploader/index"
@@ -43,7 +46,17 @@ const PhotoIdUploader = ({ me }) => {
     },
     update: (proxy, payload) => {
       console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
-      console.log("payload => ", payload)
+      // i.e here just find the {me} and update the profile image url with the new one from cloudinary
+      const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
+      // console.log("userData => ", userData)
+      // console.log("payload => ", payload)
+      // console.log("userData.me => ", userData.me)
+      // userData.me = {
+      //   ...userData.me,
+      //   // ...payload.data.uploadPhotoId,
+      // }
+      // proxy.writeQuery({ query: CURRENT_USER_QUERY, userData })
+      // NOTE: Its not going to let you update the me object when we need it in the current instance!
       // setShowUploader(0)
       setTabIndex(0)
       openSnackbar({
@@ -87,8 +100,15 @@ const PhotoIdUploader = ({ me }) => {
       </Tabs>
       <SwipeableViews index={tabIndex}>
         <TabContainer>
-          <p>Current Photo Id details</p>
-          <img src={me.photoIdentification.url} />
+          <DetailStyles>
+            <h2 className="details__title">Current Photo Id details</h2>
+            {me.photoIdentification && (
+              <img
+                className="details__image"
+                src={me.photoIdentification.url}
+              />
+            )}
+          </DetailStyles>
         </TabContainer>
         <TabContainer>
           {isEmpty(file) && (
@@ -101,61 +121,46 @@ const PhotoIdUploader = ({ me }) => {
             />
           )}
           {!isEmpty(file) && (
-            <div>
-              <Button onClick={() => setFile({})}>Remove</Button>
+            <UploaderStyles>
               {file.content && (
-                <div style={{ position: "relative" }}>
+                <div className="preUpload">
                   <img
-                    style={{
-                      width: "100%",
-                      height: "300px",
-                      objectFit: "cover",
-                    }}
+                    className="preUpload__image"
                     src={contentAsSrc(file.content)}
                   />
-                  <div
-                    class="overlay"
-                    style={{
-                      position: "absolute",
-                      height: "100%",
-                      width: "100%",
-                      top: 0,
-                      left: 0,
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}>
+                  <div className="preUpload__overlay">
+                    <Button
+                      color="error"
+                      className="preUpload__remove"
+                      onClick={() => setFile({})}>
+                      Remove
+                    </Button>
                     <TextInput
                       label="ID Number"
+                      color="secondary"
                       name="photoId"
+                      className="preUpload__id-number"
                       value={photoId}
                       onChange={e => setPhotoId(e.target.value)}
-                      style={{ marginBottom: "24px" }}
                     />
                     <Button
                       onClick={uploadPhotoId}
+                      className="preUpload__upload-btn"
                       variant="contained"
                       color="primary"
-                      size="large"
-                      style={{ marginBottom: "24px" }}>
+                      size="large">
                       <EditIcon />
                       Upload Photo Identification
                     </Button>
                   </div>
                 </div>
               )}
-            </div>
+            </UploaderStyles>
           )}
         </TabContainer>
       </SwipeableViews>
     </Card>
   )
-}
-
-const ShowUploaderButton = ({ show, file, onClick }) => {
-  if (show || file) return null
-  return <Button onClick={onClick}>Upload new PhotoId</Button>
 }
 
 function TabContainer({ children, dir }) {

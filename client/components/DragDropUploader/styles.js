@@ -6,6 +6,7 @@ const accent = purple[200] // #E040FB
 
 const DropZone = styled.div`
   /* border: ${p => `1px dashed ${p.theme.palette.primary.main}`}; */
+  width: 100%;
   border: ${p =>
     p.dragging
       ? `3px dashed ${p.theme.palette.secondary.main}`
