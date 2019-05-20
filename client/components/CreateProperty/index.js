@@ -83,9 +83,12 @@ class CreateProperty extends Component {
       data: {
         type: this.state.type,
         rent: parseFloat(this.state.rent),
-        location: this.state.location,
-        locationLat: this.state.locationLat,
-        locationLng: this.state.locationLng,
+        // location: this.state.location,
+        // locationLat: this.state.locationLat,
+        // locationLng: this.state.locationLng,
+        location: "Dunedin test",
+        locationLat: 5412,
+        locationLng: 5412,
         rooms: parseInt(this.state.rooms),
         carportSpaces: 1,
         garageSpaces: 5,
@@ -346,7 +349,7 @@ class CreateProperty extends Component {
                     {/* {this._renderImages(this.state.images)} */}
 
                     <FabButton
-                      disabled={!this._canSubmit()}
+                      // disabled={!this._canSubmit()}
                       type="submit"
                       variant="extended"
                       color="primary"

@@ -34,6 +34,7 @@ import { isEmpty } from "ramda"
  * we should check mutations
  */
 const PhotoIdUploader = ({ me }) => {
+  console.log("me => ", me)
   const [file, setFile] = useState({})
   const [tabIndex, setTabIndex] = useState(0)
   const [photoId, setPhotoId] = useState("")
@@ -48,14 +49,16 @@ const PhotoIdUploader = ({ me }) => {
       console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
       // i.e here just find the {me} and update the profile image url with the new one from cloudinary
       const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-      // console.log("userData => ", userData)
+      console.log("userData => ", userData)
       // console.log("payload => ", payload)
       // console.log("userData.me => ", userData.me)
       // userData.me = {
       //   ...userData.me,
       //   // ...payload.data.uploadPhotoId,
       // }
-      // proxy.writeQuery({ query: CURRENT_USER_QUERY, userData })
+      const testData = userData.me
+      proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
+      console.log("Proxy => ", proxy)
       // NOTE: Its not going to let you update the me object when we need it in the current instance!
       // setShowUploader(0)
       setTabIndex(0)
@@ -65,7 +68,7 @@ const PhotoIdUploader = ({ me }) => {
       })
     },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    optimisticResponse: {},
+    // optimisticResponse: {},
   })
 
   const handleSetFile = file => {

@@ -13,7 +13,28 @@ var client = algoliasearch(applicationId, apiKey, {
 
 // get/create PropertySearch index
 // var index = client.initIndex("PropertySearch")
-var index = client.initIndex(`PropertySearch_${process.env.STAGE}`)
+// var index = client.initIndex(`PropertySearch_${process.env.STAGE}`)
+var index = client.initIndex(`${process.env.STAGE}_PropertySearch`)
+
+// We need to apply our settings here!
+index.setSettings({
+  // Select the attributes you want to search in
+  searchableAttributes: ["location", "price", "rooms"],
+  // Define business metrics for ranking and sorting
+  // customRanking: [
+  //   'desc(popularity)'
+  // ],
+  // Set up some attributes to filter results on
+  attributesForFaceting: [
+    "rooms",
+    "searchable(locationLat)",
+    "searchable(locationLng)",
+    "price",
+    "indoorFeatures",
+    "outdoorFeatures",
+    "type",
+  ],
+})
 
 var addPropertySearchNode = async function({ propertyId, ctx }) {
   console.group("===========addPropertySearchNode=============")

@@ -774,8 +774,50 @@ mutation uploadFiles($files:[Upload!]!) {
   - https://www.youtube.com/watch?v=bLQqkeVT7os
 - deploying to heroukou use a external service such as cloudinary
 
-# ToDo
+## Algolia Setup 
 
+# ToDo
+1. Push Data
+```js
+const client = algoliasearch(
+  '4QW4S8SE3J',
+  '••••••••••••••••••••••••••••••••'
+);
+
+const index = client.initIndex('demo_ecommerce');
+
+fetch('https://alg.li/doc-ecommerce.json')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(products) {
+    index.addObjects(products)
+  });
+```
+2. set relevance 
+```js
+const client = algoliasearch(
+  '4QW4S8SE3J',
+  '••••••••••••••••••••••••••••••••'
+);
+
+const index = client.initIndex('demo_ecommerce');
+
+index.setSettings({
+  // Select the attributes you want to search in
+  searchableAttributes: [
+    'brand', 'name', 'categories', 'description'
+  ],
+  // Define business metrics for ranking and sorting
+  customRanking: [
+    'desc(popularity)'
+  ],
+  // Set up some attributes to filter results on
+  attributesForFaceting: [
+    'categories', 'searchable(brand)', 'price', 'outdoorFeatures', 'indoorFeatures'
+  ]
+});
+```
 ## apply for rental
 
 - form
@@ -985,3 +1027,7 @@ Frequency of rent payments HELP
 
 - Sticking to the script,
 - while yall have been skipping scenes
+
+###### LEARNING RESOURCES
+- [React Hooks Crash Course](https://www.youtube.com/watch?v=-MlNBTSg_Ww)
+- [Connect & extend Algolia components](https://glitch.com/edit/#!/react-instantsearch-material-ui?path=src/App.js:360:1)
