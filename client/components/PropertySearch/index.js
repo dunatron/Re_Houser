@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import styled from "styled-components"
 import algoliasearch from "algoliasearch/lite"
 import PropTypes from "prop-types"
 import classNames from "classnames"
@@ -77,8 +78,20 @@ const Hit = ({ hit }) => (
   </div>
 )
 
+/**
+ * Extract these to own files
+ * also make <Hits /> a connection component so we can use BEM
+ */
+const SearchContent = styled.div`
+  .ais-Hits {
+    .ais-Hits-list {
+      padding: 0;
+    }
+  }
+`
+
 const Content = () => (
-  <div className="content">
+  <SearchContent className="content">
     <div className="info">
       <Stats />
       Sort
@@ -102,7 +115,7 @@ const Content = () => (
     <div className="pagination">
       <Pagination showLast={true} />
     </div>
-  </div>
+  </SearchContent>
 )
 
 const Sidebar = () => (

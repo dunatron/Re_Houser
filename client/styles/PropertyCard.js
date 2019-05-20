@@ -3,7 +3,7 @@ import Card from "@material-ui/core/Card"
 
 const PropertyCard = styled(Card)`
   && {
-    width: 100%;
+    /* width: 100%; */
     margin: 8px;
     @media (min-width: 480px) {
       width: 480px;
