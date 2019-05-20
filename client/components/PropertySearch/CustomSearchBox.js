@@ -32,7 +32,7 @@ const SearchTextInput = styled(TextField)`
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
   <SearchTextInput
     type="search"
-    placeholder="Search Property stuff .. anything really "
+    placeholder="e.g Central Dunedin"
     style={{ fontSize: "36px" }}
     fullWidth={true}
     value={currentRefinement}

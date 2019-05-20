@@ -174,7 +174,7 @@ const PropertySearch = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "16px",
+              padding: "16px 0px 16px 16px",
             }}>
             <h4>Refine your search</h4>
             <IconButton onClick={handleDrawerClose}>
