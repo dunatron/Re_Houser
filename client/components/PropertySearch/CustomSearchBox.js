@@ -11,23 +11,33 @@ const SearchTextInput = styled(TextField)`
   }
 `
 
+// const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
+//   <form noValidate action="" role="search">
+//     {/* <input
+//       type="search"
+//       value={currentRefinement}
+//       onChange={event => refine(event.currentTarget.value)}
+//     /> */}
+//     <SearchTextInput
+//       type="search"
+//       placeholder="Search Property stuff .. anything really "
+//       style={{ fontSize: "36px" }}
+//       fullWidth={true}
+//       value={currentRefinement}
+//       onChange={event => refine(event.currentTarget.value)}
+//     />
+//     {isSearchStalled ? "My search is stalled" : ""}
+//   </form>
+// )
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-  <form noValidate action="" role="search">
-    {/* <input
-      type="search"
-      value={currentRefinement}
-      onChange={event => refine(event.currentTarget.value)}
-    /> */}
-    <SearchTextInput
-      type="search"
-      placeholder="Search Property stuff .. anything really "
-      style={{ fontSize: "36px" }}
-      fullWidth={true}
-      value={currentRefinement}
-      onChange={event => refine(event.currentTarget.value)}
-    />
-    {isSearchStalled ? "My search is stalled" : ""}
-  </form>
+  <SearchTextInput
+    type="search"
+    placeholder="Search Property stuff .. anything really "
+    style={{ fontSize: "36px" }}
+    fullWidth={true}
+    value={currentRefinement}
+    onChange={event => refine(event.currentTarget.value)}
+  />
 )
 
 const CustomSearchBox = connectSearchBox(SearchBox)

@@ -64,11 +64,13 @@ export default class Details extends Component {
             </Typography>
             <Typography component="p">
               indoorFeatures:{" "}
-              {indoorFeatures.map((feature, i) => `${feature}, `)}
+              {indoorFeatures &&
+                indoorFeatures.map((feature, i) => `${feature}, `)}
             </Typography>
             <Typography component="p">
               outdoorFeatures:{" "}
-              {outdoorFeatures.map((feature, i) => `${feature},`)}
+              {outdoorFeatures &&
+                outdoorFeatures.map((feature, i) => `${feature},`)}
             </Typography>
             <DetailItem icon={<CameraIcon />} label="Rooms" value={rooms} />
             <DetailItem icon={<CameraIcon />} label="rent" value={rent} />

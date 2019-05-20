@@ -1,9 +1,29 @@
-// https://www.algolia.com/doc/api-reference/widgets/instantsearch/react/
-import React, { useEffect } from "react"
-import ReactDOM from "react-dom"
-import PropertyCard from "../PropertyCard/index"
+import React, { useState } from "react"
 import algoliasearch from "algoliasearch/lite"
-// Need to include in SSR
+import PropTypes from "prop-types"
+import classNames from "classnames"
+import { withStyles } from "@material-ui/core/styles"
+import Drawer from "@material-ui/core/Drawer"
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import List from "@material-ui/core/List"
+import Typography from "@material-ui/core/Typography"
+import Divider from "@material-ui/core/Divider"
+import IconButton from "@material-ui/core/IconButton"
+import MenuIcon from "@material-ui/icons/Menu"
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
+import ChevronRightIcon from "@material-ui/icons/ChevronRight"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import ListItemText from "@material-ui/core/ListItemText"
+import InboxIcon from "@material-ui/icons/MoveToInbox"
+import MailIcon from "@material-ui/icons/Mail"
+import CustomSearchBox from "./CustomSearchBox"
+import SettingsIcon from "../../styles/icons/SettingsIcon"
+import CloseIcon from "../../styles/icons/CloseIcon"
+
+import ConnectedCheckBoxRefinementList from "./refinements/CheckBoxList"
+import PropertyCard from "../PropertyCard/index"
 
 import {
   InstantSearch,
@@ -22,39 +42,12 @@ import {
   connectCurrentRefinements,
 } from "react-instantsearch-dom"
 
-import ConnectedCheckBoxRefinementList from "./refinements/CheckBoxList"
-
-import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Subheader,
-  List,
-  ListItem,
-  FlatButton,
-  RaisedButton,
-  MenuItem,
-  Card,
-  Divider,
-  CardHeader,
-  CardTitle,
-  AppBar,
-  FontIcon,
-  IconMenu,
-  Drawer,
-  IconButton,
-} from "@material-ui/core"
-
-// import Button from "@material-ui/core/Button"
-
-import CustomSearchBox from "./CustomSearchBox"
+const drawerWidth = 240
 
 var applicationId = "4QW4S8SE3J"
 var apiKey = "506b6dcf7516c20a1789e6eb9d9a5b39"
 const searchClient = algoliasearch(applicationId, apiKey)
-
 const indexPrefix = process.env.NODE_ENV === "development" ? "dev" : "prod"
-const indexSuffix = process.env.NODE_ENV === "development" ? "dev" : "prod"
 
 const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
   const parsedHit = highlight({
@@ -72,87 +65,15 @@ const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
   )
 })
 
-// const MaterialUiCheckBoxRefinementList = ({
-//   items,
-//   attributeName,
-//   refine,
-//   createURL,
-// }) => (
-//   <List>
-//     <h1 style={{ fontSize: 18 }}>{/* {attributeName.toUpperCase()} */}</h1>
-//     {items.map(item => (
-//       <CheckBoxItem
-//         key={item.label}
-//         item={item}
-//         refine={refine}
-//         createURL={createURL}
-//       />
-//     ))}
-//   </List>
-// )
-// const MaterialUiCheckBoxRefinementList = ({
-//   items,
-//   attribute,
-//   refine,
-//   createURL,
-// }) => {
-//   return (
-//     <List>
-//       <h1 style={{ fontSize: 18 }}>{/* {attributeName.toUpperCase()} */}</h1>
-//       <h1>{attribute.toUpperCase()}</h1>
-//       {items.map(({ count, isRefined, label, value }, i) => (
-//         <FormControlLabel
-//           key={i}
-//           control={
-//             <Checkbox
-//               checked={isRefined}
-//               onClick={event => {
-//                 event.preventDefault()
-//                 refine(value)
-//               }}
-//               value="checkedA"
-//             />
-//           }
-//           label={label}
-//         />
-//       ))}
-//     </List>
-//   )
-// }
-
-// const ConnectedCheckBoxRefinementList = connectRefinementList(
-//   MaterialUiCheckBoxRefinementList
-// )
-
 const Hit = ({ hit }) => (
   <div className="hit">
     {/* <div className="hit-image">
       <img src={hit.imageUrls} />
     </div> */}
     <div className="hit-location">
-      <h1>{hit.location}</h1>
-      <Highlight attributeName={location} hit={hit} />
       <CustomHighlight attribute={"location"} hit={hit} />
     </div>
-  </div>
-)
-
-const Sidebar = () => (
-  <div className="sidebar">
-    <h1>Refinement goes here</h1>
-    <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
-    <h1>Rooms</h1>
-    <RefinementList attribute="rooms" />
-    <h1>Price</h1>
-    <RefinementList attribute="price" />
-    <h1>Location</h1>
-    <RefinementList attribute="location" />
-    <h1>rent</h1>
-    <RefinementList attribute="rent" />
-    <h1>City</h1>
-    <RefinementList attribute="city" />
-    <h1>Type</h1>
-    <RefinementList attribute="type" />
+    <PropertyCard property={hit} />
   </div>
 )
 
@@ -184,80 +105,97 @@ const Content = () => (
   </div>
 )
 
-const PropertySearch = () => {
-  // const indexSuffix = process.env.NODE_ENV === "development" ? "dev" : "prod"
-  // const indexPrefix = process.env.NODE_ENV === "development" ? "dev" : "prod"
+const Sidebar = () => (
+  <div className="sidebar">
+    <div>
+      <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
+      <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
+      <ConnectedCheckBoxRefinementList
+        attribute="outdoorFeatures"
+        operator="or"
+      />
+      <ConnectedCheckBoxRefinementList
+        attribute="indoorFeatures"
+        operator="or"
+      />
+      <ConnectedCheckBoxRefinementList attribute="price" operator="or" />
+      {/* <RefinementList attribute="rooms" />
+      <h1>Price</h1>
+      <RefinementList attribute="price" />
+      <RefinementList attribute="city" />
+      <h1>Type</h1>
+      <RefinementList attribute="type" /> */}
+    </div>
+  </div>
+)
 
-  // will fire after initial render
-  useEffect(() => {}, [])
+const PropertySearch = () => {
+  const [open, setOpen] = useState(false)
+
+  const handleDrawerOpen = () => {
+    setOpen(true)
+  }
+
+  const toggleDraw = () => {
+    setOpen(!open)
+  }
+
+  const handleDrawerClose = () => {
+    setOpen(false)
+  }
 
   return (
-    <div>
-      <InstantSearch
-        indexName={`${indexPrefix}_PropertySearch`}
-        searchClient={searchClient}>
-        <header>
-          <SearchBox translations={{ placeholder: "search for houses" }} />
-        </header>
-        <CurrentRefinements />
-        <main>
+    <InstantSearch
+      indexName={`${indexPrefix}_PropertySearch`}
+      searchClient={searchClient}>
+      <div className={"classes.root"}>
+        <AppBar position="relative" color="default" style={{ padding: "20px" }}>
+          <Toolbar disableGutters={!open}>
+            <IconButton
+              color="default"
+              aria-label="Open drawer"
+              onClick={toggleDraw}>
+              <SettingsIcon />
+            </IconButton>
+            <CustomSearchBox fullWidth={true} />
+            {/* <Typography variant="h6" color="inherit" noWrap>
+              
+            </Typography> */}
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          // className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}>
+          <div
+            className={"classes.drawerHeader"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "16px",
+            }}>
+            <h4>Refine your search</h4>
+            <IconButton onClick={handleDrawerClose}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+          <Divider />
           <Sidebar />
+        </Drawer>
+        <main>
+          <div className={"classes.drawerHeader"} />
           <Content />
         </main>
-      </InstantSearch>
-    </div>
+      </div>
+    </InstantSearch>
   )
 }
 
-export default PropertySearch
-
-// {
-//   "location": "dunedin c",
-//   "rooms": 10,
-//   "price": 400
-// }
-
-/*
-export default class PropertySearch extends Component {
-  componentDidMount() {
-    // require("instantsearch.css/themes/reset.css")
-    // require("instantsearch.css/themes/algolia.css")
-    // or include the full Algolia theme
-  }
-  render() {
-    // process.env.NODE_ENV === "development" ? endpoint : prodEndpoint
-    const indexSuffix = process.env.NODE_ENV === "development" ? "dev" : "prod"
-    return (
-      <div>
-        <InstantSearch
-          indexName={`PropertySearch_${indexSuffix}`}
-          searchClient={searchClient}>
-          <CustomSearchBox />
-          <Pagination
-            showFirst={true}
-            showPrevious={true}
-            defaultRefinement={2}
-            showNext={true}
-            showLast={true}
-            padding={5}
-          />
-          <HitsPerPage
-            defaultRefinement={5}
-            items={[
-              { value: 1, label: "Snipe Mode" },
-              { value: 2, label: "Show 2 hits" },
-              { value: 5, label: "Show 5 hits" },
-              { value: 10, label: "Show 10 hits" },
-              { value: 15, label: "Show 10 hits" },
-            ]}
-          />
-          <Hits hitComponent={Hit} />
-        </InstantSearch>
-      </div>
-    )
-  }
+PropertySearch.propTypes = {
+  // classes: PropTypes.object.isRequired,
+  // theme: PropTypes.object.isRequired,
 }
 
-*/
-
-// export default PropertySearch
+export default PropertySearch
