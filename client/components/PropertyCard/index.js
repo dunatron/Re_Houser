@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { Component, useState } from "react"
 import PropertyCard from "../../styles/PropertyCard"
 import CardHeader from "@material-ui/core/CardHeader"
 import CardMedia from "@material-ui/core/CardMedia"
@@ -25,33 +25,10 @@ import TabContainer from "../TabContainer/index"
 import Details from "./Details"
 import Apply from "./Apply"
 import Rating from "./Rating"
+// custom highlight from search interface
+import CustomHighlight from "../PropertySearch/refinements/CustomHiglight"
 
-class SimpleSlider extends React.Component {
-  render() {
-    var settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    }
-    const { images } = this.props
-    return (
-      <Slider {...settings}>
-        {images &&
-          images.map((image, i) => (
-            <div>
-              <img
-                style={{ width: "100%", height: "300px", objectFit: "cover" }}
-                src={image.url}
-              />
-            </div>
-          ))}
-      </Slider>
-    )
-  }
-}
-
+/*
 class PropertyCardComponent extends Component {
   state = { expanded: false, value: 1 }
 
@@ -131,6 +108,90 @@ class PropertyCardComponent extends Component {
       </PropertyCard>
     )
   }
+}
+
+export default PropertyCardComponent
+*/
+const PropertyCardComponent = props => {
+  const [value, setValue] = useState(0)
+
+  const handleChange = (event, value) => {
+    setValue(value)
+  }
+
+  const { property } = props
+  const isSearch = props.isSearch ? props.isSearch : null
+
+  const {
+    id,
+    rooms,
+    rent,
+    moveInDate,
+    onTheMarket,
+    location,
+    locationLat,
+    locationLng,
+    owners,
+    creator,
+    images,
+    imageUrls, // for algolia
+    carportSpaces,
+    garageSpaces,
+    offStreetSpaces,
+    outdoorFeatures,
+    indoorFeatures,
+  } = property
+
+  return (
+    <PropertyCard>
+      <CardHeader
+        avatar={
+          <Avatar aria-label="Recipe" className={"avatar"}>
+            H
+          </Avatar>
+        }
+        action={
+          <IconButton>
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={
+          isSearch ? (
+            <CustomHighlight attribute={"location"} hit={property} />
+          ) : (
+            location
+          )
+        }
+        subheader={
+          <div style={{ display: "flex" }}>
+            <HomeIcon />
+            {rooms}
+            <MoneyIcon />
+            {rent} = {Math.ceil(rent / rooms)} per person
+          </div>
+        }
+      />
+      <CardMedia
+        className={"media"}
+        image="/static/images/cards/paella.jpg"
+        title="Paella dish"
+      />
+      <Tabs value={value} onChange={handleChange}>
+        <Tab label="Details" />
+        <Tab label="Apply" />
+        <Tab label="Rating" />
+      </Tabs>
+      {value === 0 && (
+        <TabContainer>{<Details property={property} />}</TabContainer>
+      )}
+      {value === 1 && (
+        <TabContainer>
+          <Apply property={property} />
+        </TabContainer>
+      )}
+      {value === 2 && <TabContainer>{<Rating />}</TabContainer>}
+    </PropertyCard>
+  )
 }
 
 export default PropertyCardComponent

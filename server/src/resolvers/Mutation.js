@@ -11,6 +11,7 @@ const { convertDocument } = require("../lib/DocGenerator")
 const createRentalApplication = require("./mutations/createRentalApplication")
 const updateRentalApplication = require("./mutations/updateRentalApplication")
 const completeRentalApplication = require("./mutations/completeRentalApplication")
+const acceptRentalApplication = require("./mutations/acceptRentalApplication")
 var fs = require("fs"),
   path = require("path"),
   filePath = path.join(__dirname, "../lib/documents/test.docx")
@@ -422,6 +423,7 @@ const mutations = {
   createRentalApplication,
   updateRentalApplication,
   completeRentalApplication,
+  acceptRentalApplication,
   async updateUser(parent, { data, photoFile }, ctx, info) {
     const uploadedPhoto = photoFile
       ? await processUpload(await photoFile, ctx)

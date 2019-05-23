@@ -1,0 +1,65 @@
+import React, { useState } from "react"
+import styled from "styled-components"
+
+const SearchInterface = styled.div`
+  /* .searchInterface__Drawer {
+    border: 1px solid red;
+  } */
+  .si-drawer {
+    border: 1px solid red;
+  }
+
+  .si-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0px 16px 16px;
+  }
+  .si-drawer__close-btn {
+  }
+
+  .si-drawer-sidebar {
+    /* max-width: 320px; */
+    width: 320px;
+  }
+  .si-content {
+    /* width: 100%;
+    position: absolute;
+    left: 0; */
+  }
+  .si-info {
+    display: flex;
+    padding: 8px 0 0 0;
+    .ais-Stats {
+      padding: 16px;
+      .ais-Stats-text {
+        font-size: 1.2em;
+      }
+    }
+  }
+  .ais-Hits-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: 100%;
+    position: absolute; */
+    left: 0;
+    list-style: none;
+  }
+  .ais-Hits-item {
+  }
+  .si-hit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .si-hit__location {
+    font-size: 1.3em;
+    line-height: 1em;
+    max-width: 420px;
+    padding: 16px;
+    font-family: GustanLight;
+  }
+`
+
+export { SearchInterface }

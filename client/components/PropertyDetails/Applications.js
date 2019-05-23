@@ -1,6 +1,7 @@
 import React, { Component } from "react"
-import { useQuery } from "react-apollo-hooks"
+import { useQuery, useMutation } from "react-apollo-hooks"
 import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "../../mutation/acceptRentalApplication"
 import Card from "@material-ui/core/Card"
 import ExpansionPanel from "../../styles/ExpansionPanel"
 import ExpansionPanelSummary from "../../styles/ExpansionPanelSummary"
@@ -16,6 +17,39 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd"
 import PersonOutlineIcon from "@material-ui/icons/PersonOutline"
 
 import StarIcon from "../../styles/icons/StarIcon"
+
+import ApplicantDetails from "../ApplicantDetails/index"
+import { Button } from "@material-ui/core"
+
+const AcceptApplication = ({ application, property }) => {
+  const acceptApplication = useMutation(ACCEPT_RENTAL_APPLICATION_MUTATION, {
+    // variables: {
+    //   data: {
+    //     applicationId: application.id,
+    //     propertyId: property.id,
+    //   },
+    // },
+    variables: {
+      applicationId: application.id,
+      propertyId: property.id,
+    },
+    update: (proxy, payload) => {},
+    // optimisticResponse: {},
+  })
+  return (
+    <Button
+      variant="outlined"
+      onClick={() => {
+        acceptApplication()
+      }}>
+      Accept application
+    </Button>
+  )
+}
+
+const DenyApplication = () => {
+  return <Button variant="outlined">Deny application</Button>
+}
 
 const RentalApplications = props => {
   const { data, error, loading } = useQuery(RENTAL_APPLICATIONS_QUERY, {
@@ -34,9 +68,17 @@ const RentalApplications = props => {
   if (error) {
     return <div>Error! {error.message}</div>
   }
+  console.log("rental Applications data => ", data)
   return (
     <div>
       <h1>I am the Applications details component</h1>
+      <div>
+        <h2>This area is to perform actions for potential applications e.g.</h2>
+        <ul>
+          <li>Send email and notification to applicants about a viewing</li>
+        </ul>
+      </div>
+
       {data.rentalApplications.map((application, i) => {
         return (
           <Card style={{ marginBottom: "30px" }}>
@@ -47,12 +89,11 @@ const RentalApplications = props => {
             <Typography>
               FINALISED: {application.finalised ? "YES" : "NO"}
             </Typography>
-            <Typography>
-              <button>Accept application</button>
-            </Typography>
-            <Typography>
-              <button>Deny application</button>
-            </Typography>
+            <AcceptApplication
+              application={application}
+              property={props.property}
+            />
+            <DenyApplication />
             <Typography>
               FINALISED: {application.finalised ? "YES" : "NO"}
             </Typography>
@@ -74,14 +115,9 @@ const RentalApplications = props => {
               <ExpansionPanelDetails>
                 <div>
                   <h2>Some stuff</h2>
-                  {application.applicants.map((applicant, i) => {
-                    return (
-                      <div>
-                        {applicant.id}
-                        {applicant.approved}
-                      </div>
-                    )
-                  })}
+                  {application.applicants.map((applicant, i) => (
+                    <ApplicantDetails applicant={applicant} />
+                  ))}
                 </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>

@@ -49,6 +49,7 @@ type Mutation {
     data: RentalGroupApplicantUpdateInput!
     where: RentalGroupApplicantWhereUniqueInput!
   ): RentalGroupApplicant
+  acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
 }
 
 type Query {

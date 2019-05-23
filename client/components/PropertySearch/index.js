@@ -11,94 +11,48 @@ import List from "@material-ui/core/List"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
 import IconButton from "@material-ui/core/IconButton"
-import MenuIcon from "@material-ui/icons/Menu"
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
-import ChevronRightIcon from "@material-ui/icons/ChevronRight"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
-import MailIcon from "@material-ui/icons/Mail"
 import CustomSearchBox from "./CustomSearchBox"
 import SettingsIcon from "../../styles/icons/SettingsIcon"
 import CloseIcon from "../../styles/icons/CloseIcon"
 
+import { SearchInterface } from "./styles"
+
 import ConnectedCheckBoxRefinementList from "./refinements/CheckBoxList"
+import ConnectedMaterialUiSortBy from "./refinements/SortBy"
+import ConnectedMaterialPagination from "./refinements/Pagination"
+import CustomHighlight from "./refinements/CustomHiglight"
 import PropertyCard from "../PropertyCard/index"
 
 import {
   InstantSearch,
-  SearchBox,
   Hits,
-  HitsPerPage,
-  Highlight,
   connectHighlight,
-  connectPagination,
   Pagination,
-  CurrentRefinements,
-  RefinementList,
-  SortBy,
   Stats,
-  connectRefinementList,
-  connectCurrentRefinements,
+  SortBy,
 } from "react-instantsearch-dom"
-
-const drawerWidth = 240
 
 var applicationId = "4QW4S8SE3J"
 var apiKey = "506b6dcf7516c20a1789e6eb9d9a5b39"
 const searchClient = algoliasearch(applicationId, apiKey)
 const indexPrefix = process.env.NODE_ENV === "development" ? "dev" : "prod"
 
-const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
-  const parsedHit = highlight({
-    highlightProperty: "_highlightResult",
-    attribute,
-    hit,
-  })
-
-  return (
-    <div>
-      {parsedHit.map(part =>
-        part.isHighlighted ? <mark>{part.value}</mark> : part.value
-      )}
-    </div>
-  )
-})
-
 const Hit = ({ hit }) => (
-  <div className="hit">
-    {/* <div className="hit-image">
-      <img src={hit.imageUrls} />
-    </div> */}
-    <div className="hit-location">
+  <div className="si-hit">
+    <div className="si-hit__location">
       <CustomHighlight attribute={"location"} hit={hit} />
     </div>
-    <PropertyCard property={hit} />
+    <PropertyCard property={hit} isSearch={true} />
   </div>
 )
 
-/**
- * Extract these to own files
- * also make <Hits /> a connection component so we can use BEM
- */
-const SearchContent = styled.div`
-  .ais-Hits {
-    .ais-Hits-list {
-      padding: 0;
-    }
-  }
-`
-
 const Content = () => (
-  <SearchContent className="content">
-    <div className="info">
+  <div className="si-content">
+    <div className="si-info">
       <Stats />
-      Sort
-      <SortBy
-        defaultRefinement={`${indexPrefix}_PropertySearch`}
+      <ConnectedMaterialUiSortBy
         items={[
-          { value: `${indexPrefix}_PropertySearch`, label: "ohhh" },
+          { value: `${indexPrefix}_PropertySearch`, label: "Relevance" },
           {
             value: `${indexPrefix}_PropertySearch_price_asc`,
             label: "Lowest Price",
@@ -108,18 +62,20 @@ const Content = () => (
             label: "Highest Price",
           },
         ]}
+        defaultRefinement={`${indexPrefix}_PropertySearch`}
       />
     </div>
 
     <Hits hitComponent={Hit} />
     <div className="pagination">
+      <ConnectedMaterialPagination />
       <Pagination showLast={true} />
     </div>
-  </SearchContent>
+  </div>
 )
 
 const Sidebar = () => (
-  <div className="sidebar">
+  <div className="si-drawer__sidebar">
     <div>
       <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
       <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
@@ -132,13 +88,16 @@ const Sidebar = () => (
         operator="or"
       />
       <ConnectedCheckBoxRefinementList attribute="price" operator="or" />
-      {/* <RefinementList attribute="rooms" />
-      <h1>Price</h1>
-      <RefinementList attribute="price" />
-      <RefinementList attribute="city" />
-      <h1>Type</h1>
-      <RefinementList attribute="type" /> */}
     </div>
+  </div>
+)
+
+const DrawHeader = ({ close }) => (
+  <div className="si-drawer__header" style={{}}>
+    <h4>Refine your search</h4>
+    <IconButton onClick={close} className="si-drawer__close-btn">
+      <CloseIcon />
+    </IconButton>
   </div>
 )
 
@@ -161,47 +120,33 @@ const PropertySearch = () => {
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
-      <div className={"classes.root"}>
-        <AppBar position="relative" color="default" style={{ padding: "20px" }}>
+      <SearchInterface>
+        <AppBar
+          position="relative"
+          color="default"
+          style={{ padding: "8px", zIndex: 0 }}>
           <Toolbar disableGutters={!open}>
             <IconButton
               color="default"
+              style={{ margin: "0 12px 0 0" }}
               aria-label="Open drawer"
               onClick={toggleDraw}>
               <SettingsIcon />
             </IconButton>
             <CustomSearchBox fullWidth={true} />
-            {/* <Typography variant="h6" color="inherit" noWrap>
-              
-            </Typography> */}
           </Toolbar>
         </AppBar>
         <Drawer
-          // className={classes.drawer}
+          className="si-drawer"
           variant="persistent"
           anchor="left"
           open={open}>
-          <div
-            className={"classes.drawerHeader"}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "16px 0px 16px 16px",
-            }}>
-            <h4>Refine your search</h4>
-            <IconButton onClick={handleDrawerClose}>
-              <CloseIcon />
-            </IconButton>
-          </div>
+          <DrawHeader close={handleDrawerClose} />
           <Divider />
           <Sidebar />
         </Drawer>
-        <main>
-          <div className={"classes.drawerHeader"} />
-          <Content />
-        </main>
-      </div>
+        <Content />
+      </SearchInterface>
     </InstantSearch>
   )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import styled from "styled-components"
 import { connectRefinementList } from "react-instantsearch-dom"
 import {
   Collapse,
@@ -16,6 +17,28 @@ import SendIcon from "@material-ui/icons/Send"
 import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
 import StarBorder from "@material-ui/icons/StarBorder"
+
+const CollapseMenu = styled(Collapse)`
+  && {
+  }
+`
+
+const ListStyle = styled(List)`
+  && {
+    /* margin: ${props => props.theme.spacing.unit * 3}px 0 0 0; */
+    margin: 0 0 16px 0;
+    padding: 0;
+    border-bottom: 1px dashed grey;
+  }
+`
+
+const CheckboxItem = styled(FormControlLabel)`
+  && {
+    margin: ${props => props.theme.spacing.unit * 3}px 0 0 0;
+    margin: 0;
+    padding: 0;
+  }
+`
 
 const MaterialUiCheckBoxRefinementList = ({
   items,
@@ -36,10 +59,10 @@ const MaterialUiCheckBoxRefinementList = ({
         <ListItemText inset primary={attribute.toUpperCase()} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List>
+      <CollapseMenu in={open} timeout="auto" unmountOnExit>
+        <ListStyle>
           {items.map(({ count, isRefined, label, value }, i) => (
-            <FormControlLabel
+            <CheckboxItem
               key={i}
               control={
                 <Checkbox
@@ -51,11 +74,30 @@ const MaterialUiCheckBoxRefinementList = ({
                   value="checkedA"
                 />
               }
-              label={label}
+              label={
+                <span
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    fontSize: "1.2em",
+                    fontWeight: "300",
+                    height: "36px",
+                  }}>
+                  {label}
+                  <span
+                    style={{
+                      fontSize: "0.8em",
+                      alignSelf: "end",
+                      padding: "0 0 0 4px",
+                    }}>
+                    ({count})
+                  </span>
+                </span>
+              }
             />
           ))}
-        </List>
-      </Collapse>
+        </ListStyle>
+      </CollapseMenu>
     </>
   )
 }
