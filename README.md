@@ -764,6 +764,21 @@ mutation uploadFiles($files:[Upload!]!) {
 }
 ```
 
+### Subscriptions
+- Rental application created subscription
+```js
+ subscription {
+    rentalApplicationCreatedSub {
+      node {
+        id
+        title
+        stage
+        visibility
+      }
+    }
+  }
+```
+
 ### testing
 
 - ideal situation for an analysis of how well the system works is to have all dwellings in a mock database

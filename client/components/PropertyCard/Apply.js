@@ -1,5 +1,6 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import { Mutation } from "react-apollo"
+import { useSubscription } from "react-apollo-hooks"
 import { CREATE_RENTAL_APPLICATION } from "../../mutation/index"
 import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
 
@@ -19,16 +20,17 @@ const Composed = adopt({
   ),
 })
 
-export default class Apply extends Component {
-  state = {
-    modalIsOpen: false,
-    applicationData: {},
-  }
-  _apply = async createRentalApplication => {
+const Apply = props => {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [applicationData, setApplicationData] = useState({})
+  useEffect(() => {
+    console.log("THE MODAL STATE HAS CHANGED!!!!")
+  }, [modalIsOpen])
+  const _apply = async createRentalApplication => {
     const res = await createRentalApplication()
   }
-  _createRentalApplication = async (createRentalApplication, me) => {
-    const { id, rentalApplications } = this.props.property
+  const _createRentalApplication = async (createRentalApplication, me) => {
+    const { id, rentalApplications } = props.property
     const res = await createRentalApplication({
       variables: {
         data: {
@@ -48,9 +50,9 @@ export default class Apply extends Component {
     })
     return res
   }
-  _variables = () => {}
-  update = (cache, payload) => {
-    const { id } = this.props.property
+  const _variables = () => {}
+  const update = (cache, payload) => {
+    const { id } = props.property
     const variables = {
       where: {
         property: {
@@ -77,86 +79,87 @@ export default class Apply extends Component {
       variables: variables,
     })
   }
-  rentalApplicationStepper = async (createRentalApplication, me) => {
-    const application = await this._createRentalApplication(
+  const rentalApplicationStepper = async (createRentalApplication, me) => {
+    console.log("rentalApplicationStepper Me => ", me)
+    const application = await _createRentalApplication(
       createRentalApplication,
       me
     )
-
-    this.setState({
-      modalIsOpen: true,
-      applicationData: application.data.createRentalApplication,
-    })
+    setApplicationData(application.data.createRentalApplication)
+    setModalIsOpen(true)
   }
-  render() {
-    const { id, location } = this.props.property
-    const { modalIsOpen, applicationData } = this.state
-    return (
-      <Composed>
-        {({ user, createRentalApplication }) => {
-          const me = user.data.me
-          if (!me)
-            return (
-              <div>
-                <h4>You need to sign in or up to apply</h4>
-                <SuperLogin />
-              </div>
-            )
-          // if (!me) return <SuperLogin />
+
+  const { id, location } = props.property
+
+  return (
+    <Composed>
+      {({ user, createRentalApplication }) => {
+        const me = user.data.me
+        if (!me)
           return (
             <div>
-              <Modal
-                open={modalIsOpen}
-                title={`Application for ${location}`}
-                close={() => this.setState({ modalIsOpen: false })}>
-                <RentalApplicationStepperComponent
-                  property={this.props.property}
-                  me={me}
-                  application={applicationData}
-                />
-              </Modal>
-              <Mutation
-                mutation={CREATE_RENTAL_APPLICATION}
-                // refetchQueries={[
-                //   { query: PROPERTIES_QUERY },
-                //   { query: OWNER_PROPERTIES_QUERY },
-                // ]}
-                // variables={this._variables()}
-                update={this.update}>
-                {(createRentalApplication, { error, loading }) => (
-                  <>
-                    <Error error={error} />
-                    <Button
-                      disabled={loading}
-                      color="primary"
-                      variant="outlined"
-                      style={{ padding: "16px", margin: "0 0 16px 0" }}
-                      onClick={() =>
-                        this.rentalApplicationStepper(
-                          createRentalApplication,
-                          me
-                        )
-                      }>
-                      Create New Rental Application
-                    </Button>
-                    <RentalApplications
-                      propertyId={id}
-                      property={this.props.property}
-                      me={me}
-                      openRentalAppModal={rentalData => {
-                        this.setState({
-                          modalIsOpen: true,
-                          applicationData: rentalData,
-                        })
-                      }}
-                    />
-                  </>
-                )}
-              </Mutation>
+              <h4>You need to sign in or up to apply</h4>
+              <SuperLogin />
             </div>
           )
-        }}
-      </Composed>
-    )
-  }
+        // if (!me) return <SuperLogin />
+        return (
+          <div>
+            <Modal
+              open={modalIsOpen}
+              title={`Application for ${location}`}
+              close={() => setModalIsOpen(false)}>
+              <RentalApplicationStepperComponent
+                property={props.property}
+                me={me}
+                application={applicationData}
+              />
+            </Modal>
+            <Mutation
+              mutation={CREATE_RENTAL_APPLICATION}
+              // refetchQueries={[
+              //   { query: PROPERTIES_QUERY },
+              //   { query: OWNER_PROPERTIES_QUERY },
+              // ]}
+              // variables={this._variables()}
+
+              update={update}>
+              {(createRentalApplication, { error, loading }) => (
+                <>
+                  <Error error={error} />
+                  <Button
+                    disabled={loading}
+                    color="primary"
+                    variant="outlined"
+                    style={{ padding: "16px", margin: "0 0 16px 0" }}
+                    onClick={() =>
+                      rentalApplicationStepper(createRentalApplication, me)
+                    }>
+                    Create New Rental Application
+                  </Button>
+                  <RentalApplications
+                    propertyId={id}
+                    property={props.property}
+                    me={me}
+                    // openRentalAppModal={rentalData => {
+                    //   this.setState({
+                    //     modalIsOpen: true,
+                    //     applicationData: rentalData,
+                    //   })
+                    // }}
+                    openRentalAppModal={rentalData => {
+                      setModalIsOpen(true)
+                      setApplicationData(rentalData)
+                    }}
+                  />
+                </>
+              )}
+            </Mutation>
+          </div>
+        )
+      }}
+    </Composed>
+  )
 }
+
+export default Apply

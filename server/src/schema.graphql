@@ -52,6 +52,11 @@ type Mutation {
   acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
 }
 
+type Subscription {
+  rentalApplicationCreatedSub: RentalApplicationSubscriptionPayload
+  rentalApplicationUpdateSub: RentalApplicationSubscriptionPayload
+}
+
 type Query {
   me: User
   users: [User]!
