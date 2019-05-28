@@ -5,7 +5,7 @@ import { ApolloLink, split } from "apollo-link"
 import { WebSocketLink } from "apollo-link-ws"
 import { getMainDefinition } from "apollo-utilities"
 import { createUploadLink } from "apollo-upload-client"
-import { endpoint, prodEndpoint } from "../config"
+import { endpoint, prodEndpoint, wsEndpoint, wsProdEndpoint } from "../config"
 // store
 import cache from "./store/cache"
 import resolvers from "./store/resolvers"
@@ -24,10 +24,13 @@ function createClient({ headers }) {
   /**
    * ToDo: implement process.env for ws
    */
+  const websocketEndpoint =
+    process.env.NODE_ENV === "development" ? wsEndpoint : wsProdEndpoint
   const wsLink = process.browser
     ? new WebSocketLink({
         // if you instantiate in the server, the error will be thrown
-        uri: `ws://localhost:4444`,
+        // uri: `ws://localhost:4444`,
+        uri: websocketEndpoint,
         options: {
           reconnect: true,
         },
