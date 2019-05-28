@@ -5,7 +5,7 @@ export const endpoint = `http://localhost:4444/`
 export const prodEndpoint = `https://rehouser-yoga-prod.herokuapp.com/`
 
 export const wsEndpoint = `ws://localhost:4444`
-export const wsProdEndpoint = `ws://localhost:4444`
+export const wsProdEndpoint = `wss://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod`
 
 // export const devEndpoint = `https://us1.prisma.sh/heath-dunlop-37e897/the-trader/dev`
 export const itemsPerPage = 4
