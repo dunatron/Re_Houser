@@ -187,7 +187,7 @@ const Details = props => {
     <div>
       <CardContent>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <Typography component="p">
+          {/* <Typography component="p">
             indoorFeatures:{" "}
             {indoorFeatures &&
               indoorFeatures.map((feature, i) => `${feature}, `)}
@@ -196,7 +196,7 @@ const Details = props => {
             outdoorFeatures:{" "}
             {outdoorFeatures &&
               outdoorFeatures.map((feature, i) => `${feature},`)}
-          </Typography>
+          </Typography> */}
           <DetailItem
             icon={<CameraIcon />}
             label="offStreetSpaces"
@@ -242,8 +242,8 @@ const Details = props => {
         </div>
       </CardContent>
 
-      {images && <ImageSlider images={images} />}
-      {imageUrls && <ImageSlider imageUrls={imageUrls} />}
+      {/* {images && <ImageSlider images={images} />}
+      {imageUrls && <ImageSlider imageUrls={imageUrls} />} */}
       <CardContent>
         <Typography component="p">
           A description about this lot of land/dwelling
