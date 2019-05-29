@@ -779,6 +779,67 @@ mutation uploadFiles($files:[Upload!]!) {
   }
 ```
 
+- Base Subscription example for rentalApplications
+```js
+subscription($where:RentalApplicationSubscriptionWhereInput) {
+  rentalApplication(where:$where) {
+    node {
+      id
+      title
+      stage
+    }
+  }
+}
+// variables 
+{
+  "where": {
+    "mutation_in": "UPDATED",
+    "node": {
+      "stage": "PENDING"
+    }
+  }
+}
+// or 
+{
+  "where": {
+    "mutation_in": "UPDATED",
+    "node": {
+      "stage": "PENDING",
+      "id": "asdads",
+      "id_in": [
+        "adas","asdasdads"
+      ]
+    }
+  }
+}
+```
+
+- subscribe to pending applications 
+```js
+subscription($where:RentalApplicationSubscriptionWhereInput) {
+  rentalApplicationUpdateSub(where:$where) {
+    node {
+      id
+      title
+      stage
+    }
+  }
+}
+//variables 
+{
+  "where": {
+    "mutation_in": "UPDATED",
+    "node": {
+      "stage": "PENDING",
+      "id": "asdads",
+      "id_in": [
+        "adas","asdasdads"
+      ]
+    }
+  }
+}
+```
+
 ### testing
 
 - ideal situation for an analysis of how well the system works is to have all dwellings in a mock database

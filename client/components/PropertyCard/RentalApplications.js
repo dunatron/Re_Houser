@@ -75,10 +75,31 @@ const RentalApplications = props => {
       //   // ...
       // },
       onSubscriptionData: ({ client, subscriptionData }) => {
+        console.log("client => ", client)
+        const applications = client.readQuery({
+          query: RENTAL_APPLICATIONS_QUERY,
+          variables: {
+            where: {
+              property: {
+                id: propertyId,
+              },
+            },
+          },
+        })
+        console.log("applications => ", applications)
         console.log("Ohhh this is just fantastic georgew => ", subscriptionData)
-        alert(
-          "Ohhh You should refresh. the stack is right, time to go HAM with hooks"
-        )
+
+        // 1. Read the cache for the items we want
+        // const data = cache.readQuery({ query: ALL_FILES_QUERY })
+        // // 2. Filter the deleted itemout of the page
+        // data.files = data.files.filter(
+        //   file => file.id !== payload.data.deleteFile.id
+        // )
+        // // 3. Put the items back!
+        // cache.writeQuery({ query: ALL_FILES_QUERY, data })
+        // alert(
+        //   "Ohhh You should refresh. the stack is right, time to go HAM with hooks"
+        // )
         // Optional callback which provides you access to the new subscription
         // data and the Apollo client. You can use methods of the client to update
         // the Apollo cache:

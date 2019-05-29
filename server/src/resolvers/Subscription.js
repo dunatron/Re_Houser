@@ -21,13 +21,32 @@ async function rentalApplicationUpdateSubscription(
   context,
   info
 ) {
+  console.log("AN Up[date Subscription")
+  console.log("AN Up[date Subscription with the argds => ", args)
+  const sub = context.db.subscription.rentalApplication(
+    { where: args.where },
+    info
+  )
+  return sub
+}
+const rentalApplicationUpdateSub = {
+  subscribe: rentalApplicationUpdateSubscription,
+}
+
+// rentalApplication Pending SUbscription
+async function rentalApplicationCompletedSubscription(
+  parent,
+  args,
+  context,
+  info
+) {
   return context.db.subscription.rentalApplication(
     { where: { mutation_in: ["UPDATED"] } },
     info
   )
 }
-const rentalApplicationUpdateSub = {
-  subscribe: rentalApplicationUpdateSubscription,
+const rentalApplicationCompletedSub = {
+  subscribe: rentalApplicationCompletedSubscription,
 }
 
 module.exports = {

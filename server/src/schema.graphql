@@ -54,7 +54,9 @@ type Mutation {
 
 type Subscription {
   rentalApplicationCreatedSub: RentalApplicationSubscriptionPayload
-  rentalApplicationUpdateSub: RentalApplicationSubscriptionPayload
+  rentalApplicationUpdateSub(
+    where: RentalApplicationSubscriptionWhereInput
+  ): RentalApplicationSubscriptionPayload
 }
 
 type Query {
