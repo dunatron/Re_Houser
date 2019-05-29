@@ -76,6 +76,9 @@ const RentalApplications = props => {
       // },
       onSubscriptionData: ({ client, subscriptionData }) => {
         console.log("Ohhh this is just fantastic georgew => ", subscriptionData)
+        alert(
+          "Ohhh You should refresh. the stack is right, time to go HAM with hooks"
+        )
         // Optional callback which provides you access to the new subscription
         // data and the Apollo client. You can use methods of the client to update
         // the Apollo cache:
