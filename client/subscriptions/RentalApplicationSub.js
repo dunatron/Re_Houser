@@ -1,6 +1,6 @@
 import gql from "graphql-tag"
 
-const RENTAL_APPLICATION_UPDATED_SUBSCRIPTION = gql`
+const RENTAL_APPLICATION_SUBSCRIPTION = gql`
   subscription($where: RentalApplicationSubscriptionWhereInput) {
     rentalApplicationUpdateSub(where: $where) {
       node {
@@ -35,14 +35,4 @@ const RENTAL_APPLICATION_UPDATED_SUBSCRIPTION = gql`
   }
 `
 
-export { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION }
-
-// subscription($where:RentalApplicationSubscriptionWhereInput) {
-//   rentalApplicationUpdateSub(where:$where) {
-//     node {
-//       id
-//       title
-//       stage
-//     }
-//   }
-// }
+export { RENTAL_APPLICATION_SUBSCRIPTION }

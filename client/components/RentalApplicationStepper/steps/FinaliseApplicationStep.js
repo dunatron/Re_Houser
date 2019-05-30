@@ -25,6 +25,28 @@ const FinaliseApplicationStep = ({ application }) => {
     },
   })
 
+  // hack to just bypass for dev
+  return (
+    <Button
+      variant="contained"
+      onClick={() => {
+        completeApplication()
+          .then(res => {
+            // just to display message? or just let ui change when we update
+            console.log(
+              "We have oput the application into pending mode => ",
+              res
+            )
+            alert.show(
+              "Congrats the application is now in PENDING mode awaiting the landlords approval!"
+            )
+          })
+          .catch(e => alert.error(e.message))
+      }}>
+      HACK TO BYPASS => Complete Application
+    </Button>
+  )
+
   return (
     <div>
       <h1>

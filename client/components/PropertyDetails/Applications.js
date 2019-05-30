@@ -4,6 +4,7 @@ import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
 import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "../../mutation/acceptRentalApplication"
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"
 import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationUpdatedSub"
+import PropertyPendingRentalApplicationsSub from "../SubscriptionComponents/PropertyPendingRentalApplicationsSub"
 import Card from "@material-ui/core/Card"
 import ExpansionPanel from "../../styles/ExpansionPanel"
 import ExpansionPanelSummary from "../../styles/ExpansionPanelSummary"
@@ -21,6 +22,7 @@ import PersonOutlineIcon from "@material-ui/icons/PersonOutline"
 import StarIcon from "../../styles/icons/StarIcon"
 
 import ApplicantDetails from "../ApplicantDetails/index"
+import ApplicationCard from "./ApplicationCard"
 import { Button } from "@material-ui/core"
 import { openSnackbar } from "../Notifier/index"
 
@@ -90,11 +92,11 @@ const RentalApplications = props => {
     onSubscriptionData: ({ client, subscriptionData }) => {
       console.log("Application is now in Pending mode => ", subscriptionData)
 
-      openSnackbar({
-        message: `<h3>Applications have changed Please refresh`,
-        duration: 6000,
-        type: "info",
-      })
+      // openSnackbar({
+      //   message: `<h3>Applications have changed Please refresh`,
+      //   duration: 6000,
+      //   type: "info",
+      // })
     },
     // ... rest options
   })
@@ -143,6 +145,7 @@ const RentalApplications = props => {
   return (
     <div>
       <h1>I am the Applications details component</h1>
+      <PropertyPendingRentalApplicationsSub property={props.property} />
       <div>
         <h2>This area is to perform actions for potential applications e.g.</h2>
         <ul>
@@ -152,47 +155,10 @@ const RentalApplications = props => {
 
       {data.rentalApplications.map((application, i) => {
         return (
-          <Card style={{ marginBottom: "30px" }}>
-            {/* <DialogPopup isOpen={true} /> */}
-            <Typography>ID: {application.id}</Typography>
-            <Typography>Visibility: {application.visibility}</Typography>
-            <Typography>Stage: {application.stage}</Typography>
-            <Typography>
-              FINALISED: {application.finalised ? "YES" : "NO"}
-            </Typography>
-            <AcceptApplication
-              application={application}
-              property={props.property}
-            />
-            <DenyApplication />
-            <Typography>
-              FINALISED: {application.finalised ? "YES" : "NO"}
-            </Typography>
-            <ExpansionPanel highlight={false}>
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon />}
-                // highlight={isAnApplicant}
-                // highlightReverse={isOwner}
-                // background={isAnApplicant ? "green" : ""}
-              >
-                <PersonIcon color={"secondary"} />
-                <Typography
-                  // highlightReverse={isOwner}
-                  // highlight={isAnApplicant}
-                  style={{ padding: "0 16px 0 4px" }}>
-                  {application.applicants.length} Applicants
-                </Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <div>
-                  <h2>Some stuff</h2>
-                  {application.applicants.map((applicant, i) => (
-                    <ApplicantDetails applicant={applicant} />
-                  ))}
-                </div>
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          </Card>
+          <ApplicationCard
+            application={application}
+            property={props.property}
+          />
         )
       })}
     </div>

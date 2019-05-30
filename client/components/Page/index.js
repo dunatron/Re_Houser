@@ -17,6 +17,10 @@ import { transitions, positions, Provider as AlertProvider } from "react-alert"
 import AlertTemplate from "../AlertTemplate.js/index"
 import { ALERT_OPTIONS } from "../../lib/configs/alertConfig"
 
+//Admin ARea Addisions
+import AdminAlertNewRentalApplicationSub from "../SubscriptionComponents/AdminAlertNewRentalApplicationSub"
+import AdminAlertsContainer from "../../containers/AdminAlertsContainer"
+
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 
@@ -133,6 +137,10 @@ class Page extends Component {
                 <Header />
                 <Notifier />
                 <Inner>{this.props.children}</Inner>
+                <div>
+                  <h1>Admin alerts LOL</h1>
+                  <AdminAlertsContainer />
+                </div>
               </StyledPage>
             </AlertProvider>
           </ThemeProvider>
