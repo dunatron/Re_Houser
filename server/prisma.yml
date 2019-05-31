@@ -1,5 +1,6 @@
 #endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
 # endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod

@@ -26,6 +26,7 @@ function createClient({ headers }) {
    */
   const websocketEndpoint =
     process.env.NODE_ENV === "development" ? wsEndpoint : wsProdEndpoint
+  console.log("websocket endpoint => ", websocketEndpoint)
   const wsLink = process.browser
     ? new WebSocketLink({
         // if you instantiate in the server, the error will be thrown
