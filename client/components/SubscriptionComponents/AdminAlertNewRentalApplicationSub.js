@@ -44,6 +44,11 @@ const AdminAlertNewRentalApplicationSub = () => {
       },
     }
   )
+  console.group("AdminAlertNewRentalApplicationSub")
+  console.log("loading => ", loading)
+  console.log("data => ", data)
+  console.log("error => ", error)
+  console.groupEnd()
   if (loading) return null
   if (error)
     return (
