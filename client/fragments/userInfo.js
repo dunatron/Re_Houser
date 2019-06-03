@@ -25,6 +25,9 @@ const UserInfoFragment = gql`
     referee2Name
     referee2Phone
     referee2Email
+    primaryCreditCard {
+      id
+    }
   }
 `
 

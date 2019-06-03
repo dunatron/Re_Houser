@@ -6,6 +6,7 @@ import { UPDATE_USER_MUTATION } from "./updateUser"
 import { UPLOAD_PHOTO_IDENTIFICATION } from "./uploadPhotoIdentification"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "./updateRentalGroupApplicant"
 import { UPDATE_PROPERTY_MUTATION } from "./updateProperty"
+import { CREATE_CREDIT_CARD_MUTATION } from "./createCreditCard"
 
 export {
   CREATE_PROPERTY_MUTATION,
@@ -16,4 +17,5 @@ export {
   UPLOAD_PHOTO_IDENTIFICATION,
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
   UPDATE_PROPERTY_MUTATION,
+  CREATE_CREDIT_CARD_MUTATION,
 }

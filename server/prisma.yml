@@ -1,6 +1,6 @@
 #endpoint: ${env:PRISMA_ENDPOINT}
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
+endpoint: ${env:PRISMA_ENDPOINT}
+# endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
 # endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
 #endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
@@ -9,6 +9,7 @@ endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
 datamodel:
   - model/types.graphql
   - model/enums.graphql
+  - model/interfaces.graphql
 # secret is the database password, ommiting it in dev means easier development
 secret: ${env:PRISMA_SECRET}
 hooks:

@@ -1,0 +1,15 @@
+interface PropertyInfo {
+  id: ID!
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
+  outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+}

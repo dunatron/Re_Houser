@@ -11,6 +11,8 @@ type User {
   resetTokenExpiry: Float
   permissions: [Permission] @scalarList(strategy: RELATION)
   properties: [Property!]! @relation(name: "PropertyOwner")
+  leases: [PropertyLease!]! @relation(name: "LeaseOwners")
+  tenantLeases: [PropertyLease!]! @relation(name: "LeaseTenants")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
   photoIdentification: File
   identificationNumber: String
@@ -23,6 +25,24 @@ type User {
   referee2Name: String
   referee2Phone: String
   referee2Email: String
+  creditCards: [CreditCard!]! @relation(name: "UserCreditCards")
+  primaryCreditCard: CreditCard @relation(name: "UserPrimaryCreditCard")
+}
+
+type CreditCard {
+  id: ID! @unique @id
+  cardOwner: User! @relation(name: "UserCreditCards")
+  createdAt: DateTime! @createdAt
+  stripeCardId: String @unique
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
 }
 
 type File {
@@ -35,7 +55,7 @@ type File {
   url: String
 }
 
-type Property {
+type Property implements PropertyInfo {
   id: ID! @unique @id
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
@@ -86,4 +106,24 @@ type RentalApplication {
   finalised: Boolean
   property: Property! @relation(name: "PropertyRentalApplication")
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")
+}
+
+type PropertyLease implements PropertyInfo {
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  owners: [User!]! @relation(name: "LeaseOwners")
+  tenants: [User!]! @relation(name: "LeaseTenants")
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
+  outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
 }

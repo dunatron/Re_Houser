@@ -15,11 +15,11 @@ const Query = {
   },
   async users(parent, args, ctx, info) {
     // 1. Check if they are logged in
-    if (!ctx.request.userId) {
-      throw new Error("You must be logged in!")
-    }
-    // 2. Check if the user has the permissions to query all the users
-    hasPermission(ctx.request.user, ["ADMIN", "PERMISSIONUPDATE"])
+    // if (!ctx.request.userId) {
+    //   throw new Error("You must be logged in!")
+    // }
+    // // 2. Check if the user has the permissions to query all the users
+    // hasPermission(ctx.request.user, ["ADMIN", "PERMISSIONUPDATE"])
     // 2. if they do, query all the users!
     return ctx.db.query.users({}, info)
   },
@@ -72,6 +72,24 @@ const Query = {
         where: {
           applicants_some: {
             id: ctx.request.userId,
+          },
+        },
+      },
+      // {},
+      info
+    )
+  },
+  async myCreditCards(parent, args, ctx, info) {
+    // GOing to need to rethink this. Method to get applicants_some is of type RentalGroupApplicant
+    if (!ctx.request.userId) {
+      throw new Error("You must be logged in to get your properties!")
+    }
+    const userId = ctx.request.userId
+    return ctx.db.query.creditCards(
+      {
+        where: {
+          cardOwner: {
+            id: userId,
           },
         },
       },

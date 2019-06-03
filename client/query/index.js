@@ -4,6 +4,7 @@ import { MY_RENTAL_APPLICATIONS_QUERY } from "./myRentalApplications"
 import { RENTAL_APPLICATIONS_QUERY } from "./rentalApplications"
 import { CURRENT_USER_QUERY } from "./currentUser"
 import { SINGLE_OWNER_PROPERTY_QUERY } from "./singleOwnerProperty"
+import { MY_CREDIT_CARDS_QUERY } from "./myCreditCards"
 
 export {
   PROPERTIES_QUERY,
@@ -12,4 +13,5 @@ export {
   RENTAL_APPLICATIONS_QUERY,
   CURRENT_USER_QUERY,
   SINGLE_OWNER_PROPERTY_QUERY,
+  MY_CREDIT_CARDS_QUERY,
 }

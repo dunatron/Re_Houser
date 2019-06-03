@@ -1,11 +1,19 @@
-# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Wed May 29 2019 00:29:34 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Tue Jun 04 2019 02:07:41 GMT+1200 (New Zealand Standard Time)
+
+type AggregateCreditCard {
+  count: Int!
+}
 
 type AggregateFile {
   count: Int!
 }
 
 type AggregateProperty {
+  count: Int!
+}
+
+type AggregatePropertyLease {
   count: Int!
 }
 
@@ -33,6 +41,1148 @@ type BatchPayload {
   count: Long!
 }
 
+type CreditCard implements Node {
+  id: ID!
+  cardOwner: User!
+  createdAt: DateTime!
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+}
+
+"""A connection to a list of items."""
+type CreditCardConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CreditCardEdge]!
+  aggregate: AggregateCreditCard!
+}
+
+input CreditCardCreateInput {
+  id: ID
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+  cardOwner: UserCreateOneWithoutCreditCardsInput!
+}
+
+input CreditCardCreateManyWithoutCardOwnerInput {
+  create: [CreditCardCreateWithoutCardOwnerInput!]
+  connect: [CreditCardWhereUniqueInput!]
+}
+
+input CreditCardCreateOneInput {
+  create: CreditCardCreateInput
+  connect: CreditCardWhereUniqueInput
+}
+
+input CreditCardCreateWithoutCardOwnerInput {
+  id: ID
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+}
+
+"""An edge in a connection."""
+type CreditCardEdge {
+  """The item at the end of the edge."""
+  node: CreditCard!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CreditCardOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  stripeCardId_ASC
+  stripeCardId_DESC
+  brand_ASC
+  brand_DESC
+  country_ASC
+  country_DESC
+  stripeCustomerId_ASC
+  stripeCustomerId_DESC
+  exp_month_ASC
+  exp_month_DESC
+  exp_year_ASC
+  exp_year_DESC
+  fingerprint_ASC
+  fingerprint_DESC
+  last4_ASC
+  last4_DESC
+  name_ASC
+  name_DESC
+  tron_ASC
+  tron_DESC
+}
+
+type CreditCardPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+}
+
+input CreditCardScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CreditCardScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CreditCardScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CreditCardScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  stripeCardId: String
+
+  """All values that are not equal to given value."""
+  stripeCardId_not: String
+
+  """All values that are contained in given list."""
+  stripeCardId_in: [String!]
+
+  """All values that are not contained in given list."""
+  stripeCardId_not_in: [String!]
+
+  """All values less than the given value."""
+  stripeCardId_lt: String
+
+  """All values less than or equal the given value."""
+  stripeCardId_lte: String
+
+  """All values greater than the given value."""
+  stripeCardId_gt: String
+
+  """All values greater than or equal the given value."""
+  stripeCardId_gte: String
+
+  """All values containing the given string."""
+  stripeCardId_contains: String
+
+  """All values not containing the given string."""
+  stripeCardId_not_contains: String
+
+  """All values starting with the given string."""
+  stripeCardId_starts_with: String
+
+  """All values not starting with the given string."""
+  stripeCardId_not_starts_with: String
+
+  """All values ending with the given string."""
+  stripeCardId_ends_with: String
+
+  """All values not ending with the given string."""
+  stripeCardId_not_ends_with: String
+  brand: String
+
+  """All values that are not equal to given value."""
+  brand_not: String
+
+  """All values that are contained in given list."""
+  brand_in: [String!]
+
+  """All values that are not contained in given list."""
+  brand_not_in: [String!]
+
+  """All values less than the given value."""
+  brand_lt: String
+
+  """All values less than or equal the given value."""
+  brand_lte: String
+
+  """All values greater than the given value."""
+  brand_gt: String
+
+  """All values greater than or equal the given value."""
+  brand_gte: String
+
+  """All values containing the given string."""
+  brand_contains: String
+
+  """All values not containing the given string."""
+  brand_not_contains: String
+
+  """All values starting with the given string."""
+  brand_starts_with: String
+
+  """All values not starting with the given string."""
+  brand_not_starts_with: String
+
+  """All values ending with the given string."""
+  brand_ends_with: String
+
+  """All values not ending with the given string."""
+  brand_not_ends_with: String
+  country: String
+
+  """All values that are not equal to given value."""
+  country_not: String
+
+  """All values that are contained in given list."""
+  country_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_not_in: [String!]
+
+  """All values less than the given value."""
+  country_lt: String
+
+  """All values less than or equal the given value."""
+  country_lte: String
+
+  """All values greater than the given value."""
+  country_gt: String
+
+  """All values greater than or equal the given value."""
+  country_gte: String
+
+  """All values containing the given string."""
+  country_contains: String
+
+  """All values not containing the given string."""
+  country_not_contains: String
+
+  """All values starting with the given string."""
+  country_starts_with: String
+
+  """All values not starting with the given string."""
+  country_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_ends_with: String
+
+  """All values not ending with the given string."""
+  country_not_ends_with: String
+  stripeCustomerId: String
+
+  """All values that are not equal to given value."""
+  stripeCustomerId_not: String
+
+  """All values that are contained in given list."""
+  stripeCustomerId_in: [String!]
+
+  """All values that are not contained in given list."""
+  stripeCustomerId_not_in: [String!]
+
+  """All values less than the given value."""
+  stripeCustomerId_lt: String
+
+  """All values less than or equal the given value."""
+  stripeCustomerId_lte: String
+
+  """All values greater than the given value."""
+  stripeCustomerId_gt: String
+
+  """All values greater than or equal the given value."""
+  stripeCustomerId_gte: String
+
+  """All values containing the given string."""
+  stripeCustomerId_contains: String
+
+  """All values not containing the given string."""
+  stripeCustomerId_not_contains: String
+
+  """All values starting with the given string."""
+  stripeCustomerId_starts_with: String
+
+  """All values not starting with the given string."""
+  stripeCustomerId_not_starts_with: String
+
+  """All values ending with the given string."""
+  stripeCustomerId_ends_with: String
+
+  """All values not ending with the given string."""
+  stripeCustomerId_not_ends_with: String
+  exp_month: Int
+
+  """All values that are not equal to given value."""
+  exp_month_not: Int
+
+  """All values that are contained in given list."""
+  exp_month_in: [Int!]
+
+  """All values that are not contained in given list."""
+  exp_month_not_in: [Int!]
+
+  """All values less than the given value."""
+  exp_month_lt: Int
+
+  """All values less than or equal the given value."""
+  exp_month_lte: Int
+
+  """All values greater than the given value."""
+  exp_month_gt: Int
+
+  """All values greater than or equal the given value."""
+  exp_month_gte: Int
+  exp_year: Int
+
+  """All values that are not equal to given value."""
+  exp_year_not: Int
+
+  """All values that are contained in given list."""
+  exp_year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  exp_year_not_in: [Int!]
+
+  """All values less than the given value."""
+  exp_year_lt: Int
+
+  """All values less than or equal the given value."""
+  exp_year_lte: Int
+
+  """All values greater than the given value."""
+  exp_year_gt: Int
+
+  """All values greater than or equal the given value."""
+  exp_year_gte: Int
+  fingerprint: String
+
+  """All values that are not equal to given value."""
+  fingerprint_not: String
+
+  """All values that are contained in given list."""
+  fingerprint_in: [String!]
+
+  """All values that are not contained in given list."""
+  fingerprint_not_in: [String!]
+
+  """All values less than the given value."""
+  fingerprint_lt: String
+
+  """All values less than or equal the given value."""
+  fingerprint_lte: String
+
+  """All values greater than the given value."""
+  fingerprint_gt: String
+
+  """All values greater than or equal the given value."""
+  fingerprint_gte: String
+
+  """All values containing the given string."""
+  fingerprint_contains: String
+
+  """All values not containing the given string."""
+  fingerprint_not_contains: String
+
+  """All values starting with the given string."""
+  fingerprint_starts_with: String
+
+  """All values not starting with the given string."""
+  fingerprint_not_starts_with: String
+
+  """All values ending with the given string."""
+  fingerprint_ends_with: String
+
+  """All values not ending with the given string."""
+  fingerprint_not_ends_with: String
+  last4: String
+
+  """All values that are not equal to given value."""
+  last4_not: String
+
+  """All values that are contained in given list."""
+  last4_in: [String!]
+
+  """All values that are not contained in given list."""
+  last4_not_in: [String!]
+
+  """All values less than the given value."""
+  last4_lt: String
+
+  """All values less than or equal the given value."""
+  last4_lte: String
+
+  """All values greater than the given value."""
+  last4_gt: String
+
+  """All values greater than or equal the given value."""
+  last4_gte: String
+
+  """All values containing the given string."""
+  last4_contains: String
+
+  """All values not containing the given string."""
+  last4_not_contains: String
+
+  """All values starting with the given string."""
+  last4_starts_with: String
+
+  """All values not starting with the given string."""
+  last4_not_starts_with: String
+
+  """All values ending with the given string."""
+  last4_ends_with: String
+
+  """All values not ending with the given string."""
+  last4_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  tron: String
+
+  """All values that are not equal to given value."""
+  tron_not: String
+
+  """All values that are contained in given list."""
+  tron_in: [String!]
+
+  """All values that are not contained in given list."""
+  tron_not_in: [String!]
+
+  """All values less than the given value."""
+  tron_lt: String
+
+  """All values less than or equal the given value."""
+  tron_lte: String
+
+  """All values greater than the given value."""
+  tron_gt: String
+
+  """All values greater than or equal the given value."""
+  tron_gte: String
+
+  """All values containing the given string."""
+  tron_contains: String
+
+  """All values not containing the given string."""
+  tron_not_contains: String
+
+  """All values starting with the given string."""
+  tron_starts_with: String
+
+  """All values not starting with the given string."""
+  tron_not_starts_with: String
+
+  """All values ending with the given string."""
+  tron_ends_with: String
+
+  """All values not ending with the given string."""
+  tron_not_ends_with: String
+}
+
+type CreditCardSubscriptionPayload {
+  mutation: MutationType!
+  node: CreditCard
+  updatedFields: [String!]
+  previousValues: CreditCardPreviousValues
+}
+
+input CreditCardSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CreditCardSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CreditCardSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CreditCardSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CreditCardWhereInput
+}
+
+input CreditCardUpdateDataInput {
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+  cardOwner: UserUpdateOneRequiredWithoutCreditCardsInput
+}
+
+input CreditCardUpdateInput {
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+  cardOwner: UserUpdateOneRequiredWithoutCreditCardsInput
+}
+
+input CreditCardUpdateManyDataInput {
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+}
+
+input CreditCardUpdateManyMutationInput {
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+}
+
+input CreditCardUpdateManyWithoutCardOwnerInput {
+  create: [CreditCardCreateWithoutCardOwnerInput!]
+  connect: [CreditCardWhereUniqueInput!]
+  set: [CreditCardWhereUniqueInput!]
+  disconnect: [CreditCardWhereUniqueInput!]
+  delete: [CreditCardWhereUniqueInput!]
+  update: [CreditCardUpdateWithWhereUniqueWithoutCardOwnerInput!]
+  updateMany: [CreditCardUpdateManyWithWhereNestedInput!]
+  deleteMany: [CreditCardScalarWhereInput!]
+  upsert: [CreditCardUpsertWithWhereUniqueWithoutCardOwnerInput!]
+}
+
+input CreditCardUpdateManyWithWhereNestedInput {
+  where: CreditCardScalarWhereInput!
+  data: CreditCardUpdateManyDataInput!
+}
+
+input CreditCardUpdateOneInput {
+  create: CreditCardCreateInput
+  connect: CreditCardWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CreditCardUpdateDataInput
+  upsert: CreditCardUpsertNestedInput
+}
+
+input CreditCardUpdateWithoutCardOwnerDataInput {
+  stripeCardId: String
+  brand: String
+  country: String
+  stripeCustomerId: String
+  exp_month: Int
+  exp_year: Int
+  fingerprint: String
+  last4: String
+  name: String
+  tron: String
+}
+
+input CreditCardUpdateWithWhereUniqueWithoutCardOwnerInput {
+  where: CreditCardWhereUniqueInput!
+  data: CreditCardUpdateWithoutCardOwnerDataInput!
+}
+
+input CreditCardUpsertNestedInput {
+  update: CreditCardUpdateDataInput!
+  create: CreditCardCreateInput!
+}
+
+input CreditCardUpsertWithWhereUniqueWithoutCardOwnerInput {
+  where: CreditCardWhereUniqueInput!
+  update: CreditCardUpdateWithoutCardOwnerDataInput!
+  create: CreditCardCreateWithoutCardOwnerInput!
+}
+
+input CreditCardWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CreditCardWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CreditCardWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CreditCardWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  stripeCardId: String
+
+  """All values that are not equal to given value."""
+  stripeCardId_not: String
+
+  """All values that are contained in given list."""
+  stripeCardId_in: [String!]
+
+  """All values that are not contained in given list."""
+  stripeCardId_not_in: [String!]
+
+  """All values less than the given value."""
+  stripeCardId_lt: String
+
+  """All values less than or equal the given value."""
+  stripeCardId_lte: String
+
+  """All values greater than the given value."""
+  stripeCardId_gt: String
+
+  """All values greater than or equal the given value."""
+  stripeCardId_gte: String
+
+  """All values containing the given string."""
+  stripeCardId_contains: String
+
+  """All values not containing the given string."""
+  stripeCardId_not_contains: String
+
+  """All values starting with the given string."""
+  stripeCardId_starts_with: String
+
+  """All values not starting with the given string."""
+  stripeCardId_not_starts_with: String
+
+  """All values ending with the given string."""
+  stripeCardId_ends_with: String
+
+  """All values not ending with the given string."""
+  stripeCardId_not_ends_with: String
+  brand: String
+
+  """All values that are not equal to given value."""
+  brand_not: String
+
+  """All values that are contained in given list."""
+  brand_in: [String!]
+
+  """All values that are not contained in given list."""
+  brand_not_in: [String!]
+
+  """All values less than the given value."""
+  brand_lt: String
+
+  """All values less than or equal the given value."""
+  brand_lte: String
+
+  """All values greater than the given value."""
+  brand_gt: String
+
+  """All values greater than or equal the given value."""
+  brand_gte: String
+
+  """All values containing the given string."""
+  brand_contains: String
+
+  """All values not containing the given string."""
+  brand_not_contains: String
+
+  """All values starting with the given string."""
+  brand_starts_with: String
+
+  """All values not starting with the given string."""
+  brand_not_starts_with: String
+
+  """All values ending with the given string."""
+  brand_ends_with: String
+
+  """All values not ending with the given string."""
+  brand_not_ends_with: String
+  country: String
+
+  """All values that are not equal to given value."""
+  country_not: String
+
+  """All values that are contained in given list."""
+  country_in: [String!]
+
+  """All values that are not contained in given list."""
+  country_not_in: [String!]
+
+  """All values less than the given value."""
+  country_lt: String
+
+  """All values less than or equal the given value."""
+  country_lte: String
+
+  """All values greater than the given value."""
+  country_gt: String
+
+  """All values greater than or equal the given value."""
+  country_gte: String
+
+  """All values containing the given string."""
+  country_contains: String
+
+  """All values not containing the given string."""
+  country_not_contains: String
+
+  """All values starting with the given string."""
+  country_starts_with: String
+
+  """All values not starting with the given string."""
+  country_not_starts_with: String
+
+  """All values ending with the given string."""
+  country_ends_with: String
+
+  """All values not ending with the given string."""
+  country_not_ends_with: String
+  stripeCustomerId: String
+
+  """All values that are not equal to given value."""
+  stripeCustomerId_not: String
+
+  """All values that are contained in given list."""
+  stripeCustomerId_in: [String!]
+
+  """All values that are not contained in given list."""
+  stripeCustomerId_not_in: [String!]
+
+  """All values less than the given value."""
+  stripeCustomerId_lt: String
+
+  """All values less than or equal the given value."""
+  stripeCustomerId_lte: String
+
+  """All values greater than the given value."""
+  stripeCustomerId_gt: String
+
+  """All values greater than or equal the given value."""
+  stripeCustomerId_gte: String
+
+  """All values containing the given string."""
+  stripeCustomerId_contains: String
+
+  """All values not containing the given string."""
+  stripeCustomerId_not_contains: String
+
+  """All values starting with the given string."""
+  stripeCustomerId_starts_with: String
+
+  """All values not starting with the given string."""
+  stripeCustomerId_not_starts_with: String
+
+  """All values ending with the given string."""
+  stripeCustomerId_ends_with: String
+
+  """All values not ending with the given string."""
+  stripeCustomerId_not_ends_with: String
+  exp_month: Int
+
+  """All values that are not equal to given value."""
+  exp_month_not: Int
+
+  """All values that are contained in given list."""
+  exp_month_in: [Int!]
+
+  """All values that are not contained in given list."""
+  exp_month_not_in: [Int!]
+
+  """All values less than the given value."""
+  exp_month_lt: Int
+
+  """All values less than or equal the given value."""
+  exp_month_lte: Int
+
+  """All values greater than the given value."""
+  exp_month_gt: Int
+
+  """All values greater than or equal the given value."""
+  exp_month_gte: Int
+  exp_year: Int
+
+  """All values that are not equal to given value."""
+  exp_year_not: Int
+
+  """All values that are contained in given list."""
+  exp_year_in: [Int!]
+
+  """All values that are not contained in given list."""
+  exp_year_not_in: [Int!]
+
+  """All values less than the given value."""
+  exp_year_lt: Int
+
+  """All values less than or equal the given value."""
+  exp_year_lte: Int
+
+  """All values greater than the given value."""
+  exp_year_gt: Int
+
+  """All values greater than or equal the given value."""
+  exp_year_gte: Int
+  fingerprint: String
+
+  """All values that are not equal to given value."""
+  fingerprint_not: String
+
+  """All values that are contained in given list."""
+  fingerprint_in: [String!]
+
+  """All values that are not contained in given list."""
+  fingerprint_not_in: [String!]
+
+  """All values less than the given value."""
+  fingerprint_lt: String
+
+  """All values less than or equal the given value."""
+  fingerprint_lte: String
+
+  """All values greater than the given value."""
+  fingerprint_gt: String
+
+  """All values greater than or equal the given value."""
+  fingerprint_gte: String
+
+  """All values containing the given string."""
+  fingerprint_contains: String
+
+  """All values not containing the given string."""
+  fingerprint_not_contains: String
+
+  """All values starting with the given string."""
+  fingerprint_starts_with: String
+
+  """All values not starting with the given string."""
+  fingerprint_not_starts_with: String
+
+  """All values ending with the given string."""
+  fingerprint_ends_with: String
+
+  """All values not ending with the given string."""
+  fingerprint_not_ends_with: String
+  last4: String
+
+  """All values that are not equal to given value."""
+  last4_not: String
+
+  """All values that are contained in given list."""
+  last4_in: [String!]
+
+  """All values that are not contained in given list."""
+  last4_not_in: [String!]
+
+  """All values less than the given value."""
+  last4_lt: String
+
+  """All values less than or equal the given value."""
+  last4_lte: String
+
+  """All values greater than the given value."""
+  last4_gt: String
+
+  """All values greater than or equal the given value."""
+  last4_gte: String
+
+  """All values containing the given string."""
+  last4_contains: String
+
+  """All values not containing the given string."""
+  last4_not_contains: String
+
+  """All values starting with the given string."""
+  last4_starts_with: String
+
+  """All values not starting with the given string."""
+  last4_not_starts_with: String
+
+  """All values ending with the given string."""
+  last4_ends_with: String
+
+  """All values not ending with the given string."""
+  last4_not_ends_with: String
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  tron: String
+
+  """All values that are not equal to given value."""
+  tron_not: String
+
+  """All values that are contained in given list."""
+  tron_in: [String!]
+
+  """All values that are not contained in given list."""
+  tron_not_in: [String!]
+
+  """All values less than the given value."""
+  tron_lt: String
+
+  """All values less than or equal the given value."""
+  tron_lte: String
+
+  """All values greater than the given value."""
+  tron_gt: String
+
+  """All values greater than or equal the given value."""
+  tron_gte: String
+
+  """All values containing the given string."""
+  tron_contains: String
+
+  """All values not containing the given string."""
+  tron_not_contains: String
+
+  """All values starting with the given string."""
+  tron_starts_with: String
+
+  """All values not starting with the given string."""
+  tron_not_starts_with: String
+
+  """All values ending with the given string."""
+  tron_ends_with: String
+
+  """All values not ending with the given string."""
+  tron_not_ends_with: String
+  cardOwner: UserWhereInput
+}
+
+input CreditCardWhereUniqueInput {
+  id: ID
+  stripeCardId: String
+}
+
 scalar DateTime
 
 type File implements Node {
@@ -56,6 +1206,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -424,6 +1575,7 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
+  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -749,33 +1901,45 @@ type Mutation {
   createProperty(data: PropertyCreateInput!): Property!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
-  createFile(data: FileCreateInput!): File!
+  createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createUser(data: UserCreateInput!): User!
+  createFile(data: FileCreateInput!): File!
+  createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   updateRentalApplication(data: RentalApplicationUpdateInput!, where: RentalApplicationWhereUniqueInput!): RentalApplication
-  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   deleteProperty(where: PropertyWhereUniqueInput!): Property
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   deleteRentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
-  deleteFile(where: FileWhereUniqueInput!): File
+  deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteFile(where: FileWhereUniqueInput!): File
+  deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
   upsertRentalApplication(where: RentalApplicationWhereUniqueInput!, create: RentalApplicationCreateInput!, update: RentalApplicationUpdateInput!): RentalApplication!
-  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
   updateManyRentalApplications(data: RentalApplicationUpdateManyMutationInput!, where: RentalApplicationWhereInput): BatchPayload!
-  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
   deleteManyRentalApplications(where: RentalApplicationWhereInput): BatchPayload!
-  deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -859,6 +2023,7 @@ input PropertyCreateindoorFeaturesInput {
 }
 
 input PropertyCreateInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -900,6 +2065,7 @@ input PropertyCreateoutdoorFeaturesInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -921,6 +2087,7 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -942,6 +2109,7 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -969,6 +2137,1013 @@ type PropertyEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+type PropertyLease implements Node {
+  id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  owners(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  tenants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature!]!
+  outdoorFeatures: [OutdoorFeature!]!
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+}
+
+"""A connection to a list of items."""
+type PropertyLeaseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PropertyLeaseEdge]!
+  aggregate: AggregatePropertyLease!
+}
+
+input PropertyLeaseCreateindoorFeaturesInput {
+  set: [IndoorFeature!]
+}
+
+input PropertyLeaseCreateInput {
+  id: ID
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  owners: UserCreateManyWithoutLeasesInput
+  tenants: UserCreateManyWithoutTenantLeasesInput
+}
+
+input PropertyLeaseCreateManyWithoutOwnersInput {
+  create: [PropertyLeaseCreateWithoutOwnersInput!]
+  connect: [PropertyLeaseWhereUniqueInput!]
+}
+
+input PropertyLeaseCreateManyWithoutTenantsInput {
+  create: [PropertyLeaseCreateWithoutTenantsInput!]
+  connect: [PropertyLeaseWhereUniqueInput!]
+}
+
+input PropertyLeaseCreateoutdoorFeaturesInput {
+  set: [OutdoorFeature!]
+}
+
+input PropertyLeaseCreateWithoutOwnersInput {
+  id: ID
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  tenants: UserCreateManyWithoutTenantLeasesInput
+}
+
+input PropertyLeaseCreateWithoutTenantsInput {
+  id: ID
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  owners: UserCreateManyWithoutLeasesInput
+}
+
+"""An edge in a connection."""
+type PropertyLeaseEdge {
+  """The item at the end of the edge."""
+  node: PropertyLease!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PropertyLeaseOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  rooms_ASC
+  rooms_DESC
+  bathrooms_ASC
+  bathrooms_DESC
+  garageSpaces_ASC
+  garageSpaces_DESC
+  carportSpaces_ASC
+  carportSpaces_DESC
+  offStreetSpaces_ASC
+  offStreetSpaces_DESC
+  rent_ASC
+  rent_DESC
+  moveInDate_ASC
+  moveInDate_DESC
+  location_ASC
+  location_DESC
+  locationLat_ASC
+  locationLat_DESC
+  locationLng_ASC
+  locationLng_DESC
+}
+
+type PropertyLeasePreviousValues {
+  id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature!]!
+  outdoorFeatures: [OutdoorFeature!]!
+  rent: Float!
+  moveInDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+}
+
+input PropertyLeaseScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyLeaseScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyLeaseScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyLeaseScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  rooms: Int
+
+  """All values that are not equal to given value."""
+  rooms_not: Int
+
+  """All values that are contained in given list."""
+  rooms_in: [Int!]
+
+  """All values that are not contained in given list."""
+  rooms_not_in: [Int!]
+
+  """All values less than the given value."""
+  rooms_lt: Int
+
+  """All values less than or equal the given value."""
+  rooms_lte: Int
+
+  """All values greater than the given value."""
+  rooms_gt: Int
+
+  """All values greater than or equal the given value."""
+  rooms_gte: Int
+  bathrooms: Int
+
+  """All values that are not equal to given value."""
+  bathrooms_not: Int
+
+  """All values that are contained in given list."""
+  bathrooms_in: [Int!]
+
+  """All values that are not contained in given list."""
+  bathrooms_not_in: [Int!]
+
+  """All values less than the given value."""
+  bathrooms_lt: Int
+
+  """All values less than or equal the given value."""
+  bathrooms_lte: Int
+
+  """All values greater than the given value."""
+  bathrooms_gt: Int
+
+  """All values greater than or equal the given value."""
+  bathrooms_gte: Int
+  garageSpaces: Int
+
+  """All values that are not equal to given value."""
+  garageSpaces_not: Int
+
+  """All values that are contained in given list."""
+  garageSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  garageSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  garageSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  garageSpaces_lte: Int
+
+  """All values greater than the given value."""
+  garageSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  garageSpaces_gte: Int
+  carportSpaces: Int
+
+  """All values that are not equal to given value."""
+  carportSpaces_not: Int
+
+  """All values that are contained in given list."""
+  carportSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  carportSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  carportSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  carportSpaces_lte: Int
+
+  """All values greater than the given value."""
+  carportSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  carportSpaces_gte: Int
+  offStreetSpaces: Int
+
+  """All values that are not equal to given value."""
+  offStreetSpaces_not: Int
+
+  """All values that are contained in given list."""
+  offStreetSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  offStreetSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  offStreetSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  offStreetSpaces_lte: Int
+
+  """All values greater than the given value."""
+  offStreetSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  offStreetSpaces_gte: Int
+  rent: Float
+
+  """All values that are not equal to given value."""
+  rent_not: Float
+
+  """All values that are contained in given list."""
+  rent_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rent_not_in: [Float!]
+
+  """All values less than the given value."""
+  rent_lt: Float
+
+  """All values less than or equal the given value."""
+  rent_lte: Float
+
+  """All values greater than the given value."""
+  rent_gt: Float
+
+  """All values greater than or equal the given value."""
+  rent_gte: Float
+  moveInDate: DateTime
+
+  """All values that are not equal to given value."""
+  moveInDate_not: DateTime
+
+  """All values that are contained in given list."""
+  moveInDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  moveInDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  moveInDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  moveInDate_lte: DateTime
+
+  """All values greater than the given value."""
+  moveInDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  moveInDate_gte: DateTime
+  location: String
+
+  """All values that are not equal to given value."""
+  location_not: String
+
+  """All values that are contained in given list."""
+  location_in: [String!]
+
+  """All values that are not contained in given list."""
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
+  locationLat: Float
+
+  """All values that are not equal to given value."""
+  locationLat_not: Float
+
+  """All values that are contained in given list."""
+  locationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLat_lte: Float
+
+  """All values greater than the given value."""
+  locationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLat_gte: Float
+  locationLng: Float
+
+  """All values that are not equal to given value."""
+  locationLng_not: Float
+
+  """All values that are contained in given list."""
+  locationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLng_lte: Float
+
+  """All values greater than the given value."""
+  locationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLng_gte: Float
+}
+
+type PropertyLeaseSubscriptionPayload {
+  mutation: MutationType!
+  node: PropertyLease
+  updatedFields: [String!]
+  previousValues: PropertyLeasePreviousValues
+}
+
+input PropertyLeaseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyLeaseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyLeaseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyLeaseSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PropertyLeaseWhereInput
+}
+
+input PropertyLeaseUpdateindoorFeaturesInput {
+  set: [IndoorFeature!]
+}
+
+input PropertyLeaseUpdateInput {
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  location: String
+  locationLat: Float
+  locationLng: Float
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  owners: UserUpdateManyWithoutLeasesInput
+  tenants: UserUpdateManyWithoutTenantLeasesInput
+}
+
+input PropertyLeaseUpdateManyDataInput {
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  location: String
+  locationLat: Float
+  locationLng: Float
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+}
+
+input PropertyLeaseUpdateManyMutationInput {
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  location: String
+  locationLat: Float
+  locationLng: Float
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+}
+
+input PropertyLeaseUpdateManyWithoutOwnersInput {
+  create: [PropertyLeaseCreateWithoutOwnersInput!]
+  connect: [PropertyLeaseWhereUniqueInput!]
+  set: [PropertyLeaseWhereUniqueInput!]
+  disconnect: [PropertyLeaseWhereUniqueInput!]
+  delete: [PropertyLeaseWhereUniqueInput!]
+  update: [PropertyLeaseUpdateWithWhereUniqueWithoutOwnersInput!]
+  updateMany: [PropertyLeaseUpdateManyWithWhereNestedInput!]
+  deleteMany: [PropertyLeaseScalarWhereInput!]
+  upsert: [PropertyLeaseUpsertWithWhereUniqueWithoutOwnersInput!]
+}
+
+input PropertyLeaseUpdateManyWithoutTenantsInput {
+  create: [PropertyLeaseCreateWithoutTenantsInput!]
+  connect: [PropertyLeaseWhereUniqueInput!]
+  set: [PropertyLeaseWhereUniqueInput!]
+  disconnect: [PropertyLeaseWhereUniqueInput!]
+  delete: [PropertyLeaseWhereUniqueInput!]
+  update: [PropertyLeaseUpdateWithWhereUniqueWithoutTenantsInput!]
+  updateMany: [PropertyLeaseUpdateManyWithWhereNestedInput!]
+  deleteMany: [PropertyLeaseScalarWhereInput!]
+  upsert: [PropertyLeaseUpsertWithWhereUniqueWithoutTenantsInput!]
+}
+
+input PropertyLeaseUpdateManyWithWhereNestedInput {
+  where: PropertyLeaseScalarWhereInput!
+  data: PropertyLeaseUpdateManyDataInput!
+}
+
+input PropertyLeaseUpdateoutdoorFeaturesInput {
+  set: [OutdoorFeature!]
+}
+
+input PropertyLeaseUpdateWithoutOwnersDataInput {
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  location: String
+  locationLat: Float
+  locationLng: Float
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  tenants: UserUpdateManyWithoutTenantLeasesInput
+}
+
+input PropertyLeaseUpdateWithoutTenantsDataInput {
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  location: String
+  locationLat: Float
+  locationLng: Float
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  owners: UserUpdateManyWithoutLeasesInput
+}
+
+input PropertyLeaseUpdateWithWhereUniqueWithoutOwnersInput {
+  where: PropertyLeaseWhereUniqueInput!
+  data: PropertyLeaseUpdateWithoutOwnersDataInput!
+}
+
+input PropertyLeaseUpdateWithWhereUniqueWithoutTenantsInput {
+  where: PropertyLeaseWhereUniqueInput!
+  data: PropertyLeaseUpdateWithoutTenantsDataInput!
+}
+
+input PropertyLeaseUpsertWithWhereUniqueWithoutOwnersInput {
+  where: PropertyLeaseWhereUniqueInput!
+  update: PropertyLeaseUpdateWithoutOwnersDataInput!
+  create: PropertyLeaseCreateWithoutOwnersInput!
+}
+
+input PropertyLeaseUpsertWithWhereUniqueWithoutTenantsInput {
+  where: PropertyLeaseWhereUniqueInput!
+  update: PropertyLeaseUpdateWithoutTenantsDataInput!
+  create: PropertyLeaseCreateWithoutTenantsInput!
+}
+
+input PropertyLeaseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyLeaseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyLeaseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyLeaseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  rooms: Int
+
+  """All values that are not equal to given value."""
+  rooms_not: Int
+
+  """All values that are contained in given list."""
+  rooms_in: [Int!]
+
+  """All values that are not contained in given list."""
+  rooms_not_in: [Int!]
+
+  """All values less than the given value."""
+  rooms_lt: Int
+
+  """All values less than or equal the given value."""
+  rooms_lte: Int
+
+  """All values greater than the given value."""
+  rooms_gt: Int
+
+  """All values greater than or equal the given value."""
+  rooms_gte: Int
+  bathrooms: Int
+
+  """All values that are not equal to given value."""
+  bathrooms_not: Int
+
+  """All values that are contained in given list."""
+  bathrooms_in: [Int!]
+
+  """All values that are not contained in given list."""
+  bathrooms_not_in: [Int!]
+
+  """All values less than the given value."""
+  bathrooms_lt: Int
+
+  """All values less than or equal the given value."""
+  bathrooms_lte: Int
+
+  """All values greater than the given value."""
+  bathrooms_gt: Int
+
+  """All values greater than or equal the given value."""
+  bathrooms_gte: Int
+  garageSpaces: Int
+
+  """All values that are not equal to given value."""
+  garageSpaces_not: Int
+
+  """All values that are contained in given list."""
+  garageSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  garageSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  garageSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  garageSpaces_lte: Int
+
+  """All values greater than the given value."""
+  garageSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  garageSpaces_gte: Int
+  carportSpaces: Int
+
+  """All values that are not equal to given value."""
+  carportSpaces_not: Int
+
+  """All values that are contained in given list."""
+  carportSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  carportSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  carportSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  carportSpaces_lte: Int
+
+  """All values greater than the given value."""
+  carportSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  carportSpaces_gte: Int
+  offStreetSpaces: Int
+
+  """All values that are not equal to given value."""
+  offStreetSpaces_not: Int
+
+  """All values that are contained in given list."""
+  offStreetSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  offStreetSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  offStreetSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  offStreetSpaces_lte: Int
+
+  """All values greater than the given value."""
+  offStreetSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  offStreetSpaces_gte: Int
+  rent: Float
+
+  """All values that are not equal to given value."""
+  rent_not: Float
+
+  """All values that are contained in given list."""
+  rent_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rent_not_in: [Float!]
+
+  """All values less than the given value."""
+  rent_lt: Float
+
+  """All values less than or equal the given value."""
+  rent_lte: Float
+
+  """All values greater than the given value."""
+  rent_gt: Float
+
+  """All values greater than or equal the given value."""
+  rent_gte: Float
+  moveInDate: DateTime
+
+  """All values that are not equal to given value."""
+  moveInDate_not: DateTime
+
+  """All values that are contained in given list."""
+  moveInDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  moveInDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  moveInDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  moveInDate_lte: DateTime
+
+  """All values greater than the given value."""
+  moveInDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  moveInDate_gte: DateTime
+  location: String
+
+  """All values that are not equal to given value."""
+  location_not: String
+
+  """All values that are contained in given list."""
+  location_in: [String!]
+
+  """All values that are not contained in given list."""
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
+  locationLat: Float
+
+  """All values that are not equal to given value."""
+  locationLat_not: Float
+
+  """All values that are contained in given list."""
+  locationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLat_lte: Float
+
+  """All values greater than the given value."""
+  locationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLat_gte: Float
+  locationLng: Float
+
+  """All values that are not equal to given value."""
+  locationLng_not: Float
+
+  """All values that are contained in given list."""
+  locationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLng_lte: Float
+
+  """All values greater than the given value."""
+  locationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLng_gte: Float
+  owners_every: UserWhereInput
+  owners_some: UserWhereInput
+  owners_none: UserWhereInput
+  tenants_every: UserWhereInput
+  tenants_some: UserWhereInput
+  tenants_none: UserWhereInput
+}
+
+input PropertyLeaseWhereUniqueInput {
+  id: ID
 }
 
 enum PropertyOrderByInput {
@@ -1529,6 +3704,7 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -1540,6 +3716,7 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -2059,18 +4236,24 @@ type Query {
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
   rentalGroupApplicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant]!
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication]!
-  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
+  propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
+  creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   property(where: PropertyWhereUniqueInput!): Property
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   rentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
-  file(where: FileWhereUniqueInput!): File
+  propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   user(where: UserWhereUniqueInput!): User
+  file(where: FileWhereUniqueInput!): File
+  creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
   rentalApplicationsConnection(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalApplicationConnection!
-  filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -2103,6 +4286,7 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -2123,6 +4307,7 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -2132,6 +4317,7 @@ input RentalApplicationCreateWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -2399,6 +4585,7 @@ input RentalApplicationUpdateManyMutationInput {
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
+  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -2647,6 +4834,7 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
+  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -2662,6 +4850,7 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
+  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -2953,6 +5142,7 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
+  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -3180,8 +5370,10 @@ type Subscription {
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
   rentalGroupApplicant(where: RentalGroupApplicantSubscriptionWhereInput): RentalGroupApplicantSubscriptionPayload
   rentalApplication(where: RentalApplicationSubscriptionWhereInput): RentalApplicationSubscriptionPayload
-  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
 }
 
 type User implements Node {
@@ -3197,6 +5389,8 @@ type User implements Node {
   resetTokenExpiry: Float
   permissions: [Permission!]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
+  leases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease!]
+  tenantLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease!]
   createdProperties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
   photoIdentification: File
   identificationNumber: String
@@ -3209,6 +5403,8 @@ type User implements Node {
   referee2Name: String
   referee2Phone: String
   referee2Email: String
+  creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard!]
+  primaryCreditCard: CreditCard
 }
 
 """A connection to a list of items."""
@@ -3222,6 +5418,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -3241,12 +5438,26 @@ input UserCreateInput {
   referee2Email: String
   permissions: UserCreatepermissionsInput
   properties: PropertyCreateManyWithoutOwnersInput
+  leases: PropertyLeaseCreateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseCreateManyWithoutTenantsInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateManyWithoutLeasesInput {
+  create: [UserCreateWithoutLeasesInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutTenantLeasesInput {
+  create: [UserCreateWithoutTenantLeasesInput!]
   connect: [UserWhereUniqueInput!]
 }
 
@@ -3260,11 +5471,17 @@ input UserCreateOneWithoutCreatedPropertiesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutCreditCardsInput {
+  create: UserCreateWithoutCreditCardsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreatepermissionsInput {
   set: [Permission!]
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -3284,10 +5501,15 @@ input UserCreateWithoutCreatedPropertiesInput {
   referee2Email: String
   permissions: UserCreatepermissionsInput
   properties: PropertyCreateManyWithoutOwnersInput
+  leases: PropertyLeaseCreateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseCreateManyWithoutTenantsInput
   photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
 }
 
-input UserCreateWithoutPropertiesInput {
+input UserCreateWithoutCreditCardsInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -3306,8 +5528,96 @@ input UserCreateWithoutPropertiesInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  leases: PropertyLeaseCreateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseCreateManyWithoutTenantsInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneInput
+  primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateWithoutLeasesInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseCreateManyWithoutTenantsInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateWithoutPropertiesInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  leases: PropertyLeaseCreateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseCreateManyWithoutTenantsInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateWithoutTenantLeasesInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  leases: PropertyLeaseCreateManyWithoutOwnersInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
 }
 
 """An edge in a connection."""
@@ -4200,8 +6510,12 @@ input UserUpdateDataInput {
   referee2Email: String
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
+  leases: PropertyLeaseUpdateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseUpdateManyWithoutTenantsInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
 }
 
 input UserUpdateInput {
@@ -4224,8 +6538,12 @@ input UserUpdateInput {
   referee2Email: String
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
+  leases: PropertyLeaseUpdateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseUpdateManyWithoutTenantsInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
 }
 
 input UserUpdateManyDataInput {
@@ -4270,15 +6588,40 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateManyWithoutLeasesInput {
+  create: [UserCreateWithoutLeasesInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutLeasesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutLeasesInput!]
+}
+
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]
   updateMany: [UserUpdateManyWithWhereNestedInput!]
   deleteMany: [UserScalarWhereInput!]
   upsert: [UserUpsertWithWhereUniqueWithoutPropertiesInput!]
+}
+
+input UserUpdateManyWithoutTenantLeasesInput {
+  create: [UserCreateWithoutTenantLeasesInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutTenantLeasesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutTenantLeasesInput!]
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -4298,6 +6641,13 @@ input UserUpdateOneRequiredWithoutCreatedPropertiesInput {
   connect: UserWhereUniqueInput
   update: UserUpdateWithoutCreatedPropertiesDataInput
   upsert: UserUpsertWithoutCreatedPropertiesInput
+}
+
+input UserUpdateOneRequiredWithoutCreditCardsInput {
+  create: UserCreateWithoutCreditCardsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutCreditCardsDataInput
+  upsert: UserUpsertWithoutCreditCardsInput
 }
 
 input UserUpdatepermissionsInput {
@@ -4324,7 +6674,65 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   referee2Email: String
   permissions: UserUpdatepermissionsInput
   properties: PropertyUpdateManyWithoutOwnersInput
+  leases: PropertyLeaseUpdateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseUpdateManyWithoutTenantsInput
   photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+}
+
+input UserUpdateWithoutCreditCardsDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  leases: PropertyLeaseUpdateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseUpdateManyWithoutTenantsInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  primaryCreditCard: CreditCardUpdateOneInput
+}
+
+input UserUpdateWithoutLeasesDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseUpdateManyWithoutTenantsInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -4346,13 +6754,54 @@ input UserUpdateWithoutPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  leases: PropertyLeaseUpdateManyWithoutOwnersInput
+  tenantLeases: PropertyLeaseUpdateManyWithoutTenantsInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+}
+
+input UserUpdateWithoutTenantLeasesDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  leases: PropertyLeaseUpdateManyWithoutOwnersInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+}
+
+input UserUpdateWithWhereUniqueWithoutLeasesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutLeasesDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutPropertiesDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutTenantLeasesInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutTenantLeasesDataInput!
 }
 
 input UserUpsertNestedInput {
@@ -4365,10 +6814,27 @@ input UserUpsertWithoutCreatedPropertiesInput {
   create: UserCreateWithoutCreatedPropertiesInput!
 }
 
+input UserUpsertWithoutCreditCardsInput {
+  update: UserUpdateWithoutCreditCardsDataInput!
+  create: UserCreateWithoutCreditCardsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutLeasesInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutLeasesDataInput!
+  create: UserCreateWithoutLeasesInput!
+}
+
 input UserUpsertWithWhereUniqueWithoutPropertiesInput {
   where: UserWhereUniqueInput!
   update: UserUpdateWithoutPropertiesDataInput!
   create: UserCreateWithoutPropertiesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutTenantLeasesInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutTenantLeasesDataInput!
+  create: UserCreateWithoutTenantLeasesInput!
 }
 
 input UserWhereInput {
@@ -5129,10 +7595,20 @@ input UserWhereInput {
   properties_every: PropertyWhereInput
   properties_some: PropertyWhereInput
   properties_none: PropertyWhereInput
+  leases_every: PropertyLeaseWhereInput
+  leases_some: PropertyLeaseWhereInput
+  leases_none: PropertyLeaseWhereInput
+  tenantLeases_every: PropertyLeaseWhereInput
+  tenantLeases_some: PropertyLeaseWhereInput
+  tenantLeases_none: PropertyLeaseWhereInput
   createdProperties_every: PropertyWhereInput
   createdProperties_some: PropertyWhereInput
   createdProperties_none: PropertyWhereInput
   photoIdentification: FileWhereInput
+  creditCards_every: CreditCardWhereInput
+  creditCards_some: CreditCardWhereInput
+  creditCards_none: CreditCardWhereInput
+  primaryCreditCard: CreditCardWhereInput
 }
 
 input UserWhereUniqueInput {

@@ -50,6 +50,7 @@ type Mutation {
     where: RentalGroupApplicantWhereUniqueInput!
   ): RentalGroupApplicant
   acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
+  createCreditCard(token: String!): CreditCard!
 }
 
 type Subscription {
@@ -69,6 +70,7 @@ type Query {
   ownerProperty(id: ID!): Property
   myRentalApplications: [RentalApplication!]!
   rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
+  myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
 }
 
 type User {
@@ -91,4 +93,5 @@ type User {
   referee2Name: String
   referee2Phone: String
   referee2Email: String
+  primaryCreditCard: CreditCard
 }

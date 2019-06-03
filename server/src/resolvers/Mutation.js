@@ -9,6 +9,7 @@ const { hasPermission } = require("../lib/utils")
 const { processUpload, deleteFile } = require("../lib/fileApi")
 const { convertDocument } = require("../lib/DocGenerator")
 const createRentalApplication = require("./mutations/createRentalApplication")
+const createCreditCard = require("./mutations/createCreditCard")
 const updateRentalApplication = require("./mutations/updateRentalApplication")
 const completeRentalApplication = require("./mutations/completeRentalApplication")
 const acceptRentalApplication = require("./mutations/acceptRentalApplication")
@@ -424,6 +425,7 @@ const mutations = {
   updateRentalApplication,
   completeRentalApplication,
   acceptRentalApplication,
+  createCreditCard,
   async updateUser(parent, { data, photoFile }, ctx, info) {
     const uploadedPhoto = photoFile
       ? await processUpload(await photoFile, ctx)

@@ -1,15 +1,19 @@
-## Re-Houser(ToDo:Rename)// 
+## Re-Houser(ToDo:Rename)//
 
 - some e
-https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
-wss://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
+  https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
+  wss://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
+
 # Dev link
-###### 
+
+######
+
 - http://test-frontend.rehouser.co.nz/
 
-Our product runs in headless environments. 
+Our product runs in headless environments.
+
 - server
-- 
+-
 
 ## Mission
 
@@ -767,8 +771,63 @@ mutation uploadFiles($files:[Upload!]!) {
 }
 ```
 
+#### createCreditCard
+
+- Create a credit card on the last serfver
+
+```js
+mutation createCreditCard($data:CreditCardCreateInput!){
+  createCreditCard(data:$data) {
+    id
+    fingerprint
+    last4
+    name
+    stripeCardId
+    stripeCustmerId
+    exp_month
+    exp_year
+  }
+}
+// caribales
+```
+
+- proceed to the nectLevel
+```js
+
+mutation createCreditCard($data:CreditCardCreateInput!){
+  createCreditCard(data:$data) {
+    id
+    fingerprint
+    last4
+    name
+    stripeCardId
+    stripeCustmerId
+    exp_month
+    exp_year
+  }
+}
+{
+  "data": {
+    "fingerprint":"",
+    "last4":"",
+    "name":"",
+    "stripeCardId":"asadsdasd",
+    "stripeCustmerId":"asasddasd",
+    "exp_month": 3,
+    "exp_year":2020,
+    "cardOwner":{
+      "connect":{
+        "id":""
+      }
+    }
+  }
+}
+```
+
 ### Subscriptions
+
 - Rental application created subscription
+
 ```js
  subscription {
     rentalApplicationCreatedSub {
@@ -783,6 +842,7 @@ mutation uploadFiles($files:[Upload!]!) {
 ```
 
 - Base Subscription example for rentalApplications
+
 ```js
 subscription($where:RentalApplicationSubscriptionWhereInput) {
   rentalApplication(where:$where) {
@@ -793,7 +853,7 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
     }
   }
 }
-// variables 
+// variables
 {
   "where": {
     "mutation_in": "UPDATED",
@@ -802,7 +862,7 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
     }
   }
 }
-// or 
+// or
 {
   "where": {
     "mutation_in": "UPDATED",
@@ -817,7 +877,8 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
 }
 ```
 
-- subscribe to pending applications 
+- subscribe to pending applications
+
 ```js
 subscription($where:RentalApplicationSubscriptionWhereInput) {
   rentalApplicationUpdateSub(where:$where) {
@@ -828,7 +889,7 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
     }
   }
 }
-//variables 
+//variables
 {
   "where": {
     "mutation_in": "UPDATED",
@@ -853,50 +914,49 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
   - https://www.youtube.com/watch?v=bLQqkeVT7os
 - deploying to heroukou use a external service such as cloudinary
 
-## Algolia Setup 
+## Algolia Setup
 
 # ToDo
+
 1. Push Data
+
 ```js
-const client = algoliasearch(
-  '4QW4S8SE3J',
-  '••••••••••••••••••••••••••••••••'
-);
+const client = algoliasearch("4QW4S8SE3J", "••••••••••••••••••••••••••••••••")
 
-const index = client.initIndex('demo_ecommerce');
+const index = client.initIndex("demo_ecommerce")
 
-fetch('https://alg.li/doc-ecommerce.json')
+fetch("https://alg.li/doc-ecommerce.json")
   .then(function(response) {
-    return response.json();
+    return response.json()
   })
   .then(function(products) {
     index.addObjects(products)
-  });
+  })
 ```
-2. set relevance 
-```js
-const client = algoliasearch(
-  '4QW4S8SE3J',
-  '••••••••••••••••••••••••••••••••'
-);
 
-const index = client.initIndex('demo_ecommerce');
+2. set relevance
+
+```js
+const client = algoliasearch("4QW4S8SE3J", "••••••••••••••••••••••••••••••••")
+
+const index = client.initIndex("demo_ecommerce")
 
 index.setSettings({
   // Select the attributes you want to search in
-  searchableAttributes: [
-    'brand', 'name', 'categories', 'description'
-  ],
+  searchableAttributes: ["brand", "name", "categories", "description"],
   // Define business metrics for ranking and sorting
-  customRanking: [
-    'desc(popularity)'
-  ],
+  customRanking: ["desc(popularity)"],
   // Set up some attributes to filter results on
   attributesForFaceting: [
-    'categories', 'searchable(brand)', 'price', 'outdoorFeatures', 'indoorFeatures'
-  ]
-});
+    "categories",
+    "searchable(brand)",
+    "price",
+    "outdoorFeatures",
+    "indoorFeatures",
+  ],
+})
 ```
+
 ## apply for rental
 
 - form
@@ -1108,5 +1168,99 @@ Frequency of rent payments HELP
 - while yall have been skipping scenes
 
 ###### LEARNING RESOURCES
+
 - [React Hooks Crash Course](https://www.youtube.com/watch?v=-MlNBTSg_Ww)
 - [Connect & extend Algolia components](https://glitch.com/edit/#!/react-instantsearch-material-ui?path=src/App.js:360:1)
+
+## TODO
+
+This is getting to bl;oated. Exzport queries, Frags, muattions and all that shit to docs fol;der/queries etc
+
+- UserData
+
+```js
+fragment UserData on User {
+  id
+  firstName
+  lastName
+  phone
+  email
+  permissions
+  photoIdentification {
+    filename
+    url
+  }
+  identificationNumber
+  emergencyContactName
+  emergencyContactNumber
+  emergencyContactEmail
+  referee1Name
+  referee1Phone
+  referee1Email
+  referee2Name
+  referee2Phone
+  referee2Email
+}
+
+fragment RentalGroupApplicantData on RentalGroupApplicant {
+  id
+  email
+  approved
+  completed
+  firstName
+  email
+  user {
+    ...UserData
+  }
+}
+
+fragment RentalApplications on RentalApplication {
+  id
+  visibility
+  stage
+  finalised
+  applicants {
+    ...RentalGroupApplicantData
+  }
+}
+
+query OWNER_PROPERTIES_QUERY {
+  properties {
+    id
+    rooms
+    rent
+    moveInDate
+    onTheMarket
+    location
+    locationLat
+    locationLng
+    rentalApplications {
+      ...RentalApplications
+    }
+    owners {
+      id
+      email
+      firstName
+    }
+    images {
+      url
+    }
+  }
+}
+
+```
+
+- Upload Photo ID
+
+```js
+mutation UPLOAD_PHOTO_IDENTIFICATION($file:Upload!, $photoId:String!){
+  uploadPhotoId(file: $file, photoId:$photoId) {
+    identificationNumber
+    photoIdentification {
+      id
+      filename
+      url
+    }
+  }
+}
+```

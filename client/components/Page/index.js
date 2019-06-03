@@ -1,5 +1,7 @@
-import React, { Component } from "react"
+import React, { Component, useState, useEffect } from "react"
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
+import { StripeProvider } from "react-stripe-elements"
+import Head from "next/head"
 
 import {
   withStyles,
@@ -124,19 +126,56 @@ const alertOptions = {
   transition: transitions.SCALE,
 }
 
-class Page extends Component {
-  render() {
-    const { google } = this.props
-    return (
-      <NoSsr>
-        <MuiThemeProvider theme={theme}>
+
+const Page = props => {
+  const [stripe, setStripe] = useState(null)
+  const { google } = props
+
+  // useEffect(() => {
+  //   // this.setState({stripe: window.Stripe('pk_test_12345')});
+  //   console.log("AHHH COOL STRIPE HAS LOADED => ", window)
+  //   if (window.Stripe) {
+  //     // alert("Now we can final;ly do it")
+  //     console.log("SETTING THE STRIPE KEY ===>>")
+  //     setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
+  //   }
+  //   // window.Stripe
+  //   //   ? setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
+  //   //   : null
+  // }, [window.Stripe])
+  useEffect(() => {
+    if (window.Stripe) {
+      // alert("Now we can final;ly do it")
+      console.log("SETTING THE STRIPE KEY ===>>")
+      setStripe(window.Stripe("pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"))
+    } else {
+      console.log("WE NEED A WAY TO LOAD IT ASYCLY ")
+    }
+    // window.Stripe
+    //   ? setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
+    //   : null
+  }, [window.Stripe])
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     console.log("SETTING STRIPE => ", window.Stripe)
+  //     setStripe(window.Stripe)
+  //   }
+  //   window.addEventListener("Stripe", handleResize)
+  //   return () => {
+  //     window.removeEventListener("Stripe", handleResize)
+  //   }
+  // })
+  return (
+    <NoSsr>
+      <MuiThemeProvider theme={theme}>
+        <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
             <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
               <StyledPage>
                 <Meta />
                 <Header />
                 <Notifier />
-                <Inner>{this.props.children}</Inner>
+                <Inner>{props.children}</Inner>
                 <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
@@ -144,14 +183,69 @@ class Page extends Component {
               </StyledPage>
             </AlertProvider>
           </ThemeProvider>
-        </MuiThemeProvider>
-        <GlobalStyle />
-        <div id="modal-root" />
-      </NoSsr>
-    )
-  }
+        </StripeProvider>
+      </MuiThemeProvider>
+      <GlobalStyle />
+      <div id="modal-root" />
+    </NoSsr>
+  )
 }
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
 })(Page)
+
+// class Page extends Component {
+//   constructor() {
+//     super()
+//     this.state = { stripe: null }
+//   }
+//   componentDidMount() {
+//     if (window.Stripe) {
+//       console.log("AMAZING STRIPE IS LOADED")
+//       this.setState({ stripe: window.Stripe("pk_test_12345") })
+//     } else {
+// document.querySelector("#stripe-js").addEventListener("load", () => {
+//   // Create Stripe instance once Stripe.js loads
+//   this.setState({ stripe: window.Stripe("pk_test_12345") })
+// })
+//     }
+//   }
+//   render() {
+//     const { google } = this.props
+//     return (
+//       <NoSsr>
+//         {/* <Head>
+//           <script id="stripe-js" src="https://js.stripe.com/v3/" async />
+//         </Head> */}
+//         <MuiThemeProvider theme={theme}>
+//           <StripeProvider
+//             stripe={this.state.stripe}
+//             // apiKey="pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"
+//           >
+//             <ThemeProvider theme={theme}>
+//               <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
+//                 <StyledPage>
+//                   <Meta />
+//                   <Header />
+//                   <Notifier />
+//                   <Inner>{this.props.children}</Inner>
+//                   <div>
+//                     <h1>Admin alerts LOL</h1>
+//                     <AdminAlertsContainer />
+//                   </div>
+//                 </StyledPage>
+//               </AlertProvider>
+//             </ThemeProvider>
+//           </StripeProvider>
+//         </MuiThemeProvider>
+//         <GlobalStyle />
+//         <div id="modal-root" />
+//       </NoSsr>
+//     )
+//   }
+// }
+
+// export default GoogleApiWrapper({
+//   apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
+// })(Page)

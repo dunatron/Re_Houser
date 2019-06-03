@@ -6,6 +6,8 @@ const Meta = () => (
     <meta charSet="utf-8" />
     <link rel="stylesheet" type="text/css" href="../../static/geosuggest.css" />
     <link rel="stylesheet" type="text/css" href="../../static/slick.css" />
+    {/* <script src="https://js.stripe.com/v3/" /> */}
+    <script key="stripe" id="stripe-js" src="https://js.stripe.com/v3/" async />
     <meta
       name="google-site-verification"
       content="R82iamf9jm4UiOzDtCqePSfeP2wEN2lft1EEKE_cr2o"
@@ -17,6 +19,7 @@ const Meta = () => (
     />
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+
     {/* <link
       rel="stylesheet"
       type="text/css"

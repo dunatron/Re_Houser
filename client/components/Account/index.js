@@ -26,6 +26,8 @@ import TextInput from "../../styles/TextInput"
 import Error from "../ErrorMessage/index"
 import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
+// Credit card tab
+import CreditCardTab from "./CreditCardTab"
 
 // Icons
 import EditIcon from "../../styles/icons/EditIcon"
@@ -199,7 +201,7 @@ export default class index extends Component {
                   />
                 </TabContainer>
                 <TabContainer>
-                  <div>Third Tab</div>
+                  <CreditCardTab me={me} />
                 </TabContainer>
               </SwipeableViews>
 
