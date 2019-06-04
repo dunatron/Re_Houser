@@ -250,6 +250,28 @@ STRIPE_SECRET="sk_123youchanget his"
 PORT=4444
 ```
 
+#### The Environments and their links
+
+- DEV
+
+  - https://app.prisma.io/heath-dunlop-37e897/services/prisma-us1/rehouser-service/dev
+  - http:/localhost:4444 - we dont need to host it since we run it locally
+
+- PROD
+
+  - https://app.prisma.io/heath-dunlop-37e897/services/rehouser-production/rehouser-production/prod
+  - https://app.prisma.io/heath-dunlop-37e897/servers/rehouser-production
+  - https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
+
+- HEROKU
+  - https://dashboard.heroku.com/apps/rehouser-production-cacaa3459e
+    - This is where the prisma server is hosted
+  - https://dashboard.heroku.com/apps/rehouser-yoga-prod
+    - this is where the yoga server is hosted
+    - it is responsible for linking up the frontend and backend `FRONTEND_URL`, and `PRISMA_SECRET`etc will be found and configured in the settings
+  - https://dashboard.heroku.com/apps/rehouser-next-prod
+    - This is our front-end/next.js deployment
+
 ## Deployment
 
 1. Prisma DB
@@ -792,6 +814,7 @@ mutation createCreditCard($data:CreditCardCreateInput!){
 ```
 
 - proceed to the nectLevel
+
 ```js
 
 mutation createCreditCard($data:CreditCardCreateInput!){
@@ -921,25 +944,25 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
 1. Push Data
 
 ```js
-const client = algoliasearch("4QW4S8SE3J", "••••••••••••••••••••••••••••••••")
+const client = algoliasearch("4QW4S8SE3J", "••••••••••••••••••••••••••••••••");
 
-const index = client.initIndex("demo_ecommerce")
+const index = client.initIndex("demo_ecommerce");
 
 fetch("https://alg.li/doc-ecommerce.json")
   .then(function(response) {
-    return response.json()
+    return response.json();
   })
   .then(function(products) {
-    index.addObjects(products)
-  })
+    index.addObjects(products);
+  });
 ```
 
 2. set relevance
 
 ```js
-const client = algoliasearch("4QW4S8SE3J", "••••••••••••••••••••••••••••••••")
+const client = algoliasearch("4QW4S8SE3J", "••••••••••••••••••••••••••••••••");
 
-const index = client.initIndex("demo_ecommerce")
+const index = client.initIndex("demo_ecommerce");
 
 index.setSettings({
   // Select the attributes you want to search in
@@ -952,9 +975,9 @@ index.setSettings({
     "searchable(brand)",
     "price",
     "outdoorFeatures",
-    "indoorFeatures",
-  ],
-})
+    "indoorFeatures"
+  ]
+});
 ```
 
 ## apply for rental
