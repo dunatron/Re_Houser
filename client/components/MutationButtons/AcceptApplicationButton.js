@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect } from "react"
 import { useMutation } from "react-apollo-hooks"
 import Error from "../ErrorMessage/index"
 import { isEmpty } from "ramda"
+import { toast } from "react-toastify"
 import {
   ACCEPT_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
@@ -60,7 +61,11 @@ const AcceptApplicationButton = ({ application, property }) => {
         console.groupEnd()
         // Once application is accepted we can create a newLease
         if (payload.data.acceptRentalApplication.message) {
-          alert("acceptApplicationMutation update with mutation success")
+          toast(
+            <div>
+              <h1>ApplicationAccepted</h1>
+            </div>
+          )
         }
       },
     }
@@ -70,7 +75,7 @@ const AcceptApplicationButton = ({ application, property }) => {
     {
       variables: {
         applicationId: application.id,
-        // propertyId: property.id,
+        propertyId: property.id,
       },
       update: (proxy, payload) => {
         // alert("Interestibng")
@@ -79,16 +84,16 @@ const AcceptApplicationButton = ({ application, property }) => {
   )
   return (
     <>
-      <ErrorSupplier
+      {/* <ErrorSupplier
         errors={[error, newLeasePayload.error]}
         tronM="Acccepting applicatiion failed"
-      />
+      /> */}
       <Button
         variant="outlined"
         onClick={() => {
           acceptApplicationMutation()
           // acceptApplicationMutation2()
-          createNewPropertyLease()
+          // createNewPropertyLease()
         }}>
         Accept application
       </Button>

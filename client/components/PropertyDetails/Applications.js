@@ -25,6 +25,7 @@ import ApplicantDetails from "../ApplicantDetails/index"
 import ApplicationCard from "./ApplicationCard"
 import { Button } from "@material-ui/core"
 import { openSnackbar } from "../Notifier/index"
+import { ToastContainer, toast } from "react-toastify"
 
 const AcceptApplication = ({ application, property }) => {
   const acceptApplication = useMutation(ACCEPT_RENTAL_APPLICATION_MUTATION, {
@@ -91,6 +92,7 @@ const RentalApplications = props => {
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
       console.log("Application is now in Pending mode => ", subscriptionData)
+      toast("Application is now in Pending mode")
 
       // openSnackbar({
       //   message: `<h3>Applications have changed Please refresh`,

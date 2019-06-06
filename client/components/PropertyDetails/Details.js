@@ -69,37 +69,71 @@ const UpdatePropertyVariableModal = ({
     }
   `
 
-  const updateProperty = useMutation(PROPERTY_SINGLE_PROPERTY_MUTATION, {
-    variables: {
-      id: propertyId,
-      data: {
-        [name]: sanitizeInput(type, propertyValue),
-        // sff: "dfsfd", // test error. Need to get error out of network
-      },
-    },
-    update: (proxy, payload) => {
-      // // find out where the property prop is loaded from and update the cache
-      const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY })
-      const updatedPropertyData = payload.data.updateProperty
-      const allProperties = data.ownerProperties
-      const idToSearchBy = updatedPropertyData.id
-      const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
-      data.ownerProperties[foundIndex] = {
-        ...data.ownerProperties[foundIndex],
-        ...payload.data.updateProperty,
-      }
-      proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data })
-    },
-    errorPolicy: "all",
-    optimisticResponse: {
-      __typename: "Mutation",
-      updateProperty: {
-        __typename: "Property",
+  // const updateProperty = useMutation(PROPERTY_SINGLE_PROPERTY_MUTATION, {
+  //   variables: {
+  //     id: propertyId,
+  //     data: {
+  //       [name]: sanitizeInput(type, propertyValue),
+  //       // sff: "dfsfd", // test error. Need to get error out of network
+  //     },
+  //   },
+  //   update: (proxy, payload) => {
+  //     // // find out where the property prop is loaded from and update the cache
+  //     const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY })
+  //     const updatedPropertyData = payload.data.updateProperty
+  //     const allProperties = data.ownerProperties
+  //     const idToSearchBy = updatedPropertyData.id
+  //     const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
+  //     data.ownerProperties[foundIndex] = {
+  //       ...data.ownerProperties[foundIndex],
+  //       ...payload.data.updateProperty,
+  //     }
+  //     proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data })
+  //   },
+  //   errorPolicy: "all",
+  //   optimisticResponse: {
+  //     __typename: "Mutation",
+  //     updateProperty: {
+  //       __typename: "Property",
+  //       id: propertyId,
+  //       [name]: sanitizeInput(type, propertyValue),
+  //     },
+  //   },
+  // })
+  const [updateProperty, updatePropertyPayload] = useMutation(
+    PROPERTY_SINGLE_PROPERTY_MUTATION,
+    {
+      variables: {
         id: propertyId,
-        [name]: sanitizeInput(type, propertyValue),
+        data: {
+          [name]: sanitizeInput(type, propertyValue),
+          // sff: "dfsfd", // test error. Need to get error out of network
+        },
       },
-    },
-  })
+      update: (proxy, payload) => {
+        // // find out where the property prop is loaded from and update the cache
+        const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY })
+        const updatedPropertyData = payload.data.updateProperty
+        const allProperties = data.ownerProperties
+        const idToSearchBy = updatedPropertyData.id
+        const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
+        data.ownerProperties[foundIndex] = {
+          ...data.ownerProperties[foundIndex],
+          ...payload.data.updateProperty,
+        }
+        proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data })
+      },
+      errorPolicy: "all",
+      optimisticResponse: {
+        __typename: "Mutation",
+        updateProperty: {
+          __typename: "Property",
+          id: propertyId,
+          [name]: sanitizeInput(type, propertyValue),
+        },
+      },
+    }
+  )
   return (
     <div>
       <InputModal

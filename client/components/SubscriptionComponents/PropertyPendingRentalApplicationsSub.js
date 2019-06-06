@@ -3,6 +3,7 @@ import { useQuery, useMutation, useSubscription } from "react-apollo-hooks"
 import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationUpdatedSub"
 import ApplicationCard from "../PropertyDetails/ApplicationCard"
 import { openSnackbar } from "../Notifier/index"
+import { ToastContainer, toast } from "react-toastify"
 
 /**
  *
@@ -12,7 +13,7 @@ import { openSnackbar } from "../Notifier/index"
  * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
  * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
  * Na too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.
- * 
+ *
  */
 const PropertyPendingRentalApplicationsSub = ({ property }) => {
   const [newObjects, setNewObjects] = useState([])
@@ -40,23 +41,38 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
             subscriptionData.data.rentalApplicationUpdateSub.node
           )
         )
-        openSnackbar({
-          message: `<h3>New Pending Rental Application for ${
-            property.location
-          }</h3>`,
-          duration: 6000,
-          type: "success",
-        })
+        toast(
+          <div>
+            <h1>Property Subscription</h1>
+            <p>
+              PropertyPendingRentalApplicationsSub iS Subscribed chefck boy and
+              Css
+            </p>
+          </div>
+        )
       },
     }
   )
   if (loading) return null
   if (error)
-    return (
+    toast(
       <div>
-        No Websocket connection. You will need to manually refresh for updates
+        <p>
+          No Websocket connection. You will need to manually refresh for updates
+        </p>
       </div>
     )
+  if (!error)
+    toast(
+      <div>
+        <p>Subbed to {property.location}</p>
+      </div>
+    )
+  return (
+    <div>
+      No Websocket connection. You will need to manually refresh for updates
+    </div>
+  )
   return (
     <div>
       You have {updateCount} New Applications{" "}

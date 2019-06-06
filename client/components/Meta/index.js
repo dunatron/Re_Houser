@@ -6,6 +6,11 @@ const Meta = () => (
     <meta charSet="utf-8" />
     <link rel="stylesheet" type="text/css" href="../../static/geosuggest.css" />
     <link rel="stylesheet" type="text/css" href="../../static/slick.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     {/* <script src="https://js.stripe.com/v3/" /> */}
     <script key="stripe" id="stripe-js" src="https://js.stripe.com/v3/" async />
     <meta
@@ -19,6 +24,7 @@ const Meta = () => (
     />
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+    <link rel="stylesheet" type="text/css" href="/static/customToast.css" />
 
     {/* <link
       rel="stylesheet"

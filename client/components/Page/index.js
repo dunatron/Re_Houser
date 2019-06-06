@@ -2,6 +2,8 @@ import React, { Component, useState, useEffect } from "react"
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
 import { StripeProvider } from "react-stripe-elements"
 import Head from "next/head"
+import { ToastContainer, toast } from "react-toastify"
+// import "react-toastify/dist/ReactToastify.css"
 
 import {
   withStyles,
@@ -126,10 +128,27 @@ const alertOptions = {
   transition: transitions.SCALE,
 }
 
+/**
+ * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
+ */
 
 const Page = props => {
   const [stripe, setStripe] = useState(null)
   const { google } = props
+  // const useNotification = () => {
+  //   const [notification, setNotification] = useState(false)
+  //   const openNotification = () => { < your notification logic here> }
+  //   return [openNotifcation]
+  // }
+  // export const GlobalContext = createContext({})
+  // export const Provider = ({children}) => {
+  //   const [openNotification] = useNotification()
+  //   return (
+  //     <GlobalContext.Provider value={{openNotification}}>
+  //       {children}
+  //     </GlobalContext.Provider>
+  //   )
+  // }
 
   // useEffect(() => {
   //   // this.setState({stripe: window.Stripe('pk_test_12345')});
@@ -167,6 +186,8 @@ const Page = props => {
   // })
   return (
     <NoSsr>
+      {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
+      <ToastContainer />
       <MuiThemeProvider theme={theme}>
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
@@ -176,10 +197,11 @@ const Page = props => {
                 <Header />
                 <Notifier />
                 <Inner>{props.children}</Inner>
-                <div>
+
+                {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
-                </div>
+                </div> */}
               </StyledPage>
             </AlertProvider>
           </ThemeProvider>
@@ -194,58 +216,3 @@ const Page = props => {
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
 })(Page)
-
-// class Page extends Component {
-//   constructor() {
-//     super()
-//     this.state = { stripe: null }
-//   }
-//   componentDidMount() {
-//     if (window.Stripe) {
-//       console.log("AMAZING STRIPE IS LOADED")
-//       this.setState({ stripe: window.Stripe("pk_test_12345") })
-//     } else {
-// document.querySelector("#stripe-js").addEventListener("load", () => {
-//   // Create Stripe instance once Stripe.js loads
-//   this.setState({ stripe: window.Stripe("pk_test_12345") })
-// })
-//     }
-//   }
-//   render() {
-//     const { google } = this.props
-//     return (
-//       <NoSsr>
-//         {/* <Head>
-//           <script id="stripe-js" src="https://js.stripe.com/v3/" async />
-//         </Head> */}
-//         <MuiThemeProvider theme={theme}>
-//           <StripeProvider
-//             stripe={this.state.stripe}
-//             // apiKey="pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"
-//           >
-//             <ThemeProvider theme={theme}>
-//               <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
-//                 <StyledPage>
-//                   <Meta />
-//                   <Header />
-//                   <Notifier />
-//                   <Inner>{this.props.children}</Inner>
-//                   <div>
-//                     <h1>Admin alerts LOL</h1>
-//                     <AdminAlertsContainer />
-//                   </div>
-//                 </StyledPage>
-//               </AlertProvider>
-//             </ThemeProvider>
-//           </StripeProvider>
-//         </MuiThemeProvider>
-//         <GlobalStyle />
-//         <div id="modal-root" />
-//       </NoSsr>
-//     )
-//   }
-// }
-
-// export default GoogleApiWrapper({
-//   apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
-// })(Page)

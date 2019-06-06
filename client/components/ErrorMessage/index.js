@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import React from "react"
+import { toast } from "react-toastify"
 
 import PropTypes from "prop-types"
-
 const ErrorStyles = styled.div`
   padding: 2rem;
   background: white;
@@ -19,24 +19,57 @@ const ErrorStyles = styled.div`
 `
 
 const DisplayError = ({ error, tronM }) => {
+  /** custon test begin */
+  /** custon test begin */
   if (!error || !error.message) return null
+  // if (error) {
+  //   toast("I said so ho")
+  // }
   if (
     error.networkError &&
     error.networkError.result &&
     error.networkError.result.errors.length
   ) {
+    error.networkError.result.errors.map((errorForToast, i) =>
+      toast(
+        <ErrorStyles key={i}>
+          <p data-test="graphql-error">
+            <strong>Shoot! network Err</strong>
+            {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+            {error.message.replace("GraphQL error: ", "")}
+          </p>
+        </ErrorStyles>
+      )
+    )
     return error.networkError.result.errors.map((error, i) => (
       <>
-        {tronM && <p>{tronM}</p>}
+        {tronM && (
+          <p>
+            THIS ULTIMATELY FAILED BECAUSE YOU TRIED TO BLA BLA... standardize
+            with ovveride => {tronM}
+          </p>
+        )}
         <ErrorStyles key={i}>
           <p data-test="graphql-error">
             <strong>Shoot!</strong>
+            {/* <button onClick={() => notify()}>Ima need more than that</button> */}
             {error.message.replace("GraphQL error: ", "")}
           </p>
         </ErrorStyles>
       </>
     ))
   }
+  error.networkError.result.errors.map((errorForToast, i) =>
+    toast(
+      <ErrorStyles key={i}>
+        <p data-test="graphql-error">
+          <strong>Shoot! network Err</strong>
+          {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+          {error.message.replace("GraphQL error: ", "")}
+        </p>
+      </ErrorStyles>
+    )
+  )
   return (
     <ErrorStyles>
       <>

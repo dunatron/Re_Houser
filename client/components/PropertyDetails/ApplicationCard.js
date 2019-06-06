@@ -26,32 +26,6 @@ import AcceptApplicationButton from "../MutationButtons/AcceptApplicationButton"
 import { Button } from "@material-ui/core"
 import { openSnackbar } from "../Notifier/index"
 
-// const AcceptApplication = ({ application, property }) => {
-//   const acceptApplication = useMutation(ACCEPT_RENTAL_APPLICATION_MUTATION, {
-//     // variables: {
-//     //   data: {
-//     //     applicationId: application.id,
-//     //     propertyId: property.id,
-//     //   },
-//     // },
-//     variables: {
-//       applicationId: application.id,
-//       propertyId: property.id,
-//     },
-//     update: (proxy, payload) => {},
-//     // optimisticResponse: {},
-//   })
-//   return (
-//     <Button
-//       variant="outlined"
-//       onClick={() => {
-//         acceptApplication()
-//       }}>
-//       Accept application
-//     </Button>
-//   )
-// }
-
 const DenyApplication = () => {
   return <Button variant="outlined">Deny application</Button>
 }

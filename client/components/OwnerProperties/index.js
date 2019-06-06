@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button"
 import Modal from "../Modal/index"
 import PropertyDetails from "../PropertyDetails/index"
 import { openSnackbar } from "../Notifier/index"
+import { ToastContainer, toast } from "react-toastify"
 import Router from "next/router"
 import { graphql, compose, withApollo } from "react-apollo"
 import { PROPERTIES_QUERY } from "../../query/index"
@@ -235,11 +236,12 @@ class OwnerProperties extends Component {
       : `<h3>On The market</h3>Property ${
           res.data.updateProperty.location
         } is now on the market`
-    openSnackbar({
-      message: message,
-      duration: 6000,
-      type: data.onTheMarket ? "info" : "success",
-    })
+    toast(message)
+    // openSnackbar({
+    //   message: message,
+    //   duration: 6000,
+    //   type: data.onTheMarket ? "info" : "success",
+    // })
   }
 
   updateCache = (cache, payload) => {
