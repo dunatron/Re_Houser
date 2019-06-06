@@ -65,7 +65,7 @@ const PropertyDetails = ({ id }) => {
 
   if (!property) {
     console.log("Data from failed query => ", data)
-    toast("PropertyDetals Error => This shouldnt happen apologies 😭😭😭 🤢 🤮")
+    toast("Real interesting error ")
     return "This shouldnt happen apologies 😭😭😭 🤢 🤮"
   }
 
