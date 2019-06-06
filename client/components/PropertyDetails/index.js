@@ -19,6 +19,7 @@ import Badge from "../../styles/Badge"
 import Typography from "@material-ui/core/Typography"
 // constants
 import { SITE_NAME } from "../../lib/const"
+import { toast } from "react-toastify"
 
 function TabContainer(props) {
   return (
@@ -63,6 +64,7 @@ const PropertyDetails = ({ id }) => {
   const property = data.ownerProperty
 
   if (!property) {
+    toast("PropertyDetals Error => This shouldnt happen apologies 😭😭😭 🤢 🤮")
     return "This shouldnt happen apologies 😭😭😭 🤢 🤮"
   }
 
