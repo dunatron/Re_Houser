@@ -51,6 +51,7 @@ type Mutation {
   ): RentalGroupApplicant
   acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
   createCreditCard(token: String!): CreditCard!
+  createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
 }
 
 type Subscription {

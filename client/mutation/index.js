@@ -7,6 +7,8 @@ import { UPLOAD_PHOTO_IDENTIFICATION } from "./uploadPhotoIdentification"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "./updateRentalGroupApplicant"
 import { UPDATE_PROPERTY_MUTATION } from "./updateProperty"
 import { CREATE_CREDIT_CARD_MUTATION } from "./createCreditCard"
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "./acceptRentalApplication"
+import { CREATE_PROPERTY_LEASE_MUTATION } from "./createPropertyLease"
 
 export {
   CREATE_PROPERTY_MUTATION,
@@ -18,4 +20,6 @@ export {
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
   UPDATE_PROPERTY_MUTATION,
   CREATE_CREDIT_CARD_MUTATION,
+  ACCEPT_RENTAL_APPLICATION_MUTATION,
+  CREATE_PROPERTY_LEASE_MUTATION,
 }

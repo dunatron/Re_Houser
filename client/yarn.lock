@@ -5405,9 +5405,9 @@ react-alert@^5.4.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/react-alert/-/react-alert-5.5.0.tgz#9154d67e31f72ad439c7147c9bb991f4696e0810"
 
-react-apollo-hooks@^0.4.5:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/react-apollo-hooks/-/react-apollo-hooks-0.4.5.tgz#7fe6a8ddfdc92df2da664d399ea77a0da4a10bad"
+react-apollo-hooks@react-apollo-hooks@alpha:
+  version "0.5.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/react-apollo-hooks/-/react-apollo-hooks-0.5.0-alpha.0.tgz#24ff8fd2f836c40ec3510b014ef5dbd1cbcbb077"
   dependencies:
     lodash "^4.17.11"
 

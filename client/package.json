@@ -49,7 +49,7 @@
     "react-alert": "^5.4.0",
     "react-alert-template-basic": "^1.0.0",
     "react-apollo": "^2.5.2",
-    "react-apollo-hooks": "^0.4.5",
+    "react-apollo-hooks": "react-apollo-hooks@alpha",
     "react-dom": "^16.8.4",
     "react-geosuggest": "^2.10.0",
     "react-instantsearch-dom": "^5.4.0",
