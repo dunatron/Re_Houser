@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { toast } from "react-toastify"
 import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core/styles"
 import Stepper from "@material-ui/core/Stepper"
@@ -18,7 +19,6 @@ import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplic
 import customErrorsBag from "../../lib/errorsBagGenerator"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../mutation/index"
 import { gql, graphql, compose } from "react-apollo"
-import { openSnackbar } from "../Notifier/index"
 
 import { isEmpty } from "ramda"
 
@@ -381,13 +381,13 @@ class RentalApplicationStepper extends Component {
     // console.log("application _saveApplicationDetails", application)
     // Only owner can update this section
     if (application.owner.id !== me.id) {
-      openSnackbar({
-        message: `<h3>Only the owner can Update this section</h3>
-        <h3>${application.owner.firstName}</h3>
-        <h3>${application.owner.email}</h3>`,
-        duration: 6000,
-        type: "success",
-      })
+      toast.error(
+        <div>
+          <h3>Only the owner can Update this section</h3>
+          <h3>${application.owner.firstName}</h3>
+          <h3>${application.owner.email}</h3>
+        </div>
+      )
       return false
     }
     // Now we need to save the application details and at the same time handle the cache update

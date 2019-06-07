@@ -24,7 +24,6 @@ import StarIcon from "../../styles/icons/StarIcon"
 import ApplicantDetails from "../ApplicantDetails/index"
 import ApplicationCard from "./ApplicationCard"
 import { Button } from "@material-ui/core"
-import { openSnackbar } from "../Notifier/index"
 import { ToastContainer, toast } from "react-toastify"
 
 const AcceptApplication = ({ application, property }) => {
@@ -80,6 +79,8 @@ const RentalApplications = props => {
     ? []
     : data.rentalApplications.map(application => application.id)
   console.log("applicationIds => ", applicationIds)
+  /**
+   * JUST NOT USING FOR NOW
   useSubscription(RENTAL_APPLICATION_UPDATED_SUBSCRIPTION, {
     variables: {
       where: {
@@ -92,16 +93,12 @@ const RentalApplications = props => {
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
       console.log("Application is now in Pending mode => ", subscriptionData)
-      toast("Application is now in Pending mode")
-
-      // openSnackbar({
-      //   message: `<h3>Applications have changed Please refresh`,
-      //   duration: 6000,
-      //   type: "info",
-      // })
+      toast.info(<h3>Application is now in Pending mode</h3>)
     },
     // ... rest options
   })
+   */
+
   // useSubscription(RENTAL_APPLICATION_CREATED_SUBSCRIPTION, {
   //   // variables: {
   //   //   // ...
@@ -147,7 +144,7 @@ const RentalApplications = props => {
   return (
     <div>
       <h1>I am the Applications details component</h1>
-      <PropertyPendingRentalApplicationsSub property={props.property} />
+      {/* <PropertyPendingRentalApplicationsSub property={props.property} /> */}
       <div>
         <h2>This area is to perform actions for potential applications e.g.</h2>
         <ul>

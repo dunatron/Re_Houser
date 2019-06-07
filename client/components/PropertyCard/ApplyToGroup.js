@@ -5,7 +5,6 @@ import Fab from "@material-ui/core/Fab"
 import Error from "../ErrorMessage/index"
 import Tooltip from "@material-ui/core/Tooltip"
 import User from "../User/index"
-import { openSnackbar } from "../Notifier/index"
 // Mutations
 import { APPLY_TO_RENTAL_GROUP_APPLICATION } from "../../mutation/index"
 

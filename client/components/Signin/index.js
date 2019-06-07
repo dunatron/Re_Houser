@@ -1,10 +1,10 @@
 import React, { Component } from "react"
+import { toast } from "react-toastify"
 import { Mutation } from "react-apollo"
 import gql from "graphql-tag"
 import Form from "../../styles/Form"
 import Error from "../ErrorMessage/index"
 import { CURRENT_USER_QUERY } from "../User/index"
-import { openSnackbar } from "../Notifier/index"
 import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
 import TextInput from "../../styles/TextInput"
@@ -30,12 +30,13 @@ class Signin extends Component {
   }
   _signIn = async signin => {
     const res = await signin()
-    openSnackbar({
-      message: `Welcome: ${res.data.signin.firstName} ${
-        res.data.signin.lastName
-      }`,
-      duration: 6000,
-    })
+    toast.success(
+      <p>
+        <strong>
+          Welcome {res.data.signin.firstName} {res.data.signin.lastName}
+        </strong>
+      </p>
+    )
     this.setState({ email: "", password: "" })
   }
   render() {

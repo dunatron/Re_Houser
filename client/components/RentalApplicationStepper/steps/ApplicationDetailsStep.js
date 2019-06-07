@@ -40,10 +40,6 @@ const ConfirmApplicant = ({ applicant }) => {
       // const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
       // const testData = userData.me
       // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-      // openSnackbar({
-      //   message: `uploadeed new photo id please prceed`,
-      //   duration: 6000,
-      // })
     },
     // optimisticResponse: {},
   })

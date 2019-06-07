@@ -12,43 +12,6 @@ import { StripeProvider, Elements } from "react-stripe-elements"
 import InjectedCheckoutForm from "./CreateCardForm"
 
 const CreateCard = props => {
-  // const uploadPhotoId = useMutation(UPLOAD_PHOTO_IDENTIFICATION, {
-  //   variables: {
-  //     file: file.raw,
-  //     photoId: photoId,
-  //   },
-  //   update: (proxy, payload) => {
-  //     console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
-  //     // i.e here just find the {me} and update the profile image url with the new one from cloudinary
-  //     const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-  //     console.log("userData => ", userData)
-  //     // console.log("payload => ", payload)
-  //     // console.log("userData.me => ", userData.me)
-  //     // userData.me = {
-  //     //   ...userData.me,
-  //     //   // ...payload.data.uploadPhotoId,
-  //     // }
-  //     const testData = userData.me
-  //     proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-  //     console.log("Proxy => ", proxy)
-  //     // NOTE: Its not going to let you update the me object when we need it in the current instance!
-  //     // setShowUploader(0)
-  //     setTabIndex(0)
-  //     openSnackbar({
-  //       message: `uploadeed new photo id please prceed`,
-  //       duration: 6000,
-  //     })
-  //   },
-  //   refetchQueries: [{ query: CURRENT_USER_QUERY }],
-  //   // optimisticResponse: {},
-  // })
-  // const createCreditCard = useMutation(CREATE_CREDIT_CARD_MUTATION)
-  // const createCreditCard = useMutation(CREATE_CREDIT_CARD_MUTATION)
-  // const onToken = res => {
-  //   console.log("We have a Stripe Token => ", res)
-  //   console.log("res.id => ", res.id)
-  //   const card = createCreditCard({ variables: { token: res.id } })
-  // }
   const createCreditCard = useMutation(CREATE_CREDIT_CARD_MUTATION)
   const onToken = res => {
     console.log("We have a Stripe Token => ", res)

@@ -24,7 +24,6 @@ import StarIcon from "../../styles/icons/StarIcon"
 import ApplicantDetails from "../ApplicantDetails/index"
 import AcceptApplicationButton from "../MutationButtons/AcceptApplicationButton"
 import { Button } from "@material-ui/core"
-import { openSnackbar } from "../Notifier/index"
 
 const DenyApplication = () => {
   return <Button variant="outlined">Deny application</Button>

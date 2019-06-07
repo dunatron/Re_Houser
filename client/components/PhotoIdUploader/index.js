@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { toast } from "react-toastify"
 
 import { useMutation } from "react-apollo-hooks"
 
@@ -23,7 +24,6 @@ import EditIcon from "../../styles/icons/EditIcon"
 import PersonAddIcon from "@material-ui/icons/PersonAdd"
 import PersonIcon from "@material-ui/icons/Person"
 import ResetIcon from "@material-ui/icons/Build"
-import { openSnackbar } from "../Notifier/index"
 
 import { isEmpty } from "ramda"
 
@@ -62,10 +62,11 @@ const PhotoIdUploader = ({ me }) => {
       // NOTE: Its not going to let you update the me object when we need it in the current instance!
       // setShowUploader(0)
       setTabIndex(0)
-      openSnackbar({
-        message: `uploadeed new photo id please prceed`,
-        duration: 6000,
-      })
+      toast.info(
+        <p>
+          <strong>upload new photo id please</strong>
+        </p>
+      )
     },
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
     // optimisticResponse: {},

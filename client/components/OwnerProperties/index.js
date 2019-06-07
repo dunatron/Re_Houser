@@ -6,7 +6,6 @@ import SuperTable from "../SuperTable/index"
 import Button from "@material-ui/core/Button"
 import Modal from "../Modal/index"
 import PropertyDetails from "../PropertyDetails/index"
-import { openSnackbar } from "../Notifier/index"
 import { ToastContainer, toast } from "react-toastify"
 import Router from "next/router"
 import { graphql, compose, withApollo } from "react-apollo"
@@ -229,19 +228,25 @@ class OwnerProperties extends Component {
       },
     })
 
-    const message = data.onTheMarket
-      ? `<h3>Romoved from market</h3>Propertyy ${
-          res.data.updateProperty.location
-        } Now off the market`
-      : `<h3>On The market</h3>Property ${
-          res.data.updateProperty.location
-        } is now on the market`
-    toast(message)
-    // openSnackbar({
-    //   message: message,
-    //   duration: 6000,
-    //   type: data.onTheMarket ? "info" : "success",
-    // })
+    const message = data.onTheMarket ? (
+      <div>
+        <h3>Removed Property From The Market</h3>{" "}
+        <strong>{res.data.updateProperty.location}</strong> is now off the
+        market
+      </div>
+    ) : (
+      <div>
+        <h3>Added Property To The Market</h3>
+        <strong>{res.data.updateProperty.location}</strong> is now on the market
+      </div>
+    )
+
+    {
+      data.onTheMarket
+        ? toast.info(<p>{message}</p>)
+        : toast.success(<p>{message}</p>)
+    }
+    // toast(message)
   }
 
   updateCache = (cache, payload) => {

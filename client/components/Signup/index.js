@@ -4,12 +4,12 @@ import gql from "graphql-tag"
 import Form from "../../styles/Form"
 import Error from "../ErrorMessage/index"
 import { CURRENT_USER_QUERY } from "../User/index"
-import { openSnackbar, closeSnackBar } from "../Notifier/index"
 import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
 import TextInput from "../../styles/TextInput"
 import Router from "next/router"
 import Button from "@material-ui/core/Button"
+import { toast } from "react-toastify"
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -59,19 +59,21 @@ class Signup extends Component {
         color="secondary"
         onClick={() => {
           this.handleLink("/account")
-          closeSnackBar()
         }}>
         Update Profile
       </Button>
     )
-    openSnackbar({
-      message: `Welcome: ${res.data.signup.firstName} ${
-        res.data.signup.lastName
-      } since this is your first time signing up we recomend filling out the rest of your profile to make applying easier later
-      `,
-      actions: [<div>{accountBtn}</div>],
-      duration: 15000, // 15 sec
-    })
+    toast.info(
+      <div>
+        <h1>Congrats on signing up</h1>
+        {accountBtn}
+      </div>,
+      {
+        position: toast.POSITION.TOP_RIGHT,
+        closeOnClick: false,
+        autoClose: 15000,
+      }
+    )
     this.setState({
       firstName: "",
       lastName: "",

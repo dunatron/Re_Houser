@@ -9,7 +9,6 @@ import {
 } from "../../mutation/index"
 
 import { Button } from "@material-ui/core"
-import { openSnackbar } from "../Notifier/index"
 
 /**
  * This is actually going to be tied to createALeaseButton aswel as the acceptRentalApplication
@@ -63,7 +62,7 @@ const AcceptApplicationButton = ({ application, property }) => {
         if (payload.data.acceptRentalApplication.message) {
           toast(
             <div>
-              <h1>ApplicationAccepted</h1>
+              <h1>Application Accepted</h1>
             </div>
           )
         }
@@ -74,24 +73,67 @@ const AcceptApplicationButton = ({ application, property }) => {
     CREATE_PROPERTY_LEASE_MUTATION,
     {
       variables: {
-        applicationId: application.id,
-        propertyId: property.id,
+        data: {
+          rooms: property.rooms,
+          bathrooms: property.bathrooms,
+          garageSpaces: property.garageSpaces,
+          carportSpaces: property.carportSpaces,
+          offStreetSpaces: property.offStreetSpaces,
+          rent: property.rent,
+          moveInDate: "2015-03-25T12:00:00-06:30",
+          location: property.location,
+          locationLat: property.locationLat,
+          locationLng: property.locationLng,
+          owners: {
+            connect: [
+              {
+                id: "cjvaqrrbdt8u50b126ci5mgdm",
+              },
+            ],
+          },
+          outdoorFeatures: {
+            set: ["OUTDOOR_SPA", "OUTDOOR_ENTERTAINMENT"],
+          },
+          indoorFeatures: {
+            set: ["AIR_CONDITIONING", "FURNISHED", "DISHWASHER"],
+          },
+          // tenants: {
+          //   connect: [],
+          // },
+          tenants: {
+            connect: tenantIds.map(tenantId => ({ id: tenantId })),
+          },
+        },
       },
       update: (proxy, payload) => {
-        // alert("Interestibng")
+        console.group("AcceptApplicationButton update ToDo")
+        console.log("proxy => ", proxy)
+        console.log("payload => ", payload)
+        console.groupEnd()
+        const newLease = payload.data.createPropertyLease
+        // Once application is accepted we can create a newLease
+        toast.success(
+          <div>
+            <p>
+              New Lease Created Id: {newLease.id} location: {newLease.location}
+              Complete The Lease Here Todo: route to new lease
+            </p>
+          </div>
+        )
       },
     }
   )
   return (
     <>
-      {/* <ErrorSupplier
+      <ErrorSupplier
         errors={[error, newLeasePayload.error]}
         tronM="Acccepting applicatiion failed"
-      /> */}
+      />
       <Button
         variant="outlined"
         onClick={() => {
           acceptApplicationMutation()
+          createNewPropertyLease()
           // acceptApplicationMutation2()
           // createNewPropertyLease()
         }}>

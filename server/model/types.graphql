@@ -58,7 +58,7 @@ type File {
 type Property implements PropertyInfo {
   id: ID! @unique @id
   updatedAt: DateTime! @updatedAt
-  
+
   createdAt: DateTime! @createdAt
   type: PropertyType
   headline: String
@@ -94,6 +94,12 @@ type RentalGroupApplicant {
   preTenancyApplicationForm: File
   firstName: String
   email: String
+}
+
+type PropertyAdvertisement {
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 type RentalApplication {

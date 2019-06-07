@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { useQuery, useMutation, useSubscription } from "react-apollo-hooks"
+import { toast } from "react-toastify"
 import { RENTAL_APPLICATION_SUBSCRIPTION } from "../../subscriptions/RentalApplicationSub"
 import ApplicationCard from "../PropertyDetails/ApplicationCard"
-import { openSnackbar } from "../Notifier/index"
 
 /**
  *
@@ -36,11 +36,7 @@ const AdminAlertNewRentalApplicationSub = () => {
       onSubscriptionData: ({ client, subscriptionData }) => {
         console.log("subscriptionData => ", subscriptionData)
         setUpdateCount(updateCount + 1)
-        openSnackbar({
-          message: `<h3>New Pending Rental Application for</h3>`,
-          duration: 6000,
-          type: "success",
-        })
+        toast.success(<p>New Pending Rental Application for</p>)
       },
     }
   )

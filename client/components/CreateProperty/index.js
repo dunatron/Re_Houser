@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { toast } from "react-toastify"
 import { Mutation } from "react-apollo"
 import gql from "graphql-tag"
 import Form from "../../styles/Form"
@@ -7,7 +8,6 @@ import { CURRENT_USER_QUERY } from "../User/index"
 // import { OWNER_PROPERTIES_QUERY } from "../OwnerProperties/index"
 import { PROPERTIES_QUERY, OWNER_PROPERTIES_QUERY } from "../../query/index"
 import { CREATE_PROPERTY_MUTATION } from "../../mutation/index"
-import { openSnackbar } from "../Notifier/index"
 import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
 import TextInput from "../../styles/TextInput"
@@ -65,11 +65,7 @@ class CreateProperty extends Component {
   }
   _createProperty = async createProperty => {
     const res = await createProperty()
-    openSnackbar({
-      message: `New Property Created`,
-      duration: 6000,
-      type: "success",
-    })
+    toast.success(<p>New Property Created</p>)
     this.setState({
       ...this.defaultState,
     })

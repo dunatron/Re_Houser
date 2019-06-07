@@ -31,14 +31,21 @@ const DisplayError = ({ error, tronM }) => {
     error.networkError.result.errors.length
   ) {
     error.networkError.result.errors.map((errorForToast, i) =>
-      toast(
-        <ErrorStyles key={i}>
-          <p data-test="graphql-error">
-            <strong>Shoot! network Err</strong>
-            {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-            {error.message.replace("GraphQL error: ", "")}
-          </p>
-        </ErrorStyles>
+      // toast.error(
+      //   <ErrorStyles key={i}>
+      //     <p data-test="graphql-error">
+      //       <strong>Shoot! network Err</strong>
+      //       {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+      //       {error.message.replace("GraphQL error: ", "")}
+      //     </p>
+      //   </ErrorStyles>
+      // )
+      toast.error(
+        <p data-test="graphql-error">
+          <strong>Shoot! network Err</strong>
+          {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+          {error.message.replace("GraphQL error: ", "")}
+        </p>
       )
     )
     return error.networkError.result.errors.map((error, i) => (
@@ -59,16 +66,21 @@ const DisplayError = ({ error, tronM }) => {
       </>
     ))
   }
-  error.networkError.result.errors.map((errorForToast, i) =>
-    toast(
-      <ErrorStyles key={i}>
-        <p data-test="graphql-error">
-          <strong>Shoot! network Err</strong>
-          {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-          {error.message.replace("GraphQL error: ", "")}
-        </p>
-      </ErrorStyles>
-    )
+  // toast.error(
+  //   <ErrorStyles>
+  //     <p data-test="graphql-error">
+  //       <strong>Shoot! network Err</strong>
+  //       {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+  //       {error.message.replace("GraphQL error: ", "")}
+  //     </p>
+  //   </ErrorStyles>
+  // )
+  toast.error(
+    <p data-test="graphql-error">
+      <strong>Shoot! </strong>
+      {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+      {error.message.replace("GraphQL error: ", "")}
+    </p>
   )
   return (
     <ErrorStyles>

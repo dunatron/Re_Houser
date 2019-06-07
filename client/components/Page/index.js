@@ -1,5 +1,7 @@
 import React, { Component, useState, useEffect } from "react"
 import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
+import IconButton from "@material-ui/core/IconButton"
+import CloseIcon from "@material-ui/icons/Close"
 import { StripeProvider } from "react-stripe-elements"
 import Head from "next/head"
 import { ToastContainer, toast } from "react-toastify"
@@ -15,7 +17,6 @@ import Meta from "../Meta/index"
 // Material UI
 import NoSsr from "@material-ui/core/NoSsr"
 import muiTheme from "../../styles/_muiTheme"
-import Notifier, { openSnackbar } from "../Notifier/index"
 // alert
 import { transitions, positions, Provider as AlertProvider } from "react-alert"
 import AlertTemplate from "../AlertTemplate.js/index"
@@ -187,7 +188,21 @@ const Page = props => {
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
-      <ToastContainer />
+      <ToastContainer
+        rtl={false}
+        closeButton={
+          <div>
+            <IconButton
+              color={"default"}
+              aria-label="Delete"
+              // className={classes.closeBtn}
+              // onClick={() => close()}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </div>
+        }
+      />
       <MuiThemeProvider theme={theme}>
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
@@ -195,7 +210,6 @@ const Page = props => {
               <StyledPage>
                 <Meta />
                 <Header />
-                <Notifier />
                 <Inner>{props.children}</Inner>
 
                 {/* <div>
