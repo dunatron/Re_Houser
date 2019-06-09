@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Jun 04 2019 02:07:41 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
+# timestamp: Mon Jun 10 2019 00:45:45 GMT+1200 (New Zealand Standard Time)
 
 type AggregateCreditCard {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateFile {
 }
 
 type AggregateProperty {
+  count: Int!
+}
+
+type AggregatePropertyAdvertisement {
   count: Int!
 }
 
@@ -68,7 +72,6 @@ type CreditCardConnection {
 }
 
 input CreditCardCreateInput {
-  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -93,7 +96,6 @@ input CreditCardCreateOneInput {
 }
 
 input CreditCardCreateWithoutCardOwnerInput {
-  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -140,6 +142,8 @@ enum CreditCardOrderByInput {
   name_DESC
   tron_ASC
   tron_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CreditCardPreviousValues {
@@ -688,7 +692,6 @@ input CreditCardUpdateManyMutationInput {
 input CreditCardUpdateManyWithoutCardOwnerInput {
   create: [CreditCardCreateWithoutCardOwnerInput!]
   connect: [CreditCardWhereUniqueInput!]
-  set: [CreditCardWhereUniqueInput!]
   disconnect: [CreditCardWhereUniqueInput!]
   delete: [CreditCardWhereUniqueInput!]
   update: [CreditCardUpdateWithWhereUniqueWithoutCardOwnerInput!]
@@ -1206,7 +1209,6 @@ type FileConnection {
 }
 
 input FileCreateInput {
-  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -1575,7 +1577,6 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
-  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -1900,45 +1901,48 @@ scalar Long
 type Mutation {
   createProperty(data: PropertyCreateInput!): Property!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
+  createPropertyAdvertisement: PropertyAdvertisement!
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
-  createUser(data: UserCreateInput!): User!
   createFile(data: FileCreateInput!): File!
+  createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   updateRentalApplication(data: RentalApplicationUpdateInput!, where: RentalApplicationWhereUniqueInput!): RentalApplication
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   deleteProperty(where: PropertyWhereUniqueInput!): Property
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
+  deletePropertyAdvertisement(where: PropertyAdvertisementWhereUniqueInput!): PropertyAdvertisement
   deleteRentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteFile(where: FileWhereUniqueInput!): File
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
   upsertRentalApplication(where: RentalApplicationWhereUniqueInput!, create: RentalApplicationCreateInput!, update: RentalApplicationUpdateInput!): RentalApplication!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
   updateManyRentalApplications(data: RentalApplicationUpdateManyMutationInput!, where: RentalApplicationWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
+  deleteManyPropertyAdvertisements(where: PropertyAdvertisementWhereInput): BatchPayload!
   deleteManyRentalApplications(where: RentalApplicationWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
 }
 
@@ -2008,6 +2012,182 @@ type Property implements Node {
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication!]
 }
 
+type PropertyAdvertisement implements Node {
+  id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type PropertyAdvertisementConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PropertyAdvertisementEdge]!
+  aggregate: AggregatePropertyAdvertisement!
+}
+
+"""An edge in a connection."""
+type PropertyAdvertisementEdge {
+  """The item at the end of the edge."""
+  node: PropertyAdvertisement!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PropertyAdvertisementOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PropertyAdvertisementPreviousValues {
+  id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type PropertyAdvertisementSubscriptionPayload {
+  mutation: MutationType!
+  node: PropertyAdvertisement
+  updatedFields: [String!]
+  previousValues: PropertyAdvertisementPreviousValues
+}
+
+input PropertyAdvertisementSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyAdvertisementSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyAdvertisementSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyAdvertisementSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PropertyAdvertisementWhereInput
+}
+
+input PropertyAdvertisementWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyAdvertisementWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyAdvertisementWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyAdvertisementWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+input PropertyAdvertisementWhereUniqueInput {
+  id: ID
+}
+
 """A connection to a list of items."""
 type PropertyConnection {
   """Information to aid in pagination."""
@@ -2023,7 +2203,6 @@ input PropertyCreateindoorFeaturesInput {
 }
 
 input PropertyCreateInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -2065,7 +2244,6 @@ input PropertyCreateoutdoorFeaturesInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -2087,7 +2265,6 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -2109,7 +2286,6 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -2174,7 +2350,6 @@ input PropertyLeaseCreateindoorFeaturesInput {
 }
 
 input PropertyLeaseCreateInput {
-  id: ID
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -2206,7 +2381,6 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 }
 
 input PropertyLeaseCreateWithoutOwnersInput {
-  id: ID
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -2223,7 +2397,6 @@ input PropertyLeaseCreateWithoutOwnersInput {
 }
 
 input PropertyLeaseCreateWithoutTenantsInput {
-  id: ID
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -2719,7 +2892,6 @@ input PropertyLeaseUpdateManyMutationInput {
 input PropertyLeaseUpdateManyWithoutOwnersInput {
   create: [PropertyLeaseCreateWithoutOwnersInput!]
   connect: [PropertyLeaseWhereUniqueInput!]
-  set: [PropertyLeaseWhereUniqueInput!]
   disconnect: [PropertyLeaseWhereUniqueInput!]
   delete: [PropertyLeaseWhereUniqueInput!]
   update: [PropertyLeaseUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -2731,7 +2903,6 @@ input PropertyLeaseUpdateManyWithoutOwnersInput {
 input PropertyLeaseUpdateManyWithoutTenantsInput {
   create: [PropertyLeaseCreateWithoutTenantsInput!]
   connect: [PropertyLeaseWhereUniqueInput!]
-  set: [PropertyLeaseWhereUniqueInput!]
   disconnect: [PropertyLeaseWhereUniqueInput!]
   delete: [PropertyLeaseWhereUniqueInput!]
   update: [PropertyLeaseUpdateWithWhereUniqueWithoutTenantsInput!]
@@ -3704,7 +3875,6 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
-  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -3716,7 +3886,6 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
-  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -4235,24 +4404,27 @@ input PropertyWhereUniqueInput {
 type Query {
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
   rentalGroupApplicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant]!
+  propertyAdvertisements(where: PropertyAdvertisementWhereInput, orderBy: PropertyAdvertisementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyAdvertisement]!
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   property(where: PropertyWhereUniqueInput!): Property
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
+  propertyAdvertisement(where: PropertyAdvertisementWhereUniqueInput!): PropertyAdvertisement
   rentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
-  user(where: UserWhereUniqueInput!): User
   file(where: FileWhereUniqueInput!): File
+  user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
+  propertyAdvertisementsConnection(where: PropertyAdvertisementWhereInput, orderBy: PropertyAdvertisementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyAdvertisementConnection!
   rentalApplicationsConnection(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalApplicationConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
 
   """Fetches an object given its ID"""
@@ -4286,7 +4458,6 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -4307,7 +4478,6 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -4317,7 +4487,6 @@ input RentalApplicationCreateWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -4585,7 +4754,6 @@ input RentalApplicationUpdateManyMutationInput {
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
-  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -4834,7 +5002,6 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
-  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -4850,7 +5017,6 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
-  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -5142,7 +5308,6 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
-  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -5369,10 +5534,11 @@ input RentalGroupApplicantWhereUniqueInput {
 type Subscription {
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
   rentalGroupApplicant(where: RentalGroupApplicantSubscriptionWhereInput): RentalGroupApplicantSubscriptionPayload
+  propertyAdvertisement(where: PropertyAdvertisementSubscriptionWhereInput): PropertyAdvertisementSubscriptionPayload
   rentalApplication(where: RentalApplicationSubscriptionWhereInput): RentalApplicationSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
 }
 
@@ -5418,7 +5584,6 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -5481,7 +5646,6 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -5509,7 +5673,6 @@ input UserCreateWithoutCreatedPropertiesInput {
 }
 
 input UserCreateWithoutCreditCardsInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -5537,7 +5700,6 @@ input UserCreateWithoutCreditCardsInput {
 }
 
 input UserCreateWithoutLeasesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -5565,7 +5727,6 @@ input UserCreateWithoutLeasesInput {
 }
 
 input UserCreateWithoutPropertiesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -5593,7 +5754,6 @@ input UserCreateWithoutPropertiesInput {
 }
 
 input UserCreateWithoutTenantLeasesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -6591,7 +6751,6 @@ input UserUpdateManyMutationInput {
 input UserUpdateManyWithoutLeasesInput {
   create: [UserCreateWithoutLeasesInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutLeasesInput!]
@@ -6603,7 +6762,6 @@ input UserUpdateManyWithoutLeasesInput {
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]
@@ -6615,7 +6773,6 @@ input UserUpdateManyWithoutPropertiesInput {
 input UserUpdateManyWithoutTenantLeasesInput {
   create: [UserCreateWithoutTenantLeasesInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutTenantLeasesInput!]

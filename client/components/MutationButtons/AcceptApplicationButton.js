@@ -96,10 +96,17 @@ const AcceptApplicationButton = ({ application, property }) => {
           location: property.location,
           locationLat: property.locationLat,
           locationLng: property.locationLng,
+          // owners: {
+          //   connect: [
+          //     {
+          //       id: "cjvaqrrbdt8u50b126ci5mgdm",
+          //     },
+          //   ],
+          // },
           owners: {
             connect: [
               {
-                id: "cjvaqrrbdt8u50b126ci5mgdm",
+                id: ownerId,
               },
             ],
           },
@@ -109,12 +116,12 @@ const AcceptApplicationButton = ({ application, property }) => {
           indoorFeatures: {
             set: ["AIR_CONDITIONING", "FURNISHED", "DISHWASHER"],
           },
-          tenants: {
-            connect: [],
-          },
           // tenants: {
-          //   connect: tenantIds.map(tenantId => ({ id: tenantId })),
+          //   connect: [],
           // },
+          tenants: {
+            connect: tenantIds.map(tenantId => ({ id: tenantId })),
+          },
         },
       },
       update: (proxy, payload) => {
