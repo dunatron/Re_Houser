@@ -21,28 +21,32 @@ const ConfirmApplicant = ({ applicant }) => {
     email: applicant.email,
     firstName: applicant.firstName,
   }
-  const updateApplicant = useMutation(UPDATE_RENTAL_GROUP_APPLICANT_MUTATION, {
-    variables: {
-      data: rentalGroupApplicantData,
-      // data: {
-      //   approved: true,
-      // },
-      where: {
-        id: applicant.id,
-        // id: "userRentalApplicantData.id",
+  // ToDo: Mutation Props
+  const [updateApplicant, updateApplicantProps] = useMutation(
+    UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
+    {
+      variables: {
+        data: rentalGroupApplicantData,
+        // data: {
+        //   approved: true,
+        // },
+        where: {
+          id: applicant.id,
+          // id: "userRentalApplicantData.id",
+        },
       },
-    },
-    update: (proxy, payload) => {
-      /**
-       * Note: we still are storing the application data in state in the index of the application stepper.
-       * making it hard for updates to fall through
-       */
-      // const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-      // const testData = userData.me
-      // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-    },
-    // optimisticResponse: {},
-  })
+      update: (proxy, payload) => {
+        /**
+         * Note: we still are storing the application data in state in the index of the application stepper.
+         * making it hard for updates to fall through
+         */
+        // const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
+        // const testData = userData.me
+        // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
+      },
+      // optimisticResponse: {},
+    }
+  )
   return (
     <SwitchInput
       checked={applicant.approved}

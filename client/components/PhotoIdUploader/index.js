@@ -40,37 +40,45 @@ const PhotoIdUploader = ({ me }) => {
   const [photoId, setPhotoId] = useState("")
   const [showUploader, setShowUploader] = useState(!me.photoIdentification)
 
-  const uploadPhotoId = useMutation(UPLOAD_PHOTO_IDENTIFICATION, {
-    variables: {
-      file: file.raw,
-      photoId: photoId,
-    },
-    update: (proxy, payload) => {
-      console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
-      // i.e here just find the {me} and update the profile image url with the new one from cloudinary
-      const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-      console.log("userData => ", userData)
-      // console.log("payload => ", payload)
-      // console.log("userData.me => ", userData.me)
-      // userData.me = {
-      //   ...userData.me,
-      //   // ...payload.data.uploadPhotoId,
-      // }
-      const testData = userData.me
-      proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-      console.log("Proxy => ", proxy)
-      // NOTE: Its not going to let you update the me object when we need it in the current instance!
-      // setShowUploader(0)
-      setTabIndex(0)
-      toast.info(
-        <p>
-          <strong>upload new photo id please</strong>
-        </p>
-      )
-    },
-    refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    // optimisticResponse: {},
-  })
+  // ToDo: Mutation Props
+  const [uploadPhotoId, uploadPhotoIdProps] = useMutation(
+    UPLOAD_PHOTO_IDENTIFICATION,
+    {
+      variables: {
+        file: file.raw,
+        photoId: photoId,
+      },
+      update: (proxy, payload) => {
+        console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
+        // i.e here just find the {me} and update the profile image url with the new one from cloudinary
+        const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
+        console.log("userData => ", userData)
+        // console.log("payload => ", payload)
+        // console.log("userData.me => ", userData.me)
+        // userData.me = {
+        //   ...userData.me,
+        //   // ...payload.data.uploadPhotoId,
+        // }
+        const testData = userData.me
+        proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
+        console.log("Proxy => ", proxy)
+        // NOTE: Its not going to let you update the me object when we need it in the current instance!
+        // setShowUploader(0)
+        setTabIndex(0)
+        toast.info(
+          <p>
+            <strong>upload new photo id please</strong>
+          </p>
+        )
+      },
+      refetchQueries: [{ query: CURRENT_USER_QUERY }],
+      // optimisticResponse: {},
+    }
+  )
+
+  // console.log("uploadPhotoIdProps.loading => ", uploadPhotoIdProps.loading)
+  // console.log("uploadPhotoIdProps.error => ", uploadPhotoIdProps.error)
+  // console.log("uploadPhotoIdProps.data => ", uploadPhotoIdProps.data)
 
   const handleSetFile = file => {
     console.log("file => ", file)

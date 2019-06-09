@@ -47,7 +47,7 @@ const AcceptApplicationButton = ({ application, property }) => {
   const tenantIds = application.applicants
     .filter(f => f.approved === true)
     .filter(f => f.completed === true)
-    .map(tenant => tenant.id)
+    .map(tenant => tenant.user.id)
 
   // havnt done this yet...
   // const ownerIds = application
@@ -58,6 +58,7 @@ const AcceptApplicationButton = ({ application, property }) => {
   // 2. extract the owners from the application.
   // 3. then get the data
   // const createNewLease = useMutation(CREATE_PROPERTY_LEASE_MUTATION)
+  // ToDo: Mutation Props
   const [acceptApplicationMutation, { data, loading, error }] = useMutation(
     ACCEPT_RENTAL_APPLICATION_MUTATION,
     {
@@ -81,6 +82,7 @@ const AcceptApplicationButton = ({ application, property }) => {
       },
     }
   )
+  // ToDo: Mutation Props
   const [createNewPropertyLease, newLeasePayload] = useMutation(
     CREATE_PROPERTY_LEASE_MUTATION,
     {

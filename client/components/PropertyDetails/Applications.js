@@ -27,20 +27,24 @@ import { Button } from "@material-ui/core"
 import { ToastContainer, toast } from "react-toastify"
 
 const AcceptApplication = ({ application, property }) => {
-  const acceptApplication = useMutation(ACCEPT_RENTAL_APPLICATION_MUTATION, {
-    // variables: {
-    //   data: {
-    //     applicationId: application.id,
-    //     propertyId: property.id,
-    //   },
-    // },
-    variables: {
-      applicationId: application.id,
-      propertyId: property.id,
-    },
-    update: (proxy, payload) => {},
-    // optimisticResponse: {},
-  })
+  // ToDo: Mutation Props
+  const [acceptApplication, acceptApplicationProps] = useMutation(
+    ACCEPT_RENTAL_APPLICATION_MUTATION,
+    {
+      // variables: {
+      //   data: {
+      //     applicationId: application.id,
+      //     propertyId: property.id,
+      //   },
+      // },
+      variables: {
+        applicationId: application.id,
+        propertyId: property.id,
+      },
+      update: (proxy, payload) => {},
+      // optimisticResponse: {},
+    }
+  )
   return (
     <Button
       variant="outlined"

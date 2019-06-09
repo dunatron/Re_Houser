@@ -14,6 +14,7 @@ const COMPLETE_RENTAL_APPLICATION = gql`
 
 const FinaliseApplicationStep = ({ application }) => {
   const alert = useAlert()
+  // ToDo: Mutation Props
   const [completeApplication, completeApplicationProps] = useMutation(
     COMPLETE_RENTAL_APPLICATION,
     {

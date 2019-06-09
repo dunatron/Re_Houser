@@ -1,27 +1,28 @@
-import React, { Component } from "react";
-import { useQuery, useMutation } from "react-apollo-hooks";
-import CreateCard from "../CreateCard/index";
-import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index";
-import { UPDATE_USER_MUTATION } from "../../mutation/index";
-import Button from "@material-ui/core/Button";
+import React, { Component } from "react"
+import { useQuery, useMutation } from "react-apollo-hooks"
+import CreateCard from "../CreateCard/index"
+import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index"
+import { UPDATE_USER_MUTATION } from "../../mutation/index"
+import Button from "@material-ui/core/Button"
 
 const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
-  const setAsPrimary = useMutation(UPDATE_USER_MUTATION, {
+  // ToDo: Mutation Props
+  const [setAsPrimary, setAsPrimaryProps] = useMutation(UPDATE_USER_MUTATION, {
     variables: {
       data: {
         primaryCreditCard: {
           connect: {
-            id: cardId
-          }
-        }
-      }
+            id: cardId,
+          },
+        },
+      },
     },
     update: (proxy, payload) => {
-      const userData = proxy.readQuery({ query: CURRENT_USER_QUERY });
-      console.group("SetPrimaryCreditCardButton => ");
-      console.log("payload => ", payload);
-      console.log("userData => ", userData);
-      console.groupEnd();
+      const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
+      console.group("SetPrimaryCreditCardButton => ")
+      console.log("payload => ", payload)
+      console.log("userData => ", userData)
+      console.groupEnd()
       // userData.me = {
       //   ...userData.me
       //   // ...payload.data.uploadPhotoId,
@@ -30,7 +31,7 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
       //     proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
     },
     // optimisticResponse: {}
-  });
+  })
   return (
     <div>
       {!isPrimary ? (
@@ -41,7 +42,7 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
         <p>Is Primary Card</p>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default SetPrimaryCreditCardButton;
+export default SetPrimaryCreditCardButton
