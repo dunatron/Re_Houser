@@ -7,8 +7,20 @@ import {
   ACCEPT_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
 } from "../../mutation/index"
+import { useMatchFetch } from "../Effects/useMatchEffect"
 
 import { Button } from "@material-ui/core"
+import ChangeRouteButton from "../Routes/ChangeRouteButton"
+
+// export const Example = () => {
+//   const render = useMatchFetch("https://swapi.co/api/people/1/?format=json")
+
+//   return render({
+//     pending: () => <div>Loading</div>,
+//     error: err => <div>{err.toString()}</div>,
+//     data: data => <pre>{JSON.stringify(data, null, 2)}</pre>,
+//   })
+// }
 
 /**
  * This is actually going to be tied to createALeaseButton aswel as the acceptRentalApplication
@@ -97,12 +109,12 @@ const AcceptApplicationButton = ({ application, property }) => {
           indoorFeatures: {
             set: ["AIR_CONDITIONING", "FURNISHED", "DISHWASHER"],
           },
-          // tenants: {
-          //   connect: [],
-          // },
           tenants: {
-            connect: tenantIds.map(tenantId => ({ id: tenantId })),
+            connect: [],
           },
+          // tenants: {
+          //   connect: tenantIds.map(tenantId => ({ id: tenantId })),
+          // },
         },
       },
       update: (proxy, payload) => {
@@ -118,7 +130,15 @@ const AcceptApplicationButton = ({ application, property }) => {
               New Lease Created Id: {newLease.id} location: {newLease.location}
               Complete The Lease Here Todo: route to new lease
             </p>
-          </div>
+            <ChangeRouteButton
+              title="Manage & Sign Lease"
+              route="/my/lease"
+              query={{ id: newLease.id }}
+            />
+          </div>,
+          {
+            autoClose: 15000,
+          }
         )
       },
     }
@@ -129,6 +149,7 @@ const AcceptApplicationButton = ({ application, property }) => {
         errors={[error, newLeasePayload.error]}
         tronM="Acccepting applicatiion failed"
       />
+      {/* <Example /> */}
       <Button
         variant="outlined"
         onClick={() => {
