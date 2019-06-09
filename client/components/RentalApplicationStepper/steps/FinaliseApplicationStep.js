@@ -14,16 +14,22 @@ const COMPLETE_RENTAL_APPLICATION = gql`
 
 const FinaliseApplicationStep = ({ application }) => {
   const alert = useAlert()
-  const completeApplication = useMutation(COMPLETE_RENTAL_APPLICATION, {
-    variables: { applicationId: application.id },
-    update: (proxy, mutationResult) => {
-      /* your custom update logic */
-      console.group("completeApplication update")
-      console.log("proxy ", proxy)
-      console.log("mutationResult ", mutationResult)
-      console.groupEnd()
-    },
-  })
+  const [completeApplication, completeApplicationProps] = useMutation(
+    COMPLETE_RENTAL_APPLICATION,
+    {
+      variables: { applicationId: application.id },
+      update: (proxy, mutationResult) => {
+        /* your custom update logic */
+        console.group("completeApplication update")
+        console.log("proxy ", proxy)
+        console.log("mutationResult ", mutationResult)
+        console.groupEnd()
+      },
+    }
+  )
+  // completeApplicationProps.loading
+  // completeApplicationProps.data
+  // completeApplicationProps.error
 
   // hack to just bypass for dev
   return (
