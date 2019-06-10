@@ -558,6 +558,73 @@ query OWNER_PROPERTIES_QUERY {
 
 ```
 
+#### get myPropertyLeases
+on the serverSide I have set it up So you can simply call this query and you would  
+recieve everything available to you.  
+The server will only return things you are apart of and has the following injected into the where before it hits the database  
+
+```js
+query myLeases($where:PropertyLeaseWhereInput) {
+  myLeases(where:$where) {
+    id
+  }
+}
+// there where (the below is always injected by the server)
+{
+  "where": {
+    "id":"", 
+    "OR": [
+      {
+        "owners_some":{
+          "id":""
+        }
+      }, 
+      {
+        "tenants_some":{
+          "id":""
+        }
+      }
+    ]
+  }
+}
+const where = {
+      ...args.where,
+      OR: [
+        {
+          owners_some: {
+            id: ctx.request.userId,
+          },
+        },
+        {
+          tenants_some: {
+            id: ctx.request.userId,
+          },
+        },
+      ],
+    }
+{
+  "where": {
+    "OR": [
+      {
+        "lessors_some":{
+          "user": {
+            "id": "cjwq51kvcdy740b428jvm6phc"
+          }
+        }
+      }, 
+      {
+        "lessees_some":{
+          "user": {
+            "id": "cjwq51kvcdy740b428jvm6phc"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+
 ## Mutations
 
 #### createProperty
@@ -764,6 +831,7 @@ mutation COMPLETE_RENTAL_APPLICATION($applicationId: ID!) {
   "applicationId": "sdfdsf"
 }
 ```
+
 
 #### updateUser
 

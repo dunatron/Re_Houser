@@ -11,8 +11,8 @@ type User {
   resetTokenExpiry: Float
   permissions: [Permission] @scalarList(strategy: RELATION)
   properties: [Property!]! @relation(name: "PropertyOwner")
-  leases: [PropertyLease!]! @relation(name: "LeaseOwners")
-  tenantLeases: [PropertyLease!]! @relation(name: "LeaseTenants")
+  lesseeLeases: [Lessee!]! @relation(name: "UserLesseeLeases")
+  lessorLeases: [Lessor!]! @relation(name: "UserLessorLeases")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
   photoIdentification: File
   identificationNumber: String
@@ -81,6 +81,7 @@ type Property implements PropertyInfo {
   # floorPlans: File
   rentalApplications: [RentalApplication]
     @relation(name: "PropertyRentalApplication")
+  leases: [PropertyLease] @relation(name: "PropertyLeases")
 }
 
 type RentalGroupApplicant {
@@ -115,12 +116,30 @@ type RentalApplication {
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")
 }
 
+type Lessee {
+  id: ID! @unique @id
+  lease: PropertyLease @relation(name: "LeaseLessees")
+  user: User @relation(name: "UserLesseeLeases")
+  signed: Boolean!
+  signedAt: DateTime
+}
+
+type Lessor {
+  id: ID! @unique @id
+  lease: PropertyLease @relation(name: "LeaseLessors")
+  user: User @relation(name: "UserLessorLeases")
+  signed: Boolean!
+  signedAt: DateTime
+}
+
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
+  property: Property! @relation(name: "PropertyLeases")
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
-  owners: [User!]! @relation(name: "LeaseOwners")
-  tenants: [User!]! @relation(name: "LeaseTenants")
+  lessees: [Lessee!]! @relation(name: "LeaseLessees")
+  lessors: [Lessor!]! @relation(name: "LeaseLessors")
+  finalised: Boolean!
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!

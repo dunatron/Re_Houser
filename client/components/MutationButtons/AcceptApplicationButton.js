@@ -22,6 +22,29 @@ import ChangeRouteButton from "../Routes/ChangeRouteButton"
 //   })
 // }
 
+// lessors: {
+//   create: [
+//     {
+//       signed: false,
+//       user: {
+//         connect: {
+//           id: "",
+//         },
+//       },
+//     },
+//   ],
+// },
+const createLessors = ids => {
+  return ids.map(id => ({
+    signed: false,
+    user: {
+      connect: {
+        id: id,
+      },
+    },
+  }))
+}
+
 /**
  * This is actually going to be tied to createALeaseButton aswel as the acceptRentalApplication
  * When W
@@ -98,19 +121,11 @@ const AcceptApplicationButton = ({ application, property }) => {
           location: property.location,
           locationLat: property.locationLat,
           locationLng: property.locationLng,
-          // owners: {
-          //   connect: [
-          //     {
-          //       id: "cjvaqrrbdt8u50b126ci5mgdm",
-          //     },
-          //   ],
-          // },
-          owners: {
-            connect: [
-              {
-                id: ownerId,
-              },
-            ],
+          finalised: false,
+          property: {
+            connect: {
+              id: property.id,
+            },
           },
           outdoorFeatures: {
             set: ["OUTDOOR_SPA", "OUTDOOR_ENTERTAINMENT"],
@@ -118,12 +133,25 @@ const AcceptApplicationButton = ({ application, property }) => {
           indoorFeatures: {
             set: ["AIR_CONDITIONING", "FURNISHED", "DISHWASHER"],
           },
-          // tenants: {
-          //   connect: [],
-          // },
-          tenants: {
-            connect: tenantIds.map(tenantId => ({ id: tenantId })),
+          // createLessors
+          lessors: {
+            create: createLessors([ownerId]),
           },
+          lessees: {
+            create: createLessors(tenantIds),
+          },
+          // lessors: {
+          //   create: [
+          //     {
+          //       signed: false,
+          //       user: {
+          //         connect: {
+          //           id: "",
+          //         },
+          //       },
+          //     },
+          //   ],
+          // },
         },
       },
       update: (proxy, payload) => {

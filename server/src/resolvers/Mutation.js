@@ -14,6 +14,7 @@ const updateRentalApplication = require("./mutations/updateRentalApplication")
 const completeRentalApplication = require("./mutations/completeRentalApplication")
 const acceptRentalApplication = require("./mutations/acceptRentalApplication")
 const createPropertyLease = require("./mutations/createPropertyLease")
+const finalisePropertyLease = require("./mutations/finalisePropertyLease")
 var fs = require("fs"),
   path = require("path"),
   filePath = path.join(__dirname, "../lib/documents/test.docx")
@@ -428,6 +429,7 @@ const mutations = {
   acceptRentalApplication,
   createCreditCard,
   createPropertyLease,
+  finalisePropertyLease,
   async updateUser(parent, { data, photoFile }, ctx, info) {
     const uploadedPhoto = photoFile
       ? await processUpload(await photoFile, ctx)

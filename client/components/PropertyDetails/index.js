@@ -100,7 +100,7 @@ const PropertyDetails = ({ id }) => {
       )}
       {tabIndex === 2 && (
         <TabContainer>
-          <Leases />
+          <Leases property={property} />
         </TabContainer>
       )}
     </PropertyCard>

@@ -70,7 +70,7 @@ class Signup extends Component {
       </div>,
       {
         position: toast.POSITION.TOP_RIGHT,
-        closeOnClick: false,
+        // closeOnClick: false,
         autoClose: 15000,
       }
     )

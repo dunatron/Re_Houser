@@ -1,10 +1,13 @@
 // import PropertyDetails from "../../components/PropertyDetails/index"
+import LeaseManager from "../../components/LeaseManager/index"
+import PleaseSignIn from "../../components/PleaseSignIn"
 
 const MyLeasePage = props => (
   <div>
-    {/* <PropertyDetails id={props.query.id} /> */}
-    <h1>Welcome To the Lease Page </h1>
-    {JSON.stringify(props)}
+    <PleaseSignIn message="You cannot view a lease without being signed in">
+      {JSON.stringify(props)}
+      <LeaseManager leaseId={props.query.id} />
+    </PleaseSignIn>
   </div>
 )
 
