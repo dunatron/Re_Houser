@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Component } from "react"
 import Head from "next/head"
 import Geosuggest from "react-geosuggest"
 // import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
@@ -14,12 +14,8 @@ import { CountryCodesArray } from "../../lib/countryCodes"
 import { LOCATION_TYPES } from "../../lib/locationTypes"
 import { WORLD_FIXTURES } from "../../lib/locationFixtures"
 
-/**
- * This is not ok,
- * https://github.com/facebook/react/issues/14994
- */
-const LocationPicker = ({ selection }) => {
-  const defaultState = {
+export default class index extends Component {
+  state = {
     desc: "",
     lat: -46.1326615,
     lng: 168.89592100000004,
@@ -28,28 +24,26 @@ const LocationPicker = ({ selection }) => {
     country: "NZ",
     type: "geocode",
   }
-
-  const [state, setState] = useState(defaultState)
   /**
    * When the input receives focus
    */
-  const onFocus = e => {}
+  onFocus(e) {}
   /**
    * When the input loses focus
    */
-  const onBlur = e => {
+  onBlur(e) {
     // console.log("onBlur", e)
   }
   /**
    * When the input got changed
    */
-  const onChange = v => {
+  onChange(v) {
     // console.log("input changes to :" + v)
   }
   /**
    * When a suggest got selected
    */
-  const _suggest = suggestion => {
+  _suggest = suggestion => {
     let lat,
       lng,
       desc = ""
@@ -58,9 +52,6 @@ const LocationPicker = ({ selection }) => {
       return
     }
     const { location, description, gmaps } = suggestion
-    const shouldStayOpen = () => {
-      // this._geoSuggest.focus()
-    }
 
     console.log("The suggestion => ", suggestion)
 
@@ -78,31 +69,32 @@ const LocationPicker = ({ selection }) => {
         images = gmaps.photos.map(photo => photo.getUrl())
       }
     }
-    selection({
+    this.props.selection({
       lat: lat,
       lng,
       desc,
       images: images,
     })
 
-    setState({
-      ...state,
+    this.setState({
       lat: lat,
       lng,
       desc: desc,
       images: images,
     })
-    shouldStayOpen()
+    this.shouldStayOpen()
   }
-
+  shouldStayOpen = () => {
+    // this._geoSuggest.focus()
+  }
   /**
    * When there are no suggest results
    */
-  const onSuggestNoResults = userInput => {
+  onSuggestNoResults(userInput) {
     // console.log("onSuggestNoResults for :" + userInput)
   }
 
-  const _getZoom = desc => {
+  _getZoom = desc => {
     if (desc.length <= 3) {
       return 10
     }
@@ -124,10 +116,10 @@ const LocationPicker = ({ selection }) => {
     return 18
   }
 
-  const _getFixtures = () => {
-    if (state.country) {
+  _getFixtures = () => {
+    if (this.state.country) {
       return WORLD_FIXTURES.filter(
-        fixture => fixture.countyCode === state.country
+        fixture => fixture.countyCode === this.state.country
       )
     }
     return false
@@ -135,61 +127,57 @@ const LocationPicker = ({ selection }) => {
 
   // ToDo: compose the google props into a global to be able to be used
   // ToDo: make sure a selection ends in refocusing the input field
-
-  console.log("ABOUT TO RENDEAR LOCATION PICKER")
-
-  return (
-    <div>
-      <Geosuggest
-        // ref={el => (_geoSuggest = el)}
-        fixtures={_getFixtures()}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        onChange={onChange}
-        onSuggestSelect={suggestion => _suggest(suggestion)}
-        onSuggestNoResults={onSuggestNoResults}
-        location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
-        types={state.type === "ALL" ? null : state.types}
-        radius="20"
-        country={state.country === "ALL" ? null : state.country}
-      />
+  render() {
+    return (
       <div>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Location advanced Options</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails style={{ display: "flex", flexWrap: "wrap" }}>
-            <SelectOption
-              label="Country"
-              value={state.country}
-              options={[{ name: "ALL", value: "ALL" }].concat(
-                CountryCodesArray
-              )}
-              handleChange={e =>
-                setState({ ...state, country: e.target.value })
-              }
-            />
-
-            <SelectOption
-              label="Type"
-              value={state.type}
-              options={[{ name: "ALL", value: "ALL" }].concat(LOCATION_TYPES)}
-              handleChange={e => setState({ ...state, type: e.target.value })}
-            />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </div>
-      {state.showMap && (
-        <Map
-          center={{
-            lat: state.lat,
-            lng: state.lng,
-          }}
-          zoom={_getZoom(state.desc)}
+        <Geosuggest
+          ref={el => (this._geoSuggest = el)}
+          fixtures={this._getFixtures()}
+          onFocus={this.onFocus}
+          onBlur={this.onBlur}
+          onChange={this.onChange}
+          onSuggestSelect={suggestion => this._suggest(suggestion)}
+          onSuggestNoResults={this.onSuggestNoResults}
+          location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
+          types={this.state.type === "ALL" ? null : this.state.types}
+          radius="20"
+          country={this.state.country === "ALL" ? null : this.state.country}
         />
-      )}
-    </div>
-  )
-}
+        <div>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>Location advanced Options</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails
+              style={{ display: "flex", flexWrap: "wrap" }}>
+              <SelectOption
+                label="Country"
+                value={this.state.country}
+                options={[{ name: "ALL", value: "ALL" }].concat(
+                  CountryCodesArray
+                )}
+                handleChange={e => this.setState({ country: e.target.value })}
+              />
 
-export default LocationPicker
+              <SelectOption
+                label="Type"
+                value={this.state.type}
+                options={[{ name: "ALL", value: "ALL" }].concat(LOCATION_TYPES)}
+                handleChange={e => this.setState({ type: e.target.value })}
+              />
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </div>
+        {this.state.showMap && (
+          <Map
+            center={{
+              lat: this.state.lat,
+              lng: this.state.lng,
+            }}
+            zoom={this._getZoom(this.state.desc)}
+          />
+        )}
+      </div>
+    )
+  }
+}

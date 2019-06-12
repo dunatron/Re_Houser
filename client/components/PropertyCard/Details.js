@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar"
 import IconButton from "@material-ui/core/IconButton"
 import CameraIcon from "../../styles/icons/CameraIcon"
 import DetailItem from "./DetailItem"
+import moment from "moment"
 
 import Map from "../Map/index"
 
@@ -187,16 +188,24 @@ const Details = props => {
     <div>
       <CardContent>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {/* <Typography component="p">
+          <Typography component="div">
             indoorFeatures:{" "}
             {indoorFeatures &&
-              indoorFeatures.map((feature, i) => `${feature}, `)}
+              indoorFeatures.map((feature, i) => (
+                <Typography key={i} component="span">
+                  {feature}
+                </Typography>
+              ))}
           </Typography>
-          <Typography component="p">
+          <Typography component="div">
             outdoorFeatures:{" "}
             {outdoorFeatures &&
-              outdoorFeatures.map((feature, i) => `${feature},`)}
-          </Typography> */}
+              outdoorFeatures.map((feature, i) => (
+                <Typography key={i} component="span">
+                  {feature}
+                </Typography>
+              ))}
+          </Typography>
           <DetailItem
             icon={<CameraIcon />}
             label="offStreetSpaces"
@@ -222,7 +231,7 @@ const Details = props => {
           <DetailItem
             icon={<CameraIcon />}
             label="moveInDate"
-            value={moveInDate}
+            value={moment(moveInDate).format("MMMM Do YYYY")}
           />
           <DetailItem
             icon={<CameraIcon />}
@@ -242,12 +251,15 @@ const Details = props => {
         </div>
       </CardContent>
 
+      {/* BROKEN ON MOBILE: Like really really bad */}
       {/* {images && <ImageSlider images={images} />}
       {imageUrls && <ImageSlider imageUrls={imageUrls} />} */}
+
       <CardContent>
         <Typography component="p">
           A description about this lot of land/dwelling
         </Typography>
+
         {owners &&
           owners.map((owner, i) => {
             return (

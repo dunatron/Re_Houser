@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { Component } from "react"
 import { toast } from "react-toastify"
 import { Mutation } from "react-apollo"
 import gql from "graphql-tag"
@@ -12,7 +12,7 @@ import FabButton from "../../styles/FabButton"
 import NavigationIcon from "@material-ui/icons/Navigation"
 import TextInput from "../../styles/TextInput"
 import DateInput from "../Inputs/DateInput"
-import LocationPicker from "../LocationPicker/index"
+import LocationPicker from "../LocationPicker/index-class-component"
 import ImagePicker from "../ImagePicker/index"
 import DragDropUploader from "../DragDropUploader/index"
 import { adopt } from "react-adopt"
@@ -60,39 +60,51 @@ const CreateProperty = () => {
     garageSpaces: 5,
     offStreetSpaces: 2,
   }
-  const [state, setState] = useState(defaultState)
+  const [type, setType] = useState("HOUSE")
+  const [location, setLocation] = useState("HOUSE")
+  const [locationLat, setLocationLat] = useState("HOUSE")
+  const [locationLng, setLocationLng] = useState("HOUSE")
+  const [rooms, setRooms] = useState("HOUSE")
+  const [moveInDate, setMoveInDate] = useState("HOUSE")
+  const [images, setImages] = useState("HOUSE")
+  const [indoorFeatures, setIndooreatures] = useState("HOUSE")
+  const [outdoorFeatures, setType] = useState("HOUSE")
+  const [carportSpaces, setType] = useState("HOUSE")
+  const [garageSpaces, setType] = useState("HOUSE")
+  const [offStreetSpaces, setType] = useState("HOUSE")
+
   const saveToState = e => {
-    setState({ ...state, [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value })
   }
   const _createProperty = async createProperty => {
     const res = await createProperty()
     toast.success(<p>New Property Created</p>)
-    setState({
-      ...defaultState,
+    this.setState({
+      ...this.defaultState,
     })
   }
 
   const _propertyVariables = ({ me }) => {
-    const theFiles = state.images
+    const theFiles = this.state.images
       .filter(f => f.type === "rawImage")
       .map(file => file.data.raw)
     const data = {
       data: {
-        type: state.type,
-        rent: parseFloat(state.rent),
-        location: state.location,
-        locationLat: state.locationLat,
-        locationLng: state.locationLng,
-        rooms: parseInt(state.rooms),
-        moveInDate: state.moveInDate,
-        carportSpaces: parseInt(state.carportSpaces),
-        garageSpaces: parseInt(state.garageSpaces),
-        offStreetSpaces: parseInt(state.offStreetSpaces),
+        type: this.state.type,
+        rent: parseFloat(this.state.rent),
+        location: this.state.location,
+        locationLat: this.state.locationLat,
+        locationLng: this.state.locationLng,
+        rooms: parseInt(this.state.rooms),
+        moveInDate: "2015-03-25T12:00:00-06:30",
+        carportSpaces: 1,
+        garageSpaces: 5,
+        offStreetSpaces: 2,
         outdoorFeatures: {
-          set: state.outdoorFeatures,
+          set: this.state.outdoorFeatures,
         },
         indoorFeatures: {
-          set: state.indoorFeatures,
+          set: this.state.indoorFeatures,
         },
         owners: {
           connect: {
@@ -107,7 +119,7 @@ const CreateProperty = () => {
         },
         images: {
           create: [
-            ...state.images
+            ...this.state.images
               .filter(img => img.type !== "rawImage")
               .map((img, i) => {
                 return {
@@ -129,24 +141,22 @@ const CreateProperty = () => {
     urls.map((url, i) => <img src={url} height="100" width="100" />)
 
   const removeImageFromState = idx => {
-    let images = state.images
+    let images = this.state.images
     images.splice(idx, 1)
-    setState({
-      ...state,
+    this.setState({
       images: images,
     })
   }
   const setFileInState = file => {
-    const files = state.images
+    const files = this.state.images
     files.push({ type: "rawImage", data: file })
 
-    setState({
-      ...state,
+    this.setState({
       images: files,
     })
   }
   const _canSubmit = () => {
-    const { location, locationLat, locationLng } = state
+    const { location, locationLat, locationLng } = this.state
     if (location.length < 1) {
       return false
     }
@@ -180,7 +190,6 @@ const CreateProperty = () => {
                   <LocationPicker
                     selection={data =>
                       setState({
-                        ...state,
                         locationLat: data.lat,
                         locationLng: data.lng,
                         location: data.desc,
@@ -200,8 +209,8 @@ const CreateProperty = () => {
                     type="text"
                     name="location"
                     placeholder="please enter your location"
-                    value={state.location}
-                    onChange={saveToState}
+                    value={this.state.location}
+                    onChange={this.saveToState}
                   />
                   <TextInput
                     id="latitude"
@@ -210,8 +219,8 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="text"
                     name="locationLat"
-                    value={state.locationLat}
-                    onChange={saveToState}
+                    value={this.state.locationLat}
+                    onChange={this.saveToState}
                   />
                   <TextInput
                     id="longitude"
@@ -220,41 +229,40 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="text"
                     name="locationLng"
-                    value={state.locationLng}
-                    onChange={saveToState}
+                    value={this.state.locationLng}
+                    onChange={this.saveToState}
                   />
 
                   <SelectOption
                     label="Type"
                     name="type"
-                    value={state.type}
+                    value={this.state.type}
                     options={PROPERTY_TYPES_CONF}
-                    handleChange={saveToState}
+                    handleChange={this.saveToState}
                   />
                   <TextInput
                     id="headline"
                     label="Headline for property advertisement"
                     fullWidth={true}
                     name="headline"
-                    value={state.headline}
-                    onChange={saveToState}
+                    value={this.state.headline}
+                    onChange={this.saveToState}
                   />
                   <MultiSelectChip
-                    values={state.indoorFeatures}
+                    values={this.state.indoorFeatures}
                     options={INDOOR_FEATURES_CONF}
                     label="Indoor Feature"
                     handleChange={value =>
-                      setState({ ...state, indoorFeatures: value })
+                      this.setState({ indoorFeatures: value })
                     }
                     removeItem={v => {
                       console.log("Re3move enum value from array ", v)
-                      const indoorFeatures = state.indoorFeatures
+                      const indoorFeatures = this.state.indoorFeatures
                       const featureIdx = indoorFeatures.findIndex(
                         feature => feature === v
                       )
                       indoorFeatures.splice(featureIdx, 1)
-                      setState({
-                        ...state,
+                      this.setState({
                         indoorFeatures: indoorFeatures,
                       })
                     }}
@@ -265,8 +273,8 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="number"
                     name="rooms"
-                    value={state.rooms}
-                    onChange={saveToState}
+                    value={this.state.rooms}
+                    onChange={this.saveToState}
                   />
                   <TextInput
                     id="bathRooms"
@@ -274,25 +282,24 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="number"
                     name="bathRooms"
-                    value={state.bathRooms}
-                    onChange={saveToState}
+                    value={this.state.bathRooms}
+                    onChange={this.saveToState}
                   />
                   <MultiSelectChip
-                    values={state.outdoorFeatures}
+                    values={this.state.outdoorFeatures}
                     options={OUTDOOR_FEATURES_CONF}
                     label="Outdoor Feature"
                     handleChange={value =>
-                      setState({ ...state, outdoorFeatures: value })
+                      this.setState({ outdoorFeatures: value })
                     }
                     removeItem={v => {
                       console.log("Re3move enum value from array ", v)
-                      const outdoorFeatures = state.outdoorFeatures
+                      const outdoorFeatures = this.state.outdoorFeatures
                       const featureIdx = outdoorFeatures.findIndex(
                         feature => feature === v
                       )
                       outdoorFeatures.splice(featureIdx, 1)
-                      setState({
-                        ...state,
+                      this.setState({
                         outdoorFeatures: outdoorFeatures,
                       })
                     }}
@@ -303,8 +310,8 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="number"
                     name="garageSpaces"
-                    value={state.garageSpaces}
-                    onChange={saveToState}
+                    value={this.state.garageSpaces}
+                    onChange={this.saveToState}
                   />
                   <TextInput
                     id="carportSpaces"
@@ -312,8 +319,8 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="number"
                     name="carportSpaces"
-                    value={state.carportSpaces}
-                    onChange={saveToState}
+                    value={this.state.carportSpaces}
+                    onChange={this.saveToState}
                   />
                   <TextInput
                     id="offStreetSpaces"
@@ -321,13 +328,13 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="number"
                     name="offStreetSpaces"
-                    value={state.offStreetSpaces}
-                    onChange={saveToState}
+                    value={this.state.offStreetSpaces}
+                    onChange={this.saveToState}
                   />
                   <DateInput
                     // value={"2015-03-25T12:00:00-06:30"}
-                    value={state.moveInDate}
-                    onChange={date => setState({ ...state, moveInDate: date })}
+                    value={this.state.moveInDate}
+                    onChange={date => this.setState({ moveInDate: date })}
                   />
                   <TextInput
                     id="rent"
@@ -335,19 +342,19 @@ const CreateProperty = () => {
                     fullWidth={true}
                     type="number"
                     name="rent"
-                    value={state.rent}
-                    onChange={saveToState}
+                    value={this.state.rent}
+                    onChange={this.saveToState}
                   />
                   <ImagePicker
-                    images={state.images}
-                    remove={idx => removeImageFromState(idx)}
+                    images={this.state.images}
+                    remove={idx => this.removeImageFromState(idx)}
                   />
                   <DragDropUploader
                     disabled={loading}
                     multiple={true}
                     types={["image"]}
                     extensions={[".jpg", ".png"]}
-                    receiveFile={file => setFileInState(file)}
+                    receiveFile={file => this.setFileInState(file)}
                   />
 
                   {/* {this._renderImages(this.state.images)} */}

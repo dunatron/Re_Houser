@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 10 2019 22:49:38 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
+# timestamp: Mon Jun 10 2019 23:23:16 GMT+1200 (New Zealand Standard Time)
 
 type AggregateCreditCard {
   count: Int!
@@ -80,7 +80,6 @@ type CreditCardConnection {
 }
 
 input CreditCardCreateInput {
-  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -105,7 +104,6 @@ input CreditCardCreateOneInput {
 }
 
 input CreditCardCreateWithoutCardOwnerInput {
-  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -152,6 +150,8 @@ enum CreditCardOrderByInput {
   name_DESC
   tron_ASC
   tron_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CreditCardPreviousValues {
@@ -700,7 +700,6 @@ input CreditCardUpdateManyMutationInput {
 input CreditCardUpdateManyWithoutCardOwnerInput {
   create: [CreditCardCreateWithoutCardOwnerInput!]
   connect: [CreditCardWhereUniqueInput!]
-  set: [CreditCardWhereUniqueInput!]
   disconnect: [CreditCardWhereUniqueInput!]
   delete: [CreditCardWhereUniqueInput!]
   update: [CreditCardUpdateWithWhereUniqueWithoutCardOwnerInput!]
@@ -1218,7 +1217,6 @@ type FileConnection {
 }
 
 input FileCreateInput {
-  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -1587,7 +1585,6 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
-  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -1922,7 +1919,6 @@ type LesseeConnection {
 }
 
 input LesseeCreateInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
@@ -1940,14 +1936,12 @@ input LesseeCreateManyWithoutUserInput {
 }
 
 input LesseeCreateWithoutLeaseInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   user: UserCreateOneWithoutLesseeLeasesInput
 }
 
 input LesseeCreateWithoutUserInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
@@ -1969,6 +1963,10 @@ enum LesseeOrderByInput {
   signed_DESC
   signedAt_ASC
   signedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type LesseePreviousValues {
@@ -2111,7 +2109,6 @@ input LesseeUpdateManyMutationInput {
 input LesseeUpdateManyWithoutLeaseInput {
   create: [LesseeCreateWithoutLeaseInput!]
   connect: [LesseeWhereUniqueInput!]
-  set: [LesseeWhereUniqueInput!]
   disconnect: [LesseeWhereUniqueInput!]
   delete: [LesseeWhereUniqueInput!]
   update: [LesseeUpdateWithWhereUniqueWithoutLeaseInput!]
@@ -2123,7 +2120,6 @@ input LesseeUpdateManyWithoutLeaseInput {
 input LesseeUpdateManyWithoutUserInput {
   create: [LesseeCreateWithoutUserInput!]
   connect: [LesseeWhereUniqueInput!]
-  set: [LesseeWhereUniqueInput!]
   disconnect: [LesseeWhereUniqueInput!]
   delete: [LesseeWhereUniqueInput!]
   update: [LesseeUpdateWithWhereUniqueWithoutUserInput!]
@@ -2273,7 +2269,6 @@ type LessorConnection {
 }
 
 input LessorCreateInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
@@ -2291,14 +2286,12 @@ input LessorCreateManyWithoutUserInput {
 }
 
 input LessorCreateWithoutLeaseInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   user: UserCreateOneWithoutLessorLeasesInput
 }
 
 input LessorCreateWithoutUserInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
@@ -2320,6 +2313,10 @@ enum LessorOrderByInput {
   signed_DESC
   signedAt_ASC
   signedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type LessorPreviousValues {
@@ -2462,7 +2459,6 @@ input LessorUpdateManyMutationInput {
 input LessorUpdateManyWithoutLeaseInput {
   create: [LessorCreateWithoutLeaseInput!]
   connect: [LessorWhereUniqueInput!]
-  set: [LessorWhereUniqueInput!]
   disconnect: [LessorWhereUniqueInput!]
   delete: [LessorWhereUniqueInput!]
   update: [LessorUpdateWithWhereUniqueWithoutLeaseInput!]
@@ -2474,7 +2470,6 @@ input LessorUpdateManyWithoutLeaseInput {
 input LessorUpdateManyWithoutUserInput {
   create: [LessorCreateWithoutUserInput!]
   connect: [LessorWhereUniqueInput!]
-  set: [LessorWhereUniqueInput!]
   disconnect: [LessorWhereUniqueInput!]
   delete: [LessorWhereUniqueInput!]
   update: [LessorUpdateWithWhereUniqueWithoutUserInput!]
@@ -2614,13 +2609,13 @@ scalar Long
 type Mutation {
   createProperty(data: PropertyCreateInput!): Property!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
-  createPropertyAdvertisement(data: PropertyAdvertisementCreateInput!): PropertyAdvertisement!
+  createPropertyAdvertisement: PropertyAdvertisement!
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
   createLessee(data: LesseeCreateInput!): Lessee!
   createLessor(data: LessorCreateInput!): Lessor!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
-  createUser(data: UserCreateInput!): User!
   createFile(data: FileCreateInput!): File!
+  createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -2628,8 +2623,8 @@ type Mutation {
   updateLessee(data: LesseeUpdateInput!, where: LesseeWhereUniqueInput!): Lessee
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   deleteProperty(where: PropertyWhereUniqueInput!): Property
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -2638,8 +2633,8 @@ type Mutation {
   deleteLessee(where: LesseeWhereUniqueInput!): Lessee
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteFile(where: FileWhereUniqueInput!): File
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
@@ -2647,8 +2642,8 @@ type Mutation {
   upsertLessee(where: LesseeWhereUniqueInput!, create: LesseeCreateInput!, update: LesseeUpdateInput!): Lessee!
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -2656,8 +2651,8 @@ type Mutation {
   updateManyLessees(data: LesseeUpdateManyMutationInput!, where: LesseeWhereInput): BatchPayload!
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -2666,8 +2661,8 @@ type Mutation {
   deleteManyLessees(where: LesseeWhereInput): BatchPayload!
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
 }
 
@@ -2752,10 +2747,6 @@ type PropertyAdvertisementConnection {
   """A list of edges."""
   edges: [PropertyAdvertisementEdge]!
   aggregate: AggregatePropertyAdvertisement!
-}
-
-input PropertyAdvertisementCreateInput {
-  id: ID
 }
 
 """An edge in a connection."""
@@ -2933,7 +2924,6 @@ input PropertyCreateindoorFeaturesInput {
 }
 
 input PropertyCreateInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -2981,7 +2971,6 @@ input PropertyCreateoutdoorFeaturesInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -3004,7 +2993,6 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutLeasesInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -3027,7 +3015,6 @@ input PropertyCreateWithoutLeasesInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -3050,7 +3037,6 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -3118,7 +3104,6 @@ input PropertyLeaseCreateindoorFeaturesInput {
 }
 
 input PropertyLeaseCreateInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -3157,7 +3142,6 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 }
 
 input PropertyLeaseCreateWithoutLesseesInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -3176,7 +3160,6 @@ input PropertyLeaseCreateWithoutLesseesInput {
 }
 
 input PropertyLeaseCreateWithoutLessorsInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -3195,7 +3178,6 @@ input PropertyLeaseCreateWithoutLessorsInput {
 }
 
 input PropertyLeaseCreateWithoutPropertyInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -3704,7 +3686,6 @@ input PropertyLeaseUpdateManyMutationInput {
 input PropertyLeaseUpdateManyWithoutPropertyInput {
   create: [PropertyLeaseCreateWithoutPropertyInput!]
   connect: [PropertyLeaseWhereUniqueInput!]
-  set: [PropertyLeaseWhereUniqueInput!]
   disconnect: [PropertyLeaseWhereUniqueInput!]
   delete: [PropertyLeaseWhereUniqueInput!]
   update: [PropertyLeaseUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -4722,7 +4703,6 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
-  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -4734,7 +4714,6 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
-  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -5298,8 +5277,8 @@ type Query {
   lessees(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee]!
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   property(where: PropertyWhereUniqueInput!): Property
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -5308,8 +5287,8 @@ type Query {
   lessee(where: LesseeWhereUniqueInput!): Lessee
   lessor(where: LessorWhereUniqueInput!): Lessor
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
-  user(where: UserWhereUniqueInput!): User
   file(where: FileWhereUniqueInput!): File
+  user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
@@ -5318,8 +5297,8 @@ type Query {
   lesseesConnection(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LesseeConnection!
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
 
   """Fetches an object given its ID"""
@@ -5353,7 +5332,6 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -5374,7 +5352,6 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -5384,7 +5361,6 @@ input RentalApplicationCreateWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -5652,7 +5628,6 @@ input RentalApplicationUpdateManyMutationInput {
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
-  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -5901,7 +5876,6 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
-  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -5917,7 +5891,6 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
-  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -6209,7 +6182,6 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
-  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -6441,8 +6413,8 @@ type Subscription {
   lessee(where: LesseeSubscriptionWhereInput): LesseeSubscriptionPayload
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
 }
 
@@ -6488,7 +6460,6 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -6551,7 +6522,6 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -6579,7 +6549,6 @@ input UserCreateWithoutCreatedPropertiesInput {
 }
 
 input UserCreateWithoutCreditCardsInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -6607,7 +6576,6 @@ input UserCreateWithoutCreditCardsInput {
 }
 
 input UserCreateWithoutLesseeLeasesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -6635,7 +6603,6 @@ input UserCreateWithoutLesseeLeasesInput {
 }
 
 input UserCreateWithoutLessorLeasesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -6663,7 +6630,6 @@ input UserCreateWithoutLessorLeasesInput {
 }
 
 input UserCreateWithoutPropertiesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -7661,7 +7627,6 @@ input UserUpdateManyMutationInput {
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]

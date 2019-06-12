@@ -128,30 +128,17 @@ const AcceptApplicationButton = ({ application, property }) => {
             },
           },
           outdoorFeatures: {
-            set: ["OUTDOOR_SPA", "OUTDOOR_ENTERTAINMENT"],
+            set: property.outdoorFeatures,
           },
           indoorFeatures: {
-            set: ["AIR_CONDITIONING", "FURNISHED", "DISHWASHER"],
+            set: property.indoorFeatures,
           },
-          // createLessors
           lessors: {
             create: createLessors([ownerId]),
           },
           lessees: {
             create: createLessors(tenantIds),
           },
-          // lessors: {
-          //   create: [
-          //     {
-          //       signed: false,
-          //       user: {
-          //         connect: {
-          //           id: "",
-          //         },
-          //       },
-          //     },
-          //   ],
-          // },
         },
       },
       update: (proxy, payload) => {

@@ -171,11 +171,12 @@ const PropertyCardComponent = props => {
           </div>
         }
       />
-      <CardMedia
+      {/* <CardMedia
         className={"media"}
-        image="/static/images/cards/paella.jpg"
+        // image="/static/images/cards/paella.jpg"
+        image={imageUrls.length > 0 ? imageUrls[0].url : null}
         title="Paella dish"
-      />
+      /> */}
       <Tabs value={value} onChange={handleChange}>
         <Tab label="Details" />
         <Tab label="Apply" />

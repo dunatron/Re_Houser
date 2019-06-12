@@ -41,6 +41,7 @@ const SearchInterface = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 0;
     /* width: 100%;
     position: absolute; */
     left: 0;

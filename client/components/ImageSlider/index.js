@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Slider from "react-slick"
 
-class SimpleSlider extends React.Component {
+class SimpleSlider extends Component {
   render() {
     var settings = {
       dots: true,
