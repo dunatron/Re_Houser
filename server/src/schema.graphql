@@ -52,6 +52,7 @@ type Mutation {
   acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
   createCreditCard(token: String!): CreditCard!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
+  signLease(id: ID!, leaseId: ID!, type: String!): SuccessMessage!
   finalisePropertyLease(leaseId: ID!): SuccessMessage!
 }
 

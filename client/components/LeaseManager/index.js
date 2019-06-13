@@ -1,12 +1,17 @@
 //myLease
 
 import React, { Component } from "react"
+import { adopt } from "react-adopt"
 import gql from "graphql-tag"
 import { useQuery, useMutation } from "react-apollo-hooks"
+import User from "../User/index"
 import Error from "../ErrorMessage"
 import FinaliseLeaseBtn from "../MutationButtons/FinaliseLeaseButton"
+import SignLeaseBtn from "../MutationButtons/SignLeaseButton"
+import CompletedLease from "./CompletedLease"
+import SignLease from "./SignLease"
 
-const SINGLE_LEASE_QUERY = gql`
+export const SINGLE_LEASE_QUERY = gql`
   query SINGLE_LEASE_QUERY($where: PropertyLeaseWhereUniqueInput!) {
     myLease(where: $where) {
       id
@@ -33,6 +38,10 @@ const SINGLE_LEASE_QUERY = gql`
   }
 `
 
+const extractCurrentUserLeaseData = () => {}
+const Composed = adopt({
+  user: ({ render }) => <User>{render}</User>,
+})
 const LeaseManager = ({ leaseId }) => {
   const { data, error, loading } = useQuery(SINGLE_LEASE_QUERY, {
     variables: {
@@ -46,42 +55,31 @@ const LeaseManager = ({ leaseId }) => {
   if (loading) return "Preparing Lease, please wait..."
   if (error) return "Error with feting lease Data"
   const { finalised, location, rent, lessors, lessees } = data.myLease
+
+  /**
+   * This may have a few bad consequences, you will be changing props which
+   * will probably try to rerender this component again resulting in it trying to
+   * route again.
+   * Can maybe rely on react/next(router) to be smart enough
+   */
+  // if (finalised) return <CompletedLease />
   return (
     <div>
-      <FinaliseLeaseBtn leaseId={leaseId} finalised={finalised} />
-      <h1>I am The Lease Manager</h1>
-      <p>Finalised => {finalised ? "YES" : "NO"}</p>
-      <p>lease ID => {leaseId}</p>
-      <p>lease rent => {rent}</p>
-      <p>lease location => {location}</p>
-      <h4>Lessors</h4>
-      {lessors.map(lessor => {
-        return (
-          <div>
-            <p>Unique Lessor ID => {lessor.id}</p>
-            <p>Signed => {lessor.signed ? "YES" : "NO"}</p>
-            <p>lessor User details</p>
-            <ul>
-              <li>{lessor.user.id}</li>
-              <li>{lessor.user.email}</li>
-            </ul>
-          </div>
-        )
-      })}
-      <h4>Lessees</h4>
-      {lessees.map(lessee => {
-        return (
-          <div>
-            <p>Unique lessee ID => {lessee.id}</p>
-            <p>Signed => {lessee.signed ? "YES" : "NO"}</p>
-            <p>lessee User details</p>
-            <ul>
-              <li>{lessee.user.id}</li>
-              <li>{lessee.user.email}</li>
-            </ul>
-          </div>
-        )
-      })}
+      <Composed>
+        {({ user }) => {
+          const me = user.data.me
+
+          if (!me) return "Ohhh you must be signed in to accept leases"
+          // 1. we need to extract the lessor or lessee information for this lease for the current signed in user
+          const lessorIds = lessors.map(lessor => lessor.id)
+          const lessorUserIds = lessees.map(lessor => lessor.user.id)
+
+          // 1. if lease has been finalised <CompletedLease />
+          if (finalised) return <CompletedLease />
+          // 2. we need to sign the lease <CompletedLease />
+          return <SignLease lease={data.myLease} me={me} />
+        }}
+      </Composed>
     </div>
   )
 }

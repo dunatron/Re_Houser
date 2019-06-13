@@ -3,6 +3,8 @@ import gql from "graphql-tag"
 import { useQuery, useMutation } from "react-apollo-hooks"
 import Error from "../ErrorMessage"
 import Button from "@material-ui/core/Button"
+import { toast } from "react-toastify"
+import { SINGLE_LEASE_QUERY } from "../LeaseManager"
 
 const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   mutation FINALISE_PROPERTY_LEASE_MUTATION($leaseId: ID!) {
@@ -20,7 +22,22 @@ const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
         leaseId: leaseId,
       },
       update: (proxy, payload) => {
-        console.log(payload)
+        const leaseData = proxy.readQuery({
+          query: SINGLE_LEASE_QUERY,
+          variables: {
+            where: {
+              id: leaseId,
+            },
+          },
+        })
+        if (payload.data.finalisePropertyLease) {
+          if (
+            payload.data.finalisePropertyLease.__typename === "SuccessMessage"
+          ) {
+            leaseData.myLease.finalised = true
+            toast.info(<p>{payload.data.finalisePropertyLease.message}</p>)
+          }
+        }
       },
     }
   )

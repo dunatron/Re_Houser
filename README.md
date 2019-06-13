@@ -832,6 +832,34 @@ mutation COMPLETE_RENTAL_APPLICATION($applicationId: ID!) {
 }
 ```
 
+#### update Lease
+```js
+mutation updateLease($data:PropertyLeaseUpdateInput!, $where:PropertyLeaseWhereUniqueInput!){
+  updatePropertyLease(data:$data, where:$where) {
+    id
+  }
+}
+// variables
+{
+  "where": {
+    "id": "LEASE_ID"
+  },
+  "data": {
+    "rent": 42.00,
+    "lessees": {
+      "update": {
+        "where": {
+          "id": "LESSEE_ID"
+        },
+        "data": {
+          "signed": true
+        }
+      }
+    }
+  }
+}
+```
+
 
 #### updateUser
 

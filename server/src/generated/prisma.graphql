@@ -1,5 +1,5 @@
 # source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Mon Jun 10 2019 23:23:16 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu Jun 13 2019 23:00:48 GMT+1200 (New Zealand Standard Time)
 
 type AggregateCreditCard {
   count: Int!

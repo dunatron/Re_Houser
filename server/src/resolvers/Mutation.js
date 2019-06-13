@@ -14,6 +14,7 @@ const updateRentalApplication = require("./mutations/updateRentalApplication")
 const completeRentalApplication = require("./mutations/completeRentalApplication")
 const acceptRentalApplication = require("./mutations/acceptRentalApplication")
 const createPropertyLease = require("./mutations/createPropertyLease")
+const signLease = require("./mutations/signLease")
 const finalisePropertyLease = require("./mutations/finalisePropertyLease")
 var fs = require("fs"),
   path = require("path"),
@@ -429,6 +430,7 @@ const mutations = {
   acceptRentalApplication,
   createCreditCard,
   createPropertyLease,
+  signLease,
   finalisePropertyLease,
   async updateUser(parent, { data, photoFile }, ctx, info) {
     const uploadedPhoto = photoFile

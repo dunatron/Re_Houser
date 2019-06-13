@@ -55,6 +55,20 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet")
   }
 
+  const acceptedLease = ctx.db.mutation.updatePropertyLease({
+    where: {
+      id: leaseId,
+    },
+    data: {
+      finalised: true,
+    },
+  })
+
+  /**
+   * ^^^^ Well that worked out not too bad for a drunken spreee
+   * leave it alone
+   */
+
   console.log("lessorIds => ", lessorIds)
   // 2. check that the user making this request is one of the lessors
   // 3. validate that everything has been signed. NOTE: when certain variables are updated for a lease it should unsign if not finalised
