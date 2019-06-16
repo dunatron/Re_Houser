@@ -24,6 +24,7 @@ import EditIcon from "../../styles/icons/EditIcon"
 import PersonAddIcon from "@material-ui/icons/PersonAdd"
 import PersonIcon from "@material-ui/icons/Person"
 import ResetIcon from "@material-ui/icons/Build"
+import Error from "../ErrorMessage"
 
 import { isEmpty } from "ramda"
 
@@ -41,7 +42,7 @@ const PhotoIdUploader = ({ me }) => {
   const [showUploader, setShowUploader] = useState(!me.photoIdentification)
 
   // ToDo: Mutation Props
-  const [uploadPhotoId, uploadPhotoIdProps] = useMutation(
+  const [uploadPhotoId, { data, error, loading }] = useMutation(
     UPLOAD_PHOTO_IDENTIFICATION,
     {
       variables: {
@@ -53,15 +54,24 @@ const PhotoIdUploader = ({ me }) => {
         // i.e here just find the {me} and update the profile image url with the new one from cloudinary
         const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
         console.log("userData => ", userData)
+        console.log("userData => ", payload)
+        userData.me = {
+          ...userData.me,
+          identificationNumber: payload.data.uploadPhotoId.identificationNumber,
+          photoIdentification: {
+            ...userData.me.photoIdentification,
+            ...payload.data.uploadPhotoId.photoIdentification,
+          },
+        }
         // console.log("payload => ", payload)
         // console.log("userData.me => ", userData.me)
         // userData.me = {
         //   ...userData.me,
         //   // ...payload.data.uploadPhotoId,
         // }
-        const testData = userData.me
-        proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-        console.log("Proxy => ", proxy)
+        // const testData = userData.me
+        // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
+        // console.log("Proxy => ", proxy)
         // NOTE: Its not going to let you update the me object when we need it in the current instance!
         // setShowUploader(0)
         setTabIndex(0)
@@ -93,6 +103,7 @@ const PhotoIdUploader = ({ me }) => {
   // }, [input])
   return (
     <Card>
+      <Error error={error} />
       <Tabs
         value={tabIndex}
         onChange={setTabIndex}
@@ -160,9 +171,13 @@ const PhotoIdUploader = ({ me }) => {
                       className="preUpload__upload-btn"
                       variant="contained"
                       color="primary"
+                      disabled={loading}
                       size="large">
                       <EditIcon />
-                      Upload Photo Identification
+
+                      {loading
+                        ? "Uploading Identification Please Wait"
+                        : "Upload Photo Identification"}
                     </Button>
                   </div>
                 </div>

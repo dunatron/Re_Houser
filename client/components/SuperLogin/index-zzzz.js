@@ -87,7 +87,8 @@ const LoginPage = props => {
         index={tabIndex}
         onChangeIndex={handleChangeIndex}>
         <TabContainer dir={theme.direction}>
-          <Signup />
+          <h1>I am functional</h1>
+          {/* <Signup /> */}
         </TabContainer>
         <TabContainer dir={theme.direction}>
           <Signin />

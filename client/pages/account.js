@@ -6,7 +6,15 @@ export default class AccountPage extends Component {
   render() {
     return (
       <div>
-        <PleaseSignIn>
+        <PleaseSignIn
+          alert={
+            <div>
+              <p>
+                <strong>Please Sign In</strong>
+              </p>
+              <p>You must be signed in to view your account</p>
+            </div>
+          }>
           <Account />
         </PleaseSignIn>
       </div>

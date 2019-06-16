@@ -6,7 +6,7 @@ import Signout from "../Signout/index"
 import Avatar from "@material-ui/core/Avatar"
 import Fab from "@material-ui/core/Fab"
 
-class SimpleMenu extends React.Component {
+class AccountIcon extends React.Component {
   state = {
     anchorEl: null,
   }
@@ -44,14 +44,20 @@ class SimpleMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}>
           {/* <MenuItem onClick={this.handleClose}>Profile</MenuItem> */}
-          <MenuItem onClick={() => this.sendRoute("/account")}>
+          <MenuItem
+            onClick={() => this.sendRoute("/account")}
+            // onClick={async () => {
+            //   await this.handleClose()
+            //   this.sendRoute("/account")
+            // }}
+          >
             My account
           </MenuItem>
-          <Signout fullWidth={true} label={`Logout`} />
+          <Signout fullWidth={true} label={`Logout`} me={me} />
         </Menu>
       </div>
     )
   }
 }
 
-export default SimpleMenu
+export default AccountIcon

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React from "react"
+import React, { useEffect } from "react"
 import { toast } from "react-toastify"
 
 import PropTypes from "prop-types"
@@ -19,27 +19,14 @@ const ErrorStyles = styled.div`
 `
 
 const DisplayError = ({ error, tronM }) => {
-  /** custon test begin */
-  /** custon test begin */
   if (!error || !error.message) return null
-  // if (error) {
-  //   toast("I said so ho")
-  // }
+
   if (
     error.networkError &&
     error.networkError.result &&
     error.networkError.result.errors.length
   ) {
     error.networkError.result.errors.map((errorForToast, i) =>
-      // toast.error(
-      //   <ErrorStyles key={i}>
-      //     <p data-test="graphql-error">
-      //       <strong>Shoot! network Err</strong>
-      //       {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-      //       {error.message.replace("GraphQL error: ", "")}
-      //     </p>
-      //   </ErrorStyles>
-      // )
       toast.error(
         <p data-test="graphql-error">
           <strong>Shoot! network Err</strong>
@@ -48,6 +35,10 @@ const DisplayError = ({ error, tronM }) => {
         </p>
       )
     )
+
+    useEffect(() => {
+      // maybe put above error toasts inside this useEffect
+    }, [error.networkError.result.errors])
     return error.networkError.result.errors.map((error, i) => (
       <>
         {tronM && (
@@ -59,29 +50,22 @@ const DisplayError = ({ error, tronM }) => {
         <ErrorStyles key={i}>
           <p data-test="graphql-error">
             <strong>Shoot!</strong>
-            {/* <button onClick={() => notify()}>Ima need more than that</button> */}
             {error.message.replace("GraphQL error: ", "")}
           </p>
         </ErrorStyles>
       </>
     ))
   }
-  // toast.error(
-  //   <ErrorStyles>
-  //     <p data-test="graphql-error">
-  //       <strong>Shoot! network Err</strong>
-  //       {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-  //       {error.message.replace("GraphQL error: ", "")}
-  //     </p>
-  //   </ErrorStyles>
-  // )
-  toast.error(
-    <p data-test="graphql-error">
-      <strong>Shoot! </strong>
-      {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-      {error.message.replace("GraphQL error: ", "")}
-    </p>
-  )
+  useEffect(() => {
+    toast.error(
+      <p data-test="graphql-error">
+        <strong>Shoot! </strong>
+        {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+        {error.message.replace("GraphQL error: ", "")}
+      </p>
+    )
+  }, [error.message])
+
   return (
     <ErrorStyles>
       <>

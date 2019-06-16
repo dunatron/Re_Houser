@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core/styles"
@@ -38,21 +38,54 @@ const styles = theme => ({
   },
 })
 
-function getSteps() {
+const getSteps = () => {
   return ["My Details", "Application Details", "Finalise"]
 }
 
-class RentalApplicationStepper extends Component {
-  state = {
+const RentalApplicationStepper = props => {
+  // state = {
+  //   activeStep: 0,
+  //   completed: {},
+  //   userInfo: {},
+  //   applicationInfo: {},
+  //   userErrorsBag: {},
+  // }
+  const { classes, me, property, application } = props
+  const getApplicantObject = () => {
+    const userRentalApplicantData = props.application.applicants.find(
+      applicant => applicant.user.id === props.me.id
+    )
+    return userRentalApplicantData
+  }
+  const applicantData = getApplicantObject()
+  const applicationInfo = props.application
+  const userInfo = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
+    // const objPiece = { [conf.variableName]: [me[conf.variableName]] };
+    const objPiece = {
+      [conf.variableName]: {
+        ...conf,
+        label: conf.label,
+        value: applicantData[conf.variableName]
+          ? applicantData[conf.variableName]
+          : me[conf.variableName],
+        editable: true,
+      },
+    }
+    bigObj = { ...bigObj, ...objPiece }
+    return bigObj
+  }, {})
+
+  const [state, setState] = useState({
     activeStep: 0,
     completed: {},
-    userInfo: {},
-    applicationInfo: {},
+    userInfo: userInfo,
+    applicationInfo: applicationInfo,
     userErrorsBag: {},
-  }
-  getStepContent = (step, me, property, application) => {
-    const { userErrorsBag } = this.state
-    const applicantData = this.getApplicantObject()
+  })
+  useEffect(() => {}, [])
+  const getStepContent = (step, me, property, application) => {
+    const { userErrorsBag } = state
+    const applicantData = getApplicantObject()
     // console.log("applicantData => for step component => ", applicantData)
     switch (step) {
       case 0:
@@ -61,19 +94,20 @@ class RentalApplicationStepper extends Component {
           <UserDetailsStep
             me={me}
             property={property}
-            userInfo={this.state.userInfo}
+            userInfo={state.userInfo}
             applicantData={applicantData}
-            onChange={this.handleDetailsChange}
+            onChange={handleDetailsChange}
             errorsBag={userErrorsBag}
-            completed={this.state.completed[0]}
+            completed={state.completed[0]}
           />
         )
       case 1:
         return (
           <ApplicationDetailsStep
             application={application}
+            property={property}
             me={me}
-            applicationInfo={this.state.applicationInfo}
+            applicationInfo={state.applicationInfo}
           />
         )
       case 2:
@@ -82,104 +116,69 @@ class RentalApplicationStepper extends Component {
         return "Unknown step"
     }
   }
-  getApplicantObject = () => {
-    const userRentalApplicantData = this.props.application.applicants.find(
-      applicant => applicant.user.id === this.props.me.id
-    )
-    return userRentalApplicantData
-  }
-  handleDetailsChange = e => {
+
+  const handleDetailsChange = e => {
     // console.log("handleDetailsChange => ", e)
     const name = e.target.name
     const varName = `userInfo.${[e.target.name]}`
-    // console.log("varName ?? => ", varName)
-    // console.log("value name ", name)
-    this.setState({
+    setState({
+      ...state,
       userInfo: {
-        ...this.state.userInfo,
+        ...state.userInfo,
         [e.target.name]: {
-          ...this.state.userInfo[e.target.name],
+          ...state.userInfo[e.target.name],
           value: e.target.value,
         },
       },
     })
-    // this.setState({ varName: e.target.value });
-    // this.setState({ [e.target.name]: e.target.value })
-  }
-  componentDidMount() {
-    const { completed } = this.state
-    const me = this.props.me
-    const applicantData = this.getApplicantObject()
-    // console.log("applicantData ", applicantData)
-    // extract userInfo and set it in state
-    const userInfo = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
-      // const objPiece = { [conf.variableName]: [me[conf.variableName]] };
-      const objPiece = {
-        [conf.variableName]: {
-          ...conf,
-          label: conf.label,
-          value: applicantData[conf.variableName]
-            ? applicantData[conf.variableName]
-            : me[conf.variableName],
-          // value: me[conf.variableName],
-          editable: true,
-        },
-      }
-      bigObj = { ...bigObj, ...objPiece }
-      return bigObj
-    }, {})
-    // this.props.application
-    const applicationInfo = this.props.application
-    // console.log("applicationInfo hasMounted => ", applicationInfo)
-    // completed[0] = applicantData.completed ? true : false
-    this.setState({ userInfo: userInfo, applicationInfo: applicationInfo })
   }
 
-  totalSteps = () => getSteps().length
+  const totalSteps = () => getSteps().length
 
-  handleNext = () => {
+  const handleNext = () => {
     let activeStep
 
-    if (this.isLastStep() && !this.allStepsCompleted()) {
+    if (isLastStep() && !allStepsCompleted()) {
       // It's the last step, but not all steps have been completed,
       // find the first step that has been completed
       const steps = getSteps()
-      activeStep = steps.findIndex((step, i) => !(i in this.state.completed))
+      activeStep = steps.findIndex((step, i) => !(i in state.completed))
     } else {
-      activeStep = this.state.activeStep + 1
+      activeStep = state.activeStep + 1
     }
-    this.setState({
+    setState({
+      ...state,
       activeStep,
     })
   }
 
-  handleBack = () => {
-    this.setState(state => ({
+  const handleBack = () => {
+    setState(state => ({
+      ...state,
       activeStep: state.activeStep - 1,
     }))
   }
 
-  handleStep = step => () => {
-    this.setState({
+  const handleStep = step => () => {
+    setState({
+      ...state,
       activeStep: step,
     })
   }
 
   // Check Complete for each step
-  handleComplete = async () => {
-    const { completed } = this.state
-    switch (this.state.activeStep) {
+  const handleComplete = async () => {
+    const { completed } = state
+    switch (state.activeStep) {
       case 0: {
-        const didSave = await this._saveUserDetails(this.state.userInfo)
+        const didSave = await _saveUserDetails(state.userInfo)
         if (!didSave) {
           return
         }
         break
       }
       case 1: {
-        const didSave = await this._saveApplicationDetails(
-          this.state.applicationInfo
-        )
+        const didSave = await _saveApplicationDetails(state.applicationInfo)
         if (!didSave) {
           return
         }
@@ -189,140 +188,58 @@ class RentalApplicationStepper extends Component {
     // 0 === userDetails
     // 1 === applicationDetails
     // 2 === addFriends/complete?
-    completed[this.state.activeStep] = true
+    completed[state.activeStep] = true
 
-    this.setState({
+    setState({
+      ...state,
       completed,
     })
-    this.handleNext()
+    handleNext()
   }
 
-  handleReset = () => {
-    this.setState({
+  const handleReset = () => {
+    setState({
+      ...state,
       activeStep: 0,
       completed: {},
     })
   }
 
-  completedSteps() {
-    return Object.keys(this.state.completed).length
+  const completedSteps = () => {
+    return Object.keys(state.completed).length
   }
 
-  isLastStep() {
-    return this.state.activeStep === this.totalSteps() - 1
+  const isLastStep = () => {
+    return state.activeStep === totalSteps() - 1
   }
 
-  allStepsCompleted() {
-    return this.completedSteps() === this.totalSteps()
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps()
   }
 
-  render() {
-    const { classes, me, property, application } = this.props
-    const steps = getSteps()
-    const { activeStep } = this.state
+  const steps = getSteps()
+  const { activeStep } = state
 
-    // console.log("THE APPLICATION => ", application)
-    // console.log("This.state => ", this.state)
-
-    return (
-      <div className={classes.root}>
-        <Stepper nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label}>
-              <StepButton
-                onClick={this.handleStep(index)}
-                completed={this.state.completed[index]}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        <div>
-          {this.allStepsCompleted() ? (
-            <div>
-              <Typography className={classes.instructions}>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Button onClick={this.handleReset}>Close</Button>
-            </div>
-          ) : (
-            <div>
-              <Typography className={classes.instructions}>
-                {this.getStepContent(activeStep, me, property, application)}
-              </Typography>
-              <div>
-                <Button
-                  disabled={activeStep === 0}
-                  onClick={this.handleBack}
-                  className={classes.button}>
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleNext}
-                  className={classes.button}>
-                  Next
-                </Button>
-                {activeStep !== steps.length &&
-                  (this.state.completed[this.state.activeStep] ? (
-                    <div>
-                      <Typography
-                        variant="caption"
-                        className={classes.completed}>
-                        Step {activeStep + 1} already completed
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                          const { completed } = this.state
-                          completed[this.state.activeStep] = false
-                          this.setState({ completed })
-                        }}>
-                        Redo Section
-                      </Button>
-                    </div>
-                  ) : (
-                    <div>{this._renderNextButtons()}</div>
-                  ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    )
-  }
-
-  _renderNextButtons = () => {
-    const { activeStep } = this.state
+  const _renderNextButtons = () => {
+    const { activeStep } = state
     switch (activeStep) {
       case 0: {
         return (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleComplete}>
+          <Button variant="contained" color="primary" onClick={handleComplete}>
             Complete User Details
           </Button>
         )
       }
       case 1: {
         return (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleComplete}>
+          <Button variant="contained" color="primary" onClick={handleComplete}>
             Complete Application Details
           </Button>
         )
       }
       default: {
         return (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleComplete}>
+          <Button variant="contained" color="primary" onClick={handleComplete}>
             Finish
           </Button>
         )
@@ -331,19 +248,19 @@ class RentalApplicationStepper extends Component {
   }
 
   // Validation on step Save
-  _saveUserDetails = async userInfo => {
+  const _saveUserDetails = async userInfo => {
     // console.log("userInfo => ", userInfo)
-    const { classes, me, property, application } = this.props
+    const { classes, me, property, application } = props
     if (!me.photoIdentification) {
       alert("You need photo ID")
       return
     }
-    await this.setState({ userErrorsBag: {} })
+    await setState({ ...state, userErrorsBag: {} })
     const errorsBag = customErrorsBag(userInfo)
     // console.log("errorsBag => ", errorsBag)
     // if there are errors exit early and set userErrorsBag
     if (!isEmpty(errorsBag)) {
-      this.setState({ userErrorsBag: errorsBag })
+      setState({ ...state, userErrorsBag: errorsBag })
       return false
     }
 
@@ -353,8 +270,8 @@ class RentalApplicationStepper extends Component {
       return previous
     }, {})
     // console.log("userData => ", userData)
-    const userRentalApplicantData = this.props.application.applicants.find(
-      applicant => applicant.user.id === this.props.me.id
+    const userRentalApplicantData = props.application.applicants.find(
+      applicant => applicant.user.id === props.me.id
     )
     const rentalGroupApplicantData = {
       completed: true,
@@ -362,12 +279,9 @@ class RentalApplicationStepper extends Component {
       firstName: userData.firstName,
     }
     // console.log("rentalGroupApplicantData => ", rentalGroupApplicantData)
-    const updatedUser = this.props.updateRentalGroupApplicant({
+    const updatedUser = props.updateRentalGroupApplicant({
       variables: {
         data: rentalGroupApplicantData,
-        // data: {
-        //   approved: true,
-        // },
         where: {
           id: userRentalApplicantData.id,
         },
@@ -376,8 +290,8 @@ class RentalApplicationStepper extends Component {
     return true
   }
 
-  _saveApplicationDetails = async application => {
-    const me = this.props.me
+  const _saveApplicationDetails = async application => {
+    const me = props.me
     // console.log("application _saveApplicationDetails", application)
     // Only owner can update this section
     if (application.owner.id !== me.id) {
@@ -393,6 +307,73 @@ class RentalApplicationStepper extends Component {
     // Now we need to save the application details and at the same time handle the cache update
     return true
   }
+
+  return (
+    <div className={classes.root}>
+      <Stepper nonLinear activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={label}>
+            <StepButton
+              onClick={handleStep(index)}
+              completed={state.completed[index]}>
+              {label}
+            </StepButton>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        {allStepsCompleted() ? (
+          <div>
+            <Typography className={classes.instructions}>
+              All steps completed - you&apos;re finished
+            </Typography>
+            <Button onClick={handleReset}>Close</Button>
+          </div>
+        ) : (
+          <div>
+            <Typography className={classes.instructions}>
+              {getStepContent(activeStep, me, property, application)}
+            </Typography>
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.button}>
+                Back
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+                className={classes.button}>
+                Next
+              </Button>
+              {activeStep !== steps.length &&
+                (state.completed[state.activeStep] ? (
+                  <div>
+                    <Typography variant="caption" className={classes.completed}>
+                      Step {activeStep + 1} already completed
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        const { completed } = state
+                        completed[state.activeStep] = false
+                        setState({ completed })
+                      }}>
+                      Redo Section
+                    </Button>
+                  </div>
+                ) : (
+                  <div>{_renderNextButtons()}</div>
+                ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
 
 RentalApplicationStepper.propTypes = {

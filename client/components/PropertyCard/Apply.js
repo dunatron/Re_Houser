@@ -10,6 +10,7 @@ import RentalApplications from "./RentalApplications"
 import Button from "@material-ui/core/Button"
 import Error from "../ErrorMessage/index"
 import SuperLogin from "../SuperLogin"
+import ChangeRouteButton from "../Routes/ChangeRouteButton"
 import Modal from "../Modal/index"
 import RentalApplicationStepperComponent from "../RentalApplicationStepper/index"
 
@@ -97,9 +98,15 @@ const Apply = props => {
         const me = user.data.me
         if (!me)
           return (
-            <div>
+            <div style={{ maxWidth: "100vw" }}>
               <h4>You need to sign in or up to apply</h4>
-              <SuperLogin />
+              {/* <SuperLogin /> */}
+              <ChangeRouteButton
+                route="/login"
+                title="Login / Signup"
+                variant="contained"
+                color="secondary"
+              />
             </div>
           )
         // if (!me) return <SuperLogin />

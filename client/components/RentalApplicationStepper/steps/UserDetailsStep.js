@@ -6,6 +6,7 @@ import TextInput from "../../../styles/TextInput"
 import InputErrors from "../../InputErrors/index"
 import PhotoIdUploader from "../../PhotoIdUploader/index"
 import { isEmptyObj } from "../../../lib/isEmpty"
+import Button from "@material-ui/core/Button"
 
 import { isEmpty } from "ramda"
 
@@ -57,10 +58,12 @@ const UserDetailsStep = ({
       {!me.photoIdentification && <h1>YOU NEED PHOTO IDENTIFICATION</h1>}
       {me.photoIdentification && (
         <div>
-          <h1>WE have your photo Id</h1>
-          <button onClick={() => setShowUploader(1)}>
-            Click here to see the details
-          </button>
+          <h4>WE have your photo Id</h4>
+          <Button
+            onClick={() => setShowUploader(!showUploader)}
+            variant="outlined">
+            {showUploader ? "close photo id" : "SHow Photo id"}
+          </Button>
         </div>
       )}
       {showUploader && <PhotoIdUploader me={me} />}

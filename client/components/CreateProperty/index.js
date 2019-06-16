@@ -23,6 +23,7 @@ import { INDOOR_FEATURES_CONF } from "../../lib/configs/indoorFeaturesConf"
 import { OUTDOOR_FEATURES_CONF } from "../../lib/configs/outdoorFeaturesConf"
 import { PROPERTY_TYPES_CONF } from "../../lib/configs/propertyTypesConf"
 import moment from "moment"
+import ChangeRouteButton from "../Routes/ChangeRouteButton"
 
 // const CREATE_PROPERTY_MUTATION = gql`
 //   mutation CREATE_PROPERTY_MUTATION(
@@ -66,7 +67,18 @@ const CreateProperty = () => {
   }
   const _createProperty = async createProperty => {
     const res = await createProperty()
-    toast.success(<p>New Property Created</p>)
+    // offer route to this property
+    console.log("_createProperty res => ", res)
+    toast.success(
+      <div>
+        <p>New Property Created</p>
+        <ChangeRouteButton
+          title="Go to property"
+          route="/my/property"
+          query={{ id: res.data.createProperty.id }}
+        />
+      </div>
+    )
     setState({
       ...defaultState,
     })

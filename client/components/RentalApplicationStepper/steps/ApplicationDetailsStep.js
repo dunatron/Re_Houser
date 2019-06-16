@@ -1,23 +1,18 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { useMutation } from "react-apollo-hooks"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../../mutation/index"
 import Switch from "@material-ui/core/Switch"
 import SwitchInput from "../../Inputs/SwitchInput"
 import ApplicantDetails from "../../ApplicantDetails/index"
+import { RENTAL_APPLICATIONS_QUERY } from "../../../query/index"
 
-const RenderPlebView = ({ applicationInfo }) => (
-  <div>
-    Only the owner can edit this section. Here is the information
-    <h4>visibility: {applicationInfo.visibility}</h4>
-    <h4>Stage: {applicationInfo.stage}</h4>
-    <h4>finalised: {applicationInfo.finalised ? "YES " : "NO"}</h4>
-  </div>
-)
+const ConfirmApplicant = props => {
+  const { applicant, property } = props
+  const [approved, setApproved] = useState(applicant.approved)
 
-const ConfirmApplicant = ({ applicant }) => {
   const rentalGroupApplicantData = {
-    approved: !applicant.approved,
+    approved: !approved,
     email: applicant.email,
     firstName: applicant.firstName,
   }
@@ -44,15 +39,28 @@ const ConfirmApplicant = ({ applicant }) => {
         // const testData = userData.me
         // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
       },
+
+      refetchQueries: [
+        {
+          query: RENTAL_APPLICATIONS_QUERY,
+          variables: {
+            where: {
+              property: {
+                id: property.id,
+              },
+            },
+          },
+        },
+      ],
       // optimisticResponse: {},
     }
   )
   return (
     <SwitchInput
-      checked={applicant.approved}
+      checked={approved}
       onChange={() => {
         updateApplicant(applicant)
-        alert("ToDO: Implement stepper cache ")
+        setApproved(!approved)
       }}
       label="Approve Applicant"
       checkedLabel="Approved"
@@ -60,30 +68,8 @@ const ConfirmApplicant = ({ applicant }) => {
   )
 }
 
-// const ApplicantDetails = ({ applicant }) => (
-//   <div>
-//     <h4>
-//       {applicant.user.firstName} {applicant.user.lastName}
-//     </h4>
-//     <ul>
-//       <li>{applicant.id}</li>
-//       <li>{applicant.approved}</li>
-//       <li>{applicant.user.firstName}</li>
-//       <li>{applicant.user.lastName}</li>
-//       <li>{applicant.user.email}</li>
-//       <li>{applicant.user.phone}</li>
-//       <button
-//         onClick={() =>
-//           alert("ToDo: create Modal that fetches user data and renders it")
-//         }>
-//         View More Details
-//       </button>
-//     </ul>
-//   </div>
-// )
-
-const RenderOwnerView = ({ applicationInfo }) => {
-  console.log("applicationInfo => ", applicationInfo)
+const RenderOwnerView = props => {
+  const { applicationInfo } = props
   return (
     <div>
       <h1>I am the application Details step </h1>
@@ -96,7 +82,7 @@ const RenderOwnerView = ({ applicationInfo }) => {
               "NO USER DETAILS"
             )}
 
-            <ConfirmApplicant applicant={applicant} />
+            <ConfirmApplicant applicant={applicant} {...props} />
           </div>
         )
       })}
@@ -104,12 +90,21 @@ const RenderOwnerView = ({ applicationInfo }) => {
   )
 }
 
+const RenderPlebView = ({ applicationInfo }) => (
+  <div>
+    Only the owner can edit this section. Here is the information
+    <h4>visibility: {applicationInfo.visibility}</h4>
+    <h4>Stage: {applicationInfo.stage}</h4>
+    <h4>finalised: {applicationInfo.finalised ? "YES " : "NO"}</h4>
+  </div>
+)
+
 const ApplicationDetailsStep = props => {
   const { me, applicationInfo } = props
   if (me.id !== applicationInfo.owner.id) {
-    return <RenderPlebView applicationInfo={applicationInfo} />
+    return <RenderPlebView applicationInfo={applicationInfo} {...props} />
   }
-  return <RenderOwnerView applicationInfo={applicationInfo} />
+  return <RenderOwnerView applicationInfo={applicationInfo} {...props} />
 }
 
 ApplicationDetailsStep.propTypes = {
