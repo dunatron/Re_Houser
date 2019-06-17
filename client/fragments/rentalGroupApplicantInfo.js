@@ -6,6 +6,7 @@ const RentalGroupApplicantInfoFragment = gql`
     completed
     email
     firstName
+    lastName
     user {
       id
       firstName

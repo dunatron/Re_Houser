@@ -1,5 +1,5 @@
 # source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Thu Jun 13 2019 23:00:48 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jun 17 2019 21:28:27 GMT+1200 (New Zealand Standard Time)
 
 type AggregateCreditCard {
   count: Int!
@@ -3084,6 +3084,7 @@ type PropertyLease implements Node {
   outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -3112,6 +3113,7 @@ input PropertyLeaseCreateInput {
   offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -3150,6 +3152,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
   offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -3168,6 +3171,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
   offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -3186,6 +3190,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
   offStreetSpaces: Int!
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -3227,6 +3232,8 @@ enum PropertyLeaseOrderByInput {
   rent_DESC
   moveInDate_ASC
   moveInDate_DESC
+  expiryDate_ASC
+  expiryDate_DESC
   location_ASC
   location_DESC
   locationLat_ASC
@@ -3249,6 +3256,7 @@ type PropertyLeasePreviousValues {
   outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -3505,6 +3513,28 @@ input PropertyLeaseScalarWhereInput {
 
   """All values greater than or equal the given value."""
   moveInDate_gte: DateTime
+  expiryDate: DateTime
+
+  """All values that are not equal to given value."""
+  expiryDate_not: DateTime
+
+  """All values that are contained in given list."""
+  expiryDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  expiryDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  expiryDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  expiryDate_lte: DateTime
+
+  """All values greater than the given value."""
+  expiryDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  expiryDate_gte: DateTime
   location: String
 
   """All values that are not equal to given value."""
@@ -3641,6 +3671,7 @@ input PropertyLeaseUpdateInput {
   offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String
   locationLat: Float
   locationLng: Float
@@ -3660,6 +3691,7 @@ input PropertyLeaseUpdateManyDataInput {
   offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String
   locationLat: Float
   locationLng: Float
@@ -3676,6 +3708,7 @@ input PropertyLeaseUpdateManyMutationInput {
   offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String
   locationLat: Float
   locationLng: Float
@@ -3730,6 +3763,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
   offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String
   locationLat: Float
   locationLng: Float
@@ -3748,6 +3782,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
   offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String
   locationLat: Float
   locationLng: Float
@@ -3766,6 +3801,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
   offStreetSpaces: Int
   rent: Float
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String
   locationLat: Float
   locationLng: Float
@@ -4047,6 +4083,28 @@ input PropertyLeaseWhereInput {
 
   """All values greater than or equal the given value."""
   moveInDate_gte: DateTime
+  expiryDate: DateTime
+
+  """All values that are not equal to given value."""
+  expiryDate_not: DateTime
+
+  """All values that are contained in given list."""
+  expiryDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  expiryDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  expiryDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  expiryDate_lte: DateTime
+
+  """All values greater than the given value."""
+  expiryDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  expiryDate_gte: DateTime
   location: String
 
   """All values that are not equal to given value."""
@@ -5862,6 +5920,7 @@ type RentalGroupApplicant implements Node {
   application: RentalApplication
   preTenancyApplicationForm: File
   firstName: String
+  lastName: String
   email: String
 }
 
@@ -5879,6 +5938,7 @@ input RentalGroupApplicantCreateInput {
   approved: Boolean!
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
   user: UserCreateOneInput!
   application: RentalApplicationCreateOneWithoutApplicantsInput
@@ -5894,6 +5954,7 @@ input RentalGroupApplicantCreateWithoutApplicationInput {
   approved: Boolean!
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
   user: UserCreateOneInput!
   preTenancyApplicationForm: FileCreateOneInput
@@ -5921,6 +5982,8 @@ enum RentalGroupApplicantOrderByInput {
   completed_DESC
   firstName_ASC
   firstName_DESC
+  lastName_ASC
+  lastName_DESC
   email_ASC
   email_DESC
 }
@@ -5932,6 +5995,7 @@ type RentalGroupApplicantPreviousValues {
   approved: Boolean!
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
 }
 
@@ -6076,6 +6140,46 @@ input RentalGroupApplicantScalarWhereInput {
 
   """All values not ending with the given string."""
   firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
   email: String
 
   """All values that are not equal to given value."""
@@ -6159,6 +6263,7 @@ input RentalGroupApplicantUpdateInput {
   approved: Boolean
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
   user: UserUpdateOneRequiredInput
   application: RentalApplicationUpdateOneWithoutApplicantsInput
@@ -6169,6 +6274,7 @@ input RentalGroupApplicantUpdateManyDataInput {
   approved: Boolean
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
 }
 
@@ -6176,6 +6282,7 @@ input RentalGroupApplicantUpdateManyMutationInput {
   approved: Boolean
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
 }
 
@@ -6199,6 +6306,7 @@ input RentalGroupApplicantUpdateWithoutApplicationDataInput {
   approved: Boolean
   completed: Boolean
   firstName: String
+  lastName: String
   email: String
   user: UserUpdateOneRequiredInput
   preTenancyApplicationForm: FileUpdateOneInput
@@ -6356,6 +6464,46 @@ input RentalGroupApplicantWhereInput {
 
   """All values not ending with the given string."""
   firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
   email: String
 
   """All values that are not equal to given value."""

@@ -37,14 +37,6 @@ const SINGLE_PROPERTY_LEASES_QUERY = gql`
           email
         }
       }
-      # tenants {
-      #   id
-      #   email
-      # }
-      # owners {
-      #   id
-      #   email
-      # }
     }
   }
 `

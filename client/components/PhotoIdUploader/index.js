@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 
 import { useMutation } from "react-apollo-hooks"
@@ -8,6 +8,7 @@ import { CURRENT_USER_QUERY } from "../../query/index"
 import encodeImage from "../../lib/encodeImage"
 
 import { DetailStyles, UploaderStyles } from "./styles"
+import PreUploadImage from "./PreUploadImage"
 
 import Card from "@material-ui/core/Card"
 import DragDropUploader from "../DragDropUploader/index"
@@ -51,6 +52,7 @@ const PhotoIdUploader = ({ me }) => {
       },
       update: (proxy, payload) => {
         console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
+        setFile({})
         // i.e here just find the {me} and update the profile image url with the new one from cloudinary
         const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
         console.log("userData => ", userData)
@@ -85,6 +87,8 @@ const PhotoIdUploader = ({ me }) => {
       // optimisticResponse: {},
     }
   )
+
+  useEffect(() => {}, [])
 
   // console.log("uploadPhotoIdProps.loading => ", uploadPhotoIdProps.loading)
   // console.log("uploadPhotoIdProps.error => ", uploadPhotoIdProps.error)
@@ -147,10 +151,11 @@ const PhotoIdUploader = ({ me }) => {
             <UploaderStyles>
               {file.content && (
                 <div className="preUpload">
-                  <img
+                  <PreUploadImage file={file} />
+                  {/* <img
                     className="preUpload__image"
                     src={contentAsSrc(file.content)}
-                  />
+                  /> */}
                   <div className="preUpload__overlay">
                     <Button
                       color="error"

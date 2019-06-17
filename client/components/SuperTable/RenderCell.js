@@ -34,6 +34,15 @@ export default class RenderCell extends Component {
             executeFunc={(func, data) => executeFunc(func, data)}
           />
         )
+      case "truthly":
+        return (
+          <RenderTruthly
+            data={data}
+            index={index}
+            allData={allData}
+            executeFunc={(func, data) => executeFunc(func, data)}
+          />
+        )
       default:
         return <RenderDefault data={data} index={index} allData={allData} />
     }
@@ -95,6 +104,20 @@ const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
         color="primary"
         onClick={() => executeFunc(data.funcName, allData)}
       />
+    </TableCell>
+  )
+}
+
+const RenderTruthly = ({ data, index, allData, executeFunc }) => {
+  const value = allData[data.id]
+  return (
+    <TableCell padding="checkbox">
+      {value ? "YES" : "NO"}
+      {/* <Checkbox
+        checked={value}
+        color="primary"
+        onClick={() => executeFunc(data.funcName, allData)}
+      /> */}
     </TableCell>
   )
 }

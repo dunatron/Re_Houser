@@ -5,14 +5,18 @@ import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../../mutation/index"
 import Switch from "@material-ui/core/Switch"
 import SwitchInput from "../../Inputs/SwitchInput"
 import ApplicantDetails from "../../ApplicantDetails/index"
-import { RENTAL_APPLICATIONS_QUERY } from "../../../query/index"
+import {
+  RENTAL_APPLICATIONS_QUERY,
+  SINGLE_RENTAL_APPLICATION_QUERY,
+} from "../../../query/index"
+import Error from "../../ErrorMessage"
 
 const ConfirmApplicant = props => {
   const { applicant, property } = props
-  const [approved, setApproved] = useState(applicant.approved)
+  // const [approved, setApproved] = useState(applicant.approved)
 
   const rentalGroupApplicantData = {
-    approved: !approved,
+    approved: !applicant.approved,
     email: applicant.email,
     firstName: applicant.firstName,
   }
@@ -39,43 +43,55 @@ const ConfirmApplicant = props => {
         // const testData = userData.me
         // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
       },
-
       refetchQueries: [
         {
-          query: RENTAL_APPLICATIONS_QUERY,
+          query: SINGLE_RENTAL_APPLICATION_QUERY,
           variables: {
             where: {
-              property: {
-                id: property.id,
-              },
+              id: props.application.id,
             },
           },
         },
       ],
+      // refetchQueries: [
+      //   {
+      //     query: RENTAL_APPLICATIONS_QUERY,
+      //     variables: {
+      //       where: {
+      //         property: {
+      //           id: property.id,
+      //         },
+      //       },
+      //     },
+      //   },
+      // ],
       // optimisticResponse: {},
     }
   )
   return (
-    <SwitchInput
-      checked={approved}
-      onChange={() => {
-        updateApplicant(applicant)
-        setApproved(!approved)
-      }}
-      label="Approve Applicant"
-      checkedLabel="Approved"
-    />
+    <>
+      <Error error={updateApplicantProps.error} />
+      <SwitchInput
+        checked={applicant.approved}
+        onChange={() => {
+          updateApplicant(applicant)
+          // setApproved(!approved)
+        }}
+        label="Approve Applicant"
+        checkedLabel="Approved"
+      />
+    </>
   )
 }
 
 const RenderOwnerView = props => {
-  const { applicationInfo } = props
+  const { application } = props
   return (
     <div>
       <h1>I am the application Details step </h1>
-      {applicationInfo.applicants.map((applicant, i) => {
+      {application.applicants.map((applicant, i) => {
         return (
-          <div>
+          <div key={i}>
             {applicant.user ? (
               <ApplicantDetails applicant={applicant} />
             ) : (
@@ -100,11 +116,12 @@ const RenderPlebView = ({ applicationInfo }) => (
 )
 
 const ApplicationDetailsStep = props => {
-  const { me, applicationInfo } = props
-  if (me.id !== applicationInfo.owner.id) {
-    return <RenderPlebView applicationInfo={applicationInfo} {...props} />
+  console.log("ApplicationDetailsStep props => ", props)
+  const { me, application } = props
+  if (me.id !== application.owner.id) {
+    return <RenderPlebView {...props} />
   }
-  return <RenderOwnerView applicationInfo={applicationInfo} {...props} />
+  return <RenderOwnerView {...props} />
 }
 
 ApplicationDetailsStep.propTypes = {

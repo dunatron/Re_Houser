@@ -94,6 +94,7 @@ type RentalGroupApplicant {
   application: RentalApplication @relation(name: "RentalGroupApplicant")
   preTenancyApplicationForm: File
   firstName: String
+  lastName: String
   email: String
 }
 
@@ -149,6 +150,7 @@ type PropertyLease implements PropertyInfo {
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   location: String!
   locationLat: Float!
   locationLng: Float!

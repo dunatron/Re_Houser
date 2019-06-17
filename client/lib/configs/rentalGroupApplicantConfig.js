@@ -13,6 +13,7 @@ export const RENTAL_GROUP_APPLICANT_CONF = [
         message: "Email field must be a valid email",
       },
     ],
+    editable: false,
   },
   {
     label: "First Name",
@@ -24,6 +25,19 @@ export const RENTAL_GROUP_APPLICANT_CONF = [
         message: "First Name cannot be empty",
       },
     ],
+    editable: true,
+  },
+  {
+    label: "Last Name",
+    variableName: "lastName",
+    validation: [
+      {
+        key: "isEmpty",
+        reverse: true,
+        message: "Last Name cannot be empty",
+      },
+    ],
+    editable: true,
   },
 ]
 

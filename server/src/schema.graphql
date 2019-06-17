@@ -72,6 +72,9 @@ type Query {
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property
   myRentalApplications: [RentalApplication!]!
+  rentalApplication(
+    where: RentalApplicationWhereUniqueInput!
+  ): RentalApplication!
   rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
   myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
   myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!

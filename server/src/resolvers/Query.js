@@ -2,6 +2,7 @@ const { forwardTo } = require("prisma-binding")
 const { hasPermission } = require("../lib/utils")
 const myLeases = require("./querys/myLeases.js")
 const myLease = require("./querys/myLease.js")
+const rentalApplication = require("./querys/rentalApplication")
 
 const Query = {
   me(parent, args, ctx, info) {
@@ -101,6 +102,7 @@ const Query = {
   },
   myLeases,
   myLease,
+  rentalApplication,
 }
 
 module.exports = Query

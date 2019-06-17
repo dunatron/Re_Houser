@@ -1,4 +1,4 @@
-import React, { Component, PureComponent, useMemo } from "react"
+import React, { Component, PureComponent } from "react"
 import styled from "styled-components"
 import encodeImage from "../../lib/encodeImage"
 import Fab from "@material-ui/core/Fab"
@@ -38,33 +38,25 @@ const ImgTile = styled.div`
     object-fit: cover;
   }
 `
-
-const contentAsSrc = content => {
-  const src = "data:image/png;base64," + encodeImage(content)
-  return src
-}
-
-const ImageTile = ({ image, remove }) => {
-  // const src =
-  //   image.type === "googleImage"
-  //     ? image.data
-  //     : "data:image/png;base64," + encodeImage(image.data.content)
-  const memoizedSrc = useMemo(() => contentAsSrc(image.data.content), [
-    image.data,
-  ])
-  return (
-    <ImgTile>
-      <Fab
-        style={{ position: "absolute" }}
-        size="small"
-        color="secondary"
-        aria-label="Add"
-        // onClick={() => remove()}
-        onClick={remove}>
-        X
-      </Fab>
-      {/* <img src={src} /> */}
-      <img src={memoizedSrc} />
-    </ImgTile>
-  )
+class ImageTile extends PureComponent {
+  render() {
+    const { image } = this.props
+    const src =
+      image.type === "googleImage"
+        ? image.data
+        : "data:image/png;base64," + encodeImage(image.data.content)
+    return (
+      <ImgTile>
+        <Fab
+          style={{ position: "absolute" }}
+          size="small"
+          color="secondary"
+          aria-label="Add"
+          onClick={() => this.props.remove()}>
+          X
+        </Fab>
+        <img src={src} />
+      </ImgTile>
+    )
+  }
 }

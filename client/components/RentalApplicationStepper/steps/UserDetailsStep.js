@@ -36,12 +36,14 @@ const UserDetailsStep = ({
   return (
     <div>
       {Object.keys(userInfo).map((userVar, i) => {
+        const isFieldEditable = userInfo[userVar].editable
+        console.log("isFieldEditable => ", isFieldEditable)
         return (
-          <div>
+          <div key={i}>
             <TextInput
               fullWidth={true}
               name={userVar}
-              disabled={false}
+              disabled={!userInfo[userVar].editable}
               label={userInfo[userVar].label}
               value={userInfo[userVar].value}
               onChange={e => onChange(e)}

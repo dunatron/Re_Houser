@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from "react"
 
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import PropTypes from "prop-types"
+import { withStyles } from "@material-ui/core/styles"
+import { fade } from "@material-ui/core/styles/colorManipulator"
+import IconButton from "@material-ui/core/IconButton"
+import CloseIcon from "@material-ui/icons/Close"
 
-import { Portal } from "../Portal/index";
+import { Portal } from "../Portal/index"
 
 const styles = theme => ({
   root: {
@@ -17,7 +17,7 @@ const styles = theme => ({
     height: "100%",
     width: "100%",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   content: {
     // height: 100,
@@ -26,26 +26,26 @@ const styles = theme => ({
     overflow: "auto",
     zIndex: 9000,
     height: "100%",
-    width: "100%"
+    width: "100%",
   },
   modalHeader: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
     // padding: `0 ${theme.spacing.unit * 2}px`,
-    padding: theme.spacing.unit * 2
+    padding: theme.spacing.unit * 2,
   },
   modalTitle: {
     margin: 0,
     alignSelf: "center",
     color: theme.palette.primary.main,
-    fontWeight: 300
+    fontWeight: 300,
   },
   closeBtn: {},
 
   modalBody: {
     padding: `0 ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px ${theme
-      .spacing.unit * 2}px`
+      .spacing.unit * 2}px`,
   },
   overlay: {
     position: "fixed",
@@ -53,19 +53,19 @@ const styles = theme => ({
     background: fade(theme.palette.primary.main, 0.2),
     height: "100%",
     width: "100%",
-    zIndex: 1000
-  }
-});
+    zIndex: 1000,
+  },
+})
 
 class Modal extends Component {
   render() {
-    const { classes, close, title, open } = this.props;
+    const { id, classes, close, title, open } = this.props
     // If Open we need to make the body overflow hidden, to save our place and not scroll body when modal is open
-    const mainDiv = document.body;
+    const mainDiv = document.body
     if (open) {
-      mainDiv.style.overflow = "hidden";
+      mainDiv.style.overflow = "hidden"
     } else {
-      mainDiv.style.overflow = "auto";
+      mainDiv.style.overflow = "auto"
     }
     return (
       <Fragment>
@@ -76,17 +76,15 @@ class Modal extends Component {
                 className={classes.content}
                 style={{
                   maxWidth: `${this.props.width}px`,
-                  maxHeight: `${this.props.height}px`
-                }}
-              >
-                <div className={classes.modalHeader}>
+                  maxHeight: `${this.props.height}px`,
+                }}>
+                <div className={classes.modalHeader} id={`${id}-modal-header`}>
                   <h2 className={classes.modalTitle}>{title}</h2>
                   <IconButton
                     color={"secondary"}
                     aria-label="Delete"
                     className={classes.closeBtn}
-                    onClick={() => close()}
-                  >
+                    onClick={() => close()}>
                     <CloseIcon fontSize="small" />
                   </IconButton>
                 </div>
@@ -94,16 +92,15 @@ class Modal extends Component {
               </div>
               <div
                 className={classes.overlay}
-                onClick={() => this.props.close()}
-              >
+                onClick={() => this.props.close()}>
                 Overlay
               </div>
             </div>
           </Portal>
         )}
       </Fragment>
-    );
+    )
   }
 }
 
-export default withStyles(styles)(Modal);
+export default withStyles(styles)(Modal)

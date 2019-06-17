@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useQuery } from "react-apollo-hooks"
 import { toast } from "react-toastify"
 import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core/styles"
@@ -19,6 +20,8 @@ import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplic
 import customErrorsBag from "../../lib/errorsBagGenerator"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../mutation/index"
 import { gql, graphql, compose } from "react-apollo"
+
+import { SINGLE_RENTAL_APPLICATION_QUERY } from "../../query/index"
 
 import { isEmpty } from "ramda"
 
@@ -42,72 +45,111 @@ const getSteps = () => {
   return ["My Details", "Application Details", "Finalise"]
 }
 
-const RentalApplicationStepper = props => {
-  // state = {
-  //   activeStep: 0,
-  //   completed: {},
-  //   userInfo: {},
-  //   applicationInfo: {},
-  //   userErrorsBag: {},
-  // }
-  const { classes, me, property, application } = props
-  const getApplicantObject = () => {
-    const userRentalApplicantData = props.application.applicants.find(
-      applicant => applicant.user.id === props.me.id
-    )
-    return userRentalApplicantData
-  }
-  const applicantData = getApplicantObject()
-  const applicationInfo = props.application
-  const userInfo = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
+const extractApplicantUserData = (application, me) => {
+  const userRentalApplicantData = application.applicants.find(
+    applicant => applicant.user.id === me.id
+  )
+  return userRentalApplicantData
+}
+
+const extractUserInfoFields = (application, me) => {
+  const applicantUserData = extractApplicantUserData(application, me)
+  console.group("extractUserInfo")
+  console.log("application => ", application)
+  console.log("me => ", me)
+  console.log("applicantUserData => ", applicantUserData)
+  console.groupEnd()
+  const userInfoObj = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
     // const objPiece = { [conf.variableName]: [me[conf.variableName]] };
     const objPiece = {
       [conf.variableName]: {
         ...conf,
         label: conf.label,
-        value: applicantData[conf.variableName]
-          ? applicantData[conf.variableName]
+        value: applicantUserData[conf.variableName]
+          ? applicantUserData[conf.variableName]
           : me[conf.variableName],
-        editable: true,
+        editable: conf.editable,
       },
     }
     bigObj = { ...bigObj, ...objPiece }
     return bigObj
   }, {})
+  return userInfoObj
+}
 
-  const [state, setState] = useState({
-    activeStep: 0,
-    completed: {},
-    userInfo: userInfo,
-    applicationInfo: applicationInfo,
-    userErrorsBag: {},
+const RentalApplicationStepper = props => {
+  // 1. extract props
+  const { classes, me, property, application } = props
+  // 2. get application query
+  const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
+    variables: {
+      where: { id: application.id },
+    },
   })
-  useEffect(() => {}, [])
+
+  const { data, loading, error } = rentalApplication
+  // Note: all hooks must go before first render
+
+  console.log("rentalApplication useQuery => ", rentalApplication)
+  const [activeStep, setActiveStep] = useState(0)
+  // {0: true, 1: true}
+  const [completed, setCompleted] = useState({})
+  const [userInfo, setUserInfo] = useState({})
+  const [applicationInfo, setApplicationInfo] = useState(data.rentalApplication)
+  const [userErrorsBag, setUserErrorsBag] = useState({})
+  // 5. create some state for the stepper
+  // 6. subscribe to data.rentalApplication and update state when we have it
+  useEffect(() => {
+    if (data.rentalApplication) {
+      setApplicationInfo(data.rentalApplication)
+      const applicantInfo = extractApplicantUserData(data.rentalApplication, me)
+      const userInfoFields = extractUserInfoFields(data.rentalApplication, me)
+      setUserInfo(userInfoFields)
+      console.log("userInfoObj useEffect => ", userInfoFields)
+      // if user as completed step hide it
+      if (applicantInfo.completed) {
+        setCompleted({ ...completed, 0: true })
+        setActiveStep(1)
+      }
+    }
+  }, [data.rentalApplication])
+
+  if (loading) return "fetching application data"
+  if (error) return "error"
+
+  const handleDetailsChange = e => {
+    // console.log("handleDetailsChange => ", e)
+    const name = e.target.name
+    const varName = `userInfo.${[e.target.name]}`
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: {
+        ...userInfo[e.target.name],
+        value: e.target.value,
+      },
+    })
+  }
   const getStepContent = (step, me, property, application) => {
-    const { userErrorsBag } = state
-    const applicantData = getApplicantObject()
-    // console.log("applicantData => for step component => ", applicantData)
     switch (step) {
       case 0:
-        // return "Step 2: What is an ad group anyways?";
         return (
           <UserDetailsStep
             me={me}
             property={property}
-            userInfo={state.userInfo}
-            applicantData={applicantData}
+            userInfo={userInfo}
             onChange={handleDetailsChange}
             errorsBag={userErrorsBag}
-            completed={state.completed[0]}
+            completed={completed[0]}
           />
         )
       case 1:
         return (
           <ApplicationDetailsStep
+            // application={application}
             application={application}
             property={property}
             me={me}
-            applicationInfo={state.applicationInfo}
+            applicationInfo={applicationInfo}
           />
         )
       case 2:
@@ -117,68 +159,41 @@ const RentalApplicationStepper = props => {
     }
   }
 
-  const handleDetailsChange = e => {
-    // console.log("handleDetailsChange => ", e)
-    const name = e.target.name
-    const varName = `userInfo.${[e.target.name]}`
-    setState({
-      ...state,
-      userInfo: {
-        ...state.userInfo,
-        [e.target.name]: {
-          ...state.userInfo[e.target.name],
-          value: e.target.value,
-        },
-      },
-    })
-  }
-
   const totalSteps = () => getSteps().length
 
   const handleNext = () => {
-    let activeStep
-
+    let currStep = activeStep
     if (isLastStep() && !allStepsCompleted()) {
       // It's the last step, but not all steps have been completed,
       // find the first step that has been completed
       const steps = getSteps()
-      activeStep = steps.findIndex((step, i) => !(i in state.completed))
+      currStep = steps.findIndex((step, i) => !(i in completed))
     } else {
-      activeStep = state.activeStep + 1
+      currStep = currStep + 1
     }
-    setState({
-      ...state,
-      activeStep,
-    })
+    setActiveStep(currStep)
   }
 
   const handleBack = () => {
-    setState(state => ({
-      ...state,
-      activeStep: state.activeStep - 1,
-    }))
+    setActiveStep(activeStep - 1)
   }
 
   const handleStep = step => () => {
-    setState({
-      ...state,
-      activeStep: step,
-    })
+    setActiveStep(step)
   }
 
   // Check Complete for each step
   const handleComplete = async () => {
-    const { completed } = state
-    switch (state.activeStep) {
+    switch (activeStep) {
       case 0: {
-        const didSave = await _saveUserDetails(state.userInfo)
+        const didSave = await _saveUserDetails(userInfo)
         if (!didSave) {
           return
         }
         break
       }
       case 1: {
-        const didSave = await _saveApplicationDetails(state.applicationInfo)
+        const didSave = await _saveApplicationDetails(applicationInfo)
         if (!didSave) {
           return
         }
@@ -188,29 +203,22 @@ const RentalApplicationStepper = props => {
     // 0 === userDetails
     // 1 === applicationDetails
     // 2 === addFriends/complete?
-    completed[state.activeStep] = true
-
-    setState({
-      ...state,
-      completed,
-    })
+    completed[activeStep] = true
+    setCompleted(completed)
     handleNext()
   }
 
   const handleReset = () => {
-    setState({
-      ...state,
-      activeStep: 0,
-      completed: {},
-    })
+    setActiveStep(0)
+    setCompleted({})
   }
 
   const completedSteps = () => {
-    return Object.keys(state.completed).length
+    return Object.keys(completed).length
   }
 
   const isLastStep = () => {
-    return state.activeStep === totalSteps() - 1
+    return activeStep === totalSteps() - 1
   }
 
   const allStepsCompleted = () => {
@@ -218,10 +226,8 @@ const RentalApplicationStepper = props => {
   }
 
   const steps = getSteps()
-  const { activeStep } = state
 
   const _renderNextButtons = () => {
-    const { activeStep } = state
     switch (activeStep) {
       case 0: {
         return (
@@ -249,18 +255,15 @@ const RentalApplicationStepper = props => {
 
   // Validation on step Save
   const _saveUserDetails = async userInfo => {
-    // console.log("userInfo => ", userInfo)
     const { classes, me, property, application } = props
     if (!me.photoIdentification) {
       alert("You need photo ID")
       return
     }
-    await setState({ ...state, userErrorsBag: {} })
+    await setUserErrorsBag({})
     const errorsBag = customErrorsBag(userInfo)
-    // console.log("errorsBag => ", errorsBag)
-    // if there are errors exit early and set userErrorsBag
     if (!isEmpty(errorsBag)) {
-      setState({ ...state, userErrorsBag: errorsBag })
+      setUserErrorsBag(errorsBag)
       return false
     }
 
@@ -277,6 +280,7 @@ const RentalApplicationStepper = props => {
       completed: true,
       email: userData.email,
       firstName: userData.firstName,
+      lastName: userData.lastName,
     }
     // console.log("rentalGroupApplicantData => ", rentalGroupApplicantData)
     const updatedUser = props.updateRentalGroupApplicant({
@@ -315,7 +319,7 @@ const RentalApplicationStepper = props => {
           <Step key={label}>
             <StepButton
               onClick={handleStep(index)}
-              completed={state.completed[index]}>
+              completed={completed[index]}>
               {label}
             </StepButton>
           </Step>
@@ -324,15 +328,16 @@ const RentalApplicationStepper = props => {
       <div>
         {allStepsCompleted() ? (
           <div>
-            <Typography className={classes.instructions}>
+            <Typography className={classes.instructions} component="div">
               All steps completed - you&apos;re finished
             </Typography>
             <Button onClick={handleReset}>Close</Button>
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>
-              {getStepContent(activeStep, me, property, application)}
+            <Typography className={classes.instructions} component="div">
+              {/* {getStepContent(activeStep, me, property, application)} */}
+              {getStepContent(activeStep, me, property, data.rentalApplication)}
             </Typography>
             <div>
               <Button
@@ -349,7 +354,7 @@ const RentalApplicationStepper = props => {
                 Next
               </Button>
               {activeStep !== steps.length &&
-                (state.completed[state.activeStep] ? (
+                (completed[activeStep] ? (
                   <div>
                     <Typography variant="caption" className={classes.completed}>
                       Step {activeStep + 1} already completed
@@ -358,9 +363,7 @@ const RentalApplicationStepper = props => {
                       variant="contained"
                       color="primary"
                       onClick={() => {
-                        const { completed } = state
-                        completed[state.activeStep] = false
-                        setState({ completed })
+                        setCompleted({ ...completed, [activeStep]: false })
                       }}>
                       Redo Section
                     </Button>

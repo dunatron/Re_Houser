@@ -10,6 +10,7 @@ const UPDATE_RENTAL_GROUP_APPLICANT_MUTATION = gql`
       approved
       completed
       firstName
+      lastName
       email
     }
   }
