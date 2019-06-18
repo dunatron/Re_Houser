@@ -35,12 +35,15 @@ const styles = theme => ({
  * 5. onChange convert into our db format and send back up
  */
 const DateInput = ({ id, classes, value, onChange, label }) => {
-  const RFCIsoValue = moment(value).format("YYYY-MM-DD")
+  // const RFCIsoValue = moment(value).format("YYYY-MM-DD")
+  const RFCIsoValue = moment(value).format("YYYY-MM-DDTkk:mm")
+  //
   return (
     <TextField
       id={id ? id : "default-datePicker"}
       label={label ? label : "Some Date"}
-      type="date"
+      type="datetime-local"
+      // value={RFCIsoValue}
       value={RFCIsoValue}
       onChange={e => {
         const formattedDate = moment(e.target.value).format()

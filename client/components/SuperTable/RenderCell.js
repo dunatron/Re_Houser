@@ -3,10 +3,17 @@ import TableBody from "@material-ui/core/TableBody/TableBody"
 import TableCell from "@material-ui/core/TableCell/TableCell"
 import Checkbox from "@material-ui/core/Checkbox"
 
+// data: =>
+// found: "isLeased"
+// id: "isLeased"
+// label: "isLeased"
+// numeric: false
+// show: true
+// tableRenderKey: "th"
+// type: "truthly"
 export default class RenderCell extends Component {
   render() {
     const { data, index, allData, executeFunc } = this.props
-
     switch (data.type) {
       case "btnFunc":
         return (
@@ -15,16 +22,45 @@ export default class RenderCell extends Component {
             index={index}
             allData={allData}
             executeFunc={(func, data) => executeFunc(func, data)}
+            {...this.props}
           />
         )
       case "numberOfObj":
-        return <RenderNumberOfObj data={data} index={index} allData={allData} />
+        return (
+          <RenderNumberOfObj
+            data={data}
+            index={index}
+            allData={allData}
+            {...this.props}
+          />
+        )
       case "deep":
-        return <RenderDeep data={data} index={index} allData={allData} />
+        return (
+          <RenderDeep
+            data={data}
+            index={index}
+            allData={allData}
+            {...this.props}
+          />
+        )
       case "map":
-        return <RenderMap data={data} index={index} allData={allData} />
+        return (
+          <RenderMap
+            data={data}
+            index={index}
+            allData={allData}
+            {...this.props}
+          />
+        )
       case "tag":
-        return <RenderTag data={data} index={index} allData={allData} />
+        return (
+          <RenderTag
+            data={data}
+            index={index}
+            allData={allData}
+            {...this.props}
+          />
+        )
       case "checkbox":
         return (
           <RenderCheckBox
@@ -32,6 +68,7 @@ export default class RenderCell extends Component {
             index={index}
             allData={allData}
             executeFunc={(func, data) => executeFunc(func, data)}
+            {...this.props}
           />
         )
       case "truthly":
@@ -41,10 +78,18 @@ export default class RenderCell extends Component {
             index={index}
             allData={allData}
             executeFunc={(func, data) => executeFunc(func, data)}
+            {...this.props}
           />
         )
       default:
-        return <RenderDefault data={data} index={index} allData={allData} />
+        return (
+          <RenderDefault
+            data={data}
+            index={index}
+            allData={allData}
+            {...this.props}
+          />
+        )
     }
   }
 }
@@ -69,7 +114,7 @@ const RenderNumberOfObj = ({ data, index, allData }) => {
     <TableCell
       key={index}
       numeric={data.numeric}
-      style={{ minWidth: "90px" }}
+      // style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
       padding={index === 0 ? "dense" : "dense"}
       {...data.tableRenderProps}>
@@ -83,7 +128,7 @@ const RenderDeep = ({ data, index, allData }) => {
     <TableCell
       key={index}
       numeric={data.numeric}
-      style={{ minWidth: "90px" }}
+      // style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
       padding={index === 0 ? "dense" : "dense"}
       {...data.tableRenderProps}>
@@ -98,9 +143,10 @@ const RenderDeep = ({ data, index, allData }) => {
 const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
   const value = allData[data.id]
   return (
-    <TableCell padding="checkbox">
+    <TableCell align="center" padding="checkbox" {...data.tableRenderProps}>
       <Checkbox
         checked={value}
+        size="small"
         color="primary"
         onClick={() => executeFunc(data.funcName, allData)}
       />
@@ -111,7 +157,7 @@ const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
 const RenderTruthly = ({ data, index, allData, executeFunc }) => {
   const value = allData[data.id]
   return (
-    <TableCell padding="checkbox">
+    <TableCell size="small" {...data.tableRenderProps}>
       {value ? "YES" : "NO"}
       {/* <Checkbox
         checked={value}
@@ -165,12 +211,14 @@ const RenderTag = ({ data, index, allData }) => {
   )
 }
 
-const RenderDefault = ({ data, index, allData }) => {
+const RenderDefault = props => {
+  const { data, index, allData } = props
   return (
     <TableCell
       key={index}
       numeric={data.numeric}
       style={{ minWidth: "90px" }}
+      size="medium"
       component={data.tableRenderKey}
       padding={index === 0 ? "dense" : "dense"}
       {...data.tableRenderProps}>

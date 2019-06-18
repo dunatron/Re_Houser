@@ -3,7 +3,10 @@ const jwt = require("jsonwebtoken")
 const { randomBytes } = require("crypto")
 const { promisify } = require("util")
 // PropertySearchAPi
-const { addPropertySearchNode } = require("../lib/algolia/propertySearchApi")
+const {
+  addPropertySearchNode,
+  updatePropertySearchNode,
+} = require("../lib/algolia/propertySearchApi")
 const { transport, makeANiceEmail } = require("../lib/mail")
 const { hasPermission } = require("../lib/utils")
 const { processUpload, deleteFile } = require("../lib/fileApi")
@@ -260,67 +263,6 @@ const mutations = {
     console.log("propertySearchNode => ", propertySearchNode)
     return property
   },
-  // async createRentalApplication(parent, { data, files }, ctx, info) {
-  //   const currentApplications = await ctx.db.query.rentalApplications(
-  //     {
-  //       where: {
-  //         property: {
-  //           id: data.property.connect.id
-  //         }
-  //       }
-  //     },
-  //     `{ id, owner {id} applicants { user { id}} }`
-  //   );
-  //   const applicationOwnerIds = currentApplications.map(
-  //     application => application.owner.id
-  //   );
-  //   // applicantUserIds = currentApplications.applicants.map(
-  //   //   applicant => applicant.user.id
-  //   // )
-  //   if (applicationOwnerIds.includes(ctx.request.userId)) {
-  //     console.log("applicationOwnerIds => ", applicationOwnerIds);
-  //     console.log("ctx.request.userId => ", ctx.request.userId);
-  //     const userApplication = currentApplications.find(
-  //       application => application.owner.id === ctx.request.userId
-  //     );
-  //     const fullApplication = ctx.db.query.rentalApplication(
-  //       {
-  //         where: { id: userApplication.id }
-  //       },
-  //       info
-  //     );
-  //     console.log("userApplication => ", userApplication);
-  //     return fullApplication;
-  //   }
-  //   const rentalApplication = await ctx.db.mutation.createRentalApplication(
-  //     {
-  //       data: {
-  //         ...data
-  //       }
-  //     },
-  //     info
-  //   );
-  //   const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant(
-  //     {
-  //       data: {
-  //         user: {
-  //           connect: {
-  //             id: ctx.request.userId
-  //           }
-  //         },
-  //         approved: true,
-  //         application: {
-  //           connect: {
-  //             id: rentalApplication.id
-  //           }
-  //         }
-  //       }
-  //     },
-  //     `{ id, approved ,user{id, firstName, lastName}}`
-  //   );
-  //   rentalApplication.applicants.push({ ...rentalGroupNode });
-  //   return rentalApplication;
-  // },
   async applyToRentalGroup(parent, { data }, ctx, info) {
     // ToDo: send email to current group members
     const userId = data.user.connect.id
@@ -376,16 +318,13 @@ const mutations = {
       }
     }
     delete updates.file
-    // run the update method
-    // return ctx.db.mutation.updateProperty(
-    //   {
-    //     updates,
-    //     where: {
-    //       id: args.id,
-    //     },
-    //   },
-    //   info
-    // )
+
+    const propertySearchNode = updatePropertySearchNode({
+      updates: updates,
+      propertyId: args.id,
+      ctx,
+    })
+    console.log("propertySearchNode => ", propertySearchNode)
     return ctx.db.mutation.updateProperty(
       {
         updates,

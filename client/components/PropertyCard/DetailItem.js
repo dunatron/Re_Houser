@@ -25,5 +25,8 @@ const renderValue = (value, type) => {
     }
     return "No"
   }
+  if(type === "date") {
+    
+  }
   return value
 }

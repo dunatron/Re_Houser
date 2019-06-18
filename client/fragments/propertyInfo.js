@@ -6,6 +6,7 @@ const PropertyInfoFragment = gql`
     rooms
     rent
     moveInDate
+    expiryDate
     onTheMarket
     location
     locationLat

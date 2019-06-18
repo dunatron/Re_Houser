@@ -71,6 +71,7 @@ type Property implements PropertyInfo {
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   rent: Float!
   moveInDate: DateTime
+  expiryDate: DateTime
   onTheMarket: Boolean!
   location: String!
   locationLat: Float!
@@ -82,6 +83,8 @@ type Property implements PropertyInfo {
   rentalApplications: [RentalApplication]
     @relation(name: "PropertyRentalApplication")
   leases: [PropertyLease] @relation(name: "PropertyLeases")
+  isLeased: Boolean
+  leaseExpiryDate: DateTime
 }
 
 type RentalGroupApplicant {

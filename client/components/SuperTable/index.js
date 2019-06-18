@@ -66,17 +66,11 @@ class EnhancedTableHead extends React.Component {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected === rowCount}
-              onChange={onSelectAllClick}
-            />
-          </TableCell>
           {columnHeaders.map(row => {
             return (
               <TableCell
                 key={row.id}
+                align="center"
                 numeric={row.numeric}
                 padding={row.disablePadding ? "none" : "default"}
                 sortDirection={orderBy === row.id ? order : false}>
@@ -572,18 +566,11 @@ class SuperTable extends React.Component {
                     return (
                       <TableRow
                         hover
-                        role="checkbox"
+                        // role="checkbox"
                         aria-checked={isSelected}
                         tabIndex={-1}
                         key={n.id}
                         selected={isSelected}>
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isSelected}
-                            color="primary"
-                            onClick={event => this.handleClick(event, n.id)}
-                          />
-                        </TableCell>
                         {this.state.columnHeaders
                           .filter(header => header.show === true)
                           .map((cellHeader, idx) => {

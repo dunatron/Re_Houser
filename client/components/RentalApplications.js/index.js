@@ -25,10 +25,11 @@ export default class RentalApplications extends Component {
                   const { myRentalApplications } = data
                   return (
                     <div>
-                      {myRentalApplications.map((application, i) => (
-                        <div>{property.id} </div>
-                        // <PropertyCard key={i} property={property} />
-                      ))}
+                      {myRentalApplications &&
+                        myRentalApplications.map((application, i) => (
+                          <div>{application.id} </div>
+                          // <PropertyCard key={i} property={property} />
+                        ))}
                     </div>
                   )
                 }}

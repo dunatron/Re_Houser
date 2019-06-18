@@ -38,6 +38,7 @@
     "instantsearch.css": "^7.3.1",
     "lodash.debounce": "^4.0.8",
     "make-dir": "^2.1.0",
+    "material-table": "^1.39.2",
     "material-ui-next-pickers": "^0.0.21",
     "moment": "^2.24.0",
     "money": "^0.2.0",

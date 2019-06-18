@@ -24,6 +24,7 @@ import { OUTDOOR_FEATURES_CONF } from "../../lib/configs/outdoorFeaturesConf"
 import { PROPERTY_TYPES_CONF } from "../../lib/configs/propertyTypesConf"
 import moment from "moment"
 import ChangeRouteButton from "../Routes/ChangeRouteButton"
+import LeaseLength from "../LeaseManager/LeaseLengthInfo"
 
 // const CREATE_PROPERTY_MUTATION = gql`
 //   mutation CREATE_PROPERTY_MUTATION(
@@ -54,12 +55,16 @@ const CreateProperty = () => {
     rooms: 0,
     rent: 0.0,
     moveInDate: moment().format(),
+    expiryDate: moment()
+      .add(12, "months")
+      .format(),
     images: [],
     indoorFeatures: [],
     outdoorFeatures: [],
     carportSpaces: 1,
     garageSpaces: 5,
     offStreetSpaces: 2,
+    isLeased: false,
   }
   const [state, setState] = useState(defaultState)
   const saveToState = e => {
@@ -97,6 +102,7 @@ const CreateProperty = () => {
         locationLng: state.locationLng,
         rooms: parseInt(state.rooms),
         moveInDate: state.moveInDate,
+        expiryDate: state.expiryDate,
         carportSpaces: parseInt(state.carportSpaces),
         garageSpaces: parseInt(state.garageSpaces),
         offStreetSpaces: parseInt(state.offStreetSpaces),
@@ -336,11 +342,6 @@ const CreateProperty = () => {
                     value={state.offStreetSpaces}
                     onChange={saveToState}
                   />
-                  <DateInput
-                    // value={"2015-03-25T12:00:00-06:30"}
-                    value={state.moveInDate}
-                    onChange={date => setState({ ...state, moveInDate: date })}
-                  />
                   <TextInput
                     id="rent"
                     label="Rent"
@@ -350,6 +351,25 @@ const CreateProperty = () => {
                     value={state.rent}
                     onChange={saveToState}
                   />
+                  <DateInput
+                    // value={"2015-03-25T12:00:00-06:30"}
+                    id="moveInDate"
+                    label="Move In Date"
+                    value={state.moveInDate}
+                    onChange={date => setState({ ...state, moveInDate: date })}
+                  />
+                  <DateInput
+                    // value={"2015-03-25T12:00:00-06:30"}
+                    id="expiryDate"
+                    label="Expiry Date"
+                    value={state.expiryDate}
+                    onChange={date => setState({ ...state, expiryDate: date })}
+                  />
+                  <LeaseLength
+                    moveInDate={state.moveInDate}
+                    expiryDate={state.expiryDate}
+                  />
+
                   <ImagePicker
                     images={state.images}
                     remove={idx => removeImageFromState(idx)}

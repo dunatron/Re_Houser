@@ -8,6 +8,7 @@ const UPDATE_PROPERTY_MUTATION = gql`
       rooms
       rent
       moveInDate
+      expiryDate
       onTheMarket
       location
       locationLat

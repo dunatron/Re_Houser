@@ -14,12 +14,18 @@ import gql from "graphql-tag"
 import { useMutation } from "react-apollo-hooks"
 import InputModal from "../Modal/InputModal"
 import TextInput from "../../styles/TextInput"
+import DateInput from "../Inputs/DateInput"
 import Error from "../ErrorMessage/index"
 import Button from "@material-ui/core/Button"
 import { UPDATE_PROPERTY_MUTATION } from "../../mutation/index"
 import { OWNER_PROPERTIES_QUERY } from "../../query/index"
 import useKeyPress from "../../lib/useKeyPress"
 import Switch from "@material-ui/core/Switch"
+import {
+  NowToDate,
+  LongDatePretty,
+  LeaseLength,
+} from "../LeaseManager/LeaseLengthInfo"
 
 const sanitizeInput = (type, value) => {
   if (type === "number") {
@@ -186,6 +192,17 @@ const UpdatePropertyVariableModal = ({
                 onChange={e => setPropertyValue(e.target.value)}
               />
             )}
+            {type === "date" && (
+              <div style={{ padding: "16px" }}>
+                <DateInput
+                  // value={"2015-03-25T12:00:00-06:30"}
+                  id="moveInDate"
+                  label="Move In Date"
+                  value={propertyValue}
+                  onChange={date => setPropertyValue(date)}
+                />
+              </div>
+            )}
 
             <Button
               disabled={loading}
@@ -240,7 +257,48 @@ const Details = props => {
           value={property.onTheMarket}
         />
       </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <DetailItem
+          icon={<CameraIcon />}
+          type={"date"}
+          label="Move in Date"
+          value={property.moveInDate}
+        />
+        <UpdatePropertyVariableModal
+          propertyId={property.id}
+          name="moveInDate"
+          label="moveInDate"
+          type="date"
+          value={property.moveInDate}
+        />
+        <LongDatePretty date={property.expiryDate} />
+      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <DetailItem
+          icon={<CameraIcon />}
+          type={"date"}
+          label="Expiry Date"
+          value={property.expiryDate}
+        />
+        <UpdatePropertyVariableModal
+          propertyId={property.id}
+          name="expiryDate"
+          label="expiryDate"
+          type="date"
+          value={property.expiryDate}
+        />
+        {/* <NowToDate date={property.moveInDate} /> */}
+        <LongDatePretty date={property.moveInDate} />
+      </div>
       <div>
+        <LeaseLength
+          title="Lease will be for"
+          moveInDate={property.moveInDate}
+          expiryDate={property.expiryDate}
+        />
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center" }}>
         <DetailItem
           icon={<CameraIcon />}
           label="Rooms"

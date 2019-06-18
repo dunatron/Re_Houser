@@ -24,6 +24,7 @@ const OWNER_PROPERTIES_QUERY = gql`
       rooms
       rent
       moveInDate
+      expiryDate
       onTheMarket
       location
       locationLat
@@ -36,6 +37,7 @@ const OWNER_PROPERTIES_QUERY = gql`
       images {
         url
       }
+      isLeased
     }
   }
 `
@@ -57,6 +59,22 @@ class OwnerProperties extends Component {
   }
   columnHeaders = () => {
     return [
+      {
+        id: "location",
+        numeric: false,
+        // disablePadding: true,
+        label: "location",
+        show: true,
+        tableRenderKey: "th",
+        found: "location",
+        searchable: true,
+        tableRenderProps: {
+          size: "medium",
+          style: {
+            minWidth: "220px",
+          },
+        },
+      },
       {
         id: "id",
         numeric: false,
@@ -80,15 +98,38 @@ class OwnerProperties extends Component {
         searchable: true,
       },
       {
-        id: "location",
+        id: "isLeased",
         numeric: false,
+        type: "truthly",
         // disablePadding: true,
-        label: "location",
+        label: "isLeased",
         show: true,
         tableRenderKey: "th",
-        found: "location",
+        found: "isLeased",
+      },
+      {
+        id: "moveInDate",
+        numeric: false,
+        // type: "checkbox",
+        // disablePadding: true,
+        label: "moveInDate",
+        show: true,
+        tableRenderKey: "th",
+        found: "moveInDate",
         searchable: true,
       },
+      {
+        id: "expiryDate",
+        numeric: false,
+        // type: "checkbox",
+        // disablePadding: true,
+        label: "expiryDate",
+        show: true,
+        tableRenderKey: "th",
+        found: "expiryDate",
+        searchable: true,
+      },
+
       {
         id: "rent",
         numeric: false,

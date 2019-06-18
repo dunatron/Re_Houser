@@ -33,6 +33,9 @@ index.setSettings({
     "indoorFeatures",
     "outdoorFeatures",
     "type",
+    "onTheMarket",
+    "moveInDate",
+    "expiryDate",
   ],
 })
 
@@ -49,6 +52,7 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
   )
   const propertiesObjectArr = []
   const propertyObject = {
+    objectID: property.id,
     id: property.id,
     type: property.type,
     rooms: property.rooms,
@@ -83,6 +87,26 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
   return "ALL DONE HERE BRO"
 }
 
+const ALLOWED_SEARCH_NODE_UPDATE_KEYS = ["rent", "rooms", "moveInDate"]
+/**
+ *
+ * ToDo: create a new searchUpdates object and push in data from updates only if the key is in one of
+ * a specified array of allowed keys
+ */
+const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
+  console.log("updatePropertySearchNode updates  => ", updates)
+  console.log("updatePropertySearchNode propertyId  => ", propertyId)
+  const objects = [{ ...updates.data, objectID: propertyId }]
+  index.partialUpdateObjects(objects, (err, content) => {
+    if (err) throw err
+
+    console.log("UPDated Search node content =-> ", content)
+    console.log(content)
+  })
+  return "All done with search node updates"
+}
+
 module.exports = {
   addPropertySearchNode,
+  updatePropertySearchNode,
 }

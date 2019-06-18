@@ -6,6 +6,7 @@ import ChangeRouteButton from "../Routes/ChangeRouteButton"
 import { toast } from "react-toastify"
 import Router from "next/router"
 import Modal from "../Modal/index"
+import moment from "moment"
 
 const handleLink = (route = "/", query = {}) => {
   Router.push({
@@ -15,6 +16,15 @@ const handleLink = (route = "/", query = {}) => {
 }
 
 const LeasesTable = ({ leases }) => {
+  const prettyLeases = leases.map(lease => {
+    const pretifiedData = {
+      ...lease,
+      moveInDate: moment(lease.moveInDate).format(
+        "dddd, MMMM Do YYYY, h:mm:ss a"
+      ),
+    }
+    return pretifiedData
+  })
   const [showDataModal, setShowDataModal] = useState(false)
   const [rawLeaseData, setRawLeasData] = useState({})
   const finaliseLease = () => {}
@@ -62,6 +72,11 @@ const LeasesTable = ({ leases }) => {
         tableRenderKey: "th",
         found: "location",
         searchable: true,
+        tableRenderProps: {
+          style: {
+            minWidth: "220px",
+          },
+        },
       },
       {
         id: "rent",
@@ -201,7 +216,7 @@ const LeasesTable = ({ leases }) => {
   return (
     <div>
       <Modal
-        id=""
+        id="raw-lease-data-modal"
         title={`Raw Lease Data`}
         open={showDataModal}
         close={() => setShowDataModal(false)}>
@@ -214,8 +229,6 @@ const LeasesTable = ({ leases }) => {
           <pre>{JSON.stringify(rawLeaseData, null, 2)}</pre>
         </div>
       </Modal>
-      <h1>I am a table of leases</h1>
-
       <SuperTable
         columnHeaders={columnHeaders()}
         // tags={{
@@ -228,7 +241,7 @@ const LeasesTable = ({ leases }) => {
         // }}
 
         title="My Leases"
-        data={leases}
+        data={prettyLeases}
         executeFunc={async (funcName, obj) => {
           switch (funcName) {
             case "toggleOnTheMarket":

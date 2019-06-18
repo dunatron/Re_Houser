@@ -151,6 +151,7 @@ export default class index extends Component {
                 index={tabIndex}
                 onChangeIndex={this.handleChangeIndex}>
                 <TabContainer>
+                  <h4>UserID => {me.id}</h4>
                   {USER_PROFILE_CONF.filter(
                     conf => !conf.excludeFromDetails
                   ).map((conf, i) => {

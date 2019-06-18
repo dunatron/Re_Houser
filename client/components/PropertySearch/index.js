@@ -30,6 +30,7 @@ import {
   Pagination,
   Stats,
   SortBy,
+  Configure,
 } from "react-instantsearch-dom"
 
 var applicationId = "4QW4S8SE3J"
@@ -120,6 +121,18 @@ const PropertySearch = () => {
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
+      <Configure
+        // filters={[]}
+        // filters='(onTheMarket:Book OR onTheMarket:Ebook) AND _tags:published'
+        // filters="(onTheMarket:TRUE OR onTheMarket:FALSE)"
+        // filters={{ onTheMarket: true }}
+        filters="onTheMarket:true"
+        // filters="location:Auckland Airport (AKL) Ray Emery Drive, Auckland Airport, Auckland, New Zealand"
+        // hitsPerPage={4}
+        // analytics={false}
+        // enablePersonalization={true}
+        // distinct
+      />
       <SearchInterface>
         <AppBar
           position="relative"
