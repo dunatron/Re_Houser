@@ -17,7 +17,6 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
     // {},
     `{ owner{id} applicants{email user{email}} }`
   )
-  console.log("application ====> ", application)
   // check that loggedInUser is the owner of the application
   if (loggedInUser !== application.owner.id) {
     throw new Error(

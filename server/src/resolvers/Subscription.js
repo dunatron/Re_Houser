@@ -21,8 +21,6 @@ async function rentalApplicationUpdateSubscription(
   context,
   info
 ) {
-  console.log("AN Up[date Subscription")
-  console.log("AN Up[date Subscription with the argds => ", args)
   const sub = context.db.subscription.rentalApplication(
     { where: args.where },
     info

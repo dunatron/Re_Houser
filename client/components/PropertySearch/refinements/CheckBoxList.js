@@ -47,9 +47,6 @@ const MaterialUiCheckBoxRefinementList = ({
   createURL,
 }) => {
   const [open, setOpen] = useState(false)
-  console.log("attribute => ", attribute)
-  console.log("items => ", items)
-
   return (
     <>
       <ListItem button onClick={() => setOpen(!open)}>

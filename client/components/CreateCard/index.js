@@ -17,12 +17,8 @@ const CreateCard = props => {
     CREATE_CREDIT_CARD_MUTATION
   )
   const onToken = res => {
-    console.log("We have a Stripe Token => ", res)
-    console.log("res.id => ", res.id)
     const card = createCreditCard({ variables: { token: res.id } })
-    console.log("The create card freom the mutation => ", card)
   }
-  // console.log("createCreditCardProps => ", createCreditCardProps)
   return (
     <User>
       {({ data: { me } }) => (
@@ -35,11 +31,8 @@ const CreateCard = props => {
             currency="NZD"
             email={me.email}
             image={me.photoIdentification ? me.photoIdentification.url : null}
-            // token={res => onToken(res)}
             token={res => {
               const token = onToken(res)
-              // const card = createCreditCard({ variables: token.id })
-              // console.log("Here is the card => ", card)
             }}>
             {props.children}
           </StripeCheckout>
@@ -50,51 +43,3 @@ const CreateCard = props => {
 }
 
 export default CreateCard
-
-/** 
-class _CardForm extends React.Component {
-  handleSubmit = (ev) => {
-    ev.preventDefault();
-    if (this.props.stripe) {
-      this.props.stripe
-        .createToken()
-        .then((payload) => console.log('[token]', payload));
-    } else {
-      console.log("Stripe.js hasn't loaded yet.");
-    }
-  };
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Card details
-          <CardElement
-            onBlur={handleBlur}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onReady={handleReady}
-            {...createOptions(this.props.fontSize)}
-          />
-        </label>
-        <button>Pay</button>
-      </form>
-    );
-  }
-}
-const CardForm = injectStripe(_CardForm);
-
-*/
-
-// const CreateCard = props => {
-//   return (
-//     <User>
-//       {({ data: { me } }) => (
-//         <Elements>
-//           <InjectedCheckoutForm fontSize={"30px"} />
-//         </Elements>
-//       )}
-//     </User>
-//   )
-// }
-
-// export default CreateCard

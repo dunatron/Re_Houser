@@ -1,6 +1,4 @@
 async function signLease(parent, args, ctx, info) {
-  console.log("SIGN LEASE ARGS => ", args)
-
   const { id, type, leaseId } = args
   // 1. Query the current user and ma ke sure they are signed in
   // const { userId } = ctx.request.userId
@@ -39,8 +37,6 @@ async function signLease(parent, args, ctx, info) {
     },
     data: updateDataWithType,
   })
-
-  console.log("signedLease => ", signedLease)
 
   const message = {
     message: `Signing of lease ${leaseId} was successful`,

@@ -56,8 +56,6 @@ const LoginPage = props => {
     if (data.me) return <LoggedInAs me={data.me} />
   }
 
-  console.log("data could be tricky => ", data)
-
   const handleChange = (event, value) => {
     setTabIndex(value)
   }

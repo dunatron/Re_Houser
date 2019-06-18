@@ -69,7 +69,6 @@ async function finalisePropertyLease(parent, args, ctx, info) {
    * leave it alone
    */
 
-  console.log("lessorIds => ", lessorIds)
   // 2. check that the user making this request is one of the lessors
   // 3. validate that everything has been signed. NOTE: when certain variables are updated for a lease it should unsign if not finalised
   // NOTE: should split this out into folders so finalisePropertyLease/index is the function that is called, then we have args and context and can use
@@ -78,7 +77,6 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   // 4. do the finalise mutation
   // 5. charge the lessors or however it has been setup to charge
   // 6. return success message
-  console.log("lease => ", lease)
   const message = {
     message:
       "Property Lease is now Legal: ToDo: => accept mutation and charge cards",

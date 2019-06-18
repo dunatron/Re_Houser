@@ -37,15 +37,11 @@ const LocationPicker = ({ selection }) => {
   /**
    * When the input loses focus
    */
-  const onBlur = e => {
-    // console.log("onBlur", e)
-  }
+  const onBlur = e => {}
   /**
    * When the input got changed
    */
-  const onChange = v => {
-    // console.log("input changes to :" + v)
-  }
+  const onChange = v => {}
   /**
    * When a suggest got selected
    */
@@ -61,8 +57,6 @@ const LocationPicker = ({ selection }) => {
     const shouldStayOpen = () => {
       // this._geoSuggest.focus()
     }
-
-    console.log("The suggestion => ", suggestion)
 
     if (description) {
       desc = description
@@ -98,9 +92,7 @@ const LocationPicker = ({ selection }) => {
   /**
    * When there are no suggest results
    */
-  const onSuggestNoResults = userInput => {
-    // console.log("onSuggestNoResults for :" + userInput)
-  }
+  const onSuggestNoResults = userInput => {}
 
   const _getZoom = desc => {
     if (desc.length <= 3) {
@@ -135,8 +127,6 @@ const LocationPicker = ({ selection }) => {
 
   // ToDo: compose the google props into a global to be able to be used
   // ToDo: make sure a selection ends in refocusing the input field
-
-  console.log("ABOUT TO RENDEAR LOCATION PICKER")
 
   return (
     <div>

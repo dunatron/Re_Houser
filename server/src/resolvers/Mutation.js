@@ -195,7 +195,6 @@ const mutations = {
         url: currData.photoIdentification.url,
         ctx,
       })
-      console.log("Deleted PhotoID on cloudinary => ", delFile)
     }
     // upload file to cloudinary
     const uploadedFile = await processUpload(await file, ctx)
@@ -260,7 +259,6 @@ const mutations = {
       propertyId: property.id,
       ctx,
     })
-    console.log("propertySearchNode => ", propertySearchNode)
     return property
   },
   async applyToRentalGroup(parent, { data }, ctx, info) {
@@ -324,7 +322,6 @@ const mutations = {
       propertyId: args.id,
       ctx,
     })
-    console.log("propertySearchNode => ", propertySearchNode)
     return ctx.db.mutation.updateProperty(
       {
         updates,

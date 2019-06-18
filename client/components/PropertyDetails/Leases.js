@@ -54,7 +54,6 @@ const PropertyLeases = props => {
   })
   if (loading) return "loading leaseas"
   if (error) return "Error with feting leases"
-  console.log("Lease Data => ", data)
   return (
     <div>
       <h1>I am the Leases details component</h1>

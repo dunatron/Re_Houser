@@ -18,21 +18,6 @@ export default class TronsVirtualizedList extends Component {
     cache.clearAll() //Clear the cache if row heights are recompute to be sure there are no "blank spaces" (some row are erased)
   }
   renderRow = ({ index, parent, key, style }) => {
-    // console.group("renderRow")
-    // console.log("index => ", index)
-    // console.log("key => ", key)
-    // console.groupEnd()
-    // return (
-    //   <CellMeasurer
-    //     key={key}
-    //     cache={cache}
-    //     parent={parent}
-    //     columnIndex={0}
-    //     clearAll={true}
-    //     rowIndex={index}>
-    //     <SearchResult data={this.props.data[index]} />
-    //   </CellMeasurer>
-    // )
     return (
       <CellMeasurer
         key={key}
@@ -82,9 +67,7 @@ export default class TronsVirtualizedList extends Component {
     )
   }
   render() {
-    console.log("this.props.data => ", this.props.data)
     const uniqueStamp = this.props.uniqueStamp
-    console.log("timeStamp => ", uniqueStamp)
     return (
       <AutoSizer
         onResize={({ height, width }) => console.log("Sizer h => ", height)}>

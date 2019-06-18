@@ -24,9 +24,7 @@ const Composed = adopt({
 const Apply = props => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [applicationData, setApplicationData] = useState({})
-  useEffect(() => {
-    console.log("THE MODAL STATE HAS CHANGED!!!!")
-  }, [modalIsOpen])
+  useEffect(() => {}, [modalIsOpen])
   const _apply = async createRentalApplication => {
     const res = await createRentalApplication()
   }
@@ -81,7 +79,6 @@ const Apply = props => {
     })
   }
   const rentalApplicationStepper = async (createRentalApplication, me) => {
-    console.log("rentalApplicationStepper Me => ", me)
     const application = await _createRentalApplication(
       createRentalApplication,
       me

@@ -136,36 +136,8 @@ const alertOptions = {
 const Page = props => {
   const [stripe, setStripe] = useState(null)
   const { google } = props
-  // const useNotification = () => {
-  //   const [notification, setNotification] = useState(false)
-  //   const openNotification = () => { < your notification logic here> }
-  //   return [openNotifcation]
-  // }
-  // export const GlobalContext = createContext({})
-  // export const Provider = ({children}) => {
-  //   const [openNotification] = useNotification()
-  //   return (
-  //     <GlobalContext.Provider value={{openNotification}}>
-  //       {children}
-  //     </GlobalContext.Provider>
-  //   )
-  // }
-
-  // useEffect(() => {
-  //   // this.setState({stripe: window.Stripe('pk_test_12345')});
-  //   console.log("AHHH COOL STRIPE HAS LOADED => ", window)
-  //   if (window.Stripe) {
-  //     // alert("Now we can final;ly do it")
-  //     console.log("SETTING THE STRIPE KEY ===>>")
-  //     setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
-  //   }
-  //   // window.Stripe
-  //   //   ? setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
-  //   //   : null
-  // }, [window.Stripe])
   useEffect(() => {
     if (window.Stripe) {
-      // alert("Now we can final;ly do it")
       console.log("SETTING THE STRIPE KEY ===>>")
       setStripe(window.Stripe("pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"))
     } else {
@@ -175,16 +147,6 @@ const Page = props => {
     //   ? setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
     //   : null
   }, [window.Stripe])
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     console.log("SETTING STRIPE => ", window.Stripe)
-  //     setStripe(window.Stripe)
-  //   }
-  //   window.addEventListener("Stripe", handleResize)
-  //   return () => {
-  //     window.removeEventListener("Stripe", handleResize)
-  //   }
-  // })
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}

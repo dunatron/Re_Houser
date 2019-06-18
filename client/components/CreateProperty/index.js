@@ -73,7 +73,6 @@ const CreateProperty = () => {
   const _createProperty = async createProperty => {
     const res = await createProperty()
     // offer route to this property
-    console.log("_createProperty res => ", res)
     toast.success(
       <div>
         <p>New Property Created</p>
@@ -265,7 +264,6 @@ const CreateProperty = () => {
                       setState({ ...state, indoorFeatures: value })
                     }
                     removeItem={v => {
-                      console.log("Re3move enum value from array ", v)
                       const indoorFeatures = state.indoorFeatures
                       const featureIdx = indoorFeatures.findIndex(
                         feature => feature === v
@@ -303,7 +301,6 @@ const CreateProperty = () => {
                       setState({ ...state, outdoorFeatures: value })
                     }
                     removeItem={v => {
-                      console.log("Re3move enum value from array ", v)
                       const outdoorFeatures = state.outdoorFeatures
                       const featureIdx = outdoorFeatures.findIndex(
                         feature => feature === v

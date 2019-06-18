@@ -36,22 +36,14 @@ const Composed = adopt({
   applyToRentalGroup: ({ render }) => (
     <Mutation
       mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}
-      update={(cache, payload) => {
-        console.log(
-          "I dont think this is being called. ApplyToGroup is handling the apply to group"
-        )
-      }}>
+      update={(cache, payload) => {}}>
       {render}
     </Mutation>
   ),
   createPreRentalDocument: ({ render }) => (
     <Mutation
       mutation={CREATE_PRE_RENTAL_DOCUMENT_MUTATION}
-      update={(cache, payload) => {
-        console.log(
-          "cool we can do our updates from hree. maybe evem export these functions. maybe even do hook functions"
-        )
-      }}>
+      update={(cache, payload) => {}}>
       {render}
     </Mutation>
   ),
@@ -106,7 +98,6 @@ export default class ApplicationItem extends Component {
     // saveAs(docyBuff, "test.docx")
   }
   getNumberOfApprovedApplicants = application => {
-    // console.log("application getNumberOfApprovedApplicants=> ", application)
     const numberOfApproved = application.applicants.reduce(
       (amount, applicant) => {
         if (applicant.approved) {
@@ -119,7 +110,6 @@ export default class ApplicationItem extends Component {
     return numberOfApproved
   }
   getNumberOfPendingApplicants = application => {
-    // console.log("application getNumberOfApprovedApplicants=> ", application)
     const numberOfApproved = application.applicants.reduce(
       (amount, applicant) => {
         if (!applicant.approved) {
@@ -245,7 +235,6 @@ export default class ApplicationItem extends Component {
 
   _advanceApplication = (me, application) => {
     const isAnApplicant = this.isAnApplicant(me, application)
-    // console.log("isAnApplicant => ", isAnApplicant)
     return (
       <div>
         {!isAnApplicant && this.renderApplyToGroupBtn()}

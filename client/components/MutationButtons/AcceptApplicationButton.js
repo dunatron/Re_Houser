@@ -64,9 +64,6 @@ const AcceptApplicationButton = ({ application, property }) => {
   // 1. extract the applicants from the application
   // application.
 
-  console.log("accept application button application => ", application)
-  console.log("accept application button property  => ", property)
-
   const tenantIds = application.applicants
     .filter(f => f.approved === true)
     .filter(f => f.completed === true)
@@ -75,8 +72,6 @@ const AcceptApplicationButton = ({ application, property }) => {
   // havnt done this yet...
   // const ownerIds = application
   const ownerId = application.owner.id
-
-  console.log("tenantIds => ", tenantIds)
 
   // 2. extract the owners from the application.
   // 3. then get the data
@@ -90,10 +85,6 @@ const AcceptApplicationButton = ({ application, property }) => {
         propertyId: property.id,
       },
       update: (proxy, payload) => {
-        console.group("AcceptApplicationButton update ToDo")
-        console.log("proxy => ", proxy)
-        console.log("payload => ", payload)
-        console.groupEnd()
         // Once application is accepted we can create a newLease
         if (payload.data.acceptRentalApplication.message) {
           toast(
@@ -143,10 +134,6 @@ const AcceptApplicationButton = ({ application, property }) => {
         },
       },
       update: (proxy, payload) => {
-        console.group("AcceptApplicationButton update ToDo")
-        console.log("proxy => ", proxy)
-        console.log("payload => ", payload)
-        console.groupEnd()
         const newLease = payload.data.createPropertyLease
         // Once application is accepted we can create a newLease
         toast.success(

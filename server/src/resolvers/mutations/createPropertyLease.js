@@ -1,7 +1,6 @@
 const { createCard } = require("../../lib/paymentAPI")
 
 async function createPropertyLease(parent, { data }, ctx, info) {
-  console.log("DO WE AT LEAST GET TO HERE ????? => ", data)
   const loggedInUserId = await ctx.request.userId
 
   // just highlohting we need to dp something herte
@@ -15,7 +14,6 @@ async function createPropertyLease(parent, { data }, ctx, info) {
     info
   )
 
-  console.log("newLease => ", newLease)
   return newLease
   // ToDo: user should also be proper owner or maybe admin
 }

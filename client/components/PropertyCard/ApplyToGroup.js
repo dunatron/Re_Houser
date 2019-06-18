@@ -22,7 +22,6 @@ class ApplyToGroup extends Component {
     applicationData: {},
   }
   update = (cache, payload) => {
-    console.log("This ios the thiung handling apply to group mutation")
     // manually update the cache on the client, so it matches the server
     // 1. Read the cache for the items we want
     // const data = cache.readQuery({ query: ALL_FILES_QUERY })
@@ -53,10 +52,6 @@ class ApplyToGroup extends Component {
       },
     })
     const rentalData = res.data.applyToRentalGroup
-    // Do an update of the cache and lauch modal from parent container
-    // console.log("rentalData => ", rentalData)
-    // STep 1 update cache
-    // STep 2 open modal through props
     this.props.openRentalAppModal(rentalData)
   }
   render() {

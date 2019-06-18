@@ -25,14 +25,11 @@ async function acceptRentalApplication(
     `{ owner{id} applicants{email user{email}} }`
   )
 
-  console.log("The application we are getting application", application)
-
   // get the Property
   const property = await ctx.db.query.property(
     { where: { id: propertyId } },
     `{owners{id}}`
   )
-  console.log("The application we are getting property", property)
   // check that loggedInUser is one of the owners for the property
   ownerIds = property.owners.map(owner => owner.id)
   if (!ownerIds.includes(loggedInUser)) {
@@ -51,7 +48,6 @@ async function acceptRentalApplication(
     },
     info
   )
-  console.log("updatedApplication => ", updatedApplication)
   // ToDo create a new Type {Lease}
 
   // Send EMails to the applicants informing them that the application has been completed
@@ -66,8 +62,6 @@ async function acceptRentalApplication(
     })
   })
   */
-
-  // console.log("updatedApplicationStage ====> ", updatedApplication)
 
   // return the application
   return { message: "Congratulations You have created a new Lease" }

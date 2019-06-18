@@ -1,7 +1,6 @@
 const { createCard } = require("../../lib/paymentAPI")
 
 async function createCreditCard(parent, { token }, ctx, info) {
-  console.log("CREATE CREDIT CARD ON THE SERVER SECURELY")
   // 1. Query the current user and ma ke sure they are signed in
   // const { userId } = ctx.request.userId
   // if (!userId) throw new Error("You must be signed in to create a credit card")
@@ -10,8 +9,6 @@ async function createCreditCard(parent, { token }, ctx, info) {
   if (!loggedInUserId) {
     throw new Error("You must be logged in!")
   }
-  console.log("MAKE SURE TO ADJUST")
-  console.log("loggedInUser => ", loggedInUserId)
 
   // const userId = "cjvaqrrbdt8u50b126ci5mgdm"
   // if (!userId) throw new Error("You must be signed in to create a credit card")
@@ -23,9 +20,6 @@ async function createCreditCard(parent, { token }, ctx, info) {
     `{id, email}`
   )
 
-  // console.log("User => ", user)
-
-  // console.log("=====Begin CEREATIONG CARD======")
   const card = await createCard({
     stripeToken: token,
     email: user.email,

@@ -34,17 +34,11 @@ const AdminAlertNewRentalApplicationSub = () => {
         },
       },
       onSubscriptionData: ({ client, subscriptionData }) => {
-        console.log("subscriptionData => ", subscriptionData)
         setUpdateCount(updateCount + 1)
         toast.success(<p>New Pending Rental Application for</p>)
       },
     }
   )
-  console.group("AdminAlertNewRentalApplicationSub")
-  console.log("loading => ", loading)
-  console.log("data => ", data)
-  console.log("error => ", error)
-  console.groupEnd()
   if (loading) return null
   if (error)
     return (

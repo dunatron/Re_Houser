@@ -78,11 +78,9 @@ const RentalApplications = props => {
     suspend: false,
   })
 
-  console.log("data => ", data)
   const applicationIds = loading
     ? []
     : data.rentalApplications.map(application => application.id)
-  console.log("applicationIds => ", applicationIds)
   /**
    * JUST NOT USING FOR NOW
   useSubscription(RENTAL_APPLICATION_UPDATED_SUBSCRIPTION, {
@@ -144,7 +142,6 @@ const RentalApplications = props => {
   if (error) {
     return <div>Error! {error.message}</div>
   }
-  console.log("rental Applications data => ", data)
   return (
     <div>
       <h1>I am the Applications details component</h1>

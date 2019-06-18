@@ -116,7 +116,6 @@ const RenderPlebView = ({ applicationInfo }) => (
 )
 
 const ApplicationDetailsStep = props => {
-  console.log("ApplicationDetailsStep props => ", props)
   const { me, application } = props
   if (me.id !== application.owner.id) {
     return <RenderPlebView {...props} />

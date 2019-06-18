@@ -192,7 +192,6 @@ const LeasesTable = ({ leases }) => {
     ]
   }
   const manageProperty = data => {
-    console.log("dataObj => ", data)
     handleLink("/my/lease", { id: data.id })
   }
   const showRawData = data => {

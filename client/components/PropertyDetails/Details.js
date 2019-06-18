@@ -46,12 +46,6 @@ const UpdatePropertyVariableModal = ({
   const [error, setError] = useState({})
   const [propertyValue, setPropertyValue] = useState(value)
 
-  // const escapePress = useKeyPress("Escape")
-  // if (escapePress === true) {
-  //   console.log("escapePress ?? => ", escapePress)
-  //   setModalIsOpen(false)
-  // }
-
   function downHandler({ key }) {
     if (key === "Escape") {
       setModalIsOpen(false)
@@ -74,38 +68,6 @@ const UpdatePropertyVariableModal = ({
       }
     }
   `
-
-  // const updateProperty = useMutation(PROPERTY_SINGLE_PROPERTY_MUTATION, {
-  //   variables: {
-  //     id: propertyId,
-  //     data: {
-  //       [name]: sanitizeInput(type, propertyValue),
-  //       // sff: "dfsfd", // test error. Need to get error out of network
-  //     },
-  //   },
-  //   update: (proxy, payload) => {
-  //     // // find out where the property prop is loaded from and update the cache
-  //     const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY })
-  //     const updatedPropertyData = payload.data.updateProperty
-  //     const allProperties = data.ownerProperties
-  //     const idToSearchBy = updatedPropertyData.id
-  //     const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
-  //     data.ownerProperties[foundIndex] = {
-  //       ...data.ownerProperties[foundIndex],
-  //       ...payload.data.updateProperty,
-  //     }
-  //     proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data })
-  //   },
-  //   errorPolicy: "all",
-  //   optimisticResponse: {
-  //     __typename: "Mutation",
-  //     updateProperty: {
-  //       __typename: "Property",
-  //       id: propertyId,
-  //       [name]: sanitizeInput(type, propertyValue),
-  //     },
-  //   },
-  // })
   // ToDo: Mutation Props
   const [updateProperty, updatePropertyPayload] = useMutation(
     PROPERTY_SINGLE_PROPERTY_MUTATION,
@@ -151,9 +113,6 @@ const UpdatePropertyVariableModal = ({
           onSubmit={async e => {
             e.preventDefault()
             updateProperty()
-            // setLoading(true)
-            // const res = await updateProperty()
-            // setLoading(false)
             setModalIsOpen(false)
           }}>
           {loading && <p>confirming on the server...</p>}
@@ -222,9 +181,6 @@ const UpdatePropertyVariableModal = ({
 
 const Details = props => {
   const { property } = props
-
-  console.log("The Propery => ", property)
-
   return (
     <div>
       <h4>

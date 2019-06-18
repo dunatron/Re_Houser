@@ -40,8 +40,6 @@ index.setSettings({
 })
 
 var addPropertySearchNode = async function({ propertyId, ctx }) {
-  console.group("===========addPropertySearchNode=============")
-
   const property = await ctx.db.query.property(
     {
       where: {
@@ -70,20 +68,7 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     indoorFeatures: property.indoorFeatures, // https://www.algolia.com/doc/faq/index-configuration/do-you-support-indexing-of-arrays/
   }
   propertiesObjectArr.push(propertyObject)
-  console.log("propertiesObjectArr => ", propertiesObjectArr)
-  index.addObjects(propertiesObjectArr, function(err, content) {
-    console.log(content)
-    console.log("objectIDs=" + content.objectIDs)
-  })
-  // response is an object
-  // {
-  //   "objectIDs": [
-  //     "myObjectID1",
-  //     "myObjectID2"
-  //   ],
-  //   "taskID": 678,
-  // }
-  console.groupEnd()
+  index.addObjects(propertiesObjectArr, function(err, content) {})
   return "ALL DONE HERE BRO"
 }
 
@@ -94,14 +79,9 @@ const ALLOWED_SEARCH_NODE_UPDATE_KEYS = ["rent", "rooms", "moveInDate"]
  * a specified array of allowed keys
  */
 const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
-  console.log("updatePropertySearchNode updates  => ", updates)
-  console.log("updatePropertySearchNode propertyId  => ", propertyId)
   const objects = [{ ...updates.data, objectID: propertyId }]
   index.partialUpdateObjects(objects, (err, content) => {
     if (err) throw err
-
-    console.log("UPDated Search node content =-> ", content)
-    console.log(content)
   })
   return "All done with search node updates"
 }

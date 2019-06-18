@@ -23,9 +23,6 @@ const FinaliseApplicationStep = ({ application }) => {
       variables: { applicationId: application.id },
       update: (proxy, mutationResult) => {
         /* your custom update logic */
-        console.group("completeApplication update")
-        console.log("proxy ", proxy)
-        console.log("mutationResult ", mutationResult)
         toast.info(
           <div>
             <p>
@@ -38,7 +35,6 @@ const FinaliseApplicationStep = ({ application }) => {
           </div>,
           { autoClose: 15000 }
         )
-        console.groupEnd()
       },
       // optimisticResponse: {},
     }
@@ -84,10 +80,6 @@ const FinaliseApplicationStep = ({ application }) => {
             completeApplication()
               .then(res => {
                 // just to display message? or just let ui change when we update
-                console.log(
-                  "We have oput the application into pending mode => ",
-                  res
-                )
                 alert.show(
                   "Congrats the application is now in PENDING mode awaiting the landlords approval!"
                 )

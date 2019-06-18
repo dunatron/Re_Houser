@@ -19,10 +19,6 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
     },
     update: (proxy, payload) => {
       const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-      console.group("SetPrimaryCreditCardButton => ")
-      console.log("payload => ", payload)
-      console.log("userData => ", userData)
-      console.groupEnd()
       // userData.me = {
       //   ...userData.me
       //   // ...payload.data.uploadPhotoId,

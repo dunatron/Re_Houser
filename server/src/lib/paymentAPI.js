@@ -11,7 +11,6 @@ exports.createCard = async ({ stripeToken, email, user, ctx }) => {
   //   currency: 'USD',
   //   source: args.token,
   // });
-  console.group("Begin Creating Credit card")
   const card = await stripe.customers.create({
     source: stripeToken,
     email: email,
@@ -21,9 +20,6 @@ exports.createCard = async ({ stripeToken, email, user, ctx }) => {
   const cardId = default_source
   // Maybe we can be storing stripe users and this array can have many cards???
   const cardData = card.sources.data[0]
-  console.log("cardData => ", cardData)
-  console.log("user => ", user)
-  console.log("========NEW CARD========")
 
   const newCard = await db.mutation.createCreditCard(
     {
@@ -44,9 +40,5 @@ exports.createCard = async ({ stripeToken, email, user, ctx }) => {
     },
     `{id}`
   )
-
-  console.log("OUR CARD ASTORAGE +> ", newCard)
-
-  console.groupEnd("END Creating Credit card")
   return cardData
 }
