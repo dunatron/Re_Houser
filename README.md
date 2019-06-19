@@ -295,10 +295,12 @@ PORT=4444
 
 - when setting up a new cluster you need to manually run `prisma deploy` from the backend and setup the new service
 - `git subtree push --prefix server heroku-backend master`
+- `git subtree push --prefix server prod-backend master`
 
 #### client
 
 - `git subtree push --prefix client heroku-frontend master`
+- `git subtree push --prefix client prod-frontend master`
 
 #### NEW HEROKU DEPLOYMENT
 

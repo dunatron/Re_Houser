@@ -16,6 +16,9 @@ var client = algoliasearch(applicationId, apiKey, {
 // var index = client.initIndex(`PropertySearch_${process.env.STAGE}`)
 var index = client.initIndex(`${process.env.STAGE}_PropertySearch`)
 
+/**
+ * ToDo: These settings are not applying properly on initial create
+ */
 // We need to apply our settings here!
 index.setSettings({
   // Select the attributes you want to search in
