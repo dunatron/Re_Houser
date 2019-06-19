@@ -14,7 +14,7 @@ const CompletedLease = ({ leaseId }) => {
   const { data, error, loading } = useQuery(PAYMENTS_QUERY, {
     variables: {
       where: {
-        leaseId: "cjx31i18cwn5y0b42mdqzb4pk",
+        leaseId: leaseId,
       },
     },
     suspend: false,
