@@ -1,6 +1,8 @@
+const { createCard, chargeCard } = require("../../lib/paymentAPI")
+
 async function finalisePropertyLease(parent, args, ctx, info) {
-  // const reqUserId = ctx.request.userId
-  const reqUserId = "cjwq51kvcdy740b428jvm6phc"
+  const reqUserId = ctx.request.userId
+  // const reqUserId = "cjwq51kvcdy740b428jvm6phc"
 
   // if (!reqUserId) {
   //   throw new Error("You must be logged in to finalise a lease")
@@ -29,6 +31,9 @@ async function finalisePropertyLease(parent, args, ctx, info) {
           id
         }
       }
+      property {
+        id
+      }
     }`
   )
 
@@ -40,7 +45,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   /**
    * validation stuff is an example of why we want to do this and extract to files
    */
-  const isALessor = !lessorIds.includes(reqUserId)
+  const isALessor = lessorIds.includes(reqUserId)
   if (!isALessor) {
     throw new Error("You must be a lessor to finalise this lease")
   }
@@ -77,9 +82,63 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   // 4. do the finalise mutation
   // 5. charge the lessors or however it has been setup to charge
   // 6. return success message
+
+  /**
+   * New Notes
+   */
+  // 1. charge card
+
+  // get user and primaryCard to charge
+  const loggedInUser = await ctx.db.query.user(
+    {
+      where: {
+        id: reqUserId,
+      },
+    },
+    `{
+      id
+      primaryCreditCard {
+        id
+        stripeCardId
+        stripeCustomerId
+        fingerprint
+        country
+        brand
+        exp_month
+        exp_year
+        last4
+        name
+      }
+    }`
+  )
+
+  console.log("loggedInUser => ", loggedInUser)
+
+  // loggedInUser
+  if (!loggedInUser.primaryCreditCard) {
+    throw new Error("You must have a credit card")
+  }
+
+  const payment = await chargeCard({
+    stripeCustomerId: loggedInUser.primaryCreditCard.stripeCustomerId,
+    amount: 500,
+    currency: "NZD",
+    userId: loggedInUser.id,
+    leaseId: leaseId,
+    propertyId: lease.property.id,
+  })
+
+  console.log("recieved payment payment =>", payment)
+
+  // throw new Error("Still In Server Development")
+
   const message = {
-    message:
-      "Property Lease is now Legal: ToDo: => accept mutation and charge cards",
+    message: "Property Lease is now Legal: Your Payment was successful ",
+    data: {
+      payment: {
+        id: payment.id,
+      },
+    },
   }
   return message
 }

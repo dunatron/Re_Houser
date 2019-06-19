@@ -36,13 +36,23 @@ type CreditCard {
   stripeCardId: String @unique
   brand: String
   country: String
+  address_city: String
+  address_country: String
+  address_line1: String
+  address_line1_check: String
+  address_line2: String
+  address_state: String
+  address_zip: String
+  address_zip_check: String
   stripeCustomerId: String
   exp_month: Int
   exp_year: Int
   fingerprint: String
   last4: String
   name: String
-  tron: String
+  object: String
+  cvc_check: String
+  funding: String
 }
 
 type File {
@@ -157,4 +167,24 @@ type PropertyLease implements PropertyInfo {
   location: String!
   locationLat: Float!
   locationLng: Float!
+}
+
+type Payment {
+  id: ID! @unique @id
+  userId: ID!
+  leaseId: ID
+  propertyId: ID
+  stripePaymentId: String!
+  object: String
+  amount: Float
+  amount_refunded: Float
+  balance_transaction: String
+  captured: Boolean
+  created: DateTime
+  currency: String
+  customer: String
+  description: String
+  paid: Boolean
+  payment_method: String
+  status: String
 }

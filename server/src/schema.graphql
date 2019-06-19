@@ -6,6 +6,7 @@ scalar Upload
 
 type SuccessMessage {
   message: String
+  data: Json
 }
 
 type Mutation {
@@ -79,6 +80,15 @@ type Query {
   myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
   myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!
   myLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease!
+  payments(
+    where: PaymentWhereInput
+    orderBy: PaymentOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Payment]!
 }
 
 type User {

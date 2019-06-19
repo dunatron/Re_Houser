@@ -75,7 +75,7 @@ const LeaseManager = ({ leaseId }) => {
           const lessorUserIds = lessees.map(lessor => lessor.user.id)
 
           // 1. if lease has been finalised <CompletedLease />
-          if (finalised) return <CompletedLease />
+          if (finalised) return <CompletedLease leaseId={data.myLease.id} />
           // 2. we need to sign the lease <CompletedLease />
           return <SignLease lease={data.myLease} me={me} />
         }}

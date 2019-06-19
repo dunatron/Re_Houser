@@ -70,7 +70,7 @@ class EnhancedTableHead extends React.Component {
             return (
               <TableCell
                 key={row.id}
-                align="center"
+                align="left"
                 numeric={row.numeric}
                 padding={row.disablePadding ? "none" : "default"}
                 sortDirection={orderBy === row.id ? order : false}>

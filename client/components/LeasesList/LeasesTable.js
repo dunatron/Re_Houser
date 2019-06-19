@@ -17,13 +17,13 @@ const handleLink = (route = "/", query = {}) => {
 
 const LeasesTable = ({ leases }) => {
   const prettyLeases = leases.map(lease => {
-    const pretifiedData = {
+    const prettifiedData = {
       ...lease,
       moveInDate: moment(lease.moveInDate).format(
         "dddd, MMMM Do YYYY, h:mm:ss a"
       ),
     }
-    return pretifiedData
+    return prettifiedData
   })
   const [showDataModal, setShowDataModal] = useState(false)
   const [rawLeaseData, setRawLeasData] = useState({})

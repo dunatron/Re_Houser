@@ -10,6 +10,7 @@ const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   mutation FINALISE_PROPERTY_LEASE_MUTATION($leaseId: ID!) {
     finalisePropertyLease(leaseId: $leaseId) {
       message
+      data
     }
   }
 `
@@ -35,7 +36,12 @@ const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
             payload.data.finalisePropertyLease.__typename === "SuccessMessage"
           ) {
             leaseData.myLease.finalised = true
-            toast.info(<p>{payload.data.finalisePropertyLease.message}</p>)
+            toast.info(
+              <div>
+                <p>{payload.data.finalisePropertyLease.message}</p>
+                <p>{JSON.stringify(payload.data.finalisePropertyLease.data)}</p>
+              </div>
+            )
           }
         }
       },

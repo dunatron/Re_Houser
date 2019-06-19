@@ -98,6 +98,7 @@ const RenderButtonFunc = ({ data, allData, index, executeFunc }) => {
   return (
     <TableCell
       // key={idx}
+      align="left"
       numeric={data.numeric}
       style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
@@ -112,6 +113,7 @@ const RenderNumberOfObj = ({ data, index, allData }) => {
   const length = extractDeepValue(data.found, allData).length
   return (
     <TableCell
+      align="left"
       key={index}
       numeric={data.numeric}
       // style={{ minWidth: "90px" }}
@@ -126,6 +128,7 @@ const RenderNumberOfObj = ({ data, index, allData }) => {
 const RenderDeep = ({ data, index, allData }) => {
   return (
     <TableCell
+      align="left"
       key={index}
       numeric={data.numeric}
       // style={{ minWidth: "90px" }}
@@ -143,7 +146,7 @@ const RenderDeep = ({ data, index, allData }) => {
 const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
   const value = allData[data.id]
   return (
-    <TableCell align="center" padding="checkbox" {...data.tableRenderProps}>
+    <TableCell align="left" padding="checkbox" {...data.tableRenderProps}>
       <Checkbox
         checked={value}
         size="small"
@@ -198,6 +201,7 @@ const RenderMap = ({ data, index, allData }) => {
 const RenderTag = ({ data, index, allData }) => {
   return (
     <TableCell
+      align="left"
       key={index}
       numeric={data.numeric}
       style={{ minWidth: "90px" }}
@@ -215,6 +219,7 @@ const RenderDefault = props => {
   const { data, index, allData } = props
   return (
     <TableCell
+      align="left"
       key={index}
       numeric={data.numeric}
       style={{ minWidth: "90px" }}
