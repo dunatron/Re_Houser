@@ -13,6 +13,7 @@ import Divider from "@material-ui/core/Divider"
 import IconButton from "@material-ui/core/IconButton"
 import CustomSearchBox from "./CustomSearchBox"
 import SettingsIcon from "../../styles/icons/SettingsIcon"
+import SettingsInputIcon from "../../styles/icons/SettingsInputIcon"
 import CloseIcon from "../../styles/icons/CloseIcon"
 
 import { SearchInterface } from "./styles"
@@ -22,6 +23,7 @@ import ConnectedMaterialUiSortBy from "./refinements/SortBy"
 import ConnectedMaterialPagination from "./refinements/Pagination"
 import CustomHighlight from "./refinements/CustomHiglight"
 import PropertyCard from "../PropertyCard/index"
+import SearchFilter from "./SearchFilter"
 
 import {
   InstantSearch,
@@ -31,6 +33,7 @@ import {
   Stats,
   SortBy,
   Configure,
+  connectCurrentRefinements,
 } from "react-instantsearch-dom"
 
 var applicationId = "4QW4S8SE3J"
@@ -40,9 +43,9 @@ const indexPrefix = process.env.NODE_ENV === "development" ? "dev" : "prod"
 
 const Hit = ({ hit }) => (
   <div className="si-hit">
-    <div className="si-hit__location">
+    {/* <div className="si-hit__location">
       <CustomHighlight attribute={"location"} hit={hit} />
-    </div>
+    </div> */}
     <PropertyCard property={hit} isSearch={true} />
   </div>
 )
@@ -51,20 +54,19 @@ const Content = () => (
   <div className="si-content">
     <div className="si-info">
       <Stats />
-      <ConnectedMaterialUiSortBy
+      {/* <ConnectedMaterialUiSortBy
         items={[
-          { value: `${indexPrefix}_PropertySearch`, label: "Relevance" },
           {
-            value: `${indexPrefix}_PropertySearch_price_asc`,
-            label: "Lowest Price",
+            value: `dev_PropertySearch`,
+            label: "Development results",
           },
           {
-            value: `${indexPrefix}_PropertySearch_price_desc`,
-            label: "Highest Price",
+            value: `prod_PropertySearch`,
+            label: "Production results",
           },
         ]}
         defaultRefinement={`${indexPrefix}_PropertySearch`}
-      />
+      /> */}
     </div>
 
     <Hits hitComponent={Hit} />
@@ -74,9 +76,9 @@ const Content = () => (
     </div>
   </div>
 )
-
+// si-drawer-sidebar
 const Sidebar = () => (
-  <div className="si-drawer__sidebar">
+  <div className="si-drawer__sidebar" style={{ maxWidth: "100vw" }}>
     <div>
       <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
       <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
@@ -121,19 +123,17 @@ const PropertySearch = () => {
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
-      <Configure
-        // filters={[]}
-        // filters='(onTheMarket:Book OR onTheMarket:Ebook) AND _tags:published'
-        // filters="(onTheMarket:TRUE OR onTheMarket:FALSE)"
-        // filters={{ onTheMarket: true }}
-        filters="onTheMarket:true"
-        // filters="location:Auckland Airport (AKL) Ray Emery Drive, Auckland Airport, Auckland, New Zealand"
-        // hitsPerPage={4}
-        // analytics={false}
-        // enablePersonalization={true}
-        // distinct
-      />
       <SearchInterface>
+        <Drawer
+          // style={{ maxWidth: "100vw" }}
+          className="si-drawer"
+          variant="persistent"
+          anchor="left"
+          open={open}>
+          <DrawHeader close={handleDrawerClose} />
+          <Divider />
+          <Sidebar />
+        </Drawer>
         <AppBar
           position="relative"
           color="default"
@@ -144,20 +144,13 @@ const PropertySearch = () => {
               style={{ margin: "0 12px 0 0" }}
               aria-label="Open drawer"
               onClick={toggleDraw}>
-              <SettingsIcon />
+              <SettingsInputIcon />
             </IconButton>
             <CustomSearchBox fullWidth={true} />
           </Toolbar>
         </AppBar>
-        <Drawer
-          className="si-drawer"
-          variant="persistent"
-          anchor="left"
-          open={open}>
-          <DrawHeader close={handleDrawerClose} />
-          <Divider />
-          <Sidebar />
-        </Drawer>
+
+        <SearchFilter />
         <Content />
       </SearchInterface>
     </InstantSearch>

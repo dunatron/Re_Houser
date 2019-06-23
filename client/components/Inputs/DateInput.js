@@ -34,14 +34,21 @@ const styles = theme => ({
  * 4. feed it into picker
  * 5. onChange convert into our db format and send back up
  */
+/**
+ *
+ * Do I, seperate these out into two seperate components, e.g, date vs datetime-local
+ * times and dates are crucial to get right
+ */
 const DateInput = ({ id, classes, value, onChange, label }) => {
   // const RFCIsoValue = moment(value).format("YYYY-MM-DD")
   const RFCIsoValue = moment(value).format("YYYY-MM-DDTkk:mm")
   //
   return (
     <TextField
+      className={classes.textField}
       id={id ? id : "default-datePicker"}
       label={label ? label : "Some Date"}
+      margin="normal"
       type="datetime-local"
       // value={RFCIsoValue}
       value={RFCIsoValue}

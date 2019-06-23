@@ -6,7 +6,7 @@ const SearchInterface = styled.div`
     border: 1px solid red;
   } */
   .si-drawer {
-    border: 1px solid red;
+    /* border: 1px solid red; */
   }
 
   .si-drawer__header {
@@ -18,9 +18,10 @@ const SearchInterface = styled.div`
   .si-drawer__close-btn {
   }
 
-  .si-drawer-sidebar {
+  .si-drawer__sidebar {
     /* max-width: 320px; */
     width: 320px;
+    max-width: 100vw;
   }
   .si-content {
     /* width: 100%;
@@ -31,7 +32,7 @@ const SearchInterface = styled.div`
     display: flex;
     padding: 8px 0 0 0;
     .ais-Stats {
-      padding: 16px;
+      padding: 0 16px;
       .ais-Stats-text {
         font-size: 1.2em;
       }

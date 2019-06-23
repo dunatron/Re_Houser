@@ -1,5 +1,6 @@
 var algoliasearch = require("algoliasearch")
 require("dotenv").config({ path: "./variables.env" })
+var moment = require("moment")
 
 var applicationId = "4QW4S8SE3J"
 var apiKey = "506b6dcf7516c20a1789e6eb9d9a5b39"
@@ -20,29 +21,52 @@ var index = client.initIndex(`${process.env.STAGE}_PropertySearch`)
  * ToDo: These settings are not applying properly on initial create
  */
 // We need to apply our settings here!
-index.setSettings({
-  // Select the attributes you want to search in
-  searchableAttributes: ["location", "price", "rooms"],
-  // Define business metrics for ranking and sorting
-  // customRanking: [
-  //   'desc(popularity)'
-  // ],
-  // Set up some attributes to filter results on
-  attributesForFaceting: [
-    "rooms",
-    "searchable(locationLat)",
-    "searchable(locationLng)",
-    "price",
-    "indoorFeatures",
-    "outdoorFeatures",
-    "type",
-    "onTheMarket",
-    "moveInDate",
-    "expiryDate",
-  ],
-})
+// index.setSettings({
+//   // Select the attributes you want to search in
+//   searchableAttributes: ["location", "price", "rooms"],
+//   // Define business metrics for ranking and sorting
+//   customRanking: ["desc(popularity)"],
+//   // Set up some attributes to filter results on
+//   attributesForFaceting: [
+//     "rooms",
+//     "searchable(locationLat)",
+//     "searchable(locationLng)",
+//     "price",
+//     "indoorFeatures",
+//     "outdoorFeatures",
+//     "type",
+//     "onTheMarket",
+//     "moveInDate",
+//     "expiryDate",
+//   ],
+// })
 
 var addPropertySearchNode = async function({ propertyId, ctx }) {
+  index.setSettings({
+    // Select the attributes you want to search in
+    searchableAttributes: [
+      "location",
+      "rent",
+      "rooms",
+      "move_in_date_timestamp",
+    ],
+    // Define business metrics for ranking and sorting
+    customRanking: ["desc(popularity)"],
+    // Set up some attributes to filter results on
+    attributesForFaceting: [
+      "rooms",
+      "searchable(locationLat)",
+      "searchable(locationLng)",
+      "searchable(move_in_date_timestamp)",
+      "rent",
+      "indoorFeatures",
+      "outdoorFeatures",
+      "type",
+      "onTheMarket",
+      "moveInDate",
+      "expiryDate",
+    ],
+  })
   const property = await ctx.db.query.property(
     {
       where: {
@@ -52,6 +76,10 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     `{id, type, rooms, rent, moveInDate, onTheMarket, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
   )
   const propertiesObjectArr = []
+  console.log("Flag Here")
+
+  const moveInTimeStamp = moment(property.moveInDate).unix()
+  console.log("moveInTimeStamp => ", moveInTimeStamp)
   const propertyObject = {
     objectID: property.id,
     id: property.id,
@@ -59,6 +87,7 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     rooms: property.rooms,
     rent: property.rent,
     moveInDate: property.moveInDate,
+    move_in_date_timestamp: moveInTimeStamp,
     onTheMarket: property.onTheMarket,
     location: property.location,
     locationLat: property.locationLat,

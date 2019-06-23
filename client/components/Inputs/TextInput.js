@@ -2,6 +2,7 @@ import React from "react"
 import { withStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 
+// just use valid hml5 => https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types
 const styles = theme => ({
   root: {
     display: "flex",
@@ -24,15 +25,17 @@ const styles = theme => ({
   },
 })
 
-const TextInput = ({ classes, value, onChange }) => {
+const TextInput = props => {
+  const { classes, value, onChange } = props
   return (
     <TextField
       id="standard-name"
       label="Name"
       className={classes.textField}
-      value={this.state.name}
+      value={value}
       onChange={onChange}
       margin="normal"
+      {...props}
     />
   )
 }

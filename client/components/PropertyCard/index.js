@@ -28,90 +28,6 @@ import Rating from "./Rating"
 // custom highlight from search interface
 import CustomHighlight from "../PropertySearch/refinements/CustomHiglight"
 
-/*
-class PropertyCardComponent extends Component {
-  state = { expanded: false, value: 1 }
-
-  handleChange = (event, value) => {
-    this.setState({ value })
-  }
-
-  handleExpandClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }))
-  }
-
-  render() {
-    const { property } = this.props
-    const { value } = this.state
-    const {
-      id,
-      rooms,
-      rent,
-      moveInDate,
-      onTheMarket,
-      location,
-      locationLat,
-      locationLng,
-      owners,
-      creator,
-      images,
-      imageUrls, // for algolia
-      carportSpaces,
-      garageSpaces,
-      offStreetSpaces,
-      outdoorFeatures,
-      indoorFeatures,
-    } = property
-    return (
-      <PropertyCard>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" className={"avatar"}>
-              H
-            </Avatar>
-          }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={location}
-          subheader={
-            <div style={{ display: "flex" }}>
-              <HomeIcon />
-              {rooms}
-              <MoneyIcon />
-              {rent} = {Math.ceil(rent / rooms)} per person
-            </div>
-          }
-        />
-
-        <CardMedia
-          className={"media"}
-          image="/static/images/cards/paella.jpg"
-          title="Paella dish"
-        />
-        <Tabs value={value} onChange={this.handleChange}>
-          <Tab label="Apply" />
-          <Tab label="Details" />
-          <Tab label="Rating" />
-        </Tabs>
-        {value === 0 && (
-          <TabContainer>
-            <Apply property={property} />
-          </TabContainer>
-        )}
-        {value === 1 && (
-          <TabContainer>{<Details property={property} />}</TabContainer>
-        )}
-        {value === 2 && <TabContainer>{<Rating />}</TabContainer>}
-      </PropertyCard>
-    )
-  }
-}
-
-export default PropertyCardComponent
-*/
 const PropertyCardComponent = props => {
   const [value, setValue] = useState(0)
 
@@ -143,7 +59,7 @@ const PropertyCardComponent = props => {
   } = property
 
   return (
-    <PropertyCard>
+    <PropertyCard raised={true}>
       <CardHeader
         avatar={
           <Avatar aria-label="Recipe" className={"avatar"}>

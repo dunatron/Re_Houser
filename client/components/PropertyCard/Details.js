@@ -50,7 +50,7 @@ const Details = props => {
     <div>
       <CardContent>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <Typography component="div">
+          {/* <Typography component="div">
             indoorFeatures:{" "}
             {indoorFeatures &&
               indoorFeatures.map((feature, i) => (
@@ -63,11 +63,11 @@ const Details = props => {
             outdoorFeatures:{" "}
             {outdoorFeatures &&
               outdoorFeatures.map((feature, i) => (
-                <Typography key={i} component="span">
+                <Typography key={i} component="paragraph">
                   {feature}
                 </Typography>
               ))}
-          </Typography>
+          </Typography> */}
           <DetailItem
             icon={<CameraIcon />}
             label="offStreetSpaces"
