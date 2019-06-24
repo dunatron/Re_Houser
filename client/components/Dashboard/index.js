@@ -27,6 +27,9 @@ export default class Dashboard extends Component {
         <NavButton color="secondary" onClick={() => handleLink("/my/leases")}>
           My Leases
         </NavButton>
+        <NavButton color="secondary" onClick={() => handleLink("/my/friends")}>
+          Friend Manager
+        </NavButton>
       </div>
     )
   }

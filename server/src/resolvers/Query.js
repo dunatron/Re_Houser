@@ -4,6 +4,7 @@ const myLeases = require("./querys/myLeases.js")
 const myLease = require("./querys/myLease.js")
 const payments = require("./querys/payments")
 const rentalApplication = require("./querys/rentalApplication")
+const findUsers = require("./querys/findUser")
 
 const Query = {
   me(parent, args, ctx, info) {
@@ -122,6 +123,7 @@ const Query = {
   myLease,
   rentalApplication,
   payments,
+  findUsers
 }
 
 module.exports = Query

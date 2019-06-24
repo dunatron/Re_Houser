@@ -55,6 +55,8 @@ type Mutation {
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   signLease(id: ID!, leaseId: ID!, type: String!): SuccessMessage!
   finalisePropertyLease(leaseId: ID!): SuccessMessage!
+  createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
+  acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
 }
 
 type Subscription {
@@ -89,6 +91,15 @@ type Query {
     first: Int
     last: Int
   ): [Payment]!
+  findUsers(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User!]!
 }
 
 type User {
@@ -112,4 +123,7 @@ type User {
   referee2Phone: String
   referee2Email: String
   primaryCreditCard: CreditCard
+  friends: [User!]!
+  friendRequests: [FriendRequest!]!
+  awaitingFriends: [FriendRequest!]!
 }

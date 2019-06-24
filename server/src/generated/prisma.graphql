@@ -1,11 +1,15 @@
-# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Wed Jun 19 2019 23:16:42 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Mon Jun 24 2019 20:40:27 GMT+1200 (New Zealand Standard Time)
 
 type AggregateCreditCard {
   count: Int!
 }
 
 type AggregateFile {
+  count: Int!
+}
+
+type AggregateFriendRequest {
   count: Int!
 }
 
@@ -94,6 +98,7 @@ type CreditCardConnection {
 }
 
 input CreditCardCreateInput {
+  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -128,6 +133,7 @@ input CreditCardCreateOneInput {
 }
 
 input CreditCardCreateWithoutCardOwnerInput {
+  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -204,8 +210,6 @@ enum CreditCardOrderByInput {
   cvc_check_DESC
   funding_ASC
   funding_DESC
-  updatedAt_ASC
-  updatedAt_DESC
 }
 
 type CreditCardPreviousValues {
@@ -1204,6 +1208,7 @@ input CreditCardUpdateManyMutationInput {
 input CreditCardUpdateManyWithoutCardOwnerInput {
   create: [CreditCardCreateWithoutCardOwnerInput!]
   connect: [CreditCardWhereUniqueInput!]
+  set: [CreditCardWhereUniqueInput!]
   disconnect: [CreditCardWhereUniqueInput!]
   delete: [CreditCardWhereUniqueInput!]
   update: [CreditCardUpdateWithWhereUniqueWithoutCardOwnerInput!]
@@ -2131,6 +2136,7 @@ type FileConnection {
 }
 
 input FileCreateInput {
+  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -2499,6 +2505,7 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
+  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -2803,6 +2810,268 @@ input FileWhereUniqueInput {
   id: ID
 }
 
+type FriendRequest implements Node {
+  id: ID!
+  requestUser: User!
+  acceptingUser: User!
+}
+
+"""A connection to a list of items."""
+type FriendRequestConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FriendRequestEdge]!
+  aggregate: AggregateFriendRequest!
+}
+
+input FriendRequestCreateInput {
+  id: ID
+  requestUser: UserCreateOneWithoutAwaitingFriendsInput!
+  acceptingUser: UserCreateOneWithoutFriendRequestsInput!
+}
+
+input FriendRequestCreateManyWithoutAcceptingUserInput {
+  create: [FriendRequestCreateWithoutAcceptingUserInput!]
+  connect: [FriendRequestWhereUniqueInput!]
+}
+
+input FriendRequestCreateManyWithoutRequestUserInput {
+  create: [FriendRequestCreateWithoutRequestUserInput!]
+  connect: [FriendRequestWhereUniqueInput!]
+}
+
+input FriendRequestCreateWithoutAcceptingUserInput {
+  id: ID
+  requestUser: UserCreateOneWithoutAwaitingFriendsInput!
+}
+
+input FriendRequestCreateWithoutRequestUserInput {
+  id: ID
+  acceptingUser: UserCreateOneWithoutFriendRequestsInput!
+}
+
+"""An edge in a connection."""
+type FriendRequestEdge {
+  """The item at the end of the edge."""
+  node: FriendRequest!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FriendRequestOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type FriendRequestPreviousValues {
+  id: ID!
+}
+
+input FriendRequestScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FriendRequestScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FriendRequestScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FriendRequestScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
+type FriendRequestSubscriptionPayload {
+  mutation: MutationType!
+  node: FriendRequest
+  updatedFields: [String!]
+  previousValues: FriendRequestPreviousValues
+}
+
+input FriendRequestSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FriendRequestSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FriendRequestSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FriendRequestSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FriendRequestWhereInput
+}
+
+input FriendRequestUpdateInput {
+  requestUser: UserUpdateOneRequiredWithoutAwaitingFriendsInput
+  acceptingUser: UserUpdateOneRequiredWithoutFriendRequestsInput
+}
+
+input FriendRequestUpdateManyWithoutAcceptingUserInput {
+  create: [FriendRequestCreateWithoutAcceptingUserInput!]
+  connect: [FriendRequestWhereUniqueInput!]
+  set: [FriendRequestWhereUniqueInput!]
+  disconnect: [FriendRequestWhereUniqueInput!]
+  delete: [FriendRequestWhereUniqueInput!]
+  update: [FriendRequestUpdateWithWhereUniqueWithoutAcceptingUserInput!]
+  deleteMany: [FriendRequestScalarWhereInput!]
+  upsert: [FriendRequestUpsertWithWhereUniqueWithoutAcceptingUserInput!]
+}
+
+input FriendRequestUpdateManyWithoutRequestUserInput {
+  create: [FriendRequestCreateWithoutRequestUserInput!]
+  connect: [FriendRequestWhereUniqueInput!]
+  set: [FriendRequestWhereUniqueInput!]
+  disconnect: [FriendRequestWhereUniqueInput!]
+  delete: [FriendRequestWhereUniqueInput!]
+  update: [FriendRequestUpdateWithWhereUniqueWithoutRequestUserInput!]
+  deleteMany: [FriendRequestScalarWhereInput!]
+  upsert: [FriendRequestUpsertWithWhereUniqueWithoutRequestUserInput!]
+}
+
+input FriendRequestUpdateWithoutAcceptingUserDataInput {
+  requestUser: UserUpdateOneRequiredWithoutAwaitingFriendsInput
+}
+
+input FriendRequestUpdateWithoutRequestUserDataInput {
+  acceptingUser: UserUpdateOneRequiredWithoutFriendRequestsInput
+}
+
+input FriendRequestUpdateWithWhereUniqueWithoutAcceptingUserInput {
+  where: FriendRequestWhereUniqueInput!
+  data: FriendRequestUpdateWithoutAcceptingUserDataInput!
+}
+
+input FriendRequestUpdateWithWhereUniqueWithoutRequestUserInput {
+  where: FriendRequestWhereUniqueInput!
+  data: FriendRequestUpdateWithoutRequestUserDataInput!
+}
+
+input FriendRequestUpsertWithWhereUniqueWithoutAcceptingUserInput {
+  where: FriendRequestWhereUniqueInput!
+  update: FriendRequestUpdateWithoutAcceptingUserDataInput!
+  create: FriendRequestCreateWithoutAcceptingUserInput!
+}
+
+input FriendRequestUpsertWithWhereUniqueWithoutRequestUserInput {
+  where: FriendRequestWhereUniqueInput!
+  update: FriendRequestUpdateWithoutRequestUserDataInput!
+  create: FriendRequestCreateWithoutRequestUserInput!
+}
+
+input FriendRequestWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FriendRequestWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FriendRequestWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FriendRequestWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  requestUser: UserWhereInput
+  acceptingUser: UserWhereInput
+}
+
+input FriendRequestWhereUniqueInput {
+  id: ID
+}
+
 enum IndoorFeature {
   AIR_CONDITIONING
   FURNISHED
@@ -2833,6 +3102,7 @@ type LesseeConnection {
 }
 
 input LesseeCreateInput {
+  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
@@ -2850,12 +3120,14 @@ input LesseeCreateManyWithoutUserInput {
 }
 
 input LesseeCreateWithoutLeaseInput {
+  id: ID
   signed: Boolean!
   signedAt: DateTime
   user: UserCreateOneWithoutLesseeLeasesInput
 }
 
 input LesseeCreateWithoutUserInput {
+  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
@@ -2877,10 +3149,6 @@ enum LesseeOrderByInput {
   signed_DESC
   signedAt_ASC
   signedAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type LesseePreviousValues {
@@ -3023,6 +3291,7 @@ input LesseeUpdateManyMutationInput {
 input LesseeUpdateManyWithoutLeaseInput {
   create: [LesseeCreateWithoutLeaseInput!]
   connect: [LesseeWhereUniqueInput!]
+  set: [LesseeWhereUniqueInput!]
   disconnect: [LesseeWhereUniqueInput!]
   delete: [LesseeWhereUniqueInput!]
   update: [LesseeUpdateWithWhereUniqueWithoutLeaseInput!]
@@ -3034,6 +3303,7 @@ input LesseeUpdateManyWithoutLeaseInput {
 input LesseeUpdateManyWithoutUserInput {
   create: [LesseeCreateWithoutUserInput!]
   connect: [LesseeWhereUniqueInput!]
+  set: [LesseeWhereUniqueInput!]
   disconnect: [LesseeWhereUniqueInput!]
   delete: [LesseeWhereUniqueInput!]
   update: [LesseeUpdateWithWhereUniqueWithoutUserInput!]
@@ -3183,6 +3453,7 @@ type LessorConnection {
 }
 
 input LessorCreateInput {
+  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
@@ -3200,12 +3471,14 @@ input LessorCreateManyWithoutUserInput {
 }
 
 input LessorCreateWithoutLeaseInput {
+  id: ID
   signed: Boolean!
   signedAt: DateTime
   user: UserCreateOneWithoutLessorLeasesInput
 }
 
 input LessorCreateWithoutUserInput {
+  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
@@ -3227,10 +3500,6 @@ enum LessorOrderByInput {
   signed_DESC
   signedAt_ASC
   signedAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type LessorPreviousValues {
@@ -3373,6 +3642,7 @@ input LessorUpdateManyMutationInput {
 input LessorUpdateManyWithoutLeaseInput {
   create: [LessorCreateWithoutLeaseInput!]
   connect: [LessorWhereUniqueInput!]
+  set: [LessorWhereUniqueInput!]
   disconnect: [LessorWhereUniqueInput!]
   delete: [LessorWhereUniqueInput!]
   update: [LessorUpdateWithWhereUniqueWithoutLeaseInput!]
@@ -3384,6 +3654,7 @@ input LessorUpdateManyWithoutLeaseInput {
 input LessorUpdateManyWithoutUserInput {
   create: [LessorCreateWithoutUserInput!]
   connect: [LessorWhereUniqueInput!]
+  set: [LessorWhereUniqueInput!]
   disconnect: [LessorWhereUniqueInput!]
   delete: [LessorWhereUniqueInput!]
   update: [LessorUpdateWithWhereUniqueWithoutUserInput!]
@@ -3521,17 +3792,19 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createProperty(data: PropertyCreateInput!): Property!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
-  createPropertyAdvertisement: PropertyAdvertisement!
+  createPropertyAdvertisement(data: PropertyAdvertisementCreateInput!): PropertyAdvertisement!
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
   createLessee(data: LesseeCreateInput!): Lessee!
   createLessor(data: LessorCreateInput!): Lessor!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createPayment(data: PaymentCreateInput!): Payment!
-  createFile(data: FileCreateInput!): File!
   createUser(data: UserCreateInput!): User!
+  createFile(data: FileCreateInput!): File!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   updateRentalApplication(data: RentalApplicationUpdateInput!, where: RentalApplicationWhereUniqueInput!): RentalApplication
@@ -3539,9 +3812,10 @@ type Mutation {
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
-  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteProperty(where: PropertyWhereUniqueInput!): Property
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   deletePropertyAdvertisement(where: PropertyAdvertisementWhereUniqueInput!): PropertyAdvertisement
@@ -3550,9 +3824,10 @@ type Mutation {
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deletePayment(where: PaymentWhereUniqueInput!): Payment
-  deleteFile(where: FileWhereUniqueInput!): File
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteFile(where: FileWhereUniqueInput!): File
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
   upsertRentalApplication(where: RentalApplicationWhereUniqueInput!, create: RentalApplicationCreateInput!, update: RentalApplicationUpdateInput!): RentalApplication!
@@ -3560,8 +3835,8 @@ type Mutation {
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
-  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -3570,9 +3845,10 @@ type Mutation {
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
-  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
   deleteManyPropertyAdvertisements(where: PropertyAdvertisementWhereInput): BatchPayload!
@@ -3581,8 +3857,8 @@ type Mutation {
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
-  deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
 }
 
@@ -3652,6 +3928,7 @@ type PaymentConnection {
 }
 
 input PaymentCreateInput {
+  id: ID
   userId: ID!
   leaseId: ID
   propertyId: ID
@@ -3714,10 +3991,6 @@ enum PaymentOrderByInput {
   payment_method_DESC
   status_ASC
   status_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
 }
 
 type PaymentPreviousValues {
@@ -4435,6 +4708,10 @@ type PropertyAdvertisementConnection {
   aggregate: AggregatePropertyAdvertisement!
 }
 
+input PropertyAdvertisementCreateInput {
+  id: ID
+}
+
 """An edge in a connection."""
 type PropertyAdvertisementEdge {
   """The item at the end of the edge."""
@@ -4610,6 +4887,7 @@ input PropertyCreateindoorFeaturesInput {
 }
 
 input PropertyCreateInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -4660,6 +4938,7 @@ input PropertyCreateoutdoorFeaturesInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -4685,6 +4964,7 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutLeasesInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -4710,6 +4990,7 @@ input PropertyCreateWithoutLeasesInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -4735,6 +5016,7 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
+  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -4806,6 +5088,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 }
 
 input PropertyLeaseCreateInput {
+  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -4845,6 +5128,7 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 }
 
 input PropertyLeaseCreateWithoutLesseesInput {
+  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -4864,6 +5148,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 }
 
 input PropertyLeaseCreateWithoutLessorsInput {
+  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -4883,6 +5168,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 }
 
 input PropertyLeaseCreateWithoutPropertyInput {
+  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -5420,6 +5706,7 @@ input PropertyLeaseUpdateManyMutationInput {
 input PropertyLeaseUpdateManyWithoutPropertyInput {
   create: [PropertyLeaseCreateWithoutPropertyInput!]
   connect: [PropertyLeaseWhereUniqueInput!]
+  set: [PropertyLeaseWhereUniqueInput!]
   disconnect: [PropertyLeaseWhereUniqueInput!]
   delete: [PropertyLeaseWhereUniqueInput!]
   update: [PropertyLeaseUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -6528,6 +6815,7 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -6539,6 +6827,7 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
+  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -7155,6 +7444,7 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
   rentalGroupApplicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant]!
   propertyAdvertisements(where: PropertyAdvertisementWhereInput, orderBy: PropertyAdvertisementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyAdvertisement]!
@@ -7163,9 +7453,10 @@ type Query {
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
-  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   property(where: PropertyWhereUniqueInput!): Property
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   propertyAdvertisement(where: PropertyAdvertisementWhereUniqueInput!): PropertyAdvertisement
@@ -7174,9 +7465,10 @@ type Query {
   lessor(where: LessorWhereUniqueInput!): Lessor
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   payment(where: PaymentWhereUniqueInput!): Payment
-  file(where: FileWhereUniqueInput!): File
   user(where: UserWhereUniqueInput!): User
+  file(where: FileWhereUniqueInput!): File
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
   propertyAdvertisementsConnection(where: PropertyAdvertisementWhereInput, orderBy: PropertyAdvertisementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyAdvertisementConnection!
@@ -7185,8 +7477,8 @@ type Query {
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
-  filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
 
   """Fetches an object given its ID"""
@@ -7220,6 +7512,7 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -7240,6 +7533,7 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -7249,6 +7543,7 @@ input RentalApplicationCreateWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
+  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -7516,6 +7811,7 @@ input RentalApplicationUpdateManyMutationInput {
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
+  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -7765,6 +8061,7 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
+  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -7781,6 +8078,7 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
+  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -8119,6 +8417,7 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
+  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -8384,6 +8683,7 @@ input RentalGroupApplicantWhereUniqueInput {
 }
 
 type Subscription {
+  friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
   rentalGroupApplicant(where: RentalGroupApplicantSubscriptionWhereInput): RentalGroupApplicantSubscriptionPayload
   propertyAdvertisement(where: PropertyAdvertisementSubscriptionWhereInput): PropertyAdvertisementSubscriptionPayload
@@ -8392,13 +8692,16 @@ type Subscription {
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
-  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
 }
 
 type User implements Node {
   id: ID!
+  friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest!]
+  awaitingFriends(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest!]
   updatedAt: DateTime!
   createdAt: DateTime!
   firstName: String!
@@ -8439,6 +8742,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -8457,6 +8761,9 @@ input UserCreateInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
@@ -8464,6 +8771,11 @@ input UserCreateInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateManyWithoutPropertiesInput {
@@ -8476,6 +8788,11 @@ input UserCreateOneInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutAwaitingFriendsInput {
+  create: UserCreateWithoutAwaitingFriendsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutCreatedPropertiesInput {
   create: UserCreateWithoutCreatedPropertiesInput
   connect: UserWhereUniqueInput
@@ -8483,6 +8800,11 @@ input UserCreateOneWithoutCreatedPropertiesInput {
 
 input UserCreateOneWithoutCreditCardsInput {
   create: UserCreateWithoutCreditCardsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutFriendRequestsInput {
+  create: UserCreateWithoutFriendRequestsInput
   connect: UserWhereUniqueInput
 }
 
@@ -8500,7 +8822,8 @@ input UserCreatepermissionsInput {
   set: [Permission!]
 }
 
-input UserCreateWithoutCreatedPropertiesInput {
+input UserCreateWithoutAwaitingFriendsInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -8519,6 +8842,40 @@ input UserCreateWithoutCreatedPropertiesInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateWithoutCreatedPropertiesInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
@@ -8528,6 +8885,7 @@ input UserCreateWithoutCreatedPropertiesInput {
 }
 
 input UserCreateWithoutCreditCardsInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -8546,6 +8904,9 @@ input UserCreateWithoutCreditCardsInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
@@ -8554,7 +8915,8 @@ input UserCreateWithoutCreditCardsInput {
   primaryCreditCard: CreditCardCreateOneInput
 }
 
-input UserCreateWithoutLesseeLeasesInput {
+input UserCreateWithoutFriendRequestsInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -8573,6 +8935,40 @@ input UserCreateWithoutLesseeLeasesInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+}
+
+input UserCreateWithoutLesseeLeasesInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
@@ -8582,6 +8978,7 @@ input UserCreateWithoutLesseeLeasesInput {
 }
 
 input UserCreateWithoutLessorLeasesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -8600,6 +8997,9 @@ input UserCreateWithoutLessorLeasesInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
@@ -8609,6 +9009,7 @@ input UserCreateWithoutLessorLeasesInput {
 }
 
 input UserCreateWithoutPropertiesInput {
+  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -8627,6 +9028,9 @@ input UserCreateWithoutPropertiesInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
@@ -9524,6 +9928,9 @@ input UserUpdateDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
@@ -9552,6 +9959,9 @@ input UserUpdateInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
@@ -9582,6 +9992,18 @@ input UserUpdateManyDataInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+}
+
 input UserUpdateManyMutationInput {
   firstName: String
   lastName: String
@@ -9606,6 +10028,7 @@ input UserUpdateManyMutationInput {
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]
@@ -9626,6 +10049,13 @@ input UserUpdateOneRequiredInput {
   upsert: UserUpsertNestedInput
 }
 
+input UserUpdateOneRequiredWithoutAwaitingFriendsInput {
+  create: UserCreateWithoutAwaitingFriendsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutAwaitingFriendsDataInput
+  upsert: UserUpsertWithoutAwaitingFriendsInput
+}
+
 input UserUpdateOneRequiredWithoutCreatedPropertiesInput {
   create: UserCreateWithoutCreatedPropertiesInput
   connect: UserWhereUniqueInput
@@ -9638,6 +10068,13 @@ input UserUpdateOneRequiredWithoutCreditCardsInput {
   connect: UserWhereUniqueInput
   update: UserUpdateWithoutCreditCardsDataInput
   upsert: UserUpsertWithoutCreditCardsInput
+}
+
+input UserUpdateOneRequiredWithoutFriendRequestsInput {
+  create: UserCreateWithoutFriendRequestsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutFriendRequestsDataInput
+  upsert: UserUpsertWithoutFriendRequestsInput
 }
 
 input UserUpdateOneWithoutLesseeLeasesInput {
@@ -9662,6 +10099,36 @@ input UserUpdatepermissionsInput {
   set: [Permission!]
 }
 
+input UserUpdateWithoutAwaitingFriendsDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+}
+
 input UserUpdateWithoutCreatedPropertiesDataInput {
   firstName: String
   lastName: String
@@ -9681,6 +10148,9 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
@@ -9708,11 +10178,44 @@ input UserUpdateWithoutCreditCardsDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneInput
+  primaryCreditCard: CreditCardUpdateOneInput
+}
+
+input UserUpdateWithoutFriendRequestsDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
 }
 
@@ -9735,6 +10238,9 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
@@ -9762,6 +10268,9 @@ input UserUpdateWithoutLessorLeasesDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
@@ -9789,12 +10298,20 @@ input UserUpdateWithoutPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+}
+
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
@@ -9807,6 +10324,11 @@ input UserUpsertNestedInput {
   create: UserCreateInput!
 }
 
+input UserUpsertWithoutAwaitingFriendsInput {
+  update: UserUpdateWithoutAwaitingFriendsDataInput!
+  create: UserCreateWithoutAwaitingFriendsInput!
+}
+
 input UserUpsertWithoutCreatedPropertiesInput {
   update: UserUpdateWithoutCreatedPropertiesDataInput!
   create: UserCreateWithoutCreatedPropertiesInput!
@@ -9817,6 +10339,11 @@ input UserUpsertWithoutCreditCardsInput {
   create: UserCreateWithoutCreditCardsInput!
 }
 
+input UserUpsertWithoutFriendRequestsInput {
+  update: UserUpdateWithoutFriendRequestsDataInput!
+  create: UserCreateWithoutFriendRequestsInput!
+}
+
 input UserUpsertWithoutLesseeLeasesInput {
   update: UserUpdateWithoutLesseeLeasesDataInput!
   create: UserCreateWithoutLesseeLeasesInput!
@@ -9825,6 +10352,12 @@ input UserUpsertWithoutLesseeLeasesInput {
 input UserUpsertWithoutLessorLeasesInput {
   update: UserUpdateWithoutLessorLeasesDataInput!
   create: UserCreateWithoutLessorLeasesInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutPropertiesInput {
@@ -10588,6 +11121,15 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   referee2Email_not_ends_with: String
+  friends_every: UserWhereInput
+  friends_some: UserWhereInput
+  friends_none: UserWhereInput
+  friendRequests_every: FriendRequestWhereInput
+  friendRequests_some: FriendRequestWhereInput
+  friendRequests_none: FriendRequestWhereInput
+  awaitingFriends_every: FriendRequestWhereInput
+  awaitingFriends_some: FriendRequestWhereInput
+  awaitingFriends_none: FriendRequestWhereInput
   properties_every: PropertyWhereInput
   properties_some: PropertyWhereInput
   properties_none: PropertyWhereInput

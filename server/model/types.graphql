@@ -1,5 +1,8 @@
 type User {
   id: ID! @unique @id
+  friends: [User!]!
+  friendRequests: [FriendRequest!]! @relation(name: "PendingFriendRequests")
+  awaitingFriends: [FriendRequest!]! @relation(name: "AwaitingFriendRequests")
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   firstName: String!
@@ -27,6 +30,12 @@ type User {
   referee2Email: String
   creditCards: [CreditCard!]! @relation(name: "UserCreditCards")
   primaryCreditCard: CreditCard @relation(name: "UserPrimaryCreditCard")
+}
+
+type FriendRequest {
+  id: ID! @unique @id
+  requestUser: User! @relation(name: "AwaitingFriendRequests")
+  acceptingUser: User! @relation(name: "PendingFriendRequests")
 }
 
 type CreditCard {

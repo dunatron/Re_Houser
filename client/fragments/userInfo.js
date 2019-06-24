@@ -28,6 +28,28 @@ const UserInfoFragment = gql`
     primaryCreditCard {
       id
     }
+    friends {
+      id
+      firstName
+      lastName
+      email
+    }
+    friendRequests {
+      id
+      requestUser {
+        id
+        firstName
+        lastName
+      }
+    }
+    awaitingFriends {
+      id
+      acceptingUser {
+        id
+        firstName
+        lastName
+      }
+    }
   }
 `
 

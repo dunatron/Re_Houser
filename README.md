@@ -480,6 +480,73 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 }
 ```
 
+#### findUsers for friend requests
+```js
+query findUsers(
+  $where: UserWhereInput
+	$orderBy: UserOrderByInput
+	$skip: Int
+	$after: String
+	$before: String
+	$first: Int
+	$last: Int) {
+    findUsers(
+      where:$where,
+      orderBy:$orderBy,
+      skip:$skip,
+      after:$after,
+      before:$before
+      first:$first,
+      last:$last
+    ) {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+// variables
+{
+  "where": {
+    "OR": [
+      {
+        "firstName_contains": "Heath Dunlop"
+      },
+      {
+        "lastName_contains": "Heath Dunlop"
+      },
+      {
+        "email_contains": "Heath"
+      }
+    ]
+  }
+}
+```
+
+#### create friend request 
+```js
+mutation createFriendRequest($data:FriendRequestCreateInput!) {
+  createFriendRequest(data:$data) {
+    id
+  }
+}
+// variables
+{
+  "data": {
+    "requestUser": {
+      "connect": {
+        "id": "asdads"
+      }
+    }, 
+    "acceptingUser": {
+      "connect": {
+        "id": "asdad"
+      }
+    }
+  }
+}
+```
+
 #### get user rental applications
 
 ```js
