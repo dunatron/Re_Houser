@@ -6,10 +6,11 @@ const PropertyCard = styled(Card)`
     /* width: 100%; */
     /* margin: 8px; */
     border-radius: unset;
-    margin: 0 0 16px 0;
+    margin: 16px;
     box-sizing: border-box;
+    max-width: 480px;
     @media (min-width: 480px) {
-      width: 480px;
+      /* width: 480px; */
       /* width: 380; */
     }
     @media (min-width: 520px) {
@@ -17,6 +18,9 @@ const PropertyCard = styled(Card)`
     }
     @media (min-width: ${props => props.theme.breakpoints.values.md}px) {
       /* width: 380; */
+    }
+    @media (min-width: 992px) {
+      margin: 0 8px 8px 0;
     }
   }
 `

@@ -10,6 +10,7 @@ import {
   SINGLE_RENTAL_APPLICATION_QUERY,
 } from "../../../query/index"
 import Error from "../../ErrorMessage"
+import ChangeApplicationVisibilityBtn from "../../MutationButtons/ChangeApplicationVisibilityButton"
 
 const ConfirmApplicant = props => {
   const { applicant, property } = props
@@ -89,6 +90,10 @@ const RenderOwnerView = props => {
   return (
     <div>
       <h1>I am the application Details step </h1>
+      <ChangeApplicationVisibilityBtn
+        applicationId={application.id}
+        visibility={application.visibility}
+      />
       {application.applicants.map((applicant, i) => {
         return (
           <div key={i}>

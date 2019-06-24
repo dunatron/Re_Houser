@@ -23,7 +23,7 @@ import Tab from "../../styles/Tab"
 import TabContainer from "../TabContainer/index"
 // tab components
 import Details from "./Details"
-import Apply from "./Apply"
+import Apply from "./apply"
 import Rating from "./Rating"
 // custom highlight from search interface
 import CustomHighlight from "../PropertySearch/refinements/CustomHiglight"

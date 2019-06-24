@@ -450,6 +450,36 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 }
 ```
 
+#### More complicated rentalApplications
+```js
+query rentalApplications($where:RentalApplicationWhereInput!) {
+  rentalApplications(where:$where) {
+    id
+    visibility
+  }
+}
+// variables
+{
+  "where": {
+    "OR": [
+      {
+        "visibility": "PUBLIC"
+      }, 
+      {
+        "owner": {
+          "id": "cjx2v3iqifd2r0b12wtmuml21"
+        }
+      }
+    ],
+    "AND": {
+      "property": {
+        "id": "cjx61n4kc6mgt0b42cya87sa5"
+      }
+    }
+  }
+}
+```
+
 #### get user rental applications
 
 ```js

@@ -41,16 +41,17 @@ const styles = theme => ({
   },
 })
 
-const SelectOption = ({
-  classes,
-  value,
-  name,
-  options,
-  label,
-  selectID,
-  helperText,
-  handleChange,
-}) => {
+const SelectOption = props => {
+  const {
+    classes,
+    value,
+    name,
+    options,
+    label,
+    selectID,
+    helperText,
+    handleChange,
+  } = props
   return (
     <FormControl className={classes.formControl}>
       {label && <InputLabel htmlFor={selectID}>{label}</InputLabel>}
@@ -60,7 +61,8 @@ const SelectOption = ({
         onChange={handleChange}
         displayEmpty
         name={name}
-        className={classes.selectEmpty}>
+        className={classes.selectEmpty}
+        {...props}>
         {options.map((d, i) => {
           return (
             <MenuItem key={i} value={d.value}>

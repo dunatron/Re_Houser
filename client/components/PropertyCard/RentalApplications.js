@@ -1,12 +1,32 @@
 import React, { Component } from "react"
 import ApplicationItem from "./ApplicationItem"
 import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
-import { Query, Mutation } from "react-apollo"
-import { useSubscription, useState } from "react-apollo-hooks"
+import { useSubscription, useQuery } from "react-apollo-hooks"
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"
 
 const RentalApplications = props => {
   const { propertyId, property, me } = props
+  const applications = useQuery(RENTAL_APPLICATIONS_QUERY, {
+    variables: {
+      where: {
+        OR: [
+          {
+            visibility: "PUBLIC",
+          },
+          {
+            owner: {
+              id: me.id,
+            },
+          },
+        ],
+        AND: {
+          property: {
+            id: propertyId,
+          },
+        },
+      },
+    },
+  })
   const { data, error, loading } = useSubscription(
     RENTAL_APPLICATION_CREATED_SUBSCRIPTION,
     {
@@ -43,41 +63,25 @@ const RentalApplications = props => {
       // ... rest options
     }
   )
+  if (applications.error) return <Error error={applications.error} />
+  if (applications.loading) return <p>fetching applications...</p>
+  const { rentalApplications } = applications.data
   return (
     <div>
-      <Query
-        query={RENTAL_APPLICATIONS_QUERY}
-        variables={{
-          where: {
-            property: {
-              id: propertyId,
-            },
-          },
-        }}>
-        {({ data, loading, error }) => {
-          if (error) return <Error error={error} />
-          if (loading) return <p>fetching applications...</p>
-          const { rentalApplications } = data
+      {rentalApplications &&
+        rentalApplications.map((application, idx) => {
           return (
-            <div>
-              {rentalApplications &&
-                rentalApplications.map((application, idx) => {
-                  return (
-                    <ApplicationItem
-                      key={application.id}
-                      application={application}
-                      index={idx}
-                      property={property}
-                      openRentalAppModal={rentalData =>
-                        props.openRentalAppModal(rentalData)
-                      }
-                    />
-                  )
-                })}
-            </div>
+            <ApplicationItem
+              key={application.id}
+              application={application}
+              index={idx}
+              property={property}
+              openRentalAppModal={rentalData =>
+                props.openRentalAppModal(rentalData)
+              }
+            />
           )
-        }}
-      </Query>
+        })}
     </div>
   )
 }

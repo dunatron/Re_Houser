@@ -27,6 +27,7 @@ const styles = theme => ({
     zIndex: 9000,
     height: "100%",
     width: "100%",
+    padding: "16px",
   },
   modalHeader: {
     display: "flex",
