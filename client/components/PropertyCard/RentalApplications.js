@@ -6,26 +6,46 @@ import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/Ren
 
 const RentalApplications = props => {
   const { propertyId, property, me } = props
-  const applications = useQuery(RENTAL_APPLICATIONS_QUERY, {
-    variables: {
-      where: {
-        OR: [
-          {
-            visibility: "PUBLIC",
+  const variables = {
+    where: {
+      OR: [
+        {
+          visibility: "PUBLIC",
+        },
+        {
+          owner: {
+            id: me.id,
           },
-          {
-            owner: {
-              id: me.id,
-            },
-          },
-        ],
-        AND: {
-          property: {
-            id: propertyId,
-          },
+        },
+      ],
+      AND: {
+        property: {
+          id: propertyId,
         },
       },
     },
+  }
+  const applications = useQuery(RENTAL_APPLICATIONS_QUERY, {
+    // variables: {
+    //   where: {
+    //     OR: [
+    //       {
+    //         visibility: "PUBLIC",
+    //       },
+    //       {
+    //         owner: {
+    //           id: me.id,
+    //         },
+    //       },
+    //     ],
+    //     AND: {
+    //       property: {
+    //         id: propertyId,
+    //       },
+    //     },
+    //   },
+    // },
+    variables: variables,
   })
   const { data, error, loading } = useSubscription(
     RENTAL_APPLICATION_CREATED_SUBSCRIPTION,
@@ -36,16 +56,25 @@ const RentalApplications = props => {
       onSubscriptionData: ({ client, subscriptionData }) => {
         const applications = client.readQuery({
           query: RENTAL_APPLICATIONS_QUERY,
-          variables: {
-            where: {
-              property: {
-                id: propertyId,
-              },
-            },
-          },
+          variables: variables,
         })
-        console.log("applications from subscription => ", applications)
-        console.log("subscription data => ", subscriptionData)
+        console.log("subscriptionData => ", subscriptionData)
+        const applicationId =
+          subscriptionData.data.rentalApplicationCreatedSub.node.id
+
+        // check not already in cache
+        applications.rentalApplications.push({
+          ...subscriptionData.data.rentalApplicationCreatedSub.node,
+        })
+        console.log("Applications after push => ", applications)
+
+        client.writeQuery({
+          query: RENTAL_APPLICATIONS_QUERY,
+          data: applications,
+          variables: variables,
+        })
+
+        console.log("The god is back, amen")
 
         // 1. Read the cache for the items we want
         // const data = cache.readQuery({ query: ALL_FILES_QUERY })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Mutation } from "react-apollo"
+import gql from "graphql-tag"
 import { useSubscription, useMutation, useQuery } from "react-apollo-hooks"
 import { CREATE_RENTAL_APPLICATION } from "../../mutation/index"
 import {
@@ -7,12 +7,9 @@ import {
   CURRENT_USER_QUERY,
 } from "../../query/index"
 
-import { adopt } from "react-adopt"
-import User from "../User/index"
 import RentalApplications from "./RentalApplications"
 import Button from "@material-ui/core/Button"
 import Error from "../ErrorMessage/index"
-import SuperLogin from "../SuperLogin"
 import ChangeRouteButton from "../Routes/ChangeRouteButton"
 import Modal from "../Modal/index"
 import RentalApplicationStepperComponent from "../RentalApplicationStepper/index"
@@ -49,16 +46,28 @@ const Apply = props => {
           },
         },
       },
-      update: (cache, payload) => {
+      update: async (cache, payload) => {
         try {
           const variables = {
             where: {
-              property: {
-                id: props.property.id,
+              OR: [
+                {
+                  visibility: "PUBLIC",
+                },
+                {
+                  owner: {
+                    id: me.id,
+                  },
+                },
+              ],
+              AND: {
+                property: {
+                  id: props.property.id,
+                },
               },
             },
           }
-          const data = cache.readQuery({
+          const data = await cache.readQuery({
             query: RENTAL_APPLICATIONS_QUERY,
             variables: variables,
           })
@@ -66,7 +75,7 @@ const Apply = props => {
           const haveApplication = data.rentalApplications.find(
             application => application.id === applicationId
           )
-          // return early as to not add to cache
+          // return early as to not add to cache subs are listening
           if (haveApplication) {
             return
           }
@@ -86,8 +95,6 @@ const Apply = props => {
       },
     }
   )
-
-  console.log("me => ", me)
 
   if (!me)
     return (
