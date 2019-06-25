@@ -6,6 +6,9 @@
 
 # Dev link
 
+###### agree with most of this 9/10 claps
+- [Hooks refactor patterns](https://blog.logrocket.com/practical-react-hooks-how-to-refactor-your-app-to-use-hooks-b1867e7b0a53/)
+
 ######
 
 - http://test-frontend.rehouser.co.nz/

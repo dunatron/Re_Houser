@@ -135,7 +135,9 @@ const Apply = props => {
           variant="outlined"
           style={{ padding: "16px", margin: "0 0 16px 0" }}
           onClick={() => createApplication()}>
-          Create / Update Rental Application
+          {createApplicationProps.loading
+            ? "Processing Rental Application..."
+            : "Create / Update Rental Application"}
         </Button>
       </div>
       <RentalApplications

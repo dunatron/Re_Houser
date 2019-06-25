@@ -1,39 +1,22 @@
 import { Query } from "react-apollo"
+import { useQuery } from "react-apollo-hooks"
 import gql from "graphql-tag"
 import PropTypes from "prop-types"
 import { CURRENT_USER_QUERY } from "../../query/index"
 
-// const CURRENT_USER_QUERY = gql`
-//   query {
-//     me {
-//       id
-//       email
-//       firstName
-//       lastName
-//       phone
-//       permissions
-//       photoIdentification {
-//         createdAt
-//         updatedAt
-//         filename
-//         mimetype
-//         encoding
-//         url
-//       }
-//       identificationNumber
-//       emergencyContactName
-//       emergencyContactNumber
-//       emergencyContactEmail
-//       referee1Name
-//       referee1Phone
-//       referee1Email
-//       referee2Name
-//       referee2Phone
-//       referee2Email
-//     }
-//   }
-// `
 
+const useCurrentUser = props => {
+  const { data, error, loading } = useQuery(CURRENT_USER_QUERY)
+  return {
+    data,
+    error,
+    loading,
+  }
+}
+
+/**
+ * render props would receive the children and pass these props to them
+ */
 const User = props => (
   <Query {...props} query={CURRENT_USER_QUERY}>
     {payload => props.children(payload)}
@@ -45,4 +28,4 @@ User.propTypes = {
 }
 
 export default User
-export { CURRENT_USER_QUERY }
+export { CURRENT_USER_QUERY, useCurrentUser }

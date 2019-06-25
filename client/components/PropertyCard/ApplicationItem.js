@@ -26,7 +26,7 @@ import {
   APPLY_TO_RENTAL_GROUP_APPLICATION,
   CREATE_PRE_RENTAL_DOCUMENT_MUTATION,
 } from "../../mutation/index"
-import ApplyToGroup from "./ApplyToGroup"
+import ApplyToGroup from "./ApplyToGroup.js"
 import User from "../User/index"
 import { save } from "save-file" //432,310
 import { saveAs } from "file-saver" // more popular 432,310
@@ -36,13 +36,6 @@ const Composed = adopt({
   applyToRentalGroup: ({ render }) => (
     <Mutation
       mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}
-      update={(cache, payload) => {}}>
-      {render}
-    </Mutation>
-  ),
-  createPreRentalDocument: ({ render }) => (
-    <Mutation
-      mutation={CREATE_PRE_RENTAL_DOCUMENT_MUTATION}
       update={(cache, payload) => {}}>
       {render}
     </Mutation>
@@ -80,22 +73,6 @@ export default class ApplicationItem extends Component {
   }
   _applyToRentalGroup = async applyToRentalGroup => {
     const res = applyToRentalGroup()
-  }
-  _createPreRentalDocument = async createPreRentalDocument => {
-    const docyBuff = await createPreRentalDocument({
-      variables: {
-        id: 1,
-      },
-    })
-
-    // file-saver
-    const fileName = "preRentalDocument.docx"
-    const theBuf = docyBuff.data.createPreRentalDocument.data
-    this.setState({ creatingDoc: false })
-    await save(theBuf, fileName)
-
-    var file = new File(["Hello, world!"], "hello world.txt")
-    // saveAs(docyBuff, "test.docx")
   }
   getNumberOfApprovedApplicants = application => {
     const numberOfApproved = application.applicants.reduce(
@@ -185,19 +162,12 @@ export default class ApplicationItem extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <Item>
+                  <Typography>Application ID: {application.id}</Typography>
                   {this.state.creatingDoc && (
                     <div>Generating your application please wait</div>
                   )}
                   {me.id && this._advanceApplication(me, application)}
-                  <Button
-                    disabled={this.state.creatingDoc}
-                    variant="outlined"
-                    onClick={() => {
-                      this.setState({ creatingDoc: true })
-                      this._createPreRentalDocument(createPreRentalDocument)
-                    }}>
-                    Generate Document as of Now
-                  </Button>
+                  <Typography>Group Members & Applicants</Typography>
                   {application.applicants &&
                     application.applicants.map((applicant, idx) => {
                       const {

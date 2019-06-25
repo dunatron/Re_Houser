@@ -4,6 +4,7 @@ import gql from "graphql-tag"
 import TextInput from "../Inputs/TextInput"
 import Button from "@material-ui/core/Button"
 import FriendRequestButton from "../MutationButtons/FriendRequestButton"
+import { CURRENT_USER_QUERY } from "../../query/index"
 import Error from "../ErrorMessage"
 
 const ACCEPT_FRIEND_REQUEST_MUTATION = gql`
@@ -36,6 +37,11 @@ const PendingFriendRequests = props => {
                     friendRequestId: friendRequest.id,
                   },
                   update: (proxy, payload) => _doUpdate(proxy, payload),
+                  refetchQueries: [
+                    {
+                      query: CURRENT_USER_QUERY,
+                    },
+                  ],
                 })
               }>
               Accept friend Request
