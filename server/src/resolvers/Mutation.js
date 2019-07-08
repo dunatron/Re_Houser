@@ -245,11 +245,21 @@ const mutations = {
       ? await Promise.all(files.map(file => processUpload(file, ctx)))
       : []
     const connectFileIds = uploadedFiles.map(file => ({ id: file.id }))
+    // get room Prices
+    const roomPrices = data.accommodation.create.map((a, i) => a.rent)
+    // get lowest roomPrice
+    const lowestRoomPrice = parseFloat(Math.min(...roomPrices))
+    const highestRoomPrice = parseFloat(Math.max(...roomPrices))
+    const averageRoomPrice =
+      roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length
 
     const property = await ctx.db.mutation.createProperty(
       {
         data: {
           ...data,
+          lowestRoomPrice,
+          highestRoomPrice,
+          rent: averageRoomPrice,
           images: {
             connect: connectFileIds,
           },
@@ -257,11 +267,59 @@ const mutations = {
       },
       info
     )
-    const propertySearchNode = addPropertySearchNode({
+    // const propertySearchNode = addPropertySearchNode({
+    //   propertyId: property.id,
+    //   ctx,
+    // })
+    addPropertySearchNode({
       propertyId: property.id,
       ctx,
     })
     return property
+  },
+
+  async updateProperty(parent, args, ctx, info) {
+    // first take a copy of the updates
+    const updates = { ...args }
+    const where = { id: args.id }
+    // remove the ID from the updates
+    delete updates.id
+    // new file to update
+    if (updates.file) {
+      // get the old item data
+      const item = await ctx.db.query.property(
+        { where },
+        `{ id title, image {id url} }`
+      )
+      if (item.image) {
+        deleteFile({ id: item.image.id, url: item.image.url, ctx })
+      }
+      const uploadedFile = await processUpload(await updates.file, ctx)
+      updates.image = {
+        connect: {
+          id: uploadedFile.id,
+        },
+      }
+    }
+    delete updates.file
+
+    // ToDo: if the update is an accommodation update we need to get the property object
+    // we then need to update accommodation as needed as well as rent, highestRoomPrice and lowestRoomPrice
+
+    const propertySearchNode = updatePropertySearchNode({
+      updates: updates,
+      propertyId: args.id,
+      ctx,
+    })
+    return ctx.db.mutation.updateProperty(
+      {
+        updates,
+        where: {
+          id: args.id,
+        },
+      },
+      info
+    )
   },
   async applyToRentalGroup(parent, { data }, ctx, info) {
     // ToDo: send email to current group members
@@ -292,47 +350,6 @@ const mutations = {
     )
 
     return fullApplicationData
-  },
-
-  async updateProperty(parent, args, ctx, info) {
-    // first take a copy of the updates
-    const updates = { ...args }
-    const where = { id: args.id }
-    // remove the ID from the updates
-    delete updates.id
-    // new file to update
-    if (updates.file) {
-      // get the old item data
-      const item = await ctx.db.query.property(
-        { where },
-        `{ id title, image {id url} }`
-      )
-      if (item.image) {
-        deleteFile({ id: item.image.id, url: item.image.url, ctx })
-      }
-      const uploadedFile = await processUpload(await updates.file, ctx)
-      updates.image = {
-        connect: {
-          id: uploadedFile.id,
-        },
-      }
-    }
-    delete updates.file
-
-    const propertySearchNode = updatePropertySearchNode({
-      updates: updates,
-      propertyId: args.id,
-      ctx,
-    })
-    return ctx.db.mutation.updateProperty(
-      {
-        updates,
-        where: {
-          id: args.id,
-        },
-      },
-      info
-    )
   },
   async createPreRentalDocument(
     parent,

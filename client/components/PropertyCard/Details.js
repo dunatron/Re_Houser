@@ -30,6 +30,7 @@ const Details = props => {
   const {
     type,
     rooms,
+    accommodation,
     rent,
     moveInDate,
     onTheMarket,
@@ -111,6 +112,21 @@ const Details = props => {
             value={locationLng}
           />
         </div>
+      </CardContent>
+      <CardContent>
+        Property Accommodation{" "}
+        {accommodation &&
+          accommodation.map((a, i) => {
+            return (
+              <div>
+                <p>
+                  Room size: {a.roomSize} rent: {a.rent} expenses: {a.expenses}
+                  desc: {a.description}
+                </p>
+                <hr />
+              </div>
+            )
+          })}
       </CardContent>
 
       {/* BROKEN ON MOBILE: Like really really bad */}

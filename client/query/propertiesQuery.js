@@ -6,6 +6,13 @@ const PROPERTIES_QUERY = gql`
       id
       rooms
       rent
+      accommodation {
+        id
+        roomSize
+        rent
+        expenses
+        description
+      }
       moveInDate
       onTheMarket
       location

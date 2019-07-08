@@ -47,6 +47,8 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     searchableAttributes: [
       "location",
       "rent",
+      "lowestRoomPrice",
+      "highestRoomPrice",
       "rooms",
       "move_in_date_timestamp",
     ],
@@ -73,7 +75,7 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
         id: propertyId,
       },
     },
-    `{id, type, rooms, rent, moveInDate, onTheMarket, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
+    `{id, type, rooms, rent, accommodation{id ,roomSize, rent, expenses, description},lowestRoomPrice, highestRoomPrice, moveInDate, onTheMarket, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
   )
   const propertiesObjectArr = []
   console.log("Flag Here")
@@ -85,6 +87,9 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     id: property.id,
     type: property.type,
     rooms: property.rooms,
+    accommodation: property.accommodation,
+    lowestRoomPrice: property.lowestRoomPrice,
+    highestRoomPrice: property.highestRoomPrice,
     rent: property.rent,
     moveInDate: property.moveInDate,
     move_in_date_timestamp: moveInTimeStamp,
@@ -108,7 +113,7 @@ const ALLOWED_SEARCH_NODE_UPDATE_KEYS = ["rent", "rooms", "moveInDate"]
 /**
  *
  * ToDo: create a new searchUpdates object and push in data from updates only if the key is in one of
- * a specified array of allowed keys
+ * a specified array of allowed keys, also transform certain keys values, or rather, if we update date, mkae a timestamp and update that too
  */
 const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
   const objects = [{ ...updates.data, objectID: propertyId }]

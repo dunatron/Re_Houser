@@ -77,11 +77,13 @@ type File {
 type Property implements PropertyInfo {
   id: ID! @unique @id
   updatedAt: DateTime! @updatedAt
-
   createdAt: DateTime! @createdAt
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  accommodation: [Accommodation!]! @relation(name: "PropertyAccommodation")
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -104,6 +106,15 @@ type Property implements PropertyInfo {
   leases: [PropertyLease] @relation(name: "PropertyLeases")
   isLeased: Boolean
   leaseExpiryDate: DateTime
+}
+
+type Accommodation {
+  id: ID! @unique @id
+  property: Property! @relation(name: "PropertyAccommodation")
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
 }
 
 type RentalGroupApplicant {

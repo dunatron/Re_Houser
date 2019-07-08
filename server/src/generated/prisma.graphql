@@ -1,5 +1,494 @@
 # source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Tue Jun 25 2019 01:29:26 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jul 08 2019 22:12:11 GMT+1200 (New Zealand Standard Time)
+
+type Accommodation implements Node {
+  id: ID!
+  property: Property!
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+}
+
+"""A connection to a list of items."""
+type AccommodationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AccommodationEdge]!
+  aggregate: AggregateAccommodation!
+}
+
+input AccommodationCreateInput {
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+  property: PropertyCreateOneWithoutAccommodationInput!
+}
+
+input AccommodationCreateManyWithoutPropertyInput {
+  create: [AccommodationCreateWithoutPropertyInput!]
+  connect: [AccommodationWhereUniqueInput!]
+}
+
+input AccommodationCreateWithoutPropertyInput {
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+}
+
+"""An edge in a connection."""
+type AccommodationEdge {
+  """The item at the end of the edge."""
+  node: Accommodation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AccommodationOrderByInput {
+  id_ASC
+  id_DESC
+  roomSize_ASC
+  roomSize_DESC
+  rent_ASC
+  rent_DESC
+  expenses_ASC
+  expenses_DESC
+  description_ASC
+  description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type AccommodationPreviousValues {
+  id: ID!
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+}
+
+input AccommodationScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccommodationScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccommodationScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccommodationScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  roomSize: Float
+
+  """All values that are not equal to given value."""
+  roomSize_not: Float
+
+  """All values that are contained in given list."""
+  roomSize_in: [Float!]
+
+  """All values that are not contained in given list."""
+  roomSize_not_in: [Float!]
+
+  """All values less than the given value."""
+  roomSize_lt: Float
+
+  """All values less than or equal the given value."""
+  roomSize_lte: Float
+
+  """All values greater than the given value."""
+  roomSize_gt: Float
+
+  """All values greater than or equal the given value."""
+  roomSize_gte: Float
+  rent: Float
+
+  """All values that are not equal to given value."""
+  rent_not: Float
+
+  """All values that are contained in given list."""
+  rent_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rent_not_in: [Float!]
+
+  """All values less than the given value."""
+  rent_lt: Float
+
+  """All values less than or equal the given value."""
+  rent_lte: Float
+
+  """All values greater than the given value."""
+  rent_gt: Float
+
+  """All values greater than or equal the given value."""
+  rent_gte: Float
+  expenses: Float
+
+  """All values that are not equal to given value."""
+  expenses_not: Float
+
+  """All values that are contained in given list."""
+  expenses_in: [Float!]
+
+  """All values that are not contained in given list."""
+  expenses_not_in: [Float!]
+
+  """All values less than the given value."""
+  expenses_lt: Float
+
+  """All values less than or equal the given value."""
+  expenses_lte: Float
+
+  """All values greater than the given value."""
+  expenses_gt: Float
+
+  """All values greater than or equal the given value."""
+  expenses_gte: Float
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+}
+
+type AccommodationSubscriptionPayload {
+  mutation: MutationType!
+  node: Accommodation
+  updatedFields: [String!]
+  previousValues: AccommodationPreviousValues
+}
+
+input AccommodationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccommodationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccommodationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccommodationSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AccommodationWhereInput
+}
+
+input AccommodationUpdateInput {
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+  property: PropertyUpdateOneRequiredWithoutAccommodationInput
+}
+
+input AccommodationUpdateManyDataInput {
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+}
+
+input AccommodationUpdateManyMutationInput {
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+}
+
+input AccommodationUpdateManyWithoutPropertyInput {
+  create: [AccommodationCreateWithoutPropertyInput!]
+  connect: [AccommodationWhereUniqueInput!]
+  disconnect: [AccommodationWhereUniqueInput!]
+  delete: [AccommodationWhereUniqueInput!]
+  update: [AccommodationUpdateWithWhereUniqueWithoutPropertyInput!]
+  updateMany: [AccommodationUpdateManyWithWhereNestedInput!]
+  deleteMany: [AccommodationScalarWhereInput!]
+  upsert: [AccommodationUpsertWithWhereUniqueWithoutPropertyInput!]
+}
+
+input AccommodationUpdateManyWithWhereNestedInput {
+  where: AccommodationScalarWhereInput!
+  data: AccommodationUpdateManyDataInput!
+}
+
+input AccommodationUpdateWithoutPropertyDataInput {
+  roomSize: Float
+  rent: Float
+  expenses: Float
+  description: String
+}
+
+input AccommodationUpdateWithWhereUniqueWithoutPropertyInput {
+  where: AccommodationWhereUniqueInput!
+  data: AccommodationUpdateWithoutPropertyDataInput!
+}
+
+input AccommodationUpsertWithWhereUniqueWithoutPropertyInput {
+  where: AccommodationWhereUniqueInput!
+  update: AccommodationUpdateWithoutPropertyDataInput!
+  create: AccommodationCreateWithoutPropertyInput!
+}
+
+input AccommodationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AccommodationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AccommodationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AccommodationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  roomSize: Float
+
+  """All values that are not equal to given value."""
+  roomSize_not: Float
+
+  """All values that are contained in given list."""
+  roomSize_in: [Float!]
+
+  """All values that are not contained in given list."""
+  roomSize_not_in: [Float!]
+
+  """All values less than the given value."""
+  roomSize_lt: Float
+
+  """All values less than or equal the given value."""
+  roomSize_lte: Float
+
+  """All values greater than the given value."""
+  roomSize_gt: Float
+
+  """All values greater than or equal the given value."""
+  roomSize_gte: Float
+  rent: Float
+
+  """All values that are not equal to given value."""
+  rent_not: Float
+
+  """All values that are contained in given list."""
+  rent_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rent_not_in: [Float!]
+
+  """All values less than the given value."""
+  rent_lt: Float
+
+  """All values less than or equal the given value."""
+  rent_lte: Float
+
+  """All values greater than the given value."""
+  rent_gt: Float
+
+  """All values greater than or equal the given value."""
+  rent_gte: Float
+  expenses: Float
+
+  """All values that are not equal to given value."""
+  expenses_not: Float
+
+  """All values that are contained in given list."""
+  expenses_in: [Float!]
+
+  """All values that are not contained in given list."""
+  expenses_not_in: [Float!]
+
+  """All values less than the given value."""
+  expenses_lt: Float
+
+  """All values less than or equal the given value."""
+  expenses_lte: Float
+
+  """All values greater than the given value."""
+  expenses_gt: Float
+
+  """All values greater than or equal the given value."""
+  expenses_gte: Float
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  property: PropertyWhereInput
+}
+
+input AccommodationWhereUniqueInput {
+  id: ID
+}
+
+type AggregateAccommodation {
+  count: Int!
+}
 
 type AggregateCreditCard {
   count: Int!
@@ -3788,6 +4277,7 @@ scalar Long
 type Mutation {
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createProperty(data: PropertyCreateInput!): Property!
+  createAccommodation(data: AccommodationCreateInput!): Accommodation!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
   createPropertyAdvertisement: PropertyAdvertisement!
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
@@ -3800,6 +4290,7 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
+  updateAccommodation(data: AccommodationUpdateInput!, where: AccommodationWhereUniqueInput!): Accommodation
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   updateRentalApplication(data: RentalApplicationUpdateInput!, where: RentalApplicationWhereUniqueInput!): RentalApplication
   updateLessee(data: LesseeUpdateInput!, where: LesseeWhereUniqueInput!): Lessee
@@ -3811,6 +4302,7 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteProperty(where: PropertyWhereUniqueInput!): Property
+  deleteAccommodation(where: AccommodationWhereUniqueInput!): Accommodation
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   deletePropertyAdvertisement(where: PropertyAdvertisementWhereUniqueInput!): PropertyAdvertisement
   deleteRentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
@@ -3823,6 +4315,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
+  upsertAccommodation(where: AccommodationWhereUniqueInput!, create: AccommodationCreateInput!, update: AccommodationUpdateInput!): Accommodation!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
   upsertRentalApplication(where: RentalApplicationWhereUniqueInput!, create: RentalApplicationCreateInput!, update: RentalApplicationUpdateInput!): RentalApplication!
   upsertLessee(where: LesseeWhereUniqueInput!, create: LesseeCreateInput!, update: LesseeUpdateInput!): Lessee!
@@ -3833,6 +4326,7 @@ type Mutation {
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
+  updateManyAccommodations(data: AccommodationUpdateManyMutationInput!, where: AccommodationWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
   updateManyRentalApplications(data: RentalApplicationUpdateManyMutationInput!, where: RentalApplicationWhereInput): BatchPayload!
   updateManyLessees(data: LesseeUpdateManyMutationInput!, where: LesseeWhereInput): BatchPayload!
@@ -3844,6 +4338,7 @@ type Mutation {
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
+  deleteManyAccommodations(where: AccommodationWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
   deleteManyPropertyAdvertisements(where: PropertyAdvertisementWhereInput): BatchPayload!
   deleteManyRentalApplications(where: RentalApplicationWhereInput): BatchPayload!
@@ -4667,6 +5162,9 @@ type Property implements Node {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  accommodation(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation!]
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -4883,6 +5381,8 @@ input PropertyCreateInput {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -4898,6 +5398,7 @@ input PropertyCreateInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -4915,6 +5416,11 @@ input PropertyCreateManyWithoutOwnersInput {
   connect: [PropertyWhereUniqueInput!]
 }
 
+input PropertyCreateOneWithoutAccommodationInput {
+  create: PropertyCreateWithoutAccommodationInput
+  connect: PropertyWhereUniqueInput
+}
+
 input PropertyCreateOneWithoutLeasesInput {
   create: PropertyCreateWithoutLeasesInput
   connect: PropertyWhereUniqueInput
@@ -4929,10 +5435,12 @@ input PropertyCreateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
-input PropertyCreateWithoutCreatorInput {
+input PropertyCreateWithoutAccommodationInput {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -4948,6 +5456,35 @@ input PropertyCreateWithoutCreatorInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+}
+
+input PropertyCreateWithoutCreatorInput {
+  type: PropertyType
+  headline: String
+  rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  onTheMarket: Boolean!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  isLeased: Boolean
+  leaseExpiryDate: DateTime
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
   owners: UserCreateManyWithoutPropertiesInput
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
@@ -4958,6 +5495,8 @@ input PropertyCreateWithoutLeasesInput {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -4973,6 +5512,7 @@ input PropertyCreateWithoutLeasesInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -4983,6 +5523,8 @@ input PropertyCreateWithoutOwnersInput {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -4998,6 +5540,7 @@ input PropertyCreateWithoutOwnersInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
@@ -5008,6 +5551,8 @@ input PropertyCreateWithoutRentalApplicationsInput {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -5023,6 +5568,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -6186,6 +6732,10 @@ enum PropertyOrderByInput {
   headline_DESC
   rooms_ASC
   rooms_DESC
+  lowestRoomPrice_ASC
+  lowestRoomPrice_DESC
+  highestRoomPrice_ASC
+  highestRoomPrice_DESC
   bathrooms_ASC
   bathrooms_DESC
   garageSpaces_ASC
@@ -6221,6 +6771,8 @@ type PropertyPreviousValues {
   type: PropertyType
   headline: String
   rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -6403,6 +6955,50 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   rooms_gte: Int
+  lowestRoomPrice: Float
+
+  """All values that are not equal to given value."""
+  lowestRoomPrice_not: Float
+
+  """All values that are contained in given list."""
+  lowestRoomPrice_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lowestRoomPrice_not_in: [Float!]
+
+  """All values less than the given value."""
+  lowestRoomPrice_lt: Float
+
+  """All values less than or equal the given value."""
+  lowestRoomPrice_lte: Float
+
+  """All values greater than the given value."""
+  lowestRoomPrice_gt: Float
+
+  """All values greater than or equal the given value."""
+  lowestRoomPrice_gte: Float
+  highestRoomPrice: Float
+
+  """All values that are not equal to given value."""
+  highestRoomPrice_not: Float
+
+  """All values that are contained in given list."""
+  highestRoomPrice_in: [Float!]
+
+  """All values that are not contained in given list."""
+  highestRoomPrice_not_in: [Float!]
+
+  """All values less than the given value."""
+  highestRoomPrice_lt: Float
+
+  """All values less than or equal the given value."""
+  highestRoomPrice_lte: Float
+
+  """All values greater than the given value."""
+  highestRoomPrice_gt: Float
+
+  """All values greater than or equal the given value."""
+  highestRoomPrice_gte: Float
   bathrooms: Int
 
   """All values that are not equal to given value."""
@@ -6731,6 +7327,8 @@ input PropertyUpdateInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6746,6 +7344,7 @@ input PropertyUpdateInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -6757,6 +7356,8 @@ input PropertyUpdateManyDataInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6778,6 +7379,8 @@ input PropertyUpdateManyMutationInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6822,6 +7425,13 @@ input PropertyUpdateManyWithWhereNestedInput {
   data: PropertyUpdateManyDataInput!
 }
 
+input PropertyUpdateOneRequiredWithoutAccommodationInput {
+  create: PropertyCreateWithoutAccommodationInput
+  connect: PropertyWhereUniqueInput
+  update: PropertyUpdateWithoutAccommodationDataInput
+  upsert: PropertyUpsertWithoutAccommodationInput
+}
+
 input PropertyUpdateOneRequiredWithoutLeasesInput {
   create: PropertyCreateWithoutLeasesInput
   connect: PropertyWhereUniqueInput
@@ -6840,10 +7450,12 @@ input PropertyUpdateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
-input PropertyUpdateWithoutCreatorDataInput {
+input PropertyUpdateWithoutAccommodationDataInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6859,6 +7471,35 @@ input PropertyUpdateWithoutCreatorDataInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutCreatorDataInput {
+  type: PropertyType
+  headline: String
+  rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  expiryDate: DateTime
+  onTheMarket: Boolean
+  location: String
+  locationLat: Float
+  locationLng: Float
+  isLeased: Boolean
+  leaseExpiryDate: DateTime
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
   owners: UserUpdateManyWithoutPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
@@ -6869,6 +7510,8 @@ input PropertyUpdateWithoutLeasesDataInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6884,6 +7527,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -6894,6 +7538,8 @@ input PropertyUpdateWithoutOwnersDataInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6909,6 +7555,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
@@ -6919,6 +7566,8 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   type: PropertyType
   headline: String
   rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -6934,6 +7583,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   leaseExpiryDate: DateTime
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -6948,6 +7598,11 @@ input PropertyUpdateWithWhereUniqueWithoutCreatorInput {
 input PropertyUpdateWithWhereUniqueWithoutOwnersInput {
   where: PropertyWhereUniqueInput!
   data: PropertyUpdateWithoutOwnersDataInput!
+}
+
+input PropertyUpsertWithoutAccommodationInput {
+  update: PropertyUpdateWithoutAccommodationDataInput!
+  create: PropertyCreateWithoutAccommodationInput!
 }
 
 input PropertyUpsertWithoutLeasesInput {
@@ -7137,6 +7792,50 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   rooms_gte: Int
+  lowestRoomPrice: Float
+
+  """All values that are not equal to given value."""
+  lowestRoomPrice_not: Float
+
+  """All values that are contained in given list."""
+  lowestRoomPrice_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lowestRoomPrice_not_in: [Float!]
+
+  """All values less than the given value."""
+  lowestRoomPrice_lt: Float
+
+  """All values less than or equal the given value."""
+  lowestRoomPrice_lte: Float
+
+  """All values greater than the given value."""
+  lowestRoomPrice_gt: Float
+
+  """All values greater than or equal the given value."""
+  lowestRoomPrice_gte: Float
+  highestRoomPrice: Float
+
+  """All values that are not equal to given value."""
+  highestRoomPrice_not: Float
+
+  """All values that are contained in given list."""
+  highestRoomPrice_in: [Float!]
+
+  """All values that are not contained in given list."""
+  highestRoomPrice_not_in: [Float!]
+
+  """All values less than the given value."""
+  highestRoomPrice_lt: Float
+
+  """All values less than or equal the given value."""
+  highestRoomPrice_lte: Float
+
+  """All values greater than the given value."""
+  highestRoomPrice_gt: Float
+
+  """All values greater than or equal the given value."""
+  highestRoomPrice_gte: Float
   bathrooms: Int
 
   """All values that are not equal to given value."""
@@ -7405,6 +8104,9 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   leaseExpiryDate_gte: DateTime
+  accommodation_every: AccommodationWhereInput
+  accommodation_some: AccommodationWhereInput
+  accommodation_none: AccommodationWhereInput
   owners_every: UserWhereInput
   owners_some: UserWhereInput
   owners_none: UserWhereInput
@@ -7427,6 +8129,7 @@ input PropertyWhereUniqueInput {
 type Query {
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
+  accommodations(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation]!
   rentalGroupApplicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant]!
   propertyAdvertisements(where: PropertyAdvertisementWhereInput, orderBy: PropertyAdvertisementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyAdvertisement]!
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication]!
@@ -7439,6 +8142,7 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   property(where: PropertyWhereUniqueInput!): Property
+  accommodation(where: AccommodationWhereUniqueInput!): Accommodation
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   propertyAdvertisement(where: PropertyAdvertisementWhereUniqueInput!): PropertyAdvertisement
   rentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
@@ -7451,6 +8155,7 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
+  accommodationsConnection(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccommodationConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
   propertyAdvertisementsConnection(where: PropertyAdvertisementWhereInput, orderBy: PropertyAdvertisementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyAdvertisementConnection!
   rentalApplicationsConnection(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalApplicationConnection!
@@ -8659,6 +9364,7 @@ input RentalGroupApplicantWhereUniqueInput {
 type Subscription {
   friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
+  accommodation(where: AccommodationSubscriptionWhereInput): AccommodationSubscriptionPayload
   rentalGroupApplicant(where: RentalGroupApplicantSubscriptionWhereInput): RentalGroupApplicantSubscriptionPayload
   propertyAdvertisement(where: PropertyAdvertisementSubscriptionWhereInput): PropertyAdvertisementSubscriptionPayload
   rentalApplication(where: RentalApplicationSubscriptionWhereInput): RentalApplicationSubscriptionPayload

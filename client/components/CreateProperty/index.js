@@ -26,6 +26,8 @@ import moment from "moment"
 import ChangeRouteButton from "../Routes/ChangeRouteButton"
 import LeaseLength from "../LeaseManager/LeaseLengthInfo"
 
+import AccommodationCreator from "./AccommodationCreator"
+
 // const CREATE_PROPERTY_MUTATION = gql`
 //   mutation CREATE_PROPERTY_MUTATION(
 //     $data: PropertyCreateInput!
@@ -53,6 +55,7 @@ const CreateProperty = () => {
     locationLat: "",
     locationLng: "",
     rooms: 0,
+    accommodation: [],
     rent: 0.0,
     moveInDate: moment().format(),
     expiryDate: moment()
@@ -136,6 +139,9 @@ const CreateProperty = () => {
               }),
           ],
         },
+        accommodation: {
+          create: [...state.accommodation],
+        },
       },
       files: theFiles,
     }
@@ -169,6 +175,32 @@ const CreateProperty = () => {
     }
     return true
   }
+  const addAccommodation = ({ accommodation }) => {
+    const updatedAccommodation = [...state.accommodation, accommodation]
+    setState({
+      ...state,
+      accommodation: [...state.accommodation, accommodation],
+    })
+  }
+  const updateAccommodation = props => {
+    console.log("Im gonna have to lead ya => ", props)
+    const updatedAccommodation = [...state.accommodation]
+    updatedAccommodation[props.updateIndex] = props.accommodation
+    setState({
+      ...state,
+      accommodation: updatedAccommodation,
+    })
+  }
+
+  const removeAccommodation = ({ removeIndex }) => {
+    const updatedAccommodation = [...state.accommodation]
+    updatedAccommodation.splice(removeIndex, 1)
+    setState({
+      ...state,
+      accommodation: updatedAccommodation,
+    })
+  }
+
   // Make most of these Pure Components please
 
   return (
@@ -201,10 +233,6 @@ const CreateProperty = () => {
                         locationLat: data.lat,
                         locationLng: data.lng,
                         location: data.desc,
-                        // below is for google images. These seem to remove the temporary url after some time
-                        // images: data.images.map(url => {
-                        //   return { type: "googleImage", data: url }
-                        // }),
                       })
                     }
                   />
@@ -283,6 +311,13 @@ const CreateProperty = () => {
                     name="rooms"
                     value={state.rooms}
                     onChange={saveToState}
+                  />
+                  <AccommodationCreator
+                    accommodation={state.accommodation}
+                    add={accommodation => addAccommodation(accommodation)}
+                    update={data => updateAccommodation(data)}
+                    duplicate={accommodation => addAccommodation(accommodation)}
+                    remove={res => removeAccommodation(res)}
                   />
                   <TextInput
                     id="bathRooms"
