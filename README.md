@@ -18,6 +18,18 @@ Our product runs in headless environments.
 - server
 -
 
+
+# A collapsible section with markdown
+<details>
+  <summary>Click to expand!</summary>
+  
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
+
 ## Mission
 
 To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
