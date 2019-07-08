@@ -16,28 +16,14 @@
 Our product runs in headless environments.
 
 - server
--
+- client
+- ws-connections
 
-
-# A collapsible section with markdown
 <details>
-  <summary>Click to expand!</summary>
+  <summary>Features</summary>
   
-  ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets
-</details>
-
-## Mission
-
-To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
-
-## Features
-
-- ToDo: Secure (Collects user data to enhance experience)
-- ToDo: complete rental appraisal
+  - ToDo: Secure (Collects user data to enhance experience)
+  - ToDo: complete rental appraisal
   - Consider locations
   - Renovations
   - Age
@@ -51,7 +37,7 @@ To provide a painless tenancy application/process that works quickly and effecie
     - Pre compiled list of selectable furnishings
     - Other
   - etc...
-- ToDo: User rating system
+  - ToDo: User rating system
   - some of these variables can be system calculated.
     - i.e landlords and response time can be calculated by gathering all response time data and calculating where they fit based on others and what these response times were
   - Tenants
@@ -59,21 +45,63 @@ To provide a painless tenancy application/process that works quickly and effecie
     - inspections submitted
   - Landlords
     - time it takes to respond through app
-- ToDo: Inspections
-  - Video
-  - Photos
-    - Required photos e.g. bathroom, kitchen,
-    - auto delete after landlord has signed inspection off
-- ToDO: Tenancy agreements auto poulate depending on the requirements dictated by the landlord
-- ToDo: Tenancy agreements stored - anything on is reminded with notification in timely manner
-- ToDo: Bont and rent payments come throught the platform - Submitted to landlor when required. Bond is submitted directly to the tenancy tribunal - connection is made with them to make platform interconnected
-- ToDo: How do we list properties on other platforms - can it talk with tradme etc, Initially to market properties. Or do we aim to be completely independants
+  - ToDo: Inspections
+    - Video
+    - Photos
+      - Required photos e.g. bathroom, kitchen,
+      - auto delete after landlord has signed inspection off
+  - ToDO: Tenancy agreements auto poulate depending on the requirements dictated by the landlord
+  - ToDo: Tenancy agreements stored - anything on is reminded with notification in timely manner
+  - ToDo: Bont and rent payments come throught the platform - Submitted to landlor when required. Bond is submitted directly to the tenancy tribunal - connection is made with them to make platform interconnected
+  - ToDo: How do we list properties on other platforms - can it talk with tradme etc, Initially to market properties. Or do we aim to be completely independants
+</details>
+
+<details>
+  <summary>Tech</summary>
+
+- React => For building the interface along with:
+  - `Next.js` for server side rendering, routing and tooling
+  - `StyledComponents` for styling
+  - `React-Apollo` for interfacing with Apollo Client
+  - `Material-UI` for theming and styling _(works well with styled components)_
+- Apollo Client => For data management:
+  - Perform GraphQL `Mutations`
+  - Fetching GraphQL `Queries`
+  - `Caching` GraphQL data
+  - Managing `Local State`
+  - `Error` and `Loading` UI states
+  - _Note: Apollo client replaces the need for redux + data fetching/caching libraries_
+- GraphQL Yoga => An express GraphQL Server for:
+  - Implementing `Query` and `Mutation Resolvers`
+  - Custom `Server Side Logic`
+  - `Charging` credit cards
+  - `Sending Email`
+  - Performing `JWT Authentication`
+  - Checking `Permissions`
+- Prisma => A GraphQL database interface:
+  - Provides a set of GraphQL `CRUD APIs` for MySQL or Postgres database
+  - `Schema` Definition
+  - Data `Relationships`
+  - `Queried` directly from our Yoga server
+  - `Self-hosted` or `as-a-service`
+</details>
+
+## Mission
+
+To provide a painless tenancy application/process that works quickly and effeciently. We believe there is no need for this process to be painful or.
+
+<details>
+  <summary>Services</summary>
 
 ## Services
 
 - Cloudinary
   - To store images and other files
   - seemless and decoupled architecture
+</details>
+
+<details>
+  <summary>Things To Consider</summary>
 
 ## Business Logic
 
@@ -105,33 +133,82 @@ To provide a painless tenancy application/process that works quickly and effecie
 
 ### address breakdown in unplanned situations
 
-## Tech
+</details>
 
-- React => For building the interface along with:
-  - `Next.js` for server side rendering, routing and tooling
-  - `StyledComponents` for styling
-  - `React-Apollo` for interfacing with Apollo Client
-  - `Material-UI` for theming and styling _(works well with styled components)_
-- Apollo Client => For data management:
-  - Perform GraphQL `Mutations`
-  - Fetching GraphQL `Queries`
-  - `Caching` GraphQL data
-  - Managing `Local State`
-  - `Error` and `Loading` UI states
-  - _Note: Apollo client replaces the need for redux + data fetching/caching libraries_
-- GraphQL Yoga => An express GraphQL Server for:
-  - Implementing `Query` and `Mutation Resolvers`
-  - Custom `Server Side Logic`
-  - `Charging` credit cards
-  - `Sending Email`
-  - Performing `JWT Authentication`
-  - Checking `Permissions`
-- Prisma => A GraphQL database interface:
-  - Provides a set of GraphQL `CRUD APIs` for MySQL or Postgres database
-  - `Schema` Definition
-  - Data `Relationships`
-  - `Queried` directly from our Yoga server
-  - `Self-hosted` or `as-a-service`
+<details>
+  <summary>Services</summary>
+
+## Services
+
+- Cloudinary
+  - To store images and other files
+  - seemless and decoupled architecture
+
+</details>
+
+<details>
+  <summary>Developer Notes</summary>
+
+<details>
+  <summary>Global/InjectGlobal Css styles</summary>
+
+## Global/InjectGlobal Css styles
+
+- font-size is a base 10px on the html tag meaning when we do rem 1.5 it will be 15px i.e a multiple of base 10
+
+</details>
+
+
+<details>
+  <summary>Component Tree</summary>
+
+## Component Tree
+
+```JS
+ <App>
+  <Container>
+    <Page>
+      <Meta>
+        <SideEffect(Head)>
+          <Head />
+        </SideEffect(Head)/>
+      </Meta>
+      <Header>
+        <Nav>
+      </Header>
+      <NextPageComponent>
+    </Page>
+  </Container>
+ </App>
+```
+
+</details>
+
+<details>
+  <summary>Architecture - Back-end</summary>
+
+## Architecture - Back-end
+
+- index.js _(src/index.js)_ - This is the entry point for our application and serves as the following:
+  - imports our `createServer.js` file and starts it
+  - implements cors when starting server so that only our site and credentials can hit it
+  - something else
+- db.js _(src/db.js)_ - This file connects to the remote prisma DB and gives us the ability to query it with JS
+- createServer.js _(src/createServer.js)_ - Creates our GraphQL Yoga server
+
+  - Is an express server so can use other express middlewre
+  - sits on top of apollo server
+  - imports our resolvers _(Queries and Mutations)_ and sets them up with our server
+  - _note: you would need to import everything graphql yoga does to get a working grahql server_
+
+- he so crazy look at the little baby
+- you wil repect me
+- and no matter how far i go you will need to reflect me
+
+</details>
+
+<details>
+  <summary>Architecture - Front-end</summary>
 
 ## Architecture - front-end
 
@@ -165,47 +242,10 @@ To provide a painless tenancy application/process that works quickly and effecie
   - uses utf-8 for character encoding
   - loads in our favicon
 
-## Global/InjectGlobal Css styles
+</details>
 
-- font-size is a base 10px on the html tag meaning when we do rem 1.5 it will be 15px i.e a multiple of base 10
-
-## Component Tree
-
-```JS
- <App>
-  <Container>
-    <Page>
-      <Meta>
-        <SideEffect(Head)>
-          <Head />
-        </SideEffect(Head)/>
-      </Meta>
-      <Header>
-        <Nav>
-      </Header>
-      <NextPageComponent>
-    </Page>
-  </Container>
- </App>
-```
-
-## Architecture - Back-end
-
-- index.js _(src/index.js)_ - This is the entry point for our application and serves as the following:
-  - imports our `createServer.js` file and starts it
-  - implements cors when starting server so that only our site and credentials can hit it
-  - something else
-- db.js _(src/db.js)_ - This file connects to the remote prisma DB and gives us the ability to query it with JS
-- createServer.js _(src/createServer.js)_ - Creates our GraphQL Yoga server
-
-  - Is an express server so can use other express middlewre
-  - sits on top of apollo server
-  - imports our resolvers _(Queries and Mutations)_ and sets them up with our server
-  - _note: you would need to import everything graphql yoga does to get a working grahql server_
-
-- he so crazy look at the little baby
-- you wil repect me
-- and no matter how far i go you will need to reflect me
+<details>
+  <summary>Scripts</summary>
 
 ## Backend scripts
 
@@ -233,6 +273,11 @@ To provide a painless tenancy application/process that works quickly and effecie
   "heroku-postbuild": "next build"
 }
 ```
+
+</details>
+
+<details>
+  <summary>Prisma Setup</summary>
 
 ## Prisma Setup.
 
@@ -265,6 +310,11 @@ STRIPE_SECRET="sk_123youchanget his"
 PORT=4444
 ```
 
+</details>
+
+<details>
+  <summary>The Environments and their links</summary>
+
 #### The Environments and their links
 
 - DEV
@@ -286,6 +336,13 @@ PORT=4444
     - it is responsible for linking up the frontend and backend `FRONTEND_URL`, and `PRISMA_SECRET`etc will be found and configured in the settings
   - https://dashboard.heroku.com/apps/rehouser-next-prod
     - This is our front-end/next.js deployment
+
+</details>
+</details>
+
+<details>
+  <summary>Deployment</summary>
+
 
 ## Deployment
 
@@ -375,8 +432,13 @@ ToDo: More notes on deployments
 
 ToDo
 
-# Model
+</details>
 
+
+
+
+<details>
+  <summary>Querys</summary>
 ## Querys
 
 #### files
@@ -739,7 +801,10 @@ const where = {
 ```
 
 
-## Mutations
+</details>
+
+<details>
+  <summary>Mutations</summary>
 
 #### createProperty
 
@@ -1194,6 +1259,10 @@ mutation createCreditCard($data:CreditCardCreateInput!){
   }
 }
 ```
+</details>
+
+<details>
+  <summary>Subscriptions</summary>
 
 ### Subscriptions
 
@@ -1275,6 +1344,11 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
 }
 ```
 
+</details>
+
+
+
+
 ### testing
 
 - ideal situation for an analysis of how well the system works is to have all dwellings in a mock database
@@ -1284,6 +1358,9 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
 - If it where a self server
   - https://www.youtube.com/watch?v=bLQqkeVT7os
 - deploying to heroukou use a external service such as cloudinary
+
+<details>
+  <summary>Algolia Setup</summary>
 
 ## Algolia Setup
 
@@ -1327,6 +1404,11 @@ index.setSettings({
   ]
 });
 ```
+
+</details>
+
+<details>
+  <summary>Research</summary>
 
 ## apply for rental
 
@@ -1533,10 +1615,10 @@ Frequency of rent payments HELP
 
 ## address breakdown in unplanned situations
 
-###### FInal Notes
+</details>
 
-- Sticking to the script,
-- while yall have been skipping scenes
+<details>
+  <summary>Developer Notes & resources</summary>
 
 ###### LEARNING RESOURCES
 
@@ -1635,3 +1717,6 @@ mutation UPLOAD_PHOTO_IDENTIFICATION($file:Upload!, $photoId:String!){
   }
 }
 ```
+
+
+</details>
