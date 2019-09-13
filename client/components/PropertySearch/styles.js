@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import styled from "styled-components"
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const SearchInterface = styled.div`
   /* .searchInterface__Drawer {
@@ -62,6 +62,65 @@ const SearchInterface = styled.div`
     padding: 16px;
     font-family: GustanLight;
   }
-`
 
-export { SearchInterface }
+  /* This is the Pagination styles */
+
+  .ais-Pagination-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .ais-Pagination-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 2px;
+    transition: background-color 0.25s ease;
+  }
+  .ais-Pagination-item:hover {
+    background-color: #99aefa;
+    cursor: pointer;
+  }
+  .ais-Pagination-item--page {
+    background-color: lightgrey;
+  }
+  .ais-Pagination-item--selected {
+    background-color: #99aefa;
+  }
+
+  .ais-Pagination-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    min-height: 30px;
+  }
+  .ais-Pagination-link:hover {
+    text-decoration: none;
+  }
+
+  .ais-Highlight-highlighted {
+    background-color: #004898;
+    color: white;
+    padding: 2px;
+    font-style: normal;
+  }
+
+  .ais-results-found {
+    color: #000;
+  }
+
+  .ais-clear-refinements {
+    color: #000;
+    background-color: #fff;
+    margin-top: 16px;
+    transition: all 0.3s ease;
+  }
+  .ais-clear-refinements:hover {
+    color: #fff;
+    background-color: #99aefa;
+  }
+`;
+
+export { SearchInterface };

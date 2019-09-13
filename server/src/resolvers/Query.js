@@ -28,7 +28,6 @@ const Query = {
   rentalApplications,
   myRentalApplications,
   myCreditCards,
-  async,
   myLeases,
   myLease,
   rentalApplication,
