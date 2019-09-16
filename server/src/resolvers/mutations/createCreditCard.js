@@ -25,12 +25,10 @@ async function createCreditCard(parent, { token }, ctx, info) {
     email: user.email,
     user: user,
     ctx,
+    info,
   })
 
-  return {
-    id: card.id,
-  }
+  return card
 }
 
 module.exports = createCreditCard
-

@@ -8,7 +8,7 @@ const db = require("../db")
  * createCard instead
  */
 
-exports.createCard = async ({ stripeToken, email, user, ctx }) => {
+exports.createCard = async ({ stripeToken, email, user, ctx, info }) => {
   const card = await stripe.customers.create({
     source: stripeToken,
     email: email,
@@ -49,9 +49,9 @@ exports.createCard = async ({ stripeToken, email, user, ctx }) => {
         funding: cardData.funding,
       },
     },
-    `{id}`
+    info
   )
-  return cardData
+  return newCard
 }
 
 exports.chargeCard = async ({

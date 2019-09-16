@@ -32,6 +32,8 @@ const CreditCardForm = props => {
   )
   const onToken = async token => {
     const card = await createCreditCard({ variables: { token: token.id } })
+    console.log("Now Put card in apollo store => ", card);
+    console.log("card => ", card);
   }
 
   const handleError = err => {
