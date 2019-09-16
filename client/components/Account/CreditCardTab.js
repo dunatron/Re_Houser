@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import { useQuery, useMutation } from "react-apollo-hooks"
-import CreateCard from "../CreateCard/index"
 import { MY_CREDIT_CARDS_QUERY } from "../../query/index"
 import CreditCardsList from "../CreditCard/CreditCardsList"
 import SetPrimaryCreditCardButton from "../MutationButtons/SetPrimaryCreditCardButton"
 import Button from "@material-ui/core/Button"
+import StripeComponents from "../StripeComponents/index"
+import CreateCardForm from "../StripeComponents/CreateCardForm"
 
 const CreditCardTab = ({ me }) => {
   // const {loading, error} = useQuery(MY_CREDIT_CARDS_QUERY, variables: {
@@ -47,6 +48,10 @@ const CreditCardTab = ({ me }) => {
         Primary Card ID =>{" "}
         {primaryCreditCard ? primaryCreditCard.id : "NOT SET"}
       </h2>
+      <StripeComponents>
+        <h1>Create a New Card</h1>
+        <CreateCardForm />
+      </StripeComponents>
       <CreditCardsList cardsList={data.myCreditCards} />
       {/* {data.myCreditCards.map((creditCard, i) => {
         const {
@@ -74,11 +79,6 @@ const CreditCardTab = ({ me }) => {
           </div>
         );
       })} */}
-      <CreateCard>
-        <Button color="primary" variant="outlined">
-          Add Credit Card
-        </Button>
-      </CreateCard>
     </div>
   )
 }

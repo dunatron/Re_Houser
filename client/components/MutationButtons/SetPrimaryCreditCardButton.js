@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { useQuery, useMutation } from "react-apollo-hooks"
-import CreateCard from "../CreateCard/index"
 import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index"
 import { UPDATE_USER_MUTATION } from "../../mutation/index"
 import Button from "@material-ui/core/Button"

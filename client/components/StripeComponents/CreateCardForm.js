@@ -1,0 +1,86 @@
+import React, { useState, useEffect } from "react"
+import { CardElement, injectStripe } from "react-stripe-elements"
+import { Button } from "@material-ui/core"
+import { useMutation } from "react-apollo-hooks"
+import { CREATE_CREDIT_CARD_MUTATION } from "../../mutation/createCreditCard"
+
+const RenderError = ({ error }) => {
+  if (!error.code) return null
+  return (
+    <div>
+      <div>Code: {error.code}</div>
+      <div>Message: {error.message}</div>
+      <div>Type: {error.type}</div>
+    </div>
+  )
+}
+
+const CreditCardForm = props => {
+  const { stripe } = props
+  const [complete, setComplete] = useState(false)
+
+  const noErrorObj = {
+    code: null,
+    message: null,
+    type: null,
+  }
+
+  const [errorObj, setErrorObj] = useState(noErrorObj)
+
+  const [createCreditCard, createCreditCardProps] = useMutation(
+    CREATE_CREDIT_CARD_MUTATION
+  )
+  const onToken = async token => {
+    const card = await createCreditCard({ variables: { token: token.id } })
+  }
+
+  const handleError = err => {
+    if (err === undefined) return setErrorObj(noErrorObj)
+    return setErrorObj(err)
+  }
+
+  const createCard = async () => {
+    const res = await stripe.createToken()
+    if (res.error) {
+      handleError(res.error)
+      return
+    }
+    if (res.token) {
+      onToken(res.token)
+    }
+  }
+
+  useEffect(() => {}, [])
+
+  return (
+    <div>
+      <RenderError error={errorObj} />
+      <CardElement
+        onChange={card => {
+          setComplete(card.complete)
+          handleError(card.error)
+        }}
+        style={{
+          base: {
+            color: "#32325d",
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: "antialiased",
+            fontSize: "22px",
+            "::placeholder": {
+              color: "#aab7c4",
+            },
+          },
+          invalid: {
+            color: "#fa755a",
+            iconColor: "#fa755a",
+          },
+        }}
+      />
+      <Button disabled={!complete} onClick={() => createCard()}>
+        Create Card
+      </Button>
+    </div>
+  )
+}
+
+export default injectStripe(CreditCardForm)
