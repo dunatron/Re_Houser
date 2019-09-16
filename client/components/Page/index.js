@@ -29,6 +29,9 @@ import AdminAlertsContainer from "../../containers/AdminAlertsContainer"
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 
+// TRIAL ONLY
+import WithUser from "../WithUser"
+
 const theme = createMuiTheme(muiTheme)
 
 const StyledPage = styled.div`
@@ -112,9 +115,7 @@ const GlobalStyle = createGlobalStyle`
       }
     }
     .peg {
-       box-shadow: 0 0 10px ${theme.palette.secondary.main}, 0 0 5px ${
-  theme.palette.secondary.main
-};
+       box-shadow: 0 0 10px ${theme.palette.secondary.main}, 0 0 5px ${theme.palette.secondary.main};
     }
   }
   
@@ -169,16 +170,18 @@ const Page = props => {
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
             <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
-              <StyledPage>
-                <Meta />
-                <Header />
-                <Inner>{props.children}</Inner>
+              <WithUser>
+                <StyledPage>
+                  <Meta />
+                  <Header />
+                  <Inner>{props.children}</Inner>
 
-                {/* <div>
+                  {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
                 </div> */}
-              </StyledPage>
+                </StyledPage>
+              </WithUser>
             </AlertProvider>
           </ThemeProvider>
         </StripeProvider>
