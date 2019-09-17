@@ -290,7 +290,8 @@ To provide a painless tenancy application/process that works quickly and effecie
 
 ## Next.js environment setup
 ###### next.config.js
-- find the env object key
+- find the env object key and place keys in here
+- They will be fed in by .env when build by next
 ```.env
 STRIPE_KEY="pk_test_XXXXXXXXXXXXXXXXX"
 GOOGLE_API_KEY="XXXXXXXXXXXXXXXXXXvk0"
