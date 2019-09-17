@@ -3,7 +3,6 @@ import { ServerStyleSheet } from "styled-components"
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
-    console.log("MyDocument getInitialProps => renderPage", renderPage)
     const sheet = new ServerStyleSheet()
     const page = renderPage(App => props =>
       sheet.collectStyles(<App {...props} />)
@@ -12,15 +11,20 @@ export default class MyDocument extends Document {
     return { ...page, styleTags }
   }
 
-  // static async getInitialProps(ctx) {
-  //   const initialProps = await Document.getInitialProps(ctx)
-  //   return { ...initialProps }
-  // }
-
   render() {
     return (
       <html>
-        <Head>{this.props.styleTags}</Head>
+        <Head>
+          {this.props.styleTags}
+          {/* loading Stripe here because we check it in Component/Page before it is loaded by Component/Meta */}
+          <script
+            key="stripe-js"
+            id="stripe-js"
+            src="https://js.stripe.com/v3/"
+            async
+          />
+        </Head>
+
         <body>
           <Main />
           <div id="modal" />

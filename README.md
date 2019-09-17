@@ -1,6 +1,7 @@
 ## ToDo
 
 - apollo-client has been upgraded from 2 to 3
+- https://github.com/zeit/next.js#populating-head
 - components/OwnerProperties will need to be revamped
   - using composed which is now gone
   - [compose update](https://www.apollographql.com/docs/react/v2.5/react-apollo-migration/#updating-multiple-connected-components-with-compose)
@@ -287,6 +288,13 @@ To provide a painless tenancy application/process that works quickly and effecie
 <details>
   <summary>Prisma Setup</summary>
 
+## Next.js environment setup
+###### .env
+```.env
+STRIPE_KEY="pk_test_XXXXXXXXXXXXXXXXX"
+GOOGLE_API_KEY="XXXXXXXXXXXXXXXXXXvk0"
+```
+
 ## Prisma Setup.
 
 - with the boiler plate navigate to the backend and install prisma globally `npm i -g prisma`
@@ -310,14 +318,25 @@ hooks:
 ###### variables.env
 
 ```.env
+STAGE="prod"
 FRONTEND_URL="http://localhost:7777"
-PRISMA_ENDPOINT="https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev"
-APP_SECRET="jwtsecretxxxxxxxxxxxx"
-STRIPE_SECRET="sk_test_xxxxxxxxxxxxxxxx"
+PRISMA_ENDPOINT="https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod"
+PRISMA_WS_ENDPOINT="wss://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod"
+# PRISMA_MANAGEMENT_API_SECRET="XXXXXXXXXX258"
+PRISMA_SECRET="XXXXXXXXPassword"
+APP_SECRET="jwtsecretXXXXXXXX"
+STRIPE_SECRET="sk_XXXXXXXXXXX"
 PORT=4444
-ALGOLIA_APPLICATION_ID="xxxxxxxxx"
-ALGOLIA_API_KEY="xxxxxxxxx"
-STAGE="dev"
+CLOUDINARY_CLOUD_NAME="dkXXXXXX"
+CLOUDINARY_API_KEY="XXXXXXXXX131"
+CLOUDINARY_API_SECRET="XXXXXXXXXqYs"
+MAIL_HOST="gmail"
+MAIL_PORT=""
+MAIL_USER="heathd@rehouser.co.nz"
+MAIL_PASS="XXXXXXXXXXXXXXGmail_pass"
+ALGOLIA_APPLICATION_ID="XXXXXX3J"
+ALGOLIA_API_KEY="XXXXXXXXXXXb39"
+STAGE="prod"
 ```
 
 </details>
