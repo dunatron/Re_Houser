@@ -1,43 +1,38 @@
-import React, { Component, useState, useEffect } from "react"
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
-import IconButton from "@material-ui/core/IconButton"
-import CloseIcon from "@material-ui/icons/Close"
-import { StripeProvider } from "react-stripe-elements"
-import Head from "next/head"
-import { ToastContainer, toast } from "react-toastify"
-// import "react-toastify/dist/ReactToastify.css"
+import React, { Component, useState, useEffect } from "react";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import { StripeProvider } from "react-stripe-elements";
+import Head from "next/head";
+import { ToastContainer, toast } from "react-toastify";
 
 import {
   withStyles,
   MuiThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles"
-import Header from "../Header/index"
-import Meta from "../Meta/index"
+  createMuiTheme
+} from "@material-ui/core/styles";
+import Header from "../Header/index";
+import Meta from "../Meta/index";
 // Material UI
-import NoSsr from "@material-ui/core/NoSsr"
-import muiTheme from "../../styles/_muiTheme"
-// alert
-import { transitions, positions, Provider as AlertProvider } from "react-alert"
-import AlertTemplate from "../AlertTemplate.js/index"
-import { ALERT_OPTIONS } from "../../lib/configs/alertConfig"
+import NoSsr from "@material-ui/core/NoSsr";
+import muiTheme from "../../styles/_muiTheme";
 
-//Admin ARea Addisions
-import AdminAlertNewRentalApplicationSub from "../SubscriptionComponents/AdminAlertNewRentalApplicationSub"
-import AdminAlertsContainer from "../../containers/AdminAlertsContainer"
+// Admin Area Addisions
+import AdminAlertNewRentalApplicationSub from "../SubscriptionComponents/AdminAlertNewRentalApplicationSub";
+import AdminAlertsContainer from "../../containers/AdminAlertsContainer";
 
 // Google
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 // TRIAL ONLY
-import WithUser from "../WithUser"
+import WithUser from "../WithUser";
 
-const theme = createMuiTheme(muiTheme)
+const theme = createMuiTheme(muiTheme);
 
 const StyledPage = styled.div`
   background: white;
   color: ${props => props.theme.black};
-`
+`;
 
 const Inner = styled.div`
   max-width: ${props => props.theme.maxWidth}px;
@@ -46,7 +41,7 @@ const Inner = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.values.md}px) {
     padding: 0;
   }
-`
+`;
 
 const GlobalStyle = createGlobalStyle`
  @font-face {
@@ -119,35 +114,26 @@ const GlobalStyle = createGlobalStyle`
     }
   }
   
-`
-
-const alertOptions = {
-  // you can also just use 'bottom center'
-  position: positions.BOTTOM_CENTER,
-  timeout: 5000,
-  offset: "30px",
-  // you can also just use 'scale'
-  transition: transitions.SCALE,
-}
+`;
 
 /**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
 
 const Page = props => {
-  const [stripe, setStripe] = useState(null)
-  const { google } = props
+  const [stripe, setStripe] = useState(null);
+  const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
-      console.log("SETTING THE STRIPE KEY ===>>")
-      setStripe(window.Stripe("pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"))
+      console.log("SETTING THE STRIPE KEY ===>>");
+      setStripe(window.Stripe("pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"));
     } else {
-      console.log("WE NEED A WAY TO LOAD IT ASYCLY ")
+      console.log("WE NEED A WAY TO LOAD IT ASYCLY ");
     }
     // window.Stripe
     //   ? setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
     //   : null
-  }, [window.Stripe])
+  }, [window.Stripe]);
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
@@ -169,29 +155,27 @@ const Page = props => {
       <MuiThemeProvider theme={theme}>
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
-            <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
-              <WithUser>
-                <StyledPage>
-                  <Meta />
-                  <Header />
-                  <Inner>{props.children}</Inner>
+            <WithUser>
+              <StyledPage>
+                <Meta />
+                <Header />
+                <Inner>{props.children}</Inner>
 
-                  {/* <div>
+                {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
                 </div> */}
-                </StyledPage>
-              </WithUser>
-            </AlertProvider>
+              </StyledPage>
+            </WithUser>
           </ThemeProvider>
         </StripeProvider>
       </MuiThemeProvider>
       <GlobalStyle />
       <div id="modal-root" />
     </NoSsr>
-  )
-}
+  );
+};
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
-})(Page)
+  apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"
+})(Page);

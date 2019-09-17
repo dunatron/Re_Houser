@@ -1,3 +1,11 @@
+## ToDo
+
+- apollo-client has been upgraded from 2 to 3
+- components/OwnerProperties will need to be revamped
+  - using composed which is now gone
+  - [compose update](https://www.apollographql.com/docs/react/v2.5/react-apollo-migration/#updating-multiple-connected-components-with-compose)
+- components/RentalApplicationStepper will need to be revamped
+
 ## Re-Houser(ToDo:Rename)//
 
 - some e
