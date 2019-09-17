@@ -360,24 +360,24 @@
 
 // export { OWNER_PROPERTIES_QUERY }
 
-import React, { Component } from "react";
-import gql from "graphql-tag";
-import { Query, Mutation } from "react-apollo";
-import Error from "../ErrorMessage/index";
-import SuperTable from "../SuperTable/index";
-import Button from "@material-ui/core/Button";
-import Modal from "../Modal/index";
-import PropertyDetails from "../PropertyDetails/index";
-import { ToastContainer, toast } from "react-toastify";
-import Router from "next/router";
-import { graphql, withApollo } from "react-apollo";
-import { PROPERTIES_QUERY } from "../../query/index";
+import React, { Component } from "react"
+import gql from "graphql-tag"
+import { Query, Mutation } from "react-apollo"
+import Error from "../ErrorMessage/index"
+import SuperTable from "../SuperTable/index"
+import Button from "@material-ui/core/Button"
+import Modal from "../Modal/index"
+import PropertyDetails from "../PropertyDetails/index"
+import { ToastContainer, toast } from "react-toastify"
+import Router from "next/router"
+import { graphql, withApollo } from "react-apollo"
+import { PROPERTIES_QUERY } from "../../query/index"
 const handleLink = (route = "/", query = {}) => {
   Router.push({
     pathname: route,
-    query: query
-  });
-};
+    query: query,
+  })
+}
 
 const OWNER_PROPERTIES_QUERY = gql`
   query OWNER_PROPERTIES_QUERY {
@@ -402,7 +402,7 @@ const OWNER_PROPERTIES_QUERY = gql`
       isLeased
     }
   }
-`;
+`
 
 const UPDATE_PROPERTY_MUTATION = gql`
   mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
@@ -412,13 +412,13 @@ const UPDATE_PROPERTY_MUTATION = gql`
       location
     }
   }
-`;
+`
 
 class OwnerProperties extends Component {
   state = {
     modalIsOpen: false,
-    modalDetailsObj: {}
-  };
+    modalDetailsObj: {},
+  }
   columnHeaders = () => {
     return [
       {
@@ -433,9 +433,9 @@ class OwnerProperties extends Component {
         tableRenderProps: {
           size: "medium",
           style: {
-            minWidth: "220px"
-          }
-        }
+            minWidth: "220px",
+          },
+        },
       },
       {
         id: "id",
@@ -445,7 +445,7 @@ class OwnerProperties extends Component {
         show: false,
         tableRenderKey: "th",
         found: "name",
-        searchable: true
+        searchable: true,
       },
       {
         id: "onTheMarket",
@@ -457,7 +457,7 @@ class OwnerProperties extends Component {
         tableRenderKey: "th",
         found: "onTheMarket",
         funcName: "toggleOnTheMarket",
-        searchable: true
+        searchable: true,
       },
       {
         id: "isLeased",
@@ -467,7 +467,7 @@ class OwnerProperties extends Component {
         label: "isLeased",
         show: true,
         tableRenderKey: "th",
-        found: "isLeased"
+        found: "isLeased",
       },
       {
         id: "moveInDate",
@@ -478,7 +478,7 @@ class OwnerProperties extends Component {
         show: true,
         tableRenderKey: "th",
         found: "moveInDate",
-        searchable: true
+        searchable: true,
       },
       {
         id: "expiryDate",
@@ -489,7 +489,7 @@ class OwnerProperties extends Component {
         show: true,
         tableRenderKey: "th",
         found: "expiryDate",
-        searchable: true
+        searchable: true,
       },
 
       {
@@ -500,7 +500,7 @@ class OwnerProperties extends Component {
         show: true,
         tableRenderKey: "th",
         found: "rent",
-        searchable: true
+        searchable: true,
       },
       {
         id: "locationLng",
@@ -510,7 +510,7 @@ class OwnerProperties extends Component {
         show: false,
         tableRenderKey: "th",
         found: "locationLng",
-        searchable: true
+        searchable: true,
       },
       {
         id: "locationLat",
@@ -520,7 +520,7 @@ class OwnerProperties extends Component {
         show: false,
         tableRenderKey: "th",
         found: "locationLat",
-        searchable: true
+        searchable: true,
       },
       {
         id: "showDetails", //votes.id
@@ -536,7 +536,7 @@ class OwnerProperties extends Component {
         ),
         funcName: "showDetails",
         found: "votes",
-        tableRenderKey: "th"
+        tableRenderKey: "th",
       },
       {
         id: "manage", //votes.id
@@ -551,45 +551,43 @@ class OwnerProperties extends Component {
           </Button>
         ),
         funcName: "manageProperty",
-        tableRenderKey: "th"
-      }
-    ];
-  };
+        tableRenderKey: "th",
+      },
+    ]
+  }
 
   _OptimisticResponse = () => {
-    if (!this.state.updateData) return undefined;
+    if (!this.state.updateData) return undefined
     return {
       __typename: "Mutation",
       updateProperty: {
         __typename: "Property",
         id: this.state.updateData.id,
-        onTheMarket: !this.state.updateData.onTheMarket
-      }
-    };
-  };
+        onTheMarket: !this.state.updateData.onTheMarket,
+      },
+    }
+  }
 
   render() {
     return (
       <Query query={OWNER_PROPERTIES_QUERY}>
         {({ data, loading, error }) => {
-          if (error) return <Error error={error} />;
-          if (loading) return <p>Loading...</p>;
-          const { ownerProperties } = data;
-          const { modalIsOpen, modalDetailsObj } = this.state;
+          if (error) return <Error error={error} />
+          if (loading) return <p>Loading...</p>
+          const { ownerProperties } = data
+          const { modalIsOpen, modalDetailsObj } = this.state
           return (
             <Mutation
               mutation={UPDATE_PROPERTY_MUTATION}
               optimisticResponse={this._OptimisticResponse()}
               refetchQueries={[{ query: PROPERTIES_QUERY }]}
-              update={this.updateCache}
-            >
+              update={this.updateCache}>
               {(updateProperty, { loading, error }) => (
                 <>
                   <Modal
                     title={`Property Viewer`}
                     open={modalIsOpen}
-                    close={() => this.closeModal()}
-                  >
+                    close={() => this.closeModal()}>
                     {this.renderModalDetails()}
                   </Modal>
                   <SuperTable
@@ -607,20 +605,20 @@ class OwnerProperties extends Component {
                     executeFunc={async (funcName, obj) => {
                       switch (funcName) {
                         case "toggleOnTheMarket":
-                          await this.setState({ updateData: obj });
-                          return this._updateProperty(updateProperty, obj);
+                          await this.setState({ updateData: obj })
+                          return this._updateProperty(updateProperty, obj)
                         default:
-                          return this.executeFunctionByName(funcName, obj);
+                          return this.executeFunctionByName(funcName, obj)
                       }
                     }}
                   />
                 </>
               )}
             </Mutation>
-          );
+          )
         }}
       </Query>
-    );
+    )
   }
 
   _updateProperty = async (updateProperty, data) => {
@@ -628,10 +626,10 @@ class OwnerProperties extends Component {
       variables: {
         id: data.id,
         data: {
-          onTheMarket: !data.onTheMarket
-        }
-      }
-    });
+          onTheMarket: !data.onTheMarket,
+        },
+      },
+    })
 
     const message = data.onTheMarket ? (
       <div>
@@ -644,79 +642,79 @@ class OwnerProperties extends Component {
         <h3>Added Property To The Market</h3>
         <strong>{res.data.updateProperty.location}</strong> is now on the market
       </div>
-    );
+    )
 
     {
       data.onTheMarket
         ? toast.info(<p>{message}</p>)
-        : toast.success(<p>{message}</p>);
+        : toast.success(<p>{message}</p>)
     }
     // toast(message)
-  };
+  }
 
   updateCache = (cache, payload) => {
-    const data = cache.readQuery({ query: PROPERTIES_QUERY });
-    const updatedPropertyData = payload.data.updateProperty;
-    const allProperties = data.ownerProperties;
-    const idToSearchBy = updatedPropertyData.id;
-    const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy);
+    const data = cache.readQuery({ query: PROPERTIES_QUERY })
+    const updatedPropertyData = payload.data.updateProperty
+    const allProperties = data.ownerProperties
+    const idToSearchBy = updatedPropertyData.id
+    const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
     data.ownerProperties[foundIndex] = {
       ...data.ownerProperties[foundIndex],
-      ...payload.data.updateProperty
-    };
-    cache.writeQuery({ query: PROPERTIES_QUERY, data });
-  };
+      ...payload.data.updateProperty,
+    }
+    cache.writeQuery({ query: PROPERTIES_QUERY, data })
+  }
 
   showDetails = dataObj => {
-    this.openModal();
+    this.openModal()
     this.setState({
-      modalDetailsObj: dataObj
-    });
-  };
+      modalDetailsObj: dataObj,
+    })
+  }
 
   closeModal() {
     this.setState({
-      modalIsOpen: false
-    });
+      modalIsOpen: false,
+    })
   }
   openModal() {
     this.setState({
-      modalIsOpen: true
-    });
+      modalIsOpen: true,
+    })
   }
 
   renderModalDetails = () => {
-    const { modalDetailsObj } = this.state;
-    const { id, location, rent } = modalDetailsObj;
-    return <PropertyDetails id={id} />;
-  };
+    const { modalDetailsObj } = this.state
+    const { id, location, rent } = modalDetailsObj
+    return <PropertyDetails id={id} />
+  }
 
   manageProperty = data => {
-    handleLink("/my/property", { id: data.id });
-  };
+    handleLink("/my/property", { id: data.id })
+  }
 
   toggleOnTheMarket = dataObj => {
-    const current = dataObj.onTheMarket;
+    const current = dataObj.onTheMarket
     this.props.updateProperty({
-      variables: { id: dataObj.id, onTheMarket: !current }
-    });
-  };
+      variables: { id: dataObj.id, onTheMarket: !current },
+    })
+  }
 
   executeFunctionByName = (functionName, dataObj /*, args */) => {
     switch (functionName) {
       case "showDetails":
-        this.showDetails(dataObj);
-        break;
+        this.showDetails(dataObj)
+        break
       case "manageProperty":
-        return this.manageProperty(dataObj);
+        return this.manageProperty(dataObj)
       case "toggleOnTheMarket":
-        return this.toggleOnTheMarket(dataObj);
+        return this.toggleOnTheMarket(dataObj)
       default:
-        alert("No function specified");
+        alert("No function specified")
     }
-  };
+  }
 }
 
-export default withApollo()(OwnerProperties);
+export default withApollo()(OwnerProperties)
 
-export { OWNER_PROPERTIES_QUERY };
+export { OWNER_PROPERTIES_QUERY }
