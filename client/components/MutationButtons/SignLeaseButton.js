@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import gql from "graphql-tag"
-import { useQuery, useMutation } from "react-apollo-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import Error from "../ErrorMessage"
 import Button from "@material-ui/core/Button"
 import { toast } from "react-toastify"

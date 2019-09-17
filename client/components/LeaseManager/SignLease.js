@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { adopt } from "react-adopt"
 import gql from "graphql-tag"
-import { useQuery, useMutation } from "react-apollo-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import User from "../User/index"
 import Error from "../ErrorMessage"
 import FinaliseLeaseBtn from "../MutationButtons/FinaliseLeaseButton"

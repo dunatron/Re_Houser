@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { CardElement, injectStripe } from "react-stripe-elements"
 import { Button } from "@material-ui/core"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import { CREATE_CREDIT_CARD_MUTATION } from "../../mutation/createCreditCard"
 
 const RenderError = ({ error }) => {

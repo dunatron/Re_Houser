@@ -11,7 +11,7 @@ import DetailsIcon from "../../styles/icons/DetailsIcon"
 import CameraIcon from "../../styles/icons/CameraIcon"
 // Update variable components ToDo: move to own file
 import gql from "graphql-tag"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import InputModal from "../Modal/InputModal"
 import TextInput from "../../styles/TextInput"
 import DateInput from "../Inputs/DateInput"

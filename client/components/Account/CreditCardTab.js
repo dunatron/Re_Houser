@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { useQuery, useMutation } from "react-apollo-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { MY_CREDIT_CARDS_QUERY } from "../../query/index";
 import CreditCardsList from "../CreditCard/CreditCardsList";
 import SetPrimaryCreditCardButton from "../MutationButtons/SetPrimaryCreditCardButton";

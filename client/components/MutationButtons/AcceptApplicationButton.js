@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import Error from "../ErrorMessage/index"
 import { isEmpty } from "ramda"
 import { toast } from "react-toastify"

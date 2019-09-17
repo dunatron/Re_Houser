@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../../mutation/index"
 import Switch from "@material-ui/core/Switch"
 import SwitchInput from "../../Inputs/SwitchInput"

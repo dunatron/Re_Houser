@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery, useMutation, useSubscription } from "react-apollo-hooks"
+import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks"
 import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationUpdatedSub"
 import ApplicationCard from "../PropertyDetails/ApplicationCard"
 import { ToastContainer, toast } from "react-toastify"

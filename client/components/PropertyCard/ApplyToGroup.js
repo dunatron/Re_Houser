@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import Fab from "@material-ui/core/Fab"
 import Error from "../ErrorMessage/index"
 import Tooltip from "@material-ui/core/Tooltip"

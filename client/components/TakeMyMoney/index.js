@@ -1,6 +1,6 @@
 import React from "react"
 import StripeCheckout from "react-stripe-checkout"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import Router from "next/router"
 import NProgress from "nprogress"
 import PropTypes from "prop-types"

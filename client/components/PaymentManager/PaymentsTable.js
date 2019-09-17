@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react"
-import { useQuery } from "react-apollo-hooks"
+import { useQuery } from "@apollo/react-hooks"
 import SuperTable from "../SuperTable/index"
 import Button from "@material-ui/core/Button"
 import ChangeRouteButton from "../Routes/ChangeRouteButton"

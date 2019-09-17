@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useQuery } from "react-apollo-hooks"
+import { useQuery } from "@apollo/react-hooks"
 import { toast } from "react-toastify"
 import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core/styles"
