@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { useQuery, useMutation } from "react-apollo-hooks"
-import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index"
-import { UPDATE_USER_MUTATION } from "../../mutation/index"
-import Button from "@material-ui/core/Button"
+import React, { Component } from "react";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index";
+import { UPDATE_USER_MUTATION } from "../../mutation/index";
+import Button from "@material-ui/core/Button";
 
 const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
   // ToDo: Mutation Props
@@ -11,22 +11,23 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
       data: {
         primaryCreditCard: {
           connect: {
-            id: cardId,
-          },
-        },
-      },
+            id: cardId
+          }
+        }
+      }
     },
     update: (proxy, payload) => {
-      const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
+      const userData = proxy.readQuery({ query: CURRENT_USER_QUERY });
+      console.log("be careful when changing the user data... => ", payload);
+      console.log("Figure out a way to make this work it is essential!!!");
       // userData.me = {
       //   ...userData.me
       //   // ...payload.data.uploadPhotoId,
       // };
       // const testData = userData.me
       //     proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-    },
-    // optimisticResponse: {}
-  })
+    }
+  });
   return (
     <div>
       {!isPrimary ? (
@@ -37,7 +38,7 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
         <p>Is Primary Card</p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SetPrimaryCreditCardButton
+export default SetPrimaryCreditCardButton;

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { useQuery, useMutation } from "react-apollo-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import User from "../User/index"
 import CreditCardItem from "./CreditCardItem"
 

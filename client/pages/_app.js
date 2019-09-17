@@ -1,10 +1,7 @@
 import App, { Container } from "next/app"
 import Page from "../components/Page/index"
 import { ApolloProvider } from "react-apollo"
-import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks"
 import withData from "../lib/withData"
-// import MomentUtils from "@date-io/moment"
-// import { MuiPickersUtilsProvider } from "@material-ui/pickers"
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -21,11 +18,9 @@ class AppEntryPointExtension extends App {
     return (
       <Container>
         <ApolloProvider client={apollo}>
-          <ApolloHooksProvider client={apollo}>
-            <Page>
-              <Component {...pageProps} />
-            </Page>
-          </ApolloHooksProvider>
+          <Page>
+            <Component {...pageProps} />
+          </Page>
         </ApolloProvider>
       </Container>
     )

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { useQuery, useMutation } from "react-apollo-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import ChangeRouteButton from "../Routes/ChangeRouteButton"
 

@@ -1,9 +1,8 @@
-import gql from "graphql-tag"
-import { useMutation } from "react-apollo-hooks"
-import { useAlert } from "react-alert"
-import Button from "@material-ui/core/Button"
-import { toast } from "react-toastify"
-import Error from "../../ErrorMessage/index"
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
+import Button from "@material-ui/core/Button";
+import { toast } from "react-toastify";
+import Error from "../../ErrorMessage/index";
 
 const COMPLETE_RENTAL_APPLICATION = gql`
   mutation COMPLETE_RENTAL_APPLICATION($applicationId: ID!) {
@@ -12,10 +11,9 @@ const COMPLETE_RENTAL_APPLICATION = gql`
       stage
     }
   }
-`
+`;
 
 const FinaliseApplicationStep = ({ application }) => {
-  const alert = useAlert()
   // ToDo: Mutation Props
   const [completeApplication, completeApplicationProps] = useMutation(
     COMPLETE_RENTAL_APPLICATION,
@@ -34,11 +32,11 @@ const FinaliseApplicationStep = ({ application }) => {
             </p>
           </div>,
           { autoClose: 15000 }
-        )
-      },
+        );
+      }
       // optimisticResponse: {},
     }
-  )
+  );
   // completeApplicationProps.loading
   // completeApplicationProps.data
   // completeApplicationProps.error
@@ -51,46 +49,19 @@ const FinaliseApplicationStep = ({ application }) => {
         variant="contained"
         disabled={completeApplicationProps.loading}
         onClick={() => {
-          completeApplication()
+          completeApplication();
           // .then(res => {
           //   toast.info("GOOD SHIT")
           // })
           // // .catch(e => alert.error(e.message))
           // .catch(e => toast.error(e.message))
-        }}>
+        }}
+      >
         HACK TO BYPASS => Complete Application{" "}
         {completeApplicationProps.loading && "Loading"}
       </Button>
     </div>
-  )
+  );
+};
 
-  return (
-    <div>
-      <h1>
-        I am the final step to finalise your application before sending to the
-        landlord for approval
-      </h1>
-      {application.stage === "PENDING" && (
-        <div>Your application is awaiting for approval from the land</div>
-      )}
-      {application.stage === "INITIALIZING" && (
-        <Button
-          variant="contained"
-          onClick={() => {
-            completeApplication()
-              .then(res => {
-                // just to display message? or just let ui change when we update
-                alert.show(
-                  "Congrats the application is now in PENDING mode awaiting the landlords approval!"
-                )
-              })
-              .catch(e => alert.error(e.message))
-          }}>
-          Complete Application
-        </Button>
-      )}
-    </div>
-  )
-}
-
-export default FinaliseApplicationStep
+export default FinaliseApplicationStep;

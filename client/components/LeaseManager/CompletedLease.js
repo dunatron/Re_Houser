@@ -1,5 +1,5 @@
 import React from "react"
-import { useQuery, useMutation } from "react-apollo-hooks"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import { PAYMENTS_QUERY } from "../../query/payments"
 import PaymentManager from "../PaymentManager"
 

@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react"
-import { CardElement, injectStripe } from "react-stripe-elements"
+import {
+  CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+  injectStripe,
+} from "react-stripe-elements"
 import { Button } from "@material-ui/core"
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import { CREATE_CREDIT_CARD_MUTATION } from "../../mutation/createCreditCard"
 
 const RenderError = ({ error }) => {
@@ -30,10 +36,26 @@ const CreditCardForm = props => {
   const [createCreditCard, createCreditCardProps] = useMutation(
     CREATE_CREDIT_CARD_MUTATION
   )
+
   const onToken = async token => {
-    const card = await createCreditCard({ variables: { token: token.id } })
-    console.log("Now Put card in apollo store => ", card);
-    console.log("card => ", card);
+    const card = await createCreditCard({
+      variables: { token: token.id },
+      update: (proxy, payload) => _updateCache(proxy, payload),
+      // refetchQueries: [
+      //   {
+      //     query: CURRENT_USER_QUERY
+      //   }
+      // ]
+    })
+    console.log("Now Put card in apollo store => ", card)
+    console.log("card => ", card)
+  }
+
+  const _updateCache = (proxy, payload) => {
+    console.log(
+      "This is awesome that you want to update the cache. This is fantastic stuff > ",
+      payload
+    )
   }
 
   const handleError = err => {
@@ -56,8 +78,14 @@ const CreditCardForm = props => {
 
   return (
     <div>
-      <RenderError error={errorObj} />
-      <CardElement
+      <form>
+        <RenderError error={errorObj} />
+        <CardNumberElement />
+        <CardExpiryElement />
+        {/* <CardCvcElement /> */}
+      </form>
+
+      {/* <CardElement
         onChange={card => {
           setComplete(card.complete)
           handleError(card.error)
@@ -77,7 +105,7 @@ const CreditCardForm = props => {
             iconColor: "#fa755a",
           },
         }}
-      />
+      /> */}
       <Button disabled={!complete} onClick={() => createCard()}>
         Create Card
       </Button>

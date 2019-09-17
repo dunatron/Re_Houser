@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 
-import { useMutation } from "react-apollo-hooks"
+import { useMutation } from "@apollo/react-hooks"
 
 import { UPLOAD_PHOTO_IDENTIFICATION } from "../../mutation/index"
 import { CURRENT_USER_QUERY } from "../../query/index"

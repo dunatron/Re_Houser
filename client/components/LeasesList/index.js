@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { useQuery } from "react-apollo-hooks"
+import { useQuery } from "@apollo/react-hooks"
 import { MY_LEASES_QUERY } from "../../query/index"
 import Error from "../ErrorMessage"
 import LeasesTable from "./LeasesTable"

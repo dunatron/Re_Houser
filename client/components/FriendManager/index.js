@@ -1,5 +1,5 @@
 import React, { Suspense } from "react"
-import { useQuery } from "react-apollo-hooks"
+import { useQuery } from "@apollo/react-hooks"
 import SearchAndRequestFriend from "./SearchAndRequestFriend"
 import PendingFriendRequests from "./PendingFriendRequests"
 import FriendsList from "./FriendsList"

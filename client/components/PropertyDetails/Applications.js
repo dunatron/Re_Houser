@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { useQuery, useMutation, useSubscription } from "react-apollo-hooks"
+import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks"
 import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
 import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "../../mutation/acceptRentalApplication"
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"

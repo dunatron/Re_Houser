@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import ApplicationItem from "./ApplicationItem"
 import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
-import { useSubscription, useQuery } from "react-apollo-hooks"
+import { useSubscription, useQuery } from "@apollo/react-hooks"
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"
 
 const RentalApplications = props => {

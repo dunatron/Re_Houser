@@ -5,7 +5,6 @@ import CloseIcon from "@material-ui/icons/Close"
 import { StripeProvider } from "react-stripe-elements"
 import Head from "next/head"
 import { ToastContainer, toast } from "react-toastify"
-// import "react-toastify/dist/ReactToastify.css"
 
 import {
   withStyles,
@@ -17,12 +16,8 @@ import Meta from "../Meta/index"
 // Material UI
 import NoSsr from "@material-ui/core/NoSsr"
 import muiTheme from "../../styles/_muiTheme"
-// alert
-import { transitions, positions, Provider as AlertProvider } from "react-alert"
-import AlertTemplate from "../AlertTemplate.js/index"
-import { ALERT_OPTIONS } from "../../lib/configs/alertConfig"
 
-//Admin ARea Addisions
+// Admin Area Addisions
 import AdminAlertNewRentalApplicationSub from "../SubscriptionComponents/AdminAlertNewRentalApplicationSub"
 import AdminAlertsContainer from "../../containers/AdminAlertsContainer"
 
@@ -94,7 +89,6 @@ const GlobalStyle = createGlobalStyle`
   }
   .highlight {
     color: black;
-    /* background-color: yellow; */
     background-color: ${theme.palette.secondary.main};
   }
   button {  font-family: ${theme.typography.fontFamily}; }
@@ -106,7 +100,6 @@ const GlobalStyle = createGlobalStyle`
     .bar {
       height:5px;
       background: ${theme.palette.secondary.main};
-      /* background: #3f51b5; */
     }
     .spinner {
       .spinner-icon {
@@ -121,32 +114,16 @@ const GlobalStyle = createGlobalStyle`
   
 `
 
-const alertOptions = {
-  // you can also just use 'bottom center'
-  position: positions.BOTTOM_CENTER,
-  timeout: 5000,
-  offset: "30px",
-  // you can also just use 'scale'
-  transition: transitions.SCALE,
-}
-
 /**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
-
 const Page = props => {
   const [stripe, setStripe] = useState(null)
   const { google } = props
   useEffect(() => {
     if (window.Stripe) {
-      console.log("SETTING THE STRIPE KEY ===>>")
-      setStripe(window.Stripe("pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N"))
-    } else {
-      console.log("WE NEED A WAY TO LOAD IT ASYCLY ")
+      setStripe(window.Stripe(process.env.STRIPE_KEY))
     }
-    // window.Stripe
-    //   ? setStripe(window.Stripe("AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0"))
-    //   : null
   }, [window.Stripe])
   return (
     <NoSsr>
@@ -169,20 +146,18 @@ const Page = props => {
       <MuiThemeProvider theme={theme}>
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
-            <AlertProvider template={AlertTemplate} {...ALERT_OPTIONS}>
-              <WithUser>
-                <StyledPage>
-                  <Meta />
-                  <Header />
-                  <Inner>{props.children}</Inner>
+            <WithUser>
+              <StyledPage>
+                <Meta />
+                <Header />
+                <Inner>{props.children}</Inner>
 
-                  {/* <div>
+                {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
                 </div> */}
-                </StyledPage>
-              </WithUser>
-            </AlertProvider>
+              </StyledPage>
+            </WithUser>
           </ThemeProvider>
         </StripeProvider>
       </MuiThemeProvider>
@@ -193,5 +168,5 @@ const Page = props => {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
+  apiKey: process.env.GOOGLE_API_KEY,
 })(Page)
