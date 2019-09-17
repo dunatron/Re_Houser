@@ -7,6 +7,7 @@
 # Dev link
 
 ###### agree with most of this 9/10 claps
+
 - [Hooks refactor patterns](https://blog.logrocket.com/practical-react-hooks-how-to-refactor-your-app-to-use-hooks-b1867e7b0a53/)
 
 ######
@@ -84,7 +85,7 @@ Our product runs in headless environments.
   - Data `Relationships`
   - `Queried` directly from our Yoga server
   - `Self-hosted` or `as-a-service`
-</details>
+    </details>
 
 ## Mission
 
@@ -98,7 +99,7 @@ To provide a painless tenancy application/process that works quickly and effecie
 - Cloudinary
   - To store images and other files
   - seemless and decoupled architecture
-</details>
+    </details>
 
 <details>
   <summary>Things To Consider</summary>
@@ -157,7 +158,6 @@ To provide a painless tenancy application/process that works quickly and effecie
 - font-size is a base 10px on the html tag meaning when we do rem 1.5 it will be 15px i.e a multiple of base 10
 
 </details>
-
 
 <details>
   <summary>Component Tree</summary>
@@ -303,11 +303,13 @@ hooks:
 
 ```.env
 FRONTEND_URL="http://localhost:7777"
-PRISMA_ENDPOINT="https://us1.prisma.sh/heath-dunlop-37e897/the-trader/dev"
-PRISMA_SECRET="MyDataBasePassword@$92"
-APP_SECRET="jwtsecret123"
-STRIPE_SECRET="sk_123youchanget his"
+PRISMA_ENDPOINT="https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev"
+APP_SECRET="jwtsecretxxxxxxxxxxxx"
+STRIPE_SECRET="sk_test_xxxxxxxxxxxxxxxx"
 PORT=4444
+ALGOLIA_APPLICATION_ID="xxxxxxxxx"
+ALGOLIA_API_KEY="xxxxxxxxx"
+STAGE="dev"
 ```
 
 </details>
@@ -342,7 +344,6 @@ PORT=4444
 
 <details>
   <summary>Deployment</summary>
-
 
 ## Deployment
 
@@ -433,9 +434,6 @@ ToDo: More notes on deployments
 ToDo
 
 </details>
-
-
-
 
 <details>
   <summary>Querys</summary>
@@ -528,6 +526,7 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 ```
 
 #### More complicated rentalApplications
+
 ```js
 query rentalApplications($where:RentalApplicationWhereInput!) {
   rentalApplications(where:$where) {
@@ -541,7 +540,7 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
     "OR": [
       {
         "visibility": "PUBLIC"
-      }, 
+      },
       {
         "owner": {
           "id": "cjx2v3iqifd2r0b12wtmuml21"
@@ -558,6 +557,7 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 ```
 
 #### findUsers for friend requests
+
 ```js
 query findUsers(
   $where: UserWhereInput
@@ -600,7 +600,8 @@ query findUsers(
 }
 ```
 
-#### create friend request 
+#### create friend request
+
 ```js
 mutation createFriendRequest($data:FriendRequestCreateInput!) {
   createFriendRequest(data:$data) {
@@ -614,7 +615,7 @@ mutation createFriendRequest($data:FriendRequestCreateInput!) {
       "connect": {
         "id": "asdads"
       }
-    }, 
+    },
     "acceptingUser": {
       "connect": {
         "id": "asdad"
@@ -735,9 +736,10 @@ query OWNER_PROPERTIES_QUERY {
 ```
 
 #### get myPropertyLeases
+
 on the serverSide I have set it up So you can simply call this query and you would  
 recieve everything available to you.  
-The server will only return things you are apart of and has the following injected into the where before it hits the database  
+The server will only return things you are apart of and has the following injected into the where before it hits the database
 
 ```js
 query myLeases($where:PropertyLeaseWhereInput) {
@@ -748,13 +750,13 @@ query myLeases($where:PropertyLeaseWhereInput) {
 // there where (the below is always injected by the server)
 {
   "where": {
-    "id":"", 
+    "id":"",
     "OR": [
       {
         "owners_some":{
           "id":""
         }
-      }, 
+      },
       {
         "tenants_some":{
           "id":""
@@ -787,7 +789,7 @@ const where = {
             "id": "cjwq51kvcdy740b428jvm6phc"
           }
         }
-      }, 
+      },
       {
         "lessees_some":{
           "user": {
@@ -799,7 +801,6 @@ const where = {
   }
 }
 ```
-
 
 </details>
 
@@ -974,6 +975,7 @@ mutation applyToRentalGroup($data:RentalGroupApplicantCreateInput!) {
 ```
 
 #### Payment Model ToImplement
+
 ```js
 const PAYMENT_OBJECT = {
   id: "ch_1EmyxNDzDGjSizvyGD8Sor1h",
@@ -991,11 +993,11 @@ const PAYMENT_OBJECT = {
       line1: null,
       line2: null,
       postal_code: null,
-      state: null,
+      state: null
     },
     email: null,
     name: "heath.dunlop.hd@gmail.com",
-    phone: null,
+    phone: null
   },
   captured: true,
   created: 1560932149,
@@ -1018,7 +1020,7 @@ const PAYMENT_OBJECT = {
     risk_level: "normal",
     risk_score: 58,
     seller_message: "Payment complete.",
-    type: "authorized",
+    type: "authorized"
   },
   paid: true,
   payment_intent: null,
@@ -1034,9 +1036,9 @@ const PAYMENT_OBJECT = {
       funding: "credit",
       last4: "4242",
       three_d_secure: null,
-      wallet: null,
+      wallet: null
     },
-    type: "card",
+    type: "card"
   },
   receipt_email: null,
   receipt_number: null,
@@ -1048,7 +1050,7 @@ const PAYMENT_OBJECT = {
     data: [],
     has_more: false,
     total_count: 0,
-    url: "/v1/charges/ch_1EmyxNDzDGjSizvyGD8Sor1h/refunds",
+    url: "/v1/charges/ch_1EmyxNDzDGjSizvyGD8Sor1h/refunds"
   },
   review: null,
   shipping: null,
@@ -1075,18 +1077,18 @@ const PAYMENT_OBJECT = {
     last4: "4242",
     metadata: {},
     name: "heath.dunlop.hd@gmail.com",
-    tokenization_method: null,
+    tokenization_method: null
   },
   source_transfer: null,
   statement_descriptor: null,
   status: "succeeded",
   transfer_data: null,
-  transfer_group: null,
-}
-
+  transfer_group: null
+};
 ```
 
 #### payments query
+
 ```js
 query payments(
   $where:PaymentWhereInput,
@@ -1150,6 +1152,7 @@ mutation COMPLETE_RENTAL_APPLICATION($applicationId: ID!) {
 ```
 
 #### update Lease
+
 ```js
 mutation updateLease($data:PropertyLeaseUpdateInput!, $where:PropertyLeaseWhereUniqueInput!){
   updatePropertyLease(data:$data, where:$where) {
@@ -1176,7 +1179,6 @@ mutation updateLease($data:PropertyLeaseUpdateInput!, $where:PropertyLeaseWhereU
   }
 }
 ```
-
 
 #### updateUser
 
@@ -1259,6 +1261,7 @@ mutation createCreditCard($data:CreditCardCreateInput!){
   }
 }
 ```
+
 </details>
 
 <details>
@@ -1345,9 +1348,6 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
 ```
 
 </details>
-
-
-
 
 ### testing
 
@@ -1717,6 +1717,5 @@ mutation UPLOAD_PHOTO_IDENTIFICATION($file:Upload!, $photoId:String!){
   }
 }
 ```
-
 
 </details>

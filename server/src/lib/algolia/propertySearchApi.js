@@ -1,87 +1,29 @@
-var algoliasearch = require("algoliasearch")
-require("dotenv").config({ path: "./variables.env" })
-var moment = require("moment")
+require("dotenv").config({ path: "./variables.env" });
+const algoliasearch = require("algoliasearch");
+const moment = require("moment");
 
-var applicationId = "4QW4S8SE3J"
-var apiKey = "506b6dcf7516c20a1789e6eb9d9a5b39"
+const client = algoliasearch(
+  process.env.ALGOLIA_APPLICATION_ID,
+  process.env.ALGOLIA_API_KEY,
+  {
+    timeout: 4000
+  }
+);
 
-// instantiate algoliaSearchClient
-var client = algoliasearch(applicationId, apiKey, {
-  timeout: 4000,
-})
+const index = client.initIndex(`${process.env.STAGE}_PropertySearch`);
 
-// process.env.STAGE
-
-// get/create PropertySearch index
-// var index = client.initIndex("PropertySearch")
-// var index = client.initIndex(`PropertySearch_${process.env.STAGE}`)
-var index = client.initIndex(`${process.env.STAGE}_PropertySearch`)
-
-/**
- * ToDo: These settings are not applying properly on initial create
- */
-// We need to apply our settings here!
-// index.setSettings({
-//   // Select the attributes you want to search in
-//   searchableAttributes: ["location", "price", "rooms"],
-//   // Define business metrics for ranking and sorting
-//   customRanking: ["desc(popularity)"],
-//   // Set up some attributes to filter results on
-//   attributesForFaceting: [
-//     "rooms",
-//     "searchable(locationLat)",
-//     "searchable(locationLng)",
-//     "price",
-//     "indoorFeatures",
-//     "outdoorFeatures",
-//     "type",
-//     "onTheMarket",
-//     "moveInDate",
-//     "expiryDate",
-//   ],
-// })
-
-var addPropertySearchNode = async function({ propertyId, ctx }) {
-  index.setSettings({
-    // Select the attributes you want to search in
-    searchableAttributes: [
-      "location",
-      "rent",
-      "lowestRoomPrice",
-      "highestRoomPrice",
-      "rooms",
-      "move_in_date_timestamp",
-    ],
-    // Define business metrics for ranking and sorting
-    customRanking: ["desc(popularity)"],
-    // Set up some attributes to filter results on
-    attributesForFaceting: [
-      "rooms",
-      "searchable(locationLat)",
-      "searchable(locationLng)",
-      "searchable(move_in_date_timestamp)",
-      "rent",
-      "indoorFeatures",
-      "outdoorFeatures",
-      "type",
-      "onTheMarket",
-      "moveInDate",
-      "expiryDate",
-    ],
-  })
+const addPropertySearchNode = async function({ propertyId, ctx }) {
   const property = await ctx.db.query.property(
     {
       where: {
-        id: propertyId,
-      },
+        id: propertyId
+      }
     },
     `{id, type, rooms, rent, accommodation{id ,roomSize, rent, expenses, description},lowestRoomPrice, highestRoomPrice, moveInDate, onTheMarket, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
-  )
-  const propertiesObjectArr = []
-  console.log("Flag Here")
+  );
+  const propertiesObjectArr = [];
+  const moveInTimeStamp = moment(property.moveInDate).unix();
 
-  const moveInTimeStamp = moment(property.moveInDate).unix()
-  console.log("moveInTimeStamp => ", moveInTimeStamp)
   const propertyObject = {
     objectID: property.id,
     id: property.id,
@@ -102,28 +44,28 @@ var addPropertySearchNode = async function({ propertyId, ctx }) {
     garageSpaces: property.garageSpaces,
     offStreetSpaces: property.offStreetSpaces,
     outdoorFeatures: property.outdoorFeatures, // If you add an array in the list of attributes to index, we extract and index all strings in the array.
-    indoorFeatures: property.indoorFeatures, // https://www.algolia.com/doc/faq/index-configuration/do-you-support-indexing-of-arrays/
-  }
-  propertiesObjectArr.push(propertyObject)
-  index.addObjects(propertiesObjectArr, function(err, content) {})
-  return "ALL DONE HERE BRO"
-}
+    indoorFeatures: property.indoorFeatures // https://www.algolia.com/doc/faq/index-configuration/do-you-support-indexing-of-arrays/
+  };
+  propertiesObjectArr.push(propertyObject);
+  index.addObjects(propertiesObjectArr, function(err, content) {});
+  return "ALL DONE HERE BRO";
+};
 
-const ALLOWED_SEARCH_NODE_UPDATE_KEYS = ["rent", "rooms", "moveInDate"]
+const ALLOWED_SEARCH_NODE_UPDATE_KEYS = ["rent", "rooms", "moveInDate"];
 /**
  *
  * ToDo: create a new searchUpdates object and push in data from updates only if the key is in one of
  * a specified array of allowed keys, also transform certain keys values, or rather, if we update date, mkae a timestamp and update that too
  */
 const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
-  const objects = [{ ...updates.data, objectID: propertyId }]
+  const objects = [{ ...updates.data, objectID: propertyId }];
   index.partialUpdateObjects(objects, (err, content) => {
-    if (err) throw err
-  })
-  return "All done with search node updates"
-}
+    if (err) throw err;
+  });
+  return "All done with search node updates";
+};
 
 module.exports = {
   addPropertySearchNode,
-  updatePropertySearchNode,
-}
+  updatePropertySearchNode
+};
