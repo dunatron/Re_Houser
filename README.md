@@ -289,7 +289,8 @@ To provide a painless tenancy application/process that works quickly and effecie
   <summary>Prisma Setup</summary>
 
 ## Next.js environment setup
-###### .env
+###### next.config.js
+- find the env object key
 ```.env
 STRIPE_KEY="pk_test_XXXXXXXXXXXXXXXXX"
 GOOGLE_API_KEY="XXXXXXXXXXXXXXXXXXvk0"
