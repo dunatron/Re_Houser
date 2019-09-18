@@ -19,14 +19,12 @@ export default class DetailItem extends Component {
 
 const renderValue = (value, type) => {
   if (type === "boolean") {
-    // console.log("value => ", value)
     if (value === true || value === "true") {
       return "Yes"
     }
     return "No"
   }
-  if(type === "date") {
-    
+  if (type === "date") {
   }
   return value
 }

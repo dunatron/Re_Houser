@@ -16,7 +16,6 @@ const PaymentsTable = ({ payments, title }) => {
     }
     return prettifiedData
   })
-  console.log("Payments for the paymemnts table => ", payments)
   const columnHeaders = () => {
     return [
       {

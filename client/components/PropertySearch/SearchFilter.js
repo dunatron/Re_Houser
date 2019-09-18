@@ -59,7 +59,6 @@ const SearchFilter = () => {
   // must be a all on one line
   const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent: ${bottomPrice} TO ${topPrice}`
   // 1. ahhh where to start. date search on algolia i stimetsamp, and needs to be numeric
-  console.log("moveInDate => ", moveInDate)
   return (
     <div>
       <SearchFilterExpansionPanel expanded={expanded}>

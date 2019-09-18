@@ -1,15 +1,13 @@
-import React, { Component } from "react"
-
-import { Mutation } from "react-apollo"
-import User from "../User/index"
-import { adopt } from "react-adopt"
-import InputModal from "../Modal/InputModal"
-import Typography from "@material-ui/core/Typography"
+import React, { useState } from "react"
+import { useQuery, useMutation } from "@apollo/react-hooks"
+import { isEmpty, equals } from "ramda"
+import styled from "styled-components"
 
 import { UPDATE_USER_MUTATION } from "../../mutation/index"
 import { CURRENT_USER_QUERY } from "../../query/index"
 // configs
 import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig"
+import { withStyles, makeStyles } from "@material-ui/core/styles"
 // components
 // swiping tabs
 import SwipeableViews from "react-swipeable-views"
@@ -22,12 +20,14 @@ import DynamicCompletionIcon from "./CompletionIcon"
 // PhotoIdentification
 import PhotoIdentification from "./PhotoIdentification"
 import TabContainer from "./TabContainer"
-import TextInput from "../../styles/TextInput"
-import Error from "../ErrorMessage/index"
-import Button from "@material-ui/core/Button"
-import IconButton from "@material-ui/core/IconButton"
+// import TextInput from "../../styles/TextInput"
+import TextField from "@material-ui/core/TextField"
 // Credit card tab
 import CreditCardTab from "./CreditCardTab"
+import SaveButtonLoader from "../Loader/SaveButtonLoader"
+
+//Errors
+import ErrorMessage from "../ErrorMessage"
 
 // Icons
 import EditIcon from "../../styles/icons/EditIcon"
@@ -35,184 +35,160 @@ import MoreIcon from "../../styles/icons/MoreIcon"
 import DetailsIcon from "../../styles/icons/DetailsIcon"
 import CameraIcon from "../../styles/icons/CameraIcon"
 
-const Composed = adopt({
-  user: ({ render }) => <User>{render}</User>,
-  updateUser: ({ render }) => (
-    <Mutation mutation={UPDATE_USER_MUTATION}>{render}</Mutation>
-  ),
-})
+const useStyles = makeStyles(theme => ({
+  inputGrid: {
+    display: "grid",
+    gridGap: "32px",
+    width: "100%",
+    padding: "16px",
+    [theme.breakpoints.up("sm")]: {
+      gridTemplateColumns: "1fr 1fr",
+    },
+    [theme.breakpoints.up("md")]: {
+      gridTemplateColumns: "1fr 1fr 1fr ",
+    },
+    [theme.breakpoints.up("lg")]: {
+      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    },
+  },
+  textField: {
+    fontSize: "32px",
+  },
+}))
 
-export default class index extends Component {
-  state = {
-    modalIsOpen: false,
-    variable: "",
-    variableVal: "",
-    tabIndex: 0,
+const StyledInput = withStyles({
+  root: {},
+  formControl: {},
+  label: {
+    textTransform: "uppercase",
+    fontSize: "18px",
+  },
+  textField: {
+    fontSize: "32px",
+  },
+})(TextField)
+
+const AccountComponent = () => {
+  const classes = useStyles()
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [tabIndex, setTabIndex] = useState(0)
+
+  const user = useQuery(CURRENT_USER_QUERY)
+  const [updateUser, updateUserProps] = useMutation(UPDATE_USER_MUTATION)
+
+  // updates for user mutation
+  const [updates, setUpdates] = useState({})
+
+  const saveToUpdates = e => {
+    setUpdates({ ...updates, [e.target.name]: e.target.value })
   }
-  saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-  _updateUser = async updateUser => {
+  const _updateUser = async () => {
     const res = await updateUser({
       variables: {
         data: {
-          [this.state.variable]: this.state.variableVal,
+          ...updates,
         },
       },
     })
-    this.closeModal()
+    if (res.data) {
+      setUpdates({})
+    }
+    closeModal()
   }
-  closeModal() {
-    this.setState({
-      modalIsOpen: false,
-    })
+  const closeModal = () => {
+    setModalIsOpen(false)
   }
-  openModal() {
-    this.setState({
-      modalIsOpen: true,
-    })
+  const openModal = () => {
+    setModalIsOpen(true)
   }
-  handleTabChange = (event, value) => {
-    this.setState({ tabIndex: value })
+  const handleTabChange = (event, value) => {
+    setTabIndex(value)
   }
-  handleChangeIndex = index => {
-    this.setState({ tabIndex: index })
+  const handleChangeIndex = index => {
+    setTabIndex(index)
   }
-  renderModalDetails = () => {
-    const { variable, variableVal } = this.state
-    return (
-      <Mutation
-        mutation={UPDATE_USER_MUTATION}
-        // variables={this._variables()}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-        update={this.update}>
-        {(updateUser, { error, loading }) => (
-          <>
-            <Error error={error} />
-            {loading && <p>Please wait...</p>}
-            <TextInput
-              disabled={loading}
-              label={variable}
-              value={variableVal}
-              onChange={e => this.setState({ variableVal: e.target.value })}
-            />
-            <Button
-              disabled={loading}
-              onClick={() => this._updateUser(updateUser)}
-              variant="outlined">
-              Update
-            </Button>
-          </>
-        )}
-      </Mutation>
-    )
-  }
-  update = (cache, payload) => {
-    // const { id } = this.props.property
-    // const variables = {
-    //   where: {
-    //     property: {
-    //       id: id,
-    //     },
-    //   },
-    // }
-    // const data = cache.readQuery({
-    //   query: RENTAL_APPLICATIONS_QUERY,
-    //   variables: variables,
-    // })
-    // data.rentalApplications.push({ ...payload.data.createRentalApplication })
-    // cache.writeQuery({
-    //   query: RENTAL_APPLICATIONS_QUERY,
-    //   data,
-    //   variables: variables,
-    // })
-  }
-  render() {
-    const { modalIsOpen, tabIndex } = this.state
-    return (
-      <Composed>
-        {({ user, updateUser }) => {
-          const me = user.data.me
-          if (!me) return null
-          return (
-            <div>
-              <CompletionRating me={me} />
-              <Tabs
-                value={tabIndex}
-                onChange={this.handleTabChange}
-                indicatorColor="primary"
-                textColor="primary"
-                variant="fullWidth">
-                <Tab label="Personal Details" icon={<DetailsIcon />} />
-                <Tab label="Photo Identification" icon={<CameraIcon />} />
-                <Tab label="Extras" icon={<MoreIcon />} />
-              </Tabs>
-              <SwipeableViews
-                index={tabIndex}
-                onChangeIndex={this.handleChangeIndex}>
-                <TabContainer>
-                  <h4>UserID => {me.id}</h4>
-                  {USER_PROFILE_CONF.filter(
-                    conf => !conf.excludeFromDetails
-                  ).map((conf, i) => {
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          margin: "8px",
-                        }}>
-                        <DynamicCompletionIcon val={me[conf.variableName]} />
-                        <div
-                          style={{ display: "flex", flexDirection: "column" }}>
-                          {conf.label}
-                          <span style={{ color: "green" }}>
-                            {me[conf.variableName]}
-                          </span>
-                        </div>
-                        <IconButton
-                          aria-label="Delete"
-                          onClick={() =>
-                            this.setState({
-                              modalIsOpen: true,
-                              variable: conf.variableName,
-                              variableVal: me[conf.variableName],
-                            })
-                          }>
-                          <EditIcon color="default" />
-                        </IconButton>
-                      </div>
-                    )
-                  })}
-                </TabContainer>
-                <TabContainer
-                  containerStyles={{
-                    justifyContent: "center",
-                    flexWrap: "wrap",
-                  }}>
-                  <PhotoIdentification
-                    me={me}
-                    updateVariable={(name, val) => {
-                      this.setState({
-                        modalIsOpen: true,
-                        variable: name,
-                        variableVal: val,
-                      })
-                    }}
-                  />
-                </TabContainer>
-                <TabContainer>
-                  <CreditCardTab me={me} />
-                </TabContainer>
-              </SwipeableViews>
+  const update = (cache, payload) => {}
 
-              <InputModal open={modalIsOpen} close={() => this.closeModal()}>
-                {this.renderModalDetails()}
-              </InputModal>
-            </div>
-          )
-        }}
-      </Composed>
-    )
+  const canSave = () => {
+    if (isEmpty(updates)) return false
+    return true
   }
+
+  const me = user.data.me
+  if (!me) return null
+  return (
+    <div>
+      {canSave() && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "16px",
+            right: "16px",
+            zIndex: 10,
+          }}>
+          <SaveButtonLoader
+            loading={updateUserProps.loading}
+            onClick={() => {
+              _updateUser()
+            }}
+          />
+        </div>
+      )}
+
+      <CompletionRating me={me} />
+      <Tabs
+        value={tabIndex}
+        onChange={handleTabChange}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="fullWidth">
+        <Tab label="Personal Details" icon={<DetailsIcon />} />
+        <Tab label="Photo Identification" icon={<CameraIcon />} />
+        <Tab label="Extras" icon={<MoreIcon />} />
+      </Tabs>
+      <SwipeableViews index={tabIndex} onChangeIndex={handleChangeIndex}>
+        <TabContainer>
+          <h4>UserID => {me.id}</h4>
+          <ErrorMessage error={updateUserProps.error} />
+          <div className={classes.inputGrid}>
+            {USER_PROFILE_CONF.map(item => {
+              return (
+                <div>
+                  <DynamicCompletionIcon val={me[item.variableName]} />
+                  <StyledInput
+                    className={classes.textField}
+                    fullWidth={true}
+                    label={item.label}
+                    name={item.variableName}
+                    // value={me[item.variableName]}
+                    defaultValue={me[item.variableName]}
+                    onChange={saveToUpdates}></StyledInput>
+                </div>
+              )
+            })}
+          </div>
+        </TabContainer>
+        <TabContainer
+          containerStyles={{
+            justifyContent: "center",
+            flexWrap: "wrap",
+          }}>
+          <PhotoIdentification
+            me={me}
+            updateVariable={(name, val) => {
+              setUpdates({
+                ...updates,
+                [name]: val,
+              })
+            }}
+          />
+        </TabContainer>
+        <TabContainer>
+          <CreditCardTab me={me} />
+        </TabContainer>
+      </SwipeableViews>
+    </div>
+  )
 }
+
+export default AccountComponent

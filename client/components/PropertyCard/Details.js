@@ -2,6 +2,7 @@ import React, { Component, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import ImageSlider from "../ImageSlider/index"
+import CarouselSlider from "../CarouselSlider"
 import CardActions from "@material-ui/core/CardActions"
 import Collapse from "@material-ui/core/Collapse"
 import Avatar from "@material-ui/core/Avatar"
@@ -49,6 +50,7 @@ const Details = props => {
   } = props.property
   return (
     <div>
+      <CarouselSlider slides={imageUrls.map(imgUrl => ({ img: imgUrl }))} />
       <CardContent>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {/* <Typography component="div">

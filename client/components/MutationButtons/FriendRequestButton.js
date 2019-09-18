@@ -40,7 +40,6 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
         },
       },
       update: (proxy, payload) => {
-        console.log(payload)
         if (payload.data.createFriendRequest) {
           const { acceptingUser } = payload.data.createFriendRequest
           toast.info(
