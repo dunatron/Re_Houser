@@ -1,5 +1,5 @@
 import React, { Fragment } from "react"
-import classNames from "classnames"
+import clsx from "clsx"
 import PropTypes from "prop-types"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table/Table"
@@ -151,7 +151,7 @@ let EnhancedTableToolbar = props => {
   return (
     <div>
       <Toolbar
-        className={classNames(classes.root, {
+        className={clsx(classes.root, {
           [classes.highlight]: numSelected > 0,
         })}>
         <div className={classes.title}>

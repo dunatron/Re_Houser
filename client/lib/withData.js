@@ -68,13 +68,32 @@ function createClient({ headers }) {
       )
     : authLinkWithUpload;
 
+  // const client = new ApolloClient({
+  //   // ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
+  //   // Endpoint deploy
+  //   uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
+  //   link: link,
+  //   // local dat
+  //   cache: cache,
+  //   resolvers: resolvers()
+  // });
+
+  // cache: new InMemoryCache({
+  //   freezeResults: true, // new
+  // }),
+  // assumeImmutableResults: true, // new
+
   const client = new ApolloClient({
     // ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     // Endpoint deploy
     uri: process.env.NODE_ENV === "development" ? endpoint : prodEndpoint,
     link: link,
     // local dat
+    // cache: new InMemoryCache({
+    //   freezeResults: true // new
+    // }),
     cache: cache,
+    assumeImmutableResults: true, // new
     resolvers: resolvers()
   });
   return client;

@@ -1,116 +1,140 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react";
 import {
   CardElement,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
-  injectStripe,
-} from "react-stripe-elements"
-import { Button } from "@material-ui/core"
-import { useMutation } from "@apollo/react-hooks"
-import { CREATE_CREDIT_CARD_MUTATION } from "../../mutation/createCreditCard"
+  injectStripe
+} from "react-stripe-elements";
+import { useMutation } from "@apollo/react-hooks";
+import { CREATE_CREDIT_CARD_MUTATION } from "../../mutation/createCreditCard";
+import { MY_CREDIT_CARDS_QUERY } from "../../query/index";
+import ButtonLoader from "../Loader/ButtonLoader";
+import { Button } from "@material-ui/core";
 
 const RenderError = ({ error }) => {
-  if (!error.code) return null
+  if (!error.code) return null;
   return (
     <div>
       <div>Code: {error.code}</div>
       <div>Message: {error.message}</div>
       <div>Type: {error.type}</div>
     </div>
-  )
-}
+  );
+};
 
 const CreditCardForm = props => {
-  const { stripe } = props
-  const [complete, setComplete] = useState(false)
+  const cardNumberRef = useRef(null);
+  const cardExpiryRef = useRef(null);
+
+  const { me, stripe } = props;
+  const [complete, setComplete] = useState(false);
 
   const noErrorObj = {
     code: null,
     message: null,
-    type: null,
-  }
+    type: null
+  };
 
-  const [errorObj, setErrorObj] = useState(noErrorObj)
+  const [errorObj, setErrorObj] = useState(noErrorObj);
 
   const [createCreditCard, createCreditCardProps] = useMutation(
     CREATE_CREDIT_CARD_MUTATION
-  )
+  );
 
   const onToken = async token => {
-    const card = await createCreditCard({
+    await createCreditCard({
       variables: { token: token.id },
-      update: (proxy, payload) => _updateCache(proxy, payload),
-      // refetchQueries: [
-      //   {
-      //     query: CURRENT_USER_QUERY
-      //   }
-      // ]
-    })
-    console.log("Now Put card in apollo store => ", card)
-    console.log("card => ", card)
-  }
+      update: (proxy, payload) => _updateCache(proxy, payload)
+    });
+  };
 
   const _updateCache = (proxy, payload) => {
-    console.log(
-      "This is awesome that you want to update the cache. This is fantastic stuff > ",
-      payload
-    )
-  }
+    const userCards = proxy.readQuery({
+      query: MY_CREDIT_CARDS_QUERY,
+      variables: {
+        where: {
+          id: me.id
+        }
+      }
+    });
+    proxy.writeQuery({
+      query: MY_CREDIT_CARDS_QUERY,
+      variables: {
+        where: {
+          id: me.id
+        }
+      },
+      data: {
+        myCreditCards: [
+          ...userCards.myCreditCards,
+          payload.data.createCreditCard
+        ]
+      }
+    });
+    _clearCard();
+  };
 
   const handleError = err => {
-    if (err === undefined) return setErrorObj(noErrorObj)
-    return setErrorObj(err)
-  }
+    if (err === undefined) return setErrorObj(noErrorObj);
+    return setErrorObj(err);
+  };
 
   const createCard = async () => {
-    const res = await stripe.createToken()
+    const res = await stripe.createToken();
     if (res.error) {
-      handleError(res.error)
-      return
+      handleError(res.error);
+      return;
     }
     if (res.token) {
-      onToken(res.token)
+      onToken(res.token);
     }
-  }
+  };
 
-  useEffect(() => {}, [])
+  const _clearCard = () => {
+    cardNumberRef.current._element.clear();
+    cardExpiryRef.current._element.clear();
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <div>
-      <form>
+      <form disabled={createCreditCardProps.loading}>
         <RenderError error={errorObj} />
-        <CardNumberElement />
-        <CardExpiryElement />
+        <CardNumberElement
+          ref={cardNumberRef}
+          onChange={card => {
+            setComplete(card.complete);
+            handleError(card.error);
+          }}
+        />
+        <CardExpiryElement
+          ref={cardExpiryRef}
+          onChange={card => {
+            setComplete(card.complete);
+            handleError(card.error);
+          }}
+        />
         {/* <CardCvcElement /> */}
+        <ButtonLoader
+          text="Create Card"
+          successText="Card has been created"
+          loading={createCreditCardProps.loading}
+          disabled={createCreditCardProps.loading || !complete}
+          onClick={() => createCard()}
+        />
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            _clearCard();
+          }}
+        >
+          CLear
+        </Button>
       </form>
-
-      {/* <CardElement
-        onChange={card => {
-          setComplete(card.complete)
-          handleError(card.error)
-        }}
-        style={{
-          base: {
-            color: "#32325d",
-            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-            fontSmoothing: "antialiased",
-            fontSize: "22px",
-            "::placeholder": {
-              color: "#aab7c4",
-            },
-          },
-          invalid: {
-            color: "#fa755a",
-            iconColor: "#fa755a",
-          },
-        }}
-      /> */}
-      <Button disabled={!complete} onClick={() => createCard()}>
-        Create Card
-      </Button>
     </div>
-  )
-}
+  );
+};
 
-export default injectStripe(CreditCardForm)
+export default injectStripe(CreditCardForm);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import algoliasearch from "algoliasearch/lite";
 import PropTypes from "prop-types";
-import classNames from "classnames";
+import clsx from "clsx";
 import {
   IconButton,
   Divider,

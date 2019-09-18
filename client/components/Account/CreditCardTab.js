@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { MY_CREDIT_CARDS_QUERY } from "../../query/index";
 import CreditCardsList from "../CreditCard/CreditCardsList";
@@ -19,6 +19,10 @@ const CreditCardTab = ({ me }) => {
     suspend: false
   });
 
+  console.log("CreditCardTab data => ", data);
+
+  useEffect(() => {}, [data.myCreditCards]);
+
   if (loading) return <Loader text="Loading Credit Cards" />;
   if (error) return <ErrorMessage error={error} />;
 
@@ -33,7 +37,7 @@ const CreditCardTab = ({ me }) => {
       </h2>
       <StripeComponents>
         <h1>Create a New Card</h1>
-        <CreateCardForm />
+        <CreateCardForm me={me} />
       </StripeComponents>
       <CreditCardsList cardsList={data.myCreditCards} />
     </div>

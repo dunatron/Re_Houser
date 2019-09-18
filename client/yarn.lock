@@ -2118,9 +2118,9 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5, classnames@^2.2.6:
+clsx@^2.2.5, clsx@^2.2.6:
   version "2.2.6"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
 cli-cursor@^2.1.0:
   version "2.1.0"
@@ -2144,7 +2144,7 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
 
-clsx@^1.0.1, clsx@^1.0.2:
+clsx@^1.0.1, clsx@^1.0.2, clsx@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.0.4.tgz#0c0171f6d5cb2fe83848463c15fcc26b4df8c2ec"
 
@@ -4726,7 +4726,7 @@ material-table@^1.39.2:
     "@date-io/date-fns" "^1.1.0"
     "@material-ui/core" "^4.0.1"
     "@material-ui/pickers" "^3.0.0"
-    classnames "^2.2.6"
+    clsx "^2.2.6"
     date-fns "^2.0.0-alpha.27"
     debounce "^1.2.0"
     filefy "0.1.9"
@@ -4738,7 +4738,7 @@ material-ui-next-pickers@^0.0.21:
   version "0.0.21"
   resolved "https://registry.yarnpkg.com/material-ui-next-pickers/-/material-ui-next-pickers-0.0.21.tgz#b7c771a92c630497ae58975186a24cf86831b225"
   dependencies:
-    classnames "^2.2.6"
+    clsx "^2.2.6"
     react-swipeable-views "^0.13.3"
     react-swipeable-views-utils "^0.13.3"
 
@@ -5974,7 +5974,7 @@ react-geosuggest@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/react-geosuggest/-/react-geosuggest-2.12.0.tgz#dcbc799708383c89701fcb6d307d9537df239a4d"
   dependencies:
-    classnames "^2.2.6"
+    clsx "^2.2.6"
     lodash.debounce "^4.0.6"
 
 react-instantsearch-core@^5.6.0:
@@ -5993,7 +5993,7 @@ react-instantsearch-dom@^5.4.0:
     "@babel/runtime" "^7.1.2"
     algoliasearch "^3.27.1"
     algoliasearch-helper "^2.26.0"
-    classnames "^2.2.5"
+    clsx "^2.2.5"
     lodash "^4.17.4"
     prop-types "^15.5.10"
     react-instantsearch-core "^5.6.0"
@@ -6027,7 +6027,7 @@ react-slick@^0.23.2:
   version "0.23.2"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.23.2.tgz#8d8bdbc77a6678e8ad36f50c32578c7c0f1c54f6"
   dependencies:
-    classnames "^2.2.5"
+    clsx "^2.2.5"
     enquire.js "^2.1.6"
     json2mq "^0.2.0"
     lodash.debounce "^4.0.8"
@@ -6080,7 +6080,7 @@ react-toastify@^5.2.1:
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-5.2.1.tgz#faa05bc4cd5066ee50bf56c7f8b8fd1492e71aca"
   dependencies:
     "@babel/runtime" "^7.4.2"
-    classnames "^2.2.6"
+    clsx "^2.2.6"
     prop-types "^15.7.2"
     react-transition-group "^2.6.1"
 

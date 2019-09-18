@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index";
 import { UPDATE_USER_MUTATION } from "../../mutation/index";
 import Button from "@material-ui/core/Button";
+import ButtonLoader from "../Loader/ButtonLoader";
 
 const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
   // ToDo: Mutation Props
@@ -18,22 +19,30 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
     },
     update: (proxy, payload) => {
       const userData = proxy.readQuery({ query: CURRENT_USER_QUERY });
-      console.log("be careful when changing the user data... => ", payload);
-      console.log("Figure out a way to make this work it is essential!!!");
-      // userData.me = {
-      //   ...userData.me
-      //   // ...payload.data.uploadPhotoId,
-      // };
-      // const testData = userData.me
-      //     proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
+      proxy.writeQuery({
+        query: CURRENT_USER_QUERY,
+        data: {
+          me: {
+            ...userData.me,
+            primaryCreditCard: {
+              ...userData.me.primaryCreditCard,
+              id: cardId
+            }
+          }
+        }
+      });
     }
   });
+
   return (
     <div>
       {!isPrimary ? (
-        <Button variant="outlined" onClick={setAsPrimary} disabled={isPrimary}>
-          SET AS PRIMARY
-        </Button>
+        <ButtonLoader
+          onClick={setAsPrimary}
+          loading={setAsPrimaryProps.loading}
+          successText="Reorganising cache"
+          text="Make Primary Card"
+        />
       ) : (
         <p>Is Primary Card</p>
       )}

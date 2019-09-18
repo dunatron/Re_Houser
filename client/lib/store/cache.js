@@ -1,10 +1,12 @@
-import { InMemoryCache } from "apollo-cache-inmemory"
-const cache = new InMemoryCache()
+import { InMemoryCache } from "apollo-cache-inmemory";
+const cache = new InMemoryCache({
+  freezeResults: true // new
+});
 
 cache.writeData({
   data: {
-    cartOpen: true,
-  },
-})
+    cartOpen: true
+  }
+});
 
-export default cache
+export default cache;

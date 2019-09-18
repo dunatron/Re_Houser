@@ -7,6 +7,8 @@
   - [compose update](https://www.apollographql.com/docs/react/v2.5/react-apollo-migration/#updating-multiple-connected-components-with-compose)
 - components/RentalApplicationStepper will need to be revamped
 
+- https://github.com/apollographql/apollo-client/pull/4543
+
 ## Re-Houser(ToDo:Rename)//
 
 - some e
@@ -289,9 +291,12 @@ To provide a painless tenancy application/process that works quickly and effecie
   <summary>Prisma Setup</summary>
 
 ## Next.js environment setup
+
 ###### next.config.js
+
 - find the env object key and place keys in here
 - They will be fed in by .env when build by next
+
 ```.env
 STRIPE_KEY="pk_test_XXXXXXXXXXXXXXXXX"
 GOOGLE_API_KEY="XXXXXXXXXXXXXXXXXXvk0"

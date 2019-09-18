@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { CardElement, injectStripe } from "react-stripe-elements"
-import ForceReloadButton from "../ForceReloadButton.js"
-import RefreshIcon from "../../styles/icons/RefreshIcon"
+import React, { useState, useEffect } from "react";
+import { CardElement, injectStripe } from "react-stripe-elements";
+import ForceReloadButton from "../ForceReloadButton.js";
+import RefreshIcon from "../../styles/icons/RefreshIcon";
 
 const StripeClientSideWrapper = props => {
-  const { stripe } = props
+  const { stripe, clear } = props;
   if (!stripe) {
     return (
       <div>
@@ -20,9 +20,9 @@ const StripeClientSideWrapper = props => {
           }
         />
       </div>
-    )
+    );
   }
-  return props.children
-}
+  return props.children;
+};
 
-export default injectStripe(StripeClientSideWrapper)
+export default injectStripe(StripeClientSideWrapper);

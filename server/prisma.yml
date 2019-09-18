@@ -11,7 +11,8 @@ datamodel:
   - model/enums.graphql
   - model/interfaces.graphql
 # secret is the database password, ommiting it in dev means easier development
-secret: ${env:PRISMA_SECRET}
+# secret: ${env:PRISMA_SECRET}
+
 hooks:
   post-deploy:
     - graphql get-schema -p prisma
