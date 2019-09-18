@@ -21,7 +21,8 @@ const CreditCardTab = ({ me }) => {
 
   console.log("CreditCardTab data => ", data);
 
-  useEffect(() => {}, [data.myCreditCards]);
+  // useEffect(() => {}, [data.myCreditCards]);
+  useEffect(() => {}, []);
 
   if (loading) return <Loader text="Loading Credit Cards" />;
   if (error) return <ErrorMessage error={error} />;

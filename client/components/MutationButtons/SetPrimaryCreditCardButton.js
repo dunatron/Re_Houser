@@ -26,7 +26,8 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
             ...userData.me,
             primaryCreditCard: {
               ...userData.me.primaryCreditCard,
-              id: cardId
+              id: cardId,
+              __typename: "CreditCard"
             }
           }
         }
