@@ -1,5 +1,6 @@
 ## ToDo
 
+- https://www.digitalocean.com/community/tutorials/how-to-manually-set-up-a-prisma-server-on-ubuntu-18-04
 - apollo-client has been upgraded from 2 to 3
 - https://github.com/zeit/next.js#populating-head
 - components/OwnerProperties will need to be revamped

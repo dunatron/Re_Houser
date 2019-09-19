@@ -21,8 +21,30 @@ import MoreVertIcon from "@material-ui/icons/MoreVert"
 import HomeIcon from "@material-ui/icons/Home"
 import MoneyIcon from "@material-ui/icons/AttachMoney"
 
+import { makeStyles } from "@material-ui/core/styles"
+
+const useStyles = makeStyles(theme => ({
+  root: {},
+  detailsGrid: {
+    display: "grid",
+    gridGap: "8px",
+    width: "100%",
+    padding: "0",
+    [theme.breakpoints.up("sm")]: {
+      gridTemplateColumns: "1fr 1fr",
+    },
+    [theme.breakpoints.up("md")]: {
+      gridTemplateColumns: "1fr 1fr 1fr ",
+    },
+    [theme.breakpoints.up("lg")]: {
+      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    },
+  },
+}))
+
 const Details = props => {
   const [expanded, setExpanded] = useState(false)
+  const classes = useStyles()
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
@@ -49,28 +71,10 @@ const Details = props => {
     indoorFeatures,
   } = props.property
   return (
-    <div>
+    <div className={classes.root}>
       <CarouselSlider slides={imageUrls.map(imgUrl => ({ img: imgUrl }))} />
       <CardContent>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {/* <Typography component="div">
-            indoorFeatures:{" "}
-            {indoorFeatures &&
-              indoorFeatures.map((feature, i) => (
-                <Typography key={i} component="span">
-                  {feature}
-                </Typography>
-              ))}
-          </Typography>
-          <Typography component="div">
-            outdoorFeatures:{" "}
-            {outdoorFeatures &&
-              outdoorFeatures.map((feature, i) => (
-                <Typography key={i} component="paragraph">
-                  {feature}
-                </Typography>
-              ))}
-          </Typography> */}
+        <div className={classes.detailsGrid}>
           <DetailItem
             icon={<CameraIcon />}
             label="offStreetSpaces"
