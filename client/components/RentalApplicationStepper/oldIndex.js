@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepButton from "@material-ui/core/StepButton";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { Mutation } from "react-apollo";
 import Error from "../ErrorMessage/index";
-import Loader from "../Loader/index";
 // Steps
 import UserDetailsStep from "./steps/UserDetailsStep";
 import ApplicationDetailsStep from "./steps/ApplicationDetailsStep";
 import FinaliseApplicationStep from "./steps/FinaliseApplicationStep";
 // configs
+import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig";
 import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplicantConfig";
 import customErrorsBag from "../../lib/errorsBagGenerator";
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../mutation/index";
+import { gql, graphql } from "react-apollo";
 
 import { SINGLE_RENTAL_APPLICATION_QUERY } from "../../query/index";
 
 import { isEmpty } from "ramda";
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     width: "90%"
   },
@@ -37,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit
   }
-}));
+});
 
 const getSteps = () => {
   return ["My Details", "Application Details", "Finalise"];
@@ -52,7 +54,13 @@ const extractApplicantUserData = (application, me) => {
 
 const extractUserInfoFields = (application, me) => {
   const applicantUserData = extractApplicantUserData(application, me);
+  console.group("extractUserInfo");
+  console.log("application => ", application);
+  console.log("me => ", me);
+  console.log("applicantUserData => ", applicantUserData);
+  console.groupEnd();
   const userInfoObj = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
+    // const objPiece = { [conf.variableName]: [me[conf.variableName]] };
     const objPiece = {
       [conf.variableName]: {
         ...conf,
@@ -69,31 +77,30 @@ const extractUserInfoFields = (application, me) => {
   return userInfoObj;
 };
 
-// const RentalApplicationStepper = ({ me, property, application }) => {
-const RentalApplicationStepper = ({ me, property, applicationID }) => {
-  const classes = useStyles();
-  // 1. get application query
+const RentalApplicationStepper = props => {
+  // 1. extract props
+  const { classes, me, property, application } = props;
+  // 2. get application query
   const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
     variables: {
       where: { id: application.id }
     }
   });
+
   const { data, loading, error } = rentalApplication;
-
-  // 2. update rental group applicant mutation
-  const [updateRentalGroupApplicant] = useMutation(
-    UPDATE_RENTAL_GROUP_APPLICANT_MUTATION
-  );
-
   // Note: all hooks must go before first render
+
+  console.log("rentalApplication useQuery => ", rentalApplication);
   const [activeStep, setActiveStep] = useState(0);
+  // {0: true, 1: true}
   const [completed, setCompleted] = useState({});
   const [userInfo, setUserInfo] = useState({});
   const [applicationInfo, setApplicationInfo] = useState(
     data.rentalApplication
   );
   const [userErrorsBag, setUserErrorsBag] = useState({});
-
+  // 5. create some state for the stepper
+  // 6. subscribe to data.rentalApplication and update state when we have it
   useEffect(() => {
     if (data.rentalApplication) {
       setApplicationInfo(data.rentalApplication);
@@ -103,6 +110,7 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
       );
       const userInfoFields = extractUserInfoFields(data.rentalApplication, me);
       setUserInfo(userInfoFields);
+      console.log("userInfoObj useEffect => ", userInfoFields);
       // if user as completed step hide it
       if (applicantInfo.completed) {
         setCompleted({ ...completed, 0: true });
@@ -111,7 +119,13 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
     }
   }, [data.rentalApplication]);
 
+  if (loading) return "fetching application data";
+  if (error) return "error";
+
   const handleDetailsChange = e => {
+    // console.log("handleDetailsChange => ", e)
+    const name = e.target.name;
+    const varName = `userInfo.${[e.target.name]}`;
     setUserInfo({
       ...userInfo,
       [e.target.name]: {
@@ -136,6 +150,7 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
       case 1:
         return (
           <ApplicationDetailsStep
+            // application={application}
             application={application}
             property={property}
             me={me}
@@ -154,6 +169,8 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
   const handleNext = () => {
     let currStep = activeStep;
     if (isLastStep() && !allStepsCompleted()) {
+      // It's the last step, but not all steps have been completed,
+      // find the first step that has been completed
       const steps = getSteps();
       currStep = steps.findIndex((step, i) => !(i in completed));
     } else {
@@ -188,6 +205,9 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
         break;
       }
     }
+    // 0 === userDetails
+    // 1 === applicationDetails
+    // 2 === addFriends/complete?
     completed[activeStep] = true;
     setCompleted(completed);
     handleNext();
@@ -239,7 +259,8 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
   };
 
   // Validation on step Save
-  const _saveUserDetails = async () => {
+  const _saveUserDetails = async userInfo => {
+    const { classes, me, property, application } = props;
     if (!me.photoIdentification) {
       alert("You need photo ID");
       return;
@@ -257,8 +278,8 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
       return previous;
     }, {});
     // console.log("userData => ", userData)
-    const userRentalApplicantData = application.applicants.find(
-      applicant => applicant.user.id === me.id
+    const userRentalApplicantData = props.application.applicants.find(
+      applicant => applicant.user.id === props.me.id
     );
     const rentalGroupApplicantData = {
       completed: true,
@@ -267,7 +288,7 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
       lastName: userData.lastName
     };
     // console.log("rentalGroupApplicantData => ", rentalGroupApplicantData)
-    updateRentalGroupApplicant({
+    const updatedUser = props.updateRentalGroupApplicant({
       variables: {
         data: rentalGroupApplicantData,
         where: {
@@ -278,7 +299,10 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
     return true;
   };
 
-  const _saveApplicationDetails = async () => {
+  const _saveApplicationDetails = async application => {
+    const me = props.me;
+    // console.log("application _saveApplicationDetails", application)
+    // Only owner can update this section
     if (application.owner.id !== me.id) {
       toast.error(
         <div>
@@ -292,9 +316,6 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
     // Now we need to save the application details and at the same time handle the cache update
     return true;
   };
-
-  if (loading) return <Loader loading={loading} />;
-  if (error) return <Error error={error} text="Loading Application" />;
 
   return (
     <div className={classes.root}>
@@ -368,8 +389,15 @@ const RentalApplicationStepper = ({ me, property, applicationID }) => {
 };
 
 RentalApplicationStepper.propTypes = {
+  classes: PropTypes.object,
   me: PropTypes.object,
   property: PropTypes.object
 };
 
-export default RentalApplicationStepper;
+// export default withStyles(styles)(RentalApplicationStepper)
+export default compose(
+  withStyles(styles),
+  graphql(UPDATE_RENTAL_GROUP_APPLICANT_MUTATION, {
+    name: "updateRentalGroupApplicant"
+  })
+)(RentalApplicationStepper);
