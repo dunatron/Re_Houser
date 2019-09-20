@@ -13,7 +13,7 @@ import Error from "../../ErrorMessage"
 import ChangeApplicationVisibilityBtn from "../../MutationButtons/ChangeApplicationVisibilityButton"
 
 const ConfirmApplicant = props => {
-  const { applicant, property } = props
+  const { applicant, property, application } = props
   // const [approved, setApproved] = useState(applicant.approved)
 
   const rentalGroupApplicantData = {
@@ -36,6 +36,40 @@ const ConfirmApplicant = props => {
         },
       },
       update: (proxy, payload) => {
+        const applicationData = proxy.readQuery({
+          query: SINGLE_RENTAL_APPLICATION_QUERY,
+          variables: {
+            where: { id: application.id },
+          },
+        })
+        console.log("Application Data => ", applicationData)
+
+        
+        
+        
+        // proxy.writeQuery({
+        //   query: CURRENT_USER_QUERY,
+        //   data: {
+        //     me: {
+        //       ...userData.me,
+        //       primaryCreditCard: {
+        //         ...userData.me.primaryCreditCard,
+        //         id: cardId,
+        //         __typename: "CreditCard"
+        //       }
+        //     }
+        //   }
+        // });
+        // const applicationData = proxy.readQuery({query: SINGLE_RENTAL_APPLICATION_QUERY, {
+        //   variables: {
+        //     where: { id: application.id },
+        //   }
+        // })
+        // const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
+        //   variables: {
+        //     where: { id: application.id },
+        //   },
+        // })
         /**
          * Note: we still are storing the application data in state in the index of the application stepper.
          * making it hard for updates to fall through
@@ -44,6 +78,7 @@ const ConfirmApplicant = props => {
         // const testData = userData.me
         // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
       },
+      
       refetchQueries: [
         {
           query: SINGLE_RENTAL_APPLICATION_QUERY,
