@@ -11,7 +11,6 @@ nbPages: 1
 refine: ƒ ()
 */
 const AlgoliaMaterialPagination = props => {
-  console.log("Algolia connect pagination props => ", props)
   return (
     <div>
       <h1>ToDo Pagination</h1>

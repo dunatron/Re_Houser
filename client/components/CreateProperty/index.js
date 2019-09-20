@@ -183,7 +183,6 @@ const CreateProperty = () => {
     })
   }
   const updateAccommodation = props => {
-    console.log("Im gonna have to lead ya => ", props)
     const updatedAccommodation = [...state.accommodation]
     updatedAccommodation[props.updateIndex] = props.accommodation
     setState({

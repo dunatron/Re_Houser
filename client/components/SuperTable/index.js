@@ -317,7 +317,7 @@ class SuperTable extends React.Component {
     )
     this.state = {
       order: "asc",
-      orderBy: "calories",
+      orderBy: this.props.orderBy ? this.props.orderBy : "calories",
       selected: [],
       searchOpen: false,
       searchCol: "",
@@ -495,7 +495,6 @@ class SuperTable extends React.Component {
         tagType
       )
     }
-
     return (
       <Paper square={true} className={classes.root}>
         {/* <SelectOption
@@ -559,6 +558,37 @@ class SuperTable extends React.Component {
             <TableBody>
               {processedData &&
                 processedData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .sort(getSorting(order, orderBy))
+                  .map(n => {
+                    const isSelected = this.isSelected(n.id)
+                    return (
+                      <TableRow
+                        hover
+                        // role="checkbox"
+                        aria-checked={isSelected}
+                        tabIndex={-1}
+                        key={n.id}
+                        selected={isSelected}>
+                        {this.state.columnHeaders
+                          .filter(header => header.show === true)
+                          .map((cellHeader, idx) => {
+                            return (
+                              <RenderCell
+                                allData={n}
+                                data={cellHeader}
+                                index={idx}
+                                executeFunc={(func, data) =>
+                                  this.props.executeFunc(func, data)
+                                }
+                              />
+                            )
+                          })}
+                      </TableRow>
+                    )
+                  })}
+              {/* {processedData &&
+                processedData
                   .sort(getSorting(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(n => {
@@ -587,7 +617,7 @@ class SuperTable extends React.Component {
                           })}
                       </TableRow>
                     )
-                  })}
+                  })} */}
               {/* {emptyRows > 0 && (
                 <TableRow style={{ height: 49 * emptyRows }}>
                   <TableCell colSpan={6} />

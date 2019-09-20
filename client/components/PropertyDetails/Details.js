@@ -2,6 +2,7 @@ import React, { Component, useState, useRef, useEffect } from "react"
 
 import Map from "../Map/index"
 import ImageSlider from "../ImageSlider/index"
+import CarouselSlider from "../CarouselSlider"
 import DetailItem from "../PropertyCard/DetailItem"
 import IconButton from "@material-ui/core/IconButton"
 //icons
@@ -269,7 +270,11 @@ const Details = props => {
         />
       </div>
 
-      <ImageSlider images={property.images} />
+      {/* <ImageSlider images={property.images} /> */}
+      <CarouselSlider
+        height="540px"
+        slides={property.images.map(imgObj => ({ ...imgObj, img: imgObj.url }))}
+      />
       <Map
         center={{
           lat: property.locationLat,

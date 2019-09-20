@@ -64,7 +64,6 @@ const PropertyDetails = ({ id }) => {
   const property = data.ownerProperty
 
   if (!property) {
-    console.log("Data from failed query => ", data)
     toast("Real interesting error ")
     return "This shouldnt happen apologies 😭😭😭 🤢 🤮"
   }

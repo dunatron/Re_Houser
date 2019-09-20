@@ -66,7 +66,6 @@ const SearchAndRequestFriend = props => {
       },
     })
     setResults(users.data.findUsers)
-    console.log("users => ", users)
   }
   return (
     <div>

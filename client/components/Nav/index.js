@@ -23,7 +23,6 @@ const handleLink = (route = "/", query = {}) => {
 const SocialNav = props => {
   const { me } = props
   const { friendRequests } = me
-  console.log("THE RED BANDANA => ", me)
   return (
     <>
       <Tooltip

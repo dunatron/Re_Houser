@@ -58,7 +58,6 @@ const RentalApplications = props => {
           query: RENTAL_APPLICATIONS_QUERY,
           variables: variables,
         })
-        console.log("subscriptionData => ", subscriptionData)
         const applicationId =
           subscriptionData.data.rentalApplicationCreatedSub.node.id
 
@@ -66,15 +65,12 @@ const RentalApplications = props => {
         applications.rentalApplications.push({
           ...subscriptionData.data.rentalApplicationCreatedSub.node,
         })
-        console.log("Applications after push => ", applications)
 
         client.writeQuery({
           query: RENTAL_APPLICATIONS_QUERY,
           data: applications,
           variables: variables,
         })
-
-        console.log("The god is back, amen")
 
         // 1. Read the cache for the items we want
         // const data = cache.readQuery({ query: ALL_FILES_QUERY })

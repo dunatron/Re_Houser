@@ -1,4 +1,24 @@
-import green from "@material-ui/core/colors/green";
+import {
+  red,
+  pink,
+  purple,
+  deepPurple,
+  indigo,
+  blue,
+  lightBlue,
+  cyan,
+  teal,
+  green,
+  lightGreen,
+  lime,
+  yellow,
+  amber,
+  orange,
+  deepOrange,
+  brown,
+  grey,
+  blueGrey,
+} from "@material-ui/core/colors"
 // const theme = {
 //   direction: "ltr",
 //   maxWidth: 1200,
@@ -350,7 +370,7 @@ const theme = {
   bs: "0 12px 24px 0 rgba(0, 0, 0, 0.09)",
   breakpoints: {
     keys: ["xs", "sm", "md", "lg", "xl"],
-    values: { xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920 }
+    values: { xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920 },
   },
 
   form: {
@@ -358,16 +378,16 @@ const theme = {
       marginTop: "16px",
       fontSize: "2rem",
       minWidth: "120px",
-      maxWidth: "300px"
-    }
+      maxWidth: "300px",
+    },
   },
   direction: "ltr",
   mixins: {
     toolbar: {
       minHeight: 56,
       "@media (min-width:0px) and (orientation: landscape)": { minHeight: 48 },
-      "@media (min-width:600px)": { minHeight: 64 }
-    }
+      "@media (min-width:600px)": { minHeight: 64 },
+    },
   },
   overrides: {},
   palette: {
@@ -405,23 +425,25 @@ const theme = {
     //   contrastText: "#ffffff",
     // },
     // Black on black below
-    primary: {
-      light: "#000",
-      main: "#000",
-      dark: "#000",
-      contrastText: "#ffffff"
-    },
-    secondary: {
-      light: "#000",
-      main: "#000",
-      dark: "#000",
-      contrastText: "#ffffff"
-    },
+    // primary: {
+    //   light: "#000",
+    //   main: "#000",
+    //   dark: "#000",
+    //   contrastText: "#ffffff"
+    // },
+    // secondary: {
+    //   light: "#000",
+    //   main: "#000",
+    //   dark: "#000",
+    //   contrastText: "#ffffff"
+    // },
+    primary: indigo,
+    secondary: pink,
     error: {
       light: "#e57373",
       main: "#f44336",
       dark: "#d32f2f",
-      contrastText: "#fff"
+      contrastText: "#fff",
     },
     grey: {
       "50": "#fafafa",
@@ -437,7 +459,7 @@ const theme = {
       A100: "#d5d5d5",
       A200: "#aaaaaa",
       A400: "#303030",
-      A700: "#616161"
+      A700: "#616161",
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
@@ -445,7 +467,7 @@ const theme = {
       primary: "rgba(0, 0, 0, 0.87)",
       secondary: "rgba(0, 0, 0, 0.54)",
       disabled: "rgba(0, 0, 0, 0.38)",
-      hint: "rgba(0, 0, 0, 0.38)"
+      hint: "rgba(0, 0, 0, 0.38)",
     },
     divider: "rgba(0, 0, 0, 0.12)",
     background: { paper: "#fff", default: "#fafafa" },
@@ -455,8 +477,8 @@ const theme = {
       hoverOpacity: 0.08,
       selected: "rgba(0, 0, 0, 0.14)",
       disabled: "rgba(0, 0, 0, 0.26)",
-      disabledBackground: "rgba(0, 0, 0, 0.12)"
-    }
+      disabledBackground: "rgba(0, 0, 0, 0.12)",
+    },
   },
   props: {},
   shadows: [
@@ -484,7 +506,7 @@ const theme = {
     "0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12)",
     "0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12)",
     "0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)",
-    "0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)"
+    "0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)",
   ],
   typography: {
     // fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
@@ -500,7 +522,7 @@ const theme = {
       letterSpacing: "-.04em",
       lineHeight: "1.14286em",
       marginLeft: "-.04em",
-      color: "rgba(0, 0, 0, 0.54)"
+      color: "rgba(0, 0, 0, 0.54)",
     },
     display3: {
       fontSize: "3.5rem",
@@ -509,7 +531,7 @@ const theme = {
       letterSpacing: "-.02em",
       lineHeight: "1.30357em",
       marginLeft: "-.02em",
-      color: "rgba(0, 0, 0, 0.54)"
+      color: "rgba(0, 0, 0, 0.54)",
     },
     display2: {
       fontSize: "2.8125rem",
@@ -517,63 +539,63 @@ const theme = {
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.13333em",
       marginLeft: "-.02em",
-      color: "rgba(0, 0, 0, 0.54)"
+      color: "rgba(0, 0, 0, 0.54)",
     },
     display1: {
       fontSize: "2.125rem",
       fontWeight: 400,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.20588em",
-      color: "rgba(0, 0, 0, 0.54)"
+      color: "rgba(0, 0, 0, 0.54)",
     },
     headline: {
       fontSize: "1.5rem",
       fontWeight: 400,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.35417em",
-      color: "rgba(0, 0, 0, 0.87)"
+      color: "rgba(0, 0, 0, 0.87)",
     },
     title: {
       fontSize: "1.3125rem",
       fontWeight: 500,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.16667em",
-      color: "rgba(0, 0, 0, 0.87)"
+      color: "rgba(0, 0, 0, 0.87)",
     },
     subheading: {
       fontSize: "1rem",
       fontWeight: 400,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.5em",
-      color: "rgba(0, 0, 0, 0.87)"
+      color: "rgba(0, 0, 0, 0.87)",
     },
     body2: {
       fontSize: "0.875rem",
       fontWeight: 500,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.71429em",
-      color: "rgba(0, 0, 0, 0.87)"
+      color: "rgba(0, 0, 0, 0.87)",
     },
     body1: {
       fontSize: "0.875rem",
       fontWeight: 400,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.46429em",
-      color: "rgba(0, 0, 0, 0.87)"
+      color: "rgba(0, 0, 0, 0.87)",
     },
     caption: {
       fontSize: "0.75rem",
       fontWeight: 400,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       lineHeight: "1.375em",
-      color: "rgba(0, 0, 0, 0.54)"
+      color: "rgba(0, 0, 0, 0.54)",
     },
     button: {
       fontSize: "0.875rem",
       textTransform: "uppercase",
       fontWeight: 500,
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-      color: "rgba(0, 0, 0, 0.87)"
+      color: "rgba(0, 0, 0, 0.87)",
     },
     h1: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -581,7 +603,7 @@ const theme = {
       fontWeight: 300,
       fontSize: "6rem",
       lineHeight: 1,
-      letterSpacing: "-0.01562em"
+      letterSpacing: "-0.01562em",
     },
     h2: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -589,7 +611,7 @@ const theme = {
       fontWeight: 300,
       fontSize: "3.75rem",
       lineHeight: 1,
-      letterSpacing: "-0.00833em"
+      letterSpacing: "-0.00833em",
     },
     h3: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -597,7 +619,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "3rem",
       lineHeight: 1.04,
-      letterSpacing: "0em"
+      letterSpacing: "0em",
     },
     h4: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -605,7 +627,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "2.125rem",
       lineHeight: 1.17,
-      letterSpacing: "0.00735em"
+      letterSpacing: "0.00735em",
     },
     h5: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -613,7 +635,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "1.5rem",
       lineHeight: 1.33,
-      letterSpacing: "0em"
+      letterSpacing: "0em",
     },
     h6: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -621,7 +643,7 @@ const theme = {
       fontWeight: 500,
       fontSize: "1.25rem",
       lineHeight: 1.6,
-      letterSpacing: "0.0075em"
+      letterSpacing: "0.0075em",
     },
     subtitle1: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -629,7 +651,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "1rem",
       lineHeight: 1.75,
-      letterSpacing: "0.00938em"
+      letterSpacing: "0.00938em",
     },
     subtitle2: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -637,7 +659,7 @@ const theme = {
       fontWeight: 500,
       fontSize: "0.875rem",
       lineHeight: 1.57,
-      letterSpacing: "0.00714em"
+      letterSpacing: "0.00714em",
     },
     body1Next: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -645,7 +667,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "1rem",
       lineHeight: 1.5,
-      letterSpacing: "0.00938em"
+      letterSpacing: "0.00938em",
     },
     body2Next: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -653,7 +675,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "0.875rem",
       lineHeight: 1.5,
-      letterSpacing: "0.01071em"
+      letterSpacing: "0.01071em",
     },
     buttonNext: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -662,7 +684,7 @@ const theme = {
       fontSize: "1.375rem",
       lineHeight: 1.75,
       letterSpacing: "0.02857em",
-      textTransform: "uppercase"
+      textTransform: "uppercase",
     },
     captionNext: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -670,7 +692,7 @@ const theme = {
       fontWeight: 400,
       fontSize: "0.75rem",
       lineHeight: 1.66,
-      letterSpacing: "0.03333em"
+      letterSpacing: "0.03333em",
     },
     overline: {
       color: "rgba(0, 0, 0, 0.87)",
@@ -679,9 +701,9 @@ const theme = {
       fontSize: "0.75rem",
       lineHeight: 2.66,
       letterSpacing: "0.08333em",
-      textTransform: "uppercase"
+      textTransform: "uppercase",
     },
-    useNextVariants: true
+    useNextVariants: true,
   },
   shape: { borderRadius: 4 },
   spacing: { unit: 8 },
@@ -690,7 +712,7 @@ const theme = {
       easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
       easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
       easeIn: "cubic-bezier(0.4, 0, 1, 1)",
-      sharp: "cubic-bezier(0.4, 0, 0.6, 1)"
+      sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
     },
     duration: {
       shortest: 150,
@@ -699,8 +721,8 @@ const theme = {
       standard: 300,
       complex: 375,
       enteringScreen: 225,
-      leavingScreen: 195
-    }
+      leavingScreen: 195,
+    },
   },
   zIndex: {
     mobileStepper: 1000,
@@ -708,7 +730,7 @@ const theme = {
     drawer: 1200,
     modal: 1300,
     snackbar: 1400,
-    tooltip: 1500
-  }
-};
-export default theme;
+    tooltip: 1500,
+  },
+}
+export default theme

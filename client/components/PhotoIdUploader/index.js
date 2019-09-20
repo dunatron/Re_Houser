@@ -36,7 +36,6 @@ import { isEmpty } from "ramda"
  * we should check mutations
  */
 const PhotoIdUploader = ({ me }) => {
-  console.log("me => ", me)
   const [file, setFile] = useState({})
   const [tabIndex, setTabIndex] = useState(0)
   const [photoId, setPhotoId] = useState("")
@@ -51,12 +50,9 @@ const PhotoIdUploader = ({ me }) => {
         photoId: photoId,
       },
       update: (proxy, payload) => {
-        console.log("uploadPhotoId Cache not implemented yet: Harass Dunatron")
         setFile({})
         // i.e here just find the {me} and update the profile image url with the new one from cloudinary
         const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-        console.log("userData => ", userData)
-        console.log("userData => ", payload)
         userData.me = {
           ...userData.me,
           identificationNumber: payload.data.uploadPhotoId.identificationNumber,
@@ -65,17 +61,6 @@ const PhotoIdUploader = ({ me }) => {
             ...payload.data.uploadPhotoId.photoIdentification,
           },
         }
-        // console.log("payload => ", payload)
-        // console.log("userData.me => ", userData.me)
-        // userData.me = {
-        //   ...userData.me,
-        //   // ...payload.data.uploadPhotoId,
-        // }
-        // const testData = userData.me
-        // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-        // console.log("Proxy => ", proxy)
-        // NOTE: Its not going to let you update the me object when we need it in the current instance!
-        // setShowUploader(0)
         setTabIndex(0)
         toast.info(
           <p>
@@ -90,21 +75,11 @@ const PhotoIdUploader = ({ me }) => {
 
   useEffect(() => {}, [])
 
-  // console.log("uploadPhotoIdProps.loading => ", uploadPhotoIdProps.loading)
-  // console.log("uploadPhotoIdProps.error => ", uploadPhotoIdProps.error)
-  // console.log("uploadPhotoIdProps.data => ", uploadPhotoIdProps.data)
-
   const handleSetFile = file => {
-    console.log("file => ", file)
     setFile(file)
     setShowUploader(0)
   }
 
-  // useEffect(() => {
-  //   return () => {
-  //     effect
-  //   }
-  // }, [input])
   return (
     <Card>
       <Error error={error} />
