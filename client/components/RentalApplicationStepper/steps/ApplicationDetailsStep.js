@@ -1,135 +1,110 @@
-import React, { useState } from "react"
-import PropTypes from "prop-types"
-import { useMutation } from "@apollo/react-hooks"
-import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../../mutation/index"
-import Switch from "@material-ui/core/Switch"
-import SwitchInput from "../../Inputs/SwitchInput"
-import ApplicantDetails from "../../ApplicantDetails/index"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useMutation } from "@apollo/react-hooks";
+import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../../mutation/index";
+import Switch from "@material-ui/core/Switch";
+import SwitchInput from "../../Inputs/SwitchInput";
+import ApplicantDetails from "../../ApplicantDetails/index";
 import {
   RENTAL_APPLICATIONS_QUERY,
-  SINGLE_RENTAL_APPLICATION_QUERY,
-} from "../../../query/index"
-import Error from "../../ErrorMessage"
-import ChangeApplicationVisibilityBtn from "../../MutationButtons/ChangeApplicationVisibilityButton"
+  SINGLE_RENTAL_APPLICATION_QUERY
+} from "../../../query/index";
+import Error from "../../ErrorMessage";
+import ChangeApplicationVisibilityBtn from "../../MutationButtons/ChangeApplicationVisibilityButton";
 
 const ConfirmApplicant = props => {
-  const { applicant, property, application } = props
-  // const [approved, setApproved] = useState(applicant.approved)
+  const { applicant, property, rentalApplication } = props;
 
-  const rentalGroupApplicantData = {
-    approved: !applicant.approved,
-    email: applicant.email,
-    firstName: applicant.firstName,
-  }
+  // check if can confirm, proprty.vacancies cannot be less than rentalApplication.applicants
+  // alert that they will have to remove someone
+
   // ToDo: Mutation Props
   const [updateApplicant, updateApplicantProps] = useMutation(
     UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
     {
       variables: {
-        data: rentalGroupApplicantData,
-        // data: {
-        //   approved: true,
-        // },
-        where: {
-          id: applicant.id,
-          // id: "userRentalApplicantData.id",
+        data: {
+          approved: !applicant.approved,
+          email: applicant.email,
+          firstName: applicant.firstName
         },
+        where: {
+          id: applicant.id
+        }
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        updateRentalGroupApplicant: {
+          __typename: "RentalGroupApplicant",
+          id: applicant.id,
+          approved: !applicant.approved,
+          ...applicant
+        }
       },
       update: (proxy, payload) => {
         const applicationData = proxy.readQuery({
           query: SINGLE_RENTAL_APPLICATION_QUERY,
           variables: {
-            where: { id: application.id },
-          },
-        })
-        console.log("Application Data => ", applicationData)
+            where: { id: rentalApplication.id }
+          }
+        });
 
-        
-        
-        
-        // proxy.writeQuery({
-        //   query: CURRENT_USER_QUERY,
-        //   data: {
-        //     me: {
-        //       ...userData.me,
-        //       primaryCreditCard: {
-        //         ...userData.me.primaryCreditCard,
-        //         id: cardId,
-        //         __typename: "CreditCard"
-        //       }
-        //     }
-        //   }
-        // });
-        // const applicationData = proxy.readQuery({query: SINGLE_RENTAL_APPLICATION_QUERY, {
-        //   variables: {
-        //     where: { id: application.id },
-        //   }
-        // })
-        // const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
-        //   variables: {
-        //     where: { id: application.id },
-        //   },
-        // })
-        /**
-         * Note: we still are storing the application data in state in the index of the application stepper.
-         * making it hard for updates to fall through
-         */
-        // const userData = proxy.readQuery({ query: CURRENT_USER_QUERY })
-        // const testData = userData.me
-        // proxy.writeQuery({ query: CURRENT_USER_QUERY, testData })
-      },
-      
-      refetchQueries: [
-        {
+        const applicantIndex = applicationData.rentalApplication.applicants.findIndex(
+          user => user.id === payload.data.updateRentalGroupApplicant.id
+        );
+
+        const updatedApplicants = [
+          ...applicationData.rentalApplication.applicants
+        ];
+        updatedApplicants[applicantIndex] = {
+          ...applicationData.rentalApplication.applicants[applicantIndex],
+          ...payload.data.updateRentalGroupApplicant
+        };
+
+        const newApplicationData = {
+          ...applicationData,
+          rentalApplication: {
+            ...applicationData.rentalApplication,
+            applicants: [...applicationData.rentalApplication.applicants]
+          }
+        };
+        proxy.writeQuery({
           query: SINGLE_RENTAL_APPLICATION_QUERY,
           variables: {
-            where: {
-              id: props.application.id,
-            },
+            where: { id: rentalApplication.id }
           },
-        },
-      ],
-      // refetchQueries: [
-      //   {
-      //     query: RENTAL_APPLICATIONS_QUERY,
-      //     variables: {
-      //       where: {
-      //         property: {
-      //           id: property.id,
-      //         },
-      //       },
-      //     },
-      //   },
-      // ],
-      // optimisticResponse: {},
+          data: {
+            rentalApplication: newApplicationData
+          }
+        });
+      }
     }
-  )
+  );
+
   return (
     <>
       <Error error={updateApplicantProps.error} />
       <SwitchInput
         checked={applicant.approved}
-        onChange={() => {
-          updateApplicant(applicant)
-          // setApproved(!approved)
-        }}
+        onChange={updateApplicant}
         label="Approve Applicant"
         checkedLabel="Approved"
       />
     </>
-  )
-}
+  );
+};
 
 const RenderOwnerView = props => {
-  const { application } = props
+  const { rentalApplication } = props;
+  console.log("owner view application => ", rentalApplication);
   return (
     <div>
       <h1>I am the application Details step </h1>
       <ChangeApplicationVisibilityBtn
-        applicationId={application.id}
-        visibility={application.visibility}
+        applicationId={rentalApplication.id}
+        visibility={rentalApplication.visibility}
       />
-      {application.applicants.map((applicant, i) => {
+      {rentalApplication.applicants.map((applicant, i) => {
         return (
           <div key={i}>
             {applicant.user ? (
@@ -140,11 +115,11 @@ const RenderOwnerView = props => {
 
             <ConfirmApplicant applicant={applicant} {...props} />
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
 const RenderPlebView = ({ applicationInfo }) => (
   <div>
@@ -153,19 +128,19 @@ const RenderPlebView = ({ applicationInfo }) => (
     <h4>Stage: {applicationInfo.stage}</h4>
     <h4>finalised: {applicationInfo.finalised ? "YES " : "NO"}</h4>
   </div>
-)
+);
 
 const ApplicationDetailsStep = props => {
-  const { me, application } = props
-  if (me.id !== application.owner.id) {
-    return <RenderPlebView {...props} />
+  const { me, rentalApplication } = props;
+  if (me.id !== rentalApplication.owner.id) {
+    return <RenderPlebView {...props} />;
   }
-  return <RenderOwnerView {...props} />
-}
+  return <RenderOwnerView {...props} />;
+};
 
 ApplicationDetailsStep.propTypes = {
   me: PropTypes.object,
-  property: PropTypes.object,
-}
+  property: PropTypes.object
+};
 
-export default ApplicationDetailsStep
+export default ApplicationDetailsStep;

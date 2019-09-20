@@ -13,12 +13,12 @@ const COMPLETE_RENTAL_APPLICATION = gql`
   }
 `;
 
-const FinaliseApplicationStep = ({ application }) => {
+const FinaliseApplicationStep = ({ rentalApplication }) => {
   // ToDo: Mutation Props
   const [completeApplication, completeApplicationProps] = useMutation(
     COMPLETE_RENTAL_APPLICATION,
     {
-      variables: { applicationId: application.id },
+      variables: { applicationId: rentalApplication.id },
       update: (proxy, mutationResult) => {
         /* your custom update logic */
         toast.info(

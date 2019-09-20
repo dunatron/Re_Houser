@@ -1,63 +1,56 @@
-import React from "react"
-import Button from "@material-ui/core/Button"
-import Menu from "@material-ui/core/Menu"
-import MenuItem from "@material-ui/core/MenuItem"
-import Signout from "../Signout/index"
-import Avatar from "@material-ui/core/Avatar"
-import Fab from "@material-ui/core/Fab"
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Signout from "../Signout/index";
+import Avatar from "@material-ui/core/Avatar";
+import Fab from "@material-ui/core/Fab";
 
-class AccountIcon extends React.Component {
-  state = {
-    anchorEl: null,
-  }
+const AccountIcon = ({ me, sendRoute }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
+  const _handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null })
-  }
+  const _handleClose = () => {
+    setAnchorEl(null);
+  };
 
-  sendRoute = route => {
-    this.props.sendRoute(route)
-  }
+  const _sendRoute = route => {
+    _handleClose();
+    sendRoute(route);
+  };
 
-  render() {
-    const { anchorEl } = this.state
-    const { me } = this.props
-    if (!me) return null
-    const { id, firstName, lastName, email } = me
+  if (!me) return null;
 
-    return (
-      <div>
-        <Fab
-          color="primary"
-          aria-label="Add"
-          onClick={this.handleClick}
-          style={{ margin: 8 }}>
-          {`${firstName.charAt(0)}${lastName.charAt(0)}`}
-        </Fab>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}>
-          {/* <MenuItem onClick={this.handleClose}>Profile</MenuItem> */}
-          <MenuItem
-            onClick={() => this.sendRoute("/account")}
-            // onClick={async () => {
-            //   await this.handleClose()
-            //   this.sendRoute("/account")
-            // }}
-          >
-            My account
-          </MenuItem>
-          <Signout fullWidth={true} label={`Logout`} me={me} />
-        </Menu>
-      </div>
-    )
-  }
-}
+  return (
+    <div>
+      <Fab
+        color="primary"
+        aria-label="Add"
+        onClick={_handleClick}
+        style={{ margin: 8 }}
+      >
+        <RenderProfileFabContent me={me} />
+      </Fab>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={_handleClose}
+      >
+        <MenuItem onClick={() => _sendRoute("/account")}>My account</MenuItem>
+        <Signout fullWidth={true} label={`Logout`} me={me} />
+      </Menu>
+    </div>
+  );
+};
 
-export default AccountIcon
+const RenderProfileFabContent = ({ me }) => {
+  const firstName = me.firstName ? me.firstName.charAt(0) : "";
+  const lastName = me.lastName ? me.lastName.charAt(0) : "";
+  return `${firstName}${lastName}`;
+};
+
+export default AccountIcon;
