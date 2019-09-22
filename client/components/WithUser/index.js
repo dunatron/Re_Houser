@@ -1,6 +1,6 @@
-import { Query } from "react-apollo";
-import { CURRENT_USER_QUERY } from "../User/index";
-import Loader from "../Loader";
+import { Query } from "react-apollo"
+import { CURRENT_USER_QUERY } from "../User/index"
+import Loader from "../Loader"
 
 const WithUser = props => (
   <Query query={CURRENT_USER_QUERY}>
@@ -9,12 +9,12 @@ const WithUser = props => (
         return (
           <div>
             Personalizing application
-            <Loader />
+            <Loader loading={loading} text="Fetching your data" />
           </div>
-        );
-      return props.children;
+        )
+      return props.children
     }}
   </Query>
-);
+)
 
-export default WithUser;
+export default WithUser

@@ -1,57 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { toast } from "react-toastify";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepButton from "@material-ui/core/StepButton";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Error from "../ErrorMessage/index";
-import Loader from "../Loader/index";
+import React, { useState, useEffect } from "react"
+import { useQuery, useMutation } from "@apollo/react-hooks"
+import { toast } from "react-toastify"
+import PropTypes from "prop-types"
+import { makeStyles } from "@material-ui/core/styles"
+import Stepper from "@material-ui/core/Stepper"
+import Step from "@material-ui/core/Step"
+import StepButton from "@material-ui/core/StepButton"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
+import Error from "../ErrorMessage/index"
+import Loader from "../Loader/index"
 // Steps
-import UserDetailsStep from "./steps/UserDetailsStep";
-import ApplicationDetailsStep from "./steps/ApplicationDetailsStep";
-import FinaliseApplicationStep from "./steps/FinaliseApplicationStep";
+import UserDetailsStep from "./steps/UserDetailsStep"
+import ApplicationDetailsStep from "./steps/ApplicationDetailsStep"
+import FinaliseApplicationStep from "./steps/FinaliseApplicationStep"
 // configs
-import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplicantConfig";
-import customErrorsBag from "../../lib/errorsBagGenerator";
-import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../mutation/index";
+import { RENTAL_GROUP_APPLICANT_CONF } from "../../lib/configs/rentalGroupApplicantConfig"
+import customErrorsBag from "../../lib/errorsBagGenerator"
+import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from "../../mutation/index"
 
-import { SINGLE_RENTAL_APPLICATION_QUERY } from "../../query/index";
+import { SINGLE_RENTAL_APPLICATION_QUERY } from "../../query/index"
 
-import { isEmpty } from "ramda";
+import { isEmpty } from "ramda"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "90%"
+    width: "90%",
   },
   button: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
   completed: {
-    display: "inline-block"
+    display: "inline-block",
   },
   instructions: {
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
-  }
-}));
+    marginBottom: theme.spacing.unit,
+  },
+}))
 
 const getSteps = () => {
-  return ["My Details", "Application Details", "Finalise"];
-};
+  return ["My Details", "Application Details", "Finalise"]
+}
 
 const extractApplicantUserData = (rentalApplication, me) => {
   const userRentalApplicantData = rentalApplication.applicants.find(
     applicant => applicant.user.id === me.id
-  );
-  return userRentalApplicantData;
-};
+  )
+  return userRentalApplicantData
+}
 
 const extractUserInfoFields = (rentalApplication, me) => {
-  const applicantUserData = extractApplicantUserData(rentalApplication, me);
+  const applicantUserData = extractApplicantUserData(rentalApplication, me)
   const userInfoObj = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
     const objPiece = {
       [conf.variableName]: {
@@ -60,56 +60,56 @@ const extractUserInfoFields = (rentalApplication, me) => {
         value: applicantUserData[conf.variableName]
           ? applicantUserData[conf.variableName]
           : me[conf.variableName],
-        editable: conf.editable
-      }
-    };
-    bigObj = { ...bigObj, ...objPiece };
-    return bigObj;
-  }, {});
-  return userInfoObj;
-};
+        editable: conf.editable,
+      },
+    }
+    bigObj = { ...bigObj, ...objPiece }
+    return bigObj
+  }, {})
+  return userInfoObj
+}
 
 // const RentalApplicationStepper = ({ me, property, application }) => {
 const RentalApplicationStepper = props => {
-  const { me, property, rentalApplication } = props;
-  const classes = useStyles();
+  const { me, property, rentalApplication } = props
+  const classes = useStyles()
   // 2. update rental group applicant mutation
   const [updateRentalGroupApplicant] = useMutation(
     UPDATE_RENTAL_GROUP_APPLICANT_MUTATION
-  );
+  )
 
   // Note: all hooks must go before first render
-  const [activeStep, setActiveStep] = useState(0);
-  const [completed, setCompleted] = useState({});
-  const [userInfo, setUserInfo] = useState({});
-  const [applicationInfo, setApplicationInfo] = useState({});
-  const [userErrorsBag, setUserErrorsBag] = useState({});
+  const [activeStep, setActiveStep] = useState(0)
+  const [completed, setCompleted] = useState({})
+  const [userInfo, setUserInfo] = useState({})
+  const [applicationInfo, setApplicationInfo] = useState({})
+  const [userErrorsBag, setUserErrorsBag] = useState({})
 
-  console.log("application => ", rentalApplication);
+  const applicantData = extractApplicantUserData(rentalApplication, me)
 
   useEffect(() => {
     if (rentalApplication) {
-      setApplicationInfo(rentalApplication);
-      const applicantInfo = extractApplicantUserData(rentalApplication, me);
-      const userInfoFields = extractUserInfoFields(rentalApplication, me);
-      setUserInfo(userInfoFields);
+      setApplicationInfo(rentalApplication)
+      const applicantInfo = extractApplicantUserData(rentalApplication, me)
+      const userInfoFields = extractUserInfoFields(rentalApplication, me)
+      setUserInfo(userInfoFields)
       // if user as completed step hide it
       if (applicantInfo.completed) {
-        setCompleted({ ...completed, 0: true });
-        setActiveStep(1);
+        setCompleted({ ...completed, 0: true })
+        setActiveStep(1)
       }
     }
-  }, [rentalApplication]);
+  }, [rentalApplication])
 
   const handleDetailsChange = e => {
     setUserInfo({
       ...userInfo,
       [e.target.name]: {
         ...userInfo[e.target.name],
-        value: e.target.value
-      }
-    });
-  };
+        value: e.target.value,
+      },
+    })
+  }
   const getStepContent = (step, me, property, rentalApplication) => {
     switch (step) {
       case 0:
@@ -122,8 +122,9 @@ const RentalApplicationStepper = props => {
             onChange={handleDetailsChange}
             errorsBag={userErrorsBag}
             completed={completed[0]}
+            applicantData={applicantData}
           />
-        );
+        )
       case 1:
         return (
           <ApplicationDetailsStep
@@ -131,79 +132,78 @@ const RentalApplicationStepper = props => {
             property={property}
             me={me}
             applicationInfo={applicationInfo}
+            applicantData={applicantData}
           />
-        );
+        )
       case 2:
-        return (
-          <FinaliseApplicationStep rentalApplication={rentalApplication} />
-        );
+        return <FinaliseApplicationStep rentalApplication={rentalApplication} />
       default:
-        return "Unknown step";
+        return "Unknown step"
     }
-  };
+  }
 
-  const totalSteps = () => getSteps().length;
+  const totalSteps = () => getSteps().length
 
   const handleNext = () => {
-    let currStep = activeStep;
+    let currStep = activeStep
     if (isLastStep() && !allStepsCompleted()) {
-      const steps = getSteps();
-      currStep = steps.findIndex((step, i) => !(i in completed));
+      const steps = getSteps()
+      currStep = steps.findIndex((step, i) => !(i in completed))
     } else {
-      currStep = currStep + 1;
+      currStep = currStep + 1
     }
-    setActiveStep(currStep);
-  };
+    setActiveStep(currStep)
+  }
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
+    setActiveStep(activeStep - 1)
+  }
 
   const handleStep = step => () => {
-    setActiveStep(step);
-  };
+    setActiveStep(step)
+  }
 
   // Check Complete for each step
   const handleComplete = async () => {
     switch (activeStep) {
       case 0: {
-        const didSave = await _saveUserDetails(userInfo);
+        const didSave = await _saveUserDetails(userInfo)
         if (!didSave) {
-          return;
+          return
         }
-        break;
+        break
       }
       case 1: {
-        const didSave = await _saveApplicationDetails(applicationInfo);
+        const didSave = await _saveApplicationDetails(applicationInfo)
         if (!didSave) {
-          return;
+          return
         }
-        break;
+        break
       }
     }
-    completed[activeStep] = true;
-    setCompleted(completed);
-    handleNext();
-  };
+    completed[activeStep] = true
+    setCompleted(completed)
+    handleNext()
+  }
 
   const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
-  };
+    setActiveStep(0)
+    setCompleted({})
+  }
 
   const completedSteps = () => {
-    return Object.keys(completed).length;
-  };
+    return Object.keys(completed).length
+  }
 
   const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
+    return activeStep === totalSteps() - 1
+  }
 
   const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
-  };
+    return completedSteps() === totalSteps()
+  }
 
-  const steps = getSteps();
+  const steps = getSteps()
 
   const _renderNextButtons = () => {
     switch (activeStep) {
@@ -212,64 +212,62 @@ const RentalApplicationStepper = props => {
           <Button variant="contained" color="primary" onClick={handleComplete}>
             Complete User Details
           </Button>
-        );
+        )
       }
       case 1: {
         return (
           <Button variant="contained" color="primary" onClick={handleComplete}>
             Complete Application Details
           </Button>
-        );
+        )
       }
       default: {
         return (
           <Button variant="contained" color="primary" onClick={handleComplete}>
             Finish
           </Button>
-        );
+        )
       }
     }
-  };
+  }
 
   // Validation on step Save
   const _saveUserDetails = async () => {
     if (!me.photoIdentification) {
-      alert("You need photo ID");
-      return;
+      alert("You need photo ID")
+      return
     }
-    await setUserErrorsBag({});
-    const errorsBag = customErrorsBag(userInfo);
+    await setUserErrorsBag({})
+    const errorsBag = customErrorsBag(userInfo)
     if (!isEmpty(errorsBag)) {
-      setUserErrorsBag(errorsBag);
-      return false;
+      setUserErrorsBag(errorsBag)
+      return false
     }
 
     // update the application with a mutation
     const userData = Object.keys(userInfo).reduce((previous, key) => {
-      previous[key] = userInfo[key].value;
-      return previous;
-    }, {});
-    // console.log("userData => ", userData)
+      previous[key] = userInfo[key].value
+      return previous
+    }, {})
     const userRentalApplicantData = rentalApplication.applicants.find(
       applicant => applicant.user.id === me.id
-    );
+    )
     const rentalGroupApplicantData = {
       completed: true,
       email: userData.email,
       firstName: userData.firstName,
-      lastName: userData.lastName
-    };
-    // console.log("rentalGroupApplicantData => ", rentalGroupApplicantData)
+      lastName: userData.lastName,
+    }
     updateRentalGroupApplicant({
       variables: {
         data: rentalGroupApplicantData,
         where: {
-          id: userRentalApplicantData.id
-        }
-      }
-    });
-    return true;
-  };
+          id: userRentalApplicantData.id,
+        },
+      },
+    })
+    return true
+  }
 
   const _saveApplicationDetails = async () => {
     if (rentalApplication.owner.id !== me.id) {
@@ -279,12 +277,12 @@ const RentalApplicationStepper = props => {
           <h3>${rentalApplication.owner.firstName}</h3>
           <h3>${rentalApplication.owner.email}</h3>
         </div>
-      );
-      return false;
+      )
+      return false
     }
     // Now we need to save the application details and at the same time handle the cache update
-    return true;
-  };
+    return true
+  }
 
   return (
     <div className={classes.root}>
@@ -293,8 +291,7 @@ const RentalApplicationStepper = props => {
           <Step key={label}>
             <StepButton
               onClick={handleStep(index)}
-              completed={completed[index]}
-            >
+              completed={completed[index]}>
               {label}
             </StepButton>
           </Step>
@@ -318,16 +315,14 @@ const RentalApplicationStepper = props => {
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                className={classes.button}
-              >
+                className={classes.button}>
                 Back
               </Button>
               <Button
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                className={classes.button}
-              >
+                className={classes.button}>
                 Next
               </Button>
               {activeStep !== steps.length &&
@@ -340,9 +335,8 @@ const RentalApplicationStepper = props => {
                       variant="contained"
                       color="primary"
                       onClick={() => {
-                        setCompleted({ ...completed, [activeStep]: false });
-                      }}
-                    >
+                        setCompleted({ ...completed, [activeStep]: false })
+                      }}>
                       Redo Section
                     </Button>
                   </div>
@@ -354,33 +348,81 @@ const RentalApplicationStepper = props => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const ConnectedRentalApplicationStepper = ({ me, property, application }) => {
   const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
     variables: {
-      where: { id: application.id }
-    }
-  });
-  const { data, loading, error } = rentalApplication;
-
-  console.log("CONNECTED RENTAL DATA => ", data);
-
-  if (loading) return <Loader loading={loading} />;
-  if (error) return <Error error={error} text="Loading Application" />;
+      where: { id: application.id },
+    },
+  })
+  const { data, loading, error } = rentalApplication
+  if (loading) return <Loader loading={loading} />
+  if (error) return <Error error={error} text="Loading Application" />
   return (
     <RentalApplicationStepper
       me={me}
       property={property}
       rentalApplication={data.rentalApplication}
     />
-  );
-};
+  )
+}
 
+// PropTypes
 ConnectedRentalApplicationStepper.propTypes = {
-  me: PropTypes.object,
-  property: PropTypes.object
-};
+  me: PropTypes.object.isRequired,
+  application: PropTypes.shape({
+    stage: PropTypes.string,
+    visibility: PropTypes.string,
+    __typename: PropTypes.string,
+    applicants: PropTypes.arrayOf(
+      PropTypes.shape({
+        __typeName: PropTypes.string,
+        approved: PropTypes.bool,
+        completed: PropTypes.bool,
+        email: PropTypes.string,
+        firstName: PropTypes.sting,
+        id: PropTypes.string,
+        lastName: PropTypes.string,
+        user: PropTypes.shape(
+          PropTypes.shape({
+            id: PropTypes.string,
+            firsName: PropTypes.string,
+            lastName: PropTypes.string,
+          })
+        ),
+      })
+    ),
+  }),
+  property: PropTypes.shape({
+    carportSpaces: PropTypes.number,
+    garageSpaces: PropTypes.number,
+    highestRoomPrice: PropTypes.number,
+    imageUrls: PropTypes.arrayOf(PropTypes.string),
+    indoorFeature: PropTypes.arrayOf(PropTypes.string),
+    outdoorFeature: PropTypes.arrayOf(PropTypes.string),
+    location: PropTypes.string,
+    LocationLat: PropTypes.number,
+    locationLng: PropTypes.number,
+    moveInDate: PropTypes.string,
+    move_in_date_timestamp: PropTypes.number,
+    objectID: PropTypes.string,
+    offStreetSpaces: PropTypes.number,
+    onTheMarket: PropTypes.bool,
+    rent: PropTypes.number,
+    rooms: PropTypes.number,
+    type: PropTypes.string,
+    accommodation: PropTypes.arrayOf(
+      PropTypes.shape({
+        description: PropTypes.string,
+        expenses: PropTypes.number,
+        id: PropTypes.string,
+        rent: PropTypes.number,
+        roomSize: PropTypes.number,
+      })
+    ),
+  }),
+}
 
-export default ConnectedRentalApplicationStepper;
+export default ConnectedRentalApplicationStepper

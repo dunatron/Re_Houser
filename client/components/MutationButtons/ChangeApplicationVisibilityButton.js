@@ -3,6 +3,7 @@ import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
 import Error from "../ErrorMessage"
 import SelectOption from "../../components/Inputs/SelectOption"
+import { SINGLE_RENTAL_APPLICATION_QUERY } from "../../query/index"
 /**
  * PRIVATE
  * FRIENDS_ONLY
@@ -54,6 +55,32 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
               where: {
                 id: applicationId,
               },
+            },
+            optimisticResponse: {
+              __typename: "Mutation",
+              updateRentalApplication: {
+                __typename: "RentalApplication",
+                id: applicationId,
+                visibility: e.target.value,
+              },
+            },
+            update: (proxy, payload) => {
+              const rentalApplication = proxy.readQuery({
+                query: SINGLE_RENTAL_APPLICATION_QUERY,
+                variables: {
+                  where: { id: applicationId },
+                },
+              })
+              proxy.writeQuery({
+                query: SINGLE_RENTAL_APPLICATION_QUERY,
+                variables: {
+                  where: { applicationId },
+                },
+                data: {
+                  ...rentalApplication,
+                  ...payload.data.updateRentalApplication,
+                },
+              })
             },
           })
         }
