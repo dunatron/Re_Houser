@@ -44,35 +44,11 @@ const handleLink = (route = "/", query = {}) => {
   })
 }
 
-const SocialNav = props => {
-  const { me } = props
-  const { friendRequests } = me
-  return (
-    <>
-      <Tooltip
-        title={`Manage friends ${friendRequests.length >= 1 && "You have "}${
-          friendRequests.length
-        } pending friend requests`}
-        interactive>
-        <NavButton
-          size="large"
-          aria-label="Delete"
-          onClick={() => handleLink("/my/friends")}>
-          <Badge badgeContent={friendRequests.length}>
-            <PersonIcon className="nav-btn__icon" />
-          </Badge>
-          Social
-        </NavButton>
-      </Tooltip>
-    </>
-  )
-}
-
 const NavigationConfig = me => {
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   })
-  const { friendRequests } = me
+  const friendRequests = me ? me.friendRequests : []
   return [
     {
       key: "general",
@@ -97,9 +73,12 @@ const NavigationConfig = me => {
         },
       ],
     },
-
     {
       key: "social",
+      canRender: () => {
+        if (me === null) return false
+        return true
+      },
       items: [
         {
           icon: (
@@ -118,6 +97,10 @@ const NavigationConfig = me => {
     },
     {
       key: "landlord",
+      canRender: () => {
+        if (me === null) return false
+        return true
+      },
       items: [
         {
           icon: <DashboardIcon />,
@@ -179,31 +162,36 @@ const Nav = () => {
   const Nav_CONF = NavigationConfig(me)
   return (
     <div>
-      {Nav_CONF.map((conf, index) => (
-        <>
-          <List key={conf.key}>
-            {conf.items.map((item, i) => {
-              if (!item.canRender()) return null
-              return (
-                <ListItem
-                  button
-                  key={`${conf.key}${i}`}
-                  onClick={() => {
-                    if (item.action) {
-                      item.action()
-                    } else {
-                      handleLink(item.route)
-                    }
-                  }}>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              )
-            })}
-          </List>
-          <Divider />
-        </>
-      ))}
+      {Nav_CONF.map((conf, index) => {
+        if (conf.canRender) {
+          if (!conf.canRender()) return null
+        }
+        return (
+          <>
+            <List key={conf.key}>
+              {conf.items.map((item, i) => {
+                if (!item.canRender()) return null
+                return (
+                  <ListItem
+                    button
+                    key={`${conf.key}${i}`}
+                    onClick={() => {
+                      if (item.action) {
+                        item.action()
+                      } else {
+                        handleLink(item.route)
+                      }
+                    }}>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.text} />
+                  </ListItem>
+                )
+              })}
+            </List>
+            <Divider />
+          </>
+        )
+      })}
     </div>
   )
 }
