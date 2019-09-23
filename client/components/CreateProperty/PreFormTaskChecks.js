@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreditCardTab from "../Account/CreditCardTab";
 
 const collectionsConf = me => {
+  const [showCards, setShowCards] = useState(false);
   return [
     {
       message: "You must have a primary credit card when creating a property",
@@ -12,7 +13,8 @@ const collectionsConf = me => {
       },
       action: () => (
         <div>
-          <CreditCardTab me={me} />
+          <button onClick={() => setShowCards(!showCards)}>Add Card</button>
+          {showCards && <CreditCardTab me={me} />}
         </div>
       )
     }
