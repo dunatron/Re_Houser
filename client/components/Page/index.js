@@ -3,7 +3,6 @@ import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
 import IconButton from "@material-ui/core/IconButton"
 import CloseIcon from "@material-ui/icons/Close"
 import { StripeProvider } from "react-stripe-elements"
-import Head from "next/head"
 import { ToastContainer, toast } from "react-toastify"
 import MaterialPage from "./MaterialPage"
 
@@ -12,7 +11,6 @@ import {
   MuiThemeProvider,
   createMuiTheme,
 } from "@material-ui/core/styles"
-import Header from "../Header/index"
 import Meta from "../Meta/index"
 // Material UI
 import NoSsr from "@material-ui/core/NoSsr"
