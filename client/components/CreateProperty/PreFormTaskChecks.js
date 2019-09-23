@@ -5,11 +5,25 @@ const collectionsConf = me => {
   const [showCards, setShowCards] = useState(false);
   return [
     {
+      message:
+        "Dont know how you are here but you must be signed in to create property",
+      valid: () => {
+        if (!me) return false;
+        return true;
+      },
+      action: () => (
+        <div>
+          <p>ToDo: implement reroute to PleaseSignIn</p>
+        </div>
+      )
+    },
+    {
       message: "You must have a primary credit card when creating a property",
       valid: () => {
         if (!me.primaryCreditCard) {
           return false;
         }
+        return true;
       },
       action: () => (
         <div>
