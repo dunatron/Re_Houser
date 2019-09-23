@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import CreateProperty from "../../components/CreateProperty/index"
-import PleaseSignIn from "../../components/PleaseSignIn"
+import React, { Component } from "react";
+import CreateProperty from "../../components/CreateProperty/index";
+import PleaseSignIn from "../../components/PleaseSignIn";
 
 export default class index extends Component {
   render() {
@@ -12,10 +12,11 @@ export default class index extends Component {
             <p>
               <strong>Please sign up to add property to the platform</strong>
             </p>
-          }>
+          }
+        >
           <CreateProperty />
         </PleaseSignIn>
       </div>
-    )
+    );
   }
 }
