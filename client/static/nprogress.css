@@ -1,21 +1,23 @@
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
+  z-index: 9999;
 }
 
 #nprogress .bar {
   /* background: red; */
   position: fixed;
-  z-index: 1031;
+  z-index: 9999;
   top: 0;
   left: 0;
 
   width: 100%;
-  height: 5px;
+  height: 8px;
 }
 
 /* Fancy blur effect */
 #nprogress .peg {
+  z-index: 9999;
   display: block;
   position: absolute;
   right: 0px;
@@ -36,30 +38,34 @@
   z-index: 1031;
   top: 15px;
   right: 15px;
+  z-index: 9999;
 }
 
 #nprogress .spinner-icon {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   box-sizing: border-box;
 
-  border: solid 2px transparent;
+  border: solid 4px transparent;
   /* border-top-color: red;
   border-left-color: red; */
   border-radius: 50%;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;
   animation: nprogress-spinner 400ms linear infinite;
+  z-index: 9999;
 }
 
 .nprogress-custom-parent {
   overflow: hidden;
   position: relative;
+  z-index: 9999;
 }
 
 .nprogress-custom-parent #nprogress .spinner,
 .nprogress-custom-parent #nprogress .bar {
   position: absolute;
+  z-index: 9999;
 }
 
 @-webkit-keyframes nprogress-spinner {
