@@ -1,7 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from "react"
 
 import Map from "../Map/index"
-import ImageSlider from "../ImageSlider/index"
 import CarouselSlider from "../CarouselSlider"
 import DetailItem from "../PropertyCard/DetailItem"
 import IconButton from "@material-ui/core/IconButton"

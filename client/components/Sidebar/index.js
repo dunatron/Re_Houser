@@ -92,7 +92,7 @@ const NavigationConfig = me => {
         {
           icon: <AccountCircleIcon />,
           text: "Account",
-          route: "/my/account",
+          route: "/account",
           canRender: () => true,
         },
       ],

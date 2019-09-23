@@ -1,23 +1,22 @@
-import React, { Component, useState } from "react";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import ImageSlider from "../ImageSlider/index";
-import CarouselSlider from "../CarouselSlider";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import CameraIcon from "../../styles/icons/CameraIcon";
-import DetailItem from "./DetailItem";
-import moment from "moment";
+import React, { Component, useState } from "react"
+import CardContent from "@material-ui/core/CardContent"
+import Typography from "@material-ui/core/Typography"
+import CarouselSlider from "../CarouselSlider"
+import CardActions from "@material-ui/core/CardActions"
+import Collapse from "@material-ui/core/Collapse"
+import Avatar from "@material-ui/core/Avatar"
+import IconButton from "@material-ui/core/IconButton"
+import CameraIcon from "../../styles/icons/CameraIcon"
+import DetailItem from "./DetailItem"
+import moment from "moment"
 
-import Map from "../Map/index";
+import Map from "../Map/index"
 
 //icons
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { makeStyles } from "@material-ui/core/styles";
+import FavoriteIcon from "@material-ui/icons/Favorite"
+import ShareIcon from "@material-ui/icons/Share"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -27,24 +26,24 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     padding: "0",
     [theme.breakpoints.up("sm")]: {
-      gridTemplateColumns: "1fr 1fr"
+      gridTemplateColumns: "1fr 1fr",
     },
     [theme.breakpoints.up("md")]: {
-      gridTemplateColumns: "1fr 1fr 1fr "
+      gridTemplateColumns: "1fr 1fr 1fr ",
     },
     [theme.breakpoints.up("lg")]: {
-      gridTemplateColumns: "1fr 1fr 1fr 1fr"
-    }
-  }
-}));
+      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    },
+  },
+}))
 
 const Details = props => {
-  const [expanded, setExpanded] = useState(false);
-  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false)
+  const classes = useStyles()
 
   const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+    setExpanded(!expanded)
+  }
 
   const {
     type,
@@ -64,8 +63,8 @@ const Details = props => {
     garageSpaces,
     offStreetSpaces,
     outdoorFeatures,
-    indoorFeatures
-  } = props.property;
+    indoorFeatures,
+  } = props.property
   return (
     <div className={classes.root}>
       <CarouselSlider slides={imageUrls.map(imgUrl => ({ img: imgUrl }))} />
@@ -127,7 +126,7 @@ const Details = props => {
                 </p>
                 <hr />
               </div>
-            );
+            )
           })}
       </CardContent>
       <CardContent>
@@ -141,7 +140,7 @@ const Details = props => {
               <Typography key={i} component="p">
                 Owner: {owner.firstName}
               </Typography>
-            );
+            )
           })}
       </CardContent>
       <CardActions className={"actions"} disableActionSpacing>
@@ -154,8 +153,7 @@ const Details = props => {
         <IconButton
           onClick={handleExpandClick}
           aria-expanded={expanded}
-          aria-label="Show more"
-        >
+          aria-label="Show more">
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
@@ -164,14 +162,14 @@ const Details = props => {
           <Map
             center={{
               lat: locationLat,
-              lng: locationLng
+              lng: locationLng,
             }}
             zoom={15}
           />
         </CardContent>
       </Collapse>
     </div>
-  );
-};
+  )
+}
 
-export default Details;
+export default Details
