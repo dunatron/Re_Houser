@@ -21,7 +21,7 @@ const Logo = styled.h1`
   font-size: 3rem;
   margin: 0 1rem;
   a {
-    border: 1px solid ${props => props.theme.palette.secondary.main};
+    border: 1px solid ${props => props.theme.palette.primary.main};
     border-radius: 0 25px 0 25px;
     padding: 5px;
   }
@@ -42,6 +42,9 @@ const StyledHeader = styled.header`
       justify-content: center;
     }
   }
+  .re-houser-logo {
+    color: ${props => props.theme.palette.secondary.main};
+  }
   .sub-bar {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -54,7 +57,7 @@ const Header = () => (
     <div className="bar">
       <Logo>
         <Link href="/">
-          <a>Re_Houser</a>
+          <a className="re-houser-logo">Re_Houser</a>
         </Link>
       </Logo>
 
