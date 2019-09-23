@@ -62,6 +62,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     maxWidth: "100%",
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: "calc(100% - 240px)",
+    },
   },
 }))
 
