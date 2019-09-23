@@ -1,38 +1,38 @@
-import React, { Component, useState, useEffect } from "react"
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
-import IconButton from "@material-ui/core/IconButton"
-import CloseIcon from "@material-ui/icons/Close"
-import { StripeProvider } from "react-stripe-elements"
-import Head from "next/head"
-import { ToastContainer, toast } from "react-toastify"
+import React, { Component, useState, useEffect } from "react";
+import styled, { ThemeProvider, createGlobalStyle } from "styled-components";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import { StripeProvider } from "react-stripe-elements";
+import Head from "next/head";
+import { ToastContainer, toast } from "react-toastify";
 
 import {
   withStyles,
   MuiThemeProvider,
-  createMuiTheme,
-} from "@material-ui/core/styles"
-import Header from "../Header/index"
-import Meta from "../Meta/index"
+  createMuiTheme
+} from "@material-ui/core/styles";
+import Header from "../Header/index";
+import Meta from "../Meta/index";
 // Material UI
-import NoSsr from "@material-ui/core/NoSsr"
-import muiTheme from "../../styles/_muiTheme"
+import NoSsr from "@material-ui/core/NoSsr";
+import muiTheme from "../../styles/_muiTheme";
 
 // Admin Area Addisions
-import AdminAlertNewRentalApplicationSub from "../SubscriptionComponents/AdminAlertNewRentalApplicationSub"
-import AdminAlertsContainer from "../../containers/AdminAlertsContainer"
+import AdminAlertNewRentalApplicationSub from "../SubscriptionComponents/AdminAlertNewRentalApplicationSub";
+import AdminAlertsContainer from "../../containers/AdminAlertsContainer";
 
 // Google
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 // TRIAL ONLY
-import WithUser from "../WithUser"
+import WithUser from "../WithUser";
 
-const theme = createMuiTheme(muiTheme)
+const theme = createMuiTheme(muiTheme);
 
 const StyledPage = styled.div`
   background: white;
   color: ${props => props.theme.black};
-`
+`;
 
 const Inner = styled.div`
   max-width: ${props => props.theme.maxWidth}px;
@@ -41,7 +41,7 @@ const Inner = styled.div`
   @media (max-width: ${props => props.theme.breakpoints.values.md}px) {
     padding: 0;
   }
-`
+`;
 
 const GlobalStyle = createGlobalStyle`
  @font-face {
@@ -112,19 +112,19 @@ const GlobalStyle = createGlobalStyle`
     }
   }
   
-`
+`;
 
 /**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
 const Page = props => {
-  const [stripe, setStripe] = useState(null)
-  const { google } = props
+  const [stripe, setStripe] = useState(null);
+  const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
-      setStripe(window.Stripe(process.env.STRIPE_KEY))
+      setStripe(window.Stripe(process.env.STRIPE_KEY));
     }
-  }, [window.Stripe])
+  }, [window.Stripe]);
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
@@ -164,9 +164,9 @@ const Page = props => {
       <GlobalStyle />
       <div id="modal-root" />
     </NoSsr>
-  )
-}
+  );
+};
 
 export default GoogleApiWrapper({
-  apiKey: process.env.GOOGLE_API_KEY,
-})(Page)
+  apiKey: process.env.GOOGLE_API_KEY
+})(Page);
