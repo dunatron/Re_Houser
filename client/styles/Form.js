@@ -25,7 +25,7 @@ const Form = styled.form`
     /* margin-bottom: 1rem; */
     font-size: 1.2rem;
   }
-  input,
+  /* input,
   textarea,
   select {
     font-size: 1.5rem;
@@ -33,8 +33,8 @@ const Form = styled.form`
     /* width: 100%;
     &:focus {
     } */
-  }
-  button,
+  } */
+  /* button, */
   fieldset {
     border: 0;
     padding: 0;
