@@ -69,7 +69,6 @@ const extractUserInfoFields = (rentalApplication, me) => {
   return userInfoObj
 }
 
-// const RentalApplicationStepper = ({ me, property, application }) => {
 const RentalApplicationStepper = props => {
   const { me, property, rentalApplication } = props
   const classes = useStyles()
@@ -136,7 +135,15 @@ const RentalApplicationStepper = props => {
           />
         )
       case 2:
-        return <FinaliseApplicationStep rentalApplication={rentalApplication} />
+        return (
+          <FinaliseApplicationStep
+            rentalApplication={rentalApplication}
+            property={property}
+            me={me}
+            property={property}
+            me={me}
+          />
+        )
       default:
         return "Unknown step"
     }
@@ -280,7 +287,10 @@ const RentalApplicationStepper = props => {
       )
       return false
     }
+
     // Now we need to save the application details and at the same time handle the cache update
+    // Not sure if we need to do a gql mutation here since the public/private and users being accepted are handled
+    // by seperate single btn mutations
     return true
   }
 

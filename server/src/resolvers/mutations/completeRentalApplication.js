@@ -37,15 +37,15 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
     info
   )
 
-  application.applicants.forEach((applicant, i) => {
-    transport.sendMail({
-      from: "heathd@rehouser.co.nz",
-      to: applicant.user.email,
-      subject: "Application stage: PENDING",
-      html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
-      \n\n`),
-    })
-  })
+  // application.applicants.forEach((applicant, i) => {
+  //   transport.sendMail({
+  //     from: "heathd@rehouser.co.nz",
+  //     to: applicant.user.email,
+  //     subject: "Application stage: PENDING",
+  //     html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
+  //     \n\n`),
+  //   })
+  // })
 
   // sandwiches.forEach(function (sandwich, index) {
   //   console.log(sandwich); // The element

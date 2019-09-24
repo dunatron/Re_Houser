@@ -136,7 +136,7 @@ const RenderDeep = ({ data, index, allData }) => {
       padding={index === 0 ? "dense" : "dense"}
       {...data.tableRenderProps}>
       <CellContent
-        content={extractDeepValue(data.found, n)}
+        content={extractDeepValue(data.found, allData)}
         limitChar={data.limitChar}
       />
     </TableCell>

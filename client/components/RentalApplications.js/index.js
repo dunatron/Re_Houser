@@ -1,43 +1,26 @@
 import React, { Component } from "react"
-import { adopt } from "react-adopt"
-import { Query, Mutation } from "react-apollo"
-
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import { MY_RENTAL_APPLICATIONS_QUERY } from "../../query/index"
-import User from "../User/index"
 import Error from "../ErrorMessage/index"
+import Loader from "../Loader/index"
+import RentalApplicationsTable from "./RentalApplicationsTable"
 
-const Composed = adopt({
-  user: ({ render }) => <User>{render}</User>,
-})
-export default class RentalApplications extends Component {
-  render() {
-    return (
-      <div>
-        <Composed>
-          {({ user, createRentalApplication }) => {
-            const me = user.data.me
-            if (!me) return <h1>No User</h1>
-            return (
-              <Query query={MY_RENTAL_APPLICATIONS_QUERY}>
-                {({ data, loading, error }) => {
-                  if (error) return <Error error={error} />
-                  if (loading) return <p>Loading...</p>
-                  const { myRentalApplications } = data
-                  return (
-                    <div>
-                      {myRentalApplications &&
-                        myRentalApplications.map((application, i) => (
-                          <div>{application.id} </div>
-                          // <PropertyCard key={i} property={property} />
-                        ))}
-                    </div>
-                  )
-                }}
-              </Query>
-            )
-          }}
-        </Composed>
-      </div>
-    )
-  }
+const RentalApplications = props => {
+  const { me } = props
+  const { loading, error, data } = useQuery(MY_RENTAL_APPLICATIONS_QUERY)
+
+  console.log("props what ar u => ", props)
+  if (loading)
+    return <Loader loading={loading} text="Loading your applications" />
+  if (error) return <Error error={error} />
+  if (!me) return <h1>No User</h1>
+  const { myRentalApplications } = data
+  return (
+    <RentalApplicationsTable
+      myRentalApplications={myRentalApplications}
+      me={me}
+    />
+  )
 }
+
+export default RentalApplications

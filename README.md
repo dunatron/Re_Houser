@@ -1,6 +1,7 @@
 ## ToDo
 
 - https://www.digitalocean.com/community/tutorials/how-to-manually-set-up-a-prisma-server-on-ubuntu-18-04
+- https://www.youtube.com/watch?v=aJ_M4pV_eOQ
 - apollo-client has been upgraded from 2 to 3
 - https://github.com/zeit/next.js#populating-head
 - components/OwnerProperties will need to be revamped
@@ -9,6 +10,10 @@
 - components/RentalApplicationStepper will need to be revamped
 
 - https://github.com/apollographql/apollo-client/pull/4543
+
+# Using SuperTable
+- This has proven super useable and extensible. Time to documentt.
+- ToDo: Complete SuperTable documentation
 
 ## Re-Houser(ToDo:Rename)//
 

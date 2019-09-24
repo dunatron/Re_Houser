@@ -9,6 +9,7 @@ import { UPDATE_PROPERTY_MUTATION } from "./updateProperty"
 import { CREATE_CREDIT_CARD_MUTATION } from "./createCreditCard"
 import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "./acceptRentalApplication"
 import { CREATE_PROPERTY_LEASE_MUTATION } from "./createPropertyLease"
+import { COMPLETE_RENTAL_APPLICATION } from "./completeRentalApplication"
 
 export {
   CREATE_PROPERTY_MUTATION,
@@ -22,4 +23,5 @@ export {
   CREATE_CREDIT_CARD_MUTATION,
   ACCEPT_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
+  COMPLETE_RENTAL_APPLICATION,
 }
