@@ -78,7 +78,7 @@ const ConfirmApplicant = props => {
   )
 
   return (
-    <>
+    <div>
       <Error error={updateApplicantProps.error} />
       <SwitchInput
         checked={applicant.approved}
@@ -86,7 +86,7 @@ const ConfirmApplicant = props => {
         label="Approve Applicant"
         checkedLabel="Approved"
       />
-    </>
+    </div>
   )
 }
 
@@ -100,19 +100,24 @@ const RenderOwnerView = props => {
         applicationId={rentalApplication.id}
         visibility={rentalApplication.visibility}
       />
-      {rentalApplication.applicants.map((applicant, i) => {
-        return (
-          <div key={i}>
-            {applicant.user ? (
-              <ApplicantDetails applicant={applicant} />
-            ) : (
-              "NO USER DETAILS"
-            )}
+      <div
+        style={{
+          display: "grid",
+        }}>
+        {rentalApplication.applicants.map((applicant, i) => {
+          return (
+            <div key={i}>
+              {applicant.user ? (
+                <ApplicantDetails applicant={applicant} />
+              ) : (
+                "NO USER DETAILS"
+              )}
 
-            <ConfirmApplicant applicant={applicant} {...props} />
-          </div>
-        )
-      })}
+              <ConfirmApplicant applicant={applicant} {...props} />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

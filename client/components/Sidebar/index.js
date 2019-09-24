@@ -1,28 +1,14 @@
-import NavButton from "../../styles/NavButton"
 import Router from "next/router"
-import User from "../User/index"
-import AccountIcon from "../AccountIcon/index"
-import IconButton from "@material-ui/core/IconButton"
 import Divider from "@material-ui/core/Divider"
-import DeleteIcon from "@material-ui/icons/Delete"
 import Badge from "@material-ui/core/Badge"
-import MailIcon from "@material-ui/icons/Mail"
 import PersonIcon from "../../styles/icons/PersonIcon"
 import DashboardIcon from "../../styles/icons/DashboardIcon"
 import LocationSearchingIcon from "../../styles/icons/LocationSearchingIcon"
 import AccountCircleIcon from "../../styles/icons/AccountCircleIcon"
-import Tooltip from "@material-ui/core/Tooltip"
-import Drawer from "@material-ui/core/Drawer"
-import Hidden from "@material-ui/core/Hidden"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
-import MenuIcon from "@material-ui/icons/Menu"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, useTheme } from "@material-ui/core/styles"
 
 import { useCurrentUser } from "../User"
 import { CURRENT_USER_QUERY } from "../User/index"
@@ -159,10 +145,10 @@ const Nav = () => {
   const user = useCurrentUser()
   const { data, loading, error } = user
   const me = data ? data.me : null
-  const Nav_CONF = NavigationConfig(me)
+  const NAV_CONF = NavigationConfig(me)
   return (
     <div>
-      {Nav_CONF.map((conf, index) => {
+      {NAV_CONF.map((conf, index) => {
         if (conf.canRender) {
           if (!conf.canRender()) return null
         }

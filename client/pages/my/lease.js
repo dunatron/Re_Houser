@@ -5,7 +5,6 @@ import PleaseSignIn from "../../components/PleaseSignIn"
 const MyLeasePage = props => (
   <div>
     <PleaseSignIn message="You cannot view a lease without being signed in">
-      {JSON.stringify(props)}
       <LeaseManager leaseId={props.query.id} />
     </PleaseSignIn>
   </div>
