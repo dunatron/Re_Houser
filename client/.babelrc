@@ -1,4 +1,51 @@
 {
-  "presets": ["next/babel"],
-  "plugins": ["babel-plugin-react-persist"]
+  "env": {
+    "development": {
+      "presets": ["next/babel"],
+      "plugins": [
+        [
+          "styled-components",
+          {
+            "ssr": false,
+            "displayName": true
+          }
+        ]
+      ]
+    },
+    "production": {
+      "presets": ["next/babel"],
+      "plugins": [
+        "babel-plugin-react-persist",
+        [
+          "styled-components",
+          {
+            "ssr": false,
+            "displayName": true
+          }
+        ]
+      ]
+    },
+    "test": {
+      "presets": [
+        [
+          "next/babel",
+          {
+            "preset-env": {
+              "modules": "commonjs"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        "babel-plugin-react-persist",
+        [
+          "styled-components",
+          {
+            "ssr": false,
+            "displayName": true
+          }
+        ]
+      ]
+    }
+  }
 }

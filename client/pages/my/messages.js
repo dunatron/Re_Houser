@@ -1,8 +1,9 @@
 import PleaseSignIn from '../../components/PleaseSignIn';
+import ChatsListScreen from '../../components/ChatsListScreen';
 const MessagesPage = props => (
   <div>
     <PleaseSignIn message="You must be signed in to view messages">
-      <h1>I will be your messages</h1>
+      <ChatsListScreen />
     </PleaseSignIn>
   </div>
 );

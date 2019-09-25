@@ -8,6 +8,7 @@
   - using composed which is now gone
   - [compose update](https://www.apollographql.com/docs/react/v2.5/react-apollo-migration/#updating-multiple-connected-components-with-compose)
 - components/RentalApplicationStepper will need to be revamped
+- use babel styled components https://www.styled-components.com/docs/tooling#babel-plugin
 
 - https://github.com/apollographql/apollo-client/pull/4543
 
