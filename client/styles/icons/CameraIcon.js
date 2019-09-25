@@ -1,4 +1,4 @@
-import CameraIcon from "@material-ui/icons/PhotoCamera"
+import CameraIcon from '@material-ui/icons/PhotoCamera';
 
-export { CameraIcon }
-export default CameraIcon
+export { CameraIcon };
+export default CameraIcon;

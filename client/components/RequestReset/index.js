@@ -1,11 +1,11 @@
-import React, { Component } from "react"
-import { Mutation } from "react-apollo"
-import gql from "graphql-tag"
-import Form from "../../styles/Form"
-import Error from "../ErrorMessage/index"
-import FabButton from "../../styles/FabButton"
-import NavigationIcon from "@material-ui/icons/Navigation"
-import TextInput from "../../styles/TextInput"
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import Form from '../../styles/Form';
+import Error from '../ErrorMessage/index';
+import FabButton from '../../styles/FabButton';
+import NavigationIcon from '@material-ui/icons/Navigation';
+import TextInput from '../../styles/TextInput';
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -13,15 +13,15 @@ const REQUEST_RESET_MUTATION = gql`
       message
     }
   }
-`
+`;
 
 class RequestReset extends Component {
   state = {
-    email: "",
-  }
+    email: '',
+  };
   saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
   render() {
     return (
       <Mutation mutation={REQUEST_RESET_MUTATION} variables={this.state}>
@@ -30,9 +30,9 @@ class RequestReset extends Component {
             method="post"
             data-test="form"
             onSubmit={async e => {
-              e.preventDefault()
-              await reset()
-              this.setState({ email: "" })
+              e.preventDefault();
+              await reset();
+              this.setState({ email: '' });
             }}>
             <fieldset disabled={loading} aria-busy={loading}>
               <Error error={error} />
@@ -63,9 +63,9 @@ class RequestReset extends Component {
           </Form>
         )}
       </Mutation>
-    )
+    );
   }
 }
 
-export default RequestReset
-export { REQUEST_RESET_MUTATION }
+export default RequestReset;
+export { REQUEST_RESET_MUTATION };

@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const PropertiesTable = styled.div`
   display: flex;
@@ -28,6 +28,6 @@ const PropertiesTable = styled.div`
     flex-grow: 2;
     padding: 0 20px;
   }
-`
+`;
 
-export { PropertiesTable }
+export { PropertiesTable };

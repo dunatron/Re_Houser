@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 /**
  * Not working.. maybe because we are spreading on an array
  */
@@ -26,6 +26,6 @@ const CreditCardInfoFragment = gql`
     object
     cvc_check
   }
-`
+`;
 
-export { CreditCardInfoFragment }
+export { CreditCardInfoFragment };

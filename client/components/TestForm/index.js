@@ -1,100 +1,100 @@
-import React, { Component } from "react"
+import React, { Component } from 'react';
 // import "./Form.css"
-import FormValidator from "../Validator/FormValidator"
+import FormValidator from '../Validator/FormValidator';
 
 class TestForm extends Component {
   constructor() {
-    super()
+    super();
 
     this.validator = new FormValidator([
       {
-        field: "email",
-        method: "isEmpty",
+        field: 'email',
+        method: 'isEmpty',
         validWhen: false,
-        message: "Email is required.",
+        message: 'Email is required.',
       },
       {
-        field: "email",
-        method: "isEmail",
+        field: 'email',
+        method: 'isEmail',
         validWhen: true,
-        message: "That is not a valid email.",
+        message: 'That is not a valid email.',
       },
       {
-        field: "phone",
-        method: "isEmpty",
+        field: 'phone',
+        method: 'isEmpty',
         validWhen: false,
-        message: "Pleave provide a phone number.",
+        message: 'Pleave provide a phone number.',
       },
       {
-        field: "phone",
-        method: "matches",
+        field: 'phone',
+        method: 'matches',
         args: [/^\(?\d\d\d\)? ?\d\d\d-?\d\d\d\d$/], // args is an optional array of arguements that will be passed to the validation method
         validWhen: true,
-        message: "That is not a valid phone number.",
+        message: 'That is not a valid phone number.',
       },
       {
-        field: "password",
-        method: "isEmpty",
+        field: 'password',
+        method: 'isEmpty',
         validWhen: false,
-        message: "Password is required.",
+        message: 'Password is required.',
       },
       {
-        field: "password_confirmation",
-        method: "isEmpty",
+        field: 'password_confirmation',
+        method: 'isEmpty',
         validWhen: false,
-        message: "Password confirmation is required.",
+        message: 'Password confirmation is required.',
       },
       {
-        field: "password_confirmation",
+        field: 'password_confirmation',
         method: this.passwordMatch, // notice that we are passing a custom function here
         validWhen: true,
-        message: "Password and password confirmation do not match.",
+        message: 'Password and password confirmation do not match.',
       },
-    ])
+    ]);
 
     this.state = {
-      email: "",
-      phone: "",
-      password: "",
-      password_confirmation: "",
+      email: '',
+      phone: '',
+      password: '',
+      password_confirmation: '',
       validation: this.validator.valid(),
-    }
+    };
 
-    this.submitted = false
+    this.submitted = false;
   }
 
-  passwordMatch = (confirmation, state) => state.password === confirmation
+  passwordMatch = (confirmation, state) => state.password === confirmation;
 
   handleInputChange = event => {
-    event.preventDefault()
+    event.preventDefault();
 
     this.setState({
       [event.target.name]: event.target.value,
-    })
-  }
+    });
+  };
 
   handleFormSubmit = event => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const validation = this.validator.validate(this.state)
-    this.setState({ validation })
-    this.submitted = true
+    const validation = this.validator.validate(this.state);
+    this.setState({ validation });
+    this.submitted = true;
 
     if (validation.isValid) {
       // handle actual form submission here
     }
-  }
+  };
 
   render() {
     let validation = this.submitted // if the form has been submitted at least once
       ? this.validator.validate(this.state) // then check validity every time we render
-      : this.state.validation // otherwise just use what's in state
+      : this.state.validation; // otherwise just use what's in state
 
     return (
       <form className="demoForm">
         <h2>Sign up</h2>
 
-        <div className={validation.email.isInvalid && "has-error"}>
+        <div className={validation.email.isInvalid && 'has-error'}>
           <label htmlFor="email">Email address</label>
           <input
             type="email"
@@ -106,7 +106,7 @@ class TestForm extends Component {
           <span className="help-block">{validation.email.message}</span>
         </div>
 
-        <div className={validation.phone.isInvalid && "has-error"}>
+        <div className={validation.phone.isInvalid && 'has-error'}>
           <label htmlFor="phone">Phone</label>
           <input
             type="phone"
@@ -118,7 +118,7 @@ class TestForm extends Component {
           <span className="help-block">{validation.phone.message}</span>
         </div>
 
-        <div className={validation.password.isInvalid && "has-error"}>
+        <div className={validation.password.isInvalid && 'has-error'}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -130,7 +130,7 @@ class TestForm extends Component {
         </div>
 
         <div
-          className={validation.password_confirmation.isInvalid && "has-error"}>
+          className={validation.password_confirmation.isInvalid && 'has-error'}>
           <label htmlFor="password_confirmation">Password Again</label>
           <input
             type="password"
@@ -147,7 +147,7 @@ class TestForm extends Component {
           Sign up
         </button>
       </form>
-    )
+    );
   }
 }
-export default TestForm
+export default TestForm;

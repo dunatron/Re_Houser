@@ -1,9 +1,9 @@
-import React, { Component } from "react"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import SetPrimaryCreditCardButton from "../MutationButtons/SetPrimaryCreditCardButton"
+import React, { Component } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
 
-import styled from "styled-components"
-import Paper from "@material-ui/core/Paper"
+import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
 
 const CreditCardItemStyles = styled(Paper)`
   width: 260px;
@@ -26,7 +26,7 @@ const CreditCardItemStyles = styled(Paper)`
   .credit-card-display--row-3 {
     border: 1px solid blue;
   }
-`
+`;
 
 const CreditCardItem = ({ card, isPrimary }) => {
   return (
@@ -52,7 +52,7 @@ const CreditCardItem = ({ card, isPrimary }) => {
       </div>
       <SetPrimaryCreditCardButton cardId={card.id} isPrimary={isPrimary} />
     </CreditCardItemStyles>
-  )
-}
+  );
+};
 
-export default CreditCardItem
+export default CreditCardItem;

@@ -1,6 +1,6 @@
 // import PropertyDetails from "../../components/PropertyDetails/index"
-import LeaseManager from "../../components/LeaseManager/index"
-import PleaseSignIn from "../../components/PleaseSignIn"
+import LeaseManager from '../../components/LeaseManager/index';
+import PleaseSignIn from '../../components/PleaseSignIn';
 
 const MyLeasePage = props => (
   <div>
@@ -8,6 +8,6 @@ const MyLeasePage = props => (
       <LeaseManager leaseId={props.query.id} />
     </PleaseSignIn>
   </div>
-)
+);
 
-export default MyLeasePage
+export default MyLeasePage;

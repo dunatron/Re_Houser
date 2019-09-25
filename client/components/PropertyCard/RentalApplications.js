@@ -1,16 +1,16 @@
-import React, { Component } from "react"
-import ApplicationItem from "./ApplicationItem"
-import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
-import { useSubscription, useQuery } from "@apollo/react-hooks"
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"
+import React, { Component } from 'react';
+import ApplicationItem from './ApplicationItem';
+import { RENTAL_APPLICATIONS_QUERY } from '../../query/index';
+import { useSubscription, useQuery } from '@apollo/react-hooks';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationCreatedSub';
 
 const RentalApplications = props => {
-  const { propertyId, property, me } = props
+  const { propertyId, property, me } = props;
   const variables = {
     where: {
       OR: [
         {
-          visibility: "PUBLIC",
+          visibility: 'PUBLIC',
         },
         {
           owner: {
@@ -24,7 +24,7 @@ const RentalApplications = props => {
         },
       },
     },
-  }
+  };
   const applications = useQuery(RENTAL_APPLICATIONS_QUERY, {
     // variables: {
     //   where: {
@@ -46,7 +46,7 @@ const RentalApplications = props => {
     //   },
     // },
     variables: variables,
-  })
+  });
   const { data, error, loading } = useSubscription(
     RENTAL_APPLICATION_CREATED_SUBSCRIPTION,
     {
@@ -57,20 +57,20 @@ const RentalApplications = props => {
         const applications = client.readQuery({
           query: RENTAL_APPLICATIONS_QUERY,
           variables: variables,
-        })
+        });
         const applicationId =
-          subscriptionData.data.rentalApplicationCreatedSub.node.id
+          subscriptionData.data.rentalApplicationCreatedSub.node.id;
 
         // check not already in cache
         applications.rentalApplications.push({
           ...subscriptionData.data.rentalApplicationCreatedSub.node,
-        })
+        });
 
         client.writeQuery({
           query: RENTAL_APPLICATIONS_QUERY,
           data: applications,
           variables: variables,
-        })
+        });
 
         // 1. Read the cache for the items we want
         // const data = cache.readQuery({ query: ALL_FILES_QUERY })
@@ -87,10 +87,10 @@ const RentalApplications = props => {
       },
       // ... rest options
     }
-  )
-  if (applications.error) return <Error error={applications.error} />
-  if (applications.loading) return <p>fetching applications...</p>
-  const { rentalApplications } = applications.data
+  );
+  if (applications.error) return <Error error={applications.error} />;
+  if (applications.loading) return <p>fetching applications...</p>;
+  const { rentalApplications } = applications.data;
   return (
     <div>
       {rentalApplications &&
@@ -105,10 +105,10 @@ const RentalApplications = props => {
                 props.openRentalAppModal(rentalData)
               }
             />
-          )
+          );
         })}
     </div>
-  )
-}
+  );
+};
 
-export default RentalApplications
+export default RentalApplications;

@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const UPDATE_USER_MUTATION = gql`
   mutation updateUser($data: UserUpdateInput!, $photoFile: Upload) {
@@ -7,6 +7,6 @@ const UPDATE_USER_MUTATION = gql`
       email
     }
   }
-`
+`;
 
-export { UPDATE_USER_MUTATION }
+export { UPDATE_USER_MUTATION };

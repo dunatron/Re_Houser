@@ -1,18 +1,18 @@
-import React from "react"
-import ReactDOM from "react-dom"
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 export class Portal extends React.Component {
   componentDidMount() {
-    this.element = document.querySelector(this.props.selector)
+    this.element = document.querySelector(this.props.selector);
     // So fucken yuck but works
-    this.forceUpdate()
+    this.forceUpdate();
   }
 
   render() {
     if (this.element === undefined) {
-      return null
+      return null;
     }
 
-    return ReactDOM.createPortal(this.props.children, this.element)
+    return ReactDOM.createPortal(this.props.children, this.element);
   }
 }

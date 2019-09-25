@@ -1,10 +1,10 @@
-import React, { useState, useReducer, useEffect, useRef } from "react"
-import Alert from "@reach/alert"
-import VisuallyHidden from "@reach/visually-hidden"
-import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa"
-import styled from "styled-components"
+import React, { useState, useReducer, useEffect, useRef } from 'react';
+import Alert from '@reach/alert';
+import VisuallyHidden from '@reach/visually-hidden';
+import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
+import styled from 'styled-components';
 
-import useProgress from "../../lib/useProgress"
+import useProgress from '../../lib/useProgress';
 
 const CarouselStyles = styled.div`
   position: relative;
@@ -22,7 +22,7 @@ const CarouselStyles = styled.div`
     background-position: center center;
   }
 
-  .Slide[aria-hidden="true"] {
+  .Slide[aria-hidden='true'] {
     opacity: 0;
     transition-delay: 200ms;
     z-index: -1;
@@ -77,7 +77,7 @@ const CarouselStyles = styled.div`
     width: 1rem;
   }
 
-  .SlideNavItem > button[aria-current="true"] > span {
+  .SlideNavItem > button[aria-current='true'] > span {
     background: hsla(0, 100%, 100%, 0.75);
   }
 
@@ -139,26 +139,26 @@ const CarouselStyles = styled.div`
     font-size: 32px;
     text-align: center;
   }
-`
+`;
 
-let SLIDE_DURATION = 3000
+let SLIDE_DURATION = 3000;
 
 function Carousel(props) {
-  return <section className="Carousel" {...props} />
+  return <section className="Carousel" {...props} />;
 }
 
 function Slides(props) {
-  return <ul {...props} />
+  return <ul {...props} />;
 }
 
 function Slide({ isCurrent, takeFocus, image, id, title, children }) {
-  let ref = useRef()
+  let ref = useRef();
 
   useEffect(() => {
     if (isCurrent && takeFocus) {
-      ref.current.focus()
+      ref.current.focus();
     }
-  }, [isCurrent, takeFocus])
+  }, [isCurrent, takeFocus]);
 
   return (
     <li
@@ -173,11 +173,11 @@ function Slide({ isCurrent, takeFocus, image, id, title, children }) {
         {children}
       </div> */}
     </li>
-  )
+  );
 }
 
 function SlideNav(props) {
-  return <ul className="SlideNav" {...props} />
+  return <ul className="SlideNav" {...props} />;
 }
 
 function SlideNavItem({ isCurrent, ...props }) {
@@ -187,72 +187,72 @@ function SlideNavItem({ isCurrent, ...props }) {
         <span />
       </button>
     </li>
-  )
+  );
 }
 
 function Controls(props) {
-  return <div className="Controls" {...props} />
+  return <div className="Controls" {...props} />;
 }
 
 function IconButton(props) {
-  return <button {...props} className="IconButton" />
+  return <button {...props} className="IconButton" />;
 }
 
 function ProgressBar({ animate, time }) {
-  let progress = useProgress(animate, time)
+  let progress = useProgress(animate, time);
 
   return (
     <div className="ProgressBar">
       <div style={{ width: `${progress * 100}%` }} />
     </div>
-  )
+  );
 }
 
 function SpacerGif({ width }) {
-  return <div style={{ display: "inline-block", width }} />
+  return <div style={{ display: 'inline-block', width }} />;
 }
 
 const CarouselSlider = ({ slides, height, width }) => {
   let [state, dispatch] = useReducer(
     (state, action) => {
       switch (action.type) {
-        case "NEXT":
-        case "PROGRESS":
+        case 'NEXT':
+        case 'PROGRESS':
           return {
             ...state,
-            isPlaying: action.type === "PROGRESS",
+            isPlaying: action.type === 'PROGRESS',
             currentIndex: (state.currentIndex + 1) % slides.length,
-          }
-        case "PAUSE":
+          };
+        case 'PAUSE':
           return {
             ...state,
             isPlaying: false,
-          }
-        case "PLAY":
+          };
+        case 'PLAY':
           return {
             ...state,
             isPlaying: true,
-          }
-        case "PREV":
+          };
+        case 'PREV':
           return {
             ...state,
             currentIndex:
               (state.currentIndex - 1 + slides.length) % slides.length,
             isPlaying: false,
-          }
-        case "GOTO":
+          };
+        case 'GOTO':
           return {
             ...state,
             takeFocus: true,
             currentIndex: action.index,
-          }
-        case "UNSET_FOCUS":
+          };
+        case 'UNSET_FOCUS':
           return {
             ...state,
             takeFocus: false,
-          }
+          };
         default:
-          return state
+          return state;
       }
     },
     {
@@ -260,30 +260,30 @@ const CarouselSlider = ({ slides, height, width }) => {
       isPlaying: false,
       takeFocus: false,
     }
-  )
+  );
 
   useEffect(() => {
     if (state.isPlaying) {
       let timeout = setTimeout(() => {
-        dispatch({ type: "PROGRESS" })
-      }, SLIDE_DURATION)
-      return () => clearTimeout(timeout)
+        dispatch({ type: 'PROGRESS' });
+      }, SLIDE_DURATION);
+      return () => clearTimeout(timeout);
     }
-  }, [state.currentIndex, state.isPlaying])
+  }, [state.currentIndex, state.isPlaying]);
 
   useEffect(() => {
     if (state.takeFocus) {
-      dispatch({ type: "UNSET_FOCUS" })
+      dispatch({ type: 'UNSET_FOCUS' });
     }
-  }, [state.takeFocus])
+  }, [state.takeFocus]);
 
-  if (slides.length === 0) return null
+  if (slides.length === 0) return null;
 
   return (
     <CarouselStyles
       style={{
-        height: height ? height : "280px",
-        width: width ? width : "100%",
+        height: height ? height : '280px',
+        width: width ? width : '100%',
       }}>
       <Carousel aria-label="Images from Space">
         <Slides>
@@ -307,7 +307,7 @@ const CarouselSlider = ({ slides, height, width }) => {
               isCurrent={index === state.currentIndex}
               aria-label={`Slide ${index + 1}`}
               onClick={() => {
-                dispatch({ type: "GOTO", index })
+                dispatch({ type: 'GOTO', index });
               }}
             />
           ))}
@@ -318,7 +318,7 @@ const CarouselSlider = ({ slides, height, width }) => {
             <IconButton
               aria-label="Pause"
               onClick={() => {
-                dispatch({ type: "PAUSE" })
+                dispatch({ type: 'PAUSE' });
               }}
               children={<FaPause />}
             />
@@ -326,7 +326,7 @@ const CarouselSlider = ({ slides, height, width }) => {
             <IconButton
               aria-label="Play"
               onClick={() => {
-                dispatch({ type: "PLAY" })
+                dispatch({ type: 'PLAY' });
               }}
               children={<FaPlay />}
             />
@@ -335,14 +335,14 @@ const CarouselSlider = ({ slides, height, width }) => {
           <IconButton
             aria-label="Previous Slide"
             onClick={() => {
-              dispatch({ type: "PREV" })
+              dispatch({ type: 'PREV' });
             }}
             children={<FaBackward />}
           />
           <IconButton
             aria-label="Next Slide"
             onClick={() => {
-              dispatch({ type: "NEXT" })
+              dispatch({ type: 'NEXT' });
             }}
             children={<FaForward />}
           />
@@ -361,7 +361,7 @@ const CarouselSlider = ({ slides, height, width }) => {
         </VisuallyHidden>
       </Carousel>
     </CarouselStyles>
-  )
-}
+  );
+};
 
-export default CarouselSlider
+export default CarouselSlider;

@@ -1,46 +1,46 @@
-import React, { Component } from "react"
-import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks"
-import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "../../mutation/acceptRentalApplication"
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"
-import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationUpdatedSub"
-import PropertyPendingRentalApplicationsSub from "../SubscriptionComponents/PropertyPendingRentalApplicationsSub"
-import Card from "@material-ui/core/Card"
-import ExpansionPanel from "../../styles/ExpansionPanel"
-import ExpansionPanelSummary from "../../styles/ExpansionPanelSummary"
+import React, { Component } from 'react';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { RENTAL_APPLICATIONS_QUERY } from '../../query/index';
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../mutation/acceptRentalApplication';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationCreatedSub';
+import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationUpdatedSub';
+import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
+import Card from '@material-ui/core/Card';
+import ExpansionPanel from '../../styles/ExpansionPanel';
+import ExpansionPanelSummary from '../../styles/ExpansionPanelSummary';
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
-import DialogPopup from "../DialogPopup/index"
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import DialogPopup from '../DialogPopup/index';
 // import Typography from "@material-ui/core/Typography"
-import Typography from "../../styles/Typography"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import Typography from '../../styles/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 //icons
-import PersonIcon from "@material-ui/icons/Person"
-import PersonAddIcon from "@material-ui/icons/PersonAdd"
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline"
+import PersonIcon from '@material-ui/icons/Person';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import StarIcon from "../../styles/icons/StarIcon"
+import StarIcon from '../../styles/icons/StarIcon';
 
-import ApplicantDetails from "../ApplicantDetails/index"
-import AcceptApplicationButton from "../MutationButtons/AcceptApplicationButton"
-import { Button } from "@material-ui/core"
+import ApplicantDetails from '../ApplicantDetails/index';
+import AcceptApplicationButton from '../MutationButtons/AcceptApplicationButton';
+import { Button } from '@material-ui/core';
 
 const DenyApplication = () => {
-  return <Button variant="outlined">Deny application</Button>
-}
+  return <Button variant="outlined">Deny application</Button>;
+};
 
 const ApplicationCard = ({ application, property }) => {
   return (
-    <Card style={{ marginBottom: "30px" }}>
+    <Card style={{ marginBottom: '30px' }}>
       {/* <DialogPopup isOpen={true} /> */}
       <Typography>ID: {application.id}</Typography>
       <Typography>Visibility: {application.visibility}</Typography>
       <Typography>Stage: {application.stage}</Typography>
-      <Typography>FINALISED: {application.finalised ? "YES" : "NO"}</Typography>
+      <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
       {/* <AcceptApplication application={application} property={property} /> */}
       <AcceptApplicationButton application={application} property={property} />
       <DenyApplication />
-      <Typography>FINALISED: {application.finalised ? "YES" : "NO"}</Typography>
+      <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
       <ExpansionPanel highlight={false}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
@@ -48,11 +48,11 @@ const ApplicationCard = ({ application, property }) => {
           // highlightReverse={isOwner}
           // background={isAnApplicant ? "green" : ""}
         >
-          <PersonIcon color={"secondary"} />
+          <PersonIcon color={'secondary'} />
           <Typography
             // highlightReverse={isOwner}
             // highlight={isAnApplicant}
-            style={{ padding: "0 16px 0 4px" }}>
+            style={{ padding: '0 16px 0 4px' }}>
             {application.applicants.length} Applicants
           </Typography>
         </ExpansionPanelSummary>
@@ -66,7 +66,7 @@ const ApplicationCard = ({ application, property }) => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </Card>
-  )
-}
+  );
+};
 
-export default ApplicationCard
+export default ApplicationCard;

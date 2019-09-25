@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Grid from "@material-ui/core/Grid"
-import clsx from "clsx"
+import React, { Component } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -10,11 +10,11 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
     borderRadius: 0,
-    wordWrap: "break-word",
-    height: "100%",
+    wordWrap: 'break-word',
+    height: '100%',
   },
   approvedPaper: {
     background: theme.palette.primary.light,
@@ -23,15 +23,15 @@ const useStyles = makeStyles(theme => ({
   gridItem: {
     // border: "1px solid red",
   },
-}))
+}));
 
 const ApplicantDetails = ({ applicant }) => {
-  console.log("applicant => ", applicant)
-  const classes = useStyles()
+  console.log('applicant => ', applicant);
+  const classes = useStyles();
   const paperClassName = clsx(
     classes.paper,
     applicant.approved && classes.approvedPaper
-  )
+  );
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -46,7 +46,7 @@ const ApplicantDetails = ({ applicant }) => {
         </Grid>
         <Grid item xs={6} sm={6}>
           <Paper className={paperClassName}>
-            Approved: {applicant.approved ? "YES" : "NO"}
+            Approved: {applicant.approved ? 'YES' : 'NO'}
           </Paper>
         </Grid>
         <Grid item xs={6} sm={6}>
@@ -54,7 +54,7 @@ const ApplicantDetails = ({ applicant }) => {
         </Grid>
       </Grid>
     </div>
-  )
-}
+  );
+};
 
-export default ApplicantDetails
+export default ApplicantDetails;

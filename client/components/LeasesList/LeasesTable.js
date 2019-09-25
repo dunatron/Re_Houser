@@ -1,111 +1,111 @@
-import React, { Component, useState } from "react"
-import { useQuery } from "@apollo/react-hooks"
-import SuperTable from "../SuperTable/index"
-import Button from "@material-ui/core/Button"
-import ChangeRouteButton from "../Routes/ChangeRouteButton"
-import { toast } from "react-toastify"
-import Router from "next/router"
-import Modal from "../Modal/index"
-import moment from "moment"
+import React, { Component, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import SuperTable from '../SuperTable/index';
+import Button from '@material-ui/core/Button';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import { toast } from 'react-toastify';
+import Router from 'next/router';
+import Modal from '../Modal/index';
+import moment from 'moment';
 
-const handleLink = (route = "/", query = {}) => {
+const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
     query: query,
-  })
-}
+  });
+};
 
 const LeasesTable = ({ leases }) => {
   const prettyLeases = leases.map(lease => {
     const prettifiedData = {
       ...lease,
       moveInDate: moment(lease.moveInDate).format(
-        "dddd, MMMM Do YYYY, h:mm:ss a"
+        'dddd, MMMM Do YYYY, h:mm:ss a'
       ),
-    }
-    return prettifiedData
-  })
-  const [showDataModal, setShowDataModal] = useState(false)
-  const [rawLeaseData, setRawLeasData] = useState({})
-  const finaliseLease = () => {}
+    };
+    return prettifiedData;
+  });
+  const [showDataModal, setShowDataModal] = useState(false);
+  const [rawLeaseData, setRawLeasData] = useState({});
+  const finaliseLease = () => {};
   const columnHeaders = () => {
     return [
       {
-        id: "id",
+        id: 'id',
         numeric: false,
         // disablePadding: true,
-        label: "id",
+        label: 'id',
         show: false,
-        tableRenderKey: "th",
-        found: "name",
+        tableRenderKey: 'th',
+        found: 'name',
         searchable: true,
       },
       {
-        id: "lessees",
+        id: 'lessees',
         numeric: false,
-        type: "numberOfObj",
+        type: 'numberOfObj',
         // disablePadding: true,
-        label: "lessees",
+        label: 'lessees',
         show: false,
-        tableRenderKey: "th",
-        found: "lessees",
+        tableRenderKey: 'th',
+        found: 'lessees',
         searchable: false,
       },
 
       {
-        id: "finalised",
+        id: 'finalised',
         numeric: false,
-        type: "truthly",
+        type: 'truthly',
         // disablePadding: true,
-        label: "finalised",
+        label: 'finalised',
         show: true,
-        tableRenderKey: "th",
-        found: "finalised",
+        tableRenderKey: 'th',
+        found: 'finalised',
         searchable: true,
       },
       {
-        id: "location",
+        id: 'location',
         numeric: false,
         // disablePadding: true,
-        label: "location",
+        label: 'location',
         show: true,
-        tableRenderKey: "th",
-        found: "location",
+        tableRenderKey: 'th',
+        found: 'location',
         searchable: true,
         tableRenderProps: {
           style: {
-            minWidth: "220px",
+            minWidth: '220px',
           },
         },
       },
       {
-        id: "rent",
+        id: 'rent',
         numeric: false,
         // disablePadding: true,
-        label: "rent",
+        label: 'rent',
         show: false,
-        tableRenderKey: "th",
-        found: "rent",
+        tableRenderKey: 'th',
+        found: 'rent',
         searchable: true,
       },
       {
-        id: "moveInDate",
+        id: 'moveInDate',
         numeric: false,
         // disablePadding: true,
-        label: "Move in date",
+        label: 'Move in date',
         show: true,
-        tableRenderKey: "th",
-        found: "moveInDate",
+        tableRenderKey: 'th',
+        found: 'moveInDate',
         searchable: true,
       },
       {
-        id: "expiryDate",
+        id: 'expiryDate',
         numeric: false,
         // disablePadding: true,
-        label: "Expiry date",
+        label: 'Expiry date',
         show: true,
-        tableRenderKey: "th",
-        found: "expiryDate",
+        tableRenderKey: 'th',
+        found: 'expiryDate',
         searchable: true,
       },
       // {
@@ -160,58 +160,58 @@ const LeasesTable = ({ leases }) => {
       //   tableRenderKey: "th",
       // },
       {
-        id: "manage", //votes.id
+        id: 'manage', //votes.id
         numeric: false,
         disablePadding: false,
-        label: "Manage",
+        label: 'Manage',
         show: true,
-        type: "btnFunc",
+        type: 'btnFunc',
         icon: (
           <Button color="primary" aria-label="Add to shopping cart">
             Manage
           </Button>
         ),
-        funcName: "manageProperty",
-        tableRenderKey: "th",
+        funcName: 'manageProperty',
+        tableRenderKey: 'th',
       },
       {
-        id: "showRawData", //votes.id
+        id: 'showRawData', //votes.id
         numeric: false,
         disablePadding: false,
-        label: "Manage",
+        label: 'Manage',
         show: true,
-        type: "btnFunc",
+        type: 'btnFunc',
         icon: (
           <Button color="primary" aria-label="Add to shopping cart">
             Show Raw data
           </Button>
         ),
-        funcName: "showRawData",
-        tableRenderKey: "th",
+        funcName: 'showRawData',
+        tableRenderKey: 'th',
       },
-    ]
-  }
+    ];
+  };
   const manageProperty = data => {
-    handleLink("/my/lease", { id: data.id })
-  }
+    handleLink('/my/lease', { id: data.id });
+  };
   const showRawData = data => {
-    setRawLeasData(data)
-    setShowDataModal(true)
+    setRawLeasData(data);
+    setShowDataModal(true);
     // alert(JSON.stringify(data, null, 2))
-  }
+  };
   const executeFunctionByName = (functionName, dataObj /*, args */) => {
     switch (functionName) {
-      case "showDetails":
-        showDetails(dataObj)
-        break
-      case "manageProperty":
-        return manageProperty(dataObj)
-      case "showRawData":
-        return showRawData(dataObj)
+      case 'showDetails':
+        showDetails(dataObj);
+        break;
+      case 'manageProperty':
+        return manageProperty(dataObj);
+      case 'showRawData':
+        return showRawData(dataObj);
       default:
-        alert("No function specified")
+        alert('No function specified');
     }
-  }
+  };
   return (
     <div>
       <Modal
@@ -222,8 +222,8 @@ const LeasesTable = ({ leases }) => {
         {/* {this.renderModalDetails()} */}
         <div
           style={{
-            maxWidth: "100%",
-            overflow: "auto",
+            maxWidth: '100%',
+            overflow: 'auto',
           }}>
           <pre>{JSON.stringify(rawLeaseData, null, 2)}</pre>
         </div>
@@ -243,16 +243,16 @@ const LeasesTable = ({ leases }) => {
         data={prettyLeases}
         executeFunc={async (funcName, obj) => {
           switch (funcName) {
-            case "toggleOnTheMarket":
-              await this.setState({ updateData: obj })
-              return this._updateProperty(updateProperty, obj)
+            case 'toggleOnTheMarket':
+              await this.setState({ updateData: obj });
+              return this._updateProperty(updateProperty, obj);
             default:
-              return executeFunctionByName(funcName, obj)
+              return executeFunctionByName(funcName, obj);
           }
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default LeasesTable
+export default LeasesTable;

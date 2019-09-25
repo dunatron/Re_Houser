@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import Badge from "@material-ui/core/Badge"
+import styled from 'styled-components';
+import Badge from '@material-ui/core/Badge';
 
 const BadgeStyles = styled(Badge)`
   && {
@@ -7,6 +7,6 @@ const BadgeStyles = styled(Badge)`
       top: -10px;
     }
   }
-`
+`;
 
-export default BadgeStyles
+export default BadgeStyles;

@@ -1,14 +1,14 @@
-import React, { Component, Fragment } from "react"
-import { withStyles } from "@material-ui/core/styles"
-import SearchFilter from "../Inputs/SearchFilter"
-import SelectOption from "../Inputs/SelectOption"
+import React, { Component, Fragment } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import SearchFilter from '../Inputs/SearchFilter';
+import SelectOption from '../Inputs/SelectOption';
 
 const styles = theme => ({
   root: {},
   content: {
-    overflow: "hidden",
-    flexBasis: "100%",
-    transition: "all 0.5s ease",
+    overflow: 'hidden',
+    flexBasis: '100%',
+    transition: 'all 0.5s ease',
   },
   closed: {
     height: 0,
@@ -20,7 +20,7 @@ const styles = theme => ({
     height: theme.spacing.unit * 15,
     minHeight: theme.spacing.unit * 15,
   },
-})
+});
 
 const SearchBar = ({
   classes,
@@ -31,15 +31,17 @@ const SearchBar = ({
   options,
   open,
 }) => {
-  const contentClasses = [classes.content]
-  open ? contentClasses.push(classes.open) : contentClasses.push(classes.closed)
+  const contentClasses = [classes.content];
+  open
+    ? contentClasses.push(classes.open)
+    : contentClasses.push(classes.closed);
   return (
     <Fragment>
-      <div className={contentClasses.join(" ")}>
+      <div className={contentClasses.join(' ')}>
         <SelectOption
           label="Column Filter"
           value={searchCol}
-          selectID={"SearchFilter"}
+          selectID={'SearchFilter'}
           handleChange={e => updateSearchCol(e.target.value)}
           options={options}
         />
@@ -49,7 +51,7 @@ const SearchBar = ({
         />
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(SearchBar)
+export default withStyles(styles)(SearchBar);

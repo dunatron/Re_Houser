@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks"
-import { toast } from "react-toastify"
-import { RENTAL_APPLICATION_SUBSCRIPTION } from "../../subscriptions/RentalApplicationSub"
-import ApplicationCard from "../PropertyDetails/ApplicationCard"
+import { useState } from 'react';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { toast } from 'react-toastify';
+import { RENTAL_APPLICATION_SUBSCRIPTION } from '../../subscriptions/RentalApplicationSub';
+import ApplicationCard from '../PropertyDetails/ApplicationCard';
 
 /**
  *
@@ -15,15 +15,15 @@ import ApplicationCard from "../PropertyDetails/ApplicationCard"
  *
  */
 const AdminAlertNewRentalApplicationSub = () => {
-  const [newObjects, setNewObjects] = useState([])
-  const [updateCount, setUpdateCount] = useState(0)
+  const [newObjects, setNewObjects] = useState([]);
+  const [updateCount, setUpdateCount] = useState(0);
   const { loading, data, error } = useSubscription(
     RENTAL_APPLICATION_SUBSCRIPTION,
     {
       suspend: false,
       variables: {
         where: {
-          mutation_in: "UPDATED",
+          mutation_in: 'UPDATED',
           // node: {
           //   stage_in: ["PENDING", "INITIALIZING", "DENIED", "ACCEPTED"],
           //   // id_in: applicationIds,
@@ -34,20 +34,20 @@ const AdminAlertNewRentalApplicationSub = () => {
         },
       },
       onSubscriptionData: ({ client, subscriptionData }) => {
-        setUpdateCount(updateCount + 1)
-        toast.success(<p>New Pending Rental Application for</p>)
+        setUpdateCount(updateCount + 1);
+        toast.success(<p>New Pending Rental Application for</p>);
       },
     }
-  )
-  if (loading) return null
+  );
+  if (loading) return null;
   if (error)
     return (
       <div>
         No Websocket connection. You will need to manually refresh for updates
       </div>
-    )
+    );
   // they are just aledrts find the best way to return nothing
-  return null
-}
+  return null;
+};
 
-export default AdminAlertNewRentalApplicationSub
+export default AdminAlertNewRentalApplicationSub;

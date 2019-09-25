@@ -1,9 +1,9 @@
-import OwnerProperties from "../../components/OwnerProperties/index"
+import OwnerProperties from '../../components/OwnerProperties/index';
 
 const PropertiesPage = props => (
   <div>
     <OwnerProperties />
   </div>
-)
+);
 
-export default PropertiesPage
+export default PropertiesPage;

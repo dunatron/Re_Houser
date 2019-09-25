@@ -1,17 +1,17 @@
-import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import MenuItem from "@material-ui/core/MenuItem/MenuItem"
-import FormControl from "@material-ui/core/FormControl"
-import InputLabel from "@material-ui/core/InputLabel"
-import Select from "@material-ui/core/Select"
-import Chip from "@material-ui/core/Chip"
-import Input from "@material-ui/core/Input"
-import LabelIcon from "@material-ui/icons/Label"
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
+import Input from '@material-ui/core/Input';
+import LabelIcon from '@material-ui/icons/Label';
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -19,8 +19,8 @@ const styles = theme => ({
     // maxWidth: 300,
   },
   chips: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   chip: {
     margin: theme.spacing.unit / 4,
@@ -28,7 +28,7 @@ const styles = theme => ({
   noLabel: {
     marginTop: theme.spacing.unit * 3,
   },
-})
+});
 
 const MultiSelectChip = ({
   classes,
@@ -53,7 +53,7 @@ const MultiSelectChip = ({
         renderValue={selected => (
           <div className={classes.chips}>
             {selected.map(value => {
-              const label = options.find(o => o.value === value)
+              const label = options.find(o => o.value === value);
               return (
                 <Chip
                   onDelete={() => removeItem(value)}
@@ -64,7 +64,7 @@ const MultiSelectChip = ({
                   className={classes.chip}
                   key={value}
                 />
-              )
+              );
             })}
           </div>
         )}
@@ -74,11 +74,11 @@ const MultiSelectChip = ({
             <MenuItem key={i} value={d.value}>
               {d.name}
             </MenuItem>
-          )
+          );
         })}
       </Select>
     </FormControl>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(MultiSelectChip)
+export default withStyles(styles)(MultiSelectChip);

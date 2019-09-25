@@ -1,9 +1,9 @@
-import gql from "graphql-tag"
-import { useMutation } from "@apollo/react-hooks"
-import Button from "@material-ui/core/Button"
-import { toast } from "react-toastify"
-import Error from "../../ErrorMessage/index"
-import { COMPLETE_RENTAL_APPLICATION } from "../../../mutation/index"
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+import Button from '@material-ui/core/Button';
+import { toast } from 'react-toastify';
+import Error from '../../ErrorMessage/index';
+import { COMPLETE_RENTAL_APPLICATION } from '../../../mutation/index';
 
 const FinaliseApplicationStep = ({
   rentalApplication,
@@ -18,7 +18,7 @@ const FinaliseApplicationStep = ({
     {
       variables: { applicationId: rentalApplication.id },
       update: (proxy, mutationResult) => {
-        console.log("mutationResult => ", mutationResult)
+        console.log('mutationResult => ', mutationResult);
         /* your custom update logic */
         toast.info(
           <div>
@@ -32,11 +32,11 @@ const FinaliseApplicationStep = ({
             </p>
           </div>,
           { autoClose: 15000 }
-        )
+        );
       },
       // optimisticResponse: {},
     }
-  )
+  );
   // completeApplicationProps.loading
   // completeApplicationProps.data
   // completeApplicationProps.error
@@ -49,13 +49,13 @@ const FinaliseApplicationStep = ({
         variant="contained"
         disabled={completeApplicationProps.loading}
         onClick={() => {
-          completeApplication()
+          completeApplication();
         }}>
-        HACK TO BYPASS => Complete Application{" "}
-        {completeApplicationProps.loading && "Loading"}
+        HACK TO BYPASS => Complete Application{' '}
+        {completeApplicationProps.loading && 'Loading'}
       </Button>
     </div>
-  )
-}
+  );
+};
 
-export default FinaliseApplicationStep
+export default FinaliseApplicationStep;

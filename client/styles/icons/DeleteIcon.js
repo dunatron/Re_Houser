@@ -1,4 +1,4 @@
-import DeleteIcon from "@material-ui/icons/Delete"
+import DeleteIcon from '@material-ui/icons/Delete';
 
-export { DeleteIcon }
-export default DeleteIcon
+export { DeleteIcon };
+export default DeleteIcon;

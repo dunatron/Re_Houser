@@ -1,4 +1,4 @@
-import EditIcon from "@material-ui/icons/Edit"
+import EditIcon from '@material-ui/icons/Edit';
 
-export { EditIcon }
-export default EditIcon
+export { EditIcon };
+export default EditIcon;

@@ -1,5 +1,5 @@
 // data: UserUpdateInput!
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const UPDATE_PROPERTY_MUTATION = gql`
   mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
@@ -25,6 +25,6 @@ const UPDATE_PROPERTY_MUTATION = gql`
       # rentalApplications
     }
   }
-`
+`;
 
-export { UPDATE_PROPERTY_MUTATION }
+export { UPDATE_PROPERTY_MUTATION };

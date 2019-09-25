@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const RENTAL_APPLICATION_UPDATED_SUBSCRIPTION = gql`
   subscription($where: RentalApplicationSubscriptionWhereInput) {
@@ -33,9 +33,9 @@ const RENTAL_APPLICATION_UPDATED_SUBSCRIPTION = gql`
       }
     }
   }
-`
+`;
 
-export { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION }
+export { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION };
 
 // subscription($where:RentalApplicationSubscriptionWhereInput) {
 //   rentalApplicationUpdateSub(where:$where) {

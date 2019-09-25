@@ -1,14 +1,14 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { withStyles } from "@material-ui/core/styles"
-import TextField from "@material-ui/core/TextField"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   searchField: {
-    display: "block",
+    display: 'block',
     margin: theme.spacing.unit,
   },
-})
+});
 
 const SearchFilter = ({ classes, value, handleChange, fullWidth }) => {
   return (
@@ -21,7 +21,7 @@ const SearchFilter = ({ classes, value, handleChange, fullWidth }) => {
       onChange={e => handleChange(e.target.value)}
       margin="normal"
     />
-  )
-}
+  );
+};
 
-export default withStyles(styles)(SearchFilter)
+export default withStyles(styles)(SearchFilter);

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import algoliasearch from "algoliasearch/lite";
-import PropTypes from "prop-types";
-import clsx from "clsx";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import algoliasearch from 'algoliasearch/lite';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import {
   IconButton,
   Divider,
@@ -10,29 +10,29 @@ import {
   AppBar,
   Toolbar,
   List,
-  Typography
-} from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+  Typography,
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 // import Divider from "@material-ui/core/Divider";
-import CustomSearchBox from "./CustomSearchBox";
-import SettingsIcon from "../../styles/icons/SettingsIcon";
-import SettingsInputIcon from "../../styles/icons/SettingsInputIcon";
-import CloseIcon from "../../styles/icons/CloseIcon";
+import CustomSearchBox from './CustomSearchBox';
+import SettingsIcon from '../../styles/icons/SettingsIcon';
+import SettingsInputIcon from '../../styles/icons/SettingsInputIcon';
+import CloseIcon from '../../styles/icons/CloseIcon';
 
-import { SearchInterface } from "./styles";
+import { SearchInterface } from './styles';
 
-import ConnectedCheckBoxRefinementList from "./refinements/CheckBoxList";
-import ConnectedMaterialUiSortBy from "./refinements/SortBy";
-import ConnectedMaterialPagination from "./refinements/Pagination";
-import CustomHighlight from "./refinements/CustomHiglight";
-import PropertyCard from "../PropertyCard/index";
-import SearchFilter from "./SearchFilter";
+import ConnectedCheckBoxRefinementList from './refinements/CheckBoxList';
+import ConnectedMaterialUiSortBy from './refinements/SortBy';
+import ConnectedMaterialPagination from './refinements/Pagination';
+import CustomHighlight from './refinements/CustomHiglight';
+import PropertyCard from '../PropertyCard/index';
+import SearchFilter from './SearchFilter';
 
 //icons
-import NavigateBeforeIcon from "../../styles/icons/NavigateBefore";
-import NavigateNextIcon from "../../styles/icons/NavigateNext";
-import SkipPreviousIcon from "../../styles/icons/SkipPrevious";
-import SkipNextIcon from "../../styles/icons/SkipNext";
+import NavigateBeforeIcon from '../../styles/icons/NavigateBefore';
+import NavigateNextIcon from '../../styles/icons/NavigateNext';
+import SkipPreviousIcon from '../../styles/icons/SkipPrevious';
+import SkipNextIcon from '../../styles/icons/SkipNext';
 
 import {
   InstantSearch,
@@ -42,13 +42,13 @@ import {
   Stats,
   SortBy,
   Configure,
-  connectCurrentRefinements
-} from "react-instantsearch-dom";
+  connectCurrentRefinements,
+} from 'react-instantsearch-dom';
 
-var applicationId = "4QW4S8SE3J";
-var apiKey = "506b6dcf7516c20a1789e6eb9d9a5b39";
+var applicationId = '4QW4S8SE3J';
+var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
 const searchClient = algoliasearch(applicationId, apiKey);
-const indexPrefix = process.env.NODE_ENV === "development" ? "dev" : "prod";
+const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 
 const Hit = ({ hit }) => (
   <div className="si-hit">
@@ -108,10 +108,10 @@ const Content = () => (
               <SkipNextIcon />
             </div>
           ),
-          ariaPrevious: "Previous page",
-          ariaNext: "Next page",
-          ariaFirst: "First page",
-          ariaLast: "Last page"
+          ariaPrevious: 'Previous page',
+          ariaNext: 'Next page',
+          ariaFirst: 'First page',
+          ariaLast: 'Last page',
         }}
       />
     </div>
@@ -119,7 +119,7 @@ const Content = () => (
 );
 // si-drawer-sidebar
 const Sidebar = () => (
-  <div className="si-drawer__sidebar" style={{ maxWidth: "100vw" }}>
+  <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>
     <div>
       <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
       <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
@@ -163,16 +163,14 @@ const PropertySearch = () => {
   return (
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
-      searchClient={searchClient}
-    >
+      searchClient={searchClient}>
       <SearchInterface>
         <Drawer
           // style={{ maxWidth: "100vw" }}
           className="si-drawer"
           variant="persistent"
           anchor="left"
-          open={open}
-        >
+          open={open}>
           <DrawHeader close={handleDrawerClose} />
           <Divider />
           <Sidebar />
@@ -180,15 +178,13 @@ const PropertySearch = () => {
         <AppBar
           position="relative"
           color="default"
-          style={{ padding: "8px", zIndex: 0 }}
-        >
+          style={{ padding: '8px', zIndex: 0 }}>
           <Toolbar disableGutters={!open}>
             <IconButton
               color="default"
-              style={{ margin: "0 12px 0 0" }}
+              style={{ margin: '0 12px 0 0' }}
               aria-label="Open drawer"
-              onClick={toggleDraw}
-            >
+              onClick={toggleDraw}>
               <SettingsInputIcon />
             </IconButton>
             <CustomSearchBox fullWidth={true} />

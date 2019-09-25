@@ -1,5 +1,5 @@
-import gql from "graphql-tag"
-import { RentalApplicationInfoFragment } from "../fragments/rentalApplicationInfo"
+import gql from 'graphql-tag';
+import { RentalApplicationInfoFragment } from '../fragments/rentalApplicationInfo';
 
 const RENTAL_APPLICATIONS_QUERY = gql`
   query RENTAL_APPLICATIONS_QUERY($where: RentalApplicationWhereInput!) {
@@ -8,5 +8,5 @@ const RENTAL_APPLICATIONS_QUERY = gql`
     }
   }
   ${RentalApplicationInfoFragment}
-`
-export { RENTAL_APPLICATIONS_QUERY }
+`;
+export { RENTAL_APPLICATIONS_QUERY };

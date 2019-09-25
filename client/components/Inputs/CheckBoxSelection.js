@@ -1,6 +1,6 @@
-import React from "react"
-import Checkbox from "@material-ui/core/Checkbox/Checkbox"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
+import React from 'react';
+import Checkbox from '@material-ui/core/Checkbox/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 class CheckBoxSelection extends React.Component {
   // constructor(props) {
@@ -17,12 +17,12 @@ class CheckBoxSelection extends React.Component {
   // }
 
   handleChange = name => event => {
-    this.props.handleOptionChange({ [name]: event.target.checked })
+    this.props.handleOptionChange({ [name]: event.target.checked });
     // this.setState({ [name]: event.target.checked })
-  }
+  };
 
   render() {
-    const { options } = this.props
+    const { options } = this.props;
     return (
       <div>
         {options.map((option, idx) => {
@@ -40,11 +40,11 @@ class CheckBoxSelection extends React.Component {
               }
               label={option.label}
             />
-          )
+          );
         })}
       </div>
-    )
+    );
   }
 }
 
-export default CheckBoxSelection
+export default CheckBoxSelection;

@@ -1,5 +1,5 @@
-import StarBorderIcon from "@material-ui/icons/StarBorder"
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
-export { StarBorderIcon }
+export { StarBorderIcon };
 
-export default StarBorderIcon
+export default StarBorderIcon;

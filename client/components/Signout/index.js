@@ -1,12 +1,12 @@
-import React, { Component } from "react"
-import { useQuery } from "@apollo/react-hooks"
-import { Mutation } from "react-apollo"
-import { useMutation } from "@apollo/react-hooks"
-import gql from "graphql-tag"
-import { CURRENT_USER_QUERY } from "../User/index"
-import NavButton from "../../styles/NavButton"
-import Error from "../ErrorMessage/index"
-import { toast } from "react-toastify"
+import React, { Component } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { Mutation } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import { CURRENT_USER_QUERY } from '../User/index';
+import NavButton from '../../styles/NavButton';
+import Error from '../ErrorMessage/index';
+import { toast } from 'react-toastify';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -14,7 +14,7 @@ const SIGN_OUT_MUTATION = gql`
       message
     }
   }
-`
+`;
 
 /**
  *
@@ -22,7 +22,7 @@ const SIGN_OUT_MUTATION = gql`
  *
  */
 const Signout = ({ label, fullWidth, me }) => {
-  if (!me) return null
+  if (!me) return null;
   const [signout, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
     // update: (proxy, payload) => {
@@ -49,15 +49,15 @@ const Signout = ({ label, fullWidth, me }) => {
     //     message: "signing you out and cleaning up your session",
     //   },
     // },
-  })
+  });
 
   return (
     <>
       <Error error={error} />
       <NavButton onClick={signout} fullWidth={fullWidth} disabled={loading}>
-        {label ? label : "Sign Out"}
+        {label ? label : 'Sign Out'}
       </NavButton>
     </>
-  )
-}
-export default Signout
+  );
+};
+export default Signout;

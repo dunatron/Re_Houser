@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import React from 'react';
+import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Loader = props => {
   const { color, text } = props;
@@ -8,7 +8,7 @@ const Loader = props => {
     <div>
       <CircularProgress
         variant="determinate"
-        color={color ? color : "primary"}
+        color={color ? color : 'primary'}
       />
       {text}
     </div>
@@ -18,7 +18,7 @@ const Loader = props => {
 Loader.propTypes = {
   loading: PropTypes.bool.isRequired,
   color: PropTypes.string,
-  text: PropTypes.string
+  text: PropTypes.string,
 };
 
 export default Loader;

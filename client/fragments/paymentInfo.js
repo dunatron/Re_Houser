@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 /**
  * Not working.. maybe because we are spreading on an array
  */
@@ -22,8 +22,6 @@ const PaymentInfoFragment = gql`
     payment_method
     status
   }
-`
+`;
 
-export { PaymentInfoFragment }
-
-
+export { PaymentInfoFragment };

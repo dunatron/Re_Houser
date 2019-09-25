@@ -1,12 +1,12 @@
-import React, { Component } from "react"
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
+import React, { Component } from 'react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 export class MapContainer extends Component {
   render() {
-    const { center } = this.props
+    const { center } = this.props;
 
     return (
-      <div style={{ position: "relative", height: 300 }}>
+      <div style={{ position: 'relative', height: 300 }}>
         <Map
           google={this.props.google}
           zoom={18}
@@ -19,10 +19,10 @@ export class MapContainer extends Component {
             lng: center ? center.lng : 168.89592100000004,
           }}
           {...this.props}>
-          <Marker onClick={this.onMarkerClick} name={"Current location"} />
+          <Marker onClick={this.onMarkerClick} name={'Current location'} />
           <Marker
-            title={"The marker`s title will appear as a tooltip."}
-            name={"SOMA"}
+            title={'The marker`s title will appear as a tooltip.'}
+            name={'SOMA'}
             position={{
               lat: center ? center.lat : -46.1326615,
               lng: center ? center.lng : 168.89592100000004,
@@ -34,10 +34,10 @@ export class MapContainer extends Component {
           </InfoWindow>
         </Map>
       </div>
-    )
+    );
   }
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
-})(MapContainer)
+  apiKey: 'AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0',
+})(MapContainer);

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { CardElement, injectStripe } from "react-stripe-elements";
-import ForceReloadButton from "../ForceReloadButton.js";
-import RefreshIcon from "../../styles/icons/RefreshIcon";
+import React, { useState, useEffect } from 'react';
+import { CardElement, injectStripe } from 'react-stripe-elements';
+import ForceReloadButton from '../ForceReloadButton.js';
+import RefreshIcon from '../../styles/icons/RefreshIcon';
 
 const StripeClientSideWrapper = props => {
   const { stripe, clear } = props;

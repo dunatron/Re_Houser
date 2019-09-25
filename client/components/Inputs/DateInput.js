@@ -1,12 +1,12 @@
-import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import TextField from "@material-ui/core/TextField"
-import moment from "moment"
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import moment from 'moment';
 
 const styles = theme => ({
   root: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -14,8 +14,8 @@ const styles = theme => ({
     // maxWidth: 300,
   },
   chips: {
-    display: "flex",
-    flexWrap: "wrap",
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   chip: {
     margin: theme.spacing.unit / 4,
@@ -23,7 +23,7 @@ const styles = theme => ({
   noLabel: {
     marginTop: theme.spacing.unit * 3,
   },
-})
+});
 
 /**
  * https://stackoverflow.com/questions/7372038/is-there-any-way-to-change-input-type-date-format
@@ -41,27 +41,27 @@ const styles = theme => ({
  */
 const DateInput = ({ id, classes, value, onChange, label }) => {
   // const RFCIsoValue = moment(value).format("YYYY-MM-DD")
-  const RFCIsoValue = moment(value).format("YYYY-MM-DDTkk:mm")
+  const RFCIsoValue = moment(value).format('YYYY-MM-DDTkk:mm');
   //
   return (
     <TextField
       className={classes.textField}
-      id={id ? id : "default-datePicker"}
-      label={label ? label : "Some Date"}
+      id={id ? id : 'default-datePicker'}
+      label={label ? label : 'Some Date'}
       margin="normal"
       type="datetime-local"
       // value={RFCIsoValue}
       value={RFCIsoValue}
       onChange={e => {
-        const formattedDate = moment(e.target.value).format()
-        onChange(formattedDate)
+        const formattedDate = moment(e.target.value).format();
+        onChange(formattedDate);
       }}
       className={classes.textField}
       InputLabelProps={{
         shrink: true,
       }}
     />
-  )
-}
+  );
+};
 
-export default withStyles(styles)(DateInput)
+export default withStyles(styles)(DateInput);

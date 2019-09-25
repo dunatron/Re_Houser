@@ -1,5 +1,5 @@
-import React, { Component } from "react"
-import Typography from "@material-ui/core/Typography"
+import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
 
 export default function TabContainer(props) {
   // return (
@@ -7,5 +7,5 @@ export default function TabContainer(props) {
   //     {props.children}
   //   </Typography>
   // )
-  return <Typography component="div">{props.children}</Typography>
+  return <Typography component="div">{props.children}</Typography>;
 }

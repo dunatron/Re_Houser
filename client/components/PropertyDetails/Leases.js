@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import gql from "graphql-tag"
-import ChangeRouteButton from "../Routes/ChangeRouteButton"
+import React, { Component } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 // query propertyLeases($where:PropertyLeaseWhereInput) {
 //   propertyLeases(where: $where) {
@@ -39,7 +39,7 @@ const SINGLE_PROPERTY_LEASES_QUERY = gql`
       }
     }
   }
-`
+`;
 
 const PropertyLeases = props => {
   const { data, error, loading } = useQuery(SINGLE_PROPERTY_LEASES_QUERY, {
@@ -51,16 +51,16 @@ const PropertyLeases = props => {
       },
     },
     suspend: false,
-  })
-  if (loading) return "loading leaseas"
-  if (error) return "Error with feting leases"
+  });
+  if (loading) return 'loading leaseas';
+  if (error) return 'Error with feting leases';
   return (
     <div>
       <h1>I am the Leases details component</h1>
       {data.myLeases.map((lease, i) => {
         return (
           <div>
-            <button onClick={() => alert("ROute To Lease Page")}>
+            <button onClick={() => alert('ROute To Lease Page')}>
               EDIT LEASE
             </button>
             <ChangeRouteButton
@@ -77,7 +77,7 @@ const PropertyLeases = props => {
                 <div>
                   <p>{owner.id}</p>
                 </div>
-              )
+              );
             })}
             <h4>Tenants</h4>
             {lease.lessees.map(tenant => {
@@ -85,14 +85,14 @@ const PropertyLeases = props => {
                 <div>
                   <p>{tenant.id}</p>
                 </div>
-              )
+              );
             })}
             <hr />
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default PropertyLeases
+export default PropertyLeases;

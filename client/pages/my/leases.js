@@ -1,6 +1,6 @@
 // import PropertyDetails from "../../components/PropertyDetails/index"
-import LeasesList from "../../components/LeasesList"
-import PleaseSignIn from "../../components/PleaseSignIn"
+import LeasesList from '../../components/LeasesList';
+import PleaseSignIn from '../../components/PleaseSignIn';
 
 const MyLeasePage = props => (
   <div>
@@ -8,6 +8,6 @@ const MyLeasePage = props => (
       <LeasesList />
     </PleaseSignIn>
   </div>
-)
+);
 
-export default MyLeasePage
+export default MyLeasePage;

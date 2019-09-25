@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const APPLY_TO_RENTAL_GROUP_APPLICATION = gql`
   mutation applyToRentalGroup($data: RentalGroupApplicantCreateInput!) {
@@ -31,6 +31,6 @@ const APPLY_TO_RENTAL_GROUP_APPLICATION = gql`
       }
     }
   }
-`
+`;
 
-export { APPLY_TO_RENTAL_GROUP_APPLICATION }
+export { APPLY_TO_RENTAL_GROUP_APPLICATION };

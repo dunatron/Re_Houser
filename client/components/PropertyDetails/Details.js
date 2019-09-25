@@ -1,64 +1,64 @@
-import React, { Component, useState, useRef, useEffect } from "react"
+import React, { Component, useState, useRef, useEffect } from 'react';
 
-import Map from "../Map/index"
-import CarouselSlider from "../CarouselSlider"
-import DetailItem from "../PropertyCard/DetailItem"
-import IconButton from "@material-ui/core/IconButton"
+import Map from '../Map/index';
+import CarouselSlider from '../CarouselSlider';
+import DetailItem from '../PropertyCard/DetailItem';
+import IconButton from '@material-ui/core/IconButton';
 //icons
-import EditIcon from "../../styles/icons/EditIcon"
-import MoreIcon from "../../styles/icons/MoreIcon"
-import DetailsIcon from "../../styles/icons/DetailsIcon"
-import CameraIcon from "../../styles/icons/CameraIcon"
+import EditIcon from '../../styles/icons/EditIcon';
+import MoreIcon from '../../styles/icons/MoreIcon';
+import DetailsIcon from '../../styles/icons/DetailsIcon';
+import CameraIcon from '../../styles/icons/CameraIcon';
 // Update variable components ToDo: move to own file
-import gql from "graphql-tag"
-import { useMutation } from "@apollo/react-hooks"
-import InputModal from "../Modal/InputModal"
-import TextInput from "../../styles/TextInput"
-import DateInput from "../Inputs/DateInput"
-import Error from "../ErrorMessage/index"
-import Button from "@material-ui/core/Button"
-import { UPDATE_PROPERTY_MUTATION } from "../../mutation/index"
-import { OWNER_PROPERTIES_QUERY } from "../../query/index"
-import useKeyPress from "../../lib/useKeyPress"
-import Switch from "@material-ui/core/Switch"
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+import InputModal from '../Modal/InputModal';
+import TextInput from '../../styles/TextInput';
+import DateInput from '../Inputs/DateInput';
+import Error from '../ErrorMessage/index';
+import Button from '@material-ui/core/Button';
+import { UPDATE_PROPERTY_MUTATION } from '../../mutation/index';
+import { OWNER_PROPERTIES_QUERY } from '../../query/index';
+import useKeyPress from '../../lib/useKeyPress';
+import Switch from '@material-ui/core/Switch';
 import {
   NowToDate,
   LongDatePretty,
   LeaseLength,
-} from "../LeaseManager/LeaseLengthInfo"
+} from '../LeaseManager/LeaseLengthInfo';
 
 const sanitizeInput = (type, value) => {
-  if (type === "number") {
-    return parseFloat(value)
+  if (type === 'number') {
+    return parseFloat(value);
   }
-  return value
-}
+  return value;
+};
 
 const UpdatePropertyVariableModal = ({
   propertyId,
   name,
   label,
-  type = "text", // [color, date, datetime-local, email, month, number, range, search, text, time, url, checkbox, file, password]
-  value = "",
+  type = 'text', // [color, date, datetime-local, email, month, number, range, search, text, time, url, checkbox, file, password]
+  value = '',
 }) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState({})
-  const [propertyValue, setPropertyValue] = useState(value)
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({});
+  const [propertyValue, setPropertyValue] = useState(value);
 
   function downHandler({ key }) {
-    if (key === "Escape") {
-      setModalIsOpen(false)
+    if (key === 'Escape') {
+      setModalIsOpen(false);
     }
   }
 
   useEffect(() => {
-    window.addEventListener("keydown", downHandler)
+    window.addEventListener('keydown', downHandler);
     // Remove event listeners on cleanup
     return () => {
-      window.removeEventListener("keydown", downHandler)
-    }
-  }, []) // Empty array ensures that effect is only run on mount and unmount
+      window.removeEventListener('keydown', downHandler);
+    };
+  }, []); // Empty array ensures that effect is only run on mount and unmount
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
     mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
@@ -67,7 +67,7 @@ const UpdatePropertyVariableModal = ({
         ${name}
       }
     }
-  `
+  `;
   // ToDo: Mutation Props
   const [updateProperty, updatePropertyPayload] = useMutation(
     PROPERTY_SINGLE_PROPERTY_MUTATION,
@@ -81,28 +81,28 @@ const UpdatePropertyVariableModal = ({
       },
       update: (proxy, payload) => {
         // // find out where the property prop is loaded from and update the cache
-        const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY })
-        const updatedPropertyData = payload.data.updateProperty
-        const allProperties = data.ownerProperties
-        const idToSearchBy = updatedPropertyData.id
-        const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy)
+        const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY });
+        const updatedPropertyData = payload.data.updateProperty;
+        const allProperties = data.ownerProperties;
+        const idToSearchBy = updatedPropertyData.id;
+        const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy);
         data.ownerProperties[foundIndex] = {
           ...data.ownerProperties[foundIndex],
           ...payload.data.updateProperty,
-        }
-        proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data })
+        };
+        proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data });
       },
-      errorPolicy: "all",
+      errorPolicy: 'all',
       optimisticResponse: {
-        __typename: "Mutation",
+        __typename: 'Mutation',
         updateProperty: {
-          __typename: "Property",
+          __typename: 'Property',
           id: propertyId,
           [name]: sanitizeInput(type, propertyValue),
         },
       },
     }
-  )
+  );
   return (
     <div>
       <InputModal
@@ -111,28 +111,28 @@ const UpdatePropertyVariableModal = ({
         close={() => setModalIsOpen(false)}>
         <form
           onSubmit={async e => {
-            e.preventDefault()
-            updateProperty()
-            setModalIsOpen(false)
+            e.preventDefault();
+            updateProperty();
+            setModalIsOpen(false);
           }}>
           {loading && <p>confirming on the server...</p>}
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <Error error={error} />
 
-            {type === "checkbox" && (
+            {type === 'checkbox' && (
               <Switch
                 checked={propertyValue}
                 // onChange={this.handleChange}
                 onChange={e => {
-                  setPropertyValue(e.target.checked)
+                  setPropertyValue(e.target.checked);
                 }}
                 aria-label="LoginSwitch"
               />
             )}
-            {type === "text" && (
+            {type === 'text' && (
               <TextInput
                 autoFocus="true"
-                style={{ margin: 0, paddingRight: "16px" }}
+                style={{ margin: 0, paddingRight: '16px' }}
                 type={type}
                 disabled={loading}
                 label={label}
@@ -140,10 +140,10 @@ const UpdatePropertyVariableModal = ({
                 onChange={e => setPropertyValue(e.target.value)}
               />
             )}
-            {type === "number" && (
+            {type === 'number' && (
               <TextInput
                 autoFocus="true"
-                style={{ margin: 0, paddingRight: "16px" }}
+                style={{ margin: 0, paddingRight: '16px' }}
                 type={type}
                 disabled={loading}
                 label={label}
@@ -151,8 +151,8 @@ const UpdatePropertyVariableModal = ({
                 onChange={e => setPropertyValue(e.target.value)}
               />
             )}
-            {type === "date" && (
-              <div style={{ padding: "16px" }}>
+            {type === 'date' && (
+              <div style={{ padding: '16px' }}>
                 <DateInput
                   // value={"2015-03-25T12:00:00-06:30"}
                   id="moveInDate"
@@ -176,11 +176,11 @@ const UpdatePropertyVariableModal = ({
         <EditIcon color="default" />
       </IconButton>
     </div>
-  )
-}
+  );
+};
 
 const Details = props => {
-  const { property } = props
+  const { property } = props;
   return (
     <div>
       <h4>
@@ -188,7 +188,7 @@ const Details = props => {
         for new advertisements in the future or to update any info. In short
         changing rent will have no impact on current agreements
       </h4>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <DetailItem icon={<CameraIcon />} label="Rent" value={property.rent} />
         <UpdatePropertyVariableModal
           propertyId={property.id}
@@ -198,10 +198,10 @@ const Details = props => {
           value={property.rent}
         />
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <DetailItem
           icon={<CameraIcon />}
-          type={"boolean"}
+          type={'boolean'}
           label="On The Market"
           value={property.onTheMarket}
         />
@@ -213,10 +213,10 @@ const Details = props => {
           value={property.onTheMarket}
         />
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <DetailItem
           icon={<CameraIcon />}
-          type={"date"}
+          type={'date'}
           label="Move in Date"
           value={property.moveInDate}
         />
@@ -229,10 +229,10 @@ const Details = props => {
         />
         <LongDatePretty date={property.expiryDate} />
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <DetailItem
           icon={<CameraIcon />}
-          type={"date"}
+          type={'date'}
           label="Expiry Date"
           value={property.expiryDate}
         />
@@ -254,7 +254,7 @@ const Details = props => {
         />
       </div>
 
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <DetailItem
           icon={<CameraIcon />}
           label="Rooms"
@@ -281,7 +281,7 @@ const Details = props => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Details
+export default Details;

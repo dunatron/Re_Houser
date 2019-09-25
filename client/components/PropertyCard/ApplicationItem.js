@@ -1,44 +1,43 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
-import { adopt } from "react-adopt";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import { adopt } from 'react-adopt';
+import styled from 'styled-components';
 // components
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Tooltip from "@material-ui/core/Tooltip";
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 // import ExpansionPanel from "@material-ui/core/ExpansionPanel"
-import ExpansionPanel from "../../styles/ExpansionPanel";
-import ExpansionPanelSummary from "../../styles/ExpansionPanelSummary";
+import ExpansionPanel from '../../styles/ExpansionPanel';
+import ExpansionPanelSummary from '../../styles/ExpansionPanelSummary';
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 // import Typography from "@material-ui/core/Typography"
-import Typography from "../../styles/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Typography from '../../styles/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 //icons
-import PersonIcon from "@material-ui/icons/Person";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline";
+import PersonIcon from '@material-ui/icons/Person';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import StarIcon from "../../styles/icons/StarIcon";
+import StarIcon from '../../styles/icons/StarIcon';
 // Mutations
 import {
   APPLY_TO_RENTAL_GROUP_APPLICATION,
-  CREATE_PRE_RENTAL_DOCUMENT_MUTATION
-} from "../../mutation/index";
-import ApplyToGroup from "./ApplyToGroup.js";
-import User from "../User/index";
+  CREATE_PRE_RENTAL_DOCUMENT_MUTATION,
+} from '../../mutation/index';
+import ApplyToGroup from './ApplyToGroup.js';
+import User from '../User/index';
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
   applyToRentalGroup: ({ render }) => (
     <Mutation
       mutation={APPLY_TO_RENTAL_GROUP_APPLICATION}
-      update={(cache, payload) => {}}
-    >
+      update={(cache, payload) => {}}>
       {render}
     </Mutation>
-  )
+  ),
 });
 
 const Item = styled.div`
@@ -68,7 +67,7 @@ const Item = styled.div`
 
 export default class ApplicationItem extends Component {
   state = {
-    creatingDoc: false
+    creatingDoc: false,
   };
   _applyToRentalGroup = async applyToRentalGroup => {
     const res = applyToRentalGroup();
@@ -99,9 +98,9 @@ export default class ApplicationItem extends Component {
   };
 
   applicantStage = applicant => {
-    if (applicant.approved) return "approved";
-    if (applicant.completed) return "completed";
-    return "";
+    if (applicant.approved) return 'approved';
+    if (applicant.completed) return 'completed';
+    return '';
   };
 
   isAnApplicant = (me, application) => {
@@ -126,7 +125,7 @@ export default class ApplicationItem extends Component {
         {({ applyToRentalGroup, user, createPreRentalDocument }) => {
           const me = user.data.me;
           if (!me) {
-            return "You must be logged In";
+            return 'You must be logged In';
           }
           const isAnApplicant = this.isAnApplicant(me, application);
           const isOwner = this.isOwner(me, application);
@@ -136,30 +135,26 @@ export default class ApplicationItem extends Component {
                 expandIcon={<ExpandMoreIcon />}
                 highlight={isAnApplicant}
                 highlightReverse={isOwner}
-                background={isAnApplicant ? "green" : ""}
-              >
-                <PersonIcon color={isOwner ? "secondary" : "primary"} />
+                background={isAnApplicant ? 'green' : ''}>
+                <PersonIcon color={isOwner ? 'secondary' : 'primary'} />
                 <Typography
                   highlightReverse={isOwner}
                   highlight={isAnApplicant}
-                  style={{ padding: "0 16px 0 4px" }}
-                >
+                  style={{ padding: '0 16px 0 4px' }}>
                   {this.getNumberOfApprovedApplicants(application)}
                 </Typography>
-                <PersonOutlineIcon color={isOwner ? "secondary" : "primary"} />
+                <PersonOutlineIcon color={isOwner ? 'secondary' : 'primary'} />
                 <Typography
                   highlightReverse={isOwner}
                   highlight={isAnApplicant}
-                  style={{ padding: "0 16px 0 4px" }}
-                >
+                  style={{ padding: '0 16px 0 4px' }}>
                   {this.getNumberOfPendingApplicants(application)}
                 </Typography>
-                <StarIcon color={isOwner ? "secondary" : "primary"} />
+                <StarIcon color={isOwner ? 'secondary' : 'primary'} />
                 <Typography
                   highlightReverse={isOwner}
                   highlight={isAnApplicant}
-                  style={{ padding: "0 16px 0 4px" }}
-                >
+                  style={{ padding: '0 16px 0 4px' }}>
                   {application.stage}
                 </Typography>
               </ExpansionPanelSummary>
@@ -174,21 +169,19 @@ export default class ApplicationItem extends Component {
                   {application.applicants &&
                     application.applicants.map((applicant, idx) => {
                       const {
-                        user: { id, firstName, lastName }
+                        user: { id, firstName, lastName },
                       } = applicant;
                       return (
                         <div className="user__strip">
                           <Tooltip
                             title={`view ${firstName} ${lastName}`}
-                            placement="top"
-                          >
+                            placement="top">
                             <IconButton
                               // className="person__btn"
                               className={`person__btn ${this.applicantStage(
                                 applicant
                               )}`}
-                              aria-label="Delete"
-                            >
+                              aria-label="Delete">
                               <PersonIcon className="person__icon" />
                             </IconButton>
                           </Tooltip>
@@ -225,8 +218,7 @@ export default class ApplicationItem extends Component {
           variant="outlined"
           onClick={() => {
             this.props.openRentalAppModal(application);
-          }}
-        >
+          }}>
           UPDATE APPLICATION
         </Button>
         {/* <Button

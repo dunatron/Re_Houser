@@ -1,4 +1,4 @@
-import DashboardIcon from "@material-ui/icons/Dashboard"
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
-export { DashboardIcon }
-export default DashboardIcon
+export { DashboardIcon };
+export default DashboardIcon;

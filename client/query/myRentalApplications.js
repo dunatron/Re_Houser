@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const MY_RENTAL_APPLICATIONS_QUERY = gql`
   query MY_RENTAL_APPLICATIONS_QUERY {
@@ -27,6 +27,6 @@ const MY_RENTAL_APPLICATIONS_QUERY = gql`
       }
     }
   }
-`
+`;
 
-export { MY_RENTAL_APPLICATIONS_QUERY }
+export { MY_RENTAL_APPLICATIONS_QUERY };

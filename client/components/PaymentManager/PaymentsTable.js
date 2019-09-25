@@ -1,167 +1,167 @@
-import React, { Component, useState } from "react"
-import { useQuery } from "@apollo/react-hooks"
-import SuperTable from "../SuperTable/index"
-import Button from "@material-ui/core/Button"
-import ChangeRouteButton from "../Routes/ChangeRouteButton"
-import { toast } from "react-toastify"
-import Router from "next/router"
-import Modal from "../Modal/index"
-import moment from "moment"
+import React, { Component, useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import SuperTable from '../SuperTable/index';
+import Button from '@material-ui/core/Button';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import { toast } from 'react-toastify';
+import Router from 'next/router';
+import Modal from '../Modal/index';
+import moment from 'moment';
 
 const PaymentsTable = ({ payments, title }) => {
   const prettyPayments = payments.map(payment => {
     const prettifiedData = {
       ...payment,
-      created: moment(payment.created).format("dddd, MMMM Do YYYY, h:mm:ss a"),
-    }
-    return prettifiedData
-  })
+      created: moment(payment.created).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+    };
+    return prettifiedData;
+  });
   const columnHeaders = () => {
     return [
       {
-        id: "leaseId",
+        id: 'leaseId',
         numeric: false,
         // disablePadding: true,
-        label: "leaseId",
+        label: 'leaseId',
         show: true,
-        tableRenderKey: "th",
-        found: "leaseId",
+        tableRenderKey: 'th',
+        found: 'leaseId',
         searchable: true,
       },
       {
-        id: "propertyId",
+        id: 'propertyId',
         numeric: false,
         // disablePadding: true,
-        label: "propertyId",
+        label: 'propertyId',
         show: true,
-        tableRenderKey: "th",
-        found: "propertyId",
+        tableRenderKey: 'th',
+        found: 'propertyId',
         searchable: true,
       },
       {
-        id: "stripePaymentId",
+        id: 'stripePaymentId',
         numeric: false,
         // disablePadding: true,
-        label: "stripePaymentId",
+        label: 'stripePaymentId',
         show: true,
-        tableRenderKey: "th",
-        found: "stripePaymentId",
+        tableRenderKey: 'th',
+        found: 'stripePaymentId',
         searchable: true,
       },
       {
-        id: "object",
+        id: 'object',
         numeric: false,
         // disablePadding: true,
-        label: "object",
+        label: 'object',
         show: true,
-        tableRenderKey: "th",
-        found: "object",
+        tableRenderKey: 'th',
+        found: 'object',
         searchable: true,
       },
       {
-        id: "amount",
+        id: 'amount',
         numeric: true,
         // disablePadding: true,
-        label: "amount",
+        label: 'amount',
         show: true,
-        tableRenderKey: "th",
-        found: "amount",
+        tableRenderKey: 'th',
+        found: 'amount',
         searchable: false,
       },
       {
-        id: "amount_refunded",
+        id: 'amount_refunded',
         numeric: true,
         // disablePadding: true,
-        label: "amount_refunded",
+        label: 'amount_refunded',
         show: true,
-        tableRenderKey: "th",
-        found: "amount_refunded",
+        tableRenderKey: 'th',
+        found: 'amount_refunded',
         searchable: false,
       },
       {
-        id: "balance_transaction",
+        id: 'balance_transaction',
         numeric: false,
         // disablePadding: true,
-        label: "balance_transaction",
+        label: 'balance_transaction',
         show: true,
-        tableRenderKey: "th",
-        found: "balance_transaction",
+        tableRenderKey: 'th',
+        found: 'balance_transaction',
         searchable: true,
       },
       {
-        id: "captured",
+        id: 'captured',
         numeric: false,
-        type: "truthly",
+        type: 'truthly',
         // disablePadding: true,
-        label: "captured",
+        label: 'captured',
         show: true,
-        tableRenderKey: "th",
-        found: "captured",
+        tableRenderKey: 'th',
+        found: 'captured',
         searchable: true,
       },
       {
-        id: "created",
+        id: 'created',
         numeric: false,
-        type: "date",
+        type: 'date',
         // disablePadding: true,
-        label: "created",
+        label: 'created',
         show: true,
-        tableRenderKey: "th",
-        found: "created",
+        tableRenderKey: 'th',
+        found: 'created',
         searchable: true,
       },
       {
-        id: "currency",
+        id: 'currency',
         numeric: true,
-        label: "currency",
+        label: 'currency',
         show: true,
-        tableRenderKey: "th",
-        found: "currency",
+        tableRenderKey: 'th',
+        found: 'currency',
         searchable: true,
       },
       {
-        id: "customer",
-        label: "customer",
+        id: 'customer',
+        label: 'customer',
         show: true,
-        tableRenderKey: "th",
-        found: "customer",
+        tableRenderKey: 'th',
+        found: 'customer',
         searchable: true,
       },
       {
-        id: "description",
-        label: "description",
+        id: 'description',
+        label: 'description',
         show: true,
-        tableRenderKey: "th",
-        found: "description",
+        tableRenderKey: 'th',
+        found: 'description',
         searchable: true,
       },
       {
-        id: "paid",
-        label: "paid",
-        type: "truthly",
+        id: 'paid',
+        label: 'paid',
+        type: 'truthly',
         show: true,
-        tableRenderKey: "th",
-        found: "paid",
+        tableRenderKey: 'th',
+        found: 'paid',
         searchable: true,
       },
       {
-        id: "payment_method",
-        label: "payment_method",
+        id: 'payment_method',
+        label: 'payment_method',
         show: true,
-        tableRenderKey: "th",
-        found: "payment_method",
+        tableRenderKey: 'th',
+        found: 'payment_method',
         searchable: true,
       },
       {
-        id: "status",
-        label: "status",
+        id: 'status',
+        label: 'status',
         show: true,
-        tableRenderKey: "th",
-        found: "status",
+        tableRenderKey: 'th',
+        found: 'status',
         searchable: true,
       },
-    ]
-  }
+    ];
+  };
   return (
     <div>
       <SuperTable
@@ -170,7 +170,7 @@ const PaymentsTable = ({ payments, title }) => {
         data={prettyPayments}
       />
     </div>
-  )
-}
+  );
+};
 
-export default PaymentsTable
+export default PaymentsTable;

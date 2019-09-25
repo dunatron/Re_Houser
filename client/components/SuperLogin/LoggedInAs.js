@@ -1,12 +1,12 @@
-import React, { useState } from "react"
-import { useQuery } from "@apollo/react-hooks"
-import ChangeRouteButton from "../Routes/ChangeRouteButton"
-import Signout from "../Signout/index"
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import Signout from '../Signout/index';
 
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types';
 
 const LoggedInAs = ({ me }) => {
-  if (!me) return null
+  if (!me) return null;
   return (
     <div>
       <h2>
@@ -29,12 +29,12 @@ const LoggedInAs = ({ me }) => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
 LoggedInAs.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-}
+};
 
-export default LoggedInAs
+export default LoggedInAs;

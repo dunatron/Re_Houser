@@ -1,14 +1,14 @@
-import React, { Component } from "react"
-import Router from "next/router"
-import NavButton from "../../styles/NavButton"
-import { DashBoardStyles, BoardItemStyles } from "./styles"
+import React, { Component } from 'react';
+import Router from 'next/router';
+import NavButton from '../../styles/NavButton';
+import { DashBoardStyles, BoardItemStyles } from './styles';
 
-const handleLink = (route = "/", query = {}) => {
+const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
     query: query,
-  })
-}
+  });
+};
 
 // export default class Dashboard extends Component {
 //   render() {
@@ -60,53 +60,53 @@ const handleLink = (route = "/", query = {}) => {
 
 const DASHBOARD_CONFIG = [
   {
-    label: "applications",
-    route: "/my/applications",
+    label: 'applications',
+    route: '/my/applications',
     description:
-      "Here you can review your applications. You can search and filter by various data to stay up to date with your applications",
-    color: "secondary",
-    icon: "ICON",
+      'Here you can review your applications. You can search and filter by various data to stay up to date with your applications',
+    color: 'secondary',
+    icon: 'ICON',
   },
   {
-    label: "Properties",
-    route: "/my/properties",
+    label: 'Properties',
+    route: '/my/properties',
     description:
-      "As a property owner you can view and manage all of your properties from here",
-    color: "secondary",
-    icon: "ICON",
+      'As a property owner you can view and manage all of your properties from here',
+    color: 'secondary',
+    icon: 'ICON',
   },
   {
-    label: "Leases",
-    route: "/my/leases",
-    description: "Any leases to sign and manage will be found here",
-    color: "secondary",
-    icon: "ICON",
+    label: 'Leases',
+    route: '/my/leases',
+    description: 'Any leases to sign and manage will be found here',
+    color: 'secondary',
+    icon: 'ICON',
   },
   {
-    label: "Friend Manager",
-    route: "/my/friends",
+    label: 'Friend Manager',
+    route: '/my/friends',
     description:
-      "Here you can search for other users and send or accept friend requests. You can build friend groups or find other users to apply for rentals with",
-    color: "secondary",
-    icon: "ICON",
+      'Here you can search for other users and send or accept friend requests. You can build friend groups or find other users to apply for rentals with',
+    color: 'secondary',
+    icon: 'ICON',
   },
   {
-    label: "Add Property",
-    route: "/add/property",
+    label: 'Add Property',
+    route: '/add/property',
     description:
-      "Add Properties for renting. This is where we collect information about your rental before adding it to your profile",
-    color: "secondary",
-    icon: "ICON",
+      'Add Properties for renting. This is where we collect information about your rental before adding it to your profile',
+    color: 'secondary',
+    icon: 'ICON',
   },
   {
-    label: "Account",
-    route: "/account",
+    label: 'Account',
+    route: '/account',
     description:
-      "Manage your Re_Houser account. filling out these details early will make using the rest of the app painless",
-    color: "secondary",
-    icon: "ICON",
+      'Manage your Re_Houser account. filling out these details early will make using the rest of the app painless',
+    color: 'secondary',
+    icon: 'ICON',
   },
-]
+];
 
 export default class Dashboard extends Component {
   render() {
@@ -134,6 +134,6 @@ export default class Dashboard extends Component {
           ))}
         </div>
       </DashBoardStyles>
-    )
+    );
   }
 }

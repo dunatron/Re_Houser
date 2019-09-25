@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import Card from "@material-ui/core/Card"
+import styled from 'styled-components';
+import Card from '@material-ui/core/Card';
 
 const PropertyCard = styled(Card)`
   && {
@@ -23,6 +23,6 @@ const PropertyCard = styled(Card)`
       margin: 0 8px 8px 0;
     }
   }
-`
+`;
 
-export default PropertyCard
+export default PropertyCard;

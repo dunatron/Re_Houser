@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import styled from "styled-components"
-import User from "../User/index"
-import CreditCardItem from "./CreditCardItem"
+import React, { Component } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import styled from 'styled-components';
+import User from '../User/index';
+import CreditCardItem from './CreditCardItem';
 
 const CreditCardGridStyles = styled.div`
   display: flex;
@@ -13,16 +13,16 @@ const CreditCardGridStyles = styled.div`
   }
   @media only screen and (min-width: 992px) {
   }
-`
+`;
 
 const CreditCardsList = ({ cardsList }) => {
   return (
     <User>
       {({ data: { me } }) => {
-        if (!me) return <p>You must be logged in to view your cards</p>
+        if (!me) return <p>You must be logged in to view your cards</p>;
         const primaryCardId = me.primaryCreditCard
           ? me.primaryCreditCard.id
-          : null
+          : null;
         return (
           <CreditCardGridStyles>
             {cardsList.map((creditCard, i) => {
@@ -32,13 +32,13 @@ const CreditCardsList = ({ cardsList }) => {
                   card={creditCard}
                   isPrimary={primaryCardId === creditCard.id}
                 />
-              )
+              );
             })}
           </CreditCardGridStyles>
-        )
+        );
       }}
     </User>
-  )
-}
+  );
+};
 
-export default CreditCardsList
+export default CreditCardsList;

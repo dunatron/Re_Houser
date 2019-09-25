@@ -1,9 +1,9 @@
-import PropertyDetails from "../../components/PropertyDetails/index"
+import PropertyDetails from '../../components/PropertyDetails/index';
 
 const Item = props => (
   <div>
     <PropertyDetails id={props.query.id} />
   </div>
-)
+);
 
-export default Item
+export default Item;

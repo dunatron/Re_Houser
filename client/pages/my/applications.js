@@ -1,5 +1,5 @@
-import RentalApplications from "../../components/RentalApplications.js/index"
-import PleaseSignIn from "../../components/PleaseSignIn"
+import RentalApplications from '../../components/RentalApplications.js/index';
+import PleaseSignIn from '../../components/PleaseSignIn';
 
 const RentalApplicationsPage = props => (
   <div>
@@ -7,6 +7,6 @@ const RentalApplicationsPage = props => (
       <RentalApplications />
     </PleaseSignIn>
   </div>
-)
+);
 
-export default RentalApplicationsPage
+export default RentalApplicationsPage;

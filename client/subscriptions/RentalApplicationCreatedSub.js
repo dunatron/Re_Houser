@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const RENTAL_APPLICATION_CREATED_SUBSCRIPTION = gql`
   subscription {
@@ -29,9 +29,9 @@ const RENTAL_APPLICATION_CREATED_SUBSCRIPTION = gql`
       }
     }
   }
-`
+`;
 
-export { RENTAL_APPLICATION_CREATED_SUBSCRIPTION }
+export { RENTAL_APPLICATION_CREATED_SUBSCRIPTION };
 
 // import gql from "graphql-tag"
 // import { RentalApplicationInfoFragment } from "../fragments/rentalApplicationInfo"

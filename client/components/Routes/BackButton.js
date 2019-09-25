@@ -1,7 +1,7 @@
-import Router from "next/router"
+import Router from 'next/router';
 
 const BackButton = () => {
-  return <div onClick={() => Router.back()}>Go Back</div>
-}
+  return <div onClick={() => Router.back()}>Go Back</div>;
+};
 
-export default BackButton
+export default BackButton;

@@ -1,6 +1,6 @@
 // import PropertyDetails from "../../components/PropertyDetails/index"
-import FriendManager from "../../components/FriendManager/index"
-import PleaseSignIn from "../../components/PleaseSignIn"
+import FriendManager from '../../components/FriendManager/index';
+import PleaseSignIn from '../../components/PleaseSignIn';
 
 const MyLeasePage = props => (
   <div>
@@ -8,6 +8,6 @@ const MyLeasePage = props => (
       <FriendManager />
     </PleaseSignIn>
   </div>
-)
+);
 
-export default MyLeasePage
+export default MyLeasePage;

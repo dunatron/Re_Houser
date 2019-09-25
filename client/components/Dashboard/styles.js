@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import Paper from "@material-ui/core/Paper"
+import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
 const BoardItemStyles = styled(Paper)`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
   border-radius: 3px;
@@ -26,7 +26,7 @@ const BoardItemStyles = styled(Paper)`
     line-height: 28px;
     font-family: "GustanLight";
   }
-`
+`;
 
 const DashBoardStyles = styled(Paper)`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
@@ -52,7 +52,7 @@ const DashBoardStyles = styled(Paper)`
     flex-wrap: wrap;
     justify-content: center;
   }
-`
+`;
 
-export default DashBoardStyles
-export { DashBoardStyles, BoardItemStyles }
+export default DashBoardStyles;
+export { DashBoardStyles, BoardItemStyles };

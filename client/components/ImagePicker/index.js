@@ -1,23 +1,23 @@
-import React, { Component, PureComponent, useMemo } from "react"
-import styled from "styled-components"
-import encodeImage from "../../lib/encodeImage"
-import Fab from "@material-ui/core/Fab"
-import DeleteIcon from "@material-ui/icons/Delete"
+import React, { Component, PureComponent, useMemo } from 'react';
+import styled from 'styled-components';
+import encodeImage from '../../lib/encodeImage';
+import Fab from '@material-ui/core/Fab';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const ImageList = styled.div`
   display: flex;
   flex-wrap: wrap;
-`
+`;
 export default class ImagePicker extends PureComponent {
   render() {
-    const { images } = this.props
+    const { images } = this.props;
     return (
       <ImageList>
         {images.map((img, idx) => (
           <ImageTile image={img} remove={() => this.props.remove(idx)} />
         ))}
       </ImageList>
-    )
+    );
   }
 }
 const ImgTile = styled.div`
@@ -37,12 +37,12 @@ const ImgTile = styled.div`
     /* max-width: 200px; */
     object-fit: cover;
   }
-`
+`;
 
 const contentAsSrc = content => {
-  const src = "data:image/png;base64," + encodeImage(content)
-  return src
-}
+  const src = 'data:image/png;base64,' + encodeImage(content);
+  return src;
+};
 
 const ImageTile = ({ image, remove }) => {
   // const src =
@@ -51,11 +51,11 @@ const ImageTile = ({ image, remove }) => {
   //     : "data:image/png;base64," + encodeImage(image.data.content)
   const memoizedSrc = useMemo(() => contentAsSrc(image.data.content), [
     image.data,
-  ])
+  ]);
   return (
     <ImgTile>
       <Fab
-        style={{ position: "absolute" }}
+        style={{ position: 'absolute' }}
         size="small"
         color="secondary"
         aria-label="Add"
@@ -66,5 +66,5 @@ const ImageTile = ({ image, remove }) => {
       {/* <img src={src} /> */}
       <img src={memoizedSrc} />
     </ImgTile>
-  )
-}
+  );
+};

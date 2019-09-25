@@ -1,6 +1,6 @@
-import React from "react"
-import Switch from "@material-ui/core/Switch"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
+import React from 'react';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const SwitchInput = ({ checked, onChange, label, checkedLabel = label }) => {
   return (
@@ -14,7 +14,7 @@ const SwitchInput = ({ checked, onChange, label, checkedLabel = label }) => {
       }
       label={checked ? checkedLabel : label}
     />
-  )
-}
+  );
+};
 
-export default SwitchInput
+export default SwitchInput;

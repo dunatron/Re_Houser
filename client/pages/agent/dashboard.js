@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import DelayInput from "../../components/Inputs/DelayInput"
-import VirtuallyDynamic from "../../components/VirtuallyDynamic/index"
+import React, { useState } from 'react';
+import DelayInput from '../../components/Inputs/DelayInput';
+import VirtuallyDynamic from '../../components/VirtuallyDynamic/index';
 
 /**
  * Just a simple search box to return names of people,
@@ -8,16 +8,16 @@ import VirtuallyDynamic from "../../components/VirtuallyDynamic/index"
  * perhaps from there drill into records
  */
 const SEARCH_ITEMS_LIST = [
-  { title: "Test 1", url: "https://" },
-  { title: "Test 2", url: "https://" },
-  { title: "Test 2", url: "https://" },
-  { title: "Test 4", url: "https://" },
-  { title: "Test 5", url: "https://" },
-]
+  { title: 'Test 1', url: 'https://' },
+  { title: 'Test 2', url: 'https://' },
+  { title: 'Test 2', url: 'https://' },
+  { title: 'Test 4', url: 'https://' },
+  { title: 'Test 5', url: 'https://' },
+];
 const AgentDashboardPage = () => {
   // Declare a new state variable, which we'll call "count"
-  const [searchString, setSearchString] = useState("")
-  const [searchItems, setSearchItems] = useState(SEARCH_ITEMS_LIST)
+  const [searchString, setSearchString] = useState('');
+  const [searchItems, setSearchItems] = useState(SEARCH_ITEMS_LIST);
   return (
     <div>
       <h1>You have searched For {searchString}</h1>
@@ -33,7 +33,7 @@ const AgentDashboardPage = () => {
         <VirtuallyDynamic uniqueStamp={searchString} data={searchItems} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AgentDashboardPage
+export default AgentDashboardPage;

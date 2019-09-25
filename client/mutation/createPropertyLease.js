@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const CREATE_PROPERTY_LEASE_MUTATION = gql`
   mutation CREATE_PROPERTY_LEASE_MUTATION($data: PropertyLeaseCreateInput!) {
@@ -8,6 +8,6 @@ const CREATE_PROPERTY_LEASE_MUTATION = gql`
       location
     }
   }
-`
+`;
 
-export { CREATE_PROPERTY_LEASE_MUTATION }
+export { CREATE_PROPERTY_LEASE_MUTATION };

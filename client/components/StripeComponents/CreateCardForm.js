@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import {
   CardElement,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
-  injectStripe
-} from "react-stripe-elements";
-import { useMutation } from "@apollo/react-hooks";
-import { CREATE_CREDIT_CARD_MUTATION } from "../../mutation/createCreditCard";
-import { MY_CREDIT_CARDS_QUERY } from "../../query/index";
-import ButtonLoader from "../Loader/ButtonLoader";
-import { Button } from "@material-ui/core";
+  injectStripe,
+} from 'react-stripe-elements';
+import { useMutation } from '@apollo/react-hooks';
+import { CREATE_CREDIT_CARD_MUTATION } from '../../mutation/createCreditCard';
+import { MY_CREDIT_CARDS_QUERY } from '../../query/index';
+import ButtonLoader from '../Loader/ButtonLoader';
+import { Button } from '@material-ui/core';
 
 const RenderError = ({ error }) => {
   if (!error.code) return null;
@@ -33,7 +33,7 @@ const CreditCardForm = props => {
   const noErrorObj = {
     code: null,
     message: null,
-    type: null
+    type: null,
   };
 
   const [errorObj, setErrorObj] = useState(noErrorObj);
@@ -45,7 +45,7 @@ const CreditCardForm = props => {
   const onToken = async token => {
     await createCreditCard({
       variables: { token: token.id },
-      update: (proxy, payload) => _updateCache(proxy, payload)
+      update: (proxy, payload) => _updateCache(proxy, payload),
     });
   };
 
@@ -54,23 +54,23 @@ const CreditCardForm = props => {
       query: MY_CREDIT_CARDS_QUERY,
       variables: {
         where: {
-          id: me.id
-        }
-      }
+          id: me.id,
+        },
+      },
     });
     proxy.writeQuery({
       query: MY_CREDIT_CARDS_QUERY,
       variables: {
         where: {
-          id: me.id
-        }
+          id: me.id,
+        },
       },
       data: {
         myCreditCards: [
           ...userCards.myCreditCards,
-          payload.data.createCreditCard
-        ]
-      }
+          payload.data.createCreditCard,
+        ],
+      },
     });
     _clearCard();
   };
@@ -128,8 +128,7 @@ const CreditCardForm = props => {
           onClick={e => {
             e.preventDefault();
             _clearCard();
-          }}
-        >
+          }}>
           CLear
         </Button>
       </form>

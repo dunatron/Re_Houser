@@ -1,5 +1,5 @@
-import gql from "graphql-tag"
-import { PaymentInfoFragment } from "../fragments/paymentInfo"
+import gql from 'graphql-tag';
+import { PaymentInfoFragment } from '../fragments/paymentInfo';
 
 const PAYMENTS_QUERY = gql`
   query PAYMENTS_QUERY(
@@ -24,6 +24,6 @@ const PAYMENTS_QUERY = gql`
     }
   }
   ${PaymentInfoFragment}
-`
+`;
 
-export { PAYMENTS_QUERY }
+export { PAYMENTS_QUERY };

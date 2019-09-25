@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import gql from "graphql-tag"
-import { useMutation } from "@apollo/react-hooks"
-import Error from "../ErrorMessage"
-import SelectOption from "../../components/Inputs/SelectOption"
-import { SINGLE_RENTAL_APPLICATION_QUERY } from "../../query/index"
+import React, { useState } from 'react';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+import Error from '../ErrorMessage';
+import SelectOption from '../../components/Inputs/SelectOption';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../query/index';
 /**
  * PRIVATE
  * FRIENDS_ONLY
@@ -19,25 +19,25 @@ const UPDATE_APPLICATION_VISIBILITY_MUTATION = gql`
       visibility
     }
   }
-`
+`;
 const options = [
   {
-    name: "Private",
-    value: "PRIVATE",
+    name: 'Private',
+    value: 'PRIVATE',
   },
   {
-    name: "Friend Only",
-    value: "FRIENDS_ONLY",
+    name: 'Friend Only',
+    value: 'FRIENDS_ONLY',
   },
   {
-    name: "Public",
-    value: "PUBLIC",
+    name: 'Public',
+    value: 'PUBLIC',
   },
-]
+];
 const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
   const [updateVisibility, updateVisibilityProps] = useMutation(
     UPDATE_APPLICATION_VISIBILITY_MUTATION
-  )
+  );
   return (
     <>
       <Error error={updateVisibilityProps.error} />
@@ -57,9 +57,9 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
               },
             },
             optimisticResponse: {
-              __typename: "Mutation",
+              __typename: 'Mutation',
               updateRentalApplication: {
-                __typename: "RentalApplication",
+                __typename: 'RentalApplication',
                 id: applicationId,
                 visibility: e.target.value,
               },
@@ -70,7 +70,7 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
                 variables: {
                   where: { id: applicationId },
                 },
-              })
+              });
               proxy.writeQuery({
                 query: SINGLE_RENTAL_APPLICATION_QUERY,
                 variables: {
@@ -80,13 +80,13 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
                   ...rentalApplication,
                   ...payload.data.updateRentalApplication,
                 },
-              })
+              });
             },
           })
         }
       />
     </>
-  )
-}
+  );
+};
 
-export default ChangeApplicationVisibilityBtn
+export default ChangeApplicationVisibilityBtn;

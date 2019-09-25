@@ -3,7 +3,7 @@
 // export { SettingsInputIcon }
 // export default SettingsInputIcon
 
-import SettingsInputIcon from "@material-ui/icons/SettingsInputComponent"
+import SettingsInputIcon from '@material-ui/icons/SettingsInputComponent';
 
-export { SettingsInputIcon }
-export default SettingsInputIcon
+export { SettingsInputIcon };
+export default SettingsInputIcon;

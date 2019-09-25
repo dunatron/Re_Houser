@@ -1,38 +1,38 @@
-import React, { useState } from "react"
-import { useQuery } from "@apollo/react-hooks"
+import React, { useState } from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
-import PropTypes from "prop-types"
-import { withStyles } from "@material-ui/core/styles"
-import SwipeableViews from "react-swipeable-views"
-import AppBar from "@material-ui/core/AppBar"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import Typography from "@material-ui/core/Typography"
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
 // Forms
-import Signup from "../Signup/index"
-import Signin from "../Signin/index"
-import RequestReset from "../RequestReset/index"
+import Signup from '../Signup/index';
+import Signin from '../Signin/index';
+import RequestReset from '../RequestReset/index';
 // icons
-import PersonAddIcon from "@material-ui/icons/PersonAdd"
-import PersonIcon from "@material-ui/icons/Person"
-import ResetIcon from "@material-ui/icons/Build"
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonIcon from '@material-ui/icons/Person';
+import ResetIcon from '@material-ui/icons/Build';
 
-import LoggedInAs from "./LoggedInAs"
+import LoggedInAs from './LoggedInAs';
 
-import { CURRENT_USER_QUERY } from "../../query/index"
+import { CURRENT_USER_QUERY } from '../../query/index';
 
 const TabContainer = ({ children, dir }) => {
   return (
     <Typography component="div" dir={dir} style={{ padding: `16px 0` }}>
       {children}
     </Typography>
-  )
-}
+  );
+};
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
   dir: PropTypes.string.isRequired,
-}
+};
 
 const styles = theme => ({
   root: {
@@ -40,31 +40,31 @@ const styles = theme => ({
     // maxWidth: 800,
     // margin: "auto",
   },
-})
+});
 
 const LoginPage = props => {
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(0);
   // const user =
-  const { data, error } = useQuery(CURRENT_USER_QUERY, { suspend: true })
+  const { data, error } = useQuery(CURRENT_USER_QUERY, { suspend: true });
   if (error) {
-    return <div>Error! {error.message}</div>
+    return <div>Error! {error.message}</div>;
   }
 
   // logged in so show show logged in page
   // if (data.me) return <LoggedInAs me={data.me} />
   if (data) {
-    if (data.me) return <LoggedInAs me={data.me} />
+    if (data.me) return <LoggedInAs me={data.me} />;
   }
 
   const handleChange = (event, value) => {
-    setTabIndex(value)
-  }
+    setTabIndex(value);
+  };
 
   const handleChangeIndex = index => {
-    setTabIndex(value)
-  }
+    setTabIndex(value);
+  };
 
-  const { classes, theme } = props
+  const { classes, theme } = props;
 
   return (
     <div className={classes.root}>
@@ -81,7 +81,7 @@ const LoginPage = props => {
         </Tabs>
       </AppBar>
       <SwipeableViews
-        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={tabIndex}
         onChangeIndex={handleChangeIndex}>
         <TabContainer dir={theme.direction}>
@@ -95,12 +95,12 @@ const LoginPage = props => {
         </TabContainer>
       </SwipeableViews>
     </div>
-  )
-}
+  );
+};
 
 LoginPage.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-}
+};
 
-export default withStyles(styles, { withTheme: true })(LoginPage)
+export default withStyles(styles, { withTheme: true })(LoginPage);

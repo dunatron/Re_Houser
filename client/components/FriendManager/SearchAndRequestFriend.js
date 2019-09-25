@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { useApolloClient } from "@apollo/react-hooks"
-import gql from "graphql-tag"
-import TextInput from "../Inputs/TextInput"
-import Button from "@material-ui/core/Button"
-import FriendRequestButton from "../MutationButtons/FriendRequestButton"
+import React, { useState } from 'react';
+import { useApolloClient } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import TextInput from '../Inputs/TextInput';
+import Button from '@material-ui/core/Button';
+import FriendRequestButton from '../MutationButtons/FriendRequestButton';
 
 const FIND_USERS_QUERY = gql`
   query FIND_USERS_QUERY(
@@ -30,16 +30,16 @@ const FIND_USERS_QUERY = gql`
       email
     }
   }
-`
+`;
 const SearchAndRequestFriend = props => {
-  const { me } = props
+  const { me } = props;
   // search inputs
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [email, setEmail] = useState("")
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
 
-  const [results, setResults] = useState([])
-  const client = useApolloClient()
+  const [results, setResults] = useState([]);
+  const client = useApolloClient();
   const searchUsers = async () => {
     const users = await client.query({
       query: FIND_USERS_QUERY,
@@ -64,9 +64,9 @@ const SearchAndRequestFriend = props => {
         },
         first: 20,
       },
-    })
-    setResults(users.data.findUsers)
-  }
+    });
+    setResults(users.data.findUsers);
+  };
   return (
     <div>
       <TextInput
@@ -94,10 +94,10 @@ const SearchAndRequestFriend = props => {
             <p>Email => {result.email}</p>
             <FriendRequestButton me={me} requestFriendId={result.id} />
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default SearchAndRequestFriend
+export default SearchAndRequestFriend;

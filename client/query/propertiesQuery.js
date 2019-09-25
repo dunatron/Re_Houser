@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const PROPERTIES_QUERY = gql`
   query PROPERTIES_QUERY {
@@ -28,5 +28,5 @@ const PROPERTIES_QUERY = gql`
       }
     }
   }
-`
-export { PROPERTIES_QUERY }
+`;
+export { PROPERTIES_QUERY };

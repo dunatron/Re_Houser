@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 const RentalGroupApplicantInfoFragment = gql`
   fragment rentalGroupApplicantInfo on RentalGroupApplicant {
     id
@@ -13,6 +13,6 @@ const RentalGroupApplicantInfoFragment = gql`
       lastName
     }
   }
-`
+`;
 
-export { RentalGroupApplicantInfoFragment }
+export { RentalGroupApplicantInfoFragment };

@@ -1,14 +1,14 @@
-import React, { Component } from "react"
-import DragDropUploader from "../DragDropUploader/index"
-import { Mutation } from "react-apollo"
-import { UPDATE_USER_MUTATION } from "../../mutation/index"
-import { CURRENT_USER_QUERY } from "../../query/index"
-import Error from "../ErrorMessage/index"
-import IconButton from "@material-ui/core/IconButton"
+import React, { Component } from 'react';
+import DragDropUploader from '../DragDropUploader/index';
+import { Mutation } from 'react-apollo';
+import { UPDATE_USER_MUTATION } from '../../mutation/index';
+import { CURRENT_USER_QUERY } from '../../query/index';
+import Error from '../ErrorMessage/index';
+import IconButton from '@material-ui/core/IconButton';
 // styles
-import PhotoID from "../../styles/PhotoID"
+import PhotoID from '../../styles/PhotoID';
 // Icons
-import EditIcon from "../../styles/icons/EditIcon"
+import EditIcon from '../../styles/icons/EditIcon';
 
 export default class PhotoIdentification extends Component {
   _updateUserPhotoIdFile = async (file, updateUser) => {
@@ -17,14 +17,14 @@ export default class PhotoIdentification extends Component {
         data: {},
         photoFile: file.raw,
       },
-    })
-  }
+    });
+  };
   render() {
-    const { me } = this.props
-    const { photoIdentification } = me
+    const { me } = this.props;
+    const { photoIdentification } = me;
     return (
       <div
-        style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
+        style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
         <Mutation
           mutation={UPDATE_USER_MUTATION}
           // variables={this._variables()}
@@ -36,8 +36,8 @@ export default class PhotoIdentification extends Component {
                 <PhotoID>
                   <div class="id__strip">
                     <h2 class="id__number">
-                      Photo ID Number{" "}
-                      <span style={{ color: "green" }}>
+                      Photo ID Number{' '}
+                      <span style={{ color: 'green' }}>
                         {me.identificationNumber}
                       </span>
                     </h2>
@@ -45,7 +45,7 @@ export default class PhotoIdentification extends Component {
                       aria-label="Edit"
                       onClick={() =>
                         this.props.updateVariable(
-                          "identificationNumber",
+                          'identificationNumber',
                           me.identificationNumber
                         )
                       }>
@@ -60,15 +60,15 @@ export default class PhotoIdentification extends Component {
               {loading && <p>Please wait...</p>}
               <DragDropUploader
                 // disabled={loading}
-                style={{ padding: "40px" }}
+                style={{ padding: '40px' }}
                 disabled={loading}
                 externalLoading={loading}
-                dropStyles={{ padding: "40px", minWidth: "300px" }}
+                dropStyles={{ padding: '40px', minWidth: '300px' }}
                 addText="Drop Photo Identification"
                 addBtnText="Or Click to Browse"
                 multiple={true}
-                types={["image"]}
-                extensions={[".jpg", ".png"]}
+                types={['image']}
+                extensions={['.jpg', '.png']}
                 // receiveFile={file => this.setFileInState(file)}
                 receiveFile={file =>
                   this._updateUserPhotoIdFile(file, updateUser)
@@ -78,6 +78,6 @@ export default class PhotoIdentification extends Component {
           )}
         </Mutation>
       </div>
-    )
+    );
   }
 }

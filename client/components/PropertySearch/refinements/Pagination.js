@@ -1,7 +1,7 @@
-import React, { useState } from "react"
-import { connectPagination } from "react-instantsearch-dom"
+import React, { useState } from 'react';
+import { connectPagination } from 'react-instantsearch-dom';
 
-import { Button } from "@material-ui/core"
+import { Button } from '@material-ui/core';
 
 /*
 canRefine: false
@@ -16,9 +16,9 @@ const AlgoliaMaterialPagination = props => {
       <h1>ToDo Pagination</h1>
       {}
     </div>
-  )
-}
+  );
+};
 
-const ConnectedPagination = connectPagination(AlgoliaMaterialPagination)
+const ConnectedPagination = connectPagination(AlgoliaMaterialPagination);
 
-export default ConnectedPagination
+export default ConnectedPagination;

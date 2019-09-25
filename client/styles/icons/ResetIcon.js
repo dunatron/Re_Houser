@@ -1,4 +1,4 @@
-import ResetIcon from "@material-ui/icons/Build"
+import ResetIcon from '@material-ui/icons/Build';
 
-export { ResetIcon }
-export default ResetIcon
+export { ResetIcon };
+export default ResetIcon;

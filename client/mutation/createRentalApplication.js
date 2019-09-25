@@ -1,5 +1,5 @@
-import gql from "graphql-tag"
-import { RentalApplicationInfoFragment } from "../fragments/rentalApplicationInfo"
+import gql from 'graphql-tag';
+import { RentalApplicationInfoFragment } from '../fragments/rentalApplicationInfo';
 
 const CREATE_RENTAL_APPLICATION = gql`
   mutation createRentalApplication($data: RentalApplicationCreateInput!) {
@@ -8,6 +8,6 @@ const CREATE_RENTAL_APPLICATION = gql`
     }
   }
   ${RentalApplicationInfoFragment}
-`
+`;
 
-export { CREATE_RENTAL_APPLICATION }
+export { CREATE_RENTAL_APPLICATION };

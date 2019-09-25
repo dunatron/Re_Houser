@@ -1,5 +1,5 @@
-import gql from "graphql-tag"
-import { PropertyInfoFragment } from "../fragments/propertyInfo"
+import gql from 'graphql-tag';
+import { PropertyInfoFragment } from '../fragments/propertyInfo';
 
 const SINGLE_OWNER_PROPERTY_QUERY = gql`
   query SINGLE_OWNER_PROPERTY_QUERY($id: ID!) {
@@ -18,5 +18,5 @@ const SINGLE_OWNER_PROPERTY_QUERY = gql`
     }
   }
   ${PropertyInfoFragment}
-`
-export { SINGLE_OWNER_PROPERTY_QUERY }
+`;
+export { SINGLE_OWNER_PROPERTY_QUERY };

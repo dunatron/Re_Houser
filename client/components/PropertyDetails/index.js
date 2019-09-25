@@ -1,37 +1,37 @@
-import React, { Component, useState, useEffect } from "react"
-import PropTypes from "prop-types"
-import gql from "graphql-tag"
-import { Query } from "react-apollo"
-import { useQuery } from "@apollo/react-hooks"
-import { SINGLE_OWNER_PROPERTY_QUERY } from "../../query/index"
-import Error from "../ErrorMessage/index"
-import styled from "styled-components"
-import Head from "next/head"
-import Tabs from "@material-ui/core/Tabs"
+import React, { Component, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
+import { SINGLE_OWNER_PROPERTY_QUERY } from '../../query/index';
+import Error from '../ErrorMessage/index';
+import styled from 'styled-components';
+import Head from 'next/head';
+import Tabs from '@material-ui/core/Tabs';
 // import Tab from "@material-ui/core/Tab"
-import Tab from "../../styles/Tab"
+import Tab from '../../styles/Tab';
 // tabs
-import Details from "./Details"
-import Leases from "./Leases"
-import Applications from "./Applications"
+import Details from './Details';
+import Leases from './Leases';
+import Applications from './Applications';
 // import Badge from "@material-ui/core/Badge"
-import Badge from "../../styles/Badge"
-import Typography from "@material-ui/core/Typography"
+import Badge from '../../styles/Badge';
+import Typography from '@material-ui/core/Typography';
 // constants
-import { SITE_NAME } from "../../lib/const"
-import { toast } from "react-toastify"
+import { SITE_NAME } from '../../lib/const';
+import { toast } from 'react-toastify';
 
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
       {props.children}
     </Typography>
-  )
+  );
 }
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
 const PropertyCard = styled.div`
   max-width: 1200px;
@@ -49,23 +49,23 @@ const PropertyCard = styled.div`
     /* display: flex;
     flex-wrap: wrap; */
   }
-`
+`;
 
 const PropertyDetails = ({ id }) => {
-  const [tabIndex, setTabIndex] = useState(0)
+  const [tabIndex, setTabIndex] = useState(0);
 
   const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
     variables: {
       id: id,
     },
-  })
-  if (loading) return "loading"
-  if (error) return "error"
-  const property = data.ownerProperty
+  });
+  if (loading) return 'loading';
+  if (error) return 'error';
+  const property = data.ownerProperty;
 
   if (!property) {
-    toast("Real interesting error ")
-    return "This shouldnt happen apologies 😭😭😭 🤢 🤮"
+    toast('Real interesting error ');
+    return 'This shouldnt happen apologies 😭😭😭 🤢 🤮';
   }
 
   return (
@@ -103,7 +103,7 @@ const PropertyDetails = ({ id }) => {
         </TabContainer>
       )}
     </PropertyCard>
-  )
-}
+  );
+};
 
-export default PropertyDetails
+export default PropertyDetails;

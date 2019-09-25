@@ -1,7 +1,7 @@
-import React, { Fragment } from "react"
-import { connectCurrentRefinements } from "react-instantsearch-dom"
-import Chip from "@material-ui/core/Chip"
-import Styled from "styled-components"
+import React, { Fragment } from 'react';
+import { connectCurrentRefinements } from 'react-instantsearch-dom';
+import Chip from '@material-ui/core/Chip';
+import Styled from 'styled-components';
 
 const CurrentRefinementStyles = Styled.ul`
   list-style: none;
@@ -28,7 +28,7 @@ const CurrentRefinementStyles = Styled.ul`
   .refinement-chip {
     margin: 0 6px 6px 0
   }
-`
+`;
 
 const RefinementValue = ({ item, refine, url }) => {
   return (
@@ -41,8 +41,8 @@ const RefinementValue = ({ item, refine, url }) => {
       color="primary"
       variant="outlined"
     />
-  )
-}
+  );
+};
 
 const RefinementGroupList = ({ item, refine, createURL }) => {
   return (
@@ -60,8 +60,8 @@ const RefinementGroupList = ({ item, refine, createURL }) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 const CurrentRefinements = ({ items, refine, createURL }) => (
   <CurrentRefinementStyles>
@@ -83,8 +83,8 @@ const CurrentRefinements = ({ items, refine, createURL }) => (
       </li>
     ))}
   </CurrentRefinementStyles>
-)
+);
 
-const CustomCurrentRefinements = connectCurrentRefinements(CurrentRefinements)
+const CustomCurrentRefinements = connectCurrentRefinements(CurrentRefinements);
 
-export default CustomCurrentRefinements
+export default CustomCurrentRefinements;

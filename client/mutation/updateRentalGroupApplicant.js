@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const UPDATE_RENTAL_GROUP_APPLICANT_MUTATION = gql`
   mutation updateRentalGroupApplicant(
@@ -14,6 +14,6 @@ const UPDATE_RENTAL_GROUP_APPLICANT_MUTATION = gql`
       email
     }
   }
-`
+`;
 
-export { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION }
+export { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION };

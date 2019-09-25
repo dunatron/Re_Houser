@@ -1,5 +1,5 @@
 // StarIcon
-import StarIcon from "@material-ui/icons/Star"
+import StarIcon from '@material-ui/icons/Star';
 
-export { StarIcon }
-export default StarIcon
+export { StarIcon };
+export default StarIcon;

@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 // Maybe this should do mor ethan return a message.
 // If it is being accepted then we are also creating a lease. we could at least return the lease Id so they can go to it and sign etc...

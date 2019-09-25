@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import TableBody from "@material-ui/core/TableBody/TableBody"
-import TableCell from "@material-ui/core/TableCell/TableCell"
-import Checkbox from "@material-ui/core/Checkbox"
+import React, { Component } from 'react';
+import TableBody from '@material-ui/core/TableBody/TableBody';
+import TableCell from '@material-ui/core/TableCell/TableCell';
+import Checkbox from '@material-ui/core/Checkbox';
 
 // data: =>
 // found: "isLeased"
@@ -13,9 +13,9 @@ import Checkbox from "@material-ui/core/Checkbox"
 // type: "truthly"
 export default class RenderCell extends Component {
   render() {
-    const { data, index, allData, executeFunc } = this.props
+    const { data, index, allData, executeFunc } = this.props;
     switch (data.type) {
-      case "btnFunc":
+      case 'btnFunc':
         return (
           <RenderButtonFunc
             data={data}
@@ -24,8 +24,8 @@ export default class RenderCell extends Component {
             executeFunc={(func, data) => executeFunc(func, data)}
             {...this.props}
           />
-        )
-      case "numberOfObj":
+        );
+      case 'numberOfObj':
         return (
           <RenderNumberOfObj
             data={data}
@@ -33,8 +33,8 @@ export default class RenderCell extends Component {
             allData={allData}
             {...this.props}
           />
-        )
-      case "deep":
+        );
+      case 'deep':
         return (
           <RenderDeep
             data={data}
@@ -42,8 +42,8 @@ export default class RenderCell extends Component {
             allData={allData}
             {...this.props}
           />
-        )
-      case "map":
+        );
+      case 'map':
         return (
           <RenderMap
             data={data}
@@ -51,8 +51,8 @@ export default class RenderCell extends Component {
             allData={allData}
             {...this.props}
           />
-        )
-      case "tag":
+        );
+      case 'tag':
         return (
           <RenderTag
             data={data}
@@ -60,8 +60,8 @@ export default class RenderCell extends Component {
             allData={allData}
             {...this.props}
           />
-        )
-      case "checkbox":
+        );
+      case 'checkbox':
         return (
           <RenderCheckBox
             data={data}
@@ -70,8 +70,8 @@ export default class RenderCell extends Component {
             executeFunc={(func, data) => executeFunc(func, data)}
             {...this.props}
           />
-        )
-      case "truthly":
+        );
+      case 'truthly':
         return (
           <RenderTruthly
             data={data}
@@ -80,7 +80,7 @@ export default class RenderCell extends Component {
             executeFunc={(func, data) => executeFunc(func, data)}
             {...this.props}
           />
-        )
+        );
       default:
         return (
           <RenderDefault
@@ -89,7 +89,7 @@ export default class RenderCell extends Component {
             allData={allData}
             {...this.props}
           />
-        )
+        );
     }
   }
 }
@@ -100,17 +100,17 @@ const RenderButtonFunc = ({ data, allData, index, executeFunc }) => {
       // key={idx}
       align="left"
       numeric={data.numeric}
-      style={{ minWidth: "90px" }}
+      style={{ minWidth: '90px' }}
       component={data.tableRenderKey}
-      padding={index === 0 ? "dense" : "dense"}
+      padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
       <div onClick={() => executeFunc(data.funcName, allData)}>{data.icon}</div>
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderNumberOfObj = ({ data, index, allData }) => {
-  const length = extractDeepValue(data.found, allData).length
+  const length = extractDeepValue(data.found, allData).length;
   return (
     <TableCell
       align="left"
@@ -118,12 +118,12 @@ const RenderNumberOfObj = ({ data, index, allData }) => {
       numeric={data.numeric}
       // style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
-      padding={index === 0 ? "dense" : "dense"}
+      padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
       <CellContent content={length} limitChar={data.limitChar} />
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderDeep = ({ data, index, allData }) => {
   return (
@@ -133,18 +133,18 @@ const RenderDeep = ({ data, index, allData }) => {
       numeric={data.numeric}
       // style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
-      padding={index === 0 ? "dense" : "dense"}
+      padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
       <CellContent
         content={extractDeepValue(data.found, allData)}
         limitChar={data.limitChar}
       />
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
-  const value = allData[data.id]
+  const value = allData[data.id];
   return (
     <TableCell align="left" padding="checkbox" {...data.tableRenderProps}>
       <Checkbox
@@ -154,49 +154,49 @@ const RenderCheckBox = ({ data, index, allData, executeFunc }) => {
         onClick={() => executeFunc(data.funcName, allData)}
       />
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderTruthly = ({ data, index, allData, executeFunc }) => {
-  const value = allData[data.id]
+  const value = allData[data.id];
   return (
     <TableCell size="small" {...data.tableRenderProps}>
-      {value ? "YES" : "NO"}
+      {value ? 'YES' : 'NO'}
       {/* <Checkbox
         checked={value}
         color="primary"
         onClick={() => executeFunc(data.funcName, allData)}
       /> */}
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderMap = ({ data, index, allData }) => {
   return (
     <TableCell
       key={index}
       numeric={data.numeric}
-      style={{ minWidth: "90px" }}
+      style={{ minWidth: '90px' }}
       component={data.tableRenderKey}
-      padding={index === 0 ? "dense" : "dense"}
+      padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
       <CellContent
         content={extractDeepValue(data.found, allData).map((o, oIdx) => {
           return (
             <span key={oIdx}>
               {data.mapKeys.map((cK, ckIdx) => {
-                return <span key={ckIdx}>{o[cK]},</span>
+                return <span key={ckIdx}>{o[cK]},</span>;
               })}
             </span>
-          )
+          );
         })}
         limitChar={data.limitChar}
       />
 
       {/* <CellContent content={"I will be tags"} /> */}
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderTag = ({ data, index, allData }) => {
   return (
@@ -204,38 +204,38 @@ const RenderTag = ({ data, index, allData }) => {
       align="left"
       key={index}
       numeric={data.numeric}
-      style={{ minWidth: "90px" }}
+      style={{ minWidth: '90px' }}
       component={data.tableRenderKey}
-      padding={index === 0 ? "dense" : "dense"}
+      padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
       {extractDeepValue(data.found, allData).map((o, oIdx) => {
-        return <span key={oIdx}>{o[data.tagKey]}</span>
+        return <span key={oIdx}>{o[data.tagKey]}</span>;
       })}
     </TableCell>
-  )
-}
+  );
+};
 
 const RenderDefault = props => {
-  const { data, index, allData } = props
+  const { data, index, allData } = props;
   return (
     <TableCell
       align="left"
       key={index}
       numeric={data.numeric}
-      style={{ minWidth: "90px" }}
+      style={{ minWidth: '90px' }}
       size="medium"
       component={data.tableRenderKey}
-      padding={index === 0 ? "dense" : "dense"}
+      padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
       <CellContent content={allData[data.id]} limitChar={data.limitChar} />
     </TableCell>
-  )
-}
+  );
+};
 
 const extractDeepValue = (str, dataObj) => {
-  const value = str.split(".").reduce((o, i) => o[i], dataObj)
-  return value ? value : ""
-}
+  const value = str.split('.').reduce((o, i) => o[i], dataObj);
+  return value ? value : '';
+};
 
 const CellContent = ({ content, limitChar }) => {
   if (limitChar) {
@@ -243,13 +243,13 @@ const CellContent = ({ content, limitChar }) => {
       content.length > limitChar ? (
         <div>
           {content.substring(0, limitChar - 3)}
-          <DialogPopup text={"..."} content={content} />
+          <DialogPopup text={'...'} content={content} />
         </div>
       ) : (
         content
-      )
-    return trimmedString
+      );
+    return trimmedString;
   }
 
-  return content
-}
+  return content;
+};

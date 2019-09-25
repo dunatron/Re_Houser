@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const MY_LEASES_QUERY = gql`
   query MY_LEASES_QUERY($where: PropertyLeaseWhereInput) {
@@ -27,5 +27,5 @@ const MY_LEASES_QUERY = gql`
       }
     }
   }
-`
-export { MY_LEASES_QUERY }
+`;
+export { MY_LEASES_QUERY };

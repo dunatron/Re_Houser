@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const CREATE_PROPERTY_MUTATION = gql`
   mutation CREATE_PROPERTY_MUTATION(
@@ -9,6 +9,6 @@ const CREATE_PROPERTY_MUTATION = gql`
       id
     }
   }
-`
+`;
 
-export { CREATE_PROPERTY_MUTATION }
+export { CREATE_PROPERTY_MUTATION };

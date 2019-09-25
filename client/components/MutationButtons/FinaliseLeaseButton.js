@@ -1,10 +1,10 @@
-import React, { Component } from "react"
-import gql from "graphql-tag"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import Error from "../ErrorMessage"
-import Button from "@material-ui/core/Button"
-import { toast } from "react-toastify"
-import { SINGLE_LEASE_QUERY } from "../LeaseManager"
+import React, { Component } from 'react';
+import gql from 'graphql-tag';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import Error from '../ErrorMessage';
+import Button from '@material-ui/core/Button';
+import { toast } from 'react-toastify';
+import { SINGLE_LEASE_QUERY } from '../LeaseManager';
 
 const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   mutation FINALISE_PROPERTY_LEASE_MUTATION($leaseId: ID!) {
@@ -13,7 +13,7 @@ const FINALISE_PROPERTY_LEASE_MUTATION = gql`
       data
     }
   }
-`
+`;
 
 const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
   const [finaliseLease, finaliseLeaseProps] = useMutation(
@@ -30,25 +30,25 @@ const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
               id: leaseId,
             },
           },
-        })
+        });
         if (payload.data.finalisePropertyLease) {
           if (
-            payload.data.finalisePropertyLease.__typename === "SuccessMessage"
+            payload.data.finalisePropertyLease.__typename === 'SuccessMessage'
           ) {
-            leaseData.myLease.finalised = true
+            leaseData.myLease.finalised = true;
             toast.info(
               <div>
                 <p>{payload.data.finalisePropertyLease.message}</p>
                 <p>{JSON.stringify(payload.data.finalisePropertyLease.data)}</p>
               </div>
-            )
+            );
           }
         }
       },
     }
-  )
+  );
   if (finalised) {
-    return "Lease has been signed and finalised"
+    return 'Lease has been signed and finalised';
   }
   return (
     <div>
@@ -56,11 +56,11 @@ const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
         variant="outlined"
         onClick={() => finaliseLease()}
         disabled={finaliseLeaseProps.loading}>
-        {finaliseLeaseProps.loading ? "FINALISING LEASE" : "FINALISE LEASE"}
+        {finaliseLeaseProps.loading ? 'FINALISING LEASE' : 'FINALISE LEASE'}
       </Button>
       {finaliseLeaseProps.error && <Error error={finaliseLeaseProps.error} />}
     </div>
-  )
-}
+  );
+};
 
-export default FinaliseLeaseBtn
+export default FinaliseLeaseBtn;

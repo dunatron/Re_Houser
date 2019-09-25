@@ -1,21 +1,21 @@
-import React, { Component } from "react"
+import React, { Component } from 'react';
 // import "react-virtualized/styles.css"
 import {
   List,
   AutoSizer,
   CellMeasurer,
   CellMeasurerCache,
-} from "react-virtualized"
+} from 'react-virtualized';
 
 const cache = new CellMeasurerCache({
   fixedWidth: true,
   defaultHeight: 50,
-})
+});
 
 export default class TronsVirtualizedList extends Component {
   componentWillReceiveProps(nextProps) {
     //Really important !!
-    cache.clearAll() //Clear the cache if row heights are recompute to be sure there are no "blank spaces" (some row are erased)
+    cache.clearAll(); //Clear the cache if row heights are recompute to be sure there are no "blank spaces" (some row are erased)
   }
   renderRow = ({ index, parent, key, style }) => {
     return (
@@ -30,8 +30,8 @@ export default class TronsVirtualizedList extends Component {
           style={{
             ...style,
             maxHeight: 165,
-            overflow: "hidden",
-            borderBottom: "2px solid grey",
+            overflow: 'hidden',
+            borderBottom: '2px solid grey',
           }}>
           {/* <a href={this.props.data[index].url} target="_blank">
             {this.props.data[index].url}
@@ -64,13 +64,13 @@ export default class TronsVirtualizedList extends Component {
           />
         </div>
       </CellMeasurer>
-    )
-  }
+    );
+  };
   render() {
-    const uniqueStamp = this.props.uniqueStamp
+    const uniqueStamp = this.props.uniqueStamp;
     return (
       <AutoSizer
-        onResize={({ height, width }) => console.log("Sizer h => ", height)}>
+        onResize={({ height, width }) => console.log('Sizer h => ', height)}>
         {({ width, height }) => {
           return (
             <List
@@ -82,9 +82,9 @@ export default class TronsVirtualizedList extends Component {
               rowHeight={cache.rowHeight}
               rowRenderer={this.renderRow}
             />
-          )
+          );
         }}
       </AutoSizer>
-    )
+    );
   }
 }

@@ -1,16 +1,16 @@
-import React, { Component, useState, useEffect } from "react"
-import { useMutation } from "@apollo/react-hooks"
-import Error from "../ErrorMessage/index"
-import { isEmpty } from "ramda"
-import { toast } from "react-toastify"
+import React, { Component, useState, useEffect } from 'react';
+import { useMutation } from '@apollo/react-hooks';
+import Error from '../ErrorMessage/index';
+import { isEmpty } from 'ramda';
+import { toast } from 'react-toastify';
 import {
   ACCEPT_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
-} from "../../mutation/index"
-import { useMatchFetch } from "../Effects/useMatchEffect"
+} from '../../mutation/index';
+import { useMatchFetch } from '../Effects/useMatchEffect';
 
-import { Button } from "@material-ui/core"
-import ChangeRouteButton from "../Routes/ChangeRouteButton"
+import { Button } from '@material-ui/core';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 // export const Example = () => {
 //   const render = useMatchFetch("https://swapi.co/api/people/1/?format=json")
@@ -42,8 +42,8 @@ const createLessors = ids => {
         id: id,
       },
     },
-  }))
-}
+  }));
+};
 
 /**
  * This is actually going to be tied to createALeaseButton aswel as the acceptRentalApplication
@@ -59,7 +59,7 @@ const createLessors = ids => {
 //   return errors.map(error => <Error error={error} />)
 // }
 const ErrorSupplier = ({ errors, tronM }) =>
-  errors.map(error => <Error error={error} tronM={tronM} />)
+  errors.map(error => <Error error={error} tronM={tronM} />);
 const AcceptApplicationButton = ({ application, property }) => {
   // 1. extract the applicants from the application
   // application.
@@ -67,11 +67,11 @@ const AcceptApplicationButton = ({ application, property }) => {
   const tenantIds = application.applicants
     .filter(f => f.approved === true)
     .filter(f => f.completed === true)
-    .map(tenant => tenant.user.id)
+    .map(tenant => tenant.user.id);
 
   // havnt done this yet...
   // const ownerIds = application
-  const ownerId = application.owner.id
+  const ownerId = application.owner.id;
 
   // 2. extract the owners from the application.
   // 3. then get the data
@@ -91,11 +91,11 @@ const AcceptApplicationButton = ({ application, property }) => {
             <div>
               <h1>Application Accepted</h1>
             </div>
-          )
+          );
         }
       },
     }
-  )
+  );
   // ToDo: Mutation Props
   const [createNewPropertyLease, newLeasePayload] = useMutation(
     CREATE_PROPERTY_LEASE_MUTATION,
@@ -134,7 +134,7 @@ const AcceptApplicationButton = ({ application, property }) => {
         },
       },
       update: (proxy, payload) => {
-        const newLease = payload.data.createPropertyLease
+        const newLease = payload.data.createPropertyLease;
         // Once application is accepted we can create a newLease
         toast.success(
           <div>
@@ -151,10 +151,10 @@ const AcceptApplicationButton = ({ application, property }) => {
           {
             autoClose: 15000,
           }
-        )
+        );
       },
     }
-  )
+  );
   return (
     <>
       <ErrorSupplier
@@ -165,15 +165,15 @@ const AcceptApplicationButton = ({ application, property }) => {
       <Button
         variant="outlined"
         onClick={() => {
-          acceptApplicationMutation()
-          createNewPropertyLease()
+          acceptApplicationMutation();
+          createNewPropertyLease();
           // acceptApplicationMutation2()
           // createNewPropertyLease()
         }}>
         Accept application
       </Button>
     </>
-  )
-}
+  );
+};
 
-export default AcceptApplicationButton
+export default AcceptApplicationButton;

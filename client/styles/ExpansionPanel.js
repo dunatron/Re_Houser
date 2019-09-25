@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import ExpansionPanelComponent from "@material-ui/core/ExpansionPanel"
+import styled from 'styled-components';
+import ExpansionPanelComponent from '@material-ui/core/ExpansionPanel';
 
 const ExpansionPanel = styled(ExpansionPanelComponent)`
 
@@ -11,6 +11,6 @@ const ExpansionPanel = styled(ExpansionPanelComponent)`
       }
     }};
   }
-`
+`;
 
-export default ExpansionPanel
+export default ExpansionPanel;

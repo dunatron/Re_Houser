@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import Fab from "@material-ui/core/Fab"
+import styled from 'styled-components';
+import Fab from '@material-ui/core/Fab';
 
 const FabButton = styled(Fab)`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
@@ -13,6 +13,6 @@ const FabButton = styled(Fab)`
   && {
     margin: ${props => props.theme.spacing.unit * 3}px 0 0 0;
   }
-`
+`;
 
-export default FabButton
+export default FabButton;

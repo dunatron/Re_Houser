@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 const UserInfoFragment = gql`
   fragment userInfo on User {
     id
@@ -51,6 +51,6 @@ const UserInfoFragment = gql`
       }
     }
   }
-`
+`;
 
-export { UserInfoFragment }
+export { UserInfoFragment };

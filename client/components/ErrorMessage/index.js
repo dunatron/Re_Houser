@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import React, { useEffect } from "react"
-import { toast } from "react-toastify"
+import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types';
 const ErrorStyles = styled.div`
   padding: 2rem;
   background: white;
@@ -16,10 +16,10 @@ const ErrorStyles = styled.div`
   strong {
     margin-right: 1rem;
   }
-`
+`;
 
 const DisplayError = ({ error, tronM }) => {
-  if (!error || !error.message) return null
+  if (!error || !error.message) return null;
 
   if (
     error.networkError &&
@@ -31,14 +31,14 @@ const DisplayError = ({ error, tronM }) => {
         <p data-test="graphql-error">
           <strong>Shoot! network Err</strong>
           {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-          {error.message.replace("GraphQL error: ", "")}
+          {error.message.replace('GraphQL error: ', '')}
         </p>
       )
-    )
+    );
 
     useEffect(() => {
       // maybe put above error toasts inside this useEffect
-    }, [error.networkError.result.errors])
+    }, [error.networkError.result.errors]);
     return error.networkError.result.errors.map((error, i) => (
       <>
         {tronM && (
@@ -50,21 +50,21 @@ const DisplayError = ({ error, tronM }) => {
         <ErrorStyles key={i}>
           <p data-test="graphql-error">
             <strong>Shoot!</strong>
-            {error.message.replace("GraphQL error: ", "")}
+            {error.message.replace('GraphQL error: ', '')}
           </p>
         </ErrorStyles>
       </>
-    ))
+    ));
   }
   useEffect(() => {
     toast.error(
       <p data-test="graphql-error">
         <strong>Shoot! </strong>
         {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-        {error.message.replace("GraphQL error: ", "")}
+        {error.message.replace('GraphQL error: ', '')}
       </p>
-    )
-  }, [error.message])
+    );
+  }, [error.message]);
 
   return (
     <ErrorStyles>
@@ -72,19 +72,19 @@ const DisplayError = ({ error, tronM }) => {
         {tronM && <p>{tronM}</p>}
         <p data-test="graphql-error">
           <strong>Shoot!</strong>
-          {error.message.replace("GraphQL error: ", "")}
+          {error.message.replace('GraphQL error: ', '')}
         </p>
       </>
     </ErrorStyles>
-  )
-}
+  );
+};
 
 DisplayError.defaultProps = {
   error: {},
-}
+};
 
 DisplayError.propTypes = {
   error: PropTypes.object,
-}
+};
 
-export default DisplayError
+export default DisplayError;

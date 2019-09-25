@@ -1,33 +1,33 @@
-import React from "react"
-import PropTypes from "prop-types"
-import AppBar from "@material-ui/core/AppBar"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import Divider from "@material-ui/core/Divider"
-import Drawer from "@material-ui/core/Drawer"
-import Hidden from "@material-ui/core/Hidden"
-import IconButton from "@material-ui/core/IconButton"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
-import List from "@material-ui/core/List"
-import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
-import ListItemText from "@material-ui/core/ListItemText"
-import MailIcon from "@material-ui/icons/Mail"
-import MenuIcon from "@material-ui/icons/Menu"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import { makeStyles, useTheme } from "@material-ui/core/styles"
+import React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MailIcon from '@material-ui/icons/Mail';
+import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import Link from "next/link"
-import Sidebar from "../Sidebar"
+import Link from 'next/link';
+import Sidebar from '../Sidebar';
 
-const drawerWidth = 240
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex",
+    display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
     },
@@ -36,24 +36,24 @@ const useStyles = makeStyles(theme => ({
     // zIndex: "-1",
     // zIndex: "50",
     marginLeft: drawerWidth,
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none",
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
     },
   },
   toolbar: theme.mixins.toolbar,
   logoContainer: {},
   logo: {
     color: theme.palette.primary.main,
-    fontSize: "36px",
-    display: "block",
-    width: "100%",
-    textAlign: "center",
+    fontSize: '36px',
+    display: 'block',
+    width: '100%',
+    textAlign: 'center',
   },
   drawerPaper: {
     width: drawerWidth,
@@ -61,22 +61,22 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    maxWidth: "100%",
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: "calc(100% - 240px)",
+    maxWidth: '100%',
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: 'calc(100% - 240px)',
     },
   },
-}))
+}));
 
 function ResponsiveDrawer(props) {
-  const { container } = props
-  const classes = useStyles()
-  const theme = useTheme()
-  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const { container } = props;
+  const classes = useStyles();
+  const theme = useTheme();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
+    setMobileOpen(!mobileOpen);
+  };
 
   const drawer = (
     <div>
@@ -90,7 +90,7 @@ function ResponsiveDrawer(props) {
       <Divider />
       <Sidebar />
     </div>
-  )
+  );
 
   return (
     <>
@@ -115,7 +115,7 @@ function ResponsiveDrawer(props) {
             <Drawer
               container={container}
               variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={mobileOpen}
               onClose={handleDrawerToggle}
               classes={{
@@ -145,7 +145,7 @@ function ResponsiveDrawer(props) {
         </main>
       </div>
     </>
-  )
+  );
 }
 
 ResponsiveDrawer.propTypes = {
@@ -154,8 +154,8 @@ ResponsiveDrawer.propTypes = {
    * You won't need it on your project.
    */
   container: PropTypes.instanceOf(
-    typeof Element === "undefined" ? Object : Element
+    typeof Element === 'undefined' ? Object : Element
   ),
-}
+};
 
-export default ResponsiveDrawer
+export default ResponsiveDrawer;

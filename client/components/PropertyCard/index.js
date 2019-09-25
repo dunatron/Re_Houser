@@ -1,41 +1,41 @@
-import React, { Component, useState } from "react"
-import PropertyCard from "../../styles/PropertyCard"
-import CardHeader from "@material-ui/core/CardHeader"
-import CardMedia from "@material-ui/core/CardMedia"
-import CardContent from "@material-ui/core/CardContent"
-import CardActions from "@material-ui/core/CardActions"
-import Collapse from "@material-ui/core/Collapse"
-import Avatar from "@material-ui/core/Avatar"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import Map from "../Map/index"
+import React, { Component, useState } from 'react';
+import PropertyCard from '../../styles/PropertyCard';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import Map from '../Map/index';
 //icons
-import FavoriteIcon from "@material-ui/icons/Favorite"
-import ShareIcon from "@material-ui/icons/Share"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import MoreVertIcon from "@material-ui/icons/MoreVert"
-import HomeIcon from "@material-ui/icons/Home"
-import MoneyIcon from "@material-ui/icons/AttachMoney"
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import HomeIcon from '@material-ui/icons/Home';
+import MoneyIcon from '@material-ui/icons/AttachMoney';
 // tabs
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "../../styles/Tab"
-import TabContainer from "../TabContainer/index"
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '../../styles/Tab';
+import TabContainer from '../TabContainer/index';
 // tab components
-import Details from "./Details"
-import Apply from "./Apply"
-import Rating from "./Rating"
+import Details from './Details';
+import Apply from './Apply';
+import Rating from './Rating';
 // custom highlight from search interface
-import CustomHighlight from "../PropertySearch/refinements/CustomHiglight"
+import CustomHighlight from '../PropertySearch/refinements/CustomHiglight';
 
 const PropertyCardComponent = props => {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, value) => {
-    setValue(value)
-  }
+    setValue(value);
+  };
 
-  const { property } = props
-  const isSearch = props.isSearch ? props.isSearch : null
+  const { property } = props;
+  const isSearch = props.isSearch ? props.isSearch : null;
 
   const {
     id,
@@ -55,13 +55,13 @@ const PropertyCardComponent = props => {
     offStreetSpaces,
     outdoorFeatures,
     indoorFeatures,
-  } = property
+  } = property;
 
   return (
     <PropertyCard raised={true}>
       <CardHeader
         avatar={
-          <Avatar aria-label="Recipe" className={"avatar"}>
+          <Avatar aria-label="Recipe" className={'avatar'}>
             H
           </Avatar>
         }
@@ -72,13 +72,13 @@ const PropertyCardComponent = props => {
         }
         title={
           isSearch ? (
-            <CustomHighlight attribute={"location"} hit={property} />
+            <CustomHighlight attribute={'location'} hit={property} />
           ) : (
             location
           )
         }
         subheader={
-          <div style={{ display: "flex" }}>
+          <div style={{ display: 'flex' }}>
             <HomeIcon />
             {rooms}
             <MoneyIcon />
@@ -107,7 +107,7 @@ const PropertyCardComponent = props => {
       )}
       {value === 2 && <TabContainer>{<Rating />}</TabContainer>}
     </PropertyCard>
-  )
-}
+  );
+};
 
-export default PropertyCardComponent
+export default PropertyCardComponent;

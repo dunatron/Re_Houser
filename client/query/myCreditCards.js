@@ -1,5 +1,5 @@
-import gql from "graphql-tag"
-import { CreditCardInfoFragment } from "../fragments/creditCardInfo"
+import gql from 'graphql-tag';
+import { CreditCardInfoFragment } from '../fragments/creditCardInfo';
 
 const MY_CREDIT_CARDS_QUERY = gql`
   query MY_CREDIT_CARDS_QUERY($where: CreditCardWhereInput!) {
@@ -8,5 +8,5 @@ const MY_CREDIT_CARDS_QUERY = gql`
     }
   }
   ${CreditCardInfoFragment}
-`
-export { MY_CREDIT_CARDS_QUERY }
+`;
+export { MY_CREDIT_CARDS_QUERY };

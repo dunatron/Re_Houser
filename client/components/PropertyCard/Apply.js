@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react"
-import gql from "graphql-tag"
-import { useSubscription, useMutation, useQuery } from "@apollo/react-hooks"
-import { CREATE_RENTAL_APPLICATION } from "../../mutation/index"
+import React, { useState, useEffect } from 'react';
+import gql from 'graphql-tag';
+import { useSubscription, useMutation, useQuery } from '@apollo/react-hooks';
+import { CREATE_RENTAL_APPLICATION } from '../../mutation/index';
 import {
   RENTAL_APPLICATIONS_QUERY,
   CURRENT_USER_QUERY,
-} from "../../query/index"
+} from '../../query/index';
 
-import RentalApplications from "./RentalApplications"
-import Button from "@material-ui/core/Button"
-import Error from "../ErrorMessage/index"
-import ChangeRouteButton from "../Routes/ChangeRouteButton"
-import Modal from "../Modal/index"
-import RentalApplicationStepperComponent from "../RentalApplicationStepper/index"
-import Typography from "@material-ui/core/Typography"
+import RentalApplications from './RentalApplications';
+import Button from '@material-ui/core/Button';
+import Error from '../ErrorMessage/index';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import Modal from '../Modal/index';
+import RentalApplicationStepperComponent from '../RentalApplicationStepper/index';
+import Typography from '@material-ui/core/Typography';
 
 const Apply = props => {
-  const user = useQuery(CURRENT_USER_QUERY)
-  const me = user.data ? user.data.me : null
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [applicationData, setApplicationData] = useState({})
+  const user = useQuery(CURRENT_USER_QUERY);
+  const me = user.data ? user.data.me : null;
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [applicationData, setApplicationData] = useState({});
   // useEffect(() => {}, [modalIsOpen])
   // const _apply = async createRentalApplication => {
   //   const res = await createRentalApplication()
@@ -30,9 +30,9 @@ const Apply = props => {
     {
       variables: {
         data: {
-          stage: "INITIALIZING",
-          visibility: "PRIVATE",
-          title: "Jon Does Application",
+          stage: 'INITIALIZING',
+          visibility: 'PRIVATE',
+          title: 'Jon Does Application',
           finalised: false,
           property: {
             connect: {
@@ -52,7 +52,7 @@ const Apply = props => {
             where: {
               OR: [
                 {
-                  visibility: "PUBLIC",
+                  visibility: 'PUBLIC',
                 },
                 {
                   owner: {
@@ -66,39 +66,39 @@ const Apply = props => {
                 },
               },
             },
-          }
+          };
           const data = await cache.readQuery({
             query: RENTAL_APPLICATIONS_QUERY,
             variables: variables,
-          })
-          const applicationId = payload.data.createRentalApplication.id
+          });
+          const applicationId = payload.data.createRentalApplication.id;
           const haveApplication = data.rentalApplications.find(
             application => application.id === applicationId
-          )
+          );
           // return early as to not add to cache subs are listening
           if (haveApplication) {
-            return
+            return;
           }
           data.rentalApplications.push({
             ...payload.data.createRentalApplication,
-          })
+          });
           cache.writeQuery({
             query: RENTAL_APPLICATIONS_QUERY,
             data,
             variables: variables,
-          })
+          });
         } catch (e) {
         } finally {
-          setApplicationData(payload.data.createRentalApplication)
-          setModalIsOpen(true)
+          setApplicationData(payload.data.createRentalApplication);
+          setModalIsOpen(true);
         }
       },
     }
-  )
+  );
 
   if (!me)
     return (
-      <div style={{ maxWidth: "100vw", padding: "16px" }}>
+      <div style={{ maxWidth: '100vw', padding: '16px' }}>
         <h4>You need to sign in or up to apply</h4>
         {/* <SuperLogin /> */}
         <ChangeRouteButton
@@ -108,11 +108,11 @@ const Apply = props => {
           color="secondary"
         />
       </div>
-    )
+    );
 
   return (
     <div>
-      <div style={{ padding: "16px" }}>
+      <div style={{ padding: '16px' }}>
         <Error error={createApplicationProps.error} />
         <Modal
           open={modalIsOpen}
@@ -133,11 +133,11 @@ const Apply = props => {
           disabled={createApplicationProps.loading}
           color="primary"
           variant="outlined"
-          style={{ padding: "16px", margin: "0 0 16px 0" }}
+          style={{ padding: '16px', margin: '0 0 16px 0' }}
           onClick={() => createApplication()}>
           {createApplicationProps.loading
-            ? "Processing Rental Application..."
-            : "Create / Update Rental Application"}
+            ? 'Processing Rental Application...'
+            : 'Create / Update Rental Application'}
         </Button>
       </div>
       <RentalApplications
@@ -145,12 +145,12 @@ const Apply = props => {
         property={props.property}
         me={me}
         openRentalAppModal={rentalData => {
-          setModalIsOpen(true)
-          setApplicationData(rentalData)
+          setModalIsOpen(true);
+          setApplicationData(rentalData);
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Apply
+export default Apply;

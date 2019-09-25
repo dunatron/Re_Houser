@@ -1,87 +1,87 @@
-import React, { useState } from "react"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import { isEmpty, equals } from "ramda"
-import styled from "styled-components"
+import React, { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { isEmpty, equals } from 'ramda';
+import styled from 'styled-components';
 
-import { UPDATE_USER_MUTATION } from "../../mutation/index"
-import { CURRENT_USER_QUERY } from "../../query/index"
+import { UPDATE_USER_MUTATION } from '../../mutation/index';
+import { CURRENT_USER_QUERY } from '../../query/index';
 // configs
-import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig"
-import { withStyles, makeStyles } from "@material-ui/core/styles"
+import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 // components
 // swiping tabs
-import SwipeableViews from "react-swipeable-views"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
+import SwipeableViews from 'react-swipeable-views';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // completion rating
-import CompletionRating from "./CompletionRating"
+import CompletionRating from './CompletionRating';
 // CompletionIcon
-import DynamicCompletionIcon from "./CompletionIcon"
+import DynamicCompletionIcon from './CompletionIcon';
 // PhotoIdentification
-import PhotoIdentification from "./PhotoIdentification"
-import TabContainer from "./TabContainer"
+import PhotoIdentification from './PhotoIdentification';
+import TabContainer from './TabContainer';
 // import TextInput from "../../styles/TextInput"
-import TextField from "@material-ui/core/TextField"
+import TextField from '@material-ui/core/TextField';
 // Credit card tab
-import CreditCardTab from "./CreditCardTab"
-import SaveButtonLoader from "../Loader/SaveButtonLoader"
+import CreditCardTab from './CreditCardTab';
+import SaveButtonLoader from '../Loader/SaveButtonLoader';
 
 //Errors
-import ErrorMessage from "../ErrorMessage"
+import ErrorMessage from '../ErrorMessage';
 
 // Icons
-import EditIcon from "../../styles/icons/EditIcon"
-import MoreIcon from "../../styles/icons/MoreIcon"
-import DetailsIcon from "../../styles/icons/DetailsIcon"
-import CameraIcon from "../../styles/icons/CameraIcon"
+import EditIcon from '../../styles/icons/EditIcon';
+import MoreIcon from '../../styles/icons/MoreIcon';
+import DetailsIcon from '../../styles/icons/DetailsIcon';
+import CameraIcon from '../../styles/icons/CameraIcon';
 
 const useStyles = makeStyles(theme => ({
   inputGrid: {
-    display: "grid",
-    gridGap: "32px",
-    width: "100%",
-    padding: "16px",
-    [theme.breakpoints.up("sm")]: {
-      gridTemplateColumns: "1fr 1fr",
+    display: 'grid',
+    gridGap: '32px',
+    width: '100%',
+    padding: '16px',
+    [theme.breakpoints.up('sm')]: {
+      gridTemplateColumns: '1fr 1fr',
     },
-    [theme.breakpoints.up("md")]: {
-      gridTemplateColumns: "1fr 1fr 1fr ",
+    [theme.breakpoints.up('md')]: {
+      gridTemplateColumns: '1fr 1fr 1fr ',
     },
-    [theme.breakpoints.up("lg")]: {
-      gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: '1fr 1fr 1fr 1fr',
     },
   },
   textField: {
-    fontSize: "32px",
+    fontSize: '32px',
   },
-}))
+}));
 
 const StyledInput = withStyles({
   root: {},
   formControl: {},
   label: {
-    textTransform: "uppercase",
-    fontSize: "18px",
+    textTransform: 'uppercase',
+    fontSize: '18px',
   },
   textField: {
-    fontSize: "32px",
+    fontSize: '32px',
   },
-})(TextField)
+})(TextField);
 
 const AccountComponent = () => {
-  const classes = useStyles()
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [tabIndex, setTabIndex] = useState(0)
+  const classes = useStyles();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
-  const user = useQuery(CURRENT_USER_QUERY)
-  const [updateUser, updateUserProps] = useMutation(UPDATE_USER_MUTATION)
+  const user = useQuery(CURRENT_USER_QUERY);
+  const [updateUser, updateUserProps] = useMutation(UPDATE_USER_MUTATION);
 
   // updates for user mutation
-  const [updates, setUpdates] = useState({})
+  const [updates, setUpdates] = useState({});
 
   const saveToUpdates = e => {
-    setUpdates({ ...updates, [e.target.name]: e.target.value })
-  }
+    setUpdates({ ...updates, [e.target.name]: e.target.value });
+  };
   const _updateUser = async () => {
     const res = await updateUser({
       variables: {
@@ -89,47 +89,47 @@ const AccountComponent = () => {
           ...updates,
         },
       },
-    })
+    });
     if (res.data) {
-      setUpdates({})
+      setUpdates({});
     }
-    closeModal()
-  }
+    closeModal();
+  };
   const closeModal = () => {
-    setModalIsOpen(false)
-  }
+    setModalIsOpen(false);
+  };
   const openModal = () => {
-    setModalIsOpen(true)
-  }
+    setModalIsOpen(true);
+  };
   const handleTabChange = (event, value) => {
-    setTabIndex(value)
-  }
+    setTabIndex(value);
+  };
   const handleChangeIndex = index => {
-    setTabIndex(index)
-  }
-  const update = (cache, payload) => {}
+    setTabIndex(index);
+  };
+  const update = (cache, payload) => {};
 
   const canSave = () => {
-    if (isEmpty(updates)) return false
-    return true
-  }
+    if (isEmpty(updates)) return false;
+    return true;
+  };
 
-  const me = user.data.me
-  if (!me) return null
+  const me = user.data.me;
+  if (!me) return null;
   return (
     <div>
       {canSave() && (
         <div
           style={{
-            position: "fixed",
-            bottom: "16px",
-            right: "16px",
+            position: 'fixed',
+            bottom: '16px',
+            right: '16px',
             zIndex: 10,
           }}>
           <SaveButtonLoader
             loading={updateUserProps.loading}
             onClick={() => {
-              _updateUser()
+              _updateUser();
             }}
           />
         </div>
@@ -164,14 +164,14 @@ const AccountComponent = () => {
                     defaultValue={me[item.variableName]}
                     onChange={saveToUpdates}></StyledInput>
                 </div>
-              )
+              );
             })}
           </div>
         </TabContainer>
         <TabContainer
           containerStyles={{
-            justifyContent: "center",
-            flexWrap: "wrap",
+            justifyContent: 'center',
+            flexWrap: 'wrap',
           }}>
           <PhotoIdentification
             me={me}
@@ -179,7 +179,7 @@ const AccountComponent = () => {
               setUpdates({
                 ...updates,
                 [name]: val,
-              })
+              });
             }}
           />
         </TabContainer>
@@ -188,7 +188,7 @@ const AccountComponent = () => {
         </TabContainer>
       </SwipeableViews>
     </div>
-  )
-}
+  );
+};
 
-export default AccountComponent
+export default AccountComponent;

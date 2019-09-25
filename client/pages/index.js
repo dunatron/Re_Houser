@@ -1,11 +1,11 @@
-import React, { Component } from "react"
+import React, { Component } from 'react';
 
-import LookPage from "./look"
+import LookPage from './look';
 
 // 1.
 export default class index extends Component {
   render() {
-    return <LookPage />
+    return <LookPage />;
     return (
       <div>
         <h1>Re-Houser</h1>
@@ -30,6 +30,6 @@ export default class index extends Component {
           <li>2. check your app/emails for successful applications/groups</li>
         </ul>
       </div>
-    )
+    );
   }
 }

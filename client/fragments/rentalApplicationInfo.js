@@ -1,5 +1,5 @@
-import gql from "graphql-tag"
-import { RentalGroupApplicantInfoFragment } from "./rentalGroupApplicantInfo"
+import gql from 'graphql-tag';
+import { RentalGroupApplicantInfoFragment } from './rentalGroupApplicantInfo';
 
 const RentalApplicationInfoFragment = gql`
   fragment rentalApplicationInfo on RentalApplication {
@@ -31,6 +31,6 @@ const RentalApplicationInfoFragment = gql`
     }
   }
   ${RentalGroupApplicantInfoFragment}
-`
+`;
 
-export { RentalApplicationInfoFragment }
+export { RentalApplicationInfoFragment };

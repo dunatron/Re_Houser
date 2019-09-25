@@ -1,57 +1,57 @@
-import React, { Component } from "react"
+import React, { Component } from 'react';
 
-import { Mutation } from "react-apollo"
-import User from "../User/index"
-import { adopt } from "react-adopt"
-import InputModal from "../Modal/InputModal"
-import Typography from "@material-ui/core/Typography"
+import { Mutation } from 'react-apollo';
+import User from '../User/index';
+import { adopt } from 'react-adopt';
+import InputModal from '../Modal/InputModal';
+import Typography from '@material-ui/core/Typography';
 
-import { UPDATE_USER_MUTATION } from "../../mutation/index"
-import { CURRENT_USER_QUERY } from "../../query/index"
+import { UPDATE_USER_MUTATION } from '../../mutation/index';
+import { CURRENT_USER_QUERY } from '../../query/index';
 // configs
-import { USER_PROFILE_CONF } from "../../lib/configs/userProfileConfig"
+import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
 // components
 // swiping tabs
-import SwipeableViews from "react-swipeable-views"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
+import SwipeableViews from 'react-swipeable-views';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 // completion rating
-import CompletionRating from "./CompletionRating"
+import CompletionRating from './CompletionRating';
 // CompletionIcon
-import DynamicCompletionIcon from "./CompletionIcon"
+import DynamicCompletionIcon from './CompletionIcon';
 // PhotoIdentification
-import PhotoIdentification from "./PhotoIdentification"
-import TabContainer from "./TabContainer"
-import TextInput from "../../styles/TextInput"
-import Error from "../ErrorMessage/index"
-import Button from "@material-ui/core/Button"
-import IconButton from "@material-ui/core/IconButton"
+import PhotoIdentification from './PhotoIdentification';
+import TabContainer from './TabContainer';
+import TextInput from '../../styles/TextInput';
+import Error from '../ErrorMessage/index';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 // Credit card tab
-import CreditCardTab from "./CreditCardTab"
+import CreditCardTab from './CreditCardTab';
 
 // Icons
-import EditIcon from "../../styles/icons/EditIcon"
-import MoreIcon from "../../styles/icons/MoreIcon"
-import DetailsIcon from "../../styles/icons/DetailsIcon"
-import CameraIcon from "../../styles/icons/CameraIcon"
+import EditIcon from '../../styles/icons/EditIcon';
+import MoreIcon from '../../styles/icons/MoreIcon';
+import DetailsIcon from '../../styles/icons/DetailsIcon';
+import CameraIcon from '../../styles/icons/CameraIcon';
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
   updateUser: ({ render }) => (
     <Mutation mutation={UPDATE_USER_MUTATION}>{render}</Mutation>
   ),
-})
+});
 
 export default class index extends Component {
   state = {
     modalIsOpen: false,
-    variable: "",
-    variableVal: "",
+    variable: '',
+    variableVal: '',
     tabIndex: 0,
-  }
+  };
   saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
   _updateUser = async updateUser => {
     const res = await updateUser({
       variables: {
@@ -59,27 +59,27 @@ export default class index extends Component {
           [this.state.variable]: this.state.variableVal,
         },
       },
-    })
-    this.closeModal()
-  }
+    });
+    this.closeModal();
+  };
   closeModal() {
     this.setState({
       modalIsOpen: false,
-    })
+    });
   }
   openModal() {
     this.setState({
       modalIsOpen: true,
-    })
+    });
   }
   handleTabChange = (event, value) => {
-    this.setState({ tabIndex: value })
-  }
+    this.setState({ tabIndex: value });
+  };
   handleChangeIndex = index => {
-    this.setState({ tabIndex: index })
-  }
+    this.setState({ tabIndex: index });
+  };
   renderModalDetails = () => {
-    const { variable, variableVal } = this.state
+    const { variable, variableVal } = this.state;
     return (
       <Mutation
         mutation={UPDATE_USER_MUTATION}
@@ -105,8 +105,8 @@ export default class index extends Component {
           </>
         )}
       </Mutation>
-    )
-  }
+    );
+  };
   update = (cache, payload) => {
     // const { id } = this.props.property
     // const variables = {
@@ -126,14 +126,14 @@ export default class index extends Component {
     //   data,
     //   variables: variables,
     // })
-  }
+  };
   render() {
-    const { modalIsOpen, tabIndex } = this.state
+    const { modalIsOpen, tabIndex } = this.state;
     return (
       <Composed>
         {({ user, updateUser }) => {
-          const me = user.data.me
-          if (!me) return null
+          const me = user.data.me;
+          if (!me) return null;
           return (
             <div>
               <CompletionRating me={me} />
@@ -159,7 +159,7 @@ export default class index extends Component {
                           <label>{item.label}</label>
                           <input value={me[item.variableName]}></input>
                         </div>
-                      )
+                      );
                     })}
                   </div>
                   {USER_PROFILE_CONF.filter(
@@ -168,15 +168,15 @@ export default class index extends Component {
                     return (
                       <div
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          margin: "8px",
+                          display: 'flex',
+                          alignItems: 'center',
+                          margin: '8px',
                         }}>
                         <DynamicCompletionIcon val={me[conf.variableName]} />
                         <div
-                          style={{ display: "flex", flexDirection: "column" }}>
+                          style={{ display: 'flex', flexDirection: 'column' }}>
                           {conf.label}
-                          <span style={{ color: "green" }}>
+                          <span style={{ color: 'green' }}>
                             {me[conf.variableName]}
                           </span>
                         </div>
@@ -192,13 +192,13 @@ export default class index extends Component {
                           <EditIcon color="default" />
                         </IconButton>
                       </div>
-                    )
+                    );
                   })}
                 </TabContainer>
                 <TabContainer
                   containerStyles={{
-                    justifyContent: "center",
-                    flexWrap: "wrap",
+                    justifyContent: 'center',
+                    flexWrap: 'wrap',
                   }}>
                   <PhotoIdentification
                     me={me}
@@ -207,7 +207,7 @@ export default class index extends Component {
                         modalIsOpen: true,
                         variable: name,
                         variableVal: val,
-                      })
+                      });
                     }}
                   />
                 </TabContainer>
@@ -220,9 +220,9 @@ export default class index extends Component {
                 {this.renderModalDetails()}
               </InputModal>
             </div>
-          )
+          );
         }}
       </Composed>
-    )
+    );
   }
 }

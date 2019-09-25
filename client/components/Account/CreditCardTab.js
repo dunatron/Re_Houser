@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { MY_CREDIT_CARDS_QUERY } from "../../query/index";
-import CreditCardsList from "../CreditCard/CreditCardsList";
-import SetPrimaryCreditCardButton from "../MutationButtons/SetPrimaryCreditCardButton";
-import Button from "@material-ui/core/Button";
-import StripeComponents from "../StripeComponents/index";
-import CreateCardForm from "../StripeComponents/CreateCardForm";
-import Loader from "../Loader";
-import ErrorMessage from "../ErrorMessage";
+import React, { useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { MY_CREDIT_CARDS_QUERY } from '../../query/index';
+import CreditCardsList from '../CreditCard/CreditCardsList';
+import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
+import Button from '@material-ui/core/Button';
+import StripeComponents from '../StripeComponents/index';
+import CreateCardForm from '../StripeComponents/CreateCardForm';
+import Loader from '../Loader';
+import ErrorMessage from '../ErrorMessage';
 
 const CreditCardTab = ({ me }) => {
   const { data, error, loading } = useQuery(MY_CREDIT_CARDS_QUERY, {
     variables: {
       where: {
-        id: me.id
-      }
+        id: me.id,
+      },
     },
-    suspend: false
+    suspend: false,
   });
 
   useEffect(() => {}, []);
@@ -31,7 +31,7 @@ const CreditCardTab = ({ me }) => {
       <h1>I am the Credit Card Tab</h1>
       <h2>
         Primary Card ID:
-        {primaryCreditCard ? primaryCreditCard.id : "NOT SET"}
+        {primaryCreditCard ? primaryCreditCard.id : 'NOT SET'}
       </h2>
       <StripeComponents>
         <h1>Create a New Card</h1>

@@ -1,30 +1,30 @@
-import React, { Component } from "react"
-import { useQuery, useMutation, useSubscription } from "@apollo/react-hooks"
-import { RENTAL_APPLICATIONS_QUERY } from "../../query/index"
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from "../../mutation/acceptRentalApplication"
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationCreatedSub"
-import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from "../../subscriptions/RentalApplicationUpdatedSub"
-import PropertyPendingRentalApplicationsSub from "../SubscriptionComponents/PropertyPendingRentalApplicationsSub"
-import Card from "@material-ui/core/Card"
-import ExpansionPanel from "../../styles/ExpansionPanel"
-import ExpansionPanelSummary from "../../styles/ExpansionPanelSummary"
+import React, { Component } from 'react';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { RENTAL_APPLICATIONS_QUERY } from '../../query/index';
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../mutation/acceptRentalApplication';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationCreatedSub';
+import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationUpdatedSub';
+import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
+import Card from '@material-ui/core/Card';
+import ExpansionPanel from '../../styles/ExpansionPanel';
+import ExpansionPanelSummary from '../../styles/ExpansionPanelSummary';
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
-import DialogPopup from "../DialogPopup/index"
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import DialogPopup from '../DialogPopup/index';
 // import Typography from "@material-ui/core/Typography"
-import Typography from "../../styles/Typography"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import Typography from '../../styles/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 //icons
-import PersonIcon from "@material-ui/icons/Person"
-import PersonAddIcon from "@material-ui/icons/PersonAdd"
-import PersonOutlineIcon from "@material-ui/icons/PersonOutline"
+import PersonIcon from '@material-ui/icons/Person';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import StarIcon from "../../styles/icons/StarIcon"
+import StarIcon from '../../styles/icons/StarIcon';
 
-import ApplicantDetails from "../ApplicantDetails/index"
-import ApplicationCard from "./ApplicationCard"
-import { Button } from "@material-ui/core"
-import { ToastContainer, toast } from "react-toastify"
+import ApplicantDetails from '../ApplicantDetails/index';
+import ApplicationCard from './ApplicationCard';
+import { Button } from '@material-ui/core';
+import { ToastContainer, toast } from 'react-toastify';
 
 const AcceptApplication = ({ application, property }) => {
   // ToDo: Mutation Props
@@ -44,21 +44,21 @@ const AcceptApplication = ({ application, property }) => {
       update: (proxy, payload) => {},
       // optimisticResponse: {},
     }
-  )
+  );
   return (
     <Button
       variant="outlined"
       onClick={() => {
-        acceptApplication()
+        acceptApplication();
       }}>
       Accept application
     </Button>
-  )
-}
+  );
+};
 
 const DenyApplication = () => {
-  return <Button variant="outlined">Deny application</Button>
-}
+  return <Button variant="outlined">Deny application</Button>;
+};
 
 // INITIALIZING
 // PENDING
@@ -72,15 +72,15 @@ const RentalApplications = props => {
           id: props.property.id,
         },
         // stage: "PENDING",
-        stage_in: ["PENDING", "ACCEPTED"],
+        stage_in: ['PENDING', 'ACCEPTED'],
       },
     },
     suspend: false,
-  })
+  });
 
   const applicationIds = loading
     ? []
-    : data.rentalApplications.map(application => application.id)
+    : data.rentalApplications.map(application => application.id);
   /**
    * JUST NOT USING FOR NOW
   useSubscription(RENTAL_APPLICATION_UPDATED_SUBSCRIPTION, {
@@ -137,10 +137,10 @@ const RentalApplications = props => {
   // })
 
   if (loading) {
-    return <div>fetching applications please wait....</div>
+    return <div>fetching applications please wait....</div>;
   }
   if (error) {
-    return <div>Error! {error.message}</div>
+    return <div>Error! {error.message}</div>;
   }
   return (
     <div>
@@ -159,10 +159,10 @@ const RentalApplications = props => {
             application={application}
             property={props.property}
           />
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default RentalApplications
+export default RentalApplications;

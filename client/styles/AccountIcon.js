@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import Avatar from "@material-ui/core/Avatar"
+import styled from 'styled-components';
+import Avatar from '@material-ui/core/Avatar';
 
 const AvatarIcon = styled.div`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
@@ -28,6 +28,6 @@ const AvatarIcon = styled.div`
     right: 64px;
     /* border: 1px solid red; */
   }
-`
+`;
 
-export default AvatarIcon
+export default AvatarIcon;

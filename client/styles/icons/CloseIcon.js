@@ -1,4 +1,4 @@
-import CloseIcon from "@material-ui/icons/Close"
+import CloseIcon from '@material-ui/icons/Close';
 
-export { CloseIcon }
-export default CloseIcon
+export { CloseIcon };
+export default CloseIcon;

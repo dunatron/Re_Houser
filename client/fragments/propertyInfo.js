@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 const PropertyInfoFragment = gql`
   fragment propertyInfo on Property {
     id
@@ -17,6 +17,6 @@ const PropertyInfoFragment = gql`
     outdoorFeatures
     indoorFeatures
   }
-`
+`;
 
-export { PropertyInfoFragment }
+export { PropertyInfoFragment };

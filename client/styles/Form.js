@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes } from 'styled-components';
 
 const loading = keyframes`
   from {
@@ -33,7 +33,7 @@ const Form = styled.form`
     }
     &::before {
       height: 10px;
-      content: "";
+      content: '';
       display: block;
       background-image: ${props => `linear-gradient(
         to right,
@@ -42,7 +42,7 @@ const Form = styled.form`
         ${props.theme.palette.secondary.light} 100%
       )`};
     }
-    &[aria-busy="true"]::before {
+    &[aria-busy='true']::before {
       background-size: 50% auto;
       animation: ${loading} 0.5s linear infinite;
     }

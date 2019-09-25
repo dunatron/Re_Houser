@@ -1,15 +1,15 @@
-import React, { Component } from "react"
-import { Mutation } from "react-apollo"
-import gql from "graphql-tag"
-import Form from "../../styles/Form"
-import Error from "../ErrorMessage/index"
-import { CURRENT_USER_QUERY } from "../User/index"
-import FabButton from "../../styles/FabButton"
-import NavigationIcon from "@material-ui/icons/Navigation"
-import TextInput from "../../styles/TextInput"
-import Router from "next/router"
-import Button from "@material-ui/core/Button"
-import { toast } from "react-toastify"
+import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import Form from '../../styles/Form';
+import Error from '../ErrorMessage/index';
+import { CURRENT_USER_QUERY } from '../User/index';
+import FabButton from '../../styles/FabButton';
+import NavigationIcon from '@material-ui/icons/Navigation';
+import TextInput from '../../styles/TextInput';
+import Router from 'next/router';
+import Button from '@material-ui/core/Button';
+import { toast } from 'react-toastify';
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -33,36 +33,36 @@ const SIGNUP_MUTATION = gql`
       phone
     }
   }
-`
+`;
 
 class Signup extends Component {
   state = {
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    password: "",
-  }
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    password: '',
+  };
   saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-  handleLink = (route = "/", query = {}) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  handleLink = (route = '/', query = {}) => {
     Router.push({
       pathname: route,
       query: query,
-    })
-  }
+    });
+  };
   _signUp = async signup => {
-    const res = await signup()
+    const res = await signup();
     const accountBtn = (
       <Button
         color="secondary"
         onClick={() => {
-          this.handleLink("/account")
+          this.handleLink('/account');
         }}>
         Update Profile
       </Button>
-    )
+    );
     toast.info(
       <div>
         <h1>Congrats on signing up</h1>
@@ -73,15 +73,15 @@ class Signup extends Component {
         // closeOnClick: false,
         autoClose: 15000,
       }
-    )
+    );
     this.setState({
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      password: "",
-    })
-  }
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      password: '',
+    });
+  };
   render() {
     return (
       <Mutation
@@ -92,9 +92,9 @@ class Signup extends Component {
           <Form
             method="post"
             onSubmit={async e => {
-              e.preventDefault()
+              e.preventDefault();
               // await signup()
-              this._signUp(signup)
+              this._signUp(signup);
             }}>
             <fieldset disabled={loading} aria-busy={loading}>
               <Error error={error} />
@@ -162,9 +162,9 @@ class Signup extends Component {
           </Form>
         )}
       </Mutation>
-    )
+    );
   }
 }
 
-export default Signup
-export { SIGNUP_MUTATION }
+export default Signup;
+export { SIGNUP_MUTATION };

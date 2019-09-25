@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import TextInput from "../../styles/TextInput"
-import Button from "@material-ui/core/Button"
+import React, { useState } from 'react';
+import TextInput from '../../styles/TextInput';
+import Button from '@material-ui/core/Button';
 
 const AccommodationCreator = props => {
-  const { accommodation, add, update, duplicate, remove } = props
-  const [adding, setAdding] = useState(false)
+  const { accommodation, add, update, duplicate, remove } = props;
+  const [adding, setAdding] = useState(false);
   return (
     <div>
       <p>Accommodation Creator</p>
@@ -17,47 +17,47 @@ const AccommodationCreator = props => {
       {adding && (
         <CreateAccommodation
           add={res => {
-            add(res)
-            setAdding(false)
+            add(res);
+            setAdding(false);
           }}
         />
       )}
       <Button
         onClick={() => setAdding(!adding)}
-        color={adding ? "primary" : "secondary"}>
-        {adding ? "Quit Adding accommodation" : "Add Accommodation"}
+        color={adding ? 'primary' : 'secondary'}>
+        {adding ? 'Quit Adding accommodation' : 'Add Accommodation'}
       </Button>
     </div>
-  )
-}
+  );
+};
 
 const CreateAccommodation = ({ accommodation, add, type }) => {
   const [roomSize, setRoomSize] = useState(
     accommodation ? accommodation.roomSize : null
-  )
-  const [rent, setRent] = useState(accommodation ? accommodation.rent : null)
+  );
+  const [rent, setRent] = useState(accommodation ? accommodation.rent : null);
   const [expenses, setExpenses] = useState(
     accommodation ? accommodation.expenses : null
-  )
+  );
   const [description, setDescription] = useState(
     accommodation ? accommodation.description : null
-  )
+  );
   const resetState = () => {
-    setRoomSize(null)
-    setRent(null)
-    setExpenses(null)
-    setDescription(null)
-  }
+    setRoomSize(null);
+    setRent(null);
+    setExpenses(null);
+    setDescription(null);
+  };
   const addAccommodation = () => {
     const accommodation = {
       roomSize,
       rent,
       expenses,
       description,
-    }
-    add({ accommodation })
-    resetState()
-  }
+    };
+    add({ accommodation });
+    resetState();
+  };
   return (
     <div>
       <TextInput
@@ -100,14 +100,14 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
         onChange={e => setDescription(e.target.value)}
       />
       <Button onClick={() => addAccommodation()} color="secondary">
-        {type === "update" ? "update" : "Create"} Accommodation
+        {type === 'update' ? 'update' : 'Create'} Accommodation
       </Button>
     </div>
-  )
-}
+  );
+};
 
 const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
-  const [editingIndex, setEditingIndex] = useState(null)
+  const [editingIndex, setEditingIndex] = useState(null);
   return (
     <div>
       {accommodation.map((accom, i) => {
@@ -118,15 +118,15 @@ const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
                 index={i}
                 accommodation={accom}
                 update={res => {
-                  update(res)
-                  setEditingIndex(null)
+                  update(res);
+                  setEditingIndex(null);
                 }}
               />
               <Button onClick={() => setEditingIndex(null)}>
                 Quit Editing
               </Button>
             </>
-          )
+          );
         return (
           <div>
             <p>Room Size => {accom.roomSize}</p>
@@ -139,27 +139,27 @@ const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
             </Button>
             <Button onClick={() => remove({ removeIndex: i })}>Remove</Button>
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
 const EditAccommodation = ({ index, accommodation, update }) => {
   const updateAccommodation = ({ accommodation }) => {
     const data = {
       updateIndex: index,
       accommodation: accommodation,
-    }
-    update(data)
-  }
+    };
+    update(data);
+  };
   return (
     <CreateAccommodation
       accommodation={accommodation}
       type="update"
       add={accommodation => updateAccommodation(accommodation)}
     />
-  )
-}
+  );
+};
 
-export default AccommodationCreator
+export default AccommodationCreator;

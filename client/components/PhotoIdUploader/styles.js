@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const DetailStyles = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const DetailStyles = styled.div`
     max-height: 300px;
     object-fit: contain;
   }
-`
+`;
 
 const UploaderStyles = styled.div`
   display: flex;
@@ -55,6 +55,6 @@ const UploaderStyles = styled.div`
   .preUpload__upload-btn {
     margin: 0 0 20px 0;
   }
-`
+`;
 
-export { DetailStyles, UploaderStyles }
+export { DetailStyles, UploaderStyles };

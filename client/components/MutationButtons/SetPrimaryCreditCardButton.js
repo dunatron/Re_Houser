@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from "../../query/index";
-import { UPDATE_USER_MUTATION } from "../../mutation/index";
-import Button from "@material-ui/core/Button";
-import ButtonLoader from "../Loader/ButtonLoader";
+import React, { Component } from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { CURRENT_USER_QUERY, MY_CREDIT_CARDS_QUERY } from '../../query/index';
+import { UPDATE_USER_MUTATION } from '../../mutation/index';
+import Button from '@material-ui/core/Button';
+import ButtonLoader from '../Loader/ButtonLoader';
 
 const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
   // ToDo: Mutation Props
@@ -12,10 +12,10 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
       data: {
         primaryCreditCard: {
           connect: {
-            id: cardId
-          }
-        }
-      }
+            id: cardId,
+          },
+        },
+      },
     },
     update: (proxy, payload) => {
       const userData = proxy.readQuery({ query: CURRENT_USER_QUERY });
@@ -27,12 +27,12 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
             primaryCreditCard: {
               ...userData.me.primaryCreditCard,
               id: cardId,
-              __typename: "CreditCard"
-            }
-          }
-        }
+              __typename: 'CreditCard',
+            },
+          },
+        },
       });
-    }
+    },
   });
 
   return (

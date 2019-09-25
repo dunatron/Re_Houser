@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const OWNER_PROPERTIES_QUERY = gql`
   query OWNER_PROPERTIES_QUERY {
@@ -21,6 +21,6 @@ const OWNER_PROPERTIES_QUERY = gql`
       }
     }
   }
-`
+`;
 
-export { OWNER_PROPERTIES_QUERY }
+export { OWNER_PROPERTIES_QUERY };

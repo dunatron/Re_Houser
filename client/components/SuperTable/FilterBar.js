@@ -1,13 +1,13 @@
-import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import CheckBoxSelection from "../Inputs/CheckBoxSelection"
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import CheckBoxSelection from '../Inputs/CheckBoxSelection';
 
 const styles = theme => ({
   root: {},
   content: {
-    overflow: "hidden",
-    flexBasis: "100%",
-    transition: "all 0.5s ease",
+    overflow: 'hidden',
+    flexBasis: '100%',
+    transition: 'all 0.5s ease',
   },
   closed: {
     height: 0,
@@ -15,28 +15,28 @@ const styles = theme => ({
     opacity: 0,
   },
   open: {
-    overflow: "auto",
+    overflow: 'auto',
     opacity: 1,
     // height: theme.spacing.unit * 8,
     // minHeight: theme.spacing.unit * 8,
   },
-})
+});
 
 const FilterBar = props => {
-  const contentClasses = [props.classes.content]
+  const contentClasses = [props.classes.content];
   props.open
     ? contentClasses.push(props.classes.open)
-    : contentClasses.push(props.classes.closed)
+    : contentClasses.push(props.classes.closed);
   return (
-    <div className={contentClasses.join(" ")}>
+    <div className={contentClasses.join(' ')}>
       <CheckBoxSelection
         options={props.columnHeaders}
         handleOptionChange={optionObj => {
-          props.updateShowProp(optionObj)
+          props.updateShowProp(optionObj);
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default withStyles(styles)(FilterBar)
+export default withStyles(styles)(FilterBar);

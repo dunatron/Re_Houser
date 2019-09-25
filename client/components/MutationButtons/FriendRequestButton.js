@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import gql from "graphql-tag"
-import { useMutation } from "@apollo/react-hooks"
-import Error from "../ErrorMessage"
-import Button from "@material-ui/core/Button"
-import { toast } from "react-toastify"
+import React, { useState } from 'react';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+import Error from '../ErrorMessage';
+import Button from '@material-ui/core/Button';
+import { toast } from 'react-toastify';
 
 const CREATE_FRIEND_REQUEST_MUTATION = gql`
   mutation CREATE_FRIEND_REQUEST_MUTATION($data: FriendRequestCreateInput!) {
@@ -20,7 +20,7 @@ const CREATE_FRIEND_REQUEST_MUTATION = gql`
       }
     }
   }
-`
+`;
 const FriendRequestButton = ({ requestFriendId, me }) => {
   const [createFriendRequest, createFriendRequestProps] = useMutation(
     CREATE_FRIEND_REQUEST_MUTATION,
@@ -29,7 +29,7 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
         data: {
           requestUser: {
             connect: {
-              id: "Determined On Server",
+              id: 'Determined On Server',
             },
           },
           acceptingUser: {
@@ -41,34 +41,34 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
       },
       update: (proxy, payload) => {
         if (payload.data.createFriendRequest) {
-          const { acceptingUser } = payload.data.createFriendRequest
+          const { acceptingUser } = payload.data.createFriendRequest;
           toast.info(
             <div>
               <p>
-                Friend request sent to {acceptingUser.firstName}{" "}
+                Friend request sent to {acceptingUser.firstName}{' '}
                 {acceptingUser.lastName} @ {acceptingUser.email}
               </p>
             </div>
-          )
+          );
         }
       },
     }
-  )
+  );
 
-  const { friends, friendRequests, awaitingFriends } = me
-  const awaitingFriendIds = awaitingFriends.map(v => v.acceptingUser.id)
-  const friendIds = friends.map(friend => friend.id)
+  const { friends, friendRequests, awaitingFriends } = me;
+  const awaitingFriendIds = awaitingFriends.map(v => v.acceptingUser.id);
+  const friendIds = friends.map(friend => friend.id);
   // 1. check if they are already friends
   if (friendIds.includes(requestFriendId)) {
-    return "You are already friends with this user"
+    return 'You are already friends with this user';
   }
   // 2. check if they are already awaiting approval
   if (awaitingFriendIds.includes(requestFriendId)) {
-    return "friend request sent awaiting user response"
+    return 'friend request sent awaiting user response';
   }
   // make sure its not them
   if (requestFriendId === me.id) {
-    return "Cant be friends with yourself"
+    return 'Cant be friends with yourself';
   }
   return (
     <>
@@ -80,7 +80,7 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
         Send Friend request
       </Button>
     </>
-  )
-}
+  );
+};
 
-export default FriendRequestButton
+export default FriendRequestButton;

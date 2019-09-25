@@ -11,7 +11,8 @@
     "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",
     "heroku-postbuild": "next build",
-    "now-build": "next build"
+    "now-build": "next build",
+    "format": "prettier \"**/*.{js,ts,tsx,css,graphql}\" --write"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.1",
@@ -49,6 +50,7 @@
     "next": "^9.05",
     "next-with-apollo": "^3.3.2",
     "nprogress": "^0.2.0",
+    "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "qs": "^6.7.0",
     "ramda": "^0.26.1",

@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const NavStyles = styled.ul`
   display: flex;
@@ -9,6 +9,6 @@ const NavStyles = styled.ul`
   padding: 0;
   @media (max-width: ${props => props.theme.breakpoints.values.md}px) {
   }
-`
+`;
 
-export default NavStyles
+export default NavStyles;

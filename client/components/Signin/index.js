@@ -1,13 +1,13 @@
-import React, { Component } from "react"
-import { toast } from "react-toastify"
-import { Mutation } from "react-apollo"
-import gql from "graphql-tag"
-import Form from "../../styles/Form"
-import Error from "../ErrorMessage/index"
-import { CURRENT_USER_QUERY } from "../User/index"
-import FabButton from "../../styles/FabButton"
-import NavigationIcon from "@material-ui/icons/Navigation"
-import TextInput from "../../styles/TextInput"
+import React, { Component } from 'react';
+import { toast } from 'react-toastify';
+import { Mutation } from 'react-apollo';
+import gql from 'graphql-tag';
+import Form from '../../styles/Form';
+import Error from '../ErrorMessage/index';
+import { CURRENT_USER_QUERY } from '../User/index';
+import FabButton from '../../styles/FabButton';
+import NavigationIcon from '@material-ui/icons/Navigation';
+import TextInput from '../../styles/TextInput';
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -18,27 +18,27 @@ const SIGNIN_MUTATION = gql`
       lastName
     }
   }
-`
+`;
 
 class Signin extends Component {
   state = {
-    password: "",
-    email: "",
-  }
+    password: '',
+    email: '',
+  };
   saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
   _signIn = async signin => {
-    const res = await signin()
+    const res = await signin();
     toast.success(
       <p>
         <strong>
           Welcome {res.data.signin.firstName} {res.data.signin.lastName}
         </strong>
       </p>
-    )
-    this.setState({ email: "", password: "" })
-  }
+    );
+    this.setState({ email: '', password: '' });
+  };
   render() {
     return (
       <Mutation
@@ -49,9 +49,9 @@ class Signin extends Component {
           <Form
             method="post"
             onSubmit={e => {
-              e.preventDefault()
+              e.preventDefault();
               // await signin()
-              this._signIn(signin)
+              this._signIn(signin);
             }}>
             <fieldset disabled={loading} aria-busy={loading}>
               <Error error={error} />
@@ -89,8 +89,8 @@ class Signin extends Component {
           </Form>
         )}
       </Mutation>
-    )
+    );
   }
 }
 
-export default Signin
+export default Signin;

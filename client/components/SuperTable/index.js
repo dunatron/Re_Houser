@@ -1,57 +1,57 @@
-import React, { Fragment } from "react"
-import clsx from "clsx"
-import PropTypes from "prop-types"
-import { withStyles } from "@material-ui/core/styles"
-import Table from "@material-ui/core/Table/Table"
-import TableBody from "@material-ui/core/TableBody/TableBody"
-import TableCell from "@material-ui/core/TableCell/TableCell"
-import TableHead from "@material-ui/core/TableHead/TableHead"
-import TablePagination from "@material-ui/core/TablePagination/TablePagination"
-import TableRow from "@material-ui/core/TableRow/TableRow"
-import TableSortLabel from "@material-ui/core/TableSortLabel/TableSortLabel"
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import Paper from "@material-ui/core/Paper"
-import Checkbox from "@material-ui/core/Checkbox"
-import IconButton from "@material-ui/core/IconButton"
-import Tooltip from "@material-ui/core/Tooltip"
-import DeleteIcon from "@material-ui/icons/Delete"
-import FilterListIcon from "@material-ui/icons/FilterList"
-import { lighten } from "@material-ui/core/styles/colorManipulator"
-import DialogPopup from "../DialogPopup/index"
-import SearchBar from "./SearchBar"
-import FilterBar from "./FilterBar"
-import TagBar from "./TagBar.js"
-import { split, path, lte } from "ramda"
-import RenderCell from "./RenderCell"
+import React, { Fragment } from 'react';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table/Table';
+import TableBody from '@material-ui/core/TableBody/TableBody';
+import TableCell from '@material-ui/core/TableCell/TableCell';
+import TableHead from '@material-ui/core/TableHead/TableHead';
+import TablePagination from '@material-ui/core/TablePagination/TablePagination';
+import TableRow from '@material-ui/core/TableRow/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel/TableSortLabel';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { lighten } from '@material-ui/core/styles/colorManipulator';
+import DialogPopup from '../DialogPopup/index';
+import SearchBar from './SearchBar';
+import FilterBar from './FilterBar';
+import TagBar from './TagBar.js';
+import { split, path, lte } from 'ramda';
+import RenderCell from './RenderCell';
 
-let counter = 0
+let counter = 0;
 
 function createData({ description }) {
-  counter += 1
-  return { id: counter, description }
+  counter += 1;
+  return { id: counter, description };
 }
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
-    return -1
+    return -1;
   }
   if (b[orderBy] > a[orderBy]) {
-    return 1
+    return 1;
   }
-  return 0
+  return 0;
 }
 
 function getSorting(order, orderBy) {
-  return order === "desc"
+  return order === 'desc'
     ? (a, b) => desc(a, b, orderBy)
-    : (a, b) => -desc(a, b, orderBy)
+    : (a, b) => -desc(a, b, orderBy);
 }
 
 class EnhancedTableHead extends React.Component {
   createSortHandler = property => event => {
-    this.props.onRequestSort(event, property)
-  }
+    this.props.onRequestSort(event, property);
+  };
 
   render() {
     const {
@@ -61,7 +61,7 @@ class EnhancedTableHead extends React.Component {
       numSelected,
       rowCount,
       columnHeaders,
-    } = this.props
+    } = this.props;
 
     return (
       <TableHead>
@@ -72,11 +72,11 @@ class EnhancedTableHead extends React.Component {
                 key={row.id}
                 align="left"
                 numeric={row.numeric}
-                padding={row.disablePadding ? "none" : "default"}
+                padding={row.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === row.id ? order : false}>
                 <Tooltip
                   title="Sort"
-                  placement={row.numeric ? "bottom-end" : "bottom-start"}
+                  placement={row.numeric ? 'bottom-end' : 'bottom-start'}
                   enterDelay={300}>
                   <TableSortLabel
                     active={orderBy === row.id}
@@ -86,11 +86,11 @@ class EnhancedTableHead extends React.Component {
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
-            )
+            );
           }, this)}
         </TableRow>
       </TableHead>
-    )
+    );
   }
 }
 
@@ -101,7 +101,7 @@ EnhancedTableHead.propTypes = {
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
-}
+};
 
 const toolbarStyles = theme => ({
   root: {
@@ -109,7 +109,7 @@ const toolbarStyles = theme => ({
   },
 
   highlight:
-    theme.palette.type === "light"
+    theme.palette.type === 'light'
       ? {
           color: theme.palette.secondary.main,
           backgroundColor: lighten(theme.palette.secondary.light, 0.85),
@@ -119,19 +119,19 @@ const toolbarStyles = theme => ({
           backgroundColor: theme.palette.secondary.dark,
         },
   spacer: {
-    flex: "1 1 100%",
+    flex: '1 1 100%',
   },
   barHolder: {
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     minHeight: 0,
   },
   actions: {
     color: theme.palette.text.secondary,
   },
   title: {
-    flex: "0 0 auto",
+    flex: '0 0 auto',
   },
-})
+});
 
 let EnhancedTableToolbar = props => {
   const {
@@ -146,7 +146,7 @@ let EnhancedTableToolbar = props => {
     updateSearchCol,
     updateShowValues,
     children,
-  } = props
+  } = props;
 
   return (
     <div>
@@ -212,34 +212,34 @@ let EnhancedTableToolbar = props => {
         {searchOpen ? children : null}
       </Toolbar>
     </div>
-  )
-}
+  );
+};
 
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
-}
+};
 
-EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar)
+EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     marginTop: theme.spacing.unit * 3,
   },
   table: {
     // minWidth: 1020,
-    minWidth: "100%",
+    minWidth: '100%',
   },
   tableWrapper: {
-    overflowX: "auto",
+    overflowX: 'auto',
   },
-})
+});
 
 const extractDeepValue = (str, dataObj) => {
-  const value = str.split(".").reduce((o, i) => o[i], dataObj)
-  return value ? value : ""
-}
+  const value = str.split('.').reduce((o, i) => o[i], dataObj);
+  return value ? value : '';
+};
 
 const CellContent = ({ content, limitChar }) => {
   if (limitChar) {
@@ -247,40 +247,40 @@ const CellContent = ({ content, limitChar }) => {
       content.length > limitChar ? (
         <div>
           {content.substring(0, limitChar - 3)}
-          <DialogPopup text={"..."} content={content} />
+          <DialogPopup text={'...'} content={content} />
         </div>
       ) : (
         content
-      )
-    return trimmedString
+      );
+    return trimmedString;
   }
 
-  return content
-}
+  return content;
+};
 
 const filterDataByTags = (data, tags, found, key, filterType) => {
   if (tags.length < 1) {
-    return data
+    return data;
   }
 
   switch (filterType) {
-    case "match": {
+    case 'match': {
       const matchFilteredData = data.filter(
         o => o[found].filter(t => tags.includes(t[key])).length === tags.length
-      )
-      return matchFilteredData
+      );
+      return matchFilteredData;
     }
-    case "contains": {
+    case 'contains': {
       const containsFilteredData = data.filter(
         o => o[found].filter(t => tags.includes(t[key])).length >= 1
-      )
-      return containsFilteredData
+      );
+      return containsFilteredData;
     }
     default: {
       const matchFilteredData = data.filter(
         o => o[found].filter(t => tags.includes(t[key])).length === tags.length
-      )
-      return matchFilteredData
+      );
+      return matchFilteredData;
     }
   }
 
@@ -303,26 +303,26 @@ const filterDataByTags = (data, tags, found, key, filterType) => {
   //   o[found].filter(t => tags.includes(t[key])).length(function(filterType) {})
   // ) // can change tags.length to >= 1 to get a contains
   // return filteredData
-}
+};
 class SuperTable extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    const propColumnHeaders = this.props.columnHeaders
+    const propColumnHeaders = this.props.columnHeaders;
 
-    const propData = this.props.data.map(note => createData(note))
+    const propData = this.props.data.map(note => createData(note));
     const displayColumns = propColumnHeaders.reduce(
       (ac, column) => ({ ...ac, [column.id]: column.show }),
       {}
-    )
+    );
     this.state = {
-      order: "asc",
-      orderBy: this.props.orderBy ? this.props.orderBy : "calories",
+      order: 'asc',
+      orderBy: this.props.orderBy ? this.props.orderBy : 'calories',
       selected: [],
       searchOpen: false,
-      searchCol: "",
+      searchCol: '',
       withSearch: true,
-      searchValue: "",
+      searchValue: '',
       filterProps: { ...displayColumns }, // Ok when we click on filter Icon the FilterBar will update the state here
       stateData: propData,
       columnHeaders: propColumnHeaders,
@@ -331,137 +331,137 @@ class SuperTable extends React.Component {
       ),
       // tagHeaders: propColumnHeaders.filter(confObj => confObj.type === "tag"),
       tags: props.tags ? props.tags.options : [],
-      tagType: "contains",
+      tagType: 'contains',
       appliedTags: [],
       page: 0,
       rowsPerPage: 5,
-    }
+    };
   }
 
   componentDidMount() {
     if (this.props.subscribeToMore) {
-      this.props.subscribeToMore()
+      this.props.subscribeToMore();
     }
   }
 
   handleRequestSort = (event, property) => {
-    const orderBy = property
-    let order = "desc"
+    const orderBy = property;
+    let order = 'desc';
 
-    if (this.state.orderBy === property && this.state.order === "desc") {
-      order = "asc"
+    if (this.state.orderBy === property && this.state.order === 'desc') {
+      order = 'asc';
     }
 
-    this.setState({ order, orderBy })
-  }
+    this.setState({ order, orderBy });
+  };
 
   handleSelectAllClick = (event, checked) => {
     if (checked) {
-      this.setState(state => ({ selected: state.stateData.map(n => n.id) }))
-      return
+      this.setState(state => ({ selected: state.stateData.map(n => n.id) }));
+      return;
     }
-    this.setState({ selected: [] })
-  }
+    this.setState({ selected: [] });
+  };
 
   handleClick = (event, id) => {
-    const { selected } = this.state
-    const selectedIndex = selected.indexOf(id)
-    let newSelected = []
+    const { selected } = this.state;
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id)
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1))
+      newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1))
+      newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1)
-      )
+      );
     }
 
-    this.setState({ selected: newSelected })
-  }
+    this.setState({ selected: newSelected });
+  };
 
   handleChangePage = (event, page) => {
-    this.setState({ page })
-  }
+    this.setState({ page });
+  };
 
   handleChangeRowsPerPage = event => {
-    this.setState({ rowsPerPage: event.target.value })
-  }
+    this.setState({ rowsPerPage: event.target.value });
+  };
 
   updateShowProp = prop => {
-    const objectKey = Object.keys(prop).map(key => key)[0]
-    const objectValue = Object.values(prop).map(val => val)[0]
-    let columnHeaders = this.state.columnHeaders
+    const objectKey = Object.keys(prop).map(key => key)[0];
+    const objectValue = Object.values(prop).map(val => val)[0];
+    let columnHeaders = this.state.columnHeaders;
     const headerIndex = columnHeaders.findIndex(function(c) {
-      return c.id === objectKey
-    })
-    let columnHeaderData = columnHeaders[headerIndex]
-    columnHeaderData.show = objectValue
-    columnHeaders.splice(headerIndex, 1, columnHeaderData)
+      return c.id === objectKey;
+    });
+    let columnHeaderData = columnHeaders[headerIndex];
+    columnHeaderData.show = objectValue;
+    columnHeaders.splice(headerIndex, 1, columnHeaderData);
     this.setState({
       columnHeaders: columnHeaders,
-    })
-  }
+    });
+  };
 
   updateShowValues = values => {
-    const columnHeaders = this.state.columnHeaders
+    const columnHeaders = this.state.columnHeaders;
 
     const updated = columnHeaders.map(header => {
       return {
         ...header,
         show: values.includes(header.id),
-      }
-    })
+      };
+    });
     this.setState({
       columnHeaders: updated,
-    })
-  }
+    });
+  };
 
   updateSearch = val => {
     this.setState({
       searchValue: val,
-    })
-  }
+    });
+  };
 
   updateSearchCol = col => {
     this.setState({
       searchCol: col,
-    })
-  }
+    });
+  };
 
   filterData = (data, searchCol, searchVal) => {
-    const searchParts = split(".", searchCol)
+    const searchParts = split('.', searchCol);
     const filteredData = data.filter(n =>
       path(searchParts, n)
         .toString()
         .toLowerCase()
         .includes(searchVal.toLowerCase())
-    )
-    return filteredData
-  }
+    );
+    return filteredData;
+  };
 
-  isSelected = id => this.state.selected.indexOf(id) !== -1
+  isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   toggleBoolean = name =>
     this.setState({
       [name]: !this.state[name],
-    })
+    });
 
   removeTagByValue = v => {
-    const tags = this.state.appliedTags
-    const itemIdx = tags.findIndex(t => t === v)
-    tags.splice(itemIdx, 1)
+    const tags = this.state.appliedTags;
+    const itemIdx = tags.findIndex(t => t === v);
+    tags.splice(itemIdx, 1);
     this.setState({
       appliedTags: tags,
-    })
-  }
+    });
+  };
 
   render() {
-    const { classes, title, data } = this.props
+    const { classes, title, data } = this.props;
     const {
       stateData,
       order,
@@ -473,9 +473,10 @@ class SuperTable extends React.Component {
       searchValue,
       searchOpen,
       tagType,
-    } = this.state
+    } = this.state;
     const emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, stateData.length - page * rowsPerPage)
+      rowsPerPage -
+      Math.min(rowsPerPage, stateData.length - page * rowsPerPage);
 
     // let processedData =
     //   searchValue.length > 2 && searchCol.length > 2
@@ -484,7 +485,7 @@ class SuperTable extends React.Component {
     let processedData =
       searchValue.length >= 1 && searchCol.length >= 1
         ? this.filterData(data, searchCol, searchValue)
-        : data
+        : data;
 
     if (this.props.tags) {
       processedData = filterDataByTags(
@@ -493,7 +494,7 @@ class SuperTable extends React.Component {
         this.props.tags.found,
         this.props.tags.key,
         tagType
-      )
+      );
     }
     return (
       <Paper square={true} className={classes.root}>
@@ -523,7 +524,7 @@ class SuperTable extends React.Component {
           columnHeaders={this.state.columnHeaders}
           // columnHeaders={this.state.searchHeaders}
           searchOpen={searchOpen}
-          toggleSearch={() => this.toggleBoolean("searchOpen")}
+          toggleSearch={() => this.toggleBoolean('searchOpen')}
           searchCol={this.state.searchCol}
           updateSearchCol={selected => this.updateSearchCol(selected)}
           searchValue={this.state.searchValue}
@@ -561,7 +562,7 @@ class SuperTable extends React.Component {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .sort(getSorting(order, orderBy))
                   .map(n => {
-                    const isSelected = this.isSelected(n.id)
+                    const isSelected = this.isSelected(n.id);
                     return (
                       <TableRow
                         hover
@@ -582,10 +583,10 @@ class SuperTable extends React.Component {
                                   this.props.executeFunc(func, data)
                                 }
                               />
-                            )
+                            );
                           })}
                       </TableRow>
-                    )
+                    );
                   })}
               {/* {processedData &&
                 processedData
@@ -632,21 +633,21 @@ class SuperTable extends React.Component {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            "aria-label": "Previous Page",
+            'aria-label': 'Previous Page',
           }}
           nextIconButtonProps={{
-            "aria-label": "Next Page",
+            'aria-label': 'Next Page',
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
       </Paper>
-    )
+    );
   }
 }
 
 SuperTable.propTypes = {
   classes: PropTypes.object.isRequired,
-}
+};
 
-export default withStyles(styles)(SuperTable)
+export default withStyles(styles)(SuperTable);

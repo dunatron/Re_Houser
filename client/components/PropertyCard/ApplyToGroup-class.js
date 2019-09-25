@@ -1,26 +1,26 @@
-import React, { Component } from "react"
-import { adopt } from "react-adopt"
-import { Mutation } from "react-apollo"
-import Fab from "@material-ui/core/Fab"
-import Error from "../ErrorMessage/index"
-import Tooltip from "@material-ui/core/Tooltip"
-import User from "../User/index"
+import React, { Component } from 'react';
+import { adopt } from 'react-adopt';
+import { Mutation } from 'react-apollo';
+import Fab from '@material-ui/core/Fab';
+import Error from '../ErrorMessage/index';
+import Tooltip from '@material-ui/core/Tooltip';
+import User from '../User/index';
 // Mutations
-import { APPLY_TO_RENTAL_GROUP_APPLICATION } from "../../mutation/index"
+import { APPLY_TO_RENTAL_GROUP_APPLICATION } from '../../mutation/index';
 
 //icons
-import PersonIcon from "@material-ui/icons/Person"
-import PersonAddIcon from "@material-ui/icons/PersonAdd"
+import PersonIcon from '@material-ui/icons/Person';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
-})
+});
 
 class ApplyToGroup extends Component {
   state = {
     modalIsOpen: false,
     applicationData: {},
-  }
+  };
   update = (cache, payload) => {
     // manually update the cache on the client, so it matches the server
     // 1. Read the cache for the items we want
@@ -31,9 +31,9 @@ class ApplyToGroup extends Component {
     // )
     // // 3. Put the items back!
     // cache.writeQuery({ query: ALL_FILES_QUERY, data })
-  }
+  };
   _applyToGroup = async (applyToRentalGroup, me) => {
-    const { applicationId } = this.props
+    const { applicationId } = this.props;
     const res = await applyToRentalGroup({
       variables: {
         data: {
@@ -50,18 +50,18 @@ class ApplyToGroup extends Component {
           },
         },
       },
-    })
-    const rentalData = res.data.applyToRentalGroup
-    this.props.openRentalAppModal(rentalData)
-  }
+    });
+    const rentalData = res.data.applyToRentalGroup;
+    this.props.openRentalAppModal(rentalData);
+  };
   render() {
     return (
       <Composed>
         {({ user }) => {
-          const me = user.data.me
-          const property = this.props.property
-          const application = this.props.application
-          if (!me) return <h1>No User</h1>
+          const me = user.data.me;
+          const property = this.props.property;
+          const application = this.props.application;
+          if (!me) return <h1>No User</h1>;
 
           return (
             <div>
@@ -76,12 +76,12 @@ class ApplyToGroup extends Component {
                         size="small"
                         color="secondary"
                         aria-label="Delete"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => {
-                          this._applyToGroup(applyToRentalGroup, me)
+                          this._applyToGroup(applyToRentalGroup, me);
                           this.setState({
                             modalIsOpen: true,
-                          })
+                          });
                         }}>
                         <PersonAddIcon className="person__icon" />
                       </Fab>
@@ -90,11 +90,11 @@ class ApplyToGroup extends Component {
                 )}
               </Mutation>
             </div>
-          )
+          );
         }}
       </Composed>
-    )
+    );
   }
 }
 
-export default ApplyToGroup
+export default ApplyToGroup;

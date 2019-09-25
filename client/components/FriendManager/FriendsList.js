@@ -1,7 +1,7 @@
 const FriendsList = props => {
   const {
     me: { friends },
-  } = props
+  } = props;
   return (
     <div>
       <h1>Friends:</h1>
@@ -12,10 +12,10 @@ const FriendsList = props => {
               Friend => {friend.firstName} {friend.lastName}
             </p>
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default FriendsList
+export default FriendsList;

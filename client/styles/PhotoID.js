@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const PhotoID = styled.div`
   display: flex;
@@ -31,6 +31,6 @@ const PhotoID = styled.div`
   @media (max-width: 800px) {
     width: 100%;
   }
-`
+`;
 
-export default PhotoID
+export default PhotoID;

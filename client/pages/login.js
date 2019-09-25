@@ -1,9 +1,9 @@
-import React from "react"
-import PropTypes from "prop-types"
-import SuperLogin from "../components/SuperLogin"
+import React from 'react';
+import PropTypes from 'prop-types';
+import SuperLogin from '../components/SuperLogin';
 
 const LoginPage = () => {
-  return <SuperLogin />
-}
+  return <SuperLogin />;
+};
 
-export default LoginPage
+export default LoginPage;

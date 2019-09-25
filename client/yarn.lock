@@ -96,7 +96,6 @@
 "@babel/generator@^7.2.2":
   version "7.6.2"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.6.2.tgz#dac8a3c2df118334c2a29ff3446da1636a8f8c03"
-  integrity sha512-j8iHaIW4gGPnViaIHI7e9t/Hl8qLjERI6DcV9kEpAIDJsAOrcnXqRS7t+QbhL76pwbtqP+QCQLL0z1CyVmtjjQ==
   dependencies:
     "@babel/types" "^7.6.0"
     jsesc "^2.5.1"
@@ -286,7 +285,6 @@
 "@babel/parser@^7.2.3":
   version "7.6.2"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.6.2.tgz#205e9c95e16ba3b8b96090677a67c9d6075b70a1"
-  integrity sha512-mdFqWrSPCmikBoaBYMuBulzTIKuXVPtEISFbRRVNwMWpCms/hmE2kRq0bblUHaNRKrjRlmVbx1sDHmjmRgD2Xg==
 
 "@babel/parser@^7.4.5", "@babel/parser@^7.6.0":
   version "7.6.0"
@@ -1627,7 +1625,6 @@ babel-plugin-module-resolver@^3.1.1:
 babel-plugin-react-persist@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-react-persist/-/babel-plugin-react-persist-0.2.0.tgz#96650888c94d9edae83c39584169ac02ebd74a89"
-  integrity sha512-ezWf9GvOaM2+VWgtsizNtLj0x62LMx9LILxUAqgpRkKMZyvu8y6WFw4Zg0g8DqrH50SC3GuKNSvYb7CN7JkV6Q==
   dependencies:
     "@babel/generator" "^7.2.2"
     "@babel/parser" "^7.2.3"
@@ -6146,6 +6143,10 @@ prepend-http@^1.0.0:
 preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
+
+prettier@^1.18.2:
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
 
 pretty-format@^23.6.0:
   version "23.6.0"

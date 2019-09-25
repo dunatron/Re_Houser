@@ -1,4 +1,4 @@
-import gql from "graphql-tag"
+import gql from 'graphql-tag';
 
 const UPLOAD_PHOTO_IDENTIFICATION = gql`
   mutation UPLOAD_PHOTO_IDENTIFICATION($file: Upload!, $photoId: String!) {
@@ -11,6 +11,6 @@ const UPLOAD_PHOTO_IDENTIFICATION = gql`
       }
     }
   }
-`
+`;
 
-export { UPLOAD_PHOTO_IDENTIFICATION }
+export { UPLOAD_PHOTO_IDENTIFICATION };

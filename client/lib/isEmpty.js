@@ -5,10 +5,10 @@
 const isEmptyObj = obj => {
   // this is why ramda is better
   for (var prop in obj) {
-    if (obj.hasOwnProperty(prop)) return false
+    if (obj.hasOwnProperty(prop)) return false;
   }
 
-  return JSON.stringify(obj) === JSON.stringify({})
-}
+  return JSON.stringify(obj) === JSON.stringify({});
+};
 
-export { isEmptyObj }
+export { isEmptyObj };

@@ -1,7 +1,7 @@
-import React from "react"
-import { useQuery, useMutation } from "@apollo/react-hooks"
-import { PAYMENTS_QUERY } from "../../query/payments"
-import PaymentManager from "../PaymentManager"
+import React from 'react';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { PAYMENTS_QUERY } from '../../query/payments';
+import PaymentManager from '../PaymentManager';
 
 /**
  * Here we can do things like query all the data we need, e.g payments,
@@ -18,10 +18,10 @@ const CompletedLease = ({ leaseId }) => {
       },
     },
     suspend: false,
-  })
+  });
 
-  if (loading) return "Preparing Lease, please wait..."
-  if (error) return "Error with feting lease Data"
+  if (loading) return 'Preparing Lease, please wait...';
+  if (error) return 'Error with feting lease Data';
   return (
     <div>
       <h1>
@@ -31,7 +31,7 @@ const CompletedLease = ({ leaseId }) => {
       <h4>Lease Payments</h4>
       <PaymentManager payments={data.payments} title="Lease" />
     </div>
-  )
-}
+  );
+};
 
-export default CompletedLease
+export default CompletedLease;
