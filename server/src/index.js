@@ -1,9 +1,9 @@
+// require("dotenv").config({ path: "./variables.env" })
+require("dotenv").config()
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
 const cors = require("cors")
-//deplioy
 
-require("dotenv").config({ path: "./variables.env" })
 const { convertDocument } = require("./lib/DocGenerator")
 const createServer = require("./createServer")
 const db = require("./db")

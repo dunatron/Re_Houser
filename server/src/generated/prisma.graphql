@@ -1,5 +1,5 @@
 # source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
-# timestamp: Thu Sep 26 2019 14:45:37 GMT+1200 (New Zealand Standard Time)
+# timestamp: Fri Sep 27 2019 02:18:10 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!

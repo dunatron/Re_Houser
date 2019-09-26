@@ -30,7 +30,7 @@
     "graphql": "^14.1.1",
     "graphql-cli": "^3.0.9",
     "graphql-scalars": "^1.0.1",
-    "graphql-yoga": "^1.17.1",
+    "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.4.0",
     "jszip": "2",
     "lodash": "^4.17.11",
