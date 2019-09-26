@@ -1,13 +1,13 @@
 // This is client side config only - don't put anything in here that shouldn't be public!
-// export const endpoint = `http://localhost:4444/`;
-export const endpoint = `https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev/`;
+export const endpoint = `http://localhost:4444/`;
+// export const endpoint = `https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev/`;
 // https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
 // export const prodEndpoint = `https://thetrader-yoga-prod.herokuapp.com`
 // export const prodEndpoint = `https://houser-yoga-prod.herokuapp.com/`
 export const prodEndpoint = `https://rehouser-yoga-prod.herokuapp.com/`;
 
-// export const wsEndpoint = `ws://localhost:4444`;
-export const wsEndpoint = `ws://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev`;
+export const wsEndpoint = `ws://localhost:4444`;
+// export const wsEndpoint = `ws://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev`;
 // export const wsEndpoint = `wss://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev`;
 // wss://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
 export const wsProdEndpoint = `wss://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod`;
