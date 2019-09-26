@@ -1,9 +1,5 @@
-import format from 'date-fns/format';
 import React from 'react';
-import { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { useInfiniteScroll } from '../../lib/use-infinite-scroll';
-import { useAdjustedScroll } from '../../lib/use-adjusted-scroll';
 import moment from 'moment';
 
 const Container = styled.div`
@@ -86,30 +82,9 @@ const Timestamp = styled.div`
   font-size: 12px;
 `;
 
-const MessagesList = ({ messages, loadMore, hasMore }) => {
-  const selfRef = useRef(null);
-  const [fetching, stopFetching] = useInfiniteScroll({
-    onLoadMore: loadMore,
-    hasMore,
-    ref: selfRef,
-  });
-  const adjustScroll = useAdjustedScroll(selfRef);
-
-  useEffect(() => {
-    if (!selfRef.current) return;
-
-    if (fetching) {
-      stopFetching();
-      adjustScroll();
-    } else {
-      // scroll to the most recent message
-      adjustScroll(true);
-    }
-  }, [messages.length, selfRef, fetching, stopFetching, adjustScroll]);
-
+const MessagesList = ({ messages }) => {
   return (
-    <Container ref={selfRef}>
-      {fetching && <LoadingMore>{'Loading more messages...'}</LoadingMore>}
+    <Container>
       {messages.map(message => (
         <MessageItem
           data-testid="message-item"
@@ -118,7 +93,6 @@ const MessagesList = ({ messages, loadMore, hasMore }) => {
           <Contents data-testid="message-content">{message.content}</Contents>
           <Timestamp data-testid="message-date">
             {moment(message.createdAt).format('HH:mm')}
-            {/* {format(message.createdAt, 'HH:mm')} */}
           </Timestamp>
         </MessageItem>
       ))}
