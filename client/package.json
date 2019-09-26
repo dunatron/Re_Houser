@@ -31,7 +31,6 @@
     "apollo-link-ws": "^1.0.19",
     "apollo-upload-client": "^11.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-plugin-react-persist": "^0.2.0",
     "babel-plugin-styled-components": "^1.7.1",
     "clsx": "^1.0.4",
     "css-loader": "^2.1.1",

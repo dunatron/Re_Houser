@@ -15,7 +15,6 @@
     "production": {
       "presets": ["next/babel"],
       "plugins": [
-        "babel-plugin-react-persist",
         [
           "styled-components",
           {
@@ -37,7 +36,6 @@
         ]
       ],
       "plugins": [
-        "babel-plugin-react-persist",
         [
           "styled-components",
           {
