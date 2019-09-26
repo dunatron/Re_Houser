@@ -41,20 +41,16 @@ const SendButton = styled(Button)`
   }
 `;
 
-interface MessageInputProps {
-  onSendMessage(content: string): any;
-}
-
-const MessageInput: React.FC<MessageInputProps> = ({ onSendMessage }) => {
+const MessageInput = ({ onSendMessage }) => {
   const [message, setMessage] = useState('');
 
-  const onKeyPress = (e: any) => {
+  const onKeyPress = e => {
     if (e.charCode === 13) {
       submitMessage();
     }
   };
 
-  const onChange = ({ target }: any) => {
+  const onChange = ({ target }) => {
     setMessage(target.value);
   };
 

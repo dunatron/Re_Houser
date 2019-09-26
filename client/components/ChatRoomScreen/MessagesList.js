@@ -25,10 +25,6 @@ const LoadingMore = styled.div`
   text-align: center;
 `;
 
-type StyledProp = {
-  isMine: any;
-};
-
 const MessageItem = styled.div`
   display: inline-block;
   position: relative;
@@ -53,7 +49,7 @@ const MessageItem = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
   }
-  ${(props: StyledProp) =>
+  ${props =>
     props.isMine
       ? css`
           float: right;
@@ -90,27 +86,12 @@ const Timestamp = styled.div`
   font-size: 12px;
 `;
 
-interface Message {
-  id: string | null;
-  content: string | null;
-  createdAt: string | null;
-}
-interface MessagesListProps {
-  messages: Array<Message>;
-  loadMore: Function;
-  hasMore: boolean;
-}
-
-const MessagesList: React.FC<MessagesListProps> = ({
-  messages,
-  loadMore,
-  hasMore,
-}) => {
-  const selfRef = useRef<HTMLDivElement>(null);
+const MessagesList = ({ messages, loadMore, hasMore }) => {
+  const selfRef = useRef(null);
   const [fetching, stopFetching] = useInfiniteScroll({
     onLoadMore: loadMore,
     hasMore,
-    ref: selfRef!,
+    ref: selfRef,
   });
   const adjustScroll = useAdjustedScroll(selfRef);
 
@@ -129,7 +110,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
   return (
     <Container ref={selfRef}>
       {fetching && <LoadingMore>{'Loading more messages...'}</LoadingMore>}
-      {messages.map((message: any) => (
+      {messages.map(message => (
         <MessageItem
           data-testid="message-item"
           isMine={message.isMine}

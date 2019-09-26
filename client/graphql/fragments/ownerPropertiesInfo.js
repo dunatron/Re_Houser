@@ -5,23 +5,6 @@ import gql from 'graphql-tag';
 const PaymentInfoFragment = gql`
   fragment paymentInfo on Payment {
     id
-    rooms
-    rent
-    moveInDate
-    expiryDate
-    onTheMarket
-    location
-    locationLat
-    locationLng
-    owners {
-      id
-      email
-      firstName
-    }
-    images {
-      url
-    }
-    isLeased
   }
 `;
 

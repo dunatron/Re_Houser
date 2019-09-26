@@ -48,22 +48,13 @@ const DeleteButton = styled(Button)`
   color: var(--primary-text) !important;
 `;
 
-export const removeChatMutation = gql`
-  mutation RemoveChat($chatId: ID!) {
-    removeChat(chatId: $chatId)
-  }
-`;
+// export const removeChatMutation = gql`
+//   mutation RemoveChat($chatId: ID!) {
+//     removeChat(chatId: $chatId)
+//   }
+// `;
 
-interface ChatNavbarProps {
-  history: History;
-  chat: {
-    picture?: string | null;
-    name?: string | null;
-    id: string;
-  };
-}
-
-const ChatNavbar: React.FC<ChatNavbarProps> = ({ chat, history }) => {
+const ChatNavbar = ({ chat, history }) => {
   // const [removeChat] = useRemoveChatMutation({
   //   variables: {
   //     chatId: chat.id,

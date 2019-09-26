@@ -108,9 +108,8 @@ export const CREATE_CHAT_MUTATION = gql`
   }
 `;
 
-const ChatsList: React.FC = props => {
-  console.log('Chat props => ', props);
-  const { data } = useQuery<any>(MY_CHATS_QUERY, {
+const ChatsList = props => {
+  const { data } = useQuery(MY_CHATS_QUERY, {
     variables: {
       where: {
         participants_some: {
@@ -142,20 +141,18 @@ const ChatsList: React.FC = props => {
       },
     });
   };
-  console.log('chats data => ', data);
   if (data === undefined || data.chats === undefined) {
     return null;
   }
   let chats = data.chats;
-  console.log('chats => ', chats);
 
   return (
     <Container>
       <StyledList>
         <Error error={createChatProps.error} />
         {chats.length === 0 && 'No CHats'}
-        <button onClick={() => createChat()}></button>
-        {chats.map((chat: any) => (
+        <button onClick={() => createChat()}>Create new chat</button>
+        {chats.map(chat => (
           <StyledListItem
             key={chat.id}
             data-testid="chat"
