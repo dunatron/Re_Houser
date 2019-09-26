@@ -19,7 +19,7 @@ const expressLogger = function(req, res, next) {
 
 server.use(expressLogger)
 //disable cors for now
-server.use(cors())
+// server.use(cors())
 
 server.express.use(cookieParser())
 
