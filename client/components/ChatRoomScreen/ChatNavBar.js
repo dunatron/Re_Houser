@@ -3,24 +3,21 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import DeleteIcon from '@material-ui/icons/Delete';
-import gql from 'graphql-tag';
 import React from 'react';
 import { useCallback } from 'react';
 import styled from 'styled-components';
-// import { useRemoveChatMutation } from '../../graphql/types';
-// import { eraseChat } from '../../services/cache.service';
 
 const Container = styled(Toolbar)`
   padding: 0;
   display: flex;
   flex-direction: row;
-  background-color: var(--primary-bg);
-  color: var(--primary-text);
+  background-color: rebeccapurple;
+  color: rebeccapurple;
 `;
 
 const BackButton = styled(Button)`
   svg {
-    color: var(--primary-text);
+    color: rebeccapurple;
   }
 `;
 
@@ -45,43 +42,15 @@ const Name = styled.div`
 `;
 
 const DeleteButton = styled(Button)`
-  color: var(--primary-text) !important;
+  color: rebeccapurple;
 `;
 
-// export const removeChatMutation = gql`
-//   mutation RemoveChat($chatId: ID!) {
-//     removeChat(chatId: $chatId)
-//   }
-// `;
-
-const ChatNavbar = ({ chat, history }) => {
-  // const [removeChat] = useRemoveChatMutation({
-  //   variables: {
-  //     chatId: chat.id,
-  //   },
-  //   update: (client, { data }) => {
-  //     if (data && data.removeChat) {
-  //       eraseChat(client, data.removeChat);
-  //     }
-  //   },
-  // });
-
-  // const handleRemoveChat = useCallback(() => {
-  //   removeChat().then(() => {
-  //     history.replace('/chats');
-  //   });
-  // }, [removeChat, history]);
-
+const ChatNavbar = ({ chat }) => {
   const handleRemoveChat = useCallback(() => {
     // removeChat().then(() => {
     //   history.replace('/chats');
     // });
   }, []);
-
-  // const navBack = useCallback(() => {
-  //   // history.replace('/chats');
-  //   Router.back();
-  // }, []);
 
   const navBack = () => {
     Router.back();

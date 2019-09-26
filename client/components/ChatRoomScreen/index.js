@@ -8,7 +8,7 @@ import {
   useSubscription,
 } from '@apollo/react-hooks';
 import styled from 'styled-components';
-import ChatNavbar from './ChatNavbar';
+import ChatNavbar from './ChatNavBar';
 import MessageInput from './MessageInput';
 import MessagesList from './MessagesList';
 import Error from '../ErrorMessage';
