@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import Error from '../../ErrorMessage/index';
-import { COMPLETE_RENTAL_APPLICATION } from '../../../mutation/index';
+import { COMPLETE_RENTAL_APPLICATION } from '../../../graphql/mutations/index';
 
 const FinaliseApplicationStep = ({
   rentalApplication,

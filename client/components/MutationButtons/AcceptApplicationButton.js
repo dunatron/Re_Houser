@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import {
   ACCEPT_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
-} from '../../mutation/index';
+} from '../../graphql/mutations/index';
 import { useMatchFetch } from '../Effects/useMatchEffect';
 
 import { Button } from '@material-ui/core';

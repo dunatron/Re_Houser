@@ -3,8 +3,8 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { isEmpty, equals } from 'ramda';
 import styled from 'styled-components';
 
-import { UPDATE_USER_MUTATION } from '../../mutation/index';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 // configs
 import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
 import { withStyles, makeStyles } from '@material-ui/core/styles';

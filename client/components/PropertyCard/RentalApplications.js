@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ApplicationItem from './ApplicationItem';
-import { RENTAL_APPLICATIONS_QUERY } from '../../query/index';
+import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
 import { useSubscription, useQuery } from '@apollo/react-hooks';
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationCreatedSub';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
 
 const RentalApplications = props => {
   const { propertyId, property, me } = props;

@@ -17,9 +17,9 @@ import FinaliseApplicationStep from './steps/FinaliseApplicationStep';
 // configs
 import { RENTAL_GROUP_APPLICANT_CONF } from '../../lib/configs/rentalGroupApplicantConfig';
 import customErrorsBag from '../../lib/errorsBagGenerator';
-import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../mutation/index';
+import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../graphql/mutations/index';
 
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../query/index';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
 
 import { isEmpty } from 'ramda';
 

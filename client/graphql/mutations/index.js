@@ -10,6 +10,7 @@ import { CREATE_CREDIT_CARD_MUTATION } from './createCreditCard';
 import { ACCEPT_RENTAL_APPLICATION_MUTATION } from './acceptRentalApplication';
 import { CREATE_PROPERTY_LEASE_MUTATION } from './createPropertyLease';
 import { COMPLETE_RENTAL_APPLICATION } from './completeRentalApplication';
+import { CREATE_MESSAGE_MUTATION } from './createMessage';
 
 export {
   CREATE_PROPERTY_MUTATION,
@@ -24,4 +25,5 @@ export {
   ACCEPT_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
   COMPLETE_RENTAL_APPLICATION,
+  CREATE_MESSAGE_MUTATION,
 };

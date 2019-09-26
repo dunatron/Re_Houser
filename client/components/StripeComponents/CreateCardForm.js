@@ -7,8 +7,8 @@ import {
   injectStripe,
 } from 'react-stripe-elements';
 import { useMutation } from '@apollo/react-hooks';
-import { CREATE_CREDIT_CARD_MUTATION } from '../../mutation/createCreditCard';
-import { MY_CREDIT_CARDS_QUERY } from '../../query/index';
+import { CREATE_CREDIT_CARD_MUTATION } from '../../graphql/mutations/createCreditCard';
+import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
 import ButtonLoader from '../Loader/ButtonLoader';
 import { Button } from '@material-ui/core';
 

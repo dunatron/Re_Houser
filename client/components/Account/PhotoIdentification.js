@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import DragDropUploader from '../DragDropUploader/index';
 import { Mutation } from 'react-apollo';
-import { UPDATE_USER_MUTATION } from '../../mutation/index';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage/index';
 import IconButton from '@material-ui/core/IconButton';
 // styles

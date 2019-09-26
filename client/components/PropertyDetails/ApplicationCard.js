@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
-import { RENTAL_APPLICATIONS_QUERY } from '../../query/index';
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../mutation/acceptRentalApplication';
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationCreatedSub';
-import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../subscriptions/RentalApplicationUpdatedSub';
+import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/acceptRentalApplication';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
+import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
 import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
 import Card from '@material-ui/core/Card';
 import ExpansionPanel from '../../styles/ExpansionPanel';

@@ -3,8 +3,8 @@ import { toast } from 'react-toastify';
 
 import { useMutation } from '@apollo/react-hooks';
 
-import { UPLOAD_PHOTO_IDENTIFICATION } from '../../mutation/index';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { UPLOAD_PHOTO_IDENTIFICATION } from '../../graphql/mutations/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 import encodeImage from '../../lib/encodeImage';
 
 import { DetailStyles, UploaderStyles } from './styles';

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import Error from '../ErrorMessage';
 import SelectOption from '../../components/Inputs/SelectOption';
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../query/index';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
 /**
  * PRIVATE
  * FRIENDS_ONLY

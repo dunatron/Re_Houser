@@ -18,6 +18,8 @@ const ownerProperty = require("./querys/ownerProperty")
 const ownerProperties = require("./querys/ownerProperties")
 const chats = require("./querys/chats")
 const chat = require("./querys/chat")
+const messages = require("./querys/messages")
+const messagesConnection = require("./querys/messagesConnection")
 
 const Query = {
   me,
@@ -37,6 +39,8 @@ const Query = {
   findUsers,
   chats,
   chat,
+  messages,
+  messagesConnection,
 }
 
 module.exports = Query

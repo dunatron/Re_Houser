@@ -2,7 +2,7 @@ import { Query } from 'react-apollo';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 
 const useCurrentUser = props => {
   const { data, error, loading } = useQuery(CURRENT_USER_QUERY);

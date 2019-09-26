@@ -6,8 +6,8 @@ import { adopt } from 'react-adopt';
 import InputModal from '../Modal/InputModal';
 import Typography from '@material-ui/core/Typography';
 
-import { UPDATE_USER_MUTATION } from '../../mutation/index';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 // configs
 import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
 // components

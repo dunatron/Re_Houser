@@ -93,6 +93,7 @@ type Subscription {
   rentalApplicationUpdateSub(
     where: RentalApplicationSubscriptionWhereInput
   ): RentalApplicationSubscriptionPayload
+  messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
 }
 
 type Query {
@@ -110,6 +111,25 @@ type Query {
     last: Int
   ): [Chat]!
   chat(where: ChatWhereUniqueInput!): Chat
+  messages(
+    where: MessageWhereInput
+    orderBy: MessageOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Message]!
+  messagesConnection(
+    where: MessageWhereInput
+    orderBy: MessageOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): MessageConnection!
+  chatFeed(filter: String): [Message!]!
   properties: [Property!]!
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property

@@ -19,7 +19,7 @@ import ResetIcon from '@material-ui/icons/Build';
 
 import LoggedInAs from './LoggedInAs';
 
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 
 const TabContainer = ({ children, dir }) => {
   return (

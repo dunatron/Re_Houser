@@ -25,7 +25,7 @@ import StarIcon from '../../styles/icons/StarIcon';
 import {
   APPLY_TO_RENTAL_GROUP_APPLICATION,
   CREATE_PRE_RENTAL_DOCUMENT_MUTATION,
-} from '../../mutation/index';
+} from '../../graphql/mutations/index';
 import ApplyToGroup from './ApplyToGroup.js';
 import User from '../User/index';
 

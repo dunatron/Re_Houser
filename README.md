@@ -597,6 +597,59 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 }
 ```
 
+#### Messages connection 
+- (use this as curser based pagination)
+```js
+query MessagesConnection(
+  $where:MessageWhereInput
+  $orderBy:MessageOrderByInput
+  $skip:Int
+  $after:String
+  $before:String
+  $first:Int
+  $last:Int
+) {
+  messagesConnection(
+    where:$where
+    orderBy:$orderBy
+    skip:$skip
+    after:$after
+    before:$before
+    first:$first
+    last:$last
+  ) {
+    aggregate {
+      count
+    }
+    pageInfo {
+      hasNextPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        id
+        content
+        createdAt
+        sender {
+          id
+        }
+      }
+    }
+  }
+}
+// variables
+{
+  "where": {
+    "chat": {
+      "id": "asdasdasdasd"
+    }
+  }
+}
+```
+
 #### allChats for user
 ```js
 query MY_CHATS_QUERY(

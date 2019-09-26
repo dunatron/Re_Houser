@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import SearchAndRequestFriend from './SearchAndRequestFriend';
 import PendingFriendRequests from './PendingFriendRequests';
 import FriendsList from './FriendsList';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 
 const FriendManager = props => {
   const { me } = props;

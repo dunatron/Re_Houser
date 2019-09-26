@@ -10,7 +10,7 @@ import PropertyDetails from '../PropertyDetails/index';
 import { ToastContainer, toast } from 'react-toastify';
 import Router from 'next/router';
 import { graphql, withApollo } from 'react-apollo';
-import { PROPERTIES_QUERY } from '../../query/index';
+import { PROPERTIES_QUERY } from '../../graphql/queries/index';
 const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,

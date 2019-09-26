@@ -17,8 +17,8 @@ import TextInput from '../../styles/TextInput';
 import DateInput from '../Inputs/DateInput';
 import Error from '../ErrorMessage/index';
 import Button from '@material-ui/core/Button';
-import { UPDATE_PROPERTY_MUTATION } from '../../mutation/index';
-import { OWNER_PROPERTIES_QUERY } from '../../query/index';
+import { UPDATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
+import { OWNER_PROPERTIES_QUERY } from '../../graphql/queries/index';
 import useKeyPress from '../../lib/useKeyPress';
 import Switch from '@material-ui/core/Switch';
 import {

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/react-hooks';
-import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../../mutation/index';
+import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../../graphql/mutations/index';
 import Switch from '@material-ui/core/Switch';
 import SwitchInput from '../../Inputs/SwitchInput';
 import ApplicantDetails from '../../ApplicantDetails/index';
 import {
   RENTAL_APPLICATIONS_QUERY,
   SINGLE_RENTAL_APPLICATION_QUERY,
-} from '../../../query/index';
+} from '../../../graphql/queries/index';
 import Error from '../../ErrorMessage';
 import ChangeApplicationVisibilityBtn from '../../MutationButtons/ChangeApplicationVisibilityButton';
 

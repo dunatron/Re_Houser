@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { useInfiniteScroll } from '../../lib/use-infinite-scroll';
 import { useAdjustedScroll } from '../../lib/use-adjusted-scroll';
+import moment from 'moment';
 
 const Container = styled.div`
   position: relative;
@@ -135,6 +136,7 @@ const MessagesList: React.FC<MessagesListProps> = ({
           key={message.id}>
           <Contents data-testid="message-content">{message.content}</Contents>
           <Timestamp data-testid="message-date">
+            {moment(message.createdAt).format('HH:mm')}
             {/* {format(message.createdAt, 'HH:mm')} */}
           </Timestamp>
         </MessageItem>

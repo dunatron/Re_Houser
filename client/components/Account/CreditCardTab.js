@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { MY_CREDIT_CARDS_QUERY } from '../../query/index';
+import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
 import CreditCardsList from '../CreditCard/CreditCardsList';
 import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
 import Button from '@material-ui/core/Button';

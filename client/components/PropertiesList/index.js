@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Error from '../ErrorMessage/index';
 import PropertyCard from '../PropertyCard/index';
-import { PROPERTIES_QUERY } from '../../query/propertiesQuery';
+import { PROPERTIES_QUERY } from '../../graphql/queries/propertiesQuery';
 
 export default class index extends Component {
   render() {

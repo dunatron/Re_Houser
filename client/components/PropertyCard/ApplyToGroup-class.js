@@ -6,7 +6,7 @@ import Error from '../ErrorMessage/index';
 import Tooltip from '@material-ui/core/Tooltip';
 import User from '../User/index';
 // Mutations
-import { APPLY_TO_RENTAL_GROUP_APPLICATION } from '../../mutation/index';
+import { APPLY_TO_RENTAL_GROUP_APPLICATION } from '../../graphql/mutations/index';
 
 //icons
 import PersonIcon from '@material-ui/icons/Person';

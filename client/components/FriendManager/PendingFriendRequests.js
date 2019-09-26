@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 import TextInput from '../Inputs/TextInput';
 import Button from '@material-ui/core/Button';
 import FriendRequestButton from '../MutationButtons/FriendRequestButton';
-import { CURRENT_USER_QUERY } from '../../query/index';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage';
 
 const ACCEPT_FRIEND_REQUEST_MUTATION = gql`

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import { useSubscription, useMutation, useQuery } from '@apollo/react-hooks';
-import { CREATE_RENTAL_APPLICATION } from '../../mutation/index';
+import { CREATE_RENTAL_APPLICATION } from '../../graphql/mutations/index';
 import {
   RENTAL_APPLICATIONS_QUERY,
   CURRENT_USER_QUERY,
-} from '../../query/index';
+} from '../../graphql/queries/index';
 
 import RentalApplications from './RentalApplications';
 import Button from '@material-ui/core/Button';
