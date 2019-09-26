@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 
 // const transport = nodemailer.createTransport({
 //   host: process.env.MAIL_HOST,
@@ -29,13 +29,13 @@ const transport = nodemailer.createTransport({
   // secure: true,
   auth: {
     user: "heathd@rehouser.co.nz",
-    pass: "DDHDB@$92Dunlop24",
-  },
+    pass: "DDHDB@$92Dunlop24"
+  }
   // tls: {
   //   // do not fail on invalid certs
   //   rejectUnauthorized: false,
   // },
-})
+});
 
 // host: 'smtp.gmail.com',
 //     port: 465,
@@ -72,7 +72,7 @@ const makeANiceEmail = text => `
     <p>${text}</p>
     <p>😘, Dunatron</p>
   </div>
-`
+`;
 
-exports.transport = transport
-exports.makeANiceEmail = makeANiceEmail
+exports.transport = transport;
+exports.makeANiceEmail = makeANiceEmail;

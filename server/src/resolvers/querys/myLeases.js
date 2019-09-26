@@ -3,7 +3,7 @@ async function myLeases(parent, args, ctx, info) {
   // if (!ctx.request.userId) {
   //   throw new Error("You must be logged in to get your properties!")
   // }
-  const userId = ctx.request.userId
+  const userId = ctx.request.userId;
   // We can only ever show leases where we are an owner or a tenant in that given lease
   // const where = {
   //   ...args.where,
@@ -26,25 +26,25 @@ async function myLeases(parent, args, ctx, info) {
       {
         lessors_some: {
           user: {
-            id: userId,
-          },
-        },
+            id: userId
+          }
+        }
       },
       {
         lessees_some: {
           user: {
-            id: userId,
-          },
-        },
-      },
-    ],
-  }
+            id: userId
+          }
+        }
+      }
+    ]
+  };
   return ctx.db.query.propertyLeases(
     {
-      where: where,
+      where: where
     },
     info
-  )
+  );
 }
 
-module.exports = myLeases
+module.exports = myLeases;

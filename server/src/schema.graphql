@@ -1,8 +1,35 @@
 # import * from './generated/prisma.graphql'
-
+scalar Date
+scalar URL
 scalar Json
 scalar Float
 scalar Upload
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  permissions: [Permission!]!
+  properties: [Property!]!
+  createdProperties: [Property!]!
+  photoIdentification: File
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  primaryCreditCard: CreditCard
+  friends: [User!]!
+  friendRequests: [FriendRequest!]!
+  awaitingFriends: [FriendRequest!]!
+}
 
 type SuccessMessage {
   message: String
@@ -57,6 +84,8 @@ type Mutation {
   finalisePropertyLease(leaseId: ID!): SuccessMessage!
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
+  createChat(data: ChatCreateInput!): Chat!
+  createMessage(data: MessageCreateInput!): Message
 }
 
 type Subscription {
@@ -71,6 +100,16 @@ type Query {
   users: [User]!
   file(id: ID!): File
   files: [File!]!
+  chats(
+    where: ChatWhereInput
+    orderBy: ChatOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Chat]!
+  chat(where: ChatWhereUniqueInput!): Chat
   properties: [Property!]!
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property
@@ -100,30 +139,4 @@ type Query {
     first: Int
     last: Int
   ): [User!]!
-}
-
-type User {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  permissions: [Permission!]!
-  properties: [Property!]!
-  createdProperties: [Property!]!
-  photoIdentification: File
-  identificationNumber: String
-  emergencyContactName: String
-  emergencyContactNumber: String
-  emergencyContactEmail: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
-  primaryCreditCard: CreditCard
-  friends: [User!]!
-  friendRequests: [FriendRequest!]!
-  awaitingFriends: [FriendRequest!]!
 }

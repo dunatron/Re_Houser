@@ -597,6 +597,47 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 }
 ```
 
+#### allChats for user
+```js
+query MY_CHATS_QUERY(
+ 	$where: ChatWhereInput
+	$orderBy: ChatOrderByInput
+	$skip: Int
+	$after: String
+	$before: String
+	$first: Int
+	$last: Int
+) {
+  chats(
+    where: $where,
+    orderBy: $orderBy
+    skip:$skip,
+    after:$after,
+    before:$before,
+    first:$first,
+    last:$last
+  ) {
+    id
+    name
+    lastMessage {
+      id
+      isMine
+    }
+    participants {
+      id
+    }
+  }
+}
+// variables
+{
+  "where": {
+    "participants_some": {
+      "id_in": "cjxua8g4x000f0774pklps3uf"
+    }
+  }
+}
+```
+
 #### findUsers for friend requests
 
 ```js
@@ -847,6 +888,41 @@ const where = {
 
 <details>
   <summary>Mutations</summary>
+
+#### createChat
+```js
+mutation CREATE_CHAT_MUTATION(
+  $data: ChatCreateInput!
+) {
+  createChat(data: $data) {
+    id
+    name
+    lastMessage {
+      id
+      isMine
+    }
+    participants {
+      id
+    }
+  }
+}
+// variables 
+
+{
+  "data": {
+    "name": "CHat room 0",
+    "participants":{
+      "connect": [{
+        "id": "cjxua8g4x000f0774pklps3uf"
+      }, 
+      {
+        "id": "cjyqtepdu001h0717kereveq8"
+      }
+      ]
+    }
+  }
+}
+```
 
 #### createProperty
 

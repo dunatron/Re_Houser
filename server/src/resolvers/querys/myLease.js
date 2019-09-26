@@ -2,12 +2,12 @@ async function myLease(parent, args, ctx, info) {
   const myLease = await ctx.db.query.propertyLease(
     {
       where: {
-        ...args.where,
-      },
+        ...args.where
+      }
     },
     info
-  )
-  return myLease
+  );
+  return myLease;
 }
 
-module.exports = myLease
+module.exports = myLease;

@@ -8,11 +8,11 @@ async function rentalApplicationCreatedSubscription(
   return context.db.subscription.rentalApplication(
     { where: { mutation_in: ["CREATED"] } },
     info
-  )
+  );
 }
 const rentalApplicationCreatedSub = {
-  subscribe: rentalApplicationCreatedSubscription,
-}
+  subscribe: rentalApplicationCreatedSubscription
+};
 
 // rentalApplication update subscription
 async function rentalApplicationUpdateSubscription(
@@ -24,12 +24,12 @@ async function rentalApplicationUpdateSubscription(
   const sub = context.db.subscription.rentalApplication(
     { where: args.where },
     info
-  )
-  return sub
+  );
+  return sub;
 }
 const rentalApplicationUpdateSub = {
-  subscribe: rentalApplicationUpdateSubscription,
-}
+  subscribe: rentalApplicationUpdateSubscription
+};
 
 // rentalApplication Pending SUbscription
 async function rentalApplicationCompletedSubscription(
@@ -41,13 +41,13 @@ async function rentalApplicationCompletedSubscription(
   return context.db.subscription.rentalApplication(
     { where: { mutation_in: ["UPDATED"] } },
     info
-  )
+  );
 }
 const rentalApplicationCompletedSub = {
-  subscribe: rentalApplicationCompletedSubscription,
-}
+  subscribe: rentalApplicationCompletedSubscription
+};
 
 module.exports = {
   rentalApplicationCreatedSub,
-  rentalApplicationUpdateSub,
-}
+  rentalApplicationUpdateSub
+};

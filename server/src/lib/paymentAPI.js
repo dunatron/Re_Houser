@@ -1,6 +1,6 @@
-const moment = require("moment")
-const stripe = require("./stripe")
-const db = require("../db")
+const moment = require("moment");
+const stripe = require("./stripe");
+const db = require("../db");
 
 // https://stripe.com/docs/saving-cards
 /**
@@ -11,21 +11,21 @@ const db = require("../db")
 exports.createCard = async ({ stripeToken, email, user, ctx, info }) => {
   const card = await stripe.customers.create({
     source: stripeToken,
-    email: email,
-  })
-  const { id, created, default_source } = card
+    email: email
+  });
+  const { id, created, default_source } = card;
   // this is the cardId created on the stripe account
-  const cardId = default_source
+  const cardId = default_source;
   // Maybe we can be storing stripe users and this array can have many cards???
-  const cardData = card.sources.data[0]
+  const cardData = card.sources.data[0];
   const newCard = await db.mutation.createCreditCard(
     {
       data: {
         cardOwner: {
           connect: {
-            id: user.id,
+            id: user.id
             // email: user.email,
-          },
+          }
         },
         fingerprint: cardData.fingerprint,
         last4: cardData.last4,
@@ -46,13 +46,13 @@ exports.createCard = async ({ stripeToken, email, user, ctx, info }) => {
         address_zip_check: cardData.address_zip_check,
         object: cardData.object,
         cvc_check: cardData.cvc_check,
-        funding: cardData.funding,
-      },
+        funding: cardData.funding
+      }
     },
     info
-  )
-  return newCard
-}
+  );
+  return newCard;
+};
 
 exports.chargeCard = async ({
   stripeCustomerId,
@@ -60,15 +60,15 @@ exports.chargeCard = async ({
   currency,
   userId,
   leaseId,
-  propertyId,
+  propertyId
 }) => {
   const charge = await stripe.charges.create({
     amount: amount,
     currency: currency,
     customer: stripeCustomerId,
     description:
-      "Charged for advertising a property and creating a successful lease with tenants",
-  })
+      "Charged for advertising a property and creating a successful lease with tenants"
+  });
   // create new payment mutation
   const payment = await db.mutation.createPayment(
     {
@@ -88,10 +88,10 @@ exports.chargeCard = async ({
         description: charge.description,
         paid: charge.paid,
         payment_method: charge.payment_method,
-        status: charge.status,
-      },
+        status: charge.status
+      }
     },
     `{id}`
-  )
-  return payment
-}
+  );
+  return payment;
+};

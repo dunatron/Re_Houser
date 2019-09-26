@@ -1,6 +1,6 @@
 //acceptRentalApplication
 
-const { transport, makeANiceEmail } = require("../../lib/mail")
+const { transport, makeANiceEmail } = require("../../lib/mail");
 
 async function acceptRentalApplication(
   parent,
@@ -8,46 +8,46 @@ async function acceptRentalApplication(
   ctx,
   info
 ) {
-  const loggedInUser = ctx.request.userId
+  const loggedInUser = ctx.request.userId;
   // need to be logged in
   if (!loggedInUser) {
-    throw new Error("You must be logged in!")
+    throw new Error("You must be logged in!");
   }
 
   // get application
   const application = await ctx.db.query.rentalApplication(
     {
       where: {
-        id: applicationId,
-      },
+        id: applicationId
+      }
     },
     // {},
     `{ owner{id} applicants{email user{email}} }`
-  )
+  );
 
   // get the Property
   const property = await ctx.db.query.property(
     { where: { id: propertyId } },
     `{owners{id}}`
-  )
+  );
   // check that loggedInUser is one of the owners for the property
-  ownerIds = property.owners.map(owner => owner.id)
+  ownerIds = property.owners.map(owner => owner.id);
   if (!ownerIds.includes(loggedInUser)) {
-    throw new Error("You are not one of the owners!")
+    throw new Error("You are not one of the owners!");
   }
 
   // set the stage to complete by making a mutation
   const updatedApplication = await ctx.db.mutation.updateRentalApplication(
     {
       where: {
-        id: applicationId,
+        id: applicationId
       },
       data: {
-        stage: "ACCEPTED",
-      },
+        stage: "ACCEPTED"
+      }
     },
     info
-  )
+  );
   // ToDo create a new Type {Lease}
 
   // Send EMails to the applicants informing them that the application has been completed
@@ -64,7 +64,7 @@ async function acceptRentalApplication(
   */
 
   // return the application
-  return { message: "Congratulations You have created a new Lease" }
+  return { message: "Congratulations You have created a new Lease" };
 }
 
-module.exports = acceptRentalApplication
+module.exports = acceptRentalApplication;

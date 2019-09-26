@@ -1,27 +1,27 @@
 async function signLease(parent, args, ctx, info) {
-  const { id, type, leaseId } = args
+  const { id, type, leaseId } = args;
   // 1. Query the current user and ma ke sure they are signed in
   // const { userId } = ctx.request.userId
   // if (!userId) throw new Error("You must be signed in to create a credit card")
-  const loggedInUserId = await ctx.request.userId
+  const loggedInUserId = await ctx.request.userId;
   // need to be logged in
   if (!loggedInUserId) {
-    throw new Error("You must be logged in to sign any of your leases!")
+    throw new Error("You must be logged in to sign any of your leases!");
   }
 
   const data = {
     update: {
       where: {
-        id: id,
+        id: id
       },
       data: {
-        signed: true,
-      },
-    },
-  }
+        signed: true
+      }
+    }
+  };
 
   const updateDataWithType =
-    type === "LESSOR" ? { lessors: data } : { lessees: data }
+    type === "LESSOR" ? { lessors: data } : { lessees: data };
 
   // const userType =
 
@@ -33,16 +33,16 @@ async function signLease(parent, args, ctx, info) {
   // just straight up make the mutation
   const signedLease = await ctx.db.mutation.updatePropertyLease({
     where: {
-      id: leaseId,
+      id: leaseId
     },
-    data: updateDataWithType,
-  })
+    data: updateDataWithType
+  });
 
   const message = {
-    message: `Signing of lease ${leaseId} was successful`,
-  }
+    message: `Signing of lease ${leaseId} was successful`
+  };
 
-  return message
+  return message;
 }
 
-module.exports = signLease
+module.exports = signLease;

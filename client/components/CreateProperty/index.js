@@ -138,7 +138,7 @@ const CreateProperty = ({ me }) => {
   const [createProperty, { loading, data, error }] = useMutation(
     CREATE_PROPERTY_MUTATION,
     {
-      variables: () => _propertyVariables(),
+      variables: _propertyVariables(),
       update: (proxy, payload) => {
         // Once application is accepted we can create a newLease
         if (payload.data.acceptRentalApplication.message) {

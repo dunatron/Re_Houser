@@ -30,6 +30,30 @@ type User {
   referee2Email: String
   creditCards: [CreditCard!]! @relation(name: "UserCreditCards")
   primaryCreditCard: CreditCard @relation(name: "UserPrimaryCreditCard")
+  chats: [Chat!]! @relation(name: "UserChats")
+  sentMessages: [Message!]! @relation(name: "UserSentMessages")
+  recievedMessages: [Message!]! @relation(name: "UserRecievedMessages")
+}
+
+type Message {
+  id: ID! @unique @id
+  content: String!
+  createdAt: DateTime! @createdAt
+  lastMessageRel: Chat @relation(name: "LastMessageRel")
+  chat: Chat! @relation(name: "ChatMessages")
+  sender: User @relation(name: "UserSentMessages")
+  recipient: User @relation(name: "UserRecievedMessages")
+  isMine: Boolean!
+}
+
+type Chat {
+  id: ID! @unique @id
+  name: String!
+  picture: String
+  type: String
+  lastMessage: Message @relation(name: "LastMessageRel", link: TABLE)
+  messages: [Message!]! @relation(name: "ChatMessages", link: TABLE)
+  participants: [User!]! @relation(name: "UserChats", link: TABLE)
 }
 
 type FriendRequest {

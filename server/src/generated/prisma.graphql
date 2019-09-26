@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Sep 18 2019 12:34:56 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
+# timestamp: Thu Sep 26 2019 14:45:37 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -21,7 +21,6 @@ type AccommodationConnection {
 }
 
 input AccommodationCreateInput {
-  id: ID
   roomSize: Float
   rent: Float
   expenses: Float
@@ -35,7 +34,6 @@ input AccommodationCreateManyWithoutPropertyInput {
 }
 
 input AccommodationCreateWithoutPropertyInput {
-  id: ID
   roomSize: Float
   rent: Float
   expenses: Float
@@ -62,6 +60,10 @@ enum AccommodationOrderByInput {
   expenses_DESC
   description_ASC
   description_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type AccommodationPreviousValues {
@@ -291,7 +293,6 @@ input AccommodationUpdateManyMutationInput {
 input AccommodationUpdateManyWithoutPropertyInput {
   create: [AccommodationCreateWithoutPropertyInput!]
   connect: [AccommodationWhereUniqueInput!]
-  set: [AccommodationWhereUniqueInput!]
   disconnect: [AccommodationWhereUniqueInput!]
   delete: [AccommodationWhereUniqueInput!]
   update: [AccommodationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -489,6 +490,10 @@ type AggregateAccommodation {
   count: Int!
 }
 
+type AggregateChat {
+  count: Int!
+}
+
 type AggregateCreditCard {
   count: Int!
 }
@@ -506,6 +511,10 @@ type AggregateLessee {
 }
 
 type AggregateLessor {
+  count: Int!
+}
+
+type AggregateMessage {
   count: Int!
 }
 
@@ -549,6 +558,593 @@ type BatchPayload {
   count: Long!
 }
 
+type Chat implements Node {
+  id: ID!
+  name: String!
+  picture: String
+  type: String
+  lastMessage: Message
+  messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
+  participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+}
+
+"""A connection to a list of items."""
+type ChatConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ChatEdge]!
+  aggregate: AggregateChat!
+}
+
+input ChatCreateInput {
+  name: String!
+  picture: String
+  type: String
+  lastMessage: MessageCreateOneWithoutLastMessageRelInput
+  messages: MessageCreateManyWithoutChatInput
+  participants: UserCreateManyWithoutChatsInput
+}
+
+input ChatCreateManyWithoutParticipantsInput {
+  create: [ChatCreateWithoutParticipantsInput!]
+  connect: [ChatWhereUniqueInput!]
+}
+
+input ChatCreateOneWithoutLastMessageInput {
+  create: ChatCreateWithoutLastMessageInput
+  connect: ChatWhereUniqueInput
+}
+
+input ChatCreateOneWithoutMessagesInput {
+  create: ChatCreateWithoutMessagesInput
+  connect: ChatWhereUniqueInput
+}
+
+input ChatCreateWithoutLastMessageInput {
+  name: String!
+  picture: String
+  type: String
+  messages: MessageCreateManyWithoutChatInput
+  participants: UserCreateManyWithoutChatsInput
+}
+
+input ChatCreateWithoutMessagesInput {
+  name: String!
+  picture: String
+  type: String
+  lastMessage: MessageCreateOneWithoutLastMessageRelInput
+  participants: UserCreateManyWithoutChatsInput
+}
+
+input ChatCreateWithoutParticipantsInput {
+  name: String!
+  picture: String
+  type: String
+  lastMessage: MessageCreateOneWithoutLastMessageRelInput
+  messages: MessageCreateManyWithoutChatInput
+}
+
+"""An edge in a connection."""
+type ChatEdge {
+  """The item at the end of the edge."""
+  node: Chat!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ChatOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  picture_ASC
+  picture_DESC
+  type_ASC
+  type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ChatPreviousValues {
+  id: ID!
+  name: String!
+  picture: String
+  type: String
+}
+
+input ChatScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChatScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChatScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChatScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  picture: String
+
+  """All values that are not equal to given value."""
+  picture_not: String
+
+  """All values that are contained in given list."""
+  picture_in: [String!]
+
+  """All values that are not contained in given list."""
+  picture_not_in: [String!]
+
+  """All values less than the given value."""
+  picture_lt: String
+
+  """All values less than or equal the given value."""
+  picture_lte: String
+
+  """All values greater than the given value."""
+  picture_gt: String
+
+  """All values greater than or equal the given value."""
+  picture_gte: String
+
+  """All values containing the given string."""
+  picture_contains: String
+
+  """All values not containing the given string."""
+  picture_not_contains: String
+
+  """All values starting with the given string."""
+  picture_starts_with: String
+
+  """All values not starting with the given string."""
+  picture_not_starts_with: String
+
+  """All values ending with the given string."""
+  picture_ends_with: String
+
+  """All values not ending with the given string."""
+  picture_not_ends_with: String
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+}
+
+type ChatSubscriptionPayload {
+  mutation: MutationType!
+  node: Chat
+  updatedFields: [String!]
+  previousValues: ChatPreviousValues
+}
+
+input ChatSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChatSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChatSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChatSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ChatWhereInput
+}
+
+input ChatUpdateInput {
+  name: String
+  picture: String
+  type: String
+  lastMessage: MessageUpdateOneWithoutLastMessageRelInput
+  messages: MessageUpdateManyWithoutChatInput
+  participants: UserUpdateManyWithoutChatsInput
+}
+
+input ChatUpdateManyDataInput {
+  name: String
+  picture: String
+  type: String
+}
+
+input ChatUpdateManyMutationInput {
+  name: String
+  picture: String
+  type: String
+}
+
+input ChatUpdateManyWithoutParticipantsInput {
+  create: [ChatCreateWithoutParticipantsInput!]
+  connect: [ChatWhereUniqueInput!]
+  disconnect: [ChatWhereUniqueInput!]
+  delete: [ChatWhereUniqueInput!]
+  update: [ChatUpdateWithWhereUniqueWithoutParticipantsInput!]
+  updateMany: [ChatUpdateManyWithWhereNestedInput!]
+  deleteMany: [ChatScalarWhereInput!]
+  upsert: [ChatUpsertWithWhereUniqueWithoutParticipantsInput!]
+}
+
+input ChatUpdateManyWithWhereNestedInput {
+  where: ChatScalarWhereInput!
+  data: ChatUpdateManyDataInput!
+}
+
+input ChatUpdateOneRequiredWithoutMessagesInput {
+  create: ChatCreateWithoutMessagesInput
+  connect: ChatWhereUniqueInput
+  update: ChatUpdateWithoutMessagesDataInput
+  upsert: ChatUpsertWithoutMessagesInput
+}
+
+input ChatUpdateOneWithoutLastMessageInput {
+  create: ChatCreateWithoutLastMessageInput
+  connect: ChatWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ChatUpdateWithoutLastMessageDataInput
+  upsert: ChatUpsertWithoutLastMessageInput
+}
+
+input ChatUpdateWithoutLastMessageDataInput {
+  name: String
+  picture: String
+  type: String
+  messages: MessageUpdateManyWithoutChatInput
+  participants: UserUpdateManyWithoutChatsInput
+}
+
+input ChatUpdateWithoutMessagesDataInput {
+  name: String
+  picture: String
+  type: String
+  lastMessage: MessageUpdateOneWithoutLastMessageRelInput
+  participants: UserUpdateManyWithoutChatsInput
+}
+
+input ChatUpdateWithoutParticipantsDataInput {
+  name: String
+  picture: String
+  type: String
+  lastMessage: MessageUpdateOneWithoutLastMessageRelInput
+  messages: MessageUpdateManyWithoutChatInput
+}
+
+input ChatUpdateWithWhereUniqueWithoutParticipantsInput {
+  where: ChatWhereUniqueInput!
+  data: ChatUpdateWithoutParticipantsDataInput!
+}
+
+input ChatUpsertWithoutLastMessageInput {
+  update: ChatUpdateWithoutLastMessageDataInput!
+  create: ChatCreateWithoutLastMessageInput!
+}
+
+input ChatUpsertWithoutMessagesInput {
+  update: ChatUpdateWithoutMessagesDataInput!
+  create: ChatCreateWithoutMessagesInput!
+}
+
+input ChatUpsertWithWhereUniqueWithoutParticipantsInput {
+  where: ChatWhereUniqueInput!
+  update: ChatUpdateWithoutParticipantsDataInput!
+  create: ChatCreateWithoutParticipantsInput!
+}
+
+input ChatWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChatWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChatWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChatWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  picture: String
+
+  """All values that are not equal to given value."""
+  picture_not: String
+
+  """All values that are contained in given list."""
+  picture_in: [String!]
+
+  """All values that are not contained in given list."""
+  picture_not_in: [String!]
+
+  """All values less than the given value."""
+  picture_lt: String
+
+  """All values less than or equal the given value."""
+  picture_lte: String
+
+  """All values greater than the given value."""
+  picture_gt: String
+
+  """All values greater than or equal the given value."""
+  picture_gte: String
+
+  """All values containing the given string."""
+  picture_contains: String
+
+  """All values not containing the given string."""
+  picture_not_contains: String
+
+  """All values starting with the given string."""
+  picture_starts_with: String
+
+  """All values not starting with the given string."""
+  picture_not_starts_with: String
+
+  """All values ending with the given string."""
+  picture_ends_with: String
+
+  """All values not ending with the given string."""
+  picture_not_ends_with: String
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  lastMessage: MessageWhereInput
+  messages_every: MessageWhereInput
+  messages_some: MessageWhereInput
+  messages_none: MessageWhereInput
+  participants_every: UserWhereInput
+  participants_some: UserWhereInput
+  participants_none: UserWhereInput
+}
+
+input ChatWhereUniqueInput {
+  id: ID
+}
+
 type CreditCard implements Node {
   id: ID!
   cardOwner: User!
@@ -586,7 +1182,6 @@ type CreditCardConnection {
 }
 
 input CreditCardCreateInput {
-  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -621,7 +1216,6 @@ input CreditCardCreateOneInput {
 }
 
 input CreditCardCreateWithoutCardOwnerInput {
-  id: ID
   stripeCardId: String
   brand: String
   country: String
@@ -698,6 +1292,8 @@ enum CreditCardOrderByInput {
   cvc_check_DESC
   funding_ASC
   funding_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CreditCardPreviousValues {
@@ -1696,7 +2292,6 @@ input CreditCardUpdateManyMutationInput {
 input CreditCardUpdateManyWithoutCardOwnerInput {
   create: [CreditCardCreateWithoutCardOwnerInput!]
   connect: [CreditCardWhereUniqueInput!]
-  set: [CreditCardWhereUniqueInput!]
   disconnect: [CreditCardWhereUniqueInput!]
   delete: [CreditCardWhereUniqueInput!]
   update: [CreditCardUpdateWithWhereUniqueWithoutCardOwnerInput!]
@@ -2624,7 +3219,6 @@ type FileConnection {
 }
 
 input FileCreateInput {
-  id: ID
   filename: String!
   mimetype: String!
   encoding: String!
@@ -2993,7 +3587,6 @@ input FileUpdateManyDataInput {
 input FileUpdateManyInput {
   create: [FileCreateInput!]
   connect: [FileWhereUniqueInput!]
-  set: [FileWhereUniqueInput!]
   disconnect: [FileWhereUniqueInput!]
   delete: [FileWhereUniqueInput!]
   update: [FileUpdateWithWhereUniqueNestedInput!]
@@ -3315,7 +3908,6 @@ type FriendRequestConnection {
 }
 
 input FriendRequestCreateInput {
-  id: ID
   requestUser: UserCreateOneWithoutAwaitingFriendsInput!
   acceptingUser: UserCreateOneWithoutFriendRequestsInput!
 }
@@ -3331,12 +3923,10 @@ input FriendRequestCreateManyWithoutRequestUserInput {
 }
 
 input FriendRequestCreateWithoutAcceptingUserInput {
-  id: ID
   requestUser: UserCreateOneWithoutAwaitingFriendsInput!
 }
 
 input FriendRequestCreateWithoutRequestUserInput {
-  id: ID
   acceptingUser: UserCreateOneWithoutFriendRequestsInput!
 }
 
@@ -3352,6 +3942,10 @@ type FriendRequestEdge {
 enum FriendRequestOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type FriendRequestPreviousValues {
@@ -3454,7 +4048,6 @@ input FriendRequestUpdateInput {
 input FriendRequestUpdateManyWithoutAcceptingUserInput {
   create: [FriendRequestCreateWithoutAcceptingUserInput!]
   connect: [FriendRequestWhereUniqueInput!]
-  set: [FriendRequestWhereUniqueInput!]
   disconnect: [FriendRequestWhereUniqueInput!]
   delete: [FriendRequestWhereUniqueInput!]
   update: [FriendRequestUpdateWithWhereUniqueWithoutAcceptingUserInput!]
@@ -3465,7 +4058,6 @@ input FriendRequestUpdateManyWithoutAcceptingUserInput {
 input FriendRequestUpdateManyWithoutRequestUserInput {
   create: [FriendRequestCreateWithoutRequestUserInput!]
   connect: [FriendRequestWhereUniqueInput!]
-  set: [FriendRequestWhereUniqueInput!]
   disconnect: [FriendRequestWhereUniqueInput!]
   delete: [FriendRequestWhereUniqueInput!]
   update: [FriendRequestUpdateWithWhereUniqueWithoutRequestUserInput!]
@@ -3590,7 +4182,6 @@ type LesseeConnection {
 }
 
 input LesseeCreateInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
@@ -3608,14 +4199,12 @@ input LesseeCreateManyWithoutUserInput {
 }
 
 input LesseeCreateWithoutLeaseInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   user: UserCreateOneWithoutLesseeLeasesInput
 }
 
 input LesseeCreateWithoutUserInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
@@ -3637,6 +4226,10 @@ enum LesseeOrderByInput {
   signed_DESC
   signedAt_ASC
   signedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type LesseePreviousValues {
@@ -3779,7 +4372,6 @@ input LesseeUpdateManyMutationInput {
 input LesseeUpdateManyWithoutLeaseInput {
   create: [LesseeCreateWithoutLeaseInput!]
   connect: [LesseeWhereUniqueInput!]
-  set: [LesseeWhereUniqueInput!]
   disconnect: [LesseeWhereUniqueInput!]
   delete: [LesseeWhereUniqueInput!]
   update: [LesseeUpdateWithWhereUniqueWithoutLeaseInput!]
@@ -3791,7 +4383,6 @@ input LesseeUpdateManyWithoutLeaseInput {
 input LesseeUpdateManyWithoutUserInput {
   create: [LesseeCreateWithoutUserInput!]
   connect: [LesseeWhereUniqueInput!]
-  set: [LesseeWhereUniqueInput!]
   disconnect: [LesseeWhereUniqueInput!]
   delete: [LesseeWhereUniqueInput!]
   update: [LesseeUpdateWithWhereUniqueWithoutUserInput!]
@@ -3941,7 +4532,6 @@ type LessorConnection {
 }
 
 input LessorCreateInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
@@ -3959,14 +4549,12 @@ input LessorCreateManyWithoutUserInput {
 }
 
 input LessorCreateWithoutLeaseInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   user: UserCreateOneWithoutLessorLeasesInput
 }
 
 input LessorCreateWithoutUserInput {
-  id: ID
   signed: Boolean!
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
@@ -3988,6 +4576,10 @@ enum LessorOrderByInput {
   signed_DESC
   signedAt_ASC
   signedAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type LessorPreviousValues {
@@ -4130,7 +4722,6 @@ input LessorUpdateManyMutationInput {
 input LessorUpdateManyWithoutLeaseInput {
   create: [LessorCreateWithoutLeaseInput!]
   connect: [LessorWhereUniqueInput!]
-  set: [LessorWhereUniqueInput!]
   disconnect: [LessorWhereUniqueInput!]
   delete: [LessorWhereUniqueInput!]
   update: [LessorUpdateWithWhereUniqueWithoutLeaseInput!]
@@ -4142,7 +4733,6 @@ input LessorUpdateManyWithoutLeaseInput {
 input LessorUpdateManyWithoutUserInput {
   create: [LessorCreateWithoutUserInput!]
   connect: [LessorWhereUniqueInput!]
-  set: [LessorWhereUniqueInput!]
   disconnect: [LessorWhereUniqueInput!]
   delete: [LessorWhereUniqueInput!]
   update: [LessorUpdateWithWhereUniqueWithoutUserInput!]
@@ -4279,20 +4869,550 @@ Long can represent values between -(2^63) and 2^63 - 1.
 """
 scalar Long
 
+type Message implements Node {
+  id: ID!
+  content: String!
+  createdAt: DateTime!
+  lastMessageRel: Chat
+  chat: Chat!
+  sender: User
+  recipient: User
+  isMine: Boolean!
+}
+
+"""A connection to a list of items."""
+type MessageConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MessageEdge]!
+  aggregate: AggregateMessage!
+}
+
+input MessageCreateInput {
+  content: String!
+  isMine: Boolean!
+  lastMessageRel: ChatCreateOneWithoutLastMessageInput
+  chat: ChatCreateOneWithoutMessagesInput!
+  sender: UserCreateOneWithoutSentMessagesInput
+  recipient: UserCreateOneWithoutRecievedMessagesInput
+}
+
+input MessageCreateManyWithoutChatInput {
+  create: [MessageCreateWithoutChatInput!]
+  connect: [MessageWhereUniqueInput!]
+}
+
+input MessageCreateManyWithoutRecipientInput {
+  create: [MessageCreateWithoutRecipientInput!]
+  connect: [MessageWhereUniqueInput!]
+}
+
+input MessageCreateManyWithoutSenderInput {
+  create: [MessageCreateWithoutSenderInput!]
+  connect: [MessageWhereUniqueInput!]
+}
+
+input MessageCreateOneWithoutLastMessageRelInput {
+  create: MessageCreateWithoutLastMessageRelInput
+  connect: MessageWhereUniqueInput
+}
+
+input MessageCreateWithoutChatInput {
+  content: String!
+  isMine: Boolean!
+  lastMessageRel: ChatCreateOneWithoutLastMessageInput
+  sender: UserCreateOneWithoutSentMessagesInput
+  recipient: UserCreateOneWithoutRecievedMessagesInput
+}
+
+input MessageCreateWithoutLastMessageRelInput {
+  content: String!
+  isMine: Boolean!
+  chat: ChatCreateOneWithoutMessagesInput!
+  sender: UserCreateOneWithoutSentMessagesInput
+  recipient: UserCreateOneWithoutRecievedMessagesInput
+}
+
+input MessageCreateWithoutRecipientInput {
+  content: String!
+  isMine: Boolean!
+  lastMessageRel: ChatCreateOneWithoutLastMessageInput
+  chat: ChatCreateOneWithoutMessagesInput!
+  sender: UserCreateOneWithoutSentMessagesInput
+}
+
+input MessageCreateWithoutSenderInput {
+  content: String!
+  isMine: Boolean!
+  lastMessageRel: ChatCreateOneWithoutLastMessageInput
+  chat: ChatCreateOneWithoutMessagesInput!
+  recipient: UserCreateOneWithoutRecievedMessagesInput
+}
+
+"""An edge in a connection."""
+type MessageEdge {
+  """The item at the end of the edge."""
+  node: Message!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MessageOrderByInput {
+  id_ASC
+  id_DESC
+  content_ASC
+  content_DESC
+  createdAt_ASC
+  createdAt_DESC
+  isMine_ASC
+  isMine_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type MessagePreviousValues {
+  id: ID!
+  content: String!
+  createdAt: DateTime!
+  isMine: Boolean!
+}
+
+input MessageScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MessageScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MessageScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MessageScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  isMine: Boolean
+
+  """All values that are not equal to given value."""
+  isMine_not: Boolean
+}
+
+type MessageSubscriptionPayload {
+  mutation: MutationType!
+  node: Message
+  updatedFields: [String!]
+  previousValues: MessagePreviousValues
+}
+
+input MessageSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MessageSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MessageSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MessageSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MessageWhereInput
+}
+
+input MessageUpdateInput {
+  content: String
+  isMine: Boolean
+  lastMessageRel: ChatUpdateOneWithoutLastMessageInput
+  chat: ChatUpdateOneRequiredWithoutMessagesInput
+  sender: UserUpdateOneWithoutSentMessagesInput
+  recipient: UserUpdateOneWithoutRecievedMessagesInput
+}
+
+input MessageUpdateManyDataInput {
+  content: String
+  isMine: Boolean
+}
+
+input MessageUpdateManyMutationInput {
+  content: String
+  isMine: Boolean
+}
+
+input MessageUpdateManyWithoutChatInput {
+  create: [MessageCreateWithoutChatInput!]
+  connect: [MessageWhereUniqueInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  delete: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutChatInput!]
+  updateMany: [MessageUpdateManyWithWhereNestedInput!]
+  deleteMany: [MessageScalarWhereInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutChatInput!]
+}
+
+input MessageUpdateManyWithoutRecipientInput {
+  create: [MessageCreateWithoutRecipientInput!]
+  connect: [MessageWhereUniqueInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  delete: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutRecipientInput!]
+  updateMany: [MessageUpdateManyWithWhereNestedInput!]
+  deleteMany: [MessageScalarWhereInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutRecipientInput!]
+}
+
+input MessageUpdateManyWithoutSenderInput {
+  create: [MessageCreateWithoutSenderInput!]
+  connect: [MessageWhereUniqueInput!]
+  disconnect: [MessageWhereUniqueInput!]
+  delete: [MessageWhereUniqueInput!]
+  update: [MessageUpdateWithWhereUniqueWithoutSenderInput!]
+  updateMany: [MessageUpdateManyWithWhereNestedInput!]
+  deleteMany: [MessageScalarWhereInput!]
+  upsert: [MessageUpsertWithWhereUniqueWithoutSenderInput!]
+}
+
+input MessageUpdateManyWithWhereNestedInput {
+  where: MessageScalarWhereInput!
+  data: MessageUpdateManyDataInput!
+}
+
+input MessageUpdateOneWithoutLastMessageRelInput {
+  create: MessageCreateWithoutLastMessageRelInput
+  connect: MessageWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: MessageUpdateWithoutLastMessageRelDataInput
+  upsert: MessageUpsertWithoutLastMessageRelInput
+}
+
+input MessageUpdateWithoutChatDataInput {
+  content: String
+  isMine: Boolean
+  lastMessageRel: ChatUpdateOneWithoutLastMessageInput
+  sender: UserUpdateOneWithoutSentMessagesInput
+  recipient: UserUpdateOneWithoutRecievedMessagesInput
+}
+
+input MessageUpdateWithoutLastMessageRelDataInput {
+  content: String
+  isMine: Boolean
+  chat: ChatUpdateOneRequiredWithoutMessagesInput
+  sender: UserUpdateOneWithoutSentMessagesInput
+  recipient: UserUpdateOneWithoutRecievedMessagesInput
+}
+
+input MessageUpdateWithoutRecipientDataInput {
+  content: String
+  isMine: Boolean
+  lastMessageRel: ChatUpdateOneWithoutLastMessageInput
+  chat: ChatUpdateOneRequiredWithoutMessagesInput
+  sender: UserUpdateOneWithoutSentMessagesInput
+}
+
+input MessageUpdateWithoutSenderDataInput {
+  content: String
+  isMine: Boolean
+  lastMessageRel: ChatUpdateOneWithoutLastMessageInput
+  chat: ChatUpdateOneRequiredWithoutMessagesInput
+  recipient: UserUpdateOneWithoutRecievedMessagesInput
+}
+
+input MessageUpdateWithWhereUniqueWithoutChatInput {
+  where: MessageWhereUniqueInput!
+  data: MessageUpdateWithoutChatDataInput!
+}
+
+input MessageUpdateWithWhereUniqueWithoutRecipientInput {
+  where: MessageWhereUniqueInput!
+  data: MessageUpdateWithoutRecipientDataInput!
+}
+
+input MessageUpdateWithWhereUniqueWithoutSenderInput {
+  where: MessageWhereUniqueInput!
+  data: MessageUpdateWithoutSenderDataInput!
+}
+
+input MessageUpsertWithoutLastMessageRelInput {
+  update: MessageUpdateWithoutLastMessageRelDataInput!
+  create: MessageCreateWithoutLastMessageRelInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutChatInput {
+  where: MessageWhereUniqueInput!
+  update: MessageUpdateWithoutChatDataInput!
+  create: MessageCreateWithoutChatInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutRecipientInput {
+  where: MessageWhereUniqueInput!
+  update: MessageUpdateWithoutRecipientDataInput!
+  create: MessageCreateWithoutRecipientInput!
+}
+
+input MessageUpsertWithWhereUniqueWithoutSenderInput {
+  where: MessageWhereUniqueInput!
+  update: MessageUpdateWithoutSenderDataInput!
+  create: MessageCreateWithoutSenderInput!
+}
+
+input MessageWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MessageWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MessageWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MessageWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  isMine: Boolean
+
+  """All values that are not equal to given value."""
+  isMine_not: Boolean
+  lastMessageRel: ChatWhereInput
+  chat: ChatWhereInput
+  sender: UserWhereInput
+  recipient: UserWhereInput
+}
+
+input MessageWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
+  createMessage(data: MessageCreateInput!): Message!
+  createChat(data: ChatCreateInput!): Chat!
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createProperty(data: PropertyCreateInput!): Property!
   createAccommodation(data: AccommodationCreateInput!): Accommodation!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
-  createPropertyAdvertisement(data: PropertyAdvertisementCreateInput!): PropertyAdvertisement!
+  createPropertyAdvertisement: PropertyAdvertisement!
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
   createLessee(data: LesseeCreateInput!): Lessee!
   createLessor(data: LessorCreateInput!): Lessor!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createPayment(data: PaymentCreateInput!): Payment!
-  createUser(data: UserCreateInput!): User!
   createFile(data: FileCreateInput!): File!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  createUser(data: UserCreateInput!): User!
+  updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
+  updateChat(data: ChatUpdateInput!, where: ChatWhereUniqueInput!): Chat
   updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
   updateAccommodation(data: AccommodationUpdateInput!, where: AccommodationWhereUniqueInput!): Accommodation
@@ -4302,9 +5422,11 @@ type Mutation {
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteMessage(where: MessageWhereUniqueInput!): Message
+  deleteChat(where: ChatWhereUniqueInput!): Chat
   deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteProperty(where: PropertyWhereUniqueInput!): Property
   deleteAccommodation(where: AccommodationWhereUniqueInput!): Accommodation
@@ -4315,9 +5437,11 @@ type Mutation {
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deletePayment(where: PaymentWhereUniqueInput!): Payment
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteFile(where: FileWhereUniqueInput!): File
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  deleteUser(where: UserWhereUniqueInput!): User
+  upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
+  upsertChat(where: ChatWhereUniqueInput!, create: ChatCreateInput!, update: ChatUpdateInput!): Chat!
   upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
   upsertAccommodation(where: AccommodationWhereUniqueInput!, create: AccommodationCreateInput!, update: AccommodationUpdateInput!): Accommodation!
@@ -4327,9 +5451,11 @@ type Mutation {
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
+  updateManyChats(data: ChatUpdateManyMutationInput!, where: ChatWhereInput): BatchPayload!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
   updateManyAccommodations(data: AccommodationUpdateManyMutationInput!, where: AccommodationWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -4338,9 +5464,11 @@ type Mutation {
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  deleteManyMessages(where: MessageWhereInput): BatchPayload!
+  deleteManyChats(where: ChatWhereInput): BatchPayload!
   deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
   deleteManyAccommodations(where: AccommodationWhereInput): BatchPayload!
@@ -4351,9 +5479,9 @@ type Mutation {
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -4422,7 +5550,6 @@ type PaymentConnection {
 }
 
 input PaymentCreateInput {
-  id: ID
   userId: ID!
   leaseId: ID
   propertyId: ID
@@ -4485,6 +5612,10 @@ enum PaymentOrderByInput {
   payment_method_DESC
   status_ASC
   status_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type PaymentPreviousValues {
@@ -5205,10 +6336,6 @@ type PropertyAdvertisementConnection {
   aggregate: AggregatePropertyAdvertisement!
 }
 
-input PropertyAdvertisementCreateInput {
-  id: ID
-}
-
 """An edge in a connection."""
 type PropertyAdvertisementEdge {
   """The item at the end of the edge."""
@@ -5384,7 +6511,6 @@ input PropertyCreateindoorFeaturesInput {
 }
 
 input PropertyCreateInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -5443,7 +6569,6 @@ input PropertyCreateoutdoorFeaturesInput {
 }
 
 input PropertyCreateWithoutAccommodationInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -5472,7 +6597,6 @@ input PropertyCreateWithoutAccommodationInput {
 }
 
 input PropertyCreateWithoutCreatorInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -5501,7 +6625,6 @@ input PropertyCreateWithoutCreatorInput {
 }
 
 input PropertyCreateWithoutLeasesInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -5530,7 +6653,6 @@ input PropertyCreateWithoutLeasesInput {
 }
 
 input PropertyCreateWithoutOwnersInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -5559,7 +6681,6 @@ input PropertyCreateWithoutOwnersInput {
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
-  id: ID
   type: PropertyType
   headline: String
   rooms: Int!
@@ -5634,7 +6755,6 @@ input PropertyLeaseCreateindoorFeaturesInput {
 }
 
 input PropertyLeaseCreateInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -5674,7 +6794,6 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 }
 
 input PropertyLeaseCreateWithoutLesseesInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -5694,7 +6813,6 @@ input PropertyLeaseCreateWithoutLesseesInput {
 }
 
 input PropertyLeaseCreateWithoutLessorsInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -5714,7 +6832,6 @@ input PropertyLeaseCreateWithoutLessorsInput {
 }
 
 input PropertyLeaseCreateWithoutPropertyInput {
-  id: ID
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -6252,7 +7369,6 @@ input PropertyLeaseUpdateManyMutationInput {
 input PropertyLeaseUpdateManyWithoutPropertyInput {
   create: [PropertyLeaseCreateWithoutPropertyInput!]
   connect: [PropertyLeaseWhereUniqueInput!]
-  set: [PropertyLeaseWhereUniqueInput!]
   disconnect: [PropertyLeaseWhereUniqueInput!]
   delete: [PropertyLeaseWhereUniqueInput!]
   update: [PropertyLeaseUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -7418,7 +8534,6 @@ input PropertyUpdateManyMutationInput {
 input PropertyUpdateManyWithoutCreatorInput {
   create: [PropertyCreateWithoutCreatorInput!]
   connect: [PropertyWhereUniqueInput!]
-  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutCreatorInput!]
@@ -7430,7 +8545,6 @@ input PropertyUpdateManyWithoutCreatorInput {
 input PropertyUpdateManyWithoutOwnersInput {
   create: [PropertyCreateWithoutOwnersInput!]
   connect: [PropertyWhereUniqueInput!]
-  set: [PropertyWhereUniqueInput!]
   disconnect: [PropertyWhereUniqueInput!]
   delete: [PropertyWhereUniqueInput!]
   update: [PropertyUpdateWithWhereUniqueWithoutOwnersInput!]
@@ -8146,6 +9260,8 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
+  chats(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chat]!
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
   accommodations(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation]!
@@ -8156,9 +9272,11 @@ type Query {
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  message(where: MessageWhereUniqueInput!): Message
+  chat(where: ChatWhereUniqueInput!): Chat
   friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   property(where: PropertyWhereUniqueInput!): Property
   accommodation(where: AccommodationWhereUniqueInput!): Accommodation
@@ -8169,9 +9287,11 @@ type Query {
   lessor(where: LessorWhereUniqueInput!): Lessor
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   payment(where: PaymentWhereUniqueInput!): Payment
-  user(where: UserWhereUniqueInput!): User
   file(where: FileWhereUniqueInput!): File
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  user(where: UserWhereUniqueInput!): User
+  messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
+  chatsConnection(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChatConnection!
   friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
   accommodationsConnection(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccommodationConnection!
@@ -8182,9 +9302,9 @@ type Query {
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -8217,7 +9337,6 @@ type RentalApplicationConnection {
 }
 
 input RentalApplicationCreateInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -8238,7 +9357,6 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutApplicantsInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -8248,7 +9366,6 @@ input RentalApplicationCreateWithoutApplicantsInput {
 }
 
 input RentalApplicationCreateWithoutPropertyInput {
-  id: ID
   title: String
   stage: ApplicationStage!
   visibility: VisibilityLevel
@@ -8516,7 +9633,6 @@ input RentalApplicationUpdateManyMutationInput {
 input RentalApplicationUpdateManyWithoutPropertyInput {
   create: [RentalApplicationCreateWithoutPropertyInput!]
   connect: [RentalApplicationWhereUniqueInput!]
-  set: [RentalApplicationWhereUniqueInput!]
   disconnect: [RentalApplicationWhereUniqueInput!]
   delete: [RentalApplicationWhereUniqueInput!]
   update: [RentalApplicationUpdateWithWhereUniqueWithoutPropertyInput!]
@@ -8766,7 +9882,6 @@ type RentalGroupApplicantConnection {
 }
 
 input RentalGroupApplicantCreateInput {
-  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -8783,7 +9898,6 @@ input RentalGroupApplicantCreateManyWithoutApplicationInput {
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
-  id: ID
   approved: Boolean!
   completed: Boolean
   firstName: String
@@ -9122,7 +10236,6 @@ input RentalGroupApplicantUpdateManyMutationInput {
 input RentalGroupApplicantUpdateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
-  set: [RentalGroupApplicantWhereUniqueInput!]
   disconnect: [RentalGroupApplicantWhereUniqueInput!]
   delete: [RentalGroupApplicantWhereUniqueInput!]
   update: [RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput!]
@@ -9388,6 +10501,8 @@ input RentalGroupApplicantWhereUniqueInput {
 }
 
 type Subscription {
+  message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
+  chat(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
   friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
   accommodation(where: AccommodationSubscriptionWhereInput): AccommodationSubscriptionPayload
@@ -9398,9 +10513,9 @@ type Subscription {
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User implements Node {
@@ -9435,6 +10550,9 @@ type User implements Node {
   referee2Email: String
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard!]
   primaryCreditCard: CreditCard
+  chats(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chat!]
+  sentMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
+  recievedMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
 }
 
 """A connection to a list of items."""
@@ -9448,7 +10566,6 @@ type UserConnection {
 }
 
 input UserCreateInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9477,10 +10594,18 @@ input UserCreateInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateManyInput {
   create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutChatsInput {
+  create: [UserCreateWithoutChatsInput!]
   connect: [UserWhereUniqueInput!]
 }
 
@@ -9524,12 +10649,21 @@ input UserCreateOneWithoutLessorLeasesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutRecievedMessagesInput {
+  create: UserCreateWithoutRecievedMessagesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutSentMessagesInput {
+  create: UserCreateWithoutSentMessagesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreatepermissionsInput {
   set: [Permission!]
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9557,10 +10691,45 @@ input UserCreateWithoutAwaitingFriendsInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+}
+
+input UserCreateWithoutChatsInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9588,10 +10757,12 @@ input UserCreateWithoutCreatedPropertiesInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateWithoutCreditCardsInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9619,10 +10790,12 @@ input UserCreateWithoutCreditCardsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9650,10 +10823,12 @@ input UserCreateWithoutFriendRequestsInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9681,10 +10856,12 @@ input UserCreateWithoutLesseeLeasesInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9712,10 +10889,12 @@ input UserCreateWithoutLessorLeasesInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 input UserCreateWithoutPropertiesInput {
-  id: ID
   firstName: String!
   lastName: String!
   phone: String!
@@ -9743,6 +10922,75 @@ input UserCreateWithoutPropertiesInput {
   photoIdentification: FileCreateOneInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+}
+
+input UserCreateWithoutRecievedMessagesInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+}
+
+input UserCreateWithoutSentMessagesInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
 }
 
 """An edge in a connection."""
@@ -10644,6 +11892,9 @@ input UserUpdateDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateInput {
@@ -10675,6 +11926,9 @@ input UserUpdateInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateManyDataInput {
@@ -10701,7 +11955,6 @@ input UserUpdateManyDataInput {
 input UserUpdateManyInput {
   create: [UserCreateInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueNestedInput!]
@@ -10731,10 +11984,20 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateManyWithoutChatsInput {
+  create: [UserCreateWithoutChatsInput!]
+  connect: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutChatsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutChatsInput!]
+}
+
 input UserUpdateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutPropertiesInput!]
@@ -10801,6 +12064,24 @@ input UserUpdateOneWithoutLessorLeasesInput {
   upsert: UserUpsertWithoutLessorLeasesInput
 }
 
+input UserUpdateOneWithoutRecievedMessagesInput {
+  create: UserCreateWithoutRecievedMessagesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutRecievedMessagesDataInput
+  upsert: UserUpsertWithoutRecievedMessagesInput
+}
+
+input UserUpdateOneWithoutSentMessagesInput {
+  create: UserCreateWithoutSentMessagesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutSentMessagesDataInput
+  upsert: UserUpsertWithoutSentMessagesInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -10833,6 +12114,42 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+}
+
+input UserUpdateWithoutChatsDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -10863,6 +12180,9 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -10893,6 +12213,9 @@ input UserUpdateWithoutCreditCardsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -10923,6 +12246,9 @@ input UserUpdateWithoutFriendRequestsDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -10953,6 +12279,9 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -10983,6 +12312,9 @@ input UserUpdateWithoutLessorLeasesDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -11013,11 +12345,85 @@ input UserUpdateWithoutPropertiesDataInput {
   photoIdentification: FileUpdateOneInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+}
+
+input UserUpdateWithoutRecievedMessagesDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+}
+
+input UserUpdateWithoutSentMessagesDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
   where: UserWhereUniqueInput!
   data: UserUpdateDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutChatsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutChatsDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
@@ -11060,10 +12466,26 @@ input UserUpsertWithoutLessorLeasesInput {
   create: UserCreateWithoutLessorLeasesInput!
 }
 
+input UserUpsertWithoutRecievedMessagesInput {
+  update: UserUpdateWithoutRecievedMessagesDataInput!
+  create: UserCreateWithoutRecievedMessagesInput!
+}
+
+input UserUpsertWithoutSentMessagesInput {
+  update: UserUpdateWithoutSentMessagesDataInput!
+  create: UserCreateWithoutSentMessagesInput!
+}
+
 input UserUpsertWithWhereUniqueNestedInput {
   where: UserWhereUniqueInput!
   update: UserUpdateDataInput!
   create: UserCreateInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutChatsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutChatsDataInput!
+  create: UserCreateWithoutChatsInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutPropertiesInput {
@@ -11853,6 +13275,15 @@ input UserWhereInput {
   creditCards_some: CreditCardWhereInput
   creditCards_none: CreditCardWhereInput
   primaryCreditCard: CreditCardWhereInput
+  chats_every: ChatWhereInput
+  chats_some: ChatWhereInput
+  chats_none: ChatWhereInput
+  sentMessages_every: MessageWhereInput
+  sentMessages_some: MessageWhereInput
+  sentMessages_none: MessageWhereInput
+  recievedMessages_every: MessageWhereInput
+  recievedMessages_some: MessageWhereInput
+  recievedMessages_none: MessageWhereInput
 }
 
 input UserWhereUniqueInput {

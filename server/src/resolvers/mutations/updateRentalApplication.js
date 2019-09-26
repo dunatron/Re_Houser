@@ -2,11 +2,11 @@ async function updateRentalApplication(parent, { data, where }, ctx, info) {
   const rentalApplication = await ctx.db.mutation.updateRentalApplication(
     {
       data,
-      where,
+      where
     },
     info
-  )
-  return rentalApplication
+  );
+  return rentalApplication;
 }
 
-module.exports = updateRentalApplication
+module.exports = updateRentalApplication;

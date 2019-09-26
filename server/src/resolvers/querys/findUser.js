@@ -12,14 +12,14 @@
 async function findUsers(parent, args, ctx, info) {
   const users = await ctx.db.query.users(
     {
-      ...args,
+      ...args
     },
     info
-  )
-  return users
+  );
+  return users;
 }
 
-module.exports = findUsers
+module.exports = findUsers;
 
 // orderBy: UserOrderByInput
 // skip: Int

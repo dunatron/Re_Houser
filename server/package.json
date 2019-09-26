@@ -13,7 +13,8 @@
     "reset": "prisma reset --env-file variables.env",
     "reset-prod": "prisma reset --env-file variables-prod.env",
     "prisma-dev-token": "prisma token --env-file variables.env",
-    "generate-schema": "prisma generate --env-file variables.env"
+    "generate-schema": "prisma generate --env-file variables.env",
+    "format": "prettier \"**/*.jss\" --write"
   },
   "dependencies": {
     "algoliasearch": "^3.32.1",
@@ -21,12 +22,14 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.13.2",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "crawler": "^1.2.0",
     "docxtemplater": "^3.9.9",
     "dotenv": "^6.2.0",
     "fs": "^0.0.1-security",
     "graphql": "^14.1.1",
     "graphql-cli": "^3.0.9",
+    "graphql-scalars": "^1.0.1",
     "graphql-yoga": "^1.17.1",
     "jsonwebtoken": "^8.4.0",
     "jszip": "2",
@@ -48,5 +51,8 @@
     "presets": [
       "env"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
   }
 }
