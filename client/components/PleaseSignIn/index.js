@@ -36,6 +36,7 @@ import { CURRENT_USER_QUERY } from '../User/index';
 import Signin from '../Signin/index';
 import SuperLogin from '../SuperLogin';
 import { toast } from 'react-toastify';
+import Error from '../ErrorMessage';
 
 const Message = ({ message, alert }) => {
   if (alert) toast.info(alert);
@@ -46,8 +47,9 @@ const Message = ({ message, alert }) => {
 
 const PleaseSignIn = props => (
   <Query query={CURRENT_USER_QUERY}>
-    {({ data, loading }) => {
+    {({ data, loading, error }) => {
       if (loading) return <p>Loading...</p>;
+      if (error) return <Error error={error} />;
       if (!data.me) {
         return (
           <div>
