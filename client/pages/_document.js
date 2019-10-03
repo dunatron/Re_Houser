@@ -25,6 +25,9 @@ class MyDocument extends Document {
             src="https://js.stripe.com/v3/"
             async
           />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
         </Head>
         <body>
           <Main />

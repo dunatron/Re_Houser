@@ -7,7 +7,10 @@ import Form from '../../styles/Form';
 import Error from '../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../User/index';
 // import { OWNER_PROPERTIES_QUERY } from "../OwnerProperties/index"
-import { PROPERTIES_QUERY, OWNER_PROPERTIES_QUERY } from '../../graphql/queries/index';
+import {
+  PROPERTIES_QUERY,
+  OWNER_PROPERTIES_QUERY,
+} from '../../graphql/queries/index';
 import { CREATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
 import FabButton from '../../styles/FabButton';
 
@@ -264,7 +267,7 @@ const CreateProperty = ({ me }) => {
                 <TextInput
                   id="location"
                   label="location"
-                  disabled={true}
+                  disabled={false}
                   fullWidth={true}
                   type="text"
                   name="location"

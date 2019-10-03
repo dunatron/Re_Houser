@@ -58,12 +58,13 @@ const PleaseSignIn = props => (
           </div>
         );
       }
-      // https://medium.com/better-programming/passing-data-to-props-children-in-react-5399baea0356
-      // share user data with children components as props.me
       const children = React.Children.map(props.children, child => {
-        return React.cloneElement(child, {
-          me: data.me,
-        });
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, {
+            me: data.me,
+          });
+        }
+        return child;
       });
       return children;
     }}

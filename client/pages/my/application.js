@@ -1,11 +1,13 @@
 // actually this makes sense
 import React, { useState } from 'react';
-const MyApplication = () => {
+import RentalApplication from '../../components/RentalApplication';
+
+import PleaseSignIn from '../../components/PleaseSignIn';
+const MyApplication = props => {
   return (
-    <div>
-      ToDo: ZYou should care about a query param. applicatiioniD,. maybe me.
-      then we can set you up for your view{' '}
-    </div>
+    <PleaseSignIn message="You cannot view an application without being signed in">
+      <RentalApplication id={props.query.id} />;
+    </PleaseSignIn>
   );
 };
 
