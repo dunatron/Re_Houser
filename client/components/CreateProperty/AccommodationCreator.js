@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import TextInput from '../../styles/TextInput';
 import Button from '@material-ui/core/Button';
+import { Paper, Grid, Typography } from '@material-ui/core';
 
 const AccommodationCreator = props => {
   const { accommodation, add, update, duplicate, remove } = props;
   const [adding, setAdding] = useState(false);
   return (
-    <div>
-      <p>Accommodation Creator</p>
+    <Fragment>
+      <Typography variant="body1" gutterBottom>
+        There are {accommodation.length} rooms available for this property
+      </Typography>
       <RenderAccommodation
         accommodation={accommodation}
         update={update}
@@ -24,10 +27,10 @@ const AccommodationCreator = props => {
       )}
       <Button
         onClick={() => setAdding(!adding)}
-        color={adding ? 'primary' : 'secondary'}>
+        color={adding ? 'secondary' : 'primary'}>
         {adding ? 'Quit Adding accommodation' : 'Add Accommodation'}
       </Button>
-    </div>
+    </Fragment>
   );
 };
 
@@ -59,57 +62,71 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
     resetState();
   };
   return (
-    <div>
-      <TextInput
-        id="roomSize"
-        label="roomSize"
-        type="number"
-        fullWidth={false}
-        name="roomSize"
-        value={roomSize}
-        placeholder={8}
-        onChange={e => setRoomSize(parseFloat(e.target.value))}
-      />
-      <TextInput
-        id="rent"
-        label="rent"
-        type="number"
-        fullWidth={false}
-        name="rent"
-        value={rent}
-        placeholder={150}
-        onChange={e => setRent(parseFloat(e.target.value))}
-      />
-      <TextInput
-        id="expenses"
-        label="expenses"
-        type="number"
-        fullWidth={false}
-        name="expenses"
-        value={expenses}
-        placeholder={20}
-        onChange={e => setExpenses(parseFloat(e.target.value))}
-      />
-      <TextInput
-        id="description"
-        label="Room Description"
-        fullWidth={true}
-        name="description"
-        value={description}
-        placeholder="This room is at the far end of the house. It gets the morning sun."
-        onChange={e => setDescription(e.target.value)}
-      />
-      <Button onClick={() => addAccommodation()} color="secondary">
+    <Fragment>
+      <Grid container spacing={3} style={{ marginBottom: '8px' }}>
+        <Grid item xs={12} sm={6} lg={3}>
+          <TextInput
+            id="roomSize"
+            label="roomSize"
+            type="number"
+            fullWidth={false}
+            name="roomSize"
+            value={roomSize}
+            placeholder={8}
+            onChange={e => setRoomSize(parseFloat(e.target.value))}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+          <TextInput
+            id="rent"
+            label="rent"
+            type="number"
+            fullWidth={false}
+            name="rent"
+            value={rent}
+            placeholder={150}
+            onChange={e => setRent(parseFloat(e.target.value))}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+          <TextInput
+            id="expenses"
+            label="expenses"
+            type="number"
+            fullWidth={false}
+            name="expenses"
+            value={expenses}
+            placeholder={20}
+            onChange={e => setExpenses(parseFloat(e.target.value))}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} lg={3}>
+          <TextInput
+            id="description"
+            label="Room Description"
+            fullWidth={true}
+            name="description"
+            value={description}
+            placeholder="This room is at the far end of the house. It gets the morning sun."
+            onChange={e => setDescription(e.target.value)}
+          />
+        </Grid>
+      </Grid>
+
+      <Button
+        onClick={() => addAccommodation()}
+        color="primary"
+        variant="outlined">
         {type === 'update' ? 'update' : 'Create'} Accommodation
       </Button>
-    </div>
+    </Fragment>
   );
 };
 
 const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
   const [editingIndex, setEditingIndex] = useState(null);
   return (
-    <div>
+    <Fragment>
       {accommodation.map((accom, i) => {
         if (editingIndex === i)
           return (
@@ -141,7 +158,7 @@ const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
           </div>
         );
       })}
-    </div>
+    </Fragment>
   );
 };
 

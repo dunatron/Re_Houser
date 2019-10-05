@@ -8,13 +8,13 @@ import Select from '@material-ui/core/Select/Select';
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit * 4,
+    // padding: theme.spacing.unit * 4,
     textAlign: 'left',
     width: '100%',
     boxSizing: 'border-box',
   },
   formContainer: {
-    padding: `${theme.spacing.unit * 4}px 0`,
+    // padding: `${theme.spacing.unit * 4}px 0`,
     height: theme.spacing.unit * 6,
     display: 'flex',
     flexWrap: 'wrap',

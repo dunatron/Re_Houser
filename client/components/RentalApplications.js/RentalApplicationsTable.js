@@ -59,9 +59,9 @@ const RentalApplicationsTable = props => {
         </div>
       ),
     },
-    { title: 'application ID', field: 'id', filtering: false },
-    { title: 'property Name', field: 'property.location' },
-    { title: 'application owner', field: 'owner.firstName' },
+    { title: 'idß', field: 'id', filtering: false },
+    { title: 'location', field: 'property.location' },
+    { title: 'owner', field: 'owner.firstName' },
     { title: 'stage', field: 'stage', export: true },
   ];
   const detailPanel = [

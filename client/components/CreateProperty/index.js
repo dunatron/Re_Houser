@@ -59,7 +59,8 @@ import Loader from '../Loader';
 const CreateProperty = ({ me }) => {
   const classes = useStyles();
   const defaultState = {
-    type: 'HOUSE',
+    // type: 'HOUSE',
+    type: '',
     location: '',
     locationLat: '',
     locationLng: '',
@@ -73,13 +74,16 @@ const CreateProperty = ({ me }) => {
     images: [],
     indoorFeatures: [],
     outdoorFeatures: [],
-    carportSpaces: 1,
-    garageSpaces: 5,
-    offStreetSpaces: 2,
+    bathRooms: 0,
+    carportSpaces: 0,
+    garageSpaces: 0,
+    offStreetSpaces: 0,
     isLeased: false,
   };
 
   const [state, setState] = useState(defaultState);
+
+  console.log('STate => ', state);
 
   const _propertyVariables = () => {
     const theFiles = state.images
@@ -247,22 +251,28 @@ const CreateProperty = ({ me }) => {
         <div className="form-name">Add Property Form</div>
         <fieldset disabled={loading} aria-busy={loading}>
           <Error error={error} />
-          <LocationPicker
-            selection={data =>
-              setState({
-                ...state,
-                locationLat: data.lat,
-                locationLng: data.lng,
-                location: data.desc,
-              })
-            }
-          />
+
           {/* Location Section */}
           <Paper className={classes.formSection} elevation={5}>
             <Typography variant="h6" gutterBottom>
               Location Section
             </Typography>
+            <Typography variant="body1" gutterBottom>
+              Type your address in the search below to bring up your property. You need to select it to set the property location
+            </Typography>
             <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <LocationPicker
+                  selection={data =>
+                    setState({
+                      ...state,
+                      locationLat: data.lat,
+                      locationLng: data.lng,
+                      location: data.desc,
+                    })
+                  }
+                />
+              </Grid>
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="location"
@@ -307,75 +317,92 @@ const CreateProperty = ({ me }) => {
             <Typography variant="h6" gutterBottom>
               Details Section
             </Typography>
-            <SelectOption
-              label="Type"
-              name="type"
-              value={state.type}
-              options={PROPERTY_TYPES_CONF}
-              handleChange={saveToState}
-            />
-            <TextInput
-              id="headline"
-              label="Headline for property advertisement"
-              fullWidth={true}
-              name="headline"
-              value={state.headline}
-              onChange={saveToState}
-            />
-            <MultiSelectChip
-              values={state.indoorFeatures}
-              options={INDOOR_FEATURES_CONF}
-              label="Indoor Feature"
-              handleChange={value =>
-                setState({ ...state, indoorFeatures: value })
-              }
-              removeItem={v => {
-                const indoorFeatures = state.indoorFeatures;
-                const featureIdx = indoorFeatures.findIndex(
-                  feature => feature === v
-                );
-                indoorFeatures.splice(featureIdx, 1);
-                setState({
-                  ...state,
-                  indoorFeatures: indoorFeatures,
-                });
-              }}
-            />
-            <TextInput
-              id="rooms"
-              label="Room Number"
-              fullWidth={true}
-              type="number"
-              name="rooms"
-              value={state.rooms}
-              onChange={saveToState}
-            />
-            <AccommodationCreator
-              accommodation={state.accommodation}
-              add={accommodation => addAccommodation(accommodation)}
-              update={data => updateAccommodation(data)}
-              duplicate={accommodation => addAccommodation(accommodation)}
-              remove={res => removeAccommodation(res)}
-            />
-            <MultiSelectChip
-              values={state.outdoorFeatures}
-              options={OUTDOOR_FEATURES_CONF}
-              label="Outdoor Feature"
-              handleChange={value =>
-                setState({ ...state, outdoorFeatures: value })
-              }
-              removeItem={v => {
-                const outdoorFeatures = state.outdoorFeatures;
-                const featureIdx = outdoorFeatures.findIndex(
-                  feature => feature === v
-                );
-                outdoorFeatures.splice(featureIdx, 1);
-                setState({
-                  ...state,
-                  outdoorFeatures: outdoorFeatures,
-                });
-              }}
-            />
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6} lg={3}>
+                <SelectOption
+                  label="Type"
+                  name="type"
+                  value={state.type}
+                  options={PROPERTY_TYPES_CONF}
+                  handleChange={saveToState}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
+                <MultiSelectChip
+                  values={state.indoorFeatures}
+                  options={INDOOR_FEATURES_CONF}
+                  label="Indoor Feature"
+                  handleChange={value =>
+                    setState({ ...state, indoorFeatures: value })
+                  }
+                  removeItem={v => {
+                    const indoorFeatures = state.indoorFeatures;
+                    const featureIdx = indoorFeatures.findIndex(
+                      feature => feature === v
+                    );
+                    indoorFeatures.splice(featureIdx, 1);
+                    setState({
+                      ...state,
+                      indoorFeatures: indoorFeatures,
+                    });
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6} lg={3}>
+                <MultiSelectChip
+                  values={state.outdoorFeatures}
+                  options={OUTDOOR_FEATURES_CONF}
+                  label="Outdoor Feature"
+                  handleChange={value =>
+                    setState({ ...state, outdoorFeatures: value })
+                  }
+                  removeItem={v => {
+                    const outdoorFeatures = state.outdoorFeatures;
+                    const featureIdx = outdoorFeatures.findIndex(
+                      feature => feature === v
+                    );
+                    outdoorFeatures.splice(featureIdx, 1);
+                    setState({
+                      ...state,
+                      outdoorFeatures: outdoorFeatures,
+                    });
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextInput
+                  gutterBottom
+                  id="headline"
+                  label="Headline for property advertisement"
+                  fullWidth={true}
+                  name="headline"
+                  value={state.headline}
+                  onChange={saveToState}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+          {/* Accommodation Section */}
+          <Paper className={classes.formSection} elevation={5}>
+            <Typography variant="h6" gutterBottom>
+              Accommodation Section
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              For each room you want to be rented out you will need to add
+              accommodation.
+            </Typography>
+            {/* Other Details Grid */}
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <AccommodationCreator
+                  accommodation={state.accommodation}
+                  add={accommodation => addAccommodation(accommodation)}
+                  update={data => updateAccommodation(data)}
+                  duplicate={accommodation => addAccommodation(accommodation)}
+                  remove={res => removeAccommodation(res)}
+                />
+              </Grid>
+            </Grid>
           </Paper>
           {/* Details Section */}
           <Paper className={classes.formSection} elevation={5}>
@@ -398,7 +425,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="garageSpaces"
-                  label="Number of Garage spaces"
+                  label="Garage spaces"
                   fullWidth={true}
                   type="number"
                   name="garageSpaces"
@@ -409,7 +436,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="carportSpaces"
-                  label="Number of car port spaces"
+                  label="Car port spaces"
                   fullWidth={true}
                   type="number"
                   name="carportSpaces"
@@ -420,7 +447,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="offStreetSpaces"
-                  label="Number of off street spaces"
+                  label="Street parks"
                   fullWidth={true}
                   type="number"
                   name="offStreetSpaces"
@@ -465,6 +492,14 @@ const CreateProperty = ({ me }) => {
             <Typography variant="h6" gutterBottom>
               Image Section
             </Typography>
+            <Typography variant="body1">
+              Please upload relevant photos of the property.
+              <br /> You can upload a maximum of six images
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              We suggest making the first image a panaramic of the property
+              followed by some shots of the property inside
+            </Typography>
             <ImagePicker
               images={state.images}
               remove={idx => removeImageFromState(idx)}
@@ -474,6 +509,7 @@ const CreateProperty = ({ me }) => {
               multiple={true}
               types={['image']}
               extensions={['.jpg', '.png']}
+              // setFile in state will need to only have a max of 6 images
               receiveFile={file => setFileInState(file)}
             />
           </Paper>
