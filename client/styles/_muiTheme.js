@@ -27,6 +27,7 @@ const theme = {
   lightgrey: '#E1E1E1',
   offWhite: '#EDEDED',
   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)',
+  sideBarWidth: 240,
   palette: {
     type: 'light',
     primary: {

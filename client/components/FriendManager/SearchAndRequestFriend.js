@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import TextInput from '../Inputs/TextInput';
 import Button from '@material-ui/core/Button';
 import FriendRequestButton from '../MutationButtons/FriendRequestButton';
+import UserDetails from '../UserDetails';
 
 const FIND_USERS_QUERY = gql`
   query FIND_USERS_QUERY(
@@ -87,11 +88,7 @@ const SearchAndRequestFriend = props => {
       {results.map((result, i) => {
         return (
           <div>
-            <h1>A search Result</h1>
-            <p>ID = >{result.id}</p>
-            <p>FirstName => {result.firstName}</p>
-            <p>LastName => {result.lastName}</p>
-            <p>Email => {result.email}</p>
+            <UserDetails me={me} user={result} />
             <FriendRequestButton me={me} requestFriendId={result.id} />
           </div>
         );

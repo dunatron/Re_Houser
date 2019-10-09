@@ -122,6 +122,7 @@ const ChatsList = props => {
     variables: {
       data: {
         name: 'CHat room 0',
+        type: 'PEER',
         participants: {
           connect: [
             {

@@ -49,17 +49,12 @@ const RentalApplicationsTable = props => {
       title: 'Owner',
       render: rowData => (
         <div>
-          <img
-            src={
-              'https://www.cornwallbusinessawards.co.uk/wp-content/uploads/2017/11/dummy450x450-300x300.jpg'
-            }
-            style={{ width: 50, borderRadius: '50%' }}
-          />
+          <img src={null} style={{ width: 50, borderRadius: '50%' }} />
           <span>{rowData.owner ? rowData.owner.firstName : ''}</span>
         </div>
       ),
     },
-    { title: 'idß', field: 'id', filtering: false },
+    { title: 'id', field: 'id', filtering: false },
     { title: 'location', field: 'property.location' },
     { title: 'owner', field: 'owner.firstName' },
     { title: 'stage', field: 'stage', export: true },
