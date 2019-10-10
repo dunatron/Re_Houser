@@ -10,30 +10,7 @@ import TextInput from '../../styles/TextInput';
 import Router from 'next/router';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
-
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $phone: String!
-    $password: String!
-  ) {
-    signup(
-      email: $email
-      firstName: $firstName
-      lastName: $lastName
-      phone: $phone
-      password: $password
-    ) {
-      id
-      email
-      firstName
-      lastName
-      phone
-    }
-  }
-`;
+import { SIGNUP_MUTATION } from '../../graphql/mutations';
 
 class Signup extends Component {
   state = {

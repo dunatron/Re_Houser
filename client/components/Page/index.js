@@ -25,6 +25,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 // TRIAL ONLY
 import WithUser from '../WithUser';
+import WithChats from '../WithChats.js';
 
 const theme = createMuiTheme(muiTheme);
 
@@ -149,13 +150,15 @@ const Page = props => {
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
             <WithUser>
-              <Meta />
-              <MaterialPage children={props.children} />
+              <WithChats>
+                <Meta />
+                <MaterialPage children={props.children} {...props} />
 
-              {/* <div>
+                {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
                 </div> */}
+              </WithChats>
             </WithUser>
           </ThemeProvider>
         </StripeProvider>

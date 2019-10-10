@@ -46,6 +46,14 @@ type Message {
   isMine: Boolean!
 }
 
+type Seen {
+  id: ID! @unique @id
+  lastSeen: DateTime
+  amountSeen: Int
+  seenUserId: String!
+  chat: Chat! @relation(name: "ChatSeenInfo")
+}
+
 type Chat {
   id: ID! @unique @id
   name: String!
@@ -54,6 +62,7 @@ type Chat {
   lastMessage: Message @relation(name: "LastMessageRel", link: TABLE)
   messages: [Message!]! @relation(name: "ChatMessages", link: TABLE)
   participants: [User!]! @relation(name: "UserChats", link: TABLE)
+  seenInfo: [Seen!]! @relation(name: "ChatSeenInfo", link: TABLE)
 }
 
 type FriendRequest {

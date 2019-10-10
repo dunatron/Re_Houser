@@ -62,6 +62,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function ResponsiveDrawer(props) {
+  console.log('Each Material Page gets these props => ', props);
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();

@@ -8,17 +8,18 @@ import { CURRENT_USER_QUERY } from '../User/index';
 import FabButton from '../../styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import TextInput from '../../styles/TextInput';
+import { SIGNIN_MUTATION } from '../../graphql/mutations';
 
-const SIGNIN_MUTATION = gql`
-  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
-    signin(email: $email, password: $password) {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-`;
+// const SIGNIN_MUTATION = gql`
+//   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+//     signin(email: $email, password: $password) {
+//       id
+//       email
+//       firstName
+//       lastName
+//     }
+//   }
+// `;
 
 class Signin extends Component {
   state = {

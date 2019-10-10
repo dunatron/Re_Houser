@@ -8,6 +8,7 @@ const cache = new InMemoryCache({
 cache.writeData({
   data: {
     cartOpen: true,
+    openChats: [],
   },
 });
 

@@ -1,6 +1,7 @@
 import { DataProxy } from 'apollo-cache';
 import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+import { useApolloClient } from '@apollo/react-hooks';
 
 import * as fragments from '../graphql/fragments';
 import * as queries from '../graphql/queries';

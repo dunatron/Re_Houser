@@ -9,6 +9,15 @@ export default gql`
     lastMessage {
       ...Message
     }
+    participants {
+      id
+    }
+    seenInfo {
+      id
+      lastSeen
+      amountSeen
+      seenUserId
+    }
   }
   ${message}
 `;

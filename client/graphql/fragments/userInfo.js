@@ -1,4 +1,6 @@
 import gql from 'graphql-tag';
+import chat from './chat.fragment';
+
 const UserInfoFragment = gql`
   fragment userInfo on User {
     id
@@ -50,7 +52,12 @@ const UserInfoFragment = gql`
         lastName
       }
     }
+    chats {
+      ...Chat
+    }
   }
+  ${chat}
 `;
 
 export { UserInfoFragment };
+export default UserInfoFragment;

@@ -29,6 +29,7 @@ type User {
   friends: [User!]!
   friendRequests: [FriendRequest!]!
   awaitingFriends: [FriendRequest!]!
+  chats: [Chat!]!
 }
 
 type SuccessMessage {
@@ -110,6 +111,15 @@ type Query {
     first: Int
     last: Int
   ): [Chat]!
+  chatsConnection(
+    where: ChatWhereInput
+    orderBy: ChatOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ChatConnection!
   chat(where: ChatWhereUniqueInput!): Chat
   messages(
     where: MessageWhereInput

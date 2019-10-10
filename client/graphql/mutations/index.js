@@ -1,3 +1,5 @@
+import { SIGNUP_MUTATION } from './signup';
+import { SIGNIN_MUTATION } from './signin';
 import { CREATE_PROPERTY_MUTATION } from './createProperty';
 import { CREATE_RENTAL_APPLICATION } from './createRentalApplication';
 import { APPLY_TO_RENTAL_GROUP_APPLICATION } from './applyToRentalGroup';
@@ -11,8 +13,11 @@ import { ACCEPT_RENTAL_APPLICATION_MUTATION } from './acceptRentalApplication';
 import { CREATE_PROPERTY_LEASE_MUTATION } from './createPropertyLease';
 import { COMPLETE_RENTAL_APPLICATION } from './completeRentalApplication';
 import { CREATE_MESSAGE_MUTATION } from './createMessage';
+import { CREATE_CHAT_MUTATION } from './createChatMutation';
 
 export {
+  SIGNUP_MUTATION,
+  SIGNIN_MUTATION,
   CREATE_PROPERTY_MUTATION,
   CREATE_RENTAL_APPLICATION,
   APPLY_TO_RENTAL_GROUP_APPLICATION,
@@ -26,4 +31,5 @@ export {
   CREATE_PROPERTY_LEASE_MUTATION,
   COMPLETE_RENTAL_APPLICATION,
   CREATE_MESSAGE_MUTATION,
+  CREATE_CHAT_MUTATION,
 };

@@ -6,6 +6,7 @@ import { useCallback } from 'react';
 import Router from 'next/router';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
 import Error from '../ErrorMessage';
 
 const Container = styled.div`
@@ -79,22 +80,6 @@ export const MY_CHATS_QUERY = gql`
       first: $first
       last: $last
     ) {
-      id
-      name
-      lastMessage {
-        id
-        isMine
-      }
-      participants {
-        id
-      }
-    }
-  }
-`;
-
-export const CREATE_CHAT_MUTATION = gql`
-  mutation CREATE_CHAT_MUTATION($data: ChatCreateInput!) {
-    createChat(data: $data) {
       id
       name
       lastMessage {

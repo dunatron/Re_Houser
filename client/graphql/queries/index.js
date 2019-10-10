@@ -7,7 +7,9 @@ import { CURRENT_USER_QUERY } from './currentUser';
 import { SINGLE_OWNER_PROPERTY_QUERY } from './singleOwnerProperty';
 import { MY_CREDIT_CARDS_QUERY } from './myCreditCards';
 import { MY_LEASES_QUERY } from './myLeasesQuery';
+import { MY_CHATS_QUERY } from './myChats';
 import { CHAT_QUERY } from './chat.query';
+
 import { MESSAGES_QUERY } from './messages';
 import { MESSAGES_CONNECTION_QUERY } from './messagesConnection';
 import chats from './chats.query';
@@ -22,6 +24,7 @@ export {
   MY_CREDIT_CARDS_QUERY,
   SINGLE_RENTAL_APPLICATION_QUERY,
   MY_LEASES_QUERY,
+  MY_CHATS_QUERY,
   CHAT_QUERY,
   MESSAGES_QUERY,
   MESSAGES_CONNECTION_QUERY,
