@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import {useMutation} from "@apollo/react-hooks";
 import Router from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,10 +15,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
 // icons
 import DeleteIcon from '../../styles/icons/DeleteIcon';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -53,18 +52,39 @@ const UserMenu = ({ me, user }) => {
     handleClose();
   };
 
-  openMenu = event => {
+  const openMenu = event => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [createChat, createChatProps] = useMutation(CREATE_CHAT_MUTATION);
   const USER_MENU_OPTIONS = [
     {
       label: 'Message',
       action: () => {
-        alert('Message User');
+        // alert('Message User');
+        console.log("Whats in User => ", user)
+        createChat({
+          variables: {
+            data: {
+              name: 'CHat room 0',
+              type: 'PEER',
+              participants: {
+                connect: [
+                  {
+                    id: me.id,
+                  },
+                  {
+                    id: user.id
+                  }
+                ],
+              },
+            },
+          },
+        })
         // CREATE_CHAT_MUTATION
       },
     },

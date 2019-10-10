@@ -11,7 +11,7 @@ const MY_CHATS_QUERY = gql`
     $first: Int
     $last: Int
   ) {
-    chats(
+    chatsConnection(
       where: $where
       orderBy: $orderBy
       skip: $skip
@@ -20,7 +20,21 @@ const MY_CHATS_QUERY = gql`
       first: $first
       last: $last
     ) {
-      ...Chat
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          ...Chat
+        }
+        cursor
+      }
+      aggregate {
+        count
+      }
     }
   }
   ${fragments.chat}

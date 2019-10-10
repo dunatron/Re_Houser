@@ -132,7 +132,7 @@ function ResponsiveDrawer(props) {
             </Drawer>
           </Hidden>
         </nav>
-        <main className={classes.content}>
+        <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
 
           {props.children}

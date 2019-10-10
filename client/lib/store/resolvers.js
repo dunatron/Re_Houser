@@ -2,9 +2,10 @@ import gql from 'graphql-tag';
 
 const LOCAL_STATE_QUERY = gql`
   query {
-    barChats @client {
+    openChats @client {
       id
       name
+      __typename
     }
   }
 `;
@@ -26,9 +27,23 @@ const resolvers = () => {
         // it will be a paginated async thing
         // this will then be device secific holding the open chats for the chat bar.
         // How to introduce a messages seen...
-        const { barChats } = cache.readQuery({
+        console.log("variables for openBar chat => ", variables)
+        const { openChats } = cache.readQuery({
           query: LOCAL_STATE_QUERY,
         });
+
+        const data = {
+          data: {
+            openChats: [
+              ...openChats,
+              {
+                id: variables.id,
+                name: 'test',
+                __typename: 'OpenChat'
+              }
+            ]
+          }
+        }
 
         console.log('Here are the open chats => ', openChats);
 
@@ -36,7 +51,7 @@ const resolvers = () => {
         // const data = {
         //   data: { cartOpen: !cartOpen },
         // };
-        // cache.writeData(data);
+        cache.writeData(data);
         // return data;
       },
     },
