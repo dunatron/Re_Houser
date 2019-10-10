@@ -13,6 +13,7 @@
 - https://github.com/apollographql/apollo-client/pull/4543
 
 # Using SuperTable
+
 - This has proven super useable and extensible. Time to documentt.
 - ToDo: Complete SuperTable documentation
 
@@ -480,6 +481,17 @@ ToDo
   <summary>Querys</summary>
 ## Querys
 
+#### all users
+
+```js
+query ALL_USERS {
+  users {
+    id
+    firstName
+  }
+}
+```
+
 #### files
 
 ```js
@@ -597,8 +609,10 @@ query rentalApplications($where:RentalApplicationWhereInput!) {
 }
 ```
 
-#### Messages connection 
+#### Messages connection
+
 - (use this as curser based pagination)
+
 ```js
 query MessagesConnection(
   $where:MessageWhereInput
@@ -651,6 +665,7 @@ query MessagesConnection(
 ```
 
 #### allChats for user
+
 ```js
 query MY_CHATS_QUERY(
  	$where: ChatWhereInput
@@ -943,6 +958,7 @@ const where = {
   <summary>Mutations</summary>
 
 #### createChat
+
 ```js
 mutation CREATE_CHAT_MUTATION(
   $data: ChatCreateInput!
@@ -959,7 +975,7 @@ mutation CREATE_CHAT_MUTATION(
     }
   }
 }
-// variables 
+// variables
 
 {
   "data": {
@@ -967,7 +983,7 @@ mutation CREATE_CHAT_MUTATION(
     "participants":{
       "connect": [{
         "id": "cjxua8g4x000f0774pklps3uf"
-      }, 
+      },
       {
         "id": "cjyqtepdu001h0717kereveq8"
       }
@@ -1512,6 +1528,86 @@ subscription($where:RentalApplicationSubscriptionWhereInput) {
       "id_in": [
         "adas","asdasdads"
       ]
+    }
+  }
+}
+```
+
+#### Subscript to chats
+
+```js
+subscription($where:ChatSubscriptionWhereInput) {
+  chatSub(where:$where) {
+    mutation
+    node {
+      id
+      name
+      picture
+      type
+      lastMessage {
+        id
+        content
+        createdAt
+      }
+      participants {
+        id
+        firstName
+      }
+      seenInfo {
+        id
+        lastSeen
+        amountSeen
+        seenUserId
+      }
+    }
+    updatedFields
+    previousValues {
+      id
+      name
+      picture
+      type
+    }
+  }
+
+}
+// variables
+{
+  "where": {
+    "node": {
+      "participants_some": {
+        "id": "ck19ys3oe8sdj0b40dqp2ih2y"
+      }
+    }
+  }
+}
+```
+
+#### Subscribe to new messages
+
+```js
+subscription($where: MessageSubscriptionWhereInput) {
+    messageSub(where: $where) {
+      node {
+        id
+        createdAt
+        content
+        isMine
+        chat {
+          id
+        }
+      }
+    }
+  }
+// variables
+{
+  "where": {
+    "mutation_in": "CREATED",
+    "node": {
+      "chat": {
+        "participants_some": {
+          "id": "sdf"
+        }
+      }
     }
   }
 }

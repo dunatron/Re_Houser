@@ -25,6 +25,9 @@ const MESSAGE_CREATED_SUBSCRIPTION = gql`
         chat {
           id
         }
+        sender {
+          id
+        }
       }
     }
   }

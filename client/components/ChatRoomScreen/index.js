@@ -20,6 +20,11 @@ import {
 } from '../../graphql/queries/index';
 import { CREATE_MESSAGE_MUTATION } from '../../graphql/mutations/index';
 import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
+import {
+  MESSAGES_CONNECTION_ORDER_BY,
+  MESSAGES_CONNECTION_FIRST,
+  MESSAGES_CONNECTION_SKIP,
+} from '../../lib/const';
 
 const Container = styled.div`
   background: url(/assets/chat-background.jpg);
@@ -30,16 +35,16 @@ const Container = styled.div`
   top: 0; */
 `;
 
-const ChatRoomScreen = ({ chat, chatId }) => {
+const ChatRoomScreen = ({ me, chat, chatId }) => {
   const client = useApolloClient();
 
   const { data, loading, error, fetchMore } = useQuery(
     MESSAGES_CONNECTION_QUERY,
     {
       variables: {
-        orderBy: 'createdAt_DESC',
-        first: 5,
-        skip: 0,
+        orderBy: MESSAGES_CONNECTION_ORDER_BY,
+        first: MESSAGES_CONNECTION_FIRST,
+        skip: MESSAGES_CONNECTION_SKIP,
         where: {
           chat: {
             id: chatId,
@@ -146,6 +151,11 @@ const ChatRoomScreen = ({ chat, chatId }) => {
             chat: {
               connect: {
                 id: chatId,
+              },
+            },
+            sender: {
+              connect: {
+                id: me.id,
               },
             },
           },

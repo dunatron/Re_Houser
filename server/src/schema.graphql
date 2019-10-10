@@ -94,6 +94,7 @@ type Subscription {
   rentalApplicationUpdateSub(
     where: RentalApplicationSubscriptionWhereInput
   ): RentalApplicationSubscriptionPayload
+  chatSub(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
   messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
 }
 

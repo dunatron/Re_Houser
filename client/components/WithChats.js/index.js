@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react';
 import { useQuery, useSubscription, useMutation } from '@apollo/react-hooks';
 import { CURRENT_USER_QUERY } from '../User/index';
 import {
@@ -7,8 +7,9 @@ import {
 } from '../../graphql/queries';
 import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
 import Loader from '../Loader';
+import MessageCreatedSub from '../SubscriptionComponents/MessageCreatedSub';
 
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const OPEN_CHAT_LOCAL_MUTATION = gql`
   mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
@@ -16,7 +17,7 @@ const OPEN_CHAT_LOCAL_MUTATION = gql`
   }
 `;
 
-const LoadChats = ({me}) => {
+const LoadChats = ({ me }) => {
   const chatsQuery = useQuery(MY_CHATS_QUERY, {
     variables: {
       first: 1,
@@ -28,10 +29,10 @@ const LoadChats = ({me}) => {
     },
   });
   // time to stop and make chatsConnection a thing. we need it for aggregate
-  const {data, loading, error, fetchMore} = chatsQuery
-  // place data into 
-  if(data) {
-    if(data.chatsConnection.pageInfo.hasNextPage === true) {
+  const { data, loading, error, fetchMore } = chatsQuery;
+  // place data into
+  if (data) {
+    if (data.chatsConnection.pageInfo.hasNextPage === true) {
       fetchMore({
         variables: {
           query: MY_CHATS_QUERY,
@@ -52,13 +53,12 @@ const LoadChats = ({me}) => {
               }
             : prevResult;
         },
-      })
+      });
     }
   }
-  console.log("LoadChats: loading => ", loading)
-  console.log("LoadChats: error => ", error)
-  console.log("LoadChats: data => ", data)
-
+  console.log('LoadChats: loading => ', loading);
+  console.log('LoadChats: error => ', error);
+  console.log('LoadChats: data => ', data);
 
   const [openChat] = useMutation(OPEN_CHAT_LOCAL_MUTATION);
 
@@ -71,7 +71,9 @@ const LoadChats = ({me}) => {
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
       // 1. pop open a chat in apollo local store with the chat info and load up
-      openChat({ variables: { id: subscriptionData.data.messageSub.node.chat.id } })
+      openChat({
+        variables: { id: subscriptionData.data.messageSub.node.chat.id },
+      });
       console.log('subscriptionData => ', subscriptionData);
       // simply push this into local openChats
       // if (!subscriptionData.data) return null;
@@ -109,15 +111,20 @@ const LoadChats = ({me}) => {
     // ... rest options
   });
 
-
-  return null
-}
+  return null;
+};
 
 const WithChats = props => {
-  const me = props.me ? props.me : null
-  if(me === null) return props.children
+  const me = props.me ? props.me : null;
+  if (me === null) return props.children;
   // all with chats has to do is put them into the store.
-  return <Fragment><LoadChats me={me} />{props.children}</Fragment>
+  return (
+    <Fragment>
+      <LoadChats me={me} />
+      <MessageCreatedSub me={me} />
+      {props.children}
+    </Fragment>
+  );
   // I think we dont need to do this. just return normal children and load chats into store
 };
 
