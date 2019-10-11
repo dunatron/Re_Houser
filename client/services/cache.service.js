@@ -1,12 +1,20 @@
 import { DataProxy } from 'apollo-cache';
 import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
+
+import gql from 'graphql-tag';
 import {
   useApolloClient,
   useQuery,
   useMutation,
   useSubscription,
 } from '@apollo/react-hooks';
+
+import {
+  CHAT_QUERY,
+  MESSAGES_QUERY,
+  MESSAGES_CONNECTION_QUERY,
+} from '../graphql/queries/index';
 
 import {
   MESSAGES_CONNECTION_ORDER_BY,
@@ -23,25 +31,75 @@ const OPEN_CHAT_LOCAL_MUTATION = gql`
   }
 `;
 
-export const writeMessage = (client, message) => {
+export const writeMessage = async (client, message) => {
   console.group('writeMessage cache service');
   console.log('message => ', message);
   console.log('client => ', client);
-  const { data, loading, error } = useQuery(MESSAGES_CONNECTION_QUERY, {
+
+  // This might be fine, we ask for the most recent messages with the order by 
+  // then we just place the new message on the end
+  const chatsConn = await client.query({
+    query: MESSAGES_CONNECTION_QUERY,
     variables: {
       orderBy: MESSAGES_CONNECTION_ORDER_BY,
       first: MESSAGES_CONNECTION_FIRST,
       skip: MESSAGES_CONNECTION_SKIP,
       where: {
         chat: {
+          id: message.chat.id
+        }
+      }
+    }
+  })
+
+  const pagedMesssage = {
+    cursor: message.id,
+    node: {
+      ...message,
+    },
+    __typename: 'MessageEdge',
+  };
+
+  client.writeQuery({
+    query: MESSAGES_CONNECTION_QUERY,
+    variables: {
+      orderBy: 'createdAt_DESC',
+      first: 5,
+      skip: 0,
+      where: {
+        chat: {
           id: chatId,
         },
       },
     },
+    data: {
+      messagesConnection: {
+        ...data.messagesConnection,
+        edges: data.messagesConnection.edges.concat(pagedMesssage),
+        // edges: [],
+      },
+    },
   });
-  console.log('messages connection data => ', data);
-  console.log('messages connection loading => ', loading);
-  console.log('messages connection error => ', error);
+  console.log("chatsConn => ", chatsConn)
+  // cursor: data.messagesConnection.pageInfo.endCursor,
+  // skip: data.messagesConnection.edges.length,
+  // we will probably need to call the query and update a bunch of variables from where they are at.
+  // so locating the current query in the cache and using that data...
+  // const { data, loading, error } = useQuery(MESSAGES_CONNECTION_QUERY, {
+  //   variables: {
+  //     orderBy: MESSAGES_CONNECTION_ORDER_BY,
+  //     first: MESSAGES_CONNECTION_FIRST,
+  //     skip: MESSAGES_CONNECTION_SKIP,
+  //     // where: {
+  //     //   chat: {
+  //     //     id: chatId, 
+  //     //   },
+  //     // },
+  //   },
+  // });
+  // console.log('messages connection data => ', data);
+  // console.log('messages connection loading => ', loading);
+  // console.log('messages connection error => ', error);
 
   // above we get the data for the chat. So we can essentially make sure our chats are up to date
   // i.e make sure the id is in our main chats query.
@@ -50,10 +108,6 @@ export const writeMessage = (client, message) => {
   // then in the actual input once it has been sent, do an optimistic response for write message. It could perhaps write twice to the cache ... =(
 
   // make sure the message is open in the chats bar
-  const [openChat] = useMutation(OPEN_CHAT_LOCAL_MUTATION, {
-    variables: { id: node.chat.id },
-  });
-  openChat();
   console.groupEnd();
   // find the single chat query and update its messages.
   // actually maybe the chat has not been called yet...

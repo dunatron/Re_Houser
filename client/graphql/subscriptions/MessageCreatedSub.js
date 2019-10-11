@@ -17,6 +17,7 @@ import * as fragments from '../fragments';
 const MESSAGE_CREATED_SUBSCRIPTION = gql`
   subscription($where: MessageSubscriptionWhereInput) {
     messageSub(where: $where) {
+      mutation
       node {
         id
         createdAt
@@ -27,6 +28,8 @@ const MESSAGE_CREATED_SUBSCRIPTION = gql`
         }
         sender {
           id
+          firstName
+          lastName
         }
       }
     }
