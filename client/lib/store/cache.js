@@ -5,6 +5,9 @@ const cache = new InMemoryCache({
   // at least in the was of writing the cache mutations. can turn off for production...
 });
 
+// we need better local Data SERIOUSLY CHECK OUT VIRTUAL FIELDS.
+// https://www.apollographql.com/docs/tutorial/local-state/
+// https://www.apollographql.com/docs/tutorial/local-state/
 cache.writeData({
   data: {
     cartOpen: true,
