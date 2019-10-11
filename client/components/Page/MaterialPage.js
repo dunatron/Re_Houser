@@ -12,6 +12,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChatsBar from '../ChatsBar';
+import { SITE_NAME } from '../../lib/const';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
@@ -77,7 +78,7 @@ function ResponsiveDrawer(props) {
       <div className={classes.logoContainer}>
         <ListItem>
           <Link href="/">
-            <a className={classes.logo}>Re_Houser</a>
+            <a className={classes.logo}>{SITE_NAME}</a>
           </Link>
         </ListItem>
       </div>

@@ -103,9 +103,9 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
       client.writeQuery({
         query: MESSAGES_CONNECTION_QUERY,
         variables: {
-          orderBy: 'createdAt_DESC',
-          first: 5,
-          skip: 0,
+          orderBy: MESSAGES_CONNECTION_ORDER_BY,
+          first: MESSAGES_CONNECTION_FIRST,
+          skip: MESSAGES_CONNECTION_SKIP,
           where: {
             chat: {
               id: chatId,
@@ -160,127 +160,65 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
             },
           },
         },
+        // optimisticResponse: {
+        //   __typename: 'Mutation',
+        //   updateComment: {
+        //     id: commentId,
+        //     __typename: 'Comment',
+        //     content: commentContent,
+        //   },
+        // },
         update: (client, { data }) => {
           if (data && data.createMessage) {
+            console.log('Chat room Service update response => ', data);
             console.log('Ok checkout the cahce service...');
             // writeMessage(client, data.createMessage);
+            writeMessage(client, data.createMessage);
           }
         },
       });
-      const message = {
-        cursor: (data.messagesConnection.edges.length + 10).toString(),
-        node: {
-          chat: {
-            id: chatId,
-            __typename: 'Chat',
-          },
-          id: (data.messagesConnection.edges.length + 10).toString(),
-          createdAt: new Date(),
-          content: content,
-          isMine: true,
-          __typename: 'Message',
-        },
-        __typename: 'MessageEdge',
-      };
+      // const message = {
+      //   cursor: (data.messagesConnection.edges.length + 10).toString(),
+      //   node: {
+      //     chat: {
+      //       id: chatId,
+      //       __typename: 'Chat',
+      //     },
+      //     id: (data.messagesConnection.edges.length + 10).toString(),
+      //     createdAt: new Date(),
+      //     content: content,
+      //     isMine: true,
+      //     __typename: 'Message',
+      //   },
+      //   __typename: 'MessageEdge',
+      // };
 
-      console.log('MESSAGE FROM HACK => ', message);
+      // console.log('MESSAGE FROM HACK => ', message);
 
-      client.writeQuery({
-        query: MESSAGES_CONNECTION_QUERY,
-        variables: {
-          orderBy: 'createdAt_DESC',
-          first: 5,
-          skip: 0,
-          where: {
-            chat: {
-              id: chatId,
-            },
-          },
-        },
-        data: {
-          messagesConnection: {
-            ...data.messagesConnection,
-            edges: data.messagesConnection.edges.concat(message),
-            // edges: [],
-          },
-        },
-      });
+      // // Perhaps just use the cache service writeMessage...
+      // client.writeQuery({
+      //   query: MESSAGES_CONNECTION_QUERY,
+      //   variables: {
+      //     orderBy: MESSAGES_CONNECTION_ORDER_BY,
+      //     first: MESSAGES_CONNECTION_FIRST,
+      //     skip: MESSAGES_CONNECTION_SKIP,
+      //     where: {
+      //       chat: {
+      //         id: chatId,
+      //       },
+      //     },
+      //   },
+      //   data: {
+      //     messagesConnection: {
+      //       ...data.messagesConnection,
+      //       edges: data.messagesConnection.edges.concat(message),
+      //       // edges: [],
+      //     },
+      //   },
+      // });
     },
     [chat, chatId, client, data]
   );
-
-  // const onSendMessage = useCallback(
-  //   (content: string) => {
-  //     if (!chat) return null;
-  //     if (!data) return null;
-  //     if (!data.messagesConnection) return null;
-  //     console.log('well thats just munted => ', content);
-  //     createMessage({
-  //       variables: {
-  //         data: {
-  //           content: content,
-  //           isMine: true,
-  //           lastMessageRel: {
-  //             connect: {
-  //               id: chatId,
-  //             },
-  //           },
-  //           chat: {
-  //             connect: {
-  //               id: chatId,
-  //             },
-  //           },
-  //         },
-  //       },
-  //       update: (client, { data }) => {
-  //         if (data && data.createMessage) {
-  //           console.log('Ok checkout the cahce service...');
-  //           // writeMessage(client, data.createMessage);
-  //         }
-  //       },
-  //     });
-
-  // const message = {
-  //   cursor: (data.messagesConnection.edges.length + 10).toString(),
-  //   node: {
-  //     chat: {
-  //       id: chatId,
-  //       __typename: 'Chat',
-  //     },
-  //     id: (32 + 10).toString(),
-  //     createdAt: new Date(),
-  //     content: content,
-  //     isMine: true,
-  //     __typename: 'Message',
-  //   },
-  //   __typename: 'MessageEdge',
-  // };
-
-  // console.log('MESSAGE FROM HACK => ', message);
-
-  // client.writeQuery({
-  //   query: MESSAGES_CONNECTION_QUERY,
-  //   variables: {
-  //     orderBy: 'createdAt_DESC',
-  //     first: 5,
-  //     skip: 0,
-  //     where: {
-  //       chat: {
-  //         id: chatId,
-  //       },
-  //     },
-  //   },
-  //   data: {
-  //     messagesConnection: {
-  //       ...data.messagesConnection,
-  //       edges: data.messagesConnection.edges.concat(message),
-  //       // edges: [],
-  //     },
-  //   },
-  // });
-  //   },
-  //   [chat, chatId, client, data]
-  // );
 
   if (!chat) return null;
   if (loading) return 'Loaiding';

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
+import { SITE_NAME } from '../../lib/const';
 
 const Container = styled(Toolbar)`
   background-color: var(--primary-bg);
@@ -9,6 +10,6 @@ const Container = styled(Toolbar)`
   line-height: 40px;
 `;
 
-const ChatsNavbar = () => <Container>Re_Houser Chat Board</Container>;
+const ChatsNavbar = () => <Container>{SITE_NAME} Chat Board</Container>;
 
 export default ChatsNavbar;

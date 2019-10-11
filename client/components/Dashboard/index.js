@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import NavButton from '../../styles/NavButton';
 import { DashBoardStyles, BoardItemStyles } from './styles';
+import { SITE_NAME } from '../../lib/const';
 
 const handleLink = (route = '/', query = {}) => {
   Router.push({
@@ -114,9 +115,9 @@ export default class Dashboard extends Component {
       <DashBoardStyles elevation={4}>
         <h1 className="heading">Dashboard</h1>
         <p className="intro">
-          This is the Hub of re_houser. You can get to anything from here so of
-          you get lost just click on the dashboard menu item in the menu bar and
-          you will return here
+          This is the Hub of {SITE_NAME}. You can get to anything from here so
+          of you get lost just click on the dashboard menu item in the menu bar
+          and you will return here
         </p>
         <div className="items">
           {DASHBOARD_CONFIG.map((dashboardItem, i) => (

@@ -36,22 +36,25 @@ export const writeMessage = async (client, message) => {
   console.log('message => ', message);
   console.log('client => ', client);
 
-  // This might be fine, we ask for the most recent messages with the order by 
-  // then we just place the new message on the end
-  const chatsConn = await client.query({
-    query: MESSAGES_CONNECTION_QUERY,
-    variables: {
-      orderBy: MESSAGES_CONNECTION_ORDER_BY,
-      first: MESSAGES_CONNECTION_FIRST,
-      skip: MESSAGES_CONNECTION_SKIP,
-      where: {
-        chat: {
-          id: message.chat.id
-        }
-      }
-    }
-  })
+  // message connection variables
+  const variables = {
+    orderBy: MESSAGES_CONNECTION_ORDER_BY,
+    first: MESSAGES_CONNECTION_FIRST,
+    skip: MESSAGES_CONNECTION_SKIP,
+    where: {
+      chat: {
+        id: message.chat.id,
+      },
+    },
+  };
 
+  // message connection messages
+  const data = await client.query({
+    query: MESSAGES_CONNECTION_QUERY,
+    variables: variables,
+  });
+
+  // new message to write
   const pagedMesssage = {
     cursor: message.id,
     node: {
@@ -60,27 +63,18 @@ export const writeMessage = async (client, message) => {
     __typename: 'MessageEdge',
   };
 
+  // write the query to the cache
   client.writeQuery({
     query: MESSAGES_CONNECTION_QUERY,
-    variables: {
-      orderBy: 'createdAt_DESC',
-      first: 5,
-      skip: 0,
-      where: {
-        chat: {
-          id: chatId,
-        },
-      },
-    },
+    variables: variables,
     data: {
       messagesConnection: {
         ...data.messagesConnection,
         edges: data.messagesConnection.edges.concat(pagedMesssage),
-        // edges: [],
       },
     },
   });
-  console.log("chatsConn => ", chatsConn)
+  console.log('chatsConn data => ', data);
   // cursor: data.messagesConnection.pageInfo.endCursor,
   // skip: data.messagesConnection.edges.length,
   // we will probably need to call the query and update a bunch of variables from where they are at.
@@ -92,7 +86,7 @@ export const writeMessage = async (client, message) => {
   //     skip: MESSAGES_CONNECTION_SKIP,
   //     // where: {
   //     //   chat: {
-  //     //     id: chatId, 
+  //     //     id: chatId,
   //     //   },
   //     // },
   //   },
