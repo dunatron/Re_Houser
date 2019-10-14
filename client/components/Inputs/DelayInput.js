@@ -24,9 +24,6 @@ const NumberDelayInput = props => {
   const { classes, id, label, defaultValue, handleChange } = props
 
   const showDone = v => {
-    console.log("showDone")
-    console.log(v)
-    console.log(lastTypedVal)
     if (v === lastTypedVal) {
       props.handleChange(lastTypedVal)
       alert("This is fine too")

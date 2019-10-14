@@ -4,6 +4,20 @@ import * as fragments from '../fragments';
 // const MESSAGE_CREATED_SUBSCRIPTION = gql`
 //   subscription($where: MessageSubscriptionWhereInput) {
 //     messageSub(where: $where) {
+//       mutation
+//       node {
+//         ...Message
+//       }
+//     }
+//   }
+//   ${fragments.message}
+// `;
+
+// export { MESSAGE_CREATED_SUBSCRIPTION };
+
+// const MESSAGE_CREATED_SUBSCRIPTION = gql`
+//   subscription($where: MessageSubscriptionWhereInput) {
+//     messageSub(where: $where) {
 //       node {
 //         ...Message
 //       }

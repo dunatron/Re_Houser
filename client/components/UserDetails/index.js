@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserDetails = ({ me, user }) => {
-  console.log("A user => ", user)
   const fullname = user.firstName + ' ' + user.lastName
   return (
     <Fragment>

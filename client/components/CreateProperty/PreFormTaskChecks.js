@@ -44,7 +44,6 @@ const collectionsConf = me => {
 
 const PreFormTaskChecks = ({ me }) => {
   const collections = collectionsConf(me);
-  console.log('The collections => ', collections);
   return (
     <div>
       {collections.map((collection, i) => {

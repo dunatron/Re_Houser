@@ -94,7 +94,6 @@ const RentalApplications = props => {
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
-      console.log("Application is now in Pending mode => ", subscriptionData)
       toast.info(<h3>Application is now in Pending mode</h3>)
     },
     // ... rest options

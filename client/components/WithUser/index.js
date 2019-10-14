@@ -3,7 +3,6 @@ import { CURRENT_USER_QUERY } from '../User/index';
 import Loader from '../Loader';
 
 const WithUser = props => {
-  console.log('WithUser props => ', props);
   return (
     <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => {

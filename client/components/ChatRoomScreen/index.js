@@ -19,7 +19,6 @@ import {
   MESSAGES_CONNECTION_QUERY,
 } from '../../graphql/queries/index';
 import { CREATE_MESSAGE_MUTATION } from '../../graphql/mutations/index';
-import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
 import {
   MESSAGES_CONNECTION_ORDER_BY,
   MESSAGES_CONNECTION_FIRST,
@@ -29,6 +28,10 @@ import {
 const Container = styled.div`
   background: url(/assets/chat-background.jpg);
   display: flex;
+  // border-top: 1px solid red;
+  border-top: ${props => `1px solid ${props.theme.palette.primary.main}`};
+  // width: 280px;
+    max-height: 300px;
   flex-flow: column;
   /* height: 100vh; */
   /* position: absolute;
@@ -83,61 +86,13 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
     CREATE_MESSAGE_MUTATION
   );
 
-  useSubscription(MESSAGE_CREATED_SUBSCRIPTION, {
-    variables: {
-      where: {
-        mutation_in: 'CREATED',
-      },
-    },
-    onSubscriptionData: ({ client, subscriptionData }) => {
-      console.log('subscriptionData => ', subscriptionData);
-      if (!subscriptionData.data) return null;
-      const message = {
-        cursor: 'sdfsdfsdf',
-        node: {
-          ...subscriptionData.data.messageSub.node,
-        },
-        __typename: 'MessageEdge',
-      };
-      console.log('MESSAGE FROM THE SUB => ', message);
-      client.writeQuery({
-        query: MESSAGES_CONNECTION_QUERY,
-        variables: {
-          orderBy: MESSAGES_CONNECTION_ORDER_BY,
-          first: MESSAGES_CONNECTION_FIRST,
-          skip: MESSAGES_CONNECTION_SKIP,
-          where: {
-            chat: {
-              id: chatId,
-            },
-          },
-        },
-        data: {
-          messagesConnection: {
-            ...data.messagesConnection,
-            edges: data.messagesConnection.edges.concat(message),
-            // edges: [],
-          },
-        },
-      });
-      // https://www.apollographql.com/docs/react/advanced/caching.html#direct
-    },
-    // ... rest options
-  });
-
-  // const onSendMessage = content => {
-  //   console.log('COntent from onMessageSent => ', content);
-  // };
-
   useEffect(() => {}, [chat, chatId, client, data]);
 
   const onSendMessage = useCallback(
     content => {
-      console.log('cool => ', content);
       if (!chat) return null;
       if (!data) return null;
       if (!data.messagesConnection) return null;
-      console.log('well thats just munted => ', content);
       createMessage({
         variables: {
           data: {
@@ -170,8 +125,6 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
         // },
         update: (client, { data }) => {
           if (data && data.createMessage) {
-            console.log('Chat room Service update response => ', data);
-            console.log('Ok checkout the cahce service...');
             // writeMessage(client, data.createMessage);
             writeMessage(client, data.createMessage);
           }
@@ -192,8 +145,6 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
       //   },
       //   __typename: 'MessageEdge',
       // };
-
-      // console.log('MESSAGE FROM HACK => ', message);
 
       // // Perhaps just use the cache service writeMessage...
       // client.writeQuery({
@@ -227,9 +178,9 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
   const mappedMessages = messagesConnection.edges.map(edge => edge.node);
   return (
     <Container>
-      <ChatNavbar chat={chat} />
-      <button onClick={() => handleFetchMore()}>Fetch Older Messages</button>
-      {messagesConnection.edges && <MessagesList messages={mappedMessages} />}
+      {/* <ChatNavbar chat={chat} />
+      <button onClick={() => handleFetchMore()}>Fetch Older Messages</button> */}
+      {messagesConnection.edges && <MessagesList messages={mappedMessages} me={me} />}
 
       <MessageInput onSendMessage={onSendMessage} />
     </Container>
@@ -245,17 +196,10 @@ const ChatRoomScreenConnection = props => {
       },
     },
   });
-  if (loading) return 'Loaiding';
+  if (loading) return 'Loading';
   if (error) return <Error error={error} />;
-  console.log('data.chat => ', data.chat);
   // ToDo create a pagination provider for this
-  return (
-    <div>
-      {chatId}
-      {JSON.stringify(data)}
-      <ChatRoomScreen {...props} chat={data.chat} />
-    </div>
-  );
+  return <ChatRoomScreen {...props} chat={data.chat} />
 };
 
 export default ChatRoomScreenConnection;

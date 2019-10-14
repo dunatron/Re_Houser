@@ -18,7 +18,6 @@ const FinaliseApplicationStep = ({
     {
       variables: { applicationId: rentalApplication.id },
       update: (proxy, mutationResult) => {
-        console.log('mutationResult => ', mutationResult);
         /* your custom update logic */
         toast.info(
           <div>

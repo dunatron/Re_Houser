@@ -34,8 +34,6 @@ const MessageCreatedSub = ({ me }) => {
           messageSub: { mutation, node, updatedFields, previouseValues },
         },
       } = subscriptionData;
-      console.log("AHH The node => ", node)
-      console.log("AHH The mutation => ", mutation)
      
       // we were the sender do nothing with this sub
       if (me.id === node.sender.id) {

@@ -8,6 +8,7 @@ const Container = styled.div`
   flex: 2;
   overflow-y: overlay;
   padding: 0 15px;
+  padding-bottom: 70px; 
 `;
 
 const LoadingMore = styled.div`
@@ -82,13 +83,17 @@ const Timestamp = styled.div`
   font-size: 12px;
 `;
 
-const MessagesList = ({ messages }) => {
+/**\
+ * I should like sort the messages by date...
+ * and not add a message if we have its fucken id
+ */
+const MessagesList = ({ messages, me }) => {
   return (
     <Container>
       {messages.map(message => (
         <MessageItem
           data-testid="message-item"
-          isMine={message.isMine}
+          isMine={message.sender.id === me.id}
           key={message.id}>
           <Contents data-testid="message-content">{message.content}</Contents>
           <Timestamp data-testid="message-date">

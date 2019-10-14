@@ -195,7 +195,6 @@ const CreateProperty = () => {
     <Composed>
       {({ user, toggleCart, localState }) => {
         const me = user.data.me;
-        console.log('Here is ME => ', me);
         if (!me) return <h1>No User</h1>;
         return (
           <Mutation

@@ -65,8 +65,6 @@ const UserMenu = ({ me, user }) => {
     {
       label: 'Message',
       action: () => {
-        // alert('Message User');
-        console.log("Whats in User => ", user)
         createChat({
           variables: {
             data: {

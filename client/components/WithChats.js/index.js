@@ -56,61 +56,6 @@ const LoadChats = ({ me }) => {
       });
     }
   }
-  console.log('LoadChats: loading => ', loading);
-  console.log('LoadChats: error => ', error);
-  console.log('LoadChats: data => ', data);
-
-  const [openChat] = useMutation(OPEN_CHAT_LOCAL_MUTATION);
-
-  // ALso lets do the subscription to all chats with us involved
-  useSubscription(MESSAGE_CREATED_SUBSCRIPTION, {
-    variables: {
-      where: {
-        mutation_in: 'CREATED',
-      },
-    },
-    onSubscriptionData: ({ client, subscriptionData }) => {
-      // 1. pop open a chat in apollo local store with the chat info and load up
-      openChat({
-        variables: { id: subscriptionData.data.messageSub.node.chat.id },
-      });
-      console.log('subscriptionData => ', subscriptionData);
-      // simply push this into local openChats
-      // if (!subscriptionData.data) return null;
-      // const message = {
-      //   cursor: 'sdfsdfsdf',
-      //   node: {
-      //     ...subscriptionData.data.messageSub.node,
-      //   },
-      //   __typename: 'MessageEdge',
-      // };
-      // console.log('MESSAGE FROM THE SUB => ', message);
-      // first of all we need to read the chats
-      // client.writeQuery({
-      //   query: MESSAGES_CONNECTION_QUERY,
-      //   variables: {
-      //     orderBy: 'createdAt_DESC',
-      //     first: 5,
-      //     skip: 0,
-      //     where: {
-      //       chat: {
-      //         id: subscriptionData.data.messageSub.node.chat.id
-      //       },
-      //     },
-      //   },
-      //   data: {
-      //     messagesConnection: {
-      //       ...data.messagesConnection,
-      //       edges: data.messagesConnection.edges.concat(message),
-      //       // edges: [],
-      //     },
-      //   },
-      // });
-      // https://www.apollographql.com/docs/react/advanced/caching.html#direct
-    },
-    // ... rest options
-  });
-
   return null;
 };
 

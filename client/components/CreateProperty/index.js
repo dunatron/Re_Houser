@@ -83,8 +83,6 @@ const CreateProperty = ({ me }) => {
 
   const [state, setState] = useState(defaultState);
 
-  console.log('STate => ', state);
-
   const _propertyVariables = () => {
     const theFiles = state.images
       .filter(f => f.type === 'rawImage')

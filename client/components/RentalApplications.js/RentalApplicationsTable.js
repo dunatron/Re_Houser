@@ -21,7 +21,6 @@ const handleLink = (route = '/', query = {}) => {
 };
 
 const manageApplicationForCurrentUser = (dataObj, me) => {
-  console.log('I THINK YOU NEED MORE IN YOUR DATAOBJECT =>  ', dataObj);
   const { applicants, owner, id, property, stage } = dataObj;
   // Lol i told you. the rougiue name of lease maager. ... ffs
   if (me.id === owner.id) handleLink('/my/application', { id: id });
@@ -31,8 +30,6 @@ const manageApplicationForCurrentUser = (dataObj, me) => {
 
 const RentalApplicationsTable = props => {
   const { myRentalApplications, me } = props;
-  console.log('myRentalApplications => ', myRentalApplications);
-  console.log('thats cooll but do I haveme? => ', props);
   /**
    * We have freezeResults: true for apollo cache objects so we will have to manually add the new objects we want.
    * We should be able to just create a new instance of the object

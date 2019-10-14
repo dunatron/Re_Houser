@@ -14,7 +14,8 @@ const Container = styled.div`
 `;
 
 const ActualInput = styled.input`
-  width: calc(100% - 50px);
+  // width: calc(100% - 50px);
+  width: 180px;
   border: none;
   border-radius: 999px;
   padding: 10px;

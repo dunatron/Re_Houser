@@ -32,6 +32,16 @@ const resolvers = () => {
           query: LOCAL_STATE_QUERY,
         });
 
+        const foundChat = openChats.find(c => c.id === variables.id)
+
+        if(foundChat) {
+          // alert("its cool already in bar, return  early")
+          return 
+        }
+        
+        // loop over openChats and if one of the ids is === tp variables.id
+        // break early, chat is open. Maybe perform some increment not seen
+
         const data = {
           data: {
             openChats: [
@@ -54,6 +64,27 @@ const resolvers = () => {
         cache.writeData(data);
         // return data;
       },
+      closeChat(_, variables, { cache }) {
+        const { openChats } = cache.readQuery({
+          query: LOCAL_STATE_QUERY,
+        });
+        const filteredChats = openChats.filter((c => c.id !== variables.id))
+        const data = {
+          data: {
+            openChats: [
+              ...filteredChats,
+            ]
+          }
+        }
+
+        console.log('Here are the open chats => ', openChats);
+
+        // Write the cart State to the opposite
+        // const data = {
+        //   data: { cartOpen: !cartOpen },
+        // };
+        cache.writeData(data);
+      }
     },
   };
 };

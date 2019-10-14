@@ -9,7 +9,6 @@ const RentalApplications = props => {
   const { me } = props;
   const { loading, error, data } = useQuery(MY_RENTAL_APPLICATIONS_QUERY);
 
-  console.log('props what ar u => ', props);
   if (loading)
     return <Loader loading={loading} text="Loading your applications" />;
   if (error) return <Error error={error} />;

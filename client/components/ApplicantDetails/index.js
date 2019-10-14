@@ -26,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ApplicantDetails = ({ applicant }) => {
-  console.log('applicant => ', applicant);
   const classes = useStyles();
   const paperClassName = clsx(
     classes.paper,

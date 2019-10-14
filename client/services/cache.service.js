@@ -36,6 +36,26 @@ export const writeMessage = async (client, message) => {
   console.log('message => ', message);
   console.log('client => ', client);
 
+  // Might be better to write a writeOwnMessage
+  // first figure out why its doing this though...
+
+  if(!client.query){
+    // do write for InDbCahce
+    if(client.readQuery){
+      // const cahcedData = await client.readQuery({
+      //   query: MESSAGES_CONNECTION_QUERY,
+      //   variables: variables,
+      // });
+      // console.log("cahcedData => ", cahcedData)
+    }
+    return 
+  }
+
+  // if(client.__proto__ === 'ApolloCache') {
+  //   alert("AN in memory cahce yea?")
+  // }
+  // return 
+
   // message connection variables
   const variables = {
     orderBy: MESSAGES_CONNECTION_ORDER_BY,
@@ -49,10 +69,21 @@ export const writeMessage = async (client, message) => {
   };
 
   // message connection messages
-  const data = await client.query({
+  const {data, loading, error} = await client.query({
     query: MESSAGES_CONNECTION_QUERY,
     variables: variables,
   });
+
+  // const {data, loading, error} = client.query ? await query.query({
+  //   query: MESSAGES_CONNECTION_QUERY,
+  //   variables: variables,
+  // })
+  //  : await readQuery.query({
+  //   query: MESSAGES_CONNECTION_QUERY,
+  //   variables: variables,
+  // });
+
+  console.log("quertied data => ", data)
 
   // new message to write
   const pagedMesssage = {
