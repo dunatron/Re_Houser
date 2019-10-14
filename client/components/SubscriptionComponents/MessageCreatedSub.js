@@ -41,7 +41,7 @@ const MessageCreatedSub = ({ me }) => {
       }
       // write message to cache service
       // if previouseValues and updatedFields are null this is a new message
-      if (previouseValues === null && updatedFields === null) {
+      if (previousValues === null && updatedFields === null) {
         // this is a brand new message
       }
       if (mutation === 'CREATED') {
