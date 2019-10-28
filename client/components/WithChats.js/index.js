@@ -8,14 +8,7 @@ import {
 import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
 import Loader from '../Loader';
 import MessageCreatedSub from '../SubscriptionComponents/MessageCreatedSub';
-
 import gql from 'graphql-tag';
-
-const OPEN_CHAT_LOCAL_MUTATION = gql`
-  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
-    openChat(id: $id) @client
-  }
-`;
 
 const LoadChats = ({ me }) => {
   const chatsQuery = useQuery(MY_CHATS_QUERY, {
@@ -65,7 +58,7 @@ const WithChats = props => {
   // all with chats has to do is put them into the store.
   return (
     <Fragment>
-      <LoadChats me={me} />
+      {/* <LoadChats me={me} /> */}
       <MessageCreatedSub me={me} />
       {props.children}
     </Fragment>
