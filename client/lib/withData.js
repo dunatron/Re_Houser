@@ -10,7 +10,9 @@ import { endpoint, prodEndpoint, wsEndpoint, wsProdEndpoint } from '../config';
 import cache from './store/cache';
 import resolvers from './store/resolvers';
 
-function createClient({ headers }) {
+function createClient({ headers, cookies }) {
+  console.log('AHh createClient headers => ', headers);
+  console.log('AHh createClient cookies => ', cookies);
   const authLink = new ApolloLink((operation, forward) => {
     operation.setContext({
       fetchOptions: {
