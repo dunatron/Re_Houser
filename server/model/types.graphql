@@ -58,7 +58,7 @@ type Chat {
   id: ID! @unique @id
   name: String!
   picture: String
-  type: String
+  type: ChatType
   lastMessage: Message @relation(name: "LastMessageRel", link: TABLE)
   messages: [Message!]! @relation(name: "ChatMessages", link: TABLE)
   participants: [User!]! @relation(name: "UserChats", link: TABLE)

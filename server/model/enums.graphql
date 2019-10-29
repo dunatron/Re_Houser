@@ -48,3 +48,8 @@ enum PropertyType {
   ACREAGE_SEMI_RURAL
   OTHER
 }
+
+enum ChatType {
+  PEER
+  GROUP
+}

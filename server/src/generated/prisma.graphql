@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Oct 10 2019 16:02:56 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Wed Oct 30 2019 00:26:54 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -565,7 +565,7 @@ type Chat implements Node {
   id: ID!
   name: String!
   picture: String
-  type: String
+  type: ChatType
   lastMessage: Message
   messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
   participants(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
@@ -586,7 +586,7 @@ input ChatCreateInput {
   id: ID
   name: String!
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageCreateOneWithoutLastMessageRelInput
   messages: MessageCreateManyWithoutChatInput
   participants: UserCreateManyWithoutChatsInput
@@ -617,7 +617,7 @@ input ChatCreateWithoutLastMessageInput {
   id: ID
   name: String!
   picture: String
-  type: String
+  type: ChatType
   messages: MessageCreateManyWithoutChatInput
   participants: UserCreateManyWithoutChatsInput
   seenInfo: SeenCreateManyWithoutChatInput
@@ -627,7 +627,7 @@ input ChatCreateWithoutMessagesInput {
   id: ID
   name: String!
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageCreateOneWithoutLastMessageRelInput
   participants: UserCreateManyWithoutChatsInput
   seenInfo: SeenCreateManyWithoutChatInput
@@ -637,7 +637,7 @@ input ChatCreateWithoutParticipantsInput {
   id: ID
   name: String!
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageCreateOneWithoutLastMessageRelInput
   messages: MessageCreateManyWithoutChatInput
   seenInfo: SeenCreateManyWithoutChatInput
@@ -647,7 +647,7 @@ input ChatCreateWithoutSeenInfoInput {
   id: ID
   name: String!
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageCreateOneWithoutLastMessageRelInput
   messages: MessageCreateManyWithoutChatInput
   participants: UserCreateManyWithoutChatsInput
@@ -677,7 +677,7 @@ type ChatPreviousValues {
   id: ID!
   name: String!
   picture: String
-  type: String
+  type: ChatType
 }
 
 input ChatScalarWhereInput {
@@ -809,46 +809,16 @@ input ChatScalarWhereInput {
 
   """All values not ending with the given string."""
   picture_not_ends_with: String
-  type: String
+  type: ChatType
 
   """All values that are not equal to given value."""
-  type_not: String
+  type_not: ChatType
 
   """All values that are contained in given list."""
-  type_in: [String!]
+  type_in: [ChatType!]
 
   """All values that are not contained in given list."""
-  type_not_in: [String!]
-
-  """All values less than the given value."""
-  type_lt: String
-
-  """All values less than or equal the given value."""
-  type_lte: String
-
-  """All values greater than the given value."""
-  type_gt: String
-
-  """All values greater than or equal the given value."""
-  type_gte: String
-
-  """All values containing the given string."""
-  type_contains: String
-
-  """All values not containing the given string."""
-  type_not_contains: String
-
-  """All values starting with the given string."""
-  type_starts_with: String
-
-  """All values not starting with the given string."""
-  type_not_starts_with: String
-
-  """All values ending with the given string."""
-  type_ends_with: String
-
-  """All values not ending with the given string."""
-  type_not_ends_with: String
+  type_not_in: [ChatType!]
 }
 
 type ChatSubscriptionPayload {
@@ -888,10 +858,15 @@ input ChatSubscriptionWhereInput {
   node: ChatWhereInput
 }
 
+enum ChatType {
+  PEER
+  GROUP
+}
+
 input ChatUpdateInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageUpdateOneWithoutLastMessageRelInput
   messages: MessageUpdateManyWithoutChatInput
   participants: UserUpdateManyWithoutChatsInput
@@ -901,13 +876,13 @@ input ChatUpdateInput {
 input ChatUpdateManyDataInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
 }
 
 input ChatUpdateManyMutationInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
 }
 
 input ChatUpdateManyWithoutParticipantsInput {
@@ -953,7 +928,7 @@ input ChatUpdateOneWithoutLastMessageInput {
 input ChatUpdateWithoutLastMessageDataInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
   messages: MessageUpdateManyWithoutChatInput
   participants: UserUpdateManyWithoutChatsInput
   seenInfo: SeenUpdateManyWithoutChatInput
@@ -962,7 +937,7 @@ input ChatUpdateWithoutLastMessageDataInput {
 input ChatUpdateWithoutMessagesDataInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageUpdateOneWithoutLastMessageRelInput
   participants: UserUpdateManyWithoutChatsInput
   seenInfo: SeenUpdateManyWithoutChatInput
@@ -971,7 +946,7 @@ input ChatUpdateWithoutMessagesDataInput {
 input ChatUpdateWithoutParticipantsDataInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageUpdateOneWithoutLastMessageRelInput
   messages: MessageUpdateManyWithoutChatInput
   seenInfo: SeenUpdateManyWithoutChatInput
@@ -980,7 +955,7 @@ input ChatUpdateWithoutParticipantsDataInput {
 input ChatUpdateWithoutSeenInfoDataInput {
   name: String
   picture: String
-  type: String
+  type: ChatType
   lastMessage: MessageUpdateOneWithoutLastMessageRelInput
   messages: MessageUpdateManyWithoutChatInput
   participants: UserUpdateManyWithoutChatsInput
@@ -1141,46 +1116,16 @@ input ChatWhereInput {
 
   """All values not ending with the given string."""
   picture_not_ends_with: String
-  type: String
+  type: ChatType
 
   """All values that are not equal to given value."""
-  type_not: String
+  type_not: ChatType
 
   """All values that are contained in given list."""
-  type_in: [String!]
+  type_in: [ChatType!]
 
   """All values that are not contained in given list."""
-  type_not_in: [String!]
-
-  """All values less than the given value."""
-  type_lt: String
-
-  """All values less than or equal the given value."""
-  type_lte: String
-
-  """All values greater than the given value."""
-  type_gt: String
-
-  """All values greater than or equal the given value."""
-  type_gte: String
-
-  """All values containing the given string."""
-  type_contains: String
-
-  """All values not containing the given string."""
-  type_not_contains: String
-
-  """All values starting with the given string."""
-  type_starts_with: String
-
-  """All values not starting with the given string."""
-  type_not_starts_with: String
-
-  """All values ending with the given string."""
-  type_ends_with: String
-
-  """All values not ending with the given string."""
-  type_not_ends_with: String
+  type_not_in: [ChatType!]
   lastMessage: MessageWhereInput
   messages_every: MessageWhereInput
   messages_some: MessageWhereInput
