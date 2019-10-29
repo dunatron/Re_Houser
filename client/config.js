@@ -21,6 +21,6 @@ export const wsEndpoint = `ws://localhost:4444`;
 // export const devEndpoint = `https://us1.prisma.sh/heath-dunlop-37e897/the-trader/dev`
 // export const prodEndpoint = `https://rehouser-yoga-prod.herokuapp.com/`;
 // export const wsProdEndpoint = `wss://rehouser-yoga-prod.herokuapp.com`;
-export const prodEndpoint = `https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod`;
+export const prodEndpoint = `https://rehouser-yoga-prod.herokuapp.com`;
 export const wsProdEndpoint = `wss://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod`;
 export const itemsPerPage = 4;
