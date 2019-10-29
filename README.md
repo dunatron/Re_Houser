@@ -438,6 +438,25 @@ Not the easiest thing in the world to deploy or manage since we have 3 parts
     - ensure this is in the package.json scripts `"heroku-postbuild": "next build"`
     - again go to heroku and add env variables for next js
 
+  CORS
+  - We may want to pass in an array of allowed urls for the server or some sort of star for heroku and rehouser?
+  NOTE REMOVE CORS
+  - Go to index on server an comment out this object 
+  ```
+   {
+    cors: {
+      credentials: true,
+      origin: process.env.FRONTEND_URL,
+    },
+  },
+  ```
+  - on the client side comment out this in withData.js
+  ```
+   fetchOptions: {
+        credentials: 'include',
+      },
+  ```
+
   
 </details>
 
