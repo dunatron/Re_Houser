@@ -123,7 +123,7 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
         //     content: commentContent,
         //   },
         // },
-        update: (client, { data }) => {
+        update: (proxy, { data }) => {
           if (data && data.createMessage) {
             // writeMessage(client, data.createMessage);
             writeMessage(client, data.createMessage);

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import {useMutation} from "@apollo/react-hooks";
+import gql from 'graphql-tag';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
 import Router from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,6 +25,12 @@ import MoreVertIcon from '../../styles/icons/MoreVertIcon';
 // graphql
 import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
 
+const OPEN_CHAT_LOCAL_MUTATION = gql`
+  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
+    openChat(id: $id) @client
+  }
+`;
+
 // chat service
 import { writeChat } from '../../services/cache.service';
 
@@ -44,13 +51,7 @@ const handleLink = (route = '/', query = {}) => {
 const UserMenu = ({ me, user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
-  const handleOptionClick = (event, option) => {
-    if (option.action) {
-      option.action();
-    }
-    handleClose();
-  };
+  const [openChat] = useMutation(OPEN_CHAT_LOCAL_MUTATION);
 
   const openMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -61,32 +62,7 @@ const UserMenu = ({ me, user }) => {
   };
 
   const [createChat, createChatProps] = useMutation(CREATE_CHAT_MUTATION);
-  const USER_MENU_OPTIONS = [
-    {
-      label: 'Message',
-      action: () => {
-        createChat({
-          variables: {
-            data: {
-              name: 'CHat room 0',
-              type: 'PEER',
-              participants: {
-                connect: [
-                  {
-                    id: me.id,
-                  },
-                  {
-                    id: user.id
-                  }
-                ],
-              },
-            },
-          },
-        })
-        // CREATE_CHAT_MUTATION
-      },
-    },
-  ];
+ 
   return (
     <Fragment>
       <IconButton
@@ -97,6 +73,7 @@ const UserMenu = ({ me, user }) => {
         onClick={openMenu}>
         <MoreVertIcon />
       </IconButton>
+      {/* Should extract this item away to own component... with mutation etc folder menu-items */}
       <Menu
         id="user-menu"
         anchorEl={anchorEl}
@@ -109,15 +86,40 @@ const UserMenu = ({ me, user }) => {
             width: 200,
           },
         }}>
-        {USER_MENU_OPTIONS.map((option, i) => (
-          <MenuItem
-            key={i}
-            selected={option === 'Pyxis'}
-            onClick={e => handleOptionClick(e, option)}>
-            {option.label}
-          </MenuItem>
-        ))}
+          {createChatProps.loading ? "loading" : <MenuItem
+            // selected={option === 'Pyxis'}
+            onClick={e => {
+              createChat({
+                variables: {
+                  data: {
+                    name: 'CHat room 0',
+                    type: 'PEER',
+                    participants: {
+                      connect: [
+                        {
+                          id: me.id,
+                        },
+                        {
+                          id: user.id
+                        }
+                      ],
+                    },
+                  },
+                },
+                update: (cache, { data: { createChat } }) => {
+                  console.log("Yea do updates in here. Like openChat etc...")
+                  openChat({
+                    variables: { id: createChat.id },
+                  });
+                }
+              })
+              // handleClose()
+              }}>
+            Message
+          </MenuItem>}
+        
       </Menu>
+      
     </Fragment>
   );
 };

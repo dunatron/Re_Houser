@@ -31,7 +31,7 @@ const MessageCreatedSub = ({ me }) => {
       // open this chat in the local ApolloState
       const {
         data: {
-          messageSub: { mutation, node, updatedFields, previouseValues },
+          messageSub: { mutation, node, updatedFields, previousValues },
         },
       } = subscriptionData;
      
