@@ -71,9 +71,12 @@ server.start(
         process.env.FRONTEND_URL
       ]
     },
-    port: process.env.PORT || 4444
+    port: process.env.PORT || 4444,
+    // playground: ??
+    subscriptions: {}
   },
   details => {
+    console.log(`Server DETAILS:${JSON.stringify(details)}`);
     console.log(
       `Server is now running on port http:/localhost:${details.port}`
     );

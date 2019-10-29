@@ -1,14 +1,14 @@
-const { GraphQLServer } = require("graphql-yoga")
-const Mutation = require("./resolvers/Mutation")
-const Query = require("./resolvers/Query")
-const Subscription = require("./resolvers/Subscription")
-const db = require("./db")
+const { GraphQLServer, PubSub } = require("graphql-yoga");
+const Mutation = require("./resolvers/Mutation");
+const Query = require("./resolvers/Query");
+const Subscription = require("./resolvers/Subscription");
+const db = require("./db");
 
 const {
   DateTimeResolver,
   URLResolver,
-  JSONResolver,
-} = require("graphql-scalars")
+  JSONResolver
+} = require("graphql-scalars");
 
 // collect our graphql resolvers
 const resolvers = {
@@ -28,19 +28,21 @@ const resolvers = {
   Json: JSONResolver,
   Query,
   Mutation,
-  Subscription,
-}
-
+  Subscription
+};
+const pubsub = new PubSub();
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
     resolverValidationOptions: {
-      requireResolversForResolveType: false,
+      requireResolversForResolveType: false
     },
-    context: req => ({ ...req, db }),
-  })
+    // context: req => ({ ...req, db }) // probs just put this back
+    context: req => ({ ...req, db, pubsub }) // maybe this
+    // context: { pubsub }
+  });
 }
 
-module.exports = createServer
+module.exports = createServer;
