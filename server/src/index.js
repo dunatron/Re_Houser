@@ -66,6 +66,8 @@ server.start(
       origin: [
         "http://localhost:7777",
         "https://rehouser-next-prod.herokuapp.com",
+        "http://app.rehouser.co.nz",
+        "http://rehouser.co.nz",
         process.env.FRONTEND_URL
       ]
     }
