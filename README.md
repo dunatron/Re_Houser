@@ -457,6 +457,10 @@ Not the easiest thing in the world to deploy or manage since we have 3 parts
       },
   ```
 
+  99. Steps to redeploy
+  - `git subtree push --prefix server heroku-server master`
+  - `git subtree push --prefix client heroku-client master`
+
   
 </details>
 
