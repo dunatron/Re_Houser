@@ -57,31 +57,32 @@ server.get("/setup-indexes", function(req, res) {
   res.send("complete");
 });
 
-// server.start(
-//   {
-//     cors: {
-//       credentials: true,
-//       // origin: process.env.FRONTEND_URL,
-//       // origin: ['http://localhost:7777', process.env.FRONTEND_URL],
-//       origin: [
-//         "http://localhost:7777",
-//         "https://rehouser-next-prod.herokuapp.com",
-//         "http://app.rehouser.co.nz",
-//         "http://rehouser.co.nz",
-//         process.env.FRONTEND_URL
-//       ]
-//     }
-//   },
-//   details => {
-//     console.log(
-//       `Server is now running on port http:/localhost:${details.port}`
-//     );
-//   }
-// );
+server.start(
+  {
+    cors: {
+      credentials: true,
+      // origin: process.env.FRONTEND_URL,
+      // origin: ['http://localhost:7777', process.env.FRONTEND_URL],
+      origin: [
+        "http://localhost:7777",
+        "https://rehouser-next-prod.herokuapp.com",
+        "http://app.rehouser.co.nz",
+        "http://rehouser.co.nz",
+        process.env.FRONTEND_URL
+      ]
+    },
+    port: process.env.PORT || 4444
+  },
+  details => {
+    console.log(
+      `Server is now running on port http:/localhost:${details.port}`
+    );
+  }
+);
 
 // server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
 //   console.log(`🚀 Server ready at ${url}`);
 // });
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
+// server.start({ port: process.env.PORT || 4000 }).then(({ url }) => {
+//   console.log(`🚀 Server ready at ${url}`);
+// });
