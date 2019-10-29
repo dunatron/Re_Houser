@@ -73,6 +73,7 @@ function createClient({ headers, cookies }) {
   const client = new ApolloClient({
     // ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     // Endpoint deploy
+    credentials: 'include', // fix for iphone cookies? https://github.com/apollographql/apollo-client/issues/4190
     uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
     link: link,
     cache: cache,

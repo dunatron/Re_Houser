@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import Router from 'next/router'
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import React, { useEffect, useState } from 'react';
+import Router from 'next/router';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import ChatRoomScreen from '../ChatRoomScreen'
-import gql from "graphql-tag";
-import {useCurrentUser} from "../User"
+import ChatRoomScreen from '../ChatRoomScreen';
+import gql from 'graphql-tag';
+import { useCurrentUser } from '../User';
 // icons
-import CloseIcon from '../../styles/icons/CloseIcon'
+import CloseIcon from '../../styles/icons/CloseIcon';
 
 const GET_OPEN_CHATS = gql`
   {
@@ -37,38 +37,39 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'flex-end',
     [theme.breakpoints.up('sm')]: {
       maxWidth: `calc(100% - ${theme.sideBarWidth}px)`,
+      left: `${theme.sideBarWidth}px`,
     },
-    position: "fixed",
-    display: "flex",
+    position: 'fixed',
+    display: 'flex',
     bottom: 0,
-    left: '240px',
+
     pointerEvents: 'none', // allows click through to elements behind
-    background: 'transparent'
+    background: 'transparent',
   },
   barItem: {
     background: '#fff',
-    pointerEvents:'auto', // re-enable pointer events
+    pointerEvents: 'auto', // re-enable pointer events
     width: '280px',
     borderTop: `1px solid ${theme.palette.primary.main}`,
     borderRight: `1px solid ${theme.palette.primary.main}`,
     borderLeft: `1px solid ${theme.palette.primary.main}`,
   },
   barItemIn: {
-    height: '300px'
+    height: '300px',
   },
   barItemHeader: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent:' space-between'
+    justifyContent: ' space-between',
   },
   barItemTitle: {
-    padding: '4px'
+    padding: '4px',
   },
   close: {
     display: 'flex',
     alignItems: 'center',
-    border: '1px solid yellow'
-  }
+    border: '1px solid yellow',
+  },
 }));
 
 /**
@@ -78,72 +79,78 @@ const useStyles = makeStyles(theme => ({
 const ChatsBar = () => {
   // for whatever reason i have put it here. so just do a useQuery to get currentUser
   //
-  const {loading, error, data} = useCurrentUser()
-  if(loading) return null
-  if(error) return null
-  const {me} = data
-  if(!me) return null
-  console.log("ME IN CHAT BAR => ", data)
+  const { loading, error, data } = useCurrentUser();
+  if (loading) return null;
+  if (error) return null;
+  const { me } = data;
+  if (!me) return null;
+  console.log('ME IN CHAT BAR => ', data);
   const classes = useStyles();
-  const { data: openChats } = useQuery(GET_OPEN_CHATS)
+  const { data: openChats } = useQuery(GET_OPEN_CHATS);
   const doShow = () => {
-    if(Router.route === '/chat') {
-      return false
+    if (Router.route === '/chat') {
+      return false;
     }
-    if(openChats.openChats.length === 0) return false
-    return true
-  }
+    if (openChats.openChats.length === 0) return false;
+    return true;
+  };
 
   useEffect(() => {
-    if(doShow()) {
-      document.getElementById('main-content').style.paddingBottom = "100px";
+    if (doShow()) {
+      document.getElementById('main-content').style.paddingBottom = '100px';
     }
     return () => {
-      document.getElementById('main-content').style.paddingBottom = "16px";
-    }
-  }, [Router.route, openChats.openChats])
+      document.getElementById('main-content').style.paddingBottom = '16px';
+    };
+  }, [Router.route, openChats.openChats]);
 
-  if(!doShow()) {
-    return null
+  if (!doShow()) {
+    return null;
   }
 
   return (
     <div className={classes.root}>
-
       {openChats.openChats.map((c, i) => {
-        return <ChatBarItem id={c.id} me={me}/>
+        return <ChatBarItem id={c.id} me={me} />;
       })}
     </div>
   );
 };
 
-const ChatBarItem = ({id, me}) => {
+const ChatBarItem = ({ id, me }) => {
   const classes = useStyles();
-  const [contentIn, setContentIn] = useState(false)
+  const [contentIn, setContentIn] = useState(false);
   const [closeChat] = useMutation(CLOSE_CHAT_LOCAL_MUTATION, {
     variables: {
-      id: id
-    }
-  })
+      id: id,
+    },
+  });
   return (
     <div className={`${classes.barItem} ${contentIn ? classes.barItemIn : ''}`}>
-      
-        <div className={classes.barItemHeader} onClick={() => {
-        console.log("Back into the game")
-        setContentIn(!contentIn)
+      <div
+        className={classes.barItemHeader}
+        onClick={() => {
+          console.log('Back into the game');
+          setContentIn(!contentIn);
         }}>
         <div className={classes.barItemTitle}>Title</div>
-        <div className={classes.close} onClick={(e) => {
-          e.preventDefault()
-          closeChat()}
-        }><CloseIcon /></div>
+        <div
+          className={classes.close}
+          onClick={e => {
+            e.preventDefault();
+            closeChat();
+          }}>
+          <CloseIcon />
         </div>
-      {contentIn && <div>
-        <ChatRoomScreen chatId={id} me={me} />
-      </div>}
+      </div>
+      {contentIn && (
+        <div>
+          <ChatRoomScreen chatId={id} me={me} />
+        </div>
+      )}
     </div>
-  )
-  return 
-}
+  );
+  return;
+};
 
 export default ChatsBar;
