@@ -5,30 +5,15 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChatRoomScreen from '../ChatRoomScreen';
 import gql from 'graphql-tag';
 import { useCurrentUser } from '../User';
+import { getChatName } from '../../lib/getChatName';
+import { getChatImage } from '../../lib/getChatImage';
 // icons
 import CloseIcon from '../../styles/icons/CloseIcon';
-
-const GET_OPEN_CHATS = gql`
-  {
-    openChats @client {
-      id
-      name
-      __typename
-    }
-  }
-`;
-
-const OPEN_CHAT_LOCAL_MUTATION = gql`
-  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
-    openChat(id: $id) @client
-  }
-`;
-
-const CLOSE_CHAT_LOCAL_MUTATION = gql`
-  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
-    closeChat(id: $id) @client
-  }
-`;
+import {
+  OPEN_CHAT_LOCAL_MUTATION,
+  CLOSE_CHAT_LOCAL_MUTATION,
+  GET_OPEN_CHATS,
+} from '../../lib/store/resolvers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,6 +49,8 @@ const useStyles = makeStyles(theme => ({
   },
   barItemTitle: {
     padding: '4px',
+    display: 'flex',
+    alignItems: 'center',
   },
   close: {
     display: 'flex',
@@ -84,7 +71,6 @@ const ChatsBar = () => {
   if (error) return null;
   const { me } = data;
   if (!me) return null;
-  console.log('ME IN CHAT BAR => ', data);
   const classes = useStyles();
   const { data: openChats } = useQuery(GET_OPEN_CHATS);
   const doShow = () => {
@@ -102,7 +88,7 @@ const ChatsBar = () => {
     return () => {
       document.getElementById('main-content').style.paddingBottom = '16px';
     };
-  }, [Router.route, openChats.openChats]);
+  }, [Router.route, openChats.openChats.length]);
 
   if (!doShow()) {
     return null;
@@ -111,13 +97,13 @@ const ChatsBar = () => {
   return (
     <div className={classes.root}>
       {openChats.openChats.map((c, i) => {
-        return <ChatBarItem id={c.id} me={me} />;
+        return <ChatBarItem chat={c} id={c.id} me={me} />;
       })}
     </div>
   );
 };
 
-const ChatBarItem = ({ id, me }) => {
+const ChatBarItem = ({ id, chat, me }) => {
   const classes = useStyles();
   const [contentIn, setContentIn] = useState(false);
   const [closeChat] = useMutation(CLOSE_CHAT_LOCAL_MUTATION, {
@@ -129,11 +115,11 @@ const ChatBarItem = ({ id, me }) => {
     <div className={`${classes.barItem} ${contentIn ? classes.barItemIn : ''}`}>
       <div
         className={classes.barItemHeader}
-        onClick={() => {
-          console.log('Back into the game');
-          setContentIn(!contentIn);
-        }}>
-        <div className={classes.barItemTitle}>Title</div>
+        onClick={() => setContentIn(!contentIn)}>
+        <div className={classes.barItemTitle}>
+          {getChatImage(chat, me)}
+          {getChatName(chat, me)}
+        </div>
         <div
           className={classes.close}
           onClick={e => {

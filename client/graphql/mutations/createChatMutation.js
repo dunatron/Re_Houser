@@ -5,12 +5,19 @@ const CREATE_CHAT_MUTATION = gql`
     createChat(data: $data) {
       id
       name
+      type
       lastMessage {
         id
         isMine
       }
       participants {
         id
+        firstName
+        lastName
+        profilePhoto {
+          filename
+          url
+        }
       }
     }
   }

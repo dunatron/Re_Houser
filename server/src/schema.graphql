@@ -15,6 +15,7 @@ type User {
   properties: [Property!]!
   createdProperties: [Property!]!
   photoIdentification: File
+  profilePhoto: File
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -56,6 +57,7 @@ type Mutation {
   updatePermissions(permissions: [Permission], userId: ID!): User
   singleUpload(file: Upload!): File!
   uploadPhotoId(file: Upload!, photoId: String!): User
+  uploadProfilePhoto(file: Upload!): User
   uploadFile(file: Upload!): File!
   uploadFiles(files: [Upload!]!): [File!]!
   deleteFile(id: ID!): File

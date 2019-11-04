@@ -24,12 +24,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const UserDetails = ({ me, user }) => {
-  const fullname = user.firstName + ' ' + user.lastName
+  const fullname = user.firstName + ' ' + user.lastName;
   return (
     <Fragment>
       <ListItem>
         <ListItemAvatar>
-          <Avatar alt={fullname} src="/static/images/avatar/3.jpg" />
+          <Avatar
+            alt={fullname}
+            src={user.profilePhoto ? user.profilePhoto.url : null}
+          />
         </ListItemAvatar>
         <ListItemText primary={fullname} secondary={'Friend'} />
         <ListItemSecondaryAction>

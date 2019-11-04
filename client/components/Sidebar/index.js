@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import Divider from '@material-ui/core/Divider';
 import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
 import PersonIcon from '../../styles/icons/PersonIcon';
 import DashboardIcon from '../../styles/icons/DashboardIcon';
 import LocationSearchingIcon from '../../styles/icons/LocationSearchingIcon';
@@ -30,6 +31,24 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
+const ProfileIcon = me => {
+  if (me) {
+    if (me.profilePhoto) {
+      return (
+        <Avatar
+          alt={me.profilePhoto.filename}
+          src={me.profilePhoto.url}
+          // className={classes.avatar}
+        />
+      );
+    }
+    // so lazy today huh
+    return <AccountCircleIcon />;
+  }
+
+  return <AccountCircleIcon />;
+};
+
 const NavigationConfig = me => {
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
@@ -52,7 +71,7 @@ const NavigationConfig = me => {
           canRender: () => true,
         },
         {
-          icon: <AccountCircleIcon />,
+          icon: ProfileIcon(me),
           text: 'Account',
           route: '/account',
           canRender: () => true,

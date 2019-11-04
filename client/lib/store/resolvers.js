@@ -1,25 +1,40 @@
 import gql from 'graphql-tag';
 
-const LOCAL_STATE_QUERY = gql`
-  query {
-    openChats @client {
-      id
-      name
-      __typename
-    }
-  }
-`;
-
 export const schema = gql`
   extend type Chat {
     isOpen: Boolean!
   }
 `;
 
-// perhaps this one can perform the seen...
-const OPEN_CHAT_LOCAL_MUTATION = gql`
-  mutation {
-    openChat @client
+export const GET_OPEN_CHATS = gql`
+  {
+    openChats @client {
+      id
+      type
+      participants {
+        id
+        firstName
+        lastName
+        __typename
+        profilePhoto {
+          filename
+          url
+        }
+      }
+      __typename
+    }
+  }
+`;
+
+export const OPEN_CHAT_LOCAL_MUTATION = gql`
+  mutation OPEN_CHAT_LOCAL_MUTATION($chat: Chat) {
+    openChat(chat: $chat) @client
+  }
+`;
+
+export const CLOSE_CHAT_LOCAL_MUTATION = gql`
+  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
+    closeChat(id: $id) @client
   }
 `;
 
@@ -27,31 +42,24 @@ const resolvers = () => {
   return {
     Mutation: {
       openChat(_, variables, { cache }) {
-        // read the current open chats to see if we already have it. we essentially just wantto add it...
-        // this list will simply go through
-        // chats are going to be attahced to the user. When you login, it returns all of your chats...
-        // it will be a paginated async thing
-        // this will then be device secific holding the open chats for the chat bar.
-        // How to introduce a messages seen...
-        console.log('variables for openBar chat => ', variables);
         const { openChats } = cache.readQuery({
-          query: LOCAL_STATE_QUERY,
+          query: GET_OPEN_CHATS,
         });
-
-        const foundChat = openChats.find(c => c.id === variables.id);
+        const foundChat = openChats.find(c => c.id === variables.chat.id);
 
         if (foundChat) {
           // alert("its cool already in bar, return  early")
           return;
         }
-
+        console.log('Tell me of these open chats again => ', variables.chat);
         const data = {
           data: {
             openChats: [
               ...openChats,
               {
-                id: variables.id,
-                name: 'test',
+                id: variables.chat.id,
+                type: variables.chat.type,
+                participants: variables.chat.participants,
                 __typename: 'OpenChat',
               },
             ],
@@ -61,7 +69,7 @@ const resolvers = () => {
       },
       closeChat(_, variables, { cache }) {
         const { openChats } = cache.readQuery({
-          query: LOCAL_STATE_QUERY,
+          query: GET_OPEN_CHATS,
         });
         const filteredChats = openChats.filter(c => c.id !== variables.id);
         const data = {

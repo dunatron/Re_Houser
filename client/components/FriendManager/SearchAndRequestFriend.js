@@ -29,6 +29,10 @@ const FIND_USERS_QUERY = gql`
       firstName
       lastName
       email
+      profilePhoto {
+        filename
+        url
+      }
     }
   }
 `;

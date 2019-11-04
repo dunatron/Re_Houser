@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { OPEN_CHAT_LOCAL_MUTATION } from '../../lib/store/resolvers';
 import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
 import { writeMessage } from '../../services/cache.service';
 import { toast } from 'react-toastify';
 import gql from 'graphql-tag';
 
-const OPEN_CHAT_LOCAL_MUTATION = gql`
-  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
-    openChat(id: $id) @client
-  }
-`;
+// const OPEN_CHAT_LOCAL_MUTATION = gql`
+//   mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
+//     openChat(id: $id) @client
+//   }
+// `;
+
+// const OPEN_CHAT_LOCAL_MUTATION = gql`
+//   mutation OPEN_CHAT_LOCAL_MUTATION($chat: Chat!) {
+//     openChat(chat: $chat) @client
+//   }
+// `;
 
 const MessageCreatedSub = ({ me }) => {
   const [openChat] = useMutation(OPEN_CHAT_LOCAL_MUTATION);
@@ -34,7 +41,7 @@ const MessageCreatedSub = ({ me }) => {
           messageSub: { mutation, node, updatedFields, previousValues },
         },
       } = subscriptionData;
-     
+
       // we were the sender do nothing with this sub
       if (me.id === node.sender.id) {
         return;
@@ -55,12 +62,15 @@ const MessageCreatedSub = ({ me }) => {
         // message was deleted
       }
       openChat({
-        variables: { id: node.chat.id },
+        // variables: { id: node.chat.id, participants: node.chat.participants },
+        variables: { chat: node.chat },
       });
       // update Messages not seen
       toast(
         <div>
-          <h4>Message: {node.sender.firstName} {node.sender.lastName}</h4>
+          <h4>
+            Message: {node.sender.firstName} {node.sender.lastName}
+          </h4>
           <p>{node.content}</p>
         </div>
       );

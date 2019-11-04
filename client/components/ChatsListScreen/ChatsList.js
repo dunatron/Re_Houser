@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
 import Error from '../ErrorMessage';
+import { getChatName } from '../../lib/getChatName';
 
 const Container = styled.div`
   height: calc(100% - 56px);
@@ -82,12 +83,15 @@ export const MY_CHATS_QUERY = gql`
     ) {
       id
       name
+      type
       lastMessage {
         id
         isMine
       }
       participants {
         id
+        firstName
+        lastName
       }
     }
   }
@@ -99,21 +103,6 @@ const ChatsList = props => {
       where: {
         participants_some: {
           id_in: props.me.id,
-        },
-      },
-    },
-  });
-  const [createChat, createChatProps] = useMutation(CREATE_CHAT_MUTATION, {
-    variables: {
-      data: {
-        name: 'CHat room 0',
-        type: 'PEER',
-        participants: {
-          connect: [
-            {
-              id: props.me.id,
-            },
-          ],
         },
       },
     },
@@ -135,9 +124,7 @@ const ChatsList = props => {
   return (
     <Container>
       <StyledList>
-        <Error error={createChatProps.error} />
         {chats.length === 0 && 'No CHats'}
-        <button onClick={() => createChat()}>Create new chat</button>
         {chats.map(chat => (
           <StyledListItem
             key={chat.id}
@@ -151,7 +138,9 @@ const ChatsList = props => {
               alt="Profile"
             />
             <ChatInfo>
-              <ChatName data-testid="name">{chat.name}</ChatName>
+              <ChatName data-testid="name">
+                {getChatName(chat, props.me)}
+              </ChatName>
               {chat.lastMessage && (
                 <React.Fragment>
                   <MessageContent data-testid="content">

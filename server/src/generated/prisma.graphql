@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Oct 30 2019 00:26:54 GMT+1300 (New Zealand Daylight Time)
+# source: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
+# timestamp: Mon Nov 04 2019 18:29:52 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -3204,6 +3204,8 @@ type File implements Node {
   mimetype: String!
   encoding: String!
   url: String
+  userPhotoId: User
+  userProfilePhoto: User
 }
 
 """A connection to a list of items."""
@@ -3222,6 +3224,8 @@ input FileCreateInput {
   mimetype: String!
   encoding: String!
   url: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
 }
 
 input FileCreateManyInput {
@@ -3232,6 +3236,34 @@ input FileCreateManyInput {
 input FileCreateOneInput {
   create: FileCreateInput
   connect: FileWhereUniqueInput
+}
+
+input FileCreateOneWithoutUserPhotoIdInput {
+  create: FileCreateWithoutUserPhotoIdInput
+  connect: FileWhereUniqueInput
+}
+
+input FileCreateOneWithoutUserProfilePhotoInput {
+  create: FileCreateWithoutUserProfilePhotoInput
+  connect: FileWhereUniqueInput
+}
+
+input FileCreateWithoutUserPhotoIdInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+}
+
+input FileCreateWithoutUserProfilePhotoInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
 }
 
 """An edge in a connection."""
@@ -3567,6 +3599,8 @@ input FileUpdateDataInput {
   mimetype: String
   encoding: String
   url: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
 }
 
 input FileUpdateInput {
@@ -3574,6 +3608,8 @@ input FileUpdateInput {
   mimetype: String
   encoding: String
   url: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
 }
 
 input FileUpdateManyDataInput {
@@ -3616,6 +3652,40 @@ input FileUpdateOneInput {
   upsert: FileUpsertNestedInput
 }
 
+input FileUpdateOneWithoutUserPhotoIdInput {
+  create: FileCreateWithoutUserPhotoIdInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutUserPhotoIdDataInput
+  upsert: FileUpsertWithoutUserPhotoIdInput
+}
+
+input FileUpdateOneWithoutUserProfilePhotoInput {
+  create: FileCreateWithoutUserProfilePhotoInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutUserProfilePhotoDataInput
+  upsert: FileUpsertWithoutUserProfilePhotoInput
+}
+
+input FileUpdateWithoutUserPhotoIdDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+}
+
+input FileUpdateWithoutUserProfilePhotoDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+}
+
 input FileUpdateWithWhereUniqueNestedInput {
   where: FileWhereUniqueInput!
   data: FileUpdateDataInput!
@@ -3624,6 +3694,16 @@ input FileUpdateWithWhereUniqueNestedInput {
 input FileUpsertNestedInput {
   update: FileUpdateDataInput!
   create: FileCreateInput!
+}
+
+input FileUpsertWithoutUserPhotoIdInput {
+  update: FileUpdateWithoutUserPhotoIdDataInput!
+  create: FileCreateWithoutUserPhotoIdInput!
+}
+
+input FileUpsertWithoutUserProfilePhotoInput {
+  update: FileUpdateWithoutUserProfilePhotoDataInput!
+  create: FileCreateWithoutUserProfilePhotoInput!
 }
 
 input FileUpsertWithWhereUniqueNestedInput {
@@ -3885,6 +3965,8 @@ input FileWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  userPhotoId: UserWhereInput
+  userProfilePhoto: UserWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -5418,8 +5500,8 @@ type Mutation {
   createLessor(data: LessorCreateInput!): Lessor!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createPayment(data: PaymentCreateInput!): Payment!
-  createUser(data: UserCreateInput!): User!
   createFile(data: FileCreateInput!): File!
+  createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
   updateSeen(data: SeenUpdateInput!, where: SeenWhereUniqueInput!): Seen
@@ -5433,8 +5515,8 @@ type Mutation {
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   deleteMessage(where: MessageWhereUniqueInput!): Message
   deleteSeen(where: SeenWhereUniqueInput!): Seen
@@ -5449,8 +5531,8 @@ type Mutation {
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deletePayment(where: PaymentWhereUniqueInput!): Payment
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteFile(where: FileWhereUniqueInput!): File
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
   upsertSeen(where: SeenWhereUniqueInput!, create: SeenCreateInput!, update: SeenUpdateInput!): Seen!
@@ -5464,8 +5546,8 @@ type Mutation {
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
   updateManySeens(data: SeenUpdateManyMutationInput!, where: SeenWhereInput): BatchPayload!
@@ -5478,8 +5560,8 @@ type Mutation {
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   deleteManyMessages(where: MessageWhereInput): BatchPayload!
   deleteManySeens(where: SeenWhereInput): BatchPayload!
@@ -5494,8 +5576,8 @@ type Mutation {
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
 }
 
@@ -9302,8 +9384,8 @@ type Query {
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   message(where: MessageWhereUniqueInput!): Message
   seen(where: SeenWhereUniqueInput!): Seen
@@ -9318,8 +9400,8 @@ type Query {
   lessor(where: LessorWhereUniqueInput!): Lessor
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   payment(where: PaymentWhereUniqueInput!): Payment
-  user(where: UserWhereUniqueInput!): User
   file(where: FileWhereUniqueInput!): File
+  user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
   seensConnection(where: SeenWhereInput, orderBy: SeenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeenConnection!
@@ -9334,8 +9416,8 @@ type Query {
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
 
   """Fetches an object given its ID"""
@@ -10983,8 +11065,8 @@ type Subscription {
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
 }
 
@@ -11008,6 +11090,7 @@ type User implements Node {
   lessorLeases(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor!]
   createdProperties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
   photoIdentification: File
+  profilePhoto: File
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -11062,7 +11145,8 @@ input UserCreateInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11120,6 +11204,16 @@ input UserCreateOneWithoutLessorLeasesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutPhotoIdentificationInput {
+  create: UserCreateWithoutPhotoIdentificationInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutProfilePhotoInput {
+  create: UserCreateWithoutProfilePhotoInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutRecievedMessagesInput {
   create: UserCreateWithoutRecievedMessagesInput
   connect: UserWhereUniqueInput
@@ -11160,7 +11254,8 @@ input UserCreateWithoutAwaitingFriendsInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11195,7 +11290,8 @@ input UserCreateWithoutChatsInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   sentMessages: MessageCreateManyWithoutSenderInput
@@ -11228,7 +11324,8 @@ input UserCreateWithoutCreatedPropertiesInput {
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11263,7 +11360,8 @@ input UserCreateWithoutCreditCardsInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
@@ -11296,7 +11394,8 @@ input UserCreateWithoutFriendRequestsInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11330,7 +11429,8 @@ input UserCreateWithoutLesseeLeasesInput {
   properties: PropertyCreateManyWithoutOwnersInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11364,7 +11464,78 @@ input UserCreateWithoutLessorLeasesInput {
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+}
+
+input UserCreateWithoutPhotoIdentificationInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+}
+
+input UserCreateWithoutProfilePhotoInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11398,7 +11569,8 @@ input UserCreateWithoutPropertiesInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11433,7 +11605,8 @@ input UserCreateWithoutRecievedMessagesInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -11467,7 +11640,8 @@ input UserCreateWithoutSentMessagesInput {
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
-  photoIdentification: FileCreateOneInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -12370,7 +12544,8 @@ input UserUpdateDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12404,7 +12579,8 @@ input UserUpdateInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12548,6 +12724,24 @@ input UserUpdateOneWithoutLessorLeasesInput {
   upsert: UserUpsertWithoutLessorLeasesInput
 }
 
+input UserUpdateOneWithoutPhotoIdentificationInput {
+  create: UserCreateWithoutPhotoIdentificationInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutPhotoIdentificationDataInput
+  upsert: UserUpsertWithoutPhotoIdentificationInput
+}
+
+input UserUpdateOneWithoutProfilePhotoInput {
+  create: UserCreateWithoutProfilePhotoInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutProfilePhotoDataInput
+  upsert: UserUpsertWithoutProfilePhotoInput
+}
+
 input UserUpdateOneWithoutRecievedMessagesInput {
   create: UserCreateWithoutRecievedMessagesInput
   connect: UserWhereUniqueInput
@@ -12595,7 +12789,8 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12629,7 +12824,8 @@ input UserUpdateWithoutChatsDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   sentMessages: MessageUpdateManyWithoutSenderInput
@@ -12661,7 +12857,8 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12695,7 +12892,8 @@ input UserUpdateWithoutCreditCardsDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
@@ -12727,7 +12925,8 @@ input UserUpdateWithoutFriendRequestsDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12760,7 +12959,8 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   properties: PropertyUpdateManyWithoutOwnersInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12793,7 +12993,76 @@ input UserUpdateWithoutLessorLeasesDataInput {
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+}
+
+input UserUpdateWithoutPhotoIdentificationDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+}
+
+input UserUpdateWithoutProfilePhotoDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12826,7 +13095,8 @@ input UserUpdateWithoutPropertiesDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12860,7 +13130,8 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12893,7 +13164,8 @@ input UserUpdateWithoutSentMessagesDataInput {
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
-  photoIdentification: FileUpdateOneInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -12948,6 +13220,16 @@ input UserUpsertWithoutLesseeLeasesInput {
 input UserUpsertWithoutLessorLeasesInput {
   update: UserUpdateWithoutLessorLeasesDataInput!
   create: UserCreateWithoutLessorLeasesInput!
+}
+
+input UserUpsertWithoutPhotoIdentificationInput {
+  update: UserUpdateWithoutPhotoIdentificationDataInput!
+  create: UserCreateWithoutPhotoIdentificationInput!
+}
+
+input UserUpsertWithoutProfilePhotoInput {
+  update: UserUpdateWithoutProfilePhotoDataInput!
+  create: UserCreateWithoutProfilePhotoInput!
 }
 
 input UserUpsertWithoutRecievedMessagesInput {
@@ -13755,6 +14037,7 @@ input UserWhereInput {
   createdProperties_some: PropertyWhereInput
   createdProperties_none: PropertyWhereInput
   photoIdentification: FileWhereInput
+  profilePhoto: FileWhereInput
   creditCards_every: CreditCardWhereInput
   creditCards_some: CreditCardWhereInput
   creditCards_none: CreditCardWhereInput

@@ -17,6 +17,14 @@ const UserInfoFragment = gql`
       encoding
       url
     }
+    profilePhoto {
+      createdAt
+      updatedAt
+      filename
+      mimetype
+      encoding
+      url
+    }
     identificationNumber
     emergencyContactName
     emergencyContactNumber

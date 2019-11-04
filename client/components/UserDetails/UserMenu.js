@@ -16,20 +16,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 // icons
 import DeleteIcon from '../../styles/icons/DeleteIcon';
 import FolderIcon from '@material-ui/icons/Folder';
 import MoreVertIcon from '../../styles/icons/MoreVertIcon';
 // graphql
 import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
-
-const OPEN_CHAT_LOCAL_MUTATION = gql`
-  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
-    openChat(id: $id) @client
-  }
-`;
+import { OPEN_CHAT_LOCAL_MUTATION } from '../../lib/store/resolvers';
 
 // chat service
 import { writeChat } from '../../services/cache.service';
@@ -62,7 +57,7 @@ const UserMenu = ({ me, user }) => {
   };
 
   const [createChat, createChatProps] = useMutation(CREATE_CHAT_MUTATION);
- 
+
   return (
     <Fragment>
       <IconButton
@@ -86,7 +81,10 @@ const UserMenu = ({ me, user }) => {
             width: 200,
           },
         }}>
-          {createChatProps.loading ? "loading" : <MenuItem
+        {createChatProps.loading ? (
+          'loading'
+        ) : (
+          <MenuItem
             // selected={option === 'Pyxis'}
             onClick={e => {
               createChat({
@@ -100,26 +98,24 @@ const UserMenu = ({ me, user }) => {
                           id: me.id,
                         },
                         {
-                          id: user.id
-                        }
+                          id: user.id,
+                        },
                       ],
                     },
                   },
                 },
                 update: (cache, { data: { createChat } }) => {
-                  console.log("Yea do updates in here. Like openChat etc...")
                   openChat({
-                    variables: { id: createChat.id },
+                    variables: { chat: createChat },
                   });
-                }
-              })
+                },
+              });
               // handleClose()
-              }}>
+            }}>
             Message
-          </MenuItem>}
-        
+          </MenuItem>
+        )}
       </Menu>
-      
     </Fragment>
   );
 };

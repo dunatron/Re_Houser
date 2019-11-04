@@ -19,6 +19,8 @@ import CompletionRating from './CompletionRating';
 import DynamicCompletionIcon from './CompletionIcon';
 // PhotoIdentification
 import PhotoIdentification from './PhotoIdentification';
+// ProfilePhoto
+import UploadProfilePhoto from './UploadProfilePhoto';
 import TabContainer from './TabContainer';
 // import TextInput from "../../styles/TextInput"
 import TextField from '@material-ui/core/TextField';
@@ -144,6 +146,7 @@ const AccountComponent = () => {
         variant="fullWidth">
         <Tab label="Personal Details" icon={<DetailsIcon />} />
         <Tab label="Photo Identification" icon={<CameraIcon />} />
+        <Tab label="Profile Photo" icon={<CameraIcon />} />
         <Tab label="Extras" icon={<MoreIcon />} />
       </Tabs>
       <SwipeableViews index={tabIndex} onChangeIndex={handleChangeIndex}>
@@ -182,6 +185,13 @@ const AccountComponent = () => {
               });
             }}
           />
+        </TabContainer>
+        <TabContainer
+          containerStyles={{
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+          }}>
+          <UploadProfilePhoto me={me} />
         </TabContainer>
         <TabContainer>
           <CreditCardTab me={me} />
