@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 async function signin(parent, { email, password }, ctx, info) {
   // 1. check if there is a user with that email
-  const user = await ctx.db.query.user({ where: { email } });
+  const user = await ctx.db.query.user({ where: { email } }, info);
   if (!user) {
     throw new Error(`No such user found for email ${email}`);
   }

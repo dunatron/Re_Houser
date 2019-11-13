@@ -6,170 +6,170 @@ scalar Float
 scalar Upload
 
 type User {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  permissions: [Permission!]!
-  properties: [Property!]!
-  createdProperties: [Property!]!
-  photoIdentification: File
-  profilePhoto: File
-  identificationNumber: String
-  emergencyContactName: String
-  emergencyContactNumber: String
-  emergencyContactEmail: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
-  primaryCreditCard: CreditCard
-  friends: [User!]!
-  friendRequests: [FriendRequest!]!
-  awaitingFriends: [FriendRequest!]!
-  chats: [Chat!]!
+	id: ID!
+	firstName: String!
+	lastName: String!
+	phone: String!
+	email: String!
+	properties: [Property!]!
+	createdProperties: [Property!]!
+	photoIdentification: File
+	profilePhoto: File
+	identificationNumber: String
+	emergencyContactName: String
+	emergencyContactNumber: String
+	emergencyContactEmail: String
+	referee1Name: String
+	referee1Phone: String
+	referee1Email: String
+	referee2Name: String
+	referee2Phone: String
+	referee2Email: String
+	primaryCreditCard: CreditCard
+	friends: [User!]!
+	friendRequests: [FriendRequest!]!
+	awaitingFriends: [FriendRequest!]!
+	chats: [Chat!]!
+	permissions: [Permission]
 }
 
 type SuccessMessage {
-  message: String
-  data: Json
+	message: String
+	data: Json
 }
 
 type Mutation {
-  signup(
-    email: String!
-    password: String!
-    firstName: String!
-    lastName: String!
-    phone: String!
-  ): User!
-  signin(email: String!, password: String!): User!
-  signout: SuccessMessage
-  requestReset(email: String!): SuccessMessage
-  resetPassword(
-    resetToken: String!
-    password: String!
-    confirmPassword: String!
-  ): User!
-  updatePermissions(permissions: [Permission], userId: ID!): User
-  singleUpload(file: Upload!): File!
-  uploadPhotoId(file: Upload!, photoId: String!): User
-  uploadProfilePhoto(file: Upload!): User
-  uploadFile(file: Upload!): File!
-  uploadFiles(files: [Upload!]!): [File!]!
-  deleteFile(id: ID!): File
-  renameFile(id: ID!, filename: String!): File
-  createProperty(data: PropertyCreateInput!, files: [Upload]): Property
-  # updateProperty(id: ID!, onTheMarket: Boolean): Property!
-  updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
-  createRentalApplication(
-    data: RentalApplicationCreateInput!
-  ): RentalApplication!
-  applyToRentalGroup(data: RentalGroupApplicantCreateInput!): RentalApplication!
-  updateRentalApplication(
-    data: RentalApplicationUpdateInput!
-    where: RentalApplicationWhereUniqueInput!
-  ): RentalApplication!
-  completeRentalApplication(applicationId: ID!): RentalApplication!
-  createPreRentalDocument(rentalGroupApplicantId: ID!): Json!
-  updateUser(data: UserUpdateInput!, photoFile: Upload): User!
-  updateRentalGroupApplicant(
-    data: RentalGroupApplicantUpdateInput!
-    where: RentalGroupApplicantWhereUniqueInput!
-  ): RentalGroupApplicant
-  acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
-  createCreditCard(token: String!): CreditCard!
-  createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
-  signLease(id: ID!, leaseId: ID!, type: String!): SuccessMessage!
-  finalisePropertyLease(leaseId: ID!): SuccessMessage!
-  createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
-  acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
-  createChat(data: ChatCreateInput!): Chat!
-  createMessage(data: MessageCreateInput!): Message
+	signup(
+	email: String!
+	password: String!
+	firstName: String!
+	lastName: String!
+	phone: String!
+	): User!
+	signin(email: String!, password: String!): User!
+	signout: SuccessMessage
+	requestReset(email: String!): SuccessMessage
+	resetPassword(
+	resetToken: String!
+	password: String!
+	confirmPassword: String!
+	): User!
+	updatePermissions(permissions: [Permission], userId: ID!): User
+	singleUpload(file: Upload!): File!
+	uploadPhotoId(file: Upload!, photoId: String!): User
+	uploadProfilePhoto(file: Upload!): User
+	uploadFile(file: Upload!): File!
+	uploadFiles(files: [Upload!]!): [File!]!
+	deleteFile(id: ID!): File
+	renameFile(id: ID!, filename: String!): File
+	createProperty(data: PropertyCreateInput!, files: [Upload]): Property
+	# updateProperty(id: ID!, onTheMarket: Boolean): Property!
+	updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
+	createRentalApplication(
+	data: RentalApplicationCreateInput!
+	): RentalApplication!
+	applyToRentalGroup(data: RentalGroupApplicantCreateInput!): RentalApplication!
+	updateRentalApplication(
+	data: RentalApplicationUpdateInput!
+	where: RentalApplicationWhereUniqueInput!
+	): RentalApplication!
+	completeRentalApplication(applicationId: ID!): RentalApplication!
+	createPreRentalDocument(rentalGroupApplicantId: ID!): Json!
+	updateUser(data: UserUpdateInput!, photoFile: Upload): User!
+	updateRentalGroupApplicant(
+	data: RentalGroupApplicantUpdateInput!
+	where: RentalGroupApplicantWhereUniqueInput!
+	): RentalGroupApplicant
+	acceptRentalApplication(applicationId: ID!, propertyId: ID!): SuccessMessage
+	createCreditCard(token: String!): CreditCard!
+	createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
+	signLease(id: ID!, leaseId: ID!, type: String!): SuccessMessage!
+	finalisePropertyLease(leaseId: ID!): SuccessMessage!
+	createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
+	acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
+	createChat(data: ChatCreateInput!): Chat!
+	createMessage(data: MessageCreateInput!): Message
 }
 
 type Subscription {
-  rentalApplicationCreatedSub: RentalApplicationSubscriptionPayload
-  rentalApplicationUpdateSub(
-    where: RentalApplicationSubscriptionWhereInput
-  ): RentalApplicationSubscriptionPayload
-  chatSub(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
-  messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
+	rentalApplicationCreatedSub: RentalApplicationSubscriptionPayload
+	rentalApplicationUpdateSub(
+	where: RentalApplicationSubscriptionWhereInput
+	): RentalApplicationSubscriptionPayload
+	chatSub(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
+	messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
 }
 
 type Query {
-  me: User
-  users: [User]!
-  file(id: ID!): File
-  files: [File!]!
-  chats(
-    where: ChatWhereInput
-    orderBy: ChatOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Chat]!
-  chatsConnection(
-    where: ChatWhereInput
-    orderBy: ChatOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): ChatConnection!
-  chat(where: ChatWhereUniqueInput!): Chat
-  messages(
-    where: MessageWhereInput
-    orderBy: MessageOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Message]!
-  messagesConnection(
-    where: MessageWhereInput
-    orderBy: MessageOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): MessageConnection!
-  chatFeed(filter: String): [Message!]!
-  properties: [Property!]!
-  ownerProperties: [Property!]!
-  ownerProperty(id: ID!): Property
-  myRentalApplications: [RentalApplication!]!
-  rentalApplication(
-    where: RentalApplicationWhereUniqueInput!
-  ): RentalApplication!
-  rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
-  myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
-  myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!
-  myLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease!
-  payments(
-    where: PaymentWhereInput
-    orderBy: PaymentOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Payment]!
-  findUsers(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [User!]!
+	me: User
+	users: [User]!
+	file(id: ID!): File
+	files: [File!]!
+	chats(
+	where: ChatWhereInput
+	orderBy: ChatOrderByInput
+	skip: Int
+	after: String
+	before: String
+	first: Int
+	last: Int
+	): [Chat]!
+	chatsConnection(
+	where: ChatWhereInput
+	orderBy: ChatOrderByInput
+	skip: Int
+	after: String
+	before: String
+	first: Int
+	last: Int
+	): ChatConnection!
+	chat(where: ChatWhereUniqueInput!): Chat
+	messages(
+	where: MessageWhereInput
+	orderBy: MessageOrderByInput
+	skip: Int
+	after: String
+	before: String
+	first: Int
+	last: Int
+	): [Message]!
+	messagesConnection(
+	where: MessageWhereInput
+	orderBy: MessageOrderByInput
+	skip: Int
+	after: String
+	before: String
+	first: Int
+	last: Int
+	): MessageConnection!
+	chatFeed(filter: String): [Message!]!
+	properties: [Property!]!
+	ownerProperties: [Property!]!
+	ownerProperty(id: ID!): Property
+	myRentalApplications: [RentalApplication!]!
+	rentalApplication(
+	where: RentalApplicationWhereUniqueInput!
+	): RentalApplication!
+	rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
+	myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
+	myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!
+	myLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease!
+	payments(
+	where: PaymentWhereInput
+	orderBy: PaymentOrderByInput
+	skip: Int
+	after: String
+	before: String
+	first: Int
+	last: Int
+	): [Payment]!
+	findUsers(
+	where: UserWhereInput
+	orderBy: UserOrderByInput
+	skip: Int
+	after: String
+	before: String
+	first: Int
+	last: Int
+	): [User!]!
 }

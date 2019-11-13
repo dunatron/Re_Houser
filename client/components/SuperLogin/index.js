@@ -44,7 +44,18 @@ const styles = theme => ({
 
 const LoginPage = props => {
   const [tabIndex, setTabIndex] = useState(0);
-  // const user =
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  });
+
+  const saveToState = e => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const { data, error } = useQuery(CURRENT_USER_QUERY, { suspend: true });
   if (error) {
     return <div>Error! {error.message}</div>;
@@ -85,10 +96,18 @@ const LoginPage = props => {
         index={tabIndex}
         onChangeIndex={handleChangeIndex}>
         <TabContainer dir={theme.direction}>
-          <Signup />
+          <Signup
+            email={email}
+            password={password}
+            update={e => saveToState(e)}
+          />
         </TabContainer>
         <TabContainer dir={theme.direction}>
-          <Signin />
+          <Signin
+            email={email}
+            password={password}
+            update={e => saveToState(e)}
+          />
         </TabContainer>
         <TabContainer dir={theme.direction}>
           <RequestReset />
