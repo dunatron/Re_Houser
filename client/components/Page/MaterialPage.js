@@ -62,8 +62,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function ResponsiveDrawer(props) {
-  const { container } = props;
+function MaterialPage(props) {
+  console.log('RESPONSIVER DRAW PROPS => ', props);
+  const { container, loadingUser } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -82,7 +83,7 @@ function ResponsiveDrawer(props) {
         </ListItem>
       </div>
       <Divider />
-      <Sidebar />
+      <Sidebar loadingUser={loadingUser} />
     </div>
   );
 
@@ -143,7 +144,7 @@ function ResponsiveDrawer(props) {
   );
 }
 
-ResponsiveDrawer.propTypes = {
+MaterialPage.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -153,4 +154,4 @@ ResponsiveDrawer.propTypes = {
   ),
 };
 
-export default ResponsiveDrawer;
+export default MaterialPage;

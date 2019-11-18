@@ -48,7 +48,7 @@ const Message = ({ message, alert }) => {
 const PleaseSignIn = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading, error }) => {
-      if (loading) return <p>Loading...</p>;
+      if (loading) return <p>loading please sign in</p>;
       if (error) return <Error error={error} />;
       if (!data.me) {
         return (

@@ -10,6 +10,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -49,7 +50,7 @@ const ProfileIcon = me => {
   return <AccountCircleIcon />;
 };
 
-const NavigationConfig = me => {
+const NavigationConfig = (me, loadingUser) => {
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
@@ -150,7 +151,11 @@ const NavigationConfig = me => {
       key: 'account',
       items: [
         {
-          icon: <AccountCircleIcon />,
+          icon: loadingUser ? (
+            <Skeleton variant="circle" width={40} height={40} />
+          ) : (
+            <AccountCircleIcon />
+          ),
           text: 'Login',
           route: '/login',
           canRender: () => {
@@ -173,11 +178,11 @@ const NavigationConfig = me => {
   ];
 };
 
-const Nav = () => {
+const Nav = ({ loadingUser }) => {
   const user = useCurrentUser();
   const { data, loading, error } = user;
   const me = data ? data.me : null;
-  const NAV_CONF = NavigationConfig(me);
+  const NAV_CONF = NavigationConfig(me, loadingUser);
   return (
     <div>
       {NAV_CONF.map((conf, index) => {

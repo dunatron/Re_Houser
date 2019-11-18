@@ -53,14 +53,25 @@ const LoadChats = ({ me }) => {
 };
 
 const WithChats = props => {
+  console.log('With CHats props => ', props);
   const me = props.me ? props.me : null;
   if (me === null) return props.children;
   // all with chats has to do is put them into the store.
+  const children = React.Children.map(props.children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, {
+        me,
+        loadingUser: props.loadingUser,
+      });
+    }
+    return child;
+  });
+  // return children;
   return (
     <Fragment>
       {/* <LoadChats me={me} /> */}
       <MessageCreatedSub me={me} />
-      {props.children}
+      {children}
     </Fragment>
   );
   // I think we dont need to do this. just return normal children and load chats into store

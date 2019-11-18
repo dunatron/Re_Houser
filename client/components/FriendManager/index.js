@@ -24,7 +24,7 @@ const FriendManagerWithSuspense = () => {
   });
   if (loading) return 'Loading user data';
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Suspense</div>}>
       <FriendManager me={data.me} />
     </Suspense>
   );

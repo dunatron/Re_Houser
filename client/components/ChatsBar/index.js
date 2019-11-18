@@ -67,10 +67,7 @@ const ChatsBar = () => {
   // for whatever reason i have put it here. so just do a useQuery to get currentUser
   //
   const { loading, error, data } = useCurrentUser();
-  if (loading) return null;
-  if (error) return null;
-  const { me } = data;
-  if (!me) return null;
+
   const classes = useStyles();
   const { data: openChats } = useQuery(GET_OPEN_CHATS);
   const doShow = () => {
@@ -93,7 +90,10 @@ const ChatsBar = () => {
   if (!doShow()) {
     return null;
   }
-
+  if (loading) return null;
+  if (error) return null;
+  const { me } = data;
+  if (!me) return null;
   return (
     <div className={classes.root}>
       {openChats.openChats.map((c, i) => {

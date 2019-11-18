@@ -6,17 +6,18 @@ const WithUser = props => {
   return (
     <Query query={CURRENT_USER_QUERY}>
       {({ data, loading }) => {
-        if (loading)
-          return (
-            <div>
-              Personalizing application
-              <Loader loading={loading} text="Fetching your data" />
-            </div>
-          );
+        // if (loading)
+        //   return (
+        //     <div>
+        //       Personalizing application
+        //       <Loader loading={loading} text="Fetching your data" />
+        //     </div>
+        //   );
         const children = React.Children.map(props.children, child => {
           if (React.isValidElement(child)) {
             return React.cloneElement(child, {
               me: data ? data.me : null,
+              loadingUser: loading,
             });
           }
           return child;

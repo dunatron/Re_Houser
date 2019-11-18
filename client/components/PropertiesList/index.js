@@ -11,7 +11,7 @@ export default class index extends Component {
       <Query query={PROPERTIES_QUERY}>
         {({ data, loading, error }) => {
           if (error) return <Error error={error} />;
-          if (loading) return <p>Loading...</p>;
+          if (loading) return <p>Loading properties list...</p>;
           const { properties } = data;
           return (
             <div
