@@ -285,6 +285,8 @@ const Signup = props => {
         <ReCAPTCHA
           ref={recaptchaRef}
           sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
+          // this will require an investigation on its own. how to render these process.env with next
+          // check next.config
           onChange={token =>
             setState({
               ...state,
