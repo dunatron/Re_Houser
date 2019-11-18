@@ -1,4 +1,5 @@
-const captchaSecretKey = process.env.GOOGLE_RECAPTCHA_API_SECRET_KEY;
+// const captchaSecretKey = process.env.GOOGLE_RECAPTCHA_API_SECRET_KEY;
+const captchaSecretKey = "6Lc9N8MUAAAAAKC00xGhUhae35JMlrY";
 exports.validateRecaptcha = async ({ ctx, captchaToken }) => {
   // dismiss anything without a recaptcha token supplied
   if (!captchaToken) {
