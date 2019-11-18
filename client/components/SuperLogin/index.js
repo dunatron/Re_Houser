@@ -97,15 +97,18 @@ const LoginPage = props => {
         onChangeIndex={handleChangeIndex}>
         <TabContainer dir={theme.direction}>
           <Signup
-            email={email}
-            password={password}
-            update={e => saveToState(e)}
+            email={state.email}
+            password={state.password}
+            update={e => {
+              console.log('Yes should work');
+              saveToState(e);
+            }}
           />
         </TabContainer>
         <TabContainer dir={theme.direction}>
           <Signin
-            email={email}
-            password={password}
+            email={state.email}
+            password={state.password}
             update={e => saveToState(e)}
           />
         </TabContainer>

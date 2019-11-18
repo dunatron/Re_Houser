@@ -8,6 +8,7 @@ const SIGNUP_MUTATION = gql`
     $lastName: String!
     $phone: String!
     $password: String!
+    $captchaToken: String!
   ) {
     signup(
       email: $email
@@ -15,6 +16,7 @@ const SIGNUP_MUTATION = gql`
       lastName: $lastName
       phone: $phone
       password: $password
+      captchaToken: $captchaToken
     ) {
       ...userInfo
     }

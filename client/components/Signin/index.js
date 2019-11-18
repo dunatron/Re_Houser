@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { toast } from 'react-toastify';
 import { Mutation } from 'react-apollo';
@@ -10,6 +10,7 @@ import FabButton from '../../styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import TextInput from '../../styles/TextInput';
 import { SIGNIN_MUTATION } from '../../graphql/mutations';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 // class Signin extends Component {
 //   state = {
@@ -90,7 +91,11 @@ const Signin = props => {
   const [state, setState] = useState({
     email: props.email ? props.email : '',
     password: props.password ? props.password : '',
+    captchaToken: '',
   });
+  const recaptchaRef = useRef();
+
+  const clearRecaptcha = () => recaptchaRef.current.reset();
   const [signIn, { loading, error, data }] = useMutation(SIGNIN_MUTATION);
   const saveToState = e => {
     setState({
@@ -100,7 +105,11 @@ const Signin = props => {
     props.update(e);
     // ToDo: push up to if we have update function to tell the container
   };
+  if (error) {
+    clearRecaptcha();
+  }
   if (data) {
+    clearRecaptcha();
     toast.success(
       <p>
         <strong>
@@ -109,15 +118,25 @@ const Signin = props => {
       </p>
     );
   }
+  useEffect(() => {
+    setState({
+      ...state,
+      email: props.email,
+    });
+  }, [props.email]);
+  useEffect(() => {
+    setState({
+      ...state,
+      password: props.password,
+    });
+  }, [props.password]);
   return (
     <Form
       method="post"
       onSubmit={e => {
         e.preventDefault();
         signIn({
-          variables: {
-            state,
-          },
+          variables: state,
           refetchQueries: [{ query: CURRENT_USER_QUERY }],
         });
       }}>
@@ -142,6 +161,17 @@ const Signin = props => {
           placeholder="password"
           value={state.password}
           onChange={saveToState}
+        />
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
+          onChange={token => {
+            console.log('captcha c => ', token);
+            setState({
+              ...state,
+              captchaToken: token,
+            });
+          }}
         />
 
         <FabButton

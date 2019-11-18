@@ -1,8 +1,15 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { validateRecaptcha } = require("../../lib/recaptchaApi");
 
 async function signup(parent, args, ctx, info) {
   //lowercase their email
+  await validateRecaptcha({
+    ctx,
+    captchaToken: args.captchaToken
+  });
+  // delete this now as it is not part creating a user
+  delete args.captchaToken;
   args.email = args.email.toLowerCase();
   // hash their password. 1 way so if you goy hold of the hashed pass you could not turn it back to what the user actually typed
   const password = await bcrypt.hash(args.password, 10);

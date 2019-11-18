@@ -146,7 +146,7 @@
 // export default Signup;
 // export { SIGNUP_MUTATION };
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Form from '../../styles/Form';
@@ -159,25 +159,27 @@ import Router from 'next/router';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import { SIGNUP_MUTATION } from '../../graphql/mutations';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 const Signup = props => {
+  const recaptchaRef = useRef();
   const [state, setState] = useState({
     firstName: props.firstName ? props.firstName : '',
     lastName: props.lastName ? props.lastName : '',
     phone: props.phone ? props.phone : '',
     email: props.email ? props.email : '',
     password: props.password ? props.password : '',
+    captchaToken: '',
   });
   const saveToState = e => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
     });
+    props.update(e);
   };
   const [signUp, { error, loading, data }] = useMutation(SIGNUP_MUTATION, {
-    variables: {
-      state,
-    },
+    variables: state,
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   const handleLink = (route = '/', query = {}) => {
@@ -208,6 +210,19 @@ const Signup = props => {
       }
     );
   }
+  useEffect(() => {
+    setState({
+      ...state,
+      email: props.email,
+    });
+  }, [props.email]);
+  useEffect(() => {
+    setState({
+      ...state,
+      password: props.password,
+    });
+  }, [props.password]);
+
   return (
     <Form
       method="post"
@@ -244,8 +259,8 @@ const Signup = props => {
           type="text"
           name="lastName"
           placeholder="please enter your lastname"
-          value={this.state.lastName}
-          onChange={this.saveToState}
+          value={state.lastName}
+          onChange={saveToState}
         />
         <TextInput
           id="name"
@@ -254,8 +269,8 @@ const Signup = props => {
           type="text"
           name="phone"
           placeholder="please enter your phone number"
-          value={this.state.phone}
-          onChange={this.saveToState}
+          value={state.phone}
+          onChange={saveToState}
         />
         <TextInput
           id="password"
@@ -264,8 +279,18 @@ const Signup = props => {
           type="password"
           name="password"
           placeholder="password"
-          value={this.state.password}
-          onChange={this.saveToState}
+          value={state.password}
+          onChange={saveToState}
+        />
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
+          onChange={token =>
+            setState({
+              ...state,
+              captchaToken: token,
+            })
+          }
         />
 
         <FabButton

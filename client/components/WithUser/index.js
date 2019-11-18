@@ -16,7 +16,7 @@ const WithUser = props => {
         const children = React.Children.map(props.children, child => {
           if (React.isValidElement(child)) {
             return React.cloneElement(child, {
-              me: data.me,
+              me: data ? data.me : null,
             });
           }
           return child;
