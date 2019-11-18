@@ -1,3 +1,4 @@
+const captchaSecretKey = process.env.GOOGLE_RECAPTCHA_API_SECRET_KEY;
 exports.validateRecaptcha = async ({ ctx, captchaToken }) => {
   // dismiss anything without a recaptcha token supplied
   if (!captchaToken) {
@@ -5,7 +6,6 @@ exports.validateRecaptcha = async ({ ctx, captchaToken }) => {
       `Please supply a successful recaptcha token response from the front end`
     );
   }
-  const captchaSecretKey = process.env.GOOGLE_RECAPTCHA_API_SECRET_KEY;
   const remoteIP = ctx.request.connection.remoteAddress;
   const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${captchaSecretKey}&response=${captchaToken}&remoteip=${remoteIP}`;
   //

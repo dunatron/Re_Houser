@@ -17,8 +17,6 @@ module.exports = {
     return config;
   },
   env: {
-    // STRIPE_KEY: "pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N",
-    // GOOGLE_API_KEY: "AIzaSyDe_TIz2AQ9mKfYpsb6U3RG7fjnM8eYvk0",
     STRIPE_KEY: process.env.STRIPE_KEY,
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     GOOGLE_RECAPTCHA_SITE_KEY: process.env.GOOGLE_RECAPTCHA_SITE_KEY,
