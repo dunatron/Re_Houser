@@ -1,5 +1,5 @@
-// const captchaSecretKey = process.env.GOOGLE_RECAPTCHA_API_SECRET_KEY;
-const captchaSecretKey = "6Lc9N8MUAAAAAKC00xGhUhae35JMlrY";
+const captchaSecretKey = process.env.GOOGLE_RECAPTCHA_API_SECRET_KEY;
+
 exports.validateRecaptcha = async ({ ctx, captchaToken }) => {
   // dismiss anything without a recaptcha token supplied
   if (!captchaToken) {
@@ -14,6 +14,7 @@ exports.validateRecaptcha = async ({ ctx, captchaToken }) => {
   const recaptchaData = await recaptchaResponse.json();
   // throw error if recaptcha isnt passed for any reason
   if (recaptchaData.success !== true) {
+    throw new Error(`failed captcha ${JSON.stringify(recaptchaData)}`);
     throw new Error(`failed captcha ${JSON.stringify(recaptchaData)}`);
   }
   // return true if requesting as isValid

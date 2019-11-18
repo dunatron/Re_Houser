@@ -105,11 +105,7 @@ const Signin = props => {
     props.update(e);
     // ToDo: push up to if we have update function to tell the container
   };
-  if (error) {
-    clearRecaptcha();
-  }
   if (data) {
-    clearRecaptcha();
     toast.success(
       <p>
         <strong>
@@ -139,6 +135,7 @@ const Signin = props => {
           variables: state,
           refetchQueries: [{ query: CURRENT_USER_QUERY }],
         });
+        clearRecaptcha();
       }}>
       <fieldset disabled={loading} aria-busy={loading}>
         <Error error={error} />
