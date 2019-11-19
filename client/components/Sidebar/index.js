@@ -11,6 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { Fragment } from 'react';
 
 import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -190,8 +191,8 @@ const Nav = ({ loadingUser }) => {
           if (!conf.canRender()) return null;
         }
         return (
-          <>
-            <List key={conf.key}>
+          <Fragment key={conf.key}>
+            <List>
               {conf.items.map((item, i) => {
                 if (!item.canRender()) return null;
                 return (
@@ -212,7 +213,7 @@ const Nav = ({ loadingUser }) => {
               })}
             </List>
             <Divider />
-          </>
+          </Fragment>
         );
       })}
     </div>

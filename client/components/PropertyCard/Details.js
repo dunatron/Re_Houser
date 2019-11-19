@@ -143,7 +143,7 @@ const Details = props => {
             );
           })}
       </CardContent>
-      <CardActions className={'actions'} disableActionSpacing>
+      <CardActions className={'actions'} disableSpacing={true}>
         <IconButton aria-label="Add to favorites">
           <FavoriteIcon />
         </IconButton>
