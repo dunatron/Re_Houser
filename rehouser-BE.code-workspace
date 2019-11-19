@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "server"
+		}
+	],
+	"settings": {
+    "workbench.activityBar.visible": true,
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.colorCustomizations": {
+      "titleBar.activeForeground": "#000",
+      "titleBar.inactiveForeground": "#000000CC",
+      "titleBar.activeBackground": "#e91e63",
+      "titleBar.inactiveBackground": "#ad1457"
+    }
+  }
+}

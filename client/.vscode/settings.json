@@ -1,0 +1,33 @@
+{
+  // "prettier.jsxBracketSameLine": true,
+  // "prettier.singleQuote": true,
+  // "phpcbf.standard": "PSR2",
+  // "search.useIgnoreFiles": false,
+  // "search.exclude": {
+  //   "/assets": true
+  // },
+  // "workbench.colorCustomizations": {
+  //   "titleBar.activeForeground": "#000",
+  //   "titleBar.inactiveForeground": "#000000CC",
+  //   "titleBar.activeBackground": "#F3DB04",
+  //   "titleBar.inactiveBackground": "#f3db04bd"
+  // },
+  // "editor.tabSize": 2,
+  // "[javascript]": {
+  //   "editor.tabSize": 2
+  // },
+  // "[javascriptreact]": {
+  //   "editor.tabSize": 2
+  // },
+  // "[json]": {
+  //   "editor.tabSize": 2
+  // }
+  "workbench.activityBar.visible": false,
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#000",
+    "titleBar.inactiveForeground": "#000000CC",
+    "titleBar.activeBackground": "#F3DB04",
+    "titleBar.inactiveBackground": "#f3db04bd"
+  }
+}
