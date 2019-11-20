@@ -1,3 +1,16 @@
+## gql Summit talks
+
+- [Opening Keynote, Current State of GraphQL](https://youtu.be/EDqw-sGVq3k)
+- [Migrating to Apollo + GraphQL at Airbnb](https://youtu.be/pywcFELoU8E)
+- [The Do's and Don'ts for Your Schema and GraphQL Operations](https://youtu.be/fG8zy1OROp4)
+- [A Treatise on State](https://youtu.be/tBz3UmZG_bk)
+- [Fine tuning Apollo Client Caching for Your Data Graph](https://youtu.be/n_j8QckQN5I)
+- [Cache All the Things! Zillow Group](https://youtu.be/czzanixJG2I)
+- [Scaling GraphQL Beyond a Backend for Frontend. Condé Nast](https://youtu.be/vfYcsgQBTU0)
+- [How We Scaled GraphQL at New York Times](https://youtu.be/gpd6JtnWs2E)
+- [The Architecture of Federation](https://youtu.be/LKQKn1oFXJU)
+- [useSubscription: A GraphQL Game Show](https://youtu.be/QUeL-GfNJVU)
+
 ## ToDo
 
 - https://www.digitalocean.com/community/tutorials/how-to-manually-set-up-a-prisma-server-on-ubuntu-18-04
@@ -394,74 +407,79 @@ Not the easiest thing in the world to deploy or manage since we have 3 parts
 - React/Next App
   - Our react application which is actually a node server which runs next.js and makes sure we can do our server side rendering
 
-  1. Prisma (Part 1)
-    - Sign into the prisma webapp [Prisma Web App](https://www.prisma.io/)
-    - The servers that prisma gives you are just development servers, you cant use them in production, you need to host your own. However you can use the prisma dashboard to manage the data and interface with prisma
-    - click `Add server`
-      - we will host on there server atm which only currently support PostgreSQL
-      - create the prisma Database which may take a few seconds.
-        - if you get a graphql error you may need to unlink heroku account [see issue](https://github.com/prisma/prisma-cloud-feedback/issues/191)
-      - once the database is created we can then create the server which we will also host on heroku
-      - setup server g the free account
-      - create prisma server wich may take a few minutes
-      - we have then created our server (rehouser-prisma) now we need to create the service for prisma
-  2. Prisma (Part 2)
-    - use the prisma cli and run `prisma deploy` and choose our server we created earlier/above to connect to
-  3. Yoga
-    - You need to install heroku for your machine https://devcenter.heroku.com/articles/heroku-cli
-    - restart your terminal
-    - we are running a single git repo with two application in it instead of running two seperate repos for the front and back end
-    - commit your code to your repo.
-    - you will need to run the `heroku login` command which will bring up a web interface to login to
-    - run `heroku apps:create rehouser-yoga-prod` which will create the application on heroku for us. 
-      - It will also create a git remote for us to use
-      - https://git.heroku.com/rehouser-yoga-prod.git
-      - and the application endpoint 
-      - https://rehouser-yoga-prod.herokuapp.com/
-    - NOTE: the above remotes are essentially useless. if you were to deploy it, heroku wouldnt know what to run as we have two apps in `server` and the `client` folder. WE need to create sub remotes to deploy
-    - Take the remote we just created and create a new remote like so 
-    - `git remote add heroku-server https://git.heroku.com/rehouser-yoga-prod.git`
-    - `git subtree push --prefix server heroku-server master`
-    - You will then need to go into the heroku dashboard and find the app and in its settings upload the .env variables
+1. Prisma (Part 1)
+   - Sign into the prisma webapp [Prisma Web App](https://www.prisma.io/)
+   - The servers that prisma gives you are just development servers, you cant use them in production, you need to host your own. However you can use the prisma dashboard to manage the data and interface with prisma
+   - click `Add server`
+     - we will host on there server atm which only currently support PostgreSQL
+     - create the prisma Database which may take a few seconds.
+       - if you get a graphql error you may need to unlink heroku account [see issue](https://github.com/prisma/prisma-cloud-feedback/issues/191)
+     - once the database is created we can then create the server which we will also host on heroku
+     - setup server g the free account
+     - create prisma server wich may take a few minutes
+     - we have then created our server (rehouser-prisma) now we need to create the service for prisma
+2. Prisma (Part 2)
+   - use the prisma cli and run `prisma deploy` and choose our server we created earlier/above to connect to
+3. Yoga
 
-  4. Next.js
-    - inside of the client folder open up config.js and make sure the endpoints are pointing to the live yoga apps we just created
-    - make sure you are in the root
-    - run `heroku apps:create rehouser-next-prod` which will create the next.js application on heroku for us
-    - It will also create a url and git remote for us
-    - https://rehouser-next-prod.herokuapp.com/
-    - https://git.heroku.com/rehouser-next-prod.git
-    - Take the remote we just created and create a new remote like so 
-    - `git remote add heroku-client https://git.heroku.com/rehouser-next-prod.git`
-    - `git subtree push --prefix client heroku-client master`
-    - Now when we deply next.js to heroku we need to deploy the `client/.next` folder but since we do not include it in git because it is a compiled build we need to build it before we deploy. 
-    - ensure this is in the package.json scripts `"heroku-postbuild": "next build"`
-    - again go to heroku and add env variables for next js
+   - You need to install heroku for your machine https://devcenter.heroku.com/articles/heroku-cli
+   - restart your terminal
+   - we are running a single git repo with two application in it instead of running two seperate repos for the front and back end
+   - commit your code to your repo.
+   - you will need to run the `heroku login` command which will bring up a web interface to login to
+   - run `heroku apps:create rehouser-yoga-prod` which will create the application on heroku for us.
+     - It will also create a git remote for us to use
+     - https://git.heroku.com/rehouser-yoga-prod.git
+     - and the application endpoint
+     - https://rehouser-yoga-prod.herokuapp.com/
+   - NOTE: the above remotes are essentially useless. if you were to deploy it, heroku wouldnt know what to run as we have two apps in `server` and the `client` folder. WE need to create sub remotes to deploy
+   - Take the remote we just created and create a new remote like so
+   - `git remote add heroku-server https://git.heroku.com/rehouser-yoga-prod.git`
+   - `git subtree push --prefix server heroku-server master`
+   - You will then need to go into the heroku dashboard and find the app and in its settings upload the .env variables
 
-  CORS
-  - We may want to pass in an array of allowed urls for the server or some sort of star for heroku and rehouser?
+4. Next.js
+   - inside of the client folder open up config.js and make sure the endpoints are pointing to the live yoga apps we just created
+   - make sure you are in the root
+   - run `heroku apps:create rehouser-next-prod` which will create the next.js application on heroku for us
+   - It will also create a url and git remote for us
+   - https://rehouser-next-prod.herokuapp.com/
+   - https://git.heroku.com/rehouser-next-prod.git
+   - Take the remote we just created and create a new remote like so
+   - `git remote add heroku-client https://git.heroku.com/rehouser-next-prod.git`
+   - `git subtree push --prefix client heroku-client master`
+   - Now when we deply next.js to heroku we need to deploy the `client/.next` folder but since we do not include it in git because it is a compiled build we need to build it before we deploy.
+   - ensure this is in the package.json scripts `"heroku-postbuild": "next build"`
+   - again go to heroku and add env variables for next js
+
+CORS
+
+- We may want to pass in an array of allowed urls for the server or some sort of star for heroku and rehouser?
   NOTE REMOVE CORS
-  - Go to index on server an comment out this object 
-  ```
-   {
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL,
-    },
+- Go to index on server an comment out this object
+
+```
+ {
+  cors: {
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
   },
-  ```
-  - on the client side comment out this in withData.js
-  ```
-   fetchOptions: {
-        credentials: 'include',
-      },
-  ```
+},
+```
 
-  99. Steps to redeploy
-  - `git subtree push --prefix server heroku-server master`
-  - `git subtree push --prefix client heroku-client master`
+- on the client side comment out this in withData.js
 
-  
+```
+ fetchOptions: {
+      credentials: 'include',
+    },
+```
+
+99. Steps to redeploy
+
+- `git subtree push --prefix server heroku-server master`
+- `git subtree push --prefix client heroku-client master`
+
 </details>
 
 <details>
