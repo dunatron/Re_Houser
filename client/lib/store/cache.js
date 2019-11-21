@@ -1,8 +1,9 @@
 // import { InMemoryCache } from 'apollo-cache-inmemory';
 import { InMemoryCache } from '@apollo/client';
 import { offsetLimitPaginatedField } from '../offsetLimitPaginatedField';
-const mergeBasicBitch = (existing, incoming, { args }) => {
-  return [...(existing || []), ...incoming];
+const mergeBasicBitch = (existing, incoming, props) => {
+  // return [...(existing || []), ...incoming];
+  return existing;
 };
 const cache = new InMemoryCache({
   // freezeResults: true, // new
@@ -16,7 +17,27 @@ const cache = new InMemoryCache({
         // chats: offsetLimitPaginatedField(),
         chats: {
           keyArgs: false,
-          merge: mergeBasicBitch(),
+          // merge: mergeBasicBitch(),
+          // read(existing, {args})
+        },
+        openChats: {
+          keyArgs: false,
+        },
+        me: {
+          keyArgs: false,
+          // read(existing, { args }) {
+          //   console.log('Existing me read => ', existing);
+          //   if (!existing) return null;
+          //   return existing;
+          // },
+          merge(existing, incoming, { args }) {
+            // const merged = existsing ? existing.slice(0) : [];
+            // console.log('Merge some data incoming => ', existing);
+            // console.log('Merge some data exisiting => ', existing);
+            // console.log('Merge some data args => ', args);
+            return incoming;
+            return existing;
+          },
         },
         // chats: {
         //   keyArgs: false,
@@ -29,17 +50,17 @@ const cache = new InMemoryCache({
         //   read(exisiting, {args})
         // },
         // if this guy is already in the cache right
-        chat: {
-          read(exisiting, { args, toReference }) {
-            return (
-              exisiting ||
-              toReference({
-                __typename: 'Chat',
-                isbn: args.isbn,
-              })
-            );
-          },
-        },
+        // chat: {
+        //   read(exisiting, { args, toReference }) {
+        //     return (
+        //       exisiting ||
+        //       toReference({
+        //         __typename: 'Chat',
+        //         isbn: args.isbn,
+        //       })
+        //     );
+        //   },
+        // },
       },
     },
   },
