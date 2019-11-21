@@ -16,8 +16,16 @@ const cache = new InMemoryCache({
         // chats: offsetLimitPaginatedField(),
         chats: {
           keyArgs: false,
-          merge: mergeBasicBitch(),
         },
+        messagesConnection: {
+          keyArgs: false,
+          keyFields: false,
+        },
+        me: {
+          keyArgs: false,
+          keyFields: false,
+        },
+        messagesConnection: offsetLimitPaginatedField(),
         // chats: {
         //   keyArgs: false,
         //   merge(existing, incoming, { args }) {
@@ -30,15 +38,15 @@ const cache = new InMemoryCache({
         // },
         // if this guy is already in the cache right
         chat: {
-          read(exisiting, { args, toReference }) {
-            return (
-              exisiting ||
-              toReference({
-                __typename: 'Chat',
-                isbn: args.isbn,
-              })
-            );
-          },
+          // read(exisiting, { args, toReference }) {
+          //   return (
+          //     exisiting ||
+          //     toReference({
+          //       __typename: 'Chat',
+          //       isbn: args.isbn,
+          //     })
+          //   );
+          // },
         },
       },
     },
