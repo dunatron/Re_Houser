@@ -28,7 +28,7 @@ export default class PhotoIdentification extends Component {
         <Mutation
           mutation={UPDATE_USER_MUTATION}
           // variables={this._variables()}
-          refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+          // refetchQueries={[{ query: CURRENT_USER_QUERY }]}
           update={this.update}>
           {(updateUser, { error, loading }) => (
             <>

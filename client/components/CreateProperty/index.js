@@ -164,8 +164,9 @@ const CreateProperty = ({ me }) => {
   const saveToState = e => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
-  const _createProperty = async createProperty => {
+  const _createProperty = async () => {
     const res = await createProperty();
+    console.log('create property res ', res);
     // offer route to this property
     toast.success(
       <div>
@@ -256,7 +257,8 @@ const CreateProperty = ({ me }) => {
               Location Section
             </Typography>
             <Typography variant="body1" gutterBottom>
-              Type your address in the search below to bring up your property. You need to select it to set the property location
+              Type your address in the search below to bring up your property.
+              You need to select it to set the property location
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12}>

@@ -1,6 +1,9 @@
 // import { InMemoryCache } from 'apollo-cache-inmemory';
 import { InMemoryCache } from '@apollo/client';
-import { offsetLimitPaginatedField } from '../offsetLimitPaginatedField';
+import {
+  offsetLimitPaginatedField,
+  connectionPaginationField,
+} from '../offsetLimitPaginatedField';
 const mergeBasicBitch = (existing, incoming, { args }) => {
   return [...(existing || []), ...incoming];
 };
@@ -9,6 +12,7 @@ const cache = new InMemoryCache({
   freezeResults: true, // having this as true breaks material table as they mutate results. Having this as true is a must for apollo cache
   // at least in the was of writing the cache mutations. can turn off for production...
   // With Apollo 3.0 we handle much much more here. Which is good
+  // reads are working but merges are not...
   typePolicies: {
     Query: {
       fields: {
@@ -16,37 +20,46 @@ const cache = new InMemoryCache({
         // chats: offsetLimitPaginatedField(),
         chats: {
           keyArgs: false,
+          merge(existing, reference, other) {
+            console.log('existing me => ', existing);
+            console.log('reference me => ', reference);
+            console.log('other me => ', other);
+            return reference;
+          },
+          // read(existsing, { args }) {
+          //   console.log('Trying to read existing chats');
+          //   return (
+          //     existsing && existing.slice(args.offset, args.offset + args.limit)
+          //   );
+          // },
         },
-        messagesConnection: {
+        ownerProperties: {
           keyArgs: false,
           keyFields: false,
+          merge(existing, reference, other) {
+            console.log('existing me => ', existing);
+            console.log('reference me => ', reference);
+            console.log('other me => ', other);
+            return reference;
+          },
+          // read(existsing, { args }) {
+          //   console.log('Trying to read existing properties');
+          //   console.log('the args => ', args);
+          //   return [];
+          //   return (
+          //     existsing && existing.slice(args.offset, args.offset + args.limit)
+          //   );
+          // },
         },
         me: {
           keyArgs: false,
           keyFields: false,
-        },
-        messagesConnection: offsetLimitPaginatedField(),
-        // chats: {
-        //   keyArgs: false,
-        //   merge(existing, incoming, { args }) {
-        //     console.log('Merge on CHATS GGGG...');
-        //     console.log('Existsing chats ', existing);
-        //     console.log('Incoming chats ', incoming);
-        //     return [...(existing || []), ...incoming];
-        //   },
-        //   read(exisiting, {args})
-        // },
-        // if this guy is already in the cache right
-        chat: {
-          // read(exisiting, { args, toReference }) {
-          //   return (
-          //     exisiting ||
-          //     toReference({
-          //       __typename: 'Chat',
-          //       isbn: args.isbn,
-          //     })
-          //   );
-          // },
+          merge(existing, reference, other) {
+            console.log('existing me => ', existing);
+            console.log('reference me => ', reference);
+            console.log('other me => ', other);
+            return reference;
+          },
         },
       },
     },

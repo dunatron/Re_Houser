@@ -42,6 +42,8 @@ async function createProperty(parent, { data, files }, ctx, info) {
     propertyId: property.id,
     ctx
   });
+  // wow maybe return the thing too......
+  return property;
 }
 
 module.exports = createProperty;

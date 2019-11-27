@@ -79,20 +79,21 @@ const UpdatePropertyVariableModal = ({
           // sff: "dfsfd", // test error. Need to get error out of network
         },
       },
-      update: (proxy, payload) => {
-        // // find out where the property prop is loaded from and update the cache
-        const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY });
-        const updatedPropertyData = payload.data.updateProperty;
-        const allProperties = data.ownerProperties;
-        const idToSearchBy = updatedPropertyData.id;
-        const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy);
-        data.ownerProperties[foundIndex] = {
-          ...data.ownerProperties[foundIndex],
-          ...payload.data.updateProperty,
-        };
-        proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data });
-      },
-      errorPolicy: 'all',
+      // lets try apollo 3.0 from cache
+      // update: (proxy, payload) => {
+      //   // // find out where the property prop is loaded from and update the cache
+      //   const data = proxy.readQuery({ query: OWNER_PROPERTIES_QUERY });
+      //   const updatedPropertyData = payload.data.updateProperty;
+      //   const allProperties = data.ownerProperties;
+      //   const idToSearchBy = updatedPropertyData.id;
+      //   const foundIndex = allProperties.findIndex(p => p.id === idToSearchBy);
+      //   data.ownerProperties[foundIndex] = {
+      //     ...data.ownerProperties[foundIndex],
+      //     ...payload.data.updateProperty,
+      //   };
+      //   proxy.writeQuery({ query: OWNER_PROPERTIES_QUERY, data });
+      // },
+      // errorPolicy: 'all',
       optimisticResponse: {
         __typename: 'Mutation',
         updateProperty: {

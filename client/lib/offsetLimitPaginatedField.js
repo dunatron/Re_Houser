@@ -23,5 +23,31 @@ const offsetLimitPaginatedField = () => {
   };
 };
 
-export { offsetLimitPaginatedField };
+const connectionPaginationField = () => {
+  return {
+    keyArgs: false,
+    merge(existing, reference, other) {
+      console.log('Merge connection existing => ', existing);
+      console.log('Merge connection reference => ', reference);
+      console.log('Merge connection other => ', other);
+      const newEdges = reference.edges;
+      const pageInfo = reference.pageInfo;
+      return reference;
+      // return newEdges.length
+      //   ? {
+      //       messagesConnection: {
+      //         __typename: reference.__typename,
+      //         edges: [...newEdges, ...existing.edges],
+      //         pageInfo,
+      //       },
+      //     }
+      //   : existing;
+    },
+    // read(existsing, { args }) {
+    //   return existsing && existing.slice(args.offset, args.offset + args.limit);
+    // },
+  };
+};
+
+export { offsetLimitPaginatedField, connectionPaginationField };
 export default offsetLimitPaginatedField;
