@@ -31,6 +31,7 @@ type User {
   awaitingFriends: [FriendRequest!]!
   chats: [Chat!]!
   permissions: [Permission]
+  token: String
 }
 
 type SuccessMessage {

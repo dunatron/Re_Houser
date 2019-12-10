@@ -72,7 +72,12 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   });
   // 5. get the user with details. cant get it earlier
   const userWithInfo = await ctx.db.query.user({ where: { email } }, info);
-  return userWithInfo;
+  console.log("Shoq me user with info => ", userWithInfo);
+  const userInfoWithToken = {
+    ...userWithInfo,
+    token: token
+  };
+  return userInfoWithToken;
 }
 
 module.exports = signin;
