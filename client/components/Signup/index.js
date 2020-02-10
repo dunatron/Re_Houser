@@ -163,6 +163,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 const Signup = props => {
   const recaptchaRef = useRef();
+  const clearRecaptcha = () => recaptchaRef.current.reset();
   const [state, setState] = useState({
     firstName: props.firstName ? props.firstName : '',
     lastName: props.lastName ? props.lastName : '',
@@ -229,12 +230,15 @@ const Signup = props => {
       onSubmit={async e => {
         e.preventDefault();
         signUp();
+
+        // recaptchaRef.current.reset();
         clearRecaptcha();
       }}>
       <fieldset disabled={loading} aria-busy={loading}>
         <Error error={error} />
         <TextInput
           id="email"
+          data-cy="signup-email"
           label="Email"
           fullWidth={true}
           type="email"
@@ -245,6 +249,7 @@ const Signup = props => {
         />
         <TextInput
           id="name"
+          data-cy="signup-firstName"
           label="First Name"
           fullWidth={true}
           type="text"
@@ -255,6 +260,7 @@ const Signup = props => {
         />
         <TextInput
           id="name"
+          data-cy="signup-lastName"
           label="Last Name"
           fullWidth={true}
           type="text"
@@ -265,6 +271,7 @@ const Signup = props => {
         />
         <TextInput
           id="name"
+          data-cy="signup-phone"
           label="Phone Number"
           fullWidth={true}
           type="text"
@@ -275,6 +282,7 @@ const Signup = props => {
         />
         <TextInput
           id="password"
+          data-cy="signup-password"
           label="Password"
           fullWidth={true}
           type="password"
@@ -284,6 +292,7 @@ const Signup = props => {
           onChange={saveToState}
         />
         <ReCAPTCHA
+          data-cy="signup-recaptcha-component"
           ref={recaptchaRef}
           sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
           // this will require an investigation on its own. how to render these process.env with next
@@ -298,6 +307,7 @@ const Signup = props => {
 
         <FabButton
           type="submit"
+          data-cy="submit-signup"
           variant="extended"
           color="primary"
           aria-label="Add"

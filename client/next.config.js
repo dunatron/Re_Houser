@@ -1,5 +1,8 @@
 const { parsed: localEnv } = require('dotenv').config();
-
+/**
+ * NOTES
+ * - For testing use this for recaptcha site key 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+ */
 module.exports = {
   // https://nextjs.org/docs#customizing-webpack-config
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {

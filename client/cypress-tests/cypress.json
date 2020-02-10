@@ -1,4 +1,5 @@
 {
+  "chromeWebSecurity": false,
   "env": {
     "BASE_URL": "http://localhost:7777",
     "USER_USERNAME": "testuser@test.com",

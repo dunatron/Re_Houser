@@ -12,6 +12,7 @@ const acceptFriendRequest = require("./mutations/acceptFriendRequest");
 const signup = require("./mutations/signup");
 const signin = require("./mutations/signin");
 const signout = require("./mutations/signout");
+const deleteAccount = require("./mutations/deleteAccount");
 const requestReset = require("./mutations/requestReset");
 const resetPassword = require("./mutations/resetPassword");
 const updateUser = require("./mutations/updateUser");
@@ -60,6 +61,7 @@ const mutations = {
   signup,
   signin,
   signout,
+  deleteAccount,
   requestReset,
   resetPassword,
   updateUser,

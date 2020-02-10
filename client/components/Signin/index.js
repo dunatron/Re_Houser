@@ -162,6 +162,7 @@ const Signin = props => {
           onChange={saveToState}
         />
         <ReCAPTCHA
+          data-cy="recaptcha-component"
           ref={recaptchaRef}
           sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
           onChange={token => {
