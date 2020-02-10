@@ -1,0 +1,7 @@
+{
+  "env": {
+    "BASE_URL": "http://localhost:7777",
+    "USER_USERNAME": "testuser@test.com",
+    "USER_PASSWORD": "testpassword"
+  }
+}

@@ -141,6 +141,7 @@ const Signin = props => {
         <Error error={error} />
         <TextInput
           id="email"
+          data-cy="email"
           label="Email"
           fullWidth={true}
           type="email"
@@ -152,6 +153,7 @@ const Signin = props => {
         <TextInput
           id="password"
           label="Password"
+          data-cy="password"
           fullWidth={true}
           type="password"
           name="password"
@@ -173,6 +175,7 @@ const Signin = props => {
 
         <FabButton
           type="submit"
+          data-cy="submit-login"
           variant="extended"
           color="primary"
           aria-label="Add"
