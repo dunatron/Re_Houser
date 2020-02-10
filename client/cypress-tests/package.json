@@ -11,5 +11,9 @@
   "license": "ISC",
   "devDependencies": {
     "cypress": "^4.0.1"
+  },
+  "dependencies": {
+    "cypress-graphql-mock": "^0.5.0-alpha.4",
+    "graphql": "^14.6.0"
   }
 }

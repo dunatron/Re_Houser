@@ -1,3 +1,5 @@
+import 'cypress-graphql-mock';
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -24,13 +26,13 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 Cypress.Commands.add('clickRecaptcha', () => {
+  // I believe we can setup the recaptcha stuff here and then do an execute??
   //   cy.window().then(win => {
   //     win.document
   //       .querySelector("iframe[src*='recaptcha']")
   //       .contentDocument.getElementById('recaptcha-token')
   //       .click();
   //   });
-  cy.get('[data-cy=submit-login]').click();
 });
 Cypress.Commands.add('register', (email, password) => {});
 Cypress.Commands.add('login', (email, password) => {
@@ -39,7 +41,7 @@ Cypress.Commands.add('login', (email, password) => {
   cy.get('[data-cy=email]').type(Cypress.env('USER_USERNAME'));
   cy.get('[data-cy=password]').type(Cypress.env('USER_USERNAME'));
   cy.clickRecaptcha();
-
+  cy.get('[data-cy=submit-login]').click();
   //   cy.get('[data-cy=submit]').click()
   //   sign-in-tab
 });
