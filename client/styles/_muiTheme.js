@@ -43,6 +43,8 @@ const theme = {
       // dark: will be calculated from palette.primary.main,
       // contrastText: will be calculated to contrast with palette.primary.main
     },
+    error: { light: '#e57373', main: '#f44336', dark: '#d32f2f' },
+
     // custom prop so only defined props available
     nProgress: {
       main: 'red',

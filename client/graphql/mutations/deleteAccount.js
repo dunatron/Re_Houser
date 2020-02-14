@@ -1,17 +1,12 @@
 import gql from 'graphql-tag';
 
 const DELETE_USER_ACCOUNT = gql`
-  mutation DELETE_USER_ACCOUNT(
-    $email: String!, password: String!
-  ) {
-    deleteAccount(
-      email:$email,
-      password:$password
-    ) {
+  mutation DELETE_USER_ACCOUNT($email: String!, $password: String!) {
+    deleteAccount(email: $email, password: $password) {
       message
       data
     }
-  }
+  } 
 `;
 
 export { DELETE_USER_ACCOUNT };

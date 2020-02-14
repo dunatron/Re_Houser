@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 const ChatsBar = () => {
   // for whatever reason i have put it here. so just do a useQuery to get currentUser
   //
-  return 'CHats bar does not like apollo 3.0 upgrade';
+  // return 'CHats bar does not like apollo 3.0 upgrade';
   const { loading, error, data } = useCurrentUser();
 
   const classes = useStyles();

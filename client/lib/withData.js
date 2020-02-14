@@ -1,12 +1,8 @@
 import withApollo from 'next-with-apollo';
 // import { ApolloClient } from 'apollo-client';
 // import { ApolloLink } from 'apollo-client-preset';
-import {
-  ApolloClient,
-  split,
-  ApolloLink,
-  getMainDefinition,
-} from '@apollo/client';
+import { ApolloClient, split, ApolloLink } from '@apollo/client';
+import { getMainDefinition } from '@apollo/client/utilities';
 // import { ApolloLink, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 // import { getMainDefinition } from 'apollo-utilities';

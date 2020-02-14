@@ -20,6 +20,8 @@ const ErrorStyles = styled.div`
 
 const DisplayError = ({ error, tronM }) => {
   if (!error || !error.message) return null;
+  console.log('==ERROR COMPONENT CALLED==');
+  console.log('==ERROR COMPONENT Message => ', error.message);
 
   if (
     error.networkError &&
@@ -30,14 +32,21 @@ const DisplayError = ({ error, tronM }) => {
       toast.error(
         <p data-test="graphql-error">
           <strong>Shoot! network Err</strong>
+          <br />
           {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+          {errorForToast.message}
           {error.message.replace('GraphQL error: ', '')}
         </p>
       )
     );
 
+    // useEffect(() => {
+    //   // maybe put above error toasts inside this useEffect
+    //   console.log('Use effect 1');
+    // }, [error.networkError.result.errors]);
     useEffect(() => {
       // maybe put above error toasts inside this useEffect
+      console.log('Use effect 1');
     }, [error.networkError.result.errors]);
     return error.networkError.result.errors.map((error, i) => (
       <>
@@ -57,9 +66,11 @@ const DisplayError = ({ error, tronM }) => {
     ));
   }
   useEffect(() => {
+    console.log('Use effect 2');
     toast.error(
       <p data-test="graphql-error">
         <strong>Shoot! </strong>
+        <br />
         {/* <button onClick={() => notify()}>Ima need more than that</button> */}
         {error.message.replace('GraphQL error: ', '')}
       </p>
@@ -72,6 +83,7 @@ const DisplayError = ({ error, tronM }) => {
         {tronM && <p>{tronM}</p>}
         <p data-test="graphql-error">
           <strong>Shoot!</strong>
+          <br />
           {error.message.replace('GraphQL error: ', '')}
         </p>
       </>

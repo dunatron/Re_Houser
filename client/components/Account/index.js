@@ -27,6 +27,8 @@ import TextField from '@material-ui/core/TextField';
 // Credit card tab
 import CreditCardTab from './CreditCardTab';
 import SaveButtonLoader from '../Loader/SaveButtonLoader';
+// Delete Account
+import DeleteAccount from './DeleteAccount';
 
 //Errors
 import ErrorMessage from '../ErrorMessage';
@@ -144,6 +146,7 @@ const AccountComponent = () => {
       )}
 
       <CompletionRating me={me} />
+      <DeleteAccount />
       <Tabs
         value={tabIndex}
         onChange={handleTabChange}
