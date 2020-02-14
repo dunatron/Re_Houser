@@ -18,6 +18,7 @@ import { CURRENT_USER_QUERY } from '../User/index';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
+import { DELETE_USER_ACCOUNT } from '../../graphql/mutations';
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
     signout {
@@ -53,6 +54,9 @@ const ProfileIcon = me => {
 
 const NavigationConfig = (me, loadingUser) => {
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
+  const [deleteAccount, deleteAccountProps] = useMutation(DELETE_USER_ACCOUNT, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   const friendRequests = me ? me.friendRequests : [];
@@ -173,6 +177,16 @@ const NavigationConfig = (me, loadingUser) => {
             return true;
           },
           action: () => signOut(),
+        },
+        {
+          icon: <AccountCircleIcon />,
+          text: 'Delete Account',
+          route: '/delete-account',
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
+          action: () => deleteAccount(),
         },
       ],
     },
