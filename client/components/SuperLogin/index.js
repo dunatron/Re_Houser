@@ -86,9 +86,17 @@ const LoginPage = props => {
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth">
-          <Tab label="Sign Up " icon={<PersonAddIcon />} />
-          <Tab label="Sign In" icon={<PersonIcon />} />
-          <Tab label="Request Reset" icon={<ResetIcon />} />
+          <Tab
+            label="Sign Up "
+            data-cy="sign-up-tab"
+            icon={<PersonAddIcon />}
+          />
+          <Tab label="Sign In" data-cy="sign-in-tab" icon={<PersonIcon />} />
+          <Tab
+            label="Request Reset"
+            data-cy="reset-password-tab"
+            icon={<ResetIcon />}
+          />
         </Tabs>
       </AppBar>
       <SwipeableViews

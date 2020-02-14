@@ -38,3 +38,4 @@ haters/
 .build/
 layout.md
 variables.env
+/client/cypress-tests/cypress.env.json

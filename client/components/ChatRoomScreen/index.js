@@ -31,7 +31,7 @@ const Container = styled.div`
   // border-top: 1px solid red;
   border-top: ${props => `1px solid ${props.theme.palette.primary.main}`};
   // width: 280px;
-    max-height: 300px;
+  max-height: 300px;
   flex-flow: column;
   /* height: 100vh; */
   /* position: absolute;
@@ -180,7 +180,9 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
     <Container>
       {/* <ChatNavbar chat={chat} />
       <button onClick={() => handleFetchMore()}>Fetch Older Messages</button> */}
-      {messagesConnection.edges && <MessagesList messages={mappedMessages} me={me} />}
+      {messagesConnection.edges && (
+        <MessagesList messages={mappedMessages} me={me} />
+      )}
 
       <MessageInput onSendMessage={onSendMessage} />
     </Container>
@@ -199,7 +201,7 @@ const ChatRoomScreenConnection = props => {
   if (loading) return 'Loading';
   if (error) return <Error error={error} />;
   // ToDo create a pagination provider for this
-  return <ChatRoomScreen {...props} chat={data.chat} />
+  return <ChatRoomScreen {...props} chat={data.chat} />;
 };
 
 export default ChatRoomScreenConnection;

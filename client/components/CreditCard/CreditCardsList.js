@@ -18,7 +18,10 @@ const CreditCardGridStyles = styled.div`
 const CreditCardsList = ({ cardsList }) => {
   return (
     <User>
-      {({ data: { me } }) => {
+      {({ data, loading, error }) => {
+        if (loading) return 'loading me for cards';
+        if (error) return 'error loading me for card slist';
+        const { me } = data;
         if (!me) return <p>You must be logged in to view your cards</p>;
         const primaryCardId = me.primaryCreditCard
           ? me.primaryCreditCard.id

@@ -8,7 +8,9 @@ exports.validateRecaptcha = async ({ ctx, captchaToken }) => {
     );
   }
   const remoteIP = ctx.request.connection.remoteAddress;
-  const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${captchaSecretKey}&response=${captchaToken}&remoteip=${remoteIP}`;
+  // 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+  const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe&response=${captchaToken}&remoteip=${remoteIP}`;
+  // const verifyURL = `https://google.com/recaptcha/api/siteverify?secret=${captchaSecretKey}&response=${captchaToken}&remoteip=${remoteIP}`;
   //
   const recaptchaResponse = await fetch(verifyURL);
   const recaptchaData = await recaptchaResponse.json();

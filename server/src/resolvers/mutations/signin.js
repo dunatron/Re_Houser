@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
+const { createTokens } = require("../../auth");
+const { JWT_TOKEN_MAX_AGE } = require("../../const");
 
 // async function signin(parent, { email, password, captchaToken }, ctx, info) {
 //   // dismiss anything without a recaptcha token supplied
@@ -63,16 +65,34 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   if (!valid) {
     throw new Error("Invalid Password!");
   }
-  // 3. generate the JWT Token
-  const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-  // 4. Set the cookie with the token
+  // now that we have validated credentials we should create tokens and send as a cookie
+  const { token, refreshToken } = await createTokens(user, password);
+
   ctx.response.cookie("token", token, {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 365
+    maxAge: JWT_TOKEN_MAX_AGE
   });
+  ctx.response.cookie("refresh-token", refreshToken, {
+    httpOnly: true,
+    maxAge: JWT_TOKEN_MAX_AGE
+  });
+  // 3. generate the JWT Token
+  // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+  // // 4. Set the cookie with the token
+  // ctx.response.cookie("token", token, {
+  //   httpOnly: true,
+  //   maxAge: 1000 * 60 * 60 * 24 * 365
+  // });
   // 5. get the user with details. cant get it earlier
   const userWithInfo = await ctx.db.query.user({ where: { email } }, info);
-  return userWithInfo;
+
+  console.log("Shoq me user with info => ", userWithInfo);
+  const userInfoWithToken = {
+    ...userWithInfo,
+    token: token,
+    refreshToken: refreshToken
+  };
+  return userInfoWithToken;
 }
 
 module.exports = signin;

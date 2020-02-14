@@ -1,9 +1,15 @@
 import withApollo from 'next-with-apollo';
-import { ApolloClient } from 'apollo-client';
-// import { ApolloLink } from "apollo-client-preset"
-import { ApolloLink, split } from 'apollo-link';
+// import { ApolloClient } from 'apollo-client';
+// import { ApolloLink } from 'apollo-client-preset';
+import {
+  ApolloClient,
+  split,
+  ApolloLink,
+  getMainDefinition,
+} from '@apollo/client';
+// import { ApolloLink, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
-import { getMainDefinition } from 'apollo-utilities';
+// import { getMainDefinition } from 'apollo-utilities';
 import { createUploadLink } from 'apollo-upload-client';
 import { endpoint, prodEndpoint, wsEndpoint, wsProdEndpoint } from '../config';
 // store

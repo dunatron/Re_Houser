@@ -1,5 +1,6 @@
 import { SIGNUP_MUTATION } from './signup';
 import { SIGNIN_MUTATION } from './signin';
+import { DELETE_USER_ACCOUNT } from './deleteAccount';
 import { CREATE_PROPERTY_MUTATION } from './createProperty';
 import { CREATE_RENTAL_APPLICATION } from './createRentalApplication';
 import { APPLY_TO_RENTAL_GROUP_APPLICATION } from './applyToRentalGroup';
@@ -19,6 +20,7 @@ import { UPLOAD_PROFILE_PHOTO } from './uploadProfilePhoto';
 export {
   SIGNUP_MUTATION,
   SIGNIN_MUTATION,
+  DELETE_USER_ACCOUNT,
   CREATE_PROPERTY_MUTATION,
   CREATE_RENTAL_APPLICATION,
   APPLY_TO_RENTAL_GROUP_APPLICATION,

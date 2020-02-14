@@ -116,6 +116,12 @@ const AccountComponent = () => {
     return true;
   };
 
+  if (user.loading) {
+    return 'Loading';
+  }
+  if (user.error) {
+    return 'error: ToDo: use error component';
+  }
   const me = user.data.me;
   if (!me) return null;
   return (
