@@ -84,6 +84,7 @@ const DeleteAccount = () => {
   return (
     <>
       <Button
+        data-cy="launch-delete-account"
         variant="contained"
         color="secondary"
         className={classes.button}
@@ -112,6 +113,7 @@ const DeleteAccount = () => {
                   <TextField
                     required
                     id="standard-required"
+                    data-cy="delete-account-email"
                     label="Email"
                     onChange={e => setEmail(e.target.value)}
                     disabled={deleteAccountProps.loading}
@@ -119,6 +121,7 @@ const DeleteAccount = () => {
                   />
                   <TextField
                     id="standard-password-input"
+                    data-cy="delete-account-password"
                     label="Password"
                     type="password"
                     autoComplete="current-password"
@@ -134,6 +137,7 @@ const DeleteAccount = () => {
                     startIcon={<DeleteIcon />}
                     aria-describedby={id}
                     type="button"
+                    data-cy="delete-account-btn"
                     disabled={deleteAccountProps.loading}
                     onClick={handleDeleteAccountClick}>
                     PERMANENTLY DELETE ACCOUNT

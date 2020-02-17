@@ -22,7 +22,9 @@ import DragDropUploader from '../DragDropUploader/index';
 import { adopt } from 'react-adopt';
 import { useCurrentUser } from '../User/index';
 import MultiSelectChip from '../Inputs/MultiSelectChip';
+import EnumMultiSelectChip from '../Inputs/EnumMultiSelectChip';
 import SelectOption from '../Inputs/SelectOption';
+import EnumSelectOption from '../Inputs/EnumSelectOption';
 import { INDOOR_FEATURES_CONF } from '../../lib/configs/indoorFeaturesConf';
 import { OUTDOOR_FEATURES_CONF } from '../../lib/configs/outdoorFeaturesConf';
 import { PROPERTY_TYPES_CONF } from '../../lib/configs/propertyTypesConf';
@@ -242,6 +244,7 @@ const CreateProperty = ({ me }) => {
     <div className={classes.root}>
       <PreFormTaskChecks me={me} />
       <Form
+        data-cy="add_property_form"
         method="post"
         onSubmit={async e => {
           e.preventDefault();
@@ -276,6 +279,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="location"
+                  data-cy="property_location_input"
                   label="location"
                   disabled={false}
                   fullWidth={true}
@@ -289,6 +293,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="latitude"
+                  data-cy="property_latitude_input"
                   label="Latitude"
                   disabled={true}
                   fullWidth={true}
@@ -301,6 +306,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="longitude"
+                  data-cy="property_longitude_input"
                   label="Longitude"
                   disabled={true}
                   fullWidth={true}
@@ -319,18 +325,22 @@ const CreateProperty = ({ me }) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={6} lg={3}>
-                <SelectOption
+                <EnumSelectOption
+                  __type="PropertyType"
+                  data-cy="property_type_select"
                   label="Type"
                   name="type"
                   value={state.type}
-                  options={PROPERTY_TYPES_CONF}
+                  // options={PROPERTY_TYPES_CONF}
                   handleChange={saveToState}
                 />
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
-                <MultiSelectChip
+                <EnumMultiSelectChip
+                  __type="IndoorFeature"
+                  data-cy="property_indoorfeatures_multiselect"
                   values={state.indoorFeatures}
-                  options={INDOOR_FEATURES_CONF}
+                  // options={INDOOR_FEATURES_CONF}
                   label="Indoor Feature"
                   handleChange={value =>
                     setState({ ...state, indoorFeatures: value })
@@ -349,9 +359,11 @@ const CreateProperty = ({ me }) => {
                 />
               </Grid>
               <Grid item xs={12} md={6} lg={3}>
-                <MultiSelectChip
+                <EnumMultiSelectChip
+                  __type="OutdoorFeature"
                   values={state.outdoorFeatures}
-                  options={OUTDOOR_FEATURES_CONF}
+                  // options={OUTDOOR_FEATURES_CONF}
+                  data-cy="property_outdoorfeatures_multiselect"
                   label="Outdoor Feature"
                   handleChange={value =>
                     setState({ ...state, outdoorFeatures: value })
@@ -373,6 +385,7 @@ const CreateProperty = ({ me }) => {
                 <TextInput
                   gutterBottom
                   id="headline"
+                  data-cy="property_headline_input"
                   label="Headline for property advertisement"
                   fullWidth={true}
                   name="headline"
@@ -414,6 +427,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="bathRooms"
+                  data-cy="property_bathrooms_input"
                   label="Number of Bath Rooms"
                   fullWidth={true}
                   type="number"
@@ -425,6 +439,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="garageSpaces"
+                  data-cy="property_garages_input"
                   label="Garage spaces"
                   fullWidth={true}
                   type="number"
@@ -436,6 +451,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="carportSpaces"
+                  data-cy="property_carports_input"
                   label="Car port spaces"
                   fullWidth={true}
                   type="number"
@@ -447,6 +463,7 @@ const CreateProperty = ({ me }) => {
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="offStreetSpaces"
+                  data-cy="property_offstreet_input"
                   label="Street parks"
                   fullWidth={true}
                   type="number"
