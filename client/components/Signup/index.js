@@ -237,8 +237,10 @@ const Signup = props => {
       <fieldset disabled={loading} aria-busy={loading}>
         <Error error={error} />
         <TextInput
-          id="email"
-          data-cy="signup-email"
+          id="signup-email"
+          inputProps={{
+            'data-cy': 'signup-email',
+          }}
           label="Email"
           fullWidth={true}
           type="email"
@@ -248,8 +250,10 @@ const Signup = props => {
           onChange={saveToState}
         />
         <TextInput
-          id="name"
-          data-cy="signup-firstName"
+          id="signup-firstName"
+          inputProps={{
+            'data-cy': 'signup-firstName',
+          }}
           label="First Name"
           fullWidth={true}
           type="text"
@@ -259,8 +263,10 @@ const Signup = props => {
           onChange={saveToState}
         />
         <TextInput
-          id="name"
-          data-cy="signup-lastName"
+          id="signup-lastName"
+          inputProps={{
+            'data-cy': 'signup-lastName',
+          }}
           label="Last Name"
           fullWidth={true}
           type="text"
@@ -270,8 +276,10 @@ const Signup = props => {
           onChange={saveToState}
         />
         <TextInput
-          id="name"
-          data-cy="signup-phone"
+          id="signup-phone"
+          inputProps={{
+            'data-cy': 'signup-phone',
+          }}
           label="Phone Number"
           fullWidth={true}
           type="text"
@@ -281,8 +289,10 @@ const Signup = props => {
           onChange={saveToState}
         />
         <TextInput
-          id="password"
-          data-cy="signup-password"
+          id="signup-password"
+          inputProps={{
+            'data-cy': 'signup-password',
+          }}
           label="Password"
           fullWidth={true}
           type="password"

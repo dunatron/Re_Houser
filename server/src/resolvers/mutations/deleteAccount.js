@@ -27,6 +27,8 @@ async function deleteAccount(parent, { email, password }, ctx, info) {
     });
   }
 
+  await ctx.db.mutation.deleteUser({ where: { email: email } });
+
   const message = {
     message: `The account with an email of ${email} has been deleted`
   };

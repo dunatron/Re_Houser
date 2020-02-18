@@ -55,7 +55,7 @@ const DeleteAccount = () => {
   const [email, setEmail] = useState(user ? user.email : '');
   const [password, setPassword] = useState('');
   const [deleteAccount, deleteAccountProps] = useMutation(DELETE_USER_ACCOUNT, {
-    // refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);

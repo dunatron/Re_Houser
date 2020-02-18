@@ -26,8 +26,9 @@ import 'cypress-graphql-mock';
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-let cookiesCache = {};
 let newApplications = [];
+
+let cookiesCache = {};
 export function saveCookies() {
   cy.getCookies().then(cookies => {
     cookies.forEach(({ name, ...rest }) => {
@@ -38,7 +39,6 @@ export function saveCookies() {
     });
   });
 }
-
 export function loadCookies() {
   Object.keys(cookiesCache).forEach(key => {
     const { name, value, ...rest } = cookiesCache[key];
@@ -46,12 +46,23 @@ export function loadCookies() {
   });
 }
 
+before(() => {
+  // will need to register
+  cy.signup();
+  cy.ensureLoggedIn();
+  // cy.login();
+});
+
+after(() => {
+  cy.deleteAccount();
+});
+
 beforeEach(() => {
-  // loadCookies();
+  loadCookies();
 });
 
 afterEach(() => {
-  // saveCookies();
+  saveCookies();
 });
 
 Cypress.Commands.add('clickSignInRecaptcha', () => {
@@ -82,12 +93,13 @@ Cypress.Commands.add('signup', (email, password) => {
   cy.fixture('user').then(user => {
     cy.visit(Cypress.env('BASE_URL') + '/login');
     // cy.get('[data-cy=sign-up-tab]').click();
+    cy.clickSignUpRecaptcha();
+    cy.get('[data-cy=signup-email]').type(user.email);
     cy.get('[data-cy=signup-firstName]').type(user.firstName);
     cy.get('[data-cy=signup-lastName]').type(user.lastName);
     cy.get('[data-cy=signup-phone]').type(user.phone);
-    cy.get('[data-cy=signup-email]').type(user.email);
     cy.get('[data-cy=signup-password]').type(user.password);
-    cy.clickSignUpRecaptcha();
+
     cy.get('[data-cy=submit-signup]').click();
     cy.wait(5000);
   });
@@ -95,26 +107,35 @@ Cypress.Commands.add('signup', (email, password) => {
 Cypress.Commands.add('login', (email, password) => {
   cy.fixture('user').then(user => {
     cy.visit(Cypress.env('BASE_URL') + '/login');
+
     cy.get('[data-cy=sign-in-tab]').click();
+    cy.wait(500);
     cy.get('[data-cy=email]').type(user.email);
+
     cy.get('[data-cy=password]').type(user.password);
     cy.clickSignInRecaptcha();
     cy.get('[data-cy=submit-login]').click();
-    cy.wait(3000);
+    cy.wait(7000); // you need to wait for a) the token b) the shitty redirect which interfers
   });
 });
 
 Cypress.Commands.add('deleteAccount', (email, password) => {
   cy.fixture('user').then(user => {
     cy.visit(Cypress.env('BASE_URL') + '/account');
+    cy.wait(5000);
     cy.get('[data-cy=launch-delete-account]').click();
     cy.get('[data-cy=delete-account-email]').type(user.email);
     cy.get('[data-cy=delete-account-password]').type(user.password);
+
     cy.get('[data-cy=delete-account-btn]').click();
+    cy.wait(5000);
   });
 });
 
 Cypress.Commands.add('ensureLoggedIn', (email, password) => {
-  cy.visit(Cypress.env('BASE_URL') + '/login');
-  cy.login();
+  // cy.visit(Cypress.env('BASE_URL') + '/login');
+  cy.getCookie('token').then(tokenCookie => {
+    if (tokenCookie !== null) return;
+    cy.login();
+  });
 });

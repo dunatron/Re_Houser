@@ -54,7 +54,11 @@ const Signout = ({ label, fullWidth, me }) => {
   return (
     <>
       <Error error={error} />
-      <NavButton onClick={signout} fullWidth={fullWidth} disabled={loading}>
+      <NavButton
+        onClick={signout}
+        fullWidth={fullWidth}
+        disabled={loading}
+        data-cy="account-logout">
         {label ? label : 'Sign Out'}
       </NavButton>
     </>

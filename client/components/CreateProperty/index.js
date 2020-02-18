@@ -76,10 +76,10 @@ const CreateProperty = ({ me }) => {
     images: [],
     indoorFeatures: [],
     outdoorFeatures: [],
-    bathRooms: 0,
-    carportSpaces: 0,
-    garageSpaces: 0,
-    offStreetSpaces: 0,
+    bathRooms: null,
+    carportSpaces: null,
+    garageSpaces: null,
+    offStreetSpaces: null,
     isLeased: false,
   };
 
@@ -278,8 +278,10 @@ const CreateProperty = ({ me }) => {
               </Grid>
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
-                  id="location"
-                  data-cy="property_location_input"
+                  id="property_location_input"
+                  inputProps={{
+                    'data-cy': 'property_location_input',
+                  }}
                   label="location"
                   disabled={false}
                   fullWidth={true}
@@ -292,8 +294,11 @@ const CreateProperty = ({ me }) => {
               </Grid>
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
-                  id="latitude"
-                  data-cy="property_latitude_input"
+                  id="property_latitude_input"
+                  inputProps={{
+                    'data-cy': 'property_latitude_input',
+                  }}
+                  data-cy=""
                   label="Latitude"
                   disabled={true}
                   fullWidth={true}
@@ -305,8 +310,10 @@ const CreateProperty = ({ me }) => {
               </Grid>
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
-                  id="longitude"
-                  data-cy="property_longitude_input"
+                  id="property_longitude_input"
+                  inputProps={{
+                    'data-cy': 'property_longitude_input',
+                  }}
                   label="Longitude"
                   disabled={true}
                   fullWidth={true}

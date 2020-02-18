@@ -18,9 +18,9 @@ const ADD_PROPERTY_OBJ = {
 
 context('Add Property Spec', () => {
   before(() => {
-    cy.ensureLoggedIn();
+    cy.visit(Cypress.env('BASE_URL') + '/add/property');
   });
-  beforeEach(() => {});
+  // beforeEach(() => {});
 
   it('Can visit the add property page', () => {
     cy.visit(Cypress.env('BASE_URL') + '/add/property');
@@ -28,7 +28,9 @@ context('Add Property Spec', () => {
 
   it('Can fill in the add property form', () => {
     const property = ADD_PROPERTY_OBJ;
-    cy.get('[data-cy="add_property_form"]').within($form => {
+    cy.get('[data-cy=property_type_select]').click();
+    cy.get('[data-value="RETIREMENT_LIVING"]').click();
+    cy.get('[data-cy=add_property_form]').within($form => {
       // you have access to the found form via
       // the jQuery object $form if you need it
 
@@ -38,19 +40,24 @@ context('Add Property Spec', () => {
       cy.get('.geosuggest__suggests').within($geoSuggestions => {
         cy.get(property.geoSuggestId).click();
       });
-      cy.get('[data-cy="property_location_input"]').type(property.location);
-      y.get('[data-cy="property_type_select"]').select('HOUSE', {
-        force: true,
-      });
+      cy.get('[data-cy=property_location_input]').type(property.location);
+      // cy.get('[data-cy=property_type_select]').select('HOUSE', {
+      //   force: true,
+      // });
+
+      // data-value="APARTMENT"
+      //
       //   cy.get('[data-cy="property_latitude_input"]').type('test');
       //   cy.get('[data-cy="property_longitude_input"]').type('test');
-      cy.get('[data-cy="property_bathrooms_input"]').type(property.bathrooms);
-      cy.get('[data-cy="property_garages_input"]').type(property.garages);
-      cy.get('[data-cy="property_offstreet_input"]').type(
+      cy.get('[data-cy=property_bathrooms_input]').type(property.bathrooms);
+      cy.get('[data-cy=property_garages_input]').type(property.garages);
+      cy.get('[data-cy=property_offstreet_input]').type(
         property.offStreetSpaces
       );
-      cy.get('[data-cy="property_bathrooms_input"]').type(property.bathrooms);
+      cy.get('[data-cy=property_bathrooms_input]').type(property.bathrooms);
       //   cy.root().submit();
     });
+    // These selects are in modals outside of the form
+    // cy.get('[data-cy=property_type_select]').type('APARTMENT', { force: true });
   });
 });

@@ -10,7 +10,10 @@ const LoggedInAs = ({ me }) => {
   return (
     <div>
       <h2>
-        logged in as {me.firstName} {me.lastName}
+        logged in as{' '}
+        <span>
+          {me.firstName} {me.lastName}
+        </span>
       </h2>
       <Signout me={me} />
 
