@@ -22,20 +22,30 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    // [theme.breakpoints.up('sm')]: {
+    //   width: theme.sideBarWidth,
+    //   flexShrink: 0,
+    // },
+    [theme.breakpoints.up('lg')]: {
       width: theme.sideBarWidth,
       flexShrink: 0,
     },
   },
   appBar: {
     marginLeft: theme.sideBarWidth,
-    [theme.breakpoints.up('sm')]: {
+    // [theme.breakpoints.up('sm')]: {
+    //   width: `calc(100% - ${theme.sideBarWidth}px)`,
+    // },
+    [theme.breakpoints.up('lg')]: {
       width: `calc(100% - ${theme.sideBarWidth}px)`,
     },
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    // [theme.breakpoints.up('sm')]: {
+    //   display: 'none',
+    // },
+    [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
   },
@@ -55,10 +65,14 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     maxWidth: '100%',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('lg')]: {
       // maxWidth: 'calc(100% - 240px)',
       maxWidth: `calc(100% - ${theme.sideBarWidth}px)`,
     },
+    // [theme.breakpoints.up('sm')]: {
+    //   // maxWidth: 'calc(100% - 240px)',
+    //   maxWidth: `calc(100% - ${theme.sideBarWidth}px)`,
+    // },
   },
 }));
 
@@ -106,12 +120,13 @@ function MaterialPage(props) {
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
+          <Hidden lgUp implementation="css">
             <Drawer
               container={container}
               variant="temporary"
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={mobileOpen}
+              // open={true}
               onClose={handleDrawerToggle}
               classes={{
                 paper: classes.drawerPaper,
@@ -122,13 +137,13 @@ function MaterialPage(props) {
               {drawer}
             </Drawer>
           </Hidden>
-          <Hidden xsDown implementation="css">
+          <Hidden mdDown implementation="css">
             <Drawer
               classes={{
                 paper: classes.drawerPaper,
               }}
               variant="permanent"
-              open>
+              open={true}>
               {drawer}
             </Drawer>
           </Hidden>

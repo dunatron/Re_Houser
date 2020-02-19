@@ -23,7 +23,7 @@ const styles = theme => ({
     justifyContent: 'space-around',
   },
   formControl: {
-    minWidth: '180px',
+    minWidth: '220px',
     margin: theme.spacing.unit,
   },
   button: {

@@ -39,12 +39,13 @@ const styles = theme => ({
  * Do I, seperate these out into two seperate components, e.g, date vs datetime-local
  * times and dates are crucial to get right
  */
-const DateInput = ({ id, classes, value, onChange, label }) => {
+const DateInput = ({ id, classes, value, onChange, label, helperText }) => {
   // const RFCIsoValue = moment(value).format("YYYY-MM-DD")
   const RFCIsoValue = moment(value).format('YYYY-MM-DDTkk:mm');
   //
   return (
     <TextField
+      helperText
       className={classes.textField}
       id={id ? id : 'default-datePicker'}
       label={label ? label : 'Some Date'}

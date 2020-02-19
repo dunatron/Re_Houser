@@ -13,21 +13,21 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
-  // formControl: {
-  //   margin: theme.spacing.unit,
-  //   minWidth: 180,
-  //   // maxWidth: 300,
-  // },
-  // chips: {
-  //   display: 'flex',
-  //   flexWrap: 'wrap',
-  // },
-  // chip: {
-  //   margin: theme.spacing.unit / 4,
-  // },
-  // noLabel: {
-  //   marginTop: theme.spacing.unit * 3,
-  // },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 220,
+    maxWidth: 300,
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  },
+  noLabel: {
+    marginTop: theme.spacing(3),
+  },
 });
 
 const MultiSelectChip = ({

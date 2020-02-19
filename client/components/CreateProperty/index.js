@@ -21,13 +21,8 @@ import ImagePicker from '../ImagePicker';
 import DragDropUploader from '../DragDropUploader/index';
 import { adopt } from 'react-adopt';
 import { useCurrentUser } from '../User/index';
-import MultiSelectChip from '../Inputs/MultiSelectChip';
 import EnumMultiSelectChip from '../Inputs/EnumMultiSelectChip';
-import SelectOption from '../Inputs/SelectOption';
 import EnumSelectOption from '../Inputs/EnumSelectOption';
-import { INDOOR_FEATURES_CONF } from '../../lib/configs/indoorFeaturesConf';
-import { OUTDOOR_FEATURES_CONF } from '../../lib/configs/outdoorFeaturesConf';
-import { PROPERTY_TYPES_CONF } from '../../lib/configs/propertyTypesConf';
 import moment from 'moment';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import LeaseLength from '../LeaseManager/LeaseLengthInfo';
@@ -331,7 +326,7 @@ const CreateProperty = ({ me }) => {
               Details Section
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} md={6} lg={3}>
+              <Grid item xs={12} md={12} lg={3}>
                 <EnumSelectOption
                   __type="PropertyType"
                   data-cy="property_type_select"
@@ -487,7 +482,7 @@ const CreateProperty = ({ me }) => {
               Dates Section
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6} lg={3}>
+              <Grid item xs={12} sm={6} lg={6}>
                 <DateInput
                   id="moveInDate"
                   label="Move In Date"
@@ -495,7 +490,7 @@ const CreateProperty = ({ me }) => {
                   onChange={date => setState({ ...state, moveInDate: date })}
                 />
               </Grid>
-              <Grid item xs={12} sm={6} lg={3}>
+              <Grid item xs={12} sm={6} lg={6}>
                 <DateInput
                   id="expiryDate"
                   label="Expiry Date"
