@@ -1,9 +1,10 @@
 import PropertyDetails from '../../components/PropertyDetails/index';
+import PleaseSignIn from '../../components/PleaseSignIn';
 
 const Item = props => (
-  <div>
+  <PleaseSignIn message="You must be signed in to manage this property">
     <PropertyDetails id={props.query.id} />
-  </div>
+  </PleaseSignIn>
 );
 
 export default Item;

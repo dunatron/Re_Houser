@@ -1,9 +1,3 @@
-// {
-//   "where": {
-//     "id": ""
-//   }
-// }
-
 import gql from 'graphql-tag';
 import { RentalApplicationInfoFragment } from '../fragments/rentalApplicationInfo';
 

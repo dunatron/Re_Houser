@@ -3,7 +3,7 @@ import PleaseSignIn from '../../components/PleaseSignIn';
 
 const RentalApplicationsPage = props => (
   <div>
-    <PleaseSignIn>
+    <PleaseSignIn message="You must be signed in to manager your applications">
       <RentalApplications />
     </PleaseSignIn>
   </div>

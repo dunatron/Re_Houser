@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import Router from 'next/router';
 import PropTypes from 'prop-types';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { Button, Typography } from '@material-ui/core';
 
 import SuperTable from '../SuperTable/index';
 import SuperiorTable from '../SuperiorTable';
-import Button from '@material-ui/core/Button';
 import Modal from '../Modal/index';
 import PropertyDetails from '../PropertyDetails/index';
-import Router from 'next/router';
+import RentalApplication from '../RentalApplication';
+
 //icons
 import DetailsIcon from '../../styles/icons/DetailsIcon';
-
-import RentalApplication from '../RentalApplication';
 
 const handleLink = (route = '/', query = {}) => {
   Router.push({
@@ -95,30 +95,52 @@ const RentalApplicationsTable = props => {
   ];
 
   return (
-    <SuperiorTable
-      title="Rental applications table"
-      columns={columns}
-      data={formattedData}
-      detailPanel={detailPanel}
-      options={{
-        search: true,
-        exportButton: true,
-        exportAllData: true, // Flag for export all data instead of rendered data
-        filtering: true,
-        grouping: true,
-        // selection: true,
-        sorting: true,
-      }}
-      actions={[
-        {
-          icon: 'settings',
-          tooltip: 'Manage application',
-          onClick: (event, rowData) => {
-            manageApplicationForCurrentUser(rowData, me);
+    <>
+      <Typography variant="body1" gutterBottom>
+        INITIALIZING => The owner of the application needs to accept the
+        applicants for the application before it is sent to the landlord.
+        <br /> You can have as many or as little applicants as you like
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        PENDING => The landlord has recieved your application and will either
+        "APPROVE" or "DENY" it.
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        ACCEPTED => The application has been accepted and a new "Lease" entity
+        has been created for yourself, other tenants, and the landlord. <br />
+        Head to the "leases" using the navigation to sign the lease
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        ToDo: create a new text field on the RentalApplication like
+        "createdLeaseId" which will be updated with the lease id from the newly
+        created lease. SImply so we can refer to it here and send people away to
+        the link on "ACCEPTED" stage
+      </Typography>
+      <SuperiorTable
+        title="Rental applications table"
+        columns={columns}
+        data={formattedData}
+        detailPanel={detailPanel}
+        options={{
+          search: true,
+          exportButton: true,
+          exportAllData: true, // Flag for export all data instead of rendered data
+          filtering: true,
+          grouping: true,
+          // selection: true,
+          sorting: true,
+        }}
+        actions={[
+          {
+            icon: 'settings',
+            tooltip: 'Manage application',
+            onClick: (event, rowData) => {
+              manageApplicationForCurrentUser(rowData, me);
+            },
           },
-        },
-      ]}
-    />
+        ]}
+      />
+    </>
   );
 };
 

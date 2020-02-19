@@ -6,7 +6,7 @@ import PleaseSignIn from '../../components/PleaseSignIn';
 const MyApplication = props => {
   return (
     <PleaseSignIn message="You cannot view an application without being signed in">
-      <RentalApplication id={props.query.id} />;
+      <RentalApplication id={props.query.id} />
     </PleaseSignIn>
   );
 };

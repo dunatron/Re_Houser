@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChatsBar from '../ChatsBar';
 import { SITE_NAME } from '../../lib/const';
+import { useRouter } from 'next/router';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
@@ -78,7 +79,9 @@ const useStyles = makeStyles(theme => ({
 
 function MaterialPage(props) {
   console.log('RESPONSIVER DRAW PROPS => ', props);
+
   const { container, loadingUser } = props;
+  const router = useRouter();
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -115,7 +118,9 @@ function MaterialPage(props) {
               className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap></Typography>
+            <Typography variant="h6" noWrap>
+              {router.pathname}
+            </Typography>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">

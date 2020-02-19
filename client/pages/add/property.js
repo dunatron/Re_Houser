@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import CreateProperty from '../../components/CreateProperty/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 
-export default class index extends Component {
-  render() {
-    return (
-      <div>
-        <PleaseSignIn
-          message={'You need to be signed in to add property'}
-          alert={
-            <p>
-              <strong>Please sign up to add property to the platform</strong>
-            </p>
-          }>
-          <CreateProperty />
-        </PleaseSignIn>
-      </div>
-    );
-  }
-}
+const AddPropertyPage = props => {
+  const pleaseSignInMessage =
+    'You must be signed in to add properties to the market';
+  return (
+    <PleaseSignIn
+      message={pleaseSignInMessage}
+      alert={
+        <p>
+          <strong>{pleaseSignInMessage}</strong>
+        </p>
+      }>
+      <CreateProperty />
+    </PleaseSignIn>
+  );
+};
+
+export default AddPropertyPage;
