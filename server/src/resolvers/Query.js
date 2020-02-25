@@ -14,6 +14,7 @@ const myRentalApplications = require("./querys/myRentalApplications");
 const myCreditCards = require("./querys/myCreditCards");
 const findUsers = require("./querys/findUser");
 const properties = require("./querys/properties");
+const property = require("./querys/property");
 const ownerProperty = require("./querys/ownerProperty");
 const ownerProperties = require("./querys/ownerProperties");
 const chats = require("./querys/chats");
@@ -28,6 +29,7 @@ const Query = {
   file,
   files,
   properties,
+  property,
   ownerProperty,
   ownerProperties,
   rentalApplications,

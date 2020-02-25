@@ -6,7 +6,7 @@ const PropertyCard = styled(Card)`
     /* width: 100%; */
     /* margin: 8px; */
     border-radius: unset;
-    margin: 16px;
+    margin: 8px 0;
     box-sizing: border-box;
     max-width: 480px;
     @media (min-width: 480px) {

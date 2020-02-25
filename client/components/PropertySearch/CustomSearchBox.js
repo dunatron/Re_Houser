@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 const SearchTextInput = styled(TextField)`
   && {
     input {
-      font-size: 36px;
+      font-size: 18px;
     }
   }
 `;

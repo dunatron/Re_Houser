@@ -147,6 +147,7 @@ type Query {
   ): MessageConnection!
   chatFeed(filter: String): [Message!]!
   properties: [Property!]!
+  property(where: PropertyWhereUniqueInput!): Property!
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property
   myRentalApplications: [RentalApplication!]!

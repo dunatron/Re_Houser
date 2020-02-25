@@ -1,4 +1,5 @@
 import { PROPERTIES_QUERY } from './propertiesQuery';
+import { SINGLE_PROPERTY_QUERY } from './singlePropertyQuery';
 import { OWNER_PROPERTIES_QUERY } from './ownerProperties';
 import { MY_RENTAL_APPLICATIONS_QUERY } from './myRentalApplications';
 import { RENTAL_APPLICATIONS_QUERY } from './rentalApplications';
@@ -17,6 +18,7 @@ import chats from './chats.query';
 
 export {
   PROPERTIES_QUERY,
+  SINGLE_PROPERTY_QUERY,
   OWNER_PROPERTIES_QUERY,
   MY_RENTAL_APPLICATIONS_QUERY,
   RENTAL_APPLICATIONS_QUERY,
