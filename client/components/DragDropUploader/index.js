@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import { DropZone, HiddenInput, InputLabel, ProgressBar } from './styles';
 import LinearBuffer from '../LinearBuffer/index';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -126,7 +127,7 @@ class DragDropUploader extends Component {
         onDragLeave={this.onDragLeave}
         onDragOver={this.onDragOver}>
         <span>{title}</span>
-        <CloudUploadIcon />
+        <CloudUploadOutlinedIcon />
         <HiddenInput
           accept="image/*"
           id="file-multi-input"

@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     // padding: '8px 24px 24px',
   },
+  expansionPanel: {
+    borderRadius: 0,
+  },
   headingItem: {
     display: 'flex',
     alignItems: 'center',
@@ -92,6 +95,8 @@ export default function ExtraDetails({ property }) {
   return (
     <div className={classes.root}>
       <ExpansionPanel
+        style={{ borderRadius: 0 }}
+        classes={classes.expansionPanel}
         expanded={expanded}
         onChange={() => setExpanded(!expanded)}
         defaultExpanded={false}
@@ -102,7 +107,7 @@ export default function ExtraDetails({ property }) {
           id="panel1c-header">
           <div className={classes.headingItem}>
             <HouseIcon color="secondary" className={classes.headingIcon} />
-            <Typography className={classes.heading} color="primary">
+            <Typography className={classes.heading} color="textPrimary">
               {numberOfRooms}
             </Typography>
           </div>
@@ -111,13 +116,13 @@ export default function ExtraDetails({ property }) {
               color="secondary"
               className={classes.headingIcon}
             />
-            <Typography className={classes.heading} color="primary">
+            <Typography className={classes.heading} color="textPrimary">
               {averageRoomPrice}
             </Typography>
           </div>
           <div className={classes.headingItem}>
             <RoomIcon color="secondary" className={classes.headingIcon} />
-            <Typography className={classes.heading} color="primary">
+            <Typography className={classes.heading} color="textPrimary">
               {property.location}
             </Typography>
           </div>

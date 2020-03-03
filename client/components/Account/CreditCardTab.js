@@ -3,11 +3,18 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
 import CreditCardsList from '../CreditCard/CreditCardsList';
 import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
-import Button from '@material-ui/core/Button';
+import { Button, Typography } from '@material-ui/core';
 import StripeComponents from '../StripeComponents/index';
 import CreateCardForm from '../StripeComponents/CreateCardForm';
 import Loader from '../Loader';
 import ErrorMessage from '../ErrorMessage';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    color: theme.palette.text.primary,
+  },
+}));
 
 const CreditCardTab = ({ me }) => {
   const { data, error, loading } = useQuery(MY_CREDIT_CARDS_QUERY, {
@@ -18,6 +25,7 @@ const CreditCardTab = ({ me }) => {
     },
     suspend: false,
   });
+  const classes = useStyles();
 
   useEffect(() => {}, []);
 
@@ -27,14 +35,15 @@ const CreditCardTab = ({ me }) => {
   const primaryCreditCard = me.primaryCreditCard;
 
   return (
-    <div>
-      <h1>I am the Credit Card Tab</h1>
-      <h2>
+    <div className={classes.root}>
+      <Typography component="header" variant="h6">
         Primary Card ID:
         {primaryCreditCard ? primaryCreditCard.id : 'NOT SET'}
-      </h2>
+      </Typography>
       <StripeComponents>
-        <h1>Create a New Card</h1>
+        <Typography component="h2" variant="subtitle1">
+          Create a New Card
+        </Typography>
         <CreateCardForm me={me} />
       </StripeComponents>
       <CreditCardsList cardsList={data.myCreditCards} />

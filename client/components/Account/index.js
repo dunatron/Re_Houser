@@ -38,6 +38,10 @@ import EditIcon from '../../styles/icons/EditIcon';
 import MoreIcon from '../../styles/icons/MoreIcon';
 import DetailsIcon from '../../styles/icons/DetailsIcon';
 import CameraIcon from '../../styles/icons/CameraIcon';
+import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
+import CameraOutlinedIcon from '@material-ui/icons/CameraOutlined';
+import CameraFrontOutlinedIcon from '@material-ui/icons/CameraFrontOutlined';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 const useStyles = makeStyles(theme => ({
   inputGrid: {
@@ -93,6 +97,7 @@ const AccountComponent = () => {
           ...updates,
         },
       },
+      refetchQueries: [{ query: CURRENT_USER_QUERY }],
     });
     if (res.data) {
       setUpdates({});
@@ -154,9 +159,9 @@ const AccountComponent = () => {
         textColor="primary"
         variant="fullWidth">
         <Tab label="Personal Details" icon={<DetailsIcon />} />
-        <Tab label="Photo Identification" icon={<CameraIcon />} />
-        <Tab label="Profile Photo" icon={<CameraIcon />} />
-        <Tab label="Extras" icon={<MoreIcon />} />
+        <Tab label="Photo Identification" icon={<PhotoCameraOutlinedIcon />} />
+        <Tab label="Profile Photo" icon={<CameraOutlinedIcon />} />
+        <Tab label="Payment Methods" icon={<PaymentIcon />} />
       </Tabs>
       <SwipeableViews index={tabIndex} onChangeIndex={handleChangeIndex}>
         <TabContainer>

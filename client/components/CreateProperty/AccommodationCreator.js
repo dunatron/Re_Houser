@@ -26,6 +26,7 @@ const AccommodationCreator = props => {
         />
       )}
       <Button
+        data-cy="add-accomodation-btn"
         onClick={() => setAdding(!adding)}
         color={adding ? 'secondary' : 'primary'}>
         {adding ? 'Quit Adding accommodation' : 'Add Accommodation'}
@@ -67,6 +68,9 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
         <Grid item xs={12} sm={6} lg={3}>
           <TextInput
             id="roomSize"
+            inputProps={{
+              'data-cy': 'accomodation-room-size',
+            }}
             label="roomSize"
             type="number"
             fullWidth={false}
@@ -79,6 +83,9 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
         <Grid item xs={12} sm={6} lg={3}>
           <TextInput
             id="rent"
+            inputProps={{
+              'data-cy': 'accomodation-room-rent',
+            }}
             label="rent"
             type="number"
             fullWidth={false}
@@ -91,6 +98,9 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
         <Grid item xs={12} sm={6} lg={3}>
           <TextInput
             id="expenses"
+            inputProps={{
+              'data-cy': 'accomodation-room-expenses',
+            }}
             label="expenses"
             type="number"
             fullWidth={false}
@@ -103,6 +113,9 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
         <Grid item xs={12} sm={6} lg={3}>
           <TextInput
             id="description"
+            inputProps={{
+              'data-cy': 'accomodation-room-description',
+            }}
             label="Room Description"
             fullWidth={true}
             name="description"
@@ -115,6 +128,7 @@ const CreateAccommodation = ({ accommodation, add, type }) => {
 
       <Button
         onClick={() => addAccommodation()}
+        data-cy="create-accomodation-btn"
         color="primary"
         variant="outlined">
         {type === 'update' ? 'update' : 'Create'} Accommodation

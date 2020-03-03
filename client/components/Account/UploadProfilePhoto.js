@@ -2,8 +2,22 @@ import DragDropUploader from '../DragDropUploader/index';
 import { useState } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { UPLOAD_PROFILE_PHOTO } from '../../graphql/mutations';
+import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import Image from 'material-ui-image';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    color: theme.palette.text.primary,
+  },
+  profilePhoto: {
+    maxWidth: '280px',
+  },
+}));
 
 const UploadProfilePhoto = ({ me }) => {
+  const classes = useStyles();
   const [imageUrl, setImageUrl] = useState(
     me.profilePhoto ? me.profilePhoto.url : null
   );
@@ -12,15 +26,18 @@ const UploadProfilePhoto = ({ me }) => {
 
   return (
     <div>
-      <h1>UploadProfilePhoto</h1>
-      {imageUrl && <img src={imageUrl} />}
+      {imageUrl && (
+        <div className={classes.profilePhoto}>
+          <Image src={imageUrl} />
+        </div>
+      )}
       <DragDropUploader
         // disabled={loading}
         style={{ padding: '40px' }}
         // disabled={loading}
         // externalLoading={loading}
         dropStyles={{ padding: '40px', minWidth: '300px' }}
-        addText="Drop Photo Identification"
+        addText="DROP PROFILE PHOTO"
         addBtnText="Or Click to Browse"
         multiple={true}
         types={['image']}
@@ -31,6 +48,7 @@ const UploadProfilePhoto = ({ me }) => {
             variables: {
               file: file.raw,
             },
+            refetchQueries: [{ query: CURRENT_USER_QUERY }],
             update: (proxy, { data }) => {
               setImageUrl(data.uploadProfilePhoto.profilePhoto.url);
             },

@@ -9,11 +9,19 @@ const ADD_PROPERTY_OBJ = {
   type: '',
   indoorFeatures: [],
   outdoorFeatures: [],
-  headline: '',
+  headline: 'I am the headline for the property',
   bathrooms: 2,
   garages: 2,
   carportSpaces: 6,
   offStreetSpaces: 3,
+  accomodation: [
+    {
+      size: 5,
+      rent: 170,
+      expenses: 20,
+      description: 'A nice room I swear',
+    },
+  ],
 };
 
 context('Add Property Spec', () => {
@@ -24,6 +32,13 @@ context('Add Property Spec', () => {
 
   it('Can visit the add property page', () => {
     cy.visit(Cypress.env('BASE_URL') + '/add/property');
+  });
+
+  /**
+   * cant actually access this due to security. try create a card using graphql here
+   */
+  it('Will need to create a credit card', () => {
+    cy.get('[data-cy=toggle-card-creator]').click();
   });
 
   it('Can fill in the add property form', () => {
@@ -59,5 +74,49 @@ context('Add Property Spec', () => {
     });
     // These selects are in modals outside of the form
     // cy.get('[data-cy=property_type_select]').type('APARTMENT', { force: true });
+    // cy.get('property_indoorfeatures_multiselect')
+    // Indoor features
+    cy.get(
+      ':nth-child(2) > .MuiFormControl-root > .MuiInputBase-root > .MuiSelect-root'
+    ).click();
+    cy.get('[data-value="DISHWASHER"]').click();
+    cy.get('[data-value="FURNISHED"]').click();
+    cy.get('.MuiPopover-root').click();
+    // outdoor features
+    cy.get(
+      ':nth-child(3) > .MuiFormControl-root > .MuiInputBase-root > .MuiSelect-root'
+    ).click({ force: true });
+    cy.get('[data-value="SWIMMING_POOL"]').click();
+    cy.get('[data-value="FULLY_FENCED"]').click();
+    cy.get('.MuiPopover-root').click();
+    cy.get('[data-cy=property_headline_input]').type(property.headline);
+
+    // for (accomodation in property.accomodation) {
+    // cy.get('[data-cy=accomodation-room-size]').type(accomodation.size);
+    // cy.get('[data-cy=accomodation-room-rent]').type(accomodation.rent);
+    // cy.get('[data-cy=accomodation-room-expenses]').type(
+    //   accomodation.expenses
+    // );
+    // cy.get('[data-cy=accomodation-room-description]').type(
+    //   accomodation.description
+    // );
+    // }
+    for (let step = 0; step < property.accomodation.length; step++) {
+      cy.get('[data-cy=add-accomodation-btn]').click();
+      const accomodation = property.accomodation[step];
+      cy.get('[data-cy=accomodation-room-size]').type(accomodation.size);
+      cy.get('[data-cy=accomodation-room-rent]').type(accomodation.rent);
+      cy.get('[data-cy=accomodation-room-expenses]').type(
+        accomodation.expenses
+      );
+      cy.get('[data-cy=accomodation-room-description]').type(
+        accomodation.description
+      );
+      cy.get('[data-cy=create-accomodation-btn]').click();
+    }
+    cy.wait(1000);
+    // cy.get('[data-cy=property_indoorfeatures_multiselect]').type('APARTMENT', {
+    //   force: true,
+    // });
   });
 });

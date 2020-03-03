@@ -46,6 +46,7 @@
     "lodash.debounce": "^4.0.8",
     "make-dir": "^2.1.0",
     "material-table": "^1.51.0",
+    "material-ui-image": "^3.2.3",
     "moment": "^2.24.0",
     "money": "^0.2.0",
     "next": "^9.05",

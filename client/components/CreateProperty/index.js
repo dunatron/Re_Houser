@@ -293,7 +293,6 @@ const CreateProperty = ({ me }) => {
                   inputProps={{
                     'data-cy': 'property_latitude_input',
                   }}
-                  data-cy=""
                   label="Latitude"
                   disabled={true}
                   fullWidth={true}
@@ -387,7 +386,9 @@ const CreateProperty = ({ me }) => {
                 <TextInput
                   gutterBottom
                   id="headline"
-                  data-cy="property_headline_input"
+                  inputProps={{
+                    'data-cy': 'property_headline_input',
+                  }}
                   label="Headline for property advertisement"
                   fullWidth={true}
                   name="headline"
