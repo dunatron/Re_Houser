@@ -32,6 +32,8 @@ import DeleteAccount from './DeleteAccount';
 
 //Errors
 import ErrorMessage from '../ErrorMessage';
+import { PDFViewer } from '@react-pdf/renderer';
+import TestPdf from '../Pdfs/TestPdf';
 
 // Icons
 import EditIcon from '../../styles/icons/EditIcon';
@@ -152,6 +154,7 @@ const AccountComponent = () => {
 
       <CompletionRating me={me} />
       <DeleteAccount />
+
       <Tabs
         value={tabIndex}
         onChange={handleTabChange}
@@ -211,6 +214,7 @@ const AccountComponent = () => {
           <CreditCardTab me={me} />
         </TabContainer>
       </SwipeableViews>
+      <TestPdf me={me} />
     </div>
   );
 };

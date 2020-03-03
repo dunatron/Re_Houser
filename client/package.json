@@ -24,6 +24,7 @@
     "@material-ui/lab": "^4.0.0-alpha.42",
     "@reach/alert": "^0.1.5",
     "@reach/visually-hidden": "^0.1.4",
+    "@react-pdf/renderer": "^1.6.8",
     "add": "^2.0.6",
     "algoliasearch": "^3.32.1",
     "apollo-cache-inmemory": "^1.6.3",
