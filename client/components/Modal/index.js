@@ -105,4 +105,12 @@ class Modal extends Component {
   }
 }
 
+Modal.propTypes = {
+  id: PropTypes.string,
+  classes: PropTypes.any,
+  close: PropTypes.func,
+  title: PropTypes.string,
+  open: PropTypes.bool,
+};
+
 export default withStyles(styles)(Modal);
