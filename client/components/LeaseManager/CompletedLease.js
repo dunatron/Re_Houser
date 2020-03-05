@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { PAYMENTS_QUERY } from '../../graphql/queries/payments';
 import PaymentManager from '../PaymentManager';
+import DownloadLease from './DownloadLease';
 
 /**
  * Here we can do things like query all the data we need, e.g payments,
@@ -28,6 +29,7 @@ const CompletedLease = ({ leaseId }) => {
         This is like an accepted lease and all that stuff. Lotts off components
         to come here
       </h1>
+      <DownloadLease />
       <h4>Lease Payments</h4>
       <PaymentManager payments={data.payments} title="Lease" />
     </div>
