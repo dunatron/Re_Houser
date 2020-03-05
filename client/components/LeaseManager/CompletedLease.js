@@ -11,7 +11,7 @@ import DownloadLease from './DownloadLease';
  * lease
  * create direct email etc
  */
-const CompletedLease = ({ leaseId }) => {
+const CompletedLease = ({ leaseId, lease, me }) => {
   const { data, error, loading } = useQuery(PAYMENTS_QUERY, {
     variables: {
       where: {
@@ -29,7 +29,7 @@ const CompletedLease = ({ leaseId }) => {
         This is like an accepted lease and all that stuff. Lotts off components
         to come here
       </h1>
-      <DownloadLease />
+      <DownloadLease lease={lease} me={me} />
       <h4>Lease Payments</h4>
       <PaymentManager payments={data.payments} title="Lease" />
     </div>

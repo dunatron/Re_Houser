@@ -10,33 +10,7 @@ import FinaliseLeaseBtn from '../MutationButtons/FinaliseLeaseButton';
 import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
 import CompletedLease from './CompletedLease';
 import SignLease from './SignLease';
-
-export const SINGLE_LEASE_QUERY = gql`
-  query SINGLE_LEASE_QUERY($where: PropertyLeaseWhereUniqueInput!) {
-    myLease(where: $where) {
-      id
-      location
-      rent
-      finalised
-      lessees {
-        id
-        signed
-        user {
-          id
-          email
-        }
-      }
-      lessors {
-        id
-        signed
-        user {
-          id
-          email
-        }
-      }
-    }
-  }
-`;
+import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
 
 const extractCurrentUserLeaseData = () => {};
 const Composed = adopt({
@@ -75,7 +49,14 @@ const LeaseManager = ({ leaseId }) => {
           const lessorUserIds = lessees.map(lessor => lessor.user.id);
 
           // 1. if lease has been finalised <CompletedLease />
-          if (finalised) return <CompletedLease leaseId={data.myLease.id} />;
+          if (finalised)
+            return (
+              <CompletedLease
+                leaseId={data.myLease.id}
+                lease={data.myLease}
+                me={me}
+              />
+            );
           // 2. we need to sign the lease <CompletedLease />
           return <SignLease lease={data.myLease} me={me} />;
         }}

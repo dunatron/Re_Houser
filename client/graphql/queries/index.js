@@ -11,6 +11,7 @@ import { MY_LEASES_QUERY } from './myLeasesQuery';
 import { MY_CHATS_QUERY } from './myChats';
 import { CHAT_QUERY } from './chat.query';
 import { GET_ENUM_QUERY } from './getEnum';
+import { SINGLE_LEASE_QUERY } from './singleLeaseQuery';
 
 import { MESSAGES_QUERY } from './messages';
 import { MESSAGES_CONNECTION_QUERY } from './messagesConnection';
@@ -27,6 +28,7 @@ export {
   MY_CREDIT_CARDS_QUERY,
   SINGLE_RENTAL_APPLICATION_QUERY,
   MY_LEASES_QUERY,
+  SINGLE_LEASE_QUERY,
   MY_CHATS_QUERY,
   CHAT_QUERY,
   MESSAGES_QUERY,

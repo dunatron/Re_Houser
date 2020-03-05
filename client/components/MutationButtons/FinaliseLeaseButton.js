@@ -4,7 +4,8 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import Error from '../ErrorMessage';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
-import { SINGLE_LEASE_QUERY } from '../LeaseManager';
+// import { SINGLE_LEASE_QUERY } from '../LeaseManager';
+import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
 
 const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   mutation FINALISE_PROPERTY_LEASE_MUTATION($leaseId: ID!) {
