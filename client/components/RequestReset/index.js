@@ -72,6 +72,7 @@
 
 import React, { useState } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Form from '../../styles/Form';
 import Error from '../ErrorMessage/index';
@@ -100,41 +101,43 @@ const RequestReset = () => {
   // saveToState = e => {
   //   this.setState({ [e.target.name]: e.target.value });
   // };
-  <Form
-    method="post"
-    data-test="form"
-    onSubmit={async e => {
-      e.preventDefault();
-      await resetPassword();
-      setEmail('');
-    }}>
-    <fieldset disabled={loading} aria-busy={loading}>
-      <Error error={error} />
-      {!error && !loading && called && (
-        <p>Success! Check your email for a reset link!</p>
-      )}
-      <TextInput
-        id="email-reset"
-        label="Email"
-        fullWidth={true}
-        type="email"
-        name="email"
-        placeholder="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+  return (
+    <Form
+      method="post"
+      data-test="form"
+      onSubmit={async e => {
+        e.preventDefault();
+        await resetPassword();
+        setEmail('');
+      }}>
+      <fieldset disabled={loading} aria-busy={loading}>
+        <Error error={error} />
+        {!error && !loading && called && (
+          <p>Success! Check your email for a reset link!</p>
+        )}
+        <TextInput
+          id="email-reset"
+          label="Email"
+          fullWidth={true}
+          type="email"
+          name="email"
+          placeholder="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
 
-      <FabButton
-        type="submit"
-        variant="extended"
-        color="primary"
-        aria-label="Add"
-        style={{ minWidth: 160 }}>
-        <NavigationIcon style={{ marginRight: 5 }} />
-        Request Reset
-      </FabButton>
-    </fieldset>
-  </Form>;
+        <FabButton
+          type="submit"
+          variant="extended"
+          color="primary"
+          aria-label="Add"
+          style={{ minWidth: 160 }}>
+          <NavigationIcon style={{ marginRight: 5 }} />
+          Request Reset
+        </FabButton>
+      </fieldset>
+    </Form>
+  );
 };
 
 export default RequestReset;

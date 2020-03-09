@@ -344,10 +344,10 @@ const Item = styled.div`
   }
 `;
 
-const ApplicationItem = () => {
+const ApplicationItem = props => {
   // NEED application, me, applicant
-  const { application, index, property } = this.props;
-  const [createingDoc, setCreatingDoc] = useState(false);
+  const { application, index, property } = props;
+  const [creatingDoc, setCreatingDoc] = useState(false);
   const user = useCurrentUser();
   const [applyToRentalGroup, applyToRentalGroupProps] = useMutation(
     APPLY_TO_RENTAL_GROUP_APPLICATION
@@ -391,7 +391,7 @@ const ApplicationItem = () => {
     return '';
   };
 
-  const isAnApplicant = () => {
+  const _isAnApplicant = () => {
     const isApplicant = application.applicants
       .map(applicant => applicant.user)
       .map(user => user.id)
@@ -399,27 +399,27 @@ const ApplicationItem = () => {
     return isApplicant;
   };
 
-  const isOwner = () => {
+  const _isOwner = () => {
     if (me.id === application.owner.id) {
       return true;
     }
     return false;
   };
 
-  const isPartOfApplication = () => {
-    if (isAnApplicant()) return true;
-    if (isOwner()) return true;
+  const _isPartOfApplication = () => {
+    if (_isAnApplicant()) return true;
+    if (_isOwner()) return true;
     return false;
   };
 
   const meetsVisibilityRequirements = () => {
     if (application.visibility === 'PUBLIC') return true;
-    if (isPartOfApplication()) return true;
+    if (_isPartOfApplication()) return true;
     return false;
   };
   const canShowApplication = () => {
     // if (this.isPartOfApplication(me, application)) return true;
-    const isPartOfApplication = isPartOfApplication();
+    const isPartOfApplication = _isPartOfApplication();
     if (isPartOfApplication) return true;
 
     // stages not to show if not part of application
@@ -431,7 +431,7 @@ const ApplicationItem = () => {
   };
 
   const _advanceApplication = () => {
-    const isAnApplicant = isAnApplicant();
+    const isAnApplicant = _isAnApplicant();
     return (
       <div>
         {!isAnApplicant && renderApplyToGroupBtn()}
@@ -472,8 +472,8 @@ const ApplicationItem = () => {
     );
   };
 
-  const isAnApplicant = isAnApplicant();
-  const isOwner = isOwner();
+  const isAnApplicant = _isAnApplicant();
+  const isOwner = _isOwner();
   const canShow = canShowApplication();
 
   const numberOfApprovedApplicants = getNumberOfApprovedApplicants();
@@ -545,3 +545,5 @@ const ApplicationItem = () => {
     </ExpansionPanel>
   );
 };
+
+export default ApplicationItem;

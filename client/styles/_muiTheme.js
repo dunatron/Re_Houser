@@ -54,7 +54,7 @@ const theme = {
     //   contrastText: '#fff',
     // },
     primary: blueGrey,
-    secondary: blueGrey,
+    secondary: deepOrange,
     error: {
       light: '#e57373',
       main: '#f44336',

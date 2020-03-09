@@ -38,6 +38,10 @@ export const CLOSE_CHAT_LOCAL_MUTATION = gql`
   }
 `;
 
+/**
+ * Note cahce.writeData has been removed and will need to be changed here
+ * https://www.apollographql.com/docs/react/v3.0-beta/migrating/apollo-client-3-migration/
+ */
 const resolvers = () => {
   return {
     Mutation: {

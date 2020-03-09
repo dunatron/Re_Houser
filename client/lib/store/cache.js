@@ -1,5 +1,6 @@
 // import { InMemoryCache } from 'apollo-cache-inmemory';
-import { InMemoryCache } from '@apollo/client';
+import { InMemoryCache } from '@apollo/client/cache';
+import gql from 'graphql-tag';
 import {
   offsetLimitPaginatedField,
   connectionPaginationField,
@@ -69,9 +70,20 @@ const cache = new InMemoryCache({
 // we need better local Data SERIOUSLY CHECK OUT VIRTUAL FIELDS.
 // https://www.apollographql.com/docs/tutorial/local-state/
 // https://www.apollographql.com/docs/tutorial/local-state/
-cache.writeData({
+// cache.writeData({
+//   data: {
+//     cartOpen: true,
+//     openChats: [],
+//   },
+// });
+
+cache.writeQuery({
+  query: gql`
+    {
+      openChats
+    }
+  `,
   data: {
-    cartOpen: true,
     openChats: [],
   },
 });

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
 import { CURRENT_USER_QUERY } from '../User/index';

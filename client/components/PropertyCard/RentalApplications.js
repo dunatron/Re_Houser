@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ApplicationItem from './ApplicationItem';
 import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
 
 const RentalApplications = props => {

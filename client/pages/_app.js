@@ -1,6 +1,7 @@
 import App, { Container } from 'next/app';
 import Page from '../components/Page/index';
-import { ApolloProvider } from 'react-apollo';
+// import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 
 class AppEntryPointExtension extends App {
