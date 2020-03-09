@@ -1,5 +1,8 @@
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
+import RentalApplicationStepper from '../../RentalApplicationStepper';
+import { useSubscription, useQuery } from '@apollo/react-hooks';
+import { SINGLE_PROPERTY_QUERY } from '../../../graphql/queries';
 
 /**
  * This is the person who originally applied fro the property
@@ -13,12 +16,22 @@ import { Paper, Typography } from '@material-ui/core';
  * - Close application entirely
  *
  */
-const RentalApplicationOwnerView = ({ me }) => {
+const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
+  console.log(
+    'Is this not property data? rentalApplication => ',
+    rentalApplication
+  );
+
   return (
     <Paper>
       <Typography variant="h3" gutterBottom color="secondary">
         You are the owner application
       </Typography>
+      <RentalApplicationStepper
+        application={rentalApplication}
+        me={me}
+        property={rentalApplication.property}
+      />
     </Paper>
   );
 };

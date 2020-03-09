@@ -16,6 +16,11 @@ const PropertyInfoFragment = gql`
     offStreetSpaces
     outdoorFeatures
     indoorFeatures
+    accommodation {
+      id
+      rent
+      description
+    }
   }
 `;
 

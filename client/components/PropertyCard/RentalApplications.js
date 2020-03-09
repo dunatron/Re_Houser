@@ -18,6 +18,7 @@ const RentalApplications = props => {
           },
         },
       ],
+      // somehow need to add stage in. DENIED, ACCEPTED, PENDNING, INITIALIZING
       AND: {
         property: {
           id: propertyId,
@@ -62,9 +63,9 @@ const RentalApplications = props => {
           subscriptionData.data.rentalApplicationCreatedSub.node.id;
 
         // check not already in cache
-        applications.rentalApplications.push({
-          ...subscriptionData.data.rentalApplicationCreatedSub.node,
-        });
+        // applications.rentalApplications.push({
+        //   ...subscriptionData.data.rentalApplicationCreatedSub.node,
+        // });
 
         client.writeQuery({
           query: RENTAL_APPLICATIONS_QUERY,
@@ -91,6 +92,7 @@ const RentalApplications = props => {
   if (applications.error) return <Error error={applications.error} />;
   if (applications.loading) return <p>fetching applications...</p>;
   const { rentalApplications } = applications.data;
+
   return (
     <div>
       {rentalApplications &&

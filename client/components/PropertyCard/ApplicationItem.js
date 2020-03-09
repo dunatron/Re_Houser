@@ -118,8 +118,35 @@ export default class ApplicationItem extends Component {
     return false;
   };
 
+  isPartOfApplication = (me, application) => {
+    if (this.isAnApplicant(me, application)) return true;
+    if (this.isOwner(me, application)) return true;
+    return false;
+  };
+
+  meetsVisibilityRequirements = (me, application) => {
+    if (application.visibility === 'PUBLIC') return true;
+    if (this.isPartOfApplication(me, application)) return true;
+    return false;
+  };
+  canShowApplication = (me, application) => {
+    // if (this.isPartOfApplication(me, application)) return true;
+    const isPartOfApplication = this.isPartOfApplication(me, application);
+    if (isPartOfApplication) return true;
+
+    // stages not to show if not part of application
+    const dontShowOnStages = ['ACCEPTED', 'PENDING', 'DENIED'];
+    if (dontShowOnStages.includes(application.stage)) return false;
+
+    if (this.meetsVisibilityRequirements(me, application)) return true;
+    return false;
+  };
+
   render() {
     const { application, index, property } = this.props;
+
+    console.log('Tell me of the application => ', application);
+
     return (
       <Composed>
         {({ applyToRentalGroup, user, createPreRentalDocument }) => {
@@ -129,6 +156,8 @@ export default class ApplicationItem extends Component {
           }
           const isAnApplicant = this.isAnApplicant(me, application);
           const isOwner = this.isOwner(me, application);
+          const canShow = this.canShowApplication(me, application);
+          if (!canShow) return null;
           return (
             <ExpansionPanel highlight={isAnApplicant}>
               <ExpansionPanelSummary

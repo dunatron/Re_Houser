@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { RentalGroupApplicantInfoFragment } from './rentalGroupApplicantInfo';
+import { PropertyInfoFragment } from './propertyInfo';
 
 const RentalApplicationInfoFragment = gql`
   fragment rentalApplicationInfo on RentalApplication {
@@ -16,6 +17,9 @@ const RentalApplicationInfoFragment = gql`
       firstName
       lastName
     }
+    property {
+      ...propertyInfo
+    }
     applicants {
       # id
       # approved
@@ -31,6 +35,7 @@ const RentalApplicationInfoFragment = gql`
     }
   }
   ${RentalGroupApplicantInfoFragment}
+  ${PropertyInfoFragment}
 `;
 
 export { RentalApplicationInfoFragment };

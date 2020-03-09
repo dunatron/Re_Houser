@@ -370,6 +370,11 @@ const ConnectedRentalApplicationStepper = ({ me, property, application }) => {
   const { data, loading, error } = rentalApplication;
   if (loading) return <Loader loading={loading} />;
   if (error) return <Error error={error} text="Loading Application" />;
+
+  if (data.rentalApplication.stage === 'PENDING')
+    return 'Application is pending a response from the landlord';
+  if (data.rentalApplication.stage === 'ACCEPTED')
+    return 'Application has been accepted, head over to leases to sign';
   return (
     <RentalApplicationStepper
       me={me}
