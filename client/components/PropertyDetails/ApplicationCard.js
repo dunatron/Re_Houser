@@ -23,6 +23,7 @@ import StarIcon from '../../styles/icons/StarIcon';
 
 import ApplicantDetails from '../ApplicantDetails/index';
 import AcceptApplicationButton from '../MutationButtons/AcceptApplicationButton';
+import DenyApplicationButton from '../MutationButtons/DenyApplicationButton';
 import { Button } from '@material-ui/core';
 
 const DenyApplication = () => {
@@ -40,6 +41,7 @@ const ApplicationCard = ({ application, property }) => {
       {/* <AcceptApplication application={application} property={property} /> */}
       <AcceptApplicationButton application={application} property={property} />
       <DenyApplication />
+      <DenyApplicationButton application={application} property={property} />
       <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
       <ExpansionPanel highlight={false}>
         <ExpansionPanelSummary

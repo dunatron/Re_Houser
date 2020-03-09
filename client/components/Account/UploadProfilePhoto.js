@@ -9,7 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    color: theme.palette.text.primary,
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   profilePhoto: {
     maxWidth: '280px',
@@ -25,10 +26,14 @@ const UploadProfilePhoto = ({ me }) => {
   // console.log('uploadImageProps => ', uploadImageProps);
 
   return (
-    <div>
+    <div className={classes.root}>
       {imageUrl && (
         <div className={classes.profilePhoto}>
-          <Image src={imageUrl} />
+          <Image
+            src={imageUrl}
+            style={{ width: '100%' }}
+            imageStyle={{ width: '100%' }}
+          />
         </div>
       )}
       <DragDropUploader

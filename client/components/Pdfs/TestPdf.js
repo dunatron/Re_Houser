@@ -51,12 +51,15 @@ const MyDocument = ({ me }) => {
           />
         </Page>
         <Page>
-          <Image
-            src={{
-              uri: me.profilePhoto.url,
-              method: 'GET',
-            }}
-          />
+          {me.profilePhoto && (
+            <Image
+              src={{
+                uri: me.profilePhoto.url,
+                method: 'GET',
+              }}
+            />
+          )}
+
           <Text
             render={({ pageNumber, totalPages }) =>
               `${pageNumber} / ${totalPages}`

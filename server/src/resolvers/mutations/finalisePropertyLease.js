@@ -1,4 +1,5 @@
 const { createCard, chargeCard } = require("../../lib/paymentAPI");
+const { transport, makeANiceEmail } = require("../../lib/mail");
 
 async function finalisePropertyLease(parent, args, ctx, info) {
   const reqUserId = ctx.request.userId;
@@ -68,6 +69,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     },
     `{
       id
+      email
       primaryCreditCard {
         id
         stripeCardId
@@ -108,6 +110,14 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     }
   });
 
+  transport.sendMail({
+    from: process.env.MAIL_USER,
+    to: loggedInUser.email,
+    subject: "Lease Accepted and Signed",
+    html: makeANiceEmail(`Congratulations the lease has now been signed and is in full effect. You were charged ${payment.amount} for the successful signing!
+    \n\n`)
+  });
+
   // this lease has a propertyId, use it to cleanup any applications
 
   /**
@@ -117,9 +127,9 @@ async function finalisePropertyLease(parent, args, ctx, info) {
    */
   // close any rentalApplications on the property
 
-  throw new Error(
-    "I be waiting there => https://www.youtube.com/watch?v=1lEflSiSe-o"
-  );
+  // throw new Error(
+  //   "I be waiting there => https://www.youtube.com/watch?v=1lEflSiSe-o"
+  // );
 
   const message = {
     message: "Property Lease is now Legal: Your Payment was successful ",

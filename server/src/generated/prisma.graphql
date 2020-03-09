@@ -1,5 +1,5 @@
-# source: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
-# timestamp: Mon Nov 04 2019 18:29:52 GMT+1300 (New Zealand Daylight Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Mon Mar 09 2020 12:40:03 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -6823,6 +6823,7 @@ type PropertyEdge {
 
 type PropertyLease implements Node {
   id: ID!
+  test: String
   property: Property!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -6860,6 +6861,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 
 input PropertyLeaseCreateInput {
   id: ID
+  test: String
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -6900,6 +6902,7 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
+  test: String
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -6920,6 +6923,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
+  test: String
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -6940,6 +6944,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
+  test: String
   finalised: Boolean!
   rooms: Int!
   bathrooms: Int
@@ -6970,6 +6975,8 @@ type PropertyLeaseEdge {
 enum PropertyLeaseOrderByInput {
   id_ASC
   id_DESC
+  test_ASC
+  test_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -7002,6 +7009,7 @@ enum PropertyLeaseOrderByInput {
 
 type PropertyLeasePreviousValues {
   id: ID!
+  test: String
   updatedAt: DateTime!
   createdAt: DateTime!
   finalised: Boolean!
@@ -7069,6 +7077,46 @@ input PropertyLeaseScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  test: String
+
+  """All values that are not equal to given value."""
+  test_not: String
+
+  """All values that are contained in given list."""
+  test_in: [String!]
+
+  """All values that are not contained in given list."""
+  test_not_in: [String!]
+
+  """All values less than the given value."""
+  test_lt: String
+
+  """All values less than or equal the given value."""
+  test_lte: String
+
+  """All values greater than the given value."""
+  test_gt: String
+
+  """All values greater than or equal the given value."""
+  test_gte: String
+
+  """All values containing the given string."""
+  test_contains: String
+
+  """All values not containing the given string."""
+  test_not_contains: String
+
+  """All values starting with the given string."""
+  test_starts_with: String
+
+  """All values not starting with the given string."""
+  test_not_starts_with: String
+
+  """All values ending with the given string."""
+  test_ends_with: String
+
+  """All values not ending with the given string."""
+  test_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -7421,6 +7469,7 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateInput {
+  test: String
   finalised: Boolean
   rooms: Int
   bathrooms: Int
@@ -7441,6 +7490,7 @@ input PropertyLeaseUpdateInput {
 }
 
 input PropertyLeaseUpdateManyDataInput {
+  test: String
   finalised: Boolean
   rooms: Int
   bathrooms: Int
@@ -7458,6 +7508,7 @@ input PropertyLeaseUpdateManyDataInput {
 }
 
 input PropertyLeaseUpdateManyMutationInput {
+  test: String
   finalised: Boolean
   rooms: Int
   bathrooms: Int
@@ -7514,6 +7565,7 @@ input PropertyLeaseUpdateoutdoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
+  test: String
   finalised: Boolean
   rooms: Int
   bathrooms: Int
@@ -7533,6 +7585,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
+  test: String
   finalised: Boolean
   rooms: Int
   bathrooms: Int
@@ -7552,6 +7605,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
+  test: String
   finalised: Boolean
   rooms: Int
   bathrooms: Int
@@ -7640,6 +7694,46 @@ input PropertyLeaseWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  test: String
+
+  """All values that are not equal to given value."""
+  test_not: String
+
+  """All values that are contained in given list."""
+  test_in: [String!]
+
+  """All values that are not contained in given list."""
+  test_not_in: [String!]
+
+  """All values less than the given value."""
+  test_lt: String
+
+  """All values less than or equal the given value."""
+  test_lte: String
+
+  """All values greater than the given value."""
+  test_gt: String
+
+  """All values greater than or equal the given value."""
+  test_gte: String
+
+  """All values containing the given string."""
+  test_contains: String
+
+  """All values not containing the given string."""
+  test_not_contains: String
+
+  """All values starting with the given string."""
+  test_starts_with: String
+
+  """All values not starting with the given string."""
+  test_not_starts_with: String
+
+  """All values ending with the given string."""
+  test_ends_with: String
+
+  """All values not ending with the given string."""
+  test_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""

@@ -20,6 +20,7 @@ import {
   brown,
   grey,
   blueGrey,
+  common,
 } from '@material-ui/core/colors';
 const theme = {
   maxWidth: 1200,
@@ -40,18 +41,20 @@ const theme = {
     },
     common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
     background: { paper: '#fff', default: '#fafafa' },
-    primary: {
-      light: '#7986cb',
-      main: '#3f51b5',
-      dark: '#303f9f',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff4081',
-      main: '#f50057',
-      dark: '#c51162',
-      contrastText: '#fff',
-    },
+    // primary: {
+    //   light: '#7986cb',
+    //   main: '#3f51b5',
+    //   dark: '#303f9f',
+    //   contrastText: '#fff',
+    // },
+    // secondary: {
+    //   light: '#ff4081',
+    //   main: '#f50057',
+    //   dark: '#c51162',
+    //   contrastText: '#fff',
+    // },
+    primary: blueGrey,
+    secondary: blueGrey,
     error: {
       light: '#e57373',
       main: '#f44336',

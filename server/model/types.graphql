@@ -204,6 +204,7 @@ type Lessor {
 
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
+  test: String
   property: Property! @relation(name: "PropertyLeases")
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt

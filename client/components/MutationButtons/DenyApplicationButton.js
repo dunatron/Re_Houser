@@ -2,24 +2,27 @@ import React, { Component, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import Error from '../ErrorMessage/index';
 import { toast } from 'react-toastify';
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/index';
+import {
+  ACCEPT_RENTAL_APPLICATION_MUTATION,
+  DECLINE_RENTAL_APPLICATION_MUTATION,
+} from '../../graphql/mutations/index';
 import { useMatchFetch } from '../Effects/useMatchEffect';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import clsx from 'clsx';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 const useStyles = makeStyles(theme => ({
   buttonSuccess: {
-    backgroundColor: green[500],
+    backgroundColor: red[500],
     '&:hover': {
-      backgroundColor: green[700],
+      backgroundColor: red[700],
     },
   },
   buttonProgress: {
-    color: green[500],
+    color: red[500],
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -44,18 +47,13 @@ const useStyles = makeStyles(theme => ({
 const ErrorSupplier = ({ errors, tronM }) =>
   errors.map(error => <Error error={error} tronM={tronM} />);
 
-const AcceptApplicationButton = ({ application }) => {
+const DenyApplicationButton = ({ application }) => {
   const classes = useStyles();
   const [success, setSuccess] = useState(
     application.stage === 'ACCEPTED' ? true : false
   );
   // 1. extract the applicants from the application
   // application.
-
-  const tenantIds = application.applicants
-    .filter(f => f.approved === true)
-    .filter(f => f.completed === true)
-    .map(tenant => tenant.user.id);
 
   // havnt done this yet...
   // const ownerIds = application
@@ -65,8 +63,8 @@ const AcceptApplicationButton = ({ application }) => {
   // 3. then get the data
   // const createNewLease = useMutation(CREATE_PROPERTY_LEASE_MUTATION)
   // ToDo: Mutation Props
-  const [acceptApplicationMutation, { data, loading, error }] = useMutation(
-    ACCEPT_RENTAL_APPLICATION_MUTATION,
+  const [declineApplicationMutation, { data, loading, error }] = useMutation(
+    DECLINE_RENTAL_APPLICATION_MUTATION,
     {
       variables: {
         applicationId: application.id,
@@ -76,16 +74,7 @@ const AcceptApplicationButton = ({ application }) => {
           setSuccess(true);
           toast.success(
             <div>
-              <p>
-                New Lease Created Id: {payload.data.acceptRentalApplication.id}{' '}
-                location: {payload.data.acceptRentalApplication.location}
-                Complete The Lease Here Todo: route to new lease
-              </p>
-              <ChangeRouteButton
-                title="Manage & Sign Lease"
-                route="/my/lease"
-                query={{ id: payload.data.acceptRentalApplication.id }}
-              />
+              <p>The application to rent this property has been denied</p>
             </div>,
             {
               autoClose: 15000,
@@ -101,16 +90,16 @@ const AcceptApplicationButton = ({ application }) => {
   });
   return (
     <>
-      <ErrorSupplier errors={[error]} tronM="Acccepting applicatiion failed" />
+      <ErrorSupplier errors={[error]} tronM="Denying applicatiion failed" />
       {/* <Example /> */}
       <Button
         className={buttonClassname}
         variant="outlined"
         disabled={loading}
         onClick={() => {
-          acceptApplicationMutation();
+          declineApplicationMutation();
         }}>
-        Accept application
+        Deny application
         {loading && (
           <CircularProgress size={24} className={classes.buttonProgress} />
         )}
@@ -119,4 +108,4 @@ const AcceptApplicationButton = ({ application }) => {
   );
 };
 
-export default AcceptApplicationButton;
+export default DenyApplicationButton;

@@ -11,6 +11,7 @@ import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from './updateRentalGroupAppli
 import { UPDATE_PROPERTY_MUTATION } from './updateProperty';
 import { CREATE_CREDIT_CARD_MUTATION } from './createCreditCard';
 import { ACCEPT_RENTAL_APPLICATION_MUTATION } from './acceptRentalApplication';
+import { DECLINE_RENTAL_APPLICATION_MUTATION } from './declineRentalApplication';
 import { CREATE_PROPERTY_LEASE_MUTATION } from './createPropertyLease';
 import { COMPLETE_RENTAL_APPLICATION } from './completeRentalApplication';
 import { CREATE_MESSAGE_MUTATION } from './createMessage';
@@ -31,6 +32,7 @@ export {
   UPDATE_PROPERTY_MUTATION,
   CREATE_CREDIT_CARD_MUTATION,
   ACCEPT_RENTAL_APPLICATION_MUTATION,
+  DECLINE_RENTAL_APPLICATION_MUTATION,
   CREATE_PROPERTY_LEASE_MUTATION,
   COMPLETE_RENTAL_APPLICATION,
   CREATE_MESSAGE_MUTATION,

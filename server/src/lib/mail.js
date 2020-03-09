@@ -1,64 +1,16 @@
 const nodemailer = require("nodemailer");
 
-// const transport = nodemailer.createTransport({
-//   host: process.env.MAIL_HOST,
-//   port: process.env.MAIL_PORT,
-//   auth: {
-//     user: process.env.MAIL_USER,
-//     pass: process.env.MAIL_PASS,
-//   },
-// })
-
-// const transport = nodemailer.createTransport({
-//   // host: "gmail",
-//   service: "gmail",
-//   // port: process.env.MAIL_PORT,
-//   auth: {
-//     user: "heath.dunlop.hd@gmail.com",
-//     pass: "DDHDB@$92Dunlop24",
-//   },
-// })
-
+// https://my.sendinblue.com/users/settings
 const transport = nodemailer.createTransport({
-  // host: "gmail",
-  service: "gmail",
-  host: "gmail",
-  // port: process.env.MAIL_PORT,
-  // host: "smtp.gmail.com",
-  // port: 465,
-  // secure: true,
+  host: process.env.MAIL_HOST,
+  port: process.env.MAIL_PORT,
   auth: {
-    user: "heathd@rehouser.co.nz",
-    pass: "DDHDB@$92Dunlop24"
-  }
-  // tls: {
-  //   // do not fail on invalid certs
-  //   rejectUnauthorized: false,
-  // },
+    user: process.env.MAIL_USER, // replace with your Mailtrap credentials
+    pass: process.env.MAIL_PASS
+  },
+  debug: true, // show debug output
+  logger: true // log information in console
 });
-
-// host: 'smtp.gmail.com',
-//     port: 465,
-//     secure: true,
-//     auth: {
-//         user: 'youremai@gmail.com', // Your email id
-//         pass: 'pwd123' // Your password
-//     },
-//     tls: {
-//         // do not fail on invalid certs
-//         rejectUnauthorized: false
-//     }
-
-//
-
-//
-
-//
-
-// MAIL_HOST="gmail"
-// MAIL_PORT=""
-// MAIL_USER="heath.dunlop.hd@gmail.com"
-// MAIL_PASS="DDHDB@$92Dunlop24"
 
 const makeANiceEmail = text => `
   <div className="email" style="

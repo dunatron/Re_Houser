@@ -9,12 +9,17 @@ const PhotoID = styled.div`
   padding: 0;
   width: 50%;
   flex-grow: 3;
-  padding: 0 16px;
+  /* padding: 0 16px; */
+  padding: 0;
+  position: relative;
   .id__strip {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.3);
   }
   .id__number {
     font-size: 28px;
@@ -22,11 +27,11 @@ const PhotoID = styled.div`
     padding: 16px 0;
   }
   img {
-    width: 100%;
-    min-width: 240px;
+    /* width: 100%; */
+    /* min-width: 240px; */
     /* max-width: 300px; */
     /* height: 380px; */
-    object-fit: cover;
+    /* object-fit: cover; */
   }
   @media (max-width: 800px) {
     width: 100%;

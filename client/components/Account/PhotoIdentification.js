@@ -11,7 +11,17 @@ import PhotoID from '../../styles/PhotoID';
 // Icons
 import EditIcon from '../../styles/icons/EditIcon';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+}));
+
 const PhotoIdentification = props => {
+  const classes = useStyles();
   const { me } = props;
   const { photoIdentification } = me;
 
@@ -20,39 +30,29 @@ const PhotoIdentification = props => {
   );
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        flexDirection: 'column',
-      }}>
+    <div className={classes.root}>
       {photoIdentification && (
         <PhotoID>
           <div class="id__strip">
-            <h2 class="id__number">
-              Photo ID Number{' '}
-              <span style={{ color: 'green' }}>{me.identificationNumber}</span>
+            <div class="id__number">
               <TextField
+                color="primary"
+                label="PhotoId Number"
+                fullWidth={true}
                 defaultValue={me.identificationNumber}
                 onChange={e => {
                   console.log(e.target.value);
                   props.updateVariable('identificationNumber', e.target.value);
                 }}
               />
-            </h2>
-            <IconButton
-              aria-label="Edit"
-              onClick={() =>
-                props.updateVariable(
-                  'identificationNumber',
-                  me.identificationNumber
-                )
-              }>
-              <EditIcon color="default" />
-            </IconButton>
+            </div>
           </div>
-          <Image src={photoIdentification.url} />
+          <Image
+            src={photoIdentification.url}
+            animationDuration={3000}
+            style={{ width: '100%' }}
+            imageStyle={{ width: '100%' }}
+          />
         </PhotoID>
       )}
       <Error error={error} />

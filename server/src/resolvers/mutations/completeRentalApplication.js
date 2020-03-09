@@ -2,6 +2,7 @@ const { transport, makeANiceEmail } = require("../../lib/mail");
 
 async function completeRentalApplication(parent, { applicationId }, ctx, info) {
   const loggedInUser = ctx.request.userId;
+
   // need to be logged in
   if (!loggedInUser) {
     throw new Error("You must be logged in!");
@@ -37,28 +38,15 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
     info
   );
 
-  // application.applicants.forEach((applicant, i) => {
-  //   transport.sendMail({
-  //     from: "heathd@rehouser.co.nz",
-  //     to: applicant.user.email,
-  //     subject: "Application stage: PENDING",
-  //     html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
-  //     \n\n`),
-  //   })
-  // })
-
-  // sandwiches.forEach(function (sandwich, index) {
-  //   console.log(sandwich); // The element
-  //   console.log(index); // The index in the NodeList
-  // });
-
-  // const mailRes = await transport.sendMail({
-  //   from: "heath.dunlop.hd.@gmail.com",
-  //   to: "heath.dunlop.hd.@gmail.com",
-  //   subject: "Application stage: PENDING",
-  //   html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
-  //   \n\n`),
-  // })
+  application.applicants.forEach((applicant, i) => {
+    transport.sendMail({
+      from: process.env.MAIL_USER,
+      to: applicant.user.email,
+      subject: "Application stage: PENDING",
+      html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
+      \n\n`)
+    });
+  });
 
   console.log("updatedApplicationStage ====> ", updatedApplication);
 
