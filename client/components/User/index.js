@@ -1,5 +1,5 @@
-import { Query } from 'react-apollo';
-import { useQuery } from '@apollo/react-hooks';
+import { Query, Mutation, Subscription } from '@apollo/react-components';
+import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';

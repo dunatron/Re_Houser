@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { MY_RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage/index';
 import Loader from '../Loader/index';

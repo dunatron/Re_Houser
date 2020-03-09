@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
 import SuperTable from '../SuperTable/index';
 import Button from '@material-ui/core/Button';

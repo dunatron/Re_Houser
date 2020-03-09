@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import Error from '../../ErrorMessage/index';

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import gql from 'graphql-tag';
-import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import Router from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';

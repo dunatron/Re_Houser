@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Mutation } from 'react-apollo';
-import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
+import { useQuery, useMutation } from '@apollo/client';
 import Form from '../../styles/Form';
 import Error from '../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../User/index';

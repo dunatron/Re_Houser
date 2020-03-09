@@ -1,7 +1,7 @@
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import RentalApplicationStepper from '../../RentalApplicationStepper';
-import { useSubscription, useQuery } from '@apollo/react-hooks';
+import { useSubscription, useQuery } from '@apollo/client';
 import { SINGLE_PROPERTY_QUERY } from '../../../graphql/queries';
 
 /**

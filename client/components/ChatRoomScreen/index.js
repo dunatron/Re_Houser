@@ -2,11 +2,11 @@ import gql from 'graphql-tag';
 import React from 'react';
 import { useCallback, useEffect } from 'react';
 import {
-  useApolloClient,
   useQuery,
   useMutation,
+  useApolloClient,
   useSubscription,
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 import styled from 'styled-components';
 import ChatNavbar from './ChatNavBar';
 import MessageInput from './MessageInput';

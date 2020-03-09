@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import DragDropUploader from '../DragDropUploader/index';
 import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';

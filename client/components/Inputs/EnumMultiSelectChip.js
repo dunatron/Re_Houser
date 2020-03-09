@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import LabelIcon from '@material-ui/icons/Label';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { GET_ENUM_QUERY } from '../../graphql/queries';
 
 const styles = theme => ({

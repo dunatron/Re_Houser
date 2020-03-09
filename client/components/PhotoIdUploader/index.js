@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import { useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 
 import { UPLOAD_PHOTO_IDENTIFICATION } from '../../graphql/mutations/index';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';

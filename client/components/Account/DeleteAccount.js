@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 
 import Error from '../ErrorMessage';
 import { DELETE_USER_ACCOUNT } from '../../graphql/mutations';

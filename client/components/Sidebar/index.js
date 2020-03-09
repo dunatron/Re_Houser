@@ -15,7 +15,7 @@ import { Fragment } from 'react';
 
 import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
 
 import styled from 'styled-components';

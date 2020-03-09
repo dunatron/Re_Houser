@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
 import ApplicationCard from '../PropertyDetails/ApplicationCard';
 import { ToastContainer, toast } from 'react-toastify';

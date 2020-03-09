@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';

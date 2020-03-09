@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries';
 import Error from '../ErrorMessage';
 import { Paper, Typography } from '@material-ui/core';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { Mutation } from 'react-apollo';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from '../User/index';
 import NavButton from '../../styles/NavButton';

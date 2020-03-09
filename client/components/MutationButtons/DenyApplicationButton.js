@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
 import { toast } from 'react-toastify';
 import {

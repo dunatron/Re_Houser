@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { MY_LEASES_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage';
 import LeasesTable from './LeasesTable';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import Signout from '../Signout/index';
 

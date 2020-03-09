@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
-import { useSubscription, useMutation, useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { CREATE_RENTAL_APPLICATION } from '../../graphql/mutations/index';
 import {
   RENTAL_APPLICATIONS_QUERY,

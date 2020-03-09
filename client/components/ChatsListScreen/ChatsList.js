@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useCallback } from 'react';
 import Router from 'next/router';
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
 import Error from '../ErrorMessage';
 import { getChatName } from '../../lib/getChatName';

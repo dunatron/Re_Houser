@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useQuery, useSubscription, useMutation } from '@apollo/react-hooks';
+import { useQuery, useSubscription, useMutation } from '@apollo/client';
 import { CURRENT_USER_QUERY } from '../User/index';
 import {
   MY_CHATS_QUERY,

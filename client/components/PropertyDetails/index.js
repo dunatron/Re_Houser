@@ -2,7 +2,7 @@ import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage/index';
 import styled from 'styled-components';

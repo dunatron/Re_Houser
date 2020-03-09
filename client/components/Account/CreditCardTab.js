@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
 import CreditCardsList from '../CreditCard/CreditCardsList';
 import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Router from 'next/router';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChatRoomScreen from '../ChatRoomScreen';
 import gql from 'graphql-tag';

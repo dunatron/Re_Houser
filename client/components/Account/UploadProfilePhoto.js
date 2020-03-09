@@ -1,6 +1,6 @@
 import DragDropUploader from '../DragDropUploader/index';
 import { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { UPLOAD_PROFILE_PHOTO } from '../../graphql/mutations';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 import Image from 'material-ui-image';

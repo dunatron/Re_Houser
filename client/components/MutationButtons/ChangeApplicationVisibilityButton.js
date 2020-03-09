@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
-import { useMutation } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage';
 import SelectOption from '../../components/Inputs/SelectOption';
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';

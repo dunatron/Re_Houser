@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { OPEN_CHAT_LOCAL_MUTATION } from '../../lib/store/resolvers';
 import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
 import { writeMessage } from '../../services/cache.service';
