@@ -16,7 +16,7 @@ const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   }
 `;
 
-const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
+const FinaliseLeaseBtn = ({ leaseId, finalised, disabled }) => {
   const [finaliseLease, finaliseLeaseProps] = useMutation(
     FINALISE_PROPERTY_LEASE_MUTATION,
     {
@@ -56,7 +56,7 @@ const FinaliseLeaseBtn = ({ leaseId, finalised }) => {
       <Button
         variant="outlined"
         onClick={() => finaliseLease()}
-        disabled={finaliseLeaseProps.loading}>
+        disabled={disabled || finaliseLeaseProps.loading}>
         {finaliseLeaseProps.loading ? 'FINALISING LEASE' : 'FINALISE LEASE'}
       </Button>
       {finaliseLeaseProps.error && <Error error={finaliseLeaseProps.error} />}

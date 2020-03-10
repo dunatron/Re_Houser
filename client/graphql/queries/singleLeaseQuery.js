@@ -4,13 +4,12 @@ import { PropertyInfoFragment } from '../fragments/propertyInfo';
 const SINGLE_LEASE_QUERY = gql`
   query SINGLE_LEASE_QUERY($where: PropertyLeaseWhereUniqueInput!) {
     myLease(where: $where) {
+      id
+      updatedAt
+      createdAt
       property {
         ...propertyInfo
       }
-      id
-      location
-      rent
-      finalised
       lessees {
         id
         signed
@@ -27,8 +26,23 @@ const SINGLE_LEASE_QUERY = gql`
           email
         }
       }
+      finalised
+      rooms
+      bathrooms
+      garageSpaces
+      carportSpaces
+      offStreetSpaces
+      indoorFeatures
+      outdoorFeatures
+      rent
+      moveInDate
+      expiryDate
+      location
+      locationLat
+      locationLng
     }
   }
   ${PropertyInfoFragment}
 `;
+
 export { SINGLE_LEASE_QUERY };
