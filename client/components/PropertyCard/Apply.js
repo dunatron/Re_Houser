@@ -14,6 +14,7 @@ import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import Modal from '../Modal/index';
 import RentalApplicationStepperComponent from '../RentalApplicationStepper/index';
 import Typography from '@material-ui/core/Typography';
+import { toast } from 'react-toastify';
 
 const Apply = props => {
   const user = useQuery(CURRENT_USER_QUERY);
@@ -91,6 +92,15 @@ const Apply = props => {
         } finally {
           setApplicationData(payload.data.createRentalApplication);
           setModalIsOpen(true);
+          // set a nice toast message
+          toast.success(
+            <div>
+              <p>
+                New Rental Application has been created. Please complete it and
+                send it to the landlord, placing it into the PENDING stage
+              </p>
+            </div>
+          );
         }
       },
     }

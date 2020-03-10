@@ -1189,7 +1189,7 @@ mutation createRentalApplication($data:RentalApplicationCreateInput!) {
   createRentalApplication(data:$data) {
     id
     stage
-    members {
+    applicants {
       id
       firstName
     }
@@ -1208,16 +1208,18 @@ mutation createRentalApplication($data:RentalApplicationCreateInput!) {
         "id": "${PropertyID}"
       }
     },
-    "members": {
+    "owner": {
+      "connect": {
+        "id": "${OwnerUserID}"
+      }
+    },
+    "applicants": {
       "connect": [
         {
         	"id": "${UserID}"
       	}
       ]
     },
-    "applicants":{
-      "connect": []
-    }
   }
 }
 ```

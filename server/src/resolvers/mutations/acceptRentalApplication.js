@@ -2,6 +2,10 @@
 
 const { transport, makeANiceEmail } = require("../../lib/mail");
 const createPropertyLease = require("./createPropertyLease");
+const {
+  newLeaseLesseeEmail,
+  newLeaseLessorEmail
+} = require("../../lib/emails/newLeaseEmail");
 
 /**
  * This will accept a rental application changing it's status to ACCEPTED if the user performing the action
@@ -124,32 +128,11 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   // send emails to the potential tenants about the accepted application and the new lease to sign
   lesseeUsers.forEach((user, i) => {
-    // 1. email about the application stage being accepted
-    transport.sendMail({
-      from: process.env.MAIL_USER,
-      to: user.email,
-      subject: "Application stage: ACCEPTED",
-      html: makeANiceEmail(`Your application is now in the ACCEPTED stage, This means that a lease has now been created where all tenants and the landlord need to sign!
-      \n\n`)
-    });
-    // 2. email about the new lease that has been created and a link to it in the app
-    transport.sendMail({
-      from: process.env.MAIL_USER,
-      to: user.email,
-      subject: "New Lease: Signage Required",
-      html: makeANiceEmail(`Congratulations you have been offered a new lease. Follow the link to accept the lease! ${leaseLink}
-      \n\n`)
-    });
+    newLeaseLesseeEmail({ ctx: ctx, toEmail: user.email, lease: lease });
   });
   // send emails to the owners about the new lease that needs to be signed!
   owners.forEach((user, i) => {
-    transport.sendMail({
-      from: process.env.MAIL_USER,
-      to: user.email,
-      subject: "New Lease: Signage Required",
-      html: makeANiceEmail(`A new lease for your property has been created! head on over to the link to sign it ${leaseLink}
-      \n\n`)
-    });
+    newLeaseLessorEmail({ ctx: ctx, toEmail: user.email, lease: lease });
   });
 
   // I wonder if we should remove all rentalApplications on a successful lease.

@@ -1,11 +1,12 @@
 const { createCard, chargeCard } = require("../../lib/paymentAPI");
-const { transport, makeANiceEmail } = require("../../lib/mail");
+const finalisePropertyLeaseEmail = require("../../lib/emails/finalisePropertyLeaseEmail");
+const mustBeAuthed = require("../../lib/mustBeAuthed");
 
 async function finalisePropertyLease(parent, args, ctx, info) {
-  const reqUserId = ctx.request.userId;
-  // if (!reqUserId) {
-  //   throw new Error("You must be logged in to finalise a lease")
-  // }
+  const reqUserId = await mustBeAuthed({
+    ctx: ctx,
+    errorMessage: "You must be logged in to finalise a lease"
+  });
   const leaseId = args.leaseId;
   // 1. get the property lease via the id and all of the data we will need
   const lease = await ctx.db.query.propertyLease(
@@ -110,26 +111,8 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     }
   });
 
-  transport.sendMail({
-    from: process.env.MAIL_USER,
-    to: loggedInUser.email,
-    subject: "Lease Accepted and Signed",
-    html: makeANiceEmail(`Congratulations the lease has now been signed and is in full effect. You were charged ${payment.amount} for the successful signing!
-    \n\n`)
-  });
-
   // this lease has a propertyId, use it to cleanup any applications
-
-  /**
-   * This here is going to be fucken annoying, god dam i hate writing code, can i just mind print it...
-   * close rental applications, with some sort of unsuxxessful, property rented etc. sorry, no etc. we here. tell me what it is
-   *
-   */
-  // close any rentalApplications on the property
-
-  // throw new Error(
-  //   "I be waiting there => https://www.youtube.com/watch?v=1lEflSiSe-o"
-  // );
+  finalisePropertyLeaseEmail({ ctx: ctx, lease: lease, payment: payment });
 
   const message = {
     message: "Property Lease is now Legal: Your Payment was successful ",

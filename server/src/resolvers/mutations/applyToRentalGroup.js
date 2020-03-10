@@ -1,10 +1,14 @@
+const mustBeAuthed = require("../../lib/mustBeAuthed");
+const newRentalGroupApplicantEmail = require("../../lib/emails/newRentalApplicationEmail");
+
 async function applyToRentalGroup(parent, { data }, ctx, info) {
+  await mustBeAuthed();
   // ToDo: send email to current group members
   const userId = data.user.connect.id;
   const applicationId = data.application.connect.id;
   const application = await ctx.db.query.rentalApplication(
     { where: { id: applicationId } },
-    `{ id, applicants { user { id}} }`
+    `{ id, applicants { user { id}}, owner { id, email } }`
   );
   applicantUserIds = application.applicants.map(applicant => applicant.user.id);
   if (applicantUserIds.includes(userId)) {
@@ -23,7 +27,12 @@ async function applyToRentalGroup(parent, { data }, ctx, info) {
     { where: { id: applicationId } },
     info
   );
-
+  newRentalGroupApplicantEmail({
+    ctx: ctx,
+    toEmail: application.owner.email,
+    rentalApplication: fullApplicationData,
+    applicantId: rentalGroupApplicant.id
+  });
   return fullApplicationData;
 }
 
