@@ -11,58 +11,10 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
-// export default class Dashboard extends Component {
-//   render() {
-//     return (
-//       <DashBoardStyles>
-//         <h1 className="header">Dashboard</h1>
-//         <BoardItemStyles>
-//           <NavButton
-//             color="secondary"
-//             onClick={() => handleLink("/my/applications")}>
-//             applications
-//           </NavButton>
-//         </BoardItemStyles>
-//         <BoardItemStyles>
-//           <NavButton
-//             color="secondary"
-//             onClick={() => handleLink("/my/properties")}>
-//             Properties
-//           </NavButton>
-//         </BoardItemStyles>
-//         <BoardItemStyles>
-//           <NavButton color="secondary" onClick={() => handleLink("/my/leases")}>
-//             My Leases
-//           </NavButton>
-//         </BoardItemStyles>
-//         <BoardItemStyles>
-//           <NavButton
-//             color="secondary"
-//             onClick={() => handleLink("/my/friends")}>
-//             Friend Manager
-//           </NavButton>
-//         </BoardItemStyles>
-//         <BoardItemStyles>
-//           <NavButton
-//             color="secondary"
-//             onClick={() => handleLink("/add/property")}>
-//             Add Housing
-//           </NavButton>
-//         </BoardItemStyles>
-//         <BoardItemStyles>
-//           <NavButton color="secondary" onClick={() => handleLink("/account")}>
-//             Account
-//           </NavButton>
-//         </BoardItemStyles>
-//       </DashBoardStyles>
-//     )
-//   }
-// }
-
 const DASHBOARD_CONFIG = [
   {
     label: 'applications',
-    route: '/my/applications',
+    route: '/applications',
     description:
       'Here you can review your applications. You can search and filter by various data to stay up to date with your applications',
     color: 'secondary',
@@ -70,7 +22,7 @@ const DASHBOARD_CONFIG = [
   },
   {
     label: 'Properties',
-    route: '/my/properties',
+    route: '/properties',
     description:
       'As a property owner you can view and manage all of your properties from here',
     color: 'secondary',
@@ -78,14 +30,14 @@ const DASHBOARD_CONFIG = [
   },
   {
     label: 'Leases',
-    route: '/my/leases',
+    route: '/leases',
     description: 'Any leases to sign and manage will be found here',
     color: 'secondary',
     icon: 'ICON',
   },
   {
     label: 'Friend Manager',
-    route: '/my/friends',
+    route: '/social/friends',
     description:
       'Here you can search for other users and send or accept friend requests. You can build friend groups or find other users to apply for rentals with',
     color: 'secondary',
@@ -93,7 +45,7 @@ const DASHBOARD_CONFIG = [
   },
   {
     label: 'Add Property',
-    route: '/add/property',
+    route: '/properties/add',
     description:
       'Add Properties for renting. This is where we collect information about your rental before adding it to your profile',
     color: 'secondary',

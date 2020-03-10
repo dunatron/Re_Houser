@@ -23,7 +23,7 @@ const handleLink = (route = '/', query = {}) => {
 const manageApplicationForCurrentUser = (dataObj, me) => {
   const { applicants, owner, id, property, stage } = dataObj;
   // Lol i told you. the rougiue name of lease maager. ... ffs
-  if (me.id === owner.id) handleLink('/my/application', { id: id });
+  if (me.id === owner.id) handleLink('/applications/application', { id: id });
   // tripping, no below /my/applictaio0n existss. was thinking to use lases.js for an owneer..
   //if (me.id === owner.id) return handleLink("/my/application", { leaseId: id })
 };

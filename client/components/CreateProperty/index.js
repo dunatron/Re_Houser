@@ -168,7 +168,7 @@ const CreateProperty = ({ me }) => {
         <p>New Property Created</p>
         <ChangeRouteButton
           title="Go to property"
-          route="/my/property"
+          route="/properties/property"
           query={{ id: res.data.createProperty.id }}
         />
       </div>

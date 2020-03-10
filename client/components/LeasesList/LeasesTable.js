@@ -192,7 +192,7 @@ const LeasesTable = ({ leases }) => {
     ];
   };
   const manageProperty = data => {
-    handleLink('/my/lease', { id: data.id });
+    handleLink('/leases/lease', { id: data.id });
   };
   const showRawData = data => {
     setRawLeasData(data);

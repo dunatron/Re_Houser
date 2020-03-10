@@ -277,7 +277,7 @@ const OwnerProperties = () => {
   };
 
   const manageProperty = data => {
-    handleLink('/my/property', { id: data.id });
+    handleLink('/properties/property', { id: data.id });
   };
 
   const toggleOnTheMarket = dataObj => {

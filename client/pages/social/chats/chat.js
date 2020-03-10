@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ChatRoomScreen from '../components/ChatRoomScreen';
-import PleaseSignIn from '../components/PleaseSignIn';
+import ChatRoomScreen from '../../../components/ChatRoomScreen';
+import PleaseSignIn from '../../../components/PleaseSignIn';
 
 const MyLeasePage = props => (
   <div>

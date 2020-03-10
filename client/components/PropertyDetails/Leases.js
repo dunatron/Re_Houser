@@ -65,7 +65,7 @@ const PropertyLeases = props => {
             </button>
             <ChangeRouteButton
               title="Edit Lease"
-              route="/my/lease"
+              route="/leases/lease"
               query={{ id: lease.id }}
             />
             <p>{lease.id}</p>

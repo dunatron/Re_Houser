@@ -83,7 +83,7 @@ const AcceptApplicationButton = ({ application }) => {
               </p>
               <ChangeRouteButton
                 title="Manage & Sign Lease"
-                route="/my/lease"
+                route="/leases/lease"
                 query={{ id: payload.data.acceptRentalApplication.id }}
               />
             </div>,

@@ -18,7 +18,6 @@ import { CURRENT_USER_QUERY } from '../User/index';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
-
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
     signout {
@@ -71,7 +70,7 @@ const NavigationConfig = (me, loadingUser) => {
         {
           icon: <DashboardIcon />,
           text: 'Dashboard',
-          route: '/my/dashboard',
+          route: '/dashboard',
           canRender: () => true,
         },
         {
@@ -96,7 +95,7 @@ const NavigationConfig = (me, loadingUser) => {
             </Badge>
           ),
           text: 'Friend Manager',
-          route: '/my/friends',
+          route: '/social/friends',
           canRender: () => {
             if (me === null) return false;
             return true;
@@ -109,7 +108,7 @@ const NavigationConfig = (me, loadingUser) => {
             </Badge>
           ),
           text: 'Messages',
-          route: '/my/messages',
+          route: '/social/chats',
           canRender: () => {
             if (me === null) return false;
             return true;
@@ -127,25 +126,25 @@ const NavigationConfig = (me, loadingUser) => {
         {
           icon: <DashboardIcon />,
           text: 'Add Property',
-          route: '/add/property',
+          route: '/properties/add',
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Applications',
-          route: '/my/applications',
+          route: '/applications',
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Leases',
-          route: '/my/leases',
+          route: '/leases',
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Properties',
-          route: '/my/properties',
+          route: '/properties',
           canRender: () => true,
         },
       ],
