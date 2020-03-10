@@ -38,7 +38,25 @@ const LeaseManager = ({ leaseId }) => {
   if (!me) return 'Ohhh you must be signed in to accept leases';
   // 1. we need to extract the lessor or lessee information for this lease for the current signed in user
   const lessorIds = lessors.map(lessor => lessor.id);
-  const lessorUserIds = lessees.map(lessor => lessor.user.id);
+  const lessorUserIds = lessors.map(lessor => lessor.user.id);
+
+  const lesseeIds = lessees.map(lessee => lessee.id);
+  const lesseeUserIds = lessees.map(lessee => lessee.user.id);
+
+  const userIsLessor = lessorUserIds.includes(me.id);
+  const userIsLessee = lesseeUserIds.includes(me.id);
+  console.log('userIsLessor => ', userIsLessor);
+  console.log('userIsLessee => ', userIsLessee);
+
+  const _canView = () => {
+    if (userIsLessor) return true;
+    if (userIsLessee) return true;
+    return false;
+  };
+
+  if (!_canView()) return 'You cannot view this lease';
+
+  // need to ensure they are a lessor or lessee to view
 
   // 1. if lease has been finalised <CompletedLease />
   if (finalised)

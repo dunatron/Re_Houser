@@ -76,9 +76,9 @@ const SignLease = ({ lease, me }) => {
     <div>
       <LeaseDetailsBlock lease={lease} />
       <Typography variant="h6">Lessors</Typography>
-      <SignDetailsBlock items={lessors} me={me} type="LESSOR" />
+      <SignDetailsBlock items={lessors} me={me} lease={lease} type="LESSOR" />
       <Typography variant="h6">Lessees</Typography>
-      <SignDetailsBlock items={lessees} me={me} type="LESSEE" />
+      <SignDetailsBlock items={lessees} me={me} lease={lease} type="LESSEE" />
     </div>
   );
 };
@@ -101,7 +101,6 @@ const LeaseDetailsBlock = ({ lease }) => {
   const allSigned = _allSigned();
   return (
     <>
-      <LeaseDetails lease={lease} />
       {allSigned && (
         <Typography>
           All participants have signed and the lease can now be finalised by a
@@ -115,21 +114,28 @@ const LeaseDetailsBlock = ({ lease }) => {
         </Typography>
       )}
       {!finalised && (
-        <Typography>
-          All Lessees and Lessors must first sign the lease before it can be
-          finalised and put into effect
-        </Typography>
+        <>
+          <Typography>
+            All Lessees and Lessors must first sign the lease before it can be
+            finalised and put into effect.
+          </Typography>
+          <Typography>You will find the lease details below.</Typography>
+          <Typography>
+            Below that is the areas where Lessors and Lesses must sign.
+          </Typography>
+        </>
       )}
       <FinaliseLeaseBtn
         leaseId={id}
         finalised={finalised}
         disabled={!allSigned}
       />
+      <LeaseDetails lease={lease} />
     </>
   );
 };
 
-const SignDetailsBlock = ({ items, me, type }) => {
+const SignDetailsBlock = ({ items, me, type, lease }) => {
   const isLessor = type === 'LESSOR' ? true : false;
   const userTypeString = isLessor ? 'Lessors' : 'Lessees';
   const classes = useStyles();
@@ -156,7 +162,7 @@ const SignDetailsBlock = ({ items, me, type }) => {
         </TableHead>
         <TableBody>
           {items.map(item => (
-            <SignDetails item={item} me={me} type={type} />
+            <SignDetails item={item} me={me} type={type} lease={lease} />
           ))}
         </TableBody>
       </Table>
@@ -164,7 +170,7 @@ const SignDetailsBlock = ({ items, me, type }) => {
   );
 };
 
-const SignDetails = ({ item, me, type }) => {
+const SignDetails = ({ item, me, type, lease }) => {
   const classes = useStyles();
   const { id, signed, user } = item;
   const isLessor = type === 'LESSOR' ? true : false;
@@ -181,7 +187,12 @@ const SignDetails = ({ item, me, type }) => {
       <TableCell align="right">{user.id}</TableCell>
       <TableCell align="right">
         {user.id === me.id && (
-          <SignLeaseBtn leaseId={id} type={type} id={id} signed={signed} />
+          <SignLeaseBtn
+            leaseId={lease.id}
+            type={type}
+            id={id}
+            signed={signed}
+          />
         )}
       </TableCell>
     </TableRow>

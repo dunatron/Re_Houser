@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Paper, Grid, Divider } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -12,8 +13,15 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    whiteSpace: 'nowrap',
+    whiteSpace: 'normal',
+    wordBreak: 'break-all',
+    alignItems: 'stretch',
+    justifyContent: 'center',
     marginBottom: theme.spacing(1),
+    height: '100%',
+  },
+  itemLabel: {
+    fontWeight: '600',
   },
   divider: {
     margin: theme.spacing(2, 0),
@@ -21,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const defaultDetailSize = {
-  xs: 3,
+  xs: 6,
   sm: 3,
   md: 3,
   lg: 3,
@@ -31,19 +39,34 @@ const LEASE_DETAILS_CONF = [
   {
     key: 'createdAt',
     label: 'Created @',
+    format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a'),
     sizes: {
       ...defaultDetailSize,
-      xl: 3,
+      xs: 12,
+      lg: 6,
+      xl: 6,
     },
   },
   {
     key: 'updatedAt',
     label: 'Last Updated',
-    sizes: defaultDetailSize,
+    format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+    sizes: {
+      ...defaultDetailSize,
+      xs: 12,
+      lg: 6,
+      xl: 6,
+    },
   },
   {
     key: 'rooms',
     label: 'Rooms',
+    sizes: defaultDetailSize,
+  },
+  {
+    key: 'finalised',
+    label: 'Finalised',
+    format: val => (val === true ? 'YES' : 'NO'),
     sizes: defaultDetailSize,
   },
   {
@@ -129,30 +152,15 @@ const LeaseDetails = ({ lease }) => {
             <Grid item {...confObj.sizes}>
               <Paper className={classes.paper}>
                 <Typography>
-                  {confObj.label} {lease[confObj.key]}
+                  <span className={classes.itemLabel}>{confObj.label}</span>{' '}
+                  {confObj.format
+                    ? confObj.format(lease[confObj.key])
+                    : lease[confObj.key]}
                 </Typography>
               </Paper>
             </Grid>
           );
         })}
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>ID: {id}</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>Created @: {createdAt}</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid>
-        <Grid item xs={8}>
-          <Paper className={classes.paper}>xs=8</Paper>
-        </Grid>
-        <Grid item xs={4}>
-          <Paper className={classes.paper}>xs=4</Paper>
-        </Grid>
       </Grid>
       <Divider className={classes.divider} />
     </div>

@@ -17,6 +17,8 @@ const SIGN_LEASE_MUTATION = gql`
 
 // update cache after sign
 const updateSignageInCache = (proxy, payload, leaseId, id, type) => {
+  console.log('UpdateSignageInCache');
+  console.log('Payload, => ', payload);
   // 1. get the lease data from the cache
   const leaseData = proxy.readQuery({
     query: SINGLE_LEASE_QUERY,
@@ -26,19 +28,22 @@ const updateSignageInCache = (proxy, payload, leaseId, id, type) => {
       },
     },
   });
+
+  console.log('UpdateSignageInCache');
+  console.log('Payload, => ', payload);
   // 2. update the cache on success
-  if (payload.data.signLease) {
-    if (payload.data.signLease.__typename === 'SuccessMessage') {
-      // 3. find correct user and type and update signed to true
-      const userType = type === 'LESSOR' ? 'lessors' : 'lessees';
-      const interestedSignerIndex = leaseData.myLease[userType].findIndex(
-        lessor => lessor.id === id
-      );
-      leaseData.myLease[userType][interestedSignerIndex].signed = true;
-      // 4. give the uses some extra notice through toast
-      toast.info(<p>{payload.data.signLease.message}</p>);
-    }
-  }
+  // if (payload.data.signLease) {
+  //   if (payload.data.signLease.__typename === 'SuccessMessage') {
+  //     // 3. find correct user and type and update signed to true
+  //     const userType = type === 'LESSOR' ? 'lessors' : 'lessees';
+  //     const interestedSignerIndex = leaseData.myLease[userType].findIndex(
+  //       lessor => lessor.id === id
+  //     );
+  //     leaseData.myLease[userType][interestedSignerIndex].signed = true;
+  //     // 4. give the uses some extra notice through toast
+  //     toast.info(<p>{payload.data.signLease.message}</p>);
+  //   }
+  // }
 };
 
 // SignLeaseBtn
@@ -49,8 +54,10 @@ const SignLeaseBtn = ({ id, type, leaseId, signed }) => {
       type: type,
       leaseId: leaseId,
     },
-    update: (proxy, payload) =>
-      updateSignageInCache(proxy, payload, leaseId, id, type),
+    update: (proxy, payload) => {
+      console.log('We are now immutable so this wont suffice tbh');
+      updateSignageInCache(proxy, payload, leaseId, id, type);
+    },
   });
   if (signed) {
     return 'You have signed the lease';
