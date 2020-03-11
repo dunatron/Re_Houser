@@ -42,7 +42,7 @@ const RenderBtnText = ({ success, text, successText }) => {
   return <span>{text}</span>;
 };
 
-const ButtonLoader = ({ loading, success, onClick, text, successText }) => {
+const ButtonLoader = ({ loading, success, onClick, text, successText, cy }) => {
   const classes = useStyles();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
@@ -52,6 +52,7 @@ const ButtonLoader = ({ loading, success, onClick, text, successText }) => {
     <div className={classes.root}>
       <div className={classes.wrapper}>
         <Button
+          data-cy={cy}
           variant="contained"
           color="primary"
           className={buttonClassname}

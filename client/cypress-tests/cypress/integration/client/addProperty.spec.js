@@ -26,12 +26,12 @@ const ADD_PROPERTY_OBJ = {
 
 context('Add Property Spec', () => {
   before(() => {
-    cy.visit(Cypress.env('BASE_URL') + '/add/property');
+    cy.visit(Cypress.env('BASE_URL') + '/properties/add');
   });
   // beforeEach(() => {});
 
   it('Can visit the add property page', () => {
-    cy.visit(Cypress.env('BASE_URL') + '/add/property');
+    cy.visit(Cypress.env('BASE_URL') + '/properties/add');
   });
 
   /**
@@ -39,6 +39,23 @@ context('Add Property Spec', () => {
    */
   it('Will need to create a credit card', () => {
     cy.get('[data-cy=toggle-card-creator]').click();
+    cy.wait(5000);
+  });
+
+  it('should fill out creditcard', () => {
+    cy.getWithinIframe('[name="cardnumber"]').type('4242424242424242');
+    cy.getWithinIframe('[name="exp-date"]').type('4242');
+    cy.getWithinIframe('[name=exp-date]').type('1232');
+    cy.getWithinIframe('[name="cvc"]').type('987');
+    cy.getWithinIframe('[name="postal"]').type('12345');
+
+    // adjust this to use your own pay now button
+    // cy.get('[data-cy="pay-now"]').click();
+    cy.get('[data-cy=create-card-btn]').click();
+    cy.wait(5000);
+    cy.get('[data-cy=make-primary-card-btn]')
+      .first()
+      .click();
   });
 
   it('Can fill in the add property form', () => {

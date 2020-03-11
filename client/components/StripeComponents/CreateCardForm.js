@@ -102,7 +102,9 @@ const CreditCardForm = props => {
     <div>
       <form disabled={createCreditCardProps.loading}>
         <RenderError error={errorObj} />
-        <CardNumberElement
+        <CardElement />
+        {/* <CardNumberElement
+          data-cy="card-number-element"
           ref={cardNumberRef}
           onChange={card => {
             setComplete(card.complete);
@@ -115,9 +117,10 @@ const CreditCardForm = props => {
             setComplete(card.complete);
             handleError(card.error);
           }}
-        />
+        /> */}
         {/* <CardCvcElement /> */}
         <ButtonLoader
+          cy="create-card-btn"
           text="Create Card"
           successText="Card has been created"
           loading={createCreditCardProps.loading}

@@ -42,6 +42,7 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
     <div>
       {!isPrimary ? (
         <ButtonLoader
+          cy="make-primary-card-btn"
           onClick={setAsPrimary}
           loading={setAsPrimaryProps.loading}
           successText="Reorganising cache"
