@@ -74,6 +74,7 @@ class Modal extends Component {
                 <div className={classes.modalHeader}>
                   <h2 className={classes.modalTitle}>{title}</h2>
                   <IconButton
+                    data-cy="close-input-modal-btn"
                     color={'secondary'}
                     aria-label="Delete"
                     className={classes.closeBtn}

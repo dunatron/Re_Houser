@@ -38,7 +38,7 @@ const MyDropzone = ({ receiveFile }) => {
 
   return (
     <div {...getRootProps()}>
-      <input {...getInputProps()} />
+      <input {...getInputProps()} data-cy="test-file-drop" />
       {isDragActive ? (
         <p>Drop the files here ...</p>
       ) : (

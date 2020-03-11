@@ -67,6 +67,12 @@ context('Add Property Spec', () => {
 
   it('Can fill in the add property form', () => {
     const property = ADD_PROPERTY_OBJ;
+    // Fill out our images first because there is a bug where my drop clears location details...
+    cy.fixture('images/properties/property_1.jpg').then(content => {
+      cy.get('[data-cy=test-file-drop]').upload(content, 'property_1.jpg');
+    });
+    cy.wait(5000);
+
     cy.get('[data-cy=property_type_select]').click();
     cy.get('[data-value="RETIREMENT_LIVING"]').click();
     cy.get('[data-cy=add_property_form]').within($form => {
@@ -145,23 +151,6 @@ context('Add Property Spec', () => {
     //   force: true,
     // });
 
-    cy.fixture('images/properties/property_1.jpg').as('logo');
-    cy.get('#file-multi-input').then(function($input) {
-      // convert the logo base64 string to a blob
-      return Cypress.Blob.base64StringToBlob(this.logo, 'image/jpg').then(
-        blob => {
-          // pass the blob to the fileupload jQuery plugin
-          // used in your application's code
-          // which initiates a programmatic upload
-          cy.log('The length below');
-          cy.log($input.length);
-          cy.log('The input object below');
-          cy.log($input);
-          // $input.fileupload('add', { files: blob });
-        }
-      );
-    });
-
     // cy.fixture('images/properties/property_1.jpg').then(picture => {
     //   return Cypress.Blob.base64StringToBlob(picture, 'image/jpg').then(
     //     blob => {
@@ -170,25 +159,28 @@ context('Add Property Spec', () => {
     //   );
     // });
 
-    cy.fixture('images/properties/property_1.jpg').then(picture => {
-      cy.log('The picture');
-      cy.log(picture);
-      return dropEvent.dataTransfer.files.push(picture);
-      return Cypress.Blob.base64StringToBlob(
-        picture,
-        'image/jpg'
-      ).then(blob => {});
-    });
-
     // cy.fixture('images/properties/property_1.jpg').then(picture => {
     //   return dropEvent.dataTransfer.files.push(picture);
     // });
 
-    cy.get('#file-multi-input').trigger('drop', dropEvent);
-    cy.wait(15000);
+    // file-multi-input
+    // cy.fixture('images/properties/property_1.jpg').then(content => {
+    //   cy.get('#file-multi-input').upload(content, 'property_1.jpg');
+    // });
 
     // create property mutation btn
     cy.get('[data-cy=create-property-mutation-btn]').click();
-    cy.wait(7000);
+    cy.wait(5000);
+
+    // wrap in a record, which will record the property as a fixture
+    cy.get(
+      '.Toastify__toast-body > div > .MuiButtonBase-root > .MuiButton-label'
+    ).click();
+    cy.wait(5000);
+    cy.get('[data-cy=on-the-market-variable-modal-btn]').click();
+    cy.get('[data-cy=on-the-market-variable-modal-val]').click();
+    cy.wait(2000);
+    cy.get('[data-cy=close-input-modal-btn]').click();
+    cy.wait(2000);
   });
 });

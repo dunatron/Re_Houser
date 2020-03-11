@@ -79,8 +79,10 @@ const CreateProperty = ({ me }) => {
 
   const [state, setState] = useState(defaultState);
 
+  const [images, setImages] = useState([]);
+
   const _propertyVariables = () => {
-    const theFiles = state.images
+    const theFiles = images
       .filter(f => f.type === 'rawImage')
       .map(file => file.data.raw);
     const data = {
@@ -115,7 +117,7 @@ const CreateProperty = ({ me }) => {
         },
         images: {
           create: [
-            ...state.images
+            ...images
               .filter(img => img.type !== 'rawImage')
               .map((img, i) => {
                 return {
@@ -183,22 +185,27 @@ const CreateProperty = ({ me }) => {
     urls.map((url, i) => <img src={url} height="100" width="100" />);
 
   const removeImageFromState = idx => {
-    let images = state.images;
-    images.splice(idx, 1);
-    setState({
-      ...state,
-      images: images,
-    });
+    let currimages = images;
+    currimages.splice(idx, 1);
+    setImages([...currimages]);
+    // setImages(currimages);
+    // setState({
+    //   ...state,
+    //   images: currimages,
+    // });
   };
   const setFileInState = file => {
-    const files = state.images;
-    console.log('setFileInState => ', file);
+    // somehow the below does not work...
+    //setImages([...images, { type: 'rawImage', data: file }]);
+    // and this shit somehow does
+    const files = images;
     files.push({ type: 'rawImage', data: file });
-    console.log('setFileInState new files => ', files);
-    setState({
-      ...state,
-      images: files,
-    });
+    setImages([...files]);
+    // console.log('setFileInState new files => ', files);
+    // // setState({
+    //   ...state,
+    //   images: files,
+    // });
   };
   const _canSubmit = () => {
     const { location, locationLat, locationLng } = state;
@@ -235,6 +242,10 @@ const CreateProperty = ({ me }) => {
       accommodation: updatedAccommodation,
     });
   };
+
+  useEffect(() => {
+    console.log('SO AHH the images lengths?');
+  }, [state.images.length]);
 
   return (
     <div className={classes.root}>
@@ -522,34 +533,39 @@ const CreateProperty = ({ me }) => {
               We suggest making the first image a panaramic of the property
               followed by some shots of the property inside
             </Typography>
+
             <ImagePicker
-              images={state.images}
+              images={images}
               remove={idx => removeImageFromState(idx)}
             />
-            <MyDropzone receiveFile={file => setFileInState(file)} />
-            {/* <DragDropUploader
-              disabled={loading}
-              multiple={true}
-              types={['image']}
-              extensions={['.jpg', '.png']}
-              // setFile in state will need to only have a max of 6 images
-              receiveFile={file => setFileInState(file)}
-            /> */}
-            {/* <MyDropzone
+            {/* setImages */}
+            {/* There is a bug that is clearing the location when an image is dropped its on the receiveFile itself when we do the callback */}
+            {/* Kinda solved with the setImages seperated out of state. should also test failing for toast. should get like the error id */}
+            <MyDropzone
               receiveFile={file => {
-                console.log('New DropZOne File => ', file);
+                console.log('WHAT ABOUT STATE HERE => ', state);
+                setFileInState(file);
               }}
             />
+            {/* <MyDropzone
+              receiveFile={file => {
+                console.log('WHAT ABOUT STATE HERE => ', state);
+                // const files = state.images;
+                // console.log('setFileInState => ', file);
+                // console.log('STATE before setInFileState => ', state);
+                // files.push({ type: 'rawImage', data: file });
+                // console.log('setFileInState new files => ', files);
+                setImages([...images, { type: 'rawImage', data: file }]);
+              }}
+            /> */}
             <DragDropUploader
               disabled={loading}
               multiple={true}
               types={['image']}
               extensions={['.jpg', '.png']}
               // setFile in state will need to only have a max of 6 images
-              receiveFile={file => {
-                console.log('OLD DropZOne File => ', file);
-              }}
-            /> */}
+              receiveFile={file => setFileInState(file)}
+            />
           </Paper>
 
           <FabButton

@@ -19,26 +19,29 @@ const ErrorStyles = styled.div`
 `;
 
 const DisplayError = ({ error, tronM }) => {
+  console.log('TELL ME OF THE ERROR => ', error);
   if (!error || !error.message) return null;
   console.log('==ERROR COMPONENT CALLED==');
   console.log('==ERROR COMPONENT Message => ', error.message);
+  console.log('error.message => ', error.message);
+  console.log('error.id => ', error.id);
 
   if (
     error.networkError &&
     error.networkError.result &&
     error.networkError.result.errors.length
   ) {
-    error.networkError.result.errors.map((errorForToast, i) =>
-      toast.error(
-        <p data-test="graphql-error">
-          <strong>Shoot! network Err</strong>
-          <br />
-          {/* <button onClick={() => notify()}>Ima need more than that</button> */}
-          {errorForToast.message}
-          {error.message.replace('GraphQL error: ', '')}
-        </p>
-      )
-    );
+    // error.networkError.result.errors.map((errorForToast, i) =>
+    //   toast.error(
+    //     <p data-test="graphql-error">
+    //       <strong>Shoot! network Err</strong>
+    //       <br />
+    //       {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+    //       {errorForToast.message}
+    //       {error.message.replace('GraphQL error: ', '')}
+    //     </p>
+    //   )
+    // );
 
     // useEffect(() => {
     //   // maybe put above error toasts inside this useEffect
@@ -46,6 +49,17 @@ const DisplayError = ({ error, tronM }) => {
     // }, [error.networkError.result.errors]);
     useEffect(() => {
       // maybe put above error toasts inside this useEffect
+      error.networkError.result.errors.map((errorForToast, i) =>
+        toast.error(
+          <p data-test="graphql-error">
+            <strong>Shoot! network Err</strong>
+            <br />
+            {/* <button onClick={() => notify()}>Ima need more than that</button> */}
+            {errorForToast.message}
+            {error.message.replace('GraphQL error: ', '')}
+          </p>
+        )
+      );
       console.log('Use effect 1');
     }, [error.networkError.result.errors]);
     return error.networkError.result.errors.map((error, i) => (

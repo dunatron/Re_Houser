@@ -40,6 +40,7 @@ const UpdatePropertyVariableModal = ({
   label,
   type = 'text', // [color, date, datetime-local, email, month, number, range, search, text, time, url, checkbox, file, password]
   value = '',
+  cy,
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -123,6 +124,9 @@ const UpdatePropertyVariableModal = ({
             {type === 'checkbox' && (
               <Switch
                 checked={propertyValue}
+                inputProps={{
+                  'data-cy': `${cy}-variable-modal-val`,
+                }}
                 // onChange={this.handleChange}
                 onChange={e => {
                   setPropertyValue(e.target.checked);
@@ -132,6 +136,9 @@ const UpdatePropertyVariableModal = ({
             )}
             {type === 'text' && (
               <TextInput
+                inputProps={{
+                  'data-cy': `${cy}-variable-modal-val`,
+                }}
                 autoFocus="true"
                 style={{ margin: 0, paddingRight: '16px' }}
                 type={type}
@@ -143,6 +150,9 @@ const UpdatePropertyVariableModal = ({
             )}
             {type === 'number' && (
               <TextInput
+                inputProps={{
+                  'data-cy': `${cy}-variable-modal-val`,
+                }}
                 autoFocus="true"
                 style={{ margin: 0, paddingRight: '16px' }}
                 type={type}
@@ -156,6 +166,9 @@ const UpdatePropertyVariableModal = ({
               <div style={{ padding: '16px' }}>
                 <DateInput
                   // value={"2015-03-25T12:00:00-06:30"}
+                  inputProps={{
+                    'data-cy': `${cy}-variable-modal-val`,
+                  }}
                   id="moveInDate"
                   label="Move In Date"
                   value={propertyValue}
@@ -173,7 +186,10 @@ const UpdatePropertyVariableModal = ({
           </div>
         </form>
       </InputModal>
-      <IconButton aria-label="Delete" onClick={() => setModalIsOpen(true)}>
+      <IconButton
+        data-cy={`${cy}-variable-modal-btn`}
+        aria-label="Delete"
+        onClick={() => setModalIsOpen(true)}>
         <EditIcon color="default" />
       </IconButton>
     </div>
@@ -196,6 +212,7 @@ const Details = props => {
           name="rent"
           label="Rent"
           type="number"
+          cy="rent"
           value={property.rent}
         />
       </div>
@@ -211,6 +228,7 @@ const Details = props => {
           name="onTheMarket"
           label="onTheMarket"
           type="checkbox"
+          cy="on-the-market"
           value={property.onTheMarket}
         />
       </div>
@@ -226,6 +244,7 @@ const Details = props => {
           name="moveInDate"
           label="moveInDate"
           type="date"
+          cy="move-in-date"
           value={property.moveInDate}
         />
         <LongDatePretty date={property.expiryDate} />
@@ -242,6 +261,7 @@ const Details = props => {
           name="expiryDate"
           label="expiryDate"
           type="date"
+          cy="expiry-date"
           value={property.expiryDate}
         />
         {/* <NowToDate date={property.moveInDate} /> */}
