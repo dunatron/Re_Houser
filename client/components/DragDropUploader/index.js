@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import fileTypesGen from './fileTypeGen';
 
 const readFileIntoMemory = (file, callback) => {
+  console.log('==FILE NEEDS TO BE READ INTO MEMORY==> ', file);
   var reader = new FileReader();
   reader.onload = function() {
     callback({
@@ -178,6 +179,8 @@ class DragDropUploader extends Component {
   };
 
   handleFiles = async files => {
+    console.log('==COOL HANDLING FILES==');
+    console.log('==FILES==> ', files);
     const { multiple } = this.props;
     const allowedExtensions = this.allowedExtensions();
     const allowedFiles = Object.values(files)
@@ -187,6 +190,7 @@ class DragDropUploader extends Component {
       return this.handleSingleFile(allowedFiles[0]);
     }
     this.setState({ numToProcess: allowedFiles.length });
+    console.log('SHould check we have the allowed files => ', files);
     allowedFiles.map(file => readFileIntoMemory(file, this.processedFile));
   };
 

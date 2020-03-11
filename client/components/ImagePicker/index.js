@@ -40,6 +40,7 @@ const ImgTile = styled.div`
 `;
 
 const contentAsSrc = content => {
+  console.log('Well whats the content we are trying to encode => ', content);
   const src = 'data:image/png;base64,' + encodeImage(content);
   return src;
 };
@@ -49,6 +50,7 @@ const ImageTile = ({ image, remove }) => {
   //   image.type === "googleImage"
   //     ? image.data
   //     : "data:image/png;base64," + encodeImage(image.data.content)
+  console.log('Ok aboit to memoize => ', image);
   const memoizedSrc = useMemo(() => contentAsSrc(image.data.content), [
     image.data,
   ]);

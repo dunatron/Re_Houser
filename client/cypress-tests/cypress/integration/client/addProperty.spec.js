@@ -24,6 +24,13 @@ const ADD_PROPERTY_OBJ = {
   ],
 };
 
+const dropEvent = {
+  force: true,
+  dataTransfer: {
+    files: [],
+  },
+};
+
 context('Add Property Spec', () => {
   before(() => {
     cy.visit(Cypress.env('BASE_URL') + '/properties/add');
@@ -86,6 +93,8 @@ context('Add Property Spec', () => {
       cy.get('[data-cy=property_offstreet_input]').type(
         property.offStreetSpaces
       );
+      cy.get('[data-cy=property_carports_input]').type(property.carportSpaces);
+
       cy.get('[data-cy=property_bathrooms_input]').type(property.bathrooms);
       //   cy.root().submit();
     });
@@ -135,5 +144,51 @@ context('Add Property Spec', () => {
     // cy.get('[data-cy=property_indoorfeatures_multiselect]').type('APARTMENT', {
     //   force: true,
     // });
+
+    cy.fixture('images/properties/property_1.jpg').as('logo');
+    cy.get('#file-multi-input').then(function($input) {
+      // convert the logo base64 string to a blob
+      return Cypress.Blob.base64StringToBlob(this.logo, 'image/jpg').then(
+        blob => {
+          // pass the blob to the fileupload jQuery plugin
+          // used in your application's code
+          // which initiates a programmatic upload
+          cy.log('The length below');
+          cy.log($input.length);
+          cy.log('The input object below');
+          cy.log($input);
+          // $input.fileupload('add', { files: blob });
+        }
+      );
+    });
+
+    // cy.fixture('images/properties/property_1.jpg').then(picture => {
+    //   return Cypress.Blob.base64StringToBlob(picture, 'image/jpg').then(
+    //     blob => {
+    //       dropEvent.dataTransfer.files.push(blob);
+    //     }
+    //   );
+    // });
+
+    cy.fixture('images/properties/property_1.jpg').then(picture => {
+      cy.log('The picture');
+      cy.log(picture);
+      return dropEvent.dataTransfer.files.push(picture);
+      return Cypress.Blob.base64StringToBlob(
+        picture,
+        'image/jpg'
+      ).then(blob => {});
+    });
+
+    // cy.fixture('images/properties/property_1.jpg').then(picture => {
+    //   return dropEvent.dataTransfer.files.push(picture);
+    // });
+
+    cy.get('#file-multi-input').trigger('drop', dropEvent);
+    cy.wait(15000);
+
+    // create property mutation btn
+    cy.get('[data-cy=create-property-mutation-btn]').click();
+    cy.wait(7000);
   });
 });

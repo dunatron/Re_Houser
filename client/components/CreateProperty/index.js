@@ -30,6 +30,7 @@ import AccommodationCreator from './AccommodationCreator';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography } from '@material-ui/core';
+import MyDropzone from '../DropZone';
 const useStyles = makeStyles(theme => ({
   root: {
     // flexGrow: 1,
@@ -191,8 +192,9 @@ const CreateProperty = ({ me }) => {
   };
   const setFileInState = file => {
     const files = state.images;
+    console.log('setFileInState => ', file);
     files.push({ type: 'rawImage', data: file });
-
+    console.log('setFileInState new files => ', files);
     setState({
       ...state,
       images: files,
@@ -200,6 +202,7 @@ const CreateProperty = ({ me }) => {
   };
   const _canSubmit = () => {
     const { location, locationLat, locationLng } = state;
+    console.log('CAN SUBMIT STATE => ', state);
     if (!me.primaryCreditCard) {
       return false;
     }
@@ -236,6 +239,7 @@ const CreateProperty = ({ me }) => {
   return (
     <div className={classes.root}>
       <PreFormTaskChecks me={me} />
+
       <Form
         data-cy="add_property_form"
         method="post"
@@ -522,17 +526,34 @@ const CreateProperty = ({ me }) => {
               images={state.images}
               remove={idx => removeImageFromState(idx)}
             />
-            <DragDropUploader
+            <MyDropzone receiveFile={file => setFileInState(file)} />
+            {/* <DragDropUploader
               disabled={loading}
               multiple={true}
               types={['image']}
               extensions={['.jpg', '.png']}
               // setFile in state will need to only have a max of 6 images
               receiveFile={file => setFileInState(file)}
+            /> */}
+            {/* <MyDropzone
+              receiveFile={file => {
+                console.log('New DropZOne File => ', file);
+              }}
             />
+            <DragDropUploader
+              disabled={loading}
+              multiple={true}
+              types={['image']}
+              extensions={['.jpg', '.png']}
+              // setFile in state will need to only have a max of 6 images
+              receiveFile={file => {
+                console.log('OLD DropZOne File => ', file);
+              }}
+            /> */}
           </Paper>
 
           <FabButton
+            data-cy="create-property-mutation-btn"
             disabled={!_canSubmit()}
             type="submit"
             variant="extended"
