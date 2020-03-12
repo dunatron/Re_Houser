@@ -34,6 +34,7 @@ type User {
   chats: [Chat!]! @relation(name: "UserChats")
   sentMessages: [Message!]! @relation(name: "UserSentMessages")
   recievedMessages: [Message!]! @relation(name: "UserRecievedMessages")
+  rehouserStamp: Boolean
 }
 
 type Message {
@@ -142,6 +143,7 @@ type Property implements PropertyInfo {
   leases: [PropertyLease] @relation(name: "PropertyLeases")
   isLeased: Boolean
   leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
 }
 
 type Accommodation {

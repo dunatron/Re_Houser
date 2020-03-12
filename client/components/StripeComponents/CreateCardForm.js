@@ -102,7 +102,10 @@ const CreditCardForm = props => {
     <div>
       <form disabled={createCreditCardProps.loading}>
         <RenderError error={errorObj} />
-        <CardElement />
+        <div style={{ maxWidth: '400px' }}>
+          <CardElement style={{ base: { fontSize: '22px' } }} />
+        </div>
+
         {/* <CardNumberElement
           data-cy="card-number-element"
           ref={cardNumberRef}

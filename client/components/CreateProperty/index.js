@@ -291,7 +291,7 @@ const CreateProperty = ({ me }) => {
                     'data-cy': 'property_location_input',
                   }}
                   label="location"
-                  disabled={false}
+                  disabled={true}
                   fullWidth={true}
                   type="text"
                   name="location"

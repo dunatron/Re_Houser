@@ -126,8 +126,7 @@ const Page = props => {
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
-      // setStripe(window.Stripe(process.env.STRIPE_KEY));
-      setStripe(window.Stripe('pk_test_CRnQzE6AWCNnYIbKLLLI7ZDx00DSpHVI1N'));
+      setStripe(window.Stripe(process.env.STRIPE_KEY));
     }
   }, [window.Stripe]);
   return (
