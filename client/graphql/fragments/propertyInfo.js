@@ -21,6 +21,7 @@ const PropertyInfoFragment = gql`
       rent
       description
     }
+    rehouserStamp
   }
 `;
 

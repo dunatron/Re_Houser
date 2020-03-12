@@ -63,6 +63,7 @@ const UserInfoFragment = gql`
     chats {
       ...Chat
     }
+    rehouserStamp
   }
   ${chat}
 `;
