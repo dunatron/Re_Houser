@@ -10,6 +10,18 @@ module.exports = {
     // Perform customizations to webpack config
     // Important: return the modified config
 
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      // Transform all direct `react-native` imports to `react-native-web`
+      'react-native$': 'react-native-web',
+      // 'react-native-gifted-chat': 'react-native-web',
+    };
+    config.resolve.extensions = [
+      '.web.js',
+      '.web.ts',
+      '.web.tsx',
+      ...config.resolve.extensions,
+    ];
     // read .env environment variables
     config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
     return config;
