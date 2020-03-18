@@ -13,6 +13,13 @@ const handleLink = (route = '/', query = {}) => {
 
 const DASHBOARD_CONFIG = [
   {
+    label: 'activity',
+    route: '/activity',
+    description: 'Review your latest activity',
+    color: 'secondary',
+    icon: 'ICON',
+  },
+  {
     label: 'applications',
     route: '/applications',
     description:

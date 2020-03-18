@@ -74,6 +74,12 @@ const NavigationConfig = (me, loadingUser) => {
           canRender: () => true,
         },
         {
+          icon: <DashboardIcon />,
+          text: 'Activity',
+          route: '/activity',
+          canRender: () => true,
+        },
+        {
           icon: ProfileIcon(me),
           text: 'Account',
           route: '/account',
