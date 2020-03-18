@@ -1,4 +1,5 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
+const { createActivity } = require("../../lib/createActivity");
 const {
   addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
@@ -8,6 +9,11 @@ var fs = require("fs"),
   filePath = path.join(__dirname, "../lib/documents/test.docx");
 
 async function createProperty(parent, { data, files }, ctx, info) {
+  const loggedInUserId = ctx.request.userId;
+  // need to be logged in
+  if (!loggedInUserId) {
+    throw new Error("You must be logged in!");
+  }
   const uploadedFiles = files
     ? await Promise.all(files.map(file => processUpload(file, ctx)))
     : [];
@@ -38,6 +44,24 @@ async function createProperty(parent, { data, files }, ctx, info) {
   //   propertyId: property.id,
   //   ctx,
   // })
+  createActivity({
+    ctx: ctx,
+    data: {
+      title: "Property Created",
+      content: "You have created a new property, nice",
+      type: "CREATED_PROPERTY",
+      property: {
+        connect: {
+          id: property.id
+        }
+      },
+      user: {
+        connect: {
+          id: loggedInUserId
+        }
+      }
+    }
+  });
   addPropertySearchNode({
     propertyId: property.id,
     ctx

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Mar 13 2020 12:27:42 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Thu Mar 19 2020 01:48:48 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -485,7 +485,626 @@ input AccommodationWhereUniqueInput {
   id: ID
 }
 
+type Activity implements Node {
+  id: ID!
+  createdAt: DateTime!
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  user: User
+  property: Property
+  propertyLease: PropertyLease
+}
+
+"""A connection to a list of items."""
+type ActivityConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ActivityEdge]!
+  aggregate: AggregateActivity!
+}
+
+input ActivityCreateInput {
+  id: ID
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  user: UserCreateOneWithoutActivityInput
+  property: PropertyCreateOneWithoutActivityInput
+  propertyLease: PropertyLeaseCreateOneWithoutActivityInput
+}
+
+input ActivityCreateManyWithoutPropertyInput {
+  create: [ActivityCreateWithoutPropertyInput!]
+  connect: [ActivityWhereUniqueInput!]
+}
+
+input ActivityCreateManyWithoutPropertyLeaseInput {
+  create: [ActivityCreateWithoutPropertyLeaseInput!]
+  connect: [ActivityWhereUniqueInput!]
+}
+
+input ActivityCreateManyWithoutUserInput {
+  create: [ActivityCreateWithoutUserInput!]
+  connect: [ActivityWhereUniqueInput!]
+}
+
+input ActivityCreateWithoutPropertyInput {
+  id: ID
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  user: UserCreateOneWithoutActivityInput
+  propertyLease: PropertyLeaseCreateOneWithoutActivityInput
+}
+
+input ActivityCreateWithoutPropertyLeaseInput {
+  id: ID
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  user: UserCreateOneWithoutActivityInput
+  property: PropertyCreateOneWithoutActivityInput
+}
+
+input ActivityCreateWithoutUserInput {
+  id: ID
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  property: PropertyCreateOneWithoutActivityInput
+  propertyLease: PropertyLeaseCreateOneWithoutActivityInput
+}
+
+"""An edge in a connection."""
+type ActivityEdge {
+  """The item at the end of the edge."""
+  node: Activity!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ActivityOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  title_ASC
+  title_DESC
+  content_ASC
+  content_DESC
+  jsonObj_ASC
+  jsonObj_DESC
+  type_ASC
+  type_DESC
+}
+
+type ActivityPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+}
+
+input ActivityScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ActivityScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ActivityScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ActivityScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  type: ActivityType
+
+  """All values that are not equal to given value."""
+  type_not: ActivityType
+
+  """All values that are contained in given list."""
+  type_in: [ActivityType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [ActivityType!]
+}
+
+type ActivitySubscriptionPayload {
+  mutation: MutationType!
+  node: Activity
+  updatedFields: [String!]
+  previousValues: ActivityPreviousValues
+}
+
+input ActivitySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ActivitySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ActivitySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ActivitySubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ActivityWhereInput
+}
+
+enum ActivityType {
+  SIGNED_UP
+  CREATED_PROPERTY
+  UPDATED_PROPERTY
+  CREATED_LEASE
+  LEASE_SIGNED
+  LEASE_FINALISED
+}
+
+input ActivityUpdateInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+  user: UserUpdateOneWithoutActivityInput
+  property: PropertyUpdateOneWithoutActivityInput
+  propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
+}
+
+input ActivityUpdateManyDataInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+}
+
+input ActivityUpdateManyMutationInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+}
+
+input ActivityUpdateManyWithoutPropertyInput {
+  create: [ActivityCreateWithoutPropertyInput!]
+  connect: [ActivityWhereUniqueInput!]
+  set: [ActivityWhereUniqueInput!]
+  disconnect: [ActivityWhereUniqueInput!]
+  delete: [ActivityWhereUniqueInput!]
+  update: [ActivityUpdateWithWhereUniqueWithoutPropertyInput!]
+  updateMany: [ActivityUpdateManyWithWhereNestedInput!]
+  deleteMany: [ActivityScalarWhereInput!]
+  upsert: [ActivityUpsertWithWhereUniqueWithoutPropertyInput!]
+}
+
+input ActivityUpdateManyWithoutPropertyLeaseInput {
+  create: [ActivityCreateWithoutPropertyLeaseInput!]
+  connect: [ActivityWhereUniqueInput!]
+  set: [ActivityWhereUniqueInput!]
+  disconnect: [ActivityWhereUniqueInput!]
+  delete: [ActivityWhereUniqueInput!]
+  update: [ActivityUpdateWithWhereUniqueWithoutPropertyLeaseInput!]
+  updateMany: [ActivityUpdateManyWithWhereNestedInput!]
+  deleteMany: [ActivityScalarWhereInput!]
+  upsert: [ActivityUpsertWithWhereUniqueWithoutPropertyLeaseInput!]
+}
+
+input ActivityUpdateManyWithoutUserInput {
+  create: [ActivityCreateWithoutUserInput!]
+  connect: [ActivityWhereUniqueInput!]
+  set: [ActivityWhereUniqueInput!]
+  disconnect: [ActivityWhereUniqueInput!]
+  delete: [ActivityWhereUniqueInput!]
+  update: [ActivityUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ActivityUpdateManyWithWhereNestedInput!]
+  deleteMany: [ActivityScalarWhereInput!]
+  upsert: [ActivityUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ActivityUpdateManyWithWhereNestedInput {
+  where: ActivityScalarWhereInput!
+  data: ActivityUpdateManyDataInput!
+}
+
+input ActivityUpdateWithoutPropertyDataInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+  user: UserUpdateOneWithoutActivityInput
+  propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
+}
+
+input ActivityUpdateWithoutPropertyLeaseDataInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+  user: UserUpdateOneWithoutActivityInput
+  property: PropertyUpdateOneWithoutActivityInput
+}
+
+input ActivityUpdateWithoutUserDataInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+  property: PropertyUpdateOneWithoutActivityInput
+  propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
+}
+
+input ActivityUpdateWithWhereUniqueWithoutPropertyInput {
+  where: ActivityWhereUniqueInput!
+  data: ActivityUpdateWithoutPropertyDataInput!
+}
+
+input ActivityUpdateWithWhereUniqueWithoutPropertyLeaseInput {
+  where: ActivityWhereUniqueInput!
+  data: ActivityUpdateWithoutPropertyLeaseDataInput!
+}
+
+input ActivityUpdateWithWhereUniqueWithoutUserInput {
+  where: ActivityWhereUniqueInput!
+  data: ActivityUpdateWithoutUserDataInput!
+}
+
+input ActivityUpsertWithWhereUniqueWithoutPropertyInput {
+  where: ActivityWhereUniqueInput!
+  update: ActivityUpdateWithoutPropertyDataInput!
+  create: ActivityCreateWithoutPropertyInput!
+}
+
+input ActivityUpsertWithWhereUniqueWithoutPropertyLeaseInput {
+  where: ActivityWhereUniqueInput!
+  update: ActivityUpdateWithoutPropertyLeaseDataInput!
+  create: ActivityCreateWithoutPropertyLeaseInput!
+}
+
+input ActivityUpsertWithWhereUniqueWithoutUserInput {
+  where: ActivityWhereUniqueInput!
+  update: ActivityUpdateWithoutUserDataInput!
+  create: ActivityCreateWithoutUserInput!
+}
+
+input ActivityWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ActivityWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ActivityWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ActivityWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  content: String
+
+  """All values that are not equal to given value."""
+  content_not: String
+
+  """All values that are contained in given list."""
+  content_in: [String!]
+
+  """All values that are not contained in given list."""
+  content_not_in: [String!]
+
+  """All values less than the given value."""
+  content_lt: String
+
+  """All values less than or equal the given value."""
+  content_lte: String
+
+  """All values greater than the given value."""
+  content_gt: String
+
+  """All values greater than or equal the given value."""
+  content_gte: String
+
+  """All values containing the given string."""
+  content_contains: String
+
+  """All values not containing the given string."""
+  content_not_contains: String
+
+  """All values starting with the given string."""
+  content_starts_with: String
+
+  """All values not starting with the given string."""
+  content_not_starts_with: String
+
+  """All values ending with the given string."""
+  content_ends_with: String
+
+  """All values not ending with the given string."""
+  content_not_ends_with: String
+  type: ActivityType
+
+  """All values that are not equal to given value."""
+  type_not: ActivityType
+
+  """All values that are contained in given list."""
+  type_in: [ActivityType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [ActivityType!]
+  user: UserWhereInput
+  property: PropertyWhereInput
+  propertyLease: PropertyLeaseWhereInput
+}
+
+input ActivityWhereUniqueInput {
+  id: ID
+}
+
 type AggregateAccommodation {
+  count: Int!
+}
+
+type AggregateActivity {
   count: Int!
 }
 
@@ -4246,6 +4865,9 @@ enum IndoorFeature {
   HEATING
 }
 
+"""Raw JSON value"""
+scalar Json
+
 type Lessee implements Node {
   id: ID!
   lease: PropertyLease
@@ -5487,6 +6109,7 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createActivity(data: ActivityCreateInput!): Activity!
   createMessage(data: MessageCreateInput!): Message!
   createSeen(data: SeenCreateInput!): Seen!
   createChat(data: ChatCreateInput!): Chat!
@@ -5503,6 +6126,7 @@ type Mutation {
   createFile(data: FileCreateInput!): File!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  updateActivity(data: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity
   updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
   updateSeen(data: SeenUpdateInput!, where: SeenWhereUniqueInput!): Seen
   updateChat(data: ChatUpdateInput!, where: ChatWhereUniqueInput!): Chat
@@ -5518,6 +6142,7 @@ type Mutation {
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  deleteActivity(where: ActivityWhereUniqueInput!): Activity
   deleteMessage(where: MessageWhereUniqueInput!): Message
   deleteSeen(where: SeenWhereUniqueInput!): Seen
   deleteChat(where: ChatWhereUniqueInput!): Chat
@@ -5534,6 +6159,7 @@ type Mutation {
   deleteFile(where: FileWhereUniqueInput!): File
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  upsertActivity(where: ActivityWhereUniqueInput!, create: ActivityCreateInput!, update: ActivityUpdateInput!): Activity!
   upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
   upsertSeen(where: SeenWhereUniqueInput!, create: SeenCreateInput!, update: SeenUpdateInput!): Seen!
   upsertChat(where: ChatWhereUniqueInput!, create: ChatCreateInput!, update: ChatUpdateInput!): Chat!
@@ -5549,6 +6175,7 @@ type Mutation {
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  updateManyActivities(data: ActivityUpdateManyMutationInput!, where: ActivityWhereInput): BatchPayload!
   updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
   updateManySeens(data: SeenUpdateManyMutationInput!, where: SeenWhereInput): BatchPayload!
   updateManyChats(data: ChatUpdateManyMutationInput!, where: ChatWhereInput): BatchPayload!
@@ -5563,6 +6190,7 @@ type Mutation {
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  deleteManyActivities(where: ActivityWhereInput): BatchPayload!
   deleteManyMessages(where: MessageWhereInput): BatchPayload!
   deleteManySeens(where: SeenWhereInput): BatchPayload!
   deleteManyChats(where: ChatWhereInput): BatchPayload!
@@ -6413,6 +7041,7 @@ type Property implements Node {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
 }
 
 type PropertyAdvertisement implements Node {
@@ -6638,6 +7267,7 @@ input PropertyCreateInput {
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateManyWithoutCreatorInput {
@@ -6652,6 +7282,11 @@ input PropertyCreateManyWithoutOwnersInput {
 
 input PropertyCreateOneWithoutAccommodationInput {
   create: PropertyCreateWithoutAccommodationInput
+  connect: PropertyWhereUniqueInput
+}
+
+input PropertyCreateOneWithoutActivityInput {
+  create: PropertyCreateWithoutActivityInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -6697,6 +7332,38 @@ input PropertyCreateWithoutAccommodationInput {
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+}
+
+input PropertyCreateWithoutActivityInput {
+  id: ID
+  type: PropertyType
+  headline: String
+  rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  onTheMarket: Boolean!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  isLeased: Boolean
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutCreatorInput {
@@ -6727,6 +7394,7 @@ input PropertyCreateWithoutCreatorInput {
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutLeasesInput {
@@ -6757,6 +7425,7 @@ input PropertyCreateWithoutLeasesInput {
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutOwnersInput {
@@ -6787,6 +7456,7 @@ input PropertyCreateWithoutOwnersInput {
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
@@ -6817,6 +7487,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
 }
 
 """An edge in a connection."""
@@ -6850,6 +7521,7 @@ type PropertyLease implements Node {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
 }
 
 """A connection to a list of items."""
@@ -6886,11 +7558,17 @@ input PropertyLeaseCreateInput {
   property: PropertyCreateOneWithoutLeasesInput!
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
+  activity: ActivityCreateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseCreateManyWithoutPropertyInput {
   create: [PropertyLeaseCreateWithoutPropertyInput!]
   connect: [PropertyLeaseWhereUniqueInput!]
+}
+
+input PropertyLeaseCreateOneWithoutActivityInput {
+  create: PropertyLeaseCreateWithoutActivityInput
+  connect: PropertyLeaseWhereUniqueInput
 }
 
 input PropertyLeaseCreateOneWithoutLesseesInput {
@@ -6905,6 +7583,28 @@ input PropertyLeaseCreateOneWithoutLessorsInput {
 
 input PropertyLeaseCreateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
+}
+
+input PropertyLeaseCreateWithoutActivityInput {
+  id: ID
+  test: String
+  finalised: Boolean!
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  property: PropertyCreateOneWithoutLeasesInput!
+  lessees: LesseeCreateManyWithoutLeaseInput
+  lessors: LessorCreateManyWithoutLeaseInput
 }
 
 input PropertyLeaseCreateWithoutLesseesInput {
@@ -6926,6 +7626,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessors: LessorCreateManyWithoutLeaseInput
+  activity: ActivityCreateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseCreateWithoutLessorsInput {
@@ -6947,6 +7648,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessees: LesseeCreateManyWithoutLeaseInput
+  activity: ActivityCreateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseCreateWithoutPropertyInput {
@@ -6968,6 +7670,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
+  activity: ActivityCreateManyWithoutPropertyLeaseInput
 }
 
 """An edge in a connection."""
@@ -7494,6 +8197,7 @@ input PropertyLeaseUpdateInput {
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
+  activity: ActivityUpdateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseUpdateManyDataInput {
@@ -7549,6 +8253,15 @@ input PropertyLeaseUpdateManyWithWhereNestedInput {
   data: PropertyLeaseUpdateManyDataInput!
 }
 
+input PropertyLeaseUpdateOneWithoutActivityInput {
+  create: PropertyLeaseCreateWithoutActivityInput
+  connect: PropertyLeaseWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyLeaseUpdateWithoutActivityDataInput
+  upsert: PropertyLeaseUpsertWithoutActivityInput
+}
+
 input PropertyLeaseUpdateOneWithoutLesseesInput {
   create: PropertyLeaseCreateWithoutLesseesInput
   connect: PropertyLeaseWhereUniqueInput
@@ -7571,6 +8284,27 @@ input PropertyLeaseUpdateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
+input PropertyLeaseUpdateWithoutActivityDataInput {
+  test: String
+  finalised: Boolean
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  expiryDate: DateTime
+  location: String
+  locationLat: Float
+  locationLng: Float
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  property: PropertyUpdateOneRequiredWithoutLeasesInput
+  lessees: LesseeUpdateManyWithoutLeaseInput
+  lessors: LessorUpdateManyWithoutLeaseInput
+}
+
 input PropertyLeaseUpdateWithoutLesseesDataInput {
   test: String
   finalised: Boolean
@@ -7589,6 +8323,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessors: LessorUpdateManyWithoutLeaseInput
+  activity: ActivityUpdateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
@@ -7609,6 +8344,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
+  activity: ActivityUpdateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
@@ -7629,11 +8365,17 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
+  activity: ActivityUpdateManyWithoutPropertyLeaseInput
 }
 
 input PropertyLeaseUpdateWithWhereUniqueWithoutPropertyInput {
   where: PropertyLeaseWhereUniqueInput!
   data: PropertyLeaseUpdateWithoutPropertyDataInput!
+}
+
+input PropertyLeaseUpsertWithoutActivityInput {
+  update: PropertyLeaseUpdateWithoutActivityDataInput!
+  create: PropertyLeaseCreateWithoutActivityInput!
 }
 
 input PropertyLeaseUpsertWithoutLesseesInput {
@@ -8056,6 +8798,9 @@ input PropertyLeaseWhereInput {
   lessors_every: LessorWhereInput
   lessors_some: LessorWhereInput
   lessors_none: LessorWhereInput
+  activity_every: ActivityWhereInput
+  activity_some: ActivityWhereInput
+  activity_none: ActivityWhereInput
 }
 
 input PropertyLeaseWhereUniqueInput {
@@ -8701,6 +9446,7 @@ input PropertyUpdateInput {
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateManyDataInput {
@@ -8801,6 +9547,15 @@ input PropertyUpdateOneRequiredWithoutRentalApplicationsInput {
   upsert: PropertyUpsertWithoutRentalApplicationsInput
 }
 
+input PropertyUpdateOneWithoutActivityInput {
+  create: PropertyCreateWithoutActivityInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutActivityDataInput
+  upsert: PropertyUpsertWithoutActivityInput
+}
+
 input PropertyUpdateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
@@ -8827,6 +9582,37 @@ input PropertyUpdateWithoutAccommodationDataInput {
   rehouserStamp: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutActivityDataInput {
+  type: PropertyType
+  headline: String
+  rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  expiryDate: DateTime
+  onTheMarket: Boolean
+  location: String
+  locationLat: Float
+  locationLng: Float
+  isLeased: Boolean
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -8861,6 +9647,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
@@ -8890,6 +9677,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
@@ -8919,6 +9707,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutRentalApplicationsDataInput {
@@ -8948,6 +9737,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithWhereUniqueWithoutCreatorInput {
@@ -8963,6 +9753,11 @@ input PropertyUpdateWithWhereUniqueWithoutOwnersInput {
 input PropertyUpsertWithoutAccommodationInput {
   update: PropertyUpdateWithoutAccommodationDataInput!
   create: PropertyCreateWithoutAccommodationInput!
+}
+
+input PropertyUpsertWithoutActivityInput {
+  update: PropertyUpdateWithoutActivityDataInput!
+  create: PropertyCreateWithoutActivityInput!
 }
 
 input PropertyUpsertWithoutLeasesInput {
@@ -9484,6 +10279,9 @@ input PropertyWhereInput {
   leases_every: PropertyLeaseWhereInput
   leases_some: PropertyLeaseWhereInput
   leases_none: PropertyLeaseWhereInput
+  activity_every: ActivityWhereInput
+  activity_some: ActivityWhereInput
+  activity_none: ActivityWhereInput
 }
 
 input PropertyWhereUniqueInput {
@@ -9491,6 +10289,7 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  activities(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity]!
   messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
   seens(where: SeenWhereInput, orderBy: SeenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Seen]!
   chats(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chat]!
@@ -9507,6 +10306,7 @@ type Query {
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  activity(where: ActivityWhereUniqueInput!): Activity
   message(where: MessageWhereUniqueInput!): Message
   seen(where: SeenWhereUniqueInput!): Seen
   chat(where: ChatWhereUniqueInput!): Chat
@@ -9523,6 +10323,7 @@ type Query {
   file(where: FileWhereUniqueInput!): File
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  activitiesConnection(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ActivityConnection!
   messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
   seensConnection(where: SeenWhereInput, orderBy: SeenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeenConnection!
   chatsConnection(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChatConnection!
@@ -11172,6 +11973,7 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  activity(where: ActivitySubscriptionWhereInput): ActivitySubscriptionPayload
   message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
   seen(where: SeenSubscriptionWhereInput): SeenSubscriptionPayload
   chat(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
@@ -11227,6 +12029,7 @@ type User implements Node {
   sentMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
   recievedMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
   rehouserStamp: Boolean
+  activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
 }
 
 """A connection to a list of items."""
@@ -11274,6 +12077,7 @@ input UserCreateInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateManyInput {
@@ -11293,6 +12097,11 @@ input UserCreateManyWithoutPropertiesInput {
 
 input UserCreateOneInput {
   create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutActivityInput {
+  create: UserCreateWithoutActivityInput
   connect: UserWhereUniqueInput
 }
 
@@ -11350,6 +12159,43 @@ input UserCreatepermissionsInput {
   set: [Permission!]
 }
 
+input UserCreateWithoutActivityInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+}
+
 input UserCreateWithoutAwaitingFriendsInput {
   id: ID
   firstName: String!
@@ -11384,6 +12230,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutChatsInput {
@@ -11420,6 +12267,7 @@ input UserCreateWithoutChatsInput {
   primaryCreditCard: CreditCardCreateOneInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -11456,6 +12304,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -11492,6 +12341,7 @@ input UserCreateWithoutCreditCardsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -11528,6 +12378,7 @@ input UserCreateWithoutFriendRequestsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -11564,6 +12415,7 @@ input UserCreateWithoutLesseeLeasesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -11600,6 +12452,7 @@ input UserCreateWithoutLessorLeasesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -11636,6 +12489,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -11672,6 +12526,7 @@ input UserCreateWithoutProfilePhotoInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -11708,6 +12563,7 @@ input UserCreateWithoutPropertiesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -11744,6 +12600,7 @@ input UserCreateWithoutRecievedMessagesInput {
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -11780,6 +12637,7 @@ input UserCreateWithoutSentMessagesInput {
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -12693,6 +13551,7 @@ input UserUpdateDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateInput {
@@ -12729,6 +13588,7 @@ input UserUpdateInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyDataInput {
@@ -12851,6 +13711,15 @@ input UserUpdateOneRequiredWithoutFriendRequestsInput {
   upsert: UserUpsertWithoutFriendRequestsInput
 }
 
+input UserUpdateOneWithoutActivityInput {
+  create: UserCreateWithoutActivityInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutActivityDataInput
+  upsert: UserUpsertWithoutActivityInput
+}
+
 input UserUpdateOneWithoutLesseeLeasesInput {
   create: UserCreateWithoutLesseeLeasesInput
   connect: UserWhereUniqueInput
@@ -12909,6 +13778,42 @@ input UserUpdatepermissionsInput {
   set: [Permission!]
 }
 
+input UserUpdateWithoutActivityDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+}
+
 input UserUpdateWithoutAwaitingFriendsDataInput {
   firstName: String
   lastName: String
@@ -12942,6 +13847,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -12977,6 +13883,7 @@ input UserUpdateWithoutChatsDataInput {
   primaryCreditCard: CreditCardUpdateOneInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -13012,6 +13919,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -13047,6 +13955,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -13082,6 +13991,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -13117,6 +14027,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -13152,6 +14063,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -13187,6 +14099,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -13222,6 +14135,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -13257,6 +14171,7 @@ input UserUpdateWithoutPropertiesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -13292,6 +14207,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -13327,6 +14243,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -13347,6 +14264,11 @@ input UserUpdateWithWhereUniqueWithoutPropertiesInput {
 input UserUpsertNestedInput {
   update: UserUpdateDataInput!
   create: UserCreateInput!
+}
+
+input UserUpsertWithoutActivityInput {
+  update: UserUpdateWithoutActivityDataInput!
+  create: UserCreateWithoutActivityInput!
 }
 
 input UserUpsertWithoutAwaitingFriendsInput {
@@ -14212,6 +15134,9 @@ input UserWhereInput {
   recievedMessages_every: MessageWhereInput
   recievedMessages_some: MessageWhereInput
   recievedMessages_none: MessageWhereInput
+  activity_every: ActivityWhereInput
+  activity_some: ActivityWhereInput
+  activity_none: ActivityWhereInput
 }
 
 input UserWhereUniqueInput {

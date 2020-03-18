@@ -33,6 +33,7 @@ type User {
   permissions: [Permission]
   token: String
   rehouserStamp: Boolean
+  activity: [Activity!]!
 }
 
 type SuccessMessage {
@@ -110,6 +111,16 @@ type Query {
   users: [User]!
   file(id: ID!): File
   files: [File!]!
+  activities(
+    where: ActivityWhereInput
+    orderBy: ActivityOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Activity]!
+  activity(where: ActivityWhereUniqueInput!): Activity
   chats(
     where: ChatWhereInput
     orderBy: ChatOrderByInput

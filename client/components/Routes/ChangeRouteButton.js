@@ -11,12 +11,21 @@ const handleLink = ({ route, query }) => {
   });
 };
 
-const ChangeRouteButton = ({ route, query, color, title, variant, size }) => (
+const ChangeRouteButton = ({
+  route,
+  query,
+  color,
+  title,
+  variant,
+  size,
+  btnProps,
+}) => (
   <Button
     color={color}
     variant={variant}
     size={size}
-    onClick={() => handleLink({ route, query })}>
+    onClick={() => handleLink({ route, query })}
+    {...btnProps}>
     {title ? title : 'Route Button'}
   </Button>
 );

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { green } from '@material-ui/core/colors';
+import { green, purple } from '@material-ui/core/colors';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
@@ -12,8 +12,13 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   wrapper: {
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    width: '100%',
     position: 'relative',
+  },
+  button: {
+    borderRadius: 0,
   },
   buttonSuccess: {
     backgroundColor: green[500],
@@ -32,6 +37,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const StyledButton = withStyles(theme => ({
+  root: {
+    borderRadius: 0,
+    // color: theme.palette.getContrastText(purple[500]),
+    // backgroundColor: purple[500],
+    // '&:hover': {
+    //   backgroundColor: purple[700],
+    // },
+  },
+}))(Button);
+
 const RenderBtnText = ({ success, text, successText }) => {
   if (!text) {
     return <span>Button</span>;
@@ -42,28 +58,39 @@ const RenderBtnText = ({ success, text, successText }) => {
   return <span>{text}</span>;
 };
 
-const ButtonLoader = ({ loading, success, onClick, text, successText, cy }) => {
+const ButtonLoader = ({
+  loading,
+  success,
+  onClick,
+  text,
+  successText,
+  cy,
+  btnProps,
+}) => {
   const classes = useStyles();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
+    button: true,
   });
 
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
-        <Button
+        <StyledButton
           data-cy={cy}
+          // fullWidth
           variant="contained"
           color="primary"
           className={buttonClassname}
           disabled={loading}
+          {...btnProps}
           onClick={onClick}>
           <RenderBtnText
             success={success}
             text={text}
             successText={successText}
           />
-        </Button>
+        </StyledButton>
         {loading && (
           <CircularProgress size={24} className={classes.buttonProgress} />
         )}

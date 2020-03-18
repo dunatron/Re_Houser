@@ -2,9 +2,16 @@ const {
   updatePropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 const { processUpload, deleteFile } = require("../../lib/fileApi");
+const { createActivity } = require("../../lib/createActivity");
 
 async function updateProperty(parent, args, ctx, info) {
   // first take a copy of the updates
+  const loggedInUserId = ctx.request.userId;
+  // need to be logged in
+  if (!loggedInUserId) {
+    throw new Error("You must be logged in!");
+  }
+
   const updates = { ...args };
   const where = { id: args.id };
   // remove the ID from the updates
@@ -34,6 +41,26 @@ async function updateProperty(parent, args, ctx, info) {
     updates: updates,
     propertyId: args.id,
     ctx
+  });
+
+  createActivity({
+    ctx: ctx,
+    data: {
+      title: "Updated Property",
+      content: `Property fields updated:`,
+      jsonObj: updates,
+      type: "UPDATED_PROPERTY",
+      user: {
+        connect: {
+          id: loggedInUserId
+        }
+      },
+      property: {
+        connect: {
+          id: args.id
+        }
+      }
+    }
   });
   return ctx.db.mutation.updateProperty(
     {

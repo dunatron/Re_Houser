@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
+const { createActivity } = require("../../lib/createActivity");
 
 async function signup(parent, args, ctx, info) {
   //lowercase their email
@@ -32,6 +33,20 @@ async function signup(parent, args, ctx, info) {
     maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
   });
   // Finalllllly we return the user to the browser
+  createActivity({
+    ctx: ctx,
+    data: {
+      title: "Signed Up!",
+      content: "Congratulations you are now signed up to the platform",
+      type: "SIGNED_UP",
+      jsonObj: user,
+      user: {
+        connect: {
+          id: user.id
+        }
+      }
+    }
+  });
   return user;
 }
 

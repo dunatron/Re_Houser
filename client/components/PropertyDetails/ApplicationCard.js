@@ -8,6 +8,7 @@ import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/Prop
 import Card from '@material-ui/core/Card';
 import ExpansionPanel from '../../styles/ExpansionPanel';
 import ExpansionPanelSummary from '../../styles/ExpansionPanelSummary';
+
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import DialogPopup from '../DialogPopup/index';
@@ -43,6 +44,7 @@ const ApplicationCard = ({ application, property }) => {
       <DenyApplication />
       <DenyApplicationButton application={application} property={property} />
       <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
+
       <ExpansionPanel highlight={false}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}

@@ -14,6 +14,7 @@ import Tab from '../../styles/Tab';
 import Details from './Details';
 import Leases from './Leases';
 import Applications from './Applications';
+import Activity from '../ActivityManager/Activity';
 // import Badge from "@material-ui/core/Badge"
 import Badge from '../../styles/Badge';
 import Typography from '@material-ui/core/Typography';
@@ -86,7 +87,9 @@ const PropertyDetails = ({ id }) => {
           }
         />
         <Tab label="Leases" />
+        <Tab label="Activity" />
       </Tabs>
+
       {tabIndex === 0 && (
         <TabContainer>
           <Details property={property} />
@@ -100,6 +103,19 @@ const PropertyDetails = ({ id }) => {
       {tabIndex === 2 && (
         <TabContainer>
           <Leases property={property} />
+        </TabContainer>
+      )}
+      {tabIndex === 3 && (
+        <TabContainer>
+          <Activity
+            args={{
+              where: {
+                property: {
+                  id: property.id,
+                },
+              },
+            }}
+          />
         </TabContainer>
       )}
     </PropertyCard>

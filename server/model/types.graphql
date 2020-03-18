@@ -35,6 +35,19 @@ type User {
   sentMessages: [Message!]! @relation(name: "UserSentMessages")
   recievedMessages: [Message!]! @relation(name: "UserRecievedMessages")
   rehouserStamp: Boolean
+  activity: [Activity!]! @relation(name: "UserActivity")
+}
+
+type Activity {
+  id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  user: User @relation(name: "UserActivity")
+  property: Property @relation(name: "PropertyActivity")
+  propertyLease: PropertyLease @relation(name: "PropertyLeaseActivity")
 }
 
 type Message {
@@ -144,6 +157,7 @@ type Property implements PropertyInfo {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  activity: [Activity!]! @relation(name: "PropertyActivity")
 }
 
 type Accommodation {
@@ -226,6 +240,7 @@ type PropertyLease implements PropertyInfo {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  activity: [Activity!]! @relation(name: "PropertyLeaseActivity")
 }
 
 type Payment {

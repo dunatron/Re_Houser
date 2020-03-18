@@ -22,6 +22,8 @@ const chatsConnection = require("./querys/chatsConnection");
 const chat = require("./querys/chat");
 const messages = require("./querys/messages");
 const messagesConnection = require("./querys/messagesConnection");
+const activities = require("./querys/activities");
+const activity = require("./querys/activity");
 
 const Query = {
   me,
@@ -44,7 +46,9 @@ const Query = {
   chatsConnection,
   chat,
   messages,
-  messagesConnection
+  messagesConnection,
+  activities,
+  activity
 };
 
 module.exports = Query;

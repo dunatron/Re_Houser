@@ -1,7 +1,11 @@
 const { createCard, chargeCard } = require("../../lib/paymentAPI");
 const finalisePropertyLeaseEmail = require("../../lib/emails/finalisePropertyLeaseEmail");
 const mustBeAuthed = require("../../lib/mustBeAuthed");
+const { createActivity } = require("../../lib/createActivity");
 
+/**
+ * ToDo: the return type of Message is not good enough, it should return probably what propertylease and whatever fields the client asks for
+ */
 async function finalisePropertyLease(parent, args, ctx, info) {
   const reqUserId = await mustBeAuthed({
     ctx: ctx,
@@ -22,6 +26,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
         signed
         user {
           id
+          email
         }
       }
       lessees {
@@ -29,6 +34,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
         signed
         user {
           id
+          email
         }
       }
       property {
@@ -38,6 +44,8 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   );
 
   // easy accessors
+  const lessorUsers = lease.lessors.map(lessor => lessor.user);
+  const lesseeUsers = lease.lessees.map(lessee => lessee.user);
   const lessorIds = lease.lessors.map(lessor => lessor.user.id);
   const lesseeIds = lease.lessees.map(lessee => lessee.user.id);
   const lessorSignatures = lease.lessors.map(lessor => lessor.signed);
@@ -111,8 +119,49 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     }
   });
 
+  createActivity({
+    ctx: ctx,
+    data: {
+      title: "Lease FINALISED!",
+      content:
+        "Congratulations a new property lease has been signed by everyone and finalised by the owner",
+      type: "LEASE_FINALISED",
+      jsonObj: lease,
+      propertyLease: {
+        connect: {
+          id: lease.id
+        }
+      },
+      user: {
+        connect: {
+          id: reqUserId
+        }
+      }
+    }
+  });
+
+  throw new Error("testung finalise");
+
+  lessorUsers.map((usr, indx) => {
+    finalisePropertyLeaseEmail({
+      ctx: ctx,
+      lease: lease,
+      payment: payment,
+      toEmail: usr.email
+    });
+  });
+
+  lesseeUsers.map((usr, indx) => {
+    finalisePropertyLeaseEmail({
+      ctx: ctx,
+      lease: lease,
+      payment: payment,
+      toEmail: usr.email
+    });
+  });
+
   // this lease has a propertyId, use it to cleanup any applications
-  finalisePropertyLeaseEmail({ ctx: ctx, lease: lease, payment: payment });
+  // finalisePropertyLeaseEmail({ ctx: ctx, lease: lease, payment: payment });
 
   const message = {
     message: "Property Lease is now Legal: Your Payment was successful ",
@@ -122,6 +171,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       }
     }
   };
+
   return message;
 }
 
