@@ -1,14 +1,26 @@
-import { DataProxy } from 'apollo-cache';
-import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
+// import { DataProxy } from 'apollo-cache';
+import { DataProxy } from '@apollo/client/cache';
+
+// NOTE: the below has changed since the upgrade defaultDataIdFromObject no longer used and this
+// whole section will need to be redone really
+// import { defaultDataIdFromObject } from 'apollo-cache-inmemory';
+// import { ApolloClient } from '@apollo/client';
 
 import gql from 'graphql-tag';
+// import {
+//   ApolloClient,
+//   useApolloClient,
+//   useQuery,
+//   useMutation,
+//   useSubscription,
+// } from '@apollo/react-hooks';
+
 import {
   useApolloClient,
   useQuery,
   useMutation,
   useSubscription,
-} from '@apollo/react-hooks';
+} from '@apollo/client';
 
 import {
   CHAT_QUERY,

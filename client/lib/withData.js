@@ -1,4 +1,5 @@
 import withApollo from 'next-with-apollo';
+import { getDataFromTree } from '@apollo/react-ssr';
 // import { ApolloClient } from 'apollo-client';
 // import { ApolloLink } from 'apollo-client-preset';
 import { ApolloClient, split, ApolloLink } from '@apollo/client';
@@ -24,6 +25,10 @@ function createClient({ headers, cookies }) {
     });
     return forward(operation);
   });
+
+  /**
+   * ToDo: Setup new apollo client properly with ssr https://github.com/apollographql/apollo-client/issues/5808
+   */
 
   /**
    * ToDo: implement process.env for ws
@@ -85,4 +90,4 @@ function createClient({ headers, cookies }) {
   return client;
 }
 
-export default withApollo(createClient);
+export default withApollo(createClient, { getDataFromTree });
