@@ -73,6 +73,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  detailActions: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  actionItem: {
+    padding: '0 8px 8px 0',
+  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
@@ -243,49 +250,52 @@ const Activity = ({ args }) => {
                   ? `${activity.user.firstName} ${activity.user.lastName} `
                   : null}
                 created {moment(activity.createdAt).fromNow(true)} ago
+                {activity.type}
               </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
-              {activity.propertyLease && (
-                <div>
-                  <ChangeRouteButton
-                    route="/leases/lease"
-                    title="Lease"
-                    query={{ id: activity.propertyLease.id }}
-                    btnProps={{
-                      fullWidth: true,
-                      variant: 'outlined',
-                      startIcon: <LibraryBooksIcon />,
-                    }}></ChangeRouteButton>
-                </div>
-              )}
-              {activity.user && (
-                <div>
-                  <ChangeRouteButton
-                    route="/users/user"
-                    title="Actioner"
-                    query={{ id: activity.user.id }}
-                    btnProps={{
-                      fullWidth: true,
-                      variant: 'outlined',
-                      startIcon: <PersonIcon />,
-                    }}></ChangeRouteButton>
-                </div>
-              )}
+              <div className={classes.detailActions}>
+                {activity.propertyLease && (
+                  <div className={classes.actionItem}>
+                    <ChangeRouteButton
+                      route="/leases/lease"
+                      title="Lease"
+                      query={{ id: activity.propertyLease.id }}
+                      btnProps={{
+                        fullWidth: true,
+                        variant: 'outlined',
+                        startIcon: <LibraryBooksIcon />,
+                      }}></ChangeRouteButton>
+                  </div>
+                )}
+                {activity.user && (
+                  <div className={classes.actionItem}>
+                    <ChangeRouteButton
+                      route="/users/user"
+                      title="Actioner"
+                      query={{ id: activity.user.id }}
+                      btnProps={{
+                        fullWidth: true,
+                        variant: 'outlined',
+                        startIcon: <PersonIcon />,
+                      }}></ChangeRouteButton>
+                  </div>
+                )}
 
-              {activity.property && (
-                <div>
-                  <ChangeRouteButton
-                    route="/properties/property"
-                    title="Property"
-                    query={{ id: activity.property.id }}
-                    btnProps={{
-                      fullWidth: true,
-                      variant: 'outlined',
-                      startIcon: <RefreshIcon />,
-                    }}></ChangeRouteButton>
-                </div>
-              )}
+                {activity.property && (
+                  <div className={classes.actionItem}>
+                    <ChangeRouteButton
+                      route="/properties/property"
+                      title="Property"
+                      query={{ id: activity.property.id }}
+                      btnProps={{
+                        fullWidth: true,
+                        variant: 'outlined',
+                        startIcon: <RefreshIcon />,
+                      }}></ChangeRouteButton>
+                  </div>
+                )}
+              </div>
 
               <Typography>
                 {activity.content}

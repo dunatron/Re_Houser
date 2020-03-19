@@ -19,9 +19,13 @@ const SquareButton = withStyles(theme => ({
   },
 }))(Button);
 
-export default function CustomizedButtons({ btnProps, children }) {
+export default function CustomizedButtons({ btnProps, children, onClick }) {
   return (
-    <SquareButton variant="contained" color="primary" {...btnProps}>
+    <SquareButton
+      variant="contained"
+      color="primary"
+      onClick={onClick}
+      {...btnProps}>
       {children}
     </SquareButton>
   );

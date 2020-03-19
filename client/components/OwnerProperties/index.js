@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Router from 'next/router';
 import { graphql, withApollo } from 'react-apollo';
 import { PROPERTIES_QUERY } from '../../graphql/queries/index';
+import ActivityManager from '../ActivityManager/index';
 const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
@@ -56,7 +57,7 @@ const UPDATE_PROPERTY_MUTATION = gql`
 /**
  * ToDo: have not finished converting to use hooks. FINISH IT!!!
  */
-const OwnerProperties = () => {
+const OwnerProperties = ({ me }) => {
   // set initial state for functional component
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalDetailsObj, setModalDetailsObj] = useState({});
@@ -316,6 +317,7 @@ const OwnerProperties = () => {
         close={() => closeModal()}>
         {renderModalDetails()}
       </Modal>
+      <ActivityManager me={me} collapsed={true} />
       <SuperTable
         columnHeaders={columnHeaders()}
         // tags={{

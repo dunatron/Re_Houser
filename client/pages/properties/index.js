@@ -12,7 +12,7 @@ const PropertiesPage = props => {
           <strong>{pleaseSignInMessage}</strong>
         </p>
       }>
-      <OwnerProperties />
+      <OwnerProperties me={props.me ? props.me : null} />
     </PleaseSignIn>
   );
 };
