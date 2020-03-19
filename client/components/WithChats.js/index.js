@@ -70,7 +70,7 @@ const WithChats = props => {
   return (
     <Fragment>
       {/* <LoadChats me={me} /> */}
-      <MessageCreatedSub me={me} />
+      {/* <MessageCreatedSub me={me} /> */}
       {children}
     </Fragment>
   );
