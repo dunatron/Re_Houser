@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createActivity } = require("../../lib/createActivity");
+const { createTokens } = require("../../auth");
+const { JWT_TOKEN_MAX_AGE } = require("../../const");
 
 async function signup(parent, args, ctx, info) {
   //lowercase their email
@@ -26,13 +28,27 @@ async function signup(parent, args, ctx, info) {
     info
   );
   // create the JWT token for them
-  const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-  // We set the jwt as a cookie on the response
+  // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
+  // // We set the jwt as a cookie on the response
+  // ctx.response.cookie("token", token, {
+  //   httpOnly: true,
+  //   maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+  //   sameSite: "None",
+  //   Secure: true
+  // });
+  const { token, refreshToken } = await createTokens(user, password);
+
   ctx.response.cookie("token", token, {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+    maxAge: JWT_TOKEN_MAX_AGE,
     sameSite: "None",
-    Secure: true
+    secure: true
+  });
+  ctx.response.cookie("refresh-token", refreshToken, {
+    httpOnly: true,
+    maxAge: JWT_TOKEN_MAX_AGE,
+    sameSite: "None",
+    secure: true
   });
   // Finalllllly we return the user to the browser
   createActivity({
@@ -49,7 +65,13 @@ async function signup(parent, args, ctx, info) {
       }
     }
   });
-  return user;
+
+  const userInfoWithToken = {
+    ...user,
+    token: token,
+    refreshToken: refreshToken
+  };
+  return userInfoWithToken;
 }
 
 module.exports = signup;
