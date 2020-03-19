@@ -50,9 +50,9 @@ function createClient({ headers, initialState }) {
         uri: websocketEndpoint,
         options: {
           reconnect: true,
-          connectionParams: {
-            authToken: user.authToken,
-          },
+          // connectionParams: {
+          //   authToken: user.authToken,
+          // },
         },
       })
     : null;

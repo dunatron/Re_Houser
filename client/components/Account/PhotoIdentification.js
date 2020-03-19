@@ -40,7 +40,9 @@ const PhotoIdentification = props => {
                 label="PhotoId Number"
                 fullWidth={true}
                 defaultValue={me.identificationNumber}
-                onChange={e => props.updateVariable('identificationNumber', e.target.value);}
+                onChange={e =>
+                  props.updateVariable('identificationNumber', e.target.value)
+                }
               />
             </div>
           </div>

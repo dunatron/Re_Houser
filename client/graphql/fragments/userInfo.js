@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
-import chat from './chat.fragment';
 
+//should probably move awaitingFriends and friend request from here
 const UserInfoFragment = gql`
   fragment userInfo on User {
     id
@@ -38,12 +38,6 @@ const UserInfoFragment = gql`
     primaryCreditCard {
       id
     }
-    friends {
-      id
-      firstName
-      lastName
-      email
-    }
     friendRequests {
       id
       requestUser {
@@ -60,12 +54,8 @@ const UserInfoFragment = gql`
         lastName
       }
     }
-    chats {
-      ...Chat
-    }
     rehouserStamp
   }
-  ${chat}
 `;
 
 export { UserInfoFragment };

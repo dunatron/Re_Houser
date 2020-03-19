@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import Filter from './Filter';
 import Activity from './Activity';
 import Help from '../Help';
+import { ACTIVITY_MANAGER_HELP } from '../Help/helpItemsConf';
 import { Button } from '@material-ui/core';
 
 const ActivityManager = props => {
@@ -43,7 +44,10 @@ const ActivityManager = props => {
       <div style={collapsed ? { display: 'none' } : { display: 'block' }}>
         {!collapsed && (
           <>
-            <Help toolTip="Help for activity manager" />
+            <Help
+              toolTip="Help for activity manager"
+              helpConf={ACTIVITY_MANAGER_HELP}
+            />
             <Filter
               me={me}
               doSearch={data => {
