@@ -95,20 +95,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ActivityTitle = ({ activity }) => {
-  //{activity.title}
   let str = activity.title;
-  //   if(activity.us)
   return str;
 };
-
-// __typename: "Activity"
-// id: "ck7wwuy7c55sz09811znjyea1"
-// title: "Updated Property"
-// content: "Property fields updated {"data":{"onTheMarket":false}}"
-// jsonObj: null
-// createdAt: "2020-03-18T05:54:27.624Z"
-// type: "UPDATED_PROPERTY"
-// user: {__typename: "User", id: "ck7mjyhckip610984ug2614pr", firstName: "asdasd", lastName: "dsasaads"}
 
 const ActivitySkeleton = () => {
   const classes = useStyles();
@@ -158,12 +147,10 @@ const ActivitySkeleton = () => {
       {arr.map((activity, idx) => {
         return (
           <ExpansionPanel>
-            {/* <Skeleton variant="rect" height={'100%'}> */}
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header">
-              {/* <Skeleton variant="rect" height={'100%'}> */}
               <Avatar className={classes.orange}>N</Avatar>
               <Skeleton variant="rect" height={'100%'}>
                 <Typography className={classes.heading}>
@@ -174,28 +161,20 @@ const ActivitySkeleton = () => {
                   created {moment(activity.createdAt).fromNow(true)} ago
                 </Typography>
               </Skeleton>
-
-              {/* </Skeleton> */}
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              {/* <Skeleton variant="rect" height={'100%'}> */}
               <Typography>
                 {activity.content}
                 {activity.jsonObj ? (
                   <pre>{JSON.stringify(activity.jsonObj.data, null, 2)}</pre>
                 ) : null}
               </Typography>
-              {/* </Skeleton> */}
             </ExpansionPanelDetails>
-            {/* </Skeleton> */}
           </ExpansionPanel>
         );
       })}
     </div>
   );
-  {
-    /* return <Skeleton variant="rect" width={210} height={118} />; */
-  }
 };
 
 const Activity = ({ args }) => {
@@ -214,16 +193,11 @@ const Activity = ({ args }) => {
     },
     notifyOnNetworkStatusChange: true, //The networkStatus https://github.com/apollographql/apollo-client/blob/master/src/core/networkStatus.ts
   });
-  // const { data, error, loading } = useQuery(ACTIVITY_QUERY);
-  //   if (networkStatus === 4) return 'Refetching!';
-  //   return <ActivitySkeleton />;
+
   if (loading) return <ActivitySkeleton />;
   if (error) return 'Erro loading Property Activity';
 
   const { activities } = data;
-  console.group('==Property_Activity==');
-  console.log('data => ', data);
-  console.groupEnd();
 
   return (
     <div className={classes.root}>

@@ -53,7 +53,6 @@ const LoadChats = ({ me }) => {
 };
 
 const WithChats = props => {
-  console.log('With CHats props => ', props);
   const me = props.me ? props.me : null;
   if (me === null) return props.children;
   // all with chats has to do is put them into the store.
@@ -70,7 +69,7 @@ const WithChats = props => {
   return (
     <Fragment>
       {/* <LoadChats me={me} /> */}
-      {/* <MessageCreatedSub me={me} /> */}
+      <MessageCreatedSub me={me} />
       {children}
     </Fragment>
   );

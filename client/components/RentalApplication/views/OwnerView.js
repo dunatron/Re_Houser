@@ -17,11 +17,6 @@ import { SINGLE_PROPERTY_QUERY } from '../../../graphql/queries';
  *
  */
 const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
-  console.log(
-    'Is this not property data? rentalApplication => ',
-    rentalApplication
-  );
-
   return (
     <Paper>
       <Typography variant="h3" gutterBottom color="secondary">

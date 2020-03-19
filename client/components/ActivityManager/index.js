@@ -32,11 +32,6 @@ const ActivityManager = props => {
     },
   };
 
-  console.group('==ACTIVITY MANAGER DATA==');
-  console.log('searchId => ', searchId);
-  console.log('searchType => ', searchType);
-  console.groupEnd();
-
   return (
     <>
       <Button
@@ -52,7 +47,6 @@ const ActivityManager = props => {
             <Filter
               me={me}
               doSearch={data => {
-                console.log('Do Serach => ', data);
                 setSearchId(data.searchId);
                 setSearchType(data.searchType);
               }}

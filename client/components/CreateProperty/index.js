@@ -164,7 +164,6 @@ const CreateProperty = ({ me }) => {
   };
   const _createProperty = async () => {
     const res = await createProperty();
-    console.log('create property res ', res);
     // offer route to this property
     toast.success(
       <div>
@@ -188,28 +187,14 @@ const CreateProperty = ({ me }) => {
     let currimages = images;
     currimages.splice(idx, 1);
     setImages([...currimages]);
-    // setImages(currimages);
-    // setState({
-    //   ...state,
-    //   images: currimages,
-    // });
   };
   const setFileInState = file => {
-    // somehow the below does not work...
-    //setImages([...images, { type: 'rawImage', data: file }]);
-    // and this shit somehow does
     const files = images;
     files.push({ type: 'rawImage', data: file });
     setImages([...files]);
-    // console.log('setFileInState new files => ', files);
-    // // setState({
-    //   ...state,
-    //   images: files,
-    // });
   };
   const _canSubmit = () => {
     const { location, locationLat, locationLng } = state;
-    console.log('CAN SUBMIT STATE => ', state);
     if (!me.primaryCreditCard) {
       return false;
     }
@@ -242,10 +227,6 @@ const CreateProperty = ({ me }) => {
       accommodation: updatedAccommodation,
     });
   };
-
-  useEffect(() => {
-    console.log('SO AHH the images lengths?');
-  }, [state.images.length]);
 
   return (
     <div className={classes.root}>
@@ -543,21 +524,10 @@ const CreateProperty = ({ me }) => {
             {/* Kinda solved with the setImages seperated out of state. should also test failing for toast. should get like the error id */}
             <MyDropzone
               receiveFile={file => {
-                console.log('WHAT ABOUT STATE HERE => ', state);
                 setFileInState(file);
               }}
             />
-            {/* <MyDropzone
-              receiveFile={file => {
-                console.log('WHAT ABOUT STATE HERE => ', state);
-                // const files = state.images;
-                // console.log('setFileInState => ', file);
-                // console.log('STATE before setInFileState => ', state);
-                // files.push({ type: 'rawImage', data: file });
-                // console.log('setFileInState new files => ', files);
-                setImages([...images, { type: 'rawImage', data: file }]);
-              }}
-            /> */}
+
             <DragDropUploader
               disabled={loading}
               multiple={true}

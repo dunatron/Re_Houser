@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 import { UPLOAD_PROFILE_PHOTO } from '../../graphql/mutations';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 import Image from 'material-ui-image';
-
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +22,6 @@ const UploadProfilePhoto = ({ me }) => {
     me.profilePhoto ? me.profilePhoto.url : null
   );
   const [uploadImage, uploadImageProps] = useMutation(UPLOAD_PROFILE_PHOTO);
-  // console.log('uploadImageProps => ', uploadImageProps);
 
   return (
     <div className={classes.root}>
@@ -37,17 +35,13 @@ const UploadProfilePhoto = ({ me }) => {
         </div>
       )}
       <DragDropUploader
-        // disabled={loading}
         style={{ padding: '40px' }}
-        // disabled={loading}
-        // externalLoading={loading}
         dropStyles={{ padding: '40px', minWidth: '300px' }}
         addText="DROP PROFILE PHOTO"
         addBtnText="Or Click to Browse"
         multiple={true}
         types={['image']}
         extensions={['.jpg', '.png']}
-        // receiveFile={file => _updateUserPhotoIdFile(file)}
         receiveFile={file =>
           uploadImage({
             variables: {

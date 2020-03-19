@@ -108,7 +108,6 @@ const LoginPage = props => {
             email={state.email}
             password={state.password}
             update={e => {
-              console.log('Yes should work');
               saveToState(e);
             }}
           />

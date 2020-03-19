@@ -45,8 +45,6 @@ const LeaseManager = ({ leaseId }) => {
 
   const userIsLessor = lessorUserIds.includes(me.id);
   const userIsLessee = lesseeUserIds.includes(me.id);
-  console.log('userIsLessor => ', userIsLessor);
-  console.log('userIsLessee => ', userIsLessee);
 
   const _canView = () => {
     if (me.permissions.includes('ADMIN')) return true;

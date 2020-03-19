@@ -78,9 +78,6 @@ const DeleteAccount = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? 'transitions-popper' : undefined;
-  //
-  console.log('===ABOUT TO RENDER COMPONENT===');
-  console.log('Check out the props here => ', deleteAccountProps);
   return (
     <>
       <Button

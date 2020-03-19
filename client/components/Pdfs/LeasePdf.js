@@ -96,7 +96,6 @@ const PageWithFooter = props => {
 
 const LeasePdf = ({ me, lease }) => {
   if (!me) return null;
-  console.log('Tell me of this lease => ', lease);
   const { property } = lease;
   return (
     <PDFViewer width="100%" height="500px">

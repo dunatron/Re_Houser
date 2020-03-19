@@ -93,7 +93,6 @@ const Signin = props => {
           ref={recaptchaRef}
           sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
           onChange={token => {
-            console.log('captcha c => ', token);
             setState({
               ...state,
               captchaToken: token,

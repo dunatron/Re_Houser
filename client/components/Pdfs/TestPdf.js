@@ -25,12 +25,6 @@ const styles = StyleSheet.create({
 // Create Document Component
 const MyDocument = ({ me }) => {
   if (!me) return null;
-  //   const profileImageBase64 = toDataURL(
-  //     'https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0'
-  //   ).then(dataUrl => {
-  //     console.log('RESULT:', dataUrl);
-  //     return dataUrl;
-  //   });
   return (
     <PDFViewer width="100%" height="500px">
       <Document>

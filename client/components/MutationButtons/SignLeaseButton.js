@@ -17,8 +17,6 @@ const SIGN_LEASE_MUTATION = gql`
 
 // update cache after sign
 const updateSignageInCache = (proxy, payload, leaseId, id, type) => {
-  console.log('UpdateSignageInCache');
-  console.log('Payload, => ', payload);
   // 1. get the lease data from the cache
   const leaseData = proxy.readQuery({
     query: SINGLE_LEASE_QUERY,
@@ -28,9 +26,6 @@ const updateSignageInCache = (proxy, payload, leaseId, id, type) => {
       },
     },
   });
-
-  console.log('UpdateSignageInCache');
-  console.log('Payload, => ', payload);
   // 2. update the cache on success
   // if (payload.data.signLease) {
   //   if (payload.data.signLease.__typename === 'SuccessMessage') {
