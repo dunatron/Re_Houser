@@ -1,6 +1,7 @@
 // require("dotenv").config({ path: "./variables-prod.env" })
 require("dotenv").config({ path: "./variables.env" });
 // require("dotenv").config()
+// All about how to deal with chromes new cookie laws https://blog.heroku.com/chrome-changes-samesite-cookie
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
@@ -54,12 +55,12 @@ const addUser = async (req, res, next) => {
       res.cookie("token", newTokens.token, {
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
-        sameSite: "lax"
+        sameSite: "None"
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
-        sameSite: "lax"
+        sameSite: "None"
       });
     }
     req.loggedInUser = newTokens.user;
