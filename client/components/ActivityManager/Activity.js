@@ -20,6 +20,7 @@ import RefreshIcon from '@material-ui/icons/RefreshOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutline';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooksOutlined';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import ActivityIcon from './ActivityIcon';
 
 const ACTIVITY_QUERY = gql`
   query ACTIVITY_QUERY(
@@ -217,17 +218,6 @@ const Activity = ({ args }) => {
   );
 };
 
-const ActivityIcon = ({ type }) => {
-  switch (type) {
-    case 'CREATED':
-      return <PersonIcon />;
-    case 'UPDATE':
-      return <PersonIcon />;
-    default:
-      return <PersonIcon />;
-  }
-};
-
 const ActivityItem = ({ activity }) => {
   const classes = useStyles();
   return (
@@ -236,17 +226,18 @@ const ActivityItem = ({ activity }) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
-        <Avatar className={classes.orange}>
-          <PersonIcon />
+        {/* <Avatar className={classes.orange}>
           <ActivityIcon type={activity.type} />
-        </Avatar>
+        </Avatar> */}
+        <ActivityIcon type={activity.type} />
         <Typography className={classes.heading}>
           <ActivityTitle activity={activity} /> <br />
-          {activity.user
-            ? `${activity.user.firstName} ${activity.user.lastName} `
-            : null}
-          created {moment(activity.createdAt).fromNow(true)} ago
-          {activity.type}
+          <span style={{ color: 'grey' }}>
+            {activity.user
+              ? `${activity.user.firstName} ${activity.user.lastName} `
+              : null}
+            created {moment(activity.createdAt).fromNow(true)} ago
+          </span>
         </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.details}>

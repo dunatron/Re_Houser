@@ -62,6 +62,32 @@ async function updateProperty(parent, args, ctx, info) {
       }
     }
   });
+  if (args.data.onTheMarket) {
+    const live = args.data.onTheMarket;
+    createActivity({
+      ctx: ctx,
+      data: {
+        title: live
+          ? "Property is now on the market"
+          : "Property has been taken off the market",
+        content: live
+          ? "Property is now on the market"
+          : "Property has been taken off the market",
+        jsonObj: updates,
+        type: live ? "PROPERTY_LIVE" : "PROPERTY_DRAFT",
+        user: {
+          connect: {
+            id: loggedInUserId
+          }
+        },
+        property: {
+          connect: {
+            id: args.id
+          }
+        }
+      }
+    });
+  }
   return ctx.db.mutation.updateProperty(
     {
       updates,
