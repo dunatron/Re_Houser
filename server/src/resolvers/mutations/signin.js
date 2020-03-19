@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createTokens } = require("../../auth");
-const { JWT_TOKEN_MAX_AGE } = require("../../const");
+const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 
 // async function signin(parent, { email, password, captchaToken }, ctx, info) {
 //   // dismiss anything without a recaptcha token supplied
@@ -69,16 +69,10 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   const { token, refreshToken } = await createTokens(user, password);
 
   ctx.response.cookie("token", token, {
-    httpOnly: true,
-    maxAge: JWT_TOKEN_MAX_AGE,
-    sameSite: "None",
-    secure: true
+    ...rehouserCookieOpt
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    httpOnly: true,
-    maxAge: JWT_TOKEN_MAX_AGE,
-    sameSite: "None",
-    secure: true
+    ...rehouserCookieOpt
   });
   // 3. generate the JWT Token
   // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);

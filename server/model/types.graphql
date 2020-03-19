@@ -36,6 +36,7 @@ type User {
   recievedMessages: [Message!]! @relation(name: "UserRecievedMessages")
   rehouserStamp: Boolean
   activity: [Activity!]! @relation(name: "UserActivity")
+  involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
 }
 
 type Activity {
@@ -46,6 +47,7 @@ type Activity {
   jsonObj: Json
   type: ActivityType
   user: User @relation(name: "UserActivity")
+  involved: [User!]! @relation(name: "InvolvedActivity", link: TABLE)
   property: Property @relation(name: "PropertyActivity")
   propertyLease: PropertyLease @relation(name: "PropertyLeaseActivity")
 }

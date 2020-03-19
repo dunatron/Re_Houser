@@ -13,7 +13,7 @@ const setupIndexes = require("./lib/algolia/setupIndexes");
 
 const server = createServer();
 const { refreshTokens } = require("./auth");
-const { JWT_TOKEN_MAX_AGE } = require("./const");
+const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("./const");
 var path = require("path");
 var fs = require("fs");
 
@@ -53,16 +53,10 @@ const addUser = async (req, res, next) => {
     console.log("about to try refresh your tokens ");
     if (newTokens.token && newTokens.refreshToken) {
       res.cookie("token", newTokens.token, {
-        maxAge: JWT_TOKEN_MAX_AGE,
-        httpOnly: true,
-        sameSite: "None",
-        secure: true
+        ...rehouserCookieOpt
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
-        maxAge: JWT_TOKEN_MAX_AGE,
-        httpOnly: true,
-        sameSite: "None",
-        secure: true
+        ...rehouserCookieOpt
       });
     }
     req.loggedInUser = newTokens.user;

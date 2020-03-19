@@ -52,6 +52,9 @@ async function signLease(parent, args, ctx, info) {
     message: `Signing of lease ${leaseId} was successful`
   };
 
+  /**
+   * The person signing the lease and all lessors
+   */
   createActivity({
     ctx: ctx,
     data: {

@@ -136,6 +136,12 @@ async function finalisePropertyLease(parent, args, ctx, info) {
         connect: {
           id: reqUserId
         }
+      },
+      involved: {
+        connect: [
+          ...lessorIds.map(id => ({ id: id })),
+          ...lesseeIds.map(id => ({ id: id }))
+        ]
       }
     }
   });

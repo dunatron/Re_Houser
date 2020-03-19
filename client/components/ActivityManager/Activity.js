@@ -211,77 +211,96 @@ const Activity = ({ args }) => {
         btnProps={{ fullWidth: true, startIcon: <RefreshIcon /> }}
       />
       {activities.map((activity, idx) => {
-        return (
-          <ExpansionPanel>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header">
-              <Avatar className={classes.orange}>N</Avatar>
-              <Typography className={classes.heading}>
-                <ActivityTitle activity={activity} /> <br />
-                {activity.user
-                  ? `${activity.user.firstName} ${activity.user.lastName} `
-                  : null}
-                created {moment(activity.createdAt).fromNow(true)} ago
-                {activity.type}
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details}>
-              <div className={classes.detailActions}>
-                {activity.propertyLease && (
-                  <div className={classes.actionItem}>
-                    <ChangeRouteButton
-                      route="/leases/lease"
-                      title="Lease"
-                      query={{ id: activity.propertyLease.id }}
-                      btnProps={{
-                        fullWidth: true,
-                        variant: 'outlined',
-                        startIcon: <LibraryBooksIcon />,
-                      }}></ChangeRouteButton>
-                  </div>
-                )}
-                {activity.user && (
-                  <div className={classes.actionItem}>
-                    <ChangeRouteButton
-                      route="/users/user"
-                      title="Actioner"
-                      query={{ id: activity.user.id }}
-                      btnProps={{
-                        fullWidth: true,
-                        variant: 'outlined',
-                        startIcon: <PersonIcon />,
-                      }}></ChangeRouteButton>
-                  </div>
-                )}
-
-                {activity.property && (
-                  <div className={classes.actionItem}>
-                    <ChangeRouteButton
-                      route="/properties/property"
-                      title="Property"
-                      query={{ id: activity.property.id }}
-                      btnProps={{
-                        fullWidth: true,
-                        variant: 'outlined',
-                        startIcon: <RefreshIcon />,
-                      }}></ChangeRouteButton>
-                  </div>
-                )}
-              </div>
-
-              <Typography>
-                {activity.content}
-                {activity.jsonObj ? (
-                  <pre>{JSON.stringify(activity.jsonObj, null, 2)}</pre>
-                ) : null}
-              </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        );
+        return <ActivityItem activity={activity} key={activity.id} />;
       })}
     </div>
+  );
+};
+
+const ActivityIcon = ({ type }) => {
+  switch (type) {
+    case 'CREATED':
+      return <PersonIcon />;
+    case 'UPDATE':
+      return <PersonIcon />;
+    default:
+      return <PersonIcon />;
+  }
+};
+
+const ActivityItem = ({ activity }) => {
+  const classes = useStyles();
+  return (
+    <ExpansionPanel>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header">
+        <Avatar className={classes.orange}>
+          <PersonIcon />
+          <ActivityIcon type={activity.type} />
+        </Avatar>
+        <Typography className={classes.heading}>
+          <ActivityTitle activity={activity} /> <br />
+          {activity.user
+            ? `${activity.user.firstName} ${activity.user.lastName} `
+            : null}
+          created {moment(activity.createdAt).fromNow(true)} ago
+          {activity.type}
+        </Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails className={classes.details}>
+        <div className={classes.detailActions}>
+          {activity.propertyLease && (
+            <div className={classes.actionItem}>
+              <ChangeRouteButton
+                route="/leases/lease"
+                title="Lease"
+                query={{ id: activity.propertyLease.id }}
+                btnProps={{
+                  fullWidth: true,
+                  variant: 'outlined',
+                  startIcon: <LibraryBooksIcon />,
+                }}></ChangeRouteButton>
+            </div>
+          )}
+          {activity.user && (
+            <div className={classes.actionItem}>
+              <ChangeRouteButton
+                route="/users/user"
+                title="Actioner"
+                query={{ id: activity.user.id }}
+                btnProps={{
+                  fullWidth: true,
+                  variant: 'outlined',
+                  startIcon: <PersonIcon />,
+                }}></ChangeRouteButton>
+            </div>
+          )}
+
+          {activity.property && (
+            <div className={classes.actionItem}>
+              <ChangeRouteButton
+                route="/properties/property"
+                title="Property"
+                query={{ id: activity.property.id }}
+                btnProps={{
+                  fullWidth: true,
+                  variant: 'outlined',
+                  startIcon: <RefreshIcon />,
+                }}></ChangeRouteButton>
+            </div>
+          )}
+        </div>
+
+        <Typography>
+          {activity.content}
+          {activity.jsonObj ? (
+            <pre>{JSON.stringify(activity.jsonObj, null, 2)}</pre>
+          ) : null}
+        </Typography>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 };
 

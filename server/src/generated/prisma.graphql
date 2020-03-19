@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Mar 19 2020 01:48:48 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Fri Mar 20 2020 11:05:14 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -493,6 +493,7 @@ type Activity implements Node {
   jsonObj: Json
   type: ActivityType
   user: User
+  involved(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   property: Property
   propertyLease: PropertyLease
 }
@@ -514,8 +515,14 @@ input ActivityCreateInput {
   jsonObj: Json
   type: ActivityType
   user: UserCreateOneWithoutActivityInput
+  involved: UserCreateManyWithoutInvolvedActivityInput
   property: PropertyCreateOneWithoutActivityInput
   propertyLease: PropertyLeaseCreateOneWithoutActivityInput
+}
+
+input ActivityCreateManyWithoutInvolvedInput {
+  create: [ActivityCreateWithoutInvolvedInput!]
+  connect: [ActivityWhereUniqueInput!]
 }
 
 input ActivityCreateManyWithoutPropertyInput {
@@ -533,6 +540,17 @@ input ActivityCreateManyWithoutUserInput {
   connect: [ActivityWhereUniqueInput!]
 }
 
+input ActivityCreateWithoutInvolvedInput {
+  id: ID
+  title: String!
+  content: String!
+  jsonObj: Json
+  type: ActivityType
+  user: UserCreateOneWithoutActivityInput
+  property: PropertyCreateOneWithoutActivityInput
+  propertyLease: PropertyLeaseCreateOneWithoutActivityInput
+}
+
 input ActivityCreateWithoutPropertyInput {
   id: ID
   title: String!
@@ -540,6 +558,7 @@ input ActivityCreateWithoutPropertyInput {
   jsonObj: Json
   type: ActivityType
   user: UserCreateOneWithoutActivityInput
+  involved: UserCreateManyWithoutInvolvedActivityInput
   propertyLease: PropertyLeaseCreateOneWithoutActivityInput
 }
 
@@ -550,6 +569,7 @@ input ActivityCreateWithoutPropertyLeaseInput {
   jsonObj: Json
   type: ActivityType
   user: UserCreateOneWithoutActivityInput
+  involved: UserCreateManyWithoutInvolvedActivityInput
   property: PropertyCreateOneWithoutActivityInput
 }
 
@@ -559,6 +579,7 @@ input ActivityCreateWithoutUserInput {
   content: String!
   jsonObj: Json
   type: ActivityType
+  involved: UserCreateManyWithoutInvolvedActivityInput
   property: PropertyCreateOneWithoutActivityInput
   propertyLease: PropertyLeaseCreateOneWithoutActivityInput
 }
@@ -800,9 +821,12 @@ enum ActivityType {
   SIGNED_UP
   CREATED_PROPERTY
   UPDATED_PROPERTY
+  PROPERTY_DRAFT
+  PROPERTY_LIVE
   CREATED_LEASE
   LEASE_SIGNED
   LEASE_FINALISED
+  LEASE_EXPIRED
 }
 
 input ActivityUpdateInput {
@@ -811,6 +835,7 @@ input ActivityUpdateInput {
   jsonObj: Json
   type: ActivityType
   user: UserUpdateOneWithoutActivityInput
+  involved: UserUpdateManyWithoutInvolvedActivityInput
   property: PropertyUpdateOneWithoutActivityInput
   propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
 }
@@ -827,6 +852,18 @@ input ActivityUpdateManyMutationInput {
   content: String
   jsonObj: Json
   type: ActivityType
+}
+
+input ActivityUpdateManyWithoutInvolvedInput {
+  create: [ActivityCreateWithoutInvolvedInput!]
+  connect: [ActivityWhereUniqueInput!]
+  set: [ActivityWhereUniqueInput!]
+  disconnect: [ActivityWhereUniqueInput!]
+  delete: [ActivityWhereUniqueInput!]
+  update: [ActivityUpdateWithWhereUniqueWithoutInvolvedInput!]
+  updateMany: [ActivityUpdateManyWithWhereNestedInput!]
+  deleteMany: [ActivityScalarWhereInput!]
+  upsert: [ActivityUpsertWithWhereUniqueWithoutInvolvedInput!]
 }
 
 input ActivityUpdateManyWithoutPropertyInput {
@@ -870,12 +907,23 @@ input ActivityUpdateManyWithWhereNestedInput {
   data: ActivityUpdateManyDataInput!
 }
 
+input ActivityUpdateWithoutInvolvedDataInput {
+  title: String
+  content: String
+  jsonObj: Json
+  type: ActivityType
+  user: UserUpdateOneWithoutActivityInput
+  property: PropertyUpdateOneWithoutActivityInput
+  propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
+}
+
 input ActivityUpdateWithoutPropertyDataInput {
   title: String
   content: String
   jsonObj: Json
   type: ActivityType
   user: UserUpdateOneWithoutActivityInput
+  involved: UserUpdateManyWithoutInvolvedActivityInput
   propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
 }
 
@@ -885,6 +933,7 @@ input ActivityUpdateWithoutPropertyLeaseDataInput {
   jsonObj: Json
   type: ActivityType
   user: UserUpdateOneWithoutActivityInput
+  involved: UserUpdateManyWithoutInvolvedActivityInput
   property: PropertyUpdateOneWithoutActivityInput
 }
 
@@ -893,8 +942,14 @@ input ActivityUpdateWithoutUserDataInput {
   content: String
   jsonObj: Json
   type: ActivityType
+  involved: UserUpdateManyWithoutInvolvedActivityInput
   property: PropertyUpdateOneWithoutActivityInput
   propertyLease: PropertyLeaseUpdateOneWithoutActivityInput
+}
+
+input ActivityUpdateWithWhereUniqueWithoutInvolvedInput {
+  where: ActivityWhereUniqueInput!
+  data: ActivityUpdateWithoutInvolvedDataInput!
 }
 
 input ActivityUpdateWithWhereUniqueWithoutPropertyInput {
@@ -910,6 +965,12 @@ input ActivityUpdateWithWhereUniqueWithoutPropertyLeaseInput {
 input ActivityUpdateWithWhereUniqueWithoutUserInput {
   where: ActivityWhereUniqueInput!
   data: ActivityUpdateWithoutUserDataInput!
+}
+
+input ActivityUpsertWithWhereUniqueWithoutInvolvedInput {
+  where: ActivityWhereUniqueInput!
+  update: ActivityUpdateWithoutInvolvedDataInput!
+  create: ActivityCreateWithoutInvolvedInput!
 }
 
 input ActivityUpsertWithWhereUniqueWithoutPropertyInput {
@@ -1092,6 +1153,9 @@ input ActivityWhereInput {
   """All values that are not contained in given list."""
   type_not_in: [ActivityType!]
   user: UserWhereInput
+  involved_every: UserWhereInput
+  involved_some: UserWhereInput
+  involved_none: UserWhereInput
   property: PropertyWhereInput
   propertyLease: PropertyLeaseWhereInput
 }
@@ -12030,6 +12094,7 @@ type User implements Node {
   recievedMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
   rehouserStamp: Boolean
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
+  involvedActivity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
 }
 
 """A connection to a list of items."""
@@ -12078,6 +12143,7 @@ input UserCreateInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateManyInput {
@@ -12087,6 +12153,11 @@ input UserCreateManyInput {
 
 input UserCreateManyWithoutChatsInput {
   create: [UserCreateWithoutChatsInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutInvolvedActivityInput {
+  create: [UserCreateWithoutInvolvedActivityInput!]
   connect: [UserWhereUniqueInput!]
 }
 
@@ -12194,6 +12265,7 @@ input UserCreateWithoutActivityInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
@@ -12231,6 +12303,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutChatsInput {
@@ -12268,6 +12341,7 @@ input UserCreateWithoutChatsInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -12305,6 +12379,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -12342,6 +12417,7 @@ input UserCreateWithoutCreditCardsInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -12366,6 +12442,45 @@ input UserCreateWithoutFriendRequestsInput {
   rehouserStamp: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+}
+
+input UserCreateWithoutInvolvedActivityInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
@@ -12416,6 +12531,7 @@ input UserCreateWithoutLesseeLeasesInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -12453,6 +12569,7 @@ input UserCreateWithoutLessorLeasesInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -12490,6 +12607,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -12527,6 +12645,7 @@ input UserCreateWithoutProfilePhotoInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -12564,6 +12683,7 @@ input UserCreateWithoutPropertiesInput {
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -12601,6 +12721,7 @@ input UserCreateWithoutRecievedMessagesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -12638,6 +12759,7 @@ input UserCreateWithoutSentMessagesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
 
 """An edge in a connection."""
@@ -13552,6 +13674,7 @@ input UserUpdateDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateInput {
@@ -13589,6 +13712,7 @@ input UserUpdateInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateManyDataInput {
@@ -13657,6 +13781,18 @@ input UserUpdateManyWithoutChatsInput {
   updateMany: [UserUpdateManyWithWhereNestedInput!]
   deleteMany: [UserScalarWhereInput!]
   upsert: [UserUpsertWithWhereUniqueWithoutChatsInput!]
+}
+
+input UserUpdateManyWithoutInvolvedActivityInput {
+  create: [UserCreateWithoutInvolvedActivityInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutInvolvedActivityInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutInvolvedActivityInput!]
 }
 
 input UserUpdateManyWithoutPropertiesInput {
@@ -13812,6 +13948,7 @@ input UserUpdateWithoutActivityDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
@@ -13848,6 +13985,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -13884,6 +14022,7 @@ input UserUpdateWithoutChatsDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -13920,6 +14059,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -13956,6 +14096,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -13979,6 +14120,44 @@ input UserUpdateWithoutFriendRequestsDataInput {
   rehouserStamp: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+}
+
+input UserUpdateWithoutInvolvedActivityDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
@@ -14028,6 +14207,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -14064,6 +14244,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -14100,6 +14281,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -14136,6 +14318,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -14172,6 +14355,7 @@ input UserUpdateWithoutPropertiesDataInput {
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -14208,6 +14392,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -14244,6 +14429,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -14254,6 +14440,11 @@ input UserUpdateWithWhereUniqueNestedInput {
 input UserUpdateWithWhereUniqueWithoutChatsInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutChatsDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutInvolvedActivityInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutInvolvedActivityDataInput!
 }
 
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
@@ -14331,6 +14522,12 @@ input UserUpsertWithWhereUniqueWithoutChatsInput {
   where: UserWhereUniqueInput!
   update: UserUpdateWithoutChatsDataInput!
   create: UserCreateWithoutChatsInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutInvolvedActivityInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutInvolvedActivityDataInput!
+  create: UserCreateWithoutInvolvedActivityInput!
 }
 
 input UserUpsertWithWhereUniqueWithoutPropertiesInput {
@@ -15137,6 +15334,9 @@ input UserWhereInput {
   activity_every: ActivityWhereInput
   activity_some: ActivityWhereInput
   activity_none: ActivityWhereInput
+  involvedActivity_every: ActivityWhereInput
+  involvedActivity_some: ActivityWhereInput
+  involvedActivity_none: ActivityWhereInput
 }
 
 input UserWhereUniqueInput {
