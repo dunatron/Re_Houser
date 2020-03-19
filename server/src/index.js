@@ -55,12 +55,14 @@ const addUser = async (req, res, next) => {
       res.cookie("token", newTokens.token, {
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
-        sameSite: "None"
+        sameSite: "None",
+        Secure: true
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
-        sameSite: "None"
+        sameSite: "None",
+        secure: true
       });
     }
     req.loggedInUser = newTokens.user;
