@@ -15,6 +15,8 @@ import ChatsBar from '../ChatsBar';
 import { SITE_NAME } from '../../lib/const';
 import { useRouter } from 'next/router';
 import useStyles from './useStyles';
+import DashboardIcon from '../../styles/icons/DashboardIcon';
+import { Tooltip } from '@material-ui/core';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
@@ -35,7 +37,10 @@ function MaterialPage(props) {
       <div className={classes.logoContainer}>
         <ListItem>
           <Link href="/">
-            <a className={classes.logo}>{SITE_NAME}</a>
+            {/* <a className={classes.logo}>{SITE_NAME}</a> */}
+            {/* <img src="/images/rehouser_logo.png" width="200px" alt="my image" /> */}
+            {/* Space to serve image to the left with text. Note make image wide with this space, logo in it and slogan to the right */}
+            <img src="/images/rehouser_logo.png" width="100px" alt="my image" />
           </Link>
         </ListItem>
       </div>
@@ -43,6 +48,24 @@ function MaterialPage(props) {
       <Sidebar loadingUser={loadingUser} />
     </div>
   );
+
+  console.log('router pathname => ', router.pathname);
+  console.log('router  => ', router);
+
+  const pathParts = router.pathname.split('/');
+  const formattedPathParts = pathParts.filter(part => part !== '');
+
+  const routeToClickedPart = partIndex => {
+    const newRoute = formattedPathParts.reduce((acc, part, idx) => {
+      console.log('acc => ', acc);
+      console.log('part => ', part);
+      console.log('idx => ', idx);
+      if (idx + 1 === formattedPathParts.length) return acc;
+      return acc + part + '/';
+    }, '/');
+    console.log('New route =>', newRoute);
+    router.push(newRoute);
+  };
 
   return (
     <>
@@ -58,9 +81,40 @@ function MaterialPage(props) {
               className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              {router.pathname}
-            </Typography>
+            {formattedPathParts.length > 0 && (
+              <>
+                {formattedPathParts.map((urlPart, idx) => {
+                  const isLastPart =
+                    idx + 1 === formattedPathParts.length ? true : false;
+                  return (
+                    <Typography
+                      variant="h6"
+                      className={!isLastPart ? classes.routeablePart : null}
+                      noWrap
+                      onClick={() => {
+                        !isLastPart ? routeToClickedPart(idx) : null;
+                      }}>
+                      {urlPart}
+                      {!isLastPart && '/'}
+                    </Typography>
+                  );
+                })}
+              </>
+            )}
+
+            <div style={{ position: 'absolute', right: '16px' }}>
+              <Tooltip title="go to Dashboard">
+                <IconButton
+                  onClick={() => {
+                    router.push('/dashboard');
+                  }}
+                  color="inherit"
+                  aria-label="go to dashboard"
+                  edge="end">
+                  <DashboardIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">

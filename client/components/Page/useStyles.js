@@ -41,6 +41,12 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     textAlign: 'center',
   },
+  routeablePart: {
+    cursor: 'pointer',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
   drawerPaper: {
     width: theme.sideBarWidth,
   },
