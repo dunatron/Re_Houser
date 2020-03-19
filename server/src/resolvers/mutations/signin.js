@@ -70,11 +70,15 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
 
   ctx.response.cookie("token", token, {
     httpOnly: true,
-    maxAge: JWT_TOKEN_MAX_AGE
+    maxAge: JWT_TOKEN_MAX_AGE,
+    sameSite: "None",
+    secure: true
   });
   ctx.response.cookie("refresh-token", refreshToken, {
     httpOnly: true,
-    maxAge: JWT_TOKEN_MAX_AGE
+    maxAge: JWT_TOKEN_MAX_AGE,
+    sameSite: "None",
+    secure: true
   });
   // 3. generate the JWT Token
   // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);

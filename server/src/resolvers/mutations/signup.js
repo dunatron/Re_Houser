@@ -30,7 +30,9 @@ async function signup(parent, args, ctx, info) {
   // We set the jwt as a cookie on the response
   ctx.response.cookie("token", token, {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
+    maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+    sameSite: "None",
+    Secure: true
   });
   // Finalllllly we return the user to the browser
   createActivity({

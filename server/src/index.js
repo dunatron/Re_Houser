@@ -56,7 +56,7 @@ const addUser = async (req, res, next) => {
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
         sameSite: "None",
-        Secure: true
+        secure: true
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
         maxAge: JWT_TOKEN_MAX_AGE,
