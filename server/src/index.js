@@ -54,10 +54,18 @@ const addUser = async (req, res, next) => {
     console.log("about to try refresh your tokens ");
     if (newTokens.token && newTokens.refreshToken) {
       res.cookie("token", newTokens.token, {
-        ...cookieOptions
+        // ...cookieOptions
+        maxAge: JWT_TOKEN_MAX_AGE,
+        httpOnly: true,
+        sameSite: "None",
+        secure: true
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
-        ...cookieOptions
+        // ...cookieOptions
+        maxAge: JWT_TOKEN_MAX_AGE,
+        httpOnly: true,
+        sameSite: "None",
+        secure: true
       });
     }
     req.loggedInUser = newTokens.user;

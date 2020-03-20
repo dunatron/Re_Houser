@@ -73,10 +73,18 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   console.log("What is our env when logging in => ", process.env.STAGE);
   console.log("What are our cookie options... => ", cookieOptions);
   ctx.response.cookie("token", token, {
-    ...cookieOptions
+    // ...cookieOptions
+    maxAge: JWT_TOKEN_MAX_AGE,
+    httpOnly: true,
+    sameSite: "None",
+    secure: true
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...cookieOptions
+    // ...cookieOptions
+    maxAge: JWT_TOKEN_MAX_AGE,
+    httpOnly: true,
+    sameSite: "None",
+    secure: true
   });
   // 3. generate the JWT Token
   // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
