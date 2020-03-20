@@ -11,12 +11,12 @@ exports.rehouserCookieOpt = () => {
     return {
       maxAge: JWT_TOKEN_MAX_AGE,
       httpOnly: true,
-      sameSite: "Lax"
+      sameSite: "lax"
     };
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
-    sameSite: "Lax"
+    sameSite: "lax"
   };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE,
