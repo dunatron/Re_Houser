@@ -68,16 +68,28 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   // now that we have validated credentials we should create tokens and send as a cookie
   const { token, refreshToken } = await createTokens(user, password);
 
-  const ck1 = ctx.response.cookie("token", token, {
-    maxAge: JWT_TOKEN_MAX_AGE,
+  // const ck1 = ctx.response.cookie("token", token, {
+  //   maxAge: JWT_TOKEN_MAX_AGE,
+  //   httpOnly: true,
+  //   sameSite: "None",
+  //   secure: true
+  // });
+  // const ck2 = ctx.response.cookie("refresh-token", refreshToken, {
+  //   // ...cookieOptions
+  //   maxAge: JWT_TOKEN_MAX_AGE,
+  //   httpOnly: true,
+  //   sameSite: "None",
+  //   secure: true
+  // });
+  ctx.response.cookie("token", token, {
     httpOnly: true,
+    maxAge: JWT_TOKEN_MAX_AGE,
     sameSite: "None",
     secure: true
   });
-  const ck2 = ctx.response.cookie("refresh-token", refreshToken, {
-    // ...cookieOptions
-    maxAge: JWT_TOKEN_MAX_AGE,
+  ctx.response.cookie("refresh-token", refreshToken, {
     httpOnly: true,
+    maxAge: JWT_TOKEN_MAX_AGE,
     sameSite: "None",
     secure: true
   });
@@ -93,8 +105,8 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
 
   const userInfoWithToken = {
     ...userWithInfo,
-    token: ck1,
-    refreshToken: ck2
+    token: token,
+    refreshToken: refreshToken
     // token: token,
     // refreshToken: refreshToken
   };
