@@ -13,7 +13,7 @@ const setupIndexes = require("./lib/algolia/setupIndexes");
 
 const server = createServer();
 const { refreshTokens } = require("./auth");
-const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("./const");
+const { JWT_TOKEN_MAX_AGE } = require("./const");
 var path = require("path");
 var fs = require("fs");
 
@@ -29,39 +29,30 @@ const expressLogger = function(req, res, next) {
 // check for refreshToken, then do logic to refresh both
 // we could have 2 different token expiry dates...
 const addUser = async (req, res, next) => {
-  console.log("Checking user on every request");
   const token = req.cookies.token;
-  console.log("Add User token => ", token);
   if (!token) {
     console.log("This request is not authenticated");
     return next();
   }
   try {
     const { userId } = jwt.verify(token, process.env.APP_SECRET);
-    console.log("token was verified and userId is => ", userId);
     req.userId = userId;
   } catch (err) {
-    console.log("error verifying token err => ", err);
     const refreshToken = req.cookies["refresh-token"];
-    console.log("do we have a refreshToken? ", refreshToken);
     if (!refreshToken) {
-      console.log("well no refresh token... ");
       return next();
     }
 
     const newTokens = await refreshTokens(refreshToken, db);
-    const cookieOptions = rehouserCookieOpt();
-    console.log("about to try refresh your tokens ");
+
     if (newTokens.token && newTokens.refreshToken) {
       res.cookie("token", newTokens.token, {
-        // ...cookieOptions
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
         sameSite: "None",
         secure: true
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
-        // ...cookieOptions
         maxAge: JWT_TOKEN_MAX_AGE,
         httpOnly: true,
         sameSite: "None",

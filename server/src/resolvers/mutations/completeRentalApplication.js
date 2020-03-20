@@ -48,8 +48,6 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
     });
   });
 
-  console.log("updatedApplicationStage ====> ", updatedApplication);
-
   // return the application
   return updatedApplication;
 }

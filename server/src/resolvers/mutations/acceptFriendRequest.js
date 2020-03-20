@@ -17,7 +17,7 @@ async function acceptFriendRequest(parent, args, ctx, info) {
     },
     `{id, requestUser{id}, acceptingUser{id}}`
   );
-  console.log("friendRequest => ", friendRequest);
+
   // 1. make the users friends
   const updatedUser = await ctx.db.mutation.updateUser({
     where: {
@@ -31,7 +31,6 @@ async function acceptFriendRequest(parent, args, ctx, info) {
       }
     }
   });
-  console.log("updatedUser => ", updatedUser);
 
   // delete the object
   await ctx.db.mutation.deleteFriendRequest({

@@ -4,9 +4,6 @@ const { createActivity } = require("../../lib/createActivity");
 async function createPropertyLease(parent, { data }, ctx, info) {
   const loggedInUserId = await ctx.request.userId;
 
-  console.log("==createPropertyLease==");
-  console.log("==DATA==", data);
-
   // just highlohting we need to dp something herte
   const recievedData = data;
 

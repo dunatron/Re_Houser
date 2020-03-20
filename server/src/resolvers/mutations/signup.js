@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createActivity } = require("../../lib/createActivity");
 const { createTokens } = require("../../auth");
-const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
+const { JWT_TOKEN_MAX_AGE } = require("../../const");
 
 async function signup(parent, args, ctx, info) {
   //lowercase their email
@@ -37,18 +37,14 @@ async function signup(parent, args, ctx, info) {
   //   Secure: true
   // });
   const { token, refreshToken } = await createTokens(user, password);
-  const cookieOptions = rehouserCookieOpt();
 
   ctx.response.cookie("token", token, {
-    // httpOnly: true,
-    // ...cookieOptions
     httpOnly: true,
     maxAge: JWT_TOKEN_MAX_AGE,
     sameSite: "None",
     secure: true
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    // ...cookieOptions
     httpOnly: true,
     maxAge: JWT_TOKEN_MAX_AGE,
     sameSite: "None",
