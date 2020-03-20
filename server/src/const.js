@@ -10,15 +10,21 @@ exports.rehouserCookieOpt = () => {
   if (envStage == "dev")
     return {
       maxAge: JWT_TOKEN_MAX_AGE,
-      httpOnly: true
+      httpOnly: true,
+      sameSite: "Lax"
     };
-
+  return {
+    maxAge: JWT_TOKEN_MAX_AGE,
+    httpOnly: true,
+    sameSite: "Lax"
+  };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE,
   //   httpOnly: true
   // };
 
   // use this if you fuck up ypur environment variables and cannot be fucked debugging the cunt
+  // and maybe for mobile because that cunt doesnt work
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
