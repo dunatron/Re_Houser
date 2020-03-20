@@ -40,11 +40,19 @@ async function signup(parent, args, ctx, info) {
   const cookieOptions = rehouserCookieOpt();
 
   ctx.response.cookie("token", token, {
+    // httpOnly: true,
+    // ...cookieOptions
     httpOnly: true,
-    ...cookieOptions
+    maxAge: JWT_TOKEN_MAX_AGE,
+    sameSite: "None",
+    secure: true
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...cookieOptions
+    // ...cookieOptions
+    httpOnly: true,
+    maxAge: JWT_TOKEN_MAX_AGE,
+    sameSite: "None",
+    secure: true
   });
   // Finalllllly we return the user to the browser
   createActivity({
