@@ -72,14 +72,14 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
 
   console.log("What is our env when logging in => ", process.env.STAGE);
   console.log("What are our cookie options... => ", cookieOptions);
-  ctx.response.cookie("token", token, {
+  const ck1 = ctx.response.cookie("token", token, {
     // ...cookieOptions
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "None",
     secure: true
   });
-  ctx.response.cookie("refresh-token", refreshToken, {
+  const ck2 = ctx.response.cookie("refresh-token", refreshToken, {
     // ...cookieOptions
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
@@ -100,8 +100,10 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   // console.log("Shoq me user with info => ", userWithInfo);
   const userInfoWithToken = {
     ...userWithInfo,
-    token: token,
-    refreshToken: refreshToken
+    token: ck1,
+    refreshToken: ck2
+    // token: token,
+    // refreshToken: refreshToken
   };
   return userInfoWithToken;
 }
