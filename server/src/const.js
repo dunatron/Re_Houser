@@ -15,6 +15,11 @@ exports.rehouserCookieOpt = () => {
 
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
+    httpOnly: true
+  };
+
+  return {
+    maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "None",
     secure: true
