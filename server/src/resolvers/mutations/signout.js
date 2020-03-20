@@ -1,11 +1,12 @@
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 
 async function signout(parent, args, ctx, info) {
+  const cookieOptions = rehouserCookieOpt();
   ctx.response.clearCookie("token", {
-    ...rehouserCookieOpt
+    ...cookieOptions
   });
   ctx.response.clearCookie("refresh-token", {
-    ...rehouserCookieOpt
+    ...cookieOptions
   });
   return { message: "Goodbye!" };
 }

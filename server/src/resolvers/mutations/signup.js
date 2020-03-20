@@ -37,13 +37,14 @@ async function signup(parent, args, ctx, info) {
   //   Secure: true
   // });
   const { token, refreshToken } = await createTokens(user, password);
+  const cookieOptions = rehouserCookieOpt();
 
   ctx.response.cookie("token", token, {
     httpOnly: true,
-    ...rehouserCookieOpt
+    ...cookieOptions
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...rehouserCookieOpt
+    ...cookieOptions
   });
   // Finalllllly we return the user to the browser
   createActivity({

@@ -50,13 +50,14 @@ const addUser = async (req, res, next) => {
     }
 
     const newTokens = await refreshTokens(refreshToken, db);
+    const cookieOptions = rehouserCookieOpt();
     console.log("about to try refresh your tokens ");
     if (newTokens.token && newTokens.refreshToken) {
       res.cookie("token", newTokens.token, {
-        ...rehouserCookieOpt
+        ...cookieOptions
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
-        ...rehouserCookieOpt
+        ...cookieOptions
       });
     }
     req.loggedInUser = newTokens.user;
