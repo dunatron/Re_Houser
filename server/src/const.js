@@ -10,13 +10,13 @@ exports.rehouserCookieOpt = () => {
   if (envStage == "dev")
     return {
       maxAge: JWT_TOKEN_MAX_AGE,
-      httpOnly: true,
-      sameSite: "lax"
+      httpOnly: true
+      // sameSite: "lax"
     };
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
-    httpOnly: true,
-    sameSite: "lax"
+    httpOnly: true
+    // sameSite: "lax"
   };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE,
