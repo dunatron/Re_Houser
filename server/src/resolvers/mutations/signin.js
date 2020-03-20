@@ -70,6 +70,8 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
 
   const cookieOptions = rehouserCookieOpt();
 
+  console.log("What is our env when logging in => ", process.env.STAGE);
+  console.log("What are our cookie options... => ", cookieOptions);
   ctx.response.cookie("token", token, {
     ...cookieOptions
   });
