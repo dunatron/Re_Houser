@@ -18,6 +18,7 @@ exports.rehouserCookieOpt = () => {
     httpOnly: true
   };
 
+  // use this if you fuck up ypur environment variables and cannot be fucked debugging the cunt
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,

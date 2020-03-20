@@ -68,41 +68,14 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   // now that we have validated credentials we should create tokens and send as a cookie
   const { token, refreshToken } = await createTokens(user, password);
 
-  // const ck1 = ctx.response.cookie("token", token, {
-  //   maxAge: JWT_TOKEN_MAX_AGE,
-  //   httpOnly: true,
-  //   sameSite: "None",
-  //   secure: true
-  // });
-  // const ck2 = ctx.response.cookie("refresh-token", refreshToken, {
-  //   // ...cookieOptions
-  //   maxAge: JWT_TOKEN_MAX_AGE,
-  //   httpOnly: true,
-  //   sameSite: "None",
-  //   secure: true
-  // });
   const cookieOptions = rehouserCookieOpt();
   ctx.response.cookie("token", token, {
-    // httpOnly: true,
-    // maxAge: JWT_TOKEN_MAX_AGE,
-    // sameSite: "None",
-    // secure: true
     ...cookieOptions
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    // httpOnly: true,
-    // maxAge: JWT_TOKEN_MAX_AGE,
-    // sameSite: "None",
-    // secure: true
     ...cookieOptions
   });
-  // 3. generate the JWT Token
-  // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-  // // 4. Set the cookie with the token
-  // ctx.response.cookie("token", token, {
-  //   httpOnly: true,
-  //   maxAge: 1000 * 60 * 60 * 24 * 365
-  // });
+
   // 5. get the user with details. cant get it earlier
   const userWithInfo = await ctx.db.query.user({ where: { email } }, info);
 
@@ -110,8 +83,6 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
     ...userWithInfo,
     token: token,
     refreshToken: refreshToken
-    // token: token,
-    // refreshToken: refreshToken
   };
   return userInfoWithToken;
 }
