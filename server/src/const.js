@@ -7,11 +7,11 @@ module.exports.JWT_TOKEN_MAX_AGE = JWT_TOKEN_MAX_AGE;
 exports.rehouserCookieOpt = () => {
   const envStage = process.env.STAGE;
 
-  if (envStage == "dev")
-    return {
-      maxAge: JWT_TOKEN_MAX_AGE,
-      httpOnly: true
-    };
+  // if (envStage == "dev")
+  //   return {
+  //     maxAge: JWT_TOKEN_MAX_AGE,
+  //     httpOnly: true
+  //   };
 
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
