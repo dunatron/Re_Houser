@@ -25,7 +25,7 @@ const CollapseMenu = styled(Collapse)`
 
 const ListStyle = styled(List)`
   && {
-    /* margin: ${props => props.theme.spacing.unit * 3}px 0 0 0; */
+    /* margin: ${props => props.theme.spacing(3)}px 0 0 0; */
     margin: 0 0 16px 0;
     padding: 0;
     border-bottom: 1px dashed grey;
@@ -34,7 +34,7 @@ const ListStyle = styled(List)`
 
 const CheckboxItem = styled(FormControlLabel)`
   && {
-    margin: ${props => props.theme.spacing.unit * 3}px 0 0 0;
+    margin: ${props => props.theme.spacing(3)}px 0 0 0;
     margin: 0;
     padding: 0;
   }

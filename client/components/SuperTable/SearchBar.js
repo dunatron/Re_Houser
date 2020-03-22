@@ -17,8 +17,8 @@ const styles = theme => ({
   },
   open: {
     opacity: 1,
-    height: theme.spacing.unit * 15,
-    minHeight: theme.spacing.unit * 15,
+    height: theme.spacing(15),
+    minHeight: theme.spacing(15),
   },
 });
 
