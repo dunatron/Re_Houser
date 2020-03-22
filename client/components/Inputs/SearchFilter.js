@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 const styles = theme => ({
   searchField: {
     display: 'block',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 });
 

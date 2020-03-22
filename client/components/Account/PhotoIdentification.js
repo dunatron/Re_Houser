@@ -33,8 +33,8 @@ const PhotoIdentification = props => {
     <div className={classes.root}>
       {photoIdentification && (
         <PhotoID>
-          <div class="id__strip">
-            <div class="id__number">
+          <div className="id__strip">
+            <div className="id__number">
               <TextField
                 color="primary"
                 label="PhotoId Number"

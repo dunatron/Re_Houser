@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       flexBasis: '50%',
     },
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 }));
 

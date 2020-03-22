@@ -10,7 +10,7 @@ const CreditCardItemStyles = styled(Paper)`
   margin: 16px;
 
   && {
-    /* margin: ${props => props.theme.spacing.unit * 3}px 0 0 0; */
+    /* margin: ${props => props.theme.spacing(3)}px 0 0 0; */
   }
   .credit-card-display {
     border: 1px solid black;

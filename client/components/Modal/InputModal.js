@@ -32,8 +32,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    // padding: `0 ${theme.spacing.unit * 2}px`,
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
   },
   modalTitle: {
     margin: 0,
@@ -44,8 +43,9 @@ const styles = theme => ({
   closeBtn: {},
 
   modalBody: {
-    padding: `0 ${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px ${theme
-      .spacing.unit * 2}px`,
+    padding: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
+      2
+    )}px`,
   },
   overlay: {
     position: 'fixed',

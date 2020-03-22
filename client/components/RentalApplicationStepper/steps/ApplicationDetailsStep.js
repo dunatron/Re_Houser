@@ -5,6 +5,7 @@ import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../../graphql/mutatio
 import Switch from '@material-ui/core/Switch';
 import SwitchInput from '../../Inputs/SwitchInput';
 import ApplicantDetails from '../../ApplicantDetails/index';
+import UserProfile from '../../UserProfile';
 import {
   RENTAL_APPLICATIONS_QUERY,
   SINGLE_RENTAL_APPLICATION_QUERY,
@@ -108,7 +109,10 @@ const RenderOwnerView = props => {
           return (
             <div key={i}>
               {applicant.user ? (
-                <ApplicantDetails applicant={applicant} />
+                <>
+                  <UserProfile user={applicant.user} me={me} />
+                  <ApplicantDetails applicant={applicant} />
+                </>
               ) : (
                 'NO USER DETAILS'
               )}

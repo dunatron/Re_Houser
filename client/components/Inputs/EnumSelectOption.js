@@ -10,33 +10,29 @@ import { GET_ENUM_QUERY } from '../../graphql/queries';
 
 const styles = theme => ({
   root: {
-    // padding: theme.spacing.unit * 4,
     textAlign: 'left',
     width: '100%',
     boxSizing: 'border-box',
   },
   formContainer: {
-    // padding: `${theme.spacing.unit * 4}px 0`,
-    height: theme.spacing.unit * 6,
+    height: theme.spacin(6),
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
   },
   formControl: {
     minWidth: '220px',
-    margin: theme.spacing.unit,
+    margin: theme.spacing(6),
   },
   button: {
     borderRadius: 0,
   },
   codeEditor: {
     display: 'flex',
-    //width: `calc(100% - 241px)`,
-    height: `calc(100vh - ${theme.spacing.unit * 28 + 4}px )`,
-    margin: `0 -${theme.spacing.unit * 4}px`,
+    height: `calc(100vh - ${theme.spacing(28) + 4}px )`,
+    margin: `0 -${theme.spacing(4)}px`,
   },
   editorField: {
-    //flex: '1 1 0'
     overflowX: 'auto',
     flexBasis: 0,
     flexGrow: 1,

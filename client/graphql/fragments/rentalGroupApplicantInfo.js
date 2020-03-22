@@ -11,6 +11,10 @@ const RentalGroupApplicantInfoFragment = gql`
       id
       firstName
       lastName
+      profilePhoto {
+        filename
+        url
+      }
     }
   }
 `;

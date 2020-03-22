@@ -11,14 +11,14 @@ const DropZone = styled.div`
     p.dragging
       ? `3px dashed ${p.theme.palette.secondary.main}`
       : `1px dashed ${p.theme.palette.primary.main}`};
-  height: ${p => p.theme.spacing.unit * 30 * 1.618}px;
+  height: ${p => p.theme.spacing(1) * 30 * 1.618}px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   box-sizing: border-box;
   background: ${p => (p.dragging ? `${p.theme.palette.primary.light}` : ``)};
-  margin: ${p => p.theme.spacing.unit}px;
+  margin: ${p => p.theme.spacing(1)}px;
   transition: all ease 0.5s;
   ${props => {
     const { disabled, theme } = props;

@@ -17,6 +17,8 @@ import Tab from '@material-ui/core/Tab';
 import CompletionRating from './CompletionRating';
 // CompletionIcon
 import DynamicCompletionIcon from './CompletionIcon';
+// user profile
+import UserProfile from '../UserProfile';
 // PhotoIdentification
 import PhotoIdentification from './PhotoIdentification';
 // ProfilePhoto
@@ -154,6 +156,7 @@ const AccountComponent = () => {
 
       <CompletionRating me={me} />
       <DeleteAccount />
+      <UserProfile user={me} me={me} />
 
       <Tabs
         value={tabIndex}
