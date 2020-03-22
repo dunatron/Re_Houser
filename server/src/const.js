@@ -15,8 +15,9 @@ exports.rehouserCookieOpt = () => {
     };
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
-    httpOnly: true
-    // sameSite: "lax"
+    httpOnly: true,
+    sameSite: "None",
+    secure: true
   };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE,
