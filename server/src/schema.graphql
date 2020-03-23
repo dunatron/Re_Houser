@@ -95,6 +95,10 @@ type Mutation {
   acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
   createChat(data: ChatCreateInput!): Chat!
   createMessage(data: MessageCreateInput!): Message
+  updatePropertyLease(
+    data: PropertyLeaseUpdateInput!
+    where: PropertyLeaseWhereUniqueInput!
+  ): PropertyLease
 }
 
 type Subscription {

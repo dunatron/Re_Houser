@@ -26,7 +26,9 @@ const styles = theme => ({
  */
 const DateInput = ({ id, classes, value, onChange, label, helperText }) => {
   // const RFCIsoValue = moment(value).format("YYYY-MM-DD")
-  const RFCIsoValue = moment(value).format('YYYY-MM-DDTkk:mm');
+  const RFCIsoValue = value
+    ? moment(value).format('YYYY-MM-DDTkk:mm')
+    : moment().format('YYYY-MM-DDTkk:mm');
   //
   return (
     <TextField

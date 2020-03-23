@@ -17,6 +17,7 @@ import { COMPLETE_RENTAL_APPLICATION } from './completeRentalApplication';
 import { CREATE_MESSAGE_MUTATION } from './createMessage';
 import { CREATE_CHAT_MUTATION } from './createChatMutation';
 import { UPLOAD_PROFILE_PHOTO } from './uploadProfilePhoto';
+import { UPDATE_PROPERTY_LEASE_MUTATION } from './updatePropertyLease';
 
 export {
   SIGNUP_MUTATION,
@@ -38,4 +39,5 @@ export {
   CREATE_MESSAGE_MUTATION,
   CREATE_CHAT_MUTATION,
   UPLOAD_PROFILE_PHOTO,
+  UPDATE_PROPERTY_LEASE_MUTATION,
 };

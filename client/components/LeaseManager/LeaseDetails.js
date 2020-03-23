@@ -1,7 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Paper, Grid, Divider } from '@material-ui/core';
+import { Typography, Paper, Grid, Divider, Button } from '@material-ui/core';
 import moment from 'moment';
+import { isEmpty } from 'ramda';
+import UpdateField from './UpdateField';
+import { UPDATE_PROPERTY_LEASE_MUTATION } from '../../graphql/mutations';
+import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
+import Error from '../ErrorMessage';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -38,6 +44,8 @@ const defaultDetailSize = {
 const LEASE_DETAILS_CONF = [
   {
     key: 'createdAt',
+    type: 'DateTime',
+    canUpdate: false,
     label: 'Created @',
     format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a'),
     sizes: {
@@ -49,6 +57,8 @@ const LEASE_DETAILS_CONF = [
   },
   {
     key: 'updatedAt',
+    type: 'DateTime',
+    canUpdate: false,
     label: 'Last Updated',
     format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a'),
     sizes: {
@@ -60,57 +70,80 @@ const LEASE_DETAILS_CONF = [
   },
   {
     key: 'rooms',
+    type: 'Int',
+    canUpdate: true,
     label: 'Rooms',
     sizes: defaultDetailSize,
   },
   {
     key: 'finalised',
+    type: 'Boolean',
+    canUpdate: false,
     label: 'Finalised',
     format: val => (val === true ? 'YES' : 'NO'),
     sizes: defaultDetailSize,
   },
   {
     key: 'bathrooms',
+    type: 'Int',
+    canUpdate: true,
+    canUpdate: true,
     label: 'Bathrooms',
     sizes: defaultDetailSize,
   },
   {
     key: 'garageSpaces',
+    type: 'Int',
+    canUpdate: true,
     label: 'Garage spaces',
     sizes: defaultDetailSize,
   },
   {
     key: 'carportSpaces',
+    type: 'Int',
+    canUpdate: true,
     label: 'Carport spaces',
     sizes: defaultDetailSize,
   },
   {
     key: 'offStreetSpaces',
+    type: 'Int',
+    canUpdate: true,
     label: 'Offstreet spaces',
     sizes: defaultDetailSize,
   },
   {
     key: 'rent',
+    type: 'Float',
+    canUpdate: true,
     label: 'Rent',
     sizes: defaultDetailSize,
   },
   {
     key: 'moveInDate',
+    type: 'DateTime',
+    canUpdate: true,
     label: 'Move In Date',
     sizes: defaultDetailSize,
   },
   {
     key: 'expiryDate',
+    type: 'DateTime',
+    canUpdate: true,
     label: 'Expiry Date',
     sizes: defaultDetailSize,
   },
   {
     key: 'locationLat',
+    type: 'Float',
+    canUpdate: false,
     label: 'Location Lat',
     sizes: defaultDetailSize,
   },
   {
     key: 'locationLng',
+    type: 'Float',
+    canUpdate: false,
     label: 'Location Lng',
     sizes: defaultDetailSize,
   },
@@ -118,6 +151,11 @@ const LEASE_DETAILS_CONF = [
 
 const LeaseDetails = ({ lease }) => {
   const classes = useStyles();
+  const [updates, setUpdates] = useState({});
+  const [
+    updatePropertyLease,
+    { data, error, loading, called, client },
+  ] = useMutation(UPDATE_PROPERTY_LEASE_MUTATION);
   const {
     id,
     property,
@@ -140,11 +178,20 @@ const LeaseDetails = ({ lease }) => {
     locationLat,
     locationLng,
   } = lease;
+
+  const canUpdateField = canUpdate => {
+    // ToDo if not a lessor of the lease do not update
+    // if field canUpdate is false dont allow editing
+    if (!canUpdate) return false;
+    return true;
+  };
+
   return (
     <div>
       <Typography variant="subtitle1" gutterBottom>
         Lease for {location}
       </Typography>
+
       <Grid container wrap="wrap" spacing={1} className={classes.container}>
         {LEASE_DETAILS_CONF.map(confObj => {
           const { xs, sm, md, lg, xl } = confObj.sizes;
@@ -157,14 +204,68 @@ const LeaseDetails = ({ lease }) => {
                     ? confObj.format(lease[confObj.key])
                     : lease[confObj.key]}
                 </Typography>
+                {canUpdateField(confObj.canUpdate) && (
+                  <UpdateField
+                    fieldConf={confObj}
+                    defaultValue={lease[confObj.key]}
+                    value={
+                      updates[confObj.key]
+                        ? updates[confObj.key]
+                        : lease[confObj.key]
+                    }
+                    update={v => {
+                      setUpdates({
+                        ...updates,
+                        [confObj.key]: v,
+                      });
+                    }}
+                  />
+                )}
               </Paper>
             </Grid>
           );
         })}
       </Grid>
+      {!isEmpty(updates) && (
+        <Button
+          disabled={loading}
+          onClick={() => {
+            updatePropertyLease({
+              variables: {
+                data: { ...updates },
+                where: {
+                  id: id,
+                },
+              },
+              refetchQueries: [
+                {
+                  query: SINGLE_LEASE_QUERY,
+                  variables: {
+                    where: {
+                      id: id,
+                    },
+                  },
+                },
+              ],
+            });
+          }}>
+          Update Lease
+        </Button>
+      )}
+      {error && <Error error={error} />}
+      {!isEmpty(updates) && <pre>{JSON.stringify(updates, null, 2)}</pre>}
       <Divider className={classes.divider} />
     </div>
   );
 };
+
+// const { data, error, loading } = useQuery(SINGLE_LEASE_QUERY, {
+// variables: {
+//   where: {
+//     id: leaseId,
+//   },
+// },
+//   suspend: false,
+// });
 
 export default LeaseDetails;
