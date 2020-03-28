@@ -21,6 +21,9 @@ const PropertyInfoFragment = gql`
       rent
       description
     }
+    insulationForm {
+      id
+    }
     rehouserStamp
   }
 `;

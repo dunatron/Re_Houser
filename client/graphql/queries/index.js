@@ -12,6 +12,7 @@ import { MY_CHATS_QUERY } from './myChats';
 import { CHAT_QUERY } from './chat.query';
 import { GET_ENUM_QUERY } from './getEnum';
 import { SINGLE_LEASE_QUERY } from './singleLeaseQuery';
+import { INSULATION_FORM_QUERY } from './insulationForm';
 
 import { MESSAGES_QUERY } from './messages';
 import { MESSAGES_CONNECTION_QUERY } from './messagesConnection';
@@ -34,5 +35,6 @@ export {
   MESSAGES_QUERY,
   MESSAGES_CONNECTION_QUERY,
   GET_ENUM_QUERY,
+  INSULATION_FORM_QUERY,
   chats,
 };

@@ -10,11 +10,11 @@ datamodel:
   - model/types.graphql
   - model/enums.graphql
   - model/interfaces.graphql
+  - model/forms/InsulationForm.graphql
 # secret is the database password, ommiting it in dev means easier development
 secret: ${env:PRISMA_SECRET}
 # https://github.com/prisma/prisma/issues/4492
 hooks:
   post-deploy:
     - graphql get-schema -p prisma
-
 # endpoint: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod

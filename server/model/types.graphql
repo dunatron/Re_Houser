@@ -140,6 +140,7 @@ type Property implements PropertyInfo {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationForm: InsulationForm
   indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   rent: Float!

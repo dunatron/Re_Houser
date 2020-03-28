@@ -18,6 +18,7 @@ import { CREATE_MESSAGE_MUTATION } from './createMessage';
 import { CREATE_CHAT_MUTATION } from './createChatMutation';
 import { UPLOAD_PROFILE_PHOTO } from './uploadProfilePhoto';
 import { UPDATE_PROPERTY_LEASE_MUTATION } from './updatePropertyLease';
+import { UPDATE_INSULATION_FORM_MUTATION } from './updateInsulationForm';
 
 export {
   SIGNUP_MUTATION,
@@ -40,4 +41,5 @@ export {
   CREATE_CHAT_MUTATION,
   UPLOAD_PROFILE_PHOTO,
   UPDATE_PROPERTY_LEASE_MUTATION,
+  UPDATE_INSULATION_FORM_MUTATION,
 };

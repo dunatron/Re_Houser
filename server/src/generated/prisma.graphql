@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Mar 20 2020 11:05:14 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Sun Mar 29 2020 04:50:55 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -825,6 +825,7 @@ enum ActivityType {
   PROPERTY_LIVE
   CREATED_LEASE
   LEASE_SIGNED
+  LEASE_UPDATED
   LEASE_FINALISED
   LEASE_EXPIRED
 }
@@ -1188,6 +1189,10 @@ type AggregateFriendRequest {
   count: Int!
 }
 
+type AggregateInsulationForm {
+  count: Int!
+}
+
 type AggregateLessee {
   count: Int!
 }
@@ -1242,6 +1247,13 @@ enum ApplicationStage {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+enum CeilingInsulationTypes {
+  SEGMENTS_BLANKETS
+  LOOSE_FILL
+  OTHER
+  NOT_ACCESSIBLE
 }
 
 type Chat implements Node {
@@ -4918,6 +4930,11 @@ input FriendRequestWhereUniqueInput {
   id: ID
 }
 
+enum HealthyHomesStandardStatementTypes {
+  WILL_COMPLY
+  ALREADY_COMPLYING
+}
+
 enum IndoorFeature {
   AIR_CONDITIONING
   FURNISHED
@@ -4927,6 +4944,1132 @@ enum IndoorFeature {
   BALCONY
   ALARM_SYSTEM
   HEATING
+}
+
+enum InsulationConditionTypes {
+  REASONABLE
+  NOT_REASONABLE
+  NO_GAPS
+  NOT_ACCESSIBLE
+}
+
+enum InsulationCoverageTypes {
+  COMPLETE
+  PARTIAL
+  NONE
+  UNKNOWN
+}
+
+type InsulationForm implements Node {
+  id: ID!
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypes: [CeilingInsulationTypes!]!
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditions: [InsulationConditionTypes!]!
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypes: [UnderfloorInsulationTypes!]!
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditions: [InsulationConditionTypes!]!
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+}
+
+"""A connection to a list of items."""
+type InsulationFormConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [InsulationFormEdge]!
+  aggregate: AggregateInsulationForm!
+}
+
+input InsulationFormCreateceilingConditionsInput {
+  set: [InsulationConditionTypes!]
+}
+
+input InsulationFormCreateceilingTypesInput {
+  set: [CeilingInsulationTypes!]
+}
+
+input InsulationFormCreateInput {
+  id: ID
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+  ceilingTypes: InsulationFormCreateceilingTypesInput
+  ceilingConditions: InsulationFormCreateceilingConditionsInput
+  underfloorTypes: InsulationFormCreateunderfloorTypesInput
+  underfloorConditions: InsulationFormCreateunderfloorConditionsInput
+}
+
+input InsulationFormCreateOneInput {
+  create: InsulationFormCreateInput
+  connect: InsulationFormWhereUniqueInput
+}
+
+input InsulationFormCreateunderfloorConditionsInput {
+  set: [InsulationConditionTypes!]
+}
+
+input InsulationFormCreateunderfloorTypesInput {
+  set: [UnderfloorInsulationTypes!]
+}
+
+"""An edge in a connection."""
+type InsulationFormEdge {
+  """The item at the end of the edge."""
+  node: InsulationForm!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum InsulationFormOrderByInput {
+  id_ASC
+  id_DESC
+  meetsMinCeilingReq_ASC
+  meetsMinCeilingReq_DESC
+  meetsMinCeilingReqReason_ASC
+  meetsMinCeilingReqReason_DESC
+  meetsMinUnderfloorReq_ASC
+  meetsMinUnderfloorReq_DESC
+  meetsMinUnderfloorReqReason_ASC
+  meetsMinUnderfloorReqReason_DESC
+  ceilingCoverage_ASC
+  ceilingCoverage_DESC
+  ceilingCoverageReason_ASC
+  ceilingCoverageReason_DESC
+  ceilingTypesOther_ASC
+  ceilingTypesOther_DESC
+  ceilingBulkRValue_ASC
+  ceilingBulkRValue_DESC
+  ceilingMinimumThickness_ASC
+  ceilingMinimumThickness_DESC
+  ceilingInsulationInstallDate_ASC
+  ceilingInsulationInstallDate_DESC
+  ceilingConditionReason_ASC
+  ceilingConditionReason_DESC
+  underfloorCoverage_ASC
+  underfloorCoverage_DESC
+  underfloorCoverageReason_ASC
+  underfloorCoverageReason_DESC
+  underfloorTypesOther_ASC
+  underfloorTypesOther_DESC
+  underfloorBulkRValue_ASC
+  underfloorBulkRValue_DESC
+  underfloorMinimumThickness_ASC
+  underfloorMinimumThickness_DESC
+  underfloorInsulationInstallDate_ASC
+  underfloorInsulationInstallDate_DESC
+  underfloorConditionReason_ASC
+  underfloorConditionReason_DESC
+  wallCoverage_ASC
+  wallCoverage_DESC
+  wallCoverageReason_ASC
+  wallCoverageReason_DESC
+  supplementaryInfo_ASC
+  supplementaryInfo_DESC
+  lastUpgradedDate_ASC
+  lastUpgradedDate_DESC
+  profesionallyAssessedDate_ASC
+  profesionallyAssessedDate_DESC
+  declarationCheck_ASC
+  declarationCheck_DESC
+  healthyHomesStandardStatement_ASC
+  healthyHomesStandardStatement_DESC
+}
+
+type InsulationFormPreviousValues {
+  id: ID!
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypes: [CeilingInsulationTypes!]!
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditions: [InsulationConditionTypes!]!
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypes: [UnderfloorInsulationTypes!]!
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditions: [InsulationConditionTypes!]!
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+}
+
+type InsulationFormSubscriptionPayload {
+  mutation: MutationType!
+  node: InsulationForm
+  updatedFields: [String!]
+  previousValues: InsulationFormPreviousValues
+}
+
+input InsulationFormSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InsulationFormSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InsulationFormSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InsulationFormSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: InsulationFormWhereInput
+}
+
+input InsulationFormUpdateceilingConditionsInput {
+  set: [InsulationConditionTypes!]
+}
+
+input InsulationFormUpdateceilingTypesInput {
+  set: [CeilingInsulationTypes!]
+}
+
+input InsulationFormUpdateDataInput {
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+  ceilingTypes: InsulationFormUpdateceilingTypesInput
+  ceilingConditions: InsulationFormUpdateceilingConditionsInput
+  underfloorTypes: InsulationFormUpdateunderfloorTypesInput
+  underfloorConditions: InsulationFormUpdateunderfloorConditionsInput
+}
+
+input InsulationFormUpdateInput {
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+  ceilingTypes: InsulationFormUpdateceilingTypesInput
+  ceilingConditions: InsulationFormUpdateceilingConditionsInput
+  underfloorTypes: InsulationFormUpdateunderfloorTypesInput
+  underfloorConditions: InsulationFormUpdateunderfloorConditionsInput
+}
+
+input InsulationFormUpdateManyMutationInput {
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+  ceilingTypes: InsulationFormUpdateceilingTypesInput
+  ceilingConditions: InsulationFormUpdateceilingConditionsInput
+  underfloorTypes: InsulationFormUpdateunderfloorTypesInput
+  underfloorConditions: InsulationFormUpdateunderfloorConditionsInput
+}
+
+input InsulationFormUpdateOneInput {
+  create: InsulationFormCreateInput
+  connect: InsulationFormWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: InsulationFormUpdateDataInput
+  upsert: InsulationFormUpsertNestedInput
+}
+
+input InsulationFormUpdateunderfloorConditionsInput {
+  set: [InsulationConditionTypes!]
+}
+
+input InsulationFormUpdateunderfloorTypesInput {
+  set: [UnderfloorInsulationTypes!]
+}
+
+input InsulationFormUpsertNestedInput {
+  update: InsulationFormUpdateDataInput!
+  create: InsulationFormCreateInput!
+}
+
+input InsulationFormWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InsulationFormWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InsulationFormWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InsulationFormWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  meetsMinCeilingReq: Boolean
+
+  """All values that are not equal to given value."""
+  meetsMinCeilingReq_not: Boolean
+  meetsMinCeilingReqReason: String
+
+  """All values that are not equal to given value."""
+  meetsMinCeilingReqReason_not: String
+
+  """All values that are contained in given list."""
+  meetsMinCeilingReqReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  meetsMinCeilingReqReason_not_in: [String!]
+
+  """All values less than the given value."""
+  meetsMinCeilingReqReason_lt: String
+
+  """All values less than or equal the given value."""
+  meetsMinCeilingReqReason_lte: String
+
+  """All values greater than the given value."""
+  meetsMinCeilingReqReason_gt: String
+
+  """All values greater than or equal the given value."""
+  meetsMinCeilingReqReason_gte: String
+
+  """All values containing the given string."""
+  meetsMinCeilingReqReason_contains: String
+
+  """All values not containing the given string."""
+  meetsMinCeilingReqReason_not_contains: String
+
+  """All values starting with the given string."""
+  meetsMinCeilingReqReason_starts_with: String
+
+  """All values not starting with the given string."""
+  meetsMinCeilingReqReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  meetsMinCeilingReqReason_ends_with: String
+
+  """All values not ending with the given string."""
+  meetsMinCeilingReqReason_not_ends_with: String
+  meetsMinUnderfloorReq: Boolean
+
+  """All values that are not equal to given value."""
+  meetsMinUnderfloorReq_not: Boolean
+  meetsMinUnderfloorReqReason: String
+
+  """All values that are not equal to given value."""
+  meetsMinUnderfloorReqReason_not: String
+
+  """All values that are contained in given list."""
+  meetsMinUnderfloorReqReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  meetsMinUnderfloorReqReason_not_in: [String!]
+
+  """All values less than the given value."""
+  meetsMinUnderfloorReqReason_lt: String
+
+  """All values less than or equal the given value."""
+  meetsMinUnderfloorReqReason_lte: String
+
+  """All values greater than the given value."""
+  meetsMinUnderfloorReqReason_gt: String
+
+  """All values greater than or equal the given value."""
+  meetsMinUnderfloorReqReason_gte: String
+
+  """All values containing the given string."""
+  meetsMinUnderfloorReqReason_contains: String
+
+  """All values not containing the given string."""
+  meetsMinUnderfloorReqReason_not_contains: String
+
+  """All values starting with the given string."""
+  meetsMinUnderfloorReqReason_starts_with: String
+
+  """All values not starting with the given string."""
+  meetsMinUnderfloorReqReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  meetsMinUnderfloorReqReason_ends_with: String
+
+  """All values not ending with the given string."""
+  meetsMinUnderfloorReqReason_not_ends_with: String
+  ceilingCoverage: InsulationCoverageTypes
+
+  """All values that are not equal to given value."""
+  ceilingCoverage_not: InsulationCoverageTypes
+
+  """All values that are contained in given list."""
+  ceilingCoverage_in: [InsulationCoverageTypes!]
+
+  """All values that are not contained in given list."""
+  ceilingCoverage_not_in: [InsulationCoverageTypes!]
+  ceilingCoverageReason: String
+
+  """All values that are not equal to given value."""
+  ceilingCoverageReason_not: String
+
+  """All values that are contained in given list."""
+  ceilingCoverageReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  ceilingCoverageReason_not_in: [String!]
+
+  """All values less than the given value."""
+  ceilingCoverageReason_lt: String
+
+  """All values less than or equal the given value."""
+  ceilingCoverageReason_lte: String
+
+  """All values greater than the given value."""
+  ceilingCoverageReason_gt: String
+
+  """All values greater than or equal the given value."""
+  ceilingCoverageReason_gte: String
+
+  """All values containing the given string."""
+  ceilingCoverageReason_contains: String
+
+  """All values not containing the given string."""
+  ceilingCoverageReason_not_contains: String
+
+  """All values starting with the given string."""
+  ceilingCoverageReason_starts_with: String
+
+  """All values not starting with the given string."""
+  ceilingCoverageReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  ceilingCoverageReason_ends_with: String
+
+  """All values not ending with the given string."""
+  ceilingCoverageReason_not_ends_with: String
+  ceilingTypesOther: String
+
+  """All values that are not equal to given value."""
+  ceilingTypesOther_not: String
+
+  """All values that are contained in given list."""
+  ceilingTypesOther_in: [String!]
+
+  """All values that are not contained in given list."""
+  ceilingTypesOther_not_in: [String!]
+
+  """All values less than the given value."""
+  ceilingTypesOther_lt: String
+
+  """All values less than or equal the given value."""
+  ceilingTypesOther_lte: String
+
+  """All values greater than the given value."""
+  ceilingTypesOther_gt: String
+
+  """All values greater than or equal the given value."""
+  ceilingTypesOther_gte: String
+
+  """All values containing the given string."""
+  ceilingTypesOther_contains: String
+
+  """All values not containing the given string."""
+  ceilingTypesOther_not_contains: String
+
+  """All values starting with the given string."""
+  ceilingTypesOther_starts_with: String
+
+  """All values not starting with the given string."""
+  ceilingTypesOther_not_starts_with: String
+
+  """All values ending with the given string."""
+  ceilingTypesOther_ends_with: String
+
+  """All values not ending with the given string."""
+  ceilingTypesOther_not_ends_with: String
+  ceilingBulkRValue: String
+
+  """All values that are not equal to given value."""
+  ceilingBulkRValue_not: String
+
+  """All values that are contained in given list."""
+  ceilingBulkRValue_in: [String!]
+
+  """All values that are not contained in given list."""
+  ceilingBulkRValue_not_in: [String!]
+
+  """All values less than the given value."""
+  ceilingBulkRValue_lt: String
+
+  """All values less than or equal the given value."""
+  ceilingBulkRValue_lte: String
+
+  """All values greater than the given value."""
+  ceilingBulkRValue_gt: String
+
+  """All values greater than or equal the given value."""
+  ceilingBulkRValue_gte: String
+
+  """All values containing the given string."""
+  ceilingBulkRValue_contains: String
+
+  """All values not containing the given string."""
+  ceilingBulkRValue_not_contains: String
+
+  """All values starting with the given string."""
+  ceilingBulkRValue_starts_with: String
+
+  """All values not starting with the given string."""
+  ceilingBulkRValue_not_starts_with: String
+
+  """All values ending with the given string."""
+  ceilingBulkRValue_ends_with: String
+
+  """All values not ending with the given string."""
+  ceilingBulkRValue_not_ends_with: String
+  ceilingMinimumThickness: String
+
+  """All values that are not equal to given value."""
+  ceilingMinimumThickness_not: String
+
+  """All values that are contained in given list."""
+  ceilingMinimumThickness_in: [String!]
+
+  """All values that are not contained in given list."""
+  ceilingMinimumThickness_not_in: [String!]
+
+  """All values less than the given value."""
+  ceilingMinimumThickness_lt: String
+
+  """All values less than or equal the given value."""
+  ceilingMinimumThickness_lte: String
+
+  """All values greater than the given value."""
+  ceilingMinimumThickness_gt: String
+
+  """All values greater than or equal the given value."""
+  ceilingMinimumThickness_gte: String
+
+  """All values containing the given string."""
+  ceilingMinimumThickness_contains: String
+
+  """All values not containing the given string."""
+  ceilingMinimumThickness_not_contains: String
+
+  """All values starting with the given string."""
+  ceilingMinimumThickness_starts_with: String
+
+  """All values not starting with the given string."""
+  ceilingMinimumThickness_not_starts_with: String
+
+  """All values ending with the given string."""
+  ceilingMinimumThickness_ends_with: String
+
+  """All values not ending with the given string."""
+  ceilingMinimumThickness_not_ends_with: String
+  ceilingInsulationInstallDate: DateTime
+
+  """All values that are not equal to given value."""
+  ceilingInsulationInstallDate_not: DateTime
+
+  """All values that are contained in given list."""
+  ceilingInsulationInstallDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  ceilingInsulationInstallDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  ceilingInsulationInstallDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  ceilingInsulationInstallDate_lte: DateTime
+
+  """All values greater than the given value."""
+  ceilingInsulationInstallDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  ceilingInsulationInstallDate_gte: DateTime
+  ceilingConditionReason: String
+
+  """All values that are not equal to given value."""
+  ceilingConditionReason_not: String
+
+  """All values that are contained in given list."""
+  ceilingConditionReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  ceilingConditionReason_not_in: [String!]
+
+  """All values less than the given value."""
+  ceilingConditionReason_lt: String
+
+  """All values less than or equal the given value."""
+  ceilingConditionReason_lte: String
+
+  """All values greater than the given value."""
+  ceilingConditionReason_gt: String
+
+  """All values greater than or equal the given value."""
+  ceilingConditionReason_gte: String
+
+  """All values containing the given string."""
+  ceilingConditionReason_contains: String
+
+  """All values not containing the given string."""
+  ceilingConditionReason_not_contains: String
+
+  """All values starting with the given string."""
+  ceilingConditionReason_starts_with: String
+
+  """All values not starting with the given string."""
+  ceilingConditionReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  ceilingConditionReason_ends_with: String
+
+  """All values not ending with the given string."""
+  ceilingConditionReason_not_ends_with: String
+  underfloorCoverage: InsulationCoverageTypes
+
+  """All values that are not equal to given value."""
+  underfloorCoverage_not: InsulationCoverageTypes
+
+  """All values that are contained in given list."""
+  underfloorCoverage_in: [InsulationCoverageTypes!]
+
+  """All values that are not contained in given list."""
+  underfloorCoverage_not_in: [InsulationCoverageTypes!]
+  underfloorCoverageReason: String
+
+  """All values that are not equal to given value."""
+  underfloorCoverageReason_not: String
+
+  """All values that are contained in given list."""
+  underfloorCoverageReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  underfloorCoverageReason_not_in: [String!]
+
+  """All values less than the given value."""
+  underfloorCoverageReason_lt: String
+
+  """All values less than or equal the given value."""
+  underfloorCoverageReason_lte: String
+
+  """All values greater than the given value."""
+  underfloorCoverageReason_gt: String
+
+  """All values greater than or equal the given value."""
+  underfloorCoverageReason_gte: String
+
+  """All values containing the given string."""
+  underfloorCoverageReason_contains: String
+
+  """All values not containing the given string."""
+  underfloorCoverageReason_not_contains: String
+
+  """All values starting with the given string."""
+  underfloorCoverageReason_starts_with: String
+
+  """All values not starting with the given string."""
+  underfloorCoverageReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  underfloorCoverageReason_ends_with: String
+
+  """All values not ending with the given string."""
+  underfloorCoverageReason_not_ends_with: String
+  underfloorTypesOther: String
+
+  """All values that are not equal to given value."""
+  underfloorTypesOther_not: String
+
+  """All values that are contained in given list."""
+  underfloorTypesOther_in: [String!]
+
+  """All values that are not contained in given list."""
+  underfloorTypesOther_not_in: [String!]
+
+  """All values less than the given value."""
+  underfloorTypesOther_lt: String
+
+  """All values less than or equal the given value."""
+  underfloorTypesOther_lte: String
+
+  """All values greater than the given value."""
+  underfloorTypesOther_gt: String
+
+  """All values greater than or equal the given value."""
+  underfloorTypesOther_gte: String
+
+  """All values containing the given string."""
+  underfloorTypesOther_contains: String
+
+  """All values not containing the given string."""
+  underfloorTypesOther_not_contains: String
+
+  """All values starting with the given string."""
+  underfloorTypesOther_starts_with: String
+
+  """All values not starting with the given string."""
+  underfloorTypesOther_not_starts_with: String
+
+  """All values ending with the given string."""
+  underfloorTypesOther_ends_with: String
+
+  """All values not ending with the given string."""
+  underfloorTypesOther_not_ends_with: String
+  underfloorBulkRValue: String
+
+  """All values that are not equal to given value."""
+  underfloorBulkRValue_not: String
+
+  """All values that are contained in given list."""
+  underfloorBulkRValue_in: [String!]
+
+  """All values that are not contained in given list."""
+  underfloorBulkRValue_not_in: [String!]
+
+  """All values less than the given value."""
+  underfloorBulkRValue_lt: String
+
+  """All values less than or equal the given value."""
+  underfloorBulkRValue_lte: String
+
+  """All values greater than the given value."""
+  underfloorBulkRValue_gt: String
+
+  """All values greater than or equal the given value."""
+  underfloorBulkRValue_gte: String
+
+  """All values containing the given string."""
+  underfloorBulkRValue_contains: String
+
+  """All values not containing the given string."""
+  underfloorBulkRValue_not_contains: String
+
+  """All values starting with the given string."""
+  underfloorBulkRValue_starts_with: String
+
+  """All values not starting with the given string."""
+  underfloorBulkRValue_not_starts_with: String
+
+  """All values ending with the given string."""
+  underfloorBulkRValue_ends_with: String
+
+  """All values not ending with the given string."""
+  underfloorBulkRValue_not_ends_with: String
+  underfloorMinimumThickness: String
+
+  """All values that are not equal to given value."""
+  underfloorMinimumThickness_not: String
+
+  """All values that are contained in given list."""
+  underfloorMinimumThickness_in: [String!]
+
+  """All values that are not contained in given list."""
+  underfloorMinimumThickness_not_in: [String!]
+
+  """All values less than the given value."""
+  underfloorMinimumThickness_lt: String
+
+  """All values less than or equal the given value."""
+  underfloorMinimumThickness_lte: String
+
+  """All values greater than the given value."""
+  underfloorMinimumThickness_gt: String
+
+  """All values greater than or equal the given value."""
+  underfloorMinimumThickness_gte: String
+
+  """All values containing the given string."""
+  underfloorMinimumThickness_contains: String
+
+  """All values not containing the given string."""
+  underfloorMinimumThickness_not_contains: String
+
+  """All values starting with the given string."""
+  underfloorMinimumThickness_starts_with: String
+
+  """All values not starting with the given string."""
+  underfloorMinimumThickness_not_starts_with: String
+
+  """All values ending with the given string."""
+  underfloorMinimumThickness_ends_with: String
+
+  """All values not ending with the given string."""
+  underfloorMinimumThickness_not_ends_with: String
+  underfloorInsulationInstallDate: DateTime
+
+  """All values that are not equal to given value."""
+  underfloorInsulationInstallDate_not: DateTime
+
+  """All values that are contained in given list."""
+  underfloorInsulationInstallDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  underfloorInsulationInstallDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  underfloorInsulationInstallDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  underfloorInsulationInstallDate_lte: DateTime
+
+  """All values greater than the given value."""
+  underfloorInsulationInstallDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  underfloorInsulationInstallDate_gte: DateTime
+  underfloorConditionReason: String
+
+  """All values that are not equal to given value."""
+  underfloorConditionReason_not: String
+
+  """All values that are contained in given list."""
+  underfloorConditionReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  underfloorConditionReason_not_in: [String!]
+
+  """All values less than the given value."""
+  underfloorConditionReason_lt: String
+
+  """All values less than or equal the given value."""
+  underfloorConditionReason_lte: String
+
+  """All values greater than the given value."""
+  underfloorConditionReason_gt: String
+
+  """All values greater than or equal the given value."""
+  underfloorConditionReason_gte: String
+
+  """All values containing the given string."""
+  underfloorConditionReason_contains: String
+
+  """All values not containing the given string."""
+  underfloorConditionReason_not_contains: String
+
+  """All values starting with the given string."""
+  underfloorConditionReason_starts_with: String
+
+  """All values not starting with the given string."""
+  underfloorConditionReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  underfloorConditionReason_ends_with: String
+
+  """All values not ending with the given string."""
+  underfloorConditionReason_not_ends_with: String
+  wallCoverage: InsulationCoverageTypes
+
+  """All values that are not equal to given value."""
+  wallCoverage_not: InsulationCoverageTypes
+
+  """All values that are contained in given list."""
+  wallCoverage_in: [InsulationCoverageTypes!]
+
+  """All values that are not contained in given list."""
+  wallCoverage_not_in: [InsulationCoverageTypes!]
+  wallCoverageReason: String
+
+  """All values that are not equal to given value."""
+  wallCoverageReason_not: String
+
+  """All values that are contained in given list."""
+  wallCoverageReason_in: [String!]
+
+  """All values that are not contained in given list."""
+  wallCoverageReason_not_in: [String!]
+
+  """All values less than the given value."""
+  wallCoverageReason_lt: String
+
+  """All values less than or equal the given value."""
+  wallCoverageReason_lte: String
+
+  """All values greater than the given value."""
+  wallCoverageReason_gt: String
+
+  """All values greater than or equal the given value."""
+  wallCoverageReason_gte: String
+
+  """All values containing the given string."""
+  wallCoverageReason_contains: String
+
+  """All values not containing the given string."""
+  wallCoverageReason_not_contains: String
+
+  """All values starting with the given string."""
+  wallCoverageReason_starts_with: String
+
+  """All values not starting with the given string."""
+  wallCoverageReason_not_starts_with: String
+
+  """All values ending with the given string."""
+  wallCoverageReason_ends_with: String
+
+  """All values not ending with the given string."""
+  wallCoverageReason_not_ends_with: String
+  supplementaryInfo: String
+
+  """All values that are not equal to given value."""
+  supplementaryInfo_not: String
+
+  """All values that are contained in given list."""
+  supplementaryInfo_in: [String!]
+
+  """All values that are not contained in given list."""
+  supplementaryInfo_not_in: [String!]
+
+  """All values less than the given value."""
+  supplementaryInfo_lt: String
+
+  """All values less than or equal the given value."""
+  supplementaryInfo_lte: String
+
+  """All values greater than the given value."""
+  supplementaryInfo_gt: String
+
+  """All values greater than or equal the given value."""
+  supplementaryInfo_gte: String
+
+  """All values containing the given string."""
+  supplementaryInfo_contains: String
+
+  """All values not containing the given string."""
+  supplementaryInfo_not_contains: String
+
+  """All values starting with the given string."""
+  supplementaryInfo_starts_with: String
+
+  """All values not starting with the given string."""
+  supplementaryInfo_not_starts_with: String
+
+  """All values ending with the given string."""
+  supplementaryInfo_ends_with: String
+
+  """All values not ending with the given string."""
+  supplementaryInfo_not_ends_with: String
+  lastUpgradedDate: DateTime
+
+  """All values that are not equal to given value."""
+  lastUpgradedDate_not: DateTime
+
+  """All values that are contained in given list."""
+  lastUpgradedDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  lastUpgradedDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  lastUpgradedDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  lastUpgradedDate_lte: DateTime
+
+  """All values greater than the given value."""
+  lastUpgradedDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  lastUpgradedDate_gte: DateTime
+  profesionallyAssessedDate: DateTime
+
+  """All values that are not equal to given value."""
+  profesionallyAssessedDate_not: DateTime
+
+  """All values that are contained in given list."""
+  profesionallyAssessedDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  profesionallyAssessedDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  profesionallyAssessedDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  profesionallyAssessedDate_lte: DateTime
+
+  """All values greater than the given value."""
+  profesionallyAssessedDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  profesionallyAssessedDate_gte: DateTime
+  declarationCheck: Boolean
+
+  """All values that are not equal to given value."""
+  declarationCheck_not: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+
+  """All values that are not equal to given value."""
+  healthyHomesStandardStatement_not: HealthyHomesStandardStatementTypes
+
+  """All values that are contained in given list."""
+  healthyHomesStandardStatement_in: [HealthyHomesStandardStatementTypes!]
+
+  """All values that are not contained in given list."""
+  healthyHomesStandardStatement_not_in: [HealthyHomesStandardStatementTypes!]
+}
+
+input InsulationFormWhereUniqueInput {
+  id: ID
 }
 
 """Raw JSON value"""
@@ -6188,6 +7331,7 @@ type Mutation {
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createPayment(data: PaymentCreateInput!): Payment!
   createFile(data: FileCreateInput!): File!
+  createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   updateActivity(data: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity
@@ -6204,6 +7348,7 @@ type Mutation {
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
+  updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   deleteActivity(where: ActivityWhereUniqueInput!): Activity
@@ -6221,6 +7366,7 @@ type Mutation {
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deletePayment(where: PaymentWhereUniqueInput!): Payment
   deleteFile(where: FileWhereUniqueInput!): File
+  deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   upsertActivity(where: ActivityWhereUniqueInput!, create: ActivityCreateInput!, update: ActivityUpdateInput!): Activity!
@@ -6237,6 +7383,7 @@ type Mutation {
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
+  upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   updateManyActivities(data: ActivityUpdateManyMutationInput!, where: ActivityWhereInput): BatchPayload!
@@ -6252,6 +7399,7 @@ type Mutation {
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
+  updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   deleteManyActivities(where: ActivityWhereInput): BatchPayload!
@@ -6269,6 +7417,7 @@ type Mutation {
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
+  deleteManyInsulationForms(where: InsulationFormWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
 }
@@ -7088,6 +8237,7 @@ type Property implements Node {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationForm: InsulationForm
   indoorFeatures: [IndoorFeature!]!
   outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
@@ -7326,6 +8476,7 @@ input PropertyCreateInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -7391,6 +8542,7 @@ input PropertyCreateWithoutAccommodationInput {
   rehouserStamp: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -7423,6 +8575,7 @@ input PropertyCreateWithoutActivityInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -7454,6 +8607,7 @@ input PropertyCreateWithoutCreatorInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
@@ -7485,6 +8639,7 @@ input PropertyCreateWithoutLeasesInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -7516,6 +8671,7 @@ input PropertyCreateWithoutOwnersInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
@@ -7547,6 +8703,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
@@ -9505,6 +10662,7 @@ input PropertyUpdateInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -9646,6 +10804,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   rehouserStamp: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -9677,6 +10836,7 @@ input PropertyUpdateWithoutActivityDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -9707,6 +10867,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
@@ -9737,6 +10898,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -9767,6 +10929,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
@@ -9797,6 +10960,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyInput
@@ -10330,6 +11494,7 @@ input PropertyWhereInput {
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput
   accommodation_none: AccommodationWhereInput
+  insulationForm: InsulationFormWhereInput
   owners_every: UserWhereInput
   owners_some: UserWhereInput
   owners_none: UserWhereInput
@@ -10368,6 +11533,7 @@ type Query {
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
+  insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   activity(where: ActivityWhereUniqueInput!): Activity
@@ -10385,6 +11551,7 @@ type Query {
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   payment(where: PaymentWhereUniqueInput!): Payment
   file(where: FileWhereUniqueInput!): File
+  insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   activitiesConnection(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ActivityConnection!
@@ -10402,6 +11569,7 @@ type Query {
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  insulationFormsConnection(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InsulationFormConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
 
@@ -12052,8 +13220,18 @@ type Subscription {
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
+  insulationForm(where: InsulationFormSubscriptionWhereInput): InsulationFormSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
+}
+
+enum UnderfloorInsulationTypes {
+  SEGMENTS_BLANKETS
+  POLYSTYRENE
+  FOIL
+  BULK_WITH_FOIL_LINING
+  OTHER
+  NOT_ACCESSIBLE
 }
 
 type User implements Node {

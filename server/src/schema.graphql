@@ -70,6 +70,10 @@ type Mutation {
   createProperty(data: PropertyCreateInput!, files: [Upload]): Property
   # updateProperty(id: ID!, onTheMarket: Boolean): Property!
   updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
+  updateInsulationForm(
+    data: InsulationFormUpdateInput!
+    where: InsulationFormWhereUniqueInput!
+  ): InsulationForm
   createRentalApplication(
     data: RentalApplicationCreateInput!
   ): RentalApplication!
@@ -167,6 +171,7 @@ type Query {
   property(where: PropertyWhereUniqueInput!): Property!
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property
+  insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   myRentalApplications: [RentalApplication!]!
   rentalApplication(
     where: RentalApplicationWhereUniqueInput!

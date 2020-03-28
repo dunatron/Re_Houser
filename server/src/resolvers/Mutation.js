@@ -35,6 +35,7 @@ const updatePermissions = require("./mutations/updatePermissions");
 const createChat = require("./mutations/createChat");
 const createMessage = require("./mutations/createMessage");
 const updatePropertyLease = require("./mutations/updatePropertyLease");
+const updateInsulationForm = require("./mutations/updateInsulationForm");
 
 // a collection of our business logic mutations
 const mutations = {
@@ -71,7 +72,8 @@ const mutations = {
   applyToRentalGroup,
   createChat,
   createMessage,
-  updatePropertyLease
+  updatePropertyLease,
+  updateInsulationForm
 };
 
 module.exports = mutations;

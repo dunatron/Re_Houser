@@ -24,6 +24,7 @@ const messages = require("./querys/messages");
 const messagesConnection = require("./querys/messagesConnection");
 const activities = require("./querys/activities");
 const activity = require("./querys/activity");
+const insulationForm = require("./querys/insulationForm");
 
 const Query = {
   me,
@@ -48,7 +49,8 @@ const Query = {
   messages,
   messagesConnection,
   activities,
-  activity
+  activity,
+  insulationForm
 };
 
 module.exports = Query;

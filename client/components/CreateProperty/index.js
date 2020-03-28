@@ -29,17 +29,26 @@ import PreFormTaskChecks from './PreFormTaskChecks';
 import AccommodationCreator from './AccommodationCreator';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import {
+  Paper,
+  Grid,
+  Typography,
+  Button,
+  Switch,
+  FormControlLabel,
+} from '@material-ui/core';
 import MyDropzone from '../DropZone';
+import { InsulationStatementForm } from '../Forms/index';
 const useStyles = makeStyles(theme => ({
   root: {
     // flexGrow: 1,
   },
   paper: {
     width: '100%',
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    [theme.breakpoints.up('lg')]: {},
   },
   formSection: {
     width: '100%',
@@ -47,6 +56,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 0,
     color: theme.palette.text.secondary,
     margin: '0 0 16px 0',
+    [theme.breakpoints.up('lg')]: {},
   },
 }));
 
@@ -75,9 +85,12 @@ const CreateProperty = ({ me }) => {
     garageSpaces: null,
     offStreetSpaces: null,
     isLeased: false,
+    insulationForm: {},
   };
 
   const [state, setState] = useState(defaultState);
+
+  const [completeInsulationLater, setCompleteInsulationLater] = useState(false);
 
   const [images, setImages] = useState([]);
 
@@ -115,6 +128,17 @@ const CreateProperty = ({ me }) => {
             id: me.id,
           },
         },
+        insulationForm: state.insulationForm
+          ? {
+              create: {
+                meetsMinCeilingReq: true,
+                ceilingCoverage: 'COMPLETE',
+                ceilingTypes: {
+                  set: ['SEGMENTS_BLANKETS', 'LOOSE_FILL'],
+                },
+              },
+            }
+          : {},
         images: {
           create: [
             ...images
@@ -228,10 +252,11 @@ const CreateProperty = ({ me }) => {
     });
   };
 
+  console.log('The Property Forms STate => ', state);
+
   return (
     <div className={classes.root}>
       <PreFormTaskChecks me={me} />
-
       <Form
         data-cy="add_property_form"
         method="post"
@@ -471,6 +496,8 @@ const CreateProperty = ({ me }) => {
               </Grid>
             </Grid>
           </Paper>
+          {/* InsulationStatementForm Section */}
+
           {/* Dates Section */}
           <Paper className={classes.formSection} elevation={5}>
             <Typography variant="h6" gutterBottom>
@@ -500,6 +527,46 @@ const CreateProperty = ({ me }) => {
                 />
               </Grid>
             </Grid>
+          </Paper>
+          <Paper className={classes.formSection} elevation={5}>
+            {state.insulationForm && (
+              <Typography>We have an Insulation Form</Typography>
+            )}
+            <Typography>
+              AN insulation statement is required before you can place a
+              property on the market
+            </Typography>
+            <Typography>
+              You can however do this at a later date after you have set the
+              property up
+            </Typography>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={completeInsulationLater}
+                  onChange={() =>
+                    setCompleteInsulationLater(!completeInsulationLater)
+                  }
+                  color="primary"
+                  name="toggle-create-insualtion-statement"
+                />
+              }
+              label="Complete Insulation form later"
+            />
+            {!completeInsulationLater && (
+              <InsulationStatementForm
+                data={state.insulationForm}
+                onSubmit={data => {
+                  setState({
+                    ...state,
+                    insulationForm: {
+                      ...data,
+                    },
+                  });
+                  setCompleteInsulationLater(true);
+                }}
+              />
+            )}
           </Paper>
           {/* Image Section */}
           <Paper className={classes.formSection} elevation={5}>

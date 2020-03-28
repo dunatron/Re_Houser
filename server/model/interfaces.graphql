@@ -1,6 +1,5 @@
 interface PropertyInfo {
   id: ID!
-  rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!

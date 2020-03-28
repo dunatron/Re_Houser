@@ -17,36 +17,6 @@ const Form = styled.form`
   padding: 16px;
   max-width: 1000px;
   margin: 0 auto;
-  .form-name {
-    font-size: 1.4rem;
-  }
-  label {
-    display: block;
-    font-size: 1.2rem;
-  }
-  fieldset {
-    border: 0;
-    padding: 0;
-
-    &[disabled] {
-      opacity: 0.5;
-    }
-    &::before {
-      height: 10px;
-      content: '';
-      display: block;
-      background-image: ${props => `linear-gradient(
-        to right,
-        ${props.theme.palette.secondary.light} 0%,
-        ${props.theme.palette.secondary.main} 50%,
-        ${props.theme.palette.secondary.light} 100%
-      )`};
-    }
-    &[aria-busy='true']::before {
-      background-size: 50% auto;
-      animation: ${loading} 0.5s linear infinite;
-    }
-  }
 `;
 
 export default Form;

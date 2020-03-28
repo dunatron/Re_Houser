@@ -15,7 +15,7 @@ const styles = theme => ({
     boxSizing: 'border-box',
   },
   formContainer: {
-    height: theme.spacin(6),
+    height: theme.spacing(6),
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
