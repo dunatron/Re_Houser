@@ -265,7 +265,10 @@ const CreateProperty = ({ me }) => {
           _createProperty(createProperty);
         }}>
         <div className="form-name">Add Property Form</div>
-        <fieldset disabled={loading} aria-busy={loading}>
+        <fieldset
+          disabled={loading}
+          aria-busy={loading}
+          className="main-fieldset">
           <Error error={error} />
 
           {/* Location Section */}
