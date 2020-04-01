@@ -10,6 +10,8 @@ import INSULATION_FORM_CONF from './InsulationStatementForm/fieldsConf'
 
 # Forms
 
+- ToDo: being able to copy paste configs would be super awesome
+
 ## Form Creator
 
 This is the base component, all it needs is a `config` of field types and an `onSubmit` to recieve the submitted form data which will be formmatted =)

@@ -40,6 +40,7 @@ const InputFieldType = props => {
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
   // const label = 'test bal';
+  // ToDo: ALL of these types need there own filewit PropTypes and all that fancy shit
   switch (type) {
     case 'Header':
       // return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
