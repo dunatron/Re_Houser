@@ -294,10 +294,13 @@ ToDo: While we can set a type for this, i actually havnt implemenmted this yet
 
 ## putting it all together
 
-- Note, just concat an object into the below config, or delete the spread, you got this frodo =)
+is frodo =)
 
 <Playground>
 
-<FormCreator config={[...INSULATION_FORM_CONF]} />
+<FormCreator
+config={[...INSULATION_FORM_CONF]}
+onSubmit={(d) => alert(d ? JSON.stringify(d): d)}
+/>
 
 </Playground>

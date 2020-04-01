@@ -505,6 +505,17 @@
       ]
     },
     {
+      "key": "components/Dashboard/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Dashboard",
+          "methods": [],
+          "actualName": "Dashboard"
+        }
+      ]
+    },
+    {
       "key": "components/CreditCard/CreditCardItem.js",
       "value": [
         {
@@ -527,13 +538,13 @@
       ]
     },
     {
-      "key": "components/Dashboard/index.js",
+      "key": "components/DialogPopup/index.js",
       "value": [
         {
           "description": "",
-          "displayName": "Dashboard",
+          "displayName": "DialogPopup",
           "methods": [],
-          "actualName": "Dashboard"
+          "actualName": "DialogPopup"
         }
       ]
     },
@@ -780,17 +791,6 @@
       ]
     },
     {
-      "key": "components/ForceReloadButton.js/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ForceReloadButton",
-          "methods": [],
-          "actualName": "ForceReloadButton"
-        }
-      ]
-    },
-    {
       "key": "components/ErrorMessage/index.js",
       "value": [
         {
@@ -811,6 +811,17 @@
               }
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "components/ForceReloadButton.js/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ForceReloadButton",
+          "methods": [],
+          "actualName": "ForceReloadButton"
         }
       ]
     },
@@ -853,17 +864,6 @@
           "displayName": "FormErrors",
           "methods": [],
           "actualName": "FormErrors"
-        }
-      ]
-    },
-    {
-      "key": "components/DialogPopup/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DialogPopup",
-          "methods": [],
-          "actualName": "DialogPopup"
         }
       ]
     },
@@ -1297,17 +1297,6 @@
       ]
     },
     {
-      "key": "components/LocationPicker/index.js",
-      "value": [
-        {
-          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
-          "displayName": "LocationPicker",
-          "methods": [],
-          "actualName": "LocationPicker"
-        }
-      ]
-    },
-    {
       "key": "components/Loader/ButtonLoader.js",
       "value": [
         {
@@ -1438,6 +1427,17 @@
       ]
     },
     {
+      "key": "components/LocationPicker/index.js",
+      "value": [
+        {
+          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
+          "displayName": "LocationPicker",
+          "methods": [],
+          "actualName": "LocationPicker"
+        }
+      ]
+    },
+    {
       "key": "components/Map/index.js",
       "value": [
         {
@@ -1456,65 +1456,6 @@
           "displayName": "Meta",
           "methods": [],
           "actualName": "Meta"
-        }
-      ]
-    },
-    {
-      "key": "components/Modal/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Modal",
-          "methods": [],
-          "actualName": "Modal",
-          "props": {
-            "id": {
-              "type": {
-                "name": "string"
-              },
-              "required": false,
-              "description": ""
-            },
-            "classes": {
-              "type": {
-                "name": "any"
-              },
-              "required": false,
-              "description": ""
-            },
-            "close": {
-              "type": {
-                "name": "func"
-              },
-              "required": false,
-              "description": ""
-            },
-            "title": {
-              "type": {
-                "name": "string"
-              },
-              "required": false,
-              "description": ""
-            },
-            "open": {
-              "type": {
-                "name": "bool"
-              },
-              "required": false,
-              "description": ""
-            }
-          }
-        }
-      ]
-    },
-    {
-      "key": "components/Modal/InputModal.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Modal",
-          "methods": [],
-          "actualName": "Modal"
         }
       ]
     },
@@ -1592,6 +1533,65 @@
           "displayName": "SignLeaseBtn",
           "methods": [],
           "actualName": "SignLeaseBtn"
+        }
+      ]
+    },
+    {
+      "key": "components/Modal/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Modal",
+          "methods": [],
+          "actualName": "Modal",
+          "props": {
+            "id": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "classes": {
+              "type": {
+                "name": "any"
+              },
+              "required": false,
+              "description": ""
+            },
+            "close": {
+              "type": {
+                "name": "func"
+              },
+              "required": false,
+              "description": ""
+            },
+            "title": {
+              "type": {
+                "name": "string"
+              },
+              "required": false,
+              "description": ""
+            },
+            "open": {
+              "type": {
+                "name": "bool"
+              },
+              "required": false,
+              "description": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "components/Modal/InputModal.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Modal",
+          "methods": [],
+          "actualName": "Modal"
         }
       ]
     },
@@ -1718,28 +1718,6 @@
       ]
     },
     {
-      "key": "components/PhotoIdUploader/index.js",
-      "value": [
-        {
-          "description": "ToDo: currently when updated will refresh the me query\r\ncan do stuff with that, like reset the component position to the photo tab instead upload tab\r\nalso implement those tabs\r\nwe should check mutations",
-          "displayName": "PhotoIdUploader",
-          "methods": [],
-          "actualName": "PhotoIdUploader"
-        }
-      ]
-    },
-    {
-      "key": "components/PhotoIdUploader/PreUploadImage.js",
-      "value": [
-        {
-          "description": "Could optimize further, in the parent wrap it in a memo with dateStamp,\r\ni.e when they change the image change the datestamp to now",
-          "displayName": "PreUploadImage",
-          "methods": [],
-          "actualName": "PreUploadImage"
-        }
-      ]
-    },
-    {
       "key": "components/Pdfs/LeasePdf.js",
       "value": [
         {
@@ -1784,13 +1762,24 @@
       ]
     },
     {
-      "key": "components/PleaseSignIn/index.js",
+      "key": "components/PhotoIdUploader/index.js",
       "value": [
         {
-          "description": "",
-          "displayName": "PleaseSignIn",
+          "description": "ToDo: currently when updated will refresh the me query\r\ncan do stuff with that, like reset the component position to the photo tab instead upload tab\r\nalso implement those tabs\r\nwe should check mutations",
+          "displayName": "PhotoIdUploader",
           "methods": [],
-          "actualName": "PleaseSignIn"
+          "actualName": "PhotoIdUploader"
+        }
+      ]
+    },
+    {
+      "key": "components/PhotoIdUploader/PreUploadImage.js",
+      "value": [
+        {
+          "description": "Could optimize further, in the parent wrap it in a memo with dateStamp,\r\ni.e when they change the image change the datestamp to now",
+          "displayName": "PreUploadImage",
+          "methods": [],
+          "actualName": "PreUploadImage"
         }
       ]
     },
@@ -1802,6 +1791,17 @@
           "displayName": "Portal",
           "methods": [],
           "actualName": "Portal"
+        }
+      ]
+    },
+    {
+      "key": "components/PleaseSignIn/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PleaseSignIn",
+          "methods": [],
+          "actualName": "PleaseSignIn"
         }
       ]
     },
@@ -2340,6 +2340,17 @@
       ]
     },
     {
+      "key": "components/Sidebar/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Nav",
+          "methods": [],
+          "actualName": "Nav"
+        }
+      ]
+    },
+    {
       "key": "components/Routes/BackButton.js",
       "value": [
         {
@@ -2431,17 +2442,6 @@
       ]
     },
     {
-      "key": "components/Sidebar/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Nav",
-          "methods": [],
-          "actualName": "Nav"
-        }
-      ]
-    },
-    {
       "key": "components/Signin/index.js",
       "value": [
         {
@@ -2453,17 +2453,6 @@
       ]
     },
     {
-      "key": "components/Signup/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "Signup",
-          "methods": [],
-          "actualName": "Signup"
-        }
-      ]
-    },
-    {
       "key": "components/Signout/index.js",
       "value": [
         {
@@ -2471,6 +2460,17 @@
           "displayName": "Signout",
           "methods": [],
           "actualName": "Signout"
+        }
+      ]
+    },
+    {
+      "key": "components/Signup/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "Signup",
+          "methods": [],
+          "actualName": "Signup"
         }
       ]
     },
@@ -2515,39 +2515,6 @@
           "displayName": "StripeClientSideWrapper",
           "methods": [],
           "actualName": "StripeClientSideWrapper"
-        }
-      ]
-    },
-    {
-      "key": "components/SubscriptionComponents/AdminAlertNewRentalApplicationSub.js",
-      "value": [
-        {
-          "description": "@param {*} param0\r\nTHE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.\r\ncollect, number of updates, implement refreshQueries || provide a child component\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nNa too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.",
-          "displayName": "AdminAlertNewRentalApplicationSub",
-          "methods": [],
-          "actualName": "AdminAlertNewRentalApplicationSub"
-        }
-      ]
-    },
-    {
-      "key": "components/SubscriptionComponents/PropertyPendingRentalApplicationsSub.js",
-      "value": [
-        {
-          "description": "@param {*} param0\r\nTHE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.\r\ncollect, number of updates, implement refreshQueries || provide a child component\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nNa too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.",
-          "displayName": "PropertyPendingRentalApplicationsSub",
-          "methods": [],
-          "actualName": "PropertyPendingRentalApplicationsSub"
-        }
-      ]
-    },
-    {
-      "key": "components/SuperiorTable/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SuperiorTable",
-          "methods": [],
-          "actualName": "SuperiorTable"
         }
       ]
     },
@@ -2602,6 +2569,39 @@
               "description": ""
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "components/SuperiorTable/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SuperiorTable",
+          "methods": [],
+          "actualName": "SuperiorTable"
+        }
+      ]
+    },
+    {
+      "key": "components/SubscriptionComponents/AdminAlertNewRentalApplicationSub.js",
+      "value": [
+        {
+          "description": "@param {*} param0\r\nTHE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.\r\ncollect, number of updates, implement refreshQueries || provide a child component\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nNa too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.",
+          "displayName": "AdminAlertNewRentalApplicationSub",
+          "methods": [],
+          "actualName": "AdminAlertNewRentalApplicationSub"
+        }
+      ]
+    },
+    {
+      "key": "components/SubscriptionComponents/PropertyPendingRentalApplicationsSub.js",
+      "value": [
+        {
+          "description": "@param {*} param0\r\nTHE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.\r\ncollect, number of updates, implement refreshQueries || provide a child component\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nchild component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />\r\nNa too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.",
+          "displayName": "PropertyPendingRentalApplicationsSub",
+          "methods": [],
+          "actualName": "PropertyPendingRentalApplicationsSub"
         }
       ]
     },
@@ -2862,6 +2862,17 @@
       ]
     },
     {
+      "key": "components/TakeMyMoney/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TakeMyMoney",
+          "methods": [],
+          "actualName": "TakeMyMoney"
+        }
+      ]
+    },
+    {
       "key": "components/TestForm/index.js",
       "value": [
         {
@@ -2914,33 +2925,13 @@
       ]
     },
     {
-      "key": "components/TakeMyMoney/index.js",
+      "key": "components/UserProfile/index.js",
       "value": [
         {
           "description": "",
-          "displayName": "TakeMyMoney",
+          "displayName": "UserProfile",
           "methods": [],
-          "actualName": "TakeMyMoney"
-        }
-      ]
-    },
-    {
-      "key": "components/User/index.js",
-      "value": [
-        {
-          "description": "render props would receive the children and pass these props to them",
-          "displayName": "User",
-          "methods": [],
-          "actualName": "User",
-          "props": {
-            "children": {
-              "type": {
-                "name": "func"
-              },
-              "required": true,
-              "description": ""
-            }
-          }
+          "actualName": "UserProfile"
         }
       ]
     },
@@ -2967,13 +2958,22 @@
       ]
     },
     {
-      "key": "components/UserProfile/index.js",
+      "key": "components/User/index.js",
       "value": [
         {
-          "description": "",
-          "displayName": "UserProfile",
+          "description": "render props would receive the children and pass these props to them",
+          "displayName": "User",
           "methods": [],
-          "actualName": "UserProfile"
+          "actualName": "User",
+          "props": {
+            "children": {
+              "type": {
+                "name": "func"
+              },
+              "required": true,
+              "description": ""
+            }
+          }
         }
       ]
     },
@@ -3204,6 +3204,17 @@
       ]
     },
     {
+      "key": "components/Forms/InsulationStatementForm/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "InsulationStatementForm",
+          "methods": [],
+          "actualName": "InsulationStatementForm"
+        }
+      ]
+    },
+    {
       "key": "components/PropertySearch/refinements/CheckBoxList.js",
       "value": [
         {
@@ -3254,17 +3265,6 @@
           "displayName": "MaterialUiSortBy",
           "methods": [],
           "actualName": "MaterialUiSortBy"
-        }
-      ]
-    },
-    {
-      "key": "components/Forms/InsulationStatementForm/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "InsulationStatementForm",
-          "methods": [],
-          "actualName": "InsulationStatementForm"
         }
       ]
     },
