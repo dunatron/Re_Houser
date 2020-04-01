@@ -813,17 +813,6 @@
       ]
     },
     {
-      "key": "components/ForceReloadButton.js/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ForceReloadButton",
-          "methods": [],
-          "actualName": "ForceReloadButton"
-        }
-      ]
-    },
-    {
       "key": "components/Forms/FormCreator.js",
       "value": [
         {
@@ -862,6 +851,17 @@
           "displayName": "FormErrors",
           "methods": [],
           "actualName": "FormErrors"
+        }
+      ]
+    },
+    {
+      "key": "components/ForceReloadButton.js/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ForceReloadButton",
+          "methods": [],
+          "actualName": "ForceReloadButton"
         }
       ]
     },
@@ -1295,6 +1295,17 @@
       ]
     },
     {
+      "key": "components/LocationPicker/index.js",
+      "value": [
+        {
+          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
+          "displayName": "LocationPicker",
+          "methods": [],
+          "actualName": "LocationPicker"
+        }
+      ]
+    },
+    {
       "key": "components/Loader/ButtonLoader.js",
       "value": [
         {
@@ -1421,17 +1432,6 @@
               "description": ""
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "components/LocationPicker/index.js",
-      "value": [
-        {
-          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
-          "displayName": "LocationPicker",
-          "methods": [],
-          "actualName": "LocationPicker"
         }
       ]
     },
@@ -3055,17 +3055,6 @@
       ]
     },
     {
-      "key": "components/Forms/InsulationStatementForm/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "InsulationStatementForm",
-          "methods": [],
-          "actualName": "InsulationStatementForm"
-        }
-      ]
-    },
-    {
       "key": "components/Forms/InputFieldType/CheckboxText.js",
       "value": [
         {
@@ -3209,6 +3198,17 @@
           "displayName": "SelectOneWithText",
           "methods": [],
           "actualName": "SelectOneWithText"
+        }
+      ]
+    },
+    {
+      "key": "components/Forms/InsulationStatementForm/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "InsulationStatementForm",
+          "methods": [],
+          "actualName": "InsulationStatementForm"
         }
       ]
     },
