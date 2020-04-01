@@ -13,7 +13,10 @@
     "heroku-postbuild": "next build",
     "now-build": "next build",
     "format": "prettier \"**/*.{js,ts,tsx,css,graphql}\" --write",
-    "apollo-graph-publish:dev": "npx apollo service:push --endpoint=http://localhost:7777"
+    "apollo-graph-publish:dev": "npx apollo service:push --endpoint=http://localhost:7777",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.39",
@@ -38,6 +41,7 @@
     "babel-plugin-styled-components": "^1.7.1",
     "clsx": "^1.0.4",
     "css-loader": "^2.1.1",
+    "docz": "^2.2.0",
     "dotenv": "^8.1.0",
     "downshift": "^3.2.6",
     "enzyme": "^3.9.0",

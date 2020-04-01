@@ -51,14 +51,14 @@ const SelectOneWithText = props => {
         style={{ display: 'flex', flexDirection: 'column' }}>
         {options &&
           options.map((opt, i) => (
-            <>
+            <div key={i}>
               <FormControlLabel
                 value={opt.name}
                 control={
                   <Radio
                     // checked={true}
                     name={name}
-                    inputRef={register(refConf)}
+                    inputRef={register ? register(refConf) : register}
                   />
                 }
                 label={opt.label}
@@ -75,7 +75,7 @@ const SelectOneWithText = props => {
                     />
                   );
                 })}
-            </>
+            </div>
           ))}
       </RadioGroup>
     </FormControl>

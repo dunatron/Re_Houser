@@ -1,9 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 
-import {
-  InsulationStatementForm,
-  InsulationStatementFormManager,
-} from '../Forms/index';
+import { InsulationStatementForm } from '../Forms/index';
 
 import Map from '../Map/index';
 import CarouselSlider from '../CarouselSlider';
@@ -210,7 +207,7 @@ const Details = props => {
         for new advertisements in the future or to update any info. In short
         changing rent will have no impact on current agreements
       </h4>
-      <InsulationStatementFormManager
+      <InsulationStatementForm
         data={null}
         propertyId={property.id}
         insulationFormId={

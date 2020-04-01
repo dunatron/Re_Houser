@@ -5,6 +5,9 @@
     }
   ],
   "settings": {
+    "files.associations": {
+      "*.md": "mdx"
+    },
     "workbench.activityBar.visible": true,
     "workbench.commandPalette.preserveInput": true,
     "workbench.colorCustomizations": {

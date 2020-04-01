@@ -1,4 +1,6 @@
+import React from 'react';
 import moment from 'moment';
+import InputFieldType from '../InputFieldType';
 const FIELDS_CONFIG = [
   {
     type: 'Header',
@@ -15,6 +17,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'CheckReason',
+    key: 'meetsMinCeilingReq',
     fieldProps: {
       name: 'meetsMinCeilingReq',
       label:
@@ -31,6 +34,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'meetsMinCeilingReqReason',
         fieldProps: {
           name: 'meetsMinCeilingReqReason',
           label:
@@ -55,6 +59,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'CheckReason',
+    key: 'meetsMinUnderfloorReq',
     fieldProps: {
       name: 'meetsMinUnderfloorReq',
       label:
@@ -71,6 +76,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'meetsMinUnderfloorReqReason',
         fieldProps: {
           name: 'meetsMinUnderfloorReqReason',
           label:
@@ -102,6 +108,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'SelectOneWithText',
+    key: 'ceilingCoverage',
     fieldProps: {
       name: 'ceilingCoverage',
       label: 'Location/Coverage?',
@@ -134,6 +141,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'ceilingCoverageReason',
         showOn: {
           key: 'ceilingCoverage',
           values: ['PARTIAL', 'UNKNOWN'],
@@ -161,6 +169,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'CheckMultipleWithText',
+    key: 'ceilingTypes',
     fieldProps: {
       name: 'ceilingTypes',
       label: 'Type',
@@ -192,6 +201,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'ceilingTypesOther',
         showOn: {
           key: 'ceilingTypes',
           values: ['OTHER'],
@@ -219,6 +229,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'String',
+    key: 'ceilingBulkRValue',
     fieldProps: {
       name: 'ceilingBulkRValue',
       label: 'Bulk Insulation value (R-value)',
@@ -232,6 +243,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'String',
+    key: 'ceilingMinimumThickness',
     fieldProps: {
       name: 'ceilingMinimumThickness',
       label: 'Or minimum thickness',
@@ -244,7 +256,8 @@ const FIELDS_CONFIG = [
     },
   },
   {
-    type: 'DateTime',
+    type: 'Date',
+    key: 'ceilingInsulationInstallDate',
     fieldProps: {
       name: 'ceilingInsulationInstallDate',
       // type: 'datetime-local',
@@ -262,6 +275,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'CheckMultipleWithText',
+    key: 'ceilingConditions',
     fieldProps: {
       name: 'ceilingConditions',
       label: 'Condition',
@@ -294,6 +308,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'ceilingConditionReason',
         showOn: {
           key: 'ceilingTypes',
           values: ['NOT_REASONABLE'],
@@ -327,6 +342,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'SelectOneWithText',
+    key: 'underfloorCoverage',
     fieldProps: {
       name: 'underfloorCoverage',
       label: 'Location/coverage',
@@ -358,6 +374,7 @@ const FIELDS_CONFIG = [
     },
     inners: [
       {
+        key: 'underfloorCoverageReason',
         type: 'String',
         showOn: {
           key: 'ceilingTypes',
@@ -386,6 +403,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'CheckMultipleWithText',
+    key: 'underfloorTypes',
     fieldProps: {
       name: 'underfloorTypes',
       label: 'Type',
@@ -425,6 +443,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'underfloorTypesOther',
         showOn: {
           key: 'underfloorTypes',
           values: ['OTHER'],
@@ -452,6 +471,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'String',
+    key: 'underfloorBulkRValue',
     fieldProps: {
       name: 'underfloorBulkRValue',
       label: 'Bulk Insulation value (R-value)',
@@ -465,6 +485,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'String',
+    key: 'underfloorMinimumThickness',
     fieldProps: {
       name: 'underfloorMinimumThickness',
       label: 'Or minimum thickness',
@@ -477,7 +498,8 @@ const FIELDS_CONFIG = [
     },
   },
   {
-    type: 'DateTime',
+    type: 'Date',
+    key: 'underfloorInsulationInstallDate',
     fieldProps: {
       name: 'underfloorInsulationInstallDate',
       type: 'date',
@@ -488,6 +510,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'CheckMultipleWithText',
+    key: 'underfloorConditions',
     fieldProps: {
       name: 'underfloorConditions',
       label: 'Condition',
@@ -520,6 +543,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'underfloorConditionReason',
         showOn: {
           key: 'underfloorConditions',
           values: ['NOT_REASONABLE'],
@@ -552,7 +576,8 @@ const FIELDS_CONFIG = [
     },
   },
   {
-    type: 'CheckMultipleWithText',
+    type: 'SelectOneWithText',
+    key: 'wallCoverage',
     fieldProps: {
       name: 'wallCoverage',
       label: 'Condition',
@@ -584,6 +609,7 @@ const FIELDS_CONFIG = [
     inners: [
       {
         type: 'String',
+        key: 'wallCoverageReason',
         showOn: {
           key: 'wallCoverage',
           values: ['PARTIAL'],
@@ -610,6 +636,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'String',
+    key: 'supplementaryInfo',
     fieldProps: {
       name: 'supplementaryInfo',
       label: 'Any other details about the type or condition if known:',
@@ -617,7 +644,8 @@ const FIELDS_CONFIG = [
     refConf: {},
   },
   {
-    type: 'DateTime',
+    type: 'Date',
+    key: 'lastUpgradedDate',
     fieldProps: {
       name: 'lastUpgradedDate',
       type: 'date',
@@ -627,7 +655,8 @@ const FIELDS_CONFIG = [
     refConf: {},
   },
   {
-    type: 'DateTime',
+    type: 'Date',
+    key: 'profesionallyAssessedDate',
     fieldProps: {
       name: 'profesionallyAssessedDate',
       type: 'date',
@@ -638,6 +667,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'AcceptTerms',
+    key: 'declarationCheck',
     fieldProps: {
       name: 'declarationCheck',
       label: 'Confirm information is correct',
@@ -656,6 +686,7 @@ const FIELDS_CONFIG = [
   },
   {
     type: 'SelectOneWithText',
+    key: 'healthyHomesStandardStatement',
     fieldProps: {
       name: 'healthyHomesStandardStatement',
       label: 'Healthy Homes Standards Statement',

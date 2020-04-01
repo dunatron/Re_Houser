@@ -88,6 +88,7 @@ function MaterialPage(props) {
                     idx + 1 === formattedPathParts.length ? true : false;
                   return (
                     <Typography
+                      key={idx}
                       variant="h6"
                       className={!isLastPart ? classes.routeablePart : null}
                       noWrap

@@ -70,12 +70,22 @@ const CheckReason = props => {
           style={{ display: 'flex', flexDirection: 'row' }}>
           <FormControlLabel
             value="Yes"
-            control={<Radio name={name} inputRef={register(refConf)} />}
+            control={
+              <Radio
+                name={name}
+                inputRef={register ? register(refConf) : null}
+              />
+            }
             label="Yes"
           />
           <FormControlLabel
             value="No"
-            control={<Radio name={name} inputRef={register(refConf)} />}
+            control={
+              <Radio
+                name={name}
+                inputRef={register ? register(refConf) : null}
+              />
+            }
             label="No"
           />
         </RadioGroup>

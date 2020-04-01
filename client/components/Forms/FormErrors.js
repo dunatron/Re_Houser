@@ -1,3 +1,4 @@
+import React from 'react';
 import { isEmpty } from 'ramda';
 import {
   createMuiTheme,
@@ -43,8 +44,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const FormErrors = ({ errors }) => {
-  if (isEmpty(errors)) return null;
   const classes = useStyles();
+  if (isEmpty(errors)) return null;
 
   const formErrors = Object.entries(errors).map((err, idx) => {
     console.log('AN err entry?? ', err);

@@ -38,7 +38,10 @@ import {
   FormControlLabel,
 } from '@material-ui/core';
 import MyDropzone from '../DropZone';
-import { InsulationStatementForm } from '../Forms/index';
+
+import { FormCreator } from '../Forms/FormCreator';
+import INSULATION_FORM_FIELDS_CONFIG from '../Forms/InsulationStatementForm/fieldsConf';
+
 const useStyles = makeStyles(theme => ({
   root: {
     // flexGrow: 1,
@@ -131,11 +134,12 @@ const CreateProperty = ({ me }) => {
         insulationForm: state.insulationForm
           ? {
               create: {
-                meetsMinCeilingReq: true,
-                ceilingCoverage: 'COMPLETE',
-                ceilingTypes: {
-                  set: ['SEGMENTS_BLANKETS', 'LOOSE_FILL'],
-                },
+                ...state.insulationForm,
+                // meetsMinCeilingReq: true,
+                // ceilingCoverage: 'COMPLETE',
+                // ceilingTypes: {
+                //   set: ['SEGMENTS_BLANKETS', 'LOOSE_FILL'],
+                // },
               },
             }
           : {},
@@ -557,8 +561,9 @@ const CreateProperty = ({ me }) => {
               label="Complete Insulation form later"
             />
             {!completeInsulationLater && (
-              <InsulationStatementForm
+              <FormCreator
                 data={state.insulationForm}
+                config={INSULATION_FORM_FIELDS_CONFIG}
                 onSubmit={data => {
                   setState({
                     ...state,
