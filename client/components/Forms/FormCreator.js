@@ -48,7 +48,7 @@ const getKeyTypes = conf => {
   // handle empty obj
   return {};
   if (isEmpty(conf)) return {};
-  if (!is(Array, config))
+  if (!is(Array, conf))
     return conf.reduce((acc, c) => {
       const newItem = extractKeyType(c);
       if (!c.key) return { ...acc };

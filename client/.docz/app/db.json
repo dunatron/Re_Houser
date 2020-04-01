@@ -351,17 +351,6 @@
       ]
     },
     {
-      "key": "components/Buttons/SquareButton.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "CustomizedButtons",
-          "methods": [],
-          "actualName": "CustomizedButtons"
-        }
-      ]
-    },
-    {
       "key": "components/ApplicantDetails/index.js",
       "value": [
         {
@@ -369,6 +358,17 @@
           "displayName": "ApplicantDetails",
           "methods": [],
           "actualName": "ApplicantDetails"
+        }
+      ]
+    },
+    {
+      "key": "components/Buttons/SquareButton.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "CustomizedButtons",
+          "methods": [],
+          "actualName": "CustomizedButtons"
         }
       ]
     },
@@ -534,17 +534,6 @@
           "displayName": "Dashboard",
           "methods": [],
           "actualName": "Dashboard"
-        }
-      ]
-    },
-    {
-      "key": "components/DialogPopup/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "DialogPopup",
-          "methods": [],
-          "actualName": "DialogPopup"
         }
       ]
     },
@@ -864,6 +853,17 @@
           "displayName": "FormErrors",
           "methods": [],
           "actualName": "FormErrors"
+        }
+      ]
+    },
+    {
+      "key": "components/DialogPopup/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "DialogPopup",
+          "methods": [],
+          "actualName": "DialogPopup"
         }
       ]
     },
@@ -1297,6 +1297,17 @@
       ]
     },
     {
+      "key": "components/LocationPicker/index.js",
+      "value": [
+        {
+          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
+          "displayName": "LocationPicker",
+          "methods": [],
+          "actualName": "LocationPicker"
+        }
+      ]
+    },
+    {
       "key": "components/Loader/ButtonLoader.js",
       "value": [
         {
@@ -1427,13 +1438,13 @@
       ]
     },
     {
-      "key": "components/LocationPicker/index.js",
+      "key": "components/Map/index.js",
       "value": [
         {
-          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
-          "displayName": "LocationPicker",
+          "description": "",
+          "displayName": "MapContainer",
           "methods": [],
-          "actualName": "LocationPicker"
+          "actualName": "MapContainer"
         }
       ]
     },
@@ -1445,17 +1456,6 @@
           "displayName": "Meta",
           "methods": [],
           "actualName": "Meta"
-        }
-      ]
-    },
-    {
-      "key": "components/Map/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "MapContainer",
-          "methods": [],
-          "actualName": "MapContainer"
         }
       ]
     },
@@ -1718,24 +1718,24 @@
       ]
     },
     {
-      "key": "components/PaymentManager/index.js",
+      "key": "components/PhotoIdUploader/index.js",
       "value": [
         {
-          "description": "",
-          "displayName": "PaymentManager",
+          "description": "ToDo: currently when updated will refresh the me query\r\ncan do stuff with that, like reset the component position to the photo tab instead upload tab\r\nalso implement those tabs\r\nwe should check mutations",
+          "displayName": "PhotoIdUploader",
           "methods": [],
-          "actualName": "PaymentManager"
+          "actualName": "PhotoIdUploader"
         }
       ]
     },
     {
-      "key": "components/PaymentManager/PaymentsTable.js",
+      "key": "components/PhotoIdUploader/PreUploadImage.js",
       "value": [
         {
-          "description": "",
-          "displayName": "PaymentsTable",
+          "description": "Could optimize further, in the parent wrap it in a memo with dateStamp,\r\ni.e when they change the image change the datestamp to now",
+          "displayName": "PreUploadImage",
           "methods": [],
-          "actualName": "PaymentsTable"
+          "actualName": "PreUploadImage"
         }
       ]
     },
@@ -1762,24 +1762,24 @@
       ]
     },
     {
-      "key": "components/PhotoIdUploader/index.js",
+      "key": "components/PaymentManager/index.js",
       "value": [
         {
-          "description": "ToDo: currently when updated will refresh the me query\r\ncan do stuff with that, like reset the component position to the photo tab instead upload tab\r\nalso implement those tabs\r\nwe should check mutations",
-          "displayName": "PhotoIdUploader",
+          "description": "",
+          "displayName": "PaymentManager",
           "methods": [],
-          "actualName": "PhotoIdUploader"
+          "actualName": "PaymentManager"
         }
       ]
     },
     {
-      "key": "components/PhotoIdUploader/PreUploadImage.js",
+      "key": "components/PaymentManager/PaymentsTable.js",
       "value": [
         {
-          "description": "Could optimize further, in the parent wrap it in a memo with dateStamp,\r\ni.e when they change the image change the datestamp to now",
-          "displayName": "PreUploadImage",
+          "description": "",
+          "displayName": "PaymentsTable",
           "methods": [],
-          "actualName": "PreUploadImage"
+          "actualName": "PaymentsTable"
         }
       ]
     },
@@ -1905,39 +1905,6 @@
       ]
     },
     {
-      "key": "components/PropertySearch/CustomSearchBox.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SearchBox",
-          "methods": [],
-          "actualName": "SearchBox"
-        }
-      ]
-    },
-    {
-      "key": "components/PropertySearch/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "PropertySearch",
-          "methods": [],
-          "actualName": "PropertySearch"
-        }
-      ]
-    },
-    {
-      "key": "components/PropertySearch/SearchFilter.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SearchFilter",
-          "methods": [],
-          "actualName": "SearchFilter"
-        }
-      ]
-    },
-    {
       "key": "components/PropertyDetails/ApplicationCard.js",
       "value": [
         {
@@ -1989,6 +1956,39 @@
           "displayName": "PropertyLeases",
           "methods": [],
           "actualName": "PropertyLeases"
+        }
+      ]
+    },
+    {
+      "key": "components/PropertySearch/CustomSearchBox.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SearchBox",
+          "methods": [],
+          "actualName": "SearchBox"
+        }
+      ]
+    },
+    {
+      "key": "components/PropertySearch/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "PropertySearch",
+          "methods": [],
+          "actualName": "PropertySearch"
+        }
+      ]
+    },
+    {
+      "key": "components/PropertySearch/SearchFilter.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SearchFilter",
+          "methods": [],
+          "actualName": "SearchFilter"
         }
       ]
     },
@@ -2453,17 +2453,6 @@
       ]
     },
     {
-      "key": "components/Signout/index.js",
-      "value": [
-        {
-          "description": "NOTE: it breaks if we try to update the user in the cache. because of the setup you kind of need to refetch the queries..",
-          "displayName": "Signout",
-          "methods": [],
-          "actualName": "Signout"
-        }
-      ]
-    },
-    {
       "key": "components/Signup/index.js",
       "value": [
         {
@@ -2471,6 +2460,17 @@
           "displayName": "Signup",
           "methods": [],
           "actualName": "Signup"
+        }
+      ]
+    },
+    {
+      "key": "components/Signout/index.js",
+      "value": [
+        {
+          "description": "NOTE: it breaks if we try to update the user in the cache. because of the setup you kind of need to refetch the queries..",
+          "displayName": "Signout",
+          "methods": [],
+          "actualName": "Signout"
         }
       ]
     },
@@ -2519,17 +2519,6 @@
       ]
     },
     {
-      "key": "components/SuperiorTable/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SuperiorTable",
-          "methods": [],
-          "actualName": "SuperiorTable"
-        }
-      ]
-    },
-    {
       "key": "components/SubscriptionComponents/AdminAlertNewRentalApplicationSub.js",
       "value": [
         {
@@ -2548,6 +2537,17 @@
           "displayName": "PropertyPendingRentalApplicationsSub",
           "methods": [],
           "actualName": "PropertyPendingRentalApplicationsSub"
+        }
+      ]
+    },
+    {
+      "key": "components/SuperiorTable/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SuperiorTable",
+          "methods": [],
+          "actualName": "SuperiorTable"
         }
       ]
     },
@@ -2862,17 +2862,6 @@
       ]
     },
     {
-      "key": "components/TakeMyMoney/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "TakeMyMoney",
-          "methods": [],
-          "actualName": "TakeMyMoney"
-        }
-      ]
-    },
-    {
       "key": "components/TestForm/index.js",
       "value": [
         {
@@ -2921,6 +2910,17 @@
             }
           ],
           "actualName": "TestForm"
+        }
+      ]
+    },
+    {
+      "key": "components/TakeMyMoney/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "TakeMyMoney",
+          "methods": [],
+          "actualName": "TakeMyMoney"
         }
       ]
     },
@@ -3035,17 +3035,6 @@
       ]
     },
     {
-      "key": "pages/social/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "SocialPage",
-          "methods": [],
-          "actualName": "SocialPage"
-        }
-      ]
-    },
-    {
       "key": "pages/properties/index.js",
       "value": [
         {
@@ -3053,6 +3042,17 @@
           "displayName": "PropertiesPage",
           "methods": [],
           "actualName": "PropertiesPage"
+        }
+      ]
+    },
+    {
+      "key": "pages/social/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "SocialPage",
+          "methods": [],
+          "actualName": "SocialPage"
         }
       ]
     },
@@ -3204,17 +3204,6 @@
       ]
     },
     {
-      "key": "components/Forms/InsulationStatementForm/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "InsulationStatementForm",
-          "methods": [],
-          "actualName": "InsulationStatementForm"
-        }
-      ]
-    },
-    {
       "key": "components/PropertySearch/refinements/CheckBoxList.js",
       "value": [
         {
@@ -3265,6 +3254,17 @@
           "displayName": "MaterialUiSortBy",
           "methods": [],
           "actualName": "MaterialUiSortBy"
+        }
+      ]
+    },
+    {
+      "key": "components/Forms/InsulationStatementForm/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "InsulationStatementForm",
+          "methods": [],
+          "actualName": "InsulationStatementForm"
         }
       ]
     },
