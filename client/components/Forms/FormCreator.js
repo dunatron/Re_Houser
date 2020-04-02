@@ -44,26 +44,35 @@ const extractKeyType = obj => {
   };
 };
 
+/**
+ *
+ * ToDo: needs a lot of attention and a smart decision
+ * it basically takes the key and type from a config object and makes sure its type is converted properly between pre and post data
+ * I'm possibly trying to make it not fail when editing a config in the docs
+ */
 const getKeyTypes = conf => {
   // handle empty obj
-  return {};
+  // return {};
+  // if (isEmpty(conf)) return {};
+  // if (!is(Array, conf))
+  //   return conf.reduce((acc, c) => {
+  //     const newItem = extractKeyType(c);
+  //     if (!c.key) return { ...acc };
+  //     return { ...acc, ...newItem };
+  //   }, {});
+  // return {};
   if (isEmpty(conf)) return {};
-  if (!is(Array, conf))
-    return conf.reduce((acc, c) => {
-      const newItem = extractKeyType(c);
-      if (!c.key) return { ...acc };
-      return { ...acc, ...newItem };
-    }, {});
-  return {};
-  // return conf.reduce((acc, c) => {
-  //   const newItem = extractKeyType(c);
-  //   if (!c.key) return { ...acc };
-  //   return { ...acc, ...newItem };
-  // }, {});
+  return conf.reduce((acc, c) => {
+    const newItem = extractKeyType(c);
+    if (!c.key) return { ...acc };
+    return { ...acc, ...newItem };
+  }, {});
 };
 
 const FormCreator = props => {
   const { title, data, config, isNew, posting } = props;
+
+  console.log('form config => ', config);
 
   const keysWithTypes = getKeyTypes(config);
 
@@ -89,10 +98,14 @@ const FormCreator = props => {
     },
   }); // initalise the hook
   const onSubmit = data => {
-    console.log('InsulationStatementForm onSubmit data => ', data);
+    console.group('FORM SUBITTED!!!');
+    console.log('data => ', data);
     // const formattedData = _formatInsulationData(data);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
-    console.log('postFormattedData onSubmit => ', postFormattedFormData);
+    console.log('data => ', data);
+    console.log('keysWithTypes => ', keysWithTypes);
+    console.log('postFormattedFormData => ', postFormattedFormData);
+    console.groupEnd();
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 
