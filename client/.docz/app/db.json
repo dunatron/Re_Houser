@@ -813,6 +813,17 @@
       ]
     },
     {
+      "key": "components/ForceReloadButton.js/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "ForceReloadButton",
+          "methods": [],
+          "actualName": "ForceReloadButton"
+        }
+      ]
+    },
+    {
       "key": "components/Forms/FormCreator.js",
       "value": [
         {
@@ -851,17 +862,6 @@
           "displayName": "FormErrors",
           "methods": [],
           "actualName": "FormErrors"
-        }
-      ]
-    },
-    {
-      "key": "components/ForceReloadButton.js/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "ForceReloadButton",
-          "methods": [],
-          "actualName": "ForceReloadButton"
         }
       ]
     },
@@ -928,17 +928,6 @@
           "displayName": "ImagePicker",
           "methods": [],
           "actualName": "ImagePicker"
-        }
-      ]
-    },
-    {
-      "key": "components/InputErrors/index.js",
-      "value": [
-        {
-          "description": "",
-          "displayName": "InputErrors",
-          "methods": [],
-          "actualName": "InputErrors"
         }
       ]
     },
@@ -1145,6 +1134,17 @@
       ]
     },
     {
+      "key": "components/InputErrors/index.js",
+      "value": [
+        {
+          "description": "",
+          "displayName": "InputErrors",
+          "methods": [],
+          "actualName": "InputErrors"
+        }
+      ]
+    },
+    {
       "key": "components/LeaseManager/CompletedLease.js",
       "value": [
         {
@@ -1295,17 +1295,6 @@
       ]
     },
     {
-      "key": "components/LocationPicker/index.js",
-      "value": [
-        {
-          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
-          "displayName": "LocationPicker",
-          "methods": [],
-          "actualName": "LocationPicker"
-        }
-      ]
-    },
-    {
       "key": "components/Loader/ButtonLoader.js",
       "value": [
         {
@@ -1432,6 +1421,17 @@
               "description": ""
             }
           }
+        }
+      ]
+    },
+    {
+      "key": "components/LocationPicker/index.js",
+      "value": [
+        {
+          "description": "This is not ok,\r\nhttps://github.com/facebook/react/issues/14994",
+          "displayName": "LocationPicker",
+          "methods": [],
+          "actualName": "LocationPicker"
         }
       ]
     },
@@ -1594,6 +1594,17 @@
       ]
     },
     {
+      "key": "components/OwnerProperties/index.js",
+      "value": [
+        {
+          "description": "ToDo: have not finished converting to use hooks. FINISH IT!!!",
+          "displayName": "OwnerProperties",
+          "methods": [],
+          "actualName": "OwnerProperties"
+        }
+      ]
+    },
+    {
       "key": "components/Notifier/index.js",
       "value": [
         {
@@ -1669,17 +1680,6 @@
               "description": ""
             }
           }
-        }
-      ]
-    },
-    {
-      "key": "components/OwnerProperties/index.js",
-      "value": [
-        {
-          "description": "ToDo: have not finished converting to use hooks. FINISH IT!!!",
-          "displayName": "OwnerProperties",
-          "methods": [],
-          "actualName": "OwnerProperties"
         }
       ]
     },
