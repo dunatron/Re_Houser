@@ -480,6 +480,10 @@ CORS
 - `git subtree push --prefix server heroku-server master`
 - `git subtree push --prefix client heroku-client master`
 
+- client docs
+  - run `heroku apps:create client-docs` which will generate a new git remote
+  - https://client-docs.herokuapp.com/ | https://git.heroku.com/client-docs.git
+
 </details>
 
 <details>
@@ -1278,11 +1282,11 @@ const PAYMENT_OBJECT = {
       line1: null,
       line2: null,
       postal_code: null,
-      state: null
+      state: null,
     },
     email: null,
     name: "heath.dunlop.hd@gmail.com",
-    phone: null
+    phone: null,
   },
   captured: true,
   created: 1560932149,
@@ -1305,7 +1309,7 @@ const PAYMENT_OBJECT = {
     risk_level: "normal",
     risk_score: 58,
     seller_message: "Payment complete.",
-    type: "authorized"
+    type: "authorized",
   },
   paid: true,
   payment_intent: null,
@@ -1321,9 +1325,9 @@ const PAYMENT_OBJECT = {
       funding: "credit",
       last4: "4242",
       three_d_secure: null,
-      wallet: null
+      wallet: null,
     },
-    type: "card"
+    type: "card",
   },
   receipt_email: null,
   receipt_number: null,
@@ -1335,7 +1339,7 @@ const PAYMENT_OBJECT = {
     data: [],
     has_more: false,
     total_count: 0,
-    url: "/v1/charges/ch_1EmyxNDzDGjSizvyGD8Sor1h/refunds"
+    url: "/v1/charges/ch_1EmyxNDzDGjSizvyGD8Sor1h/refunds",
   },
   review: null,
   shipping: null,
@@ -1362,13 +1366,13 @@ const PAYMENT_OBJECT = {
     last4: "4242",
     metadata: {},
     name: "heath.dunlop.hd@gmail.com",
-    tokenization_method: null
+    tokenization_method: null,
   },
   source_transfer: null,
   statement_descriptor: null,
   status: "succeeded",
   transfer_data: null,
-  transfer_group: null
+  transfer_group: null,
 };
 ```
 
@@ -1739,10 +1743,10 @@ const client = algoliasearch("4QW4S8SE3J", "••••••••••••
 const index = client.initIndex("demo_ecommerce");
 
 fetch("https://alg.li/doc-ecommerce.json")
-  .then(function(response) {
+  .then(function (response) {
     return response.json();
   })
-  .then(function(products) {
+  .then(function (products) {
     index.addObjects(products);
   });
 ```
@@ -1765,8 +1769,8 @@ index.setSettings({
     "searchable(brand)",
     "price",
     "outdoorFeatures",
-    "indoorFeatures"
-  ]
+    "indoorFeatures",
+  ],
 });
 ```
 
