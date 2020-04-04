@@ -39,3 +39,6 @@ haters/
 layout.md
 variables.env
 /client/cypress-tests/cypress.env.json
+
+# docz docs
+client/.docz
