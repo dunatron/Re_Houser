@@ -2,7 +2,7 @@
   "name": "rehouser-client",
   "version": "1.0.0",
   "engines": {
-    "node": "12.16.x"
+    "node": "12.13.x"
   },
   "description": "a tenancy solution via software",
   "main": "index.js",
