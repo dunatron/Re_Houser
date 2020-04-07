@@ -121,7 +121,7 @@ const CheckboxText = props => {
 
 const InputFieldType = props => {
   // const { onChange, errors, errorMessage, name, fieldProps } = props;
-  const { config } = props;
+  const { config, onChange } = props;
   const { type, label, fieldProps } = config;
   switch (type) {
     case 'Header':

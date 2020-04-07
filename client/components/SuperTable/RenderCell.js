@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
-import TableBody from '@material-ui/core/TableBody/TableBody';
-import TableCell from '@material-ui/core/TableCell/TableCell';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  TableBody,
+  TableCell,
+  Checkbox,
+  Button,
+  IconButton,
+} from '@material-ui/core';
+
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+
+import CloseIcon from '@material-ui/icons/Close';
+
+import CheckIcon from '@material-ui/icons/Check';
 
 // data: =>
 // found: "isLeased"
@@ -11,88 +22,78 @@ import Checkbox from '@material-ui/core/Checkbox';
 // show: true
 // tableRenderKey: "th"
 // type: "truthly"
-export default class RenderCell extends Component {
-  render() {
-    const { data, index, allData, executeFunc } = this.props;
-    switch (data.type) {
-      case 'btnFunc':
-        return (
-          <RenderButtonFunc
-            data={data}
-            index={index}
-            allData={allData}
-            executeFunc={(func, data) => executeFunc(func, data)}
-            {...this.props}
-          />
-        );
-      case 'numberOfObj':
-        return (
-          <RenderNumberOfObj
-            data={data}
-            index={index}
-            allData={allData}
-            {...this.props}
-          />
-        );
-      case 'deep':
-        return (
-          <RenderDeep
-            data={data}
-            index={index}
-            allData={allData}
-            {...this.props}
-          />
-        );
-      case 'map':
-        return (
-          <RenderMap
-            data={data}
-            index={index}
-            allData={allData}
-            {...this.props}
-          />
-        );
-      case 'tag':
-        return (
-          <RenderTag
-            data={data}
-            index={index}
-            allData={allData}
-            {...this.props}
-          />
-        );
-      case 'checkbox':
-        return (
-          <RenderCheckBox
-            data={data}
-            index={index}
-            allData={allData}
-            executeFunc={(func, data) => executeFunc(func, data)}
-            {...this.props}
-          />
-        );
-      case 'truthly':
-        return (
-          <RenderTruthly
-            data={data}
-            index={index}
-            allData={allData}
-            executeFunc={(func, data) => executeFunc(func, data)}
-            {...this.props}
-          />
-        );
-      default:
-        return (
-          <RenderDefault
-            data={data}
-            index={index}
-            allData={allData}
-            {...this.props}
-          />
-        );
-    }
+const RenderCell = props => {
+  const { data, index, allData, executeFunc } = props;
+
+  switch (data.type) {
+    case 'btnFunc':
+      return (
+        <RenderButtonFunc
+          data={data}
+          index={index}
+          allData={allData}
+          executeFunc={(func, data) => executeFunc(func, data)}
+          {...props}
+        />
+      );
+    case 'numberOfObj':
+      return (
+        <RenderNumberOfObj
+          data={data}
+          index={index}
+          allData={allData}
+          {...props}
+        />
+      );
+    case 'deep':
+      return (
+        <RenderDeep data={data} index={index} allData={allData} {...props} />
+      );
+    case 'map':
+      return (
+        <RenderMap data={data} index={index} allData={allData} {...props} />
+      );
+    case 'tag':
+      return (
+        <RenderTag data={data} index={index} allData={allData} {...props} />
+      );
+    case 'checkbox':
+      return (
+        <RenderCheckBox
+          data={data}
+          index={index}
+          allData={allData}
+          executeFunc={(func, data) => executeFunc(func, data)}
+          {...props}
+        />
+      );
+    case 'truthly':
+      return (
+        <RenderTruthly
+          data={data}
+          index={index}
+          allData={allData}
+          executeFunc={(func, data) => executeFunc(func, data)}
+          {...props}
+        />
+      );
+    case 'images':
+      return (
+        <RenderImages
+          data={data}
+          index={index}
+          allData={allData}
+          executeFunc={(func, data) => executeFunc(func, data)}
+          {...props}
+        />
+      );
+    default:
+      return (
+        <RenderDefault data={data} index={index} allData={allData} {...props} />
+      );
   }
-}
+};
+export default RenderCell;
 
 const RenderButtonFunc = ({ data, allData, index, executeFunc }) => {
   return (
@@ -161,7 +162,111 @@ const RenderTruthly = ({ data, index, allData, executeFunc }) => {
   const value = allData[data.id];
   return (
     <TableCell size="small" {...data.tableRenderProps}>
-      {value ? 'YES' : 'NO'}
+      {value ? <CheckIcon color="primary" /> : <CloseIcon color="secondary" />}
+      {/* <Checkbox
+        checked={value}
+        color="primary"
+        onClick={() => executeFunc(data.funcName, allData)}
+      /> */}
+    </TableCell>
+  );
+};
+
+const RenderImages = ({ data, index, allData, executeFunc }) => {
+  const images = allData[data.id];
+  const [imageHeight, setImageHeight] = useState(70);
+  const [isHovering, setIsHovering] = useState(false);
+  console.log('RenderImage Val => ', images);
+  // (original height / original width) x new width = new height
+  const dynamicImageWidth = (1920 / 1080) * imageHeight;
+
+  return (
+    <TableCell size="small" {...data.tableRenderProps}>
+      {/* {images && (
+        <img
+          src={images[0].url}
+          height="60px"
+          width="60px"
+          onClick={() => executeFunc(data.funcName, allData)}
+        />
+      )} */}
+      {images && (
+        <div
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}>
+          <div
+            onClick={() => executeFunc(data.funcName, allData)}
+            style={{ position: 'relative', width: `${dynamicImageWidth}px` }}>
+            <img
+              src={images[0].url}
+              alt={`some image`}
+              style={{
+                cursor: 'pointer',
+                width: `${dynamicImageWidth}px`,
+                height: `${imageHeight}px`,
+                objectFit: 'cover',
+              }}
+            />
+            {isHovering && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '0',
+                  height: '100%',
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => executeFunc(data.funcName, allData)}>
+                  Manage
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {isHovering && (
+            <IconButton
+              onClick={() => {
+                setImageHeight(imageHeight + 9);
+              }}>
+              <AddIcon />
+            </IconButton>
+          )}
+          {isHovering && (
+            <IconButton
+              onClick={() => {
+                setImageHeight(imageHeight - 9);
+              }}>
+              <RemoveIcon />
+            </IconButton>
+          )}
+        </div>
+      )}
+      {/* {images && (
+        <div
+          src={images[0].url}
+          style={{
+            height: '60px',
+            width: '60px',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+            backgroundPosition: 'center',
+            backgroundImage: `url(${images[0].url})`,
+          }}
+          onClick={() => executeFunc(data.funcName, allData)}
+        />
+      )} */}
+      {/* background-image: url("https://res.cloudinary.com/dkhe0hx1r/image/upload/v1585803988/u2u1fet4qhkzbo2sg1mh.jpg"); */}
+      {/* {images &&
+        images.map(img => {
+          return <img src={img.url} height="40px" width="40px" />;
+        })} */}
+      {/* {value ? <CheckIcon color="primary" /> : <CloseIcon color="secondary" />} */}
+
       {/* <Checkbox
         checked={value}
         color="primary"

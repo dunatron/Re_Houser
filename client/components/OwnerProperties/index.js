@@ -4,7 +4,6 @@ import { Query, Mutation } from 'react-apollo';
 import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
 import SuperTable from '../SuperTable/index';
-import Button from '@material-ui/core/Button';
 import Modal from '../Modal/index';
 import PropertyDetails from '../PropertyDetails/index';
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,6 +11,8 @@ import Router from 'next/router';
 import { graphql, withApollo } from 'react-apollo';
 import { PROPERTIES_QUERY } from '../../graphql/queries/index';
 import ActivityManager from '../ActivityManager/index';
+import Loader from '../Loader/index';
+
 const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
@@ -65,10 +66,33 @@ const OwnerProperties = ({ me }) => {
   // setup our gql queries for functional component
   const propertiesQuery = useQuery(OWNER_PROPERTIES_QUERY);
 
-  const [updateProperty] = useMutation(UPDATE_PROPERTY_MUTATION);
+  const [updateProperty, updatePropertyProps] = useMutation(
+    UPDATE_PROPERTY_MUTATION
+  );
+
+  console.log('Owner Properties Data => ', propertiesQuery.data);
 
   const columnHeaders = () => {
     return [
+      {
+        id: 'images',
+        numeric: false,
+        // disablePadding: true,
+        type: 'images',
+        label: 'images',
+        helpText: 'Manage this property',
+        show: true,
+        tableRenderKey: 'th',
+        found: 'images',
+        searchable: false,
+        funcName: 'showDetails',
+        tableRenderProps: {
+          size: 'small',
+          // style: {
+          //   minWidth: '220px',
+          // },
+        },
+      },
       {
         id: 'location',
         numeric: false,
@@ -98,9 +122,9 @@ const OwnerProperties = ({ me }) => {
       {
         id: 'onTheMarket',
         numeric: false,
-        type: 'checkbox',
+        type: 'truthly',
         // disablePadding: true,
-        label: 'onTheMarket',
+        label: 'Marketing',
         show: true,
         tableRenderKey: 'th',
         found: 'onTheMarket',
@@ -112,7 +136,7 @@ const OwnerProperties = ({ me }) => {
         numeric: false,
         type: 'truthly',
         // disablePadding: true,
-        label: 'isLeased',
+        label: 'Leased',
         show: true,
         tableRenderKey: 'th',
         found: 'isLeased',
@@ -145,7 +169,7 @@ const OwnerProperties = ({ me }) => {
         numeric: false,
         // disablePadding: true,
         label: 'rent',
-        show: true,
+        show: false,
         tableRenderKey: 'th',
         found: 'rent',
         searchable: true,
@@ -274,7 +298,7 @@ const OwnerProperties = ({ me }) => {
 
   const renderModalDetails = () => {
     const { id, location, rent } = modalDetailsObj;
-    return <PropertyDetails id={id} />;
+    return <PropertyDetails id={id} location={location} />;
   };
 
   const manageProperty = data => {
@@ -304,9 +328,10 @@ const OwnerProperties = ({ me }) => {
 
   if (propertiesQuery.loading) {
     return (
-      <div>
-        <h1>Loading owner properties</h1>
-      </div>
+      <Loader
+        loading={propertiesQuery.loading}
+        text="Loading your properties"
+      />
     );
   }
   return (
@@ -320,6 +345,8 @@ const OwnerProperties = ({ me }) => {
       <ActivityManager me={me} collapsed={true} />
       <SuperTable
         columnHeaders={columnHeaders()}
+        loading={updatePropertyProps.loading}
+        error={updatePropertyProps.error}
         // tags={{
         //   found: "tags",
         //   key: "id",
@@ -334,7 +361,10 @@ const OwnerProperties = ({ me }) => {
         executeFunc={async (funcName, obj) => {
           switch (funcName) {
             case 'toggleOnTheMarket':
-              await setUpdateData(obj);
+              // await setUpdateData(obj);
+              // await
+              // await handleUpdatingData([...obj]);
+              setUpdateKey;
               return _updateProperty(updateProperty, obj);
             default:
               return executeFunctionByName(funcName, obj);

@@ -5,6 +5,7 @@ import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
 import { useCurrentUser } from '../User/index';
+import Loader from '../Loader';
 import Error from '../ErrorMessage';
 import FinaliseLeaseBtn from '../MutationButtons/FinaliseLeaseButton';
 import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
@@ -24,8 +25,8 @@ const LeaseManager = ({ leaseId }) => {
     suspend: false,
   });
 
-  if (loading) return 'Preparing Lease, please wait...';
-  if (error) return 'Error with feting lease Data';
+  if (loading) return <Loader loading={loading} text="Loading your leases" />;
+  if (error) return <Error error={error} tronM="Error loading leases" />;
   const { finalised, location, rent, lessors, lessees } = data.myLease;
 
   /**

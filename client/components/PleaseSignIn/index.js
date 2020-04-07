@@ -6,6 +6,7 @@ import SuperLogin from '../SuperLogin';
 import { toast } from 'react-toastify';
 import Error from '../ErrorMessage';
 import { useCurrentUser } from '../User';
+import Loader from '../Loader/index';
 
 const Message = ({ message, alert }) => {
   if (alert) toast.info(alert);
@@ -95,7 +96,7 @@ const PleaseSignIn = props => {
   const { currentUser } = props;
   const { error, loading, data } = currentUser;
 
-  if (loading) return <p>loading current user</p>;
+  if (loading) return <Loader loading={loading} text="Loading user settings" />;
   if (error) return <Error error={error} />;
   // return 'SIgh';
   if (!data.me) {

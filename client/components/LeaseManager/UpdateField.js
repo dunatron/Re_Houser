@@ -14,13 +14,33 @@ const UpdateField = ({ fieldConf, defaultValue, update }) => {
         open={modalIsOpen}
         close={() => setModalIsOpen(false)}>
         <InputFieldType
-          fieldConf={fieldConf}
-          label={label}
-          defaultValue={value ? value : defaultValue}
-          value={value}
+          // fieldConf={fieldConf}
+          // label={label}
+          // defaultValue={value ? value : defaultValue}
+          // value={value}
           onChange={v => {
             setValue(v);
           }}
+          config={fieldConf}
+          //   onChange={val => console.log('onOnCnage...', val)}
+          // key={idx}
+          // register={register}
+          // reset={reset}
+          // errors={errors}
+          // setValue={setValue}
+          // defaultValues={preFormattedFormData}
+          // defaultValue={
+          //   configIsValid(config)
+          //     ? preFormattedFormData[item.fieldProps.name]
+          //     : null
+          // }
+          // defaultValue={
+          //   configIsValid(config)
+          //     ? preFormattedFormData[
+          //         item.fieldProps ? item.fieldProps.name : null
+          //       ]
+          //     : null
+          // }
         />
         <Button onClick={() => update(value)}>Update</Button>
       </Modal>

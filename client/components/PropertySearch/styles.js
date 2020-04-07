@@ -8,7 +8,7 @@ const SearchInterface = styled.div`
   .si-drawer {
     /* border: 1px solid red; */
     // DONT TOUCH THIS, ITS Like the component
-    // width: 150px;
+    width: 150px;
   }
 
   .si-drawer__header {

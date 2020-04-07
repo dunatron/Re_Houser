@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography';
 // constants
 import { SITE_NAME } from '../../lib/const';
 import { toast } from 'react-toastify';
-
+import Loader from '../Loader/index';
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -52,7 +52,7 @@ const PropertyCard = styled.div`
   }
 `;
 
-const PropertyDetails = ({ id }) => {
+const PropertyDetails = ({ id, location }) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
@@ -60,7 +60,8 @@ const PropertyDetails = ({ id }) => {
       id: id,
     },
   });
-  if (loading) return 'loading';
+  if (loading)
+    return <Loader loading={loading} text={`Loading ${location} details`} />;
   if (error) return 'error';
   const property = data.ownerProperty;
 

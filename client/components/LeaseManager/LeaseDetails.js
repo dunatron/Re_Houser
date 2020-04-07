@@ -69,11 +69,28 @@ const LEASE_DETAILS_CONF = [
     },
   },
   {
-    key: 'rooms',
+    // key: 'rooms',
+    // type: 'Int',
+    // canUpdate: true,
+    // label: 'Rooms',
+    // sizes: defaultDetailSize,
     type: 'Int',
+    key: 'rooms',
     canUpdate: true,
-    label: 'Rooms',
-    sizes: defaultDetailSize,
+    label: 'Last Updated',
+    // format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+    fieldProps: {
+      name: 'rooms',
+      label:
+        'Does insulation meet the minimum requirements for ceiling insulation?',
+      defaultValue: 'Test',
+    },
+    sizes: {
+      ...defaultDetailSize,
+      xs: 12,
+      lg: 6,
+      xl: 6,
+    },
   },
   {
     key: 'finalised',

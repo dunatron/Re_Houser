@@ -573,11 +573,11 @@ class SuperTable extends React.Component {
                         selected={isSelected}>
                         {this.state.columnHeaders
                           .filter(header => header.show === true)
-                          .map((cellHeader, idx) => {
+                          .map((cellData, idx) => {
                             return (
                               <RenderCell
                                 allData={n}
-                                data={cellHeader}
+                                data={cellData}
                                 index={idx}
                                 executeFunc={(func, data) =>
                                   this.props.executeFunc(func, data)

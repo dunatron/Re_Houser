@@ -21,10 +21,12 @@ const Loader = props => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <CircularProgress
-        className={classes.loader}
-        color={color ? color : 'primary'}
-      />
+      <div>
+        <CircularProgress
+          className={classes.loader}
+          color={color ? color : 'primary'}
+        />
+      </div>
       {text && (
         <Typography color="primary" className={classes.text}>
           {text}
