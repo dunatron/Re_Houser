@@ -4,8 +4,13 @@ import RentalApplication from '../../components/RentalApplication';
 
 import PleaseSignIn from '../../components/PleaseSignIn';
 const MyApplication = props => {
+  const {
+    appData: { currentUser },
+  } = props;
   return (
-    <PleaseSignIn message="You cannot view an application without being signed in">
+    <PleaseSignIn
+      currentUser={currentUser}
+      message="You cannot view an application without being signed in">
       <RentalApplication id={props.query.id} />
     </PleaseSignIn>
   );

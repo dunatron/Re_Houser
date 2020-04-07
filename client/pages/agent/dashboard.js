@@ -14,7 +14,10 @@ const SEARCH_ITEMS_LIST = [
   { title: 'Test 4', url: 'https://' },
   { title: 'Test 5', url: 'https://' },
 ];
-const AgentDashboardPage = () => {
+const AgentDashboardPage = props => {
+  const {
+    appData: { currentUser },
+  } = props;
   // Declare a new state variable, which we'll call "count"
   const [searchString, setSearchString] = useState('');
   const [searchItems, setSearchItems] = useState(SEARCH_ITEMS_LIST);

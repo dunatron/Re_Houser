@@ -22,11 +22,17 @@ import Link from 'next/link';
 import Sidebar from '../Sidebar';
 
 function MaterialPage(props) {
-  const { container, loadingUser } = props;
+  // const { container, loadingUser, me } = props;
+  const { container, appData } = props;
+  const { currentUser } = appData;
+
+  const me = currentUser.data ? currentUser.data.me : null;
   const router = useRouter();
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  console.log('Ok the materialPage Props => ', props);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -45,7 +51,7 @@ function MaterialPage(props) {
         </ListItem>
       </div>
       <Divider />
-      <Sidebar loadingUser={loadingUser} />
+      <Sidebar loadingUser={currentUser.loading} me={me} />
     </div>
   );
 
@@ -66,6 +72,17 @@ function MaterialPage(props) {
     console.log('New route =>', newRoute);
     router.push(newRoute);
   };
+
+  const children = React.Children.map(props.children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child, {
+        appData: {
+          ...props.appData, // has other shit we dont want
+        },
+      });
+    }
+    return child;
+  });
 
   return (
     <>
@@ -151,7 +168,8 @@ function MaterialPage(props) {
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
 
-          {props.children}
+          {/* {props.children} */}
+          {children}
         </main>
         <ChatsBar />
       </div>

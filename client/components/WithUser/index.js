@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -33,13 +33,40 @@ import Loader from '../Loader';
 
 // export default WithUser;
 
+/**
+ * Ok listen up chump, here is the architecture
+ * - rename to WithData
+ * - useCurrentUser
+ * - useWhatever
+ * loggedUser => {loading: loading, error: error}
+ * to avoid Conflicts in local component props, wrap in appData: { me}
+ */
 const WithUser = props => {
   const { data, error, loading } = useCurrentUser();
+  const currentUserProps = useCurrentUser();
+
+  // useEffect(() => {
+  //   console.log('Ohh useEffect loading triggered');
+  // }, []);
+
+  // if (loading) return 'Checking and loading credentials';
+
+  console.group('WithUser');
+  console.log('props => ', props);
+  console.log('==UserData== ');
+  console.log('==loading==> ', loading);
+  console.log('==error==>', error);
+  console.log('==data==>', data);
+  console.groupEnd();
+
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
-        me: data ? data.me : null,
-        loadingUser: loading,
+        // me: data ? data.me : null,
+        // loadingUser: loading,
+        appData: {
+          currentUser: currentUserProps,
+        },
       });
     }
     return child;

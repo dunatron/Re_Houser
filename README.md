@@ -398,6 +398,18 @@ STAGE="prod"
 </details>
 
 <details>
+  <summary>Project Dev Setup</summary>
+- If using git pash and you close your terminal without killing process the process will not cleanup
+  - run `netstat -ano | findstr 4444` where 4444 is the port number e.g local client
+  - The things on the END next to probably LISTENING is the PID number
+  - run `taskkill /PID InsertPID10128Number /F` where 10128 is the PID
+  - if on gitbash you may need to escape the characters
+    - run `taskkill //PID 10128 //F`
+</details>
+
+netstat -ano | findstr 4444
+
+<details>
   <summary>Alpha Deployment</summary>
 Not the easiest thing in the world to deploy or manage since we have 3 parts
 - Prisma Server

@@ -151,15 +151,15 @@ const Page = props => {
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={theme}>
             <WithUser>
-              <WithChats>
-                <Meta />
-                <MaterialPage children={props.children} {...props} />
+              {/* <WithChats> */}
+              <Meta />
+              <MaterialPage children={props.children} {...props} />
 
-                {/* <div>
+              {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />
                 </div> */}
-              </WithChats>
+              {/* </WithChats> */}
             </WithUser>
           </ThemeProvider>
         </StripeProvider>

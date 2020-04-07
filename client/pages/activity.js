@@ -3,10 +3,14 @@ import PleaseSignIn from '../components/PleaseSignIn';
 import Account from '../components/Account/index';
 import { ActivityManager, Activity } from '../components/ActivityManager';
 
-const ActivityPage = () => {
+const ActivityPage = props => {
+  const {
+    appData: { currentUser },
+  } = props;
   return (
     <div>
       <PleaseSignIn
+        currentUser={currentUser}
         alert={
           <div>
             <p>

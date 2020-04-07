@@ -186,10 +186,12 @@ const NavigationConfig = (me, loadingUser) => {
   ];
 };
 
-const Nav = ({ loadingUser }) => {
-  const user = useCurrentUser();
-  const { data, loading, error } = user;
-  const me = data ? data.me : null;
+const Nav = ({ loadingUser, me }) => {
+  // const user = useCurrentUser();
+  // const { data, loading, error } = user;
+  // const me = data ? data.me : null;
+  // const me = null;
+  console.log('me props => ', me);
   const NAV_CONF = NavigationConfig(me, loadingUser);
   return (
     <div>
