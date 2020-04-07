@@ -495,6 +495,12 @@ CORS
 - client docs
   - run `heroku apps:create client-docs` which will generate a new git remote
   - https://client-docs.herokuapp.com/ | https://git.heroku.com/client-docs.git
+  - git remote add heroku-client-docs https://git.heroku.com/client-docs.git
+  - git subtree push --prefix client/.docz/dist heroku-client-docs master
+
+  - No default language could be detected for this app.
+  - HINT: This occurs when Heroku cannot detect the buildpack to use for this application automatically.
+  - See https://devcenter.heroku.com/articles/buildpacks
 
 </details>
 
