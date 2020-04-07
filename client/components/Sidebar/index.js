@@ -50,7 +50,9 @@ const ProfileIcon = me => {
 
   return <AccountCircleIcon />;
 };
-
+const defaultNavItemStyle = {
+  minWidth: '32px',
+};
 const NavigationConfig = (me, loadingUser) => {
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
@@ -65,24 +67,28 @@ const NavigationConfig = (me, loadingUser) => {
           icon: <LocationSearchingIcon />,
           text: 'Look',
           route: '/look',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Dashboard',
           route: '/dashboard',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Activity',
           route: '/activity',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
           icon: ProfileIcon(me),
           text: 'Account',
           route: '/account',
+          // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
           canRender: () => true,
         },
       ],
@@ -102,6 +108,7 @@ const NavigationConfig = (me, loadingUser) => {
           ),
           text: 'Friend Manager',
           route: '/social/friends',
+          style: { ...defaultNavItemStyle },
           canRender: () => {
             if (me === null) return false;
             return true;
@@ -115,6 +122,7 @@ const NavigationConfig = (me, loadingUser) => {
           ),
           text: 'Messages',
           route: '/social/chats',
+          style: { ...defaultNavItemStyle },
           canRender: () => {
             if (me === null) return false;
             return true;
@@ -133,24 +141,28 @@ const NavigationConfig = (me, loadingUser) => {
           icon: <DashboardIcon />,
           text: 'Add Property',
           route: '/properties/add',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Applications',
           route: '/applications',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Leases',
           route: '/leases',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
           icon: <DashboardIcon />,
           text: 'Properties',
           route: '/properties',
+          style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
       ],
@@ -166,6 +178,7 @@ const NavigationConfig = (me, loadingUser) => {
           ),
           text: 'Login',
           route: '/login',
+          style: { ...defaultNavItemStyle },
           canRender: () => {
             if (me !== null) return false;
             return true;
@@ -175,6 +188,7 @@ const NavigationConfig = (me, loadingUser) => {
           icon: <AccountCircleIcon />,
           text: 'Logout',
           route: '/logout',
+          style: { ...defaultNavItemStyle },
           canRender: () => {
             if (me === null) return false;
             return true;
@@ -215,7 +229,9 @@ const Nav = ({ loadingUser, me }) => {
                         handleLink(item.route);
                       }
                     }}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemIcon style={item.style ? item.style : null}>
+                      {item.icon}
+                    </ListItemIcon>
                     <ListItemText primary={item.text} />
                   </ListItem>
                 );

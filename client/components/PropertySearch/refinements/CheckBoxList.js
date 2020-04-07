@@ -50,10 +50,10 @@ const MaterialUiCheckBoxRefinementList = ({
   return (
     <>
       <ListItem button onClick={() => setOpen(!open)}>
-        <ListItemIcon>
+        <ListItemIcon style={{ minWidth: '32px' }}>
           <InboxIcon />
         </ListItemIcon>
-        <ListItemText inset primary={attribute.toUpperCase()} />
+        <ListItemText inset={false} primary={attribute.toUpperCase()} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <CollapseMenu in={open} timeout="auto" unmountOnExit>
@@ -78,7 +78,9 @@ const MaterialUiCheckBoxRefinementList = ({
                     alignItems: 'center',
                     fontSize: '1.2em',
                     fontWeight: '300',
-                    height: '36px',
+                    fontSize: '1rem',
+                    wordBreak: 'break-word',
+                    // letterSpacing: '0.00938em',
                   }}>
                   {label}
                   <span
@@ -86,6 +88,7 @@ const MaterialUiCheckBoxRefinementList = ({
                       fontSize: '0.8em',
                       alignSelf: 'end',
                       padding: '0 0 0 4px',
+                      wordBreak: 'break-all',
                     }}>
                     ({count})
                   </span>

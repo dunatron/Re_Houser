@@ -18,15 +18,17 @@ const styles = theme => ({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 9000,
   },
   content: {
     // height: 100,
     // width: 100,
     background: '#FFF',
     overflow: 'auto',
-    zIndex: 9000,
+    // zIndex: 9000,
     // height: "100%",
     // width: "100%",
+    zIndex: 10,
   },
   modalHeader: {
     display: 'flex',
@@ -53,7 +55,8 @@ const styles = theme => ({
     background: fade(theme.palette.primary.main, 0.2),
     height: '100%',
     width: '100%',
-    zIndex: 1000,
+    zIndex: 5,
+    // zIndex: 1000,
   },
 });
 

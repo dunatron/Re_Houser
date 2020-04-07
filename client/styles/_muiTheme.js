@@ -68,6 +68,27 @@ const theme = {
       hint: 'rgba(0, 0, 0, 0.38)',
     },
   },
+  overrides: {
+    MuiButton: {
+      root: {
+        fontSize: '1rem',
+      },
+    },
+    MuiListItemIcon: {
+      root: {
+        minWidth: '56px', // originally 56px // and so it should be, u used wrong component
+      },
+      alignItemsFlexStart: {},
+    },
+    MuiDrawer: {
+      // root: {
+      //   width: '120px',
+      // },
+      // paper: {
+      //   width: '120px',
+      // },
+    },
+  },
   // palette: {
   //   type: 'light',
 

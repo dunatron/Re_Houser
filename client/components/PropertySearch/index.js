@@ -3,16 +3,20 @@ import styled from 'styled-components';
 import algoliasearch from 'algoliasearch/lite';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+// import Drawer from '@material-ui/core/Drawer';
 import {
   IconButton,
   Divider,
   Drawer,
   AppBar,
+  Paper,
+  Grid,
   Toolbar,
   List,
   Typography,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 // import Divider from "@material-ui/core/Divider";
 import CustomSearchBox from './CustomSearchBox';
 import SettingsIcon from '../../styles/icons/SettingsIcon';
@@ -27,6 +31,10 @@ import ConnectedMaterialPagination from './refinements/Pagination';
 import CustomHighlight from './refinements/CustomHiglight';
 import PropertyCard from '../PropertyCard/index';
 import SearchFilter from './SearchFilter';
+import FilterDrawer from './FilterDrawer';
+
+// connected refinements
+import CurrentRefinements from './refinements/CurrentRefinements';
 
 //icons
 import NavigateBeforeIcon from '../../styles/icons/NavigateBefore';
@@ -49,6 +57,8 @@ var applicationId = '4QW4S8SE3J';
 var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
 const searchClient = algoliasearch(applicationId, apiKey);
 const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
+
+const useStyles = makeStyles(theme => ({}));
 
 const Hit = ({ hit }) => (
   <div className="si-hit">
@@ -117,33 +127,24 @@ const Content = () => (
     </div>
   </div>
 );
-// si-drawer-sidebar
-const Sidebar = () => (
-  <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>
-    <div>
-      <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
-      <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
-      <ConnectedCheckBoxRefinementList
-        attribute="outdoorFeatures"
-        operator="or"
-      />
-      <ConnectedCheckBoxRefinementList
-        attribute="indoorFeatures"
-        operator="or"
-      />
-      <ConnectedCheckBoxRefinementList attribute="price" operator="or" />
-    </div>
-  </div>
-);
-
-const DrawHeader = ({ close }) => (
-  <div className="si-drawer__header" style={{}}>
-    <h4>Refine your search</h4>
-    <IconButton onClick={close} className="si-drawer__close-btn">
-      <CloseIcon />
-    </IconButton>
-  </div>
-);
+// // si-drawer-sidebar
+// const Sidebar = () => (
+//   <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>
+//     <div>
+//       <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
+//       <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
+//       <ConnectedCheckBoxRefinementList
+//         attribute="outdoorFeatures"
+//         operator="or"
+//       />
+//       <ConnectedCheckBoxRefinementList
+//         attribute="indoorFeatures"
+//         operator="or"
+//       />
+//       <ConnectedCheckBoxRefinementList attribute="price" operator="or" />
+//     </div>
+//   </div>
+// );
 
 const PropertySearch = () => {
   const [open, setOpen] = useState(false);
@@ -165,33 +166,35 @@ const PropertySearch = () => {
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
       <SearchInterface>
-        <Drawer
-          // style={{ maxWidth: "100vw" }}
-          className="si-drawer"
-          variant="persistent"
-          anchor="left"
-          open={open}>
-          <DrawHeader close={handleDrawerClose} />
-          <Divider />
-          <Sidebar />
-        </Drawer>
-        <AppBar
-          position="relative"
-          color="default"
-          style={{ padding: '8px', zIndex: 0 }}>
-          <Toolbar disableGutters={!open}>
-            <IconButton
-              color="default"
-              style={{ margin: '0 12px 0 0' }}
-              aria-label="Open drawer"
-              onClick={toggleDraw}>
-              <SettingsInputIcon />
-            </IconButton>
+        <FilterDrawer open={open} handleClose={handleDrawerClose} />
+        <Paper variant="outlined" square={true} style={{ padding: '8px' }}>
+          {/* <Toolbar disableGutters={!open}> */}
+          <Toolbar disableGutters={true} variant="dense">
             <CustomSearchBox fullWidth={true} />
           </Toolbar>
-        </AppBar>
+          <Grid container spacing={2} style={{ padding: '8px' }}>
+            <Grid item xs={12} md={2}>
+              <Paper style={{ height: '100%' }}>
+                <IconButton
+                  // color="default"
+                  color={open ? 'primary' : 'default'}
+                  style={{ margin: '0 12px 0 0' }}
+                  aria-label="Open drawer"
+                  onClick={toggleDraw}>
+                  <SettingsInputIcon />
+                </IconButton>{' '}
+                Filter Facets
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={10}>
+              <Paper style={{ height: '100%' }}>
+                <SearchFilter />
+              </Paper>
+            </Grid>
+          </Grid>
+          <CurrentRefinements />
+        </Paper>
 
-        <SearchFilter />
         <Content />
       </SearchInterface>
     </InstantSearch>

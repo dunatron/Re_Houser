@@ -39,7 +39,7 @@ function MaterialPage(props) {
   };
 
   const drawer = (
-    <div>
+    <>
       <div className={classes.logoContainer}>
         <ListItem>
           <Link href="/">
@@ -52,7 +52,7 @@ function MaterialPage(props) {
       </div>
       <Divider />
       <Sidebar loadingUser={currentUser.loading} me={me} />
-    </div>
+    </>
   );
 
   console.log('router pathname => ', router.pathname);

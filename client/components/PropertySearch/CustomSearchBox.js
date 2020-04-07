@@ -1,7 +1,14 @@
 import { connectSearchBox } from 'react-instantsearch-dom';
-import TextField from '@material-ui/core/TextField';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
+import {
+  FormControl,
+  TextField,
+  InputLabel,
+  Button,
+  Input,
+  InputAdornment,
+} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/SearchOutlined';
 
 const SearchTextInput = styled(TextField)`
   && {
@@ -30,14 +37,40 @@ const SearchTextInput = styled(TextField)`
 //   </form>
 // )
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-  <SearchTextInput
-    type="search"
-    placeholder="e.g Central Dunedin"
-    style={{ fontSize: '36px' }}
-    fullWidth={true}
-    value={currentRefinement}
-    onChange={event => refine(event.currentTarget.value)}
-  />
+  <FormControl fullWidth={true}>
+    {/* <InputLabel htmlFor="input-with-icon-adornment">
+      With a start adornment
+    </InputLabel> */}
+    <Input
+      id="property-main-search-input"
+      type="search"
+      value={currentRefinement}
+      style={{
+        fontSize: '26px',
+      }}
+      placeholder="search e.g Te Aro Wellington"
+      onChange={event => refine(event.currentTarget.value)}
+      startAdornment={
+        <InputAdornment position="start">
+          <SearchIcon />
+        </InputAdornment>
+      }
+    />
+  </FormControl>
+  // <SearchTextInput
+  //   type="search"
+  //   placeholder="search e.g Te Aro Wellington"
+  //   startAdornment={
+  //     <InputAdornment position="start">
+  //       <AccountCircle />
+  //     </InputAdornment>
+  //   }
+  //   style={{ fontSize: '36px' }}
+  //   fullWidth={true}
+  //   value={currentRefinement}
+  //   variant="standard"
+  //   onChange={event => refine(event.currentTarget.value)}
+  // />
 );
 
 const CustomSearchBox = connectSearchBox(SearchBox);

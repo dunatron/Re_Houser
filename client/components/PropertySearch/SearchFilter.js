@@ -18,11 +18,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  expansionPanelRoot: {
+    // border: '3px solid blue',
+    boxShadow: 'unset',
+  },
+  expansionPanelDetails: {
+    padding: 0,
+  },
   filterGrid: {
     display: 'grid',
-    gridGap: '32px',
+    gridGap: '16px',
     width: '100%',
-    padding: '16px',
+    padding: '0 16px',
     [theme.breakpoints.up('sm')]: {
       gridTemplateColumns: '1fr 1fr',
     },
@@ -75,7 +82,9 @@ const SearchFilter = () => {
         // enablePersonalization={true}
         // distinct
       />
-      <ExpansionPanel expanded={expanded}>
+      <ExpansionPanel
+        className={classes.expansionPanelRoot}
+        expanded={expanded}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           onClick={() => setExpanded(!expanded)}
@@ -87,31 +96,37 @@ const SearchFilter = () => {
             moveInDate={moveInDate}
           />
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails className="filter-fields">
+        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
           <div className={classes.filterGrid}>
             <TextInput
               label="Bottom Price filter"
               value={bottomPrice}
               type="number"
+              style={{
+                marginTop: 0,
+              }}
               onChange={e => setBottomPrice(e.target.value)}
             />
             <TextInput
               label="Top Price filter"
               value={topPrice}
               type="number"
+              style={{
+                marginTop: 0,
+              }}
               onChange={e => setTopPrice(e.target.value)}
             />
             <DateInput
               label="move in date no later than"
               value={moveInDate}
+              style={{
+                marginTop: 0,
+              }}
               onChange={date => setAndFormatMoveInDate(date)}
             />
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <div>
-        <CurrentRefinements />
-      </div>
     </div>
   );
 };

@@ -7,6 +7,8 @@ const SearchInterface = styled.div`
   } */
   .si-drawer {
     /* border: 1px solid red; */
+    // DONT TOUCH THIS, ITS Like the component
+    // width: 150px;
   }
 
   .si-drawer__header {
@@ -20,8 +22,10 @@ const SearchInterface = styled.div`
 
   .si-drawer__sidebar {
     /* max-width: 320px; */
-    width: 320px;
+    // width: 320px;
+    // width: 240px;
     max-width: 100vw;
+    overflow-x: hidden;
   }
   .si-content {
     /* width: 100%;
