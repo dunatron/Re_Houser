@@ -13,6 +13,8 @@ import { PROPERTIES_QUERY } from '../../graphql/queries/index';
 import ActivityManager from '../ActivityManager/index';
 import Loader from '../Loader/index';
 
+import { Button } from '@material-ui/core';
+
 const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
