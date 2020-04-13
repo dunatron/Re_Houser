@@ -139,8 +139,8 @@ const NavigationConfig = (me, loadingUser) => {
       items: [
         {
           icon: <DashboardIcon />,
-          text: 'Add Property',
-          route: '/properties/add',
+          text: 'Free Appraisal',
+          route: '/freeappraisal',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },

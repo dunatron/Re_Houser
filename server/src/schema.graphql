@@ -103,6 +103,7 @@ type Mutation {
     data: PropertyLeaseUpdateInput!
     where: PropertyLeaseWhereUniqueInput!
   ): PropertyLease
+  createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
 }
 
 type Subscription {

@@ -45,6 +45,7 @@ const formatValByType = (v, type, mode) => {
           : _postCheckMultipleWithText(v);
       case 'Date':
         return mode === 'pre' ? _preFormatDate(v) : _postFormatDate(v);
+
       default:
         return v;
     }

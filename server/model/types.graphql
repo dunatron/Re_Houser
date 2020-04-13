@@ -37,6 +37,7 @@ type User {
   rehouserStamp: Boolean
   activity: [Activity!]! @relation(name: "UserActivity")
   involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
+  rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
 }
 
 type Activity {
@@ -143,6 +144,7 @@ type Property implements PropertyInfo {
   insulationForm: InsulationForm
   indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
+  heatSources: [HeatSource] @scalarList(strategy: RELATION)
   rent: Float!
   moveInDate: DateTime
   expiryDate: DateTime
@@ -161,6 +163,22 @@ type Property implements PropertyInfo {
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   activity: [Activity!]! @relation(name: "PropertyActivity")
+  appraisals: [RentalAppraisal] @relation(name: "PropertyRentalAppraisals")
+}
+
+# Must have a User, onCreate admin gets notified, does appraisal. New BE func to allow admins to sned appraisal
+# landord gets email. Goes to accept/decline appraisel page. on ccept send email to the add propertyPage. Will send allong query and data to populate
+type RentalAppraisal {
+  id: ID! @unique @id
+  requestedBy: User! @relation(name: "UserRentalAppraisals")
+  location: String!
+  rooms: Int!
+  bathrooms: Int!
+  heating: String!
+  rentalValue: Float
+  rentalValueAccepted: Boolean
+  acceptTerms: Boolean
+  property: Property! @relation(name: "PropertyRentalAppraisals")
 }
 
 type Accommodation {
@@ -223,7 +241,6 @@ type Lessor {
 
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
-  test: String
   property: Property! @relation(name: "PropertyLeases")
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt

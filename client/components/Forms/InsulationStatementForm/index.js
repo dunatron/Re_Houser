@@ -7,9 +7,20 @@ import Errors from '../../ErrorMessage';
 import FormCreator from '../FormCreator';
 import INSULATION_FORM_FIELDS_CONFIG from './fieldsConf';
 
+import { Paper, Typography } from '@material-ui/core';
+import AssignmentIcon from '@material-ui/icons/AssignmentOutlined';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import EditIcon from '@material-ui/icons/Edit';
+
 const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
   return (
-    <div>
+    <Paper>
+      <AssignmentIcon />
+      <Typography>Insulation Statement</Typography>
+      <AddIcon onClick={() => alert('ToDo: Add Insulation Form')} />
+      <EditIcon onClick={() => alert('ToDo: Edit Insulation Form')} />
+      <RemoveIcon onClick={() => alert('ToDo: Remove Insulation Form')} s />
       {/* <h1>I am the form manager</h1>
       <p>insulationFormId{insulationFormId}</p>
       <p>propertyId{propertyId}</p> */}
@@ -34,7 +45,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
           });
         }}
       /> */}
-    </div>
+    </Paper>
   );
 };
 

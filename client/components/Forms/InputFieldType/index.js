@@ -13,6 +13,7 @@ import CheckReason from './CheckReason';
 import CheckboxText from './CheckboxText';
 import SelectOneWithText from './SelectOneWithText';
 import CheckMultipleWithText from './CheckMultipleWithText';
+import SelectMultipleEnum from './SelectMultipleEnum';
 
 import { Typography, Checkbox } from '@material-ui/core';
 
@@ -87,7 +88,6 @@ const InputFieldType = props => {
           {...fieldProps}
           inputRef={register(refConf)}
           type="number"
-          onChange={e => onChange(parseInt(e.target.value))}
         />
       );
     case 'Float':
@@ -97,7 +97,6 @@ const InputFieldType = props => {
           {...fieldProps}
           inputRef={register(refConf)}
           type="number"
-          onChange={e => onChange(parseFloat(e.target.value))}
         />
       );
 
@@ -153,9 +152,35 @@ const InputFieldType = props => {
           <FieldError errors={errors} name={name} />
         </>
       );
+    //     //  classes,
+    // values,
+    // label,
+    // selectID,
+    // handleChange,
+    // removeItem,
+    case 'SelectMultipleEnum':
+      console.log('Return the conf for a SlectctyEnum ', config);
+      // missed an architectural decision. I bet, being careful with ...inputprops, including optionms for the types
+      // with onChange at the top level eventually calling itslef e.g doths !doths()
+      // You can reduce 88% of all this trash
+      return (
+        <SelectMultipleEnum
+          {...fieldProps}
+          __type={config.__type}
+          onChange={() =>
+            console.log(
+              'That wicked witch of the west riding bitch, Carol Baskin. Killed her husband'
+            )
+          }
+        />
+      );
     // return '';
     default:
-      return <Typography>Couldnt even g</Typography>;
+      return (
+        <Typography>
+          This Item has no type specified for a form input
+        </Typography>
+      );
     // default:
     //   return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
   }

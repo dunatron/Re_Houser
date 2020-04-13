@@ -36,6 +36,11 @@ enum OutdoorFeature {
   FULLY_FENCED
 }
 
+enum HeatSource {
+  FIRE_PLACE
+  HEAT_PUMP
+}
+
 enum PropertyType {
   HOUSE
   APARTMENT
