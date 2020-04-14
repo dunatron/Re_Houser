@@ -1,5 +1,70 @@
 import { FormCreator } from '../Forms';
 
+const PROPERTY_APPRAISAL_CONF = [
+  {
+    type: 'String',
+    key: 'location',
+    fieldProps: {
+      name: 'location',
+      label:
+        'Lodation of property. SHould probs use google like normal property picker',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'You need a location to appraise a property...',
+      },
+    },
+  },
+  {
+    type: 'Int',
+    key: 'rooms',
+    fieldProps: {
+      name: 'rooms',
+      label: 'number of bedrooms on the property',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'You need to supply the number of bedrooms on the property for an appraisal',
+      },
+    },
+  },
+  {
+    type: 'Int',
+    key: 'bathrooms',
+    fieldProps: {
+      name: 'bathrooms',
+      label: 'number of bedrooms on the property',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'You need to supply the number of bedrooms on the property for an appraisal',
+      },
+    },
+  },
+  {
+    type: 'SelectMultipleEnum',
+    __type: 'HeatSource',
+    key: 'heatSources',
+    fieldProps: {
+      name: 'heatSources',
+      label: 'select all valid heat source on propery',
+    },
+
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'You need to supply the number of bedrooms on the property for an appraisal',
+      },
+    },
+  },
+];
+
 const PropertyAppraisal = ({ propertyId }) => {
   // we could check if this property has already been appraised
   // could check how many times via getting count the user has tried a "Free Appraisal", maybe 2 per User
@@ -44,62 +109,7 @@ const PropertyAppraisal = ({ propertyId }) => {
         data={{
           heatSources: ['HEAT_PUMP'],
         }}
-        config={[
-          {
-            type: 'String',
-            key: 'location',
-            fieldProps: {
-              name: 'location',
-              label:
-                'Lodation of property. SHould probs use google like normal property picker',
-            },
-            refConf: {
-              required: {
-                value: true,
-                message: 'You need a location to appraise a property...',
-              },
-            },
-          },
-          {
-            type: 'Int',
-            key: 'numberOfBedRooms',
-            fieldProps: {
-              name: 'numberOfBedRooms',
-              label: 'number of bedrooms on the property',
-            },
-            refConf: {
-              required: {
-                value: true,
-                message:
-                  'You need to supply the number of bedrooms on the property for an appraisal',
-              },
-            },
-          },
-          //   __type,
-          //   values,
-          //   label,
-          //   selectID,
-          //   handleChange,
-          //   removeItem,
-          {
-            type: 'SelectMultipleEnum',
-            __type: 'HeatSource',
-            key: 'heatSources',
-            fieldProps: {
-              name: 'heatSources',
-              label: 'select all valid heat source on propery',
-              //   defaultValue: ['FIRE_PLACE'],
-            },
-
-            refConf: {
-              required: {
-                value: true,
-                message:
-                  'You need to supply the number of bedrooms on the property for an appraisal',
-              },
-            },
-          },
-        ]}
+        config={PROPERTY_APPRAISAL_CONF}
       />
     </>
   );

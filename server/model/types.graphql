@@ -174,9 +174,9 @@ type RentalAppraisal {
   location: String!
   rooms: Int!
   bathrooms: Int!
-  heating: String!
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  heatSources: [HeatSource] @scalarList(strategy: RELATION)
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
   property: Property! @relation(name: "PropertyRentalAppraisals")
 }
