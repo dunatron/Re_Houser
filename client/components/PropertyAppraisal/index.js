@@ -1,4 +1,6 @@
 import { FormCreator } from '../Forms';
+import { CREATE_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
+import { useMutation } from '@apollo/client';
 
 const PROPERTY_APPRAISAL_CONF = [
   {
@@ -77,32 +79,20 @@ const PropertyAppraisal = ({ propertyId }) => {
   // 2. createAppriasial. The server will determine if to link to a property
   // 3. feed in appraisal data to an email that goes to create property
 
+  const [createRentalAppraisal, { loading, error, data }] = useMutation(
+    CREATE_RENTAL_APPRAISAL_MUTATION
+  );
+
   return (
     <>
       <FormCreator
-        // Im sayingyou wre about to pass props in toa component that doesnt want them, then hand them somewhere,
-        // and transform them again somewhere. Slow actions dopwn, let thoughts race, dont let thoughts paralyze, now try move, with precision
-        // kkep first char, and work with result.length.3
-        // You see, you will find me
-        //  - probably in the sky flying with the fishes
-        //  - or maybe in the ocean swimming with the pidgeons
-        //  - c://my-world-is-diff
-        // like the meta meets tron with a little divine intervention
-        // onSubmit={() => alert('I m a monster i tell ya')}
-        // onSubmit={() => alert('so WHO u, fuck u i am')}
-
-        onSubmit={() => {
-          // No no nbo no, do the mutation, hit that generic servber func u said about earlier. It will do heeavy lifty
-          // if (propertyId) {
-          //   alert(
-          //     'Attach Appraisal to property. If it has  property it just beacomes the most recent appraisal'
-          //   );
-          // } else {
-          //   alert('Create new Appraisal with no id attached');
-          // }
-          alert(
-            'Submit both new property attached and non attahced, let server handle it'
-          );
+        onSubmit={prismaReadyData => {
+          console.log('Prisma ready data => ', prismaReadyData);
+          createRentalAppraisal({
+            variables: {
+              data: prismaReadyData,
+            },
+          });
           // return Appraisal has been attached to property.
           // the query would get the most recent one
         }}

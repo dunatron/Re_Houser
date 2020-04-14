@@ -114,6 +114,7 @@ const FormCreator = props => {
     <form onSubmit={handleSubmit(onSubmit)}>
       {configIsValid(config) &&
         config.map((item, idx) => {
+          console.log('A conf Item => ', item);
           return (
             <div
               key={idx}

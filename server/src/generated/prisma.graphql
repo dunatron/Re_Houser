@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Apr 08 2020 20:22:44 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue Apr 14 2020 18:31:15 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -12184,9 +12184,9 @@ type RentalAppraisal implements Node {
   location: String!
   rooms: Int!
   bathrooms: Int!
-  heating: String!
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  heatSources: [HeatSource!]!
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
   property: Property!
 }
@@ -12201,15 +12201,19 @@ type RentalAppraisalConnection {
   aggregate: AggregateRentalAppraisal!
 }
 
+input RentalAppraisalCreateheatSourcesInput {
+  set: [HeatSource!]
+}
+
 input RentalAppraisalCreateInput {
   id: ID
   location: String!
   rooms: Int!
   bathrooms: Int!
-  heating: String!
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
   property: PropertyCreateOneWithoutAppraisalsInput!
 }
@@ -12229,10 +12233,10 @@ input RentalAppraisalCreateWithoutPropertyInput {
   location: String!
   rooms: Int!
   bathrooms: Int!
-  heating: String!
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
 }
 
@@ -12241,10 +12245,10 @@ input RentalAppraisalCreateWithoutRequestedByInput {
   location: String!
   rooms: Int!
   bathrooms: Int!
-  heating: String!
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalCreateheatSourcesInput
   property: PropertyCreateOneWithoutAppraisalsInput!
 }
 
@@ -12266,12 +12270,10 @@ enum RentalAppraisalOrderByInput {
   rooms_DESC
   bathrooms_ASC
   bathrooms_DESC
-  heating_ASC
-  heating_DESC
-  rentalValue_ASC
-  rentalValue_DESC
-  rentalValueAccepted_ASC
-  rentalValueAccepted_DESC
+  rent_ASC
+  rent_DESC
+  rentValueAccepted_ASC
+  rentValueAccepted_DESC
   acceptTerms_ASC
   acceptTerms_DESC
 }
@@ -12281,9 +12283,9 @@ type RentalAppraisalPreviousValues {
   location: String!
   rooms: Int!
   bathrooms: Int!
-  heating: String!
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  heatSources: [HeatSource!]!
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
 }
 
@@ -12420,72 +12422,32 @@ input RentalAppraisalScalarWhereInput {
 
   """All values greater than or equal the given value."""
   bathrooms_gte: Int
-  heating: String
+  rent: Float
 
   """All values that are not equal to given value."""
-  heating_not: String
+  rent_not: Float
 
   """All values that are contained in given list."""
-  heating_in: [String!]
+  rent_in: [Float!]
 
   """All values that are not contained in given list."""
-  heating_not_in: [String!]
+  rent_not_in: [Float!]
 
   """All values less than the given value."""
-  heating_lt: String
+  rent_lt: Float
 
   """All values less than or equal the given value."""
-  heating_lte: String
+  rent_lte: Float
 
   """All values greater than the given value."""
-  heating_gt: String
+  rent_gt: Float
 
   """All values greater than or equal the given value."""
-  heating_gte: String
-
-  """All values containing the given string."""
-  heating_contains: String
-
-  """All values not containing the given string."""
-  heating_not_contains: String
-
-  """All values starting with the given string."""
-  heating_starts_with: String
-
-  """All values not starting with the given string."""
-  heating_not_starts_with: String
-
-  """All values ending with the given string."""
-  heating_ends_with: String
-
-  """All values not ending with the given string."""
-  heating_not_ends_with: String
-  rentalValue: Float
+  rent_gte: Float
+  rentValueAccepted: Boolean
 
   """All values that are not equal to given value."""
-  rentalValue_not: Float
-
-  """All values that are contained in given list."""
-  rentalValue_in: [Float!]
-
-  """All values that are not contained in given list."""
-  rentalValue_not_in: [Float!]
-
-  """All values less than the given value."""
-  rentalValue_lt: Float
-
-  """All values less than or equal the given value."""
-  rentalValue_lte: Float
-
-  """All values greater than the given value."""
-  rentalValue_gt: Float
-
-  """All values greater than or equal the given value."""
-  rentalValue_gte: Float
-  rentalValueAccepted: Boolean
-
-  """All values that are not equal to given value."""
-  rentalValueAccepted_not: Boolean
+  rentValueAccepted_not: Boolean
   acceptTerms: Boolean
 
   """All values that are not equal to given value."""
@@ -12529,14 +12491,18 @@ input RentalAppraisalSubscriptionWhereInput {
   node: RentalAppraisalWhereInput
 }
 
+input RentalAppraisalUpdateheatSourcesInput {
+  set: [HeatSource!]
+}
+
 input RentalAppraisalUpdateInput {
   location: String
   rooms: Int
   bathrooms: Int
-  heating: String
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
   property: PropertyUpdateOneRequiredWithoutAppraisalsInput
 }
@@ -12545,20 +12511,20 @@ input RentalAppraisalUpdateManyDataInput {
   location: String
   rooms: Int
   bathrooms: Int
-  heating: String
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalUpdateheatSourcesInput
 }
 
 input RentalAppraisalUpdateManyMutationInput {
   location: String
   rooms: Int
   bathrooms: Int
-  heating: String
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalUpdateheatSourcesInput
 }
 
 input RentalAppraisalUpdateManyWithoutPropertyInput {
@@ -12594,10 +12560,10 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
   location: String
   rooms: Int
   bathrooms: Int
-  heating: String
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
 }
 
@@ -12605,10 +12571,10 @@ input RentalAppraisalUpdateWithoutRequestedByDataInput {
   location: String
   rooms: Int
   bathrooms: Int
-  heating: String
-  rentalValue: Float
-  rentalValueAccepted: Boolean
+  rent: Float
+  rentValueAccepted: Boolean
   acceptTerms: Boolean
+  heatSources: RentalAppraisalUpdateheatSourcesInput
   property: PropertyUpdateOneRequiredWithoutAppraisalsInput
 }
 
@@ -12767,72 +12733,32 @@ input RentalAppraisalWhereInput {
 
   """All values greater than or equal the given value."""
   bathrooms_gte: Int
-  heating: String
+  rent: Float
 
   """All values that are not equal to given value."""
-  heating_not: String
+  rent_not: Float
 
   """All values that are contained in given list."""
-  heating_in: [String!]
+  rent_in: [Float!]
 
   """All values that are not contained in given list."""
-  heating_not_in: [String!]
+  rent_not_in: [Float!]
 
   """All values less than the given value."""
-  heating_lt: String
+  rent_lt: Float
 
   """All values less than or equal the given value."""
-  heating_lte: String
+  rent_lte: Float
 
   """All values greater than the given value."""
-  heating_gt: String
+  rent_gt: Float
 
   """All values greater than or equal the given value."""
-  heating_gte: String
-
-  """All values containing the given string."""
-  heating_contains: String
-
-  """All values not containing the given string."""
-  heating_not_contains: String
-
-  """All values starting with the given string."""
-  heating_starts_with: String
-
-  """All values not starting with the given string."""
-  heating_not_starts_with: String
-
-  """All values ending with the given string."""
-  heating_ends_with: String
-
-  """All values not ending with the given string."""
-  heating_not_ends_with: String
-  rentalValue: Float
+  rent_gte: Float
+  rentValueAccepted: Boolean
 
   """All values that are not equal to given value."""
-  rentalValue_not: Float
-
-  """All values that are contained in given list."""
-  rentalValue_in: [Float!]
-
-  """All values that are not contained in given list."""
-  rentalValue_not_in: [Float!]
-
-  """All values less than the given value."""
-  rentalValue_lt: Float
-
-  """All values less than or equal the given value."""
-  rentalValue_lte: Float
-
-  """All values greater than the given value."""
-  rentalValue_gt: Float
-
-  """All values greater than or equal the given value."""
-  rentalValue_gte: Float
-  rentalValueAccepted: Boolean
-
-  """All values that are not equal to given value."""
-  rentalValueAccepted_not: Boolean
+  rentValueAccepted_not: Boolean
   acceptTerms: Boolean
 
   """All values that are not equal to given value."""

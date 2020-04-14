@@ -68,6 +68,7 @@ type Mutation {
   deleteFile(id: ID!): File
   renameFile(id: ID!, filename: String!): File
   # createPropertyAppraisal()
+  createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
   createProperty(data: PropertyCreateInput!, files: [Upload]): Property
   # updateProperty(id: ID!, onTheMarket: Boolean): Property!
   updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
@@ -104,7 +105,6 @@ type Mutation {
     data: PropertyLeaseUpdateInput!
     where: PropertyLeaseWhereUniqueInput!
   ): PropertyLease
-  createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
 }
 
 type Subscription {

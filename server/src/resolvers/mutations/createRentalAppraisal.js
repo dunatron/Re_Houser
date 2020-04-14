@@ -10,16 +10,16 @@ async function createRentalAppraisal(parent, args, ctx, info) {
   // only us and landlord can see appraisals. because the world seems to distain transparency, like create more like
   //
 
-  const message = await ctx.db.mutation.createRentalAppraisal(
+  const rentalAppraisal = await ctx.db.mutation.createRentalAppraisal(
     {
       data: {
-        ...data,
-      },
+        ...data
+      }
     },
     info
   );
 
-  return message;
+  return rentalAppraisal;
 }
 
 module.exports = createRentalAppraisal;

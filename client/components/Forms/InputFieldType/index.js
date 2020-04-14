@@ -73,6 +73,19 @@ const InputFieldType = props => {
       return <SelectOneWithText {...props} />;
     case 'CheckMultipleWithText':
       return <CheckMultipleWithText {...props} />;
+    case 'SelectMultipleEnum':
+      return (
+        <SelectMultipleEnum
+          {...fieldProps}
+          {...props}
+          __type={config.__type}
+          onChange={() =>
+            console.log(
+              'That wicked witch of the west riding bitch, Carol Baskin. Killed her husband'
+            )
+          }
+        />
+      );
 
     case 'Boolean':
       return (
@@ -158,22 +171,7 @@ const InputFieldType = props => {
     // selectID,
     // handleChange,
     // removeItem,
-    case 'SelectMultipleEnum':
-      console.log('Return the conf for a SlectctyEnum ', config);
-      // missed an architectural decision. I bet, being careful with ...inputprops, including optionms for the types
-      // with onChange at the top level eventually calling itslef e.g doths !doths()
-      // You can reduce 88% of all this trash
-      return (
-        <SelectMultipleEnum
-          {...fieldProps}
-          __type={config.__type}
-          onChange={() =>
-            console.log(
-              'That wicked witch of the west riding bitch, Carol Baskin. Killed her husband'
-            )
-          }
-        />
-      );
+
     // return '';
     default:
       return (

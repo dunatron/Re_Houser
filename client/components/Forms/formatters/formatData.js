@@ -1,3 +1,5 @@
+import { isEmpty } from 'ramda';
+
 import {
   _preFormatCheckReason,
   _postFormatCheckReason,
@@ -8,9 +10,12 @@ import {
   _postCheckMultipleWithText,
 } from './formatCheckMultipleWithText';
 
-import { isEmpty } from 'ramda';
-
 import { _preFormatDate, _postFormatDate } from './formatDate';
+
+import {
+  _preFormatSelectMultipleEnum,
+  _postFormatSelectMultipleEnum,
+} from './formatSelectMultipleEnum';
 
 const _preFormatData = (data, keyTypes, mode) => {
   if (!data) return {};
@@ -45,6 +50,10 @@ const formatValByType = (v, type, mode) => {
           : _postCheckMultipleWithText(v);
       case 'Date':
         return mode === 'pre' ? _preFormatDate(v) : _postFormatDate(v);
+      case 'SelectMultipleEnum':
+        return mode === 'pre'
+          ? _preFormatSelectMultipleEnum(v)
+          : _postFormatSelectMultipleEnum(v);
 
       default:
         return v;
