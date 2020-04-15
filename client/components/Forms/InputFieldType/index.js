@@ -14,6 +14,7 @@ import CheckboxText from './CheckboxText';
 import SelectOneWithText from './SelectOneWithText';
 import CheckMultipleWithText from './CheckMultipleWithText';
 import SelectMultipleEnum from './SelectMultipleEnum';
+import LocationPicker from '../../LocationPicker';
 
 import { Typography, Checkbox } from '@material-ui/core';
 
@@ -35,21 +36,14 @@ const InputFieldType = props => {
     defaultValue,
   } = props;
   const { type, fieldProps, refConf } = config;
-  // const { name, label } = fieldProps;
-  // const name = 'test';
-  // const label = 'test bal';
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
-  // const label = 'test bal';
-  // ToDo: ALL of these types need there own filewit PropTypes and all that fancy shit
   switch (type) {
     case 'Header':
-      // return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
       return <Typography variant="h4">{label}</Typography>;
     case 'Subheader':
       return <Typography variant="h5">{label}</Typography>;
     case 'String':
-      // return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
       return (
         <>
           <TextInput
@@ -57,8 +51,7 @@ const InputFieldType = props => {
             {...fieldProps}
             defaultValue={defaultValue}
             label={label}
-            // error={errors[name] ? true : false}
-            // helperText={errors[name] ? errors[name].message : null}
+            style={{ marginTop: 0 }}
             error={extractErrorFromErrors(errors, name) ? true : false}
             helperText={extractErrorFromErrors(errors, name)}
             inputRef={register ? register(refConf) : null}
@@ -79,12 +72,37 @@ const InputFieldType = props => {
           {...fieldProps}
           {...props}
           __type={config.__type}
-          onChange={() =>
-            console.log(
-              'That wicked witch of the west riding bitch, Carol Baskin. Killed her husband'
-            )
-          }
+          onChange={() => {}}
+          helperText={extractErrorFromErrors(errors, name)}
         />
+      );
+    case 'Location':
+      register(
+        { name: 'location' },
+        {
+          required: {
+            value: true,
+            message: 'You need a location to appraise a property...',
+          },
+        }
+      );
+      register({ name: 'locationLat' }, { required: true });
+      register({ name: 'locationLng' }, { required: true });
+      const locationErr = extractErrorFromErrors(errors, 'location');
+      return (
+        <>
+          {locationErr ? (
+            <Typography color="error">{locationErr}</Typography>
+          ) : null}
+          <LocationPicker
+            {...props}
+            selection={data => {
+              setValue('location', data.desc);
+              setValue('locationLat', data.lat);
+              setValue('locationLng', data.lng);
+            }}
+          />
+        </>
       );
 
     case 'Boolean':
@@ -101,6 +119,9 @@ const InputFieldType = props => {
           {...fieldProps}
           inputRef={register(refConf)}
           type="number"
+          style={{ marginTop: 0 }}
+          error={extractErrorFromErrors(errors, name) ? true : false}
+          helperText={extractErrorFromErrors(errors, name)}
         />
       );
     case 'Float':
@@ -110,6 +131,9 @@ const InputFieldType = props => {
           {...fieldProps}
           inputRef={register(refConf)}
           type="number"
+          style={{ marginTop: 0 }}
+          error={extractErrorFromErrors(errors, name) ? true : false}
+          helperText={extractErrorFromErrors(errors, name)}
         />
       );
 
@@ -120,7 +144,9 @@ const InputFieldType = props => {
           {...fieldProps}
           type={'date'}
           inputRef={register(refConf)}
-          helperText
+          style={{ marginTop: 0 }}
+          error={extractErrorFromErrors(errors, name) ? true : false}
+          helperText={extractErrorFromErrors(errors, name)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -133,10 +159,10 @@ const InputFieldType = props => {
           {...fieldProps}
           defaultValue={defaultValue}
           inputRef={register(refConf)}
-          helperText
+          error={extractErrorFromErrors(errors, name) ? true : false}
+          helperText={extractErrorFromErrors(errors, name)}
+          style={{ marginTop: 0 }}
           type={fieldProps.type ? fieldProps.type : 'datetime-local'}
-          // type="datetime-local"
-          // type="date"
           InputLabelProps={{
             shrink: true,
           }}
@@ -156,7 +182,6 @@ const InputFieldType = props => {
                   inputRef={register(refConf)}
                 />
               }
-              // label={fieldProps.label}
             />
             <Typography style={{ maxWidth: '800px' }}>
               {config.terms}
@@ -165,22 +190,12 @@ const InputFieldType = props => {
           <FieldError errors={errors} name={name} />
         </>
       );
-    //     //  classes,
-    // values,
-    // label,
-    // selectID,
-    // handleChange,
-    // removeItem,
-
-    // return '';
     default:
       return (
         <Typography>
           This Item has no type specified for a form input
         </Typography>
       );
-    // default:
-    //   return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
   }
 };
 InputFieldType.propTypes = {

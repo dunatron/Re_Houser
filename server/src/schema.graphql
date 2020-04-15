@@ -34,6 +34,9 @@ type User {
   token: String
   rehouserStamp: Boolean
   activity: [Activity!]!
+  involvedActivity: [Activity!]!
+  rentalAppraisals: [RentalAppraisal]
+  usedFreeAppraisal: Boolean
 }
 
 type SuccessMessage {
@@ -69,6 +72,10 @@ type Mutation {
   renameFile(id: ID!, filename: String!): File
   # createPropertyAppraisal()
   createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
+  offerRentalAppraisal(
+    data: RentalAppraisalUpdateInput!
+    where: RentalAppraisalWhereUniqueInput!
+  ): RentalAppraisal
   createProperty(data: PropertyCreateInput!, files: [Upload]): Property
   # updateProperty(id: ID!, onTheMarket: Boolean): Property!
   updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
@@ -169,6 +176,15 @@ type Query {
     last: Int
   ): MessageConnection!
   chatFeed(filter: String): [Message!]!
+  rentalAppraisals(
+    where: RentalAppraisalWhereInput
+    orderBy: RentalAppraisalOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [RentalAppraisal]!
   properties: [Property!]!
   property(where: PropertyWhereUniqueInput!): Property!
   ownerProperties: [Property!]!

@@ -32,12 +32,6 @@ const _preFormatData = (data, keyTypes, mode) => {
 };
 
 const formatValByType = (v, type, mode) => {
-  console.group('formatValByType');
-  console.log('v => ', v);
-  console.log('type => ', type);
-  console.log('mode => ', mode);
-  console.groupEnd();
-
   if (type) {
     switch (type) {
       case 'CheckReason':
@@ -54,6 +48,10 @@ const formatValByType = (v, type, mode) => {
         return mode === 'pre'
           ? _preFormatSelectMultipleEnum(v)
           : _postFormatSelectMultipleEnum(v);
+      case 'Int':
+        return parseInt(v);
+      case 'Float':
+        return parseFloat(v);
 
       default:
         return v;

@@ -4,6 +4,7 @@ import PleaseSignIn from '../../components/PleaseSignIn';
 const Item = props => {
   const {
     appData: { currentUser },
+    query,
   } = props;
   return (
     <PleaseSignIn

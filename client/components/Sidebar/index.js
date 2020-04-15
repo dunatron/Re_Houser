@@ -61,6 +61,18 @@ const NavigationConfig = (me, loadingUser) => {
   const friendRequests = me ? me.friendRequests : [];
   return [
     {
+      key: 'admin-section',
+      items: [
+        {
+          icon: <DashboardIcon />,
+          text: 'Admin Dashboard',
+          route: '/admin',
+          style: { ...defaultNavItemStyle },
+          canRender: () => (me ? me.permissions.includes('ADMIN') : false),
+        },
+      ],
+    },
+    {
       key: 'general',
       items: [
         {
@@ -142,7 +154,8 @@ const NavigationConfig = (me, loadingUser) => {
           text: 'Free Appraisal',
           route: '/freeappraisal',
           style: { ...defaultNavItemStyle },
-          canRender: () => true,
+          // canRender: () => !me.usedFreeAppraisal,
+          canRender: () => true, // set to try just to run it alot on the same account in dev
         },
         {
           icon: <DashboardIcon />,
@@ -201,11 +214,6 @@ const NavigationConfig = (me, loadingUser) => {
 };
 
 const Nav = ({ loadingUser, me }) => {
-  // const user = useCurrentUser();
-  // const { data, loading, error } = user;
-  // const me = data ? data.me : null;
-  // const me = null;
-  console.log('me props => ', me);
   const NAV_CONF = NavigationConfig(me, loadingUser);
   return (
     <div>

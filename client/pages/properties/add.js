@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import CreateProperty from '../../components/CreateProperty/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
+import { is } from 'ramda';
 
 const AddPropertyPage = props => {
   const pleaseSignInMessage =
     'You must be signed in to add properties to the market';
   const {
     appData: { currentUser },
+    query,
   } = props;
+  console.log('The query data attached => ', query);
+
+  // just send normal data, useRamda. if its a string, decode the fucker
+  const formattedData = {
+    location: 'bla bla bla',
+    rent: 209,
+    rooms: 6,
+    bathrooms: 2,
+  };
   return (
     <PleaseSignIn
       currentUser={currentUser}
@@ -17,7 +28,7 @@ const AddPropertyPage = props => {
           <strong>{pleaseSignInMessage}</strong>
         </p>
       }>
-      <CreateProperty />
+      <CreateProperty prefilledData={formattedData} />
     </PleaseSignIn>
   );
 };

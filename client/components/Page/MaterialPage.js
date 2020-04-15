@@ -32,8 +32,6 @@ function MaterialPage(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  console.log('Ok the materialPage Props => ', props);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -55,21 +53,15 @@ function MaterialPage(props) {
     </>
   );
 
-  console.log('router pathname => ', router.pathname);
-  console.log('router  => ', router);
 
   const pathParts = router.pathname.split('/');
   const formattedPathParts = pathParts.filter(part => part !== '');
 
   const routeToClickedPart = partIndex => {
     const newRoute = formattedPathParts.reduce((acc, part, idx) => {
-      console.log('acc => ', acc);
-      console.log('part => ', part);
-      console.log('idx => ', idx);
       if (idx + 1 === formattedPathParts.length) return acc;
       return acc + part + '/';
     }, '/');
-    console.log('New route =>', newRoute);
     router.push(newRoute);
   };
 

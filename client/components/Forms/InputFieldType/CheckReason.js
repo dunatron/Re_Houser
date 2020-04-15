@@ -32,26 +32,8 @@ const CheckReason = props => {
   const { type, inners, fieldProps, refConf } = config;
   const { name, label } = fieldProps;
   const [currVal, setCurrVal] = useState(_preFormatCheckReason(defaultValue));
-
-  console.log('Check Reason defaultValue => ', defaultValue);
-  console.log('Check Reason currVal => ', currVal);
-
   const handleChange = event => {
     setCurrVal(event.target.value);
-
-    // if (event.target.value === 'Yes') {
-    //   // simply refreshes error state for the form
-    //   reset(
-    //     {
-    //       [name]: event.target.value,
-    //     },
-    //     {
-    //       errors: false, // errors will be reset
-    //       dirtyFields: true, // dirtyFields will not be reset
-    //       dirty: true, // dirty will not be reset
-    //     }
-    //   );
-    // }
   };
 
   const canDisplayInner = inner => {

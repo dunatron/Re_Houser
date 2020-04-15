@@ -12,6 +12,7 @@ import { graphql, withApollo } from 'react-apollo';
 import { PROPERTIES_QUERY } from '../../graphql/queries/index';
 import ActivityManager from '../ActivityManager/index';
 import Loader from '../Loader/index';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 import { Button } from '@material-ui/core';
 
@@ -71,8 +72,6 @@ const OwnerProperties = ({ me }) => {
   const [updateProperty, updatePropertyProps] = useMutation(
     UPDATE_PROPERTY_MUTATION
   );
-
-  console.log('Owner Properties Data => ', propertiesQuery.data);
 
   const columnHeaders = () => {
     return [
@@ -344,7 +343,14 @@ const OwnerProperties = ({ me }) => {
         close={() => closeModal()}>
         {renderModalDetails()}
       </Modal>
-      <ActivityManager me={me} collapsed={true} />
+      {/* route,
+  query,
+  color,
+  title,
+  variant,
+  size,
+  btnProps, */}
+
       <SuperTable
         columnHeaders={columnHeaders()}
         loading={updatePropertyProps.loading}
@@ -358,7 +364,17 @@ const OwnerProperties = ({ me }) => {
         //   //   : [],
         // }}
         orderBy="id"
-        title="My Properties"
+        // title="My Properties"
+        title={
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <h2>My Properties</h2>
+            <ChangeRouteButton
+              title="Add New Property"
+              route="/properties/add"
+              color="primary"
+            />
+          </div>
+        }
         data={propertiesQuery.data.ownerProperties}
         executeFunc={async (funcName, obj) => {
           switch (funcName) {

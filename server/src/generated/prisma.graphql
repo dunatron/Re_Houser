@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Apr 14 2020 18:31:15 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Apr 15 2020 14:15:10 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -828,6 +828,7 @@ enum ActivityType {
   LEASE_UPDATED
   LEASE_FINALISED
   LEASE_EXPIRED
+  CREATED_PROPERTY_APPRAISAL
 }
 
 input ActivityUpdateInput {
@@ -10742,13 +10743,6 @@ input PropertyUpdateOneRequiredWithoutAccommodationInput {
   upsert: PropertyUpsertWithoutAccommodationInput
 }
 
-input PropertyUpdateOneRequiredWithoutAppraisalsInput {
-  create: PropertyCreateWithoutAppraisalsInput
-  connect: PropertyWhereUniqueInput
-  update: PropertyUpdateWithoutAppraisalsDataInput
-  upsert: PropertyUpsertWithoutAppraisalsInput
-}
-
 input PropertyUpdateOneRequiredWithoutLeasesInput {
   create: PropertyCreateWithoutLeasesInput
   connect: PropertyWhereUniqueInput
@@ -10770,6 +10764,15 @@ input PropertyUpdateOneWithoutActivityInput {
   delete: Boolean
   update: PropertyUpdateWithoutActivityDataInput
   upsert: PropertyUpsertWithoutActivityInput
+}
+
+input PropertyUpdateOneWithoutAppraisalsInput {
+  create: PropertyCreateWithoutAppraisalsInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutAppraisalsDataInput
+  upsert: PropertyUpsertWithoutAppraisalsInput
 }
 
 input PropertyUpdateoutdoorFeaturesInput {
@@ -12182,13 +12185,15 @@ type RentalAppraisal implements Node {
   id: ID!
   requestedBy: User!
   location: String!
+  locationLat: Float!
+  locationLng: Float!
   rooms: Int!
   bathrooms: Int!
   heatSources: [HeatSource!]!
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
-  property: Property!
+  property: Property
 }
 
 """A connection to a list of items."""
@@ -12208,6 +12213,8 @@ input RentalAppraisalCreateheatSourcesInput {
 input RentalAppraisalCreateInput {
   id: ID
   location: String!
+  locationLat: Float!
+  locationLng: Float!
   rooms: Int!
   bathrooms: Int!
   rent: Float
@@ -12215,7 +12222,7 @@ input RentalAppraisalCreateInput {
   acceptTerms: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
-  property: PropertyCreateOneWithoutAppraisalsInput!
+  property: PropertyCreateOneWithoutAppraisalsInput
 }
 
 input RentalAppraisalCreateManyWithoutPropertyInput {
@@ -12231,6 +12238,8 @@ input RentalAppraisalCreateManyWithoutRequestedByInput {
 input RentalAppraisalCreateWithoutPropertyInput {
   id: ID
   location: String!
+  locationLat: Float!
+  locationLng: Float!
   rooms: Int!
   bathrooms: Int!
   rent: Float
@@ -12243,13 +12252,15 @@ input RentalAppraisalCreateWithoutPropertyInput {
 input RentalAppraisalCreateWithoutRequestedByInput {
   id: ID
   location: String!
+  locationLat: Float!
+  locationLng: Float!
   rooms: Int!
   bathrooms: Int!
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
-  property: PropertyCreateOneWithoutAppraisalsInput!
+  property: PropertyCreateOneWithoutAppraisalsInput
 }
 
 """An edge in a connection."""
@@ -12266,6 +12277,10 @@ enum RentalAppraisalOrderByInput {
   id_DESC
   location_ASC
   location_DESC
+  locationLat_ASC
+  locationLat_DESC
+  locationLng_ASC
+  locationLng_DESC
   rooms_ASC
   rooms_DESC
   bathrooms_ASC
@@ -12281,6 +12296,8 @@ enum RentalAppraisalOrderByInput {
 type RentalAppraisalPreviousValues {
   id: ID!
   location: String!
+  locationLat: Float!
+  locationLng: Float!
   rooms: Int!
   bathrooms: Int!
   heatSources: [HeatSource!]!
@@ -12378,6 +12395,50 @@ input RentalAppraisalScalarWhereInput {
 
   """All values not ending with the given string."""
   location_not_ends_with: String
+  locationLat: Float
+
+  """All values that are not equal to given value."""
+  locationLat_not: Float
+
+  """All values that are contained in given list."""
+  locationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLat_lte: Float
+
+  """All values greater than the given value."""
+  locationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLat_gte: Float
+  locationLng: Float
+
+  """All values that are not equal to given value."""
+  locationLng_not: Float
+
+  """All values that are contained in given list."""
+  locationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLng_lte: Float
+
+  """All values greater than the given value."""
+  locationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLng_gte: Float
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -12497,6 +12558,8 @@ input RentalAppraisalUpdateheatSourcesInput {
 
 input RentalAppraisalUpdateInput {
   location: String
+  locationLat: Float
+  locationLng: Float
   rooms: Int
   bathrooms: Int
   rent: Float
@@ -12504,11 +12567,13 @@ input RentalAppraisalUpdateInput {
   acceptTerms: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
-  property: PropertyUpdateOneRequiredWithoutAppraisalsInput
+  property: PropertyUpdateOneWithoutAppraisalsInput
 }
 
 input RentalAppraisalUpdateManyDataInput {
   location: String
+  locationLat: Float
+  locationLng: Float
   rooms: Int
   bathrooms: Int
   rent: Float
@@ -12519,6 +12584,8 @@ input RentalAppraisalUpdateManyDataInput {
 
 input RentalAppraisalUpdateManyMutationInput {
   location: String
+  locationLat: Float
+  locationLng: Float
   rooms: Int
   bathrooms: Int
   rent: Float
@@ -12558,6 +12625,8 @@ input RentalAppraisalUpdateManyWithWhereNestedInput {
 
 input RentalAppraisalUpdateWithoutPropertyDataInput {
   location: String
+  locationLat: Float
+  locationLng: Float
   rooms: Int
   bathrooms: Int
   rent: Float
@@ -12569,13 +12638,15 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
 
 input RentalAppraisalUpdateWithoutRequestedByDataInput {
   location: String
+  locationLat: Float
+  locationLng: Float
   rooms: Int
   bathrooms: Int
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
-  property: PropertyUpdateOneRequiredWithoutAppraisalsInput
+  property: PropertyUpdateOneWithoutAppraisalsInput
 }
 
 input RentalAppraisalUpdateWithWhereUniqueWithoutPropertyInput {
@@ -12689,6 +12760,50 @@ input RentalAppraisalWhereInput {
 
   """All values not ending with the given string."""
   location_not_ends_with: String
+  locationLat: Float
+
+  """All values that are not equal to given value."""
+  locationLat_not: Float
+
+  """All values that are contained in given list."""
+  locationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLat_lte: Float
+
+  """All values greater than the given value."""
+  locationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLat_gte: Float
+  locationLng: Float
+
+  """All values that are not equal to given value."""
+  locationLng_not: Float
+
+  """All values that are contained in given list."""
+  locationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLng_lte: Float
+
+  """All values greater than the given value."""
+  locationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLng_gte: Float
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -13918,6 +14033,7 @@ type User implements Node {
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   involvedActivity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
+  usedFreeAppraisal: Boolean
 }
 
 """A connection to a list of items."""
@@ -13950,6 +14066,7 @@ input UserCreateInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14079,6 +14196,7 @@ input UserCreateWithoutActivityInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14118,6 +14236,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14157,6 +14276,7 @@ input UserCreateWithoutChatsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14196,6 +14316,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14235,6 +14356,7 @@ input UserCreateWithoutCreditCardsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14274,6 +14396,7 @@ input UserCreateWithoutFriendRequestsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
@@ -14313,6 +14436,7 @@ input UserCreateWithoutInvolvedActivityInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14352,6 +14476,7 @@ input UserCreateWithoutLesseeLeasesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14391,6 +14516,7 @@ input UserCreateWithoutLessorLeasesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14430,6 +14556,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14469,6 +14596,7 @@ input UserCreateWithoutProfilePhotoInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14508,6 +14636,7 @@ input UserCreateWithoutPropertiesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14547,6 +14676,7 @@ input UserCreateWithoutRecievedMessagesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14586,6 +14716,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14625,6 +14756,7 @@ input UserCreateWithoutSentMessagesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -14696,6 +14828,8 @@ enum UserOrderByInput {
   referee2Email_DESC
   rehouserStamp_ASC
   rehouserStamp_DESC
+  usedFreeAppraisal_ASC
+  usedFreeAppraisal_DESC
 }
 
 type UserPreviousValues {
@@ -14721,6 +14855,7 @@ type UserPreviousValues {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
 }
 
 input UserScalarWhereInput {
@@ -15482,6 +15617,10 @@ input UserScalarWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
+  usedFreeAppraisal: Boolean
+
+  """All values that are not equal to given value."""
+  usedFreeAppraisal_not: Boolean
 }
 
 type UserSubscriptionPayload {
@@ -15540,6 +15679,7 @@ input UserUpdateDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -15579,6 +15719,7 @@ input UserUpdateInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -15618,6 +15759,7 @@ input UserUpdateManyDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -15652,6 +15794,7 @@ input UserUpdateManyMutationInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -15824,6 +15967,7 @@ input UserUpdateWithoutActivityDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -15862,6 +16006,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -15900,6 +16045,7 @@ input UserUpdateWithoutChatsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -15938,6 +16084,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -15976,6 +16123,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16014,6 +16162,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
@@ -16052,6 +16201,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16090,6 +16240,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16128,6 +16279,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16166,6 +16318,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16204,6 +16357,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16242,6 +16396,7 @@ input UserUpdateWithoutPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16280,6 +16435,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16318,6 +16474,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -16356,6 +16513,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -17243,6 +17401,10 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
+  usedFreeAppraisal: Boolean
+
+  """All values that are not equal to given value."""
+  usedFreeAppraisal_not: Boolean
   friends_every: UserWhereInput
   friends_some: UserWhereInput
   friends_none: UserWhereInput

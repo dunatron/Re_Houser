@@ -48,7 +48,6 @@ const FormErrors = ({ errors }) => {
   if (isEmpty(errors)) return null;
 
   const formErrors = Object.entries(errors).map((err, idx) => {
-    console.log('AN err entry?? ', err);
     return (
       <>
         <Typography className={classes.errorKey}>

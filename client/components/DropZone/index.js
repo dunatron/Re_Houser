@@ -4,8 +4,6 @@ import { useDropzone } from 'react-dropzone';
 const MyDropzone = ({ receiveFile }) => {
   const onDrop = useCallback(acceptedFiles => {
     // Do something with the files
-    console.log('Accepted Files => ', acceptedFiles);
-    console.log('Accepted SIngle Files => ', acceptedFiles[0]);
     // receiveFile(acceptedFiles[0]);
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
@@ -13,9 +11,6 @@ const MyDropzone = ({ receiveFile }) => {
       reader.onabort = () => console.log('file reading was aborted');
       reader.onerror = () => console.log('file reading has failed');
       reader.onload = () => {
-        // Do whatever you want with the file contents
-        // const binaryStr = reader.result;
-        // console.log(binaryStr);
         receiveFile({
           name: file.name,
           size: file.size,

@@ -1,6 +1,8 @@
 import Dashboard from '../components/Dashboard/index';
 import PleaseSignIn from '../components/PleaseSignIn';
 
+import DASHBOARD_CONFIG from '../lib/configs/dashboardConfig';
+
 const DashboardPage = props => {
   const {
     appData: { currentUser },
@@ -8,7 +10,7 @@ const DashboardPage = props => {
   return (
     <div>
       <PleaseSignIn currentUser={currentUser}>
-        <Dashboard />
+        <Dashboard config={DASHBOARD_CONFIG} />
       </PleaseSignIn>
     </div>
   );

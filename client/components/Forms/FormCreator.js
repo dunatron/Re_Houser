@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { isEmpty, is } from 'ramda';
+import Errors from '../ErrorMessage';
 
 import InputFieldType from './InputFieldType/index';
 import moment from 'moment';
@@ -70,17 +71,11 @@ const getKeyTypes = conf => {
 };
 
 const FormCreator = props => {
-  const { title, data, config, isNew, posting } = props;
-
-  console.log('form config => ', config);
+  const { title, data, config, isNew, posting, error } = props;
 
   const keysWithTypes = getKeyTypes(config);
 
-  console.log('keysWithTypes => ', keysWithTypes);
-
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
-
-  console.log('preFormattedFormData => ', preFormattedFormData);
 
   //ToDo: we should have a way to see if the form has been touched
   // maybe see if we can get recently updated values. that would potentially work better
@@ -98,103 +93,56 @@ const FormCreator = props => {
     },
   }); // initalise the hook
   const onSubmit = data => {
-    console.group('FORM SUBITTED!!!');
-    console.log('data => ', data);
     // const formattedData = _formatInsulationData(data);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
-    console.log('data => ', data);
-    console.log('keysWithTypes => ', keysWithTypes);
-    console.log('postFormattedFormData => ', postFormattedFormData);
-    console.groupEnd();
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {configIsValid(config) &&
-        config.map((item, idx) => {
-          console.log('A conf Item => ', item);
-          return (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginTop: '16px',
-              }}>
-              <InputFieldType
-                config={item}
-                //   onChange={val => console.log('onOnCnage...', val)}
+    <>
+      <Errors error={error} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {configIsValid(config) &&
+          config.map((item, idx) => {
+            return (
+              <div
                 key={idx}
-                register={register}
-                reset={reset}
-                errors={errors}
-                setValue={setValue}
-                defaultValues={preFormattedFormData}
-                // defaultValue={
-                //   configIsValid(config)
-                //     ? preFormattedFormData[item.fieldProps.name]
-                //     : null
-                // }
-                defaultValue={
-                  configIsValid(config)
-                    ? preFormattedFormData[
-                        item.fieldProps ? item.fieldProps.name : null
-                      ]
-                    : null
-                }
-                // defaultValue={
-                //   preFormattedFormData
-                //     ? preFormattedFormData[item.fieldProps.name]
-                //     : null
-                // }
-                // name={'yay'}
-                //   inputRef={register(item.refConf)}
-              />
-              {errors[item.name] && item.errorMessage}
-            </div>
-          );
-        })}
-      {/* {configIsValid(config) &&
-        config.map((item, idx) => {
-          return (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                marginTop: '16px',
-              }}>
-              <InputFieldType
-                config={item}
-                //   onChange={val => console.log('onOnCnage...', val)}
-                key={idx}
-                register={register}
-                reset={reset}
-                errors={errors}
-                setValue={setValue}
-                defaultValues={preFormattedFormData}
-                defaultValue={
-                  preFormattedFormData
-                    ? preFormattedFormData[item.fieldProps.name]
-                    : null
-                }
-                //   inputRef={register(item.refConf)}
-              />
-              {errors[item.name] && item.errorMessage}
-            </div>
-          );
-        })} */}
-      <FormErrors errors={errors} />
-      <Button
-        variant="contained"
-        disabled={posting}
-        onClick={handleSubmit(onSubmit)}
-        color="primary">
-        {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`}
-      </Button>
-    </form>
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  marginTop: '16px',
+                }}>
+                <InputFieldType
+                  config={item}
+                  key={idx}
+                  register={register}
+                  reset={reset}
+                  errors={errors}
+                  setValue={setValue}
+                  defaultValues={preFormattedFormData}
+                  defaultValue={
+                    configIsValid(config)
+                      ? preFormattedFormData[
+                          item.fieldProps ? item.fieldProps.name : null
+                        ]
+                      : null
+                  }
+                />
+                {errors[item.name] && item.errorMessage}
+              </div>
+            );
+          })}
+        <FormErrors errors={errors} />
+        <Button
+          variant="contained"
+          disabled={posting}
+          onClick={handleSubmit(onSubmit)}
+          color="primary">
+          {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`}
+        </Button>
+      </form>
+    </>
   );
 };
 

@@ -56,7 +56,7 @@ const CheckReason = props => {
             fieldConf={inner.fieldConf}
             label={inner.label}
             defaultValue={inner.defaultValue}
-            onChange={val => console.log('onOnCnage...', val)}
+            onChange={val => {}}
             key={idx}
             name={inner.name}
             inners={inner.inners}

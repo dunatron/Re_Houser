@@ -20,6 +20,7 @@ import { UPLOAD_PROFILE_PHOTO } from './uploadProfilePhoto';
 import { UPDATE_PROPERTY_LEASE_MUTATION } from './updatePropertyLease';
 import { UPDATE_INSULATION_FORM_MUTATION } from './updateInsulationForm';
 import { CREATE_RENTAL_APPRAISAL_MUTATION } from './createRentalAppraisal';
+import { OFFER_RENTAL_APPRAISAL_MUTATION } from './offerRentalAppraisal';
 
 export {
   SIGNUP_MUTATION,
@@ -44,4 +45,5 @@ export {
   UPDATE_PROPERTY_LEASE_MUTATION,
   UPDATE_INSULATION_FORM_MUTATION,
   CREATE_RENTAL_APPRAISAL_MUTATION,
+  OFFER_RENTAL_APPRAISAL_MUTATION,
 };

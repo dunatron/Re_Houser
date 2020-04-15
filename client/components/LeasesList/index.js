@@ -8,6 +8,7 @@ import Loader from '../Loader/index';
 
 const LeasesList = () => {
   const { data, error, loading } = useQuery(MY_LEASES_QUERY);
+  if (error) return <h1>Fuck u</h1>;
   if (error) return <Error error={error} />;
   if (loading) return <Loader loading={loading} text="Loading your leases" />;
 

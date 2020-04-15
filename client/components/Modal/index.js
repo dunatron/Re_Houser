@@ -224,13 +224,10 @@ const Modal = props => {
   const handleModalClick = e => {
     if (modalNode.current) {
       if (modalNode.current.contains(e.target)) {
-        console.log('Is a modal action');
         if (node.current.contains(e.target)) {
-          console.log('CLick inside');
           return;
         } else {
           props.close();
-          console.log('doesnt contain modal inners');
         }
       }
     }

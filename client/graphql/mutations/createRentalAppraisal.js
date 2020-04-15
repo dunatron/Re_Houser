@@ -5,7 +5,7 @@ const CREATE_RENTAL_APPRAISAL_MUTATION = gql`
     $data: RentalAppraisalCreateInput!
   ) {
     createRentalAppraisal(data: $data) {
-      message
+      id
     }
   }
 `;

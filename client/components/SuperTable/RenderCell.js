@@ -176,7 +176,6 @@ const RenderImages = ({ data, index, allData, executeFunc }) => {
   const images = allData[data.id];
   const [imageHeight, setImageHeight] = useState(70);
   const [isHovering, setIsHovering] = useState(false);
-  console.log('RenderImage Val => ', images);
   // (original height / original width) x new width = new height
   const dynamicImageWidth = (1920 / 1080) * imageHeight;
 

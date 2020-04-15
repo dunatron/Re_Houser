@@ -38,6 +38,7 @@ type User {
   activity: [Activity!]! @relation(name: "UserActivity")
   involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
+  usedFreeAppraisal: Boolean
 }
 
 type Activity {
@@ -172,13 +173,15 @@ type RentalAppraisal {
   id: ID! @unique @id
   requestedBy: User! @relation(name: "UserRentalAppraisals")
   location: String!
+  locationLat: Float!
+  locationLng: Float!
   rooms: Int!
   bathrooms: Int!
   heatSources: [HeatSource] @scalarList(strategy: RELATION)
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
-  property: Property! @relation(name: "PropertyRentalAppraisals")
+  property: Property @relation(name: "PropertyRentalAppraisals")
 }
 
 type Accommodation {

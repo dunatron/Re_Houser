@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
+import {
+  Select,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+  MenuItem,
+} from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_ENUM_QUERY } from '../../../graphql/queries';
 import Error from '../../ErrorMessage';
 import Loader from '../../Loader';
+import FieldError from './FieldError';
 import { is } from 'ramda';
 
 const useStyles = makeStyles(theme => ({
@@ -45,8 +49,10 @@ const SelectMultipleEnum = props => {
     register,
     config,
     setValue, // is from useForm
+    errors,
+    helperText,
   } = props;
-  console.log('His props ', props);
+
   const { type, inners, fieldProps, refConf } = config;
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {
@@ -57,6 +63,7 @@ const SelectMultipleEnum = props => {
   // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
   useEffect(() => {
     register({ name: fieldProps.name }, refConf);
+    if (!defaultValue) setValue(fieldProps.name, []);
   }, [register]);
 
   if (loading) return <Loader loading={loading} />;
@@ -74,6 +81,7 @@ const SelectMultipleEnum = props => {
       <InputLabel id={`${selectID}-label`} variant="outlined">
         {label}
       </InputLabel>
+      <FieldError errors={errors} name={name} />
       <Select
         name={fieldProps.name}
         labelId={`${selectID}-label`}
@@ -93,6 +101,7 @@ const SelectMultipleEnum = props => {
             );
           })}
       </Select>
+      <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
   );
 };

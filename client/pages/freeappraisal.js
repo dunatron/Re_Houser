@@ -18,7 +18,7 @@ const FreeAppraisal = props => {
             <p>You must be signed up/in to get a free rental Appraisal</p>
           </div>
         }>
-        <PropertyAppraisal />
+        <PropertyAppraisal currentUser={currentUser} />
       </PleaseSignIn>
     </div>
   );

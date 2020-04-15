@@ -1,10 +1,13 @@
 import { FormCreator } from '../Forms';
 import { CREATE_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
 import { useMutation } from '@apollo/client';
+import { toast } from 'react-toastify';
+import SpanRoute from '../Routes/SpanRoute';
+import { Typography } from '@material-ui/core';
 
 const PROPERTY_APPRAISAL_CONF = [
   {
-    type: 'String',
+    type: 'Location',
     key: 'location',
     fieldProps: {
       name: 'location',
@@ -44,7 +47,7 @@ const PROPERTY_APPRAISAL_CONF = [
       required: {
         value: true,
         message:
-          'You need to supply the number of bedrooms on the property for an appraisal',
+          'You need to supply the number of bathrooms on the property for an appraisal',
       },
     },
   },
@@ -60,46 +63,83 @@ const PROPERTY_APPRAISAL_CONF = [
     refConf: {
       required: {
         value: true,
-        message:
-          'You need to supply the number of bedrooms on the property for an appraisal',
+        message: 'You need to supply heat sources for an appraisal',
       },
     },
   },
 ];
 
-const PropertyAppraisal = ({ propertyId }) => {
-  // we could check if this property has already been appraised
-  // could check how many times via getting count the user has tried a "Free Appraisal", maybe 2 per User
-  // then must have a property created.
-  // do we charge for these
+const PropertyAppraisal = props => {
+  const { propertyId, me } = props;
+  // No idea how the fuck me is getting into here
+  if (!me) return 'You must be logged in to create a property appraisal';
 
-  // 1 just hit create
+  // if (me.usedFreeAppraisal && !propertyId)
+  //   return (
+  //     <>
+  //       <Typography>
+  //         You have used your free appraisal. You can however create properties
+  //         and then get them appraised.
+  //       </Typography>
+  //       <Typography>
+  //         To do this head on over to the add properties{' '}
+  //         <SpanRoute text="properties" route="/properties/add" /> Page
+  //       </Typography>
+  //       <Typography>
+  //         We will send you an email once your property has been appraised,
+  //         allowing you to create a property with the appraised information
+  //         prefilled
+  //       </Typography>
+  //     </>
+  //   );
 
-  // 1. createFreeAppraisal // takes in a minimum set of property props. Will send an email, with the data
-  // 2. createAppriasial. The server will determine if to link to a property
-  // 3. feed in appraisal data to an email that goes to create property
+  const handleCompleted = data => {
+    const { id } = data.createRentalAppraisal;
+    toast.success(
+      `Rental Appraisal has been sent. We will send you an email once it has been appraised RentalAppraisal ID ${id}`
+    );
+  };
 
   const [createRentalAppraisal, { loading, error, data }] = useMutation(
-    CREATE_RENTAL_APPRAISAL_MUTATION
+    CREATE_RENTAL_APPRAISAL_MUTATION,
+    {
+      // onCompleted: data => handleCompleted(data),
+      onCompleted: handleCompleted,
+    }
   );
 
   return (
     <>
       <FormCreator
+        title="Property Appraisal"
+        isNew={!propertyId}
+        // data={{
+        //   heatSources: ['HEAT_PUMP'],
+        // }}
+        config={PROPERTY_APPRAISAL_CONF}
+        error={error}
+        posting={loading}
         onSubmit={prismaReadyData => {
-          console.log('Prisma ready data => ', prismaReadyData);
           createRentalAppraisal({
             variables: {
-              data: prismaReadyData,
+              data: {
+                ...prismaReadyData,
+                requestedBy: {
+                  connect: {
+                    id: me.id,
+                  },
+                },
+                property: propertyId
+                  ? {
+                      connect: {
+                        id: propertyId,
+                      },
+                    }
+                  : null,
+              },
             },
           });
-          // return Appraisal has been attached to property.
-          // the query would get the most recent one
         }}
-        data={{
-          heatSources: ['HEAT_PUMP'],
-        }}
-        config={PROPERTY_APPRAISAL_CONF}
       />
     </>
   );

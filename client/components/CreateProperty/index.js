@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
 
 import Loader from '../Loader';
 
-const CreateProperty = ({ me }) => {
+const CreateProperty = ({ me, prefilledData }) => {
   const classes = useStyles();
   const defaultState = {
     // type: 'HOUSE',
@@ -73,9 +73,9 @@ const CreateProperty = ({ me }) => {
     location: '',
     locationLat: '',
     locationLng: '',
-    rooms: 0,
+    rooms: prefilledData ? prefilledData.rooms : null,
     accommodation: [],
-    rent: 0.0,
+    rent: prefilledData ? prefilledData.rent : null,
     moveInDate: moment().format(),
     expiryDate: moment()
       .add(12, 'months')
@@ -83,7 +83,7 @@ const CreateProperty = ({ me }) => {
     images: [],
     indoorFeatures: [],
     outdoorFeatures: [],
-    bathRooms: null,
+    bathRooms: prefilledData ? prefilledData.bathrooms : null,
     carportSpaces: null,
     garageSpaces: null,
     offStreetSpaces: null,
@@ -255,8 +255,6 @@ const CreateProperty = ({ me }) => {
       accommodation: updatedAccommodation,
     });
   };
-
-  console.log('The Property Forms STate => ', state);
 
   return (
     <div className={classes.root}>
@@ -453,6 +451,30 @@ const CreateProperty = ({ me }) => {
             </Typography>
             {/* Other Details Grid */}
             <Grid container spacing={3}>
+              <Grid item xs={12} sm={6} lg={3}>
+                <TextInput
+                  id="rooms"
+                  data-cy="property_rooms_input"
+                  label="Number of rooms"
+                  fullWidth={true}
+                  type="number"
+                  name="rooms"
+                  value={state.rooms}
+                  onChange={saveToState}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} lg={3}>
+                <TextInput
+                  id="rent"
+                  data-cy="property_rent_input"
+                  label="Total rent"
+                  fullWidth={true}
+                  type="number"
+                  name="rent"
+                  value={state.rent}
+                  onChange={saveToState}
+                />
+              </Grid>
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
                   id="bathRooms"

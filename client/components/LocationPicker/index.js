@@ -21,10 +21,9 @@ import { WORLD_FIXTURES } from '../../lib/locationFixtures';
 const LocationPicker = ({ selection }) => {
   const defaultState = {
     desc: '',
-    lat: -46.1326615,
-    lng: 168.89592100000004,
+    lat: null,
+    lng: null,
     showMap: true,
-    images: [],
     country: 'NZ',
     type: 'geocode',
   };
@@ -49,7 +48,6 @@ const LocationPicker = ({ selection }) => {
     let lat,
       lng,
       desc = '';
-    let images = [];
     if (!suggestion) {
       return;
     }
@@ -67,16 +65,10 @@ const LocationPicker = ({ selection }) => {
       lng = location.lng;
     }
     // suggestion is returning map info
-    if (gmaps) {
-      if (gmaps.photos) {
-        images = gmaps.photos.map(photo => photo.getUrl());
-      }
-    }
     selection({
       lat: lat,
       lng,
       desc,
-      images: images,
     });
 
     setState({
@@ -84,7 +76,6 @@ const LocationPicker = ({ selection }) => {
       lat: lat,
       lng,
       desc: desc,
-      images: images,
     });
     shouldStayOpen();
   };
@@ -117,11 +108,11 @@ const LocationPicker = ({ selection }) => {
   };
 
   const _getFixtures = () => {
-    if (state.country) {
-      return WORLD_FIXTURES.filter(
-        fixture => fixture.countyCode === state.country
-      );
-    }
+    // if (state.country) {
+    //   return WORLD_FIXTURES.filter(
+    //     fixture => fixture.countyCode === state.country
+    //   );
+    // }
     return false;
   };
 

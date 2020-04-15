@@ -16,22 +16,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { isEmpty } from 'ramda';
 
 const _preFormatCheckedOptions = (options, values) => {
-  // return {};
-  // const valuesAsKeys = !isEmpty(values)
-  //   ? values.reduce((obj, key) => {
-  //       obj[key] = true;
-  //       return obj;
-  //     }, {})
-  //   : {};
-  // return valuesAsKeys;
   const valuesAsKeys = values
     ? values.reduce((obj, key) => {
         obj[key] = true;
         return obj;
       }, {})
     : {};
-  console.log('_preFormatCheckedvalues => ', values);
-  console.log('_preFormatCheckedOptions => ', valuesAsKeys);
   return valuesAsKeys;
 };
 
@@ -48,8 +38,6 @@ const CheckMultipleWithText = props => {
   const { type, inners, fieldProps, refConf } = config;
   const { name, label } = fieldProps;
   const { options } = fieldProps;
-
-  console.log('CheckMultipleWithText defaultValue => ', defaultValue);
 
   // const [state, setState] = useState({ PARTIAL: true });
   const [state, setState] = useState(
