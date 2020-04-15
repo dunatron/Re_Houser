@@ -4,7 +4,6 @@ import { RENTAL_APPRAISALS_QUERY } from '../../graphql/queries';
 import { OFFER_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
 import Loader from '../Loader';
 import Error from '../ErrorMessage';
-import { parse } from 'date-fns/esm';
 
 const AppraisalManager = () => {
   const { error, loading, data } = useQuery(RENTAL_APPRAISALS_QUERY);
