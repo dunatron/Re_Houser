@@ -32,6 +32,11 @@ const _preFormatData = (data, keyTypes, mode) => {
 };
 
 const formatValByType = (v, type, mode) => {
+  console.group('formatValByType');
+  console.log('v => ', v);
+  console.log('type => ', type);
+  console.log('mode => ', mode);
+  console.groupEnd();
   if (type) {
     switch (type) {
       case 'CheckReason':

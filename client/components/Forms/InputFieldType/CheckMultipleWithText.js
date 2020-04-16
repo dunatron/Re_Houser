@@ -35,6 +35,8 @@ const CheckMultipleWithText = props => {
     reset,
     defaultValue,
   } = props;
+
+  console.log('Well wtf cunt', props);
   const { type, inners, fieldProps, refConf } = config;
   const { name, label } = fieldProps;
   const { options } = fieldProps;

@@ -15,29 +15,18 @@ import FieldError from './FieldError';
 import { is } from 'ramda';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
+  formControl: {
+    marginBottom: theme.spacing(1),
+    minWidth: 160,
+    // width: '100%',
     width: '100%',
   },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 220,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
+  selectEmpty: {
+    marginTop: theme.spacing(2),
   },
 }));
 
-const SelectMultipleEnum = props => {
+export default function SimpleSelect(props) {
   const classes = useStyles();
   const {
     __type,
@@ -54,10 +43,6 @@ const SelectMultipleEnum = props => {
     helperText,
   } = props;
 
-  // if (!setValue) {
-  //   console.log('SetValue SelectMultipleEnum => ', props);
-  //   return 'Lol';
-  // }
   const { type, inners, fieldProps, refConf } = config;
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {
@@ -66,8 +51,6 @@ const SelectMultipleEnum = props => {
   });
 
   if (!fieldProps) return 'This form component needs fieldProps';
-  if (!fieldProps.name)
-    return 'This form component also needs a name under field.props.name';
 
   // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
   useEffect(() => {
@@ -86,21 +69,16 @@ const SelectMultipleEnum = props => {
     : [];
 
   return (
-    <FormControl>
-      <InputLabel id={`${selectID}-label`} variant="outlined">
-        {label}
-      </InputLabel>
-      <FieldError errors={errors} name={name} />
+    <FormControl variant="outlined" className={classes.formControl}>
+      <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
       <Select
-        name={fieldProps.name}
-        labelId={`${selectID}-label`}
-        variant="outlined"
-        multiple={true} // this needs to be ture but will fail compnet
-        id={selectID}
-        label={label}
+        defaultValue={is(Array, defaultValue) ? defaultValue : []}
         onChange={e => setValue(fieldProps.name, e.target.value)}
-        defaultValue={is(Array, defaultValue) ? defaultValue : []} // use ramda and mke sre isArr(defualtValue). cmp expcts it 2 b so rtn[] if not
-      >
+        label={label}
+        inputProps={{
+          name: fieldProps.name,
+          id: fieldProps.name,
+        }}>
         {options &&
           options.map((d, i) => {
             return (
@@ -110,11 +88,6 @@ const SelectMultipleEnum = props => {
             );
           })}
       </Select>
-      <FormHelperText>{helperText}</FormHelperText>
     </FormControl>
   );
-};
-
-export default SelectMultipleEnum;
-
-// export default withStyles(styles)(EnumMultiSelectChip);
+}

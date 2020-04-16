@@ -14,9 +14,12 @@ import CheckboxText from './CheckboxText';
 import SelectOneWithText from './SelectOneWithText';
 import CheckMultipleWithText from './CheckMultipleWithText';
 import SelectMultipleEnum from './SelectMultipleEnum';
+import SelectOneEnum from './SelectOneEnum';
 import LocationPicker from '../../LocationPicker';
+import FormSection from './FormSection';
+import EntityFormType from './Entity';
 
-import { Typography, Checkbox } from '@material-ui/core';
+import { Typography, Checkbox, Paper } from '@material-ui/core';
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
@@ -38,11 +41,15 @@ const InputFieldType = props => {
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
+  console.log('ANd the cool input props => ', props);
+  // if (!setValue) return 'WHY THE FUCK NOT';
   switch (type) {
     case 'Header':
       return <Typography variant="h4">{label}</Typography>;
     case 'Subheader':
       return <Typography variant="h5">{label}</Typography>;
+    case 'Section':
+      return <FormSection {...props} />;
     case 'String':
       return (
         <>
@@ -66,9 +73,28 @@ const InputFieldType = props => {
       return <SelectOneWithText {...props} />;
     case 'CheckMultipleWithText':
       return <CheckMultipleWithText {...props} />;
+    case 'Entity':
+      return (
+        <EntityFormType
+          {...fieldProps}
+          {...props}
+          __type={config.__type}
+          onChange={() => {}}
+        />
+      );
     case 'SelectMultipleEnum':
       return (
         <SelectMultipleEnum
+          {...fieldProps}
+          {...props}
+          __type={config.__type}
+          onChange={() => {}}
+          helperText={extractErrorFromErrors(errors, name)}
+        />
+      );
+    case 'SelectOneEnum':
+      return (
+        <SelectOneEnum
           {...fieldProps}
           {...props}
           __type={config.__type}

@@ -229,6 +229,7 @@ const RentalApplicationStepper = props => {
         );
       }
       default: {
+        // return null; // handling complete on that functionas the application should self update at steps. this just submits it
         return (
           <Button variant="contained" color="primary" onClick={handleComplete}>
             Finish

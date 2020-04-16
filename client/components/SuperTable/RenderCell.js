@@ -196,16 +196,18 @@ const RenderImages = ({ data, index, allData, executeFunc }) => {
           <div
             onClick={() => executeFunc(data.funcName, allData)}
             style={{ position: 'relative', width: `${dynamicImageWidth}px` }}>
-            <img
-              src={images[0].url}
-              alt={`some image`}
-              style={{
-                cursor: 'pointer',
-                width: `${dynamicImageWidth}px`,
-                height: `${imageHeight}px`,
-                objectFit: 'cover',
-              }}
-            />
+            {images.length > 0 && (
+              <img
+                src={images[0].url}
+                alt={`some image`}
+                style={{
+                  cursor: 'pointer',
+                  width: `${dynamicImageWidth}px`,
+                  height: `${imageHeight}px`,
+                  objectFit: 'cover',
+                }}
+              />
+            )}
             {isHovering && (
               <div
                 style={{

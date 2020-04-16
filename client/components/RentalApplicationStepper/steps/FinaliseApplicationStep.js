@@ -50,7 +50,7 @@ const FinaliseApplicationStep = ({
         onClick={() => {
           completeApplication();
         }}>
-        HACK TO BYPASS => Complete Application{' '}
+        Complete Application
         {completeApplicationProps.loading && 'Loading'}
       </Button>
     </div>

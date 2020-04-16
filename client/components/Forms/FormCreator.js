@@ -95,6 +95,7 @@ const FormCreator = props => {
   const onSubmit = data => {
     // const formattedData = _formatInsulationData(data);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
+    console.log('Well formatted Data => ', postFormattedFormData);
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 

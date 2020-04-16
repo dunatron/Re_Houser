@@ -10,7 +10,6 @@ var fs = require("fs"),
 
 async function createProperty(parent, { data, files }, ctx, info) {
   console.log("What is the data => ", data);
-  // throw new Error("eat a dick nigga");
   const loggedInUserId = ctx.request.userId;
   // need to be logged in
   if (!loggedInUserId) {
@@ -22,14 +21,15 @@ async function createProperty(parent, { data, files }, ctx, info) {
   const connectFileIds = uploadedFiles.map(file => ({ id: file.id }));
 
   // this here is dependent on using accomodation & useAdvancedRent is true
-  const numberOfRooms = useAdvancedRent
+  const numberOfRooms = data.useAdvancedRent
     ? accommodation.length
-    : data.numberOfRooms;
+    : data.rooms;
   const roomPrices = data.useAdvancedRent
     ? data.accommodation.create.map((a, i) => a.rent)
     : [data.rent];
   // get lowest roomPrice
   const lowestRoomPrice = parseFloat(Math.min(...roomPrices));
+  const highestRoomPrice = parseFloat(Math.max(...roomPrices));
   const averageRoomPrice =
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
