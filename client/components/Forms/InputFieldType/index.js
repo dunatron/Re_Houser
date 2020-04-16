@@ -77,9 +77,9 @@ const InputFieldType = props => {
       return (
         <EntityFormType
           {...fieldProps}
-          {...props}
           __type={config.__type}
           onChange={() => {}}
+          {...props}
         />
       );
     case 'SelectMultipleEnum':
@@ -139,6 +139,7 @@ const InputFieldType = props => {
         />
       );
     case 'Int':
+      console.log('We have an int type right? ');
       return (
         <TextInput
           variant="outlined"

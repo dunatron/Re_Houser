@@ -62,6 +62,10 @@ const getKeyTypes = conf => {
   //     return { ...acc, ...newItem };
   //   }, {});
   // return {};
+  console.log(
+    'Well u do a hist job at getting keys, hers ur dta to work with => ',
+    conf
+  );
   if (isEmpty(conf)) return {};
   return conf.reduce((acc, c) => {
     const newItem = extractKeyType(c);
@@ -73,7 +77,11 @@ const getKeyTypes = conf => {
 const FormCreator = props => {
   const { title, data, config, isNew, posting, error } = props;
 
+  console.log('Start With Config => ', config);
+
   const keysWithTypes = getKeyTypes(config);
+
+  console.log('Ok all the keys have types pal => ', keysWithTypes);
 
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
 
@@ -93,9 +101,14 @@ const FormCreator = props => {
     },
   }); // initalise the hook
   const onSubmit = data => {
-    // const formattedData = _formatInsulationData(data);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
+    // const formattedData = _formatInsulationData(data);
+    console.group('Where care about data reachin here should be formatted');
+    console.log('original Data => ', data);
+    console.log('keysWithTypes => ', keysWithTypes);
     console.log('Well formatted Data => ', postFormattedFormData);
+    console.groupEnd();
+
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 

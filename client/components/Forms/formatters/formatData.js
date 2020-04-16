@@ -18,6 +18,8 @@ import {
 } from './formatSelectMultipleEnum';
 
 const _preFormatData = (data, keyTypes, mode) => {
+  console.group('==Test PreFomatData==');
+  console.log('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
   if (!data) return {};
   if (isEmpty(data)) return {};
   const filterEmptyAndFormat = Object.entries(data).reduce(
@@ -26,11 +28,18 @@ const _preFormatData = (data, keyTypes, mode) => {
     {}
   );
 
+  console.log('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
+  console.groupEnd('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
+
   return {
     ...filterEmptyAndFormat,
   };
 };
 
+/**
+ * ToDo: passing in a Section with inners, does not fromat its input anymore....
+ * // perhaps dues to no keyTypes look up and above
+ */
 const formatValByType = (v, type, mode) => {
   console.group('formatValByType');
   console.log('v => ', v);
