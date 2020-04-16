@@ -6,7 +6,7 @@ const updatePropertyLeaseEmail = async function({ toEmail, lease, ctx }) {
     to: toEmail,
     subject: `Lease updated and unsigned: ${lease.id}`,
     html: makeANiceEmail(`The lease has been updated and all parties have been un-signed Please head to the lease and review it and sign! \n
-      You can review the updated lease at ${process.env.FRONTEND_URL}/leases/lease?id=${lease.id} \n
+      You can review the updated lease at ${process.env.EMAIL_PREFIX}/leases/lease?id=${lease.id} \n
     \n\n`)
   });
 };

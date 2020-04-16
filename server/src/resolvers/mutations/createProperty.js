@@ -9,6 +9,8 @@ var fs = require("fs"),
   filePath = path.join(__dirname, "../lib/documents/test.docx");
 
 async function createProperty(parent, { data, files }, ctx, info) {
+  console.log("What is the data => ", data);
+  // throw new Error("eat a dick nigga");
   const loggedInUserId = ctx.request.userId;
   // need to be logged in
   if (!loggedInUserId) {
@@ -18,11 +20,16 @@ async function createProperty(parent, { data, files }, ctx, info) {
     ? await Promise.all(files.map(file => processUpload(file, ctx)))
     : [];
   const connectFileIds = uploadedFiles.map(file => ({ id: file.id }));
-  // get room Prices
-  const roomPrices = data.accommodation.create.map((a, i) => a.rent);
+
+  // this here is dependent on using accomodation & useAdvancedRent is true
+  const numberOfRooms = useAdvancedRent
+    ? accommodation.length
+    : data.numberOfRooms;
+  const roomPrices = data.useAdvancedRent
+    ? data.accommodation.create.map((a, i) => a.rent)
+    : [data.rent];
   // get lowest roomPrice
   const lowestRoomPrice = parseFloat(Math.min(...roomPrices));
-  const highestRoomPrice = parseFloat(Math.max(...roomPrices));
   const averageRoomPrice =
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
@@ -33,6 +40,7 @@ async function createProperty(parent, { data, files }, ctx, info) {
         lowestRoomPrice,
         highestRoomPrice,
         rent: averageRoomPrice,
+        rooms: numberOfRooms,
         images: {
           connect: connectFileIds
         }

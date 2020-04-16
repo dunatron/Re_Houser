@@ -3,8 +3,6 @@ const PropertyInfoFragment = gql`
   fragment propertyInfo on Property {
     id
     type
-    rooms
-    rent
     moveInDate
     expiryDate
     onTheMarket
@@ -16,6 +14,11 @@ const PropertyInfoFragment = gql`
     offStreetSpaces
     outdoorFeatures
     indoorFeatures
+    rooms
+    rent
+    lowestRoomPrice
+    highestRoomPrice
+    useAdvancedRent
     accommodation {
       id
       rent

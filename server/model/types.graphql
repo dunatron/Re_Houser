@@ -137,6 +137,7 @@ type Property implements PropertyInfo {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   accommodation: [Accommodation!]! @relation(name: "PropertyAccommodation")
   bathrooms: Int
   garageSpaces: Int!

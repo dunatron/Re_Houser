@@ -36,8 +36,11 @@ import {
   Button,
   Switch,
   FormControlLabel,
+  InputAdornment,
 } from '@material-ui/core';
 import MyDropzone from '../DropZone';
+
+import AttchMoneyIcon from '@material-ui/icons/AttachMoneyOutlined';
 
 import { FormCreator } from '../Forms/FormCreator';
 import INSULATION_FORM_FIELDS_CONFIG from '../Forms/InsulationStatementForm/fieldsConf';
@@ -94,6 +97,7 @@ const CreateProperty = ({ me, prefilledData }) => {
   const [state, setState] = useState(defaultState);
 
   const [completeInsulationLater, setCompleteInsulationLater] = useState(false);
+  const [useAdvancedRent, setUseAdvancedRent] = useState(false);
 
   const [images, setImages] = useState([]);
 
@@ -157,6 +161,7 @@ const CreateProperty = ({ me, prefilledData }) => {
               }),
           ],
         },
+        useAdvancedRent: useAdvancedRent,
         accommodation: {
           create: [...state.accommodation],
         },
@@ -226,9 +231,9 @@ const CreateProperty = ({ me, prefilledData }) => {
     if (!me.primaryCreditCard) {
       return false;
     }
-    if (location.length < 1) {
-      return false;
-    }
+    // if (location.length < 1) {
+    //   return false;
+    // }
     return true;
   };
   const addAccommodation = ({ accommodation }) => {
@@ -423,26 +428,70 @@ const CreateProperty = ({ me, prefilledData }) => {
             </Grid>
           </Paper>
           {/* Accommodation Section */}
+          {/* DISABLED BECAUSE IT IS ACTUAL OVERKILL. AND MAKES MORE WORK THAT NOONE WANTS, ME, LESSORS AND LESSEES */}
           <Paper className={classes.formSection} elevation={5}>
+            <Grid item xs={12} sm={6} lg={3}>
+              <TextInput
+                id="rooms"
+                data-cy="property_rooms_input"
+                label="Number of rooms"
+                fullWidth={true}
+                type="number"
+                name="rooms"
+                value={state.rooms}
+                onChange={saveToState}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} lg={3}>
+              <TextInput
+                id="rent"
+                data-cy="property_rent_input"
+                label="Total rent per week"
+                fullWidth={true}
+                type="number"
+                name="rent"
+                value={state.rent}
+                onChange={saveToState}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AttchMoneyIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={useAdvancedRent}
+                  onChange={() => setUseAdvancedRent(!useAdvancedRent)}
+                  color="primary"
+                  name="toggle-create-insualtion-statement"
+                />
+              }
+              label="Complete Insulation form later"
+            />
             <Typography variant="h6" gutterBottom>
               Accommodation Section
             </Typography>
             <Typography variant="body1" gutterBottom>
-              For each room you want to be rented out you will need to add
-              accommodation.
+              For each room you want to be rented out on the property you will
+              need to create accommodation
             </Typography>
-            {/* Other Details Grid */}
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <AccommodationCreator
-                  accommodation={state.accommodation}
-                  add={accommodation => addAccommodation(accommodation)}
-                  update={data => updateAccommodation(data)}
-                  duplicate={accommodation => addAccommodation(accommodation)}
-                  remove={res => removeAccommodation(res)}
-                />
+            {useAdvancedRent && (
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <AccommodationCreator
+                    accommodation={state.accommodation}
+                    add={accommodation => addAccommodation(accommodation)}
+                    update={data => updateAccommodation(data)}
+                    duplicate={accommodation => addAccommodation(accommodation)}
+                    remove={res => removeAccommodation(res)}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
+            )}
           </Paper>
           {/* Details Section */}
           <Paper className={classes.formSection} elevation={5}>
@@ -453,33 +502,9 @@ const CreateProperty = ({ me, prefilledData }) => {
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6} lg={3}>
                 <TextInput
-                  id="rooms"
-                  data-cy="property_rooms_input"
-                  label="Number of rooms"
-                  fullWidth={true}
-                  type="number"
-                  name="rooms"
-                  value={state.rooms}
-                  onChange={saveToState}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} lg={3}>
-                <TextInput
-                  id="rent"
-                  data-cy="property_rent_input"
-                  label="Total rent"
-                  fullWidth={true}
-                  type="number"
-                  name="rent"
-                  value={state.rent}
-                  onChange={saveToState}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} lg={3}>
-                <TextInput
                   id="bathRooms"
                   data-cy="property_bathrooms_input"
-                  label="Number of Bath Rooms"
+                  label="Number of bathrooms"
                   fullWidth={true}
                   type="number"
                   name="bathRooms"

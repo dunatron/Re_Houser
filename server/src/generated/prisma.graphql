@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Apr 15 2020 14:15:10 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu Apr 16 2020 18:06:49 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -8248,6 +8248,7 @@ type Property implements Node {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   accommodation(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation!]
   bathrooms: Int
   garageSpaces: Int!
@@ -8481,6 +8482,7 @@ input PropertyCreateInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8555,6 +8557,7 @@ input PropertyCreateWithoutAccommodationInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8589,6 +8592,7 @@ input PropertyCreateWithoutActivityInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8623,6 +8627,7 @@ input PropertyCreateWithoutAppraisalsInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8657,6 +8662,7 @@ input PropertyCreateWithoutCreatorInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8691,6 +8697,7 @@ input PropertyCreateWithoutLeasesInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8725,6 +8732,7 @@ input PropertyCreateWithoutOwnersInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -8759,6 +8767,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -10024,6 +10033,8 @@ enum PropertyOrderByInput {
   lowestRoomPrice_DESC
   highestRoomPrice_ASC
   highestRoomPrice_DESC
+  useAdvancedRent_ASC
+  useAdvancedRent_DESC
   bathrooms_ASC
   bathrooms_DESC
   garageSpaces_ASC
@@ -10063,6 +10074,7 @@ type PropertyPreviousValues {
   rooms: Int!
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int!
   carportSpaces: Int!
@@ -10291,6 +10303,10 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   highestRoomPrice_gte: Float
+  useAdvancedRent: Boolean
+
+  """All values that are not equal to given value."""
+  useAdvancedRent_not: Boolean
   bathrooms: Int
 
   """All values that are not equal to given value."""
@@ -10629,6 +10645,7 @@ input PropertyUpdateInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10663,6 +10680,7 @@ input PropertyUpdateManyDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10688,6 +10706,7 @@ input PropertyUpdateManyMutationInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10785,6 +10804,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10818,6 +10838,7 @@ input PropertyUpdateWithoutActivityDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10851,6 +10872,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10884,6 +10906,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10917,6 +10940,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10950,6 +10974,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -10983,6 +11008,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   rooms: Int
   lowestRoomPrice: Float
   highestRoomPrice: Float
+  useAdvancedRent: Boolean
   bathrooms: Int
   garageSpaces: Int
   carportSpaces: Int
@@ -11266,6 +11292,10 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   highestRoomPrice_gte: Float
+  useAdvancedRent: Boolean
+
+  """All values that are not equal to given value."""
+  useAdvancedRent_not: Boolean
   bathrooms: Int
 
   """All values that are not equal to given value."""
