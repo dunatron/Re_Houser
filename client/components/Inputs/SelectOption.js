@@ -1,52 +1,25 @@
 import React from 'react';
-import { withStyles } from '@material-ui//core/styles';
-import MenuItem from '@material-ui/core/MenuItem/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select/Select';
-import { useQuery } from '@apollo/client';
-import { GET_ENUM_QUERY } from '../../graphql/queries';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
-const styles = theme => ({
-  root: {
-    textAlign: 'left',
-    width: '100%',
-    boxSizing: 'border-box',
-  },
-  formContainer: {
-    height: theme.spacing(6),
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
+const useStyles = makeStyles(theme => ({
   formControl: {
-    minWidth: '180px',
-    width: '100%',
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
-  button: {
-    borderRadius: 0,
-  },
-  codeEditor: {
-    display: 'flex',
-    height: `calc(100vh - ${theme.spacing(28) + 4}px )`,
-    margin: `0 -${theme.spacing(4)}px`,
-  },
-  editorField: {
-    //flex: '1 1 0'
-    overflowX: 'auto',
-    flexBasis: 0,
-    flexGrow: 1,
-  },
-});
+}));
 
-const SelectOption = props => {
+export default function SimpleSelect(props) {
   const {
     __type,
     isEnum,
-    classes,
     value,
     name,
     options,
@@ -54,8 +27,9 @@ const SelectOption = props => {
     selectID,
     helperText,
     handleChange,
+    defaultValue,
   } = props;
-
+  const classes = useStyles();
   if (isEnum) {
     const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
       variables: {
@@ -81,17 +55,16 @@ const SelectOption = props => {
   };
 
   const mappedOptions = getMappedItems();
+
   return (
-    <FormControl className={classes.formControl}>
-      {label && <InputLabel htmlFor={selectID}>{label}</InputLabel>}
+    <FormControl variant="filled" className={classes.formControl}>
+      <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
       <Select
+        labelId="demo-simple-select-filled-label"
+        id="demo-simple-select-filled"
         value={value}
-        // onChange={e => handleChange(e.target.value)}
-        onChange={handleChange}
-        displayEmpty
-        name={name}
-        className={classes.selectEmpty}
-        {...props}>
+        defaultValue={defaultValue}
+        onChange={handleChange}>
         {mappedOptions.map((d, i) => {
           return (
             <MenuItem key={i} value={d.value}>
@@ -100,9 +73,6 @@ const SelectOption = props => {
           );
         })}
       </Select>
-      {helperText && <FormHelperText>Without label</FormHelperText>}
     </FormControl>
   );
-};
-
-export default withStyles(styles)(SelectOption);
+}

@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import FormCreator from '../FormCreator';
 
-import { Paper, Switch } from '@material-ui/core';
+import { Paper, Switch, Typography } from '@material-ui/core';
 
 const EntityFormType = props => {
   const { config, setValue, register } = props;
-  const { formConf, resolveKey, refConf, required } = config;
+  const {
+    title,
+    description,
+    formConf,
+    resolveKey,
+    refConf,
+    required,
+  } = config;
   const [canBeFucked, setCanBeFucked] = useState();
 
   /**
@@ -19,7 +26,6 @@ const EntityFormType = props => {
   if (!formConf) return 'please supply a formConf object to that key';
 
   const submitEntityToLargerConcern = submittedFormData => {
-    console.log('submitEntityToLargerConcern => ', submittedFormData);
     setValue(resolveKey, submittedFormData);
     // alert('check that submitted form data');
   };
@@ -30,14 +36,8 @@ const EntityFormType = props => {
    */
   return (
     <Paper style={{ padding: '8px' }}>
-      <p>Had to send ytour arse the real deal. Line EM up</p>
-      <p>
-        Note: should spend some quality time here. It should shut on submit.
-        maybe display a jSON dump of data on request when submitted
-      </p>
-      {!required && (
-        <p>Enitity is not required for current form so is closed by default</p>
-      )}
+      <Typography variant="subtitle1">{title}</Typography>
+      <Typography>{description}</Typography>
       <Switch
         value={canBeFucked}
         onChange={() => setCanBeFucked(!canBeFucked)}

@@ -16,19 +16,6 @@ import formatData from './formatters/formatData';
 // };
 
 const configIsValid = config => {
-  // let valid =
-  // if (isEmpty(config)) return true;
-  // // return false;
-  // return false;
-  // return false;
-  // if (is(Object, config)) return true;
-  // // if (isEmpty(config)) return false;
-  // if (is(Array, config)) {
-  //   // return config;
-  //   return true;
-  // }
-  // return false;
-
   if (isEmpty(config)) return false;
   if (!is(Array, config)) return false;
   return true; // yay your valid
@@ -36,6 +23,7 @@ const configIsValid = config => {
 
 const extractKeyType = obj => {
   let extras = {};
+  console.log('This is where we extract the keys => ', obj);
   if (obj.inners) {
     extras = getKeyTypes(obj.inners);
   }
@@ -52,24 +40,10 @@ const extractKeyType = obj => {
  * I'm possibly trying to make it not fail when editing a config in the docs
  */
 const getKeyTypes = conf => {
-  // handle empty obj
-  // return {};
-  // if (isEmpty(conf)) return {};
-  // if (!is(Array, conf))
-  //   return conf.reduce((acc, c) => {
-  //     const newItem = extractKeyType(c);
-  //     if (!c.key) return { ...acc };
-  //     return { ...acc, ...newItem };
-  //   }, {});
-  // return {};
-  console.log(
-    'Well u do a hist job at getting keys, hers ur dta to work with => ',
-    conf
-  );
   if (isEmpty(conf)) return {};
   return conf.reduce((acc, c) => {
     const newItem = extractKeyType(c);
-    if (!c.key) return { ...acc };
+    // if (!c.key) return { ...acc }; // SectionType doesnt have a key
     return { ...acc, ...newItem };
   }, {});
 };
@@ -77,12 +51,7 @@ const getKeyTypes = conf => {
 const FormCreator = props => {
   const { title, data, config, isNew, posting, error } = props;
 
-  console.log('Start With Config => ', config);
-
   const keysWithTypes = getKeyTypes(config);
-
-  console.log('Ok all the keys have types pal => ', keysWithTypes);
-
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
 
   //ToDo: we should have a way to see if the form has been touched
@@ -102,13 +71,7 @@ const FormCreator = props => {
   }); // initalise the hook
   const onSubmit = data => {
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
-    // const formattedData = _formatInsulationData(data);
-    console.group('Where care about data reachin here should be formatted');
-    console.log('original Data => ', data);
-    console.log('keysWithTypes => ', keysWithTypes);
     console.log('Well formatted Data => ', postFormattedFormData);
-    console.groupEnd();
-
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 
@@ -116,17 +79,11 @@ const FormCreator = props => {
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
       <Errors error={error} />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
         {configIsValid(config) &&
           config.map((item, idx) => {
             return (
-              <div
-                key={idx}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginTop: '16px',
-                }}>
+              <div key={idx}>
                 <InputFieldType
                   config={item}
                   key={idx}
@@ -155,20 +112,95 @@ const FormCreator = props => {
           color="primary">
           {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`}
         </Button>
-      </form>
+      </div>
     </>
   );
 };
 
+// const FormCreator = props => {
+//   const { title, data, config, isNew, posting, error } = props;
+
+//   const keysWithTypes = getKeyTypes(config);
+//   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
+
+//   //ToDo: we should have a way to see if the form has been touched
+//   // maybe see if we can get recently updated values. that would potentially work better
+
+//   const {
+//     register,
+//     handleSubmit,
+//     errors,
+//     setValue,
+//     getValues,
+//     reset,
+//   } = useForm({
+//     defaultValues: {
+//       ...preFormattedFormData,
+//     },
+//   }); // initalise the hook
+//   const onSubmit = data => {
+//     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
+//     console.log('Well formatted Data => ', postFormattedFormData);
+//     props.onSubmit(postFormattedFormData);
+//   }; // submission when input are valid
+
+//   return (
+//     // <form onSubmit={handleSubmit(onSubmit)}>
+//     <>
+//       <Errors error={error} />
+//       <form onSubmit={handleSubmit(onSubmit)}>
+//         {configIsValid(config) &&
+//           config.map((item, idx) => {
+//             return (
+//               <div
+//                 key={idx}
+//                 style={{
+//                   display: 'flex',
+//                   flexDirection: 'column',
+//                   marginTop: '16px',
+//                 }}>
+//                 <InputFieldType
+//                   config={item}
+//                   key={idx}
+//                   register={register}
+//                   reset={reset}
+//                   errors={errors}
+//                   setValue={setValue}
+//                   defaultValues={preFormattedFormData}
+//                   defaultValue={
+//                     configIsValid(config)
+//                       ? preFormattedFormData[
+//                           item.fieldProps ? item.fieldProps.name : null
+//                         ]
+//                       : null
+//                   }
+//                 />
+//                 {errors[item.name] && item.errorMessage}
+//               </div>
+//             );
+//           })}
+//         <FormErrors errors={errors} />
+//         <Button
+//           variant="contained"
+//           disabled={posting}
+//           onClick={handleSubmit(onSubmit)}
+//           color="primary">
+//           {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`}
+//         </Button>
+//       </form>
+//     </>
+//   );
+// };
+
 FormCreator.propTypes = {
   name: PropTypes.string,
-  config: PropTypes.arrayOf(
-    // PropTypes.shape({
-    //   type: PropTypes.oneOf(['CheckboxText', 'CheckMultipleWithText']),
-    //   key: PropTypes.string,
-    // })
-    PropTypes.instanceOf(InputFieldType)
-  ),
+  // config: PropTypes.arrayOf(
+  //   // PropTypes.shape({
+  //   //   type: PropTypes.oneOf(['CheckboxText', 'CheckMultipleWithText']),
+  //   //   key: PropTypes.string,
+  //   // })
+  //   PropTypes.instanceOf(InputFieldType)
+  // ),
 };
 
 export { FormCreator };

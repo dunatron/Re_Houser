@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
+    minWidth: 220,
   },
   formControl: {
     margin: theme.spacing(1),
@@ -54,10 +55,6 @@ const SelectMultipleEnum = props => {
     helperText,
   } = props;
 
-  // if (!setValue) {
-  //   console.log('SetValue SelectMultipleEnum => ', props);
-  //   return 'Lol';
-  // }
   const { type, inners, fieldProps, refConf } = config;
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {
@@ -86,7 +83,7 @@ const SelectMultipleEnum = props => {
     : [];
 
   return (
-    <FormControl>
+    <FormControl className={classes.root}>
       <InputLabel id={`${selectID}-label`} variant="outlined">
         {label}
       </InputLabel>

@@ -1,6 +1,13 @@
 import { FormCreator } from '../Forms';
-import { CREATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
 import { useMutation } from '@apollo/client';
+import { CREATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
+import {
+  PROPERTIES_QUERY,
+  OWNER_PROPERTIES_QUERY,
+} from '../../graphql/queries/index';
+
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
+
 import { toast } from 'react-toastify';
 import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
 
@@ -11,6 +18,16 @@ const CreatePropertyComponent = props => {
 
   const handleCompleted = data => {
     console.log('Finished successful property upload');
+    toast.success(
+      <div>
+        <p>New Property Created</p>
+        <ChangeRouteButton
+          title="Go to property"
+          route="/properties/property"
+          query={{ id: data.createProperty.id }}
+        />
+      </div>
+    );
   };
 
   const [createProperty, { loading, error, data }] = useMutation(
@@ -18,6 +35,10 @@ const CreatePropertyComponent = props => {
     {
       // onCompleted: data => handleCompleted(data),
       onCompleted: handleCompleted,
+      refetchQueries: [
+        { query: PROPERTIES_QUERY },
+        { query: OWNER_PROPERTIES_QUERY },
+      ],
     }
   );
 
@@ -28,13 +49,43 @@ const CreatePropertyComponent = props => {
       variables: {
         data: {
           ...data,
+          onTheMarket: false,
+          useAdvancedRent: false,
+          creator: {
+            connect: {
+              id: me.id,
+            },
+          },
+          insulationForm: data.insulationForm
+            ? {
+                create: {
+                  ...data.insulationForm,
+                },
+              }
+            : {},
+          images: data.images
+            ? {
+                create: [
+                  ...images
+                    .filter(img => img.type !== 'rawImage')
+                    .map((img, i) => {
+                      return {
+                        filename: `${state.location}_${i}`,
+                        mimetype: 'MIMETYPE',
+                        encoding: 'encoding',
+                        url: img.data,
+                      };
+                    }),
+                ],
+              }
+            : {},
         },
       },
     });
   };
 
   return (
-    <>
+    <div style={{ maxWidth: '800px' }}>
       <FormCreator
         title="Property"
         isNew={true}
@@ -44,15 +95,15 @@ const CreatePropertyComponent = props => {
         config={CREATE_PROPERTY_FORM_CONF}
         error={error}
         posting={loading}
-        // onSubmit={submitFormWithData}
-        onSubmit={d => {
-          console.log('Submitted create form => ', d);
-        }}
+        onSubmit={submitFormWithData}
+        // onSubmit={d => {
+        //   console.log('Submitted create form => ', d);
+        // }}
         // onSubmit={prismaReadyData => {
         //   createProperty(prismaReadyData);
         // }}
       />
-    </>
+    </div>
   );
 };
 

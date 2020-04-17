@@ -18,8 +18,6 @@ import {
 } from './formatSelectMultipleEnum';
 
 const _preFormatData = (data, keyTypes, mode) => {
-  console.group('==Test PreFomatData==');
-  console.log('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
   if (!data) return {};
   if (isEmpty(data)) return {};
   const filterEmptyAndFormat = Object.entries(data).reduce(
@@ -27,9 +25,7 @@ const _preFormatData = (data, keyTypes, mode) => {
       v == null ? a : { ...a, [k]: formatValByType(v, keyTypes[k], mode) },
     {}
   );
-
   console.log('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
-  console.groupEnd('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
 
   return {
     ...filterEmptyAndFormat,
@@ -41,11 +37,9 @@ const _preFormatData = (data, keyTypes, mode) => {
  * // perhaps dues to no keyTypes look up and above
  */
 const formatValByType = (v, type, mode) => {
-  console.group('formatValByType');
-  console.log('v => ', v);
-  console.log('type => ', type);
-  console.log('mode => ', mode);
-  console.groupEnd();
+  // console.log('v => ', v);
+  // console.log('type => ', type);
+
   if (type) {
     switch (type) {
       case 'CheckReason':
