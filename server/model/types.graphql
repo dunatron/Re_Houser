@@ -35,6 +35,7 @@ type User {
   sentMessages: [Message!]! @relation(name: "UserSentMessages")
   recievedMessages: [Message!]! @relation(name: "UserRecievedMessages")
   rehouserStamp: Boolean
+  signature: File @relation(name: "UserSignature", link: TABLE)
   activity: [Activity!]! @relation(name: "UserActivity")
   involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
@@ -126,6 +127,7 @@ type File {
   url: String
   userPhotoId: User @relation(name: "UserPhotoId")
   userProfilePhoto: User @relation(name: "UserProfilePhoto")
+  userSignature: User @relation(name: "UserSignature")
 }
 
 type Property implements PropertyInfo {

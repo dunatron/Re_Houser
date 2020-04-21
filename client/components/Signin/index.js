@@ -9,6 +9,7 @@ import NavigationIcon from '@material-ui/icons/Navigation';
 import TextInput from '../../styles/TextInput';
 import { SIGNIN_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
+import ButtonLoader from '../Loader/ButtonLoader';
 
 const Signin = props => {
   const [state, setState] = useState({
@@ -19,7 +20,23 @@ const Signin = props => {
   const recaptchaRef = useRef();
 
   const clearRecaptcha = () => recaptchaRef.current.reset();
-  const [signIn, { loading, error, data }] = useMutation(SIGNIN_MUTATION);
+
+  const handleCompleted = data => {
+    console.log('Finished successful property upload');
+    toast.success(
+      <p>
+        <strong>
+          Welcome {data.signin.firstName} {data.signin.lastName}
+        </strong>
+      </p>
+    );
+  };
+  const [signIn, { loading, error, data, called }] = useMutation(
+    SIGNIN_MUTATION,
+    {
+      onCompleted: handleCompleted,
+    }
+  );
   const saveToState = e => {
     setState({
       ...state,
@@ -28,15 +45,7 @@ const Signin = props => {
     props.update(e);
     // ToDo: push up to if we have update function to tell the container
   };
-  if (data) {
-    toast.success(
-      <p>
-        <strong>
-          Welcome {data.signin.firstName} {data.signin.lastName}
-        </strong>
-      </p>
-    );
-  }
+
   useEffect(() => {
     setState({
       ...state,
@@ -100,16 +109,21 @@ const Signin = props => {
           }}
         />
 
-        <FabButton
+        <ButtonLoader
           type="submit"
           data-cy="submit-login"
-          variant="extended"
-          color="primary"
-          aria-label="Add"
-          style={{ minWidth: 160 }}>
+          // variant="filled"
+          loading={loading}
+          text="Sign in"
+          successText="Logged In"
+          style={{
+            marginTop: '16px',
+          }}
+          color="secondary"
+          disabled={state.captchaToken.length <= 0 ? true : false || loading}
+          success={false}>
           <NavigationIcon style={{ marginRight: 5 }} />
-          Sign In
-        </FabButton>
+        </ButtonLoader>
       </fieldset>
     </Form>
   );

@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import { SIGNUP_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
+import ButtonLoader from '../Loader/ButtonLoader';
 
 const Signup = props => {
   const recaptchaRef = useRef();
@@ -31,9 +32,25 @@ const Signup = props => {
     });
     props.update(e);
   };
+
+  const handleCompleted = data => {
+    toast.info(
+      <div>
+        <h1>Congrats on signing up</h1>
+        {accountBtn}
+      </div>,
+      {
+        position: toast.POSITION.TOP_RIGHT,
+        // closeOnClick: false,
+        autoClose: 15000,
+      }
+    );
+  };
+
   const [signUp, { error, loading, data }] = useMutation(SIGNUP_MUTATION, {
     variables: state,
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    onCompleted: handleCompleted,
   });
   const handleLink = (route = '/', query = {}) => {
     Router.push({
@@ -50,19 +67,7 @@ const Signup = props => {
       Update Profile
     </Button>
   );
-  if (data) {
-    toast.info(
-      <div>
-        <h1>Congrats on signing up</h1>
-        {accountBtn}
-      </div>,
-      {
-        position: toast.POSITION.TOP_RIGHT,
-        // closeOnClick: false,
-        autoClose: 15000,
-      }
-    );
-  }
+
   useEffect(() => {
     setState({
       ...state,
@@ -82,8 +87,6 @@ const Signup = props => {
       onSubmit={async e => {
         e.preventDefault();
         signUp();
-
-        // recaptchaRef.current.reset();
         clearRecaptcha();
       }}>
       <fieldset disabled={loading} aria-busy={loading}>
@@ -166,17 +169,21 @@ const Signup = props => {
             })
           }
         />
-
-        <FabButton
+        <ButtonLoader
           type="submit"
           data-cy="submit-signup"
-          variant="extended"
-          color="primary"
-          aria-label="Add"
-          style={{ minWidth: 160 }}>
+          // variant="filled"
+          loading={loading}
+          text="Sign Up"
+          successText="Signed Up"
+          style={{
+            marginTop: '16px',
+          }}
+          color="secondary"
+          disabled={state.captchaToken.length <= 0 ? true : false || loading}
+          success={false}>
           <NavigationIcon style={{ marginRight: 5 }} />
-          Sign Up
-        </FabButton>
+        </ButtonLoader>
       </fieldset>
     </Form>
   );

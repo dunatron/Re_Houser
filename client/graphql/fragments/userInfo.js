@@ -25,6 +25,14 @@ const UserInfoFragment = gql`
       encoding
       url
     }
+    signature {
+      createdAt
+      updatedAt
+      filename
+      mimetype
+      encoding
+      url
+    }
     identificationNumber
     emergencyContactName
     emergencyContactNumber

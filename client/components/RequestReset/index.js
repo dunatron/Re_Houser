@@ -70,7 +70,7 @@
 // export default RequestReset;
 // export { REQUEST_RESET_MUTATION };
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -88,8 +88,8 @@ const REQUEST_RESET_MUTATION = gql`
   }
 `;
 
-const RequestReset = () => {
-  const [email, setEmail] = useState('');
+const RequestReset = props => {
+  const [email, setEmail] = useState(props.email);
   const [resetPassword, { data, loading, error, called, client }] = useMutation(
     REQUEST_RESET_MUTATION,
     {
@@ -98,6 +98,9 @@ const RequestReset = () => {
       },
     }
   );
+  useEffect(() => {
+    setEmail(props.email);
+  }, [props.email]);
   // saveToState = e => {
   //   this.setState({ [e.target.name]: e.target.value });
   // };

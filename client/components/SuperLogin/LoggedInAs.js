@@ -27,7 +27,7 @@ const LoggedInAs = ({ me }) => {
         />
         <ChangeRouteButton
           title="Add Property"
-          route="/add/property"
+          route="/properties/add"
           variant="outlined"
         />
       </div>

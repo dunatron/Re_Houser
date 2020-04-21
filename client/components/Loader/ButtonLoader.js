@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   wrapper: {
     // margin: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    width: '100%',
+    // width: '100%',
     position: 'relative',
   },
   button: {
@@ -58,15 +58,17 @@ const RenderBtnText = ({ success, text, successText }) => {
   return <span>{text}</span>;
 };
 
-const ButtonLoader = ({
-  loading,
-  success,
-  onClick,
-  text,
-  successText,
-  cy,
-  btnProps,
-}) => {
+const ButtonLoader = props => {
+  const {
+    loading,
+    success,
+    onClick,
+    text,
+    successText,
+    cy,
+    btnProps,
+    children,
+  } = props;
   const classes = useStyles();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
@@ -74,29 +76,50 @@ const ButtonLoader = ({
   });
 
   return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
-        <StyledButton
-          data-cy={cy}
-          // fullWidth
-          variant="contained"
-          color="primary"
-          className={buttonClassname}
-          disabled={loading}
-          {...btnProps}
-          onClick={onClick}>
-          <RenderBtnText
-            success={success}
-            text={text}
-            successText={successText}
-          />
-        </StyledButton>
-        {loading && (
-          <CircularProgress size={24} className={classes.buttonProgress} />
-        )}
-      </div>
-    </div>
+    <StyledButton
+      data-cy={cy}
+      // fullWidth
+      variant="contained"
+      color="primary"
+      className={buttonClassname}
+      disabled={loading}
+      {...btnProps}
+      {...props}
+      onClick={onClick}>
+      {children}
+      <RenderBtnText success={success} text={text} successText={successText} />
+      {loading && (
+        <CircularProgress size={24} className={classes.buttonProgress} />
+      )}
+    </StyledButton>
   );
+
+  // return (
+  //   <div className={classes.root}>
+  //     <div className={classes.wrapper}>
+  //       <StyledButton
+  //         data-cy={cy}
+  //         // fullWidth
+  //         variant="contained"
+  //         color="primary"
+  //         className={buttonClassname}
+  //         disabled={loading}
+  //         {...btnProps}
+  //         {...props}
+  //         onClick={onClick}>
+  //         {children}
+  //         <RenderBtnText
+  //           success={success}
+  //           text={text}
+  //           successText={successText}
+  //         />
+  //         {loading && (
+  //           <CircularProgress size={24} className={classes.buttonProgress} />
+  //         )}
+  //       </StyledButton>
+  //     </div>
+  //   </div>
+  // );
 };
 
 ButtonLoader.propTypes = {
@@ -107,4 +130,5 @@ ButtonLoader.propTypes = {
   successText: PropTypes.string,
 };
 
+export { StyledButton, ButtonLoader };
 export default ButtonLoader;

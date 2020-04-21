@@ -21,6 +21,7 @@ import { UPDATE_PROPERTY_LEASE_MUTATION } from './updatePropertyLease';
 import { UPDATE_INSULATION_FORM_MUTATION } from './updateInsulationForm';
 import { CREATE_RENTAL_APPRAISAL_MUTATION } from './createRentalAppraisal';
 import { OFFER_RENTAL_APPRAISAL_MUTATION } from './offerRentalAppraisal';
+import { UPLOAD_SIGNATURE_FILE } from './uploadSignature';
 
 export {
   SIGNUP_MUTATION,
@@ -46,4 +47,5 @@ export {
   UPDATE_INSULATION_FORM_MUTATION,
   CREATE_RENTAL_APPRAISAL_MUTATION,
   OFFER_RENTAL_APPRAISAL_MUTATION,
+  UPLOAD_SIGNATURE_FILE,
 };

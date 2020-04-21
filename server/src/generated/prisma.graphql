@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Apr 16 2020 18:06:49 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue Apr 21 2020 13:24:35 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -3906,6 +3906,7 @@ type File implements Node {
   url: String
   userPhotoId: User
   userProfilePhoto: User
+  userSignature: User
 }
 
 """A connection to a list of items."""
@@ -3926,6 +3927,7 @@ input FileCreateInput {
   url: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
 }
 
 input FileCreateManyInput {
@@ -3948,6 +3950,11 @@ input FileCreateOneWithoutUserProfilePhotoInput {
   connect: FileWhereUniqueInput
 }
 
+input FileCreateOneWithoutUserSignatureInput {
+  create: FileCreateWithoutUserSignatureInput
+  connect: FileWhereUniqueInput
+}
+
 input FileCreateWithoutUserPhotoIdInput {
   id: ID
   filename: String!
@@ -3955,6 +3962,7 @@ input FileCreateWithoutUserPhotoIdInput {
   encoding: String!
   url: String
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -3964,6 +3972,17 @@ input FileCreateWithoutUserProfilePhotoInput {
   encoding: String!
   url: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userSignature: UserCreateOneWithoutSignatureInput
+}
+
+input FileCreateWithoutUserSignatureInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
 }
 
 """An edge in a connection."""
@@ -4301,6 +4320,7 @@ input FileUpdateDataInput {
   url: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
 }
 
 input FileUpdateInput {
@@ -4310,6 +4330,7 @@ input FileUpdateInput {
   url: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
 }
 
 input FileUpdateManyDataInput {
@@ -4370,12 +4391,22 @@ input FileUpdateOneWithoutUserProfilePhotoInput {
   upsert: FileUpsertWithoutUserProfilePhotoInput
 }
 
+input FileUpdateOneWithoutUserSignatureInput {
+  create: FileCreateWithoutUserSignatureInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutUserSignatureDataInput
+  upsert: FileUpsertWithoutUserSignatureInput
+}
+
 input FileUpdateWithoutUserPhotoIdDataInput {
   filename: String
   mimetype: String
   encoding: String
   url: String
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -4384,6 +4415,16 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   encoding: String
   url: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+}
+
+input FileUpdateWithoutUserSignatureDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
 }
 
 input FileUpdateWithWhereUniqueNestedInput {
@@ -4404,6 +4445,11 @@ input FileUpsertWithoutUserPhotoIdInput {
 input FileUpsertWithoutUserProfilePhotoInput {
   update: FileUpdateWithoutUserProfilePhotoDataInput!
   create: FileCreateWithoutUserProfilePhotoInput!
+}
+
+input FileUpsertWithoutUserSignatureInput {
+  update: FileUpdateWithoutUserSignatureDataInput!
+  create: FileCreateWithoutUserSignatureInput!
 }
 
 input FileUpsertWithWhereUniqueNestedInput {
@@ -4667,6 +4713,7 @@ input FileWhereInput {
   url_not_ends_with: String
   userPhotoId: UserWhereInput
   userProfilePhoto: UserWhereInput
+  userSignature: UserWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -14060,6 +14107,7 @@ type User implements Node {
   sentMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
   recievedMessages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message!]
   rehouserStamp: Boolean
+  signature: File
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   involvedActivity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
@@ -14112,6 +14160,7 @@ input UserCreateInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14202,6 +14251,11 @@ input UserCreateOneWithoutSentMessagesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutSignatureInput {
+  create: UserCreateWithoutSignatureInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreatepermissionsInput {
   set: [Permission!]
 }
@@ -14242,6 +14296,7 @@ input UserCreateWithoutActivityInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
 }
@@ -14281,6 +14336,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14321,6 +14377,7 @@ input UserCreateWithoutChatsInput {
   primaryCreditCard: CreditCardCreateOneInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14361,6 +14418,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14401,6 +14459,7 @@ input UserCreateWithoutCreditCardsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14441,6 +14500,7 @@ input UserCreateWithoutFriendRequestsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14482,6 +14542,7 @@ input UserCreateWithoutInvolvedActivityInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
 }
@@ -14521,6 +14582,7 @@ input UserCreateWithoutLesseeLeasesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14561,6 +14623,7 @@ input UserCreateWithoutLessorLeasesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14601,6 +14664,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14641,6 +14705,7 @@ input UserCreateWithoutProfilePhotoInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14681,6 +14746,7 @@ input UserCreateWithoutPropertiesInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14721,6 +14787,7 @@ input UserCreateWithoutRecievedMessagesInput {
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -14762,6 +14829,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
 }
@@ -14800,6 +14868,48 @@ input UserCreateWithoutSentMessagesInput {
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+}
+
+input UserCreateWithoutSignatureInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
@@ -15725,6 +15835,7 @@ input UserUpdateDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -15765,6 +15876,7 @@ input UserUpdateInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -15974,6 +16086,15 @@ input UserUpdateOneWithoutSentMessagesInput {
   upsert: UserUpsertWithoutSentMessagesInput
 }
 
+input UserUpdateOneWithoutSignatureInput {
+  create: UserCreateWithoutSignatureInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutSignatureDataInput
+  upsert: UserUpsertWithoutSignatureInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -16013,6 +16134,7 @@ input UserUpdateWithoutActivityDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
 }
@@ -16051,6 +16173,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16090,6 +16213,7 @@ input UserUpdateWithoutChatsDataInput {
   primaryCreditCard: CreditCardUpdateOneInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16129,6 +16253,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16168,6 +16293,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16207,6 +16333,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16247,6 +16374,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
 }
@@ -16285,6 +16413,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16324,6 +16453,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16363,6 +16493,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16402,6 +16533,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16441,6 +16573,7 @@ input UserUpdateWithoutPropertiesDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16480,6 +16613,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
@@ -16520,6 +16654,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
 }
@@ -16557,6 +16692,47 @@ input UserUpdateWithoutSentMessagesDataInput {
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+}
+
+input UserUpdateWithoutSignatureDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
   recievedMessages: MessageUpdateManyWithoutRecipientInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
@@ -16646,6 +16822,11 @@ input UserUpsertWithoutRentalAppraisalsInput {
 input UserUpsertWithoutSentMessagesInput {
   update: UserUpdateWithoutSentMessagesDataInput!
   create: UserCreateWithoutSentMessagesInput!
+}
+
+input UserUpsertWithoutSignatureInput {
+  update: UserUpdateWithoutSignatureDataInput!
+  create: UserCreateWithoutSignatureInput!
 }
 
 input UserUpsertWithWhereUniqueNestedInput {
@@ -17471,6 +17652,7 @@ input UserWhereInput {
   recievedMessages_every: MessageWhereInput
   recievedMessages_some: MessageWhereInput
   recievedMessages_none: MessageWhereInput
+  signature: FileWhereInput
   activity_every: ActivityWhereInput
   activity_some: ActivityWhereInput
   activity_none: ActivityWhereInput

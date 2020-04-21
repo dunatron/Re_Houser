@@ -71,6 +71,13 @@ const GlobalStyle = createGlobalStyle`
     font-style:   normal;
     font-weight:  200;
   }
+  @font-face {
+    font-family: "Allison";
+    /* src: url('/static/fonts/Allison_Script.otf') format('otf');  */
+    src: url('/static/fonts/Gustan-Light.woff') format('woff'); /* IE9 Compat Modes */
+    font-style:   normal;
+    font-weight:  200;
+  }
   html {
     box-sizing: border-box;
     /* font-size: 10px; */

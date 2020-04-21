@@ -46,6 +46,7 @@ import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import CameraOutlinedIcon from '@material-ui/icons/CameraOutlined';
 import CameraFrontOutlinedIcon from '@material-ui/icons/CameraFrontOutlined';
 import PaymentIcon from '@material-ui/icons/Payment';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 const useStyles = makeStyles(theme => ({
   inputGrid: {
@@ -154,8 +155,16 @@ const AccountComponent = () => {
         </div>
       )}
 
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+        <ChangeRouteButton
+          route="/account/signature"
+          title="Set Signature"
+          variant="outlined"
+        />
+        <DeleteAccount />
+      </div>
       <CompletionRating me={me} />
-      <DeleteAccount />
+
       <UserProfile user={me} me={me} />
 
       <Tabs

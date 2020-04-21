@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PleaseSignIn from '../components/PleaseSignIn';
-import Account from '../components/Account/index';
+import PleaseSignIn from '../../components/PleaseSignIn';
+import Account from '../../components/Account/index';
 
 const AccountPage = props => {
   const {

@@ -4,6 +4,14 @@ async function updateUser(parent, { data, photoFile }, ctx, info) {
   const uploadedPhoto = photoFile
     ? await processUpload(await photoFile, ctx)
     : null;
+  const signatureFile = data.signature
+    ? await processUpload(await data.signature, ctx)
+    : null;
+  if (signatureFile) {
+    throw Error("we have a file");
+  } else {
+    throw Error("No signature file attached");
+  }
   const userData = {
     ...data,
     photoIdentification: photoFile

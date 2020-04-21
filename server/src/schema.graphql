@@ -33,6 +33,7 @@ type User {
   permissions: [Permission]
   token: String
   rehouserStamp: Boolean
+  signature: File
   activity: [Activity!]!
   involvedActivity: [Activity!]!
   rentalAppraisals: [RentalAppraisal]
@@ -66,6 +67,7 @@ type Mutation {
   singleUpload(file: Upload!): File!
   uploadPhotoId(file: Upload!, photoId: String!): User
   uploadProfilePhoto(file: Upload!): User
+  uploadSignature(file: Upload!): User
   uploadFile(file: Upload!): File!
   uploadFiles(files: [Upload!]!): [File!]!
   deleteFile(id: ID!): File

@@ -120,7 +120,7 @@ const LoginPage = props => {
           />
         </TabContainer>
         <TabContainer dir={theme.direction}>
-          <RequestReset />
+          <RequestReset email={state.email} />
         </TabContainer>
       </SwipeableViews>
     </div>

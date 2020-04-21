@@ -75,6 +75,7 @@
     "react-icons": "^3.7.0",
     "react-instantsearch-dom": "^6.0.0",
     "react-no-ssr": "^1.1.0",
+    "react-signature-canvas": "^1.0.3",
     "react-stripe-elements": "^6.0.1",
     "react-swipeable-views": "^0.13.9",
     "react-tap-event-plugin": "^3.0.3",
