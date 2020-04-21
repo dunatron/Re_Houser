@@ -14,6 +14,7 @@ import Error from '../ErrorMessage';
 import { StyledButton, ButtonLoader } from '../Loader/ButtonLoader';
 import { border } from '@material-ui/system';
 import { toast } from 'react-toastify';
+import { css } from 'glamor';
 
 const useStyles = makeStyles(theme => ({
   canvas: {
@@ -33,13 +34,27 @@ const SignatureComponent = ({ me }) => {
   const [throttle, setThrottle] = useState(16); // default: 16
 
   const handleCompleted = data => {
-    console.log('Finished successful property upload');
+    console.log('Finished successful property upload => data ', data);
     toast.success(
       <div>
         <p>
-          <strong>Signature has been set</strong>
+          <Typography>Signature has been set</Typography>
+          <img
+            // height="200px"
+            // width="200px"
+            src={
+              data.uploadSignature ? data.uploadSignature.signature.url : null
+            }
+          />
         </p>
-      </div>
+      </div>,
+      {
+        autoClose: 3000,
+        className: css({
+          // background: 'black',
+          width: '500px',
+        }),
+      }
     );
   };
   const [uploadSignature, { loading, error, data, called }] = useMutation(

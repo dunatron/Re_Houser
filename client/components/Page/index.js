@@ -141,6 +141,10 @@ const Page = props => {
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
       <ToastContainer
         rtl={false}
+        style={{
+          width: 'unset',
+          minWidth: '280px',
+        }}
         closeButton={
           <div>
             <IconButton

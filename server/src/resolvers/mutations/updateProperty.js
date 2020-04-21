@@ -17,13 +17,14 @@ async function updateProperty(parent, args, ctx, info) {
   // remove the ID from the updates
   delete updates.id;
   // new file to update
+  // get the old item data
+  const item = await ctx.db.query.property(
+    { where },
+    `{ id location images {id url} insulationForm {id} }`
+  );
+  // Ok the below does not work and needs some attention
   if (updates.file) {
-    // get the old item data
-    const item = await ctx.db.query.property(
-      { where },
-      `{ id title, image {id url} }`
-    );
-    if (item.image) {
+    if (item.images) {
       deleteFile({ id: item.image.id, url: item.image.url, ctx });
     }
     const uploadedFile = await processUpload(await updates.file, ctx);
@@ -34,6 +35,12 @@ async function updateProperty(parent, args, ctx, info) {
     };
   }
   delete updates.file;
+
+  if (!item.insulationForm && updates.data.onTheMarket) {
+    throw new Error(
+      "You need an Insulation Statement before your property can go on the market"
+    );
+  }
   /**
    * activate the ciode highligting below is not used sao just do the func and dont put it into a variable
    */
