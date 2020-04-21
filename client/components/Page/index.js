@@ -15,6 +15,8 @@ import Meta from '../Meta/index';
 // Material UI
 import NoSsr from '@material-ui/core/NoSsr';
 import muiTheme from '../../styles/_muiTheme';
+import lightPalette from '../../styles/_lightMUIPalette';
+import darkPalette from '../../styles/_darkMUIPalette';
 
 // Admin Area Addisions
 import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAlertNewRentalApplicationSub';
@@ -27,7 +29,37 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import WithUser from '../WithUser';
 import WithChats from '../WithChats.js';
 
-const theme = createMuiTheme(muiTheme);
+// const theme = createMuiTheme(muiTheme);
+const theme = createMuiTheme({
+  ...muiTheme,
+  // palette: {
+  //   ...muiTheme.palette,
+  //   ...lightPalette.palette,
+  // },
+  // palette: {
+  //   ...muiTheme.palette,
+  //   ...lightPalette.palette,
+  // },
+  palette: {
+    ...muiTheme.palette,
+    ...lightPalette.palette,
+  },
+});
+
+const darkTheme = createMuiTheme({
+  ...muiTheme,
+  palette: {
+    ...muiTheme.palette,
+    ...darkPalette.palette,
+  },
+});
+const lightTheme = createMuiTheme({
+  ...muiTheme,
+  palette: {
+    ...muiTheme.palette,
+    ...lightPalette.palette,
+  },
+});
 
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -130,12 +162,14 @@ const GlobalStyle = createGlobalStyle`
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
+  const [useDarkTheme, setUseDarkTheme] = useState(false); // should set localStorage for this so each  device can remember its theme choice
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
       setStripe(window.Stripe(process.env.STRIPE_KEY));
     }
   }, [window.Stripe]);
+  const themeToUse = useDarkTheme ? darkTheme : lightTheme;
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
@@ -158,13 +192,19 @@ const Page = props => {
           </div>
         }
       />
-      <MuiThemeProvider theme={theme}>
+      <MuiThemeProvider theme={themeToUse}>
         <StripeProvider stripe={stripe}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={themeToUse}>
             <WithUser>
               {/* <WithChats> */}
               <Meta />
-              <MaterialPage children={props.children} {...props} />
+              <MaterialPage
+                children={props.children}
+                {...props}
+                toggleTheme={() => {
+                  setUseDarkTheme(!useDarkTheme);
+                }}
+              />
 
               {/* <div>
                   <h1>Admin alerts LOL</h1>

@@ -122,6 +122,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { Paper } from '@material-ui/core';
 
 import { Portal } from '../Portal/index';
 
@@ -146,7 +147,8 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   modalInner: {
-    background: '#FFF',
+    // background: '#FFF',
+    borderRadius: 0,
     maxWidth: '500px',
     position: 'relative',
     zIndex: 30,
@@ -243,7 +245,7 @@ const Modal = props => {
               maxWidth: `${props.width}px`,
               maxHeight: `${props.height}px`,
             }}>
-            <div className={classes.modalInner} ref={node}>
+            <Paper className={classes.modalInner} ref={node}>
               <div className={classes.modalHeader} id={`${id}-modal-header`}>
                 <h2 className={classes.modalTitle}>{title}</h2>
                 <IconButton
@@ -255,7 +257,7 @@ const Modal = props => {
                 </IconButton>
               </div>
               <div className={classes.modalBody}>{props.children}</div>
-            </div>
+            </Paper>
           </div>
           <div className={classes.overlay} onClick={() => props.close()}>
             Overlay

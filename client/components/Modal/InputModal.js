@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, Paper } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { Portal } from '../Portal/index';
@@ -23,7 +23,8 @@ const styles = theme => ({
   content: {
     // height: 100,
     // width: 100,
-    background: '#FFF',
+    // background: '#FFF',
+    borderRadius: 0,
     overflow: 'auto',
     // zIndex: 9000,
     // height: "100%",
@@ -68,7 +69,7 @@ class Modal extends Component {
         {open && (
           <Portal selector="#modal">
             <div className={classes.root}>
-              <div
+              <Paper
                 className={classes.content}
                 style={{
                   maxWidth: `${this.props.width}px`,
@@ -86,7 +87,7 @@ class Modal extends Component {
                   </IconButton>
                 </div>
                 <div className={classes.modalBody}>{this.props.children}</div>
-              </div>
+              </Paper>
               <div
                 className={classes.overlay}
                 onClick={() => this.props.close()}>

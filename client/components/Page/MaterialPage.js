@@ -16,6 +16,7 @@ import { SITE_NAME } from '../../lib/const';
 import { useRouter } from 'next/router';
 import useStyles from './useStyles';
 import DashboardIcon from '../../styles/icons/DashboardIcon';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { Tooltip } from '@material-ui/core';
 
 import Link from 'next/link';
@@ -23,7 +24,7 @@ import Sidebar from '../Sidebar';
 
 function MaterialPage(props) {
   // const { container, loadingUser, me } = props;
-  const { container, appData } = props;
+  const { container, appData, toggleTheme } = props;
   const { currentUser } = appData;
 
   const me = currentUser.data ? currentUser.data.me : null;
@@ -52,7 +53,6 @@ function MaterialPage(props) {
       <Sidebar loadingUser={currentUser.loading} me={me} />
     </>
   );
-
 
   const pathParts = router.pathname.split('/');
   const formattedPathParts = pathParts.filter(part => part !== '');
@@ -113,6 +113,15 @@ function MaterialPage(props) {
             )}
 
             <div style={{ position: 'absolute', right: '16px' }}>
+              <Tooltip title="go to Dashboard">
+                <IconButton
+                  onClick={() => toggleTheme()}
+                  color="inherit"
+                  aria-label="toggle Theme"
+                  edge="end">
+                  <Brightness7Icon />
+                </IconButton>
+              </Tooltip>
               <Tooltip title="go to Dashboard">
                 <IconButton
                   onClick={() => {
