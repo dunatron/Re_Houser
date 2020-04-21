@@ -25,7 +25,6 @@ const _preFormatData = (data, keyTypes, mode) => {
       v == null ? a : { ...a, [k]: formatValByType(v, keyTypes[k], mode) },
     {}
   );
-  console.log('Ok cant Reslove KeyTypes u piece of shit => ', keyTypes);
 
   return {
     ...filterEmptyAndFormat,

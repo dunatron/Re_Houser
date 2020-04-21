@@ -17,7 +17,6 @@ const CreatePropertyComponent = props => {
   if (!me) return 'You must be logged in to create a property appraisal';
 
   const handleCompleted = data => {
-    console.log('Finished successful property upload');
     toast.success(
       <div>
         <p>New Property Created</p>
@@ -43,14 +42,17 @@ const CreatePropertyComponent = props => {
   );
 
   const submitFormWithData = data => {
-    console.log('Here is submitted data => ', data);
-    // alert('Check console logs');
     createProperty({
       variables: {
         data: {
           ...data,
           onTheMarket: false,
           useAdvancedRent: false,
+          owners: {
+            connect: {
+              id: me.id,
+            },
+          },
           creator: {
             connect: {
               id: me.id,

@@ -23,7 +23,6 @@ const configIsValid = config => {
 
 const extractKeyType = obj => {
   let extras = {};
-  console.log('This is where we extract the keys => ', obj);
   if (obj.inners) {
     extras = getKeyTypes(obj.inners);
   }

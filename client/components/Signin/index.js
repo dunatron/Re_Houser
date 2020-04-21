@@ -22,7 +22,6 @@ const Signin = props => {
   const clearRecaptcha = () => recaptchaRef.current.reset();
 
   const handleCompleted = data => {
-    console.log('Finished successful property upload');
     toast.success(
       <p>
         <strong>

@@ -34,7 +34,6 @@ const SignatureComponent = ({ me }) => {
   const [throttle, setThrottle] = useState(16); // default: 16
 
   const handleCompleted = data => {
-    console.log('Finished successful property upload => data ', data);
     toast.success(
       <div>
         <p>
