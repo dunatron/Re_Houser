@@ -85,6 +85,7 @@ function MaterialPage(props) {
     return child;
   });
 
+  // https://upmostly.com/tutorials/settimeout-in-react-components-using-hooks
   useEffect(() => {
     const timer = setTimeout(() => {
       toggleTheme();
@@ -101,10 +102,27 @@ function MaterialPage(props) {
     <>
       <div className={classes.root}>
         <CssBaseline />
+        {seizureProcedure && (
+          <div
+            onClick={() => setSeizureProcedure(false)}
+            style={{
+              backgroundColor: 'yellow',
+              position: 'fixed',
+              top: '40%',
+              right: '40%',
+            }}>
+            <h1>
+              <span>&#128152;</span>
+              <span>&#128565;</span>
+              <span>&#128565;</span>STOP PLEASE
+              <span>&#128565;</span>
+              <span>&#128565;</span>
+              <span>&#128152;</span>
+            </h1>
+          </div>
+        )}{' '}
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            {' '}
-            {seconds} seconds have elapsed since mounting.
             <IconButton
               color="inherit"
               aria-label="open drawer"
