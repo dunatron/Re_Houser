@@ -53,7 +53,8 @@ const styles = theme => ({
   overlay: {
     position: 'fixed',
     top: 0,
-    background: fade(theme.palette.primary.main, 0.3),
+    // background: fade(theme.palette.primary.main, 0.3),
+    background: fade(theme.palette.background.paper, 0.85),
     height: '100%',
     width: '100%',
     zIndex: 5,
