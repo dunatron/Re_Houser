@@ -23,6 +23,14 @@ import Link from 'next/link';
 import Sidebar from '../Sidebar';
 import { set } from 'date-fns';
 
+const heartsEmojiMap = () => {
+  let cmpnts = [];
+  for (var index = 0; index < 20; index++) {
+    cmpnts.push(<span>&#128152;</span>);
+  }
+  return cmpnts;
+};
+
 function MaterialPage(props) {
   // const { container, loadingUser, me } = props;
   const { container, appData, toggleTheme } = props;
@@ -98,6 +106,8 @@ function MaterialPage(props) {
     return () => clearTimeout(timer);
   }, [seizureProcedure, seconds]);
 
+  const heartEmojis = heartsEmojiMap();
+
   return (
     <>
       <div className={classes.root}>
@@ -110,16 +120,23 @@ function MaterialPage(props) {
               position: 'fixed',
               top: '40%',
               right: '40%',
+              zIndex: 9999999999999999,
             }}>
+            <h1>{heartEmojis}</h1>
             <h1>
-              <span>&#128152;</span>
-              <span>&#128565;</span>
-              <span>&#128565;</span>STOP PLEASE
-              <span>&#128565;</span>
-              <span>&#128565;</span>
-              <span>&#128152;</span>
+              <span>&#128565; &#128565;</span>
+              <span> &#127814; &#127814; &#127814;</span>
+              <span>STOP PLEASE</span>
+              <span>&#127814; &#127814; &#127814;</span>
+              <span>&#128565; &#128565;</span>
+            </h1>
+            <h1>
               <span>If I had a heart it would be a &#128156; one</span>
             </h1>
+            <h1>
+              <span>Hercules, Hercules, Hercules &#128303;</span>
+            </h1>
+            <h1>{heartEmojis}</h1>
           </div>
         )}{' '}
         <AppBar position="fixed" className={classes.appBar}>
