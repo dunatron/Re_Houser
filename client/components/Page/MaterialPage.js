@@ -118,6 +118,7 @@ function MaterialPage(props) {
               <span>&#128565;</span>
               <span>&#128565;</span>
               <span>&#128152;</span>
+              <span>If I had a heart it would be a &#128156; one</span>
             </h1>
           </div>
         )}{' '}
