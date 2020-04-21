@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,17 +21,26 @@ import { Tooltip } from '@material-ui/core';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
+import { set } from 'date-fns';
 
 function MaterialPage(props) {
   // const { container, loadingUser, me } = props;
   const { container, appData, toggleTheme } = props;
   const { currentUser } = appData;
+  const [seizureProcedure, setSeizureProcedure] = useState(false);
+  const [seconds, setSeconds] = useState(0);
 
   const me = currentUser.data ? currentUser.data.me : null;
   const router = useRouter();
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(seconds => seconds + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -76,12 +85,26 @@ function MaterialPage(props) {
     return child;
   });
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toggleTheme();
+      setSeconds(seconds + 0.5);
+    }, 10);
+    if (seizureProcedure) {
+    } else {
+      clearTimeout(timer);
+    }
+    return () => clearTimeout(timer);
+  }, [seizureProcedure, seconds]);
+
   return (
     <>
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
+            {' '}
+            {seconds} seconds have elapsed since mounting.
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -111,8 +134,19 @@ function MaterialPage(props) {
                 })}
               </>
             )}
-
             <div style={{ position: 'absolute', right: '16px' }}>
+              <Tooltip title="perform the seizure procedure">
+                <IconButton
+                  onClick={() => {
+                    // toggleTheme();
+                    setSeizureProcedure(!seizureProcedure);
+                  }}
+                  color="inherit"
+                  aria-label="toggle Theme"
+                  edge="end">
+                  <Brightness7Icon />
+                </IconButton>
+              </Tooltip>
               <Tooltip title="go to Dashboard">
                 <IconButton
                   onClick={() => toggleTheme()}
