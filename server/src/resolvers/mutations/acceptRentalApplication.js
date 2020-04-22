@@ -73,19 +73,6 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     throw new Error("You are not one of the owners!");
   }
 
-  // set the stage to complete by making a mutation
-  ctx.db.mutation.updateRentalApplication(
-    {
-      where: {
-        id: applicationId
-      },
-      data: {
-        stage: "ACCEPTED"
-      }
-    },
-    info
-  );
-
   // create the new lease and await for the PropertyLease entity to return
   const lease = await createPropertyLease(
     parent,
@@ -121,6 +108,21 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
       }
     },
     ctx,
+    info
+  );
+
+  // set the stage to complete by making a mutation
+  // also connect the loose prop of leaseId so we can direct people to the lease to sign
+  ctx.db.mutation.updateRentalApplication(
+    {
+      where: {
+        id: applicationId
+      },
+      data: {
+        stage: "ACCEPTED",
+        leaseId: lease.id
+      }
+    },
     info
   );
 

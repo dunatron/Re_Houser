@@ -20,6 +20,7 @@ const RentalApplicationInfoFragment = gql`
     property {
       ...propertyInfo
     }
+    leaseId
     applicants {
       # id
       # approved

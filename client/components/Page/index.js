@@ -179,7 +179,7 @@ const Page = props => {
       <ToastContainer
         rtl={false}
         style={{
-          width: 'unset',
+          // width: 'unset',
           minWidth: '280px',
         }}
         closeButton={

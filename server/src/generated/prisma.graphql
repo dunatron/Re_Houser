@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Apr 21 2020 13:24:35 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Apr 22 2020 18:49:15 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -11717,6 +11717,7 @@ type RentalApplication implements Node {
   owner: User!
   title: String
   stage: ApplicationStage!
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   property: Property!
@@ -11737,6 +11738,7 @@ input RentalApplicationCreateInput {
   id: ID
   title: String
   stage: ApplicationStage!
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
@@ -11758,6 +11760,7 @@ input RentalApplicationCreateWithoutApplicantsInput {
   id: ID
   title: String
   stage: ApplicationStage!
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
@@ -11768,6 +11771,7 @@ input RentalApplicationCreateWithoutPropertyInput {
   id: ID
   title: String
   stage: ApplicationStage!
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
@@ -11794,6 +11798,8 @@ enum RentalApplicationOrderByInput {
   title_DESC
   stage_ASC
   stage_DESC
+  leaseId_ASC
+  leaseId_DESC
   visibility_ASC
   visibility_DESC
   finalised_ASC
@@ -11806,6 +11812,7 @@ type RentalApplicationPreviousValues {
   createdAt: DateTime!
   title: String
   stage: ApplicationStage!
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
 }
@@ -11953,6 +11960,46 @@ input RentalApplicationScalarWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
+  leaseId: String
+
+  """All values that are not equal to given value."""
+  leaseId_not: String
+
+  """All values that are contained in given list."""
+  leaseId_in: [String!]
+
+  """All values that are not contained in given list."""
+  leaseId_not_in: [String!]
+
+  """All values less than the given value."""
+  leaseId_lt: String
+
+  """All values less than or equal the given value."""
+  leaseId_lte: String
+
+  """All values greater than the given value."""
+  leaseId_gt: String
+
+  """All values greater than or equal the given value."""
+  leaseId_gte: String
+
+  """All values containing the given string."""
+  leaseId_contains: String
+
+  """All values not containing the given string."""
+  leaseId_not_contains: String
+
+  """All values starting with the given string."""
+  leaseId_starts_with: String
+
+  """All values not starting with the given string."""
+  leaseId_not_starts_with: String
+
+  """All values ending with the given string."""
+  leaseId_ends_with: String
+
+  """All values not ending with the given string."""
+  leaseId_not_ends_with: String
   visibility: VisibilityLevel
 
   """All values that are not equal to given value."""
@@ -12009,6 +12056,7 @@ input RentalApplicationSubscriptionWhereInput {
 input RentalApplicationUpdateInput {
   title: String
   stage: ApplicationStage
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
@@ -12019,6 +12067,7 @@ input RentalApplicationUpdateInput {
 input RentalApplicationUpdateManyDataInput {
   title: String
   stage: ApplicationStage
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
 }
@@ -12026,6 +12075,7 @@ input RentalApplicationUpdateManyDataInput {
 input RentalApplicationUpdateManyMutationInput {
   title: String
   stage: ApplicationStage
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
 }
@@ -12059,6 +12109,7 @@ input RentalApplicationUpdateOneWithoutApplicantsInput {
 input RentalApplicationUpdateWithoutApplicantsDataInput {
   title: String
   stage: ApplicationStage
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
@@ -12068,6 +12119,7 @@ input RentalApplicationUpdateWithoutApplicantsDataInput {
 input RentalApplicationUpdateWithoutPropertyDataInput {
   title: String
   stage: ApplicationStage
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
@@ -12233,6 +12285,46 @@ input RentalApplicationWhereInput {
 
   """All values that are not contained in given list."""
   stage_not_in: [ApplicationStage!]
+  leaseId: String
+
+  """All values that are not equal to given value."""
+  leaseId_not: String
+
+  """All values that are contained in given list."""
+  leaseId_in: [String!]
+
+  """All values that are not contained in given list."""
+  leaseId_not_in: [String!]
+
+  """All values less than the given value."""
+  leaseId_lt: String
+
+  """All values less than or equal the given value."""
+  leaseId_lte: String
+
+  """All values greater than the given value."""
+  leaseId_gt: String
+
+  """All values greater than or equal the given value."""
+  leaseId_gte: String
+
+  """All values containing the given string."""
+  leaseId_contains: String
+
+  """All values not containing the given string."""
+  leaseId_not_contains: String
+
+  """All values starting with the given string."""
+  leaseId_starts_with: String
+
+  """All values not starting with the given string."""
+  leaseId_not_starts_with: String
+
+  """All values ending with the given string."""
+  leaseId_ends_with: String
+
+  """All values not ending with the given string."""
+  leaseId_not_ends_with: String
   visibility: VisibilityLevel
 
   """All values that are not equal to given value."""

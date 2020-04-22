@@ -6,10 +6,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Error from '../ErrorMessage/index';
 import Loader from '../Loader/index';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 // Steps
 import UserDetailsStep from './steps/UserDetailsStep';
 import ApplicationDetailsStep from './steps/ApplicationDetailsStep';
@@ -368,14 +370,31 @@ const ConnectedRentalApplicationStepper = ({ me, property, application }) => {
       where: { id: application.id },
     },
   });
+
   const { data, loading, error } = rentalApplication;
+  console.log('Ok lets look at this data => ', data);
   if (loading) return <Loader loading={loading} />;
   if (error) return <Error error={error} text="Loading Application" />;
 
   if (data.rentalApplication.stage === 'PENDING')
     return 'Application is pending a response from the landlord';
   if (data.rentalApplication.stage === 'ACCEPTED')
-    return 'Application has been accepted, head over to leases to sign';
+    return (
+      <Paper>
+        <Typography>
+          Application has been accepted, head over to leases to sign{' '}
+          {data.rentalApplication.leaseId}
+        </Typography>
+        {data.rentalApplication.leaseId && (
+          <ChangeRouteButton
+            route="/leases/lease"
+            query={{
+              id: data.rentalApplication.leaseId,
+            }}
+          />
+        )}
+      </Paper>
+    );
   return (
     <RentalApplicationStepper
       me={me}

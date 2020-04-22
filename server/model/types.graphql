@@ -223,6 +223,7 @@ type RentalApplication {
   owner: User!
   title: String
   stage: ApplicationStage!
+  leaseId: String
   visibility: VisibilityLevel
   finalised: Boolean
   property: Property! @relation(name: "PropertyRentalApplication")
