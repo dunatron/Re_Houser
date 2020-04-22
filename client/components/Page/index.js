@@ -28,6 +28,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 // TRIAL ONLY
 import WithUser from '../WithUser';
 import WithChats from '../WithChats.js';
+import THEME_PICKER_CONFIG from '../../lib/configs/themePickerConfig';
 
 // const theme = createMuiTheme(muiTheme);
 const theme = createMuiTheme({
@@ -160,12 +161,18 @@ const GlobalStyle = createGlobalStyle`
   
 `;
 
+const defaultTheme = createMuiTheme({
+  ...muiTheme,
+  ...THEME_PICKER_CONFIG[0],
+});
+
 /**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
   const [useDarkTheme, setUseDarkTheme] = useState(false); // should set localStorage for this so each  device can remember its theme choice
+  const [userTheme, setUserTheme] = useState(defaultTheme);
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
@@ -173,6 +180,19 @@ const Page = props => {
     }
   }, [window.Stripe]);
   const themeToUse = useDarkTheme ? darkTheme : lightTheme;
+
+  const handleSetUserTheme = theme => {
+    const myMadeTheme = createMuiTheme({
+      ...muiTheme,
+      ...theme,
+      palette: {
+        ...muiTheme.palette,
+        ...theme.palette,
+      },
+    });
+    setUserTheme(myMadeTheme);
+  };
+
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
@@ -195,15 +215,16 @@ const Page = props => {
           </div>
         }
       />
-      <MuiThemeProvider theme={themeToUse}>
+      <MuiThemeProvider theme={userTheme}>
         <StripeProvider stripe={stripe}>
-          <ThemeProvider theme={themeToUse}>
+          <ThemeProvider theme={userTheme}>
             <WithUser>
               {/* <WithChats> */}
               <Meta />
               <MaterialPage
                 children={props.children}
                 {...props}
+                setTheme={handleSetUserTheme}
                 toggleTheme={() => {
                   setUseDarkTheme(!useDarkTheme);
                 }}

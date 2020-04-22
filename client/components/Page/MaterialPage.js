@@ -18,6 +18,7 @@ import useStyles from './useStyles';
 import DashboardIcon from '../../styles/icons/DashboardIcon';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { Tooltip } from '@material-ui/core';
+import ThemePicker from './ThemePicker';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
@@ -33,7 +34,7 @@ const heartsEmojiMap = () => {
 
 function MaterialPage(props) {
   // const { container, loadingUser, me } = props;
-  const { container, appData, toggleTheme } = props;
+  const { container, appData, toggleTheme, setTheme } = props;
   const { currentUser } = appData;
   const [seizureProcedure, setSeizureProcedure] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -170,8 +171,16 @@ function MaterialPage(props) {
                 })}
               </>
             )}
-            <div style={{ position: 'absolute', right: '16px' }}>
-              <Tooltip title="perform the seizure procedure">
+            <div
+              style={{
+                position: 'absolute',
+                right: '16px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+              }}>
+              <ThemePicker setTheme={setTheme} />
+              {/* <Tooltip title="perform the seizure procedure">
                 <IconButton
                   onClick={() => {
                     // toggleTheme();
@@ -191,7 +200,7 @@ function MaterialPage(props) {
                   edge="end">
                   <Brightness7Icon />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
               <Tooltip title="go to Dashboard">
                 <IconButton
                   onClick={() => {

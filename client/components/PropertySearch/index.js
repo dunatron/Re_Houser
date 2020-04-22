@@ -162,6 +162,13 @@ const PropertySearch = () => {
   };
 
   return (
+    <h1>
+      Well something broke this real good. Dont even think it was me. Look at
+      Algolia
+    </h1>
+  );
+
+  return (
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
