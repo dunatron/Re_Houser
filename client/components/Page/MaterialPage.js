@@ -44,12 +44,6 @@ function MaterialPage(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds(seconds => seconds + 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -109,6 +103,7 @@ function MaterialPage(props) {
 
   const heartEmojis = heartsEmojiMap();
 
+  console.log(' I am a material Page Ideally, I only render once per page');
   return (
     <>
       <div className={classes.root}>
