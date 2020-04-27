@@ -1,0 +1,34 @@
+type PreTenancyForm {
+  id: ID! @unique @id
+  rentalApplicant: RentalGroupApplicant
+    @relation(name: "ApplicantsPreTenancyForm", link: TABLE)
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  proofOfAddress: File @relation(name: "PreTenancyProofOfAddress", link: TABLE)
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+}
+
+enum IdentificationType {
+  DRIVERS_LICENSE
+  PASSPORT
+  BIRTH_CERTIFICATE
+}

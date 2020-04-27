@@ -7,10 +7,8 @@ const RentalApplicationInfoFragment = gql`
     id
     visibility
     stage
+    detailsStepComplete
     finalised
-    # applicants {
-    #   ...RentalGroupApplicantData
-    # }
     owner {
       id
       email
@@ -22,16 +20,6 @@ const RentalApplicationInfoFragment = gql`
     }
     leaseId
     applicants {
-      # id
-      # approved
-      # completed
-      # email
-      # firstName
-      # user {
-      #   id
-      #   firstName
-      #   lastName
-      # }
       ...rentalGroupApplicantInfo
     }
   }

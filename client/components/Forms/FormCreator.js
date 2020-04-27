@@ -33,6 +33,11 @@ const extractKeyType = obj => {
 };
 
 /**
+ * I'm at your face like NamKhan, and you can not reach me on my Samsung,
+ * I'm busy fucking the world, and gicung the universe my damned tounge
+ */
+
+/**
  *
  * ToDo: needs a lot of attention and a smart decision
  * it basically takes the key and type from a config object and makes sure its type is converted properly between pre and post data
@@ -40,9 +45,9 @@ const extractKeyType = obj => {
  */
 const getKeyTypes = conf => {
   if (isEmpty(conf)) return {};
+  if (conf == undefined) return {};
   return conf.reduce((acc, c) => {
     const newItem = extractKeyType(c);
-    // if (!c.key) return { ...acc }; // SectionType doesnt have a key
     return { ...acc, ...newItem };
   }, {});
 };

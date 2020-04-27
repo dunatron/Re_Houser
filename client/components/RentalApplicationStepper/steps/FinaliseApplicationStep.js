@@ -11,6 +11,8 @@ const FinaliseApplicationStep = ({
   me,
   applicationInfo,
   applicantData,
+  completed,
+  stepHeaders,
 }) => {
   // ToDo: Mutation Props
   const [completeApplication, completeApplicationProps] = useMutation(
@@ -41,9 +43,22 @@ const FinaliseApplicationStep = ({
   // completeApplicationProps.error
 
   // hack to just bypass for dev
+  console.log('What does completed look like ? => ', completed);
   return (
     <div>
       <Error error={completeApplicationProps.error} />
+      {stepHeaders
+        .filter(step => step !== 'Finalise')
+        .map((stepHeader, idx) => {
+          return (
+            <div>
+              <h2>
+                {stepHeader} {completed[idx] ? 'YES' : 'NO'}
+              </h2>
+            </div>
+          );
+        })}
+
       <Button
         variant="contained"
         disabled={completeApplicationProps.loading}

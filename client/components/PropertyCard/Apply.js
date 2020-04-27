@@ -16,6 +16,15 @@ import RentalApplicationStepperComponent from '../RentalApplicationStepper/index
 import Typography from '@material-ui/core/Typography';
 import { toast } from 'react-toastify';
 
+import Router from 'next/router';
+
+const handleLink = ({ route, query }) => {
+  Router.push({
+    pathname: route,
+    query: query,
+  });
+};
+
 const Apply = props => {
   const user = useQuery(CURRENT_USER_QUERY);
   const me = user.data ? user.data.me : null;
@@ -90,8 +99,8 @@ const Apply = props => {
           });
         } catch (e) {
         } finally {
-          setApplicationData(payload.data.createRentalApplication);
-          setModalIsOpen(true);
+          // setApplicationData(payload.data.createRentalApplication);
+          // setModalIsOpen(true);
           // set a nice toast message
           toast.success(
             <div>
@@ -101,6 +110,12 @@ const Apply = props => {
               </p>
             </div>
           );
+          handleLink({
+            route: '/rentalapplication',
+            query: {
+              applicationId: payload.data.createRentalApplication.id,
+            },
+          });
         }
       },
     }

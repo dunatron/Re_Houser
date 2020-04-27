@@ -90,8 +90,9 @@ const Content = () => (
 
     <Hits hitComponent={Hit} />
     <div className="pagination">
-      <ConnectedMaterialPagination />
-      <Pagination
+      {/* <ConnectedMaterialPagination /> */}
+      <Pagination />
+      {/* <Pagination
         padding={5} // How many page links to display around the current page.'
         showLast={true} // Whether to display the last page link.
         showNext={true} // Whether to display the next page link.
@@ -123,7 +124,7 @@ const Content = () => (
           ariaFirst: 'First page',
           ariaLast: 'Last page',
         }}
-      />
+      /> */}
     </div>
   </div>
 );
@@ -167,6 +168,10 @@ const PropertySearch = () => {
   //     Algolia
   //   </h1>
   // );
+
+  console.log('WHats happening here...');
+
+  // return <h1>Hmmmm</h1>;
 
   return (
     <InstantSearch

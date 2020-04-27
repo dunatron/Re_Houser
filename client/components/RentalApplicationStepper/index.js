@@ -1,3 +1,67 @@
+// import React, { useState } from 'react';
+// import { Typography, Paper, Button } from '@material-ui/core';
+// import UserDetailsStep from './steps/UserDetailsStep';
+
+// //Steps
+// const StepComponents = [UserDetailsStep];
+
+// const DoRenderCurrentStep = (Step, props) => {
+//   return <Step {...props} />;
+// };
+
+// const RentalApplicationStepper = props => {
+//   const { property, application, me } = props;
+//   const [stepIndex, setStepIndex] = useState(0);
+//   const numberOfSteps = StepComponents.length;
+
+//   console.log('Stepper props => ', props);
+
+//   if (!me) return <h2>You must be logged in</h2>;
+
+//   // Seletc the 1 component that step is on and pass the props to it
+
+//   // Need to pass all current data nad props into here
+//   const renderCurrentStep = () => {
+//     // return <h2>BeautifUl SOul</h2>;
+//     const IndexToRender
+//     return <div>{DoRenderCurrentStep(StepComponents[stepIndex], props)}</div>;
+//     // return (
+//     //   <h2>
+//     //     Mother fucker dont you even try, i dont evenwant beef, I want liguine
+//     //     and shrimp
+//     //   </h2>
+//     // );
+//   };
+
+//   const RenderStep = renderCurrentStep();
+
+//   const handleNextStep = e => {
+//     // handle Validation in here perhaps? or on the step itsel, ie. you cant next or submit
+//     setStepIndex(stepIndex + 1);
+//   };
+
+//   return (
+//     <Paper>
+//       Walking on water, this a new world order, these niggas outa order like a
+//       fish outa water and I dont stop till the bitch start recording
+//       {/* {StepComponents[stepIndex]} */}
+//       {/* {StepComponents.map((StepCmp, idx) => {
+//         return <StepCmp />;
+//       })} */}
+//       {RenderStep}
+//       <p>Steps To complete {numberOfSteps}</p>
+//       <p>Current Step {stepIndex}</p>
+//       <div>
+//         <p>Controls For stepper</p>
+//         <Button>Back</Button>
+//         <Button onClick={handleNextStep}>Next</Button>
+//       </div>
+//     </Paper>
+//   );
+// };
+
+// export default RentalApplicationStepper;
+
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -15,11 +79,15 @@ import ChangeRouteButton from '../Routes/ChangeRouteButton';
 // Steps
 import UserDetailsStep from './steps/UserDetailsStep';
 import ApplicationDetailsStep from './steps/ApplicationDetailsStep';
+import PreTenancyStep from './steps/PreTenancyStep';
 import FinaliseApplicationStep from './steps/FinaliseApplicationStep';
 // configs
 import { RENTAL_GROUP_APPLICANT_CONF } from '../../lib/configs/rentalGroupApplicantConfig';
 import customErrorsBag from '../../lib/errorsBagGenerator';
-import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../graphql/mutations/index';
+import {
+  UPDATE_RENTAL_APPLICATION_MUTATION,
+  UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
+} from '../../graphql/mutations/index';
 
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
 
@@ -41,8 +109,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+/**
+ * Step Headers
+ */
 const getSteps = () => {
-  return ['My Details', 'Application Details', 'Finalise'];
+  return ['My Details', 'Application Details', 'Pre Tenancy', 'Finalise'];
 };
 
 const extractApplicantUserData = (rentalApplication, me) => {
@@ -52,6 +123,14 @@ const extractApplicantUserData = (rentalApplication, me) => {
   return userRentalApplicantData;
 };
 
+/**
+ *
+ * @param {*} rentalApplication
+ * @param {*} me
+ * ToDo: rewrite this abomination. Make it use steps and that new hooks form thing.
+ * Actually maybe not the hooks thing, to many custom componnets. Unless they set the values in there step.
+ * Then you can opnly complete steps if values are there
+ */
 const extractUserInfoFields = (rentalApplication, me) => {
   const applicantUserData = extractApplicantUserData(rentalApplication, me);
   const userInfoObj = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
@@ -71,13 +150,57 @@ const extractUserInfoFields = (rentalApplication, me) => {
   return userInfoObj;
 };
 
+const isStepCompleted = () => {
+  return false;
+};
+
+const detailsStepIsComplete = rentalApplication => {
+  const { applicants } = rentalApplication;
+  // there must be at least 1 applicant approved
+  // return false;
+  const hasOneApplicantApproved = applicants.find(
+    aplcnt => aplcnt.approved === true
+  );
+  if (!hasOneApplicantApproved) return false;
+  if (rentalApplication.detailsStepComplete === false) return false;
+  return true;
+};
+
 const RentalApplicationStepper = props => {
   const { me, property, rentalApplication } = props;
+  const { applicants } = rentalApplication;
   const classes = useStyles();
+  const [updateApplication, updateApplicationProps] = useMutation(
+    UPDATE_RENTAL_APPLICATION_MUTATION
+  );
   // 2. update rental group applicant mutation
   const [updateRentalGroupApplicant] = useMutation(
     UPDATE_RENTAL_GROUP_APPLICANT_MUTATION
   );
+
+  // Will let us update application Info if owner
+  const _updateApplication = async data => {
+    if (rentalApplication.owner.id !== me.id) {
+      toast.error(
+        <div>
+          <h3>Only the owner can Update this section</h3>
+          <h3>${rentalApplication.owner.firstName}</h3>
+          <h3>${rentalApplication.owner.email}</h3>
+        </div>
+      );
+      return false;
+    }
+    // handle updating rentalApplication
+    await updateApplication({
+      variables: {
+        data: data,
+        where: {
+          id: rentalApplication.id,
+        },
+      },
+    });
+    return true;
+  };
 
   // Note: all hooks must go before first render
   const [activeStep, setActiveStep] = useState(0);
@@ -88,6 +211,10 @@ const RentalApplicationStepper = props => {
 
   const applicantData = extractApplicantUserData(rentalApplication, me);
 
+  const userRentalApplicantData = rentalApplication.applicants.find(
+    applicant => applicant.user.id === me.id
+  );
+
   useEffect(() => {
     if (rentalApplication) {
       setApplicationInfo(rentalApplication);
@@ -95,12 +222,34 @@ const RentalApplicationStepper = props => {
       const userInfoFields = extractUserInfoFields(rentalApplication, me);
       setUserInfo(userInfoFields);
       // if user as completed step hide it
+
+      setCompleted({
+        0: applicantInfo.completed,
+        1: detailsStepIsComplete(rentalApplication),
+        2: applicantInfo.preTenancyApplicationForm,
+      });
       if (applicantInfo.completed) {
-        setCompleted({ ...completed, 0: true });
+        setActiveStep(1);
+      }
+      if (applicantInfo.preTenancyApplicationForm) {
         setActiveStep(1);
       }
     }
   }, [rentalApplication]);
+
+  const completedSteps = () => {
+    return Object.keys(completed).length;
+  };
+
+  const isLastStep = () => {
+    return activeStep === totalSteps() - 1;
+  };
+
+  const allStepsCompleted = () => {
+    return completedSteps() === totalSteps();
+  };
+
+  const steps = getSteps();
 
   const handleDetailsChange = e => {
     setUserInfo({
@@ -122,28 +271,22 @@ const RentalApplicationStepper = props => {
             userInfo={userInfo}
             onChange={handleDetailsChange}
             errorsBag={userErrorsBag}
-            completed={completed[0]}
+            completed={completed[step]}
             applicantData={applicantData}
           />
         );
       case 1:
         return (
-          <ApplicationDetailsStep
-            rentalApplication={rentalApplication}
-            property={property}
-            me={me}
-            applicationInfo={applicationInfo}
-            applicantData={applicantData}
-          />
+          <ApplicationDetailsStep {...props} completed={completed[step]} />
         );
       case 2:
+        return <PreTenancyStep {...props} completed={completed[step]} />;
+      case 3:
         return (
           <FinaliseApplicationStep
-            rentalApplication={rentalApplication}
-            property={property}
-            me={me}
-            property={property}
-            me={me}
+            {...props}
+            stepHeaders={getSteps()}
+            completed={completed}
           />
         );
       default:
@@ -153,7 +296,31 @@ const RentalApplicationStepper = props => {
 
   const totalSteps = () => getSteps().length;
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    switch (activeStep) {
+      case 0: {
+        const didSave = await _saveUserDetails(userInfo);
+        if (!didSave) {
+          return;
+        }
+        break;
+      }
+      case 1: {
+        // const didSave = await _saveApplicationDetails(applicationInfo);
+        // if (!didSave) {
+        //   return;
+        // }
+        break;
+      }
+      case 2: {
+        if (!applicantData.preTenancyApplicationForm) {
+          alert('You need to submit a preTenancy Form');
+          return;
+        }
+        break;
+      }
+    }
+
     let currStep = activeStep;
     if (isLastStep() && !allStepsCompleted()) {
       const steps = getSteps();
@@ -168,7 +335,7 @@ const RentalApplicationStepper = props => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleStep = step => () => {
+  const handleStep = step => async () => {
     setActiveStep(step);
   };
 
@@ -183,8 +350,29 @@ const RentalApplicationStepper = props => {
         break;
       }
       case 1: {
-        const didSave = await _saveApplicationDetails(applicationInfo);
-        if (!didSave) {
+        const hasOneApplicantApproved = applicants.find(
+          aplcnt => aplcnt.approved === true
+        );
+        if (!hasOneApplicantApproved) {
+          alert('You need to have at least 1 applicant approved');
+          return;
+        }
+        // const didSave = await _saveApplicationDetails(applicationInfo);
+        // if (!didSave) {
+        //   return;
+        // }
+        // const didUpdate = await _updateApplication({
+        //   detailsStepComplete: true,
+        // });
+        // if (!didUpdate) {
+        //   alert('You need to confirm you have selected the applicants');
+        //   return;
+        // }
+        break;
+      }
+      case 2: {
+        if (!applicantData.preTenancyApplicationForm) {
+          alert('You need to submit a preTenancy Form');
           return;
         }
         break;
@@ -200,19 +388,19 @@ const RentalApplicationStepper = props => {
     setCompleted({});
   };
 
-  const completedSteps = () => {
-    return Object.keys(completed).length;
-  };
+  // const completedSteps = () => {
+  //   return Object.keys(completed).length;
+  // };
 
-  const isLastStep = () => {
-    return activeStep === totalSteps() - 1;
-  };
+  // const isLastStep = () => {
+  //   return activeStep === totalSteps() - 1;
+  // };
 
-  const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
-  };
+  // const allStepsCompleted = () => {
+  //   return completedSteps() === totalSteps();
+  // };
 
-  const steps = getSteps();
+  // const steps = getSteps();
 
   const _renderNextButtons = () => {
     switch (activeStep) {
@@ -227,6 +415,13 @@ const RentalApplicationStepper = props => {
         return (
           <Button variant="contained" color="primary" onClick={handleComplete}>
             Complete Application Details
+          </Button>
+        );
+      }
+      case 2: {
+        return (
+          <Button variant="contained" color="primary" onClick={handleComplete}>
+            Complete Pre tenancy step
           </Button>
         );
       }
@@ -276,24 +471,6 @@ const RentalApplicationStepper = props => {
         },
       },
     });
-    return true;
-  };
-
-  const _saveApplicationDetails = async () => {
-    if (rentalApplication.owner.id !== me.id) {
-      toast.error(
-        <div>
-          <h3>Only the owner can Update this section</h3>
-          <h3>${rentalApplication.owner.firstName}</h3>
-          <h3>${rentalApplication.owner.email}</h3>
-        </div>
-      );
-      return false;
-    }
-
-    // Now we need to save the application details and at the same time handle the cache update
-    // Not sure if we need to do a gql mutation here since the public/private and users being accepted are handled
-    // by seperate single btn mutations
     return true;
   };
 
@@ -364,10 +541,15 @@ const RentalApplicationStepper = props => {
   );
 };
 
-const ConnectedRentalApplicationStepper = ({ me, property, application }) => {
+const ConnectedRentalApplicationStepper = ({
+  me,
+  property,
+  application,
+  applicationId,
+}) => {
   const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
     variables: {
-      where: { id: application.id },
+      where: { id: application ? application.id : applicationId },
     },
   });
 
@@ -395,10 +577,13 @@ const ConnectedRentalApplicationStepper = ({ me, property, application }) => {
         )}
       </Paper>
     );
+
+  console.log('The Stepper rentallApplication data => ', data);
+  console.log('The Stepper me data => ', me);
   return (
     <RentalApplicationStepper
       me={me}
-      property={property}
+      property={data.rentalApplication.property}
       rentalApplication={data.rentalApplication}
     />
   );

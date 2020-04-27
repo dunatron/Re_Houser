@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Apr 22 2020 18:49:15 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Apr 27 2020 17:11:02 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1207,6 +1207,10 @@ type AggregateMessage {
 }
 
 type AggregatePayment {
+  count: Int!
+}
+
+type AggregatePreTenancyForm {
   count: Int!
 }
 
@@ -3907,6 +3911,7 @@ type File implements Node {
   userPhotoId: User
   userProfilePhoto: User
   userSignature: User
+  preTenancyProofOfAddress: PreTenancyForm
 }
 
 """A connection to a list of items."""
@@ -3928,6 +3933,7 @@ input FileCreateInput {
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
 }
 
 input FileCreateManyInput {
@@ -3935,8 +3941,8 @@ input FileCreateManyInput {
   connect: [FileWhereUniqueInput!]
 }
 
-input FileCreateOneInput {
-  create: FileCreateInput
+input FileCreateOneWithoutPreTenancyProofOfAddressInput {
+  create: FileCreateWithoutPreTenancyProofOfAddressInput
   connect: FileWhereUniqueInput
 }
 
@@ -3955,6 +3961,17 @@ input FileCreateOneWithoutUserSignatureInput {
   connect: FileWhereUniqueInput
 }
 
+input FileCreateWithoutPreTenancyProofOfAddressInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
+}
+
 input FileCreateWithoutUserPhotoIdInput {
   id: ID
   filename: String!
@@ -3963,6 +3980,7 @@ input FileCreateWithoutUserPhotoIdInput {
   url: String
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -3973,6 +3991,7 @@ input FileCreateWithoutUserProfilePhotoInput {
   url: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
 }
 
 input FileCreateWithoutUserSignatureInput {
@@ -3983,6 +4002,7 @@ input FileCreateWithoutUserSignatureInput {
   url: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
 }
 
 """An edge in a connection."""
@@ -4321,6 +4341,7 @@ input FileUpdateDataInput {
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateInput {
@@ -4331,6 +4352,7 @@ input FileUpdateInput {
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateManyDataInput {
@@ -4364,13 +4386,13 @@ input FileUpdateManyWithWhereNestedInput {
   data: FileUpdateManyDataInput!
 }
 
-input FileUpdateOneInput {
-  create: FileCreateInput
+input FileUpdateOneWithoutPreTenancyProofOfAddressInput {
+  create: FileCreateWithoutPreTenancyProofOfAddressInput
   connect: FileWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: FileUpdateDataInput
-  upsert: FileUpsertNestedInput
+  update: FileUpdateWithoutPreTenancyProofOfAddressDataInput
+  upsert: FileUpsertWithoutPreTenancyProofOfAddressInput
 }
 
 input FileUpdateOneWithoutUserPhotoIdInput {
@@ -4400,6 +4422,16 @@ input FileUpdateOneWithoutUserSignatureInput {
   upsert: FileUpsertWithoutUserSignatureInput
 }
 
+input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+}
+
 input FileUpdateWithoutUserPhotoIdDataInput {
   filename: String
   mimetype: String
@@ -4407,6 +4439,7 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   url: String
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -4416,6 +4449,7 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   url: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateWithoutUserSignatureDataInput {
@@ -4425,6 +4459,7 @@ input FileUpdateWithoutUserSignatureDataInput {
   url: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateWithWhereUniqueNestedInput {
@@ -4432,9 +4467,9 @@ input FileUpdateWithWhereUniqueNestedInput {
   data: FileUpdateDataInput!
 }
 
-input FileUpsertNestedInput {
-  update: FileUpdateDataInput!
-  create: FileCreateInput!
+input FileUpsertWithoutPreTenancyProofOfAddressInput {
+  update: FileUpdateWithoutPreTenancyProofOfAddressDataInput!
+  create: FileCreateWithoutPreTenancyProofOfAddressInput!
 }
 
 input FileUpsertWithoutUserPhotoIdInput {
@@ -4714,6 +4749,7 @@ input FileWhereInput {
   userPhotoId: UserWhereInput
   userProfilePhoto: UserWhereInput
   userSignature: UserWhereInput
+  preTenancyProofOfAddress: PreTenancyFormWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -7388,6 +7424,7 @@ type Mutation {
   createLessor(data: LessorCreateInput!): Lessor!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createPayment(data: PaymentCreateInput!): Payment!
+  createPreTenancyForm(data: PreTenancyFormCreateInput!): PreTenancyForm!
   createFile(data: FileCreateInput!): File!
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
@@ -7406,6 +7443,7 @@ type Mutation {
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
+  updatePreTenancyForm(data: PreTenancyFormUpdateInput!, where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
@@ -7425,6 +7463,7 @@ type Mutation {
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deletePayment(where: PaymentWhereUniqueInput!): Payment
+  deletePreTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
   deleteFile(where: FileWhereUniqueInput!): File
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
@@ -7443,6 +7482,7 @@ type Mutation {
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
+  upsertPreTenancyForm(where: PreTenancyFormWhereUniqueInput!, create: PreTenancyFormCreateInput!, update: PreTenancyFormUpdateInput!): PreTenancyForm!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
@@ -7460,6 +7500,7 @@ type Mutation {
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
+  updateManyPreTenancyForms(data: PreTenancyFormUpdateManyMutationInput!, where: PreTenancyFormWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -7479,6 +7520,7 @@ type Mutation {
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
+  deleteManyPreTenancyForms(where: PreTenancyFormWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyInsulationForms(where: InsulationFormWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
@@ -8286,6 +8328,1110 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+type PreTenancyForm implements Node {
+  id: ID!
+  rentalApplicant: RentalGroupApplicant
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  proofOfAddress: File
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+}
+
+"""A connection to a list of items."""
+type PreTenancyFormConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PreTenancyFormEdge]!
+  aggregate: AggregatePreTenancyForm!
+}
+
+input PreTenancyFormCreateInput {
+  id: ID
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+  rentalApplicant: RentalGroupApplicantCreateOneWithoutPreTenancyApplicationFormInput
+  proofOfAddress: FileCreateOneWithoutPreTenancyProofOfAddressInput
+}
+
+input PreTenancyFormCreateOneWithoutProofOfAddressInput {
+  create: PreTenancyFormCreateWithoutProofOfAddressInput
+  connect: PreTenancyFormWhereUniqueInput
+}
+
+input PreTenancyFormCreateOneWithoutRentalApplicantInput {
+  create: PreTenancyFormCreateWithoutRentalApplicantInput
+  connect: PreTenancyFormWhereUniqueInput
+}
+
+input PreTenancyFormCreateWithoutProofOfAddressInput {
+  id: ID
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+  rentalApplicant: RentalGroupApplicantCreateOneWithoutPreTenancyApplicationFormInput
+}
+
+input PreTenancyFormCreateWithoutRentalApplicantInput {
+  id: ID
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+  proofOfAddress: FileCreateOneWithoutPreTenancyProofOfAddressInput
+}
+
+"""An edge in a connection."""
+type PreTenancyFormEdge {
+  """The item at the end of the edge."""
+  node: PreTenancyForm!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PreTenancyFormOrderByInput {
+  id_ASC
+  id_DESC
+  firstTimeTenant_ASC
+  firstTimeTenant_DESC
+  preferredMoveInDate_ASC
+  preferredMoveInDate_DESC
+  fullName_ASC
+  fullName_DESC
+  dob_ASC
+  dob_DESC
+  under18_ASC
+  under18_DESC
+  phone_ASC
+  phone_DESC
+  email_ASC
+  email_DESC
+  currentLocation_ASC
+  currentLocation_DESC
+  yearsAtAddress_ASC
+  yearsAtAddress_DESC
+  monthsAtAddress_ASC
+  monthsAtAddress_DESC
+  reasonForLeaving_ASC
+  reasonForLeaving_DESC
+  currentLandlordName_ASC
+  currentLandlordName_DESC
+  currentLandlordNumber_ASC
+  currentLandlordNumber_DESC
+  currentLandlordEmail_ASC
+  currentLandlordEmail_DESC
+  consentToLandlordContact_ASC
+  consentToLandlordContact_DESC
+  referrence1Name_ASC
+  referrence1Name_DESC
+  referrence1Phone_ASC
+  referrence1Phone_DESC
+  referrence1Email_ASC
+  referrence1Email_DESC
+  referrence2Name_ASC
+  referrence2Name_DESC
+  referrence2Phone_ASC
+  referrence2Phone_DESC
+  referrence2Email_ASC
+  referrence2Email_DESC
+  acceptedTerms_ASC
+  acceptedTerms_DESC
+}
+
+type PreTenancyFormPreviousValues {
+  id: ID!
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+}
+
+type PreTenancyFormSubscriptionPayload {
+  mutation: MutationType!
+  node: PreTenancyForm
+  updatedFields: [String!]
+  previousValues: PreTenancyFormPreviousValues
+}
+
+input PreTenancyFormSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PreTenancyFormSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PreTenancyFormSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PreTenancyFormSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PreTenancyFormWhereInput
+}
+
+input PreTenancyFormUpdateInput {
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+  rentalApplicant: RentalGroupApplicantUpdateOneWithoutPreTenancyApplicationFormInput
+  proofOfAddress: FileUpdateOneWithoutPreTenancyProofOfAddressInput
+}
+
+input PreTenancyFormUpdateManyMutationInput {
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+}
+
+input PreTenancyFormUpdateOneWithoutProofOfAddressInput {
+  create: PreTenancyFormCreateWithoutProofOfAddressInput
+  connect: PreTenancyFormWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PreTenancyFormUpdateWithoutProofOfAddressDataInput
+  upsert: PreTenancyFormUpsertWithoutProofOfAddressInput
+}
+
+input PreTenancyFormUpdateOneWithoutRentalApplicantInput {
+  create: PreTenancyFormCreateWithoutRentalApplicantInput
+  connect: PreTenancyFormWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PreTenancyFormUpdateWithoutRentalApplicantDataInput
+  upsert: PreTenancyFormUpsertWithoutRentalApplicantInput
+}
+
+input PreTenancyFormUpdateWithoutProofOfAddressDataInput {
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+  rentalApplicant: RentalGroupApplicantUpdateOneWithoutPreTenancyApplicationFormInput
+}
+
+input PreTenancyFormUpdateWithoutRentalApplicantDataInput {
+  firstTimeTenant: Boolean
+  preferredMoveInDate: DateTime
+  fullName: String
+  dob: DateTime
+  under18: Boolean
+  phone: String
+  email: String
+  currentLocation: String
+  yearsAtAddress: Int
+  monthsAtAddress: Int
+  reasonForLeaving: String
+  currentLandlordName: String
+  currentLandlordNumber: String
+  currentLandlordEmail: String
+  consentToLandlordContact: Boolean
+  referrence1Name: String
+  referrence1Phone: String
+  referrence1Email: String
+  referrence2Name: String
+  referrence2Phone: String
+  referrence2Email: String
+  acceptedTerms: Boolean
+  proofOfAddress: FileUpdateOneWithoutPreTenancyProofOfAddressInput
+}
+
+input PreTenancyFormUpsertWithoutProofOfAddressInput {
+  update: PreTenancyFormUpdateWithoutProofOfAddressDataInput!
+  create: PreTenancyFormCreateWithoutProofOfAddressInput!
+}
+
+input PreTenancyFormUpsertWithoutRentalApplicantInput {
+  update: PreTenancyFormUpdateWithoutRentalApplicantDataInput!
+  create: PreTenancyFormCreateWithoutRentalApplicantInput!
+}
+
+input PreTenancyFormWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PreTenancyFormWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PreTenancyFormWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PreTenancyFormWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  firstTimeTenant: Boolean
+
+  """All values that are not equal to given value."""
+  firstTimeTenant_not: Boolean
+  preferredMoveInDate: DateTime
+
+  """All values that are not equal to given value."""
+  preferredMoveInDate_not: DateTime
+
+  """All values that are contained in given list."""
+  preferredMoveInDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  preferredMoveInDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  preferredMoveInDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  preferredMoveInDate_lte: DateTime
+
+  """All values greater than the given value."""
+  preferredMoveInDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  preferredMoveInDate_gte: DateTime
+  fullName: String
+
+  """All values that are not equal to given value."""
+  fullName_not: String
+
+  """All values that are contained in given list."""
+  fullName_in: [String!]
+
+  """All values that are not contained in given list."""
+  fullName_not_in: [String!]
+
+  """All values less than the given value."""
+  fullName_lt: String
+
+  """All values less than or equal the given value."""
+  fullName_lte: String
+
+  """All values greater than the given value."""
+  fullName_gt: String
+
+  """All values greater than or equal the given value."""
+  fullName_gte: String
+
+  """All values containing the given string."""
+  fullName_contains: String
+
+  """All values not containing the given string."""
+  fullName_not_contains: String
+
+  """All values starting with the given string."""
+  fullName_starts_with: String
+
+  """All values not starting with the given string."""
+  fullName_not_starts_with: String
+
+  """All values ending with the given string."""
+  fullName_ends_with: String
+
+  """All values not ending with the given string."""
+  fullName_not_ends_with: String
+  dob: DateTime
+
+  """All values that are not equal to given value."""
+  dob_not: DateTime
+
+  """All values that are contained in given list."""
+  dob_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dob_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dob_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dob_lte: DateTime
+
+  """All values greater than the given value."""
+  dob_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dob_gte: DateTime
+  under18: Boolean
+
+  """All values that are not equal to given value."""
+  under18_not: Boolean
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  currentLocation: String
+
+  """All values that are not equal to given value."""
+  currentLocation_not: String
+
+  """All values that are contained in given list."""
+  currentLocation_in: [String!]
+
+  """All values that are not contained in given list."""
+  currentLocation_not_in: [String!]
+
+  """All values less than the given value."""
+  currentLocation_lt: String
+
+  """All values less than or equal the given value."""
+  currentLocation_lte: String
+
+  """All values greater than the given value."""
+  currentLocation_gt: String
+
+  """All values greater than or equal the given value."""
+  currentLocation_gte: String
+
+  """All values containing the given string."""
+  currentLocation_contains: String
+
+  """All values not containing the given string."""
+  currentLocation_not_contains: String
+
+  """All values starting with the given string."""
+  currentLocation_starts_with: String
+
+  """All values not starting with the given string."""
+  currentLocation_not_starts_with: String
+
+  """All values ending with the given string."""
+  currentLocation_ends_with: String
+
+  """All values not ending with the given string."""
+  currentLocation_not_ends_with: String
+  yearsAtAddress: Int
+
+  """All values that are not equal to given value."""
+  yearsAtAddress_not: Int
+
+  """All values that are contained in given list."""
+  yearsAtAddress_in: [Int!]
+
+  """All values that are not contained in given list."""
+  yearsAtAddress_not_in: [Int!]
+
+  """All values less than the given value."""
+  yearsAtAddress_lt: Int
+
+  """All values less than or equal the given value."""
+  yearsAtAddress_lte: Int
+
+  """All values greater than the given value."""
+  yearsAtAddress_gt: Int
+
+  """All values greater than or equal the given value."""
+  yearsAtAddress_gte: Int
+  monthsAtAddress: Int
+
+  """All values that are not equal to given value."""
+  monthsAtAddress_not: Int
+
+  """All values that are contained in given list."""
+  monthsAtAddress_in: [Int!]
+
+  """All values that are not contained in given list."""
+  monthsAtAddress_not_in: [Int!]
+
+  """All values less than the given value."""
+  monthsAtAddress_lt: Int
+
+  """All values less than or equal the given value."""
+  monthsAtAddress_lte: Int
+
+  """All values greater than the given value."""
+  monthsAtAddress_gt: Int
+
+  """All values greater than or equal the given value."""
+  monthsAtAddress_gte: Int
+  reasonForLeaving: String
+
+  """All values that are not equal to given value."""
+  reasonForLeaving_not: String
+
+  """All values that are contained in given list."""
+  reasonForLeaving_in: [String!]
+
+  """All values that are not contained in given list."""
+  reasonForLeaving_not_in: [String!]
+
+  """All values less than the given value."""
+  reasonForLeaving_lt: String
+
+  """All values less than or equal the given value."""
+  reasonForLeaving_lte: String
+
+  """All values greater than the given value."""
+  reasonForLeaving_gt: String
+
+  """All values greater than or equal the given value."""
+  reasonForLeaving_gte: String
+
+  """All values containing the given string."""
+  reasonForLeaving_contains: String
+
+  """All values not containing the given string."""
+  reasonForLeaving_not_contains: String
+
+  """All values starting with the given string."""
+  reasonForLeaving_starts_with: String
+
+  """All values not starting with the given string."""
+  reasonForLeaving_not_starts_with: String
+
+  """All values ending with the given string."""
+  reasonForLeaving_ends_with: String
+
+  """All values not ending with the given string."""
+  reasonForLeaving_not_ends_with: String
+  currentLandlordName: String
+
+  """All values that are not equal to given value."""
+  currentLandlordName_not: String
+
+  """All values that are contained in given list."""
+  currentLandlordName_in: [String!]
+
+  """All values that are not contained in given list."""
+  currentLandlordName_not_in: [String!]
+
+  """All values less than the given value."""
+  currentLandlordName_lt: String
+
+  """All values less than or equal the given value."""
+  currentLandlordName_lte: String
+
+  """All values greater than the given value."""
+  currentLandlordName_gt: String
+
+  """All values greater than or equal the given value."""
+  currentLandlordName_gte: String
+
+  """All values containing the given string."""
+  currentLandlordName_contains: String
+
+  """All values not containing the given string."""
+  currentLandlordName_not_contains: String
+
+  """All values starting with the given string."""
+  currentLandlordName_starts_with: String
+
+  """All values not starting with the given string."""
+  currentLandlordName_not_starts_with: String
+
+  """All values ending with the given string."""
+  currentLandlordName_ends_with: String
+
+  """All values not ending with the given string."""
+  currentLandlordName_not_ends_with: String
+  currentLandlordNumber: String
+
+  """All values that are not equal to given value."""
+  currentLandlordNumber_not: String
+
+  """All values that are contained in given list."""
+  currentLandlordNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  currentLandlordNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  currentLandlordNumber_lt: String
+
+  """All values less than or equal the given value."""
+  currentLandlordNumber_lte: String
+
+  """All values greater than the given value."""
+  currentLandlordNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  currentLandlordNumber_gte: String
+
+  """All values containing the given string."""
+  currentLandlordNumber_contains: String
+
+  """All values not containing the given string."""
+  currentLandlordNumber_not_contains: String
+
+  """All values starting with the given string."""
+  currentLandlordNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  currentLandlordNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  currentLandlordNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  currentLandlordNumber_not_ends_with: String
+  currentLandlordEmail: String
+
+  """All values that are not equal to given value."""
+  currentLandlordEmail_not: String
+
+  """All values that are contained in given list."""
+  currentLandlordEmail_in: [String!]
+
+  """All values that are not contained in given list."""
+  currentLandlordEmail_not_in: [String!]
+
+  """All values less than the given value."""
+  currentLandlordEmail_lt: String
+
+  """All values less than or equal the given value."""
+  currentLandlordEmail_lte: String
+
+  """All values greater than the given value."""
+  currentLandlordEmail_gt: String
+
+  """All values greater than or equal the given value."""
+  currentLandlordEmail_gte: String
+
+  """All values containing the given string."""
+  currentLandlordEmail_contains: String
+
+  """All values not containing the given string."""
+  currentLandlordEmail_not_contains: String
+
+  """All values starting with the given string."""
+  currentLandlordEmail_starts_with: String
+
+  """All values not starting with the given string."""
+  currentLandlordEmail_not_starts_with: String
+
+  """All values ending with the given string."""
+  currentLandlordEmail_ends_with: String
+
+  """All values not ending with the given string."""
+  currentLandlordEmail_not_ends_with: String
+  consentToLandlordContact: Boolean
+
+  """All values that are not equal to given value."""
+  consentToLandlordContact_not: Boolean
+  referrence1Name: String
+
+  """All values that are not equal to given value."""
+  referrence1Name_not: String
+
+  """All values that are contained in given list."""
+  referrence1Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  referrence1Name_not_in: [String!]
+
+  """All values less than the given value."""
+  referrence1Name_lt: String
+
+  """All values less than or equal the given value."""
+  referrence1Name_lte: String
+
+  """All values greater than the given value."""
+  referrence1Name_gt: String
+
+  """All values greater than or equal the given value."""
+  referrence1Name_gte: String
+
+  """All values containing the given string."""
+  referrence1Name_contains: String
+
+  """All values not containing the given string."""
+  referrence1Name_not_contains: String
+
+  """All values starting with the given string."""
+  referrence1Name_starts_with: String
+
+  """All values not starting with the given string."""
+  referrence1Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  referrence1Name_ends_with: String
+
+  """All values not ending with the given string."""
+  referrence1Name_not_ends_with: String
+  referrence1Phone: String
+
+  """All values that are not equal to given value."""
+  referrence1Phone_not: String
+
+  """All values that are contained in given list."""
+  referrence1Phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  referrence1Phone_not_in: [String!]
+
+  """All values less than the given value."""
+  referrence1Phone_lt: String
+
+  """All values less than or equal the given value."""
+  referrence1Phone_lte: String
+
+  """All values greater than the given value."""
+  referrence1Phone_gt: String
+
+  """All values greater than or equal the given value."""
+  referrence1Phone_gte: String
+
+  """All values containing the given string."""
+  referrence1Phone_contains: String
+
+  """All values not containing the given string."""
+  referrence1Phone_not_contains: String
+
+  """All values starting with the given string."""
+  referrence1Phone_starts_with: String
+
+  """All values not starting with the given string."""
+  referrence1Phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  referrence1Phone_ends_with: String
+
+  """All values not ending with the given string."""
+  referrence1Phone_not_ends_with: String
+  referrence1Email: String
+
+  """All values that are not equal to given value."""
+  referrence1Email_not: String
+
+  """All values that are contained in given list."""
+  referrence1Email_in: [String!]
+
+  """All values that are not contained in given list."""
+  referrence1Email_not_in: [String!]
+
+  """All values less than the given value."""
+  referrence1Email_lt: String
+
+  """All values less than or equal the given value."""
+  referrence1Email_lte: String
+
+  """All values greater than the given value."""
+  referrence1Email_gt: String
+
+  """All values greater than or equal the given value."""
+  referrence1Email_gte: String
+
+  """All values containing the given string."""
+  referrence1Email_contains: String
+
+  """All values not containing the given string."""
+  referrence1Email_not_contains: String
+
+  """All values starting with the given string."""
+  referrence1Email_starts_with: String
+
+  """All values not starting with the given string."""
+  referrence1Email_not_starts_with: String
+
+  """All values ending with the given string."""
+  referrence1Email_ends_with: String
+
+  """All values not ending with the given string."""
+  referrence1Email_not_ends_with: String
+  referrence2Name: String
+
+  """All values that are not equal to given value."""
+  referrence2Name_not: String
+
+  """All values that are contained in given list."""
+  referrence2Name_in: [String!]
+
+  """All values that are not contained in given list."""
+  referrence2Name_not_in: [String!]
+
+  """All values less than the given value."""
+  referrence2Name_lt: String
+
+  """All values less than or equal the given value."""
+  referrence2Name_lte: String
+
+  """All values greater than the given value."""
+  referrence2Name_gt: String
+
+  """All values greater than or equal the given value."""
+  referrence2Name_gte: String
+
+  """All values containing the given string."""
+  referrence2Name_contains: String
+
+  """All values not containing the given string."""
+  referrence2Name_not_contains: String
+
+  """All values starting with the given string."""
+  referrence2Name_starts_with: String
+
+  """All values not starting with the given string."""
+  referrence2Name_not_starts_with: String
+
+  """All values ending with the given string."""
+  referrence2Name_ends_with: String
+
+  """All values not ending with the given string."""
+  referrence2Name_not_ends_with: String
+  referrence2Phone: String
+
+  """All values that are not equal to given value."""
+  referrence2Phone_not: String
+
+  """All values that are contained in given list."""
+  referrence2Phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  referrence2Phone_not_in: [String!]
+
+  """All values less than the given value."""
+  referrence2Phone_lt: String
+
+  """All values less than or equal the given value."""
+  referrence2Phone_lte: String
+
+  """All values greater than the given value."""
+  referrence2Phone_gt: String
+
+  """All values greater than or equal the given value."""
+  referrence2Phone_gte: String
+
+  """All values containing the given string."""
+  referrence2Phone_contains: String
+
+  """All values not containing the given string."""
+  referrence2Phone_not_contains: String
+
+  """All values starting with the given string."""
+  referrence2Phone_starts_with: String
+
+  """All values not starting with the given string."""
+  referrence2Phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  referrence2Phone_ends_with: String
+
+  """All values not ending with the given string."""
+  referrence2Phone_not_ends_with: String
+  referrence2Email: String
+
+  """All values that are not equal to given value."""
+  referrence2Email_not: String
+
+  """All values that are contained in given list."""
+  referrence2Email_in: [String!]
+
+  """All values that are not contained in given list."""
+  referrence2Email_not_in: [String!]
+
+  """All values less than the given value."""
+  referrence2Email_lt: String
+
+  """All values less than or equal the given value."""
+  referrence2Email_lte: String
+
+  """All values greater than the given value."""
+  referrence2Email_gt: String
+
+  """All values greater than or equal the given value."""
+  referrence2Email_gte: String
+
+  """All values containing the given string."""
+  referrence2Email_contains: String
+
+  """All values not containing the given string."""
+  referrence2Email_not_contains: String
+
+  """All values starting with the given string."""
+  referrence2Email_starts_with: String
+
+  """All values not starting with the given string."""
+  referrence2Email_not_starts_with: String
+
+  """All values ending with the given string."""
+  referrence2Email_ends_with: String
+
+  """All values not ending with the given string."""
+  referrence2Email_not_ends_with: String
+  acceptedTerms: Boolean
+
+  """All values that are not equal to given value."""
+  acceptedTerms_not: Boolean
+  rentalApplicant: RentalGroupApplicantWhereInput
+  proofOfAddress: FileWhereInput
+}
+
+input PreTenancyFormWhereUniqueInput {
+  id: ID
+}
+
 type Property implements Node {
   id: ID!
   updatedAt: DateTime!
@@ -8859,6 +10005,7 @@ type PropertyLease implements Node {
   lessees(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee!]
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor!]
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -8892,6 +10039,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 input PropertyLeaseCreateInput {
   id: ID
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -8938,6 +10086,7 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -8959,6 +10108,7 @@ input PropertyLeaseCreateWithoutActivityInput {
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -8980,6 +10130,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -9001,6 +10152,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -9037,6 +10189,8 @@ enum PropertyLeaseOrderByInput {
   createdAt_DESC
   finalised_ASC
   finalised_DESC
+  canAcceptPayment_ASC
+  canAcceptPayment_DESC
   rooms_ASC
   rooms_DESC
   bathrooms_ASC
@@ -9066,6 +10220,7 @@ type PropertyLeasePreviousValues {
   updatedAt: DateTime!
   createdAt: DateTime!
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
@@ -9178,6 +10333,10 @@ input PropertyLeaseScalarWhereInput {
 
   """All values that are not equal to given value."""
   finalised_not: Boolean
+  canAcceptPayment: Boolean
+
+  """All values that are not equal to given value."""
+  canAcceptPayment_not: Boolean
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -9483,6 +10642,7 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 
 input PropertyLeaseUpdateInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9504,6 +10664,7 @@ input PropertyLeaseUpdateInput {
 
 input PropertyLeaseUpdateManyDataInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9521,6 +10682,7 @@ input PropertyLeaseUpdateManyDataInput {
 
 input PropertyLeaseUpdateManyMutationInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9586,6 +10748,7 @@ input PropertyLeaseUpdateoutdoorFeaturesInput {
 
 input PropertyLeaseUpdateWithoutActivityDataInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9606,6 +10769,7 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9626,6 +10790,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9646,6 +10811,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
   finalised: Boolean
+  canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
@@ -9787,6 +10953,10 @@ input PropertyLeaseWhereInput {
 
   """All values that are not equal to given value."""
   finalised_not: Boolean
+  canAcceptPayment: Boolean
+
+  """All values that are not equal to given value."""
+  canAcceptPayment_not: Boolean
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -11660,6 +12830,7 @@ type Query {
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
+  preTenancyForms(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PreTenancyForm]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
@@ -11679,6 +12850,7 @@ type Query {
   lessor(where: LessorWhereUniqueInput!): Lessor
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   payment(where: PaymentWhereUniqueInput!): Payment
+  preTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
   file(where: FileWhereUniqueInput!): File
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
@@ -11698,6 +12870,7 @@ type Query {
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
+  preTenancyFormsConnection(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PreTenancyFormConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   insulationFormsConnection(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InsulationFormConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -11716,6 +12889,7 @@ type RentalApplication implements Node {
   createdAt: DateTime!
   owner: User!
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
   visibility: VisibilityLevel
@@ -11737,6 +12911,7 @@ type RentalApplicationConnection {
 input RentalApplicationCreateInput {
   id: ID
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
   visibility: VisibilityLevel
@@ -11759,6 +12934,7 @@ input RentalApplicationCreateOneWithoutApplicantsInput {
 input RentalApplicationCreateWithoutApplicantsInput {
   id: ID
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
   visibility: VisibilityLevel
@@ -11770,6 +12946,7 @@ input RentalApplicationCreateWithoutApplicantsInput {
 input RentalApplicationCreateWithoutPropertyInput {
   id: ID
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
   visibility: VisibilityLevel
@@ -11796,6 +12973,8 @@ enum RentalApplicationOrderByInput {
   createdAt_DESC
   title_ASC
   title_DESC
+  detailsStepComplete_ASC
+  detailsStepComplete_DESC
   stage_ASC
   stage_DESC
   leaseId_ASC
@@ -11811,6 +12990,7 @@ type RentalApplicationPreviousValues {
   updatedAt: DateTime!
   createdAt: DateTime!
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
   visibility: VisibilityLevel
@@ -11950,6 +13130,10 @@ input RentalApplicationScalarWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  detailsStepComplete: Boolean
+
+  """All values that are not equal to given value."""
+  detailsStepComplete_not: Boolean
   stage: ApplicationStage
 
   """All values that are not equal to given value."""
@@ -12055,6 +13239,7 @@ input RentalApplicationSubscriptionWhereInput {
 
 input RentalApplicationUpdateInput {
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
   visibility: VisibilityLevel
@@ -12066,6 +13251,7 @@ input RentalApplicationUpdateInput {
 
 input RentalApplicationUpdateManyDataInput {
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
   visibility: VisibilityLevel
@@ -12074,6 +13260,7 @@ input RentalApplicationUpdateManyDataInput {
 
 input RentalApplicationUpdateManyMutationInput {
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
   visibility: VisibilityLevel
@@ -12108,6 +13295,7 @@ input RentalApplicationUpdateOneWithoutApplicantsInput {
 
 input RentalApplicationUpdateWithoutApplicantsDataInput {
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
   visibility: VisibilityLevel
@@ -12118,6 +13306,7 @@ input RentalApplicationUpdateWithoutApplicantsDataInput {
 
 input RentalApplicationUpdateWithoutPropertyDataInput {
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
   visibility: VisibilityLevel
@@ -12275,6 +13464,10 @@ input RentalApplicationWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
+  detailsStepComplete: Boolean
+
+  """All values that are not equal to given value."""
+  detailsStepComplete_not: Boolean
   stage: ApplicationStage
 
   """All values that are not equal to given value."""
@@ -13063,7 +14256,7 @@ type RentalGroupApplicant implements Node {
   approved: Boolean!
   completed: Boolean
   application: RentalApplication
-  preTenancyApplicationForm: File
+  preTenancyApplicationForm: PreTenancyForm
   firstName: String
   lastName: String
   email: String
@@ -13088,12 +14281,17 @@ input RentalGroupApplicantCreateInput {
   email: String
   user: UserCreateOneInput!
   application: RentalApplicationCreateOneWithoutApplicantsInput
-  preTenancyApplicationForm: FileCreateOneInput
+  preTenancyApplicationForm: PreTenancyFormCreateOneWithoutRentalApplicantInput
 }
 
 input RentalGroupApplicantCreateManyWithoutApplicationInput {
   create: [RentalGroupApplicantCreateWithoutApplicationInput!]
   connect: [RentalGroupApplicantWhereUniqueInput!]
+}
+
+input RentalGroupApplicantCreateOneWithoutPreTenancyApplicationFormInput {
+  create: RentalGroupApplicantCreateWithoutPreTenancyApplicationFormInput
+  connect: RentalGroupApplicantWhereUniqueInput
 }
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
@@ -13104,7 +14302,18 @@ input RentalGroupApplicantCreateWithoutApplicationInput {
   lastName: String
   email: String
   user: UserCreateOneInput!
-  preTenancyApplicationForm: FileCreateOneInput
+  preTenancyApplicationForm: PreTenancyFormCreateOneWithoutRentalApplicantInput
+}
+
+input RentalGroupApplicantCreateWithoutPreTenancyApplicationFormInput {
+  id: ID
+  approved: Boolean!
+  completed: Boolean
+  firstName: String
+  lastName: String
+  email: String
+  user: UserCreateOneInput!
+  application: RentalApplicationCreateOneWithoutApplicantsInput
 }
 
 """An edge in a connection."""
@@ -13414,7 +14623,7 @@ input RentalGroupApplicantUpdateInput {
   email: String
   user: UserUpdateOneRequiredInput
   application: RentalApplicationUpdateOneWithoutApplicantsInput
-  preTenancyApplicationForm: FileUpdateOneInput
+  preTenancyApplicationForm: PreTenancyFormUpdateOneWithoutRentalApplicantInput
 }
 
 input RentalGroupApplicantUpdateManyDataInput {
@@ -13450,6 +14659,15 @@ input RentalGroupApplicantUpdateManyWithWhereNestedInput {
   data: RentalGroupApplicantUpdateManyDataInput!
 }
 
+input RentalGroupApplicantUpdateOneWithoutPreTenancyApplicationFormInput {
+  create: RentalGroupApplicantCreateWithoutPreTenancyApplicationFormInput
+  connect: RentalGroupApplicantWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: RentalGroupApplicantUpdateWithoutPreTenancyApplicationFormDataInput
+  upsert: RentalGroupApplicantUpsertWithoutPreTenancyApplicationFormInput
+}
+
 input RentalGroupApplicantUpdateWithoutApplicationDataInput {
   approved: Boolean
   completed: Boolean
@@ -13457,12 +14675,27 @@ input RentalGroupApplicantUpdateWithoutApplicationDataInput {
   lastName: String
   email: String
   user: UserUpdateOneRequiredInput
-  preTenancyApplicationForm: FileUpdateOneInput
+  preTenancyApplicationForm: PreTenancyFormUpdateOneWithoutRentalApplicantInput
+}
+
+input RentalGroupApplicantUpdateWithoutPreTenancyApplicationFormDataInput {
+  approved: Boolean
+  completed: Boolean
+  firstName: String
+  lastName: String
+  email: String
+  user: UserUpdateOneRequiredInput
+  application: RentalApplicationUpdateOneWithoutApplicantsInput
 }
 
 input RentalGroupApplicantUpdateWithWhereUniqueWithoutApplicationInput {
   where: RentalGroupApplicantWhereUniqueInput!
   data: RentalGroupApplicantUpdateWithoutApplicationDataInput!
+}
+
+input RentalGroupApplicantUpsertWithoutPreTenancyApplicationFormInput {
+  update: RentalGroupApplicantUpdateWithoutPreTenancyApplicationFormDataInput!
+  create: RentalGroupApplicantCreateWithoutPreTenancyApplicationFormInput!
 }
 
 input RentalGroupApplicantUpsertWithWhereUniqueWithoutApplicationInput {
@@ -13694,7 +14927,7 @@ input RentalGroupApplicantWhereInput {
   email_not_ends_with: String
   user: UserWhereInput
   application: RentalApplicationWhereInput
-  preTenancyApplicationForm: FileWhereInput
+  preTenancyApplicationForm: PreTenancyFormWhereInput
 }
 
 input RentalGroupApplicantWhereUniqueInput {
@@ -14147,6 +15380,7 @@ type Subscription {
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
+  preTenancyForm(where: PreTenancyFormSubscriptionWhereInput): PreTenancyFormSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   insulationForm(where: InsulationFormSubscriptionWhereInput): InsulationFormSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -14169,6 +15403,7 @@ type User implements Node {
   awaitingFriends(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest!]
   updatedAt: DateTime!
   createdAt: DateTime!
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14218,6 +15453,7 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14354,6 +15590,7 @@ input UserCreatepermissionsInput {
 
 input UserCreateWithoutActivityInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14395,6 +15632,7 @@ input UserCreateWithoutActivityInput {
 
 input UserCreateWithoutAwaitingFriendsInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14436,6 +15674,7 @@ input UserCreateWithoutAwaitingFriendsInput {
 
 input UserCreateWithoutChatsInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14477,6 +15716,7 @@ input UserCreateWithoutChatsInput {
 
 input UserCreateWithoutCreatedPropertiesInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14518,6 +15758,7 @@ input UserCreateWithoutCreatedPropertiesInput {
 
 input UserCreateWithoutCreditCardsInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14559,6 +15800,7 @@ input UserCreateWithoutCreditCardsInput {
 
 input UserCreateWithoutFriendRequestsInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14600,6 +15842,7 @@ input UserCreateWithoutFriendRequestsInput {
 
 input UserCreateWithoutInvolvedActivityInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14641,6 +15884,7 @@ input UserCreateWithoutInvolvedActivityInput {
 
 input UserCreateWithoutLesseeLeasesInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14682,6 +15926,7 @@ input UserCreateWithoutLesseeLeasesInput {
 
 input UserCreateWithoutLessorLeasesInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14723,6 +15968,7 @@ input UserCreateWithoutLessorLeasesInput {
 
 input UserCreateWithoutPhotoIdentificationInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14764,6 +16010,7 @@ input UserCreateWithoutPhotoIdentificationInput {
 
 input UserCreateWithoutProfilePhotoInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14805,6 +16052,7 @@ input UserCreateWithoutProfilePhotoInput {
 
 input UserCreateWithoutPropertiesInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14846,6 +16094,7 @@ input UserCreateWithoutPropertiesInput {
 
 input UserCreateWithoutRecievedMessagesInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14887,6 +16136,7 @@ input UserCreateWithoutRecievedMessagesInput {
 
 input UserCreateWithoutRentalAppraisalsInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14928,6 +16178,7 @@ input UserCreateWithoutRentalAppraisalsInput {
 
 input UserCreateWithoutSentMessagesInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -14969,6 +16220,7 @@ input UserCreateWithoutSentMessagesInput {
 
 input UserCreateWithoutSignatureInput {
   id: ID
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -15024,6 +16276,8 @@ enum UserOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  dob_ASC
+  dob_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -15068,6 +16322,7 @@ type UserPreviousValues {
   id: ID!
   updatedAt: DateTime!
   createdAt: DateTime!
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -15183,6 +16438,28 @@ input UserScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  dob: DateTime
+
+  """All values that are not equal to given value."""
+  dob_not: DateTime
+
+  """All values that are contained in given list."""
+  dob_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dob_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dob_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dob_lte: DateTime
+
+  """All values greater than the given value."""
+  dob_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dob_gte: DateTime
   firstName: String
 
   """All values that are not equal to given value."""
@@ -15893,6 +17170,7 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -15934,6 +17212,7 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -15975,6 +17254,7 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16010,6 +17290,7 @@ input UserUpdateManyInput {
 }
 
 input UserUpdateManyMutationInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16192,6 +17473,7 @@ input UserUpdatepermissionsInput {
 }
 
 input UserUpdateWithoutActivityDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16232,6 +17514,7 @@ input UserUpdateWithoutActivityDataInput {
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16272,6 +17555,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
 }
 
 input UserUpdateWithoutChatsDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16312,6 +17596,7 @@ input UserUpdateWithoutChatsDataInput {
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16352,6 +17637,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16392,6 +17678,7 @@ input UserUpdateWithoutCreditCardsDataInput {
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16432,6 +17719,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16472,6 +17760,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16512,6 +17801,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16552,6 +17842,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16592,6 +17883,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16632,6 +17924,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
 }
 
 input UserUpdateWithoutPropertiesDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16672,6 +17965,7 @@ input UserUpdateWithoutPropertiesDataInput {
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16712,6 +18006,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16752,6 +18047,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -16792,6 +18088,7 @@ input UserUpdateWithoutSentMessagesDataInput {
 }
 
 input UserUpdateWithoutSignatureDataInput {
+  dob: DateTime
   firstName: String
   lastName: String
   phone: String
@@ -17038,6 +18335,28 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  dob: DateTime
+
+  """All values that are not equal to given value."""
+  dob_not: DateTime
+
+  """All values that are contained in given list."""
+  dob_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dob_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dob_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dob_lte: DateTime
+
+  """All values greater than the given value."""
+  dob_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dob_gte: DateTime
   firstName: String
 
   """All values that are not equal to given value."""

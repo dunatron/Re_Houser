@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { RentalGroupApplicantInfoFragment } from '../fragments/rentalGroupApplicantInfo';
 
 const UPDATE_RENTAL_GROUP_APPLICANT_MUTATION = gql`
   mutation updateRentalGroupApplicant(
@@ -6,14 +7,10 @@ const UPDATE_RENTAL_GROUP_APPLICANT_MUTATION = gql`
     $where: RentalGroupApplicantWhereUniqueInput!
   ) {
     updateRentalGroupApplicant(data: $data, where: $where) {
-      id
-      approved
-      completed
-      firstName
-      lastName
-      email
+      ...rentalGroupApplicantInfo
     }
   }
+  ${RentalGroupApplicantInfoFragment}
 `;
 
 export { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION };

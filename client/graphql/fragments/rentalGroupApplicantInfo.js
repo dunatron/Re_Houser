@@ -1,4 +1,6 @@
 import gql from 'graphql-tag';
+import { PreTenancyInfoFragment } from './preTenancyInfo';
+
 const RentalGroupApplicantInfoFragment = gql`
   fragment rentalGroupApplicantInfo on RentalGroupApplicant {
     id
@@ -16,7 +18,11 @@ const RentalGroupApplicantInfoFragment = gql`
         url
       }
     }
+    preTenancyApplicationForm {
+      ...preTenancyInfo
+    }
   }
+  ${PreTenancyInfoFragment}
 `;
 
 export { RentalGroupApplicantInfoFragment };

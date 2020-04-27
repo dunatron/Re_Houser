@@ -1,3 +1,8 @@
+// const DetailsStep = () => {
+//   return <h2>I am details Step</h2>;
+// };
+// export default DetailsStep;
+
 import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,7 +11,7 @@ import TextInput from '../../../styles/TextInput';
 import InputErrors from '../../InputErrors/index';
 import PhotoIdUploader from '../../PhotoIdUploader/index';
 import { isEmptyObj } from '../../../lib/isEmpty';
-import Button from '@material-ui/core/Button';
+import { Button, Typography } from '@material-ui/core';
 
 import { isEmpty } from 'ramda';
 
@@ -32,6 +37,7 @@ const UserDetailsStep = ({
   // const hasPhotoId = !isEmpty(me.photoIdentification)
   const hasPhotoId = me.identificationNumber;
   const [showUploader, setShowUploader] = useState(!hasPhotoId);
+  if (completed) return <Typography>Step is complete</Typography>;
   return (
     <div>
       {Object.keys(userInfo).map((userVar, i) => {

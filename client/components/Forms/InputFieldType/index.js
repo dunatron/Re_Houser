@@ -134,7 +134,7 @@ const InputFieldType = props => {
         return (
           <FormControlLabel
             control={<Switch {...props} aria-label="LoginSwitch" />}
-            label={props.label}
+            label={props.label ? props.label : fieldProps.label}
           />
         );
       case 'Int':
@@ -202,6 +202,9 @@ const InputFieldType = props => {
                 flexDirection: 'row',
                 flexWrap: 'wrap',
               }}>
+              <Typography style={{ maxWidth: '800px' }}>
+                {config.terms}
+              </Typography>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -212,17 +215,21 @@ const InputFieldType = props => {
                   />
                 }
               />
-              <Typography style={{ maxWidth: '800px' }}>
-                {config.terms}
-              </Typography>
             </div>
+            <FieldError errors={errors} name={name} />
+          </>
+        );
+      case 'Info':
+        return (
+          <>
+            {config.content}
             <FieldError errors={errors} name={name} />
           </>
         );
       default:
         return (
           <Typography>
-            This Item has no type specified for a form input
+            This Item has no type specified for a form input type of {type}
           </Typography>
         );
     }

@@ -5,6 +5,7 @@ type User {
   awaitingFriends: [FriendRequest!]! @relation(name: "AwaitingFriendRequests")
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
+  dob: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -128,6 +129,8 @@ type File {
   userPhotoId: User @relation(name: "UserPhotoId")
   userProfilePhoto: User @relation(name: "UserProfilePhoto")
   userSignature: User @relation(name: "UserSignature")
+  preTenancyProofOfAddress: PreTenancyForm
+    @relation(name: "PreTenancyProofOfAddress")
 }
 
 type Property implements PropertyInfo {
@@ -204,7 +207,8 @@ type RentalGroupApplicant {
   approved: Boolean!
   completed: Boolean
   application: RentalApplication @relation(name: "RentalGroupApplicant")
-  preTenancyApplicationForm: File
+  preTenancyApplicationForm: PreTenancyForm
+    @relation(name: "ApplicantsPreTenancyForm")
   firstName: String
   lastName: String
   email: String
@@ -222,6 +226,7 @@ type RentalApplication {
   createdAt: DateTime! @createdAt
   owner: User!
   title: String
+  detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
   visibility: VisibilityLevel
@@ -254,6 +259,7 @@ type PropertyLease implements PropertyInfo {
   lessees: [Lessee!]! @relation(name: "LeaseLessees")
   lessors: [Lessor!]! @relation(name: "LeaseLessors")
   finalised: Boolean!
+  canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
   garageSpaces: Int!
