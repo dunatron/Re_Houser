@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import Account from '../../components/Account/index';
+import FileUploader from '../../components/FileUploader';
 
 const AccountPage = props => {
   const {
@@ -17,6 +18,7 @@ const AccountPage = props => {
           <p>You must be signed in to view your account</p>
         </div>
       }>
+      <FileUploader />
       <Account />
     </PleaseSignIn>
   );
