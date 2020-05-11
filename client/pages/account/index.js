@@ -1,9 +1,44 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import Account from '../../components/Account/index';
 import FileUploader from '../../components/FileUploader';
 
+// export const Default = withMp3FileUpload(({ mutate }) => {
+//   const [file, setFile] = useState(null);
+//   const [progress, setProgress] = useState(0);
+
+//   useEffect(() => {
+//     if (!mutate || !file) {
+//       return;
+//     }
+//     let abort;
+//     mutate({
+//       variables: {
+//         file
+//       },
+//       context: {
+//         fetchOptions: {
+//           useUpload: true,
+//           onProgress: (ev) => {
+//             setProgress(ev.loaded / ev.total);
+//           },
+//           onAbortPossible: (abortHandler) => {
+//             abort = abortHandler;
+//           }
+//         }
+//       }
+//     }).catch(err => console.log(err));
+
+//     return () => {
+//       if (abort) {
+//         abort();
+//       }
+//     };
+//   }, [file]);
+// }
+
 const AccountPage = props => {
+  const childRef = useRef();
   const {
     appData: { currentUser },
   } = props;
@@ -18,7 +53,15 @@ const AccountPage = props => {
           <p>You must be signed in to view your account</p>
         </div>
       }>
-      <FileUploader />
+      <button onClick={() => childRef.current.getAlert()}>
+        Call Function in CHild
+      </button>
+      <FileUploader
+        ref={childRef}
+        recieveFile={file =>
+          console.log('HEre is a recieved file from the props => ', file)
+        }
+      />
       <Account />
     </PleaseSignIn>
   );

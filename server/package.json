@@ -28,6 +28,7 @@
     "crawler": "^1.2.0",
     "docxtemplater": "^3.9.9",
     "dotenv": "^6.2.0",
+    "formidable": "^1.2.2",
     "fs": "^0.0.1-security",
     "graphql": "^14.1.1",
     "graphql-cli": "^3.0.9",
