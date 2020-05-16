@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import TextInput from '../Inputs/TextInput';
 import SelectOption from '../Inputs/SelectOption';
-import { Grid, Paper, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import SquareButton from '../Buttons/SquareButton';
 import SerachOutlinedIcon from '@material-ui/icons/SearchOutlined';
 

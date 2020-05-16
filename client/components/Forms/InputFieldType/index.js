@@ -18,8 +18,21 @@ import SelectOneEnum from './SelectOneEnum';
 import LocationPicker from '../../LocationPicker';
 import FormSection from './FormSection';
 import EntityFormType from './Entity';
+import FileUploader from './../../FileUploader';
 
 import { Typography, Checkbox, Paper } from '@material-ui/core';
+
+{
+  /* <FileUploader
+title="Test Upload PhotoId"
+ref={childRef}
+files={[{}, {}]}
+maxFilesAllowed={10}
+recieveFile={file =>
+  console.log('HEre is a recieved file from the props => ', file)
+}
+/> */
+}
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
@@ -33,6 +46,7 @@ const InputFieldType = props => {
     onChange,
     register,
     errors,
+    getValues,
     setValue,
     reset,
     defaultValues,
@@ -225,6 +239,49 @@ const InputFieldType = props => {
             {config.content}
             <FieldError errors={errors} name={name} />
           </>
+        );
+      case 'File':
+        register({ name: config.key }, { ...config.refConf });
+        if (config.fieldProps.isMultiple) {
+          setValue(config.key, []);
+        }
+        return (
+          <FileUploader
+            title={fieldProps.label}
+            description={fieldProps.description}
+            isMultiple={config.fieldProps.isMultiple}
+            files={[]}
+            maxFilesAllowed={config.fieldProps.maxFilesAllowed}
+            recieveFile={file => {
+              console.log('REcieveing file => ', file);
+              if (!config.fieldProps.isMultiple) {
+                console.log('Set single File => ', file);
+                setValue(config.key, file);
+              }
+              if (config.fieldProps.isMultiple) {
+                const currFormVals = getValues();
+
+                const combineVals = [...currFormVals[config.key], file];
+                console.log('Set multiple File => ', file);
+                console.log('config.key => ', config.key);
+                console.log('combineVals => ', combineVals);
+                setValue(config.key, combineVals);
+                console.log('getValues() => ', getValues());
+              }
+            }}
+            removeFile={file => {
+              if (!config.fieldProps.isMultiple) setValue(config.key);
+              if (config.fieldProps.isMultiple) {
+                const currFormVals = getValues();
+                const newFileVals = currFormVals[config.key].filter(
+                  f => f.id !== file.id
+                );
+                console.log('config.key => ', config.key);
+                console.log('newFileVals => ', newFileVals);
+                setValue(config.key, newFileVals);
+              }
+            }}
+          />
         );
       default:
         return (

@@ -36,6 +36,7 @@ const createChat = require("./mutations/createChat");
 const createMessage = require("./mutations/createMessage");
 const updatePropertyLease = require("./mutations/updatePropertyLease");
 const updateInsulationForm = require("./mutations/updateInsulationForm");
+const createPreTenancyForm = require("./mutations/createPreTenancyForm");
 const createRentalAppraisal = require("./mutations/createRentalAppraisal");
 const offerRentalAppraisal = require("./mutations/offerRentalAppraisal");
 const uploadSignature = require("./mutations/uploadSignature");
@@ -77,6 +78,7 @@ const mutations = {
   createMessage,
   updatePropertyLease,
   updateInsulationForm,
+  createPreTenancyForm,
   createRentalAppraisal,
   offerRentalAppraisal,
   uploadSignature

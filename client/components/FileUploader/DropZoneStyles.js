@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   dropzone: {
-    height: '200px',
-    width: '200px',
+    height: '170px',
+    width: '170px',
     backgroundColor: theme.palette.background.paper,
     border: '2px dashed rgb(187, 186, 186)',
     borderRadius: '50%',
@@ -12,9 +12,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     fontSize: '16px',
+    transition: 'background-color 0.3s linear',
   },
   highlight: {
-    backgroundColor: 'rgb(188, 185, 236)',
+    // backgroundColor: 'rgb(188, 185, 236)',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    border: `2px dashed ${theme.palette.primary.contrastText}`,
+
+    // border: '3px solid red',
+    // backgroundColor: 'red',
   },
   icon: {
     opacity: 0.3,

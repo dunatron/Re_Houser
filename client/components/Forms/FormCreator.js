@@ -74,6 +74,7 @@ const FormCreator = props => {
     },
   }); // initalise the hook
   const onSubmit = data => {
+    console.log('data before format => ', data);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
     console.log('Well formatted Data => ', postFormattedFormData);
     props.onSubmit(postFormattedFormData);
@@ -95,6 +96,7 @@ const FormCreator = props => {
                   reset={reset}
                   errors={errors}
                   setValue={setValue}
+                  getValues={getValues}
                   defaultValues={preFormattedFormData}
                   defaultValue={
                     configIsValid(config)

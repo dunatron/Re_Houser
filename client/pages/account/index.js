@@ -38,7 +38,6 @@ import FileUploader from '../../components/FileUploader';
 // }
 
 const AccountPage = props => {
-  const childRef = useRef();
   const {
     appData: { currentUser },
   } = props;
@@ -53,15 +52,6 @@ const AccountPage = props => {
           <p>You must be signed in to view your account</p>
         </div>
       }>
-      <button onClick={() => childRef.current.getAlert()}>
-        Call Function in CHild
-      </button>
-      <FileUploader
-        ref={childRef}
-        recieveFile={file =>
-          console.log('HEre is a recieved file from the props => ', file)
-        }
-      />
       <Account />
     </PleaseSignIn>
   );

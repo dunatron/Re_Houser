@@ -17,6 +17,8 @@ import {
   _postFormatSelectMultipleEnum,
 } from './formatSelectMultipleEnum';
 
+import { _preFormatFile, _postFormatFile } from './formatFile';
+
 const _preFormatData = (data, keyTypes, mode) => {
   if (!data) return {};
   if (isEmpty(data)) return {};
@@ -59,6 +61,8 @@ const formatValByType = (v, type, mode) => {
         return parseInt(v);
       case 'Float':
         return parseFloat(v);
+      case 'File':
+        return mode === 'pre' ? _preFormatFile(v) : _postFormatFile(v);
 
       default:
         return v;

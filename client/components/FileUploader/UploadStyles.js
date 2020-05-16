@@ -1,6 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
+  flipCard: {
+    minHeight: '180px',
+    padding: theme.spacing(2),
+  },
+  flipHeader: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+  },
   upload: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -9,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'flex-start',
     textAlign: 'left',
     overflow: 'hidden',
-    padding: theme.spacing(2),
+
     justifyContent: 'center',
     // maxWidth: '500px',
   },
@@ -20,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     boxSizing: 'border-box',
     width: '100%',
   },
-  files: {
+  content: {
     minWidth: '320px',
     marginLeft: '0px',
     [theme.breakpoints.up('sm')]: {
@@ -31,15 +41,9 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
     overflowY: 'auto',
   },
-  actions: {
+  files: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingRight: '8px',
-    paddingTop: '8px',
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: 0,
-    },
+    flexDirection: 'column-reverse',
   },
   title: {
     width: '100%',
@@ -48,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
   },
   filename: {
-    fontSize: '16px',
+    fontSize: '14px',
     color: theme.palette.text.primary,
     textAlign: 'center',
     [theme.breakpoints.up('sm')]: {
@@ -62,14 +66,13 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column-reverse',
     justifyContent: 'start',
     alignItems: 'center',
-    // height: '50px',
     marginTop: '24px',
     overflow: 'hidden',
     boxSizing: 'border-box',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginTop: '16px',
+      marginTop: '5px',
     },
   },
   checkIcon: {
@@ -82,8 +85,20 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  footerActions: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    [theme.breakpoints.up('sm')]: {
+      justifyContent: 'left',
+    },
+  },
   button: {
     marginTop: '32px',
+  },
+  uploadCount: {
+    fontSize: '16px',
+    marginTop: '16px',
   },
 }));
 

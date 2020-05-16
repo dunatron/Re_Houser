@@ -196,26 +196,27 @@ const Page = props => {
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
-      <ToastContainer
-        rtl={false}
-        style={{
-          // width: 'unset',
-          minWidth: '280px',
-        }}
-        closeButton={
-          <div>
-            <IconButton
-              color={'default'}
-              aria-label="Delete"
-              // className={classes.closeBtn}
-              // onClick={() => close()}
-            >
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </div>
-        }
-      />
+
       <MuiThemeProvider theme={userTheme}>
+        <ToastContainer
+          rtl={false}
+          style={{
+            // width: 'unset',
+            minWidth: '280px',
+          }}
+          closeButton={
+            <div>
+              <IconButton
+                color={'default'}
+                aria-label="Delete"
+                // className={classes.closeBtn}
+                // onClick={() => close()}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </div>
+          }
+        />
         <StripeProvider stripe={stripe}>
           <ThemeProvider theme={userTheme}>
             <WithUser>
@@ -238,9 +239,9 @@ const Page = props => {
             </WithUser>
           </ThemeProvider>
         </StripeProvider>
+        <div id="modal-root" />
+        <GlobalStyle />
       </MuiThemeProvider>
-      <GlobalStyle />
-      <div id="modal-root" />
     </NoSsr>
   );
 };

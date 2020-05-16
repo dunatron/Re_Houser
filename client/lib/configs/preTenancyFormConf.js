@@ -108,8 +108,12 @@ const PRE_TENANCY_FORM_CONF = [
         type: 'File',
         key: 'proofOfAddress',
         fieldProps: {
+          isMultiple: false,
+          maxAllowedFiles: 1,
           name: 'proofOfAddress',
           label: 'Proof of address',
+          description:
+            'You need to upload a document which confirms your current address such as a bank statement',
         },
         refConf: {
           required: {

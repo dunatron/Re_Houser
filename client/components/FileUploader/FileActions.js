@@ -9,11 +9,22 @@ import { green, red } from '@material-ui/core/colors';
 
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import UploadIcon from '@material-ui/icons/CloudUploadOutlined';
+import TrashIcon from '@material-ui/icons/DeleteOutlined';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForeverOutlined';
+import ViewIcon from '@material-ui/icons/VisibilityOutlined';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: '3px',
+    paddingRight: '8px',
+    paddingTop: '8px',
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: '3px',
+    },
   },
   wrapper: {
     // margin: theme.spacing(1),
@@ -44,20 +55,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: -12,
   },
 }));
-
-import UploadIcon from '@material-ui/icons/CloudUploadOutlined';
-
-const SINGLE_UPLOAD = gql`
-  mutation($file: Upload!) {
-    singleUpload(file: $file) {
-      id
-      filename
-      mimetype
-      encoding
-      url
-    }
-  }
-`;
 
 const UploadFileButton = props => {
   const { uploadCompleted } = props;
@@ -93,4 +90,51 @@ const UploadFileButton = props => {
   );
 };
 
-export default UploadFileButton;
+const FileActions = ({ file, remove, upload, deleteForever }) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <UploadFileButton
+        file={file}
+        loading={file.loading}
+        error={file.error}
+        uploadCompleted={file.uploadCompleted}
+        handleClick={() => upload(file)}
+      />
+      <IconButton
+        size="medium"
+        disabled={file.loading}
+        onClick={() =>
+          alert('Todo: create modal to handle viewing differnet file types')
+        }
+        color="default"
+        aria-label="upload picture"
+        component="span">
+        <ViewIcon size="small" />
+      </IconButton>
+      {file.uploadCompleted ? (
+        <IconButton
+          size="medium"
+          disabled={file.loading}
+          onClick={() => deleteForever(file)}
+          color="default"
+          aria-label="upload picture"
+          component="span">
+          <DeleteForeverIcon size="small" />
+        </IconButton>
+      ) : (
+        <IconButton
+          size="medium"
+          disabled={file.loading}
+          onClick={() => remove(file)}
+          color="default"
+          aria-label="upload picture"
+          component="span">
+          <TrashIcon size="small" />
+        </IconButton>
+      )}
+    </div>
+  );
+};
+
+export default FileActions;

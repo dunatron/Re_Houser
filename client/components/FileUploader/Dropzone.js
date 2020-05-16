@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 // import './dropzone.css';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import dropZoneStyles from './DropZoneStyles';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 
@@ -35,10 +36,12 @@ const Dropzone = props => {
     if (props.onFilesAdded) {
       const array = fileListToArray(files);
       props.onFilesAdded(array);
+      fileInputRef.current.value = '';
     }
   };
 
   const onDragOver = event => {
+    console.log(' Dragging over... => ');
     event.preventDefault();
     if (props.disabed) return;
     setState({ ...state, hightlight: true });
@@ -67,10 +70,16 @@ const Dropzone = props => {
     return array;
   };
 
+  console.log('setState => ');
+  const dropZoneClasses = clsx(
+    classes.dropzone,
+    state.hightlight && classes.highlight
+  );
+
   return (
     <div
       // className={`Dropzone ${state.hightlight ? 'Highlight' : ''}`}
-      className={classes.dropzone}
+      className={dropZoneClasses}
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}
       onDrop={onDrop}
