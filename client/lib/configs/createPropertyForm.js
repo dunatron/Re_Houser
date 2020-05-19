@@ -237,6 +237,23 @@ const CREATE_PROPERTY_FORM_CONF = [
       },
     ],
   },
+  {
+    type: 'File',
+    key: 'images',
+    fieldProps: {
+      isMultiple: true,
+      maxFilesAllowed: 5,
+      name: 'images',
+      label: 'Images',
+      description: 'You need some images',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'You need some images',
+      },
+    },
+  },
 ];
 export { CREATE_PROPERTY_FORM_CONF };
 export default CREATE_PROPERTY_FORM_CONF;

@@ -5,6 +5,7 @@ import React, {
   useReducer,
   useImperativeHandle,
   forwardRef,
+  useEffect,
 } from 'react';
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import clsx from 'clsx';
@@ -202,6 +203,8 @@ const UploadFile = forwardRef((props, ref) => {
   // serverFiles Length + files length
   const totalFileCount = files.length + serverFiles.length;
 
+  // when server files chnages we need to remove the from the files state
+
   useImperativeHandle(ref, () => ({
     getAlert() {
       alert('getAlert from Child');
@@ -223,7 +226,6 @@ const UploadFile = forwardRef((props, ref) => {
 
   // can either handle remove the files that have been completed and render the files that have just been uploaded
   const handleOnCompleted = (data, file) => {
-    console.log('Data from single upload => ', data);
     dispatch({
       type: 'COMPLETE_FILE_UPLOAD',
       payload: {
@@ -307,8 +309,6 @@ const UploadFile = forwardRef((props, ref) => {
   };
 
   const handleDeleteForever = file => {
-    console.log('file to try delete forever => ', file);
-    console.log('file.serverFile.id => ', file.serverFile.id);
     client
       .mutate({
         mutation: DELETE_FILE_MUTATION,
@@ -317,7 +317,6 @@ const UploadFile = forwardRef((props, ref) => {
         },
       })
       .then(res => {
-        console.log('Tried to delete forever => ', res);
         dispatch({
           type: 'REMOVE_SERVER_FILE',
           payload: {
@@ -328,7 +327,6 @@ const UploadFile = forwardRef((props, ref) => {
         props.removeFile(res.data.deleteFile);
       })
       .catch(error => {
-        console.log('Hmmmmwhats this => ', error);
         handleOnError(error, file);
       });
   };
@@ -351,6 +349,10 @@ const UploadFile = forwardRef((props, ref) => {
     [classes.flipCard]: true,
     [classes.upload]: true,
   });
+
+  useEffect(() => {
+    serverFiles.forEach(sFile => handleRemoveFile(sFile));
+  }, [serverFiles.length]);
 
   return (
     <Paper className={paperClasses}>
@@ -430,6 +432,8 @@ const UploadFile = forwardRef((props, ref) => {
         <div
           style={{
             width: '100%',
+            display: 'flex',
+            flexWrap: 'wrap',
           }}>
           <h3>Attached Files</h3>
           <FilePreviewer files={serverFiles} remove={remove} />
@@ -481,12 +485,7 @@ const FileManager = props => {
   });
   const classes = useUploadStyles();
 
-  console.log(' DId we get Progress file?? => ', files);
-
-  const handleFileSuccessfullyRemovedFromServer = data => {
-    console.log('handleFileSuccessfullyRemovedFromServer data => ', data);
-    // fileRemovedFromServer(data);
-  };
+  const handleFileSuccessfullyRemovedFromServer = data => {};
 
   const [deleteFile, { data, loading, error }] = useMutation(
     DELETE_FILE_MUTATION,
@@ -503,6 +502,8 @@ const FileManager = props => {
     });
 
   const removeFileFromServer = file => {
+    // console.log('FILE TRYING TO REMOVE => ', file);
+    // return;
     deleteFile({
       variables: {
         id: file.id,
@@ -541,6 +542,7 @@ const FileManager = props => {
         isFlipped={state.isFlipped}
         flip={handleFlip}
       />
+      <Error error={error} />
       <ReactCardFlip
         cardZIndex="900"
         containerStyle={{

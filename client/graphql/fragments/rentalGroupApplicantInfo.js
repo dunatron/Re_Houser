@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { PreTenancyInfoFragment } from './preTenancyInfo';
+import { FileInfoFragment } from './fileInfo';
 
 const RentalGroupApplicantInfoFragment = gql`
   fragment rentalGroupApplicantInfo on RentalGroupApplicant {
@@ -14,19 +15,14 @@ const RentalGroupApplicantInfoFragment = gql`
       firstName
       lastName
       profilePhoto {
-        id
-        updatedAt
-        createdAt
-        filename
-        mimetype
-        encoding
-        url
+        ...fileInfo
       }
     }
     preTenancyApplicationForm {
       ...preTenancyInfo
     }
   }
+  ${FileInfoFragment}
   ${PreTenancyInfoFragment}
 `;
 

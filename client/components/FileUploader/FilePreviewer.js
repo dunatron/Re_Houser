@@ -13,6 +13,8 @@ const FilePreviewer = ({ files, remove }) => {
     <div
       style={{
         width: '100%',
+        display: 'flex',
+        flexWrap: 'wrap',
       }}>
       {files.map((f, idx) => (
         <RenderFileType file={f} remove={() => remove(f)} />
@@ -41,10 +43,8 @@ const FilePreviewer = ({ files, remove }) => {
 };
 
 const RenderFileType = ({ file, remove }) => {
+  console.log('The file Preview => ', file);
   const genericType = findGenericFileType(file);
-  console.log('genericType => ', genericType);
-  console.log('FILE_GENERAL_TYPE_IMAGE => ', FILE_GENERAL_TYPE_IMAGE);
-  console.log('FILE_GENERAL_TYPE_DOCUMENT => ', FILE_GENERAL_TYPE_DOCUMENT);
   let Componet = undefined;
   switch (genericType) {
     case FILE_GENERAL_TYPE_IMAGE:

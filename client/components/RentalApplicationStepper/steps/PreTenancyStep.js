@@ -55,9 +55,6 @@ const PreTenancyStep = ({
     dob: me.dob,
   };
 
-  console.log('rentalApplication data => ', rentalApplication);
-  console.log('currentApplicant => ', currentApplicant);
-
   const TheForm = () => (
     <FormCreator
       data={hasForm ? preTenancyApplicationForm : formData}
@@ -141,7 +138,7 @@ const PreTenancyStep = ({
           },
         });
       }}
-      isNew={true}
+      isNew={!hasForm}
       title="Pre Tenancy Form"
     />
   );

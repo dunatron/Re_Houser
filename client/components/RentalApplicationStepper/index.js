@@ -560,7 +560,7 @@ const ConnectedRentalApplicationStepper = ({
   });
 
   const { data, loading, error } = rentalApplication;
-  console.log('Ok lets look at this data => ', data);
+
   if (loading) return <Loader loading={loading} />;
   if (error) return <Error error={error} text="Loading Application" />;
 

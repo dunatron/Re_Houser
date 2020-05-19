@@ -29,6 +29,9 @@ import {
   LeaseLength,
 } from '../LeaseManager/LeaseLengthInfo';
 
+import FileUploader from '../FileUploader';
+import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
+
 const sanitizeInput = (type, value) => {
   if (type === 'number') {
     return parseFloat(value);
@@ -203,6 +206,21 @@ const UpdatePropertyVariableModal = ({
 
 const Details = props => {
   const { property } = props;
+
+  const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
+    mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
+      updateProperty(id: $id, data: $data) {
+        id
+        images {
+          ...fileInfo
+        }
+      }
+    }
+    ${FileInfoFragment}
+  `;
+  const [updateProperty, updatePropertyPayload] = useMutation(
+    PROPERTY_SINGLE_PROPERTY_MUTATION
+  );
   return (
     <div>
       <h4>
@@ -310,6 +328,43 @@ const Details = props => {
           value={property.rooms}
         />
       </div>
+
+      <FileUploader
+        title="Property Images"
+        files={property.images ? property.images : []}
+        updateCacheOnRemovedFile={(cache, result) => {
+          updateProperty({
+            variables: {
+              id: property.id,
+              data: {
+                images: {
+                  disconnect: [
+                    {
+                      id: result.data.deleteFile.id,
+                    },
+                  ],
+                },
+              },
+            },
+          });
+        }}
+        recieveFile={file => {
+          updateProperty({
+            variables: {
+              id: property.id,
+              data: {
+                images: {
+                  connect: [
+                    {
+                      id: file.id,
+                    },
+                  ],
+                },
+              },
+            },
+          });
+        }}
+      />
 
       {/* <ImageSlider images={property.images} /> */}
       <CarouselSlider

@@ -42,6 +42,7 @@ const CreatePropertyComponent = props => {
   );
 
   const submitFormWithData = data => {
+    console.log('The submitted Data => ', data);
     createProperty({
       variables: {
         data: {
@@ -63,22 +64,6 @@ const CreatePropertyComponent = props => {
                 create: {
                   ...data.insulationForm,
                 },
-              }
-            : {},
-          images: data.images
-            ? {
-                create: [
-                  ...images
-                    .filter(img => img.type !== 'rawImage')
-                    .map((img, i) => {
-                      return {
-                        filename: `${state.location}_${i}`,
-                        mimetype: 'MIMETYPE',
-                        encoding: 'encoding',
-                        url: img.data,
-                      };
-                    }),
-                ],
               }
             : {},
         },

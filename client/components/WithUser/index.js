@@ -51,14 +51,6 @@ const WithUser = props => {
 
   // if (loading) return 'Checking and loading credentials';
 
-  console.group('WithUser');
-  console.log('props => ', props);
-  console.log('==UserData== ');
-  console.log('==loading==> ', loading);
-  console.log('==error==>', error);
-  console.log('==data==>', data);
-  console.groupEnd();
-
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {

@@ -1,7 +1,7 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode
+  addPropertySearchNode,
 } = require("../../lib/algolia/propertySearchApi");
 
 var fs = require("fs"),
@@ -15,10 +15,10 @@ async function createProperty(parent, { data, files }, ctx, info) {
   if (!loggedInUserId) {
     throw new Error("You must be logged in!");
   }
-  const uploadedFiles = files
-    ? await Promise.all(files.map(file => processUpload(file, ctx)))
-    : [];
-  const connectFileIds = uploadedFiles.map(file => ({ id: file.id }));
+  // const uploadedFiles = files
+  //   ? await Promise.all(files.map((file) => processUpload(file, ctx)))
+  //   : [];
+  // const connectFileIds = uploadedFiles.map((file) => ({ id: file.id }));
 
   // this here is dependent on using accomodation & useAdvancedRent is true
   const numberOfRooms = data.useAdvancedRent
@@ -41,10 +41,10 @@ async function createProperty(parent, { data, files }, ctx, info) {
         highestRoomPrice,
         rent: averageRoomPrice,
         rooms: numberOfRooms,
-        images: {
-          connect: connectFileIds
-        }
-      }
+        // images: {
+        //   connect: connectFileIds,
+        // },
+      },
     },
     info
   );
@@ -60,19 +60,19 @@ async function createProperty(parent, { data, files }, ctx, info) {
       type: "CREATED_PROPERTY",
       property: {
         connect: {
-          id: property.id
-        }
+          id: property.id,
+        },
       },
       user: {
         connect: {
-          id: loggedInUserId
-        }
-      }
-    }
+          id: loggedInUserId,
+        },
+      },
+    },
   });
   addPropertySearchNode({
     propertyId: property.id,
-    ctx
+    ctx,
   });
   // wow maybe return the thing too......
   return property;

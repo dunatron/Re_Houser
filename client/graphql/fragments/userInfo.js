@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { FileInfoFragment } from './fileInfo';
 
 //should probably move awaitingFriends and friend request from here
 const UserInfoFragment = gql`
@@ -10,28 +11,13 @@ const UserInfoFragment = gql`
     phone
     permissions
     photoIdentification {
-      createdAt
-      updatedAt
-      filename
-      mimetype
-      encoding
-      url
+      ...fileInfo
     }
     profilePhoto {
-      createdAt
-      updatedAt
-      filename
-      mimetype
-      encoding
-      url
+      ...fileInfo
     }
     signature {
-      createdAt
-      updatedAt
-      filename
-      mimetype
-      encoding
-      url
+      ...fileInfo
     }
     identificationNumber
     emergencyContactName
@@ -65,6 +51,7 @@ const UserInfoFragment = gql`
     rehouserStamp
     usedFreeAppraisal
   }
+  ${FileInfoFragment}
 `;
 
 export { UserInfoFragment };

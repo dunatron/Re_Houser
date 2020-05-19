@@ -248,11 +248,14 @@ const InputFieldType = props => {
           setValue(config.key, []);
         }
         const currVals = getValues();
-        const filesData = currVals[config.key];
-        console.log('Input field max allowed =>  ', config.fieldProps);
+        // const filesData = currVals[config.key];
+        const filesData = defaultValues[config.key];
         // if (is(Array, values)) {
         //   return values;
         // }
+        console.log('filesData => ', filesData);
+        console.log('hmmmm => ', currVals);
+        console.log('defaultValues => ', defaultValues);
         return (
           <FileUploader
             title={fieldProps.label}
@@ -261,20 +264,13 @@ const InputFieldType = props => {
             files={is(Array, filesData) ? [...filesData] : []}
             maxFilesAllowed={config.fieldProps.maxFilesAllowed}
             recieveFile={file => {
-              console.log('REcieveing file => ', file);
               if (!config.fieldProps.isMultiple) {
-                console.log('Set single File => ', file);
                 setValue(config.key, file);
               }
               if (config.fieldProps.isMultiple) {
                 const currFormVals = getValues();
-
                 const combineVals = [...currFormVals[config.key], file];
-                console.log('Set multiple File => ', file);
-                console.log('config.key => ', config.key);
-                console.log('combineVals => ', combineVals);
                 setValue(config.key, combineVals);
-                console.log('getValues() => ', getValues());
               }
             }}
             removeFile={file => {
@@ -284,8 +280,6 @@ const InputFieldType = props => {
                 const newFileVals = currFormVals[config.key].filter(
                   f => f.id !== file.id
                 );
-                console.log('config.key => ', config.key);
-                console.log('newFileVals => ', newFileVals);
                 setValue(config.key, newFileVals);
               }
             }}

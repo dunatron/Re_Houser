@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { FileInfoFragment } from './fileInfo';
 /**
  * Not working.. maybe because we are spreading on an array
  */
@@ -13,13 +14,7 @@ const PreTenancyInfoFragment = gql`
     email
     currentLocation
     proofOfAddress {
-      id
-      updatedAt
-      createdAt
-      filename
-      mimetype
-      encoding
-      url
+      ...fileInfo
     }
     yearsAtAddress
     monthsAtAddress
@@ -36,6 +31,7 @@ const PreTenancyInfoFragment = gql`
     referrence2Email
     acceptedTerms
   }
+  ${FileInfoFragment}
 `;
 
 export { PreTenancyInfoFragment };

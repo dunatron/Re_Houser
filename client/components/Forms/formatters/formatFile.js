@@ -9,6 +9,7 @@ const _preFormatFile = values => {
   //   return values.set ? values.set : values;
   // }
   // return values;
+  console.log('_preformat file values => ', values);
   if (is(Array, values)) {
     return values;
   }
@@ -18,7 +19,6 @@ const _preFormatFile = values => {
 
 const _postFormatFile = value => {
   // determine if it is an array or an object
-  console.log('_postFormatFile value => ', value);
   if (is(Array, value)) {
     return {
       // connect: [{
