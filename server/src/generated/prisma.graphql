@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Apr 27 2020 17:11:02 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue May 19 2020 18:58:24 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -3902,7 +3902,7 @@ scalar DateTime
 
 type File implements Node {
   id: ID!
-  updatedAt: DateTime!
+  updatedAt: DateTime
   createdAt: DateTime!
   filename: String!
   mimetype: String!
@@ -4033,7 +4033,7 @@ enum FileOrderByInput {
 
 type FilePreviousValues {
   id: ID!
-  updatedAt: DateTime!
+  updatedAt: DateTime
   createdAt: DateTime!
   filename: String!
   mimetype: String!

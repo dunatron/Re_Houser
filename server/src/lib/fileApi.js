@@ -7,7 +7,7 @@ const cloudinaryConfObj = {
   api_secret: process.env.CLOUDINARY_API_SECRET
 };
 
-exports.processUpload = async (upload, ctx) => {
+exports.processUpload = async (upload, ctx, info) => {
   const {
     stream,
     createReadStream,
@@ -55,15 +55,18 @@ exports.processUpload = async (upload, ctx) => {
     url
   };
 
-  const { id } = await ctx.db.mutation.createFile({ data }, ` { id } `);
+  // const { id } = await ctx.db.mutation.createFile({ data }, info);
 
-  const file = {
-    id,
-    filename,
-    mimetype,
-    encoding,
-    url
-  };
+  // const file = {
+  //   id,
+  //   filename,
+  //   mimetype,
+  //   encoding,
+  //   url
+  // };
+
+  // return file;
+  const file = await ctx.db.mutation.createFile({ data }, info);
 
   return file;
 };
@@ -77,7 +80,7 @@ exports.deleteFile = async ({ url, id, ctx }) => {
     async function(error, result) {
       if (result.result === "ok") {
         const where = { id: id };
-        return ctx.db.mutation.deleteFile({ where }, `{ id }`);
+        return await ctx.db.mutation.deleteFile({ where }, `{ id }`);
       }
     }
   );

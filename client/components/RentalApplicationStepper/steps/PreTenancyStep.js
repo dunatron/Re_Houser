@@ -8,7 +8,13 @@ import FormCreator from '../../Forms/FormCreator';
 import PRE_TENENACY_FORM_CONF from '../../../lib/configs/preTenancyFormConf';
 
 import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../../graphql/mutations/index';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../../graphql/queries/index';
 
+/**
+ *
+ * The best thing to do, would be to get the the form individually.
+ * then we can create/update, also so it refetches the correct info and not all of it etc
+ */
 const PreTenancyStep = ({
   me,
   rentalApplication,
@@ -58,6 +64,38 @@ const PreTenancyStep = ({
       config={PRE_TENENACY_FORM_CONF}
       posting={loading}
       error={error}
+      updateCacheOnRemovedFile={(cache, result) => {
+        console.log('updateCacheOnRemovedFile => cache => ', cache);
+        console.log('updateCacheOnRemovedFile => result => ', result);
+        cache.gc(); // Remove a specific entity by ID
+        cache.evict(result.data.deleteFile.id);
+        // Object.keys(cache.data.data).forEach(key => {
+        //   if (key.match(/^File/)) {
+        //     cache.data.delete(key);
+        //   }
+        // });
+        // Object.keys(proxy.data.data).forEach((key) => {
+        //   if (key.match(/someregex/) {
+        //       proxy.data.delete(key);
+        //   }
+        // })
+      }}
+      // https://github.com/apollographql/apollo-feature-requests/issues/4
+      // SINGLE_RENTAL_APPLICATION_QUERY, {
+      //   variables: {
+      //     where: { id: application ? application.id : applicationId },
+      //   }
+      // onServerFileRemove?
+      // update the cache correctly instead. rentalApplication.applicants.preTenancyApplicationForm.proofOfAddress
+      // so also probably need the key for its type removal...
+      // refetchQueries={[
+      //   {
+      //     query: SINGLE_RENTAL_APPLICATION_QUERY,
+      //     variables: {
+      //       where: { id: rentalApplication.id },
+      //     },
+      //   },
+      // ]}
       onSubmit={data => {
         updateRentalGroupApplicant({
           variables: {

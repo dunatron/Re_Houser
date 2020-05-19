@@ -53,7 +53,16 @@ const getKeyTypes = conf => {
 };
 
 const FormCreator = props => {
-  const { title, data, config, isNew, posting, error } = props;
+  const {
+    title,
+    data,
+    config,
+    isNew,
+    posting,
+    error,
+    fileRemovedFromServer,
+    updateCacheOnRemovedFile,
+  } = props;
 
   const keysWithTypes = getKeyTypes(config);
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
@@ -68,6 +77,7 @@ const FormCreator = props => {
     setValue,
     getValues,
     reset,
+    refetchQueries,
   } = useForm({
     defaultValues: {
       ...preFormattedFormData,
@@ -98,6 +108,8 @@ const FormCreator = props => {
                   setValue={setValue}
                   getValues={getValues}
                   defaultValues={preFormattedFormData}
+                  refetchQueries={refetchQueries}
+                  updateCacheOnRemovedFile={updateCacheOnRemovedFile}
                   defaultValue={
                     configIsValid(config)
                       ? preFormattedFormData[

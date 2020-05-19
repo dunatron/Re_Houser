@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../../Inputs/TextInput';
 import moment from 'moment';
+import { is } from 'ramda';
 
 import FieldError from '../InputFieldType/FieldError';
 
@@ -51,6 +52,7 @@ const InputFieldType = props => {
     reset,
     defaultValues,
     defaultValue,
+    updateCacheOnRemovedFile,
   } = props;
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
@@ -245,12 +247,18 @@ const InputFieldType = props => {
         if (config.fieldProps.isMultiple) {
           setValue(config.key, []);
         }
+        const currVals = getValues();
+        const filesData = currVals[config.key];
+        console.log('Input field max allowed =>  ', config.fieldProps);
+        // if (is(Array, values)) {
+        //   return values;
+        // }
         return (
           <FileUploader
             title={fieldProps.label}
             description={fieldProps.description}
             isMultiple={config.fieldProps.isMultiple}
-            files={[]}
+            files={is(Array, filesData) ? [...filesData] : []}
             maxFilesAllowed={config.fieldProps.maxFilesAllowed}
             recieveFile={file => {
               console.log('REcieveing file => ', file);
@@ -281,6 +289,7 @@ const InputFieldType = props => {
                 setValue(config.key, newFileVals);
               }
             }}
+            updateCacheOnRemovedFile={updateCacheOnRemovedFile}
           />
         );
       default:

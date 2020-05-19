@@ -14,7 +14,12 @@ const RentalGroupApplicantInfoFragment = gql`
       firstName
       lastName
       profilePhoto {
+        id
+        updatedAt
+        createdAt
         filename
+        mimetype
+        encoding
         url
       }
     }

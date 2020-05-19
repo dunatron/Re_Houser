@@ -109,7 +109,7 @@ const PRE_TENANCY_FORM_CONF = [
         key: 'proofOfAddress',
         fieldProps: {
           isMultiple: false,
-          maxAllowedFiles: 1,
+          maxFilesAllowed: 1,
           name: 'proofOfAddress',
           label: 'Proof of address',
           description:

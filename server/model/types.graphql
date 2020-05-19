@@ -120,7 +120,7 @@ type CreditCard {
 
 type File {
   id: ID! @unique @id
-  updatedAt: DateTime! @updatedAt
+  updatedAt: DateTime @updatedAt
   createdAt: DateTime! @createdAt
   filename: String!
   mimetype: String!

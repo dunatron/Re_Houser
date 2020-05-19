@@ -36,6 +36,7 @@ import ViewIcon from '@material-ui/icons/VisibilityOutlined';
 import CheckIcon from '@material-ui/icons/Check';
 import FlipToBackIcon from '@material-ui/icons/FlipToBackOutlined';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFrontOutlined';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
 
 // https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2
 // maybe try for progress https://github.com/jaydenseric/apollo-upload-client/issues/88
@@ -44,6 +45,8 @@ const SINGLE_UPLOAD = gql`
   mutation($file: Upload!) {
     singleUpload(file: $file) {
       id
+      updatedAt
+      createdAt
       filename
       mimetype
       encoding
@@ -58,6 +61,12 @@ const DELETE_FILE_MUTATION = gql`
   mutation($id: ID!) {
     deleteFile(id: $id) {
       id
+      updatedAt
+      createdAt
+      filename
+      mimetype
+      encoding
+      url
     }
   }
 `;
@@ -66,6 +75,8 @@ const UPLOAD_FILES_MUTATION = gql`
   mutation($files: [Upload!]!) {
     uploadFiles(files: $files) {
       id
+      updatedAt
+      createdAt
       filename
       mimetype
       encoding
@@ -175,7 +186,7 @@ const reducer = (state, action) => {
 };
 
 const UploadFile = forwardRef((props, ref) => {
-  const { flip, removeFile } = props;
+  const { flip, removeFile, serverFiles, remove } = props;
   const maxFilesAllowed = props.maxFilesAllowed ? props.maxFilesAllowed : 10;
   const client = useApolloClient();
   const multiple = true;
@@ -187,6 +198,9 @@ const UploadFile = forwardRef((props, ref) => {
     uploadedCount: 0,
   });
   const { files, errors, recentlyUploaded, uploadedCount } = store;
+
+  // serverFiles Length + files length
+  const totalFileCount = files.length + serverFiles.length;
 
   useImperativeHandle(ref, () => ({
     getAlert() {
@@ -232,11 +246,12 @@ const UploadFile = forwardRef((props, ref) => {
   };
 
   const onFilesAdded = addedFiles => {
-    if (files.length > maxFilesAllowed) return;
-    if (addedFiles.length + files.length > maxFilesAllowed) {
+    if (totalFileCount > maxFilesAllowed) return;
+    if (addedFiles.length + totalFileCount > maxFilesAllowed) {
       toast.info(
         <Typography>You can only upload {maxFilesAllowed} files</Typography>
       );
+      return;
     }
     dispatch({
       type: 'ADD_FILES',
@@ -356,7 +371,7 @@ const UploadFile = forwardRef((props, ref) => {
                 <div key={f.raw.name} className={classes.row}>
                   <FileActions
                     file={f}
-                    remove={handleRemoveFile}
+                    remove={remove}
                     upload={file => {
                       handleStartUpload(file);
                       handleFileUpload(file);
@@ -409,6 +424,17 @@ const UploadFile = forwardRef((props, ref) => {
             })}
         </div>
       )}
+
+      {/* Attached Files */}
+      {serverFiles.length > 0 && (
+        <div
+          style={{
+            width: '100%',
+          }}>
+          <h3>Attached Files</h3>
+          <FilePreviewer files={serverFiles} remove={remove} />
+        </div>
+      )}
     </Paper>
   );
 });
@@ -425,14 +451,14 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
   );
 };
 
-const UploadedServerFiles = ({ files, flip }) => {
+const UploadedServerFiles = ({ files, flip, remove }) => {
   const classes = useUploadStyles();
   const paperClasses = clsx({
     [classes.flipCard]: true,
   });
   return (
     <Paper className={paperClasses}>
-      <FilePreviewer files={files} />
+      <FilePreviewer files={files} remove={remove} />
     </Paper>
   );
 };
@@ -445,17 +471,71 @@ const FileManager = props => {
     maxFilesAllowed,
     recieveFile,
     removeFile,
+    fileRemovedFromServer,
+    refetchQueries,
+    updateCacheOnRemovedFile,
   } = props;
   const [state, setState] = useState({
-    isFlipped: props.files.length > 0 ? false : true,
+    // isFlipped: props.files.length > 0 ? false : true,
+    isFlipped: false,
   });
   const classes = useUploadStyles();
+
+  console.log(' DId we get Progress file?? => ', files);
+
+  const handleFileSuccessfullyRemovedFromServer = data => {
+    console.log('handleFileSuccessfullyRemovedFromServer data => ', data);
+    // fileRemovedFromServer(data);
+  };
+
+  const [deleteFile, { data, loading, error }] = useMutation(
+    DELETE_FILE_MUTATION,
+    {
+      onCompleted: handleFileSuccessfullyRemovedFromServer,
+      // refetchQueries: refetchQueries,
+    }
+  );
 
   const handleFlip = () =>
     setState({
       ...state,
       isFlipped: !state.isFlipped,
     });
+
+  const removeFileFromServer = file => {
+    deleteFile({
+      variables: {
+        id: file.id,
+      },
+      // doesnt seem to cut the mustard
+      update: updateCacheOnRemovedFile,
+      // update: (cache, result) => {
+      //   // Object.keys(cache.data.data).forEach(
+      //   //   key => key.match(/^File/) && cache.data.delete(key)
+      //   // );
+      //   console.log('Delets update result => ', result);
+      //   Object.keys(cache.data.data).forEach(key => {
+      //     console.log('A cache key => ', key);
+      //     key.match(/^File/) && cache.data.delete(key);
+      //   });
+      //   console.log('Tell me the cahce now => ', cache.data);
+      //   Object.keys(cache.data.data).forEach(key => {
+      //     console.log('A cache key after => ', key);
+      //   });
+      //   alert(
+      //     'File has been removed. Why Show on this fucken entity Apollo?????'
+      //   );
+      // },
+      // refetchQueries: [
+      //   {
+      //     query: SINGLE_RENTAL_APPLICATION_QUERY,
+      //     variables: {
+      //       where: { id: 'ck9hzj39y1exw09349ddhmomc' },
+      //     },
+      //   },
+      // ],
+    });
+  };
 
   return (
     <>
@@ -475,12 +555,18 @@ const FileManager = props => {
         flipSpeedFrontToBack={0.6}
         infinite={false}>
         {/* FRONT OF CARD */}
-        <UploadedServerFiles files={files} flip={handleFlip} />
+        <UploadedServerFiles
+          files={files}
+          flip={handleFlip}
+          remove={removeFileFromServer}
+        />
         {/* BACK OF CARD */}
         <UploadFile
+          serverFiles={files}
           flip={handleFlip}
           description={description}
           {...props}
+          remove={removeFileFromServer}
           maxFilesAllowed={maxFilesAllowed}
         />
       </ReactCardFlip>

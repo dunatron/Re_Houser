@@ -111,9 +111,9 @@ const Apply = props => {
             </div>
           );
           handleLink({
-            route: '/rentalapplication',
+            route: '/applications/application',
             query: {
-              applicationId: payload.data.createRentalApplication.id,
+              id: payload.data.createRentalApplication.id,
             },
           });
         }

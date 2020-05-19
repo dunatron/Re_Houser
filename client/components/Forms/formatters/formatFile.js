@@ -2,13 +2,18 @@ import React from 'react';
 import { is } from 'ramda';
 
 const _preFormatFile = values => {
-  if (
-    (typeof values === 'object' || typeof values === 'function') &&
-    values !== null
-  ) {
-    return values.set ? values.set : values;
+  // if (
+  //   (typeof values === 'object' || typeof values === 'function') &&
+  //   values !== null
+  // ) {
+  //   return values.set ? values.set : values;
+  // }
+  // return values;
+  if (is(Array, values)) {
+    return values;
   }
-  return values;
+  // otherwise we assume its an object, just add that to an array
+  return [values];
 };
 
 const _postFormatFile = value => {
