@@ -215,27 +215,27 @@ const RentalApplicationStepper = props => {
     applicant => applicant.user.id === me.id
   );
 
-  useEffect(() => {
-    if (rentalApplication) {
-      setApplicationInfo(rentalApplication);
-      const applicantInfo = extractApplicantUserData(rentalApplication, me);
-      const userInfoFields = extractUserInfoFields(rentalApplication, me);
-      setUserInfo(userInfoFields);
-      // if user as completed step hide it
+  // useEffect(() => {
+  //   if (rentalApplication) {
+  //     setApplicationInfo(rentalApplication);
+  //     const applicantInfo = extractApplicantUserData(rentalApplication, me);
+  //     const userInfoFields = extractUserInfoFields(rentalApplication, me);
+  //     setUserInfo(userInfoFields);
+  //     // if user as completed step hide it
 
-      setCompleted({
-        0: applicantInfo.completed,
-        1: detailsStepIsComplete(rentalApplication),
-        2: applicantInfo.preTenancyApplicationForm,
-      });
-      if (applicantInfo.completed) {
-        setActiveStep(1);
-      }
-      if (applicantInfo.preTenancyApplicationForm) {
-        setActiveStep(1);
-      }
-    }
-  }, [rentalApplication]);
+  //     setCompleted({
+  //       0: applicantInfo.completed,
+  //       1: detailsStepIsComplete(rentalApplication),
+  //       2: applicantInfo.preTenancyApplicationForm,
+  //     });
+  //     if (applicantInfo.completed) {
+  //       setActiveStep(1);
+  //     }
+  //     if (applicantInfo.preTenancyApplicationForm) {
+  //       setActiveStep(1);
+  //     }
+  //   }
+  // }, [rentalApplication]);
 
   const completedSteps = () => {
     return Object.keys(completed).length;
@@ -315,6 +315,12 @@ const RentalApplicationStepper = props => {
       case 2: {
         if (!applicantData.preTenancyApplicationForm) {
           alert('You need to submit a preTenancy Form');
+          return;
+        }
+        if (!applicantData.preTenancyApplicationForm.proofOfAddress) {
+          alert(
+            'You need to have a proof of address file on your pre tenancy form'
+          );
           return;
         }
         break;

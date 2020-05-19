@@ -476,8 +476,8 @@ const FileManager = props => {
     updateCacheOnRemovedFile,
   } = props;
   const [state, setState] = useState({
-    // isFlipped: props.files.length > 0 ? false : true,
-    isFlipped: false,
+    isFlipped: props.files.length > 0 ? false : true,
+    // isFlipped: false,
   });
   const classes = useUploadStyles();
 
@@ -513,27 +513,24 @@ const FileManager = props => {
       //   // Object.keys(cache.data.data).forEach(
       //   //   key => key.match(/^File/) && cache.data.delete(key)
       //   // );
+      //   console.log('START cache.data.data => ', cache.data.data);
       //   console.log('Delets update result => ', result);
-      //   Object.keys(cache.data.data).forEach(key => {
-      //     console.log('A cache key => ', key);
-      //     key.match(/^File/) && cache.data.delete(key);
-      //   });
-      //   console.log('Tell me the cahce now => ', cache.data);
-      //   Object.keys(cache.data.data).forEach(key => {
-      //     console.log('A cache key after => ', key);
-      //   });
-      //   alert(
-      //     'File has been removed. Why Show on this fucken entity Apollo?????'
-      //   );
+      //   // Object.keys(cache.data.data).forEach(key => {
+      //   //   console.log('A cache key => ', key);
+      //   //   key.match(/^File/) && cache.data.delete(key);
+      //   // });
+      //   // console.log('Tell me the cahce now => ', cache.data);
+      //   // Object.keys(cache.data.data).forEach(key => {
+      //   //   console.log('A cache key after => ', key);
+      //   // });
+      //   // cache.writeQuery
+
+      //   cache.evict(`File:${result.data.deleteFile.id}`);
+      //   cache.evict('RentalGroupApplicant:ck9hzj3pe3h4d0981ntqhsdr9');
+      //   const gcRes = cache.gc(); // Remove a specific entity by ID
+      //   console.log('gcRes => ', gcRes);
+      //   console.log('END cache.data.data => ', cache.data.data);
       // },
-      // refetchQueries: [
-      //   {
-      //     query: SINGLE_RENTAL_APPLICATION_QUERY,
-      //     variables: {
-      //       where: { id: 'ck9hzj39y1exw09349ddhmomc' },
-      //     },
-      //   },
-      // ],
     });
   };
 

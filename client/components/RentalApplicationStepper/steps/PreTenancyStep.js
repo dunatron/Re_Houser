@@ -25,10 +25,10 @@ const PreTenancyStep = ({
   const [isEditing, setIsEditing] = useState();
 
   const handleOnCompleted = data => {
-    setIsEditing(false);
+    // setIsEditing(false);
     toast.success(
       <Typography>
-        PreTenancy form has been attached to your application
+        Your PreTenancy form has been updated and attached to your application
       </Typography>
     );
   };
@@ -62,18 +62,41 @@ const PreTenancyStep = ({
     <FormCreator
       data={hasForm ? preTenancyApplicationForm : formData}
       config={PRE_TENENACY_FORM_CONF}
-      posting={loading}
+      // posting={loading}
       error={error}
       updateCacheOnRemovedFile={(cache, result) => {
-        console.log('updateCacheOnRemovedFile => cache => ', cache);
-        console.log('updateCacheOnRemovedFile => result => ', result);
-        cache.gc(); // Remove a specific entity by ID
-        cache.evict(result.data.deleteFile.id);
+        updateRentalGroupApplicant({
+          variables: {
+            data: {
+              preTenancyApplicationForm: {
+                update: {
+                  proofOfAddress: {
+                    disconnect: true,
+                  },
+                },
+              },
+            },
+            where: {
+              id: currentApplicant.id,
+            },
+          },
+        });
+        // console.log('START cache.data.data => ', cache.data.data);
         // Object.keys(cache.data.data).forEach(key => {
         //   if (key.match(/^File/)) {
         //     cache.data.delete(key);
         //   }
         // });
+        // console.log('updateCacheOnRemovedFile => cache => ', cache);
+        // console.log('updateCacheOnRemovedFile => result => ', result);
+        // cache.gc(); // Remove a specific entity by ID
+        // cache.evict(result.data.deleteFile.id);
+        // Object.keys(cache.data.data).forEach(key => {
+        //   if (key.match(/^File/)) {
+        //     cache.data.delete(key);
+        //   }
+        // });
+        // console.log('END cache.data.data => ', cache.data.data);
         // Object.keys(proxy.data.data).forEach((key) => {
         //   if (key.match(/someregex/) {
         //       proxy.data.delete(key);
