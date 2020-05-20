@@ -6,11 +6,32 @@ import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 // import { SINGLE_LEASE_QUERY } from '../LeaseManager';
 import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
+import { PropertyLeaseInfoFragment } from '../../graphql/fragments/propertyLeaseInfo';
 
+// const SIGN_LEASE_MUTATION = gql`
+//   mutation SIGN_LEASE_MUTATION($id: ID!, $type: String!, $leaseId: ID!) {
+//     signLease(id: $id, type: $type, leaseId: $leaseId) {
+//       ...propertyLeaseInfo
+//     }
+//   }
+//   ${PropertyLeaseInfoFragment}
+// `;
+
+/**
+ * You only need the updated fields and the ids
+ */
 const SIGN_LEASE_MUTATION = gql`
   mutation SIGN_LEASE_MUTATION($id: ID!, $type: String!, $leaseId: ID!) {
     signLease(id: $id, type: $type, leaseId: $leaseId) {
-      message
+      id
+      lessors {
+        id
+        signed
+      }
+      lessees {
+        id
+        signed
+      }
     }
   }
 `;
@@ -27,18 +48,23 @@ const updateSignageInCache = (proxy, payload, leaseId, id, type) => {
     },
   });
   // 2. update the cache on success
-  // if (payload.data.signLease) {
-  //   if (payload.data.signLease.__typename === 'SuccessMessage') {
-  //     // 3. find correct user and type and update signed to true
-  //     const userType = type === 'LESSOR' ? 'lessors' : 'lessees';
-  //     const interestedSignerIndex = leaseData.myLease[userType].findIndex(
-  //       lessor => lessor.id === id
-  //     );
-  //     leaseData.myLease[userType][interestedSignerIndex].signed = true;
-  //     // 4. give the uses some extra notice through toast
-  //     toast.info(<p>{payload.data.signLease.message}</p>);
-  //   }
-  // }
+  if (payload.data.signLease) {
+    console.log('well this is true => ', payload.data.signLease);
+    if (payload.data.signLease.__typename === 'SuccessMessage') {
+      console.log(
+        '(payload.data.signLease.__typename => ',
+        payload.data.signLease.__typename
+      );
+      // 3. find correct user and type and update signed to true
+      const userType = type === 'LESSOR' ? 'lessors' : 'lessees';
+      const interestedSignerIndex = leaseData.myLease[userType].findIndex(
+        lessor => lessor.id === id
+      );
+      leaseData.myLease[userType][interestedSignerIndex].signed = true;
+      // 4. give the uses some extra notice through toast
+      toast.info(<p>{payload.data.signLease.message}</p>);
+    }
+  }
 };
 
 // SignLeaseBtn
@@ -49,10 +75,10 @@ const SignLeaseBtn = ({ id, type, leaseId, signed }) => {
       type: type,
       leaseId: leaseId,
     },
-    update: (proxy, payload) => {
-      console.log('We are now immutable so this wont suffice tbh');
-      updateSignageInCache(proxy, payload, leaseId, id, type);
-    },
+    // update: (proxy, payload) => {
+    //   console.log('We are now immutable so this wont suffice tbh');
+    //   updateSignageInCache(proxy, payload, leaseId, id, type);
+    // },
   });
   if (signed) {
     return 'You have signed the lease';

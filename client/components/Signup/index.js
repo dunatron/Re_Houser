@@ -45,12 +45,18 @@ const Signup = props => {
         autoClose: 15000,
       }
     );
+    clearRecaptcha();
+  };
+
+  const handleOnError = error => {
+    clearRecaptcha();
   };
 
   const [signUp, { error, loading, data }] = useMutation(SIGNUP_MUTATION, {
     variables: state,
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
     onCompleted: handleCompleted,
+    onError: handleOnError,
   });
   const handleLink = (route = '/', query = {}) => {
     Router.push({

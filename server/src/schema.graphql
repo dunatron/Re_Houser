@@ -108,8 +108,8 @@ type Mutation {
   declineRentalApplication(applicationId: ID!): SuccessMessage!
   createCreditCard(token: String!): CreditCard!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
-  signLease(id: ID!, leaseId: ID!, type: String!): SuccessMessage!
-  finalisePropertyLease(leaseId: ID!): SuccessMessage!
+  signLease(id: ID!, leaseId: ID!, type: String!): PropertyLease!
+  finalisePropertyLease(leaseId: ID!): PropertyLease!
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
   createChat(data: ChatCreateInput!): Chat!

@@ -467,6 +467,7 @@ const UploadedServerFiles = ({ files, flip, remove }) => {
   );
 };
 
+//remove gets fed into here
 const FileManager = props => {
   const {
     title,

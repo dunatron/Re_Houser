@@ -274,10 +274,21 @@ type PropertyLease implements PropertyInfo {
   locationLat: Float!
   locationLng: Float!
   activity: [Activity!]! @relation(name: "PropertyLeaseActivity")
+  wallet: Wallet @relation(name: "LeaseWallet", link: INLINE)
 }
 
+type Wallet {
+  id: ID! @unique @id
+  lease: PropertyLease @relation(name: "LeaseWallet")
+  amount: Float
+  payments: [Payment] @relation(name: "WalletPayments", link: TABLE)
+}
+
+# ToDo add Payment model to the wallet and display wallet on the front end
+# Probably best to link the payment to a user
 type Payment {
   id: ID! @unique @id
+  wallet: Wallet @relation(name: "WalletPayments")
   userId: ID!
   leaseId: ID
   propertyId: ID

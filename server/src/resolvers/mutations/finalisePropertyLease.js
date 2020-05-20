@@ -9,18 +9,19 @@ const { createActivity } = require("../../lib/createActivity");
 async function finalisePropertyLease(parent, args, ctx, info) {
   const reqUserId = await mustBeAuthed({
     ctx: ctx,
-    errorMessage: "You must be logged in to finalise a lease"
+    errorMessage: "You must be logged in to finalise a lease",
   });
   const leaseId = args.leaseId;
   // 1. get the property lease via the id and all of the data we will need
   const lease = await ctx.db.query.propertyLease(
     {
       where: {
-        id: leaseId
-      }
+        id: leaseId,
+      },
     },
     `{
       id
+      rent
       lessors {
         id
         signed
@@ -40,16 +41,20 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       property {
         id
       }
+      wallet {
+        id
+        amount
+      }
     }`
   );
 
   // easy accessors
-  const lessorUsers = lease.lessors.map(lessor => lessor.user);
-  const lesseeUsers = lease.lessees.map(lessee => lessee.user);
-  const lessorIds = lease.lessors.map(lessor => lessor.user.id);
-  const lesseeIds = lease.lessees.map(lessee => lessee.user.id);
-  const lessorSignatures = lease.lessors.map(lessor => lessor.signed);
-  const lesseeSignatures = lease.lessees.map(lessee => lessee.signed);
+  const lessorUsers = lease.lessors.map((lessor) => lessor.user);
+  const lesseeUsers = lease.lessees.map((lessee) => lessee.user);
+  const lessorIds = lease.lessors.map((lessor) => lessor.user.id);
+  const lesseeIds = lease.lessees.map((lessee) => lessee.user.id);
+  const lessorSignatures = lease.lessors.map((lessor) => lessor.signed);
+  const lesseeSignatures = lease.lessees.map((lessee) => lessee.signed);
 
   // must be a lessor to finalise lease
   const isALessor = lessorIds.includes(reqUserId);
@@ -69,55 +74,76 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet");
   }
 
-  // get logged in user and primaryCard data to charge
-  const loggedInUser = await ctx.db.query.user(
-    {
-      where: {
-        id: reqUserId
-      }
-    },
-    `{
-      id
-      email
-      primaryCreditCard {
-        id
-        stripeCardId
-        stripeCustomerId
-        fingerprint
-        country
-        brand
-        exp_month
-        exp_year
-        last4
-        name
-      }
-    }`
-  );
-
-  // logged in user must have a set primary credit card
-  if (!loggedInUser.primaryCreditCard) {
-    throw new Error("You must have a credit card");
+  if (!lease.wallet) {
+    throw new Error(
+      "For some reason your lease has no wallet. Please contact support as this shouldnt happen"
+    );
   }
 
-  // charge logged in users primary credit card 69 dollars always, because help me help u
-  const payment = await chargeCard({
-    stripeCustomerId: loggedInUser.primaryCreditCard.stripeCustomerId,
-    amount: 69,
-    currency: "NZD",
-    userId: loggedInUser.id,
-    leaseId: leaseId,
-    propertyId: lease.property.id
-  });
+  if (lease.wallet.amount < lease.rent * 2) {
+    throw new Error(
+      `Wallet Amount: ($${
+        lease.wallet.amount
+      }) -  You need to supply ($${lease.rent * 2})
+        2 weeks worth of rent to the lease wallet before the lease can go into full effect 
+        `
+    );
+  }
+  /**
+   * NO LONGER CHARGING CLIENT ON SUCCESSFUL SIGN UP
+   */
+  // get logged in user and primaryCard data to charge
+  // const loggedInUser = await ctx.db.query.user(
+  //   {
+  //     where: {
+  //       id: reqUserId,
+  //     },
+  //   },
+  //   `{
+  //     id
+  //     email
+  //     primaryCreditCard {
+  //       id
+  //       stripeCardId
+  //       stripeCustomerId
+  //       fingerprint
+  //       country
+  //       brand
+  //       exp_month
+  //       exp_year
+  //       last4
+  //       name
+  //     }
+  //   }`
+  // );
+
+  // // logged in user must have a set primary credit card
+  // // if (!loggedInUser.primaryCreditCard) {
+  // //   throw new Error("You must have a credit card");
+  // // }
+
+  // // charge logged in users primary credit card 69 dollars always, because help me help u
+  // const payment = await chargeCard({
+  //   stripeCustomerId: loggedInUser.primaryCreditCard.stripeCustomerId,
+  //   amount: 69,
+  //   currency: "NZD",
+  //   userId: loggedInUser.id,
+  //   leaseId: leaseId,
+  //   propertyId: lease.property.id,
+  // });
 
   // accept the lease and finalise it
-  const acceptedLease = ctx.db.mutation.updatePropertyLease({
-    where: {
-      id: leaseId
+  const acceptedLease = ctx.db.mutation.updatePropertyLease(
+    {
+      where: {
+        id: leaseId,
+      },
+      data: {
+        finalised: true,
+      },
     },
-    data: {
-      finalised: true
-    }
-  });
+    info
+  );
 
   createActivity({
     ctx: ctx,
@@ -129,31 +155,30 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       jsonObj: lease,
       propertyLease: {
         connect: {
-          id: lease.id
-        }
+          id: lease.id,
+        },
       },
       user: {
         connect: {
-          id: reqUserId
-        }
+          id: reqUserId,
+        },
       },
       involved: {
         connect: [
-          ...lessorIds.map(id => ({ id: id })),
-          ...lesseeIds.map(id => ({ id: id }))
-        ]
-      }
-    }
+          ...lessorIds.map((id) => ({ id: id })),
+          ...lesseeIds.map((id) => ({ id: id })),
+        ],
+      },
+    },
   });
-
-  throw new Error("testung finalise");
 
   lessorUsers.map((usr, indx) => {
     finalisePropertyLeaseEmail({
       ctx: ctx,
       lease: lease,
-      payment: payment,
-      toEmail: usr.email
+      // payment: payment,
+      wallet: lease.wallet,
+      toEmail: usr.email,
     });
   });
 
@@ -161,24 +186,13 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     finalisePropertyLeaseEmail({
       ctx: ctx,
       lease: lease,
-      payment: payment,
-      toEmail: usr.email
+      // payment: payment,
+      wallet: lease.wallet,
+      toEmail: usr.email,
     });
   });
 
-  // this lease has a propertyId, use it to cleanup any applications
-  // finalisePropertyLeaseEmail({ ctx: ctx, lease: lease, payment: payment });
-
-  const message = {
-    message: "Property Lease is now Legal: Your Payment was successful ",
-    data: {
-      payment: {
-        id: payment.id
-      }
-    }
-  };
-
-  return message;
+  return acceptedLease;
 }
 
 module.exports = finalisePropertyLease;

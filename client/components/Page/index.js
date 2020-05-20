@@ -123,6 +123,17 @@ const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: inherit;
   }
+  fieldset{ 
+    padding: 0;
+    margin-inline-start: unset;
+    margin-inline-end: unset;
+    padding-block-start: unset;
+    padding-inline-start: unset;
+    padding-inline-end: unset;
+    padding-block-end: unset;
+    min-inline-size: unset;
+    border: 0;
+  }
   body {
     padding: 0;
     margin: 0;
@@ -197,7 +208,7 @@ const Page = props => {
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
 
-      <MuiThemeProvider theme={userTheme}>
+      <MuiThemeProvider theme={themeToUse}>
         <ToastContainer
           rtl={false}
           style={{

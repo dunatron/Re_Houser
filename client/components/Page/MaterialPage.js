@@ -88,19 +88,6 @@ function MaterialPage(props) {
     return child;
   });
 
-  // https://upmostly.com/tutorials/settimeout-in-react-components-using-hooks
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      toggleTheme();
-      setSeconds(seconds + 0.5);
-    }, 10);
-    if (seizureProcedure) {
-    } else {
-      clearTimeout(timer);
-    }
-    return () => clearTimeout(timer);
-  }, [seizureProcedure, seconds]);
-
   const heartEmojis = heartsEmojiMap();
 
   console.log(' I am a material Page Ideally, I only render once per page');
@@ -108,33 +95,6 @@ function MaterialPage(props) {
     <>
       <div className={classes.root}>
         <CssBaseline />
-        {seizureProcedure && (
-          <div
-            onClick={() => setSeizureProcedure(false)}
-            style={{
-              backgroundColor: 'yellow',
-              position: 'fixed',
-              top: '40%',
-              right: '40%',
-              zIndex: 9999999999999999,
-            }}>
-            <h1>{heartEmojis}</h1>
-            <h1>
-              <span>&#128565; &#128565;</span>
-              <span> &#127814; &#127814; &#127814;</span>
-              <span>STOP PLEASE</span>
-              <span>&#127814; &#127814; &#127814;</span>
-              <span>&#128565; &#128565;</span>
-            </h1>
-            <h1>
-              <span>If I had a heart it would be a &#128156; one</span>
-            </h1>
-            <h1>
-              <span>Hercules, Hercules, Hercules &#128303;</span>
-            </h1>
-            <h1>{heartEmojis}</h1>
-          </div>
-        )}{' '}
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             <IconButton
@@ -174,20 +134,9 @@ function MaterialPage(props) {
                 flexWrap: 'wrap',
                 alignItems: 'center',
               }}>
-              <ThemePicker setTheme={setTheme} />
-              {/* <Tooltip title="perform the seizure procedure">
-                <IconButton
-                  onClick={() => {
-                    // toggleTheme();
-                    setSeizureProcedure(!seizureProcedure);
-                  }}
-                  color="inherit"
-                  aria-label="toggle Theme"
-                  edge="end">
-                  <Brightness7Icon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="go to Dashboard">
+              {/* <ThemePicker setTheme={setTheme} /> */}
+
+              <Tooltip title="toggle app theme">
                 <IconButton
                   onClick={() => toggleTheme()}
                   color="inherit"
@@ -195,7 +144,7 @@ function MaterialPage(props) {
                   edge="end">
                   <Brightness7Icon />
                 </IconButton>
-              </Tooltip> */}
+              </Tooltip>
               <Tooltip title="go to Dashboard">
                 <IconButton
                   onClick={() => {

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -9,8 +10,13 @@ import { useCurrentUser } from '../User';
 import Loader from '../Loader/index';
 
 const Message = ({ message, alert }) => {
-  if (alert) toast.info(alert);
-  if (message) return <p>{message}</p>;
+  const [alertCount, setAlertCount] = useState(0);
+  // only fire alerts once per mount
+  if (alertCount <= 0) {
+    if (alert) toast.info(alert);
+    if (message) return <p>{message}</p>;
+    setAlertCount(alertCount + 1);
+  }
   return null;
   return <p>Please Sign In before Continuing</p>;
 };

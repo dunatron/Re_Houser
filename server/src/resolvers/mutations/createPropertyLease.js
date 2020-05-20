@@ -12,7 +12,14 @@ async function createPropertyLease(parent, { data }, ctx, info) {
     //   data: recievedData
     // },
     {
-      data: { ...recievedData }
+      data: {
+        ...recievedData,
+        wallet: {
+          create: {
+            amount: 0,
+          },
+        },
+      },
     },
     // {},
     info
@@ -21,8 +28,8 @@ async function createPropertyLease(parent, { data }, ctx, info) {
   const connectProperty = newLease.property
     ? {
         connect: {
-          id: newLease.property.id
-        }
+          id: newLease.property.id,
+        },
       }
     : null;
 
@@ -34,16 +41,16 @@ async function createPropertyLease(parent, { data }, ctx, info) {
       type: "CREATED_LEASE",
       propertyLease: {
         connect: {
-          id: newLease.id
-        }
+          id: newLease.id,
+        },
       },
       user: {
         connect: {
-          id: loggedInUserId
-        }
+          id: loggedInUserId,
+        },
       },
-      property: connectProperty
-    }
+      property: connectProperty,
+    },
   });
 
   return newLease;

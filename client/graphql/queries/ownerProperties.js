@@ -1,26 +1,14 @@
 import gql from 'graphql-tag';
 
+import { PropertyInfoFragment } from '../fragments';
+
 const OWNER_PROPERTIES_QUERY = gql`
   query OWNER_PROPERTIES_QUERY {
     ownerProperties {
-      id
-      rooms
-      rent
-      moveInDate
-      onTheMarket
-      location
-      locationLat
-      locationLng
-      owners {
-        id
-        email
-        firstName
-      }
-      images {
-        url
-      }
+      ...propertyInfo
     }
   }
+  ${PropertyInfoFragment}
 `;
 
 export { OWNER_PROPERTIES_QUERY };

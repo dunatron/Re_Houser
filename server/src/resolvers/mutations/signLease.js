@@ -14,12 +14,12 @@ async function signLease(parent, args, ctx, info) {
   const data = {
     update: {
       where: {
-        id: id
+        id: id,
       },
       data: {
-        signed: true
-      }
-    }
+        signed: true,
+      },
+    },
   };
 
   const updateDataWithType =
@@ -33,23 +33,26 @@ async function signLease(parent, args, ctx, info) {
 
   // const lease = await ctx.db.query.propertyLease()
   // just straight up make the mutation
-  const signedLease = await ctx.db.mutation.updatePropertyLease({
-    where: {
-      id: leaseId
+  const signedLease = await ctx.db.mutation.updatePropertyLease(
+    {
+      where: {
+        id: leaseId,
+      },
+      data: updateDataWithType,
     },
-    data: updateDataWithType
-  });
+    info
+  );
 
   const connectProperty = signedLease.property
     ? {
         connect: {
-          id: signedLease.property.id
-        }
+          id: signedLease.property.id,
+        },
       }
     : null;
 
   const message = {
-    message: `Signing of lease ${leaseId} was successful`
+    message: `Signing of lease ${leaseId} was successful`,
   };
 
   /**
@@ -64,19 +67,19 @@ async function signLease(parent, args, ctx, info) {
       jsonObj: data,
       user: {
         connect: {
-          id: loggedInUserId
-        }
+          id: loggedInUserId,
+        },
       },
       propertyLease: {
         connect: {
-          id: signedLease.id
-        }
+          id: signedLease.id,
+        },
       },
-      property: connectProperty
-    }
+      property: connectProperty,
+    },
   });
 
-  return message;
+  return signedLease;
 }
 
 module.exports = signLease;

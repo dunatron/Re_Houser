@@ -2,3 +2,8 @@ export { default as chat } from './chat.fragment';
 export { default as message } from './message.fragment';
 export { default as UserInfoFragment } from './userInfo';
 export { default as PropertyLeaseInfoFragment } from './propertyLeaseInfo';
+export { default as PublicUserInfoFragment } from './publicUserInfo';
+export { default as FileInfoFragment } from './fileInfo';
+export { default as PropertyInfoFragment } from './propertyInfo';
+export { default as AccommodationInfoFragment } from './accommodationInfo';
+export { default as InsulationFormInfoFragment } from './insulationFormInfo';

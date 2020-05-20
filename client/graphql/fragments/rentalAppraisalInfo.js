@@ -1,12 +1,11 @@
 import gql from 'graphql-tag';
+import { PublicUserInfoFragment } from './publicUserInfo';
 
 const RentalAppraisalInfoFragment = gql`
   fragment rentalAppraisalInfo on RentalAppraisal {
     id
     requestedBy {
-      id
-      firstName
-      email
+      ...publicUserInfo
     }
     location
     locationLat
@@ -22,6 +21,7 @@ const RentalAppraisalInfoFragment = gql`
       location
     }
   }
+  ${PublicUserInfoFragment}
 `;
 
 export { RentalAppraisalInfoFragment };

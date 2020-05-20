@@ -1,32 +1,12 @@
 import gql from 'graphql-tag';
+import { PropertyInfoFragment } from '../fragments';
 
 const PROPERTIES_QUERY = gql`
   query PROPERTIES_QUERY {
     properties {
-      id
-      rooms
-      rent
-      accommodation {
-        id
-        roomSize
-        rent
-        expenses
-        description
-      }
-      moveInDate
-      onTheMarket
-      location
-      locationLat
-      locationLng
-      owners {
-        id
-        email
-        firstName
-      }
-      images {
-        url
-      }
+      ...propertyInfo
     }
   }
+  ${PropertyInfoFragment}
 `;
 export { PROPERTIES_QUERY };

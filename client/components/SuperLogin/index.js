@@ -72,7 +72,7 @@ const LoginPage = props => {
   };
 
   const handleChangeIndex = index => {
-    setTabIndex(value);
+    setTabIndex(index);
   };
 
   const { classes, theme } = props;
@@ -102,7 +102,12 @@ const LoginPage = props => {
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={tabIndex}
-        onChangeIndex={handleChangeIndex}>
+        onChangeIndex={(index, indexLatest, meta) => {
+          console.log('SWIPE index => ', index);
+          console.log('SWIPE indexLatest => ', indexLatest);
+          console.log('SWIPE meta => ', meta);
+          handleChangeIndex(index);
+        }}>
         <TabContainer dir={theme.direction}>
           <Signup
             email={state.email}

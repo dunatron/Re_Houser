@@ -1,8 +1,6 @@
 import gql from 'graphql-tag';
 import { FileInfoFragment } from './fileInfo';
-/**
- * Not working.. maybe because we are spreading on an array
- */
+
 const PreTenancyInfoFragment = gql`
   fragment preTenancyInfo on PreTenancyForm {
     firstTimeTenant

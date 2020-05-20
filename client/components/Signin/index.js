@@ -29,11 +29,17 @@ const Signin = props => {
         </strong>
       </p>
     );
+    clearRecaptcha();
   };
+  const handleOnError = error => {
+    clearRecaptcha();
+  };
+
   const [signIn, { loading, error, data, called }] = useMutation(
     SIGNIN_MUTATION,
     {
       onCompleted: handleCompleted,
+      onError: handleOnError,
     }
   );
   const saveToState = e => {
@@ -66,7 +72,6 @@ const Signin = props => {
           variables: state,
           refetchQueries: [{ query: CURRENT_USER_QUERY }],
         });
-        clearRecaptcha();
       }}>
       <fieldset disabled={loading} aria-busy={loading}>
         <Error error={error} />

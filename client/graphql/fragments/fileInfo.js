@@ -13,3 +13,5 @@ const FileInfoFragment = gql`
 `;
 
 export { FileInfoFragment };
+
+export default FileInfoFragment;
