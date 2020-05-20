@@ -39,6 +39,10 @@ const PropertyLeaseInfoFragment = gql`
     location
     locationLat
     locationLng
+    wallet {
+      id
+      amount
+    }
   }
   ${PropertyInfoFragment}
 `;

@@ -40,12 +40,12 @@ const CreditCardTab = ({ me }) => {
         Primary Card ID:
         {primaryCreditCard ? primaryCreditCard.id : 'NOT SET'}
       </Typography>
-      <StripeComponents>
+      {/* <StripeComponents>
         <Typography component="h2" variant="subtitle1">
           Create a New Card
         </Typography>
         <CreateCardForm me={me} />
-      </StripeComponents>
+      </StripeComponents> */}
       <CreditCardsList cardsList={data.myCreditCards} />
     </div>
   );

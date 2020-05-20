@@ -3,6 +3,8 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { StripeProvider } from 'react-stripe-elements';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { ToastContainer, toast } from 'react-toastify';
 import MaterialPage from './MaterialPage';
 
@@ -204,6 +206,8 @@ const Page = props => {
     setUserTheme(myMadeTheme);
   };
 
+  // const stripePromise = loadStripe(process.env.STRIPE_KEY);
+
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
@@ -228,8 +232,10 @@ const Page = props => {
             </div>
           }
         />
-        <StripeProvider stripe={stripe}>
-          <ThemeProvider theme={userTheme}>
+        {/* <StripeProvider stripe={stripe}> */}
+
+        <ThemeProvider theme={userTheme}>
+          <Elements stripe={stripe}>
             <WithUser>
               {/* <WithChats> */}
               <Meta />
@@ -248,8 +254,10 @@ const Page = props => {
                 </div> */}
               {/* </WithChats> */}
             </WithUser>
-          </ThemeProvider>
-        </StripeProvider>
+          </Elements>
+        </ThemeProvider>
+
+        {/* </StripeProvider> */}
         <div id="modal-root" />
         <GlobalStyle />
       </MuiThemeProvider>

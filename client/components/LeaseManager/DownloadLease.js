@@ -4,7 +4,7 @@ import Modal from '../Modal/index';
 import LeasePdf from '../Pdfs/LeasePdf';
 
 const DownloadLease = ({ lease, me }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Modal title="Lease PDF" open={open} close={() => setOpen(false)}>

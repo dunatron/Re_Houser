@@ -1,5 +1,3 @@
-//myLease
-
 import React, { Component } from 'react';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';

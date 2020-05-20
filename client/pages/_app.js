@@ -3,6 +3,7 @@ import Page from '../components/Page/index';
 // import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
+import Head from 'next/head';
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -19,6 +20,9 @@ class AppEntryPointExtension extends App {
     const { Component, apollo, pageProps } = this.props;
     return (
       <ApolloProvider client={apollo}>
+        <Head>
+          <script src="https://js.stripe.com/v3/" />
+        </Head>
         <Page>
           <Component {...pageProps} />
         </Page>
