@@ -2,6 +2,7 @@
 require("dotenv").config({ path: "./variables.env" });
 // require("dotenv").config()
 // All about how to deal with chromes new cookie laws https://blog.heroku.com/chrome-changes-samesite-cookie
+
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
@@ -16,6 +17,12 @@ const { refreshTokens } = require("./auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("./const");
 var path = require("path");
 var fs = require("fs");
+
+// const Stripe = require("stripe");
+
+// const stripe = new Stripe(process.env.STRIPE_SECRET);
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const expressLogger = function(req, res, next) {
   next();
@@ -90,40 +97,6 @@ server.express.use(addUser);
 //   next();
 // });
 
-//https://fireship.io/lessons/stripe-payment-intents-tutorial/
-//stripe.com/docs/payments/payment-intents/migration
-//https://fireship.io/lessons/stripe-payment-intents-tutorial/
-server.post("/payments/intents", async (req, res) => {
-  const { amount } = req.body;
-
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount,
-    currency: "nzd",
-    payment_method_types: ["card"],
-    metadata: { uid: "some_userID" }
-  });
-
-  res.send(paymentIntent);
-});
-
-server.post("/payments/webhook", async (req, res) => {
-  console.log("payments/webhook RAN");
-  const sig = req.headers["stripe-signature"];
-  const endpointSecretKey = process.env.STRIPE_SECRET;
-
-  let event;
-
-  try {
-    event = stripe.webhooks.constructEvent(
-      req.body.rawBody,
-      sig,
-      endpointSecretKey
-    );
-  } catch (err) {
-    res.status(400).end();
-  }
-});
-
 server.get("/tron-search", function(req, res) {
   var foo = require("../cronjob-files/pages.json");
   res.send(foo);
@@ -145,6 +118,47 @@ const allowedClientOrigins = [
 // Maybe try doing this to test ios gets its cookies???
 // comment out for now because we do it below? maybe both isnt bad??
 server.use(cors({ origin: allowedClientOrigins, credentials: true }));
+
+//https://fireship.io/lessons/stripe-payment-intents-tutorial/
+//stripe.com/docs/payments/payment-intents/migration
+//https://fireship.io/lessons/stripe-payment-intents-tutorial/
+server.post("/payments/intents", async (req, res) => {
+  console.log("Payment intent req => ", req);
+  // const { amount } = req.body;
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1000,
+    currency: "nzd",
+    payment_method_types: ["card"],
+    metadata: { uid: "some_userID" }
+  });
+  res.send({ client_secret: paymentIntent.client_secret });
+  // res.send(paymentIntent);
+});
+
+server.post("/payments/webhook", async (req, res) => {
+  console.log("payments/webhook RAN");
+  console.log("payments/webhook req => ", req.body);
+  console.log("payments/webhook req.body => ", req.body);
+  const sig = req.headers["stripe-signature"];
+  const endpointSecretKey = process.env.STRIPE_SECRET;
+
+  let event;
+
+  try {
+    console.log("Falling over after this below func");
+    event = stripe.webhooks.constructEvent(
+      req.body.rawBody,
+      sig,
+      endpointSecretKey
+    );
+
+    console.log("Give me a look at the hook event => ", event);
+  } catch (err) {
+    console.log("AN error occurred => ", err);
+    res.status(400).end();
+  }
+});
 
 server.start(
   {

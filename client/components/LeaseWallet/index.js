@@ -99,6 +99,7 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import {
+  useElements,
   useStripe,
   PaymentRequestButtonElement,
   CardElement,
@@ -125,18 +126,73 @@ import CardPaymentForm from './CardPaymentForm';
 const serverBackend =
   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
 
-const LeaseWallet = ({ lease }) => {
+const LeaseWallet = ({ lease, me }) => {
+  const stripe = useStripe();
+  const elements = useElements();
   const { wallet } = lease;
   const [amount, setAmount] = useState(0);
-  const stripe = useStripe();
+  const [intentSecret, setIntentSecret] = useState(undefined);
 
   const createPaymentIntent = e => {
     // create payment intent on nodeJs server
-    fetch(`${serverBackend}/intents?amount=${amount}`)
+    console.log('Try create a payment intent');
+    fetch(`${serverBackend}payments/intents?amount=${amount}`, {
+      method: 'post',
+      body: JSON.stringify({
+        amount: amount,
+      }),
+    })
       .then(response => response.json())
       .then(state => {
         console.log('Payment intents state => ', state);
+        setIntentSecret(state.client_secret);
       });
+  };
+
+  const hanldeIntentAccept = async () => {
+    const result = await stripe.confirmCardPayment(intentSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          address: {
+            city: null,
+            country: null,
+            line1: null,
+            line2: null,
+            state: null,
+          },
+          email: me.email,
+          name: `${me.firstName} ${me.lastName}`,
+          phone: me.phone,
+        },
+      },
+    });
+    console.log('Payment result => ', result);
+    //  paymentIntent:
+    //       amount: 1000
+    //       canceled_at: null
+    //       cancellation_reason: null
+    //       capture_method: "automatic"
+    //       client_secret: "pi_1Gl67uDzDGjSizvyjuPy4hMT_secret_qx1mqlQVoESMm9D0z30FzoFNs"
+    //       confirmation_method: "automatic"
+    //       created: 1590035726
+    //       currency: "nzd"
+    //       description: null
+    //       id: "pi_1Gl67uDzDGjSizvyjuPy4hMT"
+    //       last_payment_error: null
+    //       livemode: false
+    //       next_action: null
+    //       object: "payment_intent"
+    //       payment_method: "pm_1Gl684DzDGjSizvybherkjWP"
+    //       payment_method_types: Array(1)
+    //       0: "card"
+    //       length: 1
+    //       __proto__: Array(0)
+    //       receipt_email: null
+    //       setup_future_usage: null
+    //       shipping: null
+    //       source: null
+    //       status: "succeeded"
   };
 
   // Use a traditional checkout form.
@@ -145,11 +201,21 @@ const LeaseWallet = ({ lease }) => {
     <>
       <Paper>
         <Typography>WALLET </Typography>${wallet.amount}
-        <div>
-          <h3>Set the amount you intend to pay on the server</h3>
-          <input value={amount} onChange={e => setAmount(e.target.value)} />
-          <button onClick={createPaymentIntent}>Create payment Intent</button>
-        </div>
+        {!intentSecret && (
+          <div>
+            <h3>Set the amount you intend to pay on the server</h3>
+            <input value={amount} onChange={e => setAmount(e.target.value)} />
+            <button onClick={createPaymentIntent}>Create payment Intent</button>
+          </div>
+        )}
+        {intentSecret && (
+          <div>
+            The server is aware of your intent on a payment of ${amount}
+            <button onClick={() => hanldeIntentAccept()}>Pay amount</button>
+            {/* <CardPaymentForm /> */}
+            <CardElement />
+          </div>
+        )}
       </Paper>
     </>
   );

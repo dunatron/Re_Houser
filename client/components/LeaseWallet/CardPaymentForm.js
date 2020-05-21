@@ -167,11 +167,13 @@ const CardPaymentForm = () => {
       setProcessing(true);
     }
 
-    const payload = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-      billing_details: billingDetails,
-    });
+    // const payload = await stripe.createPaymentMethod({
+    //   type: 'card',
+    //   card: elements.getElement(CardElement),
+    //   billing_details: billingDetails,
+    // });
+
+    const payload = await stripe
 
     console.log('Stripe payment => ', payload);
 

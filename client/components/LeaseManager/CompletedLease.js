@@ -15,7 +15,7 @@ const CompletedLease = ({ leaseId, lease, me }) => {
       </h1>
       <DownloadLease lease={lease} me={me} />
       <h4>Lease Payments</h4>
-      <LeaseWallet lease={lease} />
+      <LeaseWallet lease={lease} me={me} />
       {/* <PaymentManager lease={lease} payments={data.payments} title="Lease" /> */}
     </div>
   );
