@@ -90,6 +90,40 @@ server.express.use(addUser);
 //   next();
 // });
 
+//https://fireship.io/lessons/stripe-payment-intents-tutorial/
+//stripe.com/docs/payments/payment-intents/migration
+//https://fireship.io/lessons/stripe-payment-intents-tutorial/
+server.post("/payments/intents", async (req, res) => {
+  const { amount } = req.body;
+
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: "nzd",
+    payment_method_types: ["card"],
+    metadata: { uid: "some_userID" }
+  });
+
+  res.send(paymentIntent);
+});
+
+server.post("/payments/webhook", async (req, res) => {
+  console.log("payments/webhook RAN");
+  const sig = req.headers["stripe-signature"];
+  const endpointSecretKey = process.env.STRIPE_SECRET;
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body.rawBody,
+      sig,
+      endpointSecretKey
+    );
+  } catch (err) {
+    res.status(400).end();
+  }
+});
+
 server.get("/tron-search", function(req, res) {
   var foo = require("../cronjob-files/pages.json");
   res.send(foo);

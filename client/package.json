@@ -19,7 +19,8 @@
     "apollo-graph-publish:dev": "npx apollo service:push --endpoint=http://localhost:7777",
     "docz:dev": "docz dev",
     "docz:build": "docz build",
-    "docz:serve": "docz build && docz serve"
+    "docz:serve": "docz build && docz serve",
+    "stripe:listen": "stripe listen --forward-to http://localhost:4444/payments/webhook"
   },
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.39",

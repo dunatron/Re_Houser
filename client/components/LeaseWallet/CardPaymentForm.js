@@ -142,6 +142,7 @@ const CardPaymentForm = () => {
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
+  const [amount, setAmount] = useState(undefined);
   const [billingDetails, setBillingDetails] = useState({
     email: '',
     phone: '',
@@ -171,6 +172,8 @@ const CardPaymentForm = () => {
       card: elements.getElement(CardElement),
       billing_details: billingDetails,
     });
+
+    console.log('Stripe payment => ', payload);
 
     setProcessing(false);
 
@@ -243,6 +246,17 @@ const CardPaymentForm = () => {
               setBillingDetails({ ...billingDetails, phone: e.target.value });
             }}
           />
+          <Field
+            label="Amount"
+            id="amount"
+            type="tel"
+            placeholder="100"
+            required
+            value={amount}
+            onChange={e => {
+              setAmount(e.target.value);
+            }}
+          />
         </fieldset>
         <fieldset className="FormGroup">
           <CardField
@@ -254,7 +268,7 @@ const CardPaymentForm = () => {
         </fieldset>
         {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <SubmitButton processing={processing} error={error} disabled={!stripe}>
-          Pay $25
+          Pay ${amount}
         </SubmitButton>
       </form>
     </CardPaymentStyledForm>
