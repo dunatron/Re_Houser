@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed May 20 2020 23:56:26 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon May 25 2020 11:19:53 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -10675,6 +10675,7 @@ type PropertyLease implements Node {
   lessees(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee!]
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor!]
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10710,6 +10711,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 input PropertyLeaseCreateInput {
   id: ID
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10763,6 +10765,7 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10786,6 +10789,7 @@ input PropertyLeaseCreateWithoutActivityInput {
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10809,6 +10813,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10832,6 +10837,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10855,6 +10861,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
 input PropertyLeaseCreateWithoutWalletInput {
   id: ID
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -10893,6 +10900,8 @@ enum PropertyLeaseOrderByInput {
   createdAt_DESC
   finalised_ASC
   finalised_DESC
+  active_ASC
+  active_DESC
   canAcceptPayment_ASC
   canAcceptPayment_DESC
   rooms_ASC
@@ -10924,6 +10933,7 @@ type PropertyLeasePreviousValues {
   updatedAt: DateTime!
   createdAt: DateTime!
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11037,6 +11047,10 @@ input PropertyLeaseScalarWhereInput {
 
   """All values that are not equal to given value."""
   finalised_not: Boolean
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
   canAcceptPayment: Boolean
 
   """All values that are not equal to given value."""
@@ -11346,6 +11360,7 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 
 input PropertyLeaseUpdateInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11369,6 +11384,7 @@ input PropertyLeaseUpdateInput {
 
 input PropertyLeaseUpdateManyDataInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11387,6 +11403,7 @@ input PropertyLeaseUpdateManyDataInput {
 
 input PropertyLeaseUpdateManyMutationInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11462,6 +11479,7 @@ input PropertyLeaseUpdateoutdoorFeaturesInput {
 
 input PropertyLeaseUpdateWithoutActivityDataInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11484,6 +11502,7 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11506,6 +11525,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11528,6 +11548,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11550,6 +11571,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
 
 input PropertyLeaseUpdateWithoutWalletDataInput {
   finalised: Boolean
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11698,6 +11720,10 @@ input PropertyLeaseWhereInput {
 
   """All values that are not equal to given value."""
   finalised_not: Boolean
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
   canAcceptPayment: Boolean
 
   """All values that are not equal to given value."""

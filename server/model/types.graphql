@@ -259,6 +259,7 @@ type PropertyLease implements PropertyInfo {
   lessees: [Lessee!]! @relation(name: "LeaseLessees")
   lessors: [Lessor!]! @relation(name: "LeaseLessors")
   finalised: Boolean!
+  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int

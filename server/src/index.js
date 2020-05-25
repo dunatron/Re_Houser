@@ -17,6 +17,11 @@ const { refreshTokens } = require("./auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("./const");
 var path = require("path");
 var fs = require("fs");
+var schedule = require("node-schedule");
+
+const createLeaseTasks = require("./lib/leaseTasks/index");
+
+const leaseTsks = createLeaseTasks(db);
 
 // const Stripe = require("stripe");
 
@@ -27,6 +32,17 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const expressLogger = function(req, res, next) {
   next();
 };
+
+// runs every time the minute is 59
+var j = schedule.scheduleJob("59 * * * *", function() {
+  console.log("The answer to life, the universe, and everything!");
+});
+
+// every Sunday at 2:30pm:
+schedule.scheduleJob({ hour: 14, minute: 30, dayOfWeek: 0 }, function() {
+  console.log("Time for tea!");
+});
+
 
 // we could essentially add more than userId, like permissions?
 // the jwt would not verify if they tried to modify permissions etc
@@ -137,9 +153,6 @@ server.post("/payments/intents", async (req, res) => {
 });
 
 server.post("/payments/webhook", async (req, res) => {
-  console.log("payments/webhook RAN");
-  console.log("payments/webhook req => ", req.body);
-  console.log("payments/webhook req.body => ", req.body);
   const sig = req.headers["stripe-signature"];
   const endpointSecretKey = process.env.STRIPE_SECRET;
 
@@ -159,6 +172,10 @@ server.post("/payments/webhook", async (req, res) => {
     res.status(400).end();
   }
 });
+
+//1. put into own file that handles all of this logic please
+
+// Run the lease taks
 
 server.start(
   {
