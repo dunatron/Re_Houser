@@ -19,30 +19,29 @@ var path = require("path");
 var fs = require("fs");
 var schedule = require("node-schedule");
 
+const bodyParser = require("body-parser");
+
+// sets up pasrsing the body of the request
+server.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+/**bodyParser.json(options)
+ * Parses the text as JSON and exposes the resulting object on req.body.
+ */
+server.use(bodyParser.json());
+
 const createLeaseTasks = require("./lib/leaseTasks/index");
 
-const leaseTsks = createLeaseTasks(db);
-
-// const Stripe = require("stripe");
-
-// const stripe = new Stripe(process.env.STRIPE_SECRET);
+createLeaseTasks();
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const expressLogger = function(req, res, next) {
   next();
 };
-
-// runs every time the minute is 59
-var j = schedule.scheduleJob("59 * * * *", function() {
-  console.log("The answer to life, the universe, and everything!");
-});
-
-// every Sunday at 2:30pm:
-schedule.scheduleJob({ hour: 14, minute: 30, dayOfWeek: 0 }, function() {
-  console.log("Time for tea!");
-});
-
 
 // we could essentially add more than userId, like permissions?
 // the jwt would not verify if they tried to modify permissions etc
@@ -89,35 +88,6 @@ server.use(expressLogger);
 server.express.use(cookieParser());
 server.express.use(addUser);
 
-// // decode the JWT so we can get the user Id on each request
-// server.express.use((req, res, next) => {
-//   const { token } = req.cookies;
-//   console.log("==Request cookies => ", req.cookies);
-//   if (token) {
-//     const { userId } = jwt.verify(token, process.env.APP_SECRET);
-//     // put the userId onto the req for future requests to access
-//     req.userId = userId;
-//   }
-//   next();
-// });
-
-// // 2. Create a middleware that populates the user on each request
-// server.express.use(async (req, res, next) => {
-//   // if they aren't logged in, skip this
-//   if (!req.userId) return next();
-//   const user = await db.query.user(
-//     { where: { id: req.userId } },
-//     "{ id, permissions, email, firstName, lastName, phone }"
-//   );
-//   req.user = user;
-//   next();
-// });
-
-server.get("/tron-search", function(req, res) {
-  var foo = require("../cronjob-files/pages.json");
-  res.send(foo);
-});
-
 server.get("/setup-indexes", function(req, res) {
   setupIndexes();
   res.send("complete");
@@ -138,12 +108,32 @@ server.use(cors({ origin: allowedClientOrigins, credentials: true }));
 //https://fireship.io/lessons/stripe-payment-intents-tutorial/
 //stripe.com/docs/payments/payment-intents/migration
 //https://fireship.io/lessons/stripe-payment-intents-tutorial/
-server.post("/payments/intents", async (req, res) => {
-  console.log("Payment intent req => ", req);
-  // const { amount } = req.body;
+server.post("/payments/intents", async (req, res, next) => {
+  // console.log("Payment intent req => ", req);
 
+  const token = req.cookies.token;
+  if (!token) {
+    console.log(
+      "we cannot fulfill your intent because we cant be sure you are a valid usert"
+    );
+    return next();
+  }
+
+  if (!req.body) {
+    // throw error
+  }
+
+  const { amount } = req.body;
+
+  if (!amount) {
+    // throw errro as they must have an amount they intend to pay
+  }
+
+  console.log("The amount sent => ", amount);
+
+  // ToDo: get current logged in user and add there email etc
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1000,
+    amount: amount,
     currency: "nzd",
     payment_method_types: ["card"],
     metadata: { uid: "some_userID" }
@@ -175,7 +165,41 @@ server.post("/payments/webhook", async (req, res) => {
 
 //1. put into own file that handles all of this logic please
 
-// Run the lease taks
+// const bodyParser = require("body-parser");
+// server.use(server.express.urlencoded());
+
+// // Parse JSON bodies (as sent by API clients)
+// server.use(server.express.json());
+
+// // Access the parse results as request.body
+// server.post("/helpme", function(request, response) {
+//   console.log(request.body);
+//   // console.log(request.body.user.email);
+// });
+
+// var bodyParser = require("body-parser");
+
+// // create application/json parser
+// var jsonParser = bodyParser.json();
+
+// // create application/x-www-form-urlencoded parser
+// var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+// // POST /login gets urlencoded bodies
+// server.post("/login", urlencodedParser, function(req, res) {
+//   res.send("welcome, " + req.body.username);
+// });
+
+// POST /api/users gets JSON bodies
+// server.post("/helpme", jsonParser, function(req, res) {
+//   // create user in req.body
+//   console.log("FFS => ", req.body);
+// });
+
+server.post("/helpme", function(req, res) {
+  // create user in req.body
+  console.log("FFS => ", req.body);
+});
 
 server.start(
   {

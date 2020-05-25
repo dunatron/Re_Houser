@@ -136,8 +136,32 @@ const LeaseWallet = ({ lease, me }) => {
   const createPaymentIntent = e => {
     // create payment intent on nodeJs server
     console.log('Try create a payment intent');
-    fetch(`${serverBackend}payments/intents?amount=${amount}`, {
-      method: 'post',
+
+    // fetch(`${serverBackend}helpme`, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     amount: 200,
+    //     sad: 'Sad times',
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(state => {
+    //     console.log('Payment intents state => ', state);
+    //     setIntentSecret(state.client_secret);
+    //   });
+
+    fetch(`${serverBackend}payments/intents`, {
+      method: 'POST',
+      // credentials: 'same-origin', // include, *same-origin, omit
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         amount: amount,
       }),
@@ -147,6 +171,15 @@ const LeaseWallet = ({ lease, me }) => {
         console.log('Payment intents state => ', state);
         setIntentSecret(state.client_secret);
       });
+
+    // fetch('https://jsonplaceholder.typicode.com/posts', {
+    //   method: 'POST',
+    //   headers: new Headers(),
+    //   body: JSON.stringify({ tittle: tittle, body: body }),
+    // })
+    //   .then(res => res.json())
+    //   .then(data => console.log(data))
+    //   .catch(err => console.log(err));
   };
 
   const hanldeIntentAccept = async () => {
