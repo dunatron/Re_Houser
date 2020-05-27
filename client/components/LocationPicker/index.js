@@ -160,7 +160,7 @@ const LocationPicker = ({ selection }) => {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
-      {state.showMap && (
+      {state.showMap && state.desc && (
         <Map
           center={{
             lat: state.lat,
@@ -168,6 +168,17 @@ const LocationPicker = ({ selection }) => {
           }}
           zoom={_getZoom(state.desc)}
         />
+      )}
+      {state.desc && (
+        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '16px 0' }}>
+          <Typography style={{ padding: '8px 16px' }}>{state.desc}</Typography>
+          <Typography style={{ padding: '8px 16px' }}>
+            Latitute: {state.lat}
+          </Typography>
+          <Typography style={{ padding: '8px 16px' }}>
+            Longitude: {state.lng}
+          </Typography>
+        </div>
       )}
     </div>
   );

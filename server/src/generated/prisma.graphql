@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon May 25 2020 11:19:53 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue May 26 2020 09:54:32 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1174,6 +1174,10 @@ type AggregateActivity {
   count: Int!
 }
 
+type AggregateCharge {
+  count: Int!
+}
+
 type AggregateChat {
   count: Int!
 }
@@ -1267,6 +1271,382 @@ enum CeilingInsulationTypes {
   LOOSE_FILL
   OTHER
   NOT_ACCESSIBLE
+}
+
+type Charge implements Node {
+  id: ID!
+  wallet: Wallet
+  amount: Float
+  description: String
+}
+
+"""A connection to a list of items."""
+type ChargeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ChargeEdge]!
+  aggregate: AggregateCharge!
+}
+
+input ChargeCreateInput {
+  id: ID
+  amount: Float
+  description: String
+  wallet: WalletCreateOneWithoutChargesInput
+}
+
+input ChargeCreateManyWithoutWalletInput {
+  create: [ChargeCreateWithoutWalletInput!]
+  connect: [ChargeWhereUniqueInput!]
+}
+
+input ChargeCreateWithoutWalletInput {
+  id: ID
+  amount: Float
+  description: String
+}
+
+"""An edge in a connection."""
+type ChargeEdge {
+  """The item at the end of the edge."""
+  node: Charge!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ChargeOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+  description_ASC
+  description_DESC
+}
+
+type ChargePreviousValues {
+  id: ID!
+  amount: Float
+  description: String
+}
+
+input ChargeScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChargeScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChargeScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChargeScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+}
+
+type ChargeSubscriptionPayload {
+  mutation: MutationType!
+  node: Charge
+  updatedFields: [String!]
+  previousValues: ChargePreviousValues
+}
+
+input ChargeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChargeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChargeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChargeSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ChargeWhereInput
+}
+
+input ChargeUpdateInput {
+  amount: Float
+  description: String
+  wallet: WalletUpdateOneWithoutChargesInput
+}
+
+input ChargeUpdateManyDataInput {
+  amount: Float
+  description: String
+}
+
+input ChargeUpdateManyMutationInput {
+  amount: Float
+  description: String
+}
+
+input ChargeUpdateManyWithoutWalletInput {
+  create: [ChargeCreateWithoutWalletInput!]
+  connect: [ChargeWhereUniqueInput!]
+  set: [ChargeWhereUniqueInput!]
+  disconnect: [ChargeWhereUniqueInput!]
+  delete: [ChargeWhereUniqueInput!]
+  update: [ChargeUpdateWithWhereUniqueWithoutWalletInput!]
+  updateMany: [ChargeUpdateManyWithWhereNestedInput!]
+  deleteMany: [ChargeScalarWhereInput!]
+  upsert: [ChargeUpsertWithWhereUniqueWithoutWalletInput!]
+}
+
+input ChargeUpdateManyWithWhereNestedInput {
+  where: ChargeScalarWhereInput!
+  data: ChargeUpdateManyDataInput!
+}
+
+input ChargeUpdateWithoutWalletDataInput {
+  amount: Float
+  description: String
+}
+
+input ChargeUpdateWithWhereUniqueWithoutWalletInput {
+  where: ChargeWhereUniqueInput!
+  data: ChargeUpdateWithoutWalletDataInput!
+}
+
+input ChargeUpsertWithWhereUniqueWithoutWalletInput {
+  where: ChargeWhereUniqueInput!
+  update: ChargeUpdateWithoutWalletDataInput!
+  create: ChargeCreateWithoutWalletInput!
+}
+
+input ChargeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChargeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChargeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChargeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  wallet: WalletWhereInput
+}
+
+input ChargeWhereUniqueInput {
+  id: ID
 }
 
 type Chat implements Node {
@@ -7428,6 +7808,7 @@ type Mutation {
   createLessor(data: LessorCreateInput!): Lessor!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createWallet(data: WalletCreateInput!): Wallet!
+  createCharge(data: ChargeCreateInput!): Charge!
   createPayment(data: PaymentCreateInput!): Payment!
   createPreTenancyForm(data: PreTenancyFormCreateInput!): PreTenancyForm!
   createFile(data: FileCreateInput!): File!
@@ -7448,6 +7829,7 @@ type Mutation {
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
+  updateCharge(data: ChargeUpdateInput!, where: ChargeWhereUniqueInput!): Charge
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
   updatePreTenancyForm(data: PreTenancyFormUpdateInput!, where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
@@ -7469,6 +7851,7 @@ type Mutation {
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deleteWallet(where: WalletWhereUniqueInput!): Wallet
+  deleteCharge(where: ChargeWhereUniqueInput!): Charge
   deletePayment(where: PaymentWhereUniqueInput!): Payment
   deletePreTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
   deleteFile(where: FileWhereUniqueInput!): File
@@ -7489,6 +7872,7 @@ type Mutation {
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
+  upsertCharge(where: ChargeWhereUniqueInput!, create: ChargeCreateInput!, update: ChargeUpdateInput!): Charge!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
   upsertPreTenancyForm(where: PreTenancyFormWhereUniqueInput!, create: PreTenancyFormCreateInput!, update: PreTenancyFormUpdateInput!): PreTenancyForm!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
@@ -7508,6 +7892,7 @@ type Mutation {
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyWallets(data: WalletUpdateManyMutationInput!, where: WalletWhereInput): BatchPayload!
+  updateManyCharges(data: ChargeUpdateManyMutationInput!, where: ChargeWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
   updateManyPreTenancyForms(data: PreTenancyFormUpdateManyMutationInput!, where: PreTenancyFormWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
@@ -7529,6 +7914,7 @@ type Mutation {
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyWallets(where: WalletWhereInput): BatchPayload!
+  deleteManyCharges(where: ChargeWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
   deleteManyPreTenancyForms(where: PreTenancyFormWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
@@ -13602,6 +13988,7 @@ type Query {
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
+  charges(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charge]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
   preTenancyForms(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PreTenancyForm]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
@@ -13623,6 +14010,7 @@ type Query {
   lessor(where: LessorWhereUniqueInput!): Lessor
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   wallet(where: WalletWhereUniqueInput!): Wallet
+  charge(where: ChargeWhereUniqueInput!): Charge
   payment(where: PaymentWhereUniqueInput!): Payment
   preTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
   file(where: FileWhereUniqueInput!): File
@@ -13644,6 +14032,7 @@ type Query {
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
+  chargesConnection(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChargeConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
   preTenancyFormsConnection(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PreTenancyFormConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
@@ -16155,6 +16544,7 @@ type Subscription {
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
+  charge(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   preTenancyForm(where: PreTenancyFormSubscriptionWhereInput): PreTenancyFormSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
@@ -19866,6 +20256,7 @@ type Wallet implements Node {
   id: ID!
   lease: PropertyLease
   amount: Float
+  charges(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charge!]
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment!]
 }
 
@@ -19883,7 +20274,13 @@ input WalletCreateInput {
   id: ID
   amount: Float
   lease: PropertyLeaseCreateOneWithoutWalletInput
+  charges: ChargeCreateManyWithoutWalletInput
   payments: PaymentCreateManyWithoutWalletInput
+}
+
+input WalletCreateOneWithoutChargesInput {
+  create: WalletCreateWithoutChargesInput
+  connect: WalletWhereUniqueInput
 }
 
 input WalletCreateOneWithoutLeaseInput {
@@ -19896,9 +20293,17 @@ input WalletCreateOneWithoutPaymentsInput {
   connect: WalletWhereUniqueInput
 }
 
+input WalletCreateWithoutChargesInput {
+  id: ID
+  amount: Float
+  lease: PropertyLeaseCreateOneWithoutWalletInput
+  payments: PaymentCreateManyWithoutWalletInput
+}
+
 input WalletCreateWithoutLeaseInput {
   id: ID
   amount: Float
+  charges: ChargeCreateManyWithoutWalletInput
   payments: PaymentCreateManyWithoutWalletInput
 }
 
@@ -19906,6 +20311,7 @@ input WalletCreateWithoutPaymentsInput {
   id: ID
   amount: Float
   lease: PropertyLeaseCreateOneWithoutWalletInput
+  charges: ChargeCreateManyWithoutWalletInput
 }
 
 """An edge in a connection."""
@@ -19969,11 +20375,21 @@ input WalletSubscriptionWhereInput {
 input WalletUpdateInput {
   amount: Float
   lease: PropertyLeaseUpdateOneWithoutWalletInput
+  charges: ChargeUpdateManyWithoutWalletInput
   payments: PaymentUpdateManyWithoutWalletInput
 }
 
 input WalletUpdateManyMutationInput {
   amount: Float
+}
+
+input WalletUpdateOneWithoutChargesInput {
+  create: WalletCreateWithoutChargesInput
+  connect: WalletWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: WalletUpdateWithoutChargesDataInput
+  upsert: WalletUpsertWithoutChargesInput
 }
 
 input WalletUpdateOneWithoutLeaseInput {
@@ -19994,14 +20410,27 @@ input WalletUpdateOneWithoutPaymentsInput {
   upsert: WalletUpsertWithoutPaymentsInput
 }
 
+input WalletUpdateWithoutChargesDataInput {
+  amount: Float
+  lease: PropertyLeaseUpdateOneWithoutWalletInput
+  payments: PaymentUpdateManyWithoutWalletInput
+}
+
 input WalletUpdateWithoutLeaseDataInput {
   amount: Float
+  charges: ChargeUpdateManyWithoutWalletInput
   payments: PaymentUpdateManyWithoutWalletInput
 }
 
 input WalletUpdateWithoutPaymentsDataInput {
   amount: Float
   lease: PropertyLeaseUpdateOneWithoutWalletInput
+  charges: ChargeUpdateManyWithoutWalletInput
+}
+
+input WalletUpsertWithoutChargesInput {
+  update: WalletUpdateWithoutChargesDataInput!
+  create: WalletCreateWithoutChargesInput!
 }
 
 input WalletUpsertWithoutLeaseInput {
@@ -20086,6 +20515,9 @@ input WalletWhereInput {
   """All values greater than or equal the given value."""
   amount_gte: Float
   lease: PropertyLeaseWhereInput
+  charges_every: ChargeWhereInput
+  charges_some: ChargeWhereInput
+  charges_none: ChargeWhereInput
   payments_every: PaymentWhereInput
   payments_some: PaymentWhereInput
   payments_none: PaymentWhereInput

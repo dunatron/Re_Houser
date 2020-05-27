@@ -72,7 +72,7 @@ const PropertiesTable = props => {
   return (
     <>
       <SuperiorTable
-        title="Rental applications table"
+        title="Properties"
         columns={columns}
         data={formattedData}
         options={{
@@ -87,7 +87,7 @@ const PropertiesTable = props => {
         actions={[
           {
             icon: 'settings',
-            tooltip: 'Manage application',
+            tooltip: 'Manage property',
             onClick: manageProperty,
           },
         ]}

@@ -90,6 +90,7 @@ async function checkWalletAmount(lease) {
   return;
 }
 
+// create a new charge too
 async function chargeLeaseWalletWithRent(lease) {
   const updatedLease = await db.mutation.updatePropertyLease(
     {
@@ -99,7 +100,13 @@ async function chargeLeaseWalletWithRent(lease) {
       data: {
         wallet: {
           update: {
-            amount: lease.wallet.amount - lease.rent
+            amount: lease.wallet.amount - lease.rent,
+            charges: {
+              create: {
+                amount: lease.rent,
+                description: "Weekly rent charge"
+              }
+            }
           }
         }
       }

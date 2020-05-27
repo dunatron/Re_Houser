@@ -20,7 +20,7 @@
     "docz:dev": "docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "stripe:listen": "stripe listen --forward-to http://localhost:4444/payments/webhook",
+    "stripe:listen": "stripe listen --forward-to http://localhost:4444/stripe/webhook",
     "stripe:trigger:created": "stripe trigger payment_intent.created"
   },
   "dependencies": {

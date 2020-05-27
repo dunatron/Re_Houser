@@ -135,19 +135,43 @@ const ResetButton = ({ onClick }) => (
   </button>
 );
 
-const CardPaymentForm = () => {
+const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
-  const [amount, setAmount] = useState(undefined);
+  // const [amount, setAmount] = useState(undefined);
   const [billingDetails, setBillingDetails] = useState({
-    email: '',
-    phone: '',
-    name: '',
+    email: me.email,
+    phone: me.phone,
+    name: `${me.firstName} ${me.lastName}`,
   });
+
+  const handlePaymentSuccess = payload => {
+    onPaySuccess(payload);
+  };
+
+  const hanldePayIntent = async () => {
+    const result = await stripe.confirmCardPayment(intentSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          address: {
+            city: null,
+            country: null,
+            line1: null,
+            line2: null,
+            state: null,
+          },
+          ...billingDetails,
+        },
+      },
+    });
+    console.log('Payment result => ', result);
+    return result;
+  };
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -173,7 +197,9 @@ const CardPaymentForm = () => {
     //   billing_details: billingDetails,
     // });
 
-    const payload = await stripe
+    // const payload = await stripe;
+
+    const payload = await hanldePayIntent();
 
     console.log('Stripe payment => ', payload);
 
@@ -182,7 +208,9 @@ const CardPaymentForm = () => {
     if (payload.error) {
       setError(payload.error);
     } else {
-      setPaymentMethod(payload.paymentMethod);
+      handlePaymentSuccess(payload);
+      // I guess we assume it succeded. We should display A success or something perhaps
+      // setPaymentMethod(payload.paymentMethod);
     }
   };
 
@@ -248,7 +276,7 @@ const CardPaymentForm = () => {
               setBillingDetails({ ...billingDetails, phone: e.target.value });
             }}
           />
-          <Field
+          {/* <Field
             label="Amount"
             id="amount"
             type="tel"
@@ -258,7 +286,7 @@ const CardPaymentForm = () => {
             onChange={e => {
               setAmount(e.target.value);
             }}
-          />
+          /> */}
         </fieldset>
         <fieldset className="FormGroup">
           <CardField

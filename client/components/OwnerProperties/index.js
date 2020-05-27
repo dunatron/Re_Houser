@@ -92,6 +92,10 @@ const OwnerProperties = ({ me }) => {
     handleLink('/properties/property', { id: data.id });
   };
 
+  const goToAddPropertyPage = () => {
+    handleLink('/properties/add');
+  };
+
   const toggleOnTheMarket = dataObj => {
     const current = dataObj.onTheMarket;
     props.updateProperty({
@@ -124,6 +128,9 @@ const OwnerProperties = ({ me }) => {
         close={() => closeModal()}>
         {renderModalDetails()}
       </Modal>
+      <div>
+        <Button onClick={goToAddPropertyPage}>Add Property</Button>
+      </div>
       <PropertiesTable properties={data ? data.ownerProperties : []} me={me} />
     </>
   );

@@ -162,6 +162,7 @@ type Property implements PropertyInfo {
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]!
+  acceptedTerms: Boolean
   # floorPlans: File
   rentalApplications: [RentalApplication]
     @relation(name: "PropertyRentalApplication")
@@ -282,7 +283,15 @@ type Wallet {
   id: ID! @unique @id
   lease: PropertyLease @relation(name: "LeaseWallet")
   amount: Float
+  charges: [Charge] @relation(name: "WalletCharges", link: TABLE)
   payments: [Payment] @relation(name: "WalletPayments", link: TABLE)
+}
+
+type Charge {
+  id: ID! @unique @id
+  wallet: Wallet @relation(name: "WalletCharges")
+  amount: Float
+  description: String
 }
 
 # ToDo add Payment model to the wallet and display wallet on the front end

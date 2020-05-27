@@ -53,7 +53,6 @@ const getKeyTypes = conf => {
 };
 
 const FormCreator = props => {
-  const [dataChangeCount, setDataChangeCount] = useState(0);
   const {
     title,
     data,
@@ -68,11 +67,6 @@ const FormCreator = props => {
 
   const keysWithTypes = getKeyTypes(config);
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
-
-  console.log('Original preformatted form data => ', preFormattedFormData);
-
-  //ToDo: we should have a way to see if the form has been touched
-  // maybe see if we can get recently updated values. that would potentially work better
 
   const {
     register,
@@ -95,8 +89,6 @@ const FormCreator = props => {
   if (forceFormUpdates) {
     Object.keys(data).forEach(key =>
       useEffect(() => {
-        console.log('change in data props key=> ', key);
-        // setDataChangeCount(dataChangeCount + 1);
         const preFormattedFormDataReset = formatData(
           data,
           keysWithTypes,
@@ -105,36 +97,15 @@ const FormCreator = props => {
         const newResetObj = {
           [key]: preFormattedFormDataReset[key],
         };
-        console.log('preFormattedFormDataReset => ', preFormattedFormDataReset);
-        console.log('newResetObj => ', newResetObj);
         reset(newResetObj);
-        // setValue(key, preFormattedFormDataReset[key]);
-
-        console.log('NEW FORM VALS => ', getValues());
-        // reset({
-        //   [key]: preFormattedFormDataReset[key],
-        // });
-        // reset(preFormattedFormDataReset);
       }, [data[key]])
     );
   }
-
-  // useEffect(() => {
-  //   console.log('FOrm CReator Data changed => ', data);
-  //   setDataChangeCount(dataChangeCount + 1);
-  //   const preFormattedFormDataReset = formatData(data, keysWithTypes, 'pre');
-  //   reset(preFormattedFormDataReset);
-  // }, [data]);
-
-  // useEffect(() => {
-  //   console.log('FOrm CReator error changed => ', error);
-  // }, [error]);
 
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
       <Errors error={error} />
-      dataChangeCount: {dataChangeCount}
       <div>
         {configIsValid(config) &&
           config.map((item, idx) => {
@@ -175,81 +146,6 @@ const FormCreator = props => {
     </>
   );
 };
-
-// const FormCreator = props => {
-//   const { title, data, config, isNew, posting, error } = props;
-
-//   const keysWithTypes = getKeyTypes(config);
-//   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
-
-//   //ToDo: we should have a way to see if the form has been touched
-//   // maybe see if we can get recently updated values. that would potentially work better
-
-//   const {
-//     register,
-//     handleSubmit,
-//     errors,
-//     setValue,
-//     getValues,
-//     reset,
-//   } = useForm({
-//     defaultValues: {
-//       ...preFormattedFormData,
-//     },
-//   }); // initalise the hook
-//   const onSubmit = data => {
-//     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
-//     console.log('Well formatted Data => ', postFormattedFormData);
-//     props.onSubmit(postFormattedFormData);
-//   }; // submission when input are valid
-
-//   return (
-//     // <form onSubmit={handleSubmit(onSubmit)}>
-//     <>
-//       <Errors error={error} />
-//       <form onSubmit={handleSubmit(onSubmit)}>
-//         {configIsValid(config) &&
-//           config.map((item, idx) => {
-//             return (
-//               <div
-//                 key={idx}
-//                 style={{
-//                   display: 'flex',
-//                   flexDirection: 'column',
-//                   marginTop: '16px',
-//                 }}>
-//                 <InputFieldType
-//                   config={item}
-//                   key={idx}
-//                   register={register}
-//                   reset={reset}
-//                   errors={errors}
-//                   setValue={setValue}
-//                   defaultValues={preFormattedFormData}
-//                   defaultValue={
-//                     configIsValid(config)
-//                       ? preFormattedFormData[
-//                           item.fieldProps ? item.fieldProps.name : null
-//                         ]
-//                       : null
-//                   }
-//                 />
-//                 {errors[item.name] && item.errorMessage}
-//               </div>
-//             );
-//           })}
-//         <FormErrors errors={errors} />
-//         <Button
-//           variant="contained"
-//           disabled={posting}
-//           onClick={handleSubmit(onSubmit)}
-//           color="primary">
-//           {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`}
-//         </Button>
-//       </form>
-//     </>
-//   );
-// };
 
 FormCreator.propTypes = {
   name: PropTypes.string,

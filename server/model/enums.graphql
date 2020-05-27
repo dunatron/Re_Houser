@@ -39,6 +39,7 @@ enum OutdoorFeature {
 enum HeatSource {
   FIRE_PLACE
   HEAT_PUMP
+  ELECTRIC_HEATER
 }
 
 enum PropertyType {
