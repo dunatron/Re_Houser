@@ -41,7 +41,6 @@ const Signup = props => {
       </div>,
       {
         position: toast.POSITION.TOP_RIGHT,
-        // closeOnClick: false,
         autoClose: 15000,
       }
     );
@@ -177,7 +176,6 @@ const Signup = props => {
         <ButtonLoader
           type="submit"
           data-cy="submit-signup"
-          // variant="filled"
           loading={loading}
           text="Sign Up"
           successText="Signed Up"

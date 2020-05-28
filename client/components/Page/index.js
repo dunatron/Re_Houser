@@ -166,7 +166,7 @@ const GlobalStyle = createGlobalStyle`
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
-  const [useDarkTheme, setUseDarkTheme] = useState(false); // should set localStorage for this so each  device can remember its theme choice
+  const [useDarkTheme, setUseDarkTheme] = useState(true); // should set localStorage for this so each  device can remember its theme choice
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
