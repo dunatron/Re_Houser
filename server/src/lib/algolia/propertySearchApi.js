@@ -61,12 +61,53 @@ const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
   // need to check for files and get there urls etc
   // 1. an update for files connect
   // 1. an update for files disconnect
+
+  // https://medium.com/@mikeh91/conditionally-adding-keys-to-javascript-objects-using-spread-operators-and-short-circuit-evaluation-acf157488ede
+  console.log("=====updatePropertySearchNode=====");
+  console.log("updates => ", updates);
+
+  var imageUrls;
+
+  if (updates.data.images) {
+    delete updates.data.images;
+    const propertyImages = await ctx.db.query.property(
+      {
+        where: {
+          id: propertyId
+        }
+      },
+      `{ id images {id url}}`
+    );
+
+    imageUrls = propertyImages.property.images.map(p => p.images.url);
+
+    // remove images
+    // if (updates.data.images.disconnect) {
+    //   // map over the disconnect
+    // }
+    // if (updates.data.images.connect) {
+    //   // map over the disconnect
+    // }
+    // I think if we have images in the updates we have to fetch the properties images to get the urls and update them
+  }
+
+  const builtObj = buildAnObjectFromUpdateData(updates.data);
+
+  console.log("Built Obj => ", builtObj);
+
+  throw Error("===Just debugging algolia image updates===");
+
   const objects = [{ ...updates.data, objectID: propertyId }];
   index.partialUpdateObjects(objects, (err, content) => {
     if (err) throw err;
   });
   return "All done with search node updates";
 };
+
+const buildAnObjectFromUpdateData = data => ({
+  ...(data.foo && { foo: data.foo }),
+  ...(data.imageUrls && { imageUrls: data.images.map(img => img.url) })
+});
 
 module.exports = {
   addPropertySearchNode,

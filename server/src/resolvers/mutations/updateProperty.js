@@ -42,8 +42,7 @@ async function updateProperty(parent, args, ctx, info) {
   // here we just need to handle for algolia is all
 
   // do extra stuff here for algolia
-  if(updates.files) {
-
+  if (updates.files) {
   }
 
   if (!item.insulationForm && updates.data.onTheMarket) {
@@ -51,14 +50,6 @@ async function updateProperty(parent, args, ctx, info) {
       "You need an Insulation Statement before your property can go on the market"
     );
   }
-  /**
-   * activate the ciode highligting below is not used sao just do the func and dont put it into a variable
-   */
-  const propertySearchNode = updatePropertySearchNode({
-    updates: updates,
-    propertyId: args.id,
-    ctx
-  });
 
   createActivity({
     ctx: ctx,
@@ -105,7 +96,9 @@ async function updateProperty(parent, args, ctx, info) {
       }
     });
   }
-  return ctx.db.mutation.updateProperty(
+
+  // we need to await
+  const updatedProperty = await ctx.db.mutation.updateProperty(
     {
       updates,
       where: {
@@ -114,6 +107,17 @@ async function updateProperty(parent, args, ctx, info) {
     },
     info
   );
+
+  /**
+   * activate the ciode highligting below is not used sao just do the func and dont put it into a variable
+   */
+  const propertySearchNode = updatePropertySearchNode({
+    updates: updates,
+    propertyId: args.id,
+    ctx
+  });
+
+  return updatedProperty;
 }
 
 module.exports = updateProperty;
