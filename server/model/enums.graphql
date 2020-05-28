@@ -11,6 +11,12 @@ enum ApplicationStage {
   ACCEPTED
 }
 
+enum LeaseStage {
+  INITIALIZING
+  PAID
+  SIGNED
+}
+
 enum VisibilityLevel {
   PRIVATE
   FRIENDS_ONLY

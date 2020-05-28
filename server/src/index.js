@@ -21,7 +21,6 @@ var schedule = require("node-schedule");
 
 const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-// const webhookSecret = "whsec_JjL6QaWRq5ueLZJVXnVascAUgPANzYsF";
 // web hook secret is diff from stripe. and in local we dynamically get it when
 // we run stripe:listen
 // whsec_JjL6QaWRq5ueLZJVXnVascAUgPANzYsF

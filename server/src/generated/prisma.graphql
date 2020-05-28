@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue May 26 2020 09:54:32 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu May 28 2020 11:14:58 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -5410,6 +5410,7 @@ enum HealthyHomesStandardStatementTypes {
 enum HeatSource {
   FIRE_PLACE
   HEAT_PUMP
+  ELECTRIC_HEATER
 }
 
 enum IndoorFeature {
@@ -6551,6 +6552,12 @@ input InsulationFormWhereUniqueInput {
 
 """Raw JSON value"""
 scalar Json
+
+enum LeaseStage {
+  INITIALIZING
+  PAID
+  SIGNED
+}
 
 type Lessee implements Node {
   id: ID!
@@ -10517,6 +10524,7 @@ type Property implements Node {
   owners(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
   creator: User!
   images(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
+  acceptedTerms: Boolean
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication!]
   leases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease!]
   isLeased: Boolean
@@ -10743,6 +10751,7 @@ input PropertyCreateInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -10818,6 +10827,7 @@ input PropertyCreateWithoutAccommodationInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -10853,6 +10863,7 @@ input PropertyCreateWithoutActivityInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -10888,6 +10899,7 @@ input PropertyCreateWithoutAppraisalsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -10923,6 +10935,7 @@ input PropertyCreateWithoutCreatorInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -10958,6 +10971,7 @@ input PropertyCreateWithoutLeasesInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -10993,6 +11007,7 @@ input PropertyCreateWithoutOwnersInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -11028,6 +11043,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -11055,13 +11071,12 @@ type PropertyEdge {
 
 type PropertyLease implements Node {
   id: ID!
+  stage: LeaseStage!
   property: Property!
   updatedAt: DateTime!
   createdAt: DateTime!
   lessees(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee!]
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor!]
-  finalised: Boolean!
-  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11096,8 +11111,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 
 input PropertyLeaseCreateInput {
   id: ID
-  finalised: Boolean!
-  active: Boolean
+  stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11150,8 +11164,7 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
 
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
-  finalised: Boolean!
-  active: Boolean
+  stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11174,8 +11187,7 @@ input PropertyLeaseCreateWithoutActivityInput {
 
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
-  finalised: Boolean!
-  active: Boolean
+  stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11198,8 +11210,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
-  finalised: Boolean!
-  active: Boolean
+  stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11222,8 +11233,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
-  finalised: Boolean!
-  active: Boolean
+  stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11246,8 +11256,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
 
 input PropertyLeaseCreateWithoutWalletInput {
   id: ID
-  finalised: Boolean!
-  active: Boolean
+  stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11280,14 +11289,12 @@ type PropertyLeaseEdge {
 enum PropertyLeaseOrderByInput {
   id_ASC
   id_DESC
+  stage_ASC
+  stage_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
-  finalised_ASC
-  finalised_DESC
-  active_ASC
-  active_DESC
   canAcceptPayment_ASC
   canAcceptPayment_DESC
   rooms_ASC
@@ -11316,10 +11323,9 @@ enum PropertyLeaseOrderByInput {
 
 type PropertyLeasePreviousValues {
   id: ID!
+  stage: LeaseStage!
   updatedAt: DateTime!
   createdAt: DateTime!
-  finalised: Boolean!
-  active: Boolean
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -11385,6 +11391,16 @@ input PropertyLeaseScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  stage: LeaseStage
+
+  """All values that are not equal to given value."""
+  stage_not: LeaseStage
+
+  """All values that are contained in given list."""
+  stage_in: [LeaseStage!]
+
+  """All values that are not contained in given list."""
+  stage_not_in: [LeaseStage!]
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -11429,14 +11445,6 @@ input PropertyLeaseScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  finalised: Boolean
-
-  """All values that are not equal to given value."""
-  finalised_not: Boolean
-  active: Boolean
-
-  """All values that are not equal to given value."""
-  active_not: Boolean
   canAcceptPayment: Boolean
 
   """All values that are not equal to given value."""
@@ -11745,8 +11753,7 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11769,8 +11776,7 @@ input PropertyLeaseUpdateInput {
 }
 
 input PropertyLeaseUpdateManyDataInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11788,8 +11794,7 @@ input PropertyLeaseUpdateManyDataInput {
 }
 
 input PropertyLeaseUpdateManyMutationInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11864,8 +11869,7 @@ input PropertyLeaseUpdateoutdoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateWithoutActivityDataInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11887,8 +11891,7 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11910,8 +11913,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11933,8 +11935,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -11956,8 +11957,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
 }
 
 input PropertyLeaseUpdateWithoutWalletDataInput {
-  finalised: Boolean
-  active: Boolean
+  stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -12058,6 +12058,16 @@ input PropertyLeaseWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  stage: LeaseStage
+
+  """All values that are not equal to given value."""
+  stage_not: LeaseStage
+
+  """All values that are contained in given list."""
+  stage_in: [LeaseStage!]
+
+  """All values that are not contained in given list."""
+  stage_not_in: [LeaseStage!]
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -12102,14 +12112,6 @@ input PropertyLeaseWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
-  finalised: Boolean
-
-  """All values that are not equal to given value."""
-  finalised_not: Boolean
-  active: Boolean
-
-  """All values that are not equal to given value."""
-  active_not: Boolean
   canAcceptPayment: Boolean
 
   """All values that are not equal to given value."""
@@ -12432,6 +12434,8 @@ enum PropertyOrderByInput {
   locationLat_DESC
   locationLng_ASC
   locationLng_DESC
+  acceptedTerms_ASC
+  acceptedTerms_DESC
   isLeased_ASC
   isLeased_DESC
   leaseExpiryDate_ASC
@@ -12464,6 +12468,7 @@ type PropertyPreviousValues {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -12924,6 +12929,10 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   locationLng_gte: Float
+  acceptedTerms: Boolean
+
+  """All values that are not equal to given value."""
+  acceptedTerms_not: Boolean
   isLeased: Boolean
 
   """All values that are not equal to given value."""
@@ -13032,6 +13041,7 @@ input PropertyUpdateInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13067,6 +13077,7 @@ input PropertyUpdateManyDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13093,6 +13104,7 @@ input PropertyUpdateManyMutationInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13191,6 +13203,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13225,6 +13238,7 @@ input PropertyUpdateWithoutActivityDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13259,6 +13273,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13293,6 +13308,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13327,6 +13343,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13361,6 +13378,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13395,6 +13413,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  acceptedTerms: Boolean
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -13913,6 +13932,10 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   locationLng_gte: Float
+  acceptedTerms: Boolean
+
+  """All values that are not equal to given value."""
+  acceptedTerms_not: Boolean
   isLeased: Boolean
 
   """All values that are not equal to given value."""

@@ -23,18 +23,28 @@ async function updateProperty(parent, args, ctx, info) {
     `{ id location images {id url} insulationForm {id} }`
   );
   // Ok the below does not work and needs some attention
-  if (updates.file) {
-    if (item.images) {
-      deleteFile({ id: item.image.id, url: item.image.url, ctx });
-    }
-    const uploadedFile = await processUpload(await updates.file, ctx);
-    updates.image = {
-      connect: {
-        id: uploadedFile.id
-      }
-    };
+  // if (updates.file) {
+  //   if (item.images) {
+  //     deleteFile({ id: item.image.id, url: item.image.url, ctx });
+  //   }
+  //   const uploadedFile = await processUpload(await updates.file, ctx);
+  //   updates.image = {
+  //     connect: {
+  //       id: uploadedFile.id
+  //     }
+  //   };
+  // }
+  // delete updates.file;
+
+  // ok so we send the image to connect it right. we need to pay attention to the disconnect and connect
+  // disconnect I believe you will need a url etc.
+  // ahh but we delete 1 by 1.
+  // here we just need to handle for algolia is all
+
+  // do extra stuff here for algolia
+  if(updates.files) {
+
   }
-  delete updates.file;
 
   if (!item.insulationForm && updates.data.onTheMarket) {
     throw new Error(

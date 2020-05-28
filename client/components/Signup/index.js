@@ -93,7 +93,6 @@ const Signup = props => {
       onSubmit={async e => {
         e.preventDefault();
         signUp();
-        clearRecaptcha();
       }}>
       <fieldset disabled={loading} aria-busy={loading}>
         <Error error={error} />

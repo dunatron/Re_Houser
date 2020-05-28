@@ -4,6 +4,7 @@ import { PropertyInfoFragment } from '../fragments/propertyInfo';
 const PropertyLeaseInfoFragment = gql`
   fragment propertyLeaseInfo on PropertyLease {
     id
+    stage
     updatedAt
     createdAt
     property {
@@ -25,7 +26,6 @@ const PropertyLeaseInfoFragment = gql`
         email
       }
     }
-    finalised
     rooms
     bathrooms
     garageSpaces

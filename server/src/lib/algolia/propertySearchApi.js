@@ -58,6 +58,9 @@ const ALLOWED_SEARCH_NODE_UPDATE_KEYS = ["rent", "rooms", "moveInDate"];
  * a specified array of allowed keys, also transform certain keys values, or rather, if we update date, mkae a timestamp and update that too
  */
 const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
+  // need to check for files and get there urls etc
+  // 1. an update for files connect
+  // 1. an update for files disconnect
   const objects = [{ ...updates.data, objectID: propertyId }];
   index.partialUpdateObjects(objects, (err, content) => {
     if (err) throw err;

@@ -35,14 +35,6 @@ import THEME_PICKER_CONFIG from '../../lib/configs/themePickerConfig';
 // const theme = createMuiTheme(muiTheme);
 const theme = createMuiTheme({
   ...muiTheme,
-  // palette: {
-  //   ...muiTheme.palette,
-  //   ...lightPalette.palette,
-  // },
-  // palette: {
-  //   ...muiTheme.palette,
-  //   ...lightPalette.palette,
-  // },
   palette: {
     ...muiTheme.palette,
     ...lightPalette.palette,
@@ -76,12 +68,10 @@ Router.onRouteChangeStart = () => {
 
 Router.onRouteChangeComplete = () => {
   NProgress.done();
-  // NProgress.start()
 };
 
 Router.onRouteChangeError = () => {
   NProgress.done();
-  // NProgress.start()
 };
 
 const GlobalStyle = createGlobalStyle`
@@ -111,15 +101,12 @@ const GlobalStyle = createGlobalStyle`
   }
   @font-face {
     font-family: "Allison";
-    /* src: url('/static/fonts/Allison_Script.otf') format('otf');  */
     src: url('/static/fonts/Gustan-Light.woff') format('woff'); /* IE9 Compat Modes */
     font-style:   normal;
     font-weight:  200;
   }
   html {
     box-sizing: border-box;
-    /* font-size: 10px; */
-    /* font-size: 16px; */
     font-size: 14px;
   }
   *, *:before, *:after {
@@ -174,18 +161,12 @@ const GlobalStyle = createGlobalStyle`
   
 `;
 
-const defaultTheme = createMuiTheme({
-  ...muiTheme,
-  ...THEME_PICKER_CONFIG[0],
-});
-
 /**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
   const [useDarkTheme, setUseDarkTheme] = useState(false); // should set localStorage for this so each  device can remember its theme choice
-  const [userTheme, setUserTheme] = useState(defaultTheme);
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
@@ -193,20 +174,6 @@ const Page = props => {
     }
   }, [window.Stripe]);
   const themeToUse = useDarkTheme ? darkTheme : lightTheme;
-
-  const handleSetUserTheme = theme => {
-    const myMadeTheme = createMuiTheme({
-      ...muiTheme,
-      ...theme,
-      palette: {
-        ...muiTheme.palette,
-        ...theme.palette,
-      },
-    });
-    setUserTheme(myMadeTheme);
-  };
-
-  // const stripePromise = loadStripe(process.env.STRIPE_KEY);
 
   return (
     <NoSsr>
@@ -216,25 +183,17 @@ const Page = props => {
         <ToastContainer
           rtl={false}
           style={{
-            // width: 'unset',
             minWidth: '280px',
           }}
           closeButton={
             <div>
-              <IconButton
-                color={'default'}
-                aria-label="Delete"
-                // className={classes.closeBtn}
-                // onClick={() => close()}
-              >
+              <IconButton color={'default'} aria-label="Delete">
                 <CloseIcon fontSize="small" />
               </IconButton>
             </div>
           }
         />
-        {/* <StripeProvider stripe={stripe}> */}
-
-        <ThemeProvider theme={userTheme}>
+        <ThemeProvider theme={themeToUse}>
           <Elements stripe={stripe}>
             <WithUser>
               {/* <WithChats> */}
@@ -242,7 +201,6 @@ const Page = props => {
               <MaterialPage
                 children={props.children}
                 {...props}
-                setTheme={handleSetUserTheme}
                 toggleTheme={() => {
                   setUseDarkTheme(!useDarkTheme);
                 }}
@@ -256,8 +214,6 @@ const Page = props => {
             </WithUser>
           </Elements>
         </ThemeProvider>
-
-        {/* </StripeProvider> */}
         <div id="modal-root" />
         <GlobalStyle />
       </MuiThemeProvider>
