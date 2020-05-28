@@ -25,7 +25,7 @@ const LeaseManager = ({ leaseId }) => {
 
   if (loading) return <Loader loading={loading} text="Loading your leases" />;
   if (error) return <Error error={error} tronM="Error loading leases" />;
-  const { finalised, location, rent, lessors, lessees } = data.myLease;
+  const { stage, location, rent, lessors, lessees } = data.myLease;
 
   /**
    * This may have a few bad consequences, you will be changing props which
@@ -57,7 +57,7 @@ const LeaseManager = ({ leaseId }) => {
   // need to ensure they are a lessor or lessee to view
 
   // 1. if lease has been finalised <CompletedLease />
-  if (finalised)
+  if (stage === 'SIGNED')
     return (
       <CompletedLease leaseId={data.myLease.id} lease={data.myLease} me={me} />
     );

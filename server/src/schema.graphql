@@ -202,6 +202,15 @@ type Query {
     where: RentalApplicationWhereUniqueInput!
   ): RentalApplication!
   rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
+  rentalApplicationsConnection(
+    where: RentalApplicationWhereInput
+    orderBy: RentalApplicationOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): RentalApplicationConnection!
   myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
   myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!
   myLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease!

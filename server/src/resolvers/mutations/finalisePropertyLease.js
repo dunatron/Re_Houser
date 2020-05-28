@@ -44,7 +44,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       wallet {
         id
         amount
-      }yarn run 
+      }
     }`
   );
 

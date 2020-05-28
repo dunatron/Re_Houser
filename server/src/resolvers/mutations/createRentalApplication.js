@@ -2,7 +2,7 @@ const newRentalApplicationEmail = require("../../lib/emails/newRentalApplication
 const mustBeAuthed = require("../../lib/mustBeAuthed");
 
 async function createRentalApplication(parent, { data, files }, ctx, info) {
-  await mustBeAuthed({ ctx: ctx });
+  // await mustBeAuthed({ ctx: ctx });
   const currentApplications = await ctx.db.query.rentalApplications(
     {
       where: {
@@ -55,8 +55,9 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
         }
       }
     },
-    `{ id, approved ,user{id, firstName, lastName}}`
+    `{ id, firstName, lastName, email, approved, completed ,user{id, firstName, lastName, phone, email, rehouserStamp, profilePhoto {id, url}}}`
   );
+
   rentalApplication.applicants.push({ ...rentalGroupNode });
 
   // send email

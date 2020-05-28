@@ -84,7 +84,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         rooms: property.rooms,
         rent: property.rent,
         bathrooms: property.bathrooms,
-        finalised: false,
+        stage: "INITIALIZING",
         garageSpaces: property.garageSpaces,
         carportSpaces: property.carportSpaces,
         offStreetSpaces: property.offStreetSpaces,

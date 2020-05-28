@@ -19,8 +19,8 @@ import { SINGLE_PROPERTY_QUERY } from '../../../graphql/queries';
 const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
   return (
     <Paper>
-      <Typography variant="h3" gutterBottom color="secondary">
-        You are the owner application
+      <Typography gutterBottom color="secondary">
+        You are the creator of the application
       </Typography>
       <RentalApplicationStepper
         application={rentalApplication}

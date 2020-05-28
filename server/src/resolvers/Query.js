@@ -18,10 +18,8 @@ const property = require("./querys/property");
 const ownerProperty = require("./querys/ownerProperty");
 const ownerProperties = require("./querys/ownerProperties");
 const chats = require("./querys/chats");
-const chatsConnection = require("./querys/chatsConnection");
 const chat = require("./querys/chat");
 const messages = require("./querys/messages");
-const messagesConnection = require("./querys/messagesConnection");
 const activities = require("./querys/activities");
 const activity = require("./querys/activity");
 const insulationForm = require("./querys/insulationForm");
@@ -45,10 +43,8 @@ const Query = {
   payments,
   findUsers,
   chats,
-  chatsConnection,
   chat,
   messages,
-  messagesConnection,
   activities,
   activity,
   insulationForm,

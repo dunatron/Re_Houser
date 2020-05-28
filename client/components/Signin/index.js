@@ -6,7 +6,8 @@ import Error from '../ErrorMessage/index';
 import { CURRENT_USER_QUERY } from '../User/index';
 import FabButton from '../../styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import TextInput from '../../styles/TextInput';
+// import TextInput from '../../styles/TextInput';
+import { TextField } from '@material-ui/core';
 import { SIGNIN_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ButtonLoader from '../Loader/ButtonLoader';
@@ -73,9 +74,9 @@ const Signin = props => {
           refetchQueries: [{ query: CURRENT_USER_QUERY }],
         });
       }}>
-      <fieldset disabled={loading} aria-busy={loading}>
+      <div disabled={loading} aria-busy={loading}>
         <Error error={error} />
-        <TextInput
+        <TextField
           id="email"
           inputProps={{
             'data-cy': 'email',
@@ -88,7 +89,7 @@ const Signin = props => {
           value={state.email}
           onChange={saveToState}
         />
-        <TextInput
+        <TextField
           id="password"
           label="Password"
           inputProps={{
@@ -128,7 +129,7 @@ const Signin = props => {
           success={false}>
           <NavigationIcon style={{ marginRight: 5 }} />
         </ButtonLoader>
-      </fieldset>
+      </div>
     </Form>
   );
 };

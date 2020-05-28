@@ -11,12 +11,12 @@ const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   mutation FINALISE_PROPERTY_LEASE_MUTATION($leaseId: ID!) {
     finalisePropertyLease(leaseId: $leaseId) {
       id
-      finalised
+      stage
     }
   }
 `;
 
-const FinaliseLeaseBtn = ({ leaseId, finalised, disabled }) => {
+const FinaliseLeaseBtn = ({ leaseId, stage, disabled }) => {
   const [finaliseLease, finaliseLeaseProps] = useMutation(
     FINALISE_PROPERTY_LEASE_MUTATION,
     {
@@ -25,7 +25,7 @@ const FinaliseLeaseBtn = ({ leaseId, finalised, disabled }) => {
       },
     }
   );
-  if (finalised) {
+  if (stage === 'SIGNED') {
     return 'Lease has been signed and finalised';
   }
   return (

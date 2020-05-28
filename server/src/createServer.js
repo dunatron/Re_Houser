@@ -1,6 +1,7 @@
 const { GraphQLServer, PubSub } = require("graphql-yoga");
 const Mutation = require("./resolvers/Mutation");
 const Query = require("./resolvers/Query");
+const Connection = require("./resolvers/Connection");
 const Subscription = require("./resolvers/Subscription");
 const db = require("./db");
 
@@ -26,7 +27,11 @@ const resolvers = {
   Date: DateTimeResolver,
   URL: URLResolver,
   Json: JSONResolver,
-  Query,
+  // Query,
+  Query: {
+    ...Query,
+    ...Connection // simply relay versions e.g aggregate and edges
+  },
   Mutation,
   Subscription
 };

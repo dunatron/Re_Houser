@@ -34,6 +34,69 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+// const fieldsOnBook = gql`
+//   fragment fieldsOnBook on Book {
+//     id
+//     author
+//   }
+// `;
+
+const aggregateFields = gql`
+  fragment aggregateFields on RentalApplicationConnection {
+    aggregate {
+      count
+    }
+  }
+`;
+
+const RENTAL_APPLICATIONS_CONNECTION = gql`
+  query RENTAL_APPLICATIONS_CONNECTION(
+    $where: RentalApplicationWhereInput
+    $orderBy: RentalApplicationOrderByInput
+    $skip: Int
+    $after: String
+    $before: String
+    $first: Int
+    $last: Int
+  ) {
+    rentalApplicationsConnection(
+      where: $where
+      orderBy: $orderBy
+      skip: $skip
+      after: $after
+      before: $before
+      first: $first
+      last: $last
+    ) {
+      ...aggregateFields
+    }
+  }
+  ${aggregateFields}
+`;
+
+// 1. create gql rentalApplicationsConnection for the aggregate data
+
+const PropertyApplicationsBadgeCount = ({ property }) => {
+  const { data, loading, error } = useQuery(RENTAL_APPLICATIONS_CONNECTION, {
+    variables: {
+      where: {
+        property: {
+          id: property.id,
+        },
+      },
+    },
+  });
+  return (
+    <Badge
+      color="secondary"
+      badgeContent={
+        loading ? 0 : data.rentalApplicationsConnection.aggregate.count
+      }>
+      Applications
+    </Badge>
+  );
+};
+
 const PropertyCard = styled.div`
   max-width: 1200px;
   /* margin: 2rem auto; */
@@ -66,8 +129,8 @@ const PropertyDetails = ({ id, location }) => {
   const property = data.ownerProperty;
 
   if (!property) {
-    toast('Real interesting error ');
-    return 'This shouldnt happen apologies 😭😭😭 🤢 🤮';
+    toast('No Property passed in to component');
+    return 'No Property passed in to component';
   }
 
   return (
@@ -80,13 +143,7 @@ const PropertyDetails = ({ id, location }) => {
       <h1 className="location__name"> {property ? property.location : null}</h1>
       <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)}>
         <Tab label="Details" />
-        <Tab
-          label={
-            <Badge color="secondary" badgeContent={3}>
-              Applications
-            </Badge>
-          }
-        />
+        <Tab label={<PropertyApplicationsBadgeCount property={property} />} />
         <Tab label="Leases" />
         <Tab label="Activity" />
       </Tabs>

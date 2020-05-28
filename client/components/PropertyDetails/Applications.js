@@ -5,8 +5,12 @@ import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/acce
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
 import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
 import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
+import Loader from '../Loader';
+import Error from '../ErrorMessage';
 
 import ApplicationCard from './ApplicationCard';
+
+import { Paper, Typography } from '@material-ui/core';
 
 // INITIALIZING
 // PENDING
@@ -83,22 +87,37 @@ const RentalApplications = props => {
   //   // ... rest options
   // })
 
-  if (loading) {
-    return <div>fetching applications please wait....</div>;
-  }
-  if (error) {
-    return <div>Error! {error.message}</div>;
-  }
+  if (loading)
+    return (
+      <Loader loading={loading} text="fetching applications please wait...." />
+    );
+  if (error) return <Error error={error} />;
   return (
     <div>
-      <h1>I am the Applications details component</h1>
       {/* <PropertyPendingRentalApplicationsSub property={props.property} /> */}
-      <div>
-        <h2>This area is to perform actions for potential applications e.g.</h2>
+      <Paper>
+        <Typography>
+          You can handle applications for your property here
+        </Typography>
+        <Typography>
+          Once you have accepted an application, it will create an un-signed
+          lease where all lessors and lessess must sign the lease before it can
+          be finalised. A lessor must finalise the lease once all parties have
+          signed
+        </Typography>
+        <Typography>
+          Heath do we need a little more control on this? like I just want this
+          airtight
+        </Typography>
+        INITIALIZING PAID SIGNED
         <ul>
-          <li>Send email and notification to applicants about a viewing</li>
+          <li>INITIALIZING</li>
+          <li>All parties sign -> can finalise button appears</li>
+          <li>Lessor finalises - SIGNED</li>
+          <li>lesses pay - PAID</li>
+          <li>...</li>
         </ul>
-      </div>
+      </Paper>
 
       {data.rentalApplications.map((application, i) => {
         return (

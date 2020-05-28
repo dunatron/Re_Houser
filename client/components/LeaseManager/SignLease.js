@@ -57,7 +57,7 @@ const groupHasSigned = group => {
 };
 
 const LeaseDetailsBlock = ({ lease }) => {
-  const { id, finalised, rent, location, lessors, lessees } = lease;
+  const { id, stage, rent, location, lessors, lessees } = lease;
   const lessesHaveSigned = groupHasSigned(lessees);
   const lessorsHaveSigned = groupHasSigned(lessors);
 
@@ -95,7 +95,7 @@ const LeaseDetailsBlock = ({ lease }) => {
       {stage !== 'SIGNED' && (
         <FinaliseLeaseBtn
           leaseId={id}
-          finalised={finalised}
+          stage={stage}
           disabled={!allSigned}
         />
       )}

@@ -118,7 +118,11 @@ const ApplicationDetailsStep = ({
 
   return (
     <div>
-      <Typography>Redoing this section because it is that bad</Typography>
+      <Typography>
+        As the owner of the application you can approve applicants as part of
+        your application and they will be part of the lease with you if
+        successful{' '}
+      </Typography>
       <Error error={error} />
       <SuperiorTable
         title="Application applicants"
