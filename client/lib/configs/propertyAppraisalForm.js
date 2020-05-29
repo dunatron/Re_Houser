@@ -34,7 +34,7 @@ const PROPERTY_APPRAISAL_CONF = [
     key: 'bathrooms',
     fieldProps: {
       name: 'bathrooms',
-      label: 'number of bedrooms on the property',
+      label: 'number of bathrooms on the property',
     },
     refConf: {
       required: {
@@ -44,6 +44,22 @@ const PROPERTY_APPRAISAL_CONF = [
       },
     },
   },
+  {
+    type: 'Int',
+    key: 'garageSpaces',
+    fieldProps: {
+      name: 'garageSpaces',
+      label: 'number of garages spaces on the property',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'You need to supply the number of garages on the property for an appraisal',
+      },
+    },
+  },
+
   {
     type: 'SelectMultipleEnum',
     __type: 'HeatSource',
@@ -108,9 +124,9 @@ const PROPERTY_APPRAISAL_CONF = [
       },
       {
         type: 'AcceptTerms',
-        key: 'acceptedTerms',
+        key: 'acceptTerms',
         fieldProps: {
-          name: 'acceptedTerms',
+          name: 'acceptTerms',
           label: 'Confirm information is correct',
           // defaultValue: moment().format('YYYY-MM-DDTkk:mm'),
         },

@@ -130,6 +130,7 @@ const serverBackend =
 // should probably actually refetch the lease on a successful payment might be best.
 // or perhaps get the wallet by itself here. and refetch that as it has payments and actually the right level we want to refetch on
 const LeaseWallet = ({ lease, me }) => {
+  console.log('Wtf doe me look like... => ', me);
   const stripe = useStripe();
   const elements = useElements();
   const { wallet } = lease;
@@ -180,6 +181,8 @@ const LeaseWallet = ({ lease, me }) => {
       },
       body: JSON.stringify({
         amount: amount,
+        leaseId: lease.id,
+        walletId: wallet.id,
       }),
     })
       .then(response => response.json())

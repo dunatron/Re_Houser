@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu May 28 2020 11:14:58 GMT+1200 (New Zealand Standard Time)
+# timestamp: Fri May 29 2020 10:02:43 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -14738,6 +14738,7 @@ type RentalAppraisal implements Node {
   locationLng: Float!
   rooms: Int!
   bathrooms: Int!
+  garageSpaces: Int!
   heatSources: [HeatSource!]!
   rent: Float
   rentValueAccepted: Boolean
@@ -14766,6 +14767,7 @@ input RentalAppraisalCreateInput {
   locationLng: Float!
   rooms: Int!
   bathrooms: Int!
+  garageSpaces: Int!
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -14791,6 +14793,7 @@ input RentalAppraisalCreateWithoutPropertyInput {
   locationLng: Float!
   rooms: Int!
   bathrooms: Int!
+  garageSpaces: Int!
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -14805,6 +14808,7 @@ input RentalAppraisalCreateWithoutRequestedByInput {
   locationLng: Float!
   rooms: Int!
   bathrooms: Int!
+  garageSpaces: Int!
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -14834,6 +14838,8 @@ enum RentalAppraisalOrderByInput {
   rooms_DESC
   bathrooms_ASC
   bathrooms_DESC
+  garageSpaces_ASC
+  garageSpaces_DESC
   rent_ASC
   rent_DESC
   rentValueAccepted_ASC
@@ -14849,6 +14855,7 @@ type RentalAppraisalPreviousValues {
   locationLng: Float!
   rooms: Int!
   bathrooms: Int!
+  garageSpaces: Int!
   heatSources: [HeatSource!]!
   rent: Float
   rentValueAccepted: Boolean
@@ -15032,6 +15039,28 @@ input RentalAppraisalScalarWhereInput {
 
   """All values greater than or equal the given value."""
   bathrooms_gte: Int
+  garageSpaces: Int
+
+  """All values that are not equal to given value."""
+  garageSpaces_not: Int
+
+  """All values that are contained in given list."""
+  garageSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  garageSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  garageSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  garageSpaces_lte: Int
+
+  """All values greater than the given value."""
+  garageSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  garageSpaces_gte: Int
   rent: Float
 
   """All values that are not equal to given value."""
@@ -15111,6 +15140,7 @@ input RentalAppraisalUpdateInput {
   locationLng: Float
   rooms: Int
   bathrooms: Int
+  garageSpaces: Int
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -15125,6 +15155,7 @@ input RentalAppraisalUpdateManyDataInput {
   locationLng: Float
   rooms: Int
   bathrooms: Int
+  garageSpaces: Int
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -15137,6 +15168,7 @@ input RentalAppraisalUpdateManyMutationInput {
   locationLng: Float
   rooms: Int
   bathrooms: Int
+  garageSpaces: Int
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -15178,6 +15210,7 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
   locationLng: Float
   rooms: Int
   bathrooms: Int
+  garageSpaces: Int
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -15191,6 +15224,7 @@ input RentalAppraisalUpdateWithoutRequestedByDataInput {
   locationLng: Float
   rooms: Int
   bathrooms: Int
+  garageSpaces: Int
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -15397,6 +15431,28 @@ input RentalAppraisalWhereInput {
 
   """All values greater than or equal the given value."""
   bathrooms_gte: Int
+  garageSpaces: Int
+
+  """All values that are not equal to given value."""
+  garageSpaces_not: Int
+
+  """All values that are contained in given list."""
+  garageSpaces_in: [Int!]
+
+  """All values that are not contained in given list."""
+  garageSpaces_not_in: [Int!]
+
+  """All values less than the given value."""
+  garageSpaces_lt: Int
+
+  """All values less than or equal the given value."""
+  garageSpaces_lte: Int
+
+  """All values greater than the given value."""
+  garageSpaces_gt: Int
+
+  """All values greater than or equal the given value."""
+  garageSpaces_gte: Int
   rent: Float
 
   """All values that are not equal to given value."""

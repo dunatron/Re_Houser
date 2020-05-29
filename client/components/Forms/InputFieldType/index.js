@@ -215,7 +215,7 @@ const InputFieldType = props => {
             <div
               style={{
                 display: 'flex',
-                flexDirection: 'row',
+                flexDirection: 'column',
                 flexWrap: 'wrap',
               }}>
               <Typography style={{ maxWidth: '800px' }}>

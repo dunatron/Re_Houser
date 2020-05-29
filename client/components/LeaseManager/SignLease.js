@@ -38,7 +38,7 @@ const SignLease = ({ lease, me }) => {
             Before the Lease can go into action we need 1 weeks worth of rent in
             the account
           </Typography>
-          <LeaseWallet lease={lease} />
+          <LeaseWallet lease={lease} me={me} />
         </div>
       )}
       <Typography variant="h6">Lessors</Typography>
@@ -93,11 +93,7 @@ const LeaseDetailsBlock = ({ lease }) => {
         </>
       )}
       {stage !== 'SIGNED' && (
-        <FinaliseLeaseBtn
-          leaseId={id}
-          stage={stage}
-          disabled={!allSigned}
-        />
+        <FinaliseLeaseBtn leaseId={id} stage={stage} disabled={!allSigned} />
       )}
 
       <LeaseDetails lease={lease} />

@@ -270,6 +270,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
         />
       )}
       <Modal
+        disableBackdrop={true}
         open={open}
         close={() => setIsOpen(false)}
         title={`${

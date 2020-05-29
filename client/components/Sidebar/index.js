@@ -151,14 +151,6 @@ const NavigationConfig = (me, loadingUser) => {
       items: [
         {
           icon: <DashboardIcon />,
-          text: 'Free Appraisal',
-          route: '/freeappraisal',
-          style: { ...defaultNavItemStyle },
-          // canRender: () => !me.usedFreeAppraisal,
-          canRender: () => true, // set to try just to run it alot on the same account in dev
-        },
-        {
-          icon: <DashboardIcon />,
           text: 'Applications',
           route: '/applications',
           style: { ...defaultNavItemStyle },
@@ -183,6 +175,13 @@ const NavigationConfig = (me, loadingUser) => {
     {
       key: 'account',
       items: [
+        {
+          icon: <DashboardIcon />,
+          text: 'Free Appraisal',
+          route: '/freeappraisal',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
         {
           icon: loadingUser ? (
             <Skeleton variant="circle" width={40} height={40} />

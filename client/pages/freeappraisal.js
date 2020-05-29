@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
 import PleaseSignIn from '../components/PleaseSignIn';
 import PropertyAppraisal from '../components/PropertyAppraisal';
+import { Paper, Typography } from '@material-ui/core';
 
 const FreeAppraisal = props => {
   const {
     appData: { currentUser },
   } = props;
+  console.log('current user for Free Appraisal => ', currentUser);
+  const { data, loading, error } = currentUser;
+  if (loading) return 'Getting data for free appraisal page';
+  const { me } = data;
   return (
     <div>
+      {!me && (
+        <Paper
+          style={{
+            padding: '16px',
+          }}>
+          <Typography variant="h6">
+            Our platform requires that you be logged in to submit a free
+            appraisal{' '}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom={true}>
+            You will get an email once you have completed the form. We will then
+            send you another email when we have completed the appraisal
+          </Typography>
+        </Paper>
+      )}
       <PleaseSignIn
         currentUser={currentUser}
         alert={

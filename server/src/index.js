@@ -57,8 +57,62 @@ server.post(
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
+    if (event.type === "payment_intent.created") {
+      console.log("✅ payment_intent.created:");
+    }
+
+    if (event.type === "payment_intent.succeeded") {
+      console.log("✅ payment_intent.succeeded: ", event.data.object);
+
+      const wallet = db.query.wallet({
+        where: {
+          id: event.data.object.metadata.walletId
+        }
+      });
+
+      console.log("THANK FUCK THE WALLET => ", wallet);
+
+      // metadata: {
+      //   userId: 'ckapzskzuvwjq0999a5enscf5',
+      //   leaseId: 'ckaqftsvvxeue0999oulbu9yk',
+      //   walletId: 'ckaqftsw3xeuh09996ihvdloa'
+      // },
+    }
+
+    // payment_intent.created && charge.succeeded are different
+    if (event.type === "charge.succeeded") {
+      console.log("✅ charge.succeeded:", event.data.object);
+    }
+
+    // console.log("===WEBHOOK===");
+    // console.log("===WEBHOOK BODY===> ", req.body);
+
+    // try {
+    //   console.log("Stripe webhook recieved => ", req.body.type);
+    //   if (req.body.type === "payment_intent.succeeded") {
+    //     console.log("Stripe payment intent has succeded");
+    //     // we need to validate the data send to make sure it hasnt been altered.
+    //     // we are using this inflo to update the wallet so super important that this data can be trusted
+    //     // event = stripe.webhooks.constructEvent(
+    //     //   req.body.rawBody,
+    //     //   sig,
+    //     //   endpointSecretKey
+    //     // );
+    //     // event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
+    //     event = stripe.webhooks.constructEvent(
+    //       req.body,
+    //       sig,
+    //       endpointSecretKey
+    //     );
+    //     console.log("Payment succeded but is the json valid? => ", event);
+    //   }
+    // } catch (err) {
+    //   return res.status(400).send(`Webhook Error: ${err.message}`);
+    // }
+
     // Successfully constructed event
     console.log("✅ Success:", event.id);
+    console.log("✅ EVENT:", event);
 
     // Return a response to acknowledge receipt of the event
     res.json({ received: true });
@@ -230,28 +284,52 @@ server.post("/stripe/intent", async (req, res, next) => {
     return next();
   }
 
+  if (!req.userId) {
+    // throw error. only loigged in users can create intents
+  }
+
   if (!req.body) {
     // throw error
   }
 
-  const { amount } = req.body;
+  const { amount, leaseId, walletId } = req.body;
 
   if (!amount) {
     // throw errro as they must have an amount they intend to pay
   }
 
+  console.log("req.userId ", req);
+  console.log("req.userId = userId ", req.userId);
+
   console.log("clients amount they are intent to pay => ", amount);
 
   // ToDo: get current logged in user and add there email etc
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: amount,
-    currency: "nzd",
-    payment_method_types: ["card"],
-    metadata: { uid: "some_userID" }
-  });
-  console.log("paymentIntent.client_secret => ", paymentIntent.client_secret);
-  console.log("==END PAYMENT INTENT==");
-  res.send({ client_secret: paymentIntent.client_secret });
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "nzd",
+      payment_method_types: ["card"],
+      metadata: {
+        userId: req.userId,
+        leaseId: leaseId,
+        walletId: walletId
+      }
+      // NOTE< NOT LIKING THE RAW STUFF
+      // metadata: {
+      //   reqUserId: req.userId,
+      //   user: user,
+      //   lease: lease,
+      //   wallet: wallet
+      // }
+    });
+    console.log("paymentIntent.client_secret => ", paymentIntent.client_secret);
+    console.log("==END PAYMENT INTENT==");
+    res.send({ client_secret: paymentIntent.client_secret });
+  } catch (err) {
+    console.log("AN error occurred => ", err);
+    res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
   // res.send(paymentIntent);
 });
 
