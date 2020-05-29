@@ -6,7 +6,7 @@ const MY_LEASES_QUERY = gql`
       id
       location
       rent
-      finalised
+      stage
       moveInDate
       expiryDate
       lessees {
