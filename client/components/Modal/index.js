@@ -8,7 +8,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Paper } from '@material-ui/core';
 
 import { Portal } from '../Portal/index';
-import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -111,22 +110,6 @@ const Modal = props => {
     };
   }, [open]);
 
-  /**
-   * Not implemented/Working
-   */
-  const [elementPosition, setElementPosition] = useState({ x: 20, y: 150 });
-  const elementRef = useRef();
-
-  // Element scroll position
-  useScrollPosition(
-    ({ currPos }) => {
-      console.log('Curr pos => ', currPos);
-      setElementPosition(currPos);
-    },
-    [elementRef],
-    elementRef
-  );
-
   const handleModalClick = e => {
     if (modalNode.current) {
       if (modalNode.current.contains(e.target)) {
@@ -155,7 +138,7 @@ const Modal = props => {
             }}>
             <Paper className={classes.modalInner} ref={node}>
               <div
-                ref={elementRef}
+                // ref={elementRef}
                 className={classes.modalHeader}
                 id={`${id}-modal-header`}
                 style={{

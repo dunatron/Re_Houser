@@ -12,6 +12,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { Fragment } from 'react';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import HouseIcon from '@material-ui/icons/House';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import DonutSmallIcon from '@material-ui/icons/DonutSmall';
 
 import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -90,7 +95,7 @@ const NavigationConfig = (me, loadingUser) => {
           canRender: () => true,
         },
         {
-          icon: <DashboardIcon />,
+          icon: <DonutSmallIcon />,
           text: 'Activity',
           route: '/activity',
           style: { ...defaultNavItemStyle },
@@ -105,43 +110,43 @@ const NavigationConfig = (me, loadingUser) => {
         },
       ],
     },
-    {
-      key: 'social',
-      canRender: () => {
-        if (me === null) return false;
-        return true;
-      },
-      items: [
-        {
-          icon: (
-            <Badge badgeContent={friendRequests.length}>
-              <PersonIcon />
-            </Badge>
-          ),
-          text: 'Friend Manager',
-          route: '/social/friends',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
-        {
-          icon: (
-            <Badge badgeContent={friendRequests.length}>
-              <PersonIcon />
-            </Badge>
-          ),
-          text: 'Messages',
-          route: '/social/chats',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
-      ],
-    },
+    // {
+    //   key: 'social',
+    //   canRender: () => {
+    //     if (me === null) return false;
+    //     return true;
+    //   },
+    //   items: [
+    //     {
+    //       icon: (
+    //         <Badge badgeContent={friendRequests.length}>
+    //           <PersonIcon />
+    //         </Badge>
+    //       ),
+    //       text: 'Friend Manager',
+    //       route: '/social/friends',
+    //       style: { ...defaultNavItemStyle },
+    //       canRender: () => {
+    //         if (me === null) return false;
+    //         return true;
+    //       },
+    //     },
+    //     {
+    //       icon: (
+    //         <Badge badgeContent={friendRequests.length}>
+    //           <PersonIcon />
+    //         </Badge>
+    //       ),
+    //       text: 'Messages',
+    //       route: '/social/chats',
+    //       style: { ...defaultNavItemStyle },
+    //       canRender: () => {
+    //         if (me === null) return false;
+    //         return true;
+    //       },
+    //     },
+    //   ],
+    // },
     {
       key: 'landlord',
       canRender: () => {
@@ -150,21 +155,21 @@ const NavigationConfig = (me, loadingUser) => {
       },
       items: [
         {
-          icon: <DashboardIcon />,
+          icon: <AssignmentIcon />,
           text: 'Applications',
           route: '/applications',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
-          icon: <DashboardIcon />,
+          icon: <ApartmentIcon />,
           text: 'Leases',
           route: '/leases',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
         {
-          icon: <DashboardIcon />,
+          icon: <HouseIcon />,
           text: 'Properties',
           route: '/properties',
           style: { ...defaultNavItemStyle },
@@ -176,7 +181,7 @@ const NavigationConfig = (me, loadingUser) => {
       key: 'account',
       items: [
         {
-          icon: <DashboardIcon />,
+          icon: <HomeWorkIcon />,
           text: 'Free Appraisal',
           route: '/freeappraisal',
           style: { ...defaultNavItemStyle },

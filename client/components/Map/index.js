@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  mapWrapper: {
+    position: 'relative',
+    height: '240px',
+    [theme.breakpoints.up('md')]: {
+      height: '300px',
+    },
+  },
+}));
+
 const MapContainer = props => {
   const { center } = props;
+  const classes = useStyles();
 
   const onMarkerClick = () => {};
 
   const onInfoWindowClose = () => {};
 
   return (
-    <div style={{ position: 'relative', height: 300 }}>
+    <div className={classes.mapWrapper}>
       <Map
         google={props.google}
         zoom={18}
