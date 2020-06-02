@@ -26,10 +26,12 @@ import InputModal from '../Modal/InputModal';
 import TextInput from '../../styles/TextInput';
 import DateInput from '../Inputs/DateInput';
 import Error from '../ErrorMessage/index';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 import { UPDATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
 import { OWNER_PROPERTIES_QUERY } from '../../graphql/queries/index';
 import useKeyPress from '../../lib/useKeyPress';
+import EditProperty from './Edit';
 
 import {
   NowToDate,
@@ -285,6 +287,13 @@ const Details = props => {
         for new advertisements in the future or to update any info. In short
         changing rent will have no impact on current agreements
       </h4>
+      <div>
+        <ChangeRouteButton
+          title="Edit Original Form"
+          route="/properties/property/edit"
+          query={{ id: property.id }}
+        />
+      </div>
       <InsulationStatementForm
         data={null}
         propertyId={property.id}

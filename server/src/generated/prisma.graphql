@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri May 29 2020 10:02:43 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue Jun 02 2020 20:59:26 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1174,6 +1174,10 @@ type AggregateActivity {
   count: Int!
 }
 
+type AggregateBankDetail {
+  count: Int!
+}
+
 type AggregateCharge {
   count: Int!
 }
@@ -1259,6 +1263,281 @@ enum ApplicationStage {
   PENDING
   DENIED
   ACCEPTED
+}
+
+type BankDetail implements Node {
+  id: ID!
+  name: String
+  bank: String
+  branch: String
+}
+
+"""A connection to a list of items."""
+type BankDetailConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BankDetailEdge]!
+  aggregate: AggregateBankDetail!
+}
+
+input BankDetailCreateInput {
+  id: ID
+  name: String
+  bank: String
+  branch: String
+}
+
+"""An edge in a connection."""
+type BankDetailEdge {
+  """The item at the end of the edge."""
+  node: BankDetail!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum BankDetailOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  bank_ASC
+  bank_DESC
+  branch_ASC
+  branch_DESC
+}
+
+type BankDetailPreviousValues {
+  id: ID!
+  name: String
+  bank: String
+  branch: String
+}
+
+type BankDetailSubscriptionPayload {
+  mutation: MutationType!
+  node: BankDetail
+  updatedFields: [String!]
+  previousValues: BankDetailPreviousValues
+}
+
+input BankDetailSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BankDetailSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BankDetailSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BankDetailSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BankDetailWhereInput
+}
+
+input BankDetailUpdateInput {
+  name: String
+  bank: String
+  branch: String
+}
+
+input BankDetailUpdateManyMutationInput {
+  name: String
+  bank: String
+  branch: String
+}
+
+input BankDetailWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BankDetailWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BankDetailWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BankDetailWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  bank: String
+
+  """All values that are not equal to given value."""
+  bank_not: String
+
+  """All values that are contained in given list."""
+  bank_in: [String!]
+
+  """All values that are not contained in given list."""
+  bank_not_in: [String!]
+
+  """All values less than the given value."""
+  bank_lt: String
+
+  """All values less than or equal the given value."""
+  bank_lte: String
+
+  """All values greater than the given value."""
+  bank_gt: String
+
+  """All values greater than or equal the given value."""
+  bank_gte: String
+
+  """All values containing the given string."""
+  bank_contains: String
+
+  """All values not containing the given string."""
+  bank_not_contains: String
+
+  """All values starting with the given string."""
+  bank_starts_with: String
+
+  """All values not starting with the given string."""
+  bank_not_starts_with: String
+
+  """All values ending with the given string."""
+  bank_ends_with: String
+
+  """All values not ending with the given string."""
+  bank_not_ends_with: String
+  branch: String
+
+  """All values that are not equal to given value."""
+  branch_not: String
+
+  """All values that are contained in given list."""
+  branch_in: [String!]
+
+  """All values that are not contained in given list."""
+  branch_not_in: [String!]
+
+  """All values less than the given value."""
+  branch_lt: String
+
+  """All values less than or equal the given value."""
+  branch_lte: String
+
+  """All values greater than the given value."""
+  branch_gt: String
+
+  """All values greater than or equal the given value."""
+  branch_gte: String
+
+  """All values containing the given string."""
+  branch_contains: String
+
+  """All values not containing the given string."""
+  branch_not_contains: String
+
+  """All values starting with the given string."""
+  branch_starts_with: String
+
+  """All values not starting with the given string."""
+  branch_not_starts_with: String
+
+  """All values ending with the given string."""
+  branch_ends_with: String
+
+  """All values not ending with the given string."""
+  branch_not_ends_with: String
+}
+
+input BankDetailWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -4296,6 +4575,7 @@ type File implements Node {
   userProfilePhoto: User
   userSignature: User
   preTenancyProofOfAddress: PreTenancyForm
+  userProofOfAddress: User
 }
 
 """A connection to a list of items."""
@@ -4318,6 +4598,7 @@ input FileCreateInput {
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
 }
 
 input FileCreateManyInput {
@@ -4340,6 +4621,11 @@ input FileCreateOneWithoutUserProfilePhotoInput {
   connect: FileWhereUniqueInput
 }
 
+input FileCreateOneWithoutUserProofOfAddressInput {
+  create: FileCreateWithoutUserProofOfAddressInput
+  connect: FileWhereUniqueInput
+}
+
 input FileCreateOneWithoutUserSignatureInput {
   create: FileCreateWithoutUserSignatureInput
   connect: FileWhereUniqueInput
@@ -4354,6 +4640,7 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
 }
 
 input FileCreateWithoutUserPhotoIdInput {
@@ -4365,6 +4652,7 @@ input FileCreateWithoutUserPhotoIdInput {
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -4374,6 +4662,19 @@ input FileCreateWithoutUserProfilePhotoInput {
   encoding: String!
   url: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
+}
+
+input FileCreateWithoutUserProofOfAddressInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  url: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
 }
@@ -4387,6 +4688,7 @@ input FileCreateWithoutUserSignatureInput {
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
 }
 
 """An edge in a connection."""
@@ -4726,6 +5028,7 @@ input FileUpdateDataInput {
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateInput {
@@ -4737,6 +5040,7 @@ input FileUpdateInput {
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateManyDataInput {
@@ -4797,6 +5101,15 @@ input FileUpdateOneWithoutUserProfilePhotoInput {
   upsert: FileUpsertWithoutUserProfilePhotoInput
 }
 
+input FileUpdateOneWithoutUserProofOfAddressInput {
+  create: FileCreateWithoutUserProofOfAddressInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutUserProofOfAddressDataInput
+  upsert: FileUpsertWithoutUserProofOfAddressInput
+}
+
 input FileUpdateOneWithoutUserSignatureInput {
   create: FileCreateWithoutUserSignatureInput
   connect: FileWhereUniqueInput
@@ -4814,6 +5127,7 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateWithoutUserPhotoIdDataInput {
@@ -4824,6 +5138,7 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -4832,6 +5147,18 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   encoding: String
   url: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
+}
+
+input FileUpdateWithoutUserProofOfAddressDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  url: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
 }
@@ -4844,6 +5171,7 @@ input FileUpdateWithoutUserSignatureDataInput {
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
 }
 
 input FileUpdateWithWhereUniqueNestedInput {
@@ -4864,6 +5192,11 @@ input FileUpsertWithoutUserPhotoIdInput {
 input FileUpsertWithoutUserProfilePhotoInput {
   update: FileUpdateWithoutUserProfilePhotoDataInput!
   create: FileCreateWithoutUserProfilePhotoInput!
+}
+
+input FileUpsertWithoutUserProofOfAddressInput {
+  update: FileUpdateWithoutUserProofOfAddressDataInput!
+  create: FileCreateWithoutUserProofOfAddressInput!
 }
 
 input FileUpsertWithoutUserSignatureInput {
@@ -5134,6 +5467,7 @@ input FileWhereInput {
   userProfilePhoto: UserWhereInput
   userSignature: UserWhereInput
   preTenancyProofOfAddress: PreTenancyFormWhereInput
+  userProofOfAddress: UserWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -7800,12 +8134,14 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createBankDetail(data: BankDetailCreateInput!): BankDetail!
   createActivity(data: ActivityCreateInput!): Activity!
   createMessage(data: MessageCreateInput!): Message!
   createSeen(data: SeenCreateInput!): Seen!
   createChat(data: ChatCreateInput!): Chat!
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createProperty(data: PropertyCreateInput!): Property!
+  createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
   createAccommodation(data: AccommodationCreateInput!): Accommodation!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
@@ -7813,7 +8149,6 @@ type Mutation {
   createRentalApplication(data: RentalApplicationCreateInput!): RentalApplication!
   createLessee(data: LesseeCreateInput!): Lessee!
   createLessor(data: LessorCreateInput!): Lessor!
-  createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createWallet(data: WalletCreateInput!): Wallet!
   createCharge(data: ChargeCreateInput!): Charge!
   createPayment(data: PaymentCreateInput!): Payment!
@@ -7822,19 +8157,20 @@ type Mutation {
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  updateBankDetail(data: BankDetailUpdateInput!, where: BankDetailWhereUniqueInput!): BankDetail
   updateActivity(data: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity
   updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
   updateSeen(data: SeenUpdateInput!, where: SeenWhereUniqueInput!): Seen
   updateChat(data: ChatUpdateInput!, where: ChatWhereUniqueInput!): Chat
   updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
+  updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updateRentalAppraisal(data: RentalAppraisalUpdateInput!, where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   updateAccommodation(data: AccommodationUpdateInput!, where: AccommodationWhereUniqueInput!): Accommodation
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
   updateRentalApplication(data: RentalApplicationUpdateInput!, where: RentalApplicationWhereUniqueInput!): RentalApplication
   updateLessee(data: LesseeUpdateInput!, where: LesseeWhereUniqueInput!): Lessee
   updateLessor(data: LessorUpdateInput!, where: LessorWhereUniqueInput!): Lessor
-  updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
   updateCharge(data: ChargeUpdateInput!, where: ChargeWhereUniqueInput!): Charge
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
@@ -7843,12 +8179,14 @@ type Mutation {
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  deleteBankDetail(where: BankDetailWhereUniqueInput!): BankDetail
   deleteActivity(where: ActivityWhereUniqueInput!): Activity
   deleteMessage(where: MessageWhereUniqueInput!): Message
   deleteSeen(where: SeenWhereUniqueInput!): Seen
   deleteChat(where: ChatWhereUniqueInput!): Chat
   deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteProperty(where: PropertyWhereUniqueInput!): Property
+  deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deleteRentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   deleteAccommodation(where: AccommodationWhereUniqueInput!): Accommodation
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -7856,7 +8194,6 @@ type Mutation {
   deleteRentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
   deleteLessee(where: LesseeWhereUniqueInput!): Lessee
   deleteLessor(where: LessorWhereUniqueInput!): Lessor
-  deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deleteWallet(where: WalletWhereUniqueInput!): Wallet
   deleteCharge(where: ChargeWhereUniqueInput!): Charge
   deletePayment(where: PaymentWhereUniqueInput!): Payment
@@ -7865,19 +8202,20 @@ type Mutation {
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  upsertBankDetail(where: BankDetailWhereUniqueInput!, create: BankDetailCreateInput!, update: BankDetailUpdateInput!): BankDetail!
   upsertActivity(where: ActivityWhereUniqueInput!, create: ActivityCreateInput!, update: ActivityUpdateInput!): Activity!
   upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
   upsertSeen(where: SeenWhereUniqueInput!, create: SeenCreateInput!, update: SeenUpdateInput!): Seen!
   upsertChat(where: ChatWhereUniqueInput!, create: ChatCreateInput!, update: ChatUpdateInput!): Chat!
   upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
+  upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertRentalAppraisal(where: RentalAppraisalWhereUniqueInput!, create: RentalAppraisalCreateInput!, update: RentalAppraisalUpdateInput!): RentalAppraisal!
   upsertAccommodation(where: AccommodationWhereUniqueInput!, create: AccommodationCreateInput!, update: AccommodationUpdateInput!): Accommodation!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
   upsertRentalApplication(where: RentalApplicationWhereUniqueInput!, create: RentalApplicationCreateInput!, update: RentalApplicationUpdateInput!): RentalApplication!
   upsertLessee(where: LesseeWhereUniqueInput!, create: LesseeCreateInput!, update: LesseeUpdateInput!): Lessee!
   upsertLessor(where: LessorWhereUniqueInput!, create: LessorCreateInput!, update: LessorUpdateInput!): Lessor!
-  upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertWallet(where: WalletWhereUniqueInput!, create: WalletCreateInput!, update: WalletUpdateInput!): Wallet!
   upsertCharge(where: ChargeWhereUniqueInput!, create: ChargeCreateInput!, update: ChargeUpdateInput!): Charge!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
@@ -7886,18 +8224,19 @@ type Mutation {
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  updateManyBankDetails(data: BankDetailUpdateManyMutationInput!, where: BankDetailWhereInput): BatchPayload!
   updateManyActivities(data: ActivityUpdateManyMutationInput!, where: ActivityWhereInput): BatchPayload!
   updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
   updateManySeens(data: SeenUpdateManyMutationInput!, where: SeenWhereInput): BatchPayload!
   updateManyChats(data: ChatUpdateManyMutationInput!, where: ChatWhereInput): BatchPayload!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
+  updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyRentalAppraisals(data: RentalAppraisalUpdateManyMutationInput!, where: RentalAppraisalWhereInput): BatchPayload!
   updateManyAccommodations(data: AccommodationUpdateManyMutationInput!, where: AccommodationWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
   updateManyRentalApplications(data: RentalApplicationUpdateManyMutationInput!, where: RentalApplicationWhereInput): BatchPayload!
   updateManyLessees(data: LesseeUpdateManyMutationInput!, where: LesseeWhereInput): BatchPayload!
   updateManyLessors(data: LessorUpdateManyMutationInput!, where: LessorWhereInput): BatchPayload!
-  updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyWallets(data: WalletUpdateManyMutationInput!, where: WalletWhereInput): BatchPayload!
   updateManyCharges(data: ChargeUpdateManyMutationInput!, where: ChargeWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
@@ -7906,12 +8245,14 @@ type Mutation {
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  deleteManyBankDetails(where: BankDetailWhereInput): BatchPayload!
   deleteManyActivities(where: ActivityWhereInput): BatchPayload!
   deleteManyMessages(where: MessageWhereInput): BatchPayload!
   deleteManySeens(where: SeenWhereInput): BatchPayload!
   deleteManyChats(where: ChatWhereInput): BatchPayload!
   deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
+  deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyRentalAppraisals(where: RentalAppraisalWhereInput): BatchPayload!
   deleteManyAccommodations(where: AccommodationWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -7919,7 +8260,6 @@ type Mutation {
   deleteManyRentalApplications(where: RentalApplicationWhereInput): BatchPayload!
   deleteManyLessees(where: LesseeWhereInput): BatchPayload!
   deleteManyLessors(where: LessorWhereInput): BatchPayload!
-  deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyWallets(where: WalletWhereInput): BatchPayload!
   deleteManyCharges(where: ChargeWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
@@ -9391,6 +9731,13 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+enum Pet {
+  DOG
+  CAT
+  CAGED_BIRD
+  FISH
+}
+
 type PreTenancyForm implements Node {
   id: ID!
   rentalApplicant: RentalGroupApplicant
@@ -10532,6 +10879,17 @@ type Property implements Node {
   rehouserStamp: Boolean
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   appraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  pets: [Pet!]!
+  maximumOccupants: Int
+  chattels: [PropertyChattel!]!
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
 }
 
 type PropertyAdvertisement implements Node {
@@ -10714,6 +11072,23 @@ input PropertyAdvertisementWhereUniqueInput {
   id: ID
 }
 
+enum PropertyChattel {
+  DISH_WASHER
+  RANGE_HOOD
+  HOB_OR_STOVE
+  WALL_OVEN
+  DRAPES
+  BLINDS
+  HEAT_PUMP
+  GAS_FIRE
+  HEATED_TOWEL_RAIL
+  WALL_HEATER
+  ALARM
+  IRRIGATION
+  SMOKE_DETECTORS
+  AUTOMATIC_GARAGE_DOOR
+}
+
 """A connection to a list of items."""
 type PropertyConnection {
   """Information to aid in pagination."""
@@ -10722,6 +11097,10 @@ type PropertyConnection {
   """A list of edges."""
   edges: [PropertyEdge]!
   aggregate: AggregateProperty!
+}
+
+input PropertyCreatechattelsInput {
+  set: [PropertyChattel!]
 }
 
 input PropertyCreateheatSourcesInput {
@@ -10755,9 +11134,20 @@ input PropertyCreateInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -10808,6 +11198,10 @@ input PropertyCreateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
+input PropertyCreatepetsInput {
+  set: [Pet!]
+}
+
 input PropertyCreateWithoutAccommodationInput {
   id: ID
   type: PropertyType
@@ -10831,9 +11225,20 @@ input PropertyCreateWithoutAccommodationInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
@@ -10867,9 +11272,20 @@ input PropertyCreateWithoutActivityInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -10903,9 +11319,20 @@ input PropertyCreateWithoutAppraisalsInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -10939,9 +11366,20 @@ input PropertyCreateWithoutCreatorInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -10975,9 +11413,20 @@ input PropertyCreateWithoutLeasesInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -11011,9 +11460,20 @@ input PropertyCreateWithoutOwnersInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
@@ -11047,9 +11507,20 @@ input PropertyCreateWithoutRentalApplicationsInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -11093,6 +11564,17 @@ type PropertyLease implements Node {
   locationLng: Float!
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   wallet: Wallet
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  pets: [Pet!]!
+  maximumOccupants: Int
+  chattels: [PropertyChattel!]!
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
 }
 
 """A connection to a list of items."""
@@ -11103,6 +11585,10 @@ type PropertyLeaseConnection {
   """A list of edges."""
   edges: [PropertyLeaseEdge]!
   aggregate: AggregatePropertyLease!
+}
+
+input PropertyLeaseCreatechattelsInput {
+  set: [PropertyChattel!]
 }
 
 input PropertyLeaseCreateindoorFeaturesInput {
@@ -11124,8 +11610,19 @@ input PropertyLeaseCreateInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
@@ -11162,6 +11659,10 @@ input PropertyLeaseCreateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
+input PropertyLeaseCreatepetsInput {
+  set: [Pet!]
+}
+
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
   stage: LeaseStage!
@@ -11177,8 +11678,19 @@ input PropertyLeaseCreateWithoutActivityInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
@@ -11200,8 +11712,19 @@ input PropertyLeaseCreateWithoutLesseesInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessors: LessorCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
@@ -11223,8 +11746,19 @@ input PropertyLeaseCreateWithoutLessorsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessees: LesseeCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
@@ -11246,8 +11780,19 @@ input PropertyLeaseCreateWithoutPropertyInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
@@ -11269,8 +11814,19 @@ input PropertyLeaseCreateWithoutWalletInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
   property: PropertyCreateOneWithoutLeasesInput!
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
@@ -11319,6 +11875,24 @@ enum PropertyLeaseOrderByInput {
   locationLat_DESC
   locationLng_ASC
   locationLng_DESC
+  tenancyType_ASC
+  tenancyType_DESC
+  petsAllowed_ASC
+  petsAllowed_DESC
+  maximumOccupants_ASC
+  maximumOccupants_DESC
+  landlordProtectionCover_ASC
+  landlordProtectionCover_DESC
+  freeGlassCover_ASC
+  freeGlassCover_DESC
+  workingAlarms_ASC
+  workingAlarms_DESC
+  inHallway3mOfEachBedroom_ASC
+  inHallway3mOfEachBedroom_DESC
+  tenYearPhotoelectricAlarms_ASC
+  tenYearPhotoelectricAlarms_DESC
+  alarmsEachLevel_ASC
+  alarmsEachLevel_DESC
 }
 
 type PropertyLeasePreviousValues {
@@ -11340,6 +11914,17 @@ type PropertyLeasePreviousValues {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  pets: [Pet!]!
+  maximumOccupants: Int
+  chattels: [PropertyChattel!]!
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
 }
 
 input PropertyLeaseScalarWhereInput {
@@ -11709,6 +12294,66 @@ input PropertyLeaseScalarWhereInput {
 
   """All values greater than or equal the given value."""
   locationLng_gte: Float
+  tenancyType: TenancyType
+
+  """All values that are not equal to given value."""
+  tenancyType_not: TenancyType
+
+  """All values that are contained in given list."""
+  tenancyType_in: [TenancyType!]
+
+  """All values that are not contained in given list."""
+  tenancyType_not_in: [TenancyType!]
+  petsAllowed: Boolean
+
+  """All values that are not equal to given value."""
+  petsAllowed_not: Boolean
+  maximumOccupants: Int
+
+  """All values that are not equal to given value."""
+  maximumOccupants_not: Int
+
+  """All values that are contained in given list."""
+  maximumOccupants_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maximumOccupants_not_in: [Int!]
+
+  """All values less than the given value."""
+  maximumOccupants_lt: Int
+
+  """All values less than or equal the given value."""
+  maximumOccupants_lte: Int
+
+  """All values greater than the given value."""
+  maximumOccupants_gt: Int
+
+  """All values greater than or equal the given value."""
+  maximumOccupants_gte: Int
+  landlordProtectionCover: Boolean
+
+  """All values that are not equal to given value."""
+  landlordProtectionCover_not: Boolean
+  freeGlassCover: Boolean
+
+  """All values that are not equal to given value."""
+  freeGlassCover_not: Boolean
+  workingAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  workingAlarms_not: Boolean
+  inHallway3mOfEachBedroom: Boolean
+
+  """All values that are not equal to given value."""
+  inHallway3mOfEachBedroom_not: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  tenYearPhotoelectricAlarms_not: Boolean
+  alarmsEachLevel: Boolean
+
+  """All values that are not equal to given value."""
+  alarmsEachLevel_not: Boolean
 }
 
 type PropertyLeaseSubscriptionPayload {
@@ -11748,6 +12393,10 @@ input PropertyLeaseSubscriptionWhereInput {
   node: PropertyLeaseWhereInput
 }
 
+input PropertyLeaseUpdatechattelsInput {
+  set: [PropertyChattel!]
+}
+
 input PropertyLeaseUpdateindoorFeaturesInput {
   set: [IndoorFeature!]
 }
@@ -11766,8 +12415,19 @@ input PropertyLeaseUpdateInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
@@ -11789,8 +12449,19 @@ input PropertyLeaseUpdateManyDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
 }
 
 input PropertyLeaseUpdateManyMutationInput {
@@ -11807,8 +12478,19 @@ input PropertyLeaseUpdateManyMutationInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
 }
 
 input PropertyLeaseUpdateManyWithoutPropertyInput {
@@ -11868,6 +12550,10 @@ input PropertyLeaseUpdateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
+input PropertyLeaseUpdatepetsInput {
+  set: [Pet!]
+}
+
 input PropertyLeaseUpdateWithoutActivityDataInput {
   stage: LeaseStage
   canAcceptPayment: Boolean
@@ -11882,8 +12568,19 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
@@ -11904,8 +12601,19 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessors: LessorUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
@@ -11926,8 +12634,19 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
@@ -11948,8 +12667,19 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
@@ -11970,8 +12700,19 @@ input PropertyLeaseUpdateWithoutWalletDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
   outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
   property: PropertyUpdateOneRequiredWithoutLeasesInput
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
@@ -12376,6 +13117,66 @@ input PropertyLeaseWhereInput {
 
   """All values greater than or equal the given value."""
   locationLng_gte: Float
+  tenancyType: TenancyType
+
+  """All values that are not equal to given value."""
+  tenancyType_not: TenancyType
+
+  """All values that are contained in given list."""
+  tenancyType_in: [TenancyType!]
+
+  """All values that are not contained in given list."""
+  tenancyType_not_in: [TenancyType!]
+  petsAllowed: Boolean
+
+  """All values that are not equal to given value."""
+  petsAllowed_not: Boolean
+  maximumOccupants: Int
+
+  """All values that are not equal to given value."""
+  maximumOccupants_not: Int
+
+  """All values that are contained in given list."""
+  maximumOccupants_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maximumOccupants_not_in: [Int!]
+
+  """All values less than the given value."""
+  maximumOccupants_lt: Int
+
+  """All values less than or equal the given value."""
+  maximumOccupants_lte: Int
+
+  """All values greater than the given value."""
+  maximumOccupants_gt: Int
+
+  """All values greater than or equal the given value."""
+  maximumOccupants_gte: Int
+  landlordProtectionCover: Boolean
+
+  """All values that are not equal to given value."""
+  landlordProtectionCover_not: Boolean
+  freeGlassCover: Boolean
+
+  """All values that are not equal to given value."""
+  freeGlassCover_not: Boolean
+  workingAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  workingAlarms_not: Boolean
+  inHallway3mOfEachBedroom: Boolean
+
+  """All values that are not equal to given value."""
+  inHallway3mOfEachBedroom_not: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  tenYearPhotoelectricAlarms_not: Boolean
+  alarmsEachLevel: Boolean
+
+  """All values that are not equal to given value."""
+  alarmsEachLevel_not: Boolean
   property: PropertyWhereInput
   lessees_every: LesseeWhereInput
   lessees_some: LesseeWhereInput
@@ -12442,6 +13243,24 @@ enum PropertyOrderByInput {
   leaseExpiryDate_DESC
   rehouserStamp_ASC
   rehouserStamp_DESC
+  tenancyType_ASC
+  tenancyType_DESC
+  petsAllowed_ASC
+  petsAllowed_DESC
+  maximumOccupants_ASC
+  maximumOccupants_DESC
+  landlordProtectionCover_ASC
+  landlordProtectionCover_DESC
+  freeGlassCover_ASC
+  freeGlassCover_DESC
+  workingAlarms_ASC
+  workingAlarms_DESC
+  inHallway3mOfEachBedroom_ASC
+  inHallway3mOfEachBedroom_DESC
+  tenYearPhotoelectricAlarms_ASC
+  tenYearPhotoelectricAlarms_DESC
+  alarmsEachLevel_ASC
+  alarmsEachLevel_DESC
 }
 
 type PropertyPreviousValues {
@@ -12472,6 +13291,17 @@ type PropertyPreviousValues {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  pets: [Pet!]!
+  maximumOccupants: Int
+  chattels: [PropertyChattel!]!
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
 }
 
 input PropertyScalarWhereInput {
@@ -12963,6 +13793,66 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
+  tenancyType: TenancyType
+
+  """All values that are not equal to given value."""
+  tenancyType_not: TenancyType
+
+  """All values that are contained in given list."""
+  tenancyType_in: [TenancyType!]
+
+  """All values that are not contained in given list."""
+  tenancyType_not_in: [TenancyType!]
+  petsAllowed: Boolean
+
+  """All values that are not equal to given value."""
+  petsAllowed_not: Boolean
+  maximumOccupants: Int
+
+  """All values that are not equal to given value."""
+  maximumOccupants_not: Int
+
+  """All values that are contained in given list."""
+  maximumOccupants_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maximumOccupants_not_in: [Int!]
+
+  """All values less than the given value."""
+  maximumOccupants_lt: Int
+
+  """All values less than or equal the given value."""
+  maximumOccupants_lte: Int
+
+  """All values greater than the given value."""
+  maximumOccupants_gt: Int
+
+  """All values greater than or equal the given value."""
+  maximumOccupants_gte: Int
+  landlordProtectionCover: Boolean
+
+  """All values that are not equal to given value."""
+  landlordProtectionCover_not: Boolean
+  freeGlassCover: Boolean
+
+  """All values that are not equal to given value."""
+  freeGlassCover_not: Boolean
+  workingAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  workingAlarms_not: Boolean
+  inHallway3mOfEachBedroom: Boolean
+
+  """All values that are not equal to given value."""
+  inHallway3mOfEachBedroom_not: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  tenYearPhotoelectricAlarms_not: Boolean
+  alarmsEachLevel: Boolean
+
+  """All values that are not equal to given value."""
+  alarmsEachLevel_not: Boolean
 }
 
 type PropertySubscriptionPayload {
@@ -13015,6 +13905,10 @@ enum PropertyType {
   OTHER
 }
 
+input PropertyUpdatechattelsInput {
+  set: [PropertyChattel!]
+}
+
 input PropertyUpdateheatSourcesInput {
   set: [HeatSource!]
 }
@@ -13045,9 +13939,20 @@ input PropertyUpdateInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -13081,9 +13986,20 @@ input PropertyUpdateManyDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
 }
 
 input PropertyUpdateManyMutationInput {
@@ -13108,9 +14024,20 @@ input PropertyUpdateManyMutationInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
 }
 
 input PropertyUpdateManyWithoutCreatorInput {
@@ -13185,6 +14112,10 @@ input PropertyUpdateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
+input PropertyUpdatepetsInput {
+  set: [Pet!]
+}
+
 input PropertyUpdateWithoutAccommodationDataInput {
   type: PropertyType
   headline: String
@@ -13207,9 +14138,20 @@ input PropertyUpdateWithoutAccommodationDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
@@ -13242,9 +14184,20 @@ input PropertyUpdateWithoutActivityDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -13277,9 +14230,20 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -13312,9 +14276,20 @@ input PropertyUpdateWithoutCreatorDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -13347,9 +14322,20 @@ input PropertyUpdateWithoutLeasesDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -13382,9 +14368,20 @@ input PropertyUpdateWithoutOwnersDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
@@ -13417,9 +14414,20 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   isLeased: Boolean
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -13966,6 +14974,66 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
+  tenancyType: TenancyType
+
+  """All values that are not equal to given value."""
+  tenancyType_not: TenancyType
+
+  """All values that are contained in given list."""
+  tenancyType_in: [TenancyType!]
+
+  """All values that are not contained in given list."""
+  tenancyType_not_in: [TenancyType!]
+  petsAllowed: Boolean
+
+  """All values that are not equal to given value."""
+  petsAllowed_not: Boolean
+  maximumOccupants: Int
+
+  """All values that are not equal to given value."""
+  maximumOccupants_not: Int
+
+  """All values that are contained in given list."""
+  maximumOccupants_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maximumOccupants_not_in: [Int!]
+
+  """All values less than the given value."""
+  maximumOccupants_lt: Int
+
+  """All values less than or equal the given value."""
+  maximumOccupants_lte: Int
+
+  """All values greater than the given value."""
+  maximumOccupants_gt: Int
+
+  """All values greater than or equal the given value."""
+  maximumOccupants_gte: Int
+  landlordProtectionCover: Boolean
+
+  """All values that are not equal to given value."""
+  landlordProtectionCover_not: Boolean
+  freeGlassCover: Boolean
+
+  """All values that are not equal to given value."""
+  freeGlassCover_not: Boolean
+  workingAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  workingAlarms_not: Boolean
+  inHallway3mOfEachBedroom: Boolean
+
+  """All values that are not equal to given value."""
+  inHallway3mOfEachBedroom_not: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+
+  """All values that are not equal to given value."""
+  tenYearPhotoelectricAlarms_not: Boolean
+  alarmsEachLevel: Boolean
+
+  """All values that are not equal to given value."""
+  alarmsEachLevel_not: Boolean
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput
   accommodation_none: AccommodationWhereInput
@@ -13996,12 +15064,14 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  bankDetails(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BankDetail]!
   activities(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity]!
   messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
   seens(where: SeenWhereInput, orderBy: SeenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Seen]!
   chats(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chat]!
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
+  propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal]!
   accommodations(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation]!
   rentalGroupApplicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant]!
@@ -14009,7 +15079,6 @@ type Query {
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication]!
   lessees(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee]!
   lessors(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor]!
-  propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   wallets(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Wallet]!
   charges(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charge]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
@@ -14018,12 +15087,14 @@ type Query {
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  bankDetail(where: BankDetailWhereUniqueInput!): BankDetail
   activity(where: ActivityWhereUniqueInput!): Activity
   message(where: MessageWhereUniqueInput!): Message
   seen(where: SeenWhereUniqueInput!): Seen
   chat(where: ChatWhereUniqueInput!): Chat
   friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   property(where: PropertyWhereUniqueInput!): Property
+  propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   rentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   accommodation(where: AccommodationWhereUniqueInput!): Accommodation
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -14031,7 +15102,6 @@ type Query {
   rentalApplication(where: RentalApplicationWhereUniqueInput!): RentalApplication
   lessee(where: LesseeWhereUniqueInput!): Lessee
   lessor(where: LessorWhereUniqueInput!): Lessor
-  propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   wallet(where: WalletWhereUniqueInput!): Wallet
   charge(where: ChargeWhereUniqueInput!): Charge
   payment(where: PaymentWhereUniqueInput!): Payment
@@ -14040,12 +15110,14 @@ type Query {
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  bankDetailsConnection(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BankDetailConnection!
   activitiesConnection(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ActivityConnection!
   messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
   seensConnection(where: SeenWhereInput, orderBy: SeenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeenConnection!
   chatsConnection(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChatConnection!
   friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
+  propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   rentalAppraisalsConnection(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalAppraisalConnection!
   accommodationsConnection(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccommodationConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
@@ -14053,7 +15125,6 @@ type Query {
   rentalApplicationsConnection(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalApplicationConnection!
   lesseesConnection(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LesseeConnection!
   lessorsConnection(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LessorConnection!
-  propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   walletsConnection(where: WalletWhereInput, orderBy: WalletOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WalletConnection!
   chargesConnection(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChargeConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
@@ -16608,12 +17679,14 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  bankDetail(where: BankDetailSubscriptionWhereInput): BankDetailSubscriptionPayload
   activity(where: ActivitySubscriptionWhereInput): ActivitySubscriptionPayload
   message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
   seen(where: SeenSubscriptionWhereInput): SeenSubscriptionPayload
   chat(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
   friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
+  propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   rentalAppraisal(where: RentalAppraisalSubscriptionWhereInput): RentalAppraisalSubscriptionPayload
   accommodation(where: AccommodationSubscriptionWhereInput): AccommodationSubscriptionPayload
   rentalGroupApplicant(where: RentalGroupApplicantSubscriptionWhereInput): RentalGroupApplicantSubscriptionPayload
@@ -16621,7 +17694,6 @@ type Subscription {
   rentalApplication(where: RentalApplicationSubscriptionWhereInput): RentalApplicationSubscriptionPayload
   lessee(where: LesseeSubscriptionWhereInput): LesseeSubscriptionPayload
   lessor(where: LessorSubscriptionWhereInput): LessorSubscriptionPayload
-  propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   wallet(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
   charge(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
@@ -16630,6 +17702,11 @@ type Subscription {
   insulationForm(where: InsulationFormSubscriptionWhereInput): InsulationFormSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
+}
+
+enum TenancyType {
+  PERIODIC
+  FIXED
 }
 
 enum UnderfloorInsulationTypes {
@@ -16684,6 +17761,8 @@ type User implements Node {
   involvedActivity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
   usedFreeAppraisal: Boolean
+  physicalAddress: String
+  proofOfAddress: File
 }
 
 """A connection to a list of items."""
@@ -16718,6 +17797,7 @@ input UserCreateInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -16737,6 +17817,7 @@ input UserCreateInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateManyInput {
@@ -16809,6 +17890,11 @@ input UserCreateOneWithoutProfilePhotoInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutProofOfAddressInput {
+  create: UserCreateWithoutProofOfAddressInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutRecievedMessagesInput {
   create: UserCreateWithoutRecievedMessagesInput
   connect: UserWhereUniqueInput
@@ -16855,6 +17941,7 @@ input UserCreateWithoutActivityInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -16873,6 +17960,7 @@ input UserCreateWithoutActivityInput {
   signature: FileCreateOneWithoutUserSignatureInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
@@ -16897,6 +17985,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -16915,6 +18004,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutChatsInput {
@@ -16939,6 +18029,7 @@ input UserCreateWithoutChatsInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -16957,6 +18048,7 @@ input UserCreateWithoutChatsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -16981,6 +18073,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -16999,6 +18092,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -17023,6 +18117,7 @@ input UserCreateWithoutCreditCardsInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17041,6 +18136,7 @@ input UserCreateWithoutCreditCardsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -17065,6 +18161,7 @@ input UserCreateWithoutFriendRequestsInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
@@ -17083,6 +18180,7 @@ input UserCreateWithoutFriendRequestsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutInvolvedActivityInput {
@@ -17107,6 +18205,7 @@ input UserCreateWithoutInvolvedActivityInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17125,6 +18224,7 @@ input UserCreateWithoutInvolvedActivityInput {
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -17149,6 +18249,7 @@ input UserCreateWithoutLesseeLeasesInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17167,6 +18268,7 @@ input UserCreateWithoutLesseeLeasesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -17191,6 +18293,7 @@ input UserCreateWithoutLessorLeasesInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17209,6 +18312,7 @@ input UserCreateWithoutLessorLeasesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -17233,6 +18337,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17251,6 +18356,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -17275,6 +18381,7 @@ input UserCreateWithoutProfilePhotoInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17284,6 +18391,51 @@ input UserCreateWithoutProfilePhotoInput {
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+}
+
+input UserCreateWithoutProofOfAddressInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  physicalAddress: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -17317,6 +18469,7 @@ input UserCreateWithoutPropertiesInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17335,6 +18488,7 @@ input UserCreateWithoutPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -17359,6 +18513,7 @@ input UserCreateWithoutRecievedMessagesInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17377,6 +18532,7 @@ input UserCreateWithoutRecievedMessagesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutRentalAppraisalsInput {
@@ -17401,6 +18557,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17419,6 +18576,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -17443,6 +18601,7 @@ input UserCreateWithoutSentMessagesInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17461,6 +18620,7 @@ input UserCreateWithoutSentMessagesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutSignatureInput {
@@ -17485,6 +18645,7 @@ input UserCreateWithoutSignatureInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17503,6 +18664,7 @@ input UserCreateWithoutSignatureInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 """An edge in a connection."""
@@ -17561,6 +18723,8 @@ enum UserOrderByInput {
   rehouserStamp_DESC
   usedFreeAppraisal_ASC
   usedFreeAppraisal_DESC
+  physicalAddress_ASC
+  physicalAddress_DESC
 }
 
 type UserPreviousValues {
@@ -17588,6 +18752,7 @@ type UserPreviousValues {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
 }
 
 input UserScalarWhereInput {
@@ -18375,6 +19540,46 @@ input UserScalarWhereInput {
 
   """All values that are not equal to given value."""
   usedFreeAppraisal_not: Boolean
+  physicalAddress: String
+
+  """All values that are not equal to given value."""
+  physicalAddress_not: String
+
+  """All values that are contained in given list."""
+  physicalAddress_in: [String!]
+
+  """All values that are not contained in given list."""
+  physicalAddress_not_in: [String!]
+
+  """All values less than the given value."""
+  physicalAddress_lt: String
+
+  """All values less than or equal the given value."""
+  physicalAddress_lte: String
+
+  """All values greater than the given value."""
+  physicalAddress_gt: String
+
+  """All values greater than or equal the given value."""
+  physicalAddress_gte: String
+
+  """All values containing the given string."""
+  physicalAddress_contains: String
+
+  """All values not containing the given string."""
+  physicalAddress_not_contains: String
+
+  """All values starting with the given string."""
+  physicalAddress_starts_with: String
+
+  """All values not starting with the given string."""
+  physicalAddress_not_starts_with: String
+
+  """All values ending with the given string."""
+  physicalAddress_ends_with: String
+
+  """All values not ending with the given string."""
+  physicalAddress_not_ends_with: String
 }
 
 type UserSubscriptionPayload {
@@ -18435,6 +19640,7 @@ input UserUpdateDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18454,6 +19660,7 @@ input UserUpdateDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateInput {
@@ -18477,6 +19684,7 @@ input UserUpdateInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18496,6 +19704,7 @@ input UserUpdateInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateManyDataInput {
@@ -18519,6 +19728,7 @@ input UserUpdateManyDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -18555,6 +19765,7 @@ input UserUpdateManyMutationInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -18686,6 +19897,15 @@ input UserUpdateOneWithoutProfilePhotoInput {
   upsert: UserUpsertWithoutProfilePhotoInput
 }
 
+input UserUpdateOneWithoutProofOfAddressInput {
+  create: UserCreateWithoutProofOfAddressInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutProofOfAddressDataInput
+  upsert: UserUpsertWithoutProofOfAddressInput
+}
+
 input UserUpdateOneWithoutRecievedMessagesInput {
   create: UserCreateWithoutRecievedMessagesInput
   connect: UserWhereUniqueInput
@@ -18738,6 +19958,7 @@ input UserUpdateWithoutActivityDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18756,6 +19977,7 @@ input UserUpdateWithoutActivityDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
@@ -18779,6 +20001,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18797,6 +20020,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -18820,6 +20044,7 @@ input UserUpdateWithoutChatsDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18838,6 +20063,7 @@ input UserUpdateWithoutChatsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -18861,6 +20087,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18879,6 +20106,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -18902,6 +20130,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -18920,6 +20149,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -18943,6 +20173,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
@@ -18961,6 +20192,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
@@ -18984,6 +20216,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19002,6 +20235,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -19025,6 +20259,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19043,6 +20278,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -19066,6 +20302,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19084,6 +20321,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -19107,6 +20345,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19125,6 +20364,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -19148,6 +20388,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19157,6 +20398,50 @@ input UserUpdateWithoutProfilePhotoDataInput {
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+}
+
+input UserUpdateWithoutProofOfAddressDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  physicalAddress: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -19189,6 +20474,7 @@ input UserUpdateWithoutPropertiesDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19207,6 +20493,7 @@ input UserUpdateWithoutPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -19230,6 +20517,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19248,6 +20536,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
@@ -19271,6 +20560,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19289,6 +20579,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -19312,6 +20603,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19330,6 +20622,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutSignatureDataInput {
@@ -19353,6 +20646,7 @@ input UserUpdateWithoutSignatureDataInput {
   referee2Email: String
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
+  physicalAddress: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19371,6 +20665,7 @@ input UserUpdateWithoutSignatureDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -19441,6 +20736,11 @@ input UserUpsertWithoutPhotoIdentificationInput {
 input UserUpsertWithoutProfilePhotoInput {
   update: UserUpdateWithoutProfilePhotoDataInput!
   create: UserCreateWithoutProfilePhotoInput!
+}
+
+input UserUpsertWithoutProofOfAddressInput {
+  update: UserUpdateWithoutProofOfAddressDataInput!
+  create: UserCreateWithoutProofOfAddressInput!
 }
 
 input UserUpsertWithoutRecievedMessagesInput {
@@ -20272,6 +21572,46 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   usedFreeAppraisal_not: Boolean
+  physicalAddress: String
+
+  """All values that are not equal to given value."""
+  physicalAddress_not: String
+
+  """All values that are contained in given list."""
+  physicalAddress_in: [String!]
+
+  """All values that are not contained in given list."""
+  physicalAddress_not_in: [String!]
+
+  """All values less than the given value."""
+  physicalAddress_lt: String
+
+  """All values less than or equal the given value."""
+  physicalAddress_lte: String
+
+  """All values greater than the given value."""
+  physicalAddress_gt: String
+
+  """All values greater than or equal the given value."""
+  physicalAddress_gte: String
+
+  """All values containing the given string."""
+  physicalAddress_contains: String
+
+  """All values not containing the given string."""
+  physicalAddress_not_contains: String
+
+  """All values starting with the given string."""
+  physicalAddress_starts_with: String
+
+  """All values not starting with the given string."""
+  physicalAddress_not_starts_with: String
+
+  """All values ending with the given string."""
+  physicalAddress_ends_with: String
+
+  """All values not ending with the given string."""
+  physicalAddress_not_ends_with: String
   friends_every: UserWhereInput
   friends_some: UserWhereInput
   friends_none: UserWhereInput
@@ -20318,6 +21658,7 @@ input UserWhereInput {
   rentalAppraisals_every: RentalAppraisalWhereInput
   rentalAppraisals_some: RentalAppraisalWhereInput
   rentalAppraisals_none: RentalAppraisalWhereInput
+  proofOfAddress: FileWhereInput
 }
 
 input UserWhereUniqueInput {

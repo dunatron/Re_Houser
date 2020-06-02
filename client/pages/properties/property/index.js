@@ -1,11 +1,12 @@
-import PropertyDetails from '../../components/PropertyDetails/index';
-import PleaseSignIn from '../../components/PleaseSignIn';
+import PropertyDetails from '../../../components/PropertyDetails/index';
+import PleaseSignIn from '../../../components/PleaseSignIn';
 
 const Item = props => {
   const {
     appData: { currentUser },
     query,
   } = props;
+
   return (
     <PleaseSignIn
       currentUser={currentUser}

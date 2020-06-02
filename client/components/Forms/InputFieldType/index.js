@@ -148,10 +148,22 @@ const InputFieldType = props => {
 
       case 'Boolean':
         return (
-          <FormControlLabel
-            control={<Switch {...props} aria-label="LoginSwitch" />}
-            label={props.label ? props.label : fieldProps.label}
-          />
+          <>
+            <FormControlLabel
+              control={<Switch {...props} aria-label="LoginSwitch" />}
+              label={props.label ? props.label : fieldProps.label}
+            />
+            {config.inners &&
+              config.inners.map((inner, idx) => (
+                <InputFieldType
+                  config={inner}
+                  key={idx}
+                  setValue={setValue}
+                  register={register}
+                  errors={errors}
+                />
+              ))}
+          </>
         );
       case 'Int':
         return (

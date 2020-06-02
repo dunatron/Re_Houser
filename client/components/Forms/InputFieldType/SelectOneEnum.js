@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Select,
@@ -13,6 +13,7 @@ import Error from '../../ErrorMessage';
 import Loader from '../../Loader';
 import FieldError from './FieldError';
 import { is } from 'ramda';
+import InputFieldType from './index';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -32,6 +33,7 @@ export default function SimpleSelect(props) {
     __type,
     values,
     defaultValue,
+    getValues,
     label,
     selectID,
     handleChange,
@@ -39,6 +41,7 @@ export default function SimpleSelect(props) {
     register,
     config,
     setValue, // is from useForm
+    reset,
     errors,
     helperText,
   } = props;
@@ -49,6 +52,15 @@ export default function SimpleSelect(props) {
       name: __type,
     },
   });
+
+  // const currValues = getValues();
+  // const currVal = currValues[fieldProps.name];
+
+  const [currVal, setCurrVal] = useState(
+    is(Array, defaultValue) ? defaultValue : []
+  );
+
+  // const currVal = fieldProps.name
 
   if (!fieldProps) return 'This form component needs fieldProps';
 
@@ -68,26 +80,61 @@ export default function SimpleSelect(props) {
       }))
     : [];
 
+  const resolveShowOnParentVals = (config, inner) => {
+    if (inner.parentShowVals.includes(currVal)) {
+      return true;
+    }
+    return false;
+  };
+
+  const canDisplayInner = (config, inner) => {
+    if (inner.parentShowVals) return resolveShowOnParentVals(config, inner);
+    return true;
+  };
+
+  const handleOnValueChange = e => {
+    setCurrVal(e.target.value);
+    setValue(fieldProps.name, e.target.value);
+  };
+
   return (
-    <FormControl variant="outlined" className={classes.formControl}>
-      <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
-      <Select
-        defaultValue={is(Array, defaultValue) ? defaultValue : []}
-        onChange={e => setValue(fieldProps.name, e.target.value)}
-        label={label}
-        inputProps={{
-          name: fieldProps.name,
-          id: fieldProps.name,
-        }}>
-        {options &&
-          options.map((d, i) => {
-            return (
-              <MenuItem key={i} value={d.value}>
-                {d.value}
-              </MenuItem>
-            );
-          })}
-      </Select>
-    </FormControl>
+    <>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
+        <Select
+          defaultValue={is(Array, defaultValue) ? defaultValue : []}
+          onChange={e => handleOnValueChange(e)}
+          label={label}
+          inputProps={{
+            name: fieldProps.name,
+            id: fieldProps.name,
+          }}>
+          {options &&
+            options.map((d, i) => {
+              return (
+                <MenuItem key={i} value={d.value}>
+                  {d.value}
+                </MenuItem>
+              );
+            })}
+        </Select>
+      </FormControl>
+      {inners &&
+        inners.map((inner, idx) => {
+          if (!canDisplayInner(config, inner)) return null;
+          return (
+            <div style={{ marginTop: '16px' }}>
+              <InputFieldType
+                config={inner}
+                key={idx}
+                register={register}
+                errors={errors}
+                setValue={setValue}
+                reset={reset}
+              />
+            </div>
+          );
+        })}
+    </>
   );
 }

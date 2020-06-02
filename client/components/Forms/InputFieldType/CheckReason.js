@@ -36,7 +36,18 @@ const CheckReason = props => {
     setCurrVal(event.target.value);
   };
 
-  const canDisplayInner = inner => {
+  const resolveShowOnParentVals = (config, inner) => {
+    console.log('CUrrent value for parent => ', currVal);
+
+    if (inner.parentShowVals.includes(currVal)) return true;
+    return false;
+  };
+
+  const canDisplayInner = (config, inner) => {
+    // if (!canDisplayInner(, inner)) return null;
+
+    if (inner.parentShowVals) return resolveShowOnParentVals(config, inner);
+
     if (currVal === 'No') return true;
     return false;
   };
@@ -75,14 +86,18 @@ const CheckReason = props => {
 
       {inners &&
         inners.map((inner, idx) => {
-          if (!canDisplayInner(inner)) return null;
+          if (!canDisplayInner(config, inner)) return null;
           return (
-            <InputFieldType
-              config={inner}
-              key={idx}
-              register={register}
-              errors={errors}
-            />
+            <div style={{ marginTop: '16px' }}>
+              <InputFieldType
+                config={inner}
+                key={idx}
+                register={register}
+                errors={errors}
+                setValue={setValue}
+                reset={reset}
+              />
+            </div>
           );
         })}
     </>

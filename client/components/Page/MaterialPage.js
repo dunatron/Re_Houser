@@ -70,11 +70,28 @@ function MaterialPage(props) {
   const formattedPathParts = pathParts.filter(part => part !== '');
 
   const routeToClickedPart = partIndex => {
+    console.log('need to attempt to parse in the querys ');
+    console.group('routeToClickedPart');
+    const lastIndexLength = partIndex;
     const newRoute = formattedPathParts.reduce((acc, part, idx) => {
       if (idx + 1 === formattedPathParts.length) return acc;
+      // if(idx === idx)
+      // return acc + part;
+      if (idx === partIndex) {
+        return acc + part;
+      }
       return acc + part + '/';
     }, '/');
-    router.push(newRoute);
+    console.log('path index => partIndex', partIndex);
+    console.log('newRoute => ', newRoute);
+    console.log('router.query => ', router.query);
+    console.groupEnd();
+    // router.push(newRoute);
+    // router.push(newRoute,);
+    router.push({
+      pathname: newRoute,
+      query: router.query,
+    });
   };
 
   const children = React.Children.map(props.children, child => {

@@ -41,6 +41,15 @@ type User {
   involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
   usedFreeAppraisal: Boolean
+  physicalAddress: String
+  proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
+}
+
+type BankDetail {
+  id: ID! @unique @id
+  name: String
+  bank: String
+  branch: String
 }
 
 type Activity {
@@ -131,6 +140,7 @@ type File {
   userSignature: User @relation(name: "UserSignature")
   preTenancyProofOfAddress: PreTenancyForm
     @relation(name: "PreTenancyProofOfAddress")
+  userProofOfAddress: User @relation(name: "UserProofOfAddress")
 }
 
 type Property implements PropertyInfo {
@@ -172,6 +182,54 @@ type Property implements PropertyInfo {
   rehouserStamp: Boolean
   activity: [Activity!]! @relation(name: "PropertyActivity")
   appraisals: [RentalAppraisal] @relation(name: "PropertyRentalAppraisals")
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  pets: [Pet] @scalarList(strategy: RELATION)
+  maximumOccupants: Int
+  chattels: [PropertyChattel] @scalarList(strategy: RELATION)
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+}
+
+type PropertyLease implements PropertyInfo {
+  id: ID! @unique @id
+  stage: LeaseStage!
+  property: Property! @relation(name: "PropertyLeases")
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  lessees: [Lessee!]! @relation(name: "LeaseLessees")
+  lessors: [Lessor!]! @relation(name: "LeaseLessors")
+  canAcceptPayment: Boolean
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
+  outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
+  rent: Float!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  activity: [Activity!]! @relation(name: "PropertyLeaseActivity")
+  wallet: Wallet @relation(name: "LeaseWallet", link: INLINE)
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  pets: [Pet] @scalarList(strategy: RELATION)
+  maximumOccupants: Int
+  chattels: [PropertyChattel] @scalarList(strategy: RELATION)
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
 }
 
 # Must have a User, onCreate admin gets notified, does appraisal. New BE func to allow admins to sned appraisal
@@ -251,32 +309,6 @@ type Lessor {
   user: User @relation(name: "UserLessorLeases")
   signed: Boolean!
   signedAt: DateTime
-}
-
-type PropertyLease implements PropertyInfo {
-  id: ID! @unique @id
-  stage: LeaseStage!
-  property: Property! @relation(name: "PropertyLeases")
-  updatedAt: DateTime! @updatedAt
-  createdAt: DateTime! @createdAt
-  lessees: [Lessee!]! @relation(name: "LeaseLessees")
-  lessors: [Lessor!]! @relation(name: "LeaseLessors")
-  canAcceptPayment: Boolean
-  rooms: Int!
-  bathrooms: Int
-  garageSpaces: Int!
-  carportSpaces: Int!
-  offStreetSpaces: Int!
-  indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
-  outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
-  rent: Float!
-  moveInDate: DateTime
-  expiryDate: DateTime
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
-  activity: [Activity!]! @relation(name: "PropertyLeaseActivity")
-  wallet: Wallet @relation(name: "LeaseWallet", link: INLINE)
 }
 
 type Wallet {
