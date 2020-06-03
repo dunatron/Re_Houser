@@ -173,7 +173,7 @@ const LeaseWallet = ({ lease, me }) => {
   const createPaymentIntent = e => {
     setLoading(true);
     setError(null);
-    fetch(`${serverBackend}stripe/intent`, {
+    fetch(`${serverBackend}/stripe/intent`, {
       method: 'POST',
       // credentials: 'same-origin', // include, *same-origin, omit
       credentials: 'include',
