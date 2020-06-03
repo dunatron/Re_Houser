@@ -119,6 +119,7 @@ type Mutation {
     where: PropertyLeaseWhereUniqueInput!
   ): PropertyLease
   createPaymentIntent(amount: Float!): Json
+  updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
 }
 
 type Subscription {
@@ -128,6 +129,7 @@ type Subscription {
   ): RentalApplicationSubscriptionPayload
   chatSub(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
   messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
+  walletSub(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
 }
 
 type Query {

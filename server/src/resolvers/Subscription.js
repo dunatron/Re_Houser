@@ -62,9 +62,19 @@ const chatSub = {
   subscribe: chat
 };
 
+// wallet subscription
+async function wallet(parent, args, context, info) {
+  return context.db.subscription.wallet({ ...args }, info);
+}
+
+const walletSub = {
+  subscribe: wallet
+};
+
 module.exports = {
   rentalApplicationCreatedSub,
   rentalApplicationUpdateSub,
   chatSub,
-  messageSub
+  messageSub,
+  walletSub
 };

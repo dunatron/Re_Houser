@@ -97,7 +97,7 @@
 // https://fireship.io/lessons/stripe-payment-intents-tutorial/
 // https://stripe.com/docs/stripe-cli run webhooks locally etc
 import React, { useState, useEffect } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useSubscription } from '@apollo/client';
 import {
   useElements,
   useStripe,
@@ -123,6 +123,8 @@ import {
 // Paymnet method components
 import CardPaymentForm from './CardPaymentForm';
 import RecentPayments from './RecentPayments';
+import { WALLET_SUBSCRIPTION } from '../../graphql/subscriptions/WalletSubscription';
+// { node: { id: "ckaqftsw3xeuh09996ihvdloa" }
 
 const serverBackend =
   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
@@ -136,9 +138,23 @@ const LeaseWallet = ({ lease, me }) => {
   const { wallet } = lease;
   const [amount, setAmount] = useState(0);
   const [intentSecret, setIntentSecret] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loadingIntent, setLoadingIntent] = useState(false);
   const [error, setError] = useState(null);
   const [recentPayments, setRecentPayments] = useState([]);
+
+  const { data, loading } = useSubscription(WALLET_SUBSCRIPTION, {
+    variables: {
+      where: {
+        node: {
+          id: wallet.id,
+        },
+      },
+    },
+  });
+
+  console.log('WALLET SUB loading => ', loading);
+  console.log('WALLET SUB data => ', data);
+  console.log('Wallet id => ', wallet.id);
 
   // ToDo: i think maybe we subscribe to wallet updates...
 
@@ -171,7 +187,7 @@ const LeaseWallet = ({ lease, me }) => {
   // };
 
   const createPaymentIntent = e => {
-    setLoading(true);
+    setLoadingIntent(true);
     setError(null);
     fetch(`${serverBackend}/stripe/intent`, {
       method: 'POST',
@@ -196,7 +212,7 @@ const LeaseWallet = ({ lease, me }) => {
         setError(e);
       })
       .finally(() => {
-        setLoading(false);
+        setLoadingIntent(false);
       });
   };
 
@@ -234,13 +250,13 @@ const LeaseWallet = ({ lease, me }) => {
   return (
     <>
       <Paper>
-        <Typography>WALLET </Typography>${wallet.amount}
+        <Typography>WALLET: {wallet.id} - </Typography>${wallet.amount}
         {!intentSecret && (
-          <div aria-disabled={loading}>
+          <div aria-disabled={loadingIntent}>
             <h3>Set the amount you intend to pay on the server in cents</h3>
             <input value={amount} onChange={e => setAmount(e.target.value)} />
             cents
-            <Button onClick={createPaymentIntent} disabled={loading}>
+            <Button onClick={createPaymentIntent} disabled={loadingIntent}>
               Create payment Intent
             </Button>
           </div>
