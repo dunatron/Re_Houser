@@ -161,6 +161,13 @@ const Signup = props => {
           value={state.password}
           onChange={saveToState}
         />
+
+        {/* ToDo: add button that they must actually check */}
+        <div>
+          ToDo: add button that they must actually check for
+          acceptUserTerms(also to add to backend)
+        </div>
+        <SignupTerms />
         <ReCAPTCHA
           data-cy="signup-recaptcha-component"
           ref={recaptchaRef}
@@ -174,12 +181,6 @@ const Signup = props => {
             })
           }
         />
-        {/* ToDo: add button that they must actually check */}
-        <div>
-          ToDo: add button that they must actually check for
-          acceptUserTerms(also to add to backend)
-        </div>
-        <SignupTerms />
         <ButtonLoader
           type="submit"
           data-cy="submit-signup"
