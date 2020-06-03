@@ -57,7 +57,7 @@ const LeaseManager = ({ leaseId }) => {
   // need to ensure they are a lessor or lessee to view
 
   // 1. if lease has been finalised <CompletedLease />
-  if (stage === 'SIGNED')
+  if (stage !== 'INITIALIZING')
     return (
       <CompletedLease leaseId={data.myLease.id} lease={data.myLease} me={me} />
     );

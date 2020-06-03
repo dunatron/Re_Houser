@@ -32,7 +32,6 @@ exports.addPaymentToWallet = async ({ amount, db, walletId }) => {
         });
       }
     }
-
   } catch (e) {
     console.log("Add payment error => ", e);
   }
