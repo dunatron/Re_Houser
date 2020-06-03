@@ -208,6 +208,7 @@ const LeaseDetails = ({ lease }) => {
       <Typography variant="subtitle1" gutterBottom>
         Lease for {location}
       </Typography>
+      <Typography>Lease ID: {id}</Typography>
       <Typography>Stage: {stage}</Typography>
 
       {stage === 'INITIALIZING' && (

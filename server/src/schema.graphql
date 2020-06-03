@@ -130,6 +130,9 @@ type Subscription {
   chatSub(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
   messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
   walletSub(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
+  propertyLeaseSub(
+    where: PropertyLeaseSubscriptionWhereInput
+  ): PropertyLeaseSubscriptionPayload
 }
 
 type Query {

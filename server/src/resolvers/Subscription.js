@@ -71,10 +71,19 @@ const walletSub = {
   subscribe: wallet
 };
 
+async function propertyLease(parent, args, context, info) {
+  return context.db.subscription.propertyLease({ ...args }, info);
+}
+
+const propertyLeaseSub = {
+  subscribe: propertyLease
+};
+
 module.exports = {
   rentalApplicationCreatedSub,
   rentalApplicationUpdateSub,
   chatSub,
   messageSub,
-  walletSub
+  walletSub,
+  propertyLeaseSub
 };

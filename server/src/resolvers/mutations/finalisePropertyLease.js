@@ -74,76 +74,33 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet");
   }
 
-  if (!lease.wallet) {
-    throw new Error(
-      "For some reason your lease has no wallet. Please contact support as this shouldnt happen"
-    );
-  }
+  // SIGNING OCCURS BEFORE PAYMENT
+  // if (!lease.wallet) {
+  //   throw new Error(
+  //     "For some reason your lease has no wallet. Please contact support as this shouldnt happen"
+  //   );
+  // }
 
-  // can only leagally hold 1 weeks worth of rent
-  if (lease.wallet.amount < lease.rent) {
-    throw new Error(
-      `Wallet Amount: ($${lease.wallet.amount}) -  You need to supply ($${lease.rent})
-        2 weeks worth of rent to the lease wallet before the lease can go into full effect 
-        `
-    );
-  }
-  /**
-   * NO LONGER CHARGING CLIENT ON SUCCESSFUL SIGN UP
-   */
-  // get logged in user and primaryCard data to charge
-  // const loggedInUser = await ctx.db.query.user(
-  //   {
-  //     where: {
-  //       id: reqUserId,
-  //     },
-  //   },
-  //   `{
-  //     id
-  //     email
-  //     primaryCreditCard {
-  //       id
-  //       stripeCardId
-  //       stripeCustomerId
-  //       fingerprint
-  //       country
-  //       brand
-  //       exp_month
-  //       exp_year
-  //       last4
-  //       name
-  //     }
-  //   }`
-  // );
+  // // can only leagally hold 1 weeks worth of rent
+  // if (lease.wallet.amount < lease.rent) {
+  //   throw new Error(
+  //     `Wallet Amount: ($${lease.wallet.amount}) -  You need to supply ($${lease.rent})
+  //       2 weeks worth of rent to the lease wallet before the lease can go into full effect
+  //       `
+  //   );
+  // }
 
-  // // logged in user must have a set primary credit card
-  // // if (!loggedInUser.primaryCreditCard) {
-  // //   throw new Error("You must have a credit card");
-  // // }
-
-  // // charge logged in users primary credit card 69 dollars always, because help me help u
-  // const payment = await chargeCard({
-  //   stripeCustomerId: loggedInUser.primaryCreditCard.stripeCustomerId,
-  //   amount: 69,
-  //   currency: "NZD",
-  //   userId: loggedInUser.id,
-  //   leaseId: leaseId,
-  //   propertyId: lease.property.id,
-  // });
-
-  // accept the lease and finalise it
   const acceptedLease = ctx.db.mutation.updatePropertyLease(
     {
       where: {
         id: leaseId
       },
       data: {
-        stage: true
+        stage: "SIGNED"
       }
     },
     info
   );
-
   createActivity({
     ctx: ctx,
     data: {
