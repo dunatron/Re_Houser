@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { SIGNUP_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ButtonLoader from '../Loader/ButtonLoader';
+import SignupTerms from '../Terms/SignupTerms';
 
 const Signup = props => {
   const recaptchaRef = useRef();
@@ -173,6 +174,12 @@ const Signup = props => {
             })
           }
         />
+        {/* ToDo: add button that they must actually check */}
+        <div>
+          ToDo: add button that they must actually check for
+          acceptUserTerms(also to add to backend)
+        </div>
+        <SignupTerms />
         <ButtonLoader
           type="submit"
           data-cy="submit-signup"

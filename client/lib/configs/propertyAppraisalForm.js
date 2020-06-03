@@ -1,3 +1,5 @@
+import AppraisalTerms from '../../components/Terms/AppraisalTerms';
+
 const PROPERTY_APPRAISAL_CONF = [
   {
     type: 'Location',
@@ -84,21 +86,7 @@ const PROPERTY_APPRAISAL_CONF = [
     inners: [
       {
         type: 'Info',
-        content: (
-          <div>
-            <p>I authorise the Landlord/Property Manager to:</p>
-            <ul>
-              <li>
-                Collect, retain and use this information for the purpose of
-                assessing a fair rental appraisal.
-              </li>
-              <li>
-                Use this information to contact you in relation to creating new
-                business relationships in relation to Property Managament.
-              </li>
-            </ul>
-          </div>
-        ),
+        content: <AppraisalTerms />,
       },
       {
         type: 'AcceptTerms',
