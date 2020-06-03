@@ -18,6 +18,9 @@ const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("./const");
 var path = require("path");
 var fs = require("fs");
 var schedule = require("node-schedule");
+const {
+  payment_intent_succeeded
+} = require("./stripe/payment_intent_succeeded");
 
 const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -38,6 +41,70 @@ server.use((req, res, next) => {
   } else {
     bodyParser.json()(req, res, next);
   }
+});
+
+server.post("/stripe/intent", async (req, res, next) => {
+  // console.log("Payment intent req => ", req);
+  console.log("==START PAYMENT INTENT==");
+  console.log(
+    "Make sure to send the info we need back here in the metadata etc"
+  );
+
+  const token = req.cookies.token;
+  if (!token) {
+    console.log(
+      "we cannot fulfill your intent because we cant be sure you are a valid usert"
+    );
+    return next();
+  }
+
+  if (!req.userId) {
+    // throw error. only loigged in users can create intents
+  }
+
+  if (!req.body) {
+    // throw error
+  }
+
+  const { amount, leaseId, walletId } = req.body;
+
+  if (!amount) {
+    // throw errro as they must have an amount they intend to pay
+  }
+
+  console.log("req.userId ", req);
+  console.log("req.userId = userId ", req.userId);
+
+  console.log("clients amount they are intent to pay => ", amount);
+
+  // ToDo: get current logged in user and add there email etc
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: "nzd",
+      payment_method_types: ["card"],
+      metadata: {
+        userId: req.userId,
+        leaseId: leaseId,
+        walletId: walletId
+      }
+      // NOTE< NOT LIKING THE RAW STUFF
+      // metadata: {
+      //   reqUserId: req.userId,
+      //   user: user,
+      //   lease: lease,
+      //   wallet: wallet
+      // }
+    });
+    console.log("paymentIntent.client_secret => ", paymentIntent.client_secret);
+    console.log("==END PAYMENT INTENT==");
+    res.send({ client_secret: paymentIntent.client_secret });
+  } catch (err) {
+    console.log("AN error occurred => ", err);
+    res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // res.send(paymentIntent);
 });
 
 // Stripe requires the raw body to construct the event
@@ -62,102 +129,19 @@ server.post(
     }
 
     if (event.type === "payment_intent.succeeded") {
-      console.log("✅ payment_intent.succeeded: ", event.data.object);
-
-      const wallet = db.query.wallet({
-        where: {
-          id: event.data.object.metadata.walletId
-        }
-      });
-
-      console.log("THANK FUCK THE WALLET => ", wallet);
-
-      // metadata: {
-      //   userId: 'ckapzskzuvwjq0999a5enscf5',
-      //   leaseId: 'ckaqftsvvxeue0999oulbu9yk',
-      //   walletId: 'ckaqftsw3xeuh09996ihvdloa'
-      // },
+      payment_intent_succeeded({ event: event, db: db });
     }
 
     // payment_intent.created && charge.succeeded are different
     if (event.type === "charge.succeeded") {
       console.log("✅ charge.succeeded:", event.data.object);
     }
-
-    // console.log("===WEBHOOK===");
-    // console.log("===WEBHOOK BODY===> ", req.body);
-
-    // try {
-    //   console.log("Stripe webhook recieved => ", req.body.type);
-    //   if (req.body.type === "payment_intent.succeeded") {
-    //     console.log("Stripe payment intent has succeded");
-    //     // we need to validate the data send to make sure it hasnt been altered.
-    //     // we are using this inflo to update the wallet so super important that this data can be trusted
-    //     // event = stripe.webhooks.constructEvent(
-    //     //   req.body.rawBody,
-    //     //   sig,
-    //     //   endpointSecretKey
-    //     // );
-    //     // event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
-    //     event = stripe.webhooks.constructEvent(
-    //       req.body,
-    //       sig,
-    //       endpointSecretKey
-    //     );
-    //     console.log("Payment succeded but is the json valid? => ", event);
-    //   }
-    // } catch (err) {
-    //   return res.status(400).send(`Webhook Error: ${err.message}`);
-    // }
-
-    // Successfully constructed event
     console.log("✅ Success:", event.id);
     console.log("✅ EVENT:", event);
-
     // Return a response to acknowledge receipt of the event
     res.json({ received: true });
   }
 );
-
-/**bodyParser.json(options)
- * Parses the text as JSON and exposes the resulting object on req.body.
- */
-// server.use(
-//   bodyParser.json({
-//     verify: function(req, res, buf) {
-//       var url = req.originalUrl;
-//       console.log("==OK WHAT IS URL PARSED==> ", url);
-//       if (url === "/stripe/webhook") {
-//         console.log("==COOL STRIPE EXPLICIT URL WORK==> ");
-//         req.rawBody = buf.toString();
-//       }
-//       // if (url.startsWith("/stripe")) {
-//       //   console.log("Stripe endpoint");
-//       //   req.rawBody = buf.toString();
-//       // }
-//     }
-//   })
-// );
-
-// Use JSON parser for all non-webhook routes
-// server.use((req, res, next) => {
-//   if (req.originalUrl === "/stripe/webhook") {
-//     next();
-//   } else {
-//     bodyParser.json()(req, res, next);
-//   }
-// });
-
-// server.use(bodyParser.json());
-
-// app.use(bodyParser.json({
-//   // Because Stripe needs the raw body, we compute it but only when hitting the Stripe callback URL.
-//   verify: function(req,res,buf) {
-//       var url = req.originalUrl;
-//       if (url.startsWith('/stripe-webhooks')) {
-//           req.rawBody = buf.toString()
-//       }
-//   }}));
 
 const createLeaseTasks = require("./lib/leaseTasks/index");
 
@@ -230,250 +214,6 @@ const allowedClientOrigins = [
 // Maybe try doing this to test ios gets its cookies???
 // comment out for now because we do it below? maybe both isnt bad??
 server.use(cors({ origin: allowedClientOrigins, credentials: true }));
-
-//https://fireship.io/lessons/stripe-payment-intents-tutorial/
-//stripe.com/docs/payments/payment-intents/migration
-//https://fireship.io/lessons/stripe-payment-intents-tutorial/
-// server.post("/payment/intents", async (req, res, next) => {
-//   // console.log("Payment intent req => ", req);
-//   console.log("Payment intent being hit");
-
-//   const token = req.cookies.token;
-//   if (!token) {
-//     console.log(
-//       "we cannot fulfill your intent because we cant be sure you are a valid usert"
-//     );
-//     return next();
-//   }
-
-//   if (!req.body) {
-//     // throw error
-//   }
-
-//   const { amount } = req.body;
-
-//   if (!amount) {
-//     // throw errro as they must have an amount they intend to pay
-//   }
-
-//   console.log("The amount sent => ", amount);
-
-//   // ToDo: get current logged in user and add there email etc
-//   const paymentIntent = await stripe.paymentIntents.create({
-//     amount: amount,
-//     currency: "nzd",
-//     payment_method_types: ["card"],
-//     metadata: { uid: "some_userID" }
-//   });
-//   res.send({ client_secret: paymentIntent.client_secret });
-//   // res.send(paymentIntent);
-// });
-
-server.post("/stripe/intent", async (req, res, next) => {
-  // console.log("Payment intent req => ", req);
-  console.log("==START PAYMENT INTENT==");
-  console.log(
-    "Make sure to send the info we need back here in the metadata etc"
-  );
-
-  const token = req.cookies.token;
-  if (!token) {
-    console.log(
-      "we cannot fulfill your intent because we cant be sure you are a valid usert"
-    );
-    return next();
-  }
-
-  if (!req.userId) {
-    // throw error. only loigged in users can create intents
-  }
-
-  if (!req.body) {
-    // throw error
-  }
-
-  const { amount, leaseId, walletId } = req.body;
-
-  if (!amount) {
-    // throw errro as they must have an amount they intend to pay
-  }
-
-  console.log("req.userId ", req);
-  console.log("req.userId = userId ", req.userId);
-
-  console.log("clients amount they are intent to pay => ", amount);
-
-  // ToDo: get current logged in user and add there email etc
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount,
-      currency: "nzd",
-      payment_method_types: ["card"],
-      metadata: {
-        userId: req.userId,
-        leaseId: leaseId,
-        walletId: walletId
-      }
-      // NOTE< NOT LIKING THE RAW STUFF
-      // metadata: {
-      //   reqUserId: req.userId,
-      //   user: user,
-      //   lease: lease,
-      //   wallet: wallet
-      // }
-    });
-    console.log("paymentIntent.client_secret => ", paymentIntent.client_secret);
-    console.log("==END PAYMENT INTENT==");
-    res.send({ client_secret: paymentIntent.client_secret });
-  } catch (err) {
-    console.log("AN error occurred => ", err);
-    res.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  // res.send(paymentIntent);
-});
-
-// server.post(
-//   "/stripe/webhook",
-//   bodyParser.raw({ type: "application/json" }),
-//   async (req, res) => {
-//     console.log("==START STRIPE WEBHOOK==");
-//     console.log("Webhook type => ", req.body.type);
-//     const sig = req.headers["stripe-signature"];
-//     const endpointSecretKey = process.env.STRIPE_SECRET;
-
-//     let event;
-
-//     console.log("sig => ", sig);
-//     console.log("req.body => ", req.body);
-//     console.log("req.rawBody => ", req.rawBody);
-
-//     if (req.body.type === "payment_intent.created") {
-//       console.log("Stripe webhook for intent created was caught");
-//     }
-
-//     if (req.body.type === "charge.failed") {
-//       console.log("Possibly wont need to do anything with this???");
-//       // maybe send an email to them saying looks like the charge failed
-//     }
-//     if (req.body.type === "payment_intent.succeeded") {
-//       console.log("Stripe payment intent has succeded");
-//       // we need to validate the data send to make sure it hasnt been altered.
-//       // we are using this inflo to update the wallet so super important that this data can be trusted
-//       // event = stripe.webhooks.constructEvent(
-//       //   req.body.rawBody,
-//       //   sig,
-//       //   endpointSecretKey
-//       // );
-//       // event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
-//       event = stripe.webhooks.constructEvent(
-//         req.rawBody,
-//         sig,
-//         endpointSecretKey
-//       );
-//       console.log("Payment succeded but is the json valid? => ", event);
-//     }
-
-//     // try {
-//     //   // console.log("Falling over after this below func");
-//     //   // event = stripe.webhooks.constructEvent(
-//     //   //   req.body.rawBody,
-//     //   //   sig,
-//     //   //   endpointSecretKey
-//     //   // );
-
-//     //   event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
-
-//     //   // console.log("Give me a look at the hook event => ", event);
-//     //   console.log("==START STRIPE WEBHOOK==");
-//     // } catch (err) {
-//     //   // console.log("AN error occurred => ", err);
-//     //   res.status(400).end();
-//     // }
-//   }
-// );
-
-// https://github.com/stripe/stripe-node#webhook-signing
-// https://github.com/stripe/stripe-node/tree/master/examples/webhook-signing
-// server.post("/stripe/webhook", async (req, res) => {
-//   console.log("==START STRIPE WEBHOOK==");
-//   console.log("Webhook type => ", req.body.type);
-//   const sig = req.headers["stripe-signature"];
-//   const endpointSecretKey = process.env.STRIPE_SECRET;
-
-//   let event;
-
-//   console.log("sig => ", sig);
-//   console.log("req.body => ", req.body);
-//   console.log("req.rawBody => ", req.rawBody);
-
-//   if (req.body.type === "payment_intent.created") {
-//     console.log("Stripe webhook for intent created was caught");
-//   }
-
-//   if (req.body.type === "charge.failed") {
-//     console.log("Possibly wont need to do anything with this???");
-//     // maybe send an email to them saying looks like the charge failed
-//   }
-//   if (req.body.type === "payment_intent.succeeded") {
-//     console.log("Stripe payment intent has succeded");
-//     // we need to validate the data send to make sure it hasnt been altered.
-//     // we are using this inflo to update the wallet so super important that this data can be trusted
-//     // event = stripe.webhooks.constructEvent(
-//     //   req.body.rawBody,
-//     //   sig,
-//     //   endpointSecretKey
-//     // );
-//     // event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
-//     event = stripe.webhooks.constructEvent(req.rawBody, sig, endpointSecretKey);
-//     console.log("Payment succeded but is the json valid? => ", event);
-//   }
-
-//   // try {
-//   //   // console.log("Falling over after this below func");
-//   //   // event = stripe.webhooks.constructEvent(
-//   //   //   req.body.rawBody,
-//   //   //   sig,
-//   //   //   endpointSecretKey
-//   //   // );
-
-//   //   event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
-
-//   //   // console.log("Give me a look at the hook event => ", event);
-//   //   console.log("==START STRIPE WEBHOOK==");
-//   // } catch (err) {
-//   //   // console.log("AN error occurred => ", err);
-//   //   res.status(400).end();
-//   // }
-// });
-
-// server.post("/payments/webhook", async (req, res) => {
-//   console.log("Webhook being hit??");
-//   const sig = req.headers["stripe-signature"];
-//   const endpointSecretKey = process.env.STRIPE_SECRET;
-
-//   let event;
-
-//   console.log("sig => ", sig);
-//   console.log("req.body => ", req.body);
-//   console.log("req.rawBody => ", req.rawBody);
-
-//   try {
-//     console.log("Falling over after this below func");
-//     // event = stripe.webhooks.constructEvent(
-//     //   req.body.rawBody,
-//     //   sig,
-//     //   endpointSecretKey
-//     // );
-
-//     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecretKey);
-
-//     console.log("Give me a look at the hook event => ", event);
-//   } catch (err) {
-//     console.log("AN error occurred => ", err);
-//     res.status(400).end();
-//   }
-// });
 
 // Start gql express server
 server.start(

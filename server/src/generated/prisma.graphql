@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Jun 02 2020 20:59:26 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
+# timestamp: Wed Jun 03 2020 15:47:16 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -6889,8 +6889,8 @@ scalar Json
 
 enum LeaseStage {
   INITIALIZING
-  PAID
   SIGNED
+  PAID
 }
 
 type Lessee implements Node {

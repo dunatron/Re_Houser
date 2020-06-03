@@ -175,12 +175,12 @@ const LeaseDetails = ({ lease }) => {
   ] = useMutation(UPDATE_PROPERTY_LEASE_MUTATION);
   const {
     id,
+    stage,
     property,
     updatedAt,
     createdAt,
     lessees,
     lessors,
-    finalised,
     rooms,
     bathrooms,
     garageSpaces,
@@ -208,6 +208,26 @@ const LeaseDetails = ({ lease }) => {
       <Typography variant="subtitle1" gutterBottom>
         Lease for {location}
       </Typography>
+      <Typography>Stage: {stage}</Typography>
+
+      {stage === 'INITIALIZING' && (
+        <Typography>
+          Stage: {stage} - The lease needs to be signed by all parties
+        </Typography>
+      )}
+
+      {stage === 'SIGNED' && (
+        <Typography>
+          Stage: {stage} - All parties have signed, we now require 1 weeks worth
+          of rent to finalise the lease and put it into full effect
+        </Typography>
+      )}
+
+      {stage === 'PAID' && (
+        <Typography>
+          Stage: {stage} - Your lease is now in full effect
+        </Typography>
+      )}
 
       <Grid container wrap="wrap" spacing={1} className={classes.container}>
         {LEASE_DETAILS_CONF.map(confObj => {

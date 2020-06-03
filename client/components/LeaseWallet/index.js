@@ -140,6 +140,8 @@ const LeaseWallet = ({ lease, me }) => {
   const [error, setError] = useState(null);
   const [recentPayments, setRecentPayments] = useState([]);
 
+  // ToDo: i think maybe we subscribe to wallet updates...
+
   // const createPaymentIntent = e => {
   //   setLoading(true);
   //   setError(null);

@@ -13,8 +13,8 @@ enum ApplicationStage {
 
 enum LeaseStage {
   INITIALIZING
-  PAID
   SIGNED
+  PAID
 }
 
 enum VisibilityLevel {
