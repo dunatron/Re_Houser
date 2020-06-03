@@ -77,6 +77,7 @@ function MaterialPage(props) {
       if (idx + 1 === formattedPathParts.length) return acc;
       // if(idx === idx)
       // return acc + part;
+      if (idx > partIndex) return acc; // shouldnt add any more than where we are going
       if (idx === partIndex) {
         return acc + part;
       }
