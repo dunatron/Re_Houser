@@ -17,6 +17,11 @@ enum LeaseStage {
   PAID
 }
 
+enum PaymentType {
+  STRIPE
+  SYSTEM
+}
+
 enum VisibilityLevel {
   PRIVATE
   FRIENDS_ONLY

@@ -1,97 +1,3 @@
-// // https://github.com/beezeebly/next-stripe-checkout-example
-// // https://www.serverlesstribe.com/using-the-new-stripe-checkout-in-next-js-ssr/
-// import React, { useState, useEffect } from 'react';
-// import {
-//   useStripe,
-//   PaymentRequestButtonElement,
-//   CardElement,
-//   //   CardNumberElement,
-//   //   CardExpiryElement,
-//   //   CardCvcElement,
-//   AuBankAccountElement,
-//   IbanElement,
-//   IdealBankElement,
-//   FpxBankElement,
-// } from '@stripe/react-stripe-js';
-// import { Paper, Typography } from '@material-ui/core';
-
-// // Paymnet method components
-// import CardPaymentForm from './CardPaymentForm';
-
-// const LeaseWallet = ({ lease }) => {
-//   const { wallet } = lease;
-//   const stripe = useStripe();
-//   const [paymentRequest, setPaymentRequest] = useState(null);
-
-//   console.log('STRIPE => ', stripe);
-
-//   useEffect(() => {
-//     if (stripe) {
-//       const pr = stripe.paymentRequest({
-//         country: 'US',
-//         currency: 'usd',
-//         total: {
-//           label: 'Demo total',
-//           amount: 1099,
-//         },
-//         requestPayerName: true,
-//         requestPayerEmail: true,
-//       });
-//       // Check the availability of the Payment Request API.
-//       pr.canMakePayment().then(result => {
-//         console.log('Can make payment request result => ', result);
-//         if (result) {
-//           setPaymentRequest(pr);
-//         }
-//       });
-//     }
-//   }, [stripe]);
-
-//   if (paymentRequest) {
-//     return <PaymentRequestButtonElement options={{ paymentRequest }} />;
-//   }
-
-//   if (!wallet) {
-//     return 'Lease has no wallet please contact support';
-//   }
-
-//   // Use a traditional checkout form.
-//   // ALl these need to be seperate components that update the server. Lots of payment options
-//   return (
-//     <>
-//       <Paper>
-//         <Typography>WALLET </Typography>${wallet.amount}
-//       </Paper>
-//       <Paper>
-//         <Typography>Card payment form </Typography>
-//         <CardPaymentForm />
-//       </Paper>
-//       {/* <Paper>
-//         <Typography>CardElement</Typography>
-//         <CardElement />
-//       </Paper> */}
-//       <Paper>
-//         <Typography>AuBankAccountElement</Typography>
-//         <AuBankAccountElement />
-//       </Paper>
-//       <Paper>
-//         <Typography>IbanElement</Typography>
-//         <IbanElement />
-//       </Paper>
-//       <Paper>
-//         <Typography>IdealBankElement</Typography>
-//         <IdealBankElement />
-//       </Paper>
-//       <Paper>
-//         <Typography>FpxBankElement</Typography>
-//         <FpxBankElement />
-//       </Paper>
-//     </>
-//   );
-// };
-
-// export default LeaseWallet;
-
 // https://github.com/beezeebly/next-stripe-checkout-example
 // https://www.serverlesstribe.com/using-the-new-stripe-checkout-in-next-js-ssr/
 // https://fireship.io/lessons/stripe-payment-intents-tutorial/
@@ -124,7 +30,8 @@ import {
 import CardPaymentForm from './CardPaymentForm';
 import RecentPayments from './RecentPayments';
 import { WALLET_SUBSCRIPTION } from '../../graphql/subscriptions/WalletSubscription';
-// { node: { id: "ckaqftsw3xeuh09996ihvdloa" }
+import Loader from '../Loader';
+import { toast } from 'react-toastify';
 
 const serverBackend =
   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
@@ -136,13 +43,35 @@ const LeaseWallet = ({ lease, me }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { wallet } = lease;
+  const [walletUpdating, setWalletUpdating] = useState(false);
   const [amount, setAmount] = useState(0);
   const [intentSecret, setIntentSecret] = useState(null);
   const [loadingIntent, setLoadingIntent] = useState(false);
   const [error, setError] = useState(null);
   const [recentPayments, setRecentPayments] = useState([]);
 
+  const handleOnSubscriptionData = ({ client, subscriptionData }) => {
+    const { amount } = subscriptionData.data.walletSub.node;
+    const dollarAmount = amount / 100;
+
+    const formattedAmount = new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'NZD',
+    }).format(dollarAmount);
+
+    setWalletUpdating(false);
+
+    console.log();
+    toast.success(
+      <div>
+        <Typography>Lease wallet updated</Typography>
+        <Typography>{formattedAmount}</Typography>
+      </div>
+    );
+  };
+
   const { data, loading } = useSubscription(WALLET_SUBSCRIPTION, {
+    onSubscriptionData: handleOnSubscriptionData,
     variables: {
       where: {
         node: {
@@ -218,9 +147,9 @@ const LeaseWallet = ({ lease, me }) => {
 
   const handleOnPaySuccess = payload => {
     console.log('Payload => ', payload);
-    alert('Congrats your payment was a success => ', payload);
     setIntentSecret(null);
     setRecentPayments([...recentPayments, payload]);
+    setWalletUpdating(true);
   };
 
   // Being done on CardPaymentForm
@@ -251,6 +180,22 @@ const LeaseWallet = ({ lease, me }) => {
     <>
       <Paper>
         <Typography>WALLET: {wallet.id} - </Typography>${wallet.amount}
+        {walletUpdating && (
+          <div>
+            <Loader
+              loading={walletUpdating}
+              text="Waiting on the server to add payment to the wallet"
+            />
+          </div>
+        )}
+        {loadingIntent && (
+          <div>
+            <Loader
+              loading={loadingIntent}
+              text="Informing server of intent to pay"
+            />
+          </div>
+        )}
         {!intentSecret && (
           <div aria-disabled={loadingIntent}>
             <h3>Set the amount you intend to pay on the server in cents</h3>

@@ -1,5 +1,5 @@
-# source: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
-# timestamp: Wed Jun 03 2020 15:47:16 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Thu Jun 04 2020 13:55:36 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -8309,20 +8309,18 @@ type Payment implements Node {
   id: ID!
   wallet: Wallet
   userId: ID!
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
-  stripePaymentId: String!
-  object: String
+  stripePaymentId: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }
 
@@ -8339,20 +8337,18 @@ type PaymentConnection {
 input PaymentCreateInput {
   id: ID
   userId: ID!
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
-  stripePaymentId: String!
-  object: String
+  stripePaymentId: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
   wallet: WalletCreateOneWithoutPaymentsInput
 }
@@ -8365,20 +8361,18 @@ input PaymentCreateManyWithoutWalletInput {
 input PaymentCreateWithoutWalletInput {
   id: ID
   userId: ID!
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
-  stripePaymentId: String!
-  object: String
+  stripePaymentId: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }
 
@@ -8396,6 +8390,16 @@ enum PaymentOrderByInput {
   id_DESC
   userId_ASC
   userId_DESC
+  bankName_ASC
+  bankName_DESC
+  bankBranch_ASC
+  bankBranch_DESC
+  bankAccount_ASC
+  bankAccount_DESC
+  bankRef_ASC
+  bankRef_DESC
+  type_ASC
+  type_DESC
   leaseId_ASC
   leaseId_DESC
   propertyId_ASC
@@ -8406,24 +8410,10 @@ enum PaymentOrderByInput {
   object_DESC
   amount_ASC
   amount_DESC
-  amount_refunded_ASC
-  amount_refunded_DESC
-  balance_transaction_ASC
-  balance_transaction_DESC
-  captured_ASC
-  captured_DESC
   created_ASC
   created_DESC
-  currency_ASC
-  currency_DESC
-  customer_ASC
-  customer_DESC
   description_ASC
   description_DESC
-  paid_ASC
-  paid_DESC
-  payment_method_ASC
-  payment_method_DESC
   status_ASC
   status_DESC
 }
@@ -8431,20 +8421,18 @@ enum PaymentOrderByInput {
 type PaymentPreviousValues {
   id: ID!
   userId: ID!
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
-  stripePaymentId: String!
-  object: String
+  stripePaymentId: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }
 
@@ -8537,6 +8525,176 @@ input PaymentScalarWhereInput {
 
   """All values not ending with the given string."""
   userId_not_ends_with: ID
+  bankName: String
+
+  """All values that are not equal to given value."""
+  bankName_not: String
+
+  """All values that are contained in given list."""
+  bankName_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankName_not_in: [String!]
+
+  """All values less than the given value."""
+  bankName_lt: String
+
+  """All values less than or equal the given value."""
+  bankName_lte: String
+
+  """All values greater than the given value."""
+  bankName_gt: String
+
+  """All values greater than or equal the given value."""
+  bankName_gte: String
+
+  """All values containing the given string."""
+  bankName_contains: String
+
+  """All values not containing the given string."""
+  bankName_not_contains: String
+
+  """All values starting with the given string."""
+  bankName_starts_with: String
+
+  """All values not starting with the given string."""
+  bankName_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankName_ends_with: String
+
+  """All values not ending with the given string."""
+  bankName_not_ends_with: String
+  bankBranch: String
+
+  """All values that are not equal to given value."""
+  bankBranch_not: String
+
+  """All values that are contained in given list."""
+  bankBranch_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankBranch_not_in: [String!]
+
+  """All values less than the given value."""
+  bankBranch_lt: String
+
+  """All values less than or equal the given value."""
+  bankBranch_lte: String
+
+  """All values greater than the given value."""
+  bankBranch_gt: String
+
+  """All values greater than or equal the given value."""
+  bankBranch_gte: String
+
+  """All values containing the given string."""
+  bankBranch_contains: String
+
+  """All values not containing the given string."""
+  bankBranch_not_contains: String
+
+  """All values starting with the given string."""
+  bankBranch_starts_with: String
+
+  """All values not starting with the given string."""
+  bankBranch_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankBranch_ends_with: String
+
+  """All values not ending with the given string."""
+  bankBranch_not_ends_with: String
+  bankAccount: String
+
+  """All values that are not equal to given value."""
+  bankAccount_not: String
+
+  """All values that are contained in given list."""
+  bankAccount_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankAccount_not_in: [String!]
+
+  """All values less than the given value."""
+  bankAccount_lt: String
+
+  """All values less than or equal the given value."""
+  bankAccount_lte: String
+
+  """All values greater than the given value."""
+  bankAccount_gt: String
+
+  """All values greater than or equal the given value."""
+  bankAccount_gte: String
+
+  """All values containing the given string."""
+  bankAccount_contains: String
+
+  """All values not containing the given string."""
+  bankAccount_not_contains: String
+
+  """All values starting with the given string."""
+  bankAccount_starts_with: String
+
+  """All values not starting with the given string."""
+  bankAccount_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankAccount_ends_with: String
+
+  """All values not ending with the given string."""
+  bankAccount_not_ends_with: String
+  bankRef: String
+
+  """All values that are not equal to given value."""
+  bankRef_not: String
+
+  """All values that are contained in given list."""
+  bankRef_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankRef_not_in: [String!]
+
+  """All values less than the given value."""
+  bankRef_lt: String
+
+  """All values less than or equal the given value."""
+  bankRef_lte: String
+
+  """All values greater than the given value."""
+  bankRef_gt: String
+
+  """All values greater than or equal the given value."""
+  bankRef_gte: String
+
+  """All values containing the given string."""
+  bankRef_contains: String
+
+  """All values not containing the given string."""
+  bankRef_not_contains: String
+
+  """All values starting with the given string."""
+  bankRef_starts_with: String
+
+  """All values not starting with the given string."""
+  bankRef_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankRef_ends_with: String
+
+  """All values not ending with the given string."""
+  bankRef_not_ends_with: String
+  type: PaymentType
+
+  """All values that are not equal to given value."""
+  type_not: PaymentType
+
+  """All values that are contained in given list."""
+  type_in: [PaymentType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [PaymentType!]
   leaseId: ID
 
   """All values that are not equal to given value."""
@@ -8657,46 +8815,6 @@ input PaymentScalarWhereInput {
 
   """All values not ending with the given string."""
   stripePaymentId_not_ends_with: String
-  object: String
-
-  """All values that are not equal to given value."""
-  object_not: String
-
-  """All values that are contained in given list."""
-  object_in: [String!]
-
-  """All values that are not contained in given list."""
-  object_not_in: [String!]
-
-  """All values less than the given value."""
-  object_lt: String
-
-  """All values less than or equal the given value."""
-  object_lte: String
-
-  """All values greater than the given value."""
-  object_gt: String
-
-  """All values greater than or equal the given value."""
-  object_gte: String
-
-  """All values containing the given string."""
-  object_contains: String
-
-  """All values not containing the given string."""
-  object_not_contains: String
-
-  """All values starting with the given string."""
-  object_starts_with: String
-
-  """All values not starting with the given string."""
-  object_not_starts_with: String
-
-  """All values ending with the given string."""
-  object_ends_with: String
-
-  """All values not ending with the given string."""
-  object_not_ends_with: String
   amount: Float
 
   """All values that are not equal to given value."""
@@ -8719,72 +8837,6 @@ input PaymentScalarWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
-  amount_refunded: Float
-
-  """All values that are not equal to given value."""
-  amount_refunded_not: Float
-
-  """All values that are contained in given list."""
-  amount_refunded_in: [Float!]
-
-  """All values that are not contained in given list."""
-  amount_refunded_not_in: [Float!]
-
-  """All values less than the given value."""
-  amount_refunded_lt: Float
-
-  """All values less than or equal the given value."""
-  amount_refunded_lte: Float
-
-  """All values greater than the given value."""
-  amount_refunded_gt: Float
-
-  """All values greater than or equal the given value."""
-  amount_refunded_gte: Float
-  balance_transaction: String
-
-  """All values that are not equal to given value."""
-  balance_transaction_not: String
-
-  """All values that are contained in given list."""
-  balance_transaction_in: [String!]
-
-  """All values that are not contained in given list."""
-  balance_transaction_not_in: [String!]
-
-  """All values less than the given value."""
-  balance_transaction_lt: String
-
-  """All values less than or equal the given value."""
-  balance_transaction_lte: String
-
-  """All values greater than the given value."""
-  balance_transaction_gt: String
-
-  """All values greater than or equal the given value."""
-  balance_transaction_gte: String
-
-  """All values containing the given string."""
-  balance_transaction_contains: String
-
-  """All values not containing the given string."""
-  balance_transaction_not_contains: String
-
-  """All values starting with the given string."""
-  balance_transaction_starts_with: String
-
-  """All values not starting with the given string."""
-  balance_transaction_not_starts_with: String
-
-  """All values ending with the given string."""
-  balance_transaction_ends_with: String
-
-  """All values not ending with the given string."""
-  balance_transaction_not_ends_with: String
-  captured: Boolean
-
-  """All values that are not equal to given value."""
-  captured_not: Boolean
   created: DateTime
 
   """All values that are not equal to given value."""
@@ -8807,86 +8859,6 @@ input PaymentScalarWhereInput {
 
   """All values greater than or equal the given value."""
   created_gte: DateTime
-  currency: String
-
-  """All values that are not equal to given value."""
-  currency_not: String
-
-  """All values that are contained in given list."""
-  currency_in: [String!]
-
-  """All values that are not contained in given list."""
-  currency_not_in: [String!]
-
-  """All values less than the given value."""
-  currency_lt: String
-
-  """All values less than or equal the given value."""
-  currency_lte: String
-
-  """All values greater than the given value."""
-  currency_gt: String
-
-  """All values greater than or equal the given value."""
-  currency_gte: String
-
-  """All values containing the given string."""
-  currency_contains: String
-
-  """All values not containing the given string."""
-  currency_not_contains: String
-
-  """All values starting with the given string."""
-  currency_starts_with: String
-
-  """All values not starting with the given string."""
-  currency_not_starts_with: String
-
-  """All values ending with the given string."""
-  currency_ends_with: String
-
-  """All values not ending with the given string."""
-  currency_not_ends_with: String
-  customer: String
-
-  """All values that are not equal to given value."""
-  customer_not: String
-
-  """All values that are contained in given list."""
-  customer_in: [String!]
-
-  """All values that are not contained in given list."""
-  customer_not_in: [String!]
-
-  """All values less than the given value."""
-  customer_lt: String
-
-  """All values less than or equal the given value."""
-  customer_lte: String
-
-  """All values greater than the given value."""
-  customer_gt: String
-
-  """All values greater than or equal the given value."""
-  customer_gte: String
-
-  """All values containing the given string."""
-  customer_contains: String
-
-  """All values not containing the given string."""
-  customer_not_contains: String
-
-  """All values starting with the given string."""
-  customer_starts_with: String
-
-  """All values not starting with the given string."""
-  customer_not_starts_with: String
-
-  """All values ending with the given string."""
-  customer_ends_with: String
-
-  """All values not ending with the given string."""
-  customer_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -8927,50 +8899,6 @@ input PaymentScalarWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
-  paid: Boolean
-
-  """All values that are not equal to given value."""
-  paid_not: Boolean
-  payment_method: String
-
-  """All values that are not equal to given value."""
-  payment_method_not: String
-
-  """All values that are contained in given list."""
-  payment_method_in: [String!]
-
-  """All values that are not contained in given list."""
-  payment_method_not_in: [String!]
-
-  """All values less than the given value."""
-  payment_method_lt: String
-
-  """All values less than or equal the given value."""
-  payment_method_lte: String
-
-  """All values greater than the given value."""
-  payment_method_gt: String
-
-  """All values greater than or equal the given value."""
-  payment_method_gte: String
-
-  """All values containing the given string."""
-  payment_method_contains: String
-
-  """All values not containing the given string."""
-  payment_method_not_contains: String
-
-  """All values starting with the given string."""
-  payment_method_starts_with: String
-
-  """All values not starting with the given string."""
-  payment_method_not_starts_with: String
-
-  """All values ending with the given string."""
-  payment_method_ends_with: String
-
-  """All values not ending with the given string."""
-  payment_method_not_ends_with: String
   status: String
 
   """All values that are not equal to given value."""
@@ -9050,61 +8978,60 @@ input PaymentSubscriptionWhereInput {
   node: PaymentWhereInput
 }
 
+enum PaymentType {
+  STRIPE
+  SYSTEM
+}
+
 input PaymentUpdateInput {
   userId: ID
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
-  object: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
   wallet: WalletUpdateOneWithoutPaymentsInput
 }
 
 input PaymentUpdateManyDataInput {
   userId: ID
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
-  object: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }
 
 input PaymentUpdateManyMutationInput {
   userId: ID
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
-  object: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }
 
@@ -9127,20 +9054,18 @@ input PaymentUpdateManyWithWhereNestedInput {
 
 input PaymentUpdateWithoutWalletDataInput {
   userId: ID
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
-  object: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }
 
@@ -9244,6 +9169,176 @@ input PaymentWhereInput {
 
   """All values not ending with the given string."""
   userId_not_ends_with: ID
+  bankName: String
+
+  """All values that are not equal to given value."""
+  bankName_not: String
+
+  """All values that are contained in given list."""
+  bankName_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankName_not_in: [String!]
+
+  """All values less than the given value."""
+  bankName_lt: String
+
+  """All values less than or equal the given value."""
+  bankName_lte: String
+
+  """All values greater than the given value."""
+  bankName_gt: String
+
+  """All values greater than or equal the given value."""
+  bankName_gte: String
+
+  """All values containing the given string."""
+  bankName_contains: String
+
+  """All values not containing the given string."""
+  bankName_not_contains: String
+
+  """All values starting with the given string."""
+  bankName_starts_with: String
+
+  """All values not starting with the given string."""
+  bankName_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankName_ends_with: String
+
+  """All values not ending with the given string."""
+  bankName_not_ends_with: String
+  bankBranch: String
+
+  """All values that are not equal to given value."""
+  bankBranch_not: String
+
+  """All values that are contained in given list."""
+  bankBranch_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankBranch_not_in: [String!]
+
+  """All values less than the given value."""
+  bankBranch_lt: String
+
+  """All values less than or equal the given value."""
+  bankBranch_lte: String
+
+  """All values greater than the given value."""
+  bankBranch_gt: String
+
+  """All values greater than or equal the given value."""
+  bankBranch_gte: String
+
+  """All values containing the given string."""
+  bankBranch_contains: String
+
+  """All values not containing the given string."""
+  bankBranch_not_contains: String
+
+  """All values starting with the given string."""
+  bankBranch_starts_with: String
+
+  """All values not starting with the given string."""
+  bankBranch_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankBranch_ends_with: String
+
+  """All values not ending with the given string."""
+  bankBranch_not_ends_with: String
+  bankAccount: String
+
+  """All values that are not equal to given value."""
+  bankAccount_not: String
+
+  """All values that are contained in given list."""
+  bankAccount_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankAccount_not_in: [String!]
+
+  """All values less than the given value."""
+  bankAccount_lt: String
+
+  """All values less than or equal the given value."""
+  bankAccount_lte: String
+
+  """All values greater than the given value."""
+  bankAccount_gt: String
+
+  """All values greater than or equal the given value."""
+  bankAccount_gte: String
+
+  """All values containing the given string."""
+  bankAccount_contains: String
+
+  """All values not containing the given string."""
+  bankAccount_not_contains: String
+
+  """All values starting with the given string."""
+  bankAccount_starts_with: String
+
+  """All values not starting with the given string."""
+  bankAccount_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankAccount_ends_with: String
+
+  """All values not ending with the given string."""
+  bankAccount_not_ends_with: String
+  bankRef: String
+
+  """All values that are not equal to given value."""
+  bankRef_not: String
+
+  """All values that are contained in given list."""
+  bankRef_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankRef_not_in: [String!]
+
+  """All values less than the given value."""
+  bankRef_lt: String
+
+  """All values less than or equal the given value."""
+  bankRef_lte: String
+
+  """All values greater than the given value."""
+  bankRef_gt: String
+
+  """All values greater than or equal the given value."""
+  bankRef_gte: String
+
+  """All values containing the given string."""
+  bankRef_contains: String
+
+  """All values not containing the given string."""
+  bankRef_not_contains: String
+
+  """All values starting with the given string."""
+  bankRef_starts_with: String
+
+  """All values not starting with the given string."""
+  bankRef_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankRef_ends_with: String
+
+  """All values not ending with the given string."""
+  bankRef_not_ends_with: String
+  type: PaymentType
+
+  """All values that are not equal to given value."""
+  type_not: PaymentType
+
+  """All values that are contained in given list."""
+  type_in: [PaymentType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [PaymentType!]
   leaseId: ID
 
   """All values that are not equal to given value."""
@@ -9364,46 +9459,6 @@ input PaymentWhereInput {
 
   """All values not ending with the given string."""
   stripePaymentId_not_ends_with: String
-  object: String
-
-  """All values that are not equal to given value."""
-  object_not: String
-
-  """All values that are contained in given list."""
-  object_in: [String!]
-
-  """All values that are not contained in given list."""
-  object_not_in: [String!]
-
-  """All values less than the given value."""
-  object_lt: String
-
-  """All values less than or equal the given value."""
-  object_lte: String
-
-  """All values greater than the given value."""
-  object_gt: String
-
-  """All values greater than or equal the given value."""
-  object_gte: String
-
-  """All values containing the given string."""
-  object_contains: String
-
-  """All values not containing the given string."""
-  object_not_contains: String
-
-  """All values starting with the given string."""
-  object_starts_with: String
-
-  """All values not starting with the given string."""
-  object_not_starts_with: String
-
-  """All values ending with the given string."""
-  object_ends_with: String
-
-  """All values not ending with the given string."""
-  object_not_ends_with: String
   amount: Float
 
   """All values that are not equal to given value."""
@@ -9426,72 +9481,6 @@ input PaymentWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
-  amount_refunded: Float
-
-  """All values that are not equal to given value."""
-  amount_refunded_not: Float
-
-  """All values that are contained in given list."""
-  amount_refunded_in: [Float!]
-
-  """All values that are not contained in given list."""
-  amount_refunded_not_in: [Float!]
-
-  """All values less than the given value."""
-  amount_refunded_lt: Float
-
-  """All values less than or equal the given value."""
-  amount_refunded_lte: Float
-
-  """All values greater than the given value."""
-  amount_refunded_gt: Float
-
-  """All values greater than or equal the given value."""
-  amount_refunded_gte: Float
-  balance_transaction: String
-
-  """All values that are not equal to given value."""
-  balance_transaction_not: String
-
-  """All values that are contained in given list."""
-  balance_transaction_in: [String!]
-
-  """All values that are not contained in given list."""
-  balance_transaction_not_in: [String!]
-
-  """All values less than the given value."""
-  balance_transaction_lt: String
-
-  """All values less than or equal the given value."""
-  balance_transaction_lte: String
-
-  """All values greater than the given value."""
-  balance_transaction_gt: String
-
-  """All values greater than or equal the given value."""
-  balance_transaction_gte: String
-
-  """All values containing the given string."""
-  balance_transaction_contains: String
-
-  """All values not containing the given string."""
-  balance_transaction_not_contains: String
-
-  """All values starting with the given string."""
-  balance_transaction_starts_with: String
-
-  """All values not starting with the given string."""
-  balance_transaction_not_starts_with: String
-
-  """All values ending with the given string."""
-  balance_transaction_ends_with: String
-
-  """All values not ending with the given string."""
-  balance_transaction_not_ends_with: String
-  captured: Boolean
-
-  """All values that are not equal to given value."""
-  captured_not: Boolean
   created: DateTime
 
   """All values that are not equal to given value."""
@@ -9514,86 +9503,6 @@ input PaymentWhereInput {
 
   """All values greater than or equal the given value."""
   created_gte: DateTime
-  currency: String
-
-  """All values that are not equal to given value."""
-  currency_not: String
-
-  """All values that are contained in given list."""
-  currency_in: [String!]
-
-  """All values that are not contained in given list."""
-  currency_not_in: [String!]
-
-  """All values less than the given value."""
-  currency_lt: String
-
-  """All values less than or equal the given value."""
-  currency_lte: String
-
-  """All values greater than the given value."""
-  currency_gt: String
-
-  """All values greater than or equal the given value."""
-  currency_gte: String
-
-  """All values containing the given string."""
-  currency_contains: String
-
-  """All values not containing the given string."""
-  currency_not_contains: String
-
-  """All values starting with the given string."""
-  currency_starts_with: String
-
-  """All values not starting with the given string."""
-  currency_not_starts_with: String
-
-  """All values ending with the given string."""
-  currency_ends_with: String
-
-  """All values not ending with the given string."""
-  currency_not_ends_with: String
-  customer: String
-
-  """All values that are not equal to given value."""
-  customer_not: String
-
-  """All values that are contained in given list."""
-  customer_in: [String!]
-
-  """All values that are not contained in given list."""
-  customer_not_in: [String!]
-
-  """All values less than the given value."""
-  customer_lt: String
-
-  """All values less than or equal the given value."""
-  customer_lte: String
-
-  """All values greater than the given value."""
-  customer_gt: String
-
-  """All values greater than or equal the given value."""
-  customer_gte: String
-
-  """All values containing the given string."""
-  customer_contains: String
-
-  """All values not containing the given string."""
-  customer_not_contains: String
-
-  """All values starting with the given string."""
-  customer_starts_with: String
-
-  """All values not starting with the given string."""
-  customer_not_starts_with: String
-
-  """All values ending with the given string."""
-  customer_ends_with: String
-
-  """All values not ending with the given string."""
-  customer_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -9634,50 +9543,6 @@ input PaymentWhereInput {
 
   """All values not ending with the given string."""
   description_not_ends_with: String
-  paid: Boolean
-
-  """All values that are not equal to given value."""
-  paid_not: Boolean
-  payment_method: String
-
-  """All values that are not equal to given value."""
-  payment_method_not: String
-
-  """All values that are contained in given list."""
-  payment_method_in: [String!]
-
-  """All values that are not contained in given list."""
-  payment_method_not_in: [String!]
-
-  """All values less than the given value."""
-  payment_method_lt: String
-
-  """All values less than or equal the given value."""
-  payment_method_lte: String
-
-  """All values greater than the given value."""
-  payment_method_gt: String
-
-  """All values greater than or equal the given value."""
-  payment_method_gte: String
-
-  """All values containing the given string."""
-  payment_method_contains: String
-
-  """All values not containing the given string."""
-  payment_method_not_contains: String
-
-  """All values starting with the given string."""
-  payment_method_starts_with: String
-
-  """All values not starting with the given string."""
-  payment_method_not_starts_with: String
-
-  """All values ending with the given string."""
-  payment_method_ends_with: String
-
-  """All values not ending with the given string."""
-  payment_method_not_ends_with: String
   status: String
 
   """All values that are not equal to given value."""

@@ -40,7 +40,7 @@ const createPreTenancyForm = require("./mutations/createPreTenancyForm");
 const createRentalAppraisal = require("./mutations/createRentalAppraisal");
 const offerRentalAppraisal = require("./mutations/offerRentalAppraisal");
 const uploadSignature = require("./mutations/uploadSignature");
-const createPaymentIntent = require("./mutations/createPaymentIntent");
+const createPayment = require("./mutations/createPayment");
 const updateWallet = require("./mutations/updateWallet");
 
 // a collection of our business logic mutations
@@ -84,7 +84,7 @@ const mutations = {
   createRentalAppraisal,
   offerRentalAppraisal,
   uploadSignature,
-  createPaymentIntent,
+  createPayment,
   updateWallet
 };
 

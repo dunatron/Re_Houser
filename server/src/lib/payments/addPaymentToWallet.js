@@ -1,4 +1,4 @@
-exports.addPaymentToWallet = async ({ amount, db, walletId }) => {
+exports.addPaymentToWallet = async ({ amount, db, walletId, paymentData }) => {
   try {
     const wallet = await db.query.wallet(
       {
@@ -14,7 +14,12 @@ exports.addPaymentToWallet = async ({ amount, db, walletId }) => {
         id: walletId
       },
       data: {
-        amount: wallet.amount + amount
+        amount: wallet.amount + amount,
+        payments: {
+          create: {
+            ...paymentData
+          }
+        }
       }
     });
 

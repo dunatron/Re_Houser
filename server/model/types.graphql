@@ -332,19 +332,17 @@ type Payment {
   id: ID! @unique @id
   wallet: Wallet @relation(name: "WalletPayments")
   userId: ID!
+  bankName: String
+  bankBranch: String
+  bankAccount: String
+  bankRef: String
+  type: PaymentType
   leaseId: ID
   propertyId: ID
-  stripePaymentId: String!
-  object: String
+  stripePaymentId: String
+  object: Json
   amount: Float
-  amount_refunded: Float
-  balance_transaction: String
-  captured: Boolean
   created: DateTime
-  currency: String
-  customer: String
   description: String
-  paid: Boolean
-  payment_method: String
   status: String
 }

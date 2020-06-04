@@ -5,11 +5,30 @@ exports.payment_intent_succeeded = async ({ event, db }) => {
   // the 1 weeks rent. if it does, we update the lease status to paid
 
   const { amount_received } = event.data.object;
-  console.log("===Payment Intent UPDATED===");
+
+  const { userId, leaseId, walletId } = event.data.object.metadata;
   addPaymentToWallet({
     amount: amount_received,
     db: db,
-    walletId: event.data.object.metadata.walletId
+    walletId: walletId,
+    userId: userId,
+    leaseId: leaseId,
+    paymentData: {
+      bankName: null,
+      bankBranch: null,
+      bankAccount: null,
+      bankRef: null,
+      type: "STRIPE",
+      userId: userId,
+      leaseId: leaseId,
+      // propertyId: ID
+      stripePaymentId: event.id,
+      object: event,
+      amount: event.data.object.amount_received,
+      description:
+        "Stripe payment acknowledged by system and added to lease wallet",
+      status: event.data.object.status
+    }
   });
 
   // PROBABLY SHOULD EXTRACT to handle wallet payment. with amount. that way we can have admins on the front end passing in an amount
