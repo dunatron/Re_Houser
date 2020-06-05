@@ -342,7 +342,7 @@ type Payment {
   stripePaymentId: String
   object: Json
   amount: Float
-  created: DateTime
+  createdAt: DateTime! @createdAt
   description: String
   status: String
 }

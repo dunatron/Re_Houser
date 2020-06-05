@@ -133,6 +133,7 @@ type Subscription {
   propertyLeaseSub(
     where: PropertyLeaseSubscriptionWhereInput
   ): PropertyLeaseSubscriptionPayload
+  paymentSub(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
 }
 
 type Query {
@@ -219,6 +220,7 @@ type Query {
   myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
   myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!
   myLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease!
+  payment(where: PaymentWhereUniqueInput!): Payment
   payments(
     where: PaymentWhereInput
     orderBy: PaymentOrderByInput
@@ -228,6 +230,15 @@ type Query {
     first: Int
     last: Int
   ): [Payment]!
+  paymentsConnection(
+    where: PaymentWhereInput
+    orderBy: PaymentOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): PaymentConnection!
   findUsers(
     where: UserWhereInput
     orderBy: UserOrderByInput
@@ -237,4 +248,5 @@ type Query {
     first: Int
     last: Int
   ): [User!]!
+  paymentsCount: Int
 }

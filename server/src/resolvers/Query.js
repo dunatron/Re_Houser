@@ -8,6 +8,7 @@ const files = require("./querys/files");
 const myLeases = require("./querys/myLeases.js");
 const myLease = require("./querys/myLease.js");
 const payments = require("./querys/payments");
+const payment = require("./querys/payment");
 const rentalApplication = require("./querys/rentalApplication");
 const rentalApplications = require("./querys/rentalApplications");
 const myRentalApplications = require("./querys/myRentalApplications");
@@ -41,6 +42,7 @@ const Query = {
   myLease,
   rentalApplication,
   payments,
+  payment,
   findUsers,
   chats,
   chat,

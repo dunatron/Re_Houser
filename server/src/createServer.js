@@ -30,7 +30,7 @@ const resolvers = {
   // Query,
   Query: {
     ...Query,
-    ...Connection // simply relay versions e.g aggregate and edges
+    ...Connection, // simply relay versions e.g aggregate and edges
   },
   Mutation,
   Subscription

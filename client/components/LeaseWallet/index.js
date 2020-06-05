@@ -32,6 +32,7 @@ import RecentPayments from './RecentPayments';
 import { WALLET_SUBSCRIPTION } from '../../graphql/subscriptions/WalletSubscription';
 import Loader from '../Loader';
 import { toast } from 'react-toastify';
+import PaymentsTable from './PaymentsTable';
 
 const serverBackend =
   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
@@ -230,6 +231,14 @@ const LeaseWallet = ({ lease, me }) => {
           </div>
         )}
         <RecentPayments payments={recentPayments} />
+        <PaymentsTable
+          walletId={wallet.id}
+          where={{
+            wallet: {
+              id: wallet.id,
+            },
+          }}
+        />
       </Paper>
     </>
   );
