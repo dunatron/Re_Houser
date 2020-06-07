@@ -11,6 +11,12 @@ import CompletedLease from './CompletedLease';
 import SignLease from './SignLease';
 import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
 
+// stages
+import StageInitializing from './stages/Stage_Initializing';
+import StageSigned from './stages/Stage_Signed';
+import StagePaid from './stages/Stage_Paid';
+import { Typography } from '@material-ui/core';
+
 const LeaseManager = ({ leaseId }) => {
   const user = useCurrentUser();
   const me = user.data ? user.data.me : null;
@@ -54,15 +60,73 @@ const LeaseManager = ({ leaseId }) => {
 
   if (!_canView()) return 'You cannot view this lease';
 
+  let componentstage = null;
+
+  if (stage === 'INITIALIZING')
+    componentstage = (
+      <StageInitializing
+        lease={data.myLease}
+        me={me}
+        userIsLessor={userIsLessor}
+        userIsLessee={userIsLessee}
+      />
+    );
+
+  // Add some stuff into heres
+
+  // everyone has signed and a lessor has finalised it. wonder if they are the last person that needs to sign if we progress the stage
+  if (stage === 'SIGNED')
+    componentstage = (
+      <StageSigned lease={data.myLease} me={me} userIsLessor={userIsLessor} />
+    );
+
+  // The lease has been signed and a weeks worth of rent has been recieved
+  if (stage === 'PAID')
+    componentstage = <StagePaid lease={data.myLease} me={me} />;
+
+  return (
+    <div>
+      {stage !== 'PAID' && (
+        <>
+          <Typography variant="h5" gutterBottom>
+            Lease for {data.myLease.property.location}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            stage: {stage}
+          </Typography>
+        </>
+      )}
+      {componentstage}
+    </div>
+  );
+
+  return 'You may have an invalid lease stage. please contact support';
+
   // need to ensure they are a lessor or lessee to view
 
-  // 1. if lease has been finalised <CompletedLease />
-  if (stage !== 'INITIALIZING')
-    return (
-      <CompletedLease leaseId={data.myLease.id} lease={data.myLease} me={me} />
-    );
-  // 2. we need to sign the lease <CompletedLease />
-  return <SignLease lease={data.myLease} me={me} />;
+  // everyone still needs to agree on lease and sign it
+  if (stage === 'INITIALIZING')
+    return <StageInitializing lease={data.myLease} me={me} />;
+
+  // Add some stuff into heres
+
+  // everyone has signed and a lessor has finalised it. wonder if they are the last person that needs to sign if we progress the stage
+  if (stage === 'SIGNED') return <StageSigned lease={data.myLease} me={me} />;
+
+  // The lease has been signed and a weeks worth of rent has been recieved
+  if (stage === 'PAID') return <StagePaid lease={data.myLease} me={me} />;
+
+  return 'You may have an invalid lease stage. please contact support';
+
+  // add
+
+  // // 1. if lease has been finalised <CompletedLease />
+  // if (stage !== 'INITIALIZING')
+  //   return (
+  //     <CompletedLease leaseId={data.myLease.id} lease={data.myLease} me={me} />
+  //   );
+  // // 2. we need to sign the lease <CompletedLease />
+  // return <SignLease lease={data.myLease} me={me} />;
 };
 
 export default LeaseManager;

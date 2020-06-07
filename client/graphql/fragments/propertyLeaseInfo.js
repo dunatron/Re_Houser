@@ -16,6 +16,8 @@ const PropertyLeaseInfoFragment = gql`
       user {
         id
         email
+        firstName
+        lastName
       }
     }
     lessors {
@@ -24,6 +26,8 @@ const PropertyLeaseInfoFragment = gql`
       user {
         id
         email
+        firstName
+        lastName
       }
     }
     rooms

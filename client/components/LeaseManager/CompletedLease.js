@@ -9,15 +9,6 @@ const CompletedLease = ({ leaseId, lease, me }) => {
   // get payments from the lease wallet the query will be a paginated one that fetches them all
   return (
     <div>
-      <h1>
-        This is like an accepted lease and all that stuff. Lotts off components
-        to come here
-      </h1>
-      Stage: {lease.stage}
-      {lease.stage === 'SIGNED' && (
-        <div>LEASE HAS BEEN SIGNED but we require 1 weeks worth of rent</div>
-      )}
-      {lease.stage === 'PAID' && <div>LEASE HAS BEEN PAID</div>}
       <DownloadLease lease={lease} me={me} />
       <h4>Lease Payments</h4>
       <LeaseWallet lease={lease} me={me} />

@@ -25,26 +25,26 @@ const useStyles = makeStyles({
   },
 });
 
-const SignLease = ({ lease, me }) => {
+const SignLease = ({ lease, me, userIsLessor, userIsLessee }) => {
   const { id, stage, rent, location, lessors, lessees } = lease;
   const lesseesAllSigned = groupHasSigned(lessees);
   const classes = useStyles();
   return (
     <div>
-      <LeaseDetailsBlock lease={lease} />
-      {lesseesAllSigned && (
-        <div>
-          <Typography>
-            Before the Lease can go into action we need 1 weeks worth of rent in
-            the account
-          </Typography>
-          <LeaseWallet lease={lease} me={me} />
-        </div>
-      )}
-      <Typography variant="h6">Lessors</Typography>
+      <LeaseDetailsBlock
+        lease={lease}
+        me={me}
+        userIsLessor={userIsLessor}
+        userIsLessee={userIsLessee}
+      />
+      <Typography variant="h5" gutterBottom>
+        Lessors
+      </Typography>
       <SignDetailsBlock items={lessors} me={me} lease={lease} type="LESSOR" />
 
-      <Typography variant="h6">Lessees</Typography>
+      <Typography variant="h5" gutterBottom>
+        Lessees
+      </Typography>
       <SignDetailsBlock items={lessees} me={me} lease={lease} type="LESSEE" />
     </div>
   );
@@ -56,7 +56,7 @@ const groupHasSigned = group => {
   return true;
 };
 
-const LeaseDetailsBlock = ({ lease }) => {
+const LeaseDetailsBlock = ({ lease, userIsLessor, userIsLessee }) => {
   const { id, stage, rent, location, lessors, lessees } = lease;
   const lessesHaveSigned = groupHasSigned(lessees);
   const lessorsHaveSigned = groupHasSigned(lessors);
@@ -69,29 +69,31 @@ const LeaseDetailsBlock = ({ lease }) => {
   return (
     <>
       {allSigned && (
-        <Typography>
+        <Typography gutterBottom>
           All participants have signed and the lease can now be finalised by a
           lessor
         </Typography>
       )}
-      {stage === 'PAID' && (
-        <Typography>
-          Lease has been signed and we have at least 1 weeks rent in the
-          account. This makes the lease fully legal
+      {userIsLessor && !allSigned && (
+        <Typography gutterBottom>
+          Everyone has signed the lease. As a lessor you will need to press the
+          finalise lease button
         </Typography>
       )}
-      {stage === 'INITIALIZING' && (
-        <>
-          <Typography>
-            All Lessees and Lessors must first sign the lease before it can be
-            finalised and put into effect.
-          </Typography>
-          <Typography>You will find the lease details below.</Typography>
-          <Typography>
-            Below that is the areas where Lessors and Lesses must sign.
-          </Typography>
-        </>
+      {userIsLessee && !allSigned && (
+        <Typography gutterBottom>
+          Everyone has signed the lease. You need to wait for the landlord to
+          finalise the lease. Once they have done that you will need to provide
+          1 weeks worth of rent to make evertything official
+        </Typography>
       )}
+      <>
+        <Typography variant="body1" gutterBottom>
+          All Lessees and Lessors must first sign the lease. Please review the
+          lease details below. If any of the details change before everyone has
+          signed, everyone will need to resign
+        </Typography>
+      </>
       {stage !== 'SIGNED' && (
         <FinaliseLeaseBtn leaseId={id} stage={stage} disabled={!allSigned} />
       )}
@@ -105,24 +107,18 @@ const SignDetailsBlock = ({ items, me, type, lease }) => {
   const isLessor = type === 'LESSOR' ? true : false;
   const userTypeString = isLessor ? 'Lessors' : 'Lessees';
   const classes = useStyles();
-  // return (
-  //   <div className={classes.signDetailsBlock}>
-  //     <Typography>{userTypeString}</Typography>
-  //     {items.map(item => (
-  //       <SignDetails item={item} me={me} type={type} />
-  //     ))}
-  //   </div>
-  // );
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      component={Paper}
+      style={{
+        margin: '0 0 16px 0',
+      }}>
       <Table className={classes.table} aria-label="simple table" title="Test">
         <TableHead>
           <TableRow>
-            <TableCell>Unique Lessor/lessee ID</TableCell>
             <TableCell align="right">Signed</TableCell>
             <TableCell align="right">User Name</TableCell>
             <TableCell align="right">User Email</TableCell>
-            <TableCell align="right">User ID</TableCell>
             <TableCell align="right">Sign Lease</TableCell>
           </TableRow>
         </TableHead>
@@ -144,13 +140,9 @@ const SignDetails = ({ item, me, type, lease }) => {
 
   return (
     <TableRow key={id}>
-      <TableCell component="th" scope="row">
-        {id}
-      </TableCell>
       <TableCell align="right">{signed ? 'YES' : 'NO'}</TableCell>
       <TableCell align="right">{user.firstName}</TableCell>
       <TableCell align="right">{user.email}</TableCell>
-      <TableCell align="right">{user.id}</TableCell>
       <TableCell align="right">
         {user.id === me.id && (
           <SignLeaseBtn
@@ -162,26 +154,6 @@ const SignDetails = ({ item, me, type, lease }) => {
         )}
       </TableCell>
     </TableRow>
-  );
-  return (
-    <div className={classes.signDetails}>
-      <div className={classes.signDetailsItem}>
-        <p>Unique {userTypeString} ID =></p>
-        <p>{id}</p>
-      </div>
-      <div className={classes.signDetailsItem}>
-        <p>Signed {signed ? 'YES' : 'NO'}</p>
-      </div>
-
-      <p>{userTypeString} User details</p>
-      {user.id === me.id && (
-        <SignLeaseBtn leaseId={id} type={type} id={id} signed={signed} />
-      )}
-      <ul>
-        <li>{user.id}</li>
-        <li>{user.email}</li>
-      </ul>
-    </div>
   );
 };
 

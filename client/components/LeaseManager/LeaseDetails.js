@@ -204,32 +204,7 @@ const LeaseDetails = ({ lease }) => {
   };
 
   return (
-    <div>
-      <Typography variant="subtitle1" gutterBottom>
-        Lease for {location}
-      </Typography>
-      <Typography>Lease ID: {id}</Typography>
-      <Typography>Stage: {stage}</Typography>
-
-      {stage === 'INITIALIZING' && (
-        <Typography>
-          Stage: {stage} - The lease needs to be signed by all parties
-        </Typography>
-      )}
-
-      {stage === 'SIGNED' && (
-        <Typography>
-          Stage: {stage} - All parties have signed, we now require 1 weeks worth
-          of rent to finalise the lease and put it into full effect
-        </Typography>
-      )}
-
-      {stage === 'PAID' && (
-        <Typography>
-          Stage: {stage} - Your lease is now in full effect
-        </Typography>
-      )}
-
+    <div style={{ margin: '16px 0' }}>
       <Grid container wrap="wrap" spacing={1} className={classes.container}>
         {LEASE_DETAILS_CONF.map(confObj => {
           const { xs, sm, md, lg, xl } = confObj.sizes;
