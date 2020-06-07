@@ -17,6 +17,7 @@ import HouseIcon from '@material-ui/icons/House';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import DonutSmallIcon from '@material-ui/icons/DonutSmall';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -184,6 +185,13 @@ const NavigationConfig = (me, loadingUser) => {
           icon: <HomeWorkIcon />,
           text: 'Free Appraisal',
           route: '/freeappraisal',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
+        {
+          icon: <InfoIcon />,
+          text: 'Info',
+          route: '/info',
           style: { ...defaultNavItemStyle },
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },

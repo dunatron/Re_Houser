@@ -170,15 +170,15 @@ const CardPaymentStyledForm = styled('div')`
     height: 40px;
     margin: 40px 15px 0;
     // background-color: #f6a4eb;
-    background-color:  ${p => p.theme.palette.primary.contrastText};
+    // background-color:  ${p => p.theme.palette.primary.contrastText};
     // box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
     //   inset 0 1px 0 #ffb9f6;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 100ms ease-in-out;
-    will-change: transform, background-color, box-shadow;
+    // border-radius: 4px;
+    // color: #fff;
+    // font-weight: 600;
+    // cursor: pointer;
+    // transition: all 100ms ease-in-out;
+    // will-change: transform, background-color, box-shadow;
   }
   
   .SubmitButton:active {
@@ -191,6 +191,7 @@ const CardPaymentStyledForm = styled('div')`
   
   .SubmitButton.SubmitButton--error {
     transform: translateY(15px);
+    color: red;
   }
   .SubmitButton.SubmitButton--error:active {
     transform: scale(0.99) translateY(15px);
@@ -205,20 +206,20 @@ const CardPaymentStyledForm = styled('div')`
   
   .ErrorMessage {
     // color: #fff;
-    color: ${p => p.theme.palette.primary.contrastText};
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    padding: 0 15px;
-    font-size: 13px;
-    margin-top: 0px;
-    width: 100%;
-    transform: translateY(-15px);
-    opacity: 0;
-    animation: fade 150ms ease-out;
-    animation-delay: 50ms;
-    animation-fill-mode: forwards;
-    will-change: opacity, transform;
+    // color: ${p => p.theme.palette.primary.contrastText};
+    // position: absolute;
+    // display: flex;
+    // justify-content: center;
+    // padding: 0 15px;
+    // font-size: 13px;
+    // margin-top: 0px;
+    // width: 100%;
+    // transform: translateY(-15px);
+    // opacity: 0;
+    // animation: fade 150ms ease-out;
+    // animation-delay: 50ms;
+    // animation-fill-mode: forwards;
+    // will-change: opacity, transform;
   }
   
   .ErrorMessage svg {

@@ -8,13 +8,13 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     height: '240px',
     [theme.breakpoints.up('md')]: {
-      height: '300px',
+      height: '334px',
     },
   },
 }));
 
 const MapContainer = props => {
-  const { center } = props;
+  const { center, height } = props;
   const classes = useStyles();
 
   const onMarkerClick = () => {};

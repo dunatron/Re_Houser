@@ -8,7 +8,7 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 // import '../styles/2-Card-Detailed.css';
-import { useTheme } from '@material-ui/core';
+import { useTheme, Button, Typography } from '@material-ui/core';
 import {
   red,
   pink,
@@ -32,6 +32,7 @@ import {
   common,
 } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const CardField = ({ onChange }) => {
   const mdTheme = useTheme();
@@ -40,10 +41,10 @@ const CardField = ({ onChange }) => {
     style: {
       base: {
         //   iconColor: '#c4f0ff',
-        // iconColor: mdTheme.palette.primary.contrastText,
-        // color: mdTheme.palette.primary.contrastText,
-        iconColor: green[700],
-        color: green[700],
+        iconColor: mdTheme.palette.primary.contrastText,
+        color: mdTheme.palette.primary.contrastText,
+        // iconColor: green[700],
+        // color: green[700],
         fontWeight: 500,
         fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
         fontSize: '16px',
@@ -99,28 +100,35 @@ const Field = ({
   </div>
 );
 
-const SubmitButton = ({ processing, error, children, disabled }) => (
-  <button
-    className={`SubmitButton ${error ? 'SubmitButton--error' : ''}`}
-    type="submit"
-    disabled={processing || disabled}>
-    {processing ? 'Processing...' : children}
-  </button>
-);
+const SubmitButton = ({
+  processing,
+  error,
+  children,
+  disabled,
+  cardComplete,
+}) => {
+  const _isDisabled = () => {
+    if (!cardComplete) return true;
+    if (processing) return true;
+    if (error) return true;
+    if (disabled) return true;
+    return false;
+  };
+  return (
+    <Button
+      variant="contained"
+      className={`SubmitButton ${error ? 'SubmitButton--error' : ''}`}
+      type="submit"
+      disabled={_isDisabled()}>
+      {processing ? 'Processing...' : children}
+    </Button>
+  );
+};
 
 const ErrorMessage = ({ children }) => (
   <div className="ErrorMessage" role="alert">
-    <svg width="16" height="16" viewBox="0 0 17 17">
-      <path
-        fill="#FFF"
-        d="M8.5,17 C3.80557963,17 0,13.1944204 0,8.5 C0,3.80557963 3.80557963,0 8.5,0 C13.1944204,0 17,3.80557963 17,8.5 C17,13.1944204 13.1944204,17 8.5,17 Z"
-      />
-      <path
-        fill="#6772e5"
-        d="M8.5,7.29791847 L6.12604076,4.92395924 C5.79409512,4.59201359 5.25590488,4.59201359 4.92395924,4.92395924 C4.59201359,5.25590488 4.59201359,5.79409512 4.92395924,6.12604076 L7.29791847,8.5 L4.92395924,10.8739592 C4.59201359,11.2059049 4.59201359,11.7440951 4.92395924,12.0760408 C5.25590488,12.4079864 5.79409512,12.4079864 6.12604076,12.0760408 L8.5,9.70208153 L10.8739592,12.0760408 C11.2059049,12.4079864 11.7440951,12.4079864 12.0760408,12.0760408 C12.4079864,11.7440951 12.4079864,11.2059049 12.0760408,10.8739592 L9.70208153,8.5 L12.0760408,6.12604076 C12.4079864,5.79409512 12.4079864,5.25590488 12.0760408,4.92395924 C11.7440951,4.59201359 11.2059049,4.59201359 10.8739592,4.92395924 L8.5,7.29791847 L8.5,7.29791847 Z"
-      />
-    </svg>
-    {children}
+    <ErrorOutlineIcon />
+    <Typography>{children}</Typography>
   </div>
 );
 
@@ -141,7 +149,6 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
   const [error, setError] = useState(null);
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState(null);
   // const [amount, setAmount] = useState(undefined);
   const [billingDetails, setBillingDetails] = useState({
     email: me.email,
@@ -173,6 +180,11 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
     return result;
   };
 
+  const handleCardChange = e => {
+    setError(e.error);
+    setCardComplete(e.complete);
+  };
+
   const handleSubmit = async event => {
     event.preventDefault();
 
@@ -191,14 +203,6 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
       setProcessing(true);
     }
 
-    // const payload = await stripe.createPaymentMethod({
-    //   type: 'card',
-    //   card: elements.getElement(CardElement),
-    //   billing_details: billingDetails,
-    // });
-
-    // const payload = await stripe;
-
     const payload = await hanldePayIntent();
 
     console.log('Stripe payment => ', payload);
@@ -210,14 +214,12 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
     } else {
       handlePaymentSuccess(payload);
       // I guess we assume it succeded. We should display A success or something perhaps
-      // setPaymentMethod(payload.paymentMethod);
     }
   };
 
   const reset = () => {
     setError(null);
     setProcessing(false);
-    setPaymentMethod(null);
     setBillingDetails({
       email: '',
       phone: '',
@@ -225,18 +227,7 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
     });
   };
 
-  return paymentMethod ? (
-    <div className="Result">
-      <div className="ResultTitle" role="alert">
-        Payment successful
-      </div>
-      <div className="ResultMessage">
-        Thanks for trying Stripe Elements. No money was charged, but we
-        generated a PaymentMethod: {paymentMethod.id}
-      </div>
-      <ResetButton onClick={reset} />
-    </div>
-  ) : (
+  return (
     <CardPaymentStyledForm>
       <form className="Form" onSubmit={handleSubmit}>
         <fieldset className="FormGroup">
@@ -277,27 +268,26 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
             }}
           />
           {/* <Field
-            label="Amount"
-            id="amount"
-            type="tel"
-            placeholder="100"
-            required
-            value={amount}
-            onChange={e => {
-              setAmount(e.target.value);
-            }}
-          /> */}
+        label="Amount"
+        id="amount"
+        type="tel"
+        placeholder="100"
+        required
+        value={amount}
+        onChange={e => {
+          setAmount(e.target.value);
+        }}
+      /> */}
         </fieldset>
         <fieldset className="FormGroup">
-          <CardField
-            onChange={e => {
-              setError(e.error);
-              setCardComplete(e.complete);
-            }}
-          />
+          <CardField onChange={handleCardChange} />
         </fieldset>
         {error && <ErrorMessage>{error.message}</ErrorMessage>}
-        <SubmitButton processing={processing} error={error} disabled={!stripe}>
+        <SubmitButton
+          processing={processing}
+          error={error}
+          disabled={!stripe}
+          cardComplete={cardComplete}>
           Pay ${amount}
         </SubmitButton>
       </form>

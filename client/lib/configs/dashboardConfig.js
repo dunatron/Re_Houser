@@ -1,10 +1,19 @@
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import HouseIcon from '@material-ui/icons/House';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import DonutSmallIcon from '@material-ui/icons/DonutSmall';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
+import AccountCircleIcon from '../../styles/icons/AccountCircleIcon';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
 const DASHBOARD_CONFIG = [
   {
     label: 'activity',
     route: '/activity',
     description: 'Review your latest activity',
     color: 'secondary',
-    icon: 'ICON',
+    icon: <DonutSmallIcon />,
   },
   {
     label: 'applications',
@@ -12,7 +21,7 @@ const DASHBOARD_CONFIG = [
     description:
       'Here you can review your applications. You can search and filter by various data to stay up to date with your applications',
     color: 'secondary',
-    icon: 'ICON',
+    icon: <AssignmentIcon />,
   },
   {
     label: 'Properties',
@@ -20,22 +29,14 @@ const DASHBOARD_CONFIG = [
     description:
       'As a property owner you can view and manage all of your properties from here',
     color: 'secondary',
-    icon: 'ICON',
+    icon: <HouseIcon />,
   },
   {
     label: 'Leases',
     route: '/leases',
     description: 'Any leases to sign and manage will be found here',
     color: 'secondary',
-    icon: 'ICON',
-  },
-  {
-    label: 'Friend Manager',
-    route: '/social/friends',
-    description:
-      'Here you can search for other users and send or accept friend requests. You can build friend groups or find other users to apply for rentals with',
-    color: 'secondary',
-    icon: 'ICON',
+    icon: <ApartmentIcon />,
   },
   {
     label: 'Add Property',
@@ -43,7 +44,7 @@ const DASHBOARD_CONFIG = [
     description:
       'Add Properties for renting. This is where we collect information about your rental before adding it to your profile',
     color: 'secondary',
-    icon: 'ICON',
+    icon: <AddCircleOutlineIcon />,
   },
   {
     label: 'Account',
@@ -51,7 +52,7 @@ const DASHBOARD_CONFIG = [
     description:
       'Manage your Re_Houser account. filling out these details early will make using the rest of the app painless',
     color: 'secondary',
-    icon: 'ICON',
+    icon: <AccountCircleIcon />,
   },
 ];
 

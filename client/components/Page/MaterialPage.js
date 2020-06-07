@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import {
+  AppBar,
+  Tooltip,
+  IconButton,
+  ListItem,
+  Divider,
+  Drawer,
+  Hidden,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ChatsBar from '../ChatsBar';
 import { SITE_NAME } from '../../lib/const';
@@ -17,8 +19,10 @@ import { useRouter } from 'next/router';
 import useStyles from './useStyles';
 import DashboardIcon from '../../styles/icons/DashboardIcon';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import { Tooltip } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+
 import ThemePicker from './ThemePicker';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
@@ -84,6 +88,11 @@ function MaterialPage(props) {
     });
   };
 
+  const handleGoBackToPreviousPage = () => {
+    if (formattedPathParts.length === 0) return;
+    router.back();
+  };
+
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
@@ -103,7 +112,7 @@ function MaterialPage(props) {
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
+          <Toolbar disableGutters={true} variant="dense">
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -112,6 +121,11 @@ function MaterialPage(props) {
               className={classes.menuButton}>
               <MenuIcon />
             </IconButton>
+            {formattedPathParts.length > 0 && (
+              <IconButton onClick={handleGoBackToPreviousPage}>
+                <ArrowBackIcon />
+              </IconButton>
+            )}
             {formattedPathParts.length > 0 && (
               <>
                 {formattedPathParts.map((urlPart, idx) => {

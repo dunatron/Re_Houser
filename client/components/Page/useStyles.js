@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   appBar: {
-    marginLeft: theme.sideBarWidth,
+    // marginLeft: theme.sideBarWidth,
     // [theme.breakpoints.up('sm')]: {
     //   width: `calc(100% - ${theme.sideBarWidth}px)`,
     // },
@@ -25,15 +25,19 @@ const useStyles = makeStyles(theme => ({
     },
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
     // [theme.breakpoints.up('sm')]: {
     //   display: 'none',
     // },
+    marginLeft: 0,
     [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
   },
-  toolbar: theme.mixins.toolbar,
+  // toolbar: theme.mixins.toolbar,
+  toolbar: {
+    ...theme.mixins.toolbar,
+  },
   logoContainer: {},
   logo: {
     color: theme.palette.primary.main,

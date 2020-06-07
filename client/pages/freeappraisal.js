@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PleaseSignIn from '../components/PleaseSignIn';
 import PropertyAppraisal from '../components/PropertyAppraisal';
 import { Paper, Typography } from '@material-ui/core';
+import Head from 'next/head';
 
 const FreeAppraisal = props => {
   const {
@@ -13,6 +14,10 @@ const FreeAppraisal = props => {
   const { me } = data;
   return (
     <div>
+      <Head>
+        <meta name="description" content="free property appraisal" />
+        <title>Rehouser | free property appraisal</title>
+      </Head>
       {!me && (
         <Paper
           style={{

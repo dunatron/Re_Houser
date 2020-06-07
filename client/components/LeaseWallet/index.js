@@ -17,7 +17,16 @@ import {
   IdealBankElement,
   FpxBankElement,
 } from '@stripe/react-stripe-js';
-import { Paper, Typography, Button } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  Button,
+  Input,
+  InputLabel,
+  FormControl,
+  InputAdornment,
+  IconButton,
+} from '@material-ui/core';
 
 import {
   endpoint,
@@ -28,11 +37,35 @@ import {
 
 // Paymnet method components
 import CardPaymentForm from './CardPaymentForm';
-import RecentPayments from './RecentPayments';
 import { WALLET_SUBSCRIPTION } from '../../graphql/subscriptions/WalletSubscription';
 import Loader from '../Loader';
 import { toast } from 'react-toastify';
 import PaymentsTable from './PaymentsTable';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+
+import Error from '../ErrorMessage';
+
+const formatCentsToDollar = amount => {
+  const dollarAmount = amount / 100;
+
+  console.log('doloar amount => ', dollarAmount);
+
+  const isPositive = dollarAmount > 0;
+
+  const formattedMoney = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    // currency: 'NZD',
+    currency: 'USD',
+  }).format(dollarAmount); // '$100.00'
+  return (
+    <span
+      style={{
+        color: isPositive ? 'green' : 'red',
+      }}>
+      {formattedMoney}
+    </span>
+  );
+};
 
 const serverBackend =
   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
@@ -46,23 +79,16 @@ const LeaseWallet = ({ lease, me }) => {
   const { wallet } = lease;
   const [walletUpdating, setWalletUpdating] = useState(false);
   const [amount, setAmount] = useState(0);
+  const [isPaying, setIsPaying] = useState(false);
   const [intentSecret, setIntentSecret] = useState(null);
   const [loadingIntent, setLoadingIntent] = useState(false);
   const [error, setError] = useState(null);
-  const [recentPayments, setRecentPayments] = useState([]);
 
   const handleOnSubscriptionData = ({ client, subscriptionData }) => {
     const { amount } = subscriptionData.data.walletSub.node;
-    const dollarAmount = amount / 100;
-
-    const formattedAmount = new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'NZD',
-    }).format(dollarAmount);
+    const formattedAmount = formatCentsToDollar(amount);
 
     setWalletUpdating(false);
-
-    console.log();
     toast.success(
       <div>
         <Typography>Lease wallet updated</Typography>
@@ -82,43 +108,13 @@ const LeaseWallet = ({ lease, me }) => {
     },
   });
 
-  console.log('WALLET SUB loading => ', loading);
-  console.log('WALLET SUB data => ', data);
-  console.log('Wallet id => ', wallet.id);
-
-  // ToDo: i think maybe we subscribe to wallet updates...
-
-  // const createPaymentIntent = e => {
-  //   setLoading(true);
-  //   setError(null);
-  //   fetch(`${serverBackend}payments/intents`, {
-  //     method: 'POST',
-  //     // credentials: 'same-origin', // include, *same-origin, omit
-  //     credentials: 'include',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       amount: amount,
-  //     }),
-  //   })
-  //     .then(response => response.json())
-  //     .then(state => {
-  //       console.log('Payment intents state => ', state);
-  //       setIntentSecret(state.client_secret);
-  //     })
-  //     .catch(e => {
-  //       setError(e);
-  //     })
-  //     .finally(() => {
-  //       setLoading(false);
-  //     });
-  // };
-
   const createPaymentIntent = e => {
     setLoadingIntent(true);
     setError(null);
+    const centsFromDollar = amount * 100;
+
+    // we need to convert whatever was enetered to cents
+    //
     fetch(`${serverBackend}/stripe/intent`, {
       method: 'POST',
       // credentials: 'same-origin', // include, *same-origin, omit
@@ -128,7 +124,7 @@ const LeaseWallet = ({ lease, me }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        amount: amount,
+        amount: centsFromDollar,
         leaseId: lease.id,
         walletId: wallet.id,
       }),
@@ -149,7 +145,6 @@ const LeaseWallet = ({ lease, me }) => {
   const handleOnPaySuccess = payload => {
     console.log('Payload => ', payload);
     setIntentSecret(null);
-    setRecentPayments([...recentPayments, payload]);
     setWalletUpdating(true);
   };
 
@@ -175,12 +170,16 @@ const LeaseWallet = ({ lease, me }) => {
     console.log('Payment result => ', result);
   };
 
-  // Use a traditional checkout form.
-  // ALl these need to be seperate components that update the server. Lots of payment options
   return (
     <>
-      <Paper>
-        <Typography>WALLET: {wallet.id} - </Typography>${wallet.amount}
+      <Paper style={{ padding: '16px' }}>
+        <Typography variant="h5" gutterBottom>
+          Wallet: {wallet.id}
+        </Typography>
+        <Typography gutterBottom>
+          amount: {formatCentsToDollar(wallet.amount)}
+        </Typography>
+
         {walletUpdating && (
           <div>
             <Loader
@@ -198,29 +197,61 @@ const LeaseWallet = ({ lease, me }) => {
           </div>
         )}
         {!intentSecret && (
-          <div aria-disabled={loadingIntent}>
-            <h3>Set the amount you intend to pay on the server in cents</h3>
-            <input value={amount} onChange={e => setAmount(e.target.value)} />
-            cents
-            <Button onClick={createPaymentIntent} disabled={loadingIntent}>
-              Create payment Intent
-            </Button>
+          <div>
+            {isPaying ? (
+              <div aria-disabled={loadingIntent}>
+                <Typography variant="h6">
+                  Set the amount you intend to pay on the server
+                </Typography>
+                <FormControl
+                  fullWidth
+                  gutterBottom
+                  style={{
+                    margin: '32px 0',
+                  }}>
+                  <InputLabel htmlFor="intent-amount-to-pay">Amount</InputLabel>
+                  <Input
+                    id="intent-amount-to-pay"
+                    value={amount}
+                    onChange={e => setAmount(e.target.value)}
+                    startAdornment={
+                      <InputAdornment position="start">$</InputAdornment>
+                    }
+                  />
+                </FormControl>
+                {/* cents */}
+                {error && <Error error={error} />}
+                <Button onClick={createPaymentIntent} disabled={loadingIntent}>
+                  Create payment Intent
+                </Button>
+                <Button
+                  onClick={() => setIsPaying(false)}
+                  disabled={loadingIntent}>
+                  Cancel
+                </Button>
+              </div>
+            ) : (
+              <Button
+                onClick={() => setIsPaying(!isPaying)}
+                disabled={loadingIntent}>
+                Pay With Card
+              </Button>
+            )}
           </div>
         )}
         {intentSecret && (
-          <div
-            onClick={() => setIntentSecret(null)}
-            style={{
-              padding: '32px',
-              border: '1px solid red',
-            }}>
-            Remove Payment Intent of {amount}
+          <div>
+            <IconButton onClick={() => setIntentSecret(null)}>
+              <RemoveCircleOutlineIcon color="error" />
+            </IconButton>
+            Remove Payment Intent of {formatCentsToDollar(amount * 100)}
           </div>
         )}
         {intentSecret && (
-          <div style={{ padding: '32px', border: '1px solid green' }}>
-            The server is aware of your intent on a payment of ${amount}
-            <Button onClick={() => hanldePayIntent()}>Pay amount</Button>
+          <div>
+            The server is aware of your intent on a payment of
+            {formatCentsToDollar(amount * 100)}
+            {/* <Button onClick={() => hanldePayIntent()}>Pay amount</Button> */}
             <CardPaymentForm
               intentSecret={intentSecret}
               amount={amount}
@@ -230,16 +261,15 @@ const LeaseWallet = ({ lease, me }) => {
             {/* <CardElement  /> */}
           </div>
         )}
-        <RecentPayments payments={recentPayments} />
-        <PaymentsTable
-          walletId={wallet.id}
-          where={{
-            wallet: {
-              id: wallet.id,
-            },
-          }}
-        />
       </Paper>
+      <PaymentsTable
+        walletId={wallet.id}
+        where={{
+          wallet: {
+            id: wallet.id,
+          },
+        }}
+      />
     </>
   );
 };

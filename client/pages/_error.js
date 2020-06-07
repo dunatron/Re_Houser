@@ -1,6 +1,6 @@
 const LookPage = props => (
   <div>
-    <div>Iam the error</div>
+    <div>Page not found</div>
   </div>
 );
 

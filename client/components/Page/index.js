@@ -24,6 +24,9 @@ import darkPalette from '../../styles/_darkMUIPalette';
 import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAlertNewRentalApplicationSub';
 import AdminAlertsContainer from '../../containers/AdminAlertsContainer';
 
+// theme typography
+import themeTypography from '../../styles/_themeTypography';
+
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
@@ -50,6 +53,7 @@ const darkTheme = createMuiTheme({
   overrides: {
     MuiAppBar: { colorPrimary: { backgroundColor: '#212121', color: '#fff' } },
   },
+  ...themeTypography,
 });
 const lightTheme = createMuiTheme({
   ...muiTheme,
@@ -57,6 +61,7 @@ const lightTheme = createMuiTheme({
     ...muiTheme.palette,
     ...lightPalette.palette,
   },
+  ...themeTypography,
 });
 
 import Router from 'next/router';
@@ -166,7 +171,7 @@ const GlobalStyle = createGlobalStyle`
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
-  const [useDarkTheme, setUseDarkTheme] = useState(true); // should set localStorage for this so each  device can remember its theme choice
+  const [useDarkTheme, setUseDarkTheme] = useState(false); // should set localStorage for this so each  device can remember its theme choice
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
@@ -174,6 +179,22 @@ const Page = props => {
     }
   }, [window.Stripe]);
   const themeToUse = useDarkTheme ? darkTheme : lightTheme;
+
+  //   htmlFontSize: 16
+  // pxToRem: f ()
+  // round: f w()
+  // fontFamily: ""Roboto", "Helvetica", "Arial", sans-serif"
+  // fontSize: 14
+  // fontWeightLight: 300
+  // fontWeightRegular: 400
+  // fontWeightMedium: 500
+  // fontWeightBold: 700
+  // h1: Object
+  // fontFamily: ""Roboto", "Helvetica", "Arial", sans-serif"
+  // fontWeight: 300
+  // fontSize: "6rem"
+  // lineHeight: 1.167
+  // letterSpacing: "-0.01562em"
 
   return (
     <NoSsr>
