@@ -7,10 +7,10 @@ const transport = nodemailer.createTransport({
   port: process.env.MAIL_PORT,
   auth: {
     user: process.env.MAIL_USER, // replace with your Mailtrap credentials
-    pass: process.env.MAIL_PASS,
+    pass: process.env.MAIL_PASS
   },
   debug: true, // show debug output
-  logger: true, // log information in console
+  logger: true // log information in console
 });
 
 const makeANiceEmail = (text, user) => {

@@ -4,7 +4,8 @@ const newRentalApplicationEmail = async function({
   toEmail,
   rentalApplication,
   applicantId,
-  ctx
+  ctx,
+  user
 }) {
   const {
     id,
@@ -20,11 +21,14 @@ const newRentalApplicationEmail = async function({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `New Applicant: ${applicantId} for RentalApplication`,
-    html: makeANiceEmail(`A new Applicant has applied against your RentalApplication for Property: ${property.location} \n
+    html: makeANiceEmail(
+      `A new Applicant has applied against your RentalApplication for Property: ${property.location} \n
       You can approve them for your application at ${process.env.EMAIL_PREFIX}/applications/application?id=${id} \n
       The applictaion visibility is currently set to ${visibility} \n
       Good luck with your application
-    \n\n`)
+    \n\n`,
+      user
+    )
   });
 };
 

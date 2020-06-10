@@ -25,7 +25,9 @@ const AppraisalManager = () => {
     { title: 'locationLng', field: 'locationLng', editable: false },
     { title: 'rooms', field: 'rooms', editable: false },
     { title: 'bathrooms', field: 'bathrooms', editable: false },
+    { title: 'lowRent', field: 'lowRent' },
     { title: 'rent', field: 'rent' },
+    { title: 'highRent', field: 'highRent' },
     { title: 'property', field: 'property.id', editable: false },
   ];
   return (
@@ -55,6 +57,8 @@ const AppraisalManager = () => {
                     variables: {
                       data: {
                         rent: parseFloat(newData.rent),
+                        lowRent: parseFloat(newData.lowRent),
+                        highRent: parseFloat(newData.highRent),
                       },
                       where: {
                         id: oldData.id,

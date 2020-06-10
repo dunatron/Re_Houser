@@ -11,6 +11,16 @@ async function offerRentalAppraisal(parent, args, ctx, info) {
     throw new Error("You must be logged in!");
   }
 
+  // need user for email
+  const user = await ctx.db.query.user(
+    {
+      where: {
+        id: loggedInUserId
+      }
+    },
+    `{id firstName lastName email}`
+  );
+
   const updatedRentalAppraisal = await ctx.db.mutation.updateRentalAppraisal(
     {
       data: {
@@ -26,7 +36,8 @@ async function offerRentalAppraisal(parent, args, ctx, info) {
     offerRentalAppraisalEmail({
       ctx: ctx,
       appraisal: updatedRentalAppraisal,
-      toEmail: updatedRentalAppraisal.requestedBy.email
+      toEmail: updatedRentalAppraisal.requestedBy.email,
+      user: user
     });
     // throw new Error("email should be sending");
   }
