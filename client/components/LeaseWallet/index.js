@@ -114,7 +114,6 @@ const LeaseWallet = ({ lease, me }) => {
     const centsFromDollar = amount * 100;
 
     // we need to convert whatever was enetered to cents
-    //
     fetch(`${serverBackend}/stripe/intent`, {
       method: 'POST',
       // credentials: 'same-origin', // include, *same-origin, omit

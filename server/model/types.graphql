@@ -244,6 +244,8 @@ type RentalAppraisal {
   bathrooms: Int!
   garageSpaces: Int!
   heatSources: [HeatSource] @scalarList(strategy: RELATION)
+  lowRent: Float
+  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean

@@ -1,9 +1,19 @@
 const { createActivity } = require("../../lib/createActivity");
+const requestAppraisalEmail = require("../../lib/emails/requestAppraisalEmail");
 
 async function createRentalAppraisal(parent, args, ctx, info) {
   const loggedInUserId = ctx.request.userId;
   const { data } = args;
   const { property, requestedBy } = data;
+
+  const currentUser = await ctx.db.query.user(
+    {
+      where: {
+        id: loggedInUserId,
+      },
+    },
+    `{id, email, firstName, lastName}`
+  );
 
   // creates a new message
 
@@ -25,16 +35,16 @@ async function createRentalAppraisal(parent, args, ctx, info) {
     await ctx.db.mutation.updateUser({
       data: { usedFreeAppraisal: true },
       where: {
-        id: loggedInUserId
-      }
+        id: loggedInUserId,
+      },
     });
   }
 
   const rentalAppraisal = await ctx.db.mutation.createRentalAppraisal(
     {
       data: {
-        ...data
-      }
+        ...data,
+      },
     },
     info
   );
@@ -49,17 +59,24 @@ async function createRentalAppraisal(parent, args, ctx, info) {
       type: "CREATED_PROPERTY_APPRAISAL",
       user: {
         connect: {
-          id: loggedInUserId
-        }
+          id: loggedInUserId,
+        },
       },
       property: property
         ? {
             connect: {
-              id: property.id
-            }
+              id: property.id,
+            },
           }
-        : null
-    }
+        : null,
+    },
+  });
+
+  // send email
+  requestAppraisalEmail({
+    toEmail: currentUser.email,
+    user: currentUser,
+    // rentalApplication: rentalApplication,
   });
 
   return rentalAppraisal;
