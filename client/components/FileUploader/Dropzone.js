@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 // import './dropzone.css';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';

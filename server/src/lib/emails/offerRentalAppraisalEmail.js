@@ -6,7 +6,6 @@ const offerRentalAppraisalEmail = async function({
   ctx,
   user
 }) {
-  console.log();
   const {
     id,
     requestedBy: { email, firstName },

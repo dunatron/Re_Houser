@@ -167,7 +167,11 @@ const Signup = props => {
           ToDo: add button that they must actually check for
           acceptUserTerms(also to add to backend)
         </div>
-        <SignupTerms />
+        {/* Max height scroll component */}
+        <div>
+          <SignupTerms />
+        </div>
+
         <ReCAPTCHA
           data-cy="signup-recaptcha-component"
           ref={recaptchaRef}

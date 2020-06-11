@@ -180,6 +180,27 @@ const Page = props => {
   }, [window.Stripe]);
   const themeToUse = useDarkTheme ? darkTheme : lightTheme;
 
+  const handleDefaultDragover = e => {
+    e = e || event;
+    e.preventDefault();
+  };
+
+  const handleDefaultDrop = e => {
+    e = e || event;
+    e.preventDefault();
+  };
+
+  // I think we should disable default onDrop for window while a drag and drop element is present
+  // Simply in the case they drag it onto the site and not the drop area
+  useEffect(() => {
+    window.addEventListener('dragover', handleDefaultDragover, false);
+    window.addEventListener('drop', handleDefaultDrop, false);
+    return () => {
+      window.removeEventListener('dragover', handleDefaultDragover);
+      window.removeEventListener('drop', handleDefaultDrop);
+    };
+  }, []);
+
   //   htmlFontSize: 16
   // pxToRem: f ()
   // round: f w()
