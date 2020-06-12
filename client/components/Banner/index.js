@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button } from '@material-ui/core';
 import Error from '../ErrorMessage';
 import Loader from '../Loader';
+
+//hooks
+import useCurrentWidth from '../../lib/hooks/useCurrentWidth';
+import useCurrentHeight from '../../lib/hooks/useCurrentHeight';
+import useCurrentScrollTop from '../../lib/hooks/useCurrentScrollTop';
 
 /**
  * Images are ugly until they're loaded. Materialize it with material image! It will fade in like the material image loading pattern suggests.
@@ -16,17 +21,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '160px',
+    // marginTop: '100px',
+    height: '180px',
     overflow: 'hidden',
     margin: '-8px -8px 16px -8px',
     [theme.breakpoints.up('sm')]: {
       height: '260px',
     },
     [theme.breakpoints.up('md')]: {
-      height: '300px',
+      height: '320px',
     },
     [theme.breakpoints.up('lg')]: {
-      height: '340px',
+      height: '420px',
     },
     [theme.breakpoints.up('xl')]: {
       height: '500px',
@@ -61,21 +67,66 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: theme.palette.background.paper,
-    // backgroundColor: theme.palette.primary.main,
-    // opacity: 0.3,
   },
 }));
+
 ///images/banners/home-page-banner.jpg
 const Banner = props => {
+  const windowWidth = useCurrentWidth();
+  const windowHeight = useCurrentHeight();
+  const scrollTop = useCurrentScrollTop();
+  const bannerNode = useRef();
   const [loadingImage, setLoadingImage] = useState(true);
   const { imageSrc, text, children } = props;
   const classes = useStyles({ ...props, loadingImage });
   const handleOnImageLoad = () => {
     setLoadingImage(false);
   };
+
+  //   console.log('windowWidth => ', windowWidth);
+  //   console.log('windowHeight => ', windowHeight);
+  console.log('scrollTop ', scrollTop);
+
+  useEffect(() => {
+    // change banner dimensions style inline
+    // if (scrollTop > 50) {
+    //   bannerNode.current.style.height = `${scrollTop}px`;
+    // }
+    // let maxHeight = 300;
+    // // if (scrollTop < 50) {
+    // //   maxHeight = 150;
+    // // } else if (scrollTop > 400) {
+    // //   maxHeight = 75;
+    // // } else {
+    // //   maxHeight = 150 - (75 * (((scrollTop - 200) * 100) / 200)) / 100;
+    // // }
+    // // maxHeight = 150 - (75 * (((scrollTop - 200) * 100) / 200)) / 100;
+    // // maxHeight = 300 - (75 * (((scrollTop - 50) * 100) / 300)) / 100;
+    // if (scrollTop < 50) {
+    //   maxHeight = 300;
+    // } else if (scrollTop > 300) {
+    //   maxHeight = 75;
+    //   bannerNode.current.style.marginTop = `300px`;
+    // } else {
+    //   //   maxHeight = 300 - (75 * (((scrollTop - 50) * 100) / 300)) / 100;
+    //   // maxHeight = 150 - (75 * (((scrollTop - 200) * 100) / 200)) / 100;
+    //   maxHeight = 150 - scrollTop / 75;
+    //   bannerNode.current.style.marginTop = `${scrollTop}px`;
+    // }
+    // // this is because the scrollTop changes as the banner shrinks.
+    // // I guess it cant shrink less than the scroll. argggg
+    // // bannerNode.current.animate({ 'max-height': maxHeight + 'px' }, 500);
+    // bannerNode.current.style.height = `${maxHeight}px`;
+    // bannerNode.current.style.css({
+    //   'max-height': maxHeight + 'px',
+    // });
+    // $('#thediv')
+    //   .stop()
+    //   .animate({ 'max-height': maxHeight + 'px' }, 500);
+  }, [scrollTop]);
+
   return (
-    <div className={classes.bannerContainer}>
+    <div ref={bannerNode} className={classes.bannerContainer}>
       {/* Simply here to detect when the image is loaded...  */}
       <div className={classes.imageOverlay}></div>
       <img
