@@ -22,6 +22,7 @@ export default function SimpleSelect(props) {
     isEnum,
     value,
     name,
+    id,
     options,
     label,
     selectID,
@@ -56,12 +57,14 @@ export default function SimpleSelect(props) {
 
   const mappedOptions = getMappedItems();
 
+  const labelId = `${id}-label`;
+
   return (
     <FormControl variant="filled" className={classes.formControl}>
-      <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
+      <InputLabel id={labelId}>{label}</InputLabel>
       <Select
-        labelId="demo-simple-select-filled-label"
-        id="demo-simple-select-filled"
+        labelId={labelId}
+        id={id}
         value={value}
         defaultValue={defaultValue}
         onChange={handleChange}>

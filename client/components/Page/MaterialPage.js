@@ -112,7 +112,7 @@ function MaterialPage(props) {
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar disableGutters={true} variant="dense">
+          <Toolbar disableGutters={true} variant="regular">
             <IconButton
               color="inherit"
               aria-label="open drawer"

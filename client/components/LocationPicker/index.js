@@ -225,6 +225,7 @@ const LocationPicker = ({ selection }) => {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails style={{ display: 'flex', flexWrap: 'wrap' }}>
             <SelectOption
+              id="location-country-select"
               label="Country"
               value={state.country}
               options={[{ name: 'ALL', value: 'ALL' }].concat(
@@ -236,6 +237,7 @@ const LocationPicker = ({ selection }) => {
             />
 
             <SelectOption
+              id="location-type-select"
               label="Type"
               value={state.type}
               options={[{ name: 'ALL', value: 'ALL' }].concat(LOCATION_TYPES)}

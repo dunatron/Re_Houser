@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { SIGNUP_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ButtonLoader from '../Loader/ButtonLoader';
+import ConfinedHeight from '../../components/ConfinedHeight';
 import SignupTerms from '../Terms/SignupTerms';
 
 const Signup = props => {
@@ -168,9 +169,9 @@ const Signup = props => {
           acceptUserTerms(also to add to backend)
         </div>
         {/* Max height scroll component */}
-        <div>
+        <ConfinedHeight maxHeight="300px">
           <SignupTerms />
-        </div>
+        </ConfinedHeight>
 
         <ReCAPTCHA
           data-cy="signup-recaptcha-component"
