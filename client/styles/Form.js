@@ -22,7 +22,7 @@ const Form = styled.form`
     padding: 8px;
   }
   .main-fieldset {
-    padding: 0;
+    padding: 16px;
     margin: 0;
     border: 0;
   }

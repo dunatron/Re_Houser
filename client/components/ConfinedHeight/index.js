@@ -7,6 +7,8 @@ const useStyles = makeStyles(theme => ({
     maxHeight: props => props.maxHeight,
     overflow: 'auto',
     padding: theme.spacing(1),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
   },
 }));
 

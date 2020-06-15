@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 08 2020 22:42:34 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jun 15 2020 12:50:34 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -17734,6 +17734,7 @@ type User implements Node {
   usedFreeAppraisal: Boolean
   physicalAddress: String
   proofOfAddress: File
+  acceptedSignupTerms: Boolean!
 }
 
 """A connection to a list of items."""
@@ -17769,6 +17770,7 @@ input UserCreateInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17913,6 +17915,7 @@ input UserCreateWithoutActivityInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -17957,6 +17960,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18001,6 +18005,7 @@ input UserCreateWithoutChatsInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18045,6 +18050,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18089,6 +18095,7 @@ input UserCreateWithoutCreditCardsInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18133,6 +18140,7 @@ input UserCreateWithoutFriendRequestsInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
@@ -18177,6 +18185,7 @@ input UserCreateWithoutInvolvedActivityInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18221,6 +18230,7 @@ input UserCreateWithoutLesseeLeasesInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18265,6 +18275,7 @@ input UserCreateWithoutLessorLeasesInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18309,6 +18320,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18353,6 +18365,7 @@ input UserCreateWithoutProfilePhotoInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18397,6 +18410,7 @@ input UserCreateWithoutProofOfAddressInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18441,6 +18455,7 @@ input UserCreateWithoutPropertiesInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18485,6 +18500,7 @@ input UserCreateWithoutRecievedMessagesInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18529,6 +18545,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18573,6 +18590,7 @@ input UserCreateWithoutSentMessagesInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18617,6 +18635,7 @@ input UserCreateWithoutSignatureInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -18696,6 +18715,8 @@ enum UserOrderByInput {
   usedFreeAppraisal_DESC
   physicalAddress_ASC
   physicalAddress_DESC
+  acceptedSignupTerms_ASC
+  acceptedSignupTerms_DESC
 }
 
 type UserPreviousValues {
@@ -18724,6 +18745,7 @@ type UserPreviousValues {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean!
 }
 
 input UserScalarWhereInput {
@@ -19551,6 +19573,10 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   physicalAddress_not_ends_with: String
+  acceptedSignupTerms: Boolean
+
+  """All values that are not equal to given value."""
+  acceptedSignupTerms_not: Boolean
 }
 
 type UserSubscriptionPayload {
@@ -19612,6 +19638,7 @@ input UserUpdateDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19656,6 +19683,7 @@ input UserUpdateInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19700,6 +19728,7 @@ input UserUpdateManyDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -19737,6 +19766,7 @@ input UserUpdateManyMutationInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
 }
 
@@ -19930,6 +19960,7 @@ input UserUpdateWithoutActivityDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -19973,6 +20004,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20016,6 +20048,7 @@ input UserUpdateWithoutChatsDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20059,6 +20092,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20102,6 +20136,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20145,6 +20180,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
@@ -20188,6 +20224,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20231,6 +20268,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20274,6 +20312,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20317,6 +20356,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20360,6 +20400,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20403,6 +20444,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20446,6 +20488,7 @@ input UserUpdateWithoutPropertiesDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20489,6 +20532,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20532,6 +20576,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20575,6 +20620,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -20618,6 +20664,7 @@ input UserUpdateWithoutSignatureDataInput {
   rehouserStamp: Boolean
   usedFreeAppraisal: Boolean
   physicalAddress: String
+  acceptedSignupTerms: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -21583,6 +21630,10 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   physicalAddress_not_ends_with: String
+  acceptedSignupTerms: Boolean
+
+  """All values that are not equal to given value."""
+  acceptedSignupTerms_not: Boolean
   friends_every: UserWhereInput
   friends_some: UserWhereInput
   friends_none: UserWhereInput

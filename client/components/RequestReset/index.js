@@ -113,13 +113,17 @@ const RequestReset = props => {
         await resetPassword();
         setEmail('');
       }}>
-      <fieldset disabled={loading} aria-busy={loading}>
+      <fieldset
+        disabled={loading}
+        aria-busy={loading}
+        className="main-fieldset">
         <Error error={error} />
         {!error && !loading && called && (
           <p>Success! Check your email for a reset link!</p>
         )}
         <TextInput
           id="email-reset"
+          className="input"
           label="Email"
           fullWidth={true}
           type="email"

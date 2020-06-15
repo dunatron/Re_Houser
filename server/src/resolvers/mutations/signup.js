@@ -4,6 +4,7 @@ const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createActivity } = require("../../lib/createActivity");
 const { createTokens } = require("../../auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
+const signupEmail = require("../../lib/emails/signupEmail");
 
 async function signup(parent, args, ctx, info) {
   //lowercase their email
@@ -66,6 +67,12 @@ async function signup(parent, args, ctx, info) {
         ]
       }
     }
+  });
+
+  // send the new signupEmail
+  signupEmail({
+    toEmail: user.email,
+    user: user
   });
 
   const userInfoWithToken = {

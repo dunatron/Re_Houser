@@ -242,6 +242,7 @@ const InputFieldType = props => {
                     inputRef={register(refConf)}
                   />
                 }
+                label={config.fieldProps.label}
               />
             </div>
             <FieldError errors={errors} name={name} />

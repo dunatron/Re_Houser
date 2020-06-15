@@ -50,6 +50,7 @@ const PropertyAppraisal = props => {
         <FormCreator
           title="Property Appraisal"
           isNew={!propertyId}
+          createText="Request Property Appraisal"
           // data={{
           //   heatSources: ['HEAT_PUMP'],
           // }}

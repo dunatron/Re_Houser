@@ -43,6 +43,7 @@ type User {
   usedFreeAppraisal: Boolean
   physicalAddress: String
   proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
+  acceptedSignupTerms: Boolean!
 }
 
 type BankDetail {

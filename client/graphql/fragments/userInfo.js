@@ -10,6 +10,7 @@ const UserInfoFragment = gql`
     lastName
     phone
     permissions
+    acceptedSignupTerms
     photoIdentification {
       ...fileInfo
     }

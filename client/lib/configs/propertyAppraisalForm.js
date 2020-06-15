@@ -93,7 +93,7 @@ const PROPERTY_APPRAISAL_CONF = [
         key: 'acceptTerms',
         fieldProps: {
           name: 'acceptTerms',
-          label: 'Confirm information is correct',
+          label: 'Accept Terms and conditions',
           // defaultValue: moment().format('YYYY-MM-DDTkk:mm'),
         },
         terms:

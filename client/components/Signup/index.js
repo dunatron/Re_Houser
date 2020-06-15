@@ -8,7 +8,7 @@ import FabButton from '../../styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import TextInput from '../../styles/TextInput';
 import Router from 'next/router';
-import Button from '@material-ui/core/Button';
+import { Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import { SIGNUP_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -25,6 +25,7 @@ const Signup = props => {
     phone: props.phone ? props.phone : '',
     email: props.email ? props.email : '',
     password: props.password ? props.password : '',
+    acceptedSignupTerms: false,
     captchaToken: '',
   });
   const saveToState = e => {
@@ -88,6 +89,17 @@ const Signup = props => {
     });
   }, [props.password]);
 
+  const canSignup = () => {
+    // state.captchaToken.length <= 0 ? true : false || loading
+    if (state.captchaToken.length <= 0) return false;
+    if (loading) return false;
+    if (state.acceptedSignupTerms !== true) return false;
+    if (state.firstName.length < 2) return false;
+    if (state.lastName.length < 2) return false;
+    if (state.email.length < 2) return false;
+    return true;
+  };
+
   return (
     <Form
       method="post"
@@ -95,7 +107,10 @@ const Signup = props => {
         e.preventDefault();
         signUp();
       }}>
-      <fieldset disabled={loading} aria-busy={loading}>
+      <fieldset
+        disabled={loading}
+        aria-busy={loading}
+        className="main-fieldset">
         <Error error={error} />
         <TextInput
           id="signup-email"
@@ -172,20 +187,40 @@ const Signup = props => {
         <ConfinedHeight maxHeight="300px">
           <SignupTerms />
         </ConfinedHeight>
-
-        <ReCAPTCHA
-          data-cy="signup-recaptcha-component"
-          ref={recaptchaRef}
-          sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
-          // this will require an investigation on its own. how to render these process.env with next
-          // check next.config
-          onChange={token =>
-            setState({
-              ...state,
-              captchaToken: token,
-            })
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={state.acceptedSignupTerms}
+              onChange={e =>
+                setState({
+                  ...state,
+                  acceptedSignupTerms: e.target.checked,
+                })
+              }
+              name="acceptTerms"
+              color="primary"
+            />
           }
+          label="Accept Terms"
         />
+        <div
+          style={{
+            padding: '16px 0',
+          }}>
+          <ReCAPTCHA
+            data-cy="signup-recaptcha-component"
+            ref={recaptchaRef}
+            sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
+            // this will require an investigation on its own. how to render these process.env with next
+            // check next.config
+            onChange={token =>
+              setState({
+                ...state,
+                captchaToken: token,
+              })
+            }
+          />
+        </div>
         <ButtonLoader
           type="submit"
           data-cy="submit-signup"
@@ -196,7 +231,7 @@ const Signup = props => {
             marginTop: '16px',
           }}
           color="secondary"
-          disabled={state.captchaToken.length <= 0 ? true : false || loading}
+          disabled={!canSignup()}
           success={false}>
           <NavigationIcon style={{ marginRight: 5 }} />
         </ButtonLoader>

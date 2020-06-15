@@ -63,6 +63,8 @@ const FormCreator = props => {
     fileRemovedFromServer,
     updateCacheOnRemovedFile,
     forceFormUpdates,
+    createText,
+    updateText,
   } = props;
 
   const keysWithTypes = getKeyTypes(config);
@@ -102,6 +104,16 @@ const FormCreator = props => {
     );
   }
 
+  const _createText = () => {
+    if (createText) return createText;
+    return 'Create ' + title + ' Form';
+  };
+
+  const _updateText = () => {
+    if (updateText) return updateText;
+    return 'Update ' + title + ' Form';
+  };
+
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
@@ -140,7 +152,8 @@ const FormCreator = props => {
           disabled={posting}
           onClick={handleSubmit(onSubmit)}
           color="primary">
-          {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`}
+          {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
+          {isNew ? _createText() : _updateText()}
         </Button>
       </div>
     </>

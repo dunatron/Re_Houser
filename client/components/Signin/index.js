@@ -7,7 +7,7 @@ import { CURRENT_USER_QUERY } from '../User/index';
 import FabButton from '../../styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
 // import TextInput from '../../styles/TextInput';
-import { TextField } from '@material-ui/core';
+import TextInput from '../../styles/TextInput';
 import { SIGNIN_MUTATION } from '../../graphql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
 import ButtonLoader from '../Loader/ButtonLoader';
@@ -74,9 +74,12 @@ const Signin = props => {
           refetchQueries: [{ query: CURRENT_USER_QUERY }],
         });
       }}>
-      <div disabled={loading} aria-busy={loading}>
+      <fieldset
+        disabled={loading}
+        aria-busy={loading}
+        className="main-fieldset">
         <Error error={error} />
-        <TextField
+        <TextInput
           id="email"
           inputProps={{
             'data-cy': 'email',
@@ -89,7 +92,7 @@ const Signin = props => {
           value={state.email}
           onChange={saveToState}
         />
-        <TextField
+        <TextInput
           id="password"
           label="Password"
           inputProps={{
@@ -102,17 +105,22 @@ const Signin = props => {
           value={state.password}
           onChange={saveToState}
         />
-        <ReCAPTCHA
-          data-cy="signin-recaptcha-component"
-          ref={recaptchaRef}
-          sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
-          onChange={token => {
-            setState({
-              ...state,
-              captchaToken: token,
-            });
-          }}
-        />
+        <div
+          style={{
+            padding: '16px 0',
+          }}>
+          <ReCAPTCHA
+            data-cy="signin-recaptcha-component"
+            ref={recaptchaRef}
+            sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
+            onChange={token => {
+              setState({
+                ...state,
+                captchaToken: token,
+              });
+            }}
+          />
+        </div>
 
         <ButtonLoader
           type="submit"
@@ -129,7 +137,7 @@ const Signin = props => {
           success={false}>
           <NavigationIcon style={{ marginRight: 5 }} />
         </ButtonLoader>
-      </div>
+      </fieldset>
     </Form>
   );
 };

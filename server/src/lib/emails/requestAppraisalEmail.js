@@ -8,14 +8,14 @@ const requestAppraisalEmail = async function({ toEmail, ctx, user }) {
     html: makeANiceEmail(
       `
 <div style="line-height: 18px;">
-    Thank you for giving us the opportunity to provide you with a professional rental appraisal for your property.
+  Thank you for requesting a rental appraisal. We will do our best to provide you with an accurate based on our resources and the information you have provided. We may need to visit the property to increase the accuracy of this. I will be in touch with you to discuss this further if necessary.
 </div>
 <div style="line-height: 18px;">
-    we will get back to you as soon as we have been able to accurately assess your property relative to the market
+In the meantime if you have any questions please do not hesitate to contact me via email at admin@rehouser.co.nz or phone on  ${process.env.REHOUSER_ADMIN_PHONE}.
 </div>
     \n\n`,
       user
-    ),
+    )
   });
 };
 

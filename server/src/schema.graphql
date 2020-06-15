@@ -38,6 +38,9 @@ type User {
   involvedActivity: [Activity!]!
   rentalAppraisals: [RentalAppraisal]
   usedFreeAppraisal: Boolean
+  physicalAddress: String
+  proofOfAddress: File
+  acceptedSignupTerms: Boolean!
 }
 
 type SuccessMessage {
@@ -53,6 +56,7 @@ type Mutation {
     lastName: String!
     phone: String!
     captchaToken: String!
+    acceptedSignupTerms: Boolean!
   ): User!
   signin(email: String!, password: String!, captchaToken: String!): User!
   signout: SuccessMessage

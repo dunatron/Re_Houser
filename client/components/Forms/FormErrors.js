@@ -15,6 +15,8 @@ const ErrorPaper = withStyles(theme => ({
     padding: theme.spacing(1),
     backgroundColor: red[100],
     borderRadius: 0,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }))(Paper);
 
