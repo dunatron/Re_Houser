@@ -90,13 +90,25 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   //   );
   // }
 
+  // need to create a charge
   const acceptedLease = ctx.db.mutation.updatePropertyLease(
     {
       where: {
         id: leaseId
       },
       data: {
-        stage: "SIGNED"
+        stage: "SIGNED",
+        wallet: {
+          update: {
+            amount: lease.wallet.amount - lease.rent,
+            charges: {
+              create: {
+                amount: lease.rent,
+                description: "We require 1 weeks rent in advance hence a charge"
+              }
+            }
+          }
+        }
       }
     },
     info

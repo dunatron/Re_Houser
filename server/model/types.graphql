@@ -324,6 +324,7 @@ type Wallet {
 
 type Charge {
   id: ID! @unique @id
+  createdAt: DateTime! @createdAt
   wallet: Wallet @relation(name: "WalletCharges")
   amount: Float
   description: String

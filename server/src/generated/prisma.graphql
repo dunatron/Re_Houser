@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 15 2020 12:50:34 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jun 15 2020 16:21:20 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1554,6 +1554,7 @@ enum CeilingInsulationTypes {
 
 type Charge implements Node {
   id: ID!
+  createdAt: DateTime!
   wallet: Wallet
   amount: Float
   description: String
@@ -1599,6 +1600,8 @@ type ChargeEdge {
 enum ChargeOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
   amount_ASC
   amount_DESC
   description_ASC
@@ -1607,6 +1610,7 @@ enum ChargeOrderByInput {
 
 type ChargePreviousValues {
   id: ID!
+  createdAt: DateTime!
   amount: Float
   description: String
 }
@@ -1660,6 +1664,28 @@ input ChargeScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   amount: Float
 
   """All values that are not equal to given value."""
@@ -1859,6 +1885,28 @@ input ChargeWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   amount: Float
 
   """All values that are not equal to given value."""

@@ -27,6 +27,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@material-ui/core';
+import RehouserPaper from '../../styles/RehouserPaper';
 
 import {
   endpoint,
@@ -41,6 +42,7 @@ import { WALLET_SUBSCRIPTION } from '../../graphql/subscriptions/WalletSubscript
 import Loader from '../Loader';
 import { toast } from 'react-toastify';
 import PaymentsTable from './PaymentsTable';
+import ChargesTable from './ChargesTable';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import Error from '../ErrorMessage';
@@ -171,7 +173,7 @@ const LeaseWallet = ({ lease, me }) => {
 
   return (
     <>
-      <Paper style={{ padding: '16px' }}>
+      <RehouserPaper>
         <Typography variant="h5" gutterBottom>
           Wallet: {wallet.id}
         </Typography>
@@ -260,7 +262,15 @@ const LeaseWallet = ({ lease, me }) => {
             {/* <CardElement  /> */}
           </div>
         )}
-      </Paper>
+      </RehouserPaper>
+      <ChargesTable
+        walletId={wallet.id}
+        where={{
+          wallet: {
+            id: wallet.id,
+          },
+        }}
+      />
       <PaymentsTable
         walletId={wallet.id}
         where={{

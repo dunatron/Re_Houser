@@ -47,6 +47,7 @@ const CreatePropertyComponent = props => {
       variables: {
         data: {
           ...data,
+          rent: data.rent * 100,
           onTheMarket: false,
           useAdvancedRent: false,
           owners: {

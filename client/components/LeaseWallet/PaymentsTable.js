@@ -1,13 +1,31 @@
 import React, { useRef, useState } from 'react';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, useSubscription } from '@apollo/client';
-
+import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import { Button, Input, Typography } from '@material-ui/core';
+import {
+  Button,
+  Input,
+  Typography,
+  MenuIcon,
+  IconButton,
+} from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import Modal from '../Modal/index';
 import SinglePayment from './SinglePayment';
 import { PAYMENT_SUBSCRIPTION } from '../../graphql/subscriptions/PaymentSubscription';
+import moment from 'moment';
+import formatCentsToDollars from '../../lib/formatCentsToDollars';
 
+const useStyles = makeStyles(theme => ({
+  root: {},
+  tableHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+}));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
 const PAYMENTS_COUNT_QUERY = gql`
@@ -76,59 +94,41 @@ const PAYMENTS_QUERY = gql`
   }
 `;
 
-// id: ID!
-// wallet: Wallet
-// userId: ID!
-// bankName: String
-// bankBranch: String
-// bankAccount: String
-// bankRef: String
-// type: PaymentType
-// leaseId: ID
-// propertyId: ID
-// stripePaymentId: String
-// object: JSON
-// amount: Float
-// created: DateTime
-// description: String
-// status: String
-
-// payments(
-//     where: PaymentWhereInput
-//     orderBy: PaymentOrderByInput
-//     skip: Int
-//     after: String
-//     before: String
-//     first: Int
-//     last: Int
-//     ): [Payment]!
-
-const tableColumnConfig = [
-  {
-    title: 'ID',
-    field: 'id',
-  },
-  {
-    title: 'amount',
-    field: 'amount',
-  },
-  {
-    title: 'createdAt',
-    field: 'createdAt',
-  },
-  {
-    title: 'status',
-    field: 'status',
-  },
-];
-
 const PaymentsTable = ({ where, walletId }) => {
+  const classes = useStyles();
   const client = useApolloClient();
   const tableRef = useRef(null);
   const [searchText, setSearchText] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalPaymentId, setModalPaymentId] = useState(null);
   const [networkOnly, setNetworkOnly] = useState(false);
+
+  const tableColumnConfig = [
+    {
+      title: 'ID',
+      field: 'id',
+    },
+    {
+      title: 'amount',
+      field: 'amount',
+      render: rowData => formatCentsToDollars(rowData.amount),
+    },
+    {
+      title: 'createdAt',
+      field: 'createdAt',
+      render: rowData => {
+        return (
+          <Typography>
+            {moment(rowData.createdAt).format('MM-DD-YYYY')}
+          </Typography>
+        );
+      },
+    },
+    {
+      title: 'status',
+      field: 'status',
+    },
+  ];
 
   // could also subscribe to wallet payments.
   // perhaps it simply refetches?
@@ -158,9 +158,6 @@ const PaymentsTable = ({ where, walletId }) => {
     },
   });
 
-  console.log('paymentSub.loading => ', paymentSub.loading);
-  console.log('paymentSub.data => ', paymentSub.data);
-
   if (loading) return 'need to know total count';
   const totalPaymentsCount = data.paymentsConnection.aggregate.count;
 
@@ -173,14 +170,11 @@ const PaymentsTable = ({ where, walletId }) => {
   };
 
   const handleViewSinglePayment = (e, rowData) => {
-    console.log('rowData => ', rowData);
     setModalPaymentId(rowData.id);
     setModalIsOpen(true);
   };
 
   const remoteData = query => {
-    console.log('Query object - ', query);
-    console.log('Fetching with networkOnly => ', networkOnly);
     return client
       .query({
         query: PAYMENTS_QUERY,
@@ -207,7 +201,6 @@ const PaymentsTable = ({ where, walletId }) => {
         },
       })
       .then(res => {
-        console.log('edges query for payments => ', res);
         const {
           data: {
             paymentsConnection: { pageInfo, aggregate, edges },
@@ -229,10 +222,21 @@ const PaymentsTable = ({ where, walletId }) => {
   };
 
   return (
-    <div>
-      <Input value={searchText} onChange={handleSearchTextChange} />
-      <Typography>Note: searches across, paymentId and amount</Typography>
-      <Button onClick={handleSearch}>Fire search</Button>
+    <div className={classes.root}>
+      <div className={classes.tableHeader}>
+        <Typography variant="h5">Payments</Typography>
+        <div>
+          <Input
+            value={searchText}
+            onChange={handleSearchTextChange}
+            placeholder="id or amount"
+          />
+          <IconButton onClick={handleSearch} aria-label="search-table">
+            <SearchIcon />
+          </IconButton>
+        </div>
+      </div>
+
       <Modal
         open={modalIsOpen}
         close={() => setModalIsOpen(false)}
@@ -240,6 +244,9 @@ const PaymentsTable = ({ where, walletId }) => {
         <SinglePayment paymentId={modalPaymentId} />
       </Modal>
       <MaterialTable
+        style={{
+          marginBottom: '16px',
+        }}
         tableRef={tableRef}
         columns={tableColumnConfig}
         data={remoteData}

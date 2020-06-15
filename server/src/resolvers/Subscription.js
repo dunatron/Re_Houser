@@ -87,6 +87,14 @@ const paymentSub = {
   subscribe: payment
 };
 
+async function charge(parent, args, context, info) {
+  return context.db.subscription.charge({ ...args }, info);
+}
+
+const chargeSub = {
+  subscribe: charge
+};
+
 module.exports = {
   rentalApplicationCreatedSub,
   rentalApplicationUpdateSub,
@@ -94,5 +102,6 @@ module.exports = {
   messageSub,
   walletSub,
   propertyLeaseSub,
-  paymentSub
+  paymentSub,
+  chargeSub
 };

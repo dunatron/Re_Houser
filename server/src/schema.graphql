@@ -138,6 +138,7 @@ type Subscription {
     where: PropertyLeaseSubscriptionWhereInput
   ): PropertyLeaseSubscriptionPayload
   paymentSub(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
+  chargeSub(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
 }
 
 type Query {
@@ -243,6 +244,15 @@ type Query {
     first: Int
     last: Int
   ): PaymentConnection!
+  chargesConnection(
+    where: ChargeWhereInput
+    orderBy: ChargeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ChargeConnection!
   findUsers(
     where: UserWhereInput
     orderBy: UserOrderByInput
