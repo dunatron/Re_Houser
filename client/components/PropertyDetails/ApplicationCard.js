@@ -27,21 +27,20 @@ import AcceptApplicationButton from '../MutationButtons/AcceptApplicationButton'
 import DenyApplicationButton from '../MutationButtons/DenyApplicationButton';
 import { Button } from '@material-ui/core';
 
-const DenyApplication = () => {
-  return <Button variant="outlined">Deny application</Button>;
-};
-
 const ApplicationCard = ({ application, property }) => {
   return (
     <Card style={{ marginBottom: '30px' }}>
       {/* <DialogPopup isOpen={true} /> */}
-      <Typography>ID: {application.id}</Typography>
+      <Typography variant="h5">ID: {application.id}</Typography>
       <Typography>Visibility: {application.visibility}</Typography>
       <Typography>Stage: {application.stage}</Typography>
       <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
+      {application.leaseId && (
+        <Typography>LeaseId: {application.leaseId}</Typography>
+      )}
+
       {/* <AcceptApplication application={application} property={property} /> */}
       <AcceptApplicationButton application={application} property={property} />
-      <DenyApplication />
       <DenyApplicationButton application={application} property={property} />
       <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
 

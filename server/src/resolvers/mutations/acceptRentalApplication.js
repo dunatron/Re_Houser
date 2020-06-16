@@ -34,6 +34,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
       owner {
         id
       }
+      leaseId
       applicants {
         id
         email 
@@ -60,6 +61,12 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
       }
     }`
   );
+
+  // only createn 1 lease per accepting rentalApplication
+  if (application.leaseId)
+    throw new Error(
+      `rental application already has a lease associated with it ${application.leaseId}`
+    );
 
   // applicants will need to be filtered to the accepted applicants
   // extract data from RentalApplication

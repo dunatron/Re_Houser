@@ -16,7 +16,7 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
       }
     },
     // {},
-    `{ owner{id} applicants{email user{email}} }`
+    `{ owner{id} applicants{email user{email, firstName, lastName}} }`
   );
   // check that loggedInUser is the owner of the application
   if (loggedInUser !== application.owner.id) {
@@ -43,8 +43,11 @@ async function completeRentalApplication(parent, { applicationId }, ctx, info) {
       from: process.env.MAIL_USER,
       to: applicant.user.email,
       subject: "Application stage: PENDING",
-      html: makeANiceEmail(`Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
-      \n\n`)
+      html: makeANiceEmail(
+        `Your application is now in the pending stage, you will recieve an email when the landlord has actioned your application!
+      \n\n`,
+        applicant
+      )
     });
   });
 

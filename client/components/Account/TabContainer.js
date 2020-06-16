@@ -1,26 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
-const TabContainer = ({ children, dir, containerStyles }) => {
+function TabContainer(props) {
+  const { children, value, index, ...other } = props;
+
   return (
-    <Typography
-      component="div"
-      dir={dir}
-      style={{
-        padding: `16px 0`,
-        display: 'flex',
-        flexWrap: 'wrap',
-        ...containerStyles,
-      }}>
-      {children}
-    </Typography>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`wrapped-tabpanel-${index}`}
+      aria-labelledby={`wrapped-tab-${index}`}
+      {...other}>
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
   );
-};
+}
 
 TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
 };
 
 export default TabContainer;

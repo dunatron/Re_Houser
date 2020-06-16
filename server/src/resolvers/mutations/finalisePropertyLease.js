@@ -3,6 +3,9 @@ const finalisePropertyLeaseEmail = require("../../lib/emails/finalisePropertyLea
 const mustBeAuthed = require("../../lib/mustBeAuthed");
 const { createActivity } = require("../../lib/createActivity");
 
+// cleanup
+const finaliseLeaseCleanup = require("../../lib/cleanup/finaliseLeaseCleanup");
+
 /**
  * ToDo: the return type of Message is not good enough, it should return probably what propertylease and whatever fields the client asks for
  */
@@ -97,7 +100,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
         id: leaseId
       },
       data: {
-        stage: "SIGNED",
+        // stage: "SIGNED",
         wallet: {
           update: {
             amount: lease.wallet.amount - lease.rent,
@@ -113,6 +116,24 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     },
     info
   );
+
+  // probably easier to get the property with leases etc on it. we will need to email people
+  // this may send an email out to the group that did
+  // leaseId is still to be linked really. Its very loose
+
+  // lets put this in its own file cleanUpOnFinaliseLease. Which will just fire async. so we can return the other stuff first.
+  // No shit tasks, needs to be live/dynamic updates
+
+  finaliseLeaseCleanup({
+    leaseId: leaseId,
+    propertyId: lease.property.id,
+    db: ctx.db
+  });
+
+  throw new Error("DEV MODE: developing finaliseLeaseCleanup when we sign");
+
+  // maybe actually get them all? hmmmmmmmmmm as async right
+  // also need to remove any applications and any other potentaial leases
   createActivity({
     ctx: ctx,
     data: {

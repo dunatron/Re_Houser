@@ -15,6 +15,7 @@ enum LeaseStage {
   INITIALIZING
   SIGNED
   PAID
+  COMPLETED
 }
 
 enum PaymentType {

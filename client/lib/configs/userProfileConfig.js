@@ -146,21 +146,6 @@ export const USER_PROFILE_CONF = [
     includeInRentalApplication: true,
     editableInRentalApplication: true,
   },
-  {
-    label: 'Photo URL',
-    variableName: 'photoIdentification.url',
-    ratingVal: 30,
-    excludeFromDetails: true,
-    includeInRentalApplication: false,
-    editableInRentalApplication: true,
-  },
-  {
-    label: 'Photo Identification Number',
-    variableName: 'identificationNumber',
-    ratingVal: 30,
-    includeInRentalApplication: true,
-    editableInRentalApplication: true,
-  },
 ];
 
 // export { USER_PROFILE_CONF }
