@@ -51,10 +51,125 @@ async function createProperty(parent, { data, files }, ctx, info) {
     //   },
     //   info
     // );
+    // createProperty(data:{
+    //   type: HOUSE,
+    //   rooms: 2,
+    //   useAdvancedRent: false,
+    //   bathrooms: 2,
+    //   garageSpaces: 2,
+    //   carportSpaces: 2,
+    //   offStreetSpaces: 2,
+    //   rent: 70000,
+    //   moveInDate: "2020-04-11",
+    //   expiryDate: "2020-04-16",
+    //   onTheMarket: false,
+    //   location: "Pisa Moorings Road, Mount Pisa, New Zealand",
+    //   locationLat: -44.9776393,
+    //   locationLng: 169.2386795,
+    //   tenancyType: FIXED,
+    //   petsAllowed: true,
+    //   maximumOccupants: 2,
+    //   indoorFeatures: {
+    //      set: [
+    //       DISHWASHER,
+    //       BALCONY
+    //   ]},
+    //   outdoorFeatures:{
+    //     set:[
+    //       OUTDOOR_SPA,
+    //       PET_FRIENDLY
+    //     ]
+    //   },
+    //   heatSources: {
+    //     set:[
+    //       HEAT_PUMP
+    //     ]
+    //   },
+    //   pets: {
+    //     set:[
+    //       CAT
+    //     ]
+    //   },
+    //   chattels:{
+    //     set:[
+    //       BLINDS,
+    //       WALL_HEATER
+    //     ]
+    //   },
+    //   insulationForm:{
+
+    //   },
+    //   owners:{
+    //     connect:[
+    //       {
+    //         id: "ckblp3kct006l0765dofn69ts"
+    //       }
+    //     ]
+    //   },
+    //   creator:{
+    //     connect:{
+    //       id: "ckblp3kct006l0765dofn69ts"
+    //     }
+    //   }
+    // }) {
+    //   id
+    // }
+    // const property = await ctx.db.mutation.createProperty(
+    //   {
+    //     data: {
+    //       ...data
+    //     }
+    //   },
+    //   info
+    // );
     const property = await ctx.db.mutation.createProperty(
       {
         data: {
-          ...data
+          type: HOUSE,
+          rooms: 2,
+          useAdvancedRent: false,
+          bathrooms: 2,
+          garageSpaces: 2,
+          carportSpaces: 2,
+          offStreetSpaces: 2,
+          rent: 70000,
+          moveInDate: "2020-04-11",
+          expiryDate: "2020-04-16",
+          onTheMarket: false,
+          location: "Pisa Moorings Road, Mount Pisa, New Zealand",
+          locationLat: -44.9776393,
+          locationLng: 169.2386795,
+          tenancyType: FIXED,
+          petsAllowed: true,
+          maximumOccupants: 2,
+          indoorFeatures: {
+            set: [DISHWASHER, BALCONY]
+          },
+          outdoorFeatures: {
+            set: [OUTDOOR_SPA, PET_FRIENDLY]
+          },
+          heatSources: {
+            set: [HEAT_PUMP]
+          },
+          pets: {
+            set: [CAT]
+          },
+          chattels: {
+            set: [BLINDS, WALL_HEATER]
+          },
+          insulationForm: {},
+          owners: {
+            connect: [
+              {
+                id: "ckblp3kct006l0765dofn69ts"
+              }
+            ]
+          },
+          creator: {
+            connect: {
+              id: "ckblp3kct006l0765dofn69ts"
+            }
+          }
         }
       },
       info
