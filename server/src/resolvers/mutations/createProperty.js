@@ -35,21 +35,25 @@ async function createProperty(parent, { data, files }, ctx, info) {
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
   console.log("before createPropertyMutation");
-  const property = await ctx.db.mutation.createProperty(
-    {
-      data: {
-        ...data,
-        lowestRoomPrice,
-        highestRoomPrice,
-        rent: averageRoomPrice,
-        rooms: numberOfRooms
-        // images: {
-        //   connect: connectFileIds,
-        // },
-      }
-    },
-    info
-  );
+  try {
+    const property = await ctx.db.mutation.createProperty(
+      {
+        data: {
+          ...data,
+          lowestRoomPrice,
+          highestRoomPrice,
+          rent: averageRoomPrice,
+          rooms: numberOfRooms
+          // images: {
+          //   connect: connectFileIds,
+          // },
+        }
+      },
+      info
+    );
+  } catch (e) {
+    console.log("createProperty err => ", e);
+  }
   console.log("after createPropertyMutation");
   // const propertySearchNode = addPropertySearchNode({
   //   propertyId: property.id,
