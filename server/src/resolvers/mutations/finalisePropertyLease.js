@@ -105,7 +105,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   finaliseLeaseCleanup({
     leaseId: leaseId,
     propertyId: lease.property.id,
-    db: ctx.db
+    ctx: ctx
   });
 
   // THIS DIDNT SEEM TO FIRE BELOW. added user, probs does now

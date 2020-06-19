@@ -19,7 +19,7 @@ const addPropertySearchNode = async function({ propertyId, ctx }) {
         id: propertyId
       }
     },
-    `{id, type, rooms, rent, accommodation{id ,roomSize, rent, expenses, description},lowestRoomPrice, highestRoomPrice, moveInDate, onTheMarket, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
+    `{id, type, rooms, rent, accommodation{id ,roomSize, rent, expenses, description},lowestRoomPrice, highestRoomPrice, moveInDate, onTheMarket, isLeased, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
   );
   const propertiesObjectArr = [];
   const moveInTimeStamp = moment(property.moveInDate).unix();
@@ -36,6 +36,7 @@ const addPropertySearchNode = async function({ propertyId, ctx }) {
     moveInDate: property.moveInDate,
     move_in_date_timestamp: moveInTimeStamp,
     onTheMarket: property.onTheMarket,
+    isLeased: property.isLeased,
     location: property.location,
     locationLat: property.locationLat,
     locationLng: property.locationLng,

@@ -10,6 +10,8 @@ const PropertyInfoFragment = gql`
     moveInDate
     expiryDate
     onTheMarket
+    isLeased
+    lastLeaseId
     location
     locationLat
     locationLng

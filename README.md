@@ -703,6 +703,7 @@ query property {
     }
   }
 }
+
 ```
 
 #### rentalApplications
@@ -1123,7 +1124,14 @@ mutation property {
     leases:{
       deleteMany:[
         {
-          id_not: "adasdasdd"
+          AND:[
+            {
+              id_not: "adasdasdd"
+            },
+            {
+              stage_in:[INITIALIZING]
+            }
+          ]
         }
       ]
     }

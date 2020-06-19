@@ -1,8 +1,9 @@
 const unsuccessfulLeaseEmail = require("../emails/unsuccessfulLeaseEmail");
 const unsuccessfulRentalApplicationEmail = require("../emails/unsuccessfulRentalApplicationEmail");
+const { updatePropertySearchNode } = require("../algolia/propertySearchApi");
 
-const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
-  db.query
+const finaliseLeaseCleanup = async ({ leaseId, propertyId, ctx }) => {
+  ctx.db.query
     .property(
       {
         where: {
@@ -30,10 +31,8 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
                 id_not: "${leaseId}"
               },
               {
-                stage_not_in: [
-                  SIGNED,
-                  PAID,
-                  COMPLETED
+                stage_in: [
+                  INITIALIZING
                 ]
               }
             ]
@@ -89,13 +88,27 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
         // delete the unsuccessful leases
       });
 
+      // update algolia property
+      updatePropertySearchNode({
+        updates: {
+          data: {
+            onTheMarket: false,
+            isLeased: true
+          }
+        },
+        propertyId: property.id,
+        ctx
+      });
+
       // delete leases and rental applications
-      db.mutation.updateProperty({
+      ctx.db.mutation.updateProperty({
         where: {
           id: propertyId
         },
         data: {
           onTheMarket: false,
+          lastLeaseId: leaseId,
+          isLeased: true,
           rentalApplications: {
             deleteMany: [
               {
@@ -106,14 +119,20 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
           leases: {
             deleteMany: [
               {
-                id_not: leaseId
+                AND: [
+                  {
+                    id_not: leaseId
+                  },
+                  {
+                    stage_in: [INITIALIZING] // only delete leases that never made it
+                  }
+                ]
               }
             ]
           }
         }
       });
     });
-  console.log("== FINALISE LEASE CLEANUP ==");
   return;
 };
 

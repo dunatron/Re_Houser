@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Jun 16 2020 16:27:02 GMT+1200 (New Zealand Standard Time)
+# timestamp: Fri Jun 19 2020 13:46:10 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -10783,6 +10783,7 @@ type Property implements Node {
   rentalApplications(where: RentalApplicationWhereInput, orderBy: RentalApplicationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalApplication!]
   leases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease!]
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
@@ -11040,6 +11041,7 @@ input PropertyCreateInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11131,6 +11133,7 @@ input PropertyCreateWithoutAccommodationInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11178,6 +11181,7 @@ input PropertyCreateWithoutActivityInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11225,6 +11229,7 @@ input PropertyCreateWithoutAppraisalsInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11272,6 +11277,7 @@ input PropertyCreateWithoutCreatorInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11319,6 +11325,7 @@ input PropertyCreateWithoutLeasesInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11366,6 +11373,7 @@ input PropertyCreateWithoutOwnersInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -11413,6 +11421,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -13147,6 +13156,8 @@ enum PropertyOrderByInput {
   acceptedTerms_DESC
   isLeased_ASC
   isLeased_DESC
+  lastLeaseId_ASC
+  lastLeaseId_DESC
   leaseExpiryDate_ASC
   leaseExpiryDate_DESC
   rehouserStamp_ASC
@@ -13197,6 +13208,7 @@ type PropertyPreviousValues {
   locationLng: Float!
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -13675,6 +13687,46 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   isLeased_not: Boolean
+  lastLeaseId: String
+
+  """All values that are not equal to given value."""
+  lastLeaseId_not: String
+
+  """All values that are contained in given list."""
+  lastLeaseId_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastLeaseId_not_in: [String!]
+
+  """All values less than the given value."""
+  lastLeaseId_lt: String
+
+  """All values less than or equal the given value."""
+  lastLeaseId_lte: String
+
+  """All values greater than the given value."""
+  lastLeaseId_gt: String
+
+  """All values greater than or equal the given value."""
+  lastLeaseId_gte: String
+
+  """All values containing the given string."""
+  lastLeaseId_contains: String
+
+  """All values not containing the given string."""
+  lastLeaseId_not_contains: String
+
+  """All values starting with the given string."""
+  lastLeaseId_starts_with: String
+
+  """All values not starting with the given string."""
+  lastLeaseId_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastLeaseId_ends_with: String
+
+  """All values not ending with the given string."""
+  lastLeaseId_not_ends_with: String
   leaseExpiryDate: DateTime
 
   """All values that are not equal to given value."""
@@ -13845,6 +13897,7 @@ input PropertyUpdateInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -13892,6 +13945,7 @@ input PropertyUpdateManyDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -13930,6 +13984,7 @@ input PropertyUpdateManyMutationInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14044,6 +14099,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14090,6 +14146,7 @@ input PropertyUpdateWithoutActivityDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14136,6 +14193,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14182,6 +14240,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14228,6 +14287,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14274,6 +14334,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14320,6 +14381,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   locationLng: Float
   acceptedTerms: Boolean
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   tenancyType: TenancyType
@@ -14856,6 +14918,46 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   isLeased_not: Boolean
+  lastLeaseId: String
+
+  """All values that are not equal to given value."""
+  lastLeaseId_not: String
+
+  """All values that are contained in given list."""
+  lastLeaseId_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastLeaseId_not_in: [String!]
+
+  """All values less than the given value."""
+  lastLeaseId_lt: String
+
+  """All values less than or equal the given value."""
+  lastLeaseId_lte: String
+
+  """All values greater than the given value."""
+  lastLeaseId_gt: String
+
+  """All values greater than or equal the given value."""
+  lastLeaseId_gte: String
+
+  """All values containing the given string."""
+  lastLeaseId_contains: String
+
+  """All values not containing the given string."""
+  lastLeaseId_not_contains: String
+
+  """All values starting with the given string."""
+  lastLeaseId_starts_with: String
+
+  """All values not starting with the given string."""
+  lastLeaseId_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastLeaseId_ends_with: String
+
+  """All values not ending with the given string."""
+  lastLeaseId_not_ends_with: String
   leaseExpiryDate: DateTime
 
   """All values that are not equal to given value."""

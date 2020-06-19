@@ -179,6 +179,7 @@ type Property implements PropertyInfo {
     @relation(name: "PropertyRentalApplication")
   leases: [PropertyLease] @relation(name: "PropertyLeases")
   isLeased: Boolean
+  lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
   activity: [Activity!]! @relation(name: "PropertyActivity")
