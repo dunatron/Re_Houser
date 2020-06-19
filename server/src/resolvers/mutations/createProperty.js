@@ -140,7 +140,7 @@ async function createProperty(parent, { data, files }, ctx, info) {
           location: "Pisa Moorings Road, Mount Pisa, New Zealand",
           locationLat: -44.9776393,
           locationLng: 169.2386795,
-          tenancyType: FIXED,
+          tenancyType: "FIXED",
           petsAllowed: true,
           maximumOccupants: 2,
           indoorFeatures: {
