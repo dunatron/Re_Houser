@@ -95,6 +95,7 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
           id: propertyId
         },
         data: {
+          onTheMarket: false,
           rentalApplications: {
             deleteMany: [
               {

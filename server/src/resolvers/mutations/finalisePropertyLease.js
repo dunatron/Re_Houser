@@ -85,7 +85,6 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       },
       data: {
         stage: "SIGNED",
-        onTheMarket: false,
         wallet: {
           update: {
             amount: lease.wallet.amount - lease.rent,
