@@ -209,6 +209,8 @@ const allowedClientOrigins = [
   "https://rehouser-next-prod.herokuapp.com",
   "http://app.rehouser.co.nz",
   "http://rehouser.co.nz",
+  "https://app.rehouser.co.nz",
+  "https://rehouser.co.nz",
   process.env.FRONTEND_URL
 ];
 

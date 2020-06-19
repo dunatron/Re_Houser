@@ -107,35 +107,7 @@ const PhotoIdentification = props => {
                 },
               },
             },
-            // refetchQueries: [
-            //   {
-            //     query: CURRENT_USER_QUERY,
-            //   },
-            // ],
           });
-          // cache.writeQuery
-          // cache.writeQuery({
-          //   query: CURRENT_USER_QUERY,
-          //   data: {
-          //     photoIdentification: null,
-          //   },
-          // });
-          // updateRentalGroupApplicant({
-          //   variables: {
-          //     data: {
-          //       preTenancyApplicationForm: {
-          //         update: {
-          //           proofOfAddress: {
-          //             disconnect: true,
-          //           },
-          //         },
-          //       },
-          //     },
-          //     where: {
-          //       id: currentApplicant.id,
-          //     },
-          //   },
-          // });
         }}
         onSubmit={data => {
           updateUserProfile({
