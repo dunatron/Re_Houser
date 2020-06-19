@@ -677,6 +677,34 @@ query properties {
 }
 ```
 
+#### query to get propertyLeaseToClose example
+
+```js
+query property {
+  property(where:{id:"ckbh88bwevmxn0999m2x23stq"}) {
+    id
+    location
+    leases(where:{
+      AND:[
+        {
+          id_not: "ckbh8mr4pvo7809992gsetxbw"
+        },
+        {
+          stage_not_in: [
+            SIGNED,
+            PAID,
+            COMPLETED
+          ]
+        }
+      ]
+    }) {
+      id
+      stage
+    }
+  }
+}
+```
+
 #### rentalApplications
 
 ```js
@@ -1077,6 +1105,42 @@ const where = {
 <details>
   <summary>Mutations</summary>
 
+#### remove/delete leases and applications on a property
+
+```js
+mutation property {
+  updateProperty(where:{
+    id: "ckbh88bwevmxn0999m2x23stq"
+  }, data:{
+    location:"booo"
+    rentalApplications: {
+      deleteMany:[
+        {
+          id_not: "ckbh8f2wwvnk70999ofb2gm2jsss"
+        }
+      ]
+    }
+    leases:{
+      deleteMany:[
+        {
+          id_not: "adasdasdd"
+        }
+      ]
+    }
+  }) {
+    id
+    location
+    rentalApplications {
+      id
+    }
+    leases {
+      id
+    }
+  }
+}
+
+```
+
 #### createChat
 
 ```js
@@ -1301,11 +1365,11 @@ const PAYMENT_OBJECT = {
       line1: null,
       line2: null,
       postal_code: null,
-      state: null,
+      state: null
     },
     email: null,
     name: "heath.dunlop.hd@gmail.com",
-    phone: null,
+    phone: null
   },
   captured: true,
   created: 1560932149,
@@ -1328,7 +1392,7 @@ const PAYMENT_OBJECT = {
     risk_level: "normal",
     risk_score: 58,
     seller_message: "Payment complete.",
-    type: "authorized",
+    type: "authorized"
   },
   paid: true,
   payment_intent: null,
@@ -1344,9 +1408,9 @@ const PAYMENT_OBJECT = {
       funding: "credit",
       last4: "4242",
       three_d_secure: null,
-      wallet: null,
+      wallet: null
     },
-    type: "card",
+    type: "card"
   },
   receipt_email: null,
   receipt_number: null,
@@ -1358,7 +1422,7 @@ const PAYMENT_OBJECT = {
     data: [],
     has_more: false,
     total_count: 0,
-    url: "/v1/charges/ch_1EmyxNDzDGjSizvyGD8Sor1h/refunds",
+    url: "/v1/charges/ch_1EmyxNDzDGjSizvyGD8Sor1h/refunds"
   },
   review: null,
   shipping: null,
@@ -1385,13 +1449,13 @@ const PAYMENT_OBJECT = {
     last4: "4242",
     metadata: {},
     name: "heath.dunlop.hd@gmail.com",
-    tokenization_method: null,
+    tokenization_method: null
   },
   source_transfer: null,
   statement_descriptor: null,
   status: "succeeded",
   transfer_data: null,
-  transfer_group: null,
+  transfer_group: null
 };
 ```
 
@@ -1762,10 +1826,10 @@ const client = algoliasearch("4QW4S8SE3J", "••••••••••••
 const index = client.initIndex("demo_ecommerce");
 
 fetch("https://alg.li/doc-ecommerce.json")
-  .then(function (response) {
+  .then(function(response) {
     return response.json();
   })
-  .then(function (products) {
+  .then(function(products) {
     index.addObjects(products);
   });
 ```
@@ -1788,8 +1852,8 @@ index.setSettings({
     "searchable(brand)",
     "price",
     "outdoorFeatures",
-    "indoorFeatures",
-  ],
+    "indoorFeatures"
+  ]
 });
 ```
 

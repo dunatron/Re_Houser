@@ -1,6 +1,8 @@
+const unsuccessfulLeaseEmail = require("../emails/unsuccessfulLeaseEmail");
+const unsuccessfulRentalApplicationEmail = require("../emails/unsuccessfulRentalApplicationEmail");
+
 const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
-  console.log("== FINALISE LEASE CLEANUP START ==");
-  const property = db.query
+  db.query
     .property(
       {
         where: {
@@ -8,7 +10,8 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
         }
       },
       `{ 
-        id, 
+        id
+        location
         rentalApplications {
           leaseId
           applicants {
@@ -21,7 +24,20 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
             }
           }
         }
-        leases {
+        leases(where:{
+            AND:[
+              {
+                id_not: "${leaseId}"
+              },
+              {
+                stage_not_in: [
+                  SIGNED,
+                  PAID,
+                  COMPLETED
+                ]
+              }
+            ]
+          }) {
           id
           lessors {
             id
@@ -46,16 +62,55 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, db }) => {
         }
       }`
     )
-    .then(res => {
-      console.log("WEll surely res => ", res);
-      const { rentalApplications, leases } = res;
+    .then(property => {
+      const { rentalApplications, leases } = property;
+      rentalApplications.forEach(application => {
+        application.applicants.forEach(applicant => {
+          // send emails
+          unsuccessfulRentalApplicationEmail({
+            toEmail: applicant.user.email,
+            user: applicant.user,
+            property: property
+          });
+        });
+        // close rentalApplications
+      });
 
-      // hmmm well leases to remove. not COMPLETED, SIGNED.
-      // JUST INITIALIZING????
+      leases.forEach(lease => {
+        const { lessees, lessors } = lease;
+        // send emails
+        lessees.forEach(lessee => {
+          unsuccessfulLeaseEmail({
+            toEmail: lessee.user.email,
+            user: lessee.user,
+            property: property
+          });
+        });
+        // delete the unsuccessful leases
+      });
 
-      // remove allrentalApplications and send email to all excepet for the one with this leaseId
-
-      // maybe instead of awaitig for it we should cleanup when it can
+      // delete leases and rental applications
+      db.mutation.updateProperty({
+        where: {
+          id: propertyId
+        },
+        data: {
+          rentalApplications: {
+            deleteMany: [
+              {
+                id_not: "deleteThemAll"
+              }
+            ]
+          },
+          leases: {
+            deleteMany: [
+              {
+                id_not: leaseId
+              }
+            ]
+          }
+        }
+      });
     });
   console.log("== FINALISE LEASE CLEANUP ==");
   return;

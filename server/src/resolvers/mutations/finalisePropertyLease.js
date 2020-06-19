@@ -77,30 +77,15 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet");
   }
 
-  // SIGNING OCCURS BEFORE PAYMENT
-  // if (!lease.wallet) {
-  //   throw new Error(
-  //     "For some reason your lease has no wallet. Please contact support as this shouldnt happen"
-  //   );
-  // }
-
-  // // can only leagally hold 1 weeks worth of rent
-  // if (lease.wallet.amount < lease.rent) {
-  //   throw new Error(
-  //     `Wallet Amount: ($${lease.wallet.amount}) -  You need to supply ($${lease.rent})
-  //       2 weeks worth of rent to the lease wallet before the lease can go into full effect
-  //       `
-  //   );
-  // }
-
-  // need to create a charge
-  const acceptedLease = ctx.db.mutation.updatePropertyLease(
+  // stage needs to be updated
+  const acceptedLease = await ctx.db.mutation.updatePropertyLease(
     {
       where: {
         id: leaseId
       },
       data: {
-        // stage: "SIGNED",
+        stage: "SIGNED",
+        onTheMarket: false,
         wallet: {
           update: {
             amount: lease.wallet.amount - lease.rent,
@@ -117,23 +102,39 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     info
   );
 
-  // probably easier to get the property with leases etc on it. we will need to email people
-  // this may send an email out to the group that did
-  // leaseId is still to be linked really. Its very loose
-
-  // lets put this in its own file cleanUpOnFinaliseLease. Which will just fire async. so we can return the other stuff first.
-  // No shit tasks, needs to be live/dynamic updates
-
+  // cleanup unsuccessful leases and rentalApplications
   finaliseLeaseCleanup({
     leaseId: leaseId,
     propertyId: lease.property.id,
     db: ctx.db
   });
 
-  throw new Error("DEV MODE: developing finaliseLeaseCleanup when we sign");
+  // THIS DIDNT SEEM TO FIRE BELOW. added user, probs does now
+  // success emails to lessors
+  lessorUsers.map((usr, indx) => {
+    finalisePropertyLeaseEmail({
+      ctx: ctx,
+      lease: lease,
+      // payment: payment,
+      wallet: lease.wallet,
+      toEmail: usr.email,
+      user: usr
+    });
+  });
 
-  // maybe actually get them all? hmmmmmmmmmm as async right
-  // also need to remove any applications and any other potentaial leases
+  // success emails to lessees
+  lesseeUsers.map((usr, indx) => {
+    finalisePropertyLeaseEmail({
+      ctx: ctx,
+      lease: lease,
+      // payment: payment,
+      wallet: lease.wallet,
+      toEmail: usr.email,
+      user: usr
+    });
+  });
+
+  // create activity for system
   createActivity({
     ctx: ctx,
     data: {
@@ -159,26 +160,6 @@ async function finalisePropertyLease(parent, args, ctx, info) {
         ]
       }
     }
-  });
-
-  lessorUsers.map((usr, indx) => {
-    finalisePropertyLeaseEmail({
-      ctx: ctx,
-      lease: lease,
-      // payment: payment,
-      wallet: lease.wallet,
-      toEmail: usr.email
-    });
-  });
-
-  lesseeUsers.map((usr, indx) => {
-    finalisePropertyLeaseEmail({
-      ctx: ctx,
-      lease: lease,
-      // payment: payment,
-      wallet: lease.wallet,
-      toEmail: usr.email
-    });
   });
 
   return acceptedLease;
