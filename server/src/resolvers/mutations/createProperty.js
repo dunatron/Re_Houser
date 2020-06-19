@@ -1,7 +1,7 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode,
+  addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 
 var fs = require("fs"),
@@ -11,6 +11,7 @@ var fs = require("fs"),
 async function createProperty(parent, { data, files }, ctx, info) {
   console.log("What is the data => ", data);
   const loggedInUserId = ctx.request.userId;
+  console.log("loggedInUserId => ", loggedInUserId);
   // need to be logged in
   if (!loggedInUserId) {
     throw new Error("You must be logged in!");
@@ -33,6 +34,7 @@ async function createProperty(parent, { data, files }, ctx, info) {
   const averageRoomPrice =
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
+  console.log("before createPropertyMutation");
   const property = await ctx.db.mutation.createProperty(
     {
       data: {
@@ -40,14 +42,15 @@ async function createProperty(parent, { data, files }, ctx, info) {
         lowestRoomPrice,
         highestRoomPrice,
         rent: averageRoomPrice,
-        rooms: numberOfRooms,
+        rooms: numberOfRooms
         // images: {
         //   connect: connectFileIds,
         // },
-      },
+      }
     },
     info
   );
+  console.log("after createPropertyMutation");
   // const propertySearchNode = addPropertySearchNode({
   //   propertyId: property.id,
   //   ctx,
@@ -60,19 +63,19 @@ async function createProperty(parent, { data, files }, ctx, info) {
       type: "CREATED_PROPERTY",
       property: {
         connect: {
-          id: property.id,
-        },
+          id: property.id
+        }
       },
       user: {
         connect: {
-          id: loggedInUserId,
-        },
-      },
-    },
+          id: loggedInUserId
+        }
+      }
+    }
   });
   addPropertySearchNode({
     propertyId: property.id,
-    ctx,
+    ctx
   });
   // wow maybe return the thing too......
   return property;
