@@ -34,8 +34,8 @@ async function createProperty(parent, { data, files }, ctx, info) {
   const averageRoomPrice =
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
-  console.log("before createPropertyMutation");
   try {
+    console.log("before createPropertyMutation");
     // const property = await ctx.db.mutation.createProperty(
     //   {
     //     data: {
@@ -122,10 +122,11 @@ async function createProperty(parent, { data, files }, ctx, info) {
     //   },
     //   info
     // );
+
     const property = await ctx.db.mutation.createProperty(
       {
         data: {
-          type: HOUSE,
+          type: "HOUSE",
           rooms: 2,
           useAdvancedRent: false,
           bathrooms: 2,
@@ -143,19 +144,19 @@ async function createProperty(parent, { data, files }, ctx, info) {
           petsAllowed: true,
           maximumOccupants: 2,
           indoorFeatures: {
-            set: [DISHWASHER, BALCONY]
+            set: ["DISHWASHER", "BALCONY"]
           },
           outdoorFeatures: {
-            set: [OUTDOOR_SPA, PET_FRIENDLY]
+            set: ["OUTDOOR_SPA", "PET_FRIENDLY"]
           },
           heatSources: {
-            set: [HEAT_PUMP]
+            set: ["HEAT_PUMP"]
           },
           pets: {
-            set: [CAT]
+            set: ["CAT"]
           },
           chattels: {
-            set: [BLINDS, WALL_HEATER]
+            set: ["BLINDS", "WALL_HEATER"]
           },
           insulationForm: {},
           owners: {
@@ -174,6 +175,7 @@ async function createProperty(parent, { data, files }, ctx, info) {
       },
       info
     );
+    console.log("after createPropertyMutation");
     createActivity({
       ctx: ctx,
       data: {
