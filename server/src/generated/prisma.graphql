@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Jun 19 2020 13:46:10 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
+# timestamp: Fri Jun 19 2020 17:09:49 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -10790,7 +10790,6 @@ type Property implements Node {
   appraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
   tenancyType: TenancyType
   petsAllowed: Boolean
-  pets: [Pet!]!
   maximumOccupants: Int
   chattels: [PropertyChattel!]!
   landlordProtectionCover: Boolean
@@ -11056,7 +11055,6 @@ input PropertyCreateInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -11108,10 +11106,6 @@ input PropertyCreateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
-input PropertyCreatepetsInput {
-  set: [Pet!]
-}
-
 input PropertyCreateWithoutAccommodationInput {
   id: ID
   type: PropertyType
@@ -11148,7 +11142,6 @@ input PropertyCreateWithoutAccommodationInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -11196,7 +11189,6 @@ input PropertyCreateWithoutActivityInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -11244,7 +11236,6 @@ input PropertyCreateWithoutAppraisalsInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -11292,7 +11283,6 @@ input PropertyCreateWithoutCreatorInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -11340,7 +11330,6 @@ input PropertyCreateWithoutLeasesInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -11388,7 +11377,6 @@ input PropertyCreateWithoutOwnersInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -11436,7 +11424,6 @@ input PropertyCreateWithoutRentalApplicationsInput {
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
-  pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -13213,7 +13200,6 @@ type PropertyPreviousValues {
   rehouserStamp: Boolean
   tenancyType: TenancyType
   petsAllowed: Boolean
-  pets: [Pet!]!
   maximumOccupants: Int
   chattels: [PropertyChattel!]!
   landlordProtectionCover: Boolean
@@ -13912,7 +13898,6 @@ input PropertyUpdateInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -13960,7 +13945,6 @@ input PropertyUpdateManyDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
 }
 
@@ -13999,7 +13983,6 @@ input PropertyUpdateManyMutationInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
 }
 
@@ -14075,10 +14058,6 @@ input PropertyUpdateoutdoorFeaturesInput {
   set: [OutdoorFeature!]
 }
 
-input PropertyUpdatepetsInput {
-  set: [Pet!]
-}
-
 input PropertyUpdateWithoutAccommodationDataInput {
   type: PropertyType
   headline: String
@@ -14114,7 +14093,6 @@ input PropertyUpdateWithoutAccommodationDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -14161,7 +14139,6 @@ input PropertyUpdateWithoutActivityDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -14208,7 +14185,6 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -14255,7 +14231,6 @@ input PropertyUpdateWithoutCreatorDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -14302,7 +14277,6 @@ input PropertyUpdateWithoutLeasesDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -14349,7 +14323,6 @@ input PropertyUpdateWithoutOwnersDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -14396,7 +14369,6 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
-  pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput

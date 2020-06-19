@@ -186,7 +186,7 @@ type Property implements PropertyInfo {
   appraisals: [RentalAppraisal] @relation(name: "PropertyRentalAppraisals")
   tenancyType: TenancyType
   petsAllowed: Boolean
-  # pets: [Pet] @scalarList(strategy: RELATION)
+  pets: [Pet] @scalarList(strategy: RELATION)
   maximumOccupants: Int
   chattels: [PropertyChattel] @scalarList(strategy: RELATION)
   landlordProtectionCover: Boolean
