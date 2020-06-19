@@ -36,53 +36,57 @@ async function createProperty(parent, { data, files }, ctx, info) {
 
   console.log("before createPropertyMutation");
   try {
+    // const property = await ctx.db.mutation.createProperty(
+    //   {
+    //     data: {
+    //       ...data,
+    //       lowestRoomPrice,
+    //       highestRoomPrice,
+    //       rent: averageRoomPrice,
+    //       rooms: numberOfRooms
+    //       // images: {
+    //       //   connect: connectFileIds,
+    //       // },
+    //     }
+    //   },
+    //   info
+    // );
     const property = await ctx.db.mutation.createProperty(
       {
         data: {
-          ...data,
-          lowestRoomPrice,
-          highestRoomPrice,
-          rent: averageRoomPrice,
-          rooms: numberOfRooms
-          // images: {
-          //   connect: connectFileIds,
-          // },
+          ...data
         }
       },
       info
     );
-  } catch (e) {
-    console.log("createProperty err => ", e);
-  }
-  console.log("after createPropertyMutation");
-  // const propertySearchNode = addPropertySearchNode({
-  //   propertyId: property.id,
-  //   ctx,
-  // })
-  createActivity({
-    ctx: ctx,
-    data: {
-      title: "Property Created",
-      content: "You have created a new property, nice",
-      type: "CREATED_PROPERTY",
-      property: {
-        connect: {
-          id: property.id
-        }
-      },
-      user: {
-        connect: {
-          id: loggedInUserId
+    createActivity({
+      ctx: ctx,
+      data: {
+        title: "Property Created",
+        content: "You have created a new property, nice",
+        type: "CREATED_PROPERTY",
+        property: {
+          connect: {
+            id: property.id
+          }
+        },
+        user: {
+          connect: {
+            id: loggedInUserId
+          }
         }
       }
-    }
-  });
-  addPropertySearchNode({
-    propertyId: property.id,
-    ctx
-  });
-  // wow maybe return the thing too......
-  return property;
+    });
+    addPropertySearchNode({
+      propertyId: property.id,
+      ctx
+    });
+    // wow maybe return the thing too......
+    return property;
+  } catch (e) {
+    console.log("createProperty err => ", e);
+    throw new Error("An error occurred trying to create your property");
+  }
 }
 
 module.exports = createProperty;
