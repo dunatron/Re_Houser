@@ -152,12 +152,13 @@ async function createProperty(parent, { data, files }, ctx, info) {
           heatSources: {
             set: ["HEAT_PUMP"]
           },
-          pets: {
-            set: ["CAT"]
-          },
-          chattels: {
-            set: ["BLINDS", "WALL_HEATER"]
-          },
+          // pets and chattels causing an error? why.... something seems a little out of sync then... couldnt seem to reset either
+          // pets: {
+          //   set: ["CAT"]
+          // },
+          // chattels: {
+          //   set: ["BLINDS", "WALL_HEATER"]
+          // },
           insulationForm: {},
           owners: {
             connect: [
