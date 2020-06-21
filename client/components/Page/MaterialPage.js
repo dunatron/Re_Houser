@@ -20,6 +20,8 @@ import useStyles from './useStyles';
 import DashboardIcon from '../../styles/icons/DashboardIcon';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 
 import ThemePicker from './ThemePicker';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -35,6 +37,20 @@ const heartsEmojiMap = () => {
   }
   return cmpnts;
 };
+
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
 
 function MaterialPage(props) {
   // const { container, loadingUser, me } = props;
@@ -111,75 +127,78 @@ function MaterialPage(props) {
     <>
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar disableGutters={true} variant="regular">
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}>
-              <MenuIcon />
-            </IconButton>
-            {formattedPathParts.length > 0 && (
-              <IconButton onClick={handleGoBackToPreviousPage}>
-                <ArrowBackIcon />
+        <HideOnScroll {...props}>
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar disableGutters={true} variant="regular">
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}>
+                <MenuIcon />
               </IconButton>
-            )}
-            {formattedPathParts.length > 0 && (
-              <>
-                {formattedPathParts.map((urlPart, idx) => {
-                  const isLastPart =
-                    idx + 1 === formattedPathParts.length ? true : false;
-                  return (
-                    <Typography
-                      key={idx}
-                      variant="h6"
-                      className={!isLastPart ? classes.routeablePart : null}
-                      noWrap
-                      onClick={() => {
-                        !isLastPart ? routeToClickedPart(idx) : null;
-                      }}>
-                      {urlPart}
-                      {!isLastPart && '/'}
-                    </Typography>
-                  );
-                })}
-              </>
-            )}
-            <div
-              style={{
-                position: 'absolute',
-                right: '16px',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-              }}>
-              {/* <ThemePicker setTheme={setTheme} /> */}
+              {formattedPathParts.length > 0 && (
+                <IconButton onClick={handleGoBackToPreviousPage}>
+                  <ArrowBackIcon />
+                </IconButton>
+              )}
+              {formattedPathParts.length > 0 && (
+                <>
+                  {formattedPathParts.map((urlPart, idx) => {
+                    const isLastPart =
+                      idx + 1 === formattedPathParts.length ? true : false;
+                    return (
+                      <Typography
+                        key={idx}
+                        variant="h6"
+                        className={!isLastPart ? classes.routeablePart : null}
+                        noWrap
+                        onClick={() => {
+                          !isLastPart ? routeToClickedPart(idx) : null;
+                        }}>
+                        {urlPart}
+                        {!isLastPart && '/'}
+                      </Typography>
+                    );
+                  })}
+                </>
+              )}
+              <div
+                style={{
+                  position: 'absolute',
+                  right: '16px',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  alignItems: 'center',
+                }}>
+                {/* <ThemePicker setTheme={setTheme} /> */}
 
-              <Tooltip title="toggle app theme">
-                <IconButton
-                  onClick={() => toggleTheme()}
-                  color="inherit"
-                  aria-label="toggle Theme"
-                  edge="end">
-                  <Brightness7Icon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="go to Dashboard">
-                <IconButton
-                  onClick={() => {
-                    router.push('/dashboard');
-                  }}
-                  color="inherit"
-                  aria-label="go to dashboard"
-                  edge="end">
-                  <DashboardIcon />
-                </IconButton>
-              </Tooltip>
-            </div>
-          </Toolbar>
-        </AppBar>
+                <Tooltip title="toggle app theme">
+                  <IconButton
+                    onClick={() => toggleTheme()}
+                    color="inherit"
+                    aria-label="toggle Theme"
+                    edge="end">
+                    <Brightness7Icon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="go to Dashboard">
+                  <IconButton
+                    onClick={() => {
+                      router.push('/dashboard');
+                    }}
+                    color="inherit"
+                    aria-label="go to dashboard"
+                    edge="end">
+                    <DashboardIcon />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </HideOnScroll>
+
         <nav className={classes.drawer} aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden lgUp implementation="css">
