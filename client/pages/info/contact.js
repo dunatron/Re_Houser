@@ -1,14 +1,20 @@
 import ComingSoon from '../../components/ComingSoon';
 import ContactComponent from '../../components/Contact';
 import { Typography } from '@material-ui/core';
+import PageHeader from '../../components/PageHeader';
 
 const ContactInfoPage = () => {
   return (
     <>
-      <Typography variant="h1">Contact</Typography>
-      <Typography variant="body1" gutterBottom>
-        Want to contact us? you will find any contact information below
-      </Typography>
+      <PageHeader
+        title="Contact"
+        intro="Want to contact us? you will find any contact information below"
+        metaData={{
+          title: 'Contact us',
+          content:
+            'Contact details including physical address, mailing address, email address and phone details for our offices',
+        }}
+      />
       <ContactComponent />
     </>
   );

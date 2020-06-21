@@ -16,7 +16,11 @@ const FormSection = props => {
   const { options } = fieldProps;
   return (
     <Paper style={{ padding: '8px' }}>
-      {label && <Typography variant="subtitle1">{label}</Typography>}
+      {label && (
+        <Typography variant="h6" gutterBottom>
+          {label}
+        </Typography>
+      )}
       {inners &&
         inners.map((inner, idx) => {
           return (

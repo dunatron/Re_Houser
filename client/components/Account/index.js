@@ -40,6 +40,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    maxWidth: '800px',
     // flexGrow: 1,
     // backgroundColor: theme.palette.background.paper,
   },

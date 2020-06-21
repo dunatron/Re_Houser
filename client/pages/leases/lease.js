@@ -8,6 +8,7 @@ const MyLeasePage = props => {
   } = props;
   return (
     <div>
+      {/* PageHeader on LeaseManager component*/}
       <PleaseSignIn
         currentUser={currentUser}
         message="You cannot view a lease without being signed in">

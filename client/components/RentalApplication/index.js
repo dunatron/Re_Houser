@@ -5,6 +5,7 @@ import Error from '../ErrorMessage';
 import { Paper, Typography } from '@material-ui/core';
 import OwnerView from './views/OwnerView';
 import ApplicantView from './views/ApplicantView';
+import PageHeader from '../../components/PageHeader';
 /**
  * page is wrapped in a must be loggedIn
  */
@@ -30,11 +31,35 @@ const RentalApplication = ({ id, me }) => {
   } = data;
 
   const isOwner = me.id === owner.id;
-  return isOwner ? (
-    <OwnerView rentalApplication={data.rentalApplication} me={me} />
-  ) : (
-    <ApplicantView rentalApplication={data.rentalApplication} me={me} />
+
+  return (
+    <>
+      <PageHeader
+        title="Rental application"
+        intro={`Rental application for ${data.rentalApplication.property.location}`}
+        metaData={{
+          title: `${data.rentalApplication.property.location} rental application`,
+          content: `Rental application for ${data.rentalApplication.property.location}`,
+        }}
+        children={[
+          <Typography gutterBottom>
+            Application ID: {data.rentalApplication.id}
+          </Typography>,
+        ]}
+      />
+      {isOwner ? (
+        <OwnerView rentalApplication={data.rentalApplication} me={me} />
+      ) : (
+        <ApplicantView rentalApplication={data.rentalApplication} me={me} />
+      )}
+    </>
   );
+
+  // return isOwner ? (
+  //   <OwnerView rentalApplication={data.rentalApplication} me={me} />
+  // ) : (
+  //   <ApplicantView rentalApplication={data.rentalApplication} me={me} />
+  // );
 };
 
 export default RentalApplication;

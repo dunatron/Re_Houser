@@ -60,10 +60,6 @@ const TeamComponent = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h1">Meet the team</Typography>
-      <Typography variant="body1">
-        Here are the people who make Re_Houser happen!
-      </Typography>
       <div
         style={{
           padding: '16px',

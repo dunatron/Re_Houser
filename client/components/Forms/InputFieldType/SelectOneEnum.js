@@ -70,7 +70,10 @@ export default function SimpleSelect(props) {
     if (!defaultValue) setValue(fieldProps.name, []);
   }, [register]);
 
-  if (loading) return <Loader loading={loading} />;
+  // if (loading)
+  //   return (
+  //     <Loader loading={loading} text={`loading ${fieldProps.name} options`} />
+  //   );
   if (error) return <Error error={error} />;
 
   const options = data
@@ -109,6 +112,14 @@ export default function SimpleSelect(props) {
             name: fieldProps.name,
             id: fieldProps.name,
           }}>
+          {loading && (
+            <MenuItem disabled={true}>
+              <Loader
+                loading={loading}
+                text={`loading ${fieldProps.name} options`}
+              />
+            </MenuItem>
+          )}
           {options &&
             options.map((d, i) => {
               return (

@@ -36,7 +36,9 @@ const EntityFormType = props => {
    */
   return (
     <Paper style={{ padding: '8px' }}>
-      <Typography variant="subtitle1">{title}</Typography>
+      <Typography variant="h6" gutterBottom>
+        {title}
+      </Typography>
       <Typography>{description}</Typography>
       <Switch
         value={canBeFucked}

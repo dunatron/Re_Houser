@@ -7,6 +7,7 @@ const MyApplication = props => {
   const {
     appData: { currentUser },
   } = props;
+  // PageHeader on RentalApplication component
   return (
     <PleaseSignIn
       currentUser={currentUser}

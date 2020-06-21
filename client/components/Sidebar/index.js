@@ -23,6 +23,7 @@ import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
+import { Typography } from '@material-ui/core';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -68,6 +69,7 @@ const NavigationConfig = (me, loadingUser) => {
   return [
     {
       key: 'admin-section',
+      label: 'Admins',
       items: [
         {
           icon: <DashboardIcon />,
@@ -87,6 +89,13 @@ const NavigationConfig = (me, loadingUser) => {
           route: '/look',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
+        },
+        {
+          icon: <InfoIcon />,
+          text: 'Info',
+          route: '/info',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
         },
         {
           icon: <DashboardIcon />,
@@ -150,11 +159,19 @@ const NavigationConfig = (me, loadingUser) => {
     // },
     {
       key: 'landlord',
+      label: 'Landlords',
       canRender: () => {
         if (me === null) return false;
         return true;
       },
       items: [
+        {
+          icon: <HomeWorkIcon />,
+          text: 'Free Appraisal',
+          route: '/freeappraisal',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
         {
           icon: <AssignmentIcon />,
           text: 'Applications',
@@ -179,22 +196,32 @@ const NavigationConfig = (me, loadingUser) => {
       ],
     },
     {
-      key: 'account',
+      key: 'tenant',
+      label: 'Tenants',
+      canRender: () => {
+        if (me === null) return false;
+        return true;
+      },
       items: [
         {
-          icon: <HomeWorkIcon />,
-          text: 'Free Appraisal',
-          route: '/freeappraisal',
+          icon: <AssignmentIcon />,
+          text: 'Applications',
+          route: '/applications',
           style: { ...defaultNavItemStyle },
-          canRender: () => true, // set to try just to run it alot on the same account in dev
+          canRender: () => true,
         },
         {
-          icon: <InfoIcon />,
-          text: 'Info',
-          route: '/info',
+          icon: <ApartmentIcon />,
+          text: 'Leases',
+          route: '/leases',
           style: { ...defaultNavItemStyle },
-          canRender: () => true, // set to try just to run it alot on the same account in dev
+          canRender: () => true,
         },
+      ],
+    },
+    {
+      key: 'account',
+      items: [
         {
           icon: loadingUser ? (
             <Skeleton variant="circle" width={40} height={40} />
@@ -236,6 +263,11 @@ const Nav = ({ loadingUser, me }) => {
         return (
           <Fragment key={conf.key}>
             <List>
+              {conf.label && (
+                <ListItem>
+                  <Typography variant="h6">{conf.label}</Typography>
+                </ListItem>
+              )}
               {conf.items.map((item, i) => {
                 if (!item.canRender()) return null;
                 return (

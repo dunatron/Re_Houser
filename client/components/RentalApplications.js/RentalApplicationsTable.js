@@ -9,6 +9,7 @@ import SuperiorTable from '../SuperiorTable';
 import Modal from '../Modal/index';
 import PropertyDetails from '../PropertyDetails/index';
 import RentalApplication from '../RentalApplication';
+import RehouserPaper from '../../styles/RehouserPaper';
 
 //icons
 import DetailsIcon from '../../styles/icons/DetailsIcon';
@@ -96,26 +97,46 @@ const RentalApplicationsTable = props => {
 
   return (
     <>
-      <Typography variant="body1" gutterBottom>
-        INITIALIZING => The owner of the application needs to accept the
-        applicants for the application before it is sent to the landlord.
-        <br /> You can have as many or as little applicants as you like
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        PENDING => The landlord has recieved your application and will either
-        "APPROVE" or "DENY" it.
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        ACCEPTED => The application has been accepted and a new "Lease" entity
-        has been created for yourself, other tenants, and the landlord. <br />
-        Head to the "leases" using the navigation to sign the lease
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        ToDo: create a new text field on the RentalApplication like
-        "createdLeaseId" which will be updated with the lease id from the newly
-        created lease. SImply so we can refer to it here and send people away to
-        the link on "ACCEPTED" stage
-      </Typography>
+      <RehouserPaper>
+        <Typography variant="h5" gutterBottom>
+          Rental application information
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          Applications will go through a process. if at any stage you are
+          unsuccessful the application will close and we will email you
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
+          Stage information
+        </Typography>
+        <Typography variant="subtitle2" gutterBottom>
+          INITIALIZING
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          The owner of the application needs to accept the applicants for the
+          application before it is sent to the landlord.
+          <br /> You can have as many or as little applicants as you like
+        </Typography>
+        <Typography variant="subtitle2" gutterBottom>
+          PENDING
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          The landlord has recieved your application and will either "APPROVE"
+          or "DENY" it.
+        </Typography>
+        <Typography variant="subtitle2" gutterBottom>
+          ACCEPTED
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          The application has been accepted and a new "Lease" entity has been
+          created for yourself, other tenants, and the landlord. <br />
+          Head to the "leases" using the navigation to sign the lease
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          TODO: create leaseId on the rentalApplication that loosely holds the
+          string so we can use it to redirect them rom the table if we have it
+        </Typography>
+      </RehouserPaper>
+
       <SuperiorTable
         title="Rental applications table"
         columns={columns}

@@ -14,6 +14,8 @@ const TeamMemberPage = props => {
 
   if (!member) return `No team member for ${query.name}`;
 
+  // PageHeder on TeamMember component
+
   return <TeamMember member={member} />;
 };
 

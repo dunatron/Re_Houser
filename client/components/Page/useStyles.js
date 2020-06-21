@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
   routeablePart: {
     cursor: 'pointer',
+    color: theme.palette.primary.main,
     '&:hover': {
       textDecoration: 'underline',
     },

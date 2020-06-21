@@ -5,8 +5,7 @@ import DASHBOARD_CONFIG from '../lib/configs/dashboardConfig';
 import INFO_DASHBOARD_CONFIG from '../lib/configs/infoDashboardConfig';
 import Head from 'next/head';
 import { SITE_NAME } from '../lib/const';
-
-<p className="intro"></p>;
+import PageHeader from '../components/PageHeader';
 
 const DashboardPage = props => {
   const {
@@ -14,13 +13,16 @@ const DashboardPage = props => {
   } = props;
   return (
     <>
-      <Head>
-        <meta
-          name="description"
-          content="rehouser dashboard to manage all of your property and lease needs"
-        />
-        <title>Rehouser | dashboard</title>
-      </Head>
+      <PageHeader
+        title="Rehouser Activity"
+        intro="Here is the system activity in regards to you. You can use this to
+        quickly see activity on your properties, applications and lease"
+        metaData={{
+          title: 'Rehouser | dashboard',
+          content:
+            'rehouser dashboard to manage all of your property and lease needs',
+        }}
+      />
       <PleaseSignIn currentUser={currentUser}>
         <Dashboard
           config={DASHBOARD_CONFIG}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CreateProperty from '../../components/CreateProperty/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import { is } from 'ramda';
+import PageHeader from '../../components/PageHeader';
 
 const AddPropertyPage = props => {
   const pleaseSignInMessage =
@@ -20,16 +21,26 @@ const AddPropertyPage = props => {
     bathrooms: 2,
   };
   return (
-    <PleaseSignIn
-      currentUser={currentUser}
-      message={pleaseSignInMessage}
-      alert={
-        <p>
-          <strong>{pleaseSignInMessage}</strong>
-        </p>
-      }>
-      <CreateProperty prefilledData={formattedData} />
-    </PleaseSignIn>
+    <>
+      <PageHeader
+        title="Add Property"
+        intro="Add a property to the platform. You can configure it after creation before it goes on the market"
+        metaData={{
+          title: 'add property to the platform',
+          content: 'Add a property to the platform',
+        }}
+      />
+      <PleaseSignIn
+        currentUser={currentUser}
+        message={pleaseSignInMessage}
+        alert={
+          <p>
+            <strong>{pleaseSignInMessage}</strong>
+          </p>
+        }>
+        <CreateProperty prefilledData={formattedData} />
+      </PleaseSignIn>
+    </>
   );
 };
 

@@ -22,6 +22,8 @@ import Typography from '@material-ui/core/Typography';
 import { SITE_NAME } from '../../lib/const';
 import { toast } from 'react-toastify';
 import Loader from '../Loader/index';
+import PageHeader from '../PageHeader';
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -134,49 +136,58 @@ const PropertyDetails = ({ id, location }) => {
   }
 
   return (
-    <PropertyCard>
-      <Head>
-        <title>
-          {SITE_NAME} | {property ? property.location : null}
-        </title>
-      </Head>
-      <h1 className="location__name"> {property ? property.location : null}</h1>
-      <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)}>
-        <Tab label="Details" />
-        <Tab label={<PropertyApplicationsBadgeCount property={property} />} />
-        <Tab label="Leases" />
-        <Tab label="Activity" />
-      </Tabs>
+    <>
+      <PageHeader
+        title={property ? property.location : null}
+        titleVariant="h3"
+        intro={`this is where you can manage ${
+          property ? property.location : null
+        }. This is where you can review and accept applications, sign and manage leases associated with this property, and change the details before it goes on the market`}
+        metaData={{
+          title: `${SITE_NAME} | ${property ? property.location : null}`,
+          content: 'The properties for the current logged in user',
+        }}
+      />
+      <PropertyCard>
+        {/* <h1 className="location__name"> {property ? property.location : null}</h1> */}
 
-      {tabIndex === 0 && (
-        <TabContainer>
-          <Details property={property} />
-        </TabContainer>
-      )}
-      {tabIndex === 1 && (
-        <TabContainer>
-          <Applications property={property} />
-        </TabContainer>
-      )}
-      {tabIndex === 2 && (
-        <TabContainer>
-          <Leases property={property} />
-        </TabContainer>
-      )}
-      {tabIndex === 3 && (
-        <TabContainer>
-          <Activity
-            args={{
-              where: {
-                property: {
-                  id: property.id,
+        <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)}>
+          <Tab label="Details" />
+          <Tab label={<PropertyApplicationsBadgeCount property={property} />} />
+          <Tab label="Leases" />
+          <Tab label="Activity" />
+        </Tabs>
+
+        {tabIndex === 0 && (
+          <TabContainer>
+            <Details property={property} />
+          </TabContainer>
+        )}
+        {tabIndex === 1 && (
+          <TabContainer>
+            <Applications property={property} />
+          </TabContainer>
+        )}
+        {tabIndex === 2 && (
+          <TabContainer>
+            <Leases property={property} />
+          </TabContainer>
+        )}
+        {tabIndex === 3 && (
+          <TabContainer>
+            <Activity
+              args={{
+                where: {
+                  property: {
+                    id: property.id,
+                  },
                 },
-              },
-            }}
-          />
-        </TabContainer>
-      )}
-    </PropertyCard>
+              }}
+            />
+          </TabContainer>
+        )}
+      </PropertyCard>
+    </>
   );
 };
 

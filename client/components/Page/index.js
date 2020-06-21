@@ -61,6 +61,9 @@ const lightTheme = createMuiTheme({
     ...muiTheme.palette,
     ...lightPalette.palette,
   },
+  overrides: {
+    MuiAppBar: { colorPrimary: { backgroundColor: '#fff', color: '#212121' } },
+  },
   ...themeTypography,
 });
 

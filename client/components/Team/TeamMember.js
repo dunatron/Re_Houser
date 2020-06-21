@@ -1,6 +1,7 @@
 import { Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
+import PageHeader from '../PageHeader';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -43,9 +44,17 @@ const TeamMember = ({ member }) => {
   const classes = useStyles();
   return (
     <Paper className={classes.root} elevation={1} variant="elevation" square>
-      <Typography align="center" variant="h1" component="h1">
-        {member.name}
-      </Typography>
+      <PageHeader
+        titleOverride={
+          <Typography align="center" variant="h1" component="h1">
+            {member.name}
+          </Typography>
+        }
+        metaData={{
+          title: `${member.name} - ${member.name}`,
+          content: `${member.name} - ${member.name}`,
+        }}
+      />
       <Typography align="center" variant="h2" component="h2">
         {member.role}
       </Typography>

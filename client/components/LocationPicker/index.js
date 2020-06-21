@@ -16,6 +16,9 @@ import { WORLD_FIXTURES } from '../../lib/locationFixtures';
 
 import styled from 'styled-components';
 
+// icons
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+
 const StylesGeoSuggest = styled(Geosuggest)`
   .geosuggest {
     font-size: 18px;
@@ -110,6 +113,7 @@ const LocationPicker = ({ selection }) => {
     showMap: true,
     country: 'NZ',
     type: 'geocode',
+    // type: 'ALL',
   };
 
   const [state, setState] = useState(defaultState);
@@ -218,7 +222,8 @@ const LocationPicker = ({ selection }) => {
         radius="20"
         country={state.country === 'ALL' ? null : state.country}
       />
-      <div>
+      {/* LOCATION PICKER OPTIONS DISABLED FOR NOW */}
+      {/* <div>
         <ExpansionPanel>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>Location advanced Options</Typography>
@@ -245,7 +250,7 @@ const LocationPicker = ({ selection }) => {
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>
-      </div>
+      </div> */}
       {state.showMap && state.desc && (
         <Map
           center={{
@@ -256,7 +261,14 @@ const LocationPicker = ({ selection }) => {
         />
       )}
       {state.desc && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', padding: '16px 0' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            padding: '16px 0',
+            alignItems: 'center',
+          }}>
+          <LocationOnIcon color="secondary" />
           <Typography style={{ padding: '8px 16px' }}>{state.desc}</Typography>
           <Typography style={{ padding: '8px 16px' }}>
             Latitute: {state.lat}

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import SpanRoute from '../Routes/SpanRoute';
 import { Paper, Typography, Button } from '@material-ui/core';
 import SuccessPaper from '../SuccessPaper';
+import RehouserPaper from '../../styles/RehouserPaper';
 
 import PROPERTY_APPRAISAL_CONF from '../../lib/configs/propertyAppraisalForm';
 
