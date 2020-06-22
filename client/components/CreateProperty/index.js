@@ -10,6 +10,7 @@ import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 import { toast } from 'react-toastify';
 import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
+import Error from '../../components/ErrorMessage';
 
 const CreatePropertyComponent = props => {
   const { me } = props;

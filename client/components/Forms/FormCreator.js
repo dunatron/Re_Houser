@@ -117,7 +117,6 @@ const FormCreator = props => {
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
-      <Errors error={error} />
       <div>
         {configIsValid(config) &&
           config.map((item, idx) => {
@@ -147,6 +146,7 @@ const FormCreator = props => {
             );
           })}
         <FormErrors errors={errors} />
+        <Errors error={error} />
         <Button
           variant="contained"
           disabled={posting}
