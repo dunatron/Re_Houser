@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 const DisplayError = ({ error, tronM }) => {
   const classes = useStyles();
   if (!error || !error.message) return null;
+  // 2 tiers. first is if it is a neqtworkError and results
   if (
     error.networkError &&
     error.networkError.result &&
