@@ -10,19 +10,7 @@ const HomePage = props => {
   const {
     appData: { currentUser },
   } = props;
-  console.log('Look page props => ', props);
 
-  if (typeof window !== 'undefined') {
-    // client-side-only code
-    return null;
-  }
-  const [isComponentMounted, setIsComponentMounted] = useState(false);
-
-  useEffect(() => setIsComponentMounted(true), []);
-
-  if (!isComponentMounted) {
-    return null;
-  }
   return (
     <div>
       <Banner imageSrc="images/banners/home-page-banner.jpg">
