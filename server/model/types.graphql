@@ -188,7 +188,7 @@ type Property implements PropertyInfo {
   petsAllowed: Boolean
   pets: [Pet] @scalarList(strategy: RELATION)
   maximumOccupants: Int
-  # chattels: [PropertyChattel] @scalarList(strategy: RELATION)
+  chattels: [PropertyChattel] @scalarList(strategy: RELATION)
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean

@@ -193,6 +193,8 @@ const Page = props => {
     e.preventDefault();
   };
 
+  console.log('google maps thing => ', google);
+
   // I think we should disable default onDrop for window while a drag and drop element is present
   // Simply in the case they drag it onto the site and not the drop area
   useEffect(() => {

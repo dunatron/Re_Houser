@@ -32,9 +32,19 @@ import CustomHighlight from './refinements/CustomHiglight';
 import PropertyCard from '../PropertyCard/index';
 import SearchFilter from './SearchFilter';
 import FilterDrawer from './FilterDrawer';
+import { GoogleApiWrapper } from 'google-maps-react';
 
 // connected refinements
 import CurrentRefinements from './refinements/CurrentRefinements';
+import {
+  GoogleMapsLoader,
+  GeoSearch,
+  Marker,
+  Control,
+  CustomMarker,
+} from 'react-instantsearch-dom-maps';
+
+// import Places from './places/widget';
 
 //icons
 import NavigateBeforeIcon from '../../styles/icons/NavigateBefore';
@@ -52,6 +62,15 @@ import {
   Configure,
   connectCurrentRefinements,
 } from 'react-instantsearch-dom';
+
+import dynamic from 'next/dynamic';
+
+const DynamicPlacesSearch = dynamic(import('./places/widget'), {
+  ssr: false,
+});
+
+// THIS FOR NEXT JS
+// https://github.com/algolia/react-instantsearch/tree/master/examples/next
 
 var applicationId = '4QW4S8SE3J';
 var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
@@ -147,8 +166,9 @@ const Content = () => (
 //   </div>
 // );
 
-const PropertySearch = () => {
+const PropertySearch = props => {
   const [open, setOpen] = useState(false);
+  const { google } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -171,8 +191,6 @@ const PropertySearch = () => {
 
   console.log('WHats happening here...');
 
-  // return <h1>Hmmmm</h1>;
-
   return (
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
@@ -181,6 +199,42 @@ const PropertySearch = () => {
         <FilterDrawer open={open} handleClose={handleDrawerClose} />
         <Paper variant="outlined" square={true} style={{ padding: '8px' }}>
           {/* <Toolbar disableGutters={!open}> */}
+          <DynamicPlacesSearch
+            defaultRefinement={{
+              lat: 37.7793,
+              lng: -122.419,
+            }}
+          />
+          <div>
+            <GeoSearch
+              google={google}
+              initialZoom={8}
+              initialPosition={{
+                lat: 48.88038,
+                lng: 2.32695,
+              }}
+              enableRefineOnMapMove={true}
+              enableRefine={true} // If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
+              // mapTypeId={google.maps.MapTypeId.SATELLITE}
+            >
+              {({ hits }) => (
+                <div>
+                  <Control />
+                  {/* {hits.map(hit => (
+                  <Marker key={hit.objectID} hit={hit} />
+                ))} */}
+                  {hits.map(hit => (
+                    <CustomMarker key={hit.objectID} hit={hit}>
+                      <span
+                        style={{ backgroundColor: '#fff', fontSize: '1rem' }}>
+                        ${hit.rent}
+                      </span>
+                    </CustomMarker>
+                  ))}
+                </div>
+              )}
+            </GeoSearch>
+          </div>
           <Toolbar disableGutters={true} variant="dense">
             <CustomSearchBox fullWidth={true} />
           </Toolbar>
@@ -218,4 +272,61 @@ PropertySearch.propTypes = {
   // theme: PropTypes.object.isRequired,
 };
 
-export default PropertySearch;
+// export default PropertySearch;
+
+export default GoogleApiWrapper({
+  apiKey: process.env.GOOGLE_API_KEY,
+})(PropertySearch);
+
+// import algoliasearch from 'algoliasearch/lite';
+// import { InstantSearch } from 'react-instantsearch-dom';
+// import {
+//   GoogleMapsLoader,
+//   GeoSearch,
+//   Control,
+//   Marker,
+// } from 'react-instantsearch-dom-maps';
+
+// import { GoogleApiWrapper } from 'google-maps-react';
+
+// var applicationId = '4QW4S8SE3J';
+// var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
+// const searchClient = algoliasearch(applicationId, apiKey);
+// const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
+
+// // const searchClient = algoliasearch(
+// //   'latency',
+// //   '6be0576ff61c053d5f9a3225e2a90f76'
+// // );
+// // const searchClient = algoliasearch(applicationId, apiKey);
+
+// const App = () => (
+//   <InstantSearch
+//     indexName={`${indexPrefix}_PropertySearch`}
+//     searchClient={searchClient}>
+//     <div style={{ height: 500 }}>
+//       <GoogleMapsLoader
+//         apiKey={'AIzaSyBsJ5i5rLUb9RWq_PEI8lgtH40LJyFEILk'}
+//         style={{ height: '500px' }}>
+//         {google => (
+//           <GeoSearch google={google}>
+//             {({ hits }) => (
+//               <div>
+//                 <Control />
+//                 {hits.map(hit => (
+//                   <Marker key={hit.objectID} hit={hit} />
+//                 ))}
+//               </div>
+//             )}
+//           </GeoSearch>
+//         )}
+//       </GoogleMapsLoader>
+//     </div>
+//   </InstantSearch>
+// );
+
+// // export default App;
+
+// export default GoogleApiWrapper({
+//   apiKey: process.env.GOOGLE_API_KEY,
+// })(App);

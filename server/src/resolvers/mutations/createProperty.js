@@ -1,7 +1,7 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode
+  addPropertySearchNode,
 } = require("../../lib/algolia/propertySearchApi");
 
 var fs = require("fs"),
@@ -9,12 +9,10 @@ var fs = require("fs"),
   filePath = path.join(__dirname, "../lib/documents/test.docx");
 
 async function createProperty(parent, { data, files }, ctx, info) {
-  console.log("What is the data => ", data);
   const loggedInUserId = ctx.request.userId;
-  console.log("loggedInUserId => ", loggedInUserId);
   // need to be logged in
   if (!loggedInUserId) {
-    throw new Error("You must be logged in!");
+    throw new Error("You must be logged in to create a property!");
   }
   // const uploadedFiles = files
   //   ? await Promise.all(files.map((file) => processUpload(file, ctx)))
@@ -44,140 +42,15 @@ async function createProperty(parent, { data, files }, ctx, info) {
           lowestRoomPrice,
           highestRoomPrice,
           rent: averageRoomPrice,
-          rooms: numberOfRooms
+          rooms: numberOfRooms,
           // images: {
           //   connect: connectFileIds,
           // },
-        }
+        },
       },
       info
     );
-    // createProperty(data:{
-    //   type: HOUSE,
-    //   rooms: 2,
-    //   useAdvancedRent: false,
-    //   bathrooms: 2,
-    //   garageSpaces: 2,
-    //   carportSpaces: 2,
-    //   offStreetSpaces: 2,
-    //   rent: 70000,
-    //   moveInDate: "2020-04-11",
-    //   expiryDate: "2020-04-16",
-    //   onTheMarket: false,
-    //   location: "Pisa Moorings Road, Mount Pisa, New Zealand",
-    //   locationLat: -44.9776393,
-    //   locationLng: 169.2386795,
-    //   tenancyType: FIXED,
-    //   petsAllowed: true,
-    //   maximumOccupants: 2,
-    //   indoorFeatures: {
-    //      set: [
-    //       DISHWASHER,
-    //       BALCONY
-    //   ]},
-    //   outdoorFeatures:{
-    //     set:[
-    //       OUTDOOR_SPA,
-    //       PET_FRIENDLY
-    //     ]
-    //   },
-    //   heatSources: {
-    //     set:[
-    //       HEAT_PUMP
-    //     ]
-    //   },
-    //   pets: {
-    //     set:[
-    //       CAT
-    //     ]
-    //   },
-    //   chattels:{
-    //     set:[
-    //       BLINDS,
-    //       WALL_HEATER
-    //     ]
-    //   },
-    //   insulationForm:{
 
-    //   },
-    //   owners:{
-    //     connect:[
-    //       {
-    //         id: "ckblp3kct006l0765dofn69ts"
-    //       }
-    //     ]
-    //   },
-    //   creator:{
-    //     connect:{
-    //       id: "ckblp3kct006l0765dofn69ts"
-    //     }
-    //   }
-    // }) {
-    //   id
-    // }
-    // const property = await ctx.db.mutation.createProperty(
-    //   {
-    //     data: {
-    //       ...data
-    //     }
-    //   },
-    //   info
-    // );
-
-    // const property = await ctx.db.mutation.createProperty(
-    //   {
-    //     data: {
-    //       type: "HOUSE",
-    //       rooms: 2,
-    //       useAdvancedRent: false,
-    //       bathrooms: 2,
-    //       garageSpaces: 2,
-    //       carportSpaces: 2,
-    //       offStreetSpaces: 2,
-    //       rent: 70000,
-    //       moveInDate: "2020-04-11",
-    //       expiryDate: "2020-04-16",
-    //       onTheMarket: false,
-    //       location: "Pisa Moorings Road, Mount Pisa, New Zealand",
-    //       locationLat: -44.9776393,
-    //       locationLng: 169.2386795,
-    //       tenancyType: "FIXED",
-    //       petsAllowed: true,
-    //       maximumOccupants: 2,
-    //       indoorFeatures: {
-    //         set: ["DISHWASHER", "BALCONY"]
-    //       },
-    //       outdoorFeatures: {
-    //         set: ["OUTDOOR_SPA", "PET_FRIENDLY"]
-    //       },
-    //       heatSources: {
-    //         set: ["HEAT_PUMP"]
-    //       },
-    //       // pets and chattels causing an error? why.... something seems a little out of sync then... couldnt seem to reset either
-    //       // pets: {
-    //       //   set: ["CAT"]
-    //       // },
-    //       // chattels: {
-    //       //   set: ["BLINDS", "WALL_HEATER"]
-    //       // },
-    //       insulationForm: {},
-    //       owners: {
-    //         connect: [
-    //           {
-    //             id: "ckblp3kct006l0765dofn69ts"
-    //           }
-    //         ]
-    //       },
-    //       creator: {
-    //         connect: {
-    //           id: "ckblp3kct006l0765dofn69ts"
-    //         }
-    //       }
-    //     }
-    //   },
-    //   info
-    // );
-    console.log("after createPropertyMutation");
     createActivity({
       ctx: ctx,
       data: {
@@ -186,19 +59,19 @@ async function createProperty(parent, { data, files }, ctx, info) {
         type: "CREATED_PROPERTY",
         property: {
           connect: {
-            id: property.id
-          }
+            id: property.id,
+          },
         },
         user: {
           connect: {
-            id: loggedInUserId
-          }
-        }
-      }
+            id: loggedInUserId,
+          },
+        },
+      },
     });
     addPropertySearchNode({
       propertyId: property.id,
-      ctx
+      ctx,
     });
     // wow maybe return the thing too......
     return property;

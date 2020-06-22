@@ -7,6 +7,7 @@ const LookPage = props => {
   const {
     appData: { currentUser },
   } = props;
+
   return (
     <>
       <PageHeader

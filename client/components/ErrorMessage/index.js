@@ -19,6 +19,7 @@ const DisplayError = ({ error, tronM }) => {
   const classes = useStyles();
   if (!error || !error.message) return null;
   // 2 tiers. first is if it is a neqtworkError and results
+  // TIER 1
   if (
     error.networkError &&
     error.networkError.result &&
@@ -54,6 +55,15 @@ const DisplayError = ({ error, tronM }) => {
       </>
     ));
   }
+
+  // TIER 2
+  toast.error(
+    <p data-test="graphql-error">
+      <strong>Shoot!</strong>
+      <br />
+      {error.message.replace('GraphQL error: ', '')}
+    </p>
+  );
 
   return (
     <Paper className={classes.root}>
