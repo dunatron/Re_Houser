@@ -229,7 +229,9 @@ server.start(
     },
     port: process.env.PORT || 4444,
     // playground: ??
-    subscriptions: {}
+    subscriptions: {
+      keepAlive: true // blindly added this
+    }
   },
   details => {
     console.log(`Server DETAILS:${JSON.stringify(details)}`);

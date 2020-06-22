@@ -13,7 +13,7 @@ exports.rehouserCookieOpt = () => {
   return {
     maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
     httpOnly: true,
-    sameSite: "Lax",
+    sameSite: "None",
     secure: envStage == "dev" ? false : true // connection needs to be over HTTPS
   };
   // return {
