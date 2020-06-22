@@ -1,4 +1,4 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+# endpoint: ${env:PRISMA_ENDPOINT}
 # endpoint: ${env:PRISMA_ENDPOINT}
 # endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser/prod
 # endpoint: https://rehouser-production-cacaa3459e.herokuapp.com/rehouser-production/prod
@@ -19,3 +19,5 @@ hooks:
   post-deploy:
     - graphql get-schema -p prisma
 # endpoint: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
+
+endpoint: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod

@@ -14,6 +14,7 @@
     "reset": "prisma reset --env-file variables.env",
     "reset-prod": "prisma reset --env-file variables-prod.env",
     "reset:prod": "prisma reset --env-file variables-prod.env",
+    "reset:heroku:prisma": "heroku pg:reset --app rehouser-prisma-d9fa92f398 --confirm rehouser-prisma-d9fa92f398",
     "prisma-dev-token": "prisma token --env-file variables.env",
     "generate-schema": "prisma generate --env-file variables.env",
     "format": "prettier \"**/*.jss\" --write"

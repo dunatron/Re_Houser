@@ -25,15 +25,6 @@ const DisplayError = ({ error, tronM }) => {
     error.networkError.result &&
     error.networkError.result.errors.length
   ) {
-    error.networkError.result.errors.map((err, i) =>
-      toast.error(
-        <p data-test="graphql-error">
-          <strong>Shoot!</strong>
-          <br />
-          {err.message.replace('GraphQL error: ', '')}
-        </p>
-      )
-    );
     return error.networkError.result.errors.map((err, i) => (
       <>
         {tronM && (
@@ -55,15 +46,6 @@ const DisplayError = ({ error, tronM }) => {
       </>
     ));
   }
-
-  // TIER 2
-  toast.error(
-    <p data-test="graphql-error">
-      <strong>Shoot!</strong>
-      <br />
-      {error.message.replace('GraphQL error: ', '')}
-    </p>
-  );
 
   return (
     <Paper className={classes.root}>
