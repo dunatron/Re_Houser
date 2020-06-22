@@ -18,35 +18,42 @@ const useStyles = makeStyles(theme => ({
 const DisplayError = ({ error, tronM }) => {
   const classes = useStyles();
   if (!error || !error.message) return null;
-  error.networkError.result.errors.map((err, i) =>
-    toast.error(
-      <p data-test="graphql-error">
-        <strong>Shoot!</strong>
-        <br />
-        {err.message.replace('GraphQL error: ', '')}
-      </p>
-    )
-  );
-  return error.networkError.result.errors.map((err, i) => (
-    <>
-      {tronM && (
-        <p>
-          THIS ULTIMATELY FAILED BECAUSE YOU TRIED TO BLA BLA... standardize
-          with ovveride {tronM}
+  if (
+    error.networkError &&
+    error.networkError.result &&
+    error.networkError.result.errors.length
+  ) {
+    error.networkError.result.errors.map((err, i) =>
+      toast.error(
+        <p data-test="graphql-error">
+          <strong>Shoot!</strong>
+          <br />
+          {err.message.replace('GraphQL error: ', '')}
         </p>
-      )}
-      <Paper className={classes.root} key={i}>
-        <>
-          {tronM && <p>{tronM}</p>}
-          <p data-test="graphql-error">
-            <strong>Shoot!</strong>
-            <br />
-            {err.message.replace('GraphQL error: ', '')}
+      )
+    );
+    return error.networkError.result.errors.map((err, i) => (
+      <>
+        {tronM && (
+          <p>
+            THIS ULTIMATELY FAILED BECAUSE YOU TRIED TO BLA BLA... standardize
+            with ovveride {tronM}
           </p>
-        </>
-      </Paper>
-    </>
-  ));
+        )}
+        <Paper className={classes.root} key={i}>
+          <>
+            {tronM && <p>{tronM}</p>}
+            <p data-test="graphql-error">
+              <strong>Shoot!</strong>
+              <br />
+              {err.message.replace('GraphQL error: ', '')}
+            </p>
+          </>
+        </Paper>
+      </>
+    ));
+  }
+
   return (
     <Paper className={classes.root}>
       <>
