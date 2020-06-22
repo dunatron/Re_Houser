@@ -14,13 +14,12 @@ const DashboardPage = props => {
   return (
     <>
       <PageHeader
-        title="Rehouser Activity"
-        intro="Here is the system activity in regards to you. You can use this to
-        quickly see activity on your properties, applications and lease"
+        title="Rehouser dashboard"
+        intro="Here is the dashboard"
         metaData={{
-          title: 'Rehouser | dashboard',
+          title: 'Dashboard',
           content:
-            'rehouser dashboard to manage all of your property and lease needs',
+            'Rehouser dashboard to manage all of your property and lease needs',
         }}
       />
       <PleaseSignIn currentUser={currentUser}>

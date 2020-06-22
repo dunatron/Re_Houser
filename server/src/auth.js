@@ -6,6 +6,8 @@ const APP_SECRET_2 = process.env.APP_SECRET_2;
 
 //https://github.com/benawad/graphql-express-template/blob/23_cookies/auth.js
 // https://www.youtube.com/watch?v=7C3rPbXmm44
+// https://medium.com/@anMagpie/next-js-jwt-auth-example-app-4ea4d7f49fa3
+// https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide
 exports.createTokens = async (user, password) => {
   // because they signed in this token does not need the password
   const token = jwt.sign({ userId: user.id }, APP_SECRET);

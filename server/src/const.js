@@ -7,18 +7,22 @@ module.exports.JWT_TOKEN_MAX_AGE = JWT_TOKEN_MAX_AGE;
 exports.rehouserCookieOpt = () => {
   const envStage = process.env.STAGE;
 
-  if (envStage == "dev")
-    return {
-      maxAge: JWT_TOKEN_MAX_AGE,
-      httpOnly: true
-      // sameSite: "lax"
-    };
   return {
-    maxAge: JWT_TOKEN_MAX_AGE,
-    httpOnly: true,
-    sameSite: "None",
-    secure: true
+    maxAge: JWT_TOKEN_MAX_AGE
   };
+
+  // if (envStage == "dev")
+  //   return {
+  //     maxAge: JWT_TOKEN_MAX_AGE,
+  //     httpOnly: true
+  //     // sameSite: "lax"
+  //   };
+  // return {
+  //   maxAge: JWT_TOKEN_MAX_AGE,
+  //   httpOnly: true,
+  //   sameSite: "None",
+  //   secure: true
+  // };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE,
   //   httpOnly: true
@@ -26,10 +30,20 @@ exports.rehouserCookieOpt = () => {
 
   // use this if you fuck up ypur environment variables and cannot be fucked debugging the cunt
   // and maybe for mobile because that cunt doesnt work
+  /**
+   * HMMM: sameSite seems to work quite well
+   * secure: true good. maybe try lax...
+   */
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "None",
+    secure: false // false for dev
+  };
+  return {
+    maxAge: JWT_TOKEN_MAX_AGE,
+    httpOnly: true,
+    sameSite: "Lax",
     secure: true
   };
 };

@@ -21,7 +21,7 @@ const FreeAppraisal = props => {
         intro="You will get an email once you have completed the form. We will then
         send you another email when we have completed the appraisal"
         metaData={{
-          title: 'Rehouser | free property appraisal',
+          title: 'Free property appraisal',
           content: 'free property appraisal',
         }}>
         {!me && (

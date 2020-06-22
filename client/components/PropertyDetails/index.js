@@ -144,7 +144,7 @@ const PropertyDetails = ({ id, location }) => {
           property ? property.location : null
         }. This is where you can review and accept applications, sign and manage leases associated with this property, and change the details before it goes on the market`}
         metaData={{
-          title: `${SITE_NAME} | ${property ? property.location : null}`,
+          title: `${property ? property.location : null}`,
           content: 'The properties for the current logged in user',
         }}
       />

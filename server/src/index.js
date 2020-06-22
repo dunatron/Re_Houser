@@ -216,7 +216,8 @@ const allowedClientOrigins = [
 
 // Maybe try doing this to test ios gets its cookies???
 // comment out for now because we do it below? maybe both isnt bad??
-server.use(cors({ origin: allowedClientOrigins, credentials: true }));
+// server.express.use(cors({ origin: allowedClientOrigins, credentials: true }));
+// CORS middleware
 
 // Start gql express server
 server.start(

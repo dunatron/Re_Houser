@@ -16,7 +16,7 @@ const PropertiesPage = props => {
         intro="Here is the portal to your properties, you can get a quick overview etc etc and add a property with the add property button"
         children={[<Typography>Maybe something else to say</Typography>]}
         metaData={{
-          title: 'properties',
+          title: 'Properties',
           content: 'The properties for the current logged in user',
         }}
       />

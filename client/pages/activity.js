@@ -14,9 +14,9 @@ const ActivityPage = props => {
         intro="Here is the system activity in regards to you. You can use this to
         quickly see activity on your properties, applications and lease"
         metaData={{
-          title: 'Rehouser | activity',
+          title: 'Activity',
           content:
-            'rehouser system activity where users can view activity in relation to properties, applications and leases',
+            'Rehouser system activity where users can view activity in relation to properties, applications and leases',
         }}
       />
       <PleaseSignIn

@@ -17,9 +17,9 @@ const EditPropertyPage = props => {
     <>
       <PageHeader
         title="Edit Property"
-        intro="You can edit the properties original details from herte"
+        intro="You can edit the properties original details from here"
         metaData={{
-          title: 'edit property',
+          title: 'Edit property',
           content: 'Edit your created property',
         }}
       />

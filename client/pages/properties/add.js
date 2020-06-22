@@ -26,7 +26,7 @@ const AddPropertyPage = props => {
         title="Add Property"
         intro="Add a property to the platform. You can configure it after creation before it goes on the market"
         metaData={{
-          title: 'add property to the platform',
+          title: 'add a property to the platform',
           content: 'Add a property to the platform',
         }}
       />

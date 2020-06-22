@@ -34,6 +34,8 @@ function createClient({ headers, initialState }) {
         );
     }),
     // this uses apollo-link-http under the hood, so all the options here come from that package
+    // the server is meant to be attaching token and refresh-token to the headers as cookies on login
+    // the me query is meant to get the user data based on the header request having userId
     createUploadLink({
       uri: authUri,
       fetchOptions: {

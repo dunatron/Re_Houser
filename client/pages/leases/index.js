@@ -14,8 +14,8 @@ const MyLeasePage = props => {
         title="Your Leases"
         intro="This is where you can manage and review any leases you are involved in"
         metaData={{
-          title: 'leases',
-          content: 'Review and edit and leases the current user is onvolved in',
+          title: 'Leases',
+          content: 'Review and edit and leases the current user is involved in',
         }}
       />
       <PleaseSignIn
