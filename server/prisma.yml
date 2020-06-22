@@ -19,5 +19,5 @@ hooks:
   post-deploy:
     - graphql get-schema -p prisma
 # endpoint: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
-
-endpoint: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
+endpoint: ${env:PRISMA_ENDPOINT}
+# endpoint: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod

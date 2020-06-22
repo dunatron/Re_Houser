@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import algoliasearch from 'algoliasearch/lite';
 import PropTypes from 'prop-types';
@@ -51,6 +51,7 @@ import NavigateBeforeIcon from '../../styles/icons/NavigateBefore';
 import NavigateNextIcon from '../../styles/icons/NavigateNext';
 import SkipPreviousIcon from '../../styles/icons/SkipPrevious';
 import SkipNextIcon from '../../styles/icons/SkipNext';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import {
   InstantSearch,
@@ -64,6 +65,7 @@ import {
 } from 'react-instantsearch-dom';
 
 import dynamic from 'next/dynamic';
+import Modal from '../../components/Modal/index';
 
 const DynamicPlacesSearch = dynamic(import('./places/widget'), {
   ssr: false,
@@ -87,6 +89,61 @@ const Hit = ({ hit }) => (
     <PropertyCard property={hit} isSearch={true} />
   </div>
 );
+
+const MapMarker = ({ hit }) => {
+  const node = useRef();
+  const [showMore, setShowMore] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleClick = e => {
+    if (node.current.contains(e.target)) {
+      // inside click
+      return;
+    }
+    // outside click
+    setShowMore(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, []);
+
+  // maybe a quick trick with the modal inside the marker node so it doesnt close
+  // also the card for the modal. Then normal whatever it was doing right?
+
+  return (
+    <CustomMarker key={hit.objectID} hit={hit}>
+      <div ref={node} onClick={() => setShowMore(true)} className="map-marker">
+        <Modal
+          title={hit.location}
+          open={modalOpen}
+          disableBackdrop={true}
+          close={() => setModalOpen(false)}>
+          <PropertyCard property={hit} isSearch={true} />
+        </Modal>
+        <div
+          style={{
+            display: 'flex',
+            // justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          ${hit.rent}
+          {showMore && (
+            <IconButton onClick={() => setModalOpen(true)}>
+              <VisibilityIcon />
+            </IconButton>
+          )}
+        </div>
+        {showMore && <p className="marker-location-text">{hit.location}</p>}
+        {/* {showMore && <Typography variant="body2">{hit.location}</Typography>} */}
+      </div>
+    </CustomMarker>
+  );
+};
 
 const Content = () => (
   <div className="si-content">
@@ -199,12 +256,12 @@ const PropertySearch = props => {
         <FilterDrawer open={open} handleClose={handleDrawerClose} />
         <Paper variant="outlined" square={true} style={{ padding: '8px' }}>
           {/* <Toolbar disableGutters={!open}> */}
-          <DynamicPlacesSearch
+          {/* <DynamicPlacesSearch
             defaultRefinement={{
               lat: 37.7793,
               lng: -122.419,
             }}
-          />
+          /> */}
           <div>
             <GeoSearch
               google={google}
@@ -223,13 +280,19 @@ const PropertySearch = props => {
                   {/* {hits.map(hit => (
                   <Marker key={hit.objectID} hit={hit} />
                 ))} */}
-                  {hits.map(hit => (
+                  {/* {hits.map(hit => (
                     <CustomMarker key={hit.objectID} hit={hit}>
                       <span
-                        style={{ backgroundColor: '#fff', fontSize: '1rem' }}>
+                        onClick={() => alert('Can make a cool thing ')}
+                        className="map-marker"
+                        // style={{ backgroundColor: '#fff', fontSize: '1rem' }}
+                      >
                         ${hit.rent}
                       </span>
                     </CustomMarker>
+                  ))} */}
+                  {hits.map(hit => (
+                    <MapMarker hit={hit} />
                   ))}
                 </div>
               )}

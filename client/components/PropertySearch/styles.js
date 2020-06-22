@@ -128,6 +128,23 @@ const SearchInterface = styled.div`
   .ais-GeoSearch-map {
     height: 500px;
   }
+  .map-marker {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    font-size: 1rem;
+    padding: 2px;
+    max-width: 180px;
+    word-break: break-all;
+  }
+  .map-marker:hover {
+    cursor: pointer;
+  }
+  .marker-location-text {
+    word-break: break-all;
+    white-space: normal;
+    margin: 0;
+  }
 `;
 
 export { SearchInterface };
