@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 const LoggedInAs = ({ me }) => {
   if (!me) return null;
+
   return (
     <div>
       <h2>

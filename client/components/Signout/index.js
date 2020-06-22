@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { useQuery } from '@apollo/client';
 import { Mutation } from 'react-apollo';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import gql from 'graphql-tag';
 import { CURRENT_USER_QUERY } from '../User/index';
 import NavButton from '../../styles/NavButton';
@@ -22,34 +22,25 @@ const SIGN_OUT_MUTATION = gql`
  *
  */
 const Signout = ({ label, fullWidth, me }) => {
-  if (!me) return null;
+  const client = useApolloClient();
+
+  const handleCompleted = data => {
+    client.resetStore();
+    toast.success(
+      <p>
+        <strong>You have logged out</strong>
+      </p>
+    );
+  };
+  const handleOnError = error => {};
+
   const [signout, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
-    // update: (proxy, payload) => {
-    //   const user = proxy.readQuery({ query: CURRENT_USER_QUERY })
-    //   if (payload.data) {
-    //     const { signout } = payload.data
-    //     if (signout.__typename === "SuccessMessage") {
-    //       toast.info(signout.message)
-    //       // user.me = undefined
-    //       user.me = null
-    //       // proxy.writeQuery({
-    //       //   query: CURRENT_USER_QUERY,
-    //       //   data: {
-    //       //     me: null,
-    //       //   },
-    //       // })
-    //     }
-    //   }
-    // },
-    // optimisticResponse: {
-    //   __typename: "Mutation",
-    //   signout: {
-    //     __typename: "SuccessMessage",
-    //     message: "signing you out and cleaning up your session",
-    //   },
-    // },
+    onCompleted: handleCompleted,
+    onError: handleOnError,
   });
+
+  if (!me) return null;
 
   return (
     <>

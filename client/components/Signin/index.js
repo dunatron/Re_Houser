@@ -18,6 +18,7 @@ const Signin = props => {
     password: props.password ? props.password : '',
     captchaToken: '',
   });
+
   const recaptchaRef = useRef();
 
   const clearRecaptcha = () => recaptchaRef.current.reset();
