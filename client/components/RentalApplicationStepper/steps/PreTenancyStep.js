@@ -78,44 +78,8 @@ const PreTenancyStep = ({
             },
           },
         });
-        // console.log('START cache.data.data => ', cache.data.data);
-        // Object.keys(cache.data.data).forEach(key => {
-        //   if (key.match(/^File/)) {
-        //     cache.data.delete(key);
-        //   }
-        // });
-        // console.log('updateCacheOnRemovedFile => cache => ', cache);
-        // console.log('updateCacheOnRemovedFile => result => ', result);
-        // cache.gc(); // Remove a specific entity by ID
-        // cache.evict(result.data.deleteFile.id);
-        // Object.keys(cache.data.data).forEach(key => {
-        //   if (key.match(/^File/)) {
-        //     cache.data.delete(key);
-        //   }
-        // });
-        // console.log('END cache.data.data => ', cache.data.data);
-        // Object.keys(proxy.data.data).forEach((key) => {
-        //   if (key.match(/someregex/) {
-        //       proxy.data.delete(key);
-        //   }
-        // })
       }}
       // https://github.com/apollographql/apollo-feature-requests/issues/4
-      // SINGLE_RENTAL_APPLICATION_QUERY, {
-      //   variables: {
-      //     where: { id: application ? application.id : applicationId },
-      //   }
-      // onServerFileRemove?
-      // update the cache correctly instead. rentalApplication.applicants.preTenancyApplicationForm.proofOfAddress
-      // so also probably need the key for its type removal...
-      // refetchQueries={[
-      //   {
-      //     query: SINGLE_RENTAL_APPLICATION_QUERY,
-      //     variables: {
-      //       where: { id: rentalApplication.id },
-      //     },
-      //   },
-      // ]}
       onSubmit={data => {
         updateRentalGroupApplicant({
           variables: {

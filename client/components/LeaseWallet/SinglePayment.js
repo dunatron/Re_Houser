@@ -27,7 +27,6 @@ const SINGLE_PAYMENT_QUERY = gql`
 `;
 
 const SinglePayment = ({ paymentId }) => {
-  console.log('DO we have paymentId => ', paymentId);
   const { data, loading, error } = useQuery(SINGLE_PAYMENT_QUERY, {
     variables: {
       where: {

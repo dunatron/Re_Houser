@@ -21,9 +21,12 @@ async function requestReset(parent, args, ctx, info) {
     from: "heath.dunlop.hd@gmail.com",
     to: user.email,
     subject: "Your Password Reset Token",
-    html: makeANiceEmail(`Your Password Reset Token is here!
+    html: makeANiceEmail(
+      `Your Password Reset Token is here!
       \n\n
-      <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click Here to Reset</a>`)
+      <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click Here to Reset</a>`,
+      res
+    )
   });
 
   // 4. Return the message

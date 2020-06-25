@@ -38,9 +38,6 @@ const _preFormatData = (data, keyTypes, mode) => {
  * // perhaps dues to no keyTypes look up and above
  */
 const formatValByType = (v, type, mode) => {
-  // console.log('v => ', v);
-  // console.log('type => ', type);
-
   if (type) {
     switch (type) {
       case 'CheckReason':

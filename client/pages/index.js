@@ -10,7 +10,7 @@ const HomePage = props => {
   const {
     appData: { currentUser },
   } = props;
-
+  // query={{ id: data.createProperty.id }}
   return (
     <div>
       <Banner imageSrc="images/banners/home-page-banner.jpg">
@@ -19,7 +19,6 @@ const HomePage = props => {
           variant="contained"
           color="secondary"
           route="/freeappraisal"
-          query=""
         />
       </Banner>
       <LookPage {...props} />

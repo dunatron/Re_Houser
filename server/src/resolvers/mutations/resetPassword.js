@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
+const { createTokens } = require("../../auth");
 
 async function resetPassword(parent, args, ctx, info) {
   // 1. check if the passwords match
@@ -30,7 +31,9 @@ async function resetPassword(parent, args, ctx, info) {
     }
   });
   // 6. Generate JWT
-  const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
+  // const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
+  const { token, refreshToken } = await createTokens(user, password);
+
   const cookieOptions = rehouserCookieOpt();
   // 7. Set the JWT cookie
   ctx.response.cookie("token", token, {

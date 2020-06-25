@@ -193,8 +193,6 @@ const Page = props => {
     e.preventDefault();
   };
 
-  console.log('google maps thing => ', google);
-
   // I think we should disable default onDrop for window while a drag and drop element is present
   // Simply in the case they drag it onto the site and not the drop area
   useEffect(() => {
@@ -205,22 +203,6 @@ const Page = props => {
       window.removeEventListener('drop', handleDefaultDrop);
     };
   }, []);
-
-  //   htmlFontSize: 16
-  // pxToRem: f ()
-  // round: f w()
-  // fontFamily: ""Roboto", "Helvetica", "Arial", sans-serif"
-  // fontSize: 14
-  // fontWeightLight: 300
-  // fontWeightRegular: 400
-  // fontWeightMedium: 500
-  // fontWeightBold: 700
-  // h1: Object
-  // fontFamily: ""Roboto", "Helvetica", "Arial", sans-serif"
-  // fontWeight: 300
-  // fontSize: "6rem"
-  // lineHeight: 1.167
-  // letterSpacing: "-0.01562em"
 
   return (
     <NoSsr>

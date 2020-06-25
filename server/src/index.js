@@ -163,9 +163,7 @@ const expressLogger = function(req, res, next) {
 // we could have 2 different token expiry dates...
 const addUser = async (req, res, next) => {
   const token = req.cookies.token;
-  console.log("token on req.cookies => ", token);
   if (!token) {
-    console.log("no token for add user");
     return next();
   }
   try {

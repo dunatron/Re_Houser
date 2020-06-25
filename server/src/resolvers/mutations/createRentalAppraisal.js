@@ -9,8 +9,8 @@ async function createRentalAppraisal(parent, args, ctx, info) {
   const currentUser = await ctx.db.query.user(
     {
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     },
     `{id, email, firstName, lastName}`
   );
@@ -35,16 +35,16 @@ async function createRentalAppraisal(parent, args, ctx, info) {
     await ctx.db.mutation.updateUser({
       data: { usedFreeAppraisal: true },
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     });
   }
 
   const rentalAppraisal = await ctx.db.mutation.createRentalAppraisal(
     {
       data: {
-        ...data,
-      },
+        ...data
+      }
     },
     info
   );
@@ -59,23 +59,23 @@ async function createRentalAppraisal(parent, args, ctx, info) {
       type: "CREATED_PROPERTY_APPRAISAL",
       user: {
         connect: {
-          id: loggedInUserId,
-        },
+          id: loggedInUserId
+        }
       },
       property: property
         ? {
             connect: {
-              id: property.id,
-            },
+              id: property.id
+            }
           }
-        : null,
-    },
+        : null
+    }
   });
 
   // send email
   requestAppraisalEmail({
     toEmail: currentUser.email,
-    user: currentUser,
+    user: currentUser
     // rentalApplication: rentalApplication,
   });
 

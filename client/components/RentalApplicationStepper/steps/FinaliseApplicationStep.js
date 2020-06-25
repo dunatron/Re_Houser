@@ -38,12 +38,7 @@ const FinaliseApplicationStep = ({
       // optimisticResponse: {},
     }
   );
-  // completeApplicationProps.loading
-  // completeApplicationProps.data
-  // completeApplicationProps.error
 
-  // hack to just bypass for dev
-  console.log('What does completed look like ? => ', completed);
   return (
     <div>
       <Error error={completeApplicationProps.error} />

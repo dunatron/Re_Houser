@@ -149,7 +149,7 @@ const Apply = props => {
             application={applicationData}
           />
         </Modal>
-        <Typography variant="p" component="p" paragraph="true">
+        <Typography variant="body1">
           You may create one application per property, if you have already
           created one, you will be editing the application you originally
           created. You can apply to other peoples applications

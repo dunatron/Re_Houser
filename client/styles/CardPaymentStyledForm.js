@@ -8,7 +8,6 @@ const CardPaymentStyledForm = styled('div')`
     align-items: center;
     max-width: 550px;
     margin: 16px 0;
-    /* margin: ${props => props.theme.spacing.unit * 3}px 0 0 0; */
     border: ${props => props.border};
     /* background: ${props => {
       if (props.highlight === true) {

@@ -23,18 +23,6 @@ import FileUploader from './../../FileUploader';
 
 import { Typography, Checkbox, Paper } from '@material-ui/core';
 
-{
-  /* <FileUploader
-title="Test Upload PhotoId"
-ref={childRef}
-files={[{}, {}]}
-maxFilesAllowed={10}
-recieveFile={file =>
-  console.log('HEre is a recieved file from the props => ', file)
-}
-/> */
-}
-
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
   return errors[name] ? errors[name].message : null;
@@ -263,12 +251,7 @@ const InputFieldType = props => {
         const currVals = getValues();
         // const filesData = currVals[config.key];
         const filesData = defaultValues[config.key];
-        // if (is(Array, values)) {
-        //   return values;
-        // }
-        console.log('filesData => ', filesData);
-        console.log('hmmmm => ', currVals);
-        console.log('defaultValues => ', defaultValues);
+
         return (
           <FileUploader
             title={fieldProps.label}

@@ -71,8 +71,6 @@ const UpdatePropertyVariableModal = ({
   };
 
   const canUpdate = () => {
-    console.log('propertyValue => ', propertyValue);
-    console.log('originalVal => ', originalValue);
     if (propertyValue == originalValue) return false;
     return true;
   };
@@ -102,7 +100,6 @@ const UpdatePropertyVariableModal = ({
   const handleMutationComplete = data => {
     setModalIsOpen(false);
     setHasValChange(false);
-    console.log('Data from mutation => ', data);
     setOriginalVal(data.updateProperty[name]);
   };
   // ToDo: Mutation Props

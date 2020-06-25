@@ -96,7 +96,8 @@ export default function ExtraDetails({ property }) {
     <div className={classes.root}>
       <ExpansionPanel
         style={{ borderRadius: 0 }}
-        classes={classes.expansionPanel}
+        // classes={classes.expansionPanel}
+        className={classes.expansionPanel}
         expanded={expanded}
         onChange={() => setExpanded(!expanded)}
         defaultExpanded={false}
@@ -179,17 +180,14 @@ const FullDetails = ({ algoliaProperty }) => {
           {owners &&
             owners.map((owner, i) => {
               return (
-                <>
-                  <Typography key={i} component="p">
+                <div key={i}>
+                  <Typography component="p">
                     Owner: {owner.firstName}
                   </Typography>
-                  <Typography
-                    key={i}
-                    component="p"
-                    className={classes.ownerEmail}>
+                  <Typography component="p" className={classes.ownerEmail}>
                     {owner.email}
                   </Typography>
-                </>
+                </div>
               );
             })}
         </div>
@@ -210,8 +208,8 @@ const FullDetails = ({ algoliaProperty }) => {
       </ExpansionPanelDetails>
       <Divider />
       <ExpansionPanelActions>
-        <Button size="small" color="primary">
-          Apply(ToDo)
+        <Button variant="contained" color="primary">
+          Apply
         </Button>
       </ExpansionPanelActions>
     </>

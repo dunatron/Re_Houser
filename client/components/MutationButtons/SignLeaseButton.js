@@ -49,12 +49,7 @@ const updateSignageInCache = (proxy, payload, leaseId, id, type) => {
   });
   // 2. update the cache on success
   if (payload.data.signLease) {
-    console.log('well this is true => ', payload.data.signLease);
     if (payload.data.signLease.__typename === 'SuccessMessage') {
-      console.log(
-        '(payload.data.signLease.__typename => ',
-        payload.data.signLease.__typename
-      );
       // 3. find correct user and type and update signed to true
       const userType = type === 'LESSOR' ? 'lessors' : 'lessees';
       const interestedSignerIndex = leaseData.myLease[userType].findIndex(
@@ -75,10 +70,6 @@ const SignLeaseBtn = ({ id, type, leaseId, signed }) => {
       type: type,
       leaseId: leaseId,
     },
-    // update: (proxy, payload) => {
-    //   console.log('We are now immutable so this wont suffice tbh');
-    //   updateSignageInCache(proxy, payload, leaseId, id, type);
-    // },
   });
   if (signed) {
     return 'You have signed the lease';

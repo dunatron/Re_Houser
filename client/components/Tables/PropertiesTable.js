@@ -27,25 +27,14 @@ const PropertiesTable = props => {
    * We should be able to just create a new instance of the object
    */
   const formattedData = properties.map(property => ({
-    // id: application.id,
-    // applicants: [...application.applicants],
     ...property,
   }));
-
-  console.log('Properties Table => ', properties);
 
   const columns = [
     {
       field: 'owners',
       title: 'Owners',
-      // render: rowData => (
-      //   <div>
-      //     <img src={null} style={{ width: 50, borderRadius: '50%' }} />
-      //     <span>{rowData.owner ? rowData.owner.firstName : ''}</span>
-      //   </div>
-      // ),
       render: rowData => {
-        console.log('Owners rowData => ', rowData);
         return rowData.owners.map((owner, idx) => {
           return (
             <div>

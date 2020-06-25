@@ -29,8 +29,6 @@ const ApplicationDetailsStep = ({
     UPDATE_RENTAL_APPLICATION_MUTATION
   );
 
-  console.log('Rental Application Data => ', rentalApplication);
-
   const {
     register,
     handleSubmit,
@@ -72,7 +70,7 @@ const ApplicationDetailsStep = ({
         // update: [{ data: {}, where: {id: } }],
       },
     };
-    console.log('updateData => ', updateData);
+
     updateApplication({
       variables: {
         data: updateData,

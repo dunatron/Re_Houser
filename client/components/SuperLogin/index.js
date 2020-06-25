@@ -103,9 +103,6 @@ const LoginPage = props => {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={tabIndex}
         onChangeIndex={(index, indexLatest, meta) => {
-          console.log('SWIPE index => ', index);
-          console.log('SWIPE indexLatest => ', indexLatest);
-          console.log('SWIPE meta => ', meta);
           handleChangeIndex(index);
         }}>
         <TabContainer dir={theme.direction}>

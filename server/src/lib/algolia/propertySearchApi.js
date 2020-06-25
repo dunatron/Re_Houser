@@ -6,18 +6,18 @@ const client = algoliasearch(
   process.env.ALGOLIA_APPLICATION_ID,
   process.env.ALGOLIA_API_KEY,
   {
-    timeout: 4000,
+    timeout: 4000
   }
 );
 
 const index = client.initIndex(`${process.env.STAGE}_PropertySearch`);
 
-const addPropertySearchNode = async function({ propertyId, ctx }) {
-  const property = await ctx.db.query.property(
+const addPropertySearchNode = async function({ propertyId, db }) {
+  const property = await db.query.property(
     {
       where: {
-        id: propertyId,
-      },
+        id: propertyId
+      }
     },
     `{id, type, rooms, rent, accommodation{id ,roomSize, rent, expenses, description},lowestRoomPrice, highestRoomPrice, moveInDate, onTheMarket, isLeased, location, locationLat, locationLng, images{url}, carportSpaces, garageSpaces, offStreetSpaces, outdoorFeatures, indoorFeatures  }`
   );
@@ -40,16 +40,16 @@ const addPropertySearchNode = async function({ propertyId, ctx }) {
     location: property.location,
     _geoloc: {
       lat: property.locationLat,
-      lng: property.locationLng,
+      lng: property.locationLng
     },
     locationLat: property.locationLat,
     locationLng: property.locationLng,
-    imageUrls: property.images.map((image) => image.url),
+    imageUrls: property.images.map(image => image.url),
     carportSpaces: property.carportSpaces,
     garageSpaces: property.garageSpaces,
     offStreetSpaces: property.offStreetSpaces,
     outdoorFeatures: property.outdoorFeatures, // If you add an array in the list of attributes to index, we extract and index all strings in the array.
-    indoorFeatures: property.indoorFeatures, // https://www.algolia.com/doc/faq/index-configuration/do-you-support-indexing-of-arrays/
+    indoorFeatures: property.indoorFeatures // https://www.algolia.com/doc/faq/index-configuration/do-you-support-indexing-of-arrays/
   };
   propertiesObjectArr.push(propertyObject);
   index.addObjects(propertiesObjectArr, function(err, content) {});
@@ -84,22 +84,22 @@ const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
     const propertyImages = await ctx.db.query.property(
       {
         where: {
-          id: propertyId,
-        },
+          id: propertyId
+        }
       },
       `{ id images {id url}}`
     );
-    imageUrls = propertyImages.images.map((img) => img.url);
+    imageUrls = propertyImages.images.map(img => img.url);
   }
 
   const objects = [
     {
       ...updates.data,
       objectID: propertyId,
-      ...(imagesAltered && { imageUrls: imageUrls }),
-    },
+      ...(imagesAltered && { imageUrls: imageUrls })
+    }
   ];
-  console.log("Objects for partial algolia update => ", objects);
+
   index.partialUpdateObjects(objects, (err, content) => {
     if (err) throw err;
   });
@@ -108,5 +108,5 @@ const updatePropertySearchNode = async function({ updates, propertyId, ctx }) {
 
 module.exports = {
   addPropertySearchNode,
-  updatePropertySearchNode,
+  updatePropertySearchNode
 };

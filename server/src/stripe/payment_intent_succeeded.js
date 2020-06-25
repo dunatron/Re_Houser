@@ -30,42 +30,4 @@ exports.payment_intent_succeeded = async ({ event, db }) => {
       status: event.data.object.status
     }
   });
-
-  // PROBABLY SHOULD EXTRACT to handle wallet payment. with amount. that way we can have admins on the front end passing in an amount
-
-  //   const wallet = await db.query.wallet(
-  //     {
-  //       where: {
-  //         id: event.data.object.metadata.walletId
-  //       }
-  //     },
-  //     `{lease: {id, stage, rent}, amount}`
-  //   );
-
-  //   const updatedWallet = await db.mutation.updateWallet({
-  //     where: {
-  //       id: event.data.object.metadata.walletId
-  //     },
-  //     data: {
-  //       amount: wallet.amount + amount_received
-  //     }
-  //   });
-
-  //   if (wallet.lease.stage !== "PAID") {
-  //     // if wallet.amount >= wallet.lease.rent
-  //     // update the lease stage
-  //     if (wallet.amount >= wallet.lease.rent) {
-  //       db.mutation.updateLease({
-  //         where: {
-  //           id: wallet.lease.id
-  //         },
-  //         data: {
-  //           stage: "PAID"
-  //         }
-  //       });
-  //     }
-  //   }
-  //   console.log("THANK FUCK THE WALLET => ", wallet);
-  //   console.log("The amount that we would charge => ", amount_received);
-  //   console.log("updatedWallet => ", updatedWallet);
 };

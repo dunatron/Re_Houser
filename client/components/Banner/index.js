@@ -37,6 +37,9 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       height: '500px',
     },
+    '&:after': {
+      clear: 'both',
+    },
   },
   imageOverlay: {
     position: 'relative',
@@ -72,9 +75,6 @@ const useStyles = makeStyles(theme => ({
 
 ///images/banners/home-page-banner.jpg
 const Banner = props => {
-  const windowWidth = useCurrentWidth();
-  const windowHeight = useCurrentHeight();
-  const scrollTop = useCurrentScrollTop();
   const bannerNode = useRef();
   const [loadingImage, setLoadingImage] = useState(true);
   const { imageSrc, text, children } = props;
@@ -83,47 +83,12 @@ const Banner = props => {
     setLoadingImage(false);
   };
 
-  //   console.log('windowWidth => ', windowWidth);
-  //   console.log('windowHeight => ', windowHeight);
-  console.log('scrollTop ', scrollTop);
-
   useEffect(() => {
-    // change banner dimensions style inline
-    // if (scrollTop > 50) {
-    //   bannerNode.current.style.height = `${scrollTop}px`;
-    // }
-    // let maxHeight = 300;
-    // // if (scrollTop < 50) {
-    // //   maxHeight = 150;
-    // // } else if (scrollTop > 400) {
-    // //   maxHeight = 75;
-    // // } else {
-    // //   maxHeight = 150 - (75 * (((scrollTop - 200) * 100) / 200)) / 100;
-    // // }
-    // // maxHeight = 150 - (75 * (((scrollTop - 200) * 100) / 200)) / 100;
-    // // maxHeight = 300 - (75 * (((scrollTop - 50) * 100) / 300)) / 100;
-    // if (scrollTop < 50) {
-    //   maxHeight = 300;
-    // } else if (scrollTop > 300) {
-    //   maxHeight = 75;
-    //   bannerNode.current.style.marginTop = `300px`;
-    // } else {
-    //   //   maxHeight = 300 - (75 * (((scrollTop - 50) * 100) / 300)) / 100;
-    //   // maxHeight = 150 - (75 * (((scrollTop - 200) * 100) / 200)) / 100;
-    //   maxHeight = 150 - scrollTop / 75;
-    //   bannerNode.current.style.marginTop = `${scrollTop}px`;
-    // }
-    // // this is because the scrollTop changes as the banner shrinks.
-    // // I guess it cant shrink less than the scroll. argggg
-    // // bannerNode.current.animate({ 'max-height': maxHeight + 'px' }, 500);
-    // bannerNode.current.style.height = `${maxHeight}px`;
-    // bannerNode.current.style.css({
-    //   'max-height': maxHeight + 'px',
-    // });
-    // $('#thediv')
-    //   .stop()
-    //   .animate({ 'max-height': maxHeight + 'px' }, 500);
-  }, [scrollTop]);
+    window && (document.getElementById('main-content').style.top = '-64px');
+    return () => {
+      window && (document.getElementById('main-content').style.top = '0');
+    };
+  }, []);
 
   return (
     <div ref={bannerNode} className={classes.bannerContainer}>

@@ -176,7 +176,6 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
         },
       },
     });
-    console.log('Payment result => ', result);
     return result;
   };
 
@@ -204,8 +203,6 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
     }
 
     const payload = await hanldePayIntent();
-
-    console.log('Stripe payment => ', payload);
 
     setProcessing(false);
 

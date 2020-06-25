@@ -2,14 +2,6 @@ import React from 'react';
 import { is } from 'ramda';
 
 const _preFormatFile = values => {
-  // if (
-  //   (typeof values === 'object' || typeof values === 'function') &&
-  //   values !== null
-  // ) {
-  //   return values.set ? values.set : values;
-  // }
-  // return values;
-  console.log('_preformat file values => ', values);
   if (is(Array, values)) {
     return values;
   }

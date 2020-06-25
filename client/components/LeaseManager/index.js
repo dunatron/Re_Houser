@@ -16,6 +16,8 @@ import StageInitializing from './stages/Stage_Initializing';
 import StageSigned from './stages/Stage_Signed';
 import StagePaid from './stages/Stage_Paid';
 import { Typography } from '@material-ui/core';
+import { useMutation, useSubscription } from '@apollo/client';
+import { PROPERTY_LEASE_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyLeaseSub';
 
 const LeaseManager = ({ leaseId }) => {
   const user = useCurrentUser();
@@ -29,8 +31,40 @@ const LeaseManager = ({ leaseId }) => {
     suspend: false,
   });
 
-  if (loading) return <Loader loading={loading} text="Loading your leases" />;
-  if (error) return <Error error={error} tronM="Error loading leases" />;
+  // maybe list to a sub for this on the leaseManager?
+  const handleOnSubscriptionData = ({ client, subscriptionData }) => {
+    alert(
+      'I should run over the mother => the data should be in added to the cache automaitically '
+    );
+    // const { amount } = subscriptionData.data.walletSub.node;
+    // const formattedAmount = formatCentsToDollar(amount);
+    // setWalletUpdating(false);
+    // toast.success(
+    //   <div>
+    //     <Typography>Lease wallet updated</Typography>
+    //     <Typography>{formattedAmount}</Typography>
+    //   </div>
+    // );
+  };
+
+  useSubscription(PROPERTY_LEASE_SUBSCRIPTION, {
+    onSubscriptionData: handleOnSubscriptionData,
+    variables: {
+      where: {
+        AND: [
+          {
+            node: {
+              id: leaseId,
+            },
+          },
+          {},
+        ],
+      },
+    },
+  });
+
+  if (loading) return <Loader loading={loading} text="Loading your lease" />;
+  if (error) return <Error error={error} tronM="Error loading lease" />;
   const { stage, location, rent, lessors, lessees } = data.myLease;
 
   /**

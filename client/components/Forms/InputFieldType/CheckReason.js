@@ -37,8 +37,6 @@ const CheckReason = props => {
   };
 
   const resolveShowOnParentVals = (config, inner) => {
-    console.log('CUrrent value for parent => ', currVal);
-
     if (inner.parentShowVals.includes(currVal)) return true;
     return false;
   };

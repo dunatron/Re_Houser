@@ -41,7 +41,6 @@ const Dropzone = props => {
   };
 
   const onDragOver = event => {
-    console.log(' Dragging over... => ');
     event.preventDefault();
     if (props.disabed) return;
     setState({ ...state, hightlight: true });
@@ -70,7 +69,6 @@ const Dropzone = props => {
     return array;
   };
 
-  console.log('setState => ');
   const dropZoneClasses = clsx(
     classes.dropzone,
     state.hightlight && classes.highlight

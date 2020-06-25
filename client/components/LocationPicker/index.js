@@ -140,7 +140,6 @@ const LocationPicker = ({ selection }) => {
       return;
     }
     const { location, description, gmaps } = suggestion;
-    console.log('A suggestion => ', suggestion);
     const shouldStayOpen = () => {
       // this._geoSuggest.focus()
     };

@@ -1,68 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import {
-  AppBar,
-  Tooltip,
-  IconButton,
-  ListItem,
-  Divider,
-  Drawer,
-  Hidden,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import ChatsBar from '../ChatsBar';
-import { SITE_NAME } from '../../lib/const';
-import { useRouter } from 'next/router';
 import useStyles from './useStyles';
-import DashboardIcon from '../../styles/icons/DashboardIcon';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import MenuIcon from '@material-ui/icons/Menu';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Slide from '@material-ui/core/Slide';
-
-import ThemePicker from './ThemePicker';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
-import { set } from 'date-fns';
 
-const heartsEmojiMap = () => {
-  let cmpnts = [];
-  for (var index = 0; index < 20; index++) {
-    cmpnts.push(<span>&#128152;</span>);
-  }
-  return cmpnts;
-};
-
-function HideOnScroll(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({ target: window ? window() : undefined });
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
+import AppMenuBar from './AppMenuBar';
 
 function MaterialPage(props) {
-  // const { container, loadingUser, me } = props;
+  const theme = useTheme();
+  const classes = useStyles();
   const { container, appData, toggleTheme, setTheme } = props;
   const { currentUser } = appData;
-  const [seizureProcedure, setSeizureProcedure] = useState(false);
-  const [seconds, setSeconds] = useState(0);
 
   const me = currentUser.data ? currentUser.data.me : null;
-  const router = useRouter();
-  const classes = useStyles();
-  const theme = useTheme();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -74,8 +29,6 @@ function MaterialPage(props) {
       <div className={classes.logoContainer}>
         <ListItem>
           <Link href="/">
-            {/* <a className={classes.logo}>{SITE_NAME}</a> */}
-            {/* <img src="/images/rehouser_logo.png" width="200px" alt="my image" /> */}
             {/* Space to serve image to the left with text. Note make image wide with this space, logo in it and slogan to the right */}
             <img src="/images/rehouser_logo.png" width="100px" alt="my image" />
           </Link>
@@ -85,29 +38,6 @@ function MaterialPage(props) {
       <Sidebar loadingUser={currentUser.loading} me={me} />
     </>
   );
-
-  const pathParts = router.pathname.split('/');
-  const formattedPathParts = pathParts.filter(part => part !== '');
-
-  const routeToClickedPart = partIndex => {
-    const newRoute = formattedPathParts.reduce((acc, part, idx) => {
-      if (idx + 1 === formattedPathParts.length) return acc;
-      if (idx > partIndex) return acc; // shouldnt add any more than where we are going
-      if (idx === partIndex) {
-        return acc + part;
-      }
-      return acc + part + '/';
-    }, '/');
-    router.push({
-      pathname: newRoute,
-      query: router.query,
-    });
-  };
-
-  const handleGoBackToPreviousPage = () => {
-    if (formattedPathParts.length === 0) return;
-    router.back();
-  };
 
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
@@ -120,85 +50,11 @@ function MaterialPage(props) {
     return child;
   });
 
-  const heartEmojis = heartsEmojiMap();
-
-  console.log(' I am a material Page Ideally, I only render once per page');
   return (
     <>
       <div className={classes.root}>
         <CssBaseline />
-        <HideOnScroll {...props}>
-          <AppBar position="fixed" className={classes.appBar}>
-            <Toolbar disableGutters={true} variant="regular">
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                className={classes.menuButton}>
-                <MenuIcon />
-              </IconButton>
-              {formattedPathParts.length > 0 && (
-                <IconButton onClick={handleGoBackToPreviousPage}>
-                  <ArrowBackIcon />
-                </IconButton>
-              )}
-              {formattedPathParts.length > 0 && (
-                <>
-                  {formattedPathParts.map((urlPart, idx) => {
-                    const isLastPart =
-                      idx + 1 === formattedPathParts.length ? true : false;
-                    return (
-                      <Typography
-                        key={idx}
-                        variant="h6"
-                        className={!isLastPart ? classes.routeablePart : null}
-                        noWrap
-                        onClick={() => {
-                          !isLastPart ? routeToClickedPart(idx) : null;
-                        }}>
-                        {urlPart}
-                        {!isLastPart && '/'}
-                      </Typography>
-                    );
-                  })}
-                </>
-              )}
-              <div
-                style={{
-                  position: 'absolute',
-                  right: '16px',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  alignItems: 'center',
-                }}>
-                {/* <ThemePicker setTheme={setTheme} /> */}
-
-                <Tooltip title="toggle app theme">
-                  <IconButton
-                    onClick={() => toggleTheme()}
-                    color="inherit"
-                    aria-label="toggle Theme"
-                    edge="end">
-                    <Brightness7Icon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="go to Dashboard">
-                  <IconButton
-                    onClick={() => {
-                      router.push('/dashboard');
-                    }}
-                    color="inherit"
-                    aria-label="go to dashboard"
-                    edge="end">
-                    <DashboardIcon />
-                  </IconButton>
-                </Tooltip>
-              </div>
-            </Toolbar>
-          </AppBar>
-        </HideOnScroll>
-
+        <AppMenuBar {...props} handleDrawerToggle={handleDrawerToggle} />
         <nav className={classes.drawer} aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden lgUp implementation="css">
@@ -231,11 +87,9 @@ function MaterialPage(props) {
         </nav>
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
-
-          {/* {props.children} */}
           {children}
         </main>
-        <ChatsBar />
+        {/* {me && <ChatsBar />} */}
       </div>
     </>
   );

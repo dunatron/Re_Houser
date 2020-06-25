@@ -503,36 +503,12 @@ const FileManager = props => {
     });
 
   const removeFileFromServer = file => {
-    // console.log('FILE TRYING TO REMOVE => ', file);
-    // return;
     deleteFile({
       variables: {
         id: file.id,
       },
       // doesnt seem to cut the mustard
       update: updateCacheOnRemovedFile,
-      // update: (cache, result) => {
-      //   // Object.keys(cache.data.data).forEach(
-      //   //   key => key.match(/^File/) && cache.data.delete(key)
-      //   // );
-      //   console.log('START cache.data.data => ', cache.data.data);
-      //   console.log('Delets update result => ', result);
-      //   // Object.keys(cache.data.data).forEach(key => {
-      //   //   console.log('A cache key => ', key);
-      //   //   key.match(/^File/) && cache.data.delete(key);
-      //   // });
-      //   // console.log('Tell me the cahce now => ', cache.data);
-      //   // Object.keys(cache.data.data).forEach(key => {
-      //   //   console.log('A cache key after => ', key);
-      //   // });
-      //   // cache.writeQuery
-
-      //   cache.evict(`File:${result.data.deleteFile.id}`);
-      //   cache.evict('RentalGroupApplicant:ck9hzj3pe3h4d0981ntqhsdr9');
-      //   const gcRes = cache.gc(); // Remove a specific entity by ID
-      //   console.log('gcRes => ', gcRes);
-      //   console.log('END cache.data.data => ', cache.data.data);
-      // },
     });
   };
 

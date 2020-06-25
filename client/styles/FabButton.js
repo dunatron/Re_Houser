@@ -11,7 +11,7 @@ const FabButton = styled(Fab)`
   box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3); */
 
   && {
-    margin: ${props => props.theme.spacing.unit * 3}px 0 0 0;
+    margin: ${props => props.theme.spacing(3)}px 0 0 0;
   }
 `;
 

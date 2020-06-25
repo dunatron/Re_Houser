@@ -17,7 +17,6 @@ const EditPropertyForm = ({ propertyId }) => {
   const handleSetEditChange = () => {
     setEdit(!edit);
   };
-  console.log('Data for the property => ', data);
 
   if (!edit)
     return <Button onClick={handleSetEditChange}>Edit Original Form</Button>;

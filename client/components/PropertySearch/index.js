@@ -38,11 +38,11 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import CurrentRefinements from './refinements/CurrentRefinements';
 import {
   GoogleMapsLoader,
-  GeoSearch,
   Marker,
   Control,
   CustomMarker,
 } from 'react-instantsearch-dom-maps';
+import GeoSearch from './GeoSearch';
 
 // import Places from './places/widget';
 
@@ -79,13 +79,8 @@ var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
 const searchClient = algoliasearch(applicationId, apiKey);
 const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 
-const useStyles = makeStyles(theme => ({}));
-
 const Hit = ({ hit }) => (
   <div className="si-hit">
-    {/* <div className="si-hit__location">
-      <CustomHighlight attribute={"location"} hit={hit} />
-    </div> */}
     <PropertyCard property={hit} isSearch={true} />
   </div>
 );
@@ -204,24 +199,6 @@ const Content = () => (
     </div>
   </div>
 );
-// // si-drawer-sidebar
-// const Sidebar = () => (
-//   <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>
-//     <div>
-//       <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
-//       <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
-//       <ConnectedCheckBoxRefinementList
-//         attribute="outdoorFeatures"
-//         operator="or"
-//       />
-//       <ConnectedCheckBoxRefinementList
-//         attribute="indoorFeatures"
-//         operator="or"
-//       />
-//       <ConnectedCheckBoxRefinementList attribute="price" operator="or" />
-//     </div>
-//   </div>
-// );
 
 const PropertySearch = props => {
   const [open, setOpen] = useState(false);
@@ -239,15 +216,6 @@ const PropertySearch = props => {
     setOpen(false);
   };
 
-  // return (
-  //   <h1>
-  //     Well something broke this real good. Dont even think it was me. Look at
-  //     Algolia
-  //   </h1>
-  // );
-
-  console.log('WHats happening here...');
-
   return (
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
@@ -255,48 +223,8 @@ const PropertySearch = props => {
       <SearchInterface>
         <FilterDrawer open={open} handleClose={handleDrawerClose} />
         <Paper variant="outlined" square={true} style={{ padding: '8px' }}>
-          {/* <Toolbar disableGutters={!open}> */}
-          {/* <DynamicPlacesSearch
-            defaultRefinement={{
-              lat: 37.7793,
-              lng: -122.419,
-            }}
-          /> */}
           <div>
-            <GeoSearch
-              google={google}
-              initialZoom={8}
-              initialPosition={{
-                lat: 48.88038,
-                lng: 2.32695,
-              }}
-              enableRefineOnMapMove={true}
-              enableRefine={true} // If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
-              // mapTypeId={google.maps.MapTypeId.SATELLITE}
-            >
-              {({ hits }) => (
-                <div>
-                  <Control />
-                  {/* {hits.map(hit => (
-                  <Marker key={hit.objectID} hit={hit} />
-                ))} */}
-                  {/* {hits.map(hit => (
-                    <CustomMarker key={hit.objectID} hit={hit}>
-                      <span
-                        onClick={() => alert('Can make a cool thing ')}
-                        className="map-marker"
-                        // style={{ backgroundColor: '#fff', fontSize: '1rem' }}
-                      >
-                        ${hit.rent}
-                      </span>
-                    </CustomMarker>
-                  ))} */}
-                  {hits.map(hit => (
-                    <MapMarker hit={hit} />
-                  ))}
-                </div>
-              )}
-            </GeoSearch>
+            <GeoSearch />
           </div>
           <Toolbar disableGutters={true} variant="dense">
             <CustomSearchBox fullWidth={true} />
@@ -340,56 +268,3 @@ PropertySearch.propTypes = {
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,
 })(PropertySearch);
-
-// import algoliasearch from 'algoliasearch/lite';
-// import { InstantSearch } from 'react-instantsearch-dom';
-// import {
-//   GoogleMapsLoader,
-//   GeoSearch,
-//   Control,
-//   Marker,
-// } from 'react-instantsearch-dom-maps';
-
-// import { GoogleApiWrapper } from 'google-maps-react';
-
-// var applicationId = '4QW4S8SE3J';
-// var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
-// const searchClient = algoliasearch(applicationId, apiKey);
-// const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
-
-// // const searchClient = algoliasearch(
-// //   'latency',
-// //   '6be0576ff61c053d5f9a3225e2a90f76'
-// // );
-// // const searchClient = algoliasearch(applicationId, apiKey);
-
-// const App = () => (
-//   <InstantSearch
-//     indexName={`${indexPrefix}_PropertySearch`}
-//     searchClient={searchClient}>
-//     <div style={{ height: 500 }}>
-//       <GoogleMapsLoader
-//         apiKey={'AIzaSyBsJ5i5rLUb9RWq_PEI8lgtH40LJyFEILk'}
-//         style={{ height: '500px' }}>
-//         {google => (
-//           <GeoSearch google={google}>
-//             {({ hits }) => (
-//               <div>
-//                 <Control />
-//                 {hits.map(hit => (
-//                   <Marker key={hit.objectID} hit={hit} />
-//                 ))}
-//               </div>
-//             )}
-//           </GeoSearch>
-//         )}
-//       </GoogleMapsLoader>
-//     </div>
-//   </InstantSearch>
-// );
-
-// // export default App;
-
-// export default GoogleApiWrapper({
-//   apiKey: process.env.GOOGLE_API_KEY,
-// })(App);

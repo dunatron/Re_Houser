@@ -43,7 +43,6 @@ const FilePreviewer = ({ files, remove }) => {
 };
 
 const RenderFileType = ({ file, remove }) => {
-  console.log('The file Preview => ', file);
   const genericType = findGenericFileType(file);
   let Componet = undefined;
   switch (genericType) {

@@ -139,6 +139,9 @@ type Subscription {
   ): PropertyLeaseSubscriptionPayload
   paymentSub(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   chargeSub(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
+  rentalAppraisalSub(
+    where: RentalAppraisalSubscriptionWhereInput
+  ): RentalAppraisalSubscriptionPayload
 }
 
 type Query {

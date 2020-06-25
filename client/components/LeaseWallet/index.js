@@ -50,8 +50,6 @@ import Error from '../ErrorMessage';
 const formatCentsToDollar = amount => {
   const dollarAmount = amount / 100;
 
-  console.log('doloar amount => ', dollarAmount);
-
   const isPositive = dollarAmount > 0;
 
   const formattedMoney = new Intl.NumberFormat('en-US', {
@@ -75,7 +73,6 @@ const serverBackend =
 // should probably actually refetch the lease on a successful payment might be best.
 // or perhaps get the wallet by itself here. and refetch that as it has payments and actually the right level we want to refetch on
 const LeaseWallet = ({ lease, me }) => {
-  console.log('Wtf doe me look like... => ', me);
   const stripe = useStripe();
   const elements = useElements();
   const { wallet } = lease;
@@ -132,7 +129,6 @@ const LeaseWallet = ({ lease, me }) => {
     })
       .then(response => response.json())
       .then(state => {
-        console.log('Payment intents state => ', state);
         setIntentSecret(state.client_secret);
       })
       .catch(e => {
@@ -144,7 +140,6 @@ const LeaseWallet = ({ lease, me }) => {
   };
 
   const handleOnPaySuccess = payload => {
-    console.log('Payload => ', payload);
     setIntentSecret(null);
     setWalletUpdating(true);
   };
@@ -168,7 +163,6 @@ const LeaseWallet = ({ lease, me }) => {
         },
       },
     });
-    console.log('Payment result => ', result);
   };
 
   return (

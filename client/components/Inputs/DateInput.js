@@ -25,7 +25,7 @@ const styles = theme => ({
  * times and dates are crucial to get right
  */
 const DateInput = props => {
-  const { id, classes, value, onChange, label, helperText } = props;
+  const { id, classes, value, onChange, label } = props;
   // const RFCIsoValue = moment(value).format("YYYY-MM-DD")
   const RFCIsoValue = value
     ? moment(value).format('YYYY-MM-DDTkk:mm')
@@ -34,7 +34,6 @@ const DateInput = props => {
   return (
     <TextField
       {...props}
-      helperText
       className={classes.textField}
       id={id ? id : 'default-datePicker'}
       label={label ? label : 'Some Date'}

@@ -1,7 +1,7 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode,
+  addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 
 var fs = require("fs"),
@@ -33,7 +33,6 @@ async function createProperty(parent, { data, files }, ctx, info) {
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
   try {
-    console.log("before createPropertyMutation");
     // Note, something is going wrong with deploy:prod etc
     const property = await ctx.db.mutation.createProperty(
       {
@@ -42,11 +41,11 @@ async function createProperty(parent, { data, files }, ctx, info) {
           lowestRoomPrice,
           highestRoomPrice,
           rent: averageRoomPrice,
-          rooms: numberOfRooms,
+          rooms: numberOfRooms
           // images: {
           //   connect: connectFileIds,
           // },
-        },
+        }
       },
       info
     );
@@ -59,24 +58,23 @@ async function createProperty(parent, { data, files }, ctx, info) {
         type: "CREATED_PROPERTY",
         property: {
           connect: {
-            id: property.id,
-          },
+            id: property.id
+          }
         },
         user: {
           connect: {
-            id: loggedInUserId,
-          },
-        },
-      },
+            id: loggedInUserId
+          }
+        }
+      }
     });
     addPropertySearchNode({
       propertyId: property.id,
-      ctx,
+      db: ctx.db
     });
     // wow maybe return the thing too......
     return property;
   } catch (e) {
-    console.log("createProperty err => ", e);
     throw new Error("An error occurred trying to create your property");
   }
 }

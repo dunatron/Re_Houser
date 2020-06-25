@@ -584,8 +584,6 @@ const ConnectedRentalApplicationStepper = ({
       </Paper>
     );
 
-  console.log('The Stepper rentallApplication data => ', data);
-  console.log('The Stepper me data => ', me);
   return (
     <RentalApplicationStepper
       me={me}

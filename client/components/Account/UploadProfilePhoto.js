@@ -79,7 +79,6 @@ const UploadProfilePhoto = ({ me }) => {
           });
         }}
         recieveFile={file => {
-          console.log('Recieved profile photo => ', file);
           updateUserProfile({
             variables: {
               data: {

@@ -48,7 +48,6 @@ const CreatePropertyComponent = props => {
   );
 
   const submitFormWithData = data => {
-    console.log('The submitted Data => ', data);
     createProperty({
       variables: {
         data: {
@@ -118,12 +117,6 @@ const CreatePropertyComponent = props => {
         error={error}
         posting={loading}
         onSubmit={submitFormWithData}
-        // onSubmit={d => {
-        //   console.log('Submitted create form => ', d);
-        // }}
-        // onSubmit={prismaReadyData => {
-        //   createProperty(prismaReadyData);
-        // }}
       />
     </div>
   );

@@ -21,7 +21,7 @@ const SIGN_OUT_MUTATION = gql`
  * NOTE: it breaks if we try to update the user in the cache. because of the setup you kind of need to refetch the queries..
  *
  */
-const Signout = ({ label, fullWidth, me }) => {
+const Signout = ({ label, fullWidth, me, color, variant }) => {
   const client = useApolloClient();
 
   const handleCompleted = data => {
@@ -48,6 +48,8 @@ const Signout = ({ label, fullWidth, me }) => {
       <NavButton
         onClick={signout}
         fullWidth={fullWidth}
+        variant={variant}
+        color={color}
         disabled={loading}
         data-cy="account-logout">
         {label ? label : 'Sign Out'}

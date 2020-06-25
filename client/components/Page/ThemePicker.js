@@ -29,12 +29,8 @@ const ThemePicker = ({ setTheme }) => {
   };
 
   const handleMenuItemClick = (event, index) => {
-    // change theme first
-    // come on guys
-    console.log('The index Clicked => ', index);
     setTheme(THEME_PICKER_CONFIG[index]);
     setSelectedIndex(index);
-    // setOpen(false);
   };
 
   const handleToggle = () => {
