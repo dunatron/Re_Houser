@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { adopt } from 'react-adopt';
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { useCurrentUser } from '../User/index';
 import Loader from '../Loader';
 import Error from '../ErrorMessage';
@@ -16,7 +16,6 @@ import StageInitializing from './stages/Stage_Initializing';
 import StageSigned from './stages/Stage_Signed';
 import StagePaid from './stages/Stage_Paid';
 import { Typography } from '@material-ui/core';
-import { useMutation, useSubscription } from '@apollo/client';
 import { PROPERTY_LEASE_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyLeaseSub';
 
 const LeaseManager = ({ leaseId }) => {
