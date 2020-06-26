@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 22 2020 23:08:10 GMT+1200 (New Zealand Standard Time)
+# timestamp: Fri Jun 26 2020 16:33:54 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -15813,6 +15813,8 @@ input RentalApplicationWhereUniqueInput {
 
 type RentalAppraisal implements Node {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   requestedBy: User!
   location: String!
   locationLat: Float!
@@ -15917,6 +15919,10 @@ type RentalAppraisalEdge {
 enum RentalAppraisalOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   location_ASC
   location_DESC
   locationLat_ASC
@@ -15943,6 +15949,8 @@ enum RentalAppraisalOrderByInput {
 
 type RentalAppraisalPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16006,6 +16014,50 @@ input RentalAppraisalScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   location: String
 
   """All values that are not equal to given value."""
@@ -16452,6 +16504,50 @@ input RentalAppraisalWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   location: String
 
   """All values that are not equal to given value."""

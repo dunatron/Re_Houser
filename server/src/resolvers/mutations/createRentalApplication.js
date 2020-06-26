@@ -39,6 +39,26 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
     },
     info
   );
+  // const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant(
+  //   {
+  //     data: {
+  //       user: {
+  //         connect: {
+  //           id: ctx.request.userId
+  //         }
+  //       },
+  //       approved: true,
+  //       application: {
+  //         connect: {
+  //           id: rentalApplication.id
+  //         }
+  //       }
+  //     }
+  //   },
+  //   `{ id, firstName, lastName, email, approved, completed ,user{id, firstName, lastName, phone, email, rehouserStamp, profilePhoto {id, url}}}`
+  // );
+
+  // not sure why i thought this would have needed the profilePhot. It was blowing up sometimes too
   const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant(
     {
       data: {
@@ -55,7 +75,7 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
         }
       }
     },
-    `{ id, firstName, lastName, email, approved, completed ,user{id, firstName, lastName, phone, email, rehouserStamp, profilePhoto {id, url}}}`
+    `{ id, firstName, lastName, email, approved, completed ,user{id, firstName, lastName, phone, email, rehouserStamp}}`
   );
 
   rentalApplication.applicants.push({ ...rentalGroupNode });
@@ -63,7 +83,8 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
   // send email
   newRentalApplicationEmail({
     toEmail: rentalApplication.owner.email,
-    rentalApplication: rentalApplication
+    rentalApplication: rentalApplication,
+    user: rentalGroupNode.user
   });
   return rentalApplication;
 }

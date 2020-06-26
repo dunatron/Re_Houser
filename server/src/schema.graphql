@@ -266,4 +266,13 @@ type Query {
     last: Int
   ): [User!]!
   paymentsCount: Int
+  rentalAppraisalsConnection(
+    where: RentalAppraisalWhereInput
+    orderBy: RentalAppraisalOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): RentalAppraisalConnection!
 }

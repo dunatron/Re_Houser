@@ -4,6 +4,7 @@ import { PublicUserInfoFragment } from './publicUserInfo';
 const RentalAppraisalInfoFragment = gql`
   fragment rentalAppraisalInfo on RentalAppraisal {
     id
+    createdAt
     requestedBy {
       ...publicUserInfo
     }

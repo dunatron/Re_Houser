@@ -116,6 +116,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
     font-size: 14px;
+    scroll-behavior: smooth;
   }
   *, *:before, *:after {
     box-sizing: inherit;
@@ -234,7 +235,7 @@ const Page = props => {
                   setUseDarkTheme(!useDarkTheme);
                 }}
               />
-
+              <AdminAlertsContainer />
               {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />

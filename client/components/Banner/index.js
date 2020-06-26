@@ -22,9 +22,9 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     // marginTop: '100px',
-    height: '180px',
     overflow: 'hidden',
     margin: '-8px -8px 16px -8px',
+    height: '180px',
     [theme.breakpoints.up('sm')]: {
       height: '260px',
     },
@@ -83,15 +83,27 @@ const Banner = props => {
     setLoadingImage(false);
   };
 
+  const windowHeight = useCurrentHeight();
+  const windowWidth = useCurrentWidth();
+
+  // Move main content dom up when using a banner
   useEffect(() => {
-    window && (document.getElementById('main-content').style.top = '-64px');
+    const offsetAmount = windowWidth > 600 ? '-64px' : '-56px';
+
+    window &&
+      (document.getElementById('main-content').style.top = offsetAmount);
     return () => {
       window && (document.getElementById('main-content').style.top = '0');
     };
-  }, []);
+  }, [windowWidth, windowHeight]);
 
   return (
-    <div ref={bannerNode} className={classes.bannerContainer}>
+    <div
+      ref={bannerNode}
+      className={classes.bannerContainer}
+      style={{
+        height: windowHeight,
+      }}>
       {/* Simply here to detect when the image is loaded...  */}
       <div className={classes.imageOverlay}></div>
       <img

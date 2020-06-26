@@ -33,11 +33,13 @@ const CurrentRefinementStyles = Styled.ul`
 const RefinementValue = ({ item, refine, url }) => {
   return (
     <Chip
+      style={{
+        maxWidth: '100%',
+      }}
       size="small"
       className="refinement-chip"
       label={item.label}
       onDelete={() => refine(item.value)}
-      // className={classes.chip}
       color="primary"
       variant="outlined"
     />

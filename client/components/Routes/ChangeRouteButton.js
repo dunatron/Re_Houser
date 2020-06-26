@@ -8,7 +8,7 @@ const handleLink = ({ route, query }) => {
   Router.push({
     pathname: route,
     query: query,
-  });
+  }).then(() => window.scrollTo(0, 0));
 };
 
 const ChangeRouteButton = ({

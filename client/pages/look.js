@@ -12,6 +12,7 @@ const LookPage = props => {
     <>
       <PageHeader
         title="Property search"
+        id="property-search"
         intro="This is where you can search for rehouser properties that are on the market and start the creation of an application to lease"
         metaData={{
           title: 'Look for properties',

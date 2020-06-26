@@ -76,6 +76,13 @@ const userList = [
   },
   {
     ...userFrag,
+    email: "siaujiun@gmail.com",
+    firstName: "Siau Jiun",
+    lastName: "Lim",
+    permissions: setAdminPermissions
+  },
+  {
+    ...userFrag,
     email: "admin@rehouser.co.nz",
     firstName: "Heath R",
     lastName: "McDounough",

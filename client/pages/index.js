@@ -14,12 +14,24 @@ const HomePage = props => {
   return (
     <div>
       <Banner imageSrc="images/banners/home-page-banner.jpg">
-        <ChangeRouteButton
-          title="Free Appraisal"
-          variant="contained"
-          color="secondary"
-          route="/freeappraisal"
-        />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            height: '112px',
+          }}>
+          <ChangeRouteButton
+            title="Free Appraisal"
+            variant="contained"
+            color="secondary"
+            route="/freeappraisal"
+          />
+          {/* <Button ></Button> */}
+          <Button variant="contained" color="primary" href="#property-search">
+            Look for rental
+          </Button>
+        </div>
       </Banner>
       <LookPage {...props} />
     </div>

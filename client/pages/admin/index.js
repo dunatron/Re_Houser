@@ -5,6 +5,11 @@ import Dashboard from '../../components/Dashboard';
 import ADMIN_DASHBOARD_CONFIG from '../../lib/configs/adminDashboard';
 import PageHeader from '../../components/PageHeader';
 
+/**
+ *
+ * I have a dream, to put all my updates here for admins.
+ * except it wont work here. needs to be on the page root
+ */
 const MyLeasePage = props => {
   const {
     appData: { currentUser },

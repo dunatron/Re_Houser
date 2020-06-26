@@ -6,7 +6,7 @@ const getHeight = () =>
   document.body.clientHeight;
 
 function useCurrentHeight() {
-  // save current window width in the state object
+  // save current window height in the state object
   let [height, setHeight] = useState(getHeight());
 
   // in this case useEffect will execute only once because
@@ -14,7 +14,7 @@ function useCurrentHeight() {
   useEffect(() => {
     const resizeListener = () => {
       // change width from the state object
-      setHeight(setHeight());
+      setHeight(getHeight());
     };
     // set resize listener
     window.addEventListener('resize', resizeListener);

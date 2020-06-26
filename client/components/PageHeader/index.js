@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 const PagerHeader = ({
   title,
+  id,
   titleOverride,
   titleVariant,
   intro,
@@ -11,7 +12,7 @@ const PagerHeader = ({
   metaData,
 }) => {
   return (
-    <div style={{ maxWidth: '800px' }}>
+    <div style={{ maxWidth: '800px' }} id={id}>
       {metaData && (
         <Head>
           <meta name="description" content={metaData.content} />

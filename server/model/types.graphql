@@ -238,6 +238,8 @@ type PropertyLease implements PropertyInfo {
 # landord gets email. Goes to accept/decline appraisel page. on ccept send email to the add propertyPage. Will send allong query and data to populate
 type RentalAppraisal {
   id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   requestedBy: User! @relation(name: "UserRentalAppraisals")
   location: String!
   locationLat: Float!
