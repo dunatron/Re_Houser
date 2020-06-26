@@ -50,9 +50,9 @@ const darkTheme = createMuiTheme({
     ...muiTheme.palette,
     ...darkPalette.palette,
   },
-  // overrides: {
-  //   MuiAppBar: { colorPrimary: { backgroundColor: '#212121', color: '#fff' } },
-  // },
+  overrides: {
+    MuiAppBar: { colorPrimary: { backgroundColor: '#212121', color: '#fff' } },
+  },
   ...themeTypography,
 });
 const lightTheme = createMuiTheme({
@@ -61,9 +61,9 @@ const lightTheme = createMuiTheme({
     ...muiTheme.palette,
     ...lightPalette.palette,
   },
-  // overrides: {
-  //   MuiAppBar: { colorPrimary: { backgroundColor: '#fff', color: '#212121' } },
-  // },
+  overrides: {
+    MuiAppBar: { colorPrimary: { backgroundColor: '#fff', color: '#212121' } },
+  },
   ...themeTypography,
 });
 
