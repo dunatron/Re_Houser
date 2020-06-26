@@ -12,17 +12,18 @@ const useStyles = makeStyles(theme => {
       },
     },
 
-    appBar: {
-      backgroundColor: props =>
-        props.noTransparency
-          ? theme.overrides.MuiAppBar
-            ? theme.overrides.MuiAppBar.colorPrimary.backgroundColor
-            : theme.palette.background.paper
-          : 'transparent',
-      [theme.breakpoints.up('lg')]: {
-        width: `calc(100% - ${theme.sideBarWidth}px)`,
-      },
-    },
+    // MAYBE THIS FFS
+    // appBar: {
+    //   backgroundColor: props =>
+    //     props.noTransparency
+    //       ? theme.overrides.MuiAppBar
+    //         ? `${theme.overrides.MuiAppBar.colorPrimary.backgroundColor} !important`
+    //         : `${theme.palette.background.paper} !important`
+    //       : 'transparent',
+    //   [theme.breakpoints.up('lg')]: {
+    //     width: `calc(100% - ${theme.sideBarWidth}px)`,
+    //   },
+    // },
     menuButton: {
       marginLeft: 0,
       [theme.breakpoints.up('lg')]: {
