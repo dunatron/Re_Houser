@@ -43,6 +43,8 @@ const AppMenuBar = props => {
 
   const me = currentUser.data ? currentUser.data.me : null;
   const router = useRouter();
+  // i think maybe we do this as an inline style...
+  // or use like clsx and actually have the classes you clown
   const classes = useStyles({
     noTransparency: noTransparency,
   });

@@ -44,6 +44,13 @@ type User {
   physicalAddress: String
   proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
   acceptedSignupTerms: Boolean!
+  adminSettings: AdminSetting @relation(name: "UserAdminSettings", link: TABLE)
+}
+
+type AdminSetting {
+  id: ID! @unique @id
+  appraisalCreatedSub: Boolean
+  user: User @relation(name: "UserAdminSettings")
 }
 
 type BankDetail {

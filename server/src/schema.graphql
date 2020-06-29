@@ -41,6 +41,7 @@ type User {
   physicalAddress: String
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
+  adminSettings: AdminSetting
 }
 
 type SuccessMessage {

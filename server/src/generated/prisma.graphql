@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Jun 26 2020 16:33:54 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jun 29 2020 15:51:16 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1166,11 +1166,192 @@ input ActivityWhereUniqueInput {
   id: ID
 }
 
+type AdminSetting implements Node {
+  id: ID!
+  appraisalCreatedSub: Boolean
+  user: User
+}
+
+"""A connection to a list of items."""
+type AdminSettingConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AdminSettingEdge]!
+  aggregate: AggregateAdminSetting!
+}
+
+input AdminSettingCreateInput {
+  id: ID
+  appraisalCreatedSub: Boolean
+  user: UserCreateOneWithoutAdminSettingsInput
+}
+
+input AdminSettingCreateOneWithoutUserInput {
+  create: AdminSettingCreateWithoutUserInput
+  connect: AdminSettingWhereUniqueInput
+}
+
+input AdminSettingCreateWithoutUserInput {
+  id: ID
+  appraisalCreatedSub: Boolean
+}
+
+"""An edge in a connection."""
+type AdminSettingEdge {
+  """The item at the end of the edge."""
+  node: AdminSetting!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AdminSettingOrderByInput {
+  id_ASC
+  id_DESC
+  appraisalCreatedSub_ASC
+  appraisalCreatedSub_DESC
+}
+
+type AdminSettingPreviousValues {
+  id: ID!
+  appraisalCreatedSub: Boolean
+}
+
+type AdminSettingSubscriptionPayload {
+  mutation: MutationType!
+  node: AdminSetting
+  updatedFields: [String!]
+  previousValues: AdminSettingPreviousValues
+}
+
+input AdminSettingSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AdminSettingSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AdminSettingSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AdminSettingSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AdminSettingWhereInput
+}
+
+input AdminSettingUpdateInput {
+  appraisalCreatedSub: Boolean
+  user: UserUpdateOneWithoutAdminSettingsInput
+}
+
+input AdminSettingUpdateManyMutationInput {
+  appraisalCreatedSub: Boolean
+}
+
+input AdminSettingUpdateOneWithoutUserInput {
+  create: AdminSettingCreateWithoutUserInput
+  connect: AdminSettingWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: AdminSettingUpdateWithoutUserDataInput
+  upsert: AdminSettingUpsertWithoutUserInput
+}
+
+input AdminSettingUpdateWithoutUserDataInput {
+  appraisalCreatedSub: Boolean
+}
+
+input AdminSettingUpsertWithoutUserInput {
+  update: AdminSettingUpdateWithoutUserDataInput!
+  create: AdminSettingCreateWithoutUserInput!
+}
+
+input AdminSettingWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AdminSettingWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AdminSettingWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AdminSettingWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  appraisalCreatedSub: Boolean
+
+  """All values that are not equal to given value."""
+  appraisalCreatedSub_not: Boolean
+  user: UserWhereInput
+}
+
+input AdminSettingWhereUniqueInput {
+  id: ID
+}
+
 type AggregateAccommodation {
   count: Int!
 }
 
 type AggregateActivity {
+  count: Int!
+}
+
+type AggregateAdminSetting {
   count: Int!
 }
 
@@ -8183,6 +8364,7 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createAdminSetting(data: AdminSettingCreateInput!): AdminSetting!
   createBankDetail(data: BankDetailCreateInput!): BankDetail!
   createActivity(data: ActivityCreateInput!): Activity!
   createMessage(data: MessageCreateInput!): Message!
@@ -8206,6 +8388,7 @@ type Mutation {
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  updateAdminSetting(data: AdminSettingUpdateInput!, where: AdminSettingWhereUniqueInput!): AdminSetting
   updateBankDetail(data: BankDetailUpdateInput!, where: BankDetailWhereUniqueInput!): BankDetail
   updateActivity(data: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity
   updateMessage(data: MessageUpdateInput!, where: MessageWhereUniqueInput!): Message
@@ -8228,6 +8411,7 @@ type Mutation {
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  deleteAdminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
   deleteBankDetail(where: BankDetailWhereUniqueInput!): BankDetail
   deleteActivity(where: ActivityWhereUniqueInput!): Activity
   deleteMessage(where: MessageWhereUniqueInput!): Message
@@ -8251,6 +8435,7 @@ type Mutation {
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  upsertAdminSetting(where: AdminSettingWhereUniqueInput!, create: AdminSettingCreateInput!, update: AdminSettingUpdateInput!): AdminSetting!
   upsertBankDetail(where: BankDetailWhereUniqueInput!, create: BankDetailCreateInput!, update: BankDetailUpdateInput!): BankDetail!
   upsertActivity(where: ActivityWhereUniqueInput!, create: ActivityCreateInput!, update: ActivityUpdateInput!): Activity!
   upsertMessage(where: MessageWhereUniqueInput!, create: MessageCreateInput!, update: MessageUpdateInput!): Message!
@@ -8273,6 +8458,7 @@ type Mutation {
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  updateManyAdminSettings(data: AdminSettingUpdateManyMutationInput!, where: AdminSettingWhereInput): BatchPayload!
   updateManyBankDetails(data: BankDetailUpdateManyMutationInput!, where: BankDetailWhereInput): BatchPayload!
   updateManyActivities(data: ActivityUpdateManyMutationInput!, where: ActivityWhereInput): BatchPayload!
   updateManyMessages(data: MessageUpdateManyMutationInput!, where: MessageWhereInput): BatchPayload!
@@ -8294,6 +8480,7 @@ type Mutation {
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  deleteManyAdminSettings(where: AdminSettingWhereInput): BatchPayload!
   deleteManyBankDetails(where: BankDetailWhereInput): BatchPayload!
   deleteManyActivities(where: ActivityWhereInput): BatchPayload!
   deleteManyMessages(where: MessageWhereInput): BatchPayload!
@@ -15074,6 +15261,7 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  adminSettings(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminSetting]!
   bankDetails(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BankDetail]!
   activities(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity]!
   messages(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Message]!
@@ -15097,6 +15285,7 @@ type Query {
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  adminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
   bankDetail(where: BankDetailWhereUniqueInput!): BankDetail
   activity(where: ActivityWhereUniqueInput!): Activity
   message(where: MessageWhereUniqueInput!): Message
@@ -15120,6 +15309,7 @@ type Query {
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  adminSettingsConnection(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminSettingConnection!
   bankDetailsConnection(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BankDetailConnection!
   activitiesConnection(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ActivityConnection!
   messagesConnection(where: MessageWhereInput, orderBy: MessageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessageConnection!
@@ -17897,6 +18087,7 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  adminSetting(where: AdminSettingSubscriptionWhereInput): AdminSettingSubscriptionPayload
   bankDetail(where: BankDetailSubscriptionWhereInput): BankDetailSubscriptionPayload
   activity(where: ActivitySubscriptionWhereInput): ActivitySubscriptionPayload
   message(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
@@ -17982,6 +18173,7 @@ type User implements Node {
   physicalAddress: String
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
+  adminSettings: AdminSetting
 }
 
 """A connection to a list of items."""
@@ -18038,6 +18230,7 @@ input UserCreateInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateManyInput {
@@ -18067,6 +18260,11 @@ input UserCreateOneInput {
 
 input UserCreateOneWithoutActivityInput {
   create: UserCreateWithoutActivityInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutAdminSettingsInput {
+  create: UserCreateWithoutAdminSettingsInput
   connect: UserWhereUniqueInput
 }
 
@@ -18182,6 +18380,53 @@ input UserCreateWithoutActivityInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
+}
+
+input UserCreateWithoutAdminSettingsInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  physicalAddress: String
+  acceptedSignupTerms: Boolean!
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
@@ -18227,6 +18472,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutChatsInput {
@@ -18272,6 +18518,7 @@ input UserCreateWithoutChatsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -18317,6 +18564,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -18362,6 +18610,7 @@ input UserCreateWithoutCreditCardsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -18407,6 +18656,7 @@ input UserCreateWithoutFriendRequestsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutInvolvedActivityInput {
@@ -18452,6 +18702,7 @@ input UserCreateWithoutInvolvedActivityInput {
   activity: ActivityCreateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -18497,6 +18748,7 @@ input UserCreateWithoutLesseeLeasesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -18542,6 +18794,7 @@ input UserCreateWithoutLessorLeasesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -18587,6 +18840,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -18632,6 +18886,7 @@ input UserCreateWithoutProfilePhotoInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutProofOfAddressInput {
@@ -18677,6 +18932,7 @@ input UserCreateWithoutProofOfAddressInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -18722,6 +18978,7 @@ input UserCreateWithoutPropertiesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -18767,6 +19024,7 @@ input UserCreateWithoutRecievedMessagesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutRentalAppraisalsInput {
@@ -18812,6 +19070,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -18857,6 +19116,7 @@ input UserCreateWithoutSentMessagesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutSignatureInput {
@@ -18902,6 +19162,7 @@ input UserCreateWithoutSignatureInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -19906,6 +20167,7 @@ input UserUpdateDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateInput {
@@ -19951,6 +20213,7 @@ input UserUpdateInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateManyDataInput {
@@ -20109,6 +20372,15 @@ input UserUpdateOneWithoutActivityInput {
   upsert: UserUpsertWithoutActivityInput
 }
 
+input UserUpdateOneWithoutAdminSettingsInput {
+  create: UserCreateWithoutAdminSettingsInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutAdminSettingsDataInput
+  upsert: UserUpsertWithoutAdminSettingsInput
+}
+
 input UserUpdateOneWithoutLesseeLeasesInput {
   create: UserCreateWithoutLesseeLeasesInput
   connect: UserWhereUniqueInput
@@ -20227,6 +20499,52 @@ input UserUpdateWithoutActivityDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
+}
+
+input UserUpdateWithoutAdminSettingsDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  physicalAddress: String
+  acceptedSignupTerms: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
@@ -20271,6 +20589,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -20315,6 +20634,7 @@ input UserUpdateWithoutChatsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -20359,6 +20679,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -20403,6 +20724,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -20447,6 +20769,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
@@ -20491,6 +20814,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -20535,6 +20859,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -20579,6 +20904,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -20623,6 +20949,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -20667,6 +20994,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutProofOfAddressDataInput {
@@ -20711,6 +21039,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -20755,6 +21084,7 @@ input UserUpdateWithoutPropertiesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -20799,6 +21129,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
@@ -20843,6 +21174,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -20887,6 +21219,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutSignatureDataInput {
@@ -20931,6 +21264,7 @@ input UserUpdateWithoutSignatureDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -20961,6 +21295,11 @@ input UserUpsertNestedInput {
 input UserUpsertWithoutActivityInput {
   update: UserUpdateWithoutActivityDataInput!
   create: UserCreateWithoutActivityInput!
+}
+
+input UserUpsertWithoutAdminSettingsInput {
+  update: UserUpdateWithoutAdminSettingsDataInput!
+  create: UserCreateWithoutAdminSettingsInput!
 }
 
 input UserUpsertWithoutAwaitingFriendsInput {
@@ -21928,6 +22267,7 @@ input UserWhereInput {
   rentalAppraisals_some: RentalAppraisalWhereInput
   rentalAppraisals_none: RentalAppraisalWhereInput
   proofOfAddress: FileWhereInput
+  adminSettings: AdminSettingWhereInput
 }
 
 input UserWhereUniqueInput {

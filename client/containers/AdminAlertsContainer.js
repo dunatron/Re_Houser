@@ -8,6 +8,8 @@ import User from '../components/User/index';
  */
 const AdminAlertsContainer = props => {
   console.log('Props for admin alerts => ', props);
+  // maybe create A page which can jsut turn these setting off. So using like the contextApi for hooks?
+  // that way admins can uncheck these different subs
   return (
     <>
       <User>
@@ -32,14 +34,18 @@ const AdminAlertsContainer = props => {
           const me = data ? data.me : null;
           console.log('me in al admin sub => ', me);
           if (!me) return null;
-          const { permissions } = me;
+          const { permissions, adminSettings } = me;
           console.log('This users permissions => ', permissions);
+          console.log('adminSettings => ', adminSettings);
           const canSubscribe = permissions.includes('ADMIN');
           if (!canSubscribe) return null;
           return (
             <>
               <AdminAlertNewRentalApplicationSub />
-              <AdminNewPropertyAppraisalSub />
+              {/* Rental Appraisal created sub */}
+              {adminSettings.appraisalCreatedSub && (
+                <AdminNewPropertyAppraisalSub />
+              )}
             </>
           );
         }}

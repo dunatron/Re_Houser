@@ -51,6 +51,9 @@ const UserInfoFragment = gql`
     }
     rehouserStamp
     usedFreeAppraisal
+    adminSettings {
+      appraisalCreatedSub
+    }
   }
   ${FileInfoFragment}
 `;
