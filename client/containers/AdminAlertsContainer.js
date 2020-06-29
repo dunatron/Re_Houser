@@ -1,5 +1,6 @@
 import AdminAlertNewRentalApplicationSub from '../components/SubscriptionComponents/AdminAlertNewRentalApplicationSub';
 import AdminNewPropertyAppraisalSub from '../components/SubscriptionComponents/AdminNewPropertyAppraisalSub';
+import PropertiesSub from '../components/SubscriptionComponents/PropertiesSub';
 import User from '../components/User/index';
 /**
  * I am Simply a wrapper for all alerts admin
@@ -12,7 +13,7 @@ const AdminAlertsContainer = props => {
   // that way admins can uncheck these different subs
   return (
     <>
-      <User>
+      {/* <User>
         {props => {
           console.log('USER PROPS FOR AdminAlertsContainer => ', props);
           if (!props.data) return null;
@@ -28,7 +29,7 @@ const AdminAlertsContainer = props => {
             </div>
           );
         }}
-      </User>
+      </User> */}
       <User>
         {({ data }) => {
           const me = data ? data.me : null;
@@ -41,13 +42,16 @@ const AdminAlertsContainer = props => {
           if (!canSubscribe) return null;
           return (
             <>
-              <AdminAlertNewRentalApplicationSub />
+              {adminSettings && adminSettings.rentalApplicationCreatedSub && (
+                <AdminAlertNewRentalApplicationSub />
+              )}
+
               {/* Rental Appraisal created sub */}
               {adminSettings && adminSettings.appraisalCreatedSub && (
-                <div>Appraisal SUB is subscribed</div>
-              )}
-              {adminSettings && adminSettings.appraisalCreatedSub && (
                 <AdminNewPropertyAppraisalSub />
+              )}
+              {adminSettings && adminSettings.propertyCreatedSub && (
+                <PropertiesSub where={{ mutation_in: 'CREATED' }} />
               )}
             </>
           );

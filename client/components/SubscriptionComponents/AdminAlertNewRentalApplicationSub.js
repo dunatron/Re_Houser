@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { RENTAL_APPLICATION_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationSub';
 import ApplicationCard from '../PropertyDetails/ApplicationCard';
+import { store } from '../../store';
 
 /**
  *
@@ -15,15 +16,15 @@ import ApplicationCard from '../PropertyDetails/ApplicationCard';
  *
  */
 const AdminAlertNewRentalApplicationSub = () => {
-  const [newObjects, setNewObjects] = useState([]);
-  const [updateCount, setUpdateCount] = useState(0);
+  const globalStore = useContext(store);
+  const { dispatch, state } = globalStore;
   const { loading, data, error } = useSubscription(
     RENTAL_APPLICATION_SUBSCRIPTION,
     {
       suspend: false,
       variables: {
         where: {
-          mutation_in: 'UPDATED',
+          mutation_in: 'CREATED',
           // node: {
           //   stage_in: ["PENDING", "INITIALIZING", "DENIED", "ACCEPTED"],
           //   // id_in: applicationIds,
@@ -34,7 +35,12 @@ const AdminAlertNewRentalApplicationSub = () => {
         },
       },
       onSubscriptionData: ({ client, subscriptionData }) => {
-        setUpdateCount(updateCount + 1);
+        dispatch({
+          type: 'updateState',
+          payload: {
+            newRentalApplicationsCount: state.newRentalApplicationsCount + 1,
+          },
+        });
         toast.success(<p>New Pending Rental Application for</p>);
       },
     }

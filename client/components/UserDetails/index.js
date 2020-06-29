@@ -27,14 +27,14 @@ const UserDetails = ({ me, user }) => {
   const fullname = user.firstName + ' ' + user.lastName;
   return (
     <Fragment>
-      <ListItem>
-        <ListItemAvatar>
+      <ListItem dense={true}>
+        <ListItemAvatar dense={true}>
           <Avatar
             alt={fullname}
             src={user.profilePhoto ? user.profilePhoto.url : null}
           />
         </ListItemAvatar>
-        <ListItemText primary={fullname} secondary={'Friend'} />
+        <ListItemText primary={fullname} secondary={'Friend'} dense={true} />
         <ListItemSecondaryAction>
           <UserMenu me={me} user={user} />
         </ListItemSecondaryAction>
@@ -42,6 +42,23 @@ const UserDetails = ({ me, user }) => {
       <Divider variant="inset" component="li" />
     </Fragment>
   );
+  // return (
+  //   <Fragment>
+  //     <ListItem>
+  //       <ListItemAvatar>
+  //         <Avatar
+  //           alt={fullname}
+  //           src={user.profilePhoto ? user.profilePhoto.url : null}
+  //         />
+  //       </ListItemAvatar>
+  //       <ListItemText primary={fullname} secondary={'Friend'} />
+  //       <ListItemSecondaryAction>
+  //         <UserMenu me={me} user={user} />
+  //       </ListItemSecondaryAction>
+  //     </ListItem>
+  //     <Divider variant="inset" component="li" />
+  //   </Fragment>
+  // );
 };
 
 export default UserDetails;

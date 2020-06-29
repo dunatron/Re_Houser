@@ -49,8 +49,11 @@ type User {
 
 type AdminSetting {
   id: ID! @unique @id
-  appraisalCreatedSub: Boolean
   user: User @relation(name: "UserAdminSettings")
+  appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
 }
 
 type BankDetail {
@@ -152,7 +155,7 @@ type File {
 }
 
 type Property implements PropertyInfo {
-  id: ID! @unique @id
+  id: ID! @unique @id # google placesId
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   type: PropertyType
@@ -248,6 +251,7 @@ type RentalAppraisal {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   requestedBy: User! @relation(name: "UserRentalAppraisals")
+  placesId: ID!
   location: String!
   locationLat: Float!
   locationLng: Float!

@@ -8,6 +8,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { ToastContainer, toast } from 'react-toastify';
 import MaterialPage from './MaterialPage';
 
+import { StateProvider } from '../../store';
+
 import {
   withStyles,
   MuiThemeProvider,
@@ -214,7 +216,7 @@ const Page = props => {
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
-
+      {/* <StateProvider> */}
       <MuiThemeProvider theme={themeToUse}>
         <ToastContainer
           rtl={false}
@@ -253,6 +255,7 @@ const Page = props => {
         <div id="modal-root" />
         <GlobalStyle />
       </MuiThemeProvider>
+      {/* </StateProvider> */}
     </NoSsr>
   );
 };

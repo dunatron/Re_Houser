@@ -61,12 +61,13 @@ const UserMenu = ({ me, user }) => {
   return (
     <Fragment>
       <IconButton
+        size="small"
         edge="end"
         aria-label="more"
         aria-controls="user-menu"
         aria-haspopup="true"
         onClick={openMenu}>
-        <MoreVertIcon />
+        <MoreVertIcon fontSize="small" />
       </IconButton>
       {/* Should extract this item away to own component... with mutation etc folder menu-items */}
       <Menu
@@ -86,6 +87,7 @@ const UserMenu = ({ me, user }) => {
         ) : (
           <MenuItem
             // selected={option === 'Pyxis'}
+            dense={true}
             onClick={e => {
               createChat({
                 variables: {

@@ -143,6 +143,9 @@ type Subscription {
   rentalAppraisalSub(
     where: RentalAppraisalSubscriptionWhereInput
   ): RentalAppraisalSubscriptionPayload
+  propertySub(
+    where: PropertySubscriptionWhereInput
+  ): PropertySubscriptionPayload
 }
 
 type Query {
@@ -276,4 +279,13 @@ type Query {
     first: Int
     last: Int
   ): RentalAppraisalConnection!
+  propertiesConnection(
+    where: PropertyWhereInput
+    orderBy: PropertyOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): PropertyConnection!
 }

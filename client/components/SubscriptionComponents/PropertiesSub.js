@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 // import { RENTAL_APPLICATION_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationSub';
-import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyAppraisalSub';
+import { PROPERTY_SUBSCRIPTION } from '../../graphql/subscriptions/PropertySubscription';
 import ApplicationCard from '../PropertyDetails/ApplicationCard';
 import { store } from '../../store';
 
@@ -19,36 +19,26 @@ import { store } from '../../store';
 /**
  * This should m,aybe create a context, newItemsCOunt
  */
-const AdminNewRentalAppraisalSub = () => {
+const PropertiesSub = ({ where }) => {
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
-  const { loading, data, error } = useSubscription(
-    PROPERTY_APPRAISAL_SUBSCRIPTION,
-    {
-      suspend: false,
-      variables: {
-        where: {
-          mutation_in: 'CREATED',
-          // node: {
-          //   stage_in: ["PENDING", "INITIALIZING", "DENIED", "ACCEPTED"],
-          //   // id_in: applicationIds,
-          //   property: {
-          //     id: property.id,
-          //   },
-          // },
+  const { loading, data, error } = useSubscription(PROPERTY_SUBSCRIPTION, {
+    suspend: false,
+    variables: {
+      where: {
+        ...where,
+      },
+    },
+    onSubscriptionData: ({ client, subscriptionData }) => {
+      dispatch({
+        type: 'updateState',
+        payload: {
+          newPropertiesCount: state.newPropertiesCount + 1,
         },
-      },
-      onSubscriptionData: ({ client, subscriptionData }) => {
-        dispatch({
-          type: 'updateState',
-          payload: {
-            newRentalAppraisalCount: state.newRentalAppraisalCount + 1,
-          },
-        });
-        toast.success(<p>New Rental APpraisal has been requested</p>);
-      },
-    }
-  );
+      });
+      toast.success(<p>New Rental APpraisal has been requested</p>);
+    },
+  });
   if (loading) return null;
   if (error)
     return (
@@ -60,4 +50,4 @@ const AdminNewRentalAppraisalSub = () => {
   return null;
 };
 
-export default AdminNewRentalAppraisalSub;
+export default PropertiesSub;

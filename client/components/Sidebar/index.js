@@ -1,17 +1,25 @@
+import { Fragment, useContext } from 'react';
+import { store } from '../../store';
 import Router from 'next/router';
-import Divider from '@material-ui/core/Divider';
-import Badge from '@material-ui/core/Badge';
-import Avatar from '@material-ui/core/Avatar';
+
+// material
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Badge,
+  Avatar,
+} from '@material-ui/core';
+
+import Skeleton from '@material-ui/lab/Skeleton';
+
+// icons
 import PersonIcon from '../../styles/icons/PersonIcon';
 import DashboardIcon from '../../styles/icons/DashboardIcon';
 import LocationSearchingIcon from '../../styles/icons/LocationSearchingIcon';
 import AccountCircleIcon from '../../styles/icons/AccountCircleIcon';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Skeleton from '@material-ui/lab/Skeleton';
-import { Fragment } from 'react';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import HouseIcon from '@material-ui/icons/House';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -61,6 +69,8 @@ const defaultNavItemStyle = {
   minWidth: '32px',
 };
 const NavigationConfig = (me, loadingUser) => {
+  const globalStore = useContext(store);
+  const { dispatch, state } = globalStore;
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
@@ -70,6 +80,7 @@ const NavigationConfig = (me, loadingUser) => {
     {
       key: 'admin-section',
       label: 'Admins',
+      canRender: () => (me ? me.permissions.includes('ADMIN') : false),
       items: [
         {
           icon: <DashboardIcon />,
@@ -90,33 +101,16 @@ const NavigationConfig = (me, loadingUser) => {
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
-        {
-          icon: <InfoIcon />,
-          text: 'Info',
-          route: '/info',
-          style: { ...defaultNavItemStyle },
-          canRender: () => true, // set to try just to run it alot on the same account in dev
-        },
+
         {
           icon: <DashboardIcon />,
           text: 'Dashboard',
           route: '/dashboard',
           style: { ...defaultNavItemStyle },
-          canRender: () => true,
-        },
-        {
-          icon: <DonutSmallIcon />,
-          text: 'Activity',
-          route: '/activity',
-          style: { ...defaultNavItemStyle },
-          canRender: () => true,
-        },
-        {
-          icon: ProfileIcon(me),
-          text: 'Account',
-          route: '/account',
-          // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
-          canRender: () => true,
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
         },
       ],
     },
@@ -160,10 +154,10 @@ const NavigationConfig = (me, loadingUser) => {
     {
       key: 'landlord',
       label: 'Landlords',
-      canRender: () => {
-        if (me === null) return false;
-        return true;
-      },
+      // canRender: () => {
+      //   if (me === null) return false;
+      //   return true;
+      // },
       items: [
         {
           icon: <HomeWorkIcon />,
@@ -177,21 +171,30 @@ const NavigationConfig = (me, loadingUser) => {
           text: 'Applications',
           route: '/applications',
           style: { ...defaultNavItemStyle },
-          canRender: () => true,
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
         },
         {
           icon: <ApartmentIcon />,
           text: 'Leases',
           route: '/leases',
           style: { ...defaultNavItemStyle },
-          canRender: () => true,
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
         },
         {
           icon: <HouseIcon />,
           text: 'Properties',
           route: '/properties',
           style: { ...defaultNavItemStyle },
-          canRender: () => true,
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
         },
       ],
     },
@@ -222,6 +225,33 @@ const NavigationConfig = (me, loadingUser) => {
     {
       key: 'account',
       items: [
+        {
+          icon: ProfileIcon(me),
+          text: 'Account',
+          route: '/account',
+          // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
+        },
+        {
+          icon: <DonutSmallIcon />,
+          text: 'Activity',
+          route: '/activity',
+          style: { ...defaultNavItemStyle },
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
+        },
+        {
+          icon: <InfoIcon />,
+          text: 'Info',
+          route: '/info',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
         {
           icon: loadingUser ? (
             <Skeleton variant="circle" width={40} height={40} />

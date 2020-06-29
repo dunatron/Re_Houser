@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 29 2020 16:43:31 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jun 29 2020 21:26:18 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1168,8 +1168,11 @@ input ActivityWhereUniqueInput {
 
 type AdminSetting implements Node {
   id: ID!
-  appraisalCreatedSub: Boolean
   user: User
+  appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
 }
 
 """A connection to a list of items."""
@@ -1185,6 +1188,9 @@ type AdminSettingConnection {
 input AdminSettingCreateInput {
   id: ID
   appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
   user: UserCreateOneWithoutAdminSettingsInput
 }
 
@@ -1196,6 +1202,9 @@ input AdminSettingCreateOneWithoutUserInput {
 input AdminSettingCreateWithoutUserInput {
   id: ID
   appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
 }
 
 """An edge in a connection."""
@@ -1212,11 +1221,20 @@ enum AdminSettingOrderByInput {
   id_DESC
   appraisalCreatedSub_ASC
   appraisalCreatedSub_DESC
+  propertyCreatedSub_ASC
+  propertyCreatedSub_DESC
+  rentalApplicationCreatedSub_ASC
+  rentalApplicationCreatedSub_DESC
+  leaseCreatedSub_ASC
+  leaseCreatedSub_DESC
 }
 
 type AdminSettingPreviousValues {
   id: ID!
   appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
 }
 
 type AdminSettingSubscriptionPayload {
@@ -1258,11 +1276,17 @@ input AdminSettingSubscriptionWhereInput {
 
 input AdminSettingUpdateInput {
   appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
   user: UserUpdateOneWithoutAdminSettingsInput
 }
 
 input AdminSettingUpdateManyMutationInput {
   appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
 }
 
 input AdminSettingUpdateOneRequiredWithoutUserInput {
@@ -1274,6 +1298,9 @@ input AdminSettingUpdateOneRequiredWithoutUserInput {
 
 input AdminSettingUpdateWithoutUserDataInput {
   appraisalCreatedSub: Boolean
+  propertyCreatedSub: Boolean
+  rentalApplicationCreatedSub: Boolean
+  leaseCreatedSub: Boolean
 }
 
 input AdminSettingUpsertWithoutUserInput {
@@ -1334,6 +1361,18 @@ input AdminSettingWhereInput {
 
   """All values that are not equal to given value."""
   appraisalCreatedSub_not: Boolean
+  propertyCreatedSub: Boolean
+
+  """All values that are not equal to given value."""
+  propertyCreatedSub_not: Boolean
+  rentalApplicationCreatedSub: Boolean
+
+  """All values that are not equal to given value."""
+  rentalApplicationCreatedSub_not: Boolean
+  leaseCreatedSub: Boolean
+
+  """All values that are not equal to given value."""
+  leaseCreatedSub_not: Boolean
   user: UserWhereInput
 }
 
@@ -16004,6 +16043,7 @@ type RentalAppraisal implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   requestedBy: User!
+  placesId: ID!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16035,6 +16075,7 @@ input RentalAppraisalCreateheatSourcesInput {
 
 input RentalAppraisalCreateInput {
   id: ID
+  placesId: ID!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16063,6 +16104,7 @@ input RentalAppraisalCreateManyWithoutRequestedByInput {
 
 input RentalAppraisalCreateWithoutPropertyInput {
   id: ID
+  placesId: ID!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16080,6 +16122,7 @@ input RentalAppraisalCreateWithoutPropertyInput {
 
 input RentalAppraisalCreateWithoutRequestedByInput {
   id: ID
+  placesId: ID!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16111,6 +16154,8 @@ enum RentalAppraisalOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  placesId_ASC
+  placesId_DESC
   location_ASC
   location_DESC
   locationLat_ASC
@@ -16139,6 +16184,7 @@ type RentalAppraisalPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
+  placesId: ID!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16246,6 +16292,46 @@ input RentalAppraisalScalarWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  placesId: ID
+
+  """All values that are not equal to given value."""
+  placesId_not: ID
+
+  """All values that are contained in given list."""
+  placesId_in: [ID!]
+
+  """All values that are not contained in given list."""
+  placesId_not_in: [ID!]
+
+  """All values less than the given value."""
+  placesId_lt: ID
+
+  """All values less than or equal the given value."""
+  placesId_lte: ID
+
+  """All values greater than the given value."""
+  placesId_gt: ID
+
+  """All values greater than or equal the given value."""
+  placesId_gte: ID
+
+  """All values containing the given string."""
+  placesId_contains: ID
+
+  """All values not containing the given string."""
+  placesId_not_contains: ID
+
+  """All values starting with the given string."""
+  placesId_starts_with: ID
+
+  """All values not starting with the given string."""
+  placesId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  placesId_ends_with: ID
+
+  """All values not ending with the given string."""
+  placesId_not_ends_with: ID
   location: String
 
   """All values that are not equal to given value."""
@@ -16514,6 +16600,7 @@ input RentalAppraisalUpdateheatSourcesInput {
 }
 
 input RentalAppraisalUpdateInput {
+  placesId: ID
   location: String
   locationLat: Float
   locationLng: Float
@@ -16531,6 +16618,7 @@ input RentalAppraisalUpdateInput {
 }
 
 input RentalAppraisalUpdateManyDataInput {
+  placesId: ID
   location: String
   locationLat: Float
   locationLng: Float
@@ -16546,6 +16634,7 @@ input RentalAppraisalUpdateManyDataInput {
 }
 
 input RentalAppraisalUpdateManyMutationInput {
+  placesId: ID
   location: String
   locationLat: Float
   locationLng: Float
@@ -16590,6 +16679,7 @@ input RentalAppraisalUpdateManyWithWhereNestedInput {
 }
 
 input RentalAppraisalUpdateWithoutPropertyDataInput {
+  placesId: ID
   location: String
   locationLat: Float
   locationLng: Float
@@ -16606,6 +16696,7 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
 }
 
 input RentalAppraisalUpdateWithoutRequestedByDataInput {
+  placesId: ID
   location: String
   locationLat: Float
   locationLng: Float
@@ -16736,6 +16827,46 @@ input RentalAppraisalWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  placesId: ID
+
+  """All values that are not equal to given value."""
+  placesId_not: ID
+
+  """All values that are contained in given list."""
+  placesId_in: [ID!]
+
+  """All values that are not contained in given list."""
+  placesId_not_in: [ID!]
+
+  """All values less than the given value."""
+  placesId_lt: ID
+
+  """All values less than or equal the given value."""
+  placesId_lte: ID
+
+  """All values greater than the given value."""
+  placesId_gt: ID
+
+  """All values greater than or equal the given value."""
+  placesId_gte: ID
+
+  """All values containing the given string."""
+  placesId_contains: ID
+
+  """All values not containing the given string."""
+  placesId_not_contains: ID
+
+  """All values starting with the given string."""
+  placesId_starts_with: ID
+
+  """All values not starting with the given string."""
+  placesId_not_starts_with: ID
+
+  """All values ending with the given string."""
+  placesId_ends_with: ID
+
+  """All values not ending with the given string."""
+  placesId_not_ends_with: ID
   location: String
 
   """All values that are not equal to given value."""

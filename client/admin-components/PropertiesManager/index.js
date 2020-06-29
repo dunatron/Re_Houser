@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { store } from '../../store';
 import gql from 'graphql-tag';
 import {
@@ -13,24 +13,32 @@ import {
   Input,
   Typography,
   IconButton,
+  Icon,
   Badge,
   Button,
 } from '@material-ui/core';
-
-import Modal from '../Modal/index';
 import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyAppraisalSub';
 import moment from 'moment';
 import formatCentsToDollars from '../../lib/formatCentsToDollars';
-import Error from '../ErrorMessage';
 
-// querys
-import { RENTAL_APPRAISALS_CONNECTION_QUERY } from '../../graphql/connections';
+import SubscriberBell from '../SubscriberBell';
+
+//components
+import Modal from '../../components/Modal/index';
+import Error from '../../components/ErrorMessage';
+import UserDetails from '../../components/UserDetails';
+import List from '@material-ui/core/List';
+
+//rentalApplicationsConnection
+// connection querys
+import { PROPERTIES_CONNECTION_QUERY } from '../../graphql/connections';
 // mutations
 import { OFFER_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
 
 //icons
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -43,17 +51,17 @@ const useStyles = makeStyles(theme => ({
 }));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
-const APPRAISALS_COUNT_QUERY = gql`
-  query APPRAISALS_COUNT_QUERY(
-    $where: RentalAppraisalWhereInput
-    $orderBy: RentalAppraisalOrderByInput
+const PROPERTIES_COUNT_QUERY = gql`
+  query PROPERTIES_COUNT_QUERY(
+    $where: PropertyWhereInput
+    $orderBy: PropertyOrderByInput
     $skip: Int
     $after: String
     $before: String
     $first: Int
     $last: Int
   ) {
-    rentalAppraisalsConnection(
+    propertiesConnection(
       where: $where
       orderBy: $orderBy
       skip: $skip
@@ -69,7 +77,7 @@ const APPRAISALS_COUNT_QUERY = gql`
   }
 `;
 
-const AdminRentalAppraisalsTable = ({ where }) => {
+const AdminRentalApplicationsTable = ({ where, me }) => {
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
@@ -81,57 +89,38 @@ const AdminRentalAppraisalsTable = ({ where }) => {
 
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: false },
-    { title: 'location', field: 'location', editable: false },
-    { title: 'created', field: 'createdAt', editable: false },
-    { title: 'locationLat', field: 'locationLat', editable: false },
-    { title: 'locationLng', field: 'locationLng', editable: false },
-    { title: 'rooms', field: 'rooms', editable: false },
-    { title: 'bathrooms', field: 'bathrooms', editable: false },
-    { title: 'lowRent', field: 'lowRent' },
-    { title: 'rent', field: 'rent' },
-    { title: 'highRent', field: 'highRent' },
-    { title: 'property', field: 'property.id', editable: false },
+    { title: 'property', field: 'location', editable: false },
+    // { title: 'created', field: 'createdAt', editable: false },
+    { title: 'onTheMarket', field: 'onTheMarket' },
+    // { title: 'owners', field: 'owners' },
+
+    { title: 'isLeased', field: 'isLeased' },
+    {
+      field: 'creator',
+      title: 'creator',
+      render: rowData => (
+        <List>
+          {rowData.creator && <UserDetails user={rowData.creator} me={me} />}
+        </List>
+      ),
+    },
   ];
 
   const sharedWhere = {
     ...where,
-    OR: [
-      {
-        location_contains: searchText,
-      },
-      // {
-      //   amount: parseFloat(searchText),
-      // },
-    ],
   };
 
-  const { data, loading, error, refetch } = useQuery(APPRAISALS_COUNT_QUERY, {
+  const { data, loading, error, refetch } = useQuery(PROPERTIES_COUNT_QUERY, {
     variables: {
       where: {
         ...where,
-        // ...sharedWhere, every letter change would retrigger this
       },
     },
   });
 
-  const [offerAppraisal, offerAppraisalProps] = useMutation(
-    OFFER_RENTAL_APPRAISAL_MUTATION
-  );
-
   if (error) return <Error error={error} />;
 
-  const handleOnSubscriptionData = () => {
-    setNetworkOnly(true);
-  };
-
-  useSubscription(PROPERTY_APPRAISAL_SUBSCRIPTION, {
-    onSubscriptionData: handleOnSubscriptionData,
-    variables: {},
-  });
-
-  const totalItemCount = data
-    ? data.rentalAppraisalsConnection.aggregate.count
-    : 0;
+  const totalItemCount = data ? data.propertiesConnection.aggregate.count : 0;
 
   const handleSearchTextChange = e => {
     setSearchText(e.target.value);
@@ -140,8 +129,10 @@ const AdminRentalAppraisalsTable = ({ where }) => {
   const handleGetSubscriptionItems = async () => {
     await setNetworkOnly(true);
     dispatch({
-      type: 'setNewRentalAppraisalCount',
-      payload: 0,
+      type: 'updateState',
+      payload: {
+        newPropertiesCount: 0,
+      },
     });
     await tableRef.current.onQueryChange();
     setNetworkOnly(false);
@@ -151,28 +142,23 @@ const AdminRentalAppraisalsTable = ({ where }) => {
     tableRef.current.onQueryChange(); // informs table that we need to refetch remoteData
   };
 
+  // useEffect(() => {
+  //   if (state.newPropertiesCount > 0) {
+  //     handleGetSubscriptionItems();
+  //   }
+  // }, [state.newPropertiesCount]);
+
   const remoteData = query => {
     return client
       .query({
-        query: RENTAL_APPRAISALS_CONNECTION_QUERY,
-        // fetchPolicy: 'network-only', // simply for subscriptions...
+        query: PROPERTIES_CONNECTION_QUERY,
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
-          //   orderBy: 'created_ASC',
           where: {
             ...where,
             ...sharedWhere,
-            // OR: [
-            //   {
-            //     location_contains: searchText,
-            //   },
-            //   // {
-            //   //   amount: parseFloat(searchText),
-            //   // },
-            // ],
           },
           orderBy: 'createdAt_DESC',
-          // orderBy: 'rent_DESC',
           skip: query.page * query.pageSize,
           first: query.pageSize,
           limit: query.pageSize,
@@ -181,7 +167,7 @@ const AdminRentalAppraisalsTable = ({ where }) => {
       .then(res => {
         const {
           data: {
-            rentalAppraisalsConnection: { pageInfo, aggregate, edges },
+            propertiesConnection: { pageInfo, aggregate, edges },
           },
         } = res;
         // immutatble/freezeObject
@@ -210,11 +196,16 @@ const AdminRentalAppraisalsTable = ({ where }) => {
             display: 'flex',
             alignItems: 'center',
           }}>
-          <Typography variant="h5">Appraisals</Typography>
+          <Typography variant="h5">Rental Applications</Typography>
+          <SubscriberBell
+            me={me}
+            variable="propertyCreatedSub"
+            title="property created subscription"
+          />
           <IconButton
             onClick={handleGetSubscriptionItems}
-            disabled={state.newRentalAppraisalCount > 0 ? false : true}>
-            <Badge badgeContent={state.newRentalAppraisalCount} color="primary">
+            disabled={state.newPropertiesCount > 0 ? false : true}>
+            <Badge badgeContent={state.newPropertiesCount} color="primary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -241,57 +232,9 @@ const AdminRentalAppraisalsTable = ({ where }) => {
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
         }}
-        editable={{
-          isEditable: rowData => rowData.rent === null,
-          //   onRowUpdate: (newData, oldData) =>
-          //     new Promise((resolve, reject) => {
-          //       setTimeout(() => {
-          //         {
-          //           offerAppraisal({
-          //             variables: {
-          //               data: {
-          //                 rent: parseFloat(newData.rent),
-          //                 lowRent: parseFloat(newData.lowRent),
-          //                 highRent: parseFloat(newData.highRent),
-          //               },
-          //               where: {
-          //                 id: oldData.id,
-          //               },
-          //             },
-          //           });
-          //           // Note remove setTimeout and resolve onCOmpleted or on an error
-          //           resolve();
-          //         }
-          //         resolve();
-          //       }, 1000);
-          //     }),
-          // }}
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  offerAppraisal({
-                    variables: {
-                      data: {
-                        rent: parseFloat(newData.rent),
-                        lowRent: parseFloat(newData.lowRent),
-                        highRent: parseFloat(newData.highRent),
-                      },
-                      where: {
-                        id: oldData.id,
-                      },
-                    },
-                  });
-                  // Note remove setTimeout and resolve onCOmpleted or on an error
-                  resolve();
-                }
-                resolve();
-              }, 1000);
-            }),
-        }}
       />
     </div>
   );
 };
 
-export default AdminRentalAppraisalsTable;
+export default AdminRentalApplicationsTable;

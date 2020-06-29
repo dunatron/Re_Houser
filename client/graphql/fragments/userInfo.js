@@ -53,6 +53,9 @@ const UserInfoFragment = gql`
     usedFreeAppraisal
     adminSettings {
       appraisalCreatedSub
+      propertyCreatedSub
+      rentalApplicationCreatedSub
+      leaseCreatedSub
     }
   }
   ${FileInfoFragment}

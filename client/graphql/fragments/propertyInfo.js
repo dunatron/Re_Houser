@@ -7,6 +7,8 @@ const PropertyInfoFragment = gql`
   fragment propertyInfo on Property {
     id
     type
+    createdAt
+    updatedAt
     moveInDate
     expiryDate
     onTheMarket
@@ -25,6 +27,9 @@ const PropertyInfoFragment = gql`
     lowestRoomPrice
     highestRoomPrice
     useAdvancedRent
+    creator {
+      ...publicUserInfo
+    }
     owners {
       ...publicUserInfo
     }
