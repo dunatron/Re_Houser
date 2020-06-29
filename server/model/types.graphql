@@ -44,7 +44,7 @@ type User {
   physicalAddress: String
   proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
   acceptedSignupTerms: Boolean!
-  adminSettings: AdminSetting @relation(name: "UserAdminSettings", link: TABLE)
+  adminSettings: AdminSetting! @relation(name: "UserAdminSettings", link: TABLE)
 }
 
 type AdminSetting {

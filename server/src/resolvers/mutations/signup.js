@@ -23,7 +23,8 @@ async function signup(parent, args, ctx, info) {
       data: {
         ...args,
         password,
-        permissions: { set: ["USER"] }
+        permissions: { set: ["USER"] },
+        adminSettings: { create: {} }
       }
     },
     info

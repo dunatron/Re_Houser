@@ -14,15 +14,23 @@ const useStyles = makeStyles(theme => {
 
     // MAYBE THIS FFS
     appBar: {
-      backgroundColor: props =>
-        props.noTransparency
-          ? theme.overrides.MuiAppBar
-            ? `${theme.overrides.MuiAppBar.colorPrimary.backgroundColor} !important`
-            : `${theme.palette.background.paper} !important`
-          : 'transparent !important',
+      // backgroundColor: props =>
+      //   props.noTransparency
+      //     ? theme.overrides.MuiAppBar
+      //       ? `${theme.overrides.MuiAppBar.colorPrimary.backgroundColor} !important`
+      //       : `${theme.palette.background.paper} !important`
+      //     : 'transparent !important',
       [theme.breakpoints.up('lg')]: {
         width: `calc(100% - ${theme.sideBarWidth}px)`,
       },
+    },
+    appBarTransparent: {
+      backgroundColor: 'transparent',
+    },
+    appBarSolid: {
+      backgroundColor: theme.overrides.MuiAppBar
+        ? `${theme.overrides.MuiAppBar.colorPrimary.backgroundColor} !important`
+        : `${theme.palette.background.paper} !important`,
     },
     menuButton: {
       marginLeft: 0,

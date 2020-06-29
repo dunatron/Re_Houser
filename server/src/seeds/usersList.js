@@ -56,7 +56,10 @@ const userFrag = {
   // usedFreeAppraisal: Boolean
   // physicalAddress: String
   // proofOfAddress: File
-  acceptedSignupTerms: true
+  acceptedSignupTerms: true,
+  adminSettings: {
+    create: {}
+  }
 };
 
 const userList = [

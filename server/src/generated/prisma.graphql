@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 29 2020 15:51:16 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jun 29 2020 16:43:31 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1265,11 +1265,9 @@ input AdminSettingUpdateManyMutationInput {
   appraisalCreatedSub: Boolean
 }
 
-input AdminSettingUpdateOneWithoutUserInput {
+input AdminSettingUpdateOneRequiredWithoutUserInput {
   create: AdminSettingCreateWithoutUserInput
   connect: AdminSettingWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: AdminSettingUpdateWithoutUserDataInput
   upsert: AdminSettingUpsertWithoutUserInput
 }
@@ -18173,7 +18171,7 @@ type User implements Node {
   physicalAddress: String
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
-  adminSettings: AdminSetting
+  adminSettings: AdminSetting!
 }
 
 """A connection to a list of items."""
@@ -18230,7 +18228,7 @@ input UserCreateInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateManyInput {
@@ -18380,7 +18378,7 @@ input UserCreateWithoutActivityInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutAdminSettingsInput {
@@ -18472,7 +18470,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutChatsInput {
@@ -18518,7 +18516,7 @@ input UserCreateWithoutChatsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -18564,7 +18562,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -18610,7 +18608,7 @@ input UserCreateWithoutCreditCardsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -18656,7 +18654,7 @@ input UserCreateWithoutFriendRequestsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutInvolvedActivityInput {
@@ -18702,7 +18700,7 @@ input UserCreateWithoutInvolvedActivityInput {
   activity: ActivityCreateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -18748,7 +18746,7 @@ input UserCreateWithoutLesseeLeasesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -18794,7 +18792,7 @@ input UserCreateWithoutLessorLeasesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -18840,7 +18838,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -18886,7 +18884,7 @@ input UserCreateWithoutProfilePhotoInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutProofOfAddressInput {
@@ -18932,7 +18930,7 @@ input UserCreateWithoutProofOfAddressInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -18978,7 +18976,7 @@ input UserCreateWithoutPropertiesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -19024,7 +19022,7 @@ input UserCreateWithoutRecievedMessagesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutRentalAppraisalsInput {
@@ -19070,7 +19068,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -19116,7 +19114,7 @@ input UserCreateWithoutSentMessagesInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 input UserCreateWithoutSignatureInput {
@@ -19162,7 +19160,7 @@ input UserCreateWithoutSignatureInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingCreateOneWithoutUserInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
 }
 
 """An edge in a connection."""
@@ -20167,7 +20165,7 @@ input UserUpdateDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateInput {
@@ -20213,7 +20211,7 @@ input UserUpdateInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateManyDataInput {
@@ -20499,7 +20497,7 @@ input UserUpdateWithoutActivityDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutAdminSettingsDataInput {
@@ -20589,7 +20587,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -20634,7 +20632,7 @@ input UserUpdateWithoutChatsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -20679,7 +20677,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -20724,7 +20722,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -20769,7 +20767,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
@@ -20814,7 +20812,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -20859,7 +20857,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -20904,7 +20902,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -20949,7 +20947,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -20994,7 +20992,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutProofOfAddressDataInput {
@@ -21039,7 +21037,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -21084,7 +21082,7 @@ input UserUpdateWithoutPropertiesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -21129,7 +21127,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
@@ -21174,7 +21172,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -21219,7 +21217,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithoutSignatureDataInput {
@@ -21264,7 +21262,7 @@ input UserUpdateWithoutSignatureDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
-  adminSettings: AdminSettingUpdateOneWithoutUserInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {

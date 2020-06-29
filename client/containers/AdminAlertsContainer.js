@@ -43,7 +43,10 @@ const AdminAlertsContainer = props => {
             <>
               <AdminAlertNewRentalApplicationSub />
               {/* Rental Appraisal created sub */}
-              {adminSettings.appraisalCreatedSub && (
+              {adminSettings && adminSettings.appraisalCreatedSub && (
+                <div>Appraisal SUB is subscribed</div>
+              )}
+              {adminSettings && adminSettings.appraisalCreatedSub && (
                 <AdminNewPropertyAppraisalSub />
               )}
             </>

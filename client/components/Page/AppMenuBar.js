@@ -9,6 +9,7 @@ import {
   Slide,
   useScrollTrigger,
 } from '@material-ui/core';
+import clsx from 'clsx';
 
 import { useRouter } from 'next/router';
 import useStyles from './useStyles';
@@ -48,6 +49,12 @@ const AppMenuBar = props => {
   const classes = useStyles({
     noTransparency: noTransparency,
   });
+
+  const barClasses = clsx(
+    classes.appBar,
+    noTransparency ? classes.appBarSolid : classes.appBarTransparent
+  );
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -81,7 +88,7 @@ const AppMenuBar = props => {
     <HideOnScroll {...props}>
       <AppBar
         position="fixed"
-        className={classes.appBar}
+        className={barClasses}
         elevation={noTransparency ? 4 : 0}>
         <Toolbar disableGutters={true} variant="regular">
           <IconButton
