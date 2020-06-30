@@ -56,11 +56,7 @@ export { LongDatePretty };
 
 const LeaseLength = props => {
   const { title, moveInDate, expiryDate, variant, component } = props;
-  // const { title, variant, component } = props;
-  // const moveInDate = '2020-05-10T00:00:00.000Z';
-  // const expiryDate = '2021-05-10T00:00:00.000Z';
-  // console.log('Calc lease length moveInDate => ', moveInDate);
-  // console.log('Calc lease length expiryDate => ', expiryDate);
+
   var start = moment(moveInDate);
   var end = moment(expiryDate);
 

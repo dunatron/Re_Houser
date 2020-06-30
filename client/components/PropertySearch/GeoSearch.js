@@ -21,8 +21,6 @@ const GeoSearchWidget = props => {
   const [latPos, setLatPos] = useState(-43.5299773); // chch city center
   const [lngPos, setLngPos] = useState(172.6233322);
 
-  console.log('google.maps => ', google.maps);
-  console.log('google.maps.MapTypeId => ', google.maps.MapTypeId);
   return (
     <>
       {/* <DynamicPlacesSearch /> */}

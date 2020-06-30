@@ -27,14 +27,17 @@ const UploadProfilePhoto = ({ me }) => {
     me.profilePhoto ? me.profilePhoto.url : null
   );
   // const [uploadImage, uploadImageProps] = useMutation(UPLOAD_PROFILE_PHOTO);
+
+  const refetchQueries = [
+    {
+      query: CURRENT_USER_QUERY,
+    },
+  ];
+
   const [updateUserProfile, { loading, error, data }] = useMutation(
     UPDATE_USER_MUTATION,
     {
-      refetchQueries: [
-        {
-          query: CURRENT_USER_QUERY,
-        },
-      ],
+      refetchQueries: refetchQueries,
     }
   );
   // title,
@@ -56,6 +59,7 @@ const UploadProfilePhoto = ({ me }) => {
         title="Upload Profile photo"
         maxFilesAllowed={1}
         files={me.profilePhoto ? [me.profilePhoto] : []}
+        refetchQueries={refetchQueries}
         updateCacheOnRemovedFile={(cache, result) => {
           // update: {
           //   proofOfAddress: {

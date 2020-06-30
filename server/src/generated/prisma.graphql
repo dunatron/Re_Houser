@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Jun 30 2020 18:56:49 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Jul 01 2020 01:56:55 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -4836,7 +4836,26 @@ type File implements Node {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: User
   userProfilePhoto: User
   userSignature: User
@@ -4859,7 +4878,26 @@ input FileCreateInput {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
@@ -4902,7 +4940,26 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
@@ -4914,7 +4971,26 @@ input FileCreateWithoutUserPhotoIdInput {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
@@ -4926,7 +5002,26 @@ input FileCreateWithoutUserProfilePhotoInput {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userSignature: UserCreateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
@@ -4938,7 +5033,26 @@ input FileCreateWithoutUserProofOfAddressInput {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   userSignature: UserCreateOneWithoutSignatureInput
@@ -4950,7 +5064,26 @@ input FileCreateWithoutUserSignatureInput {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
@@ -4979,8 +5112,46 @@ enum FileOrderByInput {
   mimetype_DESC
   encoding_ASC
   encoding_DESC
+  asset_id_ASC
+  asset_id_DESC
+  public_id_ASC
+  public_id_DESC
+  version_ASC
+  version_DESC
+  version_id_ASC
+  version_id_DESC
+  signature_ASC
+  signature_DESC
+  width_ASC
+  width_DESC
+  height_ASC
+  height_DESC
+  format_ASC
+  format_DESC
+  resource_type_ASC
+  resource_type_DESC
+  created_at_ASC
+  created_at_DESC
+  tags_ASC
+  tags_DESC
+  pages_ASC
+  pages_DESC
+  bytes_ASC
+  bytes_DESC
+  type_ASC
+  type_DESC
+  etag_ASC
+  etag_DESC
+  placeholder_ASC
+  placeholder_DESC
   url_ASC
   url_DESC
+  secure_url_ASC
+  secure_url_DESC
+  access_mode_ASC
+  access_mode_DESC
+  original_filename_ASC
+  original_filename_DESC
 }
 
 type FilePreviousValues {
@@ -4990,7 +5161,26 @@ type FilePreviousValues {
   filename: String!
   mimetype: String!
   encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
 }
 
 input FileScalarWhereInput {
@@ -5206,6 +5396,462 @@ input FileScalarWhereInput {
 
   """All values not ending with the given string."""
   encoding_not_ends_with: String
+  asset_id: String
+
+  """All values that are not equal to given value."""
+  asset_id_not: String
+
+  """All values that are contained in given list."""
+  asset_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  asset_id_not_in: [String!]
+
+  """All values less than the given value."""
+  asset_id_lt: String
+
+  """All values less than or equal the given value."""
+  asset_id_lte: String
+
+  """All values greater than the given value."""
+  asset_id_gt: String
+
+  """All values greater than or equal the given value."""
+  asset_id_gte: String
+
+  """All values containing the given string."""
+  asset_id_contains: String
+
+  """All values not containing the given string."""
+  asset_id_not_contains: String
+
+  """All values starting with the given string."""
+  asset_id_starts_with: String
+
+  """All values not starting with the given string."""
+  asset_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  asset_id_ends_with: String
+
+  """All values not ending with the given string."""
+  asset_id_not_ends_with: String
+  public_id: String
+
+  """All values that are not equal to given value."""
+  public_id_not: String
+
+  """All values that are contained in given list."""
+  public_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  public_id_not_in: [String!]
+
+  """All values less than the given value."""
+  public_id_lt: String
+
+  """All values less than or equal the given value."""
+  public_id_lte: String
+
+  """All values greater than the given value."""
+  public_id_gt: String
+
+  """All values greater than or equal the given value."""
+  public_id_gte: String
+
+  """All values containing the given string."""
+  public_id_contains: String
+
+  """All values not containing the given string."""
+  public_id_not_contains: String
+
+  """All values starting with the given string."""
+  public_id_starts_with: String
+
+  """All values not starting with the given string."""
+  public_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  public_id_ends_with: String
+
+  """All values not ending with the given string."""
+  public_id_not_ends_with: String
+  version: Int
+
+  """All values that are not equal to given value."""
+  version_not: Int
+
+  """All values that are contained in given list."""
+  version_in: [Int!]
+
+  """All values that are not contained in given list."""
+  version_not_in: [Int!]
+
+  """All values less than the given value."""
+  version_lt: Int
+
+  """All values less than or equal the given value."""
+  version_lte: Int
+
+  """All values greater than the given value."""
+  version_gt: Int
+
+  """All values greater than or equal the given value."""
+  version_gte: Int
+  version_id: String
+
+  """All values that are not equal to given value."""
+  version_id_not: String
+
+  """All values that are contained in given list."""
+  version_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  version_id_not_in: [String!]
+
+  """All values less than the given value."""
+  version_id_lt: String
+
+  """All values less than or equal the given value."""
+  version_id_lte: String
+
+  """All values greater than the given value."""
+  version_id_gt: String
+
+  """All values greater than or equal the given value."""
+  version_id_gte: String
+
+  """All values containing the given string."""
+  version_id_contains: String
+
+  """All values not containing the given string."""
+  version_id_not_contains: String
+
+  """All values starting with the given string."""
+  version_id_starts_with: String
+
+  """All values not starting with the given string."""
+  version_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  version_id_ends_with: String
+
+  """All values not ending with the given string."""
+  version_id_not_ends_with: String
+  signature: String
+
+  """All values that are not equal to given value."""
+  signature_not: String
+
+  """All values that are contained in given list."""
+  signature_in: [String!]
+
+  """All values that are not contained in given list."""
+  signature_not_in: [String!]
+
+  """All values less than the given value."""
+  signature_lt: String
+
+  """All values less than or equal the given value."""
+  signature_lte: String
+
+  """All values greater than the given value."""
+  signature_gt: String
+
+  """All values greater than or equal the given value."""
+  signature_gte: String
+
+  """All values containing the given string."""
+  signature_contains: String
+
+  """All values not containing the given string."""
+  signature_not_contains: String
+
+  """All values starting with the given string."""
+  signature_starts_with: String
+
+  """All values not starting with the given string."""
+  signature_not_starts_with: String
+
+  """All values ending with the given string."""
+  signature_ends_with: String
+
+  """All values not ending with the given string."""
+  signature_not_ends_with: String
+  width: Int
+
+  """All values that are not equal to given value."""
+  width_not: Int
+
+  """All values that are contained in given list."""
+  width_in: [Int!]
+
+  """All values that are not contained in given list."""
+  width_not_in: [Int!]
+
+  """All values less than the given value."""
+  width_lt: Int
+
+  """All values less than or equal the given value."""
+  width_lte: Int
+
+  """All values greater than the given value."""
+  width_gt: Int
+
+  """All values greater than or equal the given value."""
+  width_gte: Int
+  height: Int
+
+  """All values that are not equal to given value."""
+  height_not: Int
+
+  """All values that are contained in given list."""
+  height_in: [Int!]
+
+  """All values that are not contained in given list."""
+  height_not_in: [Int!]
+
+  """All values less than the given value."""
+  height_lt: Int
+
+  """All values less than or equal the given value."""
+  height_lte: Int
+
+  """All values greater than the given value."""
+  height_gt: Int
+
+  """All values greater than or equal the given value."""
+  height_gte: Int
+  format: String
+
+  """All values that are not equal to given value."""
+  format_not: String
+
+  """All values that are contained in given list."""
+  format_in: [String!]
+
+  """All values that are not contained in given list."""
+  format_not_in: [String!]
+
+  """All values less than the given value."""
+  format_lt: String
+
+  """All values less than or equal the given value."""
+  format_lte: String
+
+  """All values greater than the given value."""
+  format_gt: String
+
+  """All values greater than or equal the given value."""
+  format_gte: String
+
+  """All values containing the given string."""
+  format_contains: String
+
+  """All values not containing the given string."""
+  format_not_contains: String
+
+  """All values starting with the given string."""
+  format_starts_with: String
+
+  """All values not starting with the given string."""
+  format_not_starts_with: String
+
+  """All values ending with the given string."""
+  format_ends_with: String
+
+  """All values not ending with the given string."""
+  format_not_ends_with: String
+  resource_type: String
+
+  """All values that are not equal to given value."""
+  resource_type_not: String
+
+  """All values that are contained in given list."""
+  resource_type_in: [String!]
+
+  """All values that are not contained in given list."""
+  resource_type_not_in: [String!]
+
+  """All values less than the given value."""
+  resource_type_lt: String
+
+  """All values less than or equal the given value."""
+  resource_type_lte: String
+
+  """All values greater than the given value."""
+  resource_type_gt: String
+
+  """All values greater than or equal the given value."""
+  resource_type_gte: String
+
+  """All values containing the given string."""
+  resource_type_contains: String
+
+  """All values not containing the given string."""
+  resource_type_not_contains: String
+
+  """All values starting with the given string."""
+  resource_type_starts_with: String
+
+  """All values not starting with the given string."""
+  resource_type_not_starts_with: String
+
+  """All values ending with the given string."""
+  resource_type_ends_with: String
+
+  """All values not ending with the given string."""
+  resource_type_not_ends_with: String
+  created_at: DateTime
+
+  """All values that are not equal to given value."""
+  created_at_not: DateTime
+
+  """All values that are contained in given list."""
+  created_at_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  created_at_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  created_at_lt: DateTime
+
+  """All values less than or equal the given value."""
+  created_at_lte: DateTime
+
+  """All values greater than the given value."""
+  created_at_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  created_at_gte: DateTime
+  pages: Int
+
+  """All values that are not equal to given value."""
+  pages_not: Int
+
+  """All values that are contained in given list."""
+  pages_in: [Int!]
+
+  """All values that are not contained in given list."""
+  pages_not_in: [Int!]
+
+  """All values less than the given value."""
+  pages_lt: Int
+
+  """All values less than or equal the given value."""
+  pages_lte: Int
+
+  """All values greater than the given value."""
+  pages_gt: Int
+
+  """All values greater than or equal the given value."""
+  pages_gte: Int
+  bytes: Int
+
+  """All values that are not equal to given value."""
+  bytes_not: Int
+
+  """All values that are contained in given list."""
+  bytes_in: [Int!]
+
+  """All values that are not contained in given list."""
+  bytes_not_in: [Int!]
+
+  """All values less than the given value."""
+  bytes_lt: Int
+
+  """All values less than or equal the given value."""
+  bytes_lte: Int
+
+  """All values greater than the given value."""
+  bytes_gt: Int
+
+  """All values greater than or equal the given value."""
+  bytes_gte: Int
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  etag: String
+
+  """All values that are not equal to given value."""
+  etag_not: String
+
+  """All values that are contained in given list."""
+  etag_in: [String!]
+
+  """All values that are not contained in given list."""
+  etag_not_in: [String!]
+
+  """All values less than the given value."""
+  etag_lt: String
+
+  """All values less than or equal the given value."""
+  etag_lte: String
+
+  """All values greater than the given value."""
+  etag_gt: String
+
+  """All values greater than or equal the given value."""
+  etag_gte: String
+
+  """All values containing the given string."""
+  etag_contains: String
+
+  """All values not containing the given string."""
+  etag_not_contains: String
+
+  """All values starting with the given string."""
+  etag_starts_with: String
+
+  """All values not starting with the given string."""
+  etag_not_starts_with: String
+
+  """All values ending with the given string."""
+  etag_ends_with: String
+
+  """All values not ending with the given string."""
+  etag_not_ends_with: String
+  placeholder: Boolean
+
+  """All values that are not equal to given value."""
+  placeholder_not: Boolean
   url: String
 
   """All values that are not equal to given value."""
@@ -5246,6 +5892,126 @@ input FileScalarWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  secure_url: String
+
+  """All values that are not equal to given value."""
+  secure_url_not: String
+
+  """All values that are contained in given list."""
+  secure_url_in: [String!]
+
+  """All values that are not contained in given list."""
+  secure_url_not_in: [String!]
+
+  """All values less than the given value."""
+  secure_url_lt: String
+
+  """All values less than or equal the given value."""
+  secure_url_lte: String
+
+  """All values greater than the given value."""
+  secure_url_gt: String
+
+  """All values greater than or equal the given value."""
+  secure_url_gte: String
+
+  """All values containing the given string."""
+  secure_url_contains: String
+
+  """All values not containing the given string."""
+  secure_url_not_contains: String
+
+  """All values starting with the given string."""
+  secure_url_starts_with: String
+
+  """All values not starting with the given string."""
+  secure_url_not_starts_with: String
+
+  """All values ending with the given string."""
+  secure_url_ends_with: String
+
+  """All values not ending with the given string."""
+  secure_url_not_ends_with: String
+  access_mode: String
+
+  """All values that are not equal to given value."""
+  access_mode_not: String
+
+  """All values that are contained in given list."""
+  access_mode_in: [String!]
+
+  """All values that are not contained in given list."""
+  access_mode_not_in: [String!]
+
+  """All values less than the given value."""
+  access_mode_lt: String
+
+  """All values less than or equal the given value."""
+  access_mode_lte: String
+
+  """All values greater than the given value."""
+  access_mode_gt: String
+
+  """All values greater than or equal the given value."""
+  access_mode_gte: String
+
+  """All values containing the given string."""
+  access_mode_contains: String
+
+  """All values not containing the given string."""
+  access_mode_not_contains: String
+
+  """All values starting with the given string."""
+  access_mode_starts_with: String
+
+  """All values not starting with the given string."""
+  access_mode_not_starts_with: String
+
+  """All values ending with the given string."""
+  access_mode_ends_with: String
+
+  """All values not ending with the given string."""
+  access_mode_not_ends_with: String
+  original_filename: String
+
+  """All values that are not equal to given value."""
+  original_filename_not: String
+
+  """All values that are contained in given list."""
+  original_filename_in: [String!]
+
+  """All values that are not contained in given list."""
+  original_filename_not_in: [String!]
+
+  """All values less than the given value."""
+  original_filename_lt: String
+
+  """All values less than or equal the given value."""
+  original_filename_lte: String
+
+  """All values greater than the given value."""
+  original_filename_gt: String
+
+  """All values greater than or equal the given value."""
+  original_filename_gte: String
+
+  """All values containing the given string."""
+  original_filename_contains: String
+
+  """All values not containing the given string."""
+  original_filename_not_contains: String
+
+  """All values starting with the given string."""
+  original_filename_starts_with: String
+
+  """All values not starting with the given string."""
+  original_filename_not_starts_with: String
+
+  """All values ending with the given string."""
+  original_filename_ends_with: String
+
+  """All values not ending with the given string."""
+  original_filename_not_ends_with: String
 }
 
 type FileSubscriptionPayload {
@@ -5289,7 +6055,26 @@ input FileUpdateDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
@@ -5301,7 +6086,26 @@ input FileUpdateInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
@@ -5313,7 +6117,26 @@ input FileUpdateManyDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
 }
 
 input FileUpdateManyInput {
@@ -5332,7 +6155,26 @@ input FileUpdateManyMutationInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
 }
 
 input FileUpdateManyWithWhereNestedInput {
@@ -5389,7 +6231,26 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
@@ -5400,7 +6261,26 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
@@ -5411,7 +6291,26 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userSignature: UserUpdateOneWithoutSignatureInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
@@ -5422,7 +6321,26 @@ input FileUpdateWithoutUserProofOfAddressDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   userSignature: UserUpdateOneWithoutSignatureInput
@@ -5433,7 +6351,26 @@ input FileUpdateWithoutUserSignatureDataInput {
   filename: String
   mimetype: String
   encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
   url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
   userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
   userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
@@ -5689,6 +6626,462 @@ input FileWhereInput {
 
   """All values not ending with the given string."""
   encoding_not_ends_with: String
+  asset_id: String
+
+  """All values that are not equal to given value."""
+  asset_id_not: String
+
+  """All values that are contained in given list."""
+  asset_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  asset_id_not_in: [String!]
+
+  """All values less than the given value."""
+  asset_id_lt: String
+
+  """All values less than or equal the given value."""
+  asset_id_lte: String
+
+  """All values greater than the given value."""
+  asset_id_gt: String
+
+  """All values greater than or equal the given value."""
+  asset_id_gte: String
+
+  """All values containing the given string."""
+  asset_id_contains: String
+
+  """All values not containing the given string."""
+  asset_id_not_contains: String
+
+  """All values starting with the given string."""
+  asset_id_starts_with: String
+
+  """All values not starting with the given string."""
+  asset_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  asset_id_ends_with: String
+
+  """All values not ending with the given string."""
+  asset_id_not_ends_with: String
+  public_id: String
+
+  """All values that are not equal to given value."""
+  public_id_not: String
+
+  """All values that are contained in given list."""
+  public_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  public_id_not_in: [String!]
+
+  """All values less than the given value."""
+  public_id_lt: String
+
+  """All values less than or equal the given value."""
+  public_id_lte: String
+
+  """All values greater than the given value."""
+  public_id_gt: String
+
+  """All values greater than or equal the given value."""
+  public_id_gte: String
+
+  """All values containing the given string."""
+  public_id_contains: String
+
+  """All values not containing the given string."""
+  public_id_not_contains: String
+
+  """All values starting with the given string."""
+  public_id_starts_with: String
+
+  """All values not starting with the given string."""
+  public_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  public_id_ends_with: String
+
+  """All values not ending with the given string."""
+  public_id_not_ends_with: String
+  version: Int
+
+  """All values that are not equal to given value."""
+  version_not: Int
+
+  """All values that are contained in given list."""
+  version_in: [Int!]
+
+  """All values that are not contained in given list."""
+  version_not_in: [Int!]
+
+  """All values less than the given value."""
+  version_lt: Int
+
+  """All values less than or equal the given value."""
+  version_lte: Int
+
+  """All values greater than the given value."""
+  version_gt: Int
+
+  """All values greater than or equal the given value."""
+  version_gte: Int
+  version_id: String
+
+  """All values that are not equal to given value."""
+  version_id_not: String
+
+  """All values that are contained in given list."""
+  version_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  version_id_not_in: [String!]
+
+  """All values less than the given value."""
+  version_id_lt: String
+
+  """All values less than or equal the given value."""
+  version_id_lte: String
+
+  """All values greater than the given value."""
+  version_id_gt: String
+
+  """All values greater than or equal the given value."""
+  version_id_gte: String
+
+  """All values containing the given string."""
+  version_id_contains: String
+
+  """All values not containing the given string."""
+  version_id_not_contains: String
+
+  """All values starting with the given string."""
+  version_id_starts_with: String
+
+  """All values not starting with the given string."""
+  version_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  version_id_ends_with: String
+
+  """All values not ending with the given string."""
+  version_id_not_ends_with: String
+  signature: String
+
+  """All values that are not equal to given value."""
+  signature_not: String
+
+  """All values that are contained in given list."""
+  signature_in: [String!]
+
+  """All values that are not contained in given list."""
+  signature_not_in: [String!]
+
+  """All values less than the given value."""
+  signature_lt: String
+
+  """All values less than or equal the given value."""
+  signature_lte: String
+
+  """All values greater than the given value."""
+  signature_gt: String
+
+  """All values greater than or equal the given value."""
+  signature_gte: String
+
+  """All values containing the given string."""
+  signature_contains: String
+
+  """All values not containing the given string."""
+  signature_not_contains: String
+
+  """All values starting with the given string."""
+  signature_starts_with: String
+
+  """All values not starting with the given string."""
+  signature_not_starts_with: String
+
+  """All values ending with the given string."""
+  signature_ends_with: String
+
+  """All values not ending with the given string."""
+  signature_not_ends_with: String
+  width: Int
+
+  """All values that are not equal to given value."""
+  width_not: Int
+
+  """All values that are contained in given list."""
+  width_in: [Int!]
+
+  """All values that are not contained in given list."""
+  width_not_in: [Int!]
+
+  """All values less than the given value."""
+  width_lt: Int
+
+  """All values less than or equal the given value."""
+  width_lte: Int
+
+  """All values greater than the given value."""
+  width_gt: Int
+
+  """All values greater than or equal the given value."""
+  width_gte: Int
+  height: Int
+
+  """All values that are not equal to given value."""
+  height_not: Int
+
+  """All values that are contained in given list."""
+  height_in: [Int!]
+
+  """All values that are not contained in given list."""
+  height_not_in: [Int!]
+
+  """All values less than the given value."""
+  height_lt: Int
+
+  """All values less than or equal the given value."""
+  height_lte: Int
+
+  """All values greater than the given value."""
+  height_gt: Int
+
+  """All values greater than or equal the given value."""
+  height_gte: Int
+  format: String
+
+  """All values that are not equal to given value."""
+  format_not: String
+
+  """All values that are contained in given list."""
+  format_in: [String!]
+
+  """All values that are not contained in given list."""
+  format_not_in: [String!]
+
+  """All values less than the given value."""
+  format_lt: String
+
+  """All values less than or equal the given value."""
+  format_lte: String
+
+  """All values greater than the given value."""
+  format_gt: String
+
+  """All values greater than or equal the given value."""
+  format_gte: String
+
+  """All values containing the given string."""
+  format_contains: String
+
+  """All values not containing the given string."""
+  format_not_contains: String
+
+  """All values starting with the given string."""
+  format_starts_with: String
+
+  """All values not starting with the given string."""
+  format_not_starts_with: String
+
+  """All values ending with the given string."""
+  format_ends_with: String
+
+  """All values not ending with the given string."""
+  format_not_ends_with: String
+  resource_type: String
+
+  """All values that are not equal to given value."""
+  resource_type_not: String
+
+  """All values that are contained in given list."""
+  resource_type_in: [String!]
+
+  """All values that are not contained in given list."""
+  resource_type_not_in: [String!]
+
+  """All values less than the given value."""
+  resource_type_lt: String
+
+  """All values less than or equal the given value."""
+  resource_type_lte: String
+
+  """All values greater than the given value."""
+  resource_type_gt: String
+
+  """All values greater than or equal the given value."""
+  resource_type_gte: String
+
+  """All values containing the given string."""
+  resource_type_contains: String
+
+  """All values not containing the given string."""
+  resource_type_not_contains: String
+
+  """All values starting with the given string."""
+  resource_type_starts_with: String
+
+  """All values not starting with the given string."""
+  resource_type_not_starts_with: String
+
+  """All values ending with the given string."""
+  resource_type_ends_with: String
+
+  """All values not ending with the given string."""
+  resource_type_not_ends_with: String
+  created_at: DateTime
+
+  """All values that are not equal to given value."""
+  created_at_not: DateTime
+
+  """All values that are contained in given list."""
+  created_at_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  created_at_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  created_at_lt: DateTime
+
+  """All values less than or equal the given value."""
+  created_at_lte: DateTime
+
+  """All values greater than the given value."""
+  created_at_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  created_at_gte: DateTime
+  pages: Int
+
+  """All values that are not equal to given value."""
+  pages_not: Int
+
+  """All values that are contained in given list."""
+  pages_in: [Int!]
+
+  """All values that are not contained in given list."""
+  pages_not_in: [Int!]
+
+  """All values less than the given value."""
+  pages_lt: Int
+
+  """All values less than or equal the given value."""
+  pages_lte: Int
+
+  """All values greater than the given value."""
+  pages_gt: Int
+
+  """All values greater than or equal the given value."""
+  pages_gte: Int
+  bytes: Int
+
+  """All values that are not equal to given value."""
+  bytes_not: Int
+
+  """All values that are contained in given list."""
+  bytes_in: [Int!]
+
+  """All values that are not contained in given list."""
+  bytes_not_in: [Int!]
+
+  """All values less than the given value."""
+  bytes_lt: Int
+
+  """All values less than or equal the given value."""
+  bytes_lte: Int
+
+  """All values greater than the given value."""
+  bytes_gt: Int
+
+  """All values greater than or equal the given value."""
+  bytes_gte: Int
+  type: String
+
+  """All values that are not equal to given value."""
+  type_not: String
+
+  """All values that are contained in given list."""
+  type_in: [String!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [String!]
+
+  """All values less than the given value."""
+  type_lt: String
+
+  """All values less than or equal the given value."""
+  type_lte: String
+
+  """All values greater than the given value."""
+  type_gt: String
+
+  """All values greater than or equal the given value."""
+  type_gte: String
+
+  """All values containing the given string."""
+  type_contains: String
+
+  """All values not containing the given string."""
+  type_not_contains: String
+
+  """All values starting with the given string."""
+  type_starts_with: String
+
+  """All values not starting with the given string."""
+  type_not_starts_with: String
+
+  """All values ending with the given string."""
+  type_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+  etag: String
+
+  """All values that are not equal to given value."""
+  etag_not: String
+
+  """All values that are contained in given list."""
+  etag_in: [String!]
+
+  """All values that are not contained in given list."""
+  etag_not_in: [String!]
+
+  """All values less than the given value."""
+  etag_lt: String
+
+  """All values less than or equal the given value."""
+  etag_lte: String
+
+  """All values greater than the given value."""
+  etag_gt: String
+
+  """All values greater than or equal the given value."""
+  etag_gte: String
+
+  """All values containing the given string."""
+  etag_contains: String
+
+  """All values not containing the given string."""
+  etag_not_contains: String
+
+  """All values starting with the given string."""
+  etag_starts_with: String
+
+  """All values not starting with the given string."""
+  etag_not_starts_with: String
+
+  """All values ending with the given string."""
+  etag_ends_with: String
+
+  """All values not ending with the given string."""
+  etag_not_ends_with: String
+  placeholder: Boolean
+
+  """All values that are not equal to given value."""
+  placeholder_not: Boolean
   url: String
 
   """All values that are not equal to given value."""
@@ -5729,6 +7122,126 @@ input FileWhereInput {
 
   """All values not ending with the given string."""
   url_not_ends_with: String
+  secure_url: String
+
+  """All values that are not equal to given value."""
+  secure_url_not: String
+
+  """All values that are contained in given list."""
+  secure_url_in: [String!]
+
+  """All values that are not contained in given list."""
+  secure_url_not_in: [String!]
+
+  """All values less than the given value."""
+  secure_url_lt: String
+
+  """All values less than or equal the given value."""
+  secure_url_lte: String
+
+  """All values greater than the given value."""
+  secure_url_gt: String
+
+  """All values greater than or equal the given value."""
+  secure_url_gte: String
+
+  """All values containing the given string."""
+  secure_url_contains: String
+
+  """All values not containing the given string."""
+  secure_url_not_contains: String
+
+  """All values starting with the given string."""
+  secure_url_starts_with: String
+
+  """All values not starting with the given string."""
+  secure_url_not_starts_with: String
+
+  """All values ending with the given string."""
+  secure_url_ends_with: String
+
+  """All values not ending with the given string."""
+  secure_url_not_ends_with: String
+  access_mode: String
+
+  """All values that are not equal to given value."""
+  access_mode_not: String
+
+  """All values that are contained in given list."""
+  access_mode_in: [String!]
+
+  """All values that are not contained in given list."""
+  access_mode_not_in: [String!]
+
+  """All values less than the given value."""
+  access_mode_lt: String
+
+  """All values less than or equal the given value."""
+  access_mode_lte: String
+
+  """All values greater than the given value."""
+  access_mode_gt: String
+
+  """All values greater than or equal the given value."""
+  access_mode_gte: String
+
+  """All values containing the given string."""
+  access_mode_contains: String
+
+  """All values not containing the given string."""
+  access_mode_not_contains: String
+
+  """All values starting with the given string."""
+  access_mode_starts_with: String
+
+  """All values not starting with the given string."""
+  access_mode_not_starts_with: String
+
+  """All values ending with the given string."""
+  access_mode_ends_with: String
+
+  """All values not ending with the given string."""
+  access_mode_not_ends_with: String
+  original_filename: String
+
+  """All values that are not equal to given value."""
+  original_filename_not: String
+
+  """All values that are contained in given list."""
+  original_filename_in: [String!]
+
+  """All values that are not contained in given list."""
+  original_filename_not_in: [String!]
+
+  """All values less than the given value."""
+  original_filename_lt: String
+
+  """All values less than or equal the given value."""
+  original_filename_lte: String
+
+  """All values greater than the given value."""
+  original_filename_gt: String
+
+  """All values greater than or equal the given value."""
+  original_filename_gte: String
+
+  """All values containing the given string."""
+  original_filename_contains: String
+
+  """All values not containing the given string."""
+  original_filename_not_contains: String
+
+  """All values starting with the given string."""
+  original_filename_starts_with: String
+
+  """All values not starting with the given string."""
+  original_filename_not_starts_with: String
+
+  """All values ending with the given string."""
+  original_filename_ends_with: String
+
+  """All values not ending with the given string."""
+  original_filename_not_ends_with: String
   userPhotoId: UserWhereInput
   userProfilePhoto: UserWhereInput
   userSignature: UserWhereInput

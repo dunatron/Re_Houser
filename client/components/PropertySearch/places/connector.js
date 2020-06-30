@@ -18,9 +18,6 @@ export default createConnector({
   getSearchParameters(searchParameters, props, searchState) {
     const currentRefinement =
       searchState.aroundLatLng || props.defaultRefinement;
-
-    console.log('current refinement => ', currentRefinement);
-
     return searchParameters
       .setQueryParameter('insideBoundingBox')
       .setQueryParameter(

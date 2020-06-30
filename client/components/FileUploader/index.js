@@ -38,6 +38,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import FlipToBackIcon from '@material-ui/icons/FlipToBackOutlined';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFrontOutlined';
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
+import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
 
 // https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2
 // maybe try for progress https://github.com/jaydenseric/apollo-upload-client/issues/88
@@ -52,12 +53,12 @@ const SINGLE_UPLOAD = gql`
       mimetype
       encoding
       url
+      ...fileInfo
     }
   }
+  ${FileInfoFragment}
 `;
-// deleteFile(
-//   id: ID!
-//   ): File
+
 const DELETE_FILE_MUTATION = gql`
   mutation($id: ID!) {
     deleteFile(id: $id) {
@@ -82,8 +83,10 @@ const UPLOAD_FILES_MUTATION = gql`
       mimetype
       encoding
       url
+      ...fileInfo
     }
   }
+  ${FileInfoFragment}
 `;
 // type: 'ADD_TODO',
 
@@ -107,6 +110,11 @@ const reducer = (state, action) => {
             error: null,
           })),
         ],
+      };
+    case 'ADD_ID_TO_REMOVING_IDS':
+      return {
+        ...state,
+        removingIds: [...state.removingIds, action.payload.id],
       };
     case 'START_LOADER':
       return {
@@ -146,7 +154,10 @@ const reducer = (state, action) => {
               }
             : f
         ),
-        recentlyUploaded: [...state.recentlyUploaded, action.payload.file],
+        recentlyUploaded: [
+          ...state.recentlyUploaded,
+          { ...action.payload.file, serverFile: action.payload.data },
+        ],
       };
     case 'REMOVE_FILE':
       return {
@@ -167,6 +178,15 @@ const reducer = (state, action) => {
           if (!f.serverFile) return f;
           if (f.serverFile.id !== action.payload.file.serverFile.id) return f;
         }),
+        recentlyUploaded: state.recentlyUploaded.filter(f => {
+          if (!f.serverFile) return f;
+          if (f.serverFile.id !== action.payload.file.serverFile.id) return f;
+        }),
+        removingIds: [
+          ...state.removingIds.filter(
+            id => id !== action.payload.file.serverFile.id
+          ),
+        ],
       };
     case 'ADD_ERROR':
       return {
@@ -187,18 +207,26 @@ const reducer = (state, action) => {
 };
 
 const UploadFile = forwardRef((props, ref) => {
-  const { flip, removeFile, serverFiles, remove } = props;
+  const {
+    flip,
+    removeFile,
+    serverFiles,
+    remove,
+    store,
+    dispatch,
+    isRemoving,
+  } = props;
   const maxFilesAllowed = props.maxFilesAllowed ? props.maxFilesAllowed : 10;
   const client = useApolloClient();
   const multiple = true;
   const classes = useUploadStyles();
-  const [store, dispatch] = useReducer(reducer, {
-    files: [],
-    errors: [],
-    recentlyUploaded: [],
-    uploadedCount: 0,
-  });
-  const { files, errors, recentlyUploaded, uploadedCount } = store;
+  // const [store, dispatch] = useReducer(reducer, {
+  //   files: [],
+  //   errors: [],
+  //   recentlyUploaded: [],
+  //   uploadedCount: 0,
+  // });
+  const { files, errors, recentlyUploaded, uploadedCount, removingIds } = store;
 
   // serverFiles Length + files length
   const totalFileCount = files.length + serverFiles.length;
@@ -308,29 +336,6 @@ const UploadFile = forwardRef((props, ref) => {
     });
   };
 
-  const handleDeleteForever = file => {
-    client
-      .mutate({
-        mutation: DELETE_FILE_MUTATION,
-        variables: {
-          id: file.serverFile.id,
-        },
-      })
-      .then(res => {
-        dispatch({
-          type: 'REMOVE_SERVER_FILE',
-          payload: {
-            file: file,
-            id: res.data.deleteFile.id,
-          },
-        });
-        props.removeFile(res.data.deleteFile);
-      })
-      .catch(error => {
-        handleOnError(error, file);
-      });
-  };
-
   const doUploadFiles = () => {
     files.forEach((f, idx) => {
       if (f.uploadCompleted) return;
@@ -354,6 +359,21 @@ const UploadFile = forwardRef((props, ref) => {
     serverFiles.forEach(sFile => handleRemoveFile(sFile));
   }, [serverFiles.length]);
 
+  const recentlyUploadedServerFiles = recentlyUploaded
+    ? recentlyUploaded.map(file => ({ ...file.serverFile }))
+    : [];
+
+  //serverFiles
+
+  const serverIds = serverFiles.map(f => f.id);
+
+  const recentlyUploadedWithoutAttached = recentlyUploadedServerFiles.filter(
+    f => {
+      if (serverIds.includes(f.id)) return;
+      return f;
+    }
+  );
+
   return (
     <Paper className={paperClasses}>
       <div
@@ -373,12 +393,17 @@ const UploadFile = forwardRef((props, ref) => {
                 <div key={f.raw.name} className={classes.row}>
                   <FileActions
                     file={f}
-                    remove={remove}
+                    remove={() => {
+                      handleRemoveFile(f);
+                    }}
                     upload={file => {
                       handleStartUpload(file);
                       handleFileUpload(file);
                     }}
-                    deleteForever={handleDeleteForever}
+                    isRemoving={isRemoving}
+                    removingIds={removingIds}
+                    // deleteForever={handleDeleteForever}
+                    deleteForever={remove}
                   />
                   <span className={classes.filename}>{f.raw.name}</span>{' '}
                   {/* <Error key={idx} error={f.error} /> */}
@@ -402,12 +427,15 @@ const UploadFile = forwardRef((props, ref) => {
         </div>
       </div>
 
-      {recentlyUploaded.length > 0 && (
+      {recentlyUploadedWithoutAttached.length > 0 && (
         <div
           style={{
             width: '100%',
           }}>
-          <h3>Recently Uploaded</h3>
+          <Typography variant="subtitle1">Recently Uploaded</Typography>
+          <Typography variant="body2">
+            These files will be connected when you upload the form
+          </Typography>
           {/* serverFile */}
           {/* Recently Added */}
           {files
@@ -424,6 +452,12 @@ const UploadFile = forwardRef((props, ref) => {
                 </div>
               );
             })}
+          <FilePreviewer
+            files={recentlyUploadedWithoutAttached}
+            remove={remove}
+            isRemoving={isRemoving}
+            removingIds={removingIds}
+          />
         </div>
       )}
 
@@ -436,7 +470,12 @@ const UploadFile = forwardRef((props, ref) => {
             flexWrap: 'wrap',
           }}>
           <h3>Attached Files</h3>
-          <FilePreviewer files={serverFiles} remove={remove} />
+          <FilePreviewer
+            files={serverFiles}
+            remove={remove}
+            isRemoving={isRemoving}
+            removingIds={removingIds}
+          />
         </div>
       )}
     </Paper>
@@ -455,20 +494,34 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
   );
 };
 
-const UploadedServerFiles = ({ files, flip, remove }) => {
+const UploadedServerFiles = ({
+  serverFiles,
+  flip,
+  remove,
+  store,
+  isRemoving,
+}) => {
+  const { files, errors, recentlyUploaded, uploadedCount, removingIds } = store;
   const classes = useUploadStyles();
+
   const paperClasses = clsx({
     [classes.flipCard]: true,
   });
   return (
     <Paper className={paperClasses}>
-      <FilePreviewer files={files} remove={remove} />
+      <FilePreviewer
+        files={serverFiles}
+        remove={remove}
+        removingIds={removingIds}
+        isRemoving={isRemoving}
+      />
     </Paper>
   );
 };
 
 //remove gets fed into here
 const FileManager = props => {
+  const client = useApolloClient();
   const {
     title,
     description,
@@ -480,19 +533,70 @@ const FileManager = props => {
     refetchQueries,
     updateCacheOnRemovedFile,
   } = props;
+
   const [state, setState] = useState({
     isFlipped: props.files.length > 0 ? false : true,
-    // isFlipped: false,
+    initialFiles: files,
   });
+
+  useEffect(() => {
+    setState({
+      ...state,
+      isFlipped: props.files.length > 0 ? state.isFlipped : true,
+      initialFiles: files,
+    });
+  }, [files]);
+
+  const [store, dispatch] = useReducer(reducer, {
+    files: [],
+    errors: [],
+    recentlyUploaded: [],
+    uploadedCount: 0,
+    removingIds: [],
+  });
+  // const { files, errors, recentlyUploaded, uploadedCount } = store;
   const classes = useUploadStyles();
 
-  const handleFileSuccessfullyRemovedFromServer = data => {};
+  const handleFileSuccessfullyRemovedFromServer = data => {
+    // console.log('Here is the data removed from server => ', data);
+    // console.log('client=> ', client);
+    // client.cache.data.delete(data.deleteFile.id);
+
+    // Object.keys(client.cache.data).forEach(
+    //   key => key.match(/^File/) && client.cache.data.delete(key)
+    // );
+
+    // client.cache.gc();
+    // This still only handle it for the component. e.g removing the photoIdentification doesnt update t in account if you do it from the stepper
+    // need to find it from initialFiles and removit
+    // cache.data.delete(key)
+    fileRemovedFromServer && fileRemovedFromServer(data.deleteFile);
+    setState({
+      ...state,
+      initialFiles: [
+        ...state.initialFiles.filter(f => f.id !== data.deleteFile.id),
+      ],
+    });
+
+    dispatch({
+      type: 'REMOVE_SERVER_FILE',
+      payload: {
+        file: {
+          serverFile: {
+            ...data.deleteFile,
+          },
+        },
+        id: data.deleteFile.id,
+      },
+    });
+    // props.removeFile(res.data.deleteFile);
+  };
 
   const [deleteFile, { data, loading, error }] = useMutation(
     DELETE_FILE_MUTATION,
     {
       onCompleted: handleFileSuccessfullyRemovedFromServer,
-      // refetchQueries: refetchQueries,
+      refetchQueries: refetchQueries,
     }
   );
 
@@ -503,6 +607,14 @@ const FileManager = props => {
     });
 
   const removeFileFromServer = file => {
+    // dispatch to ADD_ID_TO_REMOVING_IDS
+    dispatch({
+      type: 'ADD_ID_TO_REMOVING_IDS',
+      payload: {
+        id: file.id,
+      },
+    });
+    // make files and recnetly uploaded etc aware of a file being removed
     deleteFile({
       variables: {
         id: file.id,
@@ -532,16 +644,22 @@ const FileManager = props => {
         infinite={false}>
         {/* FRONT OF CARD */}
         <UploadedServerFiles
-          files={files}
+          store={store}
+          isRemoving={loading}
+          dispatch={dispatch}
+          serverFiles={state.initialFiles}
           flip={handleFlip}
           remove={removeFileFromServer}
         />
         {/* BACK OF CARD */}
         <UploadFile
-          serverFiles={files}
+          store={store}
+          dispatch={dispatch}
+          serverFiles={state.initialFiles}
           flip={handleFlip}
           description={description}
           {...props}
+          isRemoving={loading}
           remove={removeFileFromServer}
           maxFilesAllowed={maxFilesAllowed}
         />

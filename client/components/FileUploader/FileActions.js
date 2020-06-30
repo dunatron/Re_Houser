@@ -90,20 +90,40 @@ const UploadFileButton = props => {
   );
 };
 
-const FileActions = ({ file, remove, upload, deleteForever }) => {
+const FileActions = ({
+  file,
+  remove,
+  upload,
+  deleteForever,
+  isRemoving,
+  removingIds,
+}) => {
   const classes = useStyles();
+  const _isBeingActioned = () => {
+    if (file.loading) return true;
+    if (!removingIds) return false;
+    if (removingIds.includes(file.id)) return true;
+    return false;
+  };
+  const isBeingActioned = _isBeingActioned();
   return (
     <div className={classes.root}>
       <UploadFileButton
         file={file}
-        loading={file.loading}
+        loading={isBeingActioned}
         error={file.error}
         uploadCompleted={file.uploadCompleted}
-        handleClick={() => upload(file)}
+        handleClick={() => {
+          if (file.error) {
+            return remove(file);
+          } else {
+            upload(file);
+          }
+        }}
       />
       <IconButton
         size="medium"
-        disabled={file.loading}
+        disabled={isBeingActioned}
         onClick={() =>
           alert('Todo: create modal to handle viewing differnet file types')
         }
@@ -115,7 +135,7 @@ const FileActions = ({ file, remove, upload, deleteForever }) => {
       {file.uploadCompleted ? (
         <IconButton
           size="medium"
-          disabled={file.loading}
+          disabled={isBeingActioned}
           onClick={() => deleteForever(file)}
           color="default"
           aria-label="upload picture"
@@ -125,7 +145,7 @@ const FileActions = ({ file, remove, upload, deleteForever }) => {
       ) : (
         <IconButton
           size="medium"
-          disabled={file.loading}
+          disabled={isBeingActioned}
           onClick={() => remove(file)}
           color="default"
           aria-label="upload picture"

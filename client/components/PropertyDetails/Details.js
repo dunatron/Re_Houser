@@ -3,6 +3,7 @@ import React, { Component, useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { InsulationStatementForm } from '../Forms/index';
+import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries/index';
 
 import Map from '../Map/index';
 import CarouselSlider from '../CarouselSlider';
@@ -409,6 +410,14 @@ const Details = props => {
       <FileUploader
         title="Property Images"
         files={property.images ? property.images : []}
+        refetchQueries={[
+          {
+            query: SINGLE_OWNER_PROPERTY_QUERY,
+            variables: {
+              id: property.id,
+            },
+          },
+        ]}
         updateCacheOnRemovedFile={(cache, result) => {
           updateProperty({
             variables: {

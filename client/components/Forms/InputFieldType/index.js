@@ -21,6 +21,7 @@ import LocationPicker from '../../LocationPicker';
 import FormSection from './FormSection';
 import EntityFormType from './Entity';
 import FileUploader from './../../FileUploader';
+import File from './File';
 
 import { Typography, Checkbox, Paper } from '@material-ui/core';
 
@@ -113,30 +114,6 @@ const InputFieldType = props => {
             extractErrorFromErrors={extractErrorFromErrors}
           />
         );
-      // case 'Location':
-      //   for (const [key, value] of Object.entries(
-      //     config.fieldProps.fieldMaps
-      //   )) {
-      //     register({ name: value }, { ...config.refConf });
-      //   }
-      //   const locationErr = extractErrorFromErrors(errors, 'location');
-      //   return (
-      //     <>
-      //       {locationErr ? (
-      //         <Typography color="error">{locationErr}</Typography>
-      //       ) : null}
-      //       <LocationPicker
-      //         selection={data => {
-      //           for (const [key, value] of Object.entries(
-      //             config.fieldProps.fieldMaps
-      //           )) {
-      //             setValue(value, data[key]);
-      //           }
-      //         }}
-      //       />
-      //     </>
-      //   );
-
       case 'Boolean':
         return (
           <>
@@ -247,44 +224,47 @@ const InputFieldType = props => {
           </>
         );
       case 'File':
-        register({ name: config.key }, { ...config.refConf });
-        if (config.fieldProps.isMultiple) {
-          setValue(config.key, []);
-        }
-        const currVals = getValues();
-        // const filesData = currVals[config.key];
-        const filesData = defaultValues[config.key];
-
         return (
-          <FileUploader
-            title={fieldProps.label}
-            description={fieldProps.description}
-            isMultiple={config.fieldProps.isMultiple}
-            files={is(Array, filesData) ? [...filesData] : []}
-            maxFilesAllowed={config.fieldProps.maxFilesAllowed}
-            recieveFile={file => {
-              if (!config.fieldProps.isMultiple) {
-                setValue(config.key, file);
-              }
-              if (config.fieldProps.isMultiple) {
-                const currFormVals = getValues();
-                const combineVals = [...currFormVals[config.key], file];
-                setValue(config.key, combineVals);
-              }
-            }}
-            removeFile={file => {
-              if (!config.fieldProps.isMultiple) setValue(config.key);
-              if (config.fieldProps.isMultiple) {
-                const currFormVals = getValues();
-                const newFileVals = currFormVals[config.key].filter(
-                  f => f.id !== file.id
-                );
-                setValue(config.key, newFileVals);
-              }
-            }}
-            updateCacheOnRemovedFile={updateCacheOnRemovedFile}
-          />
+          <File {...props} extractErrorFromErrors={extractErrorFromErrors} />
         );
+      // register({ name: config.key }, { ...config.refConf });
+      // if (config.fieldProps.isMultiple) {
+      //   setValue(config.key, []);
+      // }
+      // const currVals = getValues();
+      // // const filesData = currVals[config.key];
+      // const filesData = defaultValues[config.key];
+
+      // return (
+      //   <FileUploader
+      //     title={fieldProps.label}
+      //     description={fieldProps.description}
+      //     isMultiple={config.fieldProps.isMultiple}
+      //     files={is(Array, filesData) ? [...filesData] : []}
+      //     maxFilesAllowed={config.fieldProps.maxFilesAllowed}
+      //     recieveFile={file => {
+      //       if (!config.fieldProps.isMultiple) {
+      //         setValue(config.key, file);
+      //       }
+      //       if (config.fieldProps.isMultiple) {
+      //         const currFormVals = getValues();
+      //         const combineVals = [...currFormVals[config.key], file];
+      //         setValue(config.key, combineVals);
+      //       }
+      //     }}
+      //     removeFile={file => {
+      //       if (!config.fieldProps.isMultiple) setValue(config.key);
+      //       if (config.fieldProps.isMultiple) {
+      //         const currFormVals = getValues();
+      //         const newFileVals = currFormVals[config.key].filter(
+      //           f => f.id !== file.id
+      //         );
+      //         setValue(config.key, newFileVals);
+      //       }
+      //     }}
+      //     updateCacheOnRemovedFile={updateCacheOnRemovedFile} // we actually want to get the files again
+      //   />
+      // );
       default:
         return (
           <Typography>

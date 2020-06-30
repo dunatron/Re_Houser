@@ -13,6 +13,7 @@ import PhotoIdUploader from '../../PhotoIdUploader/index';
 import { isEmptyObj } from '../../../lib/isEmpty';
 import { Button, Typography } from '@material-ui/core';
 import FileUploader from '../../FileUploader';
+import { CURRENT_USER_QUERY } from '../../../graphql/queries';
 
 import { isEmpty } from 'ramda';
 
@@ -41,7 +42,6 @@ const UserDetailsStep = ({
   const userRentalApplicantData = rentalApplication.applicants.find(
     applicant => applicant.user.id === me.id
   );
-  console.log('userRentalApplicantData => ', userRentalApplicantData);
   const hasPhotoId = me.identificationNumber;
   const [showUploader, setShowUploader] = useState(!hasPhotoId);
   if (completed) return <Typography>Step is complete</Typography>;
@@ -103,15 +103,11 @@ const UserDetailsStep = ({
             : []
         }
         maxFilesAllowed={1}
-        removeFile={file => {
-          console.log('See maybe you want to disconnect => ', file);
-        }}
+        removeFile={file => {}}
+        refetchQueries={[
+          { query: CURRENT_USER_QUERY, fetchPolicy: 'network-only' },
+        ]}
         recieveFile={file => {
-          console.log(
-            'Well here is the created file, maybe add it to the user',
-            file
-          );
-
           updateRentalGroupApplicant({
             variables: {
               data: {

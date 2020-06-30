@@ -87,6 +87,12 @@ const PhotoIdentification = props => {
     identificationNumber: me.identificationNumber,
   };
 
+  const refetchQueries = [
+    {
+      query: CURRENT_USER_QUERY,
+    },
+  ];
+
   return (
     <div
       style={{
@@ -98,16 +104,17 @@ const PhotoIdentification = props => {
         posting={loading}
         error={error}
         forceFormUpdates={true}
+        refetchQueries={refetchQueries}
         updateCacheOnRemovedFile={(cache, result) => {
-          updateUserProfile({
-            variables: {
-              data: {
-                photoIdentification: {
-                  disconnect: true,
-                },
-              },
-            },
-          });
+          // updateUserProfile({
+          //   variables: {
+          //     data: {
+          //       photoIdentification: {
+          //         disconnect: true,
+          //       },
+          //     },
+          //   },
+          // });
         }}
         onSubmit={data => {
           updateUserProfile({
@@ -116,11 +123,7 @@ const PhotoIdentification = props => {
                 ...data,
               },
             },
-            refetchQueries: [
-              {
-                query: CURRENT_USER_QUERY,
-              },
-            ],
+            refetchQueries: refetchQueries,
           });
         }}
         isNew={photoIdentification ? true : false}

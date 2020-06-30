@@ -134,7 +134,6 @@ const LocationPicker = ({ selection }) => {
    * When a suggest got selected
    */
   const _suggest = suggestion => {
-    console.log('The place suggestion => ', suggestion);
     let lat,
       lng,
       desc = '';
