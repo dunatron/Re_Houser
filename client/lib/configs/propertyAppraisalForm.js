@@ -12,6 +12,12 @@ const PROPERTY_APPRAISAL_CONF = [
         key: 'location',
         fieldProps: {
           name: 'location',
+          fieldMaps: {
+            placeId: 'placeId',
+            desc: 'location',
+            lat: 'locationLat',
+            lng: 'locationLng',
+          },
           label:
             'Lodation of property. SHould probs use google like normal property picker',
         },

@@ -13,6 +13,9 @@ const RentalGroupApplicantInfoFragment = gql`
     lastName
     user {
       ...publicUserInfo
+      photoIdentification {
+        ...fileInfo
+      }
     }
     preTenancyApplicationForm {
       ...preTenancyInfo

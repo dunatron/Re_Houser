@@ -12,6 +12,7 @@ import InputErrors from '../../InputErrors/index';
 import PhotoIdUploader from '../../PhotoIdUploader/index';
 import { isEmptyObj } from '../../../lib/isEmpty';
 import { Button, Typography } from '@material-ui/core';
+import FileUploader from '../../FileUploader';
 
 import { isEmpty } from 'ramda';
 
@@ -28,6 +29,8 @@ const UserDetailsStep = ({
   errorsBag,
   applicantData,
   completed,
+  rentalApplication,
+  updateRentalGroupApplicant,
 }) => {
   // const [activeStep, setActiveStep] = useState([]) // Um what was this meant to be
   // just goes to show we need to refactor everything to useState, useEffect, useQuery etc, useMutation 90%
@@ -35,9 +38,40 @@ const UserDetailsStep = ({
   // then use hooks to update the local apollo state
   // probably easy to get updates
   // const hasPhotoId = !isEmpty(me.photoIdentification)
+  const userRentalApplicantData = rentalApplication.applicants.find(
+    applicant => applicant.user.id === me.id
+  );
+  console.log('userRentalApplicantData => ', userRentalApplicantData);
   const hasPhotoId = me.identificationNumber;
   const [showUploader, setShowUploader] = useState(!hasPhotoId);
   if (completed) return <Typography>Step is complete</Typography>;
+
+  //   approved: true
+  // completed: null
+  // email: null
+  // firstName: null
+  // id: "ckc1nteb5gpdr09994yu0c6tb"
+  // lastName: null
+  // preTenancyApplicationForm: null
+  // user:
+  // {email: "heathd@rehouser.co.nz"
+  // firstName: "Heath R"
+  // id: "ckc1m3rc00oek0975ghr75upe"
+  // lastName: "Dunlop"
+  // phone: "0212439998"
+  // photoIdentification:
+  // createdAt: "2020-06-30T08:19:11.441Z"
+  // encoding: "7bit"
+  // filename: "12421.jpg"
+  // id: "ckc1nto0h0ujj0975b044u3l0"
+  // mimetype: "image/jpeg"
+  // updatedAt: "2020-06-30T08:19:11.441Z"
+  // url: "https://res.cloudinary.com/dkhe0hx1r/image/upload/v1593505150/nzlim2m0fpqhaseanvta.jpg"
+  // __typename: "File"
+  // __proto__: Object
+  // profilePhoto: null
+  // rehouserStamp: null}
+
   return (
     <div>
       {Object.keys(userInfo).map((userVar, i) => {
@@ -60,7 +94,85 @@ const UserDetailsStep = ({
           </div>
         );
       })}
-      {!me.photoIdentification && <h1>YOU NEED PHOTO IDENTIFICATION</h1>}
+
+      <FileUploader
+        me={me}
+        files={
+          userRentalApplicantData.user.photoIdentification
+            ? [userRentalApplicantData.user.photoIdentification]
+            : []
+        }
+        maxFilesAllowed={1}
+        removeFile={file => {
+          console.log('See maybe you want to disconnect => ', file);
+        }}
+        recieveFile={file => {
+          console.log(
+            'Well here is the created file, maybe add it to the user',
+            file
+          );
+
+          updateRentalGroupApplicant({
+            variables: {
+              data: {
+                user: {
+                  update: {
+                    photoIdentification: {
+                      connect: {
+                        id: file.id,
+                      },
+                    },
+                  },
+                },
+              },
+              where: {
+                id: userRentalApplicantData.id,
+              },
+            },
+          });
+        }}
+      />
+      {/* title,
+    description,
+    files,
+    maxFilesAllowed,
+    recieveFile,
+    removeFile,
+    fileRemovedFromServer,
+    refetchQueries,
+    updateCacheOnRemovedFile, */}
+      {/* {!me.photoIdentification && (
+        <FileUploader
+          me={me}
+          files={[]}
+          maxFilesAllowed={1}
+          recieveFile={file => {
+            console.log(
+              'Well here is the created file, maybe add it to the user',
+              file
+            );
+
+            updateRentalGroupApplicant({
+              variables: {
+                data: {
+                  user: {
+                    update: {
+                      photoIdentification: {
+                        connect: {
+                          id: file.id,
+                        },
+                      },
+                    },
+                  },
+                },
+                where: {
+                  id: userRentalApplicantData.id,
+                },
+              },
+            });
+          }}
+        />
+      )}
       {me.photoIdentification && (
         <div>
           <h4>WE have your photo Id</h4>
@@ -71,7 +183,7 @@ const UserDetailsStep = ({
           </Button>
         </div>
       )}
-      {showUploader && <PhotoIdUploader me={me} />}
+      {showUploader && <PhotoIdUploader me={me} />} */}
       {/* <PhotoIdUploader me={me} /> */}
     </div>
   );

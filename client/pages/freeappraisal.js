@@ -5,6 +5,7 @@ import { Paper, Typography } from '@material-ui/core';
 import RehouserPaper from '../styles/RehouserPaper';
 import Head from 'next/head';
 import PageHeader from '../components/PageHeader';
+import Error from '../components/ErrorMessage';
 
 const FreeAppraisal = props => {
   const {
@@ -12,8 +13,8 @@ const FreeAppraisal = props => {
   } = props;
   console.log('current user for Free Appraisal => ', currentUser);
   const { data, loading, error } = currentUser;
+  if (error) return <Error error={error} />;
   if (loading) return 'Getting data for free appraisal page';
-  const { me } = data;
   return (
     <div>
       <PageHeader
@@ -24,7 +25,7 @@ const FreeAppraisal = props => {
           title: 'Free property appraisal',
           content: 'free property appraisal',
         }}>
-        {!me && (
+        {!data.me && (
           <Typography variant="h6" gutterBottom>
             Our platform requires that you be logged in to submit a free
             appraisal{' '}
@@ -41,7 +42,7 @@ const FreeAppraisal = props => {
             <p>You must be signed up/in to get a free rental Appraisal</p>
           </div>
         }>
-        <PropertyAppraisal currentUser={currentUser} />
+        <PropertyAppraisal />
       </PleaseSignIn>
     </div>
   );

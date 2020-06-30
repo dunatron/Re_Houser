@@ -273,6 +273,7 @@ const RentalApplicationStepper = props => {
             errorsBag={userErrorsBag}
             completed={completed[step]}
             applicantData={applicantData}
+            updateRentalGroupApplicant={updateRentalGroupApplicant}
           />
         );
       case 1:

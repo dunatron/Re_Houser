@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jun 29 2020 21:26:18 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue Jun 30 2020 18:56:49 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -10976,6 +10976,7 @@ input PreTenancyFormWhereUniqueInput {
 
 type Property implements Node {
   id: ID!
+  placeId: String!
   updatedAt: DateTime!
   createdAt: DateTime!
   type: PropertyType
@@ -11246,6 +11247,7 @@ input PropertyCreateindoorFeaturesInput {
 
 input PropertyCreateInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11338,6 +11340,7 @@ input PropertyCreatepetsInput {
 
 input PropertyCreateWithoutAccommodationInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11386,6 +11389,7 @@ input PropertyCreateWithoutAccommodationInput {
 
 input PropertyCreateWithoutActivityInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11434,6 +11438,7 @@ input PropertyCreateWithoutActivityInput {
 
 input PropertyCreateWithoutAppraisalsInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11482,6 +11487,7 @@ input PropertyCreateWithoutAppraisalsInput {
 
 input PropertyCreateWithoutCreatorInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11530,6 +11536,7 @@ input PropertyCreateWithoutCreatorInput {
 
 input PropertyCreateWithoutLeasesInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11578,6 +11585,7 @@ input PropertyCreateWithoutLeasesInput {
 
 input PropertyCreateWithoutOwnersInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11626,6 +11634,7 @@ input PropertyCreateWithoutOwnersInput {
 
 input PropertyCreateWithoutRentalApplicationsInput {
   id: ID
+  placeId: String!
   type: PropertyType
   headline: String
   rooms: Int!
@@ -11683,6 +11692,7 @@ type PropertyEdge {
 
 type PropertyLease implements Node {
   id: ID!
+  placeId: String!
   stage: LeaseStage!
   property: Property!
   updatedAt: DateTime!
@@ -11738,6 +11748,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 
 input PropertyLeaseCreateInput {
   id: ID
+  placeId: String!
   stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
@@ -11806,6 +11817,7 @@ input PropertyLeaseCreatepetsInput {
 
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
+  placeId: String!
   stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
@@ -11840,6 +11852,7 @@ input PropertyLeaseCreateWithoutActivityInput {
 
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
+  placeId: String!
   stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
@@ -11874,6 +11887,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
+  placeId: String!
   stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
@@ -11908,6 +11922,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
+  placeId: String!
   stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
@@ -11942,6 +11957,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
 
 input PropertyLeaseCreateWithoutWalletInput {
   id: ID
+  placeId: String!
   stage: LeaseStage!
   canAcceptPayment: Boolean
   rooms: Int!
@@ -11986,6 +12002,8 @@ type PropertyLeaseEdge {
 enum PropertyLeaseOrderByInput {
   id_ASC
   id_DESC
+  placeId_ASC
+  placeId_DESC
   stage_ASC
   stage_DESC
   updatedAt_ASC
@@ -12038,6 +12056,7 @@ enum PropertyLeaseOrderByInput {
 
 type PropertyLeasePreviousValues {
   id: ID!
+  placeId: String!
   stage: LeaseStage!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -12117,6 +12136,46 @@ input PropertyLeaseScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  placeId: String
+
+  """All values that are not equal to given value."""
+  placeId_not: String
+
+  """All values that are contained in given list."""
+  placeId_in: [String!]
+
+  """All values that are not contained in given list."""
+  placeId_not_in: [String!]
+
+  """All values less than the given value."""
+  placeId_lt: String
+
+  """All values less than or equal the given value."""
+  placeId_lte: String
+
+  """All values greater than the given value."""
+  placeId_gt: String
+
+  """All values greater than or equal the given value."""
+  placeId_gte: String
+
+  """All values containing the given string."""
+  placeId_contains: String
+
+  """All values not containing the given string."""
+  placeId_not_contains: String
+
+  """All values starting with the given string."""
+  placeId_starts_with: String
+
+  """All values not starting with the given string."""
+  placeId_not_starts_with: String
+
+  """All values ending with the given string."""
+  placeId_ends_with: String
+
+  """All values not ending with the given string."""
+  placeId_not_ends_with: String
   stage: LeaseStage
 
   """All values that are not equal to given value."""
@@ -12543,6 +12602,7 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12577,6 +12637,7 @@ input PropertyLeaseUpdateInput {
 }
 
 input PropertyLeaseUpdateManyDataInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12606,6 +12667,7 @@ input PropertyLeaseUpdateManyDataInput {
 }
 
 input PropertyLeaseUpdateManyMutationInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12696,6 +12758,7 @@ input PropertyLeaseUpdatepetsInput {
 }
 
 input PropertyLeaseUpdateWithoutActivityDataInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12729,6 +12792,7 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12762,6 +12826,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12795,6 +12860,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12828,6 +12894,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
 }
 
 input PropertyLeaseUpdateWithoutWalletDataInput {
+  placeId: String
   stage: LeaseStage
   canAcceptPayment: Boolean
   rooms: Int
@@ -12940,6 +13007,46 @@ input PropertyLeaseWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  placeId: String
+
+  """All values that are not equal to given value."""
+  placeId_not: String
+
+  """All values that are contained in given list."""
+  placeId_in: [String!]
+
+  """All values that are not contained in given list."""
+  placeId_not_in: [String!]
+
+  """All values less than the given value."""
+  placeId_lt: String
+
+  """All values less than or equal the given value."""
+  placeId_lte: String
+
+  """All values greater than the given value."""
+  placeId_gt: String
+
+  """All values greater than or equal the given value."""
+  placeId_gte: String
+
+  """All values containing the given string."""
+  placeId_contains: String
+
+  """All values not containing the given string."""
+  placeId_not_contains: String
+
+  """All values starting with the given string."""
+  placeId_starts_with: String
+
+  """All values not starting with the given string."""
+  placeId_not_starts_with: String
+
+  """All values ending with the given string."""
+  placeId_ends_with: String
+
+  """All values not ending with the given string."""
+  placeId_not_ends_with: String
   stage: LeaseStage
 
   """All values that are not equal to given value."""
@@ -13333,11 +13440,14 @@ input PropertyLeaseWhereInput {
 
 input PropertyLeaseWhereUniqueInput {
   id: ID
+  placeId: String
 }
 
 enum PropertyOrderByInput {
   id_ASC
   id_DESC
+  placeId_ASC
+  placeId_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -13408,6 +13518,7 @@ enum PropertyOrderByInput {
 
 type PropertyPreviousValues {
   id: ID!
+  placeId: String!
   updatedAt: DateTime!
   createdAt: DateTime!
   type: PropertyType
@@ -13497,6 +13608,46 @@ input PropertyScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  placeId: String
+
+  """All values that are not equal to given value."""
+  placeId_not: String
+
+  """All values that are contained in given list."""
+  placeId_in: [String!]
+
+  """All values that are not contained in given list."""
+  placeId_not_in: [String!]
+
+  """All values less than the given value."""
+  placeId_lt: String
+
+  """All values less than or equal the given value."""
+  placeId_lte: String
+
+  """All values greater than the given value."""
+  placeId_gt: String
+
+  """All values greater than or equal the given value."""
+  placeId_gte: String
+
+  """All values containing the given string."""
+  placeId_contains: String
+
+  """All values not containing the given string."""
+  placeId_not_contains: String
+
+  """All values starting with the given string."""
+  placeId_starts_with: String
+
+  """All values not starting with the given string."""
+  placeId_not_starts_with: String
+
+  """All values ending with the given string."""
+  placeId_ends_with: String
+
+  """All values not ending with the given string."""
+  placeId_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -14102,6 +14253,7 @@ input PropertyUpdateindoorFeaturesInput {
 }
 
 input PropertyUpdateInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14150,6 +14302,7 @@ input PropertyUpdateInput {
 }
 
 input PropertyUpdateManyDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14189,6 +14342,7 @@ input PropertyUpdateManyDataInput {
 }
 
 input PropertyUpdateManyMutationInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14304,6 +14458,7 @@ input PropertyUpdatepetsInput {
 }
 
 input PropertyUpdateWithoutAccommodationDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14351,6 +14506,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
 }
 
 input PropertyUpdateWithoutActivityDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14398,6 +14554,7 @@ input PropertyUpdateWithoutActivityDataInput {
 }
 
 input PropertyUpdateWithoutAppraisalsDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14445,6 +14602,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
 }
 
 input PropertyUpdateWithoutCreatorDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14492,6 +14650,7 @@ input PropertyUpdateWithoutCreatorDataInput {
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14539,6 +14698,7 @@ input PropertyUpdateWithoutLeasesDataInput {
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14586,6 +14746,7 @@ input PropertyUpdateWithoutOwnersDataInput {
 }
 
 input PropertyUpdateWithoutRentalApplicationsDataInput {
+  placeId: String
   type: PropertyType
   headline: String
   rooms: Int
@@ -14728,6 +14889,46 @@ input PropertyWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  placeId: String
+
+  """All values that are not equal to given value."""
+  placeId_not: String
+
+  """All values that are contained in given list."""
+  placeId_in: [String!]
+
+  """All values that are not contained in given list."""
+  placeId_not_in: [String!]
+
+  """All values less than the given value."""
+  placeId_lt: String
+
+  """All values less than or equal the given value."""
+  placeId_lte: String
+
+  """All values greater than the given value."""
+  placeId_gt: String
+
+  """All values greater than or equal the given value."""
+  placeId_gte: String
+
+  """All values containing the given string."""
+  placeId_contains: String
+
+  """All values not containing the given string."""
+  placeId_not_contains: String
+
+  """All values starting with the given string."""
+  placeId_starts_with: String
+
+  """All values not starting with the given string."""
+  placeId_not_starts_with: String
+
+  """All values ending with the given string."""
+  placeId_ends_with: String
+
+  """All values not ending with the given string."""
+  placeId_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -15295,6 +15496,7 @@ input PropertyWhereInput {
 
 input PropertyWhereUniqueInput {
   id: ID
+  placeId: String
 }
 
 type Query {
@@ -16043,7 +16245,7 @@ type RentalAppraisal implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   requestedBy: User!
-  placesId: ID!
+  placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16075,7 +16277,7 @@ input RentalAppraisalCreateheatSourcesInput {
 
 input RentalAppraisalCreateInput {
   id: ID
-  placesId: ID!
+  placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16104,7 +16306,7 @@ input RentalAppraisalCreateManyWithoutRequestedByInput {
 
 input RentalAppraisalCreateWithoutPropertyInput {
   id: ID
-  placesId: ID!
+  placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16122,7 +16324,7 @@ input RentalAppraisalCreateWithoutPropertyInput {
 
 input RentalAppraisalCreateWithoutRequestedByInput {
   id: ID
-  placesId: ID!
+  placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16154,8 +16356,8 @@ enum RentalAppraisalOrderByInput {
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
-  placesId_ASC
-  placesId_DESC
+  placeId_ASC
+  placeId_DESC
   location_ASC
   location_DESC
   locationLat_ASC
@@ -16184,7 +16386,7 @@ type RentalAppraisalPreviousValues {
   id: ID!
   createdAt: DateTime!
   updatedAt: DateTime!
-  placesId: ID!
+  placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -16292,46 +16494,46 @@ input RentalAppraisalScalarWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  placesId: ID
+  placeId: String
 
   """All values that are not equal to given value."""
-  placesId_not: ID
+  placeId_not: String
 
   """All values that are contained in given list."""
-  placesId_in: [ID!]
+  placeId_in: [String!]
 
   """All values that are not contained in given list."""
-  placesId_not_in: [ID!]
+  placeId_not_in: [String!]
 
   """All values less than the given value."""
-  placesId_lt: ID
+  placeId_lt: String
 
   """All values less than or equal the given value."""
-  placesId_lte: ID
+  placeId_lte: String
 
   """All values greater than the given value."""
-  placesId_gt: ID
+  placeId_gt: String
 
   """All values greater than or equal the given value."""
-  placesId_gte: ID
+  placeId_gte: String
 
   """All values containing the given string."""
-  placesId_contains: ID
+  placeId_contains: String
 
   """All values not containing the given string."""
-  placesId_not_contains: ID
+  placeId_not_contains: String
 
   """All values starting with the given string."""
-  placesId_starts_with: ID
+  placeId_starts_with: String
 
   """All values not starting with the given string."""
-  placesId_not_starts_with: ID
+  placeId_not_starts_with: String
 
   """All values ending with the given string."""
-  placesId_ends_with: ID
+  placeId_ends_with: String
 
   """All values not ending with the given string."""
-  placesId_not_ends_with: ID
+  placeId_not_ends_with: String
   location: String
 
   """All values that are not equal to given value."""
@@ -16600,7 +16802,7 @@ input RentalAppraisalUpdateheatSourcesInput {
 }
 
 input RentalAppraisalUpdateInput {
-  placesId: ID
+  placeId: String
   location: String
   locationLat: Float
   locationLng: Float
@@ -16618,7 +16820,7 @@ input RentalAppraisalUpdateInput {
 }
 
 input RentalAppraisalUpdateManyDataInput {
-  placesId: ID
+  placeId: String
   location: String
   locationLat: Float
   locationLng: Float
@@ -16634,7 +16836,7 @@ input RentalAppraisalUpdateManyDataInput {
 }
 
 input RentalAppraisalUpdateManyMutationInput {
-  placesId: ID
+  placeId: String
   location: String
   locationLat: Float
   locationLng: Float
@@ -16679,7 +16881,7 @@ input RentalAppraisalUpdateManyWithWhereNestedInput {
 }
 
 input RentalAppraisalUpdateWithoutPropertyDataInput {
-  placesId: ID
+  placeId: String
   location: String
   locationLat: Float
   locationLng: Float
@@ -16696,7 +16898,7 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
 }
 
 input RentalAppraisalUpdateWithoutRequestedByDataInput {
-  placesId: ID
+  placeId: String
   location: String
   locationLat: Float
   locationLng: Float
@@ -16827,46 +17029,46 @@ input RentalAppraisalWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
-  placesId: ID
+  placeId: String
 
   """All values that are not equal to given value."""
-  placesId_not: ID
+  placeId_not: String
 
   """All values that are contained in given list."""
-  placesId_in: [ID!]
+  placeId_in: [String!]
 
   """All values that are not contained in given list."""
-  placesId_not_in: [ID!]
+  placeId_not_in: [String!]
 
   """All values less than the given value."""
-  placesId_lt: ID
+  placeId_lt: String
 
   """All values less than or equal the given value."""
-  placesId_lte: ID
+  placeId_lte: String
 
   """All values greater than the given value."""
-  placesId_gt: ID
+  placeId_gt: String
 
   """All values greater than or equal the given value."""
-  placesId_gte: ID
+  placeId_gte: String
 
   """All values containing the given string."""
-  placesId_contains: ID
+  placeId_contains: String
 
   """All values not containing the given string."""
-  placesId_not_contains: ID
+  placeId_not_contains: String
 
   """All values starting with the given string."""
-  placesId_starts_with: ID
+  placeId_starts_with: String
 
   """All values not starting with the given string."""
-  placesId_not_starts_with: ID
+  placeId_not_starts_with: String
 
   """All values ending with the given string."""
-  placesId_ends_with: ID
+  placeId_ends_with: String
 
   """All values not ending with the given string."""
-  placesId_not_ends_with: ID
+  placeId_not_ends_with: String
   location: String
 
   """All values that are not equal to given value."""
@@ -17097,6 +17299,7 @@ input RentalAppraisalWhereInput {
 
 input RentalAppraisalWhereUniqueInput {
   id: ID
+  placeId: String
 }
 
 type RentalGroupApplicant implements Node {

@@ -13,19 +13,19 @@ const userEmail10 = "ida@test.com";
 const userEmail11 = "lee@test.com";
 
 const setWizardPermissions = {
-  set: ["ADMIN", "USER", "PERMISSIONUPDATE"]
+  set: ["ADMIN", "USER", "PERMISSIONUPDATE"],
 };
 
 const setAdminPermissions = {
-  set: ["ADMIN", "USER"]
+  set: ["ADMIN", "USER"],
 };
 
 const setUserPermissions = {
-  set: ["USER"]
+  set: ["USER"],
 };
 
 const userFrag = {
-  email: userEmail1,
+  email: userEmail1, // @unique String
   password: userPassword,
   firstName: "Heath",
   lastName: "Dunlop",
@@ -58,8 +58,8 @@ const userFrag = {
   // proofOfAddress: File
   acceptedSignupTerms: true,
   adminSettings: {
-    create: {}
-  }
+    create: {},
+  },
 };
 
 const userList = [
@@ -68,21 +68,21 @@ const userList = [
     email: "heath.dunlop.hd@gmail.com",
     firstName: "Heath",
     lastName: "Dunlop",
-    permissions: setWizardPermissions
+    permissions: setWizardPermissions,
   },
   {
     ...userFrag,
     email: "heathd@rehouser.co.nz",
     firstName: "Heath R",
     lastName: "Dunlop",
-    permissions: setUserPermissions
+    permissions: setUserPermissions,
   },
   {
     ...userFrag,
     email: "siaujiun@gmail.com",
     firstName: "Siau Jiun",
     lastName: "Lim",
-    permissions: setAdminPermissions
+    permissions: setAdminPermissions,
   },
   {
     ...userFrag,
@@ -90,7 +90,7 @@ const userList = [
     firstName: "Heath R",
     lastName: "McDounough",
     phone: "5555555",
-    permissions: setAdminPermissions
+    permissions: setAdminPermissions,
   },
   {
     ...userFrag,
@@ -98,71 +98,71 @@ const userList = [
     firstName: "Grace R",
     lastName: "McDounough",
     phone: "5555555",
-    permissions: setAdminPermissions
+    permissions: setAdminPermissions,
   },
   {
     ...userFrag,
     email: userEmail3,
     firstName: "Bob",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail4,
     firstName: "Ted",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail5,
     firstName: "Ken",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail6,
     firstName: "Ben",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail7,
     firstName: "Lou",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail8,
     firstName: "Leo",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail9,
     firstName: "Lia",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail10,
     firstName: "Ida",
     lastName: "Tester",
-    phone: "5555555"
+    phone: "5555555",
   },
   {
     ...userFrag,
     email: userEmail11,
     firstName: "Lee",
     lastName: "Tester",
-    phone: "5555555"
-  }
+    phone: "5555555",
+  },
 ];
 
 module.exports = userList;

@@ -16,6 +16,7 @@ import SelectOneWithText from './SelectOneWithText';
 import CheckMultipleWithText from './CheckMultipleWithText';
 import SelectMultipleEnum from './SelectMultipleEnum';
 import SelectOneEnum from './SelectOneEnum';
+import Location from './Location';
 import LocationPicker from '../../LocationPicker';
 import FormSection from './FormSection';
 import EntityFormType from './Entity';
@@ -106,33 +107,35 @@ const InputFieldType = props => {
           />
         );
       case 'Location':
-        register(
-          { name: 'location' },
-          {
-            required: {
-              value: true,
-              message: 'You need a location to appraise a property...',
-            },
-          }
-        );
-        register({ name: 'locationLat' }, { required: true });
-        register({ name: 'locationLng' }, { required: true });
-        const locationErr = extractErrorFromErrors(errors, 'location');
         return (
-          <>
-            {locationErr ? (
-              <Typography color="error">{locationErr}</Typography>
-            ) : null}
-            <LocationPicker
-              // {...props}
-              selection={data => {
-                setValue('location', data.desc);
-                setValue('locationLat', data.lat);
-                setValue('locationLng', data.lng);
-              }}
-            />
-          </>
+          <Location
+            {...props}
+            extractErrorFromErrors={extractErrorFromErrors}
+          />
         );
+      // case 'Location':
+      //   for (const [key, value] of Object.entries(
+      //     config.fieldProps.fieldMaps
+      //   )) {
+      //     register({ name: value }, { ...config.refConf });
+      //   }
+      //   const locationErr = extractErrorFromErrors(errors, 'location');
+      //   return (
+      //     <>
+      //       {locationErr ? (
+      //         <Typography color="error">{locationErr}</Typography>
+      //       ) : null}
+      //       <LocationPicker
+      //         selection={data => {
+      //           for (const [key, value] of Object.entries(
+      //             config.fieldProps.fieldMaps
+      //           )) {
+      //             setValue(value, data[key]);
+      //           }
+      //         }}
+      //       />
+      //     </>
+      //   );
 
       case 'Boolean':
         return (

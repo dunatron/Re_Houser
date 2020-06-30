@@ -12,6 +12,7 @@ import PROPERTY_APPRAISAL_CONF from '../../lib/configs/propertyAppraisalForm';
 
 const PropertyAppraisal = props => {
   const { propertyId, me } = props;
+
   const [sentAppraisal, setSentAppraisal] = useState(false);
   const [message, setMessage] = useState('Some dummy message');
   // No idea how the fuck me is getting into here

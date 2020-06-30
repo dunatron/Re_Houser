@@ -155,7 +155,8 @@ type File {
 }
 
 type Property implements PropertyInfo {
-  id: ID! @unique @id # google placesId
+  id: ID! @unique @id # google placesId is too looong look below
+  placeId: String! @unique
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   type: PropertyType
@@ -209,6 +210,7 @@ type Property implements PropertyInfo {
 
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
+  placeId: String! @unique
   stage: LeaseStage!
   property: Property! @relation(name: "PropertyLeases")
   updatedAt: DateTime! @updatedAt
@@ -251,7 +253,7 @@ type RentalAppraisal {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   requestedBy: User! @relation(name: "UserRentalAppraisals")
-  placesId: ID!
+  placeId: String! @unique
   location: String!
   locationLat: Float!
   locationLng: Float!

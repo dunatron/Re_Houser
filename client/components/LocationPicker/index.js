@@ -107,6 +107,7 @@ const StylesGeoSuggest = styled(Geosuggest)`
  */
 const LocationPicker = ({ selection }) => {
   const defaultState = {
+    placeId: null,
     desc: '',
     lat: null,
     lng: null,
@@ -133,13 +134,14 @@ const LocationPicker = ({ selection }) => {
    * When a suggest got selected
    */
   const _suggest = suggestion => {
+    console.log('The place suggestion => ', suggestion);
     let lat,
       lng,
       desc = '';
     if (!suggestion) {
       return;
     }
-    const { location, description, gmaps } = suggestion;
+    const { placeId, location, description, gmaps } = suggestion;
     const shouldStayOpen = () => {
       // this._geoSuggest.focus()
     };
@@ -154,6 +156,7 @@ const LocationPicker = ({ selection }) => {
     }
     // suggestion is returning map info
     selection({
+      placeId: placeId,
       lat: lat,
       lng,
       desc,
@@ -161,6 +164,7 @@ const LocationPicker = ({ selection }) => {
 
     setState({
       ...state,
+      placeId: placeId,
       lat: lat,
       lng,
       desc: desc,
@@ -270,6 +274,9 @@ const LocationPicker = ({ selection }) => {
           }}>
           <LocationOnIcon color="secondary" />
           <Typography style={{ padding: '8px 16px' }}>{state.desc}</Typography>
+          <Typography style={{ padding: '8px 16px', wordBreak: 'break-all' }}>
+            PlaceId: {state.placeId}
+          </Typography>
           <Typography style={{ padding: '8px 16px' }}>
             Latitute: {state.lat}
           </Typography>
