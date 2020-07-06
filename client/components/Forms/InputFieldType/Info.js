@@ -1,3 +1,16 @@
+import React, { useState } from 'react';
+
+import FieldError from '../InputFieldType/FieldError';
+
+//Material Components
+import {
+  Typography,
+  Checkbox,
+  Paper,
+  FormControlLabel,
+  Switch,
+} from '@material-ui/core';
+
 const Info = props => {
   const {
     config,

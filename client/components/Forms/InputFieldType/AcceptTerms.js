@@ -1,4 +1,24 @@
+import React, { useState } from 'react';
+import FieldError from '../InputFieldType/FieldError';
+
+//Material Components
+import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
+
 const AcceptTerms = props => {
+  const {
+    config,
+    onChange,
+    register,
+    errors,
+    getValues,
+    setValue,
+    reset,
+    defaultValues,
+    defaultValue,
+    updateCacheOnRemovedFile,
+    fieldError,
+  } = props;
+  const { type, fieldProps, refConf } = config;
   return (
     <>
       <div

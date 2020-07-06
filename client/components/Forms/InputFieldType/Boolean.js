@@ -1,3 +1,7 @@
+import { FormControlLabel, Switch } from '@material-ui/core';
+
+import { InputFieldType } from './index';
+
 const Boolean = props => {
   const {
     config,

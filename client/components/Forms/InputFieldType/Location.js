@@ -20,7 +20,7 @@ const Location = props => {
     config,
     setValue, // is from useForm
     errors,
-    extractErrorFromErrors,
+    fieldError,
   } = props;
 
   const { fieldProps, refConf } = config;
@@ -36,13 +36,9 @@ const Location = props => {
     // maybe see if we can getfaultValues from the value of mapped keys and set those values as defaults
   }, [register]);
 
-  const locationErr = extractErrorFromErrors(errors, 'location');
-
   return (
     <>
-      {locationErr ? (
-        <Typography color="error">{locationErr}</Typography>
-      ) : null}
+      {fieldError ? <Typography color="error">{fieldError}</Typography> : null}
       <LocationPicker
         selection={data => {
           for (const [key, value] of Object.entries(

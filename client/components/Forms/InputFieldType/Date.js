@@ -1,3 +1,5 @@
+import TextInput from '../../Inputs/TextInput';
+
 const DateField = props => {
   const {
     config,
@@ -10,6 +12,7 @@ const DateField = props => {
     defaultValues,
     defaultValue,
     updateCacheOnRemovedFile,
+    fieldError,
   } = props;
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
@@ -21,8 +24,8 @@ const DateField = props => {
       type={'date'}
       inputRef={register(refConf)}
       style={{ marginTop: 0 }}
-      error={extractErrorFromErrors(errors, name) ? true : false}
-      helperText={extractErrorFromErrors(errors, name)}
+      error={fieldError ? true : false}
+      helperText={fieldError}
       InputLabelProps={{
         shrink: true,
       }}

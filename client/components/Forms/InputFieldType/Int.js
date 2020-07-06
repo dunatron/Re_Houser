@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import TextInput from '../../Inputs/TextInput';
-import moment from 'moment';
-import { is } from 'ramda';
-
-import FieldError from '../InputFieldType/FieldError';
-
-//Material Components
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const Int = props => {
   const {
@@ -22,6 +13,7 @@ const Int = props => {
     defaultValues,
     defaultValue,
     updateCacheOnRemovedFile,
+    fieldError,
   } = props;
   const { type, fieldProps, refConf } = config;
   return (
@@ -31,8 +23,8 @@ const Int = props => {
       inputRef={register(refConf)}
       type="number"
       style={{ marginTop: 0 }}
-      error={extractErrorFromErrors(errors, name) ? true : false}
-      helperText={extractErrorFromErrors(errors, name)}
+      error={fieldError ? true : false}
+      helperText={fieldError}
     />
   );
 };

@@ -7,8 +7,13 @@ import { is } from 'ramda';
 import FieldError from '../InputFieldType/FieldError';
 
 //Material Components
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {
+  Typography,
+  Checkbox,
+  Paper,
+  FormControlLabel,
+  Switch,
+} from '@material-ui/core';
 
 import CheckReason from './CheckReason';
 import CheckboxText from './CheckboxText';
@@ -29,8 +34,6 @@ import Float from './Float';
 import DateField from './Date';
 import AcceptTerms from './AcceptTerms';
 import Info from './Info';
-
-import { Typography, Checkbox, Paper } from '@material-ui/core';
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
@@ -66,7 +69,7 @@ const InputFieldType = props => {
       case 'Section':
         return <FormSection {...props} />;
       case 'String':
-        return <String {...props} />;
+        return <String {...props} fieldError={fieldError} />;
       case 'CheckReason':
         return <CheckReason {...props} />;
       case 'CheckboxText':
@@ -105,7 +108,7 @@ const InputFieldType = props => {
           />
         );
       case 'Location':
-        return <Location {...props} extractErrorFromErrors={fieldError} />;
+        return <Location {...props} fieldError={fieldError} />;
       case 'Boolean':
         return <Boolean {...props} fieldError={fieldError} />;
       case 'Int':
@@ -170,4 +173,5 @@ InputFieldType.propTypes = {
   inners: PropTypes.arrayOf(PropTypes.instanceOf(InputFieldType)),
 };
 
+export { InputFieldType };
 export default InputFieldType;

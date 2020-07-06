@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import TextInput from '../../Inputs/TextInput';
 
 const StringInput = props => {
   const {
@@ -12,6 +12,7 @@ const StringInput = props => {
     defaultValues,
     defaultValue,
     updateCacheOnRemovedFile,
+    fieldError,
   } = props;
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
@@ -24,8 +25,8 @@ const StringInput = props => {
         defaultValue={defaultValue}
         label={label}
         style={{ marginTop: 0 }}
-        error={extractErrorFromErrors(errors, name) ? true : false}
-        helperText={extractErrorFromErrors(errors, name)}
+        error={fieldError ? true : false}
+        helperText={fieldError}
         inputRef={register ? register(refConf) : null}
       />
     </>

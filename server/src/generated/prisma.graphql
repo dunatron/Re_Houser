@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Jul 01 2020 01:56:55 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Jul 06 2020 21:44:57 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -11393,7 +11393,10 @@ type PreTenancyForm implements Node {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
+  currentLocation: String!
+  placeId: String!
+  currentLocationLat: Float!
+  currentLocationLng: Float!
   proofOfAddress: File
   yearsAtAddress: Int
   monthsAtAddress: Int
@@ -11430,7 +11433,10 @@ input PreTenancyFormCreateInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
+  currentLocation: String!
+  placeId: String!
+  currentLocationLat: Float!
+  currentLocationLng: Float!
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11468,7 +11474,10 @@ input PreTenancyFormCreateWithoutProofOfAddressInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
+  currentLocation: String!
+  placeId: String!
+  currentLocationLat: Float!
+  currentLocationLng: Float!
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11495,7 +11504,10 @@ input PreTenancyFormCreateWithoutRentalApplicantInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
+  currentLocation: String!
+  placeId: String!
+  currentLocationLat: Float!
+  currentLocationLng: Float!
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11541,6 +11553,12 @@ enum PreTenancyFormOrderByInput {
   email_DESC
   currentLocation_ASC
   currentLocation_DESC
+  placeId_ASC
+  placeId_DESC
+  currentLocationLat_ASC
+  currentLocationLat_DESC
+  currentLocationLng_ASC
+  currentLocationLng_DESC
   yearsAtAddress_ASC
   yearsAtAddress_DESC
   monthsAtAddress_ASC
@@ -11580,7 +11598,10 @@ type PreTenancyFormPreviousValues {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
+  currentLocation: String!
+  placeId: String!
+  currentLocationLat: Float!
+  currentLocationLng: Float!
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11643,6 +11664,9 @@ input PreTenancyFormUpdateInput {
   phone: String
   email: String
   currentLocation: String
+  placeId: String
+  currentLocationLat: Float
+  currentLocationLng: Float
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11670,6 +11694,9 @@ input PreTenancyFormUpdateManyMutationInput {
   phone: String
   email: String
   currentLocation: String
+  placeId: String
+  currentLocationLat: Float
+  currentLocationLng: Float
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11713,6 +11740,9 @@ input PreTenancyFormUpdateWithoutProofOfAddressDataInput {
   phone: String
   email: String
   currentLocation: String
+  placeId: String
+  currentLocationLat: Float
+  currentLocationLng: Float
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -11739,6 +11769,9 @@ input PreTenancyFormUpdateWithoutRentalApplicantDataInput {
   phone: String
   email: String
   currentLocation: String
+  placeId: String
+  currentLocationLat: Float
+  currentLocationLng: Float
   yearsAtAddress: Int
   monthsAtAddress: Int
   reasonForLeaving: String
@@ -12027,6 +12060,90 @@ input PreTenancyFormWhereInput {
 
   """All values not ending with the given string."""
   currentLocation_not_ends_with: String
+  placeId: String
+
+  """All values that are not equal to given value."""
+  placeId_not: String
+
+  """All values that are contained in given list."""
+  placeId_in: [String!]
+
+  """All values that are not contained in given list."""
+  placeId_not_in: [String!]
+
+  """All values less than the given value."""
+  placeId_lt: String
+
+  """All values less than or equal the given value."""
+  placeId_lte: String
+
+  """All values greater than the given value."""
+  placeId_gt: String
+
+  """All values greater than or equal the given value."""
+  placeId_gte: String
+
+  """All values containing the given string."""
+  placeId_contains: String
+
+  """All values not containing the given string."""
+  placeId_not_contains: String
+
+  """All values starting with the given string."""
+  placeId_starts_with: String
+
+  """All values not starting with the given string."""
+  placeId_not_starts_with: String
+
+  """All values ending with the given string."""
+  placeId_ends_with: String
+
+  """All values not ending with the given string."""
+  placeId_not_ends_with: String
+  currentLocationLat: Float
+
+  """All values that are not equal to given value."""
+  currentLocationLat_not: Float
+
+  """All values that are contained in given list."""
+  currentLocationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  currentLocationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  currentLocationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  currentLocationLat_lte: Float
+
+  """All values greater than the given value."""
+  currentLocationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  currentLocationLat_gte: Float
+  currentLocationLng: Float
+
+  """All values that are not equal to given value."""
+  currentLocationLng_not: Float
+
+  """All values that are contained in given list."""
+  currentLocationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  currentLocationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  currentLocationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  currentLocationLng_lte: Float
+
+  """All values greater than the given value."""
+  currentLocationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  currentLocationLng_gte: Float
   yearsAtAddress: Int
 
   """All values that are not equal to given value."""
