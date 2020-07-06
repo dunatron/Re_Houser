@@ -22,6 +22,13 @@ import FormSection from './FormSection';
 import EntityFormType from './Entity';
 import FileUploader from './../../FileUploader';
 import File from './File';
+import String from './String';
+import Boolean from './Boolean';
+import Int from './Int';
+import Float from './Float';
+import DateField from './Date';
+import AcceptTerms from './AcceptTerms';
+import Info from './Info';
 
 import { Typography, Checkbox, Paper } from '@material-ui/core';
 
@@ -47,6 +54,9 @@ const InputFieldType = props => {
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
+
+  const fieldError = extractErrorFromErrors(errors, name);
+
   const TypeToRender = () => {
     switch (type) {
       case 'Header':
@@ -56,20 +66,7 @@ const InputFieldType = props => {
       case 'Section':
         return <FormSection {...props} />;
       case 'String':
-        return (
-          <>
-            <TextInput
-              variant="outlined"
-              {...fieldProps}
-              defaultValue={defaultValue}
-              label={label}
-              style={{ marginTop: 0 }}
-              error={extractErrorFromErrors(errors, name) ? true : false}
-              helperText={extractErrorFromErrors(errors, name)}
-              inputRef={register ? register(refConf) : null}
-            />
-          </>
-        );
+        return <String {...props} />;
       case 'CheckReason':
         return <CheckReason {...props} />;
       case 'CheckboxText':
@@ -94,7 +91,7 @@ const InputFieldType = props => {
             {...props}
             __type={config.__type}
             onChange={() => {}}
-            helperText={extractErrorFromErrors(errors, name)}
+            helperText={fieldError}
           />
         );
       case 'SelectOneEnum':
@@ -104,167 +101,34 @@ const InputFieldType = props => {
             {...props}
             __type={config.__type}
             onChange={() => {}}
-            helperText={extractErrorFromErrors(errors, name)}
+            helperText={fieldError}
           />
         );
       case 'Location':
-        return (
-          <Location
-            {...props}
-            extractErrorFromErrors={extractErrorFromErrors}
-          />
-        );
+        return <Location {...props} extractErrorFromErrors={fieldError} />;
       case 'Boolean':
-        return (
-          <>
-            <FormControlLabel
-              control={<Switch {...props} aria-label="LoginSwitch" />}
-              label={props.label ? props.label : fieldProps.label}
-            />
-            {config.inners &&
-              config.inners.map((inner, idx) => (
-                <InputFieldType
-                  config={inner}
-                  key={idx}
-                  setValue={setValue}
-                  register={register}
-                  errors={errors}
-                />
-              ))}
-          </>
-        );
+        return <Boolean {...props} fieldError={fieldError} />;
       case 'Int':
-        return (
-          <TextInput
-            variant="outlined"
-            {...fieldProps}
-            inputRef={register(refConf)}
-            type="number"
-            style={{ marginTop: 0 }}
-            error={extractErrorFromErrors(errors, name) ? true : false}
-            helperText={extractErrorFromErrors(errors, name)}
-          />
-        );
+        return <Int {...props} fieldError={fieldError} />;
       case 'Float':
-        return (
-          <TextInput
-            variant="outlined"
-            {...fieldProps}
-            inputRef={register(refConf)}
-            type="number"
-            style={{ marginTop: 0 }}
-            error={extractErrorFromErrors(errors, name) ? true : false}
-            helperText={extractErrorFromErrors(errors, name)}
-          />
-        );
+        return <Float />;
 
       case 'Date':
-        return (
-          <TextInput
-            variant="outlined"
-            {...fieldProps}
-            type={'date'}
-            inputRef={register(refConf)}
-            style={{ marginTop: 0 }}
-            error={extractErrorFromErrors(errors, name) ? true : false}
-            helperText={extractErrorFromErrors(errors, name)}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        );
+        return <DateField {...props} fieldError={fieldError} />;
       case 'DateTime':
-        return (
-          <TextInput
-            variant="outlined"
-            {...fieldProps}
-            defaultValue={defaultValue}
-            inputRef={register(refConf)}
-            error={extractErrorFromErrors(errors, name) ? true : false}
-            helperText={extractErrorFromErrors(errors, name)}
-            style={{ marginTop: 0 }}
-            type={fieldProps.type ? fieldProps.type : 'datetime-local'}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        );
+        return <DateTimeInput {...props} fieldError={fieldError} />;
       case 'AcceptTerms':
-        return (
-          <>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                flexWrap: 'wrap',
-              }}>
-              <Typography style={{ maxWidth: '800px' }}>
-                {config.terms}
-              </Typography>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    {...fieldProps}
-                    defaultChecked={defaultValue}
-                    aria-label="LoginSwitch"
-                    inputRef={register(refConf)}
-                  />
-                }
-                label={config.fieldProps.label}
-              />
-            </div>
-            <FieldError errors={errors} name={name} />
-          </>
-        );
+        return <AcceptTerms {...props} fieldError={fieldError} />;
       case 'Info':
-        return (
-          <>
-            {config.content}
-            <FieldError errors={errors} name={name} />
-          </>
-        );
+        return <Info {...props} />;
       case 'File':
         return (
-          <File {...props} extractErrorFromErrors={extractErrorFromErrors} />
+          <File
+            {...props}
+            extractErrorFromErrors={extractErrorFromErrors}
+            fieldError={fieldError}
+          />
         );
-      // register({ name: config.key }, { ...config.refConf });
-      // if (config.fieldProps.isMultiple) {
-      //   setValue(config.key, []);
-      // }
-      // const currVals = getValues();
-      // // const filesData = currVals[config.key];
-      // const filesData = defaultValues[config.key];
-
-      // return (
-      //   <FileUploader
-      //     title={fieldProps.label}
-      //     description={fieldProps.description}
-      //     isMultiple={config.fieldProps.isMultiple}
-      //     files={is(Array, filesData) ? [...filesData] : []}
-      //     maxFilesAllowed={config.fieldProps.maxFilesAllowed}
-      //     recieveFile={file => {
-      //       if (!config.fieldProps.isMultiple) {
-      //         setValue(config.key, file);
-      //       }
-      //       if (config.fieldProps.isMultiple) {
-      //         const currFormVals = getValues();
-      //         const combineVals = [...currFormVals[config.key], file];
-      //         setValue(config.key, combineVals);
-      //       }
-      //     }}
-      //     removeFile={file => {
-      //       if (!config.fieldProps.isMultiple) setValue(config.key);
-      //       if (config.fieldProps.isMultiple) {
-      //         const currFormVals = getValues();
-      //         const newFileVals = currFormVals[config.key].filter(
-      //           f => f.id !== file.id
-      //         );
-      //         setValue(config.key, newFileVals);
-      //       }
-      //     }}
-      //     updateCacheOnRemovedFile={updateCacheOnRemovedFile} // we actually want to get the files again
-      //   />
-      // );
       default:
         return (
           <Typography>
@@ -286,201 +150,6 @@ const InputFieldType = props => {
   );
 };
 
-// const InputFieldType = props => {
-//   // const { onChange, errors, errorMessage, name, fieldProps } = props;
-//   const {
-//     config,
-//     onChange,
-//     register,
-//     errors,
-//     setValue,
-//     reset,
-//     defaultValues,
-//     defaultValue,
-//   } = props;
-//   const { type, fieldProps, refConf } = config;
-//   const name = fieldProps ? fieldProps.name : null;
-//   const label = fieldProps ? fieldProps.label : null;
-//   switch (type) {
-//     case 'Header':
-//       return <Typography variant="h4">{label}</Typography>;
-//     case 'Subheader':
-//       return <Typography variant="h5">{label}</Typography>;
-//     case 'Section':
-//       return <FormSection {...props} />;
-//     case 'String':
-//       return (
-//         <>
-//           <TextInput
-//             variant="outlined"
-//             {...fieldProps}
-//             defaultValue={defaultValue}
-//             label={label}
-//             style={{ marginTop: 0 }}
-//             error={extractErrorFromErrors(errors, name) ? true : false}
-//             helperText={extractErrorFromErrors(errors, name)}
-//             inputRef={register ? register(refConf) : null}
-//           />
-//         </>
-//       );
-//     case 'CheckReason':
-//       return <CheckReason {...props} />;
-//     case 'CheckboxText':
-//       return <CheckboxText {...props} />;
-//     case 'SelectOneWithText':
-//       return <SelectOneWithText {...props} />;
-//     case 'CheckMultipleWithText':
-//       return <CheckMultipleWithText {...props} />;
-//     case 'Entity':
-//       return (
-//         <EntityFormType
-//           {...fieldProps}
-//           __type={config.__type}
-//           onChange={() => {}}
-//           {...props}
-//         />
-//       );
-//     case 'SelectMultipleEnum':
-//       return (
-//         <SelectMultipleEnum
-//           {...fieldProps}
-//           {...props}
-//           __type={config.__type}
-//           onChange={() => {}}
-//           helperText={extractErrorFromErrors(errors, name)}
-//         />
-//       );
-//     case 'SelectOneEnum':
-//       return (
-//         <SelectOneEnum
-//           {...fieldProps}
-//           {...props}
-//           __type={config.__type}
-//           onChange={() => {}}
-//           helperText={extractErrorFromErrors(errors, name)}
-//         />
-//       );
-//     case 'Location':
-//       register(
-//         { name: 'location' },
-//         {
-//           required: {
-//             value: true,
-//             message: 'You need a location to appraise a property...',
-//           },
-//         }
-//       );
-//       register({ name: 'locationLat' }, { required: true });
-//       register({ name: 'locationLng' }, { required: true });
-//       const locationErr = extractErrorFromErrors(errors, 'location');
-//       return (
-//         <>
-//           {locationErr ? (
-//             <Typography color="error">{locationErr}</Typography>
-//           ) : null}
-//           <LocationPicker
-//             // {...props}
-//             selection={data => {
-//               setValue('location', data.desc);
-//               setValue('locationLat', data.lat);
-//               setValue('locationLng', data.lng);
-//             }}
-//           />
-//         </>
-//       );
-
-//     case 'Boolean':
-//       return (
-//         <FormControlLabel
-//           control={<Switch {...props} aria-label="LoginSwitch" />}
-//           label={props.label}
-//         />
-//       );
-//     case 'Int':
-//       return (
-//         <TextInput
-//           variant="outlined"
-//           {...fieldProps}
-//           inputRef={register(refConf)}
-//           type="number"
-//           style={{ marginTop: 0 }}
-//           error={extractErrorFromErrors(errors, name) ? true : false}
-//           helperText={extractErrorFromErrors(errors, name)}
-//         />
-//       );
-//     case 'Float':
-//       return (
-//         <TextInput
-//           variant="outlined"
-//           {...fieldProps}
-//           inputRef={register(refConf)}
-//           type="number"
-//           style={{ marginTop: 0 }}
-//           error={extractErrorFromErrors(errors, name) ? true : false}
-//           helperText={extractErrorFromErrors(errors, name)}
-//         />
-//       );
-
-//     case 'Date':
-//       return (
-//         <TextInput
-//           variant="outlined"
-//           {...fieldProps}
-//           type={'date'}
-//           inputRef={register(refConf)}
-//           style={{ marginTop: 0 }}
-//           error={extractErrorFromErrors(errors, name) ? true : false}
-//           helperText={extractErrorFromErrors(errors, name)}
-//           InputLabelProps={{
-//             shrink: true,
-//           }}
-//         />
-//       );
-//     case 'DateTime':
-//       return (
-//         <TextInput
-//           variant="outlined"
-//           {...fieldProps}
-//           defaultValue={defaultValue}
-//           inputRef={register(refConf)}
-//           error={extractErrorFromErrors(errors, name) ? true : false}
-//           helperText={extractErrorFromErrors(errors, name)}
-//           style={{ marginTop: 0 }}
-//           type={fieldProps.type ? fieldProps.type : 'datetime-local'}
-//           InputLabelProps={{
-//             shrink: true,
-//           }}
-//         />
-//       );
-//     case 'AcceptTerms':
-//       return (
-//         <>
-//           <div
-//             style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-//             <FormControlLabel
-//               control={
-//                 <Checkbox
-//                   {...fieldProps}
-//                   defaultChecked={defaultValue}
-//                   aria-label="LoginSwitch"
-//                   inputRef={register(refConf)}
-//                 />
-//               }
-//             />
-//             <Typography style={{ maxWidth: '800px' }}>
-//               {config.terms}
-//             </Typography>
-//           </div>
-//           <FieldError errors={errors} name={name} />
-//         </>
-//       );
-//     default:
-//       return (
-//         <Typography>
-//           This Item has no type specified for a form input
-//         </Typography>
-//       );
-//   }
 // };
 InputFieldType.propTypes = {
   type: PropTypes.oneOf([

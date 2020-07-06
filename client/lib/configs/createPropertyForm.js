@@ -14,18 +14,38 @@ const CREATE_PROPERTY_FORM_CONF = [
       label: 'Location',
     },
     inners: [
+      // {
+      //   type: 'Location',
+      //   key: 'location',
+      //   fieldProps: {
+      //     name: 'location',
+      //     label:
+      //       'Lodation of property. SHould probs use google like normal property picker',
+      //   },
+      //   refConf: {
+      //     required: {
+      //       value: true,
+      //       message: 'You need a location to appraise a property...',
+      //     },
+      //   },
+      // },
       {
         type: 'Location',
         key: 'location',
         fieldProps: {
           name: 'location',
-          label:
-            'Lodation of property. SHould probs use google like normal property picker',
+          fieldMaps: {
+            placeId: 'placeId',
+            desc: 'location',
+            lat: 'locationLat',
+            lng: 'locationLng',
+          },
+          label: 'Property Location',
         },
         refConf: {
           required: {
             value: true,
-            message: 'You need a location to appraise a property...',
+            message: 'You to supply the property location',
           },
         },
       },

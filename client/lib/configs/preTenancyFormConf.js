@@ -91,16 +91,22 @@ const PRE_TENANCY_FORM_CONF = [
     },
     inners: [
       {
-        type: 'String',
+        type: 'Location',
         key: 'currentLocation',
         fieldProps: {
           name: 'currentLocation',
-          label: 'Current location you reside at',
+          fieldMaps: {
+            placeId: 'placeId',
+            desc: 'currentLocation',
+            lat: 'currentLocationLat',
+            lng: 'currentLocationLng',
+          },
+          label: 'Property Location',
         },
         refConf: {
           required: {
             value: true,
-            message: 'You need to state your current location',
+            message: 'You to supply your current location',
           },
         },
       },
