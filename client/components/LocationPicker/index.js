@@ -105,7 +105,7 @@ const StylesGeoSuggest = styled(Geosuggest)`
  * This is not ok,
  * https://github.com/facebook/react/issues/14994
  */
-const LocationPicker = ({ selection }) => {
+const LocationPicker = ({ selection, defaultLocation }) => {
   const defaultState = {
     placeId: null,
     desc: '',
@@ -114,6 +114,7 @@ const LocationPicker = ({ selection }) => {
     showMap: true,
     country: 'NZ',
     type: 'geocode',
+    ...defaultLocation,
     // type: 'ALL',
   };
 

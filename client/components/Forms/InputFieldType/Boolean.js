@@ -18,10 +18,19 @@ const Boolean = props => {
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
+
   return (
     <>
       <FormControlLabel
-        control={<Switch {...props} aria-label="LoginSwitch" />}
+        control={
+          <Switch
+            {...fieldProps}
+            name={name}
+            defaultChecked={defaultValue}
+            inputRef={register ? register(refConf) : null}
+            aria-label="LoginSwitch"
+          />
+        }
         label={props.label ? props.label : fieldProps.label}
       />
       {config.inners &&

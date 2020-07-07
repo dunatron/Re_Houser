@@ -10,7 +10,10 @@ const PreTenancyInfoFragment = gql`
     under18
     phone
     email
+    placeId
     currentLocation
+    currentLocationLat
+    currentLocationLng
     proofOfAddress {
       ...fileInfo
     }

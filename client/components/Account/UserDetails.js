@@ -5,6 +5,7 @@ import { isEmpty, equals } from 'ramda';
 import { useMutation } from '@apollo/client';
 
 import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
+import RenderInput from '../../components/RenderInput';
 
 import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
 
@@ -56,8 +57,12 @@ const UserDetails = ({ me }) => {
 
   const [updateUser, { error, loading }] = useMutation(UPDATE_USER_MUTATION);
 
-  const saveToUpdates = e => {
-    setUpdates({ ...updates, [e.target.name]: e.target.value });
+  // const saveToUpdates = e => {
+  //   setUpdates({ ...updates, [e.target.name]: e.target.value });
+  // };
+
+  const saveToUpdates = (name, val) => {
+    setUpdates({ ...updates, [name]: val });
   };
 
   const canSave = () => {
@@ -89,17 +94,25 @@ const UserDetails = ({ me }) => {
       )}
       <div className={classes.inputGrid}>
         {USER_PROFILE_CONF.map(item => {
+          const { type, fieldProps } = item;
+          if (!fieldProps) return 'No field props for config item';
           return (
             <div>
               <DynamicCompletionIcon val={me[item.variableName]} />
-              <StyledInput
+              <RenderInput
+                type={type}
+                fieldProps={fieldProps}
+                defaultValue={me[fieldProps.name]}
+                onChange={v => saveToUpdates(fieldProps.name, v)}
+              />
+              {/* <StyledInput
                 className={classes.textField}
                 fullWidth={true}
                 label={item.label}
                 name={item.variableName}
                 defaultValue={me[item.variableName]}
                 helperText={me[item.variableName]}
-                onChange={saveToUpdates}></StyledInput>
+                onChange={saveToUpdates}></StyledInput> */}
             </div>
           );
         })}

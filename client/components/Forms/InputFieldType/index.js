@@ -50,8 +50,8 @@ const InputFieldType = props => {
     getValues,
     setValue,
     reset,
+    rawData,
     defaultValues,
-    defaultValue,
     updateCacheOnRemovedFile,
   } = props;
   const { type, fieldProps, refConf } = config;
@@ -59,6 +59,11 @@ const InputFieldType = props => {
   const label = fieldProps ? fieldProps.label : null;
 
   const fieldError = extractErrorFromErrors(errors, name);
+
+  const defaultValue = defaultValues[name];
+
+  console.log('name for this here field => ', name);
+  console.log('defaultValue for this here field => ', defaultValue);
 
   const TypeToRender = () => {
     switch (type) {
@@ -69,7 +74,13 @@ const InputFieldType = props => {
       case 'Section':
         return <FormSection {...props} />;
       case 'String':
-        return <String {...props} fieldError={fieldError} />;
+        return (
+          <String
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'CheckReason':
         return <CheckReason {...props} />;
       case 'CheckboxText':
@@ -108,20 +119,58 @@ const InputFieldType = props => {
           />
         );
       case 'Location':
-        return <Location {...props} fieldError={fieldError} />;
+        return (
+          <Location
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'Boolean':
-        return <Boolean {...props} fieldError={fieldError} />;
+        return (
+          <Boolean
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'Int':
-        return <Int {...props} fieldError={fieldError} />;
+        return (
+          <Int {...props} fieldError={fieldError} defaultValue={defaultValue} />
+        );
       case 'Float':
-        return <Float />;
+        return (
+          <Float
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
 
       case 'Date':
-        return <DateField {...props} fieldError={fieldError} />;
+        return (
+          <DateField
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'DateTime':
-        return <DateTimeInput {...props} fieldError={fieldError} />;
+        return (
+          <DateTimeInput
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'AcceptTerms':
-        return <AcceptTerms {...props} fieldError={fieldError} />;
+        return (
+          <AcceptTerms
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'Info':
         return <Info {...props} />;
       case 'File':

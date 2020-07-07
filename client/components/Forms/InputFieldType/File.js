@@ -29,6 +29,7 @@ const File = props => {
     refetchQueries,
   } = props;
 
+  // we essentially dont want to set any files that have already been added
   const { fieldProps, refConf } = config;
 
   const [serverFiles, setServerFiles] = useState(
@@ -37,9 +38,12 @@ const File = props => {
 
   if (!fieldProps) return 'This form component needs fieldProps';
 
-  const locationErr = extractErrorFromErrors(errors, 'location');
-
   const handleRecieveFile = file => {
+    // maybe not the best, but only register on new files added
+    register({ name: config.key }, { ...config.refConf });
+    if (config.fieldProps.isMultiple) {
+      setValue(config.key, []);
+    }
     if (!config.fieldProps.isMultiple) {
       setValue(config.key, file);
     }
@@ -50,13 +54,6 @@ const File = props => {
     }
   };
 
-  // OLD
-  register({ name: config.key }, { ...config.refConf });
-  if (config.fieldProps.isMultiple) {
-    setValue(config.key, []);
-  }
-  const currVals = getValues();
-  // const filesData = currVals[config.key];
   const filesData = defaultValues[config.key];
 
   return (

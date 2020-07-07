@@ -1,67 +1,3 @@
-// import React, { useState } from 'react';
-// import { Typography, Paper, Button } from '@material-ui/core';
-// import UserDetailsStep from './steps/UserDetailsStep';
-
-// //Steps
-// const StepComponents = [UserDetailsStep];
-
-// const DoRenderCurrentStep = (Step, props) => {
-//   return <Step {...props} />;
-// };
-
-// const RentalApplicationStepper = props => {
-//   const { property, application, me } = props;
-//   const [stepIndex, setStepIndex] = useState(0);
-//   const numberOfSteps = StepComponents.length;
-
-//   console.log('Stepper props => ', props);
-
-//   if (!me) return <h2>You must be logged in</h2>;
-
-//   // Seletc the 1 component that step is on and pass the props to it
-
-//   // Need to pass all current data nad props into here
-//   const renderCurrentStep = () => {
-//     // return <h2>BeautifUl SOul</h2>;
-//     const IndexToRender
-//     return <div>{DoRenderCurrentStep(StepComponents[stepIndex], props)}</div>;
-//     // return (
-//     //   <h2>
-//     //     Mother fucker dont you even try, i dont evenwant beef, I want liguine
-//     //     and shrimp
-//     //   </h2>
-//     // );
-//   };
-
-//   const RenderStep = renderCurrentStep();
-
-//   const handleNextStep = e => {
-//     // handle Validation in here perhaps? or on the step itsel, ie. you cant next or submit
-//     setStepIndex(stepIndex + 1);
-//   };
-
-//   return (
-//     <Paper>
-//       Walking on water, this a new world order, these niggas outa order like a
-//       fish outa water and I dont stop till the bitch start recording
-//       {/* {StepComponents[stepIndex]} */}
-//       {/* {StepComponents.map((StepCmp, idx) => {
-//         return <StepCmp />;
-//       })} */}
-//       {RenderStep}
-//       <p>Steps To complete {numberOfSteps}</p>
-//       <p>Current Step {stepIndex}</p>
-//       <div>
-//         <p>Controls For stepper</p>
-//         <Button>Back</Button>
-//         <Button onClick={handleNextStep}>Next</Button>
-//       </div>
-//     </Paper>
-//   );
-// };
-
-// export default RentalApplicationStepper;
-
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -87,6 +23,7 @@ import customErrorsBag from '../../lib/errorsBagGenerator';
 import {
   UPDATE_RENTAL_APPLICATION_MUTATION,
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
+  UPDATE_USER_MUTATION,
 } from '../../graphql/mutations/index';
 
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
@@ -177,6 +114,9 @@ const RentalApplicationStepper = props => {
   const [updateRentalGroupApplicant] = useMutation(
     UPDATE_RENTAL_GROUP_APPLICANT_MUTATION
   );
+
+  // an update user Mutation
+  const [updateUser] = useMutation(UPDATE_USER_MUTATION);
 
   // Will let us update application Info if owner
   const _updateApplication = async data => {
@@ -281,7 +221,13 @@ const RentalApplicationStepper = props => {
           <ApplicationDetailsStep {...props} completed={completed[step]} />
         );
       case 2:
-        return <PreTenancyStep {...props} completed={completed[step]} />;
+        return (
+          <PreTenancyStep
+            {...props}
+            completed={completed[step]}
+            updateUser={updateUser}
+          />
+        );
       case 3:
         return (
           <FinaliseApplicationStep

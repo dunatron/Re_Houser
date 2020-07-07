@@ -11,6 +11,7 @@ type User {
   lastName: String!
   phone: String!
   email: String!
+  dob: DateTime
   properties: [Property!]!
   createdProperties: [Property!]!
   photoIdentification: File

@@ -69,6 +69,7 @@ const FormCreator = props => {
   } = props;
 
   const keysWithTypes = getKeyTypes(config);
+
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
 
   const {
@@ -85,7 +86,12 @@ const FormCreator = props => {
     },
   }); // initalise the hook
   const onSubmit = data => {
+    console.log('Submitted form data => ', data);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
+    console.log(
+      'Submitted postFormattedFormData data => ',
+      postFormattedFormData
+    );
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 
@@ -131,6 +137,7 @@ const FormCreator = props => {
                   errors={errors}
                   setValue={setValue}
                   getValues={getValues}
+                  rawData={data}
                   defaultValues={preFormattedFormData}
                   refetchQueries={refetchQueries}
                   updateCacheOnRemovedFile={updateCacheOnRemovedFile}

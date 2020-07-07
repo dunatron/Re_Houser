@@ -1,7 +1,6 @@
 const PRE_TENANCY_FORM_CONF = [
   {
     type: 'Header',
-    key: 'TheHeader',
     fieldProps: {
       label: 'Pre Tenancy Form',
     },

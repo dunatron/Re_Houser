@@ -20,6 +20,7 @@ const Location = props => {
     config,
     setValue, // is from useForm
     errors,
+    rawData,
     fieldError,
   } = props;
 
@@ -28,6 +29,13 @@ const Location = props => {
   if (!fieldProps) return 'This form component needs fieldProps';
   if (!fieldProps.fieldMaps)
     return 'This form component needs fieldProps.fieldMaps to know how to map the values to your prisma ready object';
+
+  const defaultLocation = {
+    placeId: rawData[config.fieldProps.fieldMaps['placeId']],
+    desc: rawData[config.fieldProps.fieldMaps['desc']],
+    lat: rawData[config.fieldProps.fieldMaps['lat']],
+    lng: rawData[config.fieldProps.fieldMaps['lng']],
+  };
 
   useEffect(() => {
     for (const [key, value] of Object.entries(config.fieldProps.fieldMaps)) {
@@ -40,6 +48,7 @@ const Location = props => {
     <>
       {fieldError ? <Typography color="error">{fieldError}</Typography> : null}
       <LocationPicker
+        defaultLocation={defaultLocation}
         selection={data => {
           for (const [key, value] of Object.entries(
             config.fieldProps.fieldMaps

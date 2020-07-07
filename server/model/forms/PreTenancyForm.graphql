@@ -9,8 +9,8 @@ type PreTenancyForm {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String!
   placeId: String!
+  currentLocation: String!
   currentLocationLat: Float!
   currentLocationLng: Float!
   proofOfAddress: File @relation(name: "PreTenancyProofOfAddress", link: TABLE)

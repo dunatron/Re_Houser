@@ -21,6 +21,7 @@ const PreTenancyStep = ({
   property,
   update,
   completed,
+  updateUser,
 }) => {
   const [isEditing, setIsEditing] = useState();
 
@@ -81,6 +82,15 @@ const PreTenancyStep = ({
       }}
       // https://github.com/apollographql/apollo-feature-requests/issues/4
       onSubmit={data => {
+        if (!me.dob && data.dob) {
+          updateUser({
+            variables: {
+              data: {
+                dob: data.dob,
+              },
+            },
+          });
+        }
         updateRentalGroupApplicant({
           variables: {
             data: {

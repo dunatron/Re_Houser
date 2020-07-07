@@ -8,6 +8,7 @@ const UserInfoFragment = gql`
     email
     firstName
     lastName
+    dob
     phone
     permissions
     acceptedSignupTerms

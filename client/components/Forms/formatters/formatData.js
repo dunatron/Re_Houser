@@ -1,5 +1,7 @@
 import { isEmpty } from 'ramda';
 
+import { _preFormatBoolean, _postFormatBoolean } from './formatBoolean';
+
 import {
   _preFormatCheckReason,
   _postFormatCheckReason,
@@ -18,6 +20,8 @@ import {
 } from './formatSelectMultipleEnum';
 
 import { _preFormatFile, _postFormatFile } from './formatFile';
+
+import { _preFormatLocation, _postFormatLocation } from './formatLocation';
 
 const _preFormatData = (data, keyTypes, mode) => {
   if (!data) return {};
@@ -40,6 +44,8 @@ const _preFormatData = (data, keyTypes, mode) => {
 const formatValByType = (v, type, mode) => {
   if (type) {
     switch (type) {
+      case 'Boolean':
+        return mode === 'pre' ? _preFormatBoolean(v) : _postFormatBoolean(v);
       case 'CheckReason':
         return mode === 'pre'
           ? _preFormatCheckReason(v)
@@ -60,6 +66,8 @@ const formatValByType = (v, type, mode) => {
         return parseFloat(v);
       case 'File':
         return mode === 'pre' ? _preFormatFile(v) : _postFormatFile(v);
+      case 'Location':
+        return mode === 'pre' ? _preFormatLocation(v) : _postFormatLocation(v);
 
       default:
         return v;
