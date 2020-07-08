@@ -43,6 +43,7 @@ type User {
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting
+  viewings: [Viewing!]!
 }
 
 type SuccessMessage {
@@ -126,6 +127,7 @@ type Mutation {
   ): PropertyLease
   createPayment(data: PaymentCreateInput!): Payment!
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
+  createViewing(data: ViewingCreateInput!): Viewing!
 }
 
 type Subscription {

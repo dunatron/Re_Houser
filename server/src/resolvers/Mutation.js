@@ -42,6 +42,7 @@ const offerRentalAppraisal = require("./mutations/offerRentalAppraisal");
 const uploadSignature = require("./mutations/uploadSignature");
 const createPayment = require("./mutations/createPayment");
 const updateWallet = require("./mutations/updateWallet");
+const createViewing = require("./mutations/createViewing");
 
 // a collection of our business logic mutations
 const mutations = {
@@ -85,7 +86,8 @@ const mutations = {
   offerRentalAppraisal,
   uploadSignature,
   createPayment,
-  updateWallet
+  updateWallet,
+  createViewing
 };
 
 module.exports = mutations;

@@ -45,6 +45,7 @@ type User {
   proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting! @relation(name: "UserAdminSettings", link: TABLE)
+  viewings: [Viewing!]! @relation(name: "HostViewings")
 }
 
 type AdminSetting {
@@ -225,6 +226,19 @@ type Property implements PropertyInfo {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  viewings: [Viewing] @relation(name: "PropertyViewings")
+}
+
+type Viewing {
+  id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  dateTime: DateTime!
+  minutesFor: Int!
+  recurringType: RecurringType!
+  notes: String
+  hosts: [User!]! @relation(name: "HostViewings")
+  property: Property! @relation(name: "PropertyViewings")
 }
 
 type PropertyLease implements PropertyInfo {

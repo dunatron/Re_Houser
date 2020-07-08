@@ -84,6 +84,7 @@ enum ActivityType {
   LEASE_FINALISED
   LEASE_EXPIRED
   CREATED_PROPERTY_APPRAISAL
+  CREATED_VIEWING
 }
 
 enum TenancyType {
@@ -113,4 +114,12 @@ enum PropertyChattel {
   IRRIGATION
   SMOKE_DETECTORS
   AUTOMATIC_GARAGE_DOOR
+}
+
+enum RecurringType {
+  ONCE
+  DAILY
+  WEEKLY
+  FORTNIGHTLY
+  MONTHLY
 }

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Jul 06 2020 21:44:57 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Jul 08 2020 14:53:26 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -829,6 +829,7 @@ enum ActivityType {
   LEASE_FINALISED
   LEASE_EXPIRED
   CREATED_PROPERTY_APPRAISAL
+  CREATED_VIEWING
 }
 
 input ActivityUpdateInput {
@@ -1469,6 +1470,10 @@ type AggregateSeen {
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateViewing {
   count: Int!
 }
 
@@ -9922,6 +9927,7 @@ type Mutation {
   createChat(data: ChatCreateInput!): Chat!
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createProperty(data: PropertyCreateInput!): Property!
+  createViewing(data: ViewingCreateInput!): Viewing!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
   createAccommodation(data: AccommodationCreateInput!): Accommodation!
@@ -9946,6 +9952,7 @@ type Mutation {
   updateChat(data: ChatUpdateInput!, where: ChatWhereUniqueInput!): Chat
   updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
+  updateViewing(data: ViewingUpdateInput!, where: ViewingWhereUniqueInput!): Viewing
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updateRentalAppraisal(data: RentalAppraisalUpdateInput!, where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   updateAccommodation(data: AccommodationUpdateInput!, where: AccommodationWhereUniqueInput!): Accommodation
@@ -9969,6 +9976,7 @@ type Mutation {
   deleteChat(where: ChatWhereUniqueInput!): Chat
   deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteProperty(where: PropertyWhereUniqueInput!): Property
+  deleteViewing(where: ViewingWhereUniqueInput!): Viewing
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deleteRentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   deleteAccommodation(where: AccommodationWhereUniqueInput!): Accommodation
@@ -9993,6 +10001,7 @@ type Mutation {
   upsertChat(where: ChatWhereUniqueInput!, create: ChatCreateInput!, update: ChatUpdateInput!): Chat!
   upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
+  upsertViewing(where: ViewingWhereUniqueInput!, create: ViewingCreateInput!, update: ViewingUpdateInput!): Viewing!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertRentalAppraisal(where: RentalAppraisalWhereUniqueInput!, create: RentalAppraisalCreateInput!, update: RentalAppraisalUpdateInput!): RentalAppraisal!
   upsertAccommodation(where: AccommodationWhereUniqueInput!, create: AccommodationCreateInput!, update: AccommodationUpdateInput!): Accommodation!
@@ -10015,6 +10024,7 @@ type Mutation {
   updateManySeens(data: SeenUpdateManyMutationInput!, where: SeenWhereInput): BatchPayload!
   updateManyChats(data: ChatUpdateManyMutationInput!, where: ChatWhereInput): BatchPayload!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
+  updateManyViewings(data: ViewingUpdateManyMutationInput!, where: ViewingWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyRentalAppraisals(data: RentalAppraisalUpdateManyMutationInput!, where: RentalAppraisalWhereInput): BatchPayload!
   updateManyAccommodations(data: AccommodationUpdateManyMutationInput!, where: AccommodationWhereInput): BatchPayload!
@@ -10038,6 +10048,7 @@ type Mutation {
   deleteManyChats(where: ChatWhereInput): BatchPayload!
   deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
+  deleteManyViewings(where: ViewingWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyRentalAppraisals(where: RentalAppraisalWhereInput): BatchPayload!
   deleteManyAccommodations(where: AccommodationWhereInput): BatchPayload!
@@ -11393,8 +11404,8 @@ type PreTenancyForm implements Node {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String!
   placeId: String!
+  currentLocation: String!
   currentLocationLat: Float!
   currentLocationLng: Float!
   proofOfAddress: File
@@ -11433,8 +11444,8 @@ input PreTenancyFormCreateInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String!
   placeId: String!
+  currentLocation: String!
   currentLocationLat: Float!
   currentLocationLng: Float!
   yearsAtAddress: Int
@@ -11474,8 +11485,8 @@ input PreTenancyFormCreateWithoutProofOfAddressInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String!
   placeId: String!
+  currentLocation: String!
   currentLocationLat: Float!
   currentLocationLng: Float!
   yearsAtAddress: Int
@@ -11504,8 +11515,8 @@ input PreTenancyFormCreateWithoutRentalApplicantInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String!
   placeId: String!
+  currentLocation: String!
   currentLocationLat: Float!
   currentLocationLng: Float!
   yearsAtAddress: Int
@@ -11551,10 +11562,10 @@ enum PreTenancyFormOrderByInput {
   phone_DESC
   email_ASC
   email_DESC
-  currentLocation_ASC
-  currentLocation_DESC
   placeId_ASC
   placeId_DESC
+  currentLocation_ASC
+  currentLocation_DESC
   currentLocationLat_ASC
   currentLocationLat_DESC
   currentLocationLng_ASC
@@ -11598,8 +11609,8 @@ type PreTenancyFormPreviousValues {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String!
   placeId: String!
+  currentLocation: String!
   currentLocationLat: Float!
   currentLocationLng: Float!
   yearsAtAddress: Int
@@ -11663,8 +11674,8 @@ input PreTenancyFormUpdateInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
   placeId: String
+  currentLocation: String
   currentLocationLat: Float
   currentLocationLng: Float
   yearsAtAddress: Int
@@ -11693,8 +11704,8 @@ input PreTenancyFormUpdateManyMutationInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
   placeId: String
+  currentLocation: String
   currentLocationLat: Float
   currentLocationLng: Float
   yearsAtAddress: Int
@@ -11739,8 +11750,8 @@ input PreTenancyFormUpdateWithoutProofOfAddressDataInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
   placeId: String
+  currentLocation: String
   currentLocationLat: Float
   currentLocationLng: Float
   yearsAtAddress: Int
@@ -11768,8 +11779,8 @@ input PreTenancyFormUpdateWithoutRentalApplicantDataInput {
   under18: Boolean
   phone: String
   email: String
-  currentLocation: String
   placeId: String
+  currentLocation: String
   currentLocationLat: Float
   currentLocationLng: Float
   yearsAtAddress: Int
@@ -12020,46 +12031,6 @@ input PreTenancyFormWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
-  currentLocation: String
-
-  """All values that are not equal to given value."""
-  currentLocation_not: String
-
-  """All values that are contained in given list."""
-  currentLocation_in: [String!]
-
-  """All values that are not contained in given list."""
-  currentLocation_not_in: [String!]
-
-  """All values less than the given value."""
-  currentLocation_lt: String
-
-  """All values less than or equal the given value."""
-  currentLocation_lte: String
-
-  """All values greater than the given value."""
-  currentLocation_gt: String
-
-  """All values greater than or equal the given value."""
-  currentLocation_gte: String
-
-  """All values containing the given string."""
-  currentLocation_contains: String
-
-  """All values not containing the given string."""
-  currentLocation_not_contains: String
-
-  """All values starting with the given string."""
-  currentLocation_starts_with: String
-
-  """All values not starting with the given string."""
-  currentLocation_not_starts_with: String
-
-  """All values ending with the given string."""
-  currentLocation_ends_with: String
-
-  """All values not ending with the given string."""
-  currentLocation_not_ends_with: String
   placeId: String
 
   """All values that are not equal to given value."""
@@ -12100,6 +12071,46 @@ input PreTenancyFormWhereInput {
 
   """All values not ending with the given string."""
   placeId_not_ends_with: String
+  currentLocation: String
+
+  """All values that are not equal to given value."""
+  currentLocation_not: String
+
+  """All values that are contained in given list."""
+  currentLocation_in: [String!]
+
+  """All values that are not contained in given list."""
+  currentLocation_not_in: [String!]
+
+  """All values less than the given value."""
+  currentLocation_lt: String
+
+  """All values less than or equal the given value."""
+  currentLocation_lte: String
+
+  """All values greater than the given value."""
+  currentLocation_gt: String
+
+  """All values greater than or equal the given value."""
+  currentLocation_gte: String
+
+  """All values containing the given string."""
+  currentLocation_contains: String
+
+  """All values not containing the given string."""
+  currentLocation_not_contains: String
+
+  """All values starting with the given string."""
+  currentLocation_starts_with: String
+
+  """All values not starting with the given string."""
+  currentLocation_not_starts_with: String
+
+  """All values ending with the given string."""
+  currentLocation_ends_with: String
+
+  """All values not ending with the given string."""
+  currentLocation_not_ends_with: String
   currentLocationLat: Float
 
   """All values that are not equal to given value."""
@@ -12654,6 +12665,7 @@ type Property implements Node {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
 }
 
 type PropertyAdvertisement implements Node {
@@ -12923,6 +12935,7 @@ input PropertyCreateInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateManyWithoutCreatorInput {
@@ -12957,6 +12970,11 @@ input PropertyCreateOneWithoutLeasesInput {
 
 input PropertyCreateOneWithoutRentalApplicationsInput {
   create: PropertyCreateWithoutRentalApplicationsInput
+  connect: PropertyWhereUniqueInput
+}
+
+input PropertyCreateOneWithoutViewingsInput {
+  create: PropertyCreateWithoutViewingsInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -13015,6 +13033,7 @@ input PropertyCreateWithoutAccommodationInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutActivityInput {
@@ -13064,6 +13083,7 @@ input PropertyCreateWithoutActivityInput {
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutAppraisalsInput {
@@ -13113,6 +13133,7 @@ input PropertyCreateWithoutAppraisalsInput {
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutCreatorInput {
@@ -13162,6 +13183,7 @@ input PropertyCreateWithoutCreatorInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutLeasesInput {
@@ -13211,6 +13233,7 @@ input PropertyCreateWithoutLeasesInput {
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutOwnersInput {
@@ -13260,6 +13283,7 @@ input PropertyCreateWithoutOwnersInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
@@ -13306,6 +13330,57 @@ input PropertyCreateWithoutRentalApplicationsInput {
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+  appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
+}
+
+input PropertyCreateWithoutViewingsInput {
+  id: ID
+  placeId: String!
+  type: PropertyType
+  headline: String
+  rooms: Int!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  onTheMarket: Boolean!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
@@ -15929,6 +16004,7 @@ input PropertyUpdateInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateManyDataInput {
@@ -16061,6 +16137,13 @@ input PropertyUpdateOneRequiredWithoutRentalApplicationsInput {
   upsert: PropertyUpsertWithoutRentalApplicationsInput
 }
 
+input PropertyUpdateOneRequiredWithoutViewingsInput {
+  create: PropertyCreateWithoutViewingsInput
+  connect: PropertyWhereUniqueInput
+  update: PropertyUpdateWithoutViewingsDataInput
+  upsert: PropertyUpsertWithoutViewingsInput
+}
+
 input PropertyUpdateOneWithoutActivityInput {
   create: PropertyCreateWithoutActivityInput
   connect: PropertyWhereUniqueInput
@@ -16133,6 +16216,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutActivityDataInput {
@@ -16181,6 +16265,7 @@ input PropertyUpdateWithoutActivityDataInput {
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutAppraisalsDataInput {
@@ -16229,6 +16314,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutCreatorDataInput {
@@ -16277,6 +16363,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
@@ -16325,6 +16412,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
@@ -16373,6 +16461,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutRentalApplicationsDataInput {
@@ -16421,6 +16510,56 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutViewingsDataInput {
+  placeId: String
+  type: PropertyType
+  headline: String
+  rooms: Int
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  expiryDate: DateTime
+  onTheMarket: Boolean
+  location: String
+  locationLat: Float
+  locationLng: Float
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+  appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithWhereUniqueWithoutCreatorInput {
@@ -16456,6 +16595,11 @@ input PropertyUpsertWithoutLeasesInput {
 input PropertyUpsertWithoutRentalApplicationsInput {
   update: PropertyUpdateWithoutRentalApplicationsDataInput!
   create: PropertyCreateWithoutRentalApplicationsInput!
+}
+
+input PropertyUpsertWithoutViewingsInput {
+  update: PropertyUpdateWithoutViewingsDataInput!
+  create: PropertyCreateWithoutViewingsInput!
 }
 
 input PropertyUpsertWithWhereUniqueWithoutCreatorInput {
@@ -17122,6 +17266,9 @@ input PropertyWhereInput {
   appraisals_every: RentalAppraisalWhereInput
   appraisals_some: RentalAppraisalWhereInput
   appraisals_none: RentalAppraisalWhereInput
+  viewings_every: ViewingWhereInput
+  viewings_some: ViewingWhereInput
+  viewings_none: ViewingWhereInput
 }
 
 input PropertyWhereUniqueInput {
@@ -17138,6 +17285,7 @@ type Query {
   chats(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chat]!
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
+  viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal]!
   accommodations(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation]!
@@ -17162,6 +17310,7 @@ type Query {
   chat(where: ChatWhereUniqueInput!): Chat
   friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   property(where: PropertyWhereUniqueInput!): Property
+  viewing(where: ViewingWhereUniqueInput!): Viewing
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   rentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   accommodation(where: AccommodationWhereUniqueInput!): Accommodation
@@ -17186,6 +17335,7 @@ type Query {
   chatsConnection(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChatConnection!
   friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
+  viewingsConnection(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ViewingConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   rentalAppraisalsConnection(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalAppraisalConnection!
   accommodationsConnection(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccommodationConnection!
@@ -17208,6 +17358,14 @@ type Query {
     """The ID of an object"""
     id: ID!
   ): Node
+}
+
+enum RecurringType {
+  ONCE
+  DAILY
+  WEEKLY
+  FORTNIGHTLY
+  MONTHLY
 }
 
 type RentalApplication implements Node {
@@ -20057,6 +20215,7 @@ type Subscription {
   chat(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
   friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
+  viewing(where: ViewingSubscriptionWhereInput): ViewingSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   rentalAppraisal(where: RentalAppraisalSubscriptionWhereInput): RentalAppraisalSubscriptionPayload
   accommodation(where: AccommodationSubscriptionWhereInput): AccommodationSubscriptionPayload
@@ -20136,6 +20295,7 @@ type User implements Node {
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting!
+  viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
 }
 
 """A connection to a list of items."""
@@ -20193,6 +20353,7 @@ input UserCreateInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateManyInput {
@@ -20212,6 +20373,11 @@ input UserCreateManyWithoutInvolvedActivityInput {
 
 input UserCreateManyWithoutPropertiesInput {
   create: [UserCreateWithoutPropertiesInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateManyWithoutViewingsInput {
+  create: [UserCreateWithoutViewingsInput!]
   connect: [UserWhereUniqueInput!]
 }
 
@@ -20343,6 +20509,7 @@ input UserCreateWithoutActivityInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutAdminSettingsInput {
@@ -20389,6 +20556,7 @@ input UserCreateWithoutAdminSettingsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
@@ -20435,6 +20603,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutChatsInput {
@@ -20481,6 +20650,7 @@ input UserCreateWithoutChatsInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -20527,6 +20697,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -20573,6 +20744,7 @@ input UserCreateWithoutCreditCardsInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -20619,6 +20791,7 @@ input UserCreateWithoutFriendRequestsInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutInvolvedActivityInput {
@@ -20665,6 +20838,7 @@ input UserCreateWithoutInvolvedActivityInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -20711,6 +20885,7 @@ input UserCreateWithoutLesseeLeasesInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -20757,6 +20932,7 @@ input UserCreateWithoutLessorLeasesInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -20803,6 +20979,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -20849,6 +21026,7 @@ input UserCreateWithoutProfilePhotoInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutProofOfAddressInput {
@@ -20895,6 +21073,7 @@ input UserCreateWithoutProofOfAddressInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -20941,6 +21120,7 @@ input UserCreateWithoutPropertiesInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -20987,6 +21167,7 @@ input UserCreateWithoutRecievedMessagesInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutRentalAppraisalsInput {
@@ -21033,6 +21214,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -21079,6 +21261,7 @@ input UserCreateWithoutSentMessagesInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
 }
 
 input UserCreateWithoutSignatureInput {
@@ -21120,6 +21303,54 @@ input UserCreateWithoutSignatureInput {
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
   recievedMessages: MessageCreateManyWithoutRecipientInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
+}
+
+input UserCreateWithoutViewingsInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  physicalAddress: String
+  acceptedSignupTerms: Boolean!
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
@@ -22130,6 +22361,7 @@ input UserUpdateDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateInput {
@@ -22176,6 +22408,7 @@ input UserUpdateInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateManyDataInput {
@@ -22276,6 +22509,18 @@ input UserUpdateManyWithoutPropertiesInput {
   updateMany: [UserUpdateManyWithWhereNestedInput!]
   deleteMany: [UserScalarWhereInput!]
   upsert: [UserUpsertWithWhereUniqueWithoutPropertiesInput!]
+}
+
+input UserUpdateManyWithoutViewingsInput {
+  create: [UserCreateWithoutViewingsInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutViewingsInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutViewingsInput!]
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -22462,6 +22707,7 @@ input UserUpdateWithoutActivityDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutAdminSettingsDataInput {
@@ -22507,6 +22753,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
@@ -22552,6 +22799,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -22597,6 +22845,7 @@ input UserUpdateWithoutChatsDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -22642,6 +22891,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -22687,6 +22937,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -22732,6 +22983,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
@@ -22777,6 +23029,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -22822,6 +23075,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -22867,6 +23121,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -22912,6 +23167,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -22957,6 +23213,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutProofOfAddressDataInput {
@@ -23002,6 +23259,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -23047,6 +23305,7 @@ input UserUpdateWithoutPropertiesDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -23092,6 +23351,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
@@ -23137,6 +23397,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -23182,6 +23443,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
 }
 
 input UserUpdateWithoutSignatureDataInput {
@@ -23227,6 +23489,53 @@ input UserUpdateWithoutSignatureDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+}
+
+input UserUpdateWithoutViewingsDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  usedFreeAppraisal: Boolean
+  physicalAddress: String
+  acceptedSignupTerms: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -23247,6 +23556,11 @@ input UserUpdateWithWhereUniqueWithoutInvolvedActivityInput {
 input UserUpdateWithWhereUniqueWithoutPropertiesInput {
   where: UserWhereUniqueInput!
   data: UserUpdateWithoutPropertiesDataInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutViewingsInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutViewingsDataInput!
 }
 
 input UserUpsertNestedInput {
@@ -23351,6 +23665,12 @@ input UserUpsertWithWhereUniqueWithoutPropertiesInput {
   where: UserWhereUniqueInput!
   update: UserUpdateWithoutPropertiesDataInput!
   create: UserCreateWithoutPropertiesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutViewingsInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutViewingsDataInput!
+  create: UserCreateWithoutViewingsInput!
 }
 
 input UserWhereInput {
@@ -24230,11 +24550,623 @@ input UserWhereInput {
   rentalAppraisals_none: RentalAppraisalWhereInput
   proofOfAddress: FileWhereInput
   adminSettings: AdminSettingWhereInput
+  viewings_every: ViewingWhereInput
+  viewings_some: ViewingWhereInput
+  viewings_none: ViewingWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type Viewing implements Node {
+  id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  dateTime: DateTime!
+  minutesFor: Int!
+  recurringType: RecurringType!
+  notes: String
+  hosts(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  property: Property!
+}
+
+"""A connection to a list of items."""
+type ViewingConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ViewingEdge]!
+  aggregate: AggregateViewing!
+}
+
+input ViewingCreateInput {
+  id: ID
+  dateTime: DateTime!
+  minutesFor: Int!
+  recurringType: RecurringType!
+  notes: String
+  hosts: UserCreateManyWithoutViewingsInput
+  property: PropertyCreateOneWithoutViewingsInput!
+}
+
+input ViewingCreateManyWithoutHostsInput {
+  create: [ViewingCreateWithoutHostsInput!]
+  connect: [ViewingWhereUniqueInput!]
+}
+
+input ViewingCreateManyWithoutPropertyInput {
+  create: [ViewingCreateWithoutPropertyInput!]
+  connect: [ViewingWhereUniqueInput!]
+}
+
+input ViewingCreateWithoutHostsInput {
+  id: ID
+  dateTime: DateTime!
+  minutesFor: Int!
+  recurringType: RecurringType!
+  notes: String
+  property: PropertyCreateOneWithoutViewingsInput!
+}
+
+input ViewingCreateWithoutPropertyInput {
+  id: ID
+  dateTime: DateTime!
+  minutesFor: Int!
+  recurringType: RecurringType!
+  notes: String
+  hosts: UserCreateManyWithoutViewingsInput
+}
+
+"""An edge in a connection."""
+type ViewingEdge {
+  """The item at the end of the edge."""
+  node: Viewing!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ViewingOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+  dateTime_ASC
+  dateTime_DESC
+  minutesFor_ASC
+  minutesFor_DESC
+  recurringType_ASC
+  recurringType_DESC
+  notes_ASC
+  notes_DESC
+}
+
+type ViewingPreviousValues {
+  id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  dateTime: DateTime!
+  minutesFor: Int!
+  recurringType: RecurringType!
+  notes: String
+}
+
+input ViewingScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ViewingScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ViewingScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ViewingScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  dateTime: DateTime
+
+  """All values that are not equal to given value."""
+  dateTime_not: DateTime
+
+  """All values that are contained in given list."""
+  dateTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dateTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dateTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dateTime_lte: DateTime
+
+  """All values greater than the given value."""
+  dateTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dateTime_gte: DateTime
+  minutesFor: Int
+
+  """All values that are not equal to given value."""
+  minutesFor_not: Int
+
+  """All values that are contained in given list."""
+  minutesFor_in: [Int!]
+
+  """All values that are not contained in given list."""
+  minutesFor_not_in: [Int!]
+
+  """All values less than the given value."""
+  minutesFor_lt: Int
+
+  """All values less than or equal the given value."""
+  minutesFor_lte: Int
+
+  """All values greater than the given value."""
+  minutesFor_gt: Int
+
+  """All values greater than or equal the given value."""
+  minutesFor_gte: Int
+  recurringType: RecurringType
+
+  """All values that are not equal to given value."""
+  recurringType_not: RecurringType
+
+  """All values that are contained in given list."""
+  recurringType_in: [RecurringType!]
+
+  """All values that are not contained in given list."""
+  recurringType_not_in: [RecurringType!]
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+}
+
+type ViewingSubscriptionPayload {
+  mutation: MutationType!
+  node: Viewing
+  updatedFields: [String!]
+  previousValues: ViewingPreviousValues
+}
+
+input ViewingSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ViewingSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ViewingSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ViewingSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ViewingWhereInput
+}
+
+input ViewingUpdateInput {
+  dateTime: DateTime
+  minutesFor: Int
+  recurringType: RecurringType
+  notes: String
+  hosts: UserUpdateManyWithoutViewingsInput
+  property: PropertyUpdateOneRequiredWithoutViewingsInput
+}
+
+input ViewingUpdateManyDataInput {
+  dateTime: DateTime
+  minutesFor: Int
+  recurringType: RecurringType
+  notes: String
+}
+
+input ViewingUpdateManyMutationInput {
+  dateTime: DateTime
+  minutesFor: Int
+  recurringType: RecurringType
+  notes: String
+}
+
+input ViewingUpdateManyWithoutHostsInput {
+  create: [ViewingCreateWithoutHostsInput!]
+  connect: [ViewingWhereUniqueInput!]
+  set: [ViewingWhereUniqueInput!]
+  disconnect: [ViewingWhereUniqueInput!]
+  delete: [ViewingWhereUniqueInput!]
+  update: [ViewingUpdateWithWhereUniqueWithoutHostsInput!]
+  updateMany: [ViewingUpdateManyWithWhereNestedInput!]
+  deleteMany: [ViewingScalarWhereInput!]
+  upsert: [ViewingUpsertWithWhereUniqueWithoutHostsInput!]
+}
+
+input ViewingUpdateManyWithoutPropertyInput {
+  create: [ViewingCreateWithoutPropertyInput!]
+  connect: [ViewingWhereUniqueInput!]
+  set: [ViewingWhereUniqueInput!]
+  disconnect: [ViewingWhereUniqueInput!]
+  delete: [ViewingWhereUniqueInput!]
+  update: [ViewingUpdateWithWhereUniqueWithoutPropertyInput!]
+  updateMany: [ViewingUpdateManyWithWhereNestedInput!]
+  deleteMany: [ViewingScalarWhereInput!]
+  upsert: [ViewingUpsertWithWhereUniqueWithoutPropertyInput!]
+}
+
+input ViewingUpdateManyWithWhereNestedInput {
+  where: ViewingScalarWhereInput!
+  data: ViewingUpdateManyDataInput!
+}
+
+input ViewingUpdateWithoutHostsDataInput {
+  dateTime: DateTime
+  minutesFor: Int
+  recurringType: RecurringType
+  notes: String
+  property: PropertyUpdateOneRequiredWithoutViewingsInput
+}
+
+input ViewingUpdateWithoutPropertyDataInput {
+  dateTime: DateTime
+  minutesFor: Int
+  recurringType: RecurringType
+  notes: String
+  hosts: UserUpdateManyWithoutViewingsInput
+}
+
+input ViewingUpdateWithWhereUniqueWithoutHostsInput {
+  where: ViewingWhereUniqueInput!
+  data: ViewingUpdateWithoutHostsDataInput!
+}
+
+input ViewingUpdateWithWhereUniqueWithoutPropertyInput {
+  where: ViewingWhereUniqueInput!
+  data: ViewingUpdateWithoutPropertyDataInput!
+}
+
+input ViewingUpsertWithWhereUniqueWithoutHostsInput {
+  where: ViewingWhereUniqueInput!
+  update: ViewingUpdateWithoutHostsDataInput!
+  create: ViewingCreateWithoutHostsInput!
+}
+
+input ViewingUpsertWithWhereUniqueWithoutPropertyInput {
+  where: ViewingWhereUniqueInput!
+  update: ViewingUpdateWithoutPropertyDataInput!
+  create: ViewingCreateWithoutPropertyInput!
+}
+
+input ViewingWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ViewingWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ViewingWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ViewingWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  dateTime: DateTime
+
+  """All values that are not equal to given value."""
+  dateTime_not: DateTime
+
+  """All values that are contained in given list."""
+  dateTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  dateTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  dateTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  dateTime_lte: DateTime
+
+  """All values greater than the given value."""
+  dateTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  dateTime_gte: DateTime
+  minutesFor: Int
+
+  """All values that are not equal to given value."""
+  minutesFor_not: Int
+
+  """All values that are contained in given list."""
+  minutesFor_in: [Int!]
+
+  """All values that are not contained in given list."""
+  minutesFor_not_in: [Int!]
+
+  """All values less than the given value."""
+  minutesFor_lt: Int
+
+  """All values less than or equal the given value."""
+  minutesFor_lte: Int
+
+  """All values greater than the given value."""
+  minutesFor_gt: Int
+
+  """All values greater than or equal the given value."""
+  minutesFor_gte: Int
+  recurringType: RecurringType
+
+  """All values that are not equal to given value."""
+  recurringType_not: RecurringType
+
+  """All values that are contained in given list."""
+  recurringType_in: [RecurringType!]
+
+  """All values that are not contained in given list."""
+  recurringType_not_in: [RecurringType!]
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  hosts_every: UserWhereInput
+  hosts_some: UserWhereInput
+  hosts_none: UserWhereInput
+  property: PropertyWhereInput
+}
+
+input ViewingWhereUniqueInput {
+  id: ID
 }
 
 enum VisibilityLevel {
