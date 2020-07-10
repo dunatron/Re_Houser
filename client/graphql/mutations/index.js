@@ -23,6 +23,7 @@ import { UPDATE_INSULATION_FORM_MUTATION } from './updateInsulationForm';
 import { CREATE_RENTAL_APPRAISAL_MUTATION } from './createRentalAppraisal';
 import { OFFER_RENTAL_APPRAISAL_MUTATION } from './offerRentalAppraisal';
 import { UPLOAD_SIGNATURE_FILE } from './uploadSignature';
+import { CREATE_VIEWING_MUTATION } from './createViewing';
 
 export {
   SIGNUP_MUTATION,
@@ -50,4 +51,5 @@ export {
   CREATE_RENTAL_APPRAISAL_MUTATION,
   OFFER_RENTAL_APPRAISAL_MUTATION,
   UPLOAD_SIGNATURE_FILE,
+  CREATE_VIEWING_MUTATION,
 };

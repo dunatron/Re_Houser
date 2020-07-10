@@ -7,14 +7,15 @@ import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage/index';
 import styled from 'styled-components';
 import Head from 'next/head';
-import Tabs from '@material-ui/core/Tabs';
+import { Tabs, Tab } from '@material-ui/core';
 // import Tab from "@material-ui/core/Tab"
-import Tab from '../../styles/Tab';
+// import Tab from '../../styles/Tab';
 // tabs
 import Details from './Details';
 import Leases from './Leases';
 import Applications from './Applications';
 import Activity from '../ActivityManager/Activity';
+import PropertyViewings from './Viewings';
 // import Badge from "@material-ui/core/Badge"
 import Badge from '../../styles/Badge';
 import Typography from '@material-ui/core/Typography';
@@ -23,14 +24,15 @@ import { SITE_NAME } from '../../lib/const';
 import { toast } from 'react-toastify';
 import Loader from '../Loader/index';
 import PageHeader from '../PageHeader';
+import TabContainer from '../Account/TabContainer';
 
-function TabContainer(props) {
-  return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
-      {props.children}
-    </Typography>
-  );
-}
+// function TabContainer(props) {
+//   return (
+//     <Typography component="div" style={{ padding: 0 }}>
+//       {props.children}
+//     </Typography>
+//   );
+// }
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -117,7 +119,7 @@ const PropertyCard = styled.div`
   }
 `;
 
-const PropertyDetails = ({ id, location }) => {
+const PropertyDetails = ({ id, location, me }) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
@@ -151,11 +153,18 @@ const PropertyDetails = ({ id, location }) => {
       <PropertyCard>
         {/* <h1 className="location__name"> {property ? property.location : null}</h1> */}
 
-        <Tabs value={tabIndex} onChange={(e, v) => setTabIndex(v)}>
+        <Tabs
+          value={tabIndex}
+          onChange={(e, v) => setTabIndex(v)}
+          indicatorColor="primary"
+          textColor="primary"
+          wrapped={true}
+          variant="scrollable">
           <Tab label="Details" />
           <Tab label={<PropertyApplicationsBadgeCount property={property} />} />
           <Tab label="Leases" />
           <Tab label="Activity" />
+          <Tab label="Viewings" />
         </Tabs>
 
         {tabIndex === 0 && (
@@ -184,6 +193,12 @@ const PropertyDetails = ({ id, location }) => {
                 },
               }}
             />
+          </TabContainer>
+        )}
+
+        {tabIndex === 4 && (
+          <TabContainer>
+            <PropertyViewings propertyId={property.id} me={me} />
           </TabContainer>
         )}
       </PropertyCard>
