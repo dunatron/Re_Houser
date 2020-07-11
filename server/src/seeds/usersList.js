@@ -41,21 +41,6 @@ const userFrag = {
   referee2Name: "Garen",
   referee2Phone: "6799000",
   referee2Email: "garen@test.com",
-  // primaryCreditCard: CreditCard
-  // friends: [User!]!
-  // friendRequests: [FriendRequest!]!
-  // awaitingFriends: [FriendRequest!]!
-  // chats: [Chat!]!
-  // permissions: setUserPermissions,
-  // token: String
-  // rehouserStamp: Boolean
-  // signature: File
-  // activity: [Activity!]!
-  // involvedActivity: [Activity!]!
-  // rentalAppraisals: [RentalAppraisal]
-  // usedFreeAppraisal: Boolean
-  // physicalAddress: String
-  // proofOfAddress: File
   acceptedSignupTerms: true,
   adminSettings: {
     create: {},

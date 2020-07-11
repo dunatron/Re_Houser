@@ -3,6 +3,7 @@ const { createActivity } = require("../../lib/createActivity");
 const {
   addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
+const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail")
 
 var fs = require("fs"),
   path = require("path"),
@@ -72,6 +73,20 @@ async function createProperty(parent, { data, files }, ctx, info) {
       propertyId: property.id,
       db: ctx.db
     });
+
+
+    const user = ctx.bb.query.user({
+      where: {
+        id: loggedInUserId
+      }
+    })
+
+    // let admin know new property has been created. Frodo loves his leads. Ohh a lead
+    propertyCreatedEmail({
+      toEmail: 'admin@rehouser.co.nz', 
+      user: user
+    })
+
     // wow maybe return the thing too......
     return property;
   } catch (e) {

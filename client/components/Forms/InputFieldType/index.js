@@ -60,7 +60,11 @@ const InputFieldType = props => {
 
   const fieldError = extractErrorFromErrors(errors, name);
 
+  console.log('defaultValues => ', defaultValues);
+
   const defaultValue = defaultValues[name];
+
+  // const defaultValue = "";
 
   console.log('name for this here field => ', name);
   console.log('defaultValue for this here field => ', defaultValue);

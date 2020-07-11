@@ -30,10 +30,7 @@ async function createRentalAppraisal(parent, args, ctx, info) {
   }
 
   if (!property) {
-    // then it is assumed to be a free appraisal
-    // we should update the user has usedFreeAppraisal
     await ctx.db.mutation.updateUser({
-      data: { usedFreeAppraisal: true },
       where: {
         id: loggedInUserId
       }

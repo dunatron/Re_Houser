@@ -40,7 +40,6 @@ type User {
   activity: [Activity!]! @relation(name: "UserActivity")
   involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
-  usedFreeAppraisal: Boolean
   physicalAddress: String
   proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
   acceptedSignupTerms: Boolean!

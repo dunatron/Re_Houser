@@ -43,6 +43,7 @@ export default function SimpleSelect(props) {
     setValue, // is from useForm
     reset,
     errors,
+    defaultValues,
     helperText,
   } = props;
 
@@ -142,6 +143,7 @@ export default function SimpleSelect(props) {
                 errors={errors}
                 setValue={setValue}
                 reset={reset}
+                defaultValues={defaultValues}
               />
             </div>
           );

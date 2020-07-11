@@ -38,7 +38,6 @@ type User {
   activity: [Activity!]!
   involvedActivity: [Activity!]!
   rentalAppraisals: [RentalAppraisal]
-  usedFreeAppraisal: Boolean
   physicalAddress: String
   proofOfAddress: File
   acceptedSignupTerms: Boolean!

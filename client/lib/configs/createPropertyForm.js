@@ -301,13 +301,13 @@ const CREATE_PROPERTY_FORM_CONF = [
         key: 'moveInDate',
         fieldProps: {
           name: 'moveInDate',
-          label: 'Move in date',
+          label: 'Available from date',
         },
         refConf: {
           required: {
             value: true,
             message:
-              'You need to supply a move in date. Indicating the earliest a potential tenant can move in',
+              'You need to supply an available from. Indicating the earliest a potential tenant can move in',
           },
         },
       },

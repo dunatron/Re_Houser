@@ -51,13 +51,13 @@ const UserInfoFragment = gql`
       }
     }
     rehouserStamp
-    usedFreeAppraisal
     adminSettings {
       appraisalCreatedSub
       propertyCreatedSub
       rentalApplicationCreatedSub
       leaseCreatedSub
     }
+    acceptedTermsOfEngagement
   }
   ${FileInfoFragment}
 `;
