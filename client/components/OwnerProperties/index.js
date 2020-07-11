@@ -96,6 +96,10 @@ const OwnerProperties = ({ me }) => {
     handleLink('/properties/add');
   };
 
+  const goToAddBulkProperty = () => {
+    handleLink('/properties/bulkadd')
+  }
+
   const toggleOnTheMarket = dataObj => {
     const current = dataObj.onTheMarket;
     props.updateProperty({
@@ -130,6 +134,7 @@ const OwnerProperties = ({ me }) => {
       </Modal>
       <div>
         <Button onClick={goToAddPropertyPage}>Add Property</Button>
+        <Button onClick={goToAddBulkProperty}>Bulk Upload</Button>
       </div>
       <PropertiesTable properties={data ? data.ownerProperties : []} me={me} />
     </>

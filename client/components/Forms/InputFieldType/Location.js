@@ -27,14 +27,15 @@ const Location = props => {
   const { fieldProps, refConf } = config;
 
   if (!fieldProps) return 'This form component needs fieldProps';
-  if (!fieldProps.fieldMaps)
+  if (!fieldProps.fieldMaps) {
     return 'This form component needs fieldProps.fieldMaps to know how to map the values to your prisma ready object';
-
+  }
+   
   const defaultLocation = {
-    placeId: rawData[config.fieldProps.fieldMaps['placeId']],
-    desc: rawData[config.fieldProps.fieldMaps['desc']],
-    lat: rawData[config.fieldProps.fieldMaps['lat']],
-    lng: rawData[config.fieldProps.fieldMaps['lng']],
+    placeId: rawData ? rawData[config.fieldProps.fieldMaps['placeId']] : null,
+    desc: rawData ?  rawData[config.fieldProps.fieldMaps['desc']]: null,
+    lat: rawData ? rawData[config.fieldProps.fieldMaps['lat']]: null,
+    lng: rawData ? rawData[config.fieldProps.fieldMaps['lng']]: null,
   };
 
   useEffect(() => {

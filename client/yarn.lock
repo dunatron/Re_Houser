@@ -2277,6 +2277,13 @@
   resolved "https://registry.yarnpkg.com/@types/object-assign/-/object-assign-4.0.30.tgz#8949371d5a99f4381ee0f1df0a9b7a187e07e652"
   integrity sha1-iUk3HVqZ9Dge4PHfCpt6GH4H5lI=
 
+"@types/papaparse@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@types/papaparse/-/papaparse-5.0.4.tgz#70792c74d9932bcc0bfa945ae7dacfef67f4ee57"
+  integrity sha512-jFv9NcRddMiW4+thmntwZ1AhvMDAX4+tAUDkWWbNcIzgqyjjkuSHOEUPoVh1/gqJTWfDOD1tvl+hSp88W3UtqA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -12879,6 +12886,11 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
+papaparse@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.2.0.tgz#97976a1b135c46612773029153dc64995caa3b7b"
+  integrity sha512-ylq1wgUSnagU+MKQtNeVqrPhZuMYBvOSL00DHycFTCxownF95gpLAk1HiHdUW77N8yxRq1qHXLdlIPyBSG9NSA==
+
 parallel-transform@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/parallel-transform/-/parallel-transform-1.2.0.tgz#9049ca37d6cb2182c3b1d2c720be94d14a5814fc"
@@ -14738,6 +14750,14 @@ react-no-ssr@^1.1.0:
   dependencies:
     babel-runtime "6.x.x"
 
+react-papaparse@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-papaparse/-/react-papaparse-3.4.0.tgz#2f84a765fa76e36ca6106a67894dc9f979b9c8f4"
+  integrity sha512-2SvXqBHKFLj6S90cvtwSSU6on+vtts5FWu4vBi7GA2qeBqGE7rP9ymWOVfwYOmKcfIX3MDLRTfZzpahoveZkxA==
+  dependencies:
+    "@types/papaparse" "^5.0.4"
+    papaparse "^5.2.0"
+
 react-reconciler@^0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.21.0.tgz#8180342ab3c8295f860025a86d0a03742a294ea7"
@@ -14882,6 +14902,13 @@ react-transition-group@^4, react-transition-group@^4.0.0, react-transition-group
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-virtual-list@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-virtual-list/-/react-virtual-list-2.3.0.tgz#84ebba7f954bafc4de435e4b29d69fdd371b9cda"
+  integrity sha1-hOu6f5VLr8TeQ15LKdaf3TcbnNo=
+  dependencies:
+    prop-types "^15.5.10"
 
 react-virtualized@^9.21.1:
   version "9.21.2"

@@ -46,6 +46,7 @@ type User {
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting! @relation(name: "UserAdminSettings", link: TABLE)
   viewings: [Viewing!]! @relation(name: "HostViewings")
+  acceptedTermsOfEngagement: Boolean
 }
 
 type AdminSetting {
