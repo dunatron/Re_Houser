@@ -205,7 +205,7 @@ const PropertyDetails = ({ id, location, me }) => {
         )}
         {tabIndex === 5 && (
           <TabContainer>
-            <ShareProperty propertyId={property.id} me={me} />
+            <ShareProperty property={property} me={me} />
           </TabContainer>
         )}
       </PropertyCard>

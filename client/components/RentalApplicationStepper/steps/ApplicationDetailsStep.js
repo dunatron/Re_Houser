@@ -1,4 +1,17 @@
 import React from 'react';
+import {
+  Share,
+  ShareButton,
+  Initialize,
+  Comments,
+  Page,
+  CustomChat,
+  SendToMessenger,
+  Subscribe,
+  Status,
+  CommentsCount,
+  Login,
+} from 'react-facebook';
 import { useQuery, useMutation } from '@apollo/client';
 import {
   Typography,
@@ -153,6 +166,18 @@ const ApplicationDetailsStep = ({
         //   },
         //   ,
         // ]}
+      />
+      <CustomChat
+        // pageId="123456789"
+        minimized={false}
+        href={`http://www.facebook.com/rehousernz/${rentalApplication.id}`}
+      />
+      <Comments
+        width="100%"
+        style={{
+          width: '100%',
+        }}
+        href={`http://www.facebook.com/rehousernz/${rentalApplication.id}`}
       />
       <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
     </div>

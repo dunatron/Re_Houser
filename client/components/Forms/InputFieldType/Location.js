@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 // components
 import LocationPicker from '../../LocationPicker';
@@ -30,12 +31,12 @@ const Location = props => {
   if (!fieldProps.fieldMaps) {
     return 'This form component needs fieldProps.fieldMaps to know how to map the values to your prisma ready object';
   }
-   
+
   const defaultLocation = {
     placeId: rawData ? rawData[config.fieldProps.fieldMaps['placeId']] : null,
-    desc: rawData ?  rawData[config.fieldProps.fieldMaps['desc']]: null,
-    lat: rawData ? rawData[config.fieldProps.fieldMaps['lat']]: null,
-    lng: rawData ? rawData[config.fieldProps.fieldMaps['lng']]: null,
+    desc: rawData ? rawData[config.fieldProps.fieldMaps['desc']] : null,
+    lat: rawData ? rawData[config.fieldProps.fieldMaps['lat']] : null,
+    lng: rawData ? rawData[config.fieldProps.fieldMaps['lng']] : null,
   };
 
   useEffect(() => {

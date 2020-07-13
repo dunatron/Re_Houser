@@ -6,6 +6,7 @@ import { AccommodationInfoFragment } from './accommodationInfo';
 const PropertyInfoFragment = gql`
   fragment propertyInfo on Property {
     id
+    placeId
     type
     createdAt
     updatedAt

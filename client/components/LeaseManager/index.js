@@ -10,6 +10,7 @@ import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
 import CompletedLease from './CompletedLease';
 import SignLease from './SignLease';
 import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
+import LeaseChat from './LeaseChat';
 
 // stages
 import StageInitializing from './stages/Stage_Initializing';
@@ -130,6 +131,7 @@ const LeaseManager = ({ leaseId }) => {
         </>
       )}
       {componentstage}
+      <LeaseChat leaseId={leaseId} />
     </div>
   );
 

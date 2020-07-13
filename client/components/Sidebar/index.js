@@ -251,6 +251,16 @@ const NavigationConfig = (me, loadingUser) => {
       items: [
         {
           icon: ProfileIcon(me),
+          text: 'Social',
+          route: '/social',
+          // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
+          canRender: () => {
+            if (me === null) return false;
+            return true;
+          },
+        },
+        {
+          icon: ProfileIcon(me),
           text: 'Account',
           route: '/account',
           // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults

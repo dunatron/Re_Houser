@@ -22,7 +22,7 @@ class AppEntryPointExtension extends App {
     const { Component, apollo, pageProps } = this.props;
     return (
       <ApolloProvider client={apollo}>
-        <FacebookProvider appId={process.env.FACEBOOK_APP_ID}>
+        <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
           <StateProvider>
             <Head>
               <script src="https://js.stripe.com/v3/" />

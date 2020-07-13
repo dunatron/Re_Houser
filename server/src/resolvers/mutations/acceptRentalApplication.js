@@ -45,6 +45,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
       }
       property {
         id
+        placeId
         location
         locationLat
         locationLng
@@ -85,6 +86,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     parent,
     {
       data: {
+        placeId: property.placeId,
         location: property.location,
         locationLat: property.locationLat,
         locationLng: property.locationLng,
