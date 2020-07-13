@@ -19,8 +19,7 @@ const FreeAppraisal = props => {
     <div>
       <PageHeader
         title="Free Property Appraisal"
-        intro="You will get an email once you have completed the form. We will then
-        send you another email when we have completed the appraisal"
+        intro="Fill out the form and we will generate an appraisal for you."
         metaData={{
           title: 'Free property appraisal',
           content: 'free property appraisal',

@@ -16,6 +16,7 @@ import Leases from './Leases';
 import Applications from './Applications';
 import Activity from '../ActivityManager/Activity';
 import PropertyViewings from './Viewings';
+import ShareProperty from './Share';
 // import Badge from "@material-ui/core/Badge"
 import Badge from '../../styles/Badge';
 import Typography from '@material-ui/core/Typography';
@@ -165,6 +166,7 @@ const PropertyDetails = ({ id, location, me }) => {
           <Tab label="Leases" />
           <Tab label="Activity" />
           <Tab label="Viewings" />
+          <Tab label="Share" />
         </Tabs>
 
         {tabIndex === 0 && (
@@ -199,6 +201,11 @@ const PropertyDetails = ({ id, location, me }) => {
         {tabIndex === 4 && (
           <TabContainer>
             <PropertyViewings propertyId={property.id} me={me} />
+          </TabContainer>
+        )}
+        {tabIndex === 5 && (
+          <TabContainer>
+            <ShareProperty propertyId={property.id} me={me} />
           </TabContainer>
         )}
       </PropertyCard>

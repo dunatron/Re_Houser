@@ -101,7 +101,16 @@ const NavigationConfig = (me, loadingUser) => {
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
-
+        {
+          icon: <HomeWorkIcon />,
+          text: 'Free Appraisal',
+          route: '/freeappraisal',
+          style: { ...defaultNavItemStyle },
+          canRender: () => {
+            if (me === null) return true;
+            return false;
+          },
+        },
         {
           icon: <DashboardIcon />,
           text: 'Dashboard',
@@ -151,56 +160,64 @@ const NavigationConfig = (me, loadingUser) => {
     //     },
     //   ],
     // },
+
     {
       key: 'landlord',
       label: 'Landlords',
-      // canRender: () => {
-      //   if (me === null) return false;
-      //   return true;
-      // },
+      canRender: () => {
+        if (me === null) return false;
+        return true;
+      },
       items: [
         {
           icon: <HomeWorkIcon />,
-          text: 'Free Appraisal',
-          route: '/freeappraisal',
+          text: 'Landlord Portal',
+          route: '/landlord',
           style: { ...defaultNavItemStyle },
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },
-        {
-          icon: <AssignmentIcon />,
-          text: 'Applications',
-          route: '/applications',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
-        {
-          icon: <ApartmentIcon />,
-          text: 'Leases',
-          route: '/leases',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
-        {
-          icon: <HouseIcon />,
-          text: 'Properties',
-          route: '/properties',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
+        // {
+        //   icon: <HomeWorkIcon />,
+        //   text: 'Free Appraisal',
+        //   route: '/freeappraisal',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => true, // set to try just to run it alot on the same account in dev
+        // },
+        // {
+        //   icon: <AssignmentIcon />,
+        //   text: 'Applications',
+        //   route: '/applications',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
+        // {
+        //   icon: <ApartmentIcon />,
+        //   text: 'Leases',
+        //   route: '/leases',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
+        // {
+        //   icon: <HouseIcon />,
+        //   text: 'Properties',
+        //   route: '/properties',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
       ],
     },
     {
       key: 'tenant',
-      label: 'Tenants',
+      label: 'Tenant',
       canRender: () => {
         if (me === null) return false;
         return true;
@@ -208,18 +225,25 @@ const NavigationConfig = (me, loadingUser) => {
       items: [
         {
           icon: <AssignmentIcon />,
-          text: 'Applications',
-          route: '/applications',
+          text: 'Tenant Portal',
+          route: '/tenant',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
-        {
-          icon: <ApartmentIcon />,
-          text: 'Leases',
-          route: '/leases',
-          style: { ...defaultNavItemStyle },
-          canRender: () => true,
-        },
+        // {
+        //   icon: <AssignmentIcon />,
+        //   text: 'Applications',
+        //   route: '/applications',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => true,
+        // },
+        // {
+        //   icon: <ApartmentIcon />,
+        //   text: 'Leases',
+        //   route: '/leases',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => true,
+        // },
       ],
     },
     {
@@ -298,26 +322,27 @@ const Nav = ({ loadingUser, me }) => {
                   <Typography variant="h6">{conf.label}</Typography>
                 </ListItem>
               )}
-              {conf.items.map((item, i) => {
-                if (!item.canRender()) return null;
-                return (
-                  <ListItem
-                    button
-                    key={`${conf.key}${i}`}
-                    onClick={() => {
-                      if (item.action) {
-                        item.action();
-                      } else {
-                        handleLink(item.route);
-                      }
-                    }}>
-                    <ListItemIcon style={item.style ? item.style : null}>
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.text} />
-                  </ListItem>
-                );
-              })}
+              {conf.items &&
+                conf.items.map((item, i) => {
+                  if (!item.canRender()) return null;
+                  return (
+                    <ListItem
+                      button
+                      key={`${conf.key}${i}`}
+                      onClick={() => {
+                        if (item.action) {
+                          item.action();
+                        } else {
+                          handleLink(item.route);
+                        }
+                      }}>
+                      <ListItemIcon style={item.style ? item.style : null}>
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.text} />
+                    </ListItem>
+                  );
+                })}
             </List>
             <Divider />
           </Fragment>

@@ -2,8 +2,10 @@ import OwnerProperties from '../../components/OwnerProperties/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import PageHeader from '../../components/PageHeader';
 import { Typography } from '@material-ui/core';
+import Dashboard from '../../components/Dashboard';
+import LANDLORD_DASHBOARD_CONFIG from '../../lib/configs/landlordDashboardConfig';
 
-const PropertiesPage = props => {
+const LandlordPage = props => {
   const {
     appData: { currentUser },
   } = props;
@@ -28,10 +30,15 @@ const PropertiesPage = props => {
             <strong>{pleaseSignInMessage}</strong>
           </p>
         }>
-        <OwnerProperties me={props.me ? props.me : null} />
+        <Dashboard
+          config={LANDLORD_DASHBOARD_CONFIG}
+          elevation={10}
+          heading="Tenant Portal"
+          intro="Here is the tenant portal dashboard"
+        />
       </PleaseSignIn>
     </>
   );
 };
 
-export default PropertiesPage;
+export default LandlordPage;

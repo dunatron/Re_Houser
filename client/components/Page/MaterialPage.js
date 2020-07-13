@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Sidebar from '../Sidebar';
 
 import AppMenuBar from './AppMenuBar';
+import Footer from '../Footer';
 
 function MaterialPage(props) {
   const theme = useTheme();
@@ -88,6 +89,7 @@ function MaterialPage(props) {
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
           {children}
+          <Footer />
         </main>
         {/* {me && <ChatsBar />} */}
       </div>

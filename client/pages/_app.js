@@ -5,6 +5,7 @@ import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 import Head from 'next/head';
 import { StateProvider } from '../store';
+import { FacebookProvider, Like } from 'react-facebook';
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -21,14 +22,16 @@ class AppEntryPointExtension extends App {
     const { Component, apollo, pageProps } = this.props;
     return (
       <ApolloProvider client={apollo}>
-        <StateProvider>
-          <Head>
-            <script src="https://js.stripe.com/v3/" />
-          </Head>
-          <Page>
-            <Component {...pageProps} />
-          </Page>
-        </StateProvider>
+        <FacebookProvider appId={process.env.FACEBOOK_APP_ID}>
+          <StateProvider>
+            <Head>
+              <script src="https://js.stripe.com/v3/" />
+            </Head>
+            <Page>
+              <Component {...pageProps} />
+            </Page>
+          </StateProvider>
+        </FacebookProvider>
       </ApolloProvider>
     );
   }

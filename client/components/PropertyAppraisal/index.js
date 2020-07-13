@@ -20,7 +20,7 @@ const PropertyAppraisal = props => {
 
   const handleCompleted = data => {
     const { id } = data.createRentalAppraisal;
-    const msg = `Rental Appraisal has been sent. We will send you an email once it has been appraised. \n RentalAppraisal ID ${id}`;
+    const msg = `Rental Appraisal has been requested, you will receive an email confirming this. We will contact you to confirm the appraisal. \n RentalAppraisal ID ${id}`;
     setSentAppraisal(true);
     setMessage(msg);
     toast.success(msg);

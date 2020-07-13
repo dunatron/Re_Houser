@@ -9,8 +9,8 @@ const RentalApplicationsPage = props => {
   return (
     <div>
       <PageHeader
-        title="Your Applications"
-        intro="This is where you can manage and review any rental applications you are involved in"
+        title="My Applications"
+        intro="Manage and review tenancy applications for properties that you have applied for."
         metaData={{
           title: 'Rental applications',
           content: 'Rental applications the current user is involved in',
