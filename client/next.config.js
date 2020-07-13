@@ -35,5 +35,7 @@ module.exports = {
     STRIPE_KEY: process.env.STRIPE_KEY,
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     GOOGLE_RECAPTCHA_SITE_KEY: process.env.GOOGLE_RECAPTCHA_SITE_KEY,
+    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
+    FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
   },
 };
