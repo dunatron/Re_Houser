@@ -267,17 +267,15 @@ function checkNewViewing({ viewing, data }) {
 
 // ToDo: ensure that when the viewing is destroyed, it leaves the connected
 async function createViewing(parent, args, ctx, info) {
-  //   const loggedInUserId = ctx.request.userId;
+  const loggedInUserId = ctx.request.userId;
 
-  //   if (!loggedInUserId) {
-  //     throw new Error("You must be logged in!");
-  //   }
+  if (!loggedInUserId) {
+    throw new Error("You must be logged in!");
+  }
   const { data } = args;
 
   // 1. a viewing will have 1 or more hosts (we want to track what viewings hosts have as to not create viewings with hosts that would clash)
-
   const hostIds = data.hosts.connect.map(host => host.id);
-  console.log("hostIds => ", hostIds);
 
   for (const hostId of hostIds) {
     const hostViewings = await ctx.db.query.viewings({
@@ -295,8 +293,6 @@ async function createViewing(parent, args, ctx, info) {
       });
     }
   }
-
-  throw new Error("No more viewings please");
 
   // 2. get all viewings for users being added to the new viewing and make sure that they wouldnt clash
   // take into account recurring type etc and come up with a way that cross analyses the possibilities etc

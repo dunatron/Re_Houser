@@ -29,6 +29,7 @@ import FileUploader from './../../FileUploader';
 import File from './File';
 import String from './String';
 import Boolean from './Boolean';
+import Money from './Money';
 import Int from './Int';
 import Float from './Float';
 import DateField from './Date';
@@ -138,6 +139,14 @@ const InputFieldType = props => {
             defaultValue={defaultValue}
           />
         );
+      case 'Money':
+        return (
+          <Money
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
       case 'Int':
         return (
           <Int {...props} fieldError={fieldError} defaultValue={defaultValue} />
@@ -218,6 +227,7 @@ InputFieldType.propTypes = {
     'CheckMultipleWithText',
     'Boolean',
     'Int',
+    'Money',
     'Float',
     'Date',
     'DateTime',

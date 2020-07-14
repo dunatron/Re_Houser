@@ -7,3 +7,4 @@ export { default as FileInfoFragment } from './fileInfo';
 export { default as PropertyInfoFragment } from './propertyInfo';
 export { default as AccommodationInfoFragment } from './accommodationInfo';
 export { default as InsulationFormInfoFragment } from './insulationFormInfo';
+export { default as ViewingInfoFragment } from './viewingInfo';

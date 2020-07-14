@@ -29,14 +29,6 @@ async function createRentalAppraisal(parent, args, ctx, info) {
     throw new Error("You must be logged in!");
   }
 
-  if (!property) {
-    await ctx.db.mutation.updateUser({
-      where: {
-        id: loggedInUserId
-      }
-    });
-  }
-
   const rentalAppraisal = await ctx.db.mutation.createRentalAppraisal(
     {
       data: {

@@ -134,6 +134,7 @@ const PRE_TENANCY_FORM_CONF = [
         fieldProps: {
           name: 'yearsAtAddress',
           label: 'Years at current address',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -149,6 +150,7 @@ const PRE_TENANCY_FORM_CONF = [
         fieldProps: {
           name: 'monthsAtAddress',
           label: 'Months at current address',
+          InputProps: { inputProps: { min: 0, max: 12 } },
         },
         refConf: {
           required: {

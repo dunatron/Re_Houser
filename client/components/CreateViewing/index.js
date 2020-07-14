@@ -5,16 +5,20 @@ import { toast } from 'react-toastify';
 
 import EnumSelectOption from '../Inputs/EnumSelectOption';
 import DateInput from '../Inputs/DateInput';
+import BooleanInput from '../Inputs/Boolean';
+import NumberInput from '../Inputs/NumberInput';
 import Error from '../ErrorMessage';
 import Loader from '../Loader';
 // material
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, InputAdornment } from '@material-ui/core';
+import moment from 'moment';
 
 const CreateViewing = ({ propertyId, me }) => {
   const [state, setState] = useState({
-    dateTime: '2020-06-30T17:31:33.263Z',
+    dateTime: moment().format(),
     recurringType: 'ONCE',
-    minutesFor: 90,
+    minutesFor: 30,
+    onRequest: true,
     hosts: [
       {
         id: me.id,
@@ -74,27 +78,45 @@ const CreateViewing = ({ propertyId, me }) => {
       <Loader loading={loading} text="checking for clashes for new viewing" />
     );
 
-  if (error) return <Error error={error} />;
-
   return (
     <div>
-      <DateInput onChange={date => setState({ ...state, dateTime: date })} />
-      <TextField
-        type="number"
+      <Error error={error} />
+      <DateInput
+        onChange={date => setState({ ...state, dateTime: date })}
+        value={state.dateTime}
+      />
+      <NumberInput
         label="Viewing Length"
         helperText="in  15 min intervals with 90 minutes as the max"
-        InputProps={{ inputProps: { min: 15, max: 9, step: 15 } }}
-        onChange={e => setState({ ...state, minutesFor: e.target.value })}
+        name="minutesFor"
+        InputProps={{ inputProps: { min: 15, max: 90, step: 15 } }}
+        endAdornment={<InputAdornment position="end">minutes</InputAdornment>}
+        defaultValue={state.minutesFor}
+        handleChange={v => setState({ ...state, minutesFor: v })}
+      />
+      <BooleanInput
+        name="onRequest"
+        label="hold viewings on request"
+        helperText="Boolean helper text. Like we will create viewings on client request"
+        defaultChecked={state.onRequest}
+        handleChange={v =>
+          setState({
+            ...state,
+            onRequest: v,
+          })
+        }
       />
       <EnumSelectOption
         __type="RecurringType"
         value={state.recurringType}
+        defaultValue={state.recurringType}
         name="recurringType"
         label="Recurring Type"
         selectID="recurringType"
         helperText="You need a recurring type"
         handleChange={v => setState({ ...state, recurringType: v })}
       />
+      <Error error={error} />
       <Button onClick={handleCreateViewing}>Create Viewing</Button>
     </div>
   );

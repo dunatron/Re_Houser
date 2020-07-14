@@ -14,8 +14,9 @@ function TabContainer(props) {
       aria-labelledby={`wrapped-tab-${index}`}
       {...other}>
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
+        <Box>
+          {children}
+          {/* <Typography>{children}</Typography> */}
         </Box>
       )}
     </div>

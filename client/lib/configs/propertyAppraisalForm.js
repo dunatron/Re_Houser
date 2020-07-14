@@ -34,6 +34,7 @@ const PROPERTY_APPRAISAL_CONF = [
         fieldProps: {
           name: 'rooms',
           label: 'number of bedrooms on the property',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -64,6 +65,7 @@ const PROPERTY_APPRAISAL_CONF = [
         fieldProps: {
           name: 'garageSpaces',
           label: 'number of garages spaces on the property',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {

@@ -119,6 +119,6 @@ enum RecurringType {
   ONCE
   DAILY
   WEEKLY
-  FORTNIGHTLY
-  MONTHLY
+  # FORTNIGHTLY
+  # MONTHLY
 }

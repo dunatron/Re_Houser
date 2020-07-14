@@ -223,6 +223,15 @@ type Query {
     where: RentalApplicationWhereUniqueInput!
   ): RentalApplication!
   rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
+  viewings(
+    where: ViewingWhereInput
+    orderBy: ViewingOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Viewing!]!
   rentalApplicationsConnection(
     where: RentalApplicationWhereInput
     orderBy: RentalApplicationOrderByInput

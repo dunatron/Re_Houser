@@ -177,11 +177,16 @@ type File {
 type Property implements PropertyInfo {
   id: ID! @unique @id # google placesId is too looong look below
   placeId: String! @unique
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   type: PropertyType
   headline: String
   rooms: Int!
+  maximumOccupants: Int
+  rent: Float!
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -194,13 +199,11 @@ type Property implements PropertyInfo {
   indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   heatSources: [HeatSource] @scalarList(strategy: RELATION)
-  rent: Float!
   moveInDate: DateTime
   expiryDate: DateTime
+  leaseLengthInMonths: Int
   onTheMarket: Boolean!
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
+
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]!
@@ -218,7 +221,7 @@ type Property implements PropertyInfo {
   tenancyType: TenancyType
   petsAllowed: Boolean
   pets: [Pet] @scalarList(strategy: RELATION)
-  maximumOccupants: Int
+
   chattels: [PropertyChattel] @scalarList(strategy: RELATION)
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
@@ -235,6 +238,7 @@ type Viewing {
   createdAt: DateTime! @createdAt
   dateTime: DateTime!
   minutesFor: Int!
+  onRequest: Boolean
   recurringType: RecurringType!
   notes: String
   hosts: [User!]! @relation(name: "HostViewings")
@@ -261,6 +265,7 @@ type PropertyLease implements PropertyInfo {
   rent: Float!
   moveInDate: DateTime
   expiryDate: DateTime
+  leaseLengthInMonths: Int
   location: String!
   locationLat: Float!
   locationLng: Float!

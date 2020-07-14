@@ -1,4 +1,6 @@
 import INSULATIONFORM_CONF from '../../lib/configs/insulationStatementForm';
+import MaskedInput from 'react-text-mask';
+import NumberFormat from 'react-number-format';
 
 const CREATE_PROPERTY_FORM_CONF = [
   // {
@@ -132,7 +134,7 @@ const CREATE_PROPERTY_FORM_CONF = [
       },
       // tenancyType
       {
-        type: 'Int',
+        type: 'Money',
         key: 'rent',
         fieldProps: {
           name: 'rent',
@@ -151,6 +153,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'rooms',
           label: 'rooms',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -166,6 +169,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'maximumOccupants',
           label: 'Maximum occupants',
+          InputProps: { inputProps: { min: 1 } },
         },
         refConf: {
           required: {
@@ -181,6 +185,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'bathrooms',
           label: 'bathrooms',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -214,6 +219,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'garageSpaces',
           label: 'Garage Spaces',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -228,6 +234,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'carportSpaces',
           label: 'Carport Spaces',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -242,6 +249,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'offStreetSpaces',
           label: 'Offstreet spaces',
+          InputProps: { inputProps: { min: 0 } },
         },
         refConf: {
           required: {
@@ -284,7 +292,7 @@ const CREATE_PROPERTY_FORM_CONF = [
         key: 'heatSources',
         fieldProps: {
           name: 'heatSources',
-          label: 'select all valid heat source on propery',
+          label: 'select heat sources',
         },
         refConf: {},
       },

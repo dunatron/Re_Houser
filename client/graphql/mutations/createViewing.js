@@ -1,20 +1,13 @@
 import gql from 'graphql-tag';
+import * as fragments from '../fragments';
 
 const CREATE_VIEWING_MUTATION = gql`
   mutation CREATE_VIEWING_MUTATION($data: ViewingCreateInput!) {
     createViewing(data: $data) {
-      id
-      dateTime
-      recurringType
-      minutesFor
-      hosts {
-        id
-        email
-        firstName
-        lastName
-      }
+      ...viewingInfo
     }
   }
+  ${fragments.ViewingInfoFragment}
 `;
 
 export { CREATE_VIEWING_MUTATION };

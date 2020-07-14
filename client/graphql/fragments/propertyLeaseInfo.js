@@ -40,6 +40,7 @@ const PropertyLeaseInfoFragment = gql`
     rent
     moveInDate
     expiryDate
+    leaseLengthInMonths
     location
     locationLat
     locationLng

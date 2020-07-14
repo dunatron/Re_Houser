@@ -49,6 +49,7 @@ const EnumSelectOption = props => {
     selectID,
     helperText,
     handleChange,
+    defaultValue,
   } = props;
 
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
@@ -63,13 +64,11 @@ const EnumSelectOption = props => {
     <FormControl className={classes.formControl}>
       {label && <InputLabel htmlFor={selectID}>{label}</InputLabel>}
       <Select
-        value={value}
-        // onChange={e => handleChange(e.target.value)}
-        onChange={handleChange}
+        defaultValue={defaultValue ? defaultValue : ''}
         displayEmpty
         name={name}
         className={classes.selectEmpty}
-        {...props}>
+        onChange={e => handleChange(e.target.value)}>
         {data &&
           data.__type.enumValues.map((v, i) => {
             return (
@@ -79,7 +78,7 @@ const EnumSelectOption = props => {
             );
           })}
       </Select>
-      {helperText && <FormHelperText>Without label</FormHelperText>}
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 };

@@ -7,43 +7,60 @@ const PropertyInfoFragment = gql`
   fragment propertyInfo on Property {
     id
     placeId
-    type
-    createdAt
-    updatedAt
-    moveInDate
-    expiryDate
-    onTheMarket
-    isLeased
-    lastLeaseId
     location
     locationLat
     locationLng
-    carportSpaces
-    garageSpaces
-    offStreetSpaces
-    outdoorFeatures
-    indoorFeatures
+    updatedAt
+    createdAt
+    type
+    headline
     rooms
+    maximumOccupants
     rent
     lowestRoomPrice
     highestRoomPrice
     useAdvancedRent
-    creator {
-      ...publicUserInfo
-    }
-    owners {
-      ...publicUserInfo
-    }
     accommodation {
       ...accommodationInfo
     }
+    bathrooms
+    garageSpaces
+    carportSpaces
+    offStreetSpaces
     insulationForm {
       id
+    }
+    outdoorFeatures
+    indoorFeatures
+    heatSources
+    moveInDate
+    expiryDate
+    leaseLengthInMonths
+    onTheMarket
+    owners {
+      ...publicUserInfo
+    }
+    creator {
+      ...publicUserInfo
     }
     images {
       ...fileInfo
     }
+    acceptedTerms
+    isLeased
+    lastLeaseId
+    leaseExpiryDate
     rehouserStamp
+    tenancyType
+    petsAllowed
+    pets
+    chattels
+    landlordProtectionCover
+    freeGlassCover
+    workingAlarms
+    inHallway3mOfEachBedroom
+    tenYearPhotoelectricAlarms
+    alarmsEachLevel
   }
   ${FileInfoFragment}
   ${PublicUserInfoFragment}
