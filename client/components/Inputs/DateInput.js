@@ -7,6 +7,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    marginBottom: theme.spacing(2),
   },
 });
 
@@ -34,7 +35,7 @@ const DateInput = props => {
   return (
     <TextField
       {...props}
-      className={classes.textField}
+      className={classes.root}
       id={id ? id : 'default-datePicker'}
       label={label ? label : 'Some Date'}
       margin="normal"
@@ -45,7 +46,6 @@ const DateInput = props => {
         const formattedDate = moment(e.target.value).format();
         onChange(formattedDate);
       }}
-      className={classes.textField}
       InputLabelProps={{
         shrink: true,
       }}

@@ -9,33 +9,9 @@ import { useQuery } from '@apollo/client';
 import { GET_ENUM_QUERY } from '../../graphql/queries';
 
 const styles = theme => ({
-  root: {
-    textAlign: 'left',
-    width: '100%',
-    boxSizing: 'border-box',
-  },
-  formContainer: {
-    height: theme.spacing(6),
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
   formControl: {
     minWidth: '220px',
-    margin: theme.spacing(6),
-  },
-  button: {
-    borderRadius: 0,
-  },
-  codeEditor: {
-    display: 'flex',
-    height: `calc(100vh - ${theme.spacing(28) + 4}px )`,
-    margin: `0 -${theme.spacing(4)}px`,
-  },
-  editorField: {
-    overflowX: 'auto',
-    flexBasis: 0,
-    flexGrow: 1,
+    marginBottom: theme.spacing(2),
   },
 });
 
@@ -61,7 +37,7 @@ const EnumSelectOption = props => {
   if (error) return null;
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} fullWidth>
       {label && <InputLabel htmlFor={selectID}>{label}</InputLabel>}
       <Select
         defaultValue={defaultValue ? defaultValue : ''}

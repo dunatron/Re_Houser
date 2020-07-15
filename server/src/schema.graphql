@@ -129,6 +129,10 @@ type Mutation {
   createPayment(data: PaymentCreateInput!): Payment!
   updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
   createViewing(data: ViewingCreateInput!): Viewing!
+  updateViewing(
+    data: ViewingUpdateInput!
+    where: ViewingWhereUniqueInput!
+  ): Viewing
 }
 
 type Subscription {

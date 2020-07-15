@@ -43,6 +43,7 @@ const uploadSignature = require("./mutations/uploadSignature");
 const createPayment = require("./mutations/createPayment");
 const updateWallet = require("./mutations/updateWallet");
 const createViewing = require("./mutations/createViewing");
+const updateViewing = require("./mutations/updateViewing");
 const deleteViewing = require("./mutations/deleteViewing");
 
 // a collection of our business logic mutations
@@ -89,6 +90,7 @@ const mutations = {
   createPayment,
   updateWallet,
   createViewing,
+  updateViewing,
   deleteViewing
 };
 

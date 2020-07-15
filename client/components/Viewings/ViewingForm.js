@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { withStyles } from '@material-ui//core/styles';
 import { useMutation } from '@apollo/client';
 import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
 import { toast } from 'react-toastify';
@@ -19,6 +20,13 @@ import {
 } from '@material-ui/core';
 import moment from 'moment';
 
+const styles = theme => ({
+  root: {
+    marginBottom: theme.spacing(4),
+    // padding: theme.spacing(2),
+  },
+});
+
 const ViewingForm = ({
   viewing,
   propertyId,
@@ -26,7 +34,9 @@ const ViewingForm = ({
   where,
   cancel,
   error,
+  loading,
   onSave,
+  classes,
 }) => {
   const [state, setState] = useState({
     dateTime: viewing ? viewing.dateTime : moment().format(),
@@ -46,11 +56,11 @@ const ViewingForm = ({
   });
 
   const handleSave = () => {
-    onSave();
+    onSave(state);
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Error error={error} />
       <DateInput
         onChange={date => setState({ ...state, dateTime: date })}
@@ -88,10 +98,12 @@ const ViewingForm = ({
         handleChange={v => setState({ ...state, recurringType: v })}
       />
       <Error error={error} />
-      <Button onClick={handleSave}>Save Viewing</Button>
+      <Button onClick={handleSave} disabled={loading}>
+        Save Viewing
+      </Button>
       <Button onClick={cancel}>CANCEL</Button>
     </div>
   );
 };
 
-export default ViewingForm;
+export default withStyles(styles)(ViewingForm);

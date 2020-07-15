@@ -1,21 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormControlLabel, FormHelperText, Switch } from '@material-ui/core';
+import { withStyles } from '@material-ui//core/styles';
 
-/**
- * Uncontrolled input component for performance becaus ethey are the best
- */
+const styles = theme => ({
+  wrapper: {
+    marginBottom: theme.spacing(2),
+  },
+});
+
 const BooleanInput = ({
   name,
   label,
   helperText,
   defaultChecked,
   handleChange,
+  classes,
   ...rest
 }) => {
   return (
-    <div>
+    <div className={classes.wrapper}>
       <FormControlLabel
+        fullWidth
         control={
           <Switch
             {...rest}
@@ -40,4 +46,4 @@ BooleanInput.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default BooleanInput;
+export default withStyles(styles)(BooleanInput);

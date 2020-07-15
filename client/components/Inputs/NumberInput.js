@@ -4,8 +4,17 @@ import {
   InputAdornment,
   FormControl,
   Input,
+  InputLabel,
   FormHelperText,
 } from '@material-ui/core';
+import { withStyles } from '@material-ui//core/styles';
+
+const styles = theme => ({
+  formControl: {
+    minWidth: '220px',
+    marginBottom: theme.spacing(2),
+  },
+});
 
 const NumberInput = ({
   name,
@@ -13,6 +22,7 @@ const NumberInput = ({
   helperText,
   handleChange,
   InputProps,
+  classes,
   ...rest
 }) => {
   const onChange = e => {
@@ -20,8 +30,10 @@ const NumberInput = ({
     handleChange(nextVal);
   };
   return (
-    <FormControl>
+    <FormControl className={classes.formControl} fullWidth>
+      <InputLabel htmlFor={`number-input-${name}`}>{label}</InputLabel>
       <Input
+        id={`number-input-${name}`}
         type="number"
         inputProps={InputProps ? InputProps.inputProps : {}}
         onChange={onChange}
@@ -35,4 +47,4 @@ const NumberInput = ({
   );
 };
 
-export default NumberInput;
+export default withStyles(styles)(NumberInput);

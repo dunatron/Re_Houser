@@ -1,35 +1,37 @@
 import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
-import { toast } from 'react-toastify';
+import { withStyles } from '@material-ui/core/styles';
+import { useQuery, useMutation } from '@apollo/client';
 import { VIEWINGS_QUERY } from '../../graphql/queries';
+import { toast } from 'react-toastify';
+import {
+  DELETE_VIEWING,
+  UPDATE_VIEWING_MUTATION,
+  CREATE_VIEWING_MUTATION,
+} from '../../graphql/mutations';
+import PropTypes from 'prop-types';
 
-import EnumSelectOption from '../Inputs/EnumSelectOption';
-import DateInput from '../Inputs/DateInput';
-import BooleanInput from '../Inputs/Boolean';
-import NumberInput from '../Inputs/NumberInput';
+import Loading from '../Loader';
 import Error from '../ErrorMessage';
-import Loader from '../Loader';
-// material
-import { Button, TextField, InputAdornment } from '@material-ui/core';
-import moment from 'moment';
 
-const CreateViewing = ({ propertyId, me, where }) => {
+// types
+import OnceViewing from './types/Once';
+import DailyViewing from './types/Daily';
+import WeeklyViewing from './types/Weekly';
+
+import ViewingForm from './ViewingForm';
+
+import { Button } from '@material-ui/core';
+
+const styles = theme => ({
+  root: {},
+  createBtn: {
+    marginBottom: theme.spacing(2),
+  },
+});
+
+const CreateViewing = ({ propertyId, me, where, classes }) => {
+  // they need to be an admin or one of the owners on the property
   const [isCreating, setIsCreating] = useState(false);
-  const [state, setState] = useState({
-    dateTime: moment().format(),
-    recurringType: 'ONCE',
-    minutesFor: 30,
-    onRequest: true,
-    hosts: [
-      {
-        id: me.id,
-        firstName: '',
-        lastName: '',
-        email: '',
-      },
-    ],
-  });
 
   const handleCompleted = data => {
     toast(
@@ -48,7 +50,7 @@ const CreateViewing = ({ propertyId, me, where }) => {
     );
   };
 
-  const [createViewing, { loading, error }] = useMutation(
+  const [createViewing, { loading, error, data }] = useMutation(
     CREATE_VIEWING_MUTATION,
     {
       onCompleted: handleCompleted,
@@ -56,20 +58,20 @@ const CreateViewing = ({ propertyId, me, where }) => {
     }
   );
 
-  const handleCreateViewing = () => {
+  const handleCreateViewing = data => {
     createViewing({
       variables: {
         data: {
-          dateTime: state.dateTime,
-          recurringType: state.recurringType,
-          minutesFor: state.minutesFor,
+          dateTime: data.dateTime,
+          recurringType: data.recurringType,
+          minutesFor: data.minutesFor,
           property: {
             connect: {
               id: propertyId,
             },
           },
           hosts: {
-            connect: state.hosts.map(host => ({ id: host.id })),
+            connect: data.hosts.map(host => ({ id: host.id })),
           },
         },
       },
@@ -83,64 +85,33 @@ const CreateViewing = ({ propertyId, me, where }) => {
       ],
     });
   };
-
-  if (loading)
-    return (
-      <Loader loading={loading} text="checking for clashes for new viewing" />
-    );
-
-  if (!isCreating)
-    return (
-      <Button onClick={() => setIsCreating(true)} color="primary">
-        Create New Viewing
-      </Button>
-    );
-
   return (
-    <div>
-      <Button onClick={() => setIsCreating(false)} color="error">
-        Cancel create viewing
-      </Button>
-      <Error error={error} />
-      <DateInput
-        onChange={date => setState({ ...state, dateTime: date })}
-        value={state.dateTime}
-      />
-      <NumberInput
-        label="Viewing Length"
-        helperText="in  15 min intervals with 90 minutes as the max"
-        name="minutesFor"
-        InputProps={{ inputProps: { min: 15, max: 90, step: 15 } }}
-        endAdornment={<InputAdornment position="end">minutes</InputAdornment>}
-        defaultValue={state.minutesFor}
-        handleChange={v => setState({ ...state, minutesFor: v })}
-      />
-      <BooleanInput
-        name="onRequest"
-        label="hold viewings on request"
-        helperText="Boolean helper text. Like we will create viewings on client request"
-        defaultChecked={state.onRequest}
-        handleChange={v =>
-          setState({
-            ...state,
-            onRequest: v,
-          })
-        }
-      />
-      <EnumSelectOption
-        __type="RecurringType"
-        value={state.recurringType}
-        defaultValue={state.recurringType}
-        name="recurringType"
-        label="Recurring Type"
-        selectID="recurringType"
-        helperText="You need a recurring type"
-        handleChange={v => setState({ ...state, recurringType: v })}
-      />
-      <Error error={error} />
-      <Button onClick={handleCreateViewing}>Create Viewing</Button>
+    <div className={classes.root}>
+      {/* {!isCreating ? (
+        <Button onClick={() => setIsCreating(true)}>Add Viewing</Button>
+      ) : (
+        <Button onClick={() => setIsCreating(false)}>Cancel add viewing</Button>
+      )} */}
+
+      {!isCreating && (
+        <Button
+          className={classes.createBtn}
+          onClick={() => setIsCreating(true)}
+          color="primary">
+          Add Viewing
+        </Button>
+      )}
+
+      {isCreating && (
+        <ViewingForm
+          loading={loading}
+          cancel={() => setIsCreating(false)}
+          me={me}
+          onSave={handleCreateViewing}
+        />
+      )}
     </div>
   );
 };
 
-export default CreateViewing;
+export default withStyles(styles)(CreateViewing);
