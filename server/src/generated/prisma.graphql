@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Jul 14 2020 15:09:33 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
+# timestamp: Tue Jul 14 2020 17:37:11 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -17493,8 +17493,6 @@ enum RecurringType {
   ONCE
   DAILY
   WEEKLY
-  FORTNIGHTLY
-  MONTHLY
 }
 
 type RentalApplication implements Node {

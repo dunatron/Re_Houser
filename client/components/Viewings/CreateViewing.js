@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
 import { toast } from 'react-toastify';
+import { VIEWINGS_QUERY } from '../../graphql/queries';
 
 import EnumSelectOption from '../Inputs/EnumSelectOption';
 import DateInput from '../Inputs/DateInput';
@@ -13,7 +14,8 @@ import Loader from '../Loader';
 import { Button, TextField, InputAdornment } from '@material-ui/core';
 import moment from 'moment';
 
-const CreateViewing = ({ propertyId, me }) => {
+const CreateViewing = ({ propertyId, me, where }) => {
+  const [isCreating, setIsCreating] = useState(false);
   const [state, setState] = useState({
     dateTime: moment().format(),
     recurringType: 'ONCE',
@@ -35,6 +37,7 @@ const CreateViewing = ({ propertyId, me }) => {
         <h1>New Viewing created</h1>
       </div>
     );
+    setIsCreating(false);
   };
 
   const handleError = error => {
@@ -70,6 +73,14 @@ const CreateViewing = ({ propertyId, me }) => {
           },
         },
       },
+      refetchQueries: [
+        {
+          query: VIEWINGS_QUERY,
+          variables: {
+            where: { ...where },
+          },
+        },
+      ],
     });
   };
 
@@ -78,8 +89,18 @@ const CreateViewing = ({ propertyId, me }) => {
       <Loader loading={loading} text="checking for clashes for new viewing" />
     );
 
+  if (!isCreating)
+    return (
+      <Button onClick={() => setIsCreating(true)} color="primary">
+        Create New Viewing
+      </Button>
+    );
+
   return (
     <div>
+      <Button onClick={() => setIsCreating(false)} color="error">
+        Cancel create viewing
+      </Button>
       <Error error={error} />
       <DateInput
         onChange={date => setState({ ...state, dateTime: date })}

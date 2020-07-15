@@ -24,6 +24,7 @@ import { CREATE_RENTAL_APPRAISAL_MUTATION } from './createRentalAppraisal';
 import { OFFER_RENTAL_APPRAISAL_MUTATION } from './offerRentalAppraisal';
 import { UPLOAD_SIGNATURE_FILE } from './uploadSignature';
 import { CREATE_VIEWING_MUTATION } from './createViewing';
+import { DELETE_VIEWING } from './deleteViewing';
 
 export {
   SIGNUP_MUTATION,
@@ -52,4 +53,5 @@ export {
   OFFER_RENTAL_APPRAISAL_MUTATION,
   UPLOAD_SIGNATURE_FILE,
   CREATE_VIEWING_MUTATION,
+  DELETE_VIEWING,
 };

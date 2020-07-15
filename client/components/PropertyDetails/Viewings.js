@@ -9,13 +9,14 @@ const PropertyViewings = ({ propertyId, me }) => {
 
       <Viewings
         propertyId={propertyId}
+        me={me}
         where={{
           property: {
             id: propertyId,
           },
         }}
       />
-      <CreateViewing propertyId={propertyId} me={me} />
+      {/* <CreateViewing propertyId={propertyId} me={me} /> */}
       {/* <ViewingsTable where={{}} /> */}
     </div>
   );

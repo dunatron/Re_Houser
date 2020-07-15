@@ -1,8 +1,10 @@
 // i will get a list of viewings attached to the property
 // i will also need to displayh like a calendar or something that will show when viewings are
 // lol fuck I almost have to repeat that fucken server logic since the actual dates will be out of wack
-import { useQuery } from '@apollo/client';
+import { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import { VIEWINGS_QUERY } from '../../graphql/queries';
+import { DELETE_VIEWING } from '../../graphql/mutations';
 import PropTypes from 'prop-types';
 
 import Loading from '../Loader';
@@ -13,7 +15,12 @@ import OnceViewing from './types/Once';
 import DailyViewing from './types/Daily';
 import WeeklyViewing from './types/Weekly';
 
-const Viewings = ({ where }) => {
+import CreateViewing from './CreateViewing';
+import ViewingForm from './ViewingForm';
+
+import { Button } from '@material-ui/core';
+
+const Viewings = ({ where, me, propertyId }) => {
   const { loading, error, data } = useQuery(VIEWINGS_QUERY, {
     variables: {
       where: { ...where },
@@ -38,10 +45,17 @@ const Viewings = ({ where }) => {
 
   return (
     <div>
-      I am a list of viewings
+      <CreateViewing propertyId={propertyId} me={me} where={where} />
       {data.viewings &&
         data.viewings.map((viewing, idx) => {
-          return <RenderViewingByRecurringType viewing={viewing} />;
+          return (
+            <div>
+              <RenderViewingByRecurringType viewing={viewing} me={me} />
+              <Actions viewing={viewing} me={me} where={where} />
+              <hr />
+            </div>
+          );
+          return <RenderViewingByRecurringType viewing={viewing} me={me} />;
           return (
             <div>
               <div>ID: {viewing.id}</div>
@@ -68,7 +82,80 @@ const Viewings = ({ where }) => {
   );
 };
 
-const RenderViewingByRecurringType = ({ viewing, ...rest }) => {
+const DeleteViewing = ({ viewing, where }) => {
+  const [deleteViewing, { loading, error, data }] = useMutation(
+    DELETE_VIEWING,
+    {
+      variables: {
+        where: {
+          id: viewing.id,
+        },
+      },
+      refetchQueries: [
+        {
+          query: VIEWINGS_QUERY,
+          variables: {
+            where: { ...where },
+          },
+        },
+      ],
+    }
+  );
+  return (
+    <Button onClick={deleteViewing} disabled={loading} color="secondary">
+      DELETE VIEWING
+    </Button>
+  );
+};
+
+const EditViewing = ({ viewing, where, me }) => {
+  const [editing, setEditing] = useState(false);
+  if (!editing)
+    return (
+      <Button color="primary" onClick={() => setEditing(true)}>
+        EDIT VIEWING
+      </Button>
+    );
+  return (
+    <div>
+      <ViewingForm
+        viewing={viewing}
+        cancel={() => setEditing(false)}
+        me={me}
+        onSave={() => alert('HOC SAVE VIEWING FORM')}
+      />
+    </div>
+  );
+};
+
+// only render actions if they are a host for this viewing or an admin
+const Actions = ({ viewing, me, where }) => {
+  const [actioning, setActioning] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { hosts } = viewing;
+
+  console.log('The hosts for the viewing => ', hosts);
+  console.log('The hosts for the viewing => ', hosts);
+
+  const _canView = () => {
+    if (!me) return false;
+    if (hosts.filter(host => host.id === me.id)) return true;
+    if (me.permissions.includes('ADMIN')) return true;
+    return false;
+  };
+
+  if (!_canView()) return null;
+
+  return (
+    <div>
+      <EditViewing viewing={viewing} where={where} me={me} />
+      <DeleteViewing viewing={viewing} where={where} />
+    </div>
+  );
+};
+
+// add actions to the viewing
+const RenderViewingByRecurringType = ({ viewing, me, ...rest }) => {
   switch (viewing.recurringType) {
     case 'ONCE':
       return <OnceViewing {...rest} />;
