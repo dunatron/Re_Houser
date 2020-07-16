@@ -86,11 +86,11 @@ const Actions = ({ viewing, me, where }) => {
 const RenderViewingByRecurringType = ({ viewing, me, ...rest }) => {
   switch (viewing.recurringType) {
     case 'ONCE':
-      return <OnceViewing {...rest} />;
+      return <OnceViewing viewing={viewing} {...rest} />;
     case 'DAILY':
-      return <DailyViewing {...rest} />;
+      return <DailyViewing viewing={viewing} {...rest} />;
     case 'WEEKLY':
-      return <WeeklyViewing {...rest} />;
+      return <WeeklyViewing viewing={viewing} {...rest} />;
     default:
       return null;
   }

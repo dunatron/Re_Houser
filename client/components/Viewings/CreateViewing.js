@@ -1,3 +1,4 @@
+import gql from 'graphql-tag';
 import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { useQuery, useMutation } from '@apollo/client';
@@ -55,6 +56,35 @@ const CreateViewing = ({ propertyId, me, where, classes }) => {
     {
       onCompleted: handleCompleted,
       onError: handleError,
+      // not seeming to work
+      // optimisticResponse: {
+      //   __typename: 'Mutation',
+      //   createViewing: {
+      //     __typename: 'Viewing',
+      //     id: 'testid',
+      //     recurringType: 'ONCE',
+      //     // dateTime: data.dateTime,
+      //     // minutesFor: data.minutesFor,
+      //     // ...data, // spreading this data probs wont work due to whats on it
+      //   },
+      // },
+      update(cache, { data: { createViewing } }) {
+        cache.modify({
+          fields: {
+            viewings(existingViewingRefs = [], { readField }) {
+              const newViewingRef = cache.writeFragment({
+                data: createViewing,
+                fragment: gql`
+                  fragment NewViewing on Viewing {
+                    id
+                  }
+                `,
+              });
+              return [...existingViewingRefs, newViewingRef];
+            },
+          },
+        });
+      },
     }
   );
 
@@ -75,14 +105,26 @@ const CreateViewing = ({ propertyId, me, where, classes }) => {
           },
         },
       },
-      refetchQueries: [
-        {
-          query: VIEWINGS_QUERY,
-          variables: {
-            where: { ...where },
-          },
-        },
-      ],
+      // not seeming to work
+      // optimisticResponse: {
+      //   __typename: 'Mutation',
+      //   createViewing: {
+      //     __typename: 'Viewing',
+      //     id: 'testid',
+      //     recurringType: 'ONCE',
+      //     dateTime: data.dateTime,
+      //     minutesFor: data.minutesFor,
+      //     // ...data, // spreading this data probs wont work due to whats on it
+      //   },
+      // },
+      // refetchQueries: [
+      //   {
+      //     query: VIEWINGS_QUERY,
+      //     variables: {
+      //       where: { ...where },
+      //     },
+      //   },
+      // ],
     });
   };
   return (

@@ -1,4 +1,27 @@
+const { checkForClashes } = require("../../lib/clashings/clashingsAPI");
+
 async function updateViewing(parent, { data, where }, ctx, info) {
+  const hostIds = data.hosts.set.map(host => host.id);
+
+  const viewingToUpdate = await ctx.db.query.viewing(
+    {
+      where
+    },
+    `id, property {id}`
+  );
+
+  // you will need to somehow exclude the viewing that is going to be updated.
+  // so possibly pass in excludeViewingIds
+
+  await checkForClashes({
+    // propertyId: data.property ? data.property.connect.id : null,
+    propertyId: viewingToUpdate.property.id, // we will need to query and get the viewing first to get its propertyId...
+    hostIds: hostIds,
+    data: data,
+    ctx: ctx,
+    excludeViewingIds: [viewingToUpdate.id]
+  });
+
   const viewing = await ctx.db.mutation.updateViewing(
     {
       data,

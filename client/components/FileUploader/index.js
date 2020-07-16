@@ -566,6 +566,9 @@ const FileManager = props => {
     //   key => key.match(/^File/) && client.cache.data.delete(key)
     // );
 
+    // OK TODO AND TOTEST we have finally reached a stable release for apollo client 3.0
+    // test that we dont have to refetch the queries
+
     // client.cache.gc();
     // This still only handle it for the component. e.g removing the photoIdentification doesnt update t in account if you do it from the stepper
     // need to find it from initialFiles and removit

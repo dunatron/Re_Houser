@@ -21,6 +21,12 @@ import ViewingForm from './ViewingForm';
 
 import { Button } from '@material-ui/core';
 
+/**
+ * APollo client 3.0 stable is here
+ * test cache.gc() ie we are deleting this viewing ideally the cache knows that this object is no longer reachable...
+ * also for onCreate and onUpdate lets try the best methods to add and update with minimal code... can we have policies for this...
+ * cache.evict({ id: 'my-object-id' })
+ */
 const DeleteViewing = ({ viewing, where }) => {
   const [deleteViewing, { loading, error, data }] = useMutation(
     DELETE_VIEWING,
@@ -30,14 +36,28 @@ const DeleteViewing = ({ viewing, where }) => {
           id: viewing.id,
         },
       },
-      refetchQueries: [
-        {
-          query: VIEWINGS_QUERY,
-          variables: {
-            where: { ...where },
+
+      update(cache, { data: { deleteViewing } }) {
+        const idToRemove = deleteViewing.id;
+        cache.modify({
+          // id: cache.identify(deleteViewing), // so do this made it like not work...
+          fields: {
+            viewings(existingViewingsRefs, { readField }) {
+              console.log('existingViewingsRefs => ', existingViewingsRefs);
+              console.log('existingViewingsRefs => ', existingViewingsRefs);
+
+              const filteredRefs = existingViewingsRefs.filter(viewingRef => {
+                const readId = readField('id', viewingRef);
+                console.log('The read ID => ', readId);
+              });
+              console.log('filteredRefs => ', filteredRefs);
+              return existingViewingsRefs.filter(
+                viewingRef => idToRemove !== readField('id', viewingRef)
+              );
+            },
           },
-        },
-      ],
+        });
+      },
     }
   );
   return (
