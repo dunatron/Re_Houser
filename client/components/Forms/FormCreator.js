@@ -124,7 +124,10 @@ const FormCreator = props => {
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
-      <div>
+      <div
+        style={{
+          marginBottom: '16px',
+        }}>
         {configIsValid(config) &&
           config.map((item, idx) => {
             return (

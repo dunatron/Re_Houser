@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import Map from '../Map';
 import OfficeLocation from './OfficeLocation';
+import ContactForm from './ContactForm';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,6 +14,7 @@ const ContactComponent = () => {
   return (
     <div>
       <div></div>
+
       <OfficeLocation
         name="Christchurch office"
         physicalLines={[
@@ -53,6 +55,7 @@ const ContactComponent = () => {
           },
         }}
       />
+      <ContactForm />
     </div>
   );
 };

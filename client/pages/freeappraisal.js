@@ -26,7 +26,7 @@ const FreeAppraisal = props => {
         }}>
         {!data.me && (
           <Typography variant="h6" gutterBottom>
-            Our platform requires that you be logged in to submit a free
+            Our platform requires that you be logged in to request a free
             appraisal{' '}
           </Typography>
         )}

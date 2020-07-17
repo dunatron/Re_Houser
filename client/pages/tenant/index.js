@@ -15,7 +15,7 @@ const TenantPage = props => {
     <>
       <PageHeader
         title="Tenant Portal"
-        intro="Welcome to the Tenant Portal. From here you can manage your applications and your leases"
+        intro="Welcome to the Tenant Portal. From here you can manage your applications and your lease"
         children={[]}
         metaData={{
           title: 'Tenant Portal',

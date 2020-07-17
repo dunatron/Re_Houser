@@ -163,7 +163,7 @@ const NavigationConfig = (me, loadingUser) => {
 
     {
       key: 'landlord',
-      label: 'Landlords',
+      // label: 'Landlords',
       canRender: () => {
         if (me === null) return false;
         return true;
@@ -217,7 +217,7 @@ const NavigationConfig = (me, loadingUser) => {
     },
     {
       key: 'tenant',
-      label: 'Tenant',
+      // label: 'Tenant',
       canRender: () => {
         if (me === null) return false;
         return true;

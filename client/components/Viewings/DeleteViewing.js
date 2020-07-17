@@ -43,14 +43,6 @@ const DeleteViewing = ({ viewing, where }) => {
           // id: cache.identify(deleteViewing), // so do this made it like not work...
           fields: {
             viewings(existingViewingsRefs, { readField }) {
-              console.log('existingViewingsRefs => ', existingViewingsRefs);
-              console.log('existingViewingsRefs => ', existingViewingsRefs);
-
-              const filteredRefs = existingViewingsRefs.filter(viewingRef => {
-                const readId = readField('id', viewingRef);
-                console.log('The read ID => ', readId);
-              });
-              console.log('filteredRefs => ', filteredRefs);
               return existingViewingsRefs.filter(
                 viewingRef => idToRemove !== readField('id', viewingRef)
               );

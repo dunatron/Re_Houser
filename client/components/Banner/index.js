@@ -49,7 +49,8 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     width: '100%',
     overflow: 'hidden',
-    opacity: props => (props.loadingImage ? 0 : 1),
+    // opacity: props => (props.loadingImage ? 0 : 1),
+    opacity: props => (props.loadingImage ? 0 : 0.64),
     transition: `opacity 2000ms cubic-bezier(0.4, 0.0, 0.2, 1)`,
     backgroundImage: props =>
       props.loadingImage

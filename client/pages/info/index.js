@@ -6,7 +6,7 @@ const InfoDashboardPage = () => {
   return (
     <>
       <PageHeader
-        title="Rehouser Info"
+        title="Info"
         intro="You can find sections with different information about rehouser and how things work including our policies"
         metaData={{
           title: 'info',
