@@ -42,7 +42,11 @@ const useStyles = makeStyles(theme => {
     toolbar: {
       ...theme.mixins.toolbar,
     },
-    logoContainer: {},
+    logoContainer: {
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
     logo: {
       color: theme.palette.primary.main,
       fontSize: '36px',

@@ -15,6 +15,7 @@ import Loader from '../Loader/index';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import PropertiesTable from '../Tables/PropertiesTable';
 import { OWNER_PROPERTIES_QUERY } from '../../graphql/queries';
+import AddIcon from '@material-ui/icons/Add';
 
 import { Button } from '@material-ui/core';
 
@@ -97,8 +98,8 @@ const OwnerProperties = ({ me }) => {
   };
 
   const goToAddBulkProperty = () => {
-    handleLink('/properties/bulkadd')
-  }
+    handleLink('/properties/bulkadd');
+  };
 
   const toggleOnTheMarket = dataObj => {
     const current = dataObj.onTheMarket;
@@ -132,8 +133,14 @@ const OwnerProperties = ({ me }) => {
         close={() => closeModal()}>
         {renderModalDetails()}
       </Modal>
-      <div>
-        <Button onClick={goToAddPropertyPage}>Add Property</Button>
+      <div style={{ marginBottom: '16px' }}>
+        <Button
+          onClick={goToAddPropertyPage}
+          color="primary"
+          startIcon={<AddIcon />}
+          variant="contained">
+          Property
+        </Button>
         <Button onClick={goToAddBulkProperty}>Bulk Upload</Button>
       </div>
       <PropertiesTable properties={data ? data.ownerProperties : []} me={me} />

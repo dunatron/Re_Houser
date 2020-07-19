@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Banner from '../components/Banner';
 
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, IconButton } from '@material-ui/core';
 import ChangeRouteButton from '../components/Routes/ChangeRouteButton';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import LookPage from './look';
 
@@ -13,7 +14,13 @@ const HomePage = props => {
   // query={{ id: data.createProperty.id }}
   return (
     <div>
-      <Banner imageSrc="images/banners/home-page-banner.jpg">
+      <Banner
+        imageSrc="images/banners/home-page-banner.jpg"
+        footer={[
+          <Typography variant="h5" style={{ textAlign: 'center' }}>
+            Turning empty houses into friendly abodes
+          </Typography>,
+        ]}>
         <Typography
           variant="h4"
           style={{ marginBottom: '64px', textAlign: 'center' }}>
@@ -32,17 +39,23 @@ const HomePage = props => {
             color="secondary"
             route="/freeappraisal"
           />
-          <Button variant="contained" color="primary" href="#property-search">
-            Look for rental
-          </Button>
+          <ChangeRouteButton
+            title="Look for rental"
+            variant="contained"
+            color="primary"
+            route="/look"
+          />
         </div>
         <Typography
-          variant="h5"
+          variant="h6"
           style={{ marginTop: '64px', textAlign: 'center' }}>
-          Turning empty houses into friendly abodes
+          Read More
         </Typography>
+        <IconButton aria-label="read-more" href="#read-more">
+          <ArrowDownwardIcon fontSize="large" />
+        </IconButton>
       </Banner>
-      <div>
+      <div id="read-more">
         <Typography>No information barriers</Typography>
         <Typography component="ul">
           <Typography component="li">
@@ -65,7 +78,7 @@ const HomePage = props => {
           </Typography>
         </Typography>
       </div>
-      <LookPage {...props} />
+      {/* <LookPage {...props} /> */}
     </div>
   ); // Notice its a page so we need to spread page props.
 };

@@ -1,6 +1,7 @@
 import Dashboard from '../../components/Dashboard';
 import INFO_DASHBOARD_CONFIG from '../../lib/configs/infoDashboardConfig';
 import PageHeader from '../../components/PageHeader';
+import ContactForm from '../../components/Contact/ContactForm';
 
 const InfoDashboardPage = () => {
   return (
@@ -20,6 +21,7 @@ const InfoDashboardPage = () => {
         heading=""
         intro=""
       />
+      <ContactForm />
     </>
   );
 };

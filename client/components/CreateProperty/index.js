@@ -70,8 +70,8 @@ const CreatePropertyComponent = props => {
   // I wonder if we are best to display some information
   // that lets them confirm all of this data
   const submitFormWithData = data => {
-    setIsChecking(true);
     setSubmittedData(data);
+    setIsChecking(true);
     // createProperty({
     //   variables: {
     //     data: {
@@ -138,23 +138,14 @@ const CreatePropertyComponent = props => {
         close={() => setIsChecking(false)}
         title="check details"
         disableBackdrop={true}>
-        <CheckAndSubmit data={submittedData} />
+        <CheckAndSubmit
+          formData={submittedData}
+          me={me}
+          handleCompleted={handleCompleted}
+        />
       </Modal>
       {/* id, close, title, open, fullScreen, disableBackdrop */}
-      <Typography gutterBottom variant="h5">
-        Rehouser Services Contract
-      </Typography>
-      <Typography component="ol">
-        <Typography component="li">PARTIES</Typography>
-        <Typography>Letting Agent: Rehouser Limited.</Typography>
-        <Typography>
-          Owner: {me.firstName} {me.lastName}
-        </Typography>
-        <Typography component="li">ADDRESS FOR SERVICE DELIVERY</Typography>
-        <Typography component="span">
-          Owner Address: 20 Sawtell Place. Our office
-        </Typography>
-      </Typography>
+
       {!me.acceptedTermsOfEngagement && (
         <div>
           <Typography variant="h4">

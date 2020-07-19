@@ -72,13 +72,21 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    color: theme.palette.primary.contrastText,
+    padding: theme.spacing(3),
+    width: '100%',
+    backgroundColor: theme.palette.primary.main,
+  },
 }));
 
 ///images/banners/home-page-banner.jpg
 const Banner = props => {
   const bannerNode = useRef();
   const [loadingImage, setLoadingImage] = useState(true);
-  const { imageSrc, text, children } = props;
+  const { imageSrc, text, children, footer } = props;
   const classes = useStyles({ ...props, loadingImage });
   const handleOnImageLoad = () => {
     setLoadingImage(false);
@@ -118,6 +126,7 @@ const Banner = props => {
           <Loader loading={loadingImage} text="wating for image to render" />
         )}
         {children}
+        {footer && <div className={classes.footer}>{footer}</div>}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import DonutSmallIcon from '@material-ui/icons/DonutSmall';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
+import AddIcon from '@material-ui/icons/Add';
 
 const LANDLORD_DASHBOARD_CONFIG = [
   {
@@ -20,6 +21,13 @@ const LANDLORD_DASHBOARD_CONFIG = [
     color: 'secondary',
   },
   {
+    icon: <AddIcon />,
+    label: 'Add Property',
+    route: '/properties/add',
+    description: 'Add property to the platform',
+    color: 'secondary',
+  },
+  {
     icon: <HouseIcon />,
     label: 'Properties',
     route: '/properties',
@@ -27,13 +35,13 @@ const LANDLORD_DASHBOARD_CONFIG = [
       'Review your properties. This is where you can accept applications for your property and do general management for your property',
     color: 'secondary',
   },
-  {
-    icon: <ApartmentIcon />,
-    label: 'Leases',
-    route: '/leases',
-    description: 'Review your leases for your properties',
-    color: 'secondary',
-  },
+  // {
+  //   icon: <ApartmentIcon />,
+  //   label: 'Leases',
+  //   route: '/leases',
+  //   description: 'Review your leases for your properties',
+  //   color: 'secondary',
+  // },
 ];
 
 export default LANDLORD_DASHBOARD_CONFIG;
