@@ -10,7 +10,7 @@ exports.checkForClashes = async function({
   hostIds,
   propertyId,
   data,
-  excludeViewingIds
+  excludeViewingIds,
 }) {
   // ToDo: combine the hostViewings and propertyViewings and remove the duplicates and run the check for one array
   // check for host clashes
@@ -18,21 +18,21 @@ exports.checkForClashes = async function({
     const hostViewings = await ctx.db.query.viewings({
       where: {
         hosts_some: {
-          id_contains: hostId
-        }
-      }
+          id_contains: hostId,
+        },
+      },
     });
 
     // ToDo: filter excludeViewingIds
 
     const filteredHostViewings = hostViewings.filter(
-      viewing => !excludeViewingIds.includes(viewing.id)
+      (viewing) => !excludeViewingIds.includes(viewing.id)
     );
 
     for (const viewing of filteredHostViewings) {
       await checkForViewingClash({
         viewing: viewing,
-        data: data
+        data: data,
       });
     }
   }
@@ -42,20 +42,20 @@ exports.checkForClashes = async function({
     const propertyViewings = await ctx.db.query.viewings({
       where: {
         property: {
-          id: propertyId
-        }
-      }
+          id: propertyId,
+        },
+      },
     });
 
     // ToDo: excludeViewingIds
     const filteredPropertyViewings = propertyViewings.filter(
-      viewing => !excludeViewingIds.includes(viewing.id)
+      (viewing) => !excludeViewingIds.includes(viewing.id)
     );
 
     for (const viewing of filteredPropertyViewings) {
       await checkForViewingClash({
         viewing: viewing,
-        data: data
+        data: data,
       });
     }
   }
@@ -90,13 +90,13 @@ function checkMonthlyViewing({ viewing: viewing, data: data }) {
       .set({
         day: viewingDateTime.get("day"),
         hour: viewingDateTime.get("hour"),
-        minute: viewingDateTime.get("minute")
+        minute: viewingDateTime.get("minute"),
       })
       .add(i, "months")
       .format();
     let viewingData = {
       ...viewing,
-      dateTime: date
+      dateTime: date,
     };
     checkNewViewing({ viewing: viewingData, data: data });
     i++;
@@ -111,13 +111,13 @@ function checkFortnightlyViewing({ viewing, data }) {
       .set({
         day: viewingDateTime.get("day"),
         hour: viewingDateTime.get("hour"),
-        minute: viewingDateTime.get("minute")
+        minute: viewingDateTime.get("minute"),
       })
       .add(i * 2, "weeks")
       .format();
     let viewingData = {
       ...viewing,
-      dateTime: date
+      dateTime: date,
     };
     checkNewViewing({ viewing: viewingData, data: data });
     i++;
@@ -127,18 +127,23 @@ function checkFortnightlyViewing({ viewing, data }) {
 function checkWeeklyViewing({ viewing, data }) {
   var i = 0;
   const viewingDateTime = moment(viewing.dateTime);
-  while (i < 8) {
+  // hmm to be full accurate its actually 52...
+  // also havnt thought about t but may be more complicated for fronigth and monthly
+  // I will addreess all these properly when I feel like I have Sign(requires sign)
+  // 51 coz of a funny rounding feeling on the calendar, and what and edge case if reverese
+  while (i < 51) {
+    // while (i < 8) {
     var date = moment()
       .set({
         day: viewingDateTime.get("day"),
         hour: viewingDateTime.get("hour"),
-        minute: viewingDateTime.get("minute")
+        minute: viewingDateTime.get("minute"),
       })
       .add(i, "weeks")
       .format();
     let viewingData = {
       ...viewing,
-      dateTime: date
+      dateTime: date,
     };
     checkNewViewing({ viewing: viewingData, data: data });
     i++;
@@ -152,13 +157,13 @@ function checkDailyViewing({ viewing, data }) {
     var date = moment()
       .set({
         hour: time.get("hour"),
-        minute: time.get("minute")
+        minute: time.get("minute"),
       })
       .add(i, "days")
       .format();
     let viewingData = {
       ...viewing,
-      dateTime: date
+      dateTime: date,
     };
     checkNewViewing({ viewing: viewingData, data: data });
     i++;

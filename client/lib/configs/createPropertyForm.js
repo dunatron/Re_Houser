@@ -71,6 +71,21 @@ const CREATE_PROPERTY_FORM_CONF = [
     },
   },
   {
+    type: 'Money',
+    key: 'bankAccNumber',
+    fieldProps: {
+      name: 'bankAccNumber',
+      label: 'bankAccNumber',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'You need to supply the bankAccNumber that we will pay out your profit too',
+      },
+    },
+  },
+  {
     type: 'Section',
     fieldProps: {
       label: 'Details',

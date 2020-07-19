@@ -208,6 +208,7 @@ const CreatePropertyComponent = props => {
       {me.acceptedTermsOfEngagement && (
         <FormCreator
           title="Property"
+          data={{}}
           isNew={true}
           config={CREATE_PROPERTY_FORM_CONF}
           onSubmit={submitFormWithData}
