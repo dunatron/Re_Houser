@@ -76,6 +76,11 @@ const propertyFrag = {
       },
     ],
   },
+  proofOfOwnership: {
+    connect: {
+      id: imagesList[0].id,
+    },
+  },
   images: {
     connect: [
       {

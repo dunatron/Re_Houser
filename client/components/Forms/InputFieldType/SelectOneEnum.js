@@ -45,7 +45,12 @@ export default function SimpleSelect(props) {
     errors,
     defaultValues,
     helperText,
+    fieldError,
   } = props;
+
+  const yuckErr = errors[name]; //thats why I labelled it yuck, shold work with architecture right.. .SO check this out wehen you have time
+
+  console.log('Tell me of these errors => ', errors);
 
   const { type, inners, fieldProps, refConf } = config;
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
@@ -66,10 +71,16 @@ export default function SimpleSelect(props) {
   if (!fieldProps) return 'This form component needs fieldProps';
 
   // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
+  // useEffect(() => {
+  //   register({ name: fieldProps.name }, refConf);
+  //   if (!defaultValue) setValue(fieldProps.name, []);
+  // }, []);
+
   useEffect(() => {
-    register({ name: fieldProps.name }, refConf);
-    if (!defaultValue) setValue(fieldProps.name, []);
-  }, [register]);
+    if (config.refConf) {
+      register({ name: config.key }, { ...config.refConf });
+    }
+  }, []);
 
   // if (loading)
   //   return (
@@ -103,12 +114,18 @@ export default function SimpleSelect(props) {
 
   return (
     <>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <FormControl
+        variant="outlined"
+        className={classes.formControl}
+        error={yuckErr}>
         <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
+
         <Select
           defaultValue={is(Array, defaultValue) ? defaultValue : []}
           onChange={e => handleOnValueChange(e)}
           label={label}
+          error={yuckErr}
+          helperText={fieldError}
           inputProps={{
             name: fieldProps.name,
             id: fieldProps.name,
@@ -130,6 +147,7 @@ export default function SimpleSelect(props) {
               );
             })}
         </Select>
+        <FieldError errors={errors} name={config.key} />
       </FormControl>
       {inners &&
         inners.map((inner, idx) => {

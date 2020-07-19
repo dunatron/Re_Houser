@@ -172,6 +172,8 @@ type File {
   preTenancyProofOfAddress: PreTenancyForm
     @relation(name: "PreTenancyProofOfAddress")
   userProofOfAddress: User @relation(name: "UserProofOfAddress")
+  propertyOwnershipProof: Property @relation(name: "ProofOfOwnership")
+  propertyImages: Property @relation(name: "PropertyImages")
 }
 
 type Property implements PropertyInfo {
@@ -203,10 +205,10 @@ type Property implements PropertyInfo {
   expiryDate: DateTime
   leaseLengthInMonths: Int
   onTheMarket: Boolean!
-
   owners: [User!]! @relation(name: "PropertyOwner")
   creator: User! @relation(name: "PropertyCreator")
-  images: [File!]!
+  images: [File!]! @relation(name: "PropertyImages", link: TABLE)
+  proofOfOwnership: File @relation(name: "ProofOfOwnership", link: TABLE)
   acceptedTerms: Boolean
   # floorPlans: File
   rentalApplications: [RentalApplication]

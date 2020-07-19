@@ -13,13 +13,14 @@ const useStyles = makeStyles(theme => {
     },
 
     // MAYBE THIS FFS
-    appBar: {
+    rehouserAppBar: {
       // backgroundColor: props =>
       //   props.noTransparency
       //     ? theme.overrides.MuiAppBar
       //       ? `${theme.overrides.MuiAppBar.colorPrimary.backgroundColor} !important`
       //       : `${theme.palette.background.paper} !important`
       //     : 'transparent !important',
+      width: '100%',
       [theme.breakpoints.up('lg')]: {
         width: `calc(100% - ${theme.sideBarWidth}px)`,
       },

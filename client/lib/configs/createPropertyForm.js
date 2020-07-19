@@ -299,6 +299,53 @@ const CREATE_PROPERTY_FORM_CONF = [
     ],
   },
   {
+    type: 'File',
+    key: 'images',
+    fieldProps: {
+      isMultiple: true,
+      maxFilesAllowed: 5,
+      name: 'images',
+      label: 'Images',
+      description: 'You need some images',
+    },
+    refConf: {},
+  },
+  {
+    type: 'String',
+    key: 'bankAccNumber',
+    fieldProps: {
+      isMultiple: false,
+      maxFilesAllowed: 1,
+      name: 'bankAccNumber',
+      label: 'bankAccNumber',
+      description:
+        'This is your proof of  address so we can confrim you are who you say you are. TODO: THIS SHOULD BE a property entity',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'You need to upoad a file that proves you own the property',
+      },
+    },
+  },
+  {
+    type: 'File',
+    key: 'proofOfOwnership',
+    fieldProps: {
+      isMultiple: false,
+      maxFilesAllowed: 1,
+      name: 'proofOfOwnership',
+      label: 'proofOfOwnership',
+      description: 'You need to upoad a file that proves you own the property',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'You need to upoad a file that proves you own the property',
+      },
+    },
+  },
+  {
     type: 'Section',
     fieldProps: {
       label: 'Dates Section',
@@ -426,23 +473,6 @@ const CREATE_PROPERTY_FORM_CONF = [
         refConf: {},
       },
     ],
-  },
-  {
-    type: 'File',
-    key: 'images',
-    fieldProps: {
-      isMultiple: true,
-      maxFilesAllowed: 5,
-      name: 'images',
-      label: 'Images',
-      description: 'You need some images',
-    },
-    refConf: {
-      required: {
-        value: true,
-        message: 'You need some images',
-      },
-    },
   },
 ];
 export { CREATE_PROPERTY_FORM_CONF };

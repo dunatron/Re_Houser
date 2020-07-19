@@ -7,6 +7,11 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import LookPage from './look';
 
+import ContactForm from '../components/Contact/ContactForm';
+import Fees from '../components/Fees';
+import TeamInfoText from '../components/Team/TeamInfoText';
+import Team from '../components/Team/index';
+
 const HomePage = props => {
   const {
     appData: { currentUser },
@@ -51,11 +56,11 @@ const HomePage = props => {
           style={{ marginTop: '64px', textAlign: 'center' }}>
           Read More
         </Typography>
-        <IconButton aria-label="read-more" href="#read-more">
+        <IconButton aria-label="read-more" href="#banner-footer">
           <ArrowDownwardIcon fontSize="large" />
         </IconButton>
       </Banner>
-      <div id="read-more">
+      <div>
         <Typography>No information barriers</Typography>
         <Typography component="ul">
           <Typography component="li">
@@ -79,6 +84,13 @@ const HomePage = props => {
         </Typography>
       </div>
       {/* <LookPage {...props} /> */}
+
+      <Fees />
+      <br />
+      <TeamInfoText />
+      <br />
+      <ContactForm />
+      <Team />
     </div>
   ); // Notice its a page so we need to spread page props.
 };

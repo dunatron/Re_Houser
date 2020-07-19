@@ -20,17 +20,22 @@ import SuccessPaper from '../../components/SuccessPaper';
 import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
 import CheckAndSubmit from './CheckAndSubmit';
 import Modal from '../Modal';
+import LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF from '../../lib/configs/landlordTermsOfEngagementForm';
 
 const CreatePropertyComponent = props => {
   const { me } = props;
   const [createdPropertyId, setCreatedPropertyId] = useState(null);
-  const [isChecking, setIsChecking] = useState(true);
+  const [createdData, setCreatedData] = useState({});
+  const [isChecking, setIsChecking] = useState(false);
   const [submittedData, setSubmittedData] = useState({});
   // No idea how the fuck me is getting into here
   if (!me) return 'You must be logged in to create a property appraisal';
 
-  const handleCompleted = data => {
+  const handlePropertyCreated = data => {
+    console.log('data at level 3... => ', data);
+    setCreatedData(data);
     setCreatedPropertyId(data.createProperty.id);
+    setIsChecking(false);
     toast.success(
       <div>
         <p>New Property Created</p>
@@ -42,18 +47,6 @@ const CreatePropertyComponent = props => {
       </div>
     );
   };
-
-  const [createProperty, { loading, error, data }] = useMutation(
-    CREATE_PROPERTY_MUTATION,
-    {
-      // onCompleted: data => handleCompleted(data),
-      onCompleted: handleCompleted,
-      refetchQueries: [
-        { query: PROPERTIES_QUERY },
-        { query: OWNER_PROPERTIES_QUERY },
-      ],
-    }
-  );
 
   const [
     acceptedTermsOfEngagement,
@@ -121,7 +114,7 @@ const CreatePropertyComponent = props => {
         <ChangeRouteButton
           title="Go to property"
           route="/properties/property"
-          query={{ id: data.createProperty.id }}
+          query={{ id: createdData.createProperty.id }}
           variant="contained"
           color="primary"
         />
@@ -141,7 +134,7 @@ const CreatePropertyComponent = props => {
         <CheckAndSubmit
           formData={submittedData}
           me={me}
-          handleCompleted={handleCompleted}
+          handlePropertyCreated={handlePropertyCreated}
         />
       </Modal>
       {/* id, close, title, open, fullScreen, disableBackdrop */}
@@ -152,8 +145,52 @@ const CreatePropertyComponent = props => {
             Too add Property to our platform you must first accept the terms of
             engagement
           </Typography>
-          <TermsOfEngagement me={me} />
-          <Button
+          {/* Accept Terms Text */}
+          <TermsOfEngagement />
+          <Typography>
+            I was fishing in some humble pussy the other day
+          </Typography>
+          <Typography>
+            I swallowed my pride, then the weed made me coof it up
+          </Typography>
+          <Typography></Typography>
+          <Typography>Aint afraid to die, just afraid to die sober</Typography>
+          <Typography>Switching up my swag, bitch my swag bipolar</Typography>
+          <Typography>
+            Gettin with that weed and beam, give me self esteem
+          </Typography>
+          <Typography>
+            I merc your bitch/radio arse like radio ra....
+          </Typography>
+          <Typography>Got that chineese aka</Typography>
+
+          <Typography>That ouzi machine</Typography>
+          <Typography>That banna clip</Typography>
+          <Typography>all I need is peaches and cream.</Typography>
+          <br />
+          <Typography>Marching on the sun</Typography>
+          <Typography>Stomping on the moon</Typography>
+          <Typography>French Kiss a nun</Typography>
+          <Typography>With posion on my toungue</Typography>
+          <Typography>Smoking on that good</Typography>
+          <Typography>Coffing up a lung</Typography>
+          <br />
+          <FormCreator
+            config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
+            onSubmit={data => {
+              console.log('Terms of engagement data => ', data);
+              acceptedTermsOfEngagement({
+                variables: {
+                  data: {
+                    acceptedTermsOfEngagement: true,
+                  },
+                },
+              });
+            }}
+          />
+          {/* <Typography>immortal forever if i...</Typography> */}
+          {/* <TermsOfEngagement me={me} /> */}
+          {/* <Button
             disabled={acceptedTermsOfEngagementProps.loading}
             onClick={() => {
               acceptedTermsOfEngagement({
@@ -165,7 +202,7 @@ const CreatePropertyComponent = props => {
               });
             }}>
             I Accept the terms of engagement
-          </Button>
+          </Button> */}
         </div>
       )}
       {me.acceptedTermsOfEngagement && (
@@ -173,8 +210,6 @@ const CreatePropertyComponent = props => {
           title="Property"
           isNew={true}
           config={CREATE_PROPERTY_FORM_CONF}
-          error={error}
-          posting={loading}
           onSubmit={submitFormWithData}
         />
       )}

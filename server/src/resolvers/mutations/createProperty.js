@@ -1,9 +1,9 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode
+  addPropertySearchNode,
 } = require("../../lib/algolia/propertySearchApi");
-const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail")
+const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail");
 
 var fs = require("fs"),
   path = require("path"),
@@ -42,11 +42,11 @@ async function createProperty(parent, { data, files }, ctx, info) {
           lowestRoomPrice,
           highestRoomPrice,
           rent: averageRoomPrice,
-          rooms: numberOfRooms
+          rooms: numberOfRooms,
           // images: {
           //   connect: connectFileIds,
           // },
-        }
+        },
       },
       info
     );
@@ -59,38 +59,37 @@ async function createProperty(parent, { data, files }, ctx, info) {
         type: "CREATED_PROPERTY",
         property: {
           connect: {
-            id: property.id
-          }
+            id: property.id,
+          },
         },
         user: {
           connect: {
-            id: loggedInUserId
-          }
-        }
-      }
+            id: loggedInUserId,
+          },
+        },
+      },
     });
     addPropertySearchNode({
       propertyId: property.id,
-      db: ctx.db
+      db: ctx.db,
     });
 
-
-    const user = ctx.bb.query.user({
+    const user = ctx.db.query.user({
       where: {
-        id: loggedInUserId
-      }
-    })
+        id: loggedInUserId,
+      },
+    });
 
     // let admin know new property has been created. Frodo loves his leads. Ohh a lead
     propertyCreatedEmail({
-      toEmail: 'admin@rehouser.co.nz', 
-      user: user
-    })
+      toEmail: "admin@rehouser.co.nz",
+      user: user,
+    });
 
     // wow maybe return the thing too......
     return property;
   } catch (e) {
-    throw new Error("An error occurred trying to create your property");
+    throw new Error(`An error occurred trying to create your property ${e}`);
   }
 }
 

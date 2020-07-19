@@ -25,10 +25,14 @@ const useStyles = makeStyles({
     // margin: 0, // ovverrider for negative margin
     margin: '0 -13px', // small bug for spacing 3 not
   },
+  gridItem: {
+    justifyContent: 'center',
+  },
   cardRoot: {
     // minWidth: 275,
     maxWidth: 250,
     marginRight: '8px',
+    justifyContent: 'center',
   },
   bullet: {
     display: 'inline-block',
@@ -73,6 +77,7 @@ const TeamComponent = () => {
           {TEAM_CONFIG.map((member, idx) => {
             return (
               <Grid
+                className={classes.gridItem}
                 item
                 xs={12}
                 sm={6}

@@ -21,45 +21,29 @@ import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
 import Error from '../../components/ErrorMessage';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
+import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
-const CheckAndSubmit = ({
-  me,
-  // formData,
-  setCreatedPropertyId,
-  handleCompleted,
-}) => {
-  // console.log('Submitted create form data to check => ', formData);
-
-  const formData = {
-    alarmsEachLevel: true,
-    bathrooms: 2,
-    carportSpaces: 2,
-    chattels: {
-      set: ['GAS_FIRE', 'WALL_OVEN', 'RANGE_HOOD', 'DISH_WASHER', 'ALARM'],
-    },
-    expiryDate: '2020-07-20',
-    freeGlassCover: true,
-    garageSpaces: 2,
-    heatSources: { set: [] },
-    inHallway3mOfEachBedroom: true,
-    indoorFeatures: { set: [] },
-    landlordProtectionCover: true,
-    location: '44 Dundee Place, Strathern, Invercargill, New Zealand',
-    locationLat: -46.4284828,
-    locationLng: 168.3774941,
-    maximumOccupants: 2,
-    moveInDate: '2020-07-01',
-    offStreetSpaces: 2,
-    outdoorFeatures: { set: [] },
-    petsAllowed: false,
-    placeId: 'ChIJe-dTwVXE0qkRQVCg92hJ38s',
-    rent: '$780',
-    rooms: 3,
-    tenYearPhotoelectricAlarms: true,
-    tenancyType: 'FIXED',
-    type: 'TOWNHOUSE',
-    workingAlarms: true,
+const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
+  const handleCompleted = data => {
+    // toast.success(
+    //   <div>
+    //     <p>New Property Created</p>
+    //     <ChangeRouteButton
+    //       title="Go to property"
+    //       route="/properties/property"
+    //       query={{ id: data.createProperty.id }}
+    //     />
+    //   </div>
+    // );
+    console.log('Data is being passed here => ', data);
+    handlePropertyCreated(data);
   };
+
+  var rent = formData.rent;
+  const extractRentFloat = Number(rent.replace(/[^0-9\.-]+/g, ''));
+  const rentVal = extractRentFloat * 100;
+
+  console.log('The rentVal => ', rentVal);
 
   const [createProperty, { loading, error, data }] = useMutation(
     CREATE_PROPERTY_MUTATION,
@@ -71,6 +55,36 @@ const CheckAndSubmit = ({
       ],
     }
   );
+
+  const handleCreate = () => {
+    createProperty({
+      variables: {
+        data: {
+          ...formData,
+          rent: rentVal,
+          onTheMarket: false,
+          useAdvancedRent: false,
+          owners: {
+            connect: {
+              id: me.id,
+            },
+          },
+          creator: {
+            connect: {
+              id: me.id,
+            },
+          },
+          insulationForm: formData.insulationForm
+            ? {
+                create: {
+                  ...formData.insulationForm,
+                },
+              }
+            : {},
+        },
+      },
+    });
+  };
 
   return (
     <>
@@ -250,35 +264,7 @@ const CheckAndSubmit = ({
         disabled={loading}
         color="primary"
         variant="outlined"
-        onClick={() =>
-          createProperty({
-            variables: {
-              data: {
-                ...formData,
-                rent: parseInt(formData.rent) * 100,
-                onTheMarket: false,
-                useAdvancedRent: false,
-                owners: {
-                  connect: {
-                    id: me.id,
-                  },
-                },
-                creator: {
-                  connect: {
-                    id: me.id,
-                  },
-                },
-                insulationForm: formData.insulationForm
-                  ? {
-                      create: {
-                        ...formData.insulationForm,
-                      },
-                    }
-                  : {},
-              },
-            },
-          })
-        }>
+        onClick={handleCreate}>
         Create Property
       </Button>
     </>

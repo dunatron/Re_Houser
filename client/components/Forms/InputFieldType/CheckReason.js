@@ -94,6 +94,7 @@ const CheckReason = props => {
                 errors={errors}
                 setValue={setValue}
                 reset={reset}
+                defaultValues={defaultValues}
               />
             </div>
           );

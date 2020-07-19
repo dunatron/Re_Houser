@@ -51,7 +51,7 @@ const AppMenuBar = props => {
   });
 
   const barClasses = clsx(
-    classes.appBar,
+    classes.rehouserAppBar,
     noTransparency ? classes.appBarSolid : classes.appBarTransparent
   );
 

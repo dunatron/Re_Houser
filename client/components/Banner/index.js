@@ -126,7 +126,11 @@ const Banner = props => {
           <Loader loading={loadingImage} text="wating for image to render" />
         )}
         {children}
-        {footer && <div className={classes.footer}>{footer}</div>}
+        {footer && (
+          <div id="banner-footer" className={classes.footer}>
+            {footer}
+          </div>
+        )}
       </div>
     </div>
   );

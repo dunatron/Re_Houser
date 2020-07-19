@@ -1,4 +1,5 @@
 import TextInput from '../../Inputs/TextInput';
+import { useState } from 'react';
 
 const StringInput = props => {
   const {
@@ -17,6 +18,8 @@ const StringInput = props => {
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
+
+  const helperText = useState(fieldProps.helperText);
   return (
     <>
       <TextInput
@@ -26,7 +29,7 @@ const StringInput = props => {
         label={label}
         style={{ marginTop: 0 }}
         error={fieldError ? true : false}
-        helperText={fieldError}
+        helperText={fieldError ? fieldError : helperText}
         inputRef={register ? register(refConf) : null}
       />
     </>
