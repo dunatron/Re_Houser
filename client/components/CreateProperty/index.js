@@ -31,6 +31,8 @@ const CreatePropertyComponent = props => {
   // No idea how the fuck me is getting into here
   if (!me) return 'You must be logged in to create a property appraisal';
 
+  console.log('tell me about me => ', me);
+
   const handlePropertyCreated = data => {
     setCreatedData(data);
     setCreatedPropertyId(data.createProperty.id);
@@ -65,8 +67,23 @@ const CreatePropertyComponent = props => {
 
   // I wonder if we are best to display some information
   // that lets them confirm all of this data
+  //   ? {
+  //     create: {
+  //       ...data.bankDetails,
+  //     },
+  //   }
+  // : {},
   const submitFormWithData = data => {
-    setSubmittedData(data);
+    setSubmittedData({
+      ...data,
+      bankDetails: data.bankDetails
+        ? {
+            create: {
+              ...data.bankDetails,
+            },
+          }
+        : {},
+    });
     setIsChecking(true);
     // createProperty({
     //   variables: {
@@ -144,21 +161,32 @@ const CreatePropertyComponent = props => {
 
       {!me.acceptedTermsOfEngagement && (
         <div>
-          <Typography variant="h4">
-            Too add Property to our platform you must first accept the terms of
+          <Typography variant="h5" gutterBottom>
+            To add Property to our platform you must first accept the terms of
             engagement
           </Typography>
           {/* Accept Terms Text */}
           <TermsOfEngagement />
           <br />
           <FormCreator
+            title="huh"
+            isNew={true}
+            error={acceptedTermsOfEngagementProps.error}
+            posting={acceptedTermsOfEngagementProps.loading}
+            createText="Submit terms of engagement"
             config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
             onSubmit={data => {
-              console.log('Terms of engagement data => ', data);
               acceptedTermsOfEngagement({
                 variables: {
                   data: {
-                    acceptedTermsOfEngagement: true,
+                    ...data,
+                    bankDetails: data.bankDetails
+                      ? {
+                          create: {
+                            ...data.bankDetails,
+                          },
+                        }
+                      : {},
                   },
                 },
               });
@@ -185,7 +213,7 @@ const CreatePropertyComponent = props => {
         <FormCreator
           title="Property"
           data={{
-            bankAccNumber: 'sdfsdf',
+            bankDetails: me.bankDetails ? me.bankDetails : {},
           }}
           isNew={true}
           config={CREATE_PROPERTY_FORM_CONF}

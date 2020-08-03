@@ -58,6 +58,13 @@ const UserInfoFragment = gql`
       leaseCreatedSub
     }
     acceptedTermsOfEngagement
+    bankDetails {
+      name
+      bankNumber
+      branchNumber
+      accountNumber
+      suffix
+    }
   }
   ${FileInfoFragment}
 `;

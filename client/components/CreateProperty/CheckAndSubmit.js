@@ -254,11 +254,6 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
       <Typography variant="body1" gutterBottom>
         alarmsEachLevel: {formData.alarmsEachLevel ? 'Yes' : 'No'}
       </Typography>
-      <Typography gutterBottom>
-        Stay in ya' lane, I remind these lil' boys This is victory lane, now do
-        I need a horn The struggle is real, and the Bible too long I'm writing
-        my will, and I'm typing my won'ts
-      </Typography>
       <Error error={error} />
       <Button
         disabled={loading}

@@ -1,5 +1,5 @@
-# source: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
-# timestamp: Sun Jul 19 2020 22:29:22 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Tue Aug 04 2020 00:07:59 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1490,9 +1490,13 @@ enum ApplicationStage {
 
 type BankDetail implements Node {
   id: ID!
+  user: User
+  property: Property
   name: String
-  bank: String
-  branch: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
 }
 
 """A connection to a list of items."""
@@ -1508,8 +1512,42 @@ type BankDetailConnection {
 input BankDetailCreateInput {
   id: ID
   name: String
-  bank: String
-  branch: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+  user: UserCreateOneWithoutBankDetailsInput
+  property: PropertyCreateOneWithoutBankDetailsInput
+}
+
+input BankDetailCreateOneWithoutPropertyInput {
+  create: BankDetailCreateWithoutPropertyInput
+  connect: BankDetailWhereUniqueInput
+}
+
+input BankDetailCreateOneWithoutUserInput {
+  create: BankDetailCreateWithoutUserInput
+  connect: BankDetailWhereUniqueInput
+}
+
+input BankDetailCreateWithoutPropertyInput {
+  id: ID
+  name: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+  user: UserCreateOneWithoutBankDetailsInput
+}
+
+input BankDetailCreateWithoutUserInput {
+  id: ID
+  name: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+  property: PropertyCreateOneWithoutBankDetailsInput
 }
 
 """An edge in a connection."""
@@ -1526,17 +1564,23 @@ enum BankDetailOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  bank_ASC
-  bank_DESC
-  branch_ASC
-  branch_DESC
+  bankNumber_ASC
+  bankNumber_DESC
+  branchNumber_ASC
+  branchNumber_DESC
+  accountNumber_ASC
+  accountNumber_DESC
+  suffix_ASC
+  suffix_DESC
 }
 
 type BankDetailPreviousValues {
   id: ID!
   name: String
-  bank: String
-  branch: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
 }
 
 type BankDetailSubscriptionPayload {
@@ -1578,14 +1622,66 @@ input BankDetailSubscriptionWhereInput {
 
 input BankDetailUpdateInput {
   name: String
-  bank: String
-  branch: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+  user: UserUpdateOneWithoutBankDetailsInput
+  property: PropertyUpdateOneWithoutBankDetailsInput
 }
 
 input BankDetailUpdateManyMutationInput {
   name: String
-  bank: String
-  branch: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+}
+
+input BankDetailUpdateOneWithoutPropertyInput {
+  create: BankDetailCreateWithoutPropertyInput
+  connect: BankDetailWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: BankDetailUpdateWithoutPropertyDataInput
+  upsert: BankDetailUpsertWithoutPropertyInput
+}
+
+input BankDetailUpdateOneWithoutUserInput {
+  create: BankDetailCreateWithoutUserInput
+  connect: BankDetailWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: BankDetailUpdateWithoutUserDataInput
+  upsert: BankDetailUpsertWithoutUserInput
+}
+
+input BankDetailUpdateWithoutPropertyDataInput {
+  name: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+  user: UserUpdateOneWithoutBankDetailsInput
+}
+
+input BankDetailUpdateWithoutUserDataInput {
+  name: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
+  property: PropertyUpdateOneWithoutBankDetailsInput
+}
+
+input BankDetailUpsertWithoutPropertyInput {
+  update: BankDetailUpdateWithoutPropertyDataInput!
+  create: BankDetailCreateWithoutPropertyInput!
+}
+
+input BankDetailUpsertWithoutUserInput {
+  update: BankDetailUpdateWithoutUserDataInput!
+  create: BankDetailCreateWithoutUserInput!
 }
 
 input BankDetailWhereInput {
@@ -1677,86 +1773,168 @@ input BankDetailWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  bank: String
+  bankNumber: String
 
   """All values that are not equal to given value."""
-  bank_not: String
+  bankNumber_not: String
 
   """All values that are contained in given list."""
-  bank_in: [String!]
+  bankNumber_in: [String!]
 
   """All values that are not contained in given list."""
-  bank_not_in: [String!]
+  bankNumber_not_in: [String!]
 
   """All values less than the given value."""
-  bank_lt: String
+  bankNumber_lt: String
 
   """All values less than or equal the given value."""
-  bank_lte: String
+  bankNumber_lte: String
 
   """All values greater than the given value."""
-  bank_gt: String
+  bankNumber_gt: String
 
   """All values greater than or equal the given value."""
-  bank_gte: String
+  bankNumber_gte: String
 
   """All values containing the given string."""
-  bank_contains: String
+  bankNumber_contains: String
 
   """All values not containing the given string."""
-  bank_not_contains: String
+  bankNumber_not_contains: String
 
   """All values starting with the given string."""
-  bank_starts_with: String
+  bankNumber_starts_with: String
 
   """All values not starting with the given string."""
-  bank_not_starts_with: String
+  bankNumber_not_starts_with: String
 
   """All values ending with the given string."""
-  bank_ends_with: String
+  bankNumber_ends_with: String
 
   """All values not ending with the given string."""
-  bank_not_ends_with: String
-  branch: String
+  bankNumber_not_ends_with: String
+  branchNumber: String
 
   """All values that are not equal to given value."""
-  branch_not: String
+  branchNumber_not: String
 
   """All values that are contained in given list."""
-  branch_in: [String!]
+  branchNumber_in: [String!]
 
   """All values that are not contained in given list."""
-  branch_not_in: [String!]
+  branchNumber_not_in: [String!]
 
   """All values less than the given value."""
-  branch_lt: String
+  branchNumber_lt: String
 
   """All values less than or equal the given value."""
-  branch_lte: String
+  branchNumber_lte: String
 
   """All values greater than the given value."""
-  branch_gt: String
+  branchNumber_gt: String
 
   """All values greater than or equal the given value."""
-  branch_gte: String
+  branchNumber_gte: String
 
   """All values containing the given string."""
-  branch_contains: String
+  branchNumber_contains: String
 
   """All values not containing the given string."""
-  branch_not_contains: String
+  branchNumber_not_contains: String
 
   """All values starting with the given string."""
-  branch_starts_with: String
+  branchNumber_starts_with: String
 
   """All values not starting with the given string."""
-  branch_not_starts_with: String
+  branchNumber_not_starts_with: String
 
   """All values ending with the given string."""
-  branch_ends_with: String
+  branchNumber_ends_with: String
 
   """All values not ending with the given string."""
-  branch_not_ends_with: String
+  branchNumber_not_ends_with: String
+  accountNumber: String
+
+  """All values that are not equal to given value."""
+  accountNumber_not: String
+
+  """All values that are contained in given list."""
+  accountNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  accountNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  accountNumber_lt: String
+
+  """All values less than or equal the given value."""
+  accountNumber_lte: String
+
+  """All values greater than the given value."""
+  accountNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  accountNumber_gte: String
+
+  """All values containing the given string."""
+  accountNumber_contains: String
+
+  """All values not containing the given string."""
+  accountNumber_not_contains: String
+
+  """All values starting with the given string."""
+  accountNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  accountNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  accountNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  accountNumber_not_ends_with: String
+  suffix: String
+
+  """All values that are not equal to given value."""
+  suffix_not: String
+
+  """All values that are contained in given list."""
+  suffix_in: [String!]
+
+  """All values that are not contained in given list."""
+  suffix_not_in: [String!]
+
+  """All values less than the given value."""
+  suffix_lt: String
+
+  """All values less than or equal the given value."""
+  suffix_lte: String
+
+  """All values greater than the given value."""
+  suffix_gt: String
+
+  """All values greater than or equal the given value."""
+  suffix_gte: String
+
+  """All values containing the given string."""
+  suffix_contains: String
+
+  """All values not containing the given string."""
+  suffix_not_contains: String
+
+  """All values starting with the given string."""
+  suffix_starts_with: String
+
+  """All values not starting with the given string."""
+  suffix_not_starts_with: String
+
+  """All values ending with the given string."""
+  suffix_ends_with: String
+
+  """All values not ending with the given string."""
+  suffix_not_ends_with: String
+  user: UserWhereInput
+  property: PropertyWhereInput
 }
 
 input BankDetailWhereUniqueInput {
@@ -12768,6 +12946,7 @@ type Property implements Node {
   locationLng: Float!
   updatedAt: DateTime!
   createdAt: DateTime!
+  bankDetails: BankDetail
   type: PropertyType
   headline: String
   rooms: Int!
@@ -13074,6 +13253,7 @@ input PropertyCreateInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13109,6 +13289,11 @@ input PropertyCreateOneWithoutActivityInput {
 
 input PropertyCreateOneWithoutAppraisalsInput {
   create: PropertyCreateWithoutAppraisalsInput
+  connect: PropertyWhereUniqueInput
+}
+
+input PropertyCreateOneWithoutBankDetailsInput {
+  create: PropertyCreateWithoutBankDetailsInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -13185,6 +13370,7 @@ input PropertyCreateWithoutAccommodationInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
@@ -13237,6 +13423,7 @@ input PropertyCreateWithoutActivityInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13289,6 +13476,7 @@ input PropertyCreateWithoutAppraisalsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13298,6 +13486,59 @@ input PropertyCreateWithoutAppraisalsInput {
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
+}
+
+input PropertyCreateWithoutBankDetailsInput {
+  id: ID
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  type: PropertyType
+  headline: String
+  rooms: Int!
+  maximumOccupants: Int
+  rent: Float!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean!
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyWithoutPropertyImagesInput
+  proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+  appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
 }
 
@@ -13341,6 +13582,7 @@ input PropertyCreateWithoutCreatorInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13393,6 +13635,7 @@ input PropertyCreateWithoutImagesInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13445,6 +13688,7 @@ input PropertyCreateWithoutLeasesInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13497,6 +13741,7 @@ input PropertyCreateWithoutOwnersInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
@@ -13549,6 +13794,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13601,6 +13847,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -13653,6 +13900,7 @@ input PropertyCreateWithoutViewingsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
@@ -16362,6 +16610,7 @@ input PropertyUpdateInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -16532,6 +16781,15 @@ input PropertyUpdateOneWithoutAppraisalsInput {
   upsert: PropertyUpsertWithoutAppraisalsInput
 }
 
+input PropertyUpdateOneWithoutBankDetailsInput {
+  create: PropertyCreateWithoutBankDetailsInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutBankDetailsDataInput
+  upsert: PropertyUpsertWithoutBankDetailsInput
+}
+
 input PropertyUpdateOneWithoutImagesInput {
   create: PropertyCreateWithoutImagesInput
   connect: PropertyWhereUniqueInput
@@ -16597,6 +16855,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
@@ -16648,6 +16907,7 @@ input PropertyUpdateWithoutActivityDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -16699,6 +16959,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -16708,6 +16969,58 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutBankDetailsDataInput {
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
+  type: PropertyType
+  headline: String
+  rooms: Int
+  maximumOccupants: Int
+  rent: Float
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyWithoutPropertyImagesInput
+  proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+  appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
 }
 
@@ -16750,6 +17063,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -16801,6 +17115,7 @@ input PropertyUpdateWithoutImagesDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -16852,6 +17167,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -16903,6 +17219,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
@@ -16954,6 +17271,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -17005,6 +17323,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -17056,6 +17375,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
@@ -17091,6 +17411,11 @@ input PropertyUpsertWithoutActivityInput {
 input PropertyUpsertWithoutAppraisalsInput {
   update: PropertyUpdateWithoutAppraisalsDataInput!
   create: PropertyCreateWithoutAppraisalsInput!
+}
+
+input PropertyUpsertWithoutBankDetailsInput {
+  update: PropertyUpdateWithoutBankDetailsDataInput!
+  create: PropertyCreateWithoutBankDetailsInput!
 }
 
 input PropertyUpsertWithoutImagesInput {
@@ -17781,6 +18106,7 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   alarmsEachLevel_not: Boolean
+  bankDetails: BankDetailWhereInput
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput
   accommodation_none: AccommodationWhereInput
@@ -20833,6 +21159,7 @@ type User implements Node {
   adminSettings: AdminSetting!
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
   acceptedTermsOfEngagement: Boolean
+  bankDetails: BankDetail
 }
 
 """A connection to a list of items."""
@@ -20891,6 +21218,7 @@ input UserCreateInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateManyInput {
@@ -20935,6 +21263,11 @@ input UserCreateOneWithoutAdminSettingsInput {
 
 input UserCreateOneWithoutAwaitingFriendsInput {
   create: UserCreateWithoutAwaitingFriendsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutBankDetailsInput {
+  create: UserCreateWithoutBankDetailsInput
   connect: UserWhereUniqueInput
 }
 
@@ -21047,6 +21380,7 @@ input UserCreateWithoutActivityInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutAdminSettingsInput {
@@ -21094,6 +21428,7 @@ input UserCreateWithoutAdminSettingsInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
@@ -21123,6 +21458,55 @@ input UserCreateWithoutAwaitingFriendsInput {
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
+}
+
+input UserCreateWithoutBankDetailsInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  physicalAddress: String
+  acceptedSignupTerms: Boolean!
+  acceptedTermsOfEngagement: Boolean
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
   lessorLeases: LessorCreateManyWithoutUserInput
@@ -21188,6 +21572,7 @@ input UserCreateWithoutChatsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -21235,6 +21620,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -21282,6 +21668,7 @@ input UserCreateWithoutCreditCardsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -21329,6 +21716,7 @@ input UserCreateWithoutFriendRequestsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutInvolvedActivityInput {
@@ -21376,6 +21764,7 @@ input UserCreateWithoutInvolvedActivityInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -21423,6 +21812,7 @@ input UserCreateWithoutLesseeLeasesInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -21470,6 +21860,7 @@ input UserCreateWithoutLessorLeasesInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -21517,6 +21908,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -21564,6 +21956,7 @@ input UserCreateWithoutProfilePhotoInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutProofOfAddressInput {
@@ -21611,6 +22004,7 @@ input UserCreateWithoutProofOfAddressInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -21658,6 +22052,7 @@ input UserCreateWithoutPropertiesInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -21705,6 +22100,7 @@ input UserCreateWithoutRecievedMessagesInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutRentalAppraisalsInput {
@@ -21752,6 +22148,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -21799,6 +22196,7 @@ input UserCreateWithoutSentMessagesInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutSignatureInput {
@@ -21846,6 +22244,7 @@ input UserCreateWithoutSignatureInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 input UserCreateWithoutViewingsInput {
@@ -21893,6 +22292,7 @@ input UserCreateWithoutViewingsInput {
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
+  bankDetails: BankDetailCreateOneWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -22899,6 +23299,7 @@ input UserUpdateDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateInput {
@@ -22946,6 +23347,7 @@ input UserUpdateInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateManyDataInput {
@@ -23125,6 +23527,15 @@ input UserUpdateOneWithoutAdminSettingsInput {
   upsert: UserUpsertWithoutAdminSettingsInput
 }
 
+input UserUpdateOneWithoutBankDetailsInput {
+  create: UserCreateWithoutBankDetailsInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutBankDetailsDataInput
+  upsert: UserUpsertWithoutBankDetailsInput
+}
+
 input UserUpdateOneWithoutLesseeLeasesInput {
   create: UserCreateWithoutLesseeLeasesInput
   connect: UserWhereUniqueInput
@@ -23245,6 +23656,7 @@ input UserUpdateWithoutActivityDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutAdminSettingsDataInput {
@@ -23291,6 +23703,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
@@ -23319,6 +23732,54 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
+}
+
+input UserUpdateWithoutBankDetailsDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  physicalAddress: String
+  acceptedSignupTerms: Boolean
+  acceptedTermsOfEngagement: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
   lessorLeases: LessorUpdateManyWithoutUserInput
@@ -23383,6 +23844,7 @@ input UserUpdateWithoutChatsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -23429,6 +23891,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -23475,6 +23938,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -23521,6 +23985,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
@@ -23567,6 +24032,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -23613,6 +24079,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -23659,6 +24126,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -23705,6 +24173,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -23751,6 +24220,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutProofOfAddressDataInput {
@@ -23797,6 +24267,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -23843,6 +24314,7 @@ input UserUpdateWithoutPropertiesDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -23889,6 +24361,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
@@ -23935,6 +24408,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -23981,6 +24455,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutSignatureDataInput {
@@ -24027,6 +24502,7 @@ input UserUpdateWithoutSignatureDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithoutViewingsDataInput {
@@ -24073,6 +24549,7 @@ input UserUpdateWithoutViewingsDataInput {
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -24118,6 +24595,11 @@ input UserUpsertWithoutAdminSettingsInput {
 input UserUpsertWithoutAwaitingFriendsInput {
   update: UserUpdateWithoutAwaitingFriendsDataInput!
   create: UserCreateWithoutAwaitingFriendsInput!
+}
+
+input UserUpsertWithoutBankDetailsInput {
+  update: UserUpdateWithoutBankDetailsDataInput!
+  create: UserCreateWithoutBankDetailsInput!
 }
 
 input UserUpsertWithoutCreatedPropertiesInput {
@@ -25090,6 +25572,7 @@ input UserWhereInput {
   viewings_every: ViewingWhereInput
   viewings_some: ViewingWhereInput
   viewings_none: ViewingWhereInput
+  bankDetails: BankDetailWhereInput
 }
 
 input UserWhereUniqueInput {

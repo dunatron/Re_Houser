@@ -9,15 +9,15 @@ const SignupTerms = () => {
       </Typography>
       <ol>
         {/* 1 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Under the Privacy Act 1993, you have the right to ask for a copy of
             all information held about you, and have the right to request the
             correction of any incorrect information.
           </Typography>
-        </li>
+        </Typography>
         {/* 2 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Conditions of Use We will provide their services to you, which are
             subject to the conditions stated below in this document. Every time
@@ -25,18 +25,18 @@ const SignupTerms = () => {
             accept the following conditions. This is why we urge you to read
             them carefully.
           </Typography>
-        </li>
+        </Typography>
         {/* 3 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Privacy Policy Before you continue using our website we advise you
             to read our privacy policy [link to privacy policy] regarding our
             user data collection. It will help you better understand our
             practices.
           </Typography>
-        </li>
+        </Typography>
         {/* 4 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Copyright Content published on this website (digital downloads,
             images, texts, graphics, logos) is the property of Rehouser Property
@@ -45,9 +45,9 @@ const SignupTerms = () => {
             found on this website is the exclusive property of Rehouser Property
             Management Limited.
           </Typography>
-        </li>
+        </Typography>
         {/* 5 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Communications: The entire communication with us is electronic.
             Every time you send us an email or visit our website, you are going
@@ -64,27 +64,27 @@ const SignupTerms = () => {
             might come between Rehouser Property Management Limited and you, or
             its business partners and associates.
           </Typography>
-        </li>
+        </Typography>
         {/* 6 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Disputes: Any dispute related in any way to your visit to this
             website or to services you purchase from us shall be arbitrated by
             New Zealand Law and you consent to exclusive jurisdiction and venue
             of such courts.
           </Typography>
-        </li>
+        </Typography>
         {/* 7 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Comments, Reviews, and Emails Visitors may post content as long as
             it is not obscene, illegal, defamatory, threatening, infringing, of
             intellectual property rights, invasive of privacy or injurious in
             any other way to third parties.
           </Typography>
-        </li>
+        </Typography>
         {/* 8 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             Content has to be free of software viruses, political campaign, and
             commercial solicitation. We reserve all rights (but not the
@@ -93,17 +93,17 @@ const SignupTerms = () => {
             non-exclusive, royalty-free and irrevocable right to use, reproduce,
             publish, modify such content throughout the world in any media.
           </Typography>
-        </li>
+        </Typography>
         {/* 9 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             License and Site Access We grant you a limited license to access and
             make personal use of this website. You are not allowed to download
             or modify it. This may be done only with written consent from us.
           </Typography>
-        </li>
+        </Typography>
         {/* 10 */}
-        <li>
+        <Typography component="li" gutterBottom>
           <Typography gutterBottom>
             User Account: If you are an owner of an account on this website, you
             are solely responsible for maintaining the confidentiality of your
@@ -112,7 +112,7 @@ const SignupTerms = () => {
             reserve all rights to terminate accounts, edit or remove content and
             cancel orders in their sole discretion.
           </Typography>
-        </li>
+        </Typography>
       </ol>
     </div>
   );

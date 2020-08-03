@@ -61,6 +61,13 @@ const PropertyInfoFragment = gql`
     inHallway3mOfEachBedroom
     tenYearPhotoelectricAlarms
     alarmsEachLevel
+    bankDetails {
+      name
+      bankNumber
+      branchNumber
+      accountNumber
+      suffix
+    }
   }
   ${FileInfoFragment}
   ${PublicUserInfoFragment}

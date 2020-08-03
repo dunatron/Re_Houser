@@ -57,14 +57,11 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
     ],
   },
   {
-    type: 'String',
-    key: 'bankAccNumber',
+    type: 'BankAccount',
+    key: 'bankDetails',
     fieldProps: {
-      isMultiple: false,
-      maxFilesAllowed: 1,
-      name: 'bankAccNumber',
-      label: 'bankAccNumber',
-      description: '',
+      name: 'bankDetails',
+      label: 'Bank account number',
       helperText: 'your bank account to pay profits into',
     },
     refConf: {
@@ -72,6 +69,22 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
         value: true,
         message:
           'We need a bank account number to know where to pay your profits',
+      },
+    },
+  },
+  {
+    type: 'Checkbox',
+    key: 'acceptedTermsOfEngagement',
+    fieldProps: {
+      name: 'acceptedTermsOfEngagement',
+      label: 'terms of engagement',
+      helperText: 'your bank account to pay profits into',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'you need to accept the terms of engagement before you can proceed',
       },
     },
   },

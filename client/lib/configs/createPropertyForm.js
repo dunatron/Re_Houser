@@ -94,10 +94,10 @@ const CREATE_PROPERTY_FORM_CONF = [
       // { type: 'SelectMultipleEnum', fieldProps: { name: 'dsa' } },
       {
         type: 'BankAccount',
-        key: 'bankAccNumber',
+        key: 'bankDetails',
         fieldProps: {
-          name: 'bankAccNumber',
-          label: 'bankAccNumber',
+          name: 'bankDetails',
+          label: 'Bank account details',
           placeholder: 'BB-bbbb-AAAAAAA-SSS',
         },
         refConf: {

@@ -64,46 +64,14 @@ const HomePage = props => {
           <ArrowDownwardIcon fontSize="large" />
         </IconButton>
       </Banner>
-      <div>
-        <Typography>No information barriers</Typography>
-        <Typography component="ul">
-          <Typography component="li">
-            All details, updates and historical information can be viewed on
-            your Rehouser website profile
-          </Typography>
-        </Typography>
-        <Typography>No hidden fees</Typography>
-        <Typography component="ul">
-          <Typography component="li">
-            We offer all fee information upfront and pre-notify you of any
-            upcoming additional costs
-          </Typography>
-        </Typography>
-        <Typography>No time wasted</Typography>
-        <Typography component="ul">
-          <Typography component="li">
-            We take care of the entire rental term and process, you get notified
-            as and when you like
-          </Typography>
-        </Typography>
-      </div>
-      {/* <LookPage {...props} /> */}
-
       <Dashboard
         config={HOME_PAGE_DASHBOARD_CONFIG}
         elevation={0}
         heading=""
         intro=""
       />
-
-      {/* <Fees />
-      <br />
-      <TeamInfoText />
-      <br />
-      <ContactForm />
-      <Team /> */}
     </div>
-  ); // Notice its a page so we need to spread page props.
+  );
 };
 
 export default HomePage;

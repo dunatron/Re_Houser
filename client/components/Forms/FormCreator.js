@@ -87,6 +87,7 @@ const FormCreator = props => {
   }); // initalise the hook
   const onSubmit = data => {
     console.log('Submitted form data => ', data);
+    console.log('keysWithTypes => ', keysWithTypes);
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
     console.log(
       'Submitted postFormattedFormData data => ',

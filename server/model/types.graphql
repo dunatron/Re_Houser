@@ -46,6 +46,7 @@ type User {
   adminSettings: AdminSetting! @relation(name: "UserAdminSettings", link: TABLE)
   viewings: [Viewing!]! @relation(name: "HostViewings")
   acceptedTermsOfEngagement: Boolean
+  bankDetails: BankDetail @relation(name: "UserBankDetails", link: TABLE)
 }
 
 type AdminSetting {
@@ -59,9 +60,13 @@ type AdminSetting {
 
 type BankDetail {
   id: ID! @unique @id
+  user: User @relation(name: "UserBankDetails")
+  property: Property @relation(name: "PropertyBankDetails")
   name: String
-  bank: String
-  branch: String
+  bankNumber: String
+  branchNumber: String
+  accountNumber: String
+  suffix: String
 }
 
 type Activity {
@@ -184,6 +189,7 @@ type Property implements PropertyInfo {
   locationLng: Float!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
+  bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
   type: PropertyType
   headline: String
   rooms: Int!

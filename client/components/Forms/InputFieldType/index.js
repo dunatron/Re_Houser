@@ -7,13 +7,7 @@ import { is } from 'ramda';
 import FieldError from '../InputFieldType/FieldError';
 
 //Material Components
-import {
-  Typography,
-  Checkbox,
-  Paper,
-  FormControlLabel,
-  Switch,
-} from '@material-ui/core';
+import { Typography, Paper, FormControlLabel, Switch } from '@material-ui/core';
 
 import CheckReason from './CheckReason';
 import CheckboxText from './CheckboxText';
@@ -29,6 +23,7 @@ import FileUploader from './../../FileUploader';
 import File from './File';
 import String from './String';
 import Boolean from './Boolean';
+import Checkbox from './Checkbox';
 import Money from './Money';
 import Phone from './Phone';
 import BankAccount from './BankAccount';
@@ -141,6 +136,15 @@ const InputFieldType = props => {
             defaultValue={defaultValue}
           />
         );
+      case 'Checkbox':
+        return (
+          <Checkbox
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
+
       case 'Money':
         return (
           <Money
