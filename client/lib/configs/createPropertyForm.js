@@ -70,21 +70,21 @@ const CREATE_PROPERTY_FORM_CONF = [
       },
     },
   },
-  {
-    type: 'Money',
-    key: 'bankAccNumber',
-    fieldProps: {
-      name: 'bankAccNumber',
-      label: 'bankAccNumber',
-    },
-    refConf: {
-      required: {
-        value: true,
-        message:
-          'You need to supply the bankAccNumber that we will pay out your profit too',
-      },
-    },
-  },
+
+  // {
+  //   type: 'Phone',
+  //   key: 'testPhone',
+  //   fieldProps: {
+  //     name: 'testPhone',
+  //     label: 'testPhone',
+  //   },
+  //   refConf: {
+  //     required: {
+  //       value: true,
+  //       message: 'you must supply a valid phone number format',
+  //     },
+  //   },
+  // },
   {
     type: 'Section',
     fieldProps: {
@@ -92,6 +92,22 @@ const CREATE_PROPERTY_FORM_CONF = [
     },
     inners: [
       // { type: 'SelectMultipleEnum', fieldProps: { name: 'dsa' } },
+      {
+        type: 'BankAccount',
+        key: 'bankAccNumber',
+        fieldProps: {
+          name: 'bankAccNumber',
+          label: 'bankAccNumber',
+          placeholder: 'BB-bbbb-AAAAAAA-SSS',
+        },
+        refConf: {
+          required: {
+            value: true,
+            message:
+              'You need to supply the bankAccNumber that we will pay out your profit too',
+          },
+        },
+      },
       {
         type: 'SelectOneEnum',
         __type: 'PropertyType',
@@ -324,24 +340,6 @@ const CREATE_PROPERTY_FORM_CONF = [
       description: 'You need some images',
     },
     refConf: {},
-  },
-  {
-    type: 'String',
-    key: 'bankAccNumber',
-    fieldProps: {
-      isMultiple: false,
-      maxFilesAllowed: 1,
-      name: 'bankAccNumber',
-      label: 'bankAccNumber',
-      description:
-        'This is your proof of  address so we can confrim you are who you say you are. TODO: THIS SHOULD BE a property entity',
-    },
-    refConf: {
-      required: {
-        value: true,
-        message: 'You need to upoad a file that proves you own the property',
-      },
-    },
   },
   {
     type: 'File',

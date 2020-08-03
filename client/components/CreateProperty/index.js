@@ -32,7 +32,6 @@ const CreatePropertyComponent = props => {
   if (!me) return 'You must be logged in to create a property appraisal';
 
   const handlePropertyCreated = data => {
-    console.log('data at level 3... => ', data);
     setCreatedData(data);
     setCreatedPropertyId(data.createProperty.id);
     setIsChecking(false);
@@ -48,12 +47,16 @@ const CreatePropertyComponent = props => {
     );
   };
 
+  const handleTermsOfEngagementAccepted = data => {
+    window.scrollTo(0, 0);
+  };
+
   const [
     acceptedTermsOfEngagement,
     acceptedTermsOfEngagementProps,
   ] = useMutation(UPDATE_USER_MUTATION, {
     // onCompleted: data => handleCompleted(data),
-    // onCompleted: handleCompleted,
+    onCompleted: handleTermsOfEngagementAccepted,
     // refetchQueries: [
     //   { query: PROPERTIES_QUERY },
     //   { query: OWNER_PROPERTIES_QUERY },
@@ -147,33 +150,6 @@ const CreatePropertyComponent = props => {
           </Typography>
           {/* Accept Terms Text */}
           <TermsOfEngagement />
-          <Typography>
-            I was fishing in some humble pussy the other day
-          </Typography>
-          <Typography>
-            I swallowed my pride, then the weed made me coof it up
-          </Typography>
-          <Typography></Typography>
-          <Typography>Aint afraid to die, just afraid to die sober</Typography>
-          <Typography>Switching up my swag, bitch my swag bipolar</Typography>
-          <Typography>
-            Gettin with that weed and beam, give me self esteem
-          </Typography>
-          <Typography>
-            I merc your bitch/radio arse like radio ra....
-          </Typography>
-          <Typography>Got that chineese aka</Typography>
-
-          <Typography>That ouzi machine</Typography>
-          <Typography>That banna clip</Typography>
-          <Typography>all I need is peaches and cream.</Typography>
-          <br />
-          <Typography>Marching on the sun</Typography>
-          <Typography>Stomping on the moon</Typography>
-          <Typography>French Kiss a nun</Typography>
-          <Typography>With posion on my toungue</Typography>
-          <Typography>Smoking on that good</Typography>
-          <Typography>Coffing up a lung</Typography>
           <br />
           <FormCreator
             config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
@@ -208,7 +184,9 @@ const CreatePropertyComponent = props => {
       {me.acceptedTermsOfEngagement && (
         <FormCreator
           title="Property"
-          data={{}}
+          data={{
+            bankAccNumber: 'sdfsdf',
+          }}
           isNew={true}
           config={CREATE_PROPERTY_FORM_CONF}
           onSubmit={submitFormWithData}

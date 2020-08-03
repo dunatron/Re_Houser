@@ -272,12 +272,6 @@ const TermsOfEngagement = ({ me }) => {
             this at the owners cost.
           </Typography>
         </li>
-        <li>
-          <Typography gutterBottom>
-            By accepting to these terms and conditions you are giving rehouser
-            the authority to act on behalf of the OWNER
-          </Typography>
-        </li>
       </ol>
     </div>
   );

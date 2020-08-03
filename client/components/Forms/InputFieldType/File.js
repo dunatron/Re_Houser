@@ -4,6 +4,7 @@ import FileUploader from './../../FileUploader';
 import { useForm } from 'react-hook-form';
 import { isEmpty, is } from 'ramda';
 import FieldError from './FieldError';
+import InputFieldType from './index';
 
 // components
 import LocationPicker from '../../LocationPicker';
@@ -24,14 +25,17 @@ const File = props => {
     config,
     setValue, // is from useForm
     getValues,
-    defaultValues,
+    reset,
     errors,
+    defaultValues,
     extractErrorFromErrors,
     refetchQueries,
   } = props;
 
+  const [hasRecievedAFile, setHasRecievedAFile] = useState();
+
   // we essentially dont want to set any files that have already been added
-  const { fieldProps, refConf } = config;
+  const { fieldProps, refConf, inners } = config;
 
   const [serverFiles, setServerFiles] = useState(
     is(Array, filesData) ? [...filesData] : []
@@ -59,9 +63,17 @@ const File = props => {
       const combineVals = [...currFormVals[config.key], file];
       setValue(config.key, combineVals);
     }
+    setHasRecievedAFile(true);
   };
 
   const filesData = defaultValues[config.key];
+
+  const canDisplayInner = () => {
+    // if files is greater than 1 then expose the inners...
+    // if (is(Array, filesData) && filesData.length > 0) return true;
+    if (hasRecievedAFile) return true;
+    return false;
+  };
 
   return (
     <>
@@ -99,6 +111,23 @@ const File = props => {
         }} // we actually want to get the files again
       />
       <FieldError errors={errors} name={config.key} />
+      {inners &&
+        inners.map((inner, idx) => {
+          if (!canDisplayInner()) return null;
+          return (
+            <div style={{ marginTop: '16px' }}>
+              <InputFieldType
+                config={inner}
+                key={idx}
+                register={register}
+                errors={errors}
+                setValue={setValue}
+                reset={reset}
+                defaultValues={defaultValues}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };

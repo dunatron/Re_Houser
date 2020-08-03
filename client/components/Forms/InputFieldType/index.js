@@ -30,6 +30,8 @@ import File from './File';
 import String from './String';
 import Boolean from './Boolean';
 import Money from './Money';
+import Phone from './Phone';
+import BankAccount from './BankAccount';
 import Int from './Int';
 import Float from './Float';
 import DateField from './Date';
@@ -145,6 +147,23 @@ const InputFieldType = props => {
             {...props}
             fieldError={fieldError}
             defaultValue={defaultValue}
+          />
+        );
+      case 'BankAccount':
+        return (
+          <BankAccount
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+          />
+        );
+      case 'Phone':
+        return (
+          <Phone
+            {...props}
+            fieldError={fieldError}
+            defaultValue={defaultValue}
+            extractErrorFromErrors={extractErrorFromErrors}
           />
         );
       case 'Int':

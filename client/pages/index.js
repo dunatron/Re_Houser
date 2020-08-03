@@ -7,10 +7,14 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import LookPage from './look';
 
+import Dashboard from '../components/Dashboard';
+
 import ContactForm from '../components/Contact/ContactForm';
 import Fees from '../components/Fees';
 import TeamInfoText from '../components/Team/TeamInfoText';
 import Team from '../components/Team/index';
+
+import HOME_PAGE_DASHBOARD_CONFIG from '../lib/configs/homepageDashboardConf';
 
 const HomePage = props => {
   const {
@@ -85,12 +89,19 @@ const HomePage = props => {
       </div>
       {/* <LookPage {...props} /> */}
 
-      <Fees />
+      <Dashboard
+        config={HOME_PAGE_DASHBOARD_CONFIG}
+        elevation={0}
+        heading=""
+        intro=""
+      />
+
+      {/* <Fees />
       <br />
       <TeamInfoText />
       <br />
       <ContactForm />
-      <Team />
+      <Team /> */}
     </div>
   ); // Notice its a page so we need to spread page props.
 };

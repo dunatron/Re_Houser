@@ -22,6 +22,41 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
     },
   },
   {
+    type: 'File',
+    key: 'photoIdentification',
+    fieldProps: {
+      isMultiple: false,
+      maxFilesAllowed: 1,
+      name: 'photoIdentification',
+      label: 'Photo Identification',
+      description:
+        'You need a file attached for identification such as a passport or drivers NZ drivers license',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'You need a file attached for identification such as a passport or drivers NZ drivers license',
+      },
+    },
+    inners: [
+      {
+        type: 'String',
+        key: 'identificationNumber',
+        fieldProps: {
+          name: 'identificationNumber',
+          label: 'Identification number',
+        },
+        refConf: {
+          required: {
+            value: true,
+            message: 'You need the identifications id number',
+          },
+        },
+      },
+    ],
+  },
+  {
     type: 'String',
     key: 'bankAccNumber',
     fieldProps: {
@@ -30,8 +65,7 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
       name: 'bankAccNumber',
       label: 'bankAccNumber',
       description: '',
-      helperText:
-        'Fucxk you talking bout bitch? I aint cold I am that King cold',
+      helperText: 'your bank account to pay profits into',
     },
     refConf: {
       required: {
