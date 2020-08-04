@@ -21,11 +21,8 @@ import Date from './Date';
 import DateTime from './DateTime';
 
 const RenderInput = ({ type, fieldProps, defaultValue, onChange }) => {
-  console.log('Field props for RenderInput => ', fieldProps);
-
   const handleFieldChange = value => {
     // cal props onChange onChange
-    console.log('Val change for RenderInput => ', value);
     onChange(value);
   };
 

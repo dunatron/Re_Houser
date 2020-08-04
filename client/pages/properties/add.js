@@ -24,7 +24,7 @@ const AddPropertyPage = props => {
     <>
       <PageHeader
         title="Add Property"
-        intro="Add a property to the platform. You can configure it after creation before it goes on the market"
+        intro=""
         metaData={{
           title: 'add a property to the platform',
           content: 'Add a property to the platform',

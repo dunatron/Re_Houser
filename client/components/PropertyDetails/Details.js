@@ -212,12 +212,17 @@ const UpdatePropertyVariableModal = ({
             )}
 
             {/* loading, success, onClick, text, successText */}
-            {canUpdate() && (
+            <SaveButtonLoader
+              disabled={!canUpdate()}
+              loading={updatePropertyPayload.loading}
+              onClick={() => updateProperty()}
+            />
+            {/* {canUpdate() && (
               <SaveButtonLoader
                 loading={updatePropertyPayload.loading}
                 onClick={() => updateProperty()}
               />
-            )}
+            )} */}
 
             {/* <Button
               // disabled={loading}

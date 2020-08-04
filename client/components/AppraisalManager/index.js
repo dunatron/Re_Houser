@@ -87,9 +87,7 @@ const AdminRentalAppraisalsTable = ({ where }) => {
     { title: 'locationLng', field: 'locationLng', editable: false },
     { title: 'rooms', field: 'rooms', editable: false },
     { title: 'bathrooms', field: 'bathrooms', editable: false },
-    { title: 'lowRent', field: 'lowRent' },
     { title: 'rent', field: 'rent' },
-    { title: 'highRent', field: 'highRent' },
     { title: 'property', field: 'property.id', editable: false },
   ];
 
@@ -231,6 +229,7 @@ const AdminRentalAppraisalsTable = ({ where }) => {
         </div>
       </div>
       <Error error={tableErr} />
+      <Error error={offerAppraisalProps.error} />
       <MaterialTable
         style={{
           marginBottom: '16px',
@@ -274,8 +273,6 @@ const AdminRentalAppraisalsTable = ({ where }) => {
                     variables: {
                       data: {
                         rent: parseFloat(newData.rent),
-                        lowRent: parseFloat(newData.lowRent),
-                        highRent: parseFloat(newData.highRent),
                       },
                       where: {
                         id: oldData.id,

@@ -15,7 +15,6 @@ import FieldError from './FieldError';
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
 
-  console.log('TextMaskCustom props => ', props);
   // BB-bbbb-AAAAAAA-SSS
   // https://en.wikipedia.org/wiki/New_Zealand_bank_account_number#:~:text=Electronic%20Clearing%20System-,Format%20of%20account%20numbers,(2%20or%203%20digits).
   return (
@@ -90,8 +89,6 @@ const PhoneInput = props => {
       setValue(fieldProps.name, defaultValue);
     }
   }, []);
-
-  console.log('defaultValue => ', defaultValue);
 
   return (
     <FormControl variant="outlined">

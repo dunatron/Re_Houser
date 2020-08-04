@@ -14,6 +14,7 @@ import { GET_ENUM_QUERY } from './getEnum';
 import { SINGLE_LEASE_QUERY } from './singleLeaseQuery';
 import { INSULATION_FORM_QUERY } from './insulationForm';
 import { RENTAL_APPRAISALS_QUERY } from './rentalAppraisals';
+import { SINGLE_RENTAL_APPRAISAL_QUERY } from './singleRentalAppraisal';
 import { VIEWINGS_QUERY } from './viewings';
 
 import { MESSAGES_QUERY } from './messages';
@@ -40,5 +41,6 @@ export {
   INSULATION_FORM_QUERY,
   RENTAL_APPRAISALS_QUERY,
   VIEWINGS_QUERY,
+  SINGLE_RENTAL_APPRAISAL_QUERY,
   chats,
 };

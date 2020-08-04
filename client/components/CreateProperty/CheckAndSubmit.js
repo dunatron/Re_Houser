@@ -25,25 +25,12 @@ import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   const handleCompleted = data => {
-    // toast.success(
-    //   <div>
-    //     <p>New Property Created</p>
-    //     <ChangeRouteButton
-    //       title="Go to property"
-    //       route="/properties/property"
-    //       query={{ id: data.createProperty.id }}
-    //     />
-    //   </div>
-    // );
-    console.log('Data is being passed here => ', data);
     handlePropertyCreated(data);
   };
 
   var rent = formData.rent;
   const extractRentFloat = Number(rent.replace(/[^0-9\.-]+/g, ''));
   const rentVal = extractRentFloat * 100;
-
-  console.log('The rentVal => ', rentVal);
 
   const [createProperty, { loading, error, data }] = useMutation(
     CREATE_PROPERTY_MUTATION,

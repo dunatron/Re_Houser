@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Aug 04 2020 00:07:59 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Aug 05 2020 01:42:21 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1167,6 +1167,330 @@ input ActivityWhereUniqueInput {
   id: ID
 }
 
+type Address implements Node {
+  id: ID!
+  user: User
+  placeId: String!
+  desc: String!
+  lat: Float!
+  lng: Float!
+}
+
+"""A connection to a list of items."""
+type AddressConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AddressEdge]!
+  aggregate: AggregateAddress!
+}
+
+input AddressCreateInput {
+  id: ID
+  placeId: String!
+  desc: String!
+  lat: Float!
+  lng: Float!
+  user: UserCreateOneWithoutCurrentAddressInput
+}
+
+input AddressCreateOneWithoutUserInput {
+  create: AddressCreateWithoutUserInput
+  connect: AddressWhereUniqueInput
+}
+
+input AddressCreateWithoutUserInput {
+  id: ID
+  placeId: String!
+  desc: String!
+  lat: Float!
+  lng: Float!
+}
+
+"""An edge in a connection."""
+type AddressEdge {
+  """The item at the end of the edge."""
+  node: Address!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AddressOrderByInput {
+  id_ASC
+  id_DESC
+  placeId_ASC
+  placeId_DESC
+  desc_ASC
+  desc_DESC
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
+}
+
+type AddressPreviousValues {
+  id: ID!
+  placeId: String!
+  desc: String!
+  lat: Float!
+  lng: Float!
+}
+
+type AddressSubscriptionPayload {
+  mutation: MutationType!
+  node: Address
+  updatedFields: [String!]
+  previousValues: AddressPreviousValues
+}
+
+input AddressSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AddressSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AddressSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AddressSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AddressWhereInput
+}
+
+input AddressUpdateInput {
+  placeId: String
+  desc: String
+  lat: Float
+  lng: Float
+  user: UserUpdateOneWithoutCurrentAddressInput
+}
+
+input AddressUpdateManyMutationInput {
+  placeId: String
+  desc: String
+  lat: Float
+  lng: Float
+}
+
+input AddressUpdateOneWithoutUserInput {
+  create: AddressCreateWithoutUserInput
+  connect: AddressWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: AddressUpdateWithoutUserDataInput
+  upsert: AddressUpsertWithoutUserInput
+}
+
+input AddressUpdateWithoutUserDataInput {
+  placeId: String
+  desc: String
+  lat: Float
+  lng: Float
+}
+
+input AddressUpsertWithoutUserInput {
+  update: AddressUpdateWithoutUserDataInput!
+  create: AddressCreateWithoutUserInput!
+}
+
+input AddressWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AddressWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AddressWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AddressWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  placeId: String
+
+  """All values that are not equal to given value."""
+  placeId_not: String
+
+  """All values that are contained in given list."""
+  placeId_in: [String!]
+
+  """All values that are not contained in given list."""
+  placeId_not_in: [String!]
+
+  """All values less than the given value."""
+  placeId_lt: String
+
+  """All values less than or equal the given value."""
+  placeId_lte: String
+
+  """All values greater than the given value."""
+  placeId_gt: String
+
+  """All values greater than or equal the given value."""
+  placeId_gte: String
+
+  """All values containing the given string."""
+  placeId_contains: String
+
+  """All values not containing the given string."""
+  placeId_not_contains: String
+
+  """All values starting with the given string."""
+  placeId_starts_with: String
+
+  """All values not starting with the given string."""
+  placeId_not_starts_with: String
+
+  """All values ending with the given string."""
+  placeId_ends_with: String
+
+  """All values not ending with the given string."""
+  placeId_not_ends_with: String
+  desc: String
+
+  """All values that are not equal to given value."""
+  desc_not: String
+
+  """All values that are contained in given list."""
+  desc_in: [String!]
+
+  """All values that are not contained in given list."""
+  desc_not_in: [String!]
+
+  """All values less than the given value."""
+  desc_lt: String
+
+  """All values less than or equal the given value."""
+  desc_lte: String
+
+  """All values greater than the given value."""
+  desc_gt: String
+
+  """All values greater than or equal the given value."""
+  desc_gte: String
+
+  """All values containing the given string."""
+  desc_contains: String
+
+  """All values not containing the given string."""
+  desc_not_contains: String
+
+  """All values starting with the given string."""
+  desc_starts_with: String
+
+  """All values not starting with the given string."""
+  desc_not_starts_with: String
+
+  """All values ending with the given string."""
+  desc_ends_with: String
+
+  """All values not ending with the given string."""
+  desc_not_ends_with: String
+  lat: Float
+
+  """All values that are not equal to given value."""
+  lat_not: Float
+
+  """All values that are contained in given list."""
+  lat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lat_not_in: [Float!]
+
+  """All values less than the given value."""
+  lat_lt: Float
+
+  """All values less than or equal the given value."""
+  lat_lte: Float
+
+  """All values greater than the given value."""
+  lat_gt: Float
+
+  """All values greater than or equal the given value."""
+  lat_gte: Float
+  lng: Float
+
+  """All values that are not equal to given value."""
+  lng_not: Float
+
+  """All values that are contained in given list."""
+  lng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  lng_not_in: [Float!]
+
+  """All values less than the given value."""
+  lng_lt: Float
+
+  """All values less than or equal the given value."""
+  lng_lte: Float
+
+  """All values greater than the given value."""
+  lng_gt: Float
+
+  """All values greater than or equal the given value."""
+  lng_gte: Float
+  user: UserWhereInput
+}
+
+input AddressWhereUniqueInput {
+  id: ID
+}
+
 type AdminSetting implements Node {
   id: ID!
   user: User
@@ -1386,6 +1710,10 @@ type AggregateAccommodation {
 }
 
 type AggregateActivity {
+  count: Int!
+}
+
+type AggregateAddress {
   count: Int!
 }
 
@@ -10243,6 +10571,7 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createAddress(data: AddressCreateInput!): Address!
   createAdminSetting(data: AdminSettingCreateInput!): AdminSetting!
   createBankDetail(data: BankDetailCreateInput!): BankDetail!
   createActivity(data: ActivityCreateInput!): Activity!
@@ -10268,6 +10597,7 @@ type Mutation {
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateAdminSetting(data: AdminSettingUpdateInput!, where: AdminSettingWhereUniqueInput!): AdminSetting
   updateBankDetail(data: BankDetailUpdateInput!, where: BankDetailWhereUniqueInput!): BankDetail
   updateActivity(data: ActivityUpdateInput!, where: ActivityWhereUniqueInput!): Activity
@@ -10292,6 +10622,7 @@ type Mutation {
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteAdminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
   deleteBankDetail(where: BankDetailWhereUniqueInput!): BankDetail
   deleteActivity(where: ActivityWhereUniqueInput!): Activity
@@ -10317,6 +10648,7 @@ type Mutation {
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   upsertAdminSetting(where: AdminSettingWhereUniqueInput!, create: AdminSettingCreateInput!, update: AdminSettingUpdateInput!): AdminSetting!
   upsertBankDetail(where: BankDetailWhereUniqueInput!, create: BankDetailCreateInput!, update: BankDetailUpdateInput!): BankDetail!
   upsertActivity(where: ActivityWhereUniqueInput!, create: ActivityCreateInput!, update: ActivityUpdateInput!): Activity!
@@ -10341,6 +10673,7 @@ type Mutation {
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyAdminSettings(data: AdminSettingUpdateManyMutationInput!, where: AdminSettingWhereInput): BatchPayload!
   updateManyBankDetails(data: BankDetailUpdateManyMutationInput!, where: BankDetailWhereInput): BatchPayload!
   updateManyActivities(data: ActivityUpdateManyMutationInput!, where: ActivityWhereInput): BatchPayload!
@@ -10364,6 +10697,7 @@ type Mutation {
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   deleteManyAdminSettings(where: AdminSettingWhereInput): BatchPayload!
   deleteManyBankDetails(where: BankDetailWhereInput): BatchPayload!
   deleteManyActivities(where: ActivityWhereInput): BatchPayload!
@@ -18142,6 +18476,7 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
   adminSettings(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminSetting]!
   bankDetails(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BankDetail]!
   activities(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity]!
@@ -18167,6 +18502,7 @@ type Query {
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  address(where: AddressWhereUniqueInput!): Address
   adminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
   bankDetail(where: BankDetailWhereUniqueInput!): BankDetail
   activity(where: ActivityWhereUniqueInput!): Activity
@@ -18192,6 +18528,7 @@ type Query {
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
   adminSettingsConnection(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminSettingConnection!
   bankDetailsConnection(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BankDetailConnection!
   activitiesConnection(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ActivityConnection!
@@ -18904,8 +19241,6 @@ type RentalAppraisal implements Node {
   bathrooms: Int!
   garageSpaces: Int!
   heatSources: [HeatSource!]!
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -18935,8 +19270,6 @@ input RentalAppraisalCreateInput {
   rooms: Int!
   bathrooms: Int!
   garageSpaces: Int!
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -18964,8 +19297,6 @@ input RentalAppraisalCreateWithoutPropertyInput {
   rooms: Int!
   bathrooms: Int!
   garageSpaces: Int!
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -18982,8 +19313,6 @@ input RentalAppraisalCreateWithoutRequestedByInput {
   rooms: Int!
   bathrooms: Int!
   garageSpaces: Int!
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19021,10 +19350,6 @@ enum RentalAppraisalOrderByInput {
   bathrooms_DESC
   garageSpaces_ASC
   garageSpaces_DESC
-  lowRent_ASC
-  lowRent_DESC
-  highRent_ASC
-  highRent_DESC
   rent_ASC
   rent_DESC
   rentValueAccepted_ASC
@@ -19045,8 +19370,6 @@ type RentalAppraisalPreviousValues {
   bathrooms: Int!
   garageSpaces: Int!
   heatSources: [HeatSource!]!
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19335,50 +19658,6 @@ input RentalAppraisalScalarWhereInput {
 
   """All values greater than or equal the given value."""
   garageSpaces_gte: Int
-  lowRent: Float
-
-  """All values that are not equal to given value."""
-  lowRent_not: Float
-
-  """All values that are contained in given list."""
-  lowRent_in: [Float!]
-
-  """All values that are not contained in given list."""
-  lowRent_not_in: [Float!]
-
-  """All values less than the given value."""
-  lowRent_lt: Float
-
-  """All values less than or equal the given value."""
-  lowRent_lte: Float
-
-  """All values greater than the given value."""
-  lowRent_gt: Float
-
-  """All values greater than or equal the given value."""
-  lowRent_gte: Float
-  highRent: Float
-
-  """All values that are not equal to given value."""
-  highRent_not: Float
-
-  """All values that are contained in given list."""
-  highRent_in: [Float!]
-
-  """All values that are not contained in given list."""
-  highRent_not_in: [Float!]
-
-  """All values less than the given value."""
-  highRent_lt: Float
-
-  """All values less than or equal the given value."""
-  highRent_lte: Float
-
-  """All values greater than the given value."""
-  highRent_gt: Float
-
-  """All values greater than or equal the given value."""
-  highRent_gte: Float
   rent: Float
 
   """All values that are not equal to given value."""
@@ -19460,8 +19739,6 @@ input RentalAppraisalUpdateInput {
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19478,8 +19755,6 @@ input RentalAppraisalUpdateManyDataInput {
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19494,8 +19769,6 @@ input RentalAppraisalUpdateManyMutationInput {
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19539,8 +19812,6 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19556,8 +19827,6 @@ input RentalAppraisalUpdateWithoutRequestedByDataInput {
   rooms: Int
   bathrooms: Int
   garageSpaces: Int
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
@@ -19870,50 +20139,6 @@ input RentalAppraisalWhereInput {
 
   """All values greater than or equal the given value."""
   garageSpaces_gte: Int
-  lowRent: Float
-
-  """All values that are not equal to given value."""
-  lowRent_not: Float
-
-  """All values that are contained in given list."""
-  lowRent_in: [Float!]
-
-  """All values that are not contained in given list."""
-  lowRent_not_in: [Float!]
-
-  """All values less than the given value."""
-  lowRent_lt: Float
-
-  """All values less than or equal the given value."""
-  lowRent_lte: Float
-
-  """All values greater than the given value."""
-  lowRent_gt: Float
-
-  """All values greater than or equal the given value."""
-  lowRent_gte: Float
-  highRent: Float
-
-  """All values that are not equal to given value."""
-  highRent_not: Float
-
-  """All values that are contained in given list."""
-  highRent_in: [Float!]
-
-  """All values that are not contained in given list."""
-  highRent_not_in: [Float!]
-
-  """All values less than the given value."""
-  highRent_lt: Float
-
-  """All values less than or equal the given value."""
-  highRent_lte: Float
-
-  """All values greater than the given value."""
-  highRent_gt: Float
-
-  """All values greater than or equal the given value."""
-  highRent_gte: Float
   rent: Float
 
   """All values that are not equal to given value."""
@@ -21070,6 +21295,7 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
   adminSetting(where: AdminSettingSubscriptionWhereInput): AdminSettingSubscriptionPayload
   bankDetail(where: BankDetailSubscriptionWhereInput): BankDetailSubscriptionPayload
   activity(where: ActivitySubscriptionWhereInput): ActivitySubscriptionPayload
@@ -21153,7 +21379,7 @@ type User implements Node {
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   involvedActivity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
-  physicalAddress: String
+  currentAddress: Address
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting!
@@ -21193,7 +21419,6 @@ input UserCreateInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21215,6 +21440,7 @@ input UserCreateInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21278,6 +21504,11 @@ input UserCreateOneWithoutCreatedPropertiesInput {
 
 input UserCreateOneWithoutCreditCardsInput {
   create: UserCreateWithoutCreditCardsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutCurrentAddressInput {
+  create: UserCreateWithoutCurrentAddressInput
   connect: UserWhereUniqueInput
 }
 
@@ -21356,7 +21587,6 @@ input UserCreateWithoutActivityInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21377,6 +21607,7 @@ input UserCreateWithoutActivityInput {
   signature: FileCreateOneWithoutUserSignatureInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21404,7 +21635,6 @@ input UserCreateWithoutAdminSettingsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21426,6 +21656,7 @@ input UserCreateWithoutAdminSettingsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
@@ -21452,7 +21683,6 @@ input UserCreateWithoutAwaitingFriendsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21473,6 +21703,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21500,7 +21731,6 @@ input UserCreateWithoutBankDetailsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21522,6 +21752,7 @@ input UserCreateWithoutBankDetailsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21548,7 +21779,6 @@ input UserCreateWithoutChatsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21569,6 +21799,7 @@ input UserCreateWithoutChatsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21596,7 +21827,6 @@ input UserCreateWithoutCreatedPropertiesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21617,6 +21847,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21644,7 +21875,6 @@ input UserCreateWithoutCreditCardsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21657,6 +21887,55 @@ input UserCreateWithoutCreditCardsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
+}
+
+input UserCreateWithoutCurrentAddressInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean!
+  acceptedTermsOfEngagement: Boolean
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
@@ -21692,7 +21971,6 @@ input UserCreateWithoutFriendRequestsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21713,6 +21991,7 @@ input UserCreateWithoutFriendRequestsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21740,7 +22019,6 @@ input UserCreateWithoutInvolvedActivityInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21761,6 +22039,7 @@ input UserCreateWithoutInvolvedActivityInput {
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21788,7 +22067,6 @@ input UserCreateWithoutLesseeLeasesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21809,6 +22087,7 @@ input UserCreateWithoutLesseeLeasesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21836,7 +22115,6 @@ input UserCreateWithoutLessorLeasesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21857,6 +22135,7 @@ input UserCreateWithoutLessorLeasesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21884,7 +22163,6 @@ input UserCreateWithoutPhotoIdentificationInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21905,6 +22183,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21932,7 +22211,6 @@ input UserCreateWithoutProfilePhotoInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -21953,6 +22231,7 @@ input UserCreateWithoutProfilePhotoInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -21980,7 +22259,6 @@ input UserCreateWithoutProofOfAddressInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22002,6 +22280,7 @@ input UserCreateWithoutProofOfAddressInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
@@ -22028,7 +22307,6 @@ input UserCreateWithoutPropertiesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22049,6 +22327,7 @@ input UserCreateWithoutPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -22076,7 +22355,6 @@ input UserCreateWithoutRecievedMessagesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22097,6 +22375,7 @@ input UserCreateWithoutRecievedMessagesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -22124,7 +22403,6 @@ input UserCreateWithoutRentalAppraisalsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22145,6 +22423,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -22172,7 +22451,6 @@ input UserCreateWithoutSentMessagesInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22193,6 +22471,7 @@ input UserCreateWithoutSentMessagesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -22220,7 +22499,6 @@ input UserCreateWithoutSignatureInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22241,6 +22519,7 @@ input UserCreateWithoutSignatureInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -22268,7 +22547,6 @@ input UserCreateWithoutViewingsInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
@@ -22290,6 +22568,7 @@ input UserCreateWithoutViewingsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   bankDetails: BankDetailCreateOneWithoutUserInput
@@ -22349,8 +22628,6 @@ enum UserOrderByInput {
   referee2Email_DESC
   rehouserStamp_ASC
   rehouserStamp_DESC
-  physicalAddress_ASC
-  physicalAddress_DESC
   acceptedSignupTerms_ASC
   acceptedSignupTerms_DESC
   acceptedTermsOfEngagement_ASC
@@ -22381,7 +22658,6 @@ type UserPreviousValues {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
 }
@@ -23167,46 +23443,6 @@ input UserScalarWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
-  physicalAddress: String
-
-  """All values that are not equal to given value."""
-  physicalAddress_not: String
-
-  """All values that are contained in given list."""
-  physicalAddress_in: [String!]
-
-  """All values that are not contained in given list."""
-  physicalAddress_not_in: [String!]
-
-  """All values less than the given value."""
-  physicalAddress_lt: String
-
-  """All values less than or equal the given value."""
-  physicalAddress_lte: String
-
-  """All values greater than the given value."""
-  physicalAddress_gt: String
-
-  """All values greater than or equal the given value."""
-  physicalAddress_gte: String
-
-  """All values containing the given string."""
-  physicalAddress_contains: String
-
-  """All values not containing the given string."""
-  physicalAddress_not_contains: String
-
-  """All values starting with the given string."""
-  physicalAddress_starts_with: String
-
-  """All values not starting with the given string."""
-  physicalAddress_not_starts_with: String
-
-  """All values ending with the given string."""
-  physicalAddress_ends_with: String
-
-  """All values not ending with the given string."""
-  physicalAddress_not_ends_with: String
   acceptedSignupTerms: Boolean
 
   """All values that are not equal to given value."""
@@ -23274,7 +23510,6 @@ input UserUpdateDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23296,6 +23531,7 @@ input UserUpdateDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23322,7 +23558,6 @@ input UserUpdateInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23344,6 +23579,7 @@ input UserUpdateInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23370,7 +23606,6 @@ input UserUpdateManyDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23408,7 +23643,6 @@ input UserUpdateManyMutationInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23536,6 +23770,15 @@ input UserUpdateOneWithoutBankDetailsInput {
   upsert: UserUpsertWithoutBankDetailsInput
 }
 
+input UserUpdateOneWithoutCurrentAddressInput {
+  create: UserCreateWithoutCurrentAddressInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutCurrentAddressDataInput
+  upsert: UserUpsertWithoutCurrentAddressInput
+}
+
 input UserUpdateOneWithoutLesseeLeasesInput {
   create: UserCreateWithoutLesseeLeasesInput
   connect: UserWhereUniqueInput
@@ -23632,7 +23875,6 @@ input UserUpdateWithoutActivityDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23653,6 +23895,7 @@ input UserUpdateWithoutActivityDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23679,7 +23922,6 @@ input UserUpdateWithoutAdminSettingsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23701,6 +23943,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
@@ -23726,7 +23969,6 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23747,6 +23989,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23773,7 +24016,6 @@ input UserUpdateWithoutBankDetailsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23795,6 +24037,7 @@ input UserUpdateWithoutBankDetailsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23820,7 +24063,6 @@ input UserUpdateWithoutChatsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23841,6 +24083,7 @@ input UserUpdateWithoutChatsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23867,7 +24110,6 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23888,6 +24130,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -23914,7 +24157,6 @@ input UserUpdateWithoutCreditCardsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23927,6 +24169,54 @@ input UserUpdateWithoutCreditCardsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
+}
+
+input UserUpdateWithoutCurrentAddressDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean
+  acceptedTermsOfEngagement: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
@@ -23961,7 +24251,6 @@ input UserUpdateWithoutFriendRequestsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -23982,6 +24271,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24008,7 +24298,6 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24029,6 +24318,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24055,7 +24345,6 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24076,6 +24365,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24102,7 +24392,6 @@ input UserUpdateWithoutLessorLeasesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24123,6 +24412,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24149,7 +24439,6 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24170,6 +24459,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24196,7 +24486,6 @@ input UserUpdateWithoutProfilePhotoDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24217,6 +24506,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24243,7 +24533,6 @@ input UserUpdateWithoutProofOfAddressDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24265,6 +24554,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
@@ -24290,7 +24580,6 @@ input UserUpdateWithoutPropertiesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24311,6 +24600,7 @@ input UserUpdateWithoutPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24337,7 +24627,6 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24358,6 +24647,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24384,7 +24674,6 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24405,6 +24694,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24431,7 +24721,6 @@ input UserUpdateWithoutSentMessagesDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24452,6 +24741,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24478,7 +24768,6 @@ input UserUpdateWithoutSignatureDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24499,6 +24788,7 @@ input UserUpdateWithoutSignatureDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -24525,7 +24815,6 @@ input UserUpdateWithoutViewingsDataInput {
   referee2Phone: String
   referee2Email: String
   rehouserStamp: Boolean
-  physicalAddress: String
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
@@ -24547,6 +24836,7 @@ input UserUpdateWithoutViewingsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
@@ -24610,6 +24900,11 @@ input UserUpsertWithoutCreatedPropertiesInput {
 input UserUpsertWithoutCreditCardsInput {
   update: UserUpdateWithoutCreditCardsDataInput!
   create: UserCreateWithoutCreditCardsInput!
+}
+
+input UserUpsertWithoutCurrentAddressInput {
+  update: UserUpdateWithoutCurrentAddressDataInput!
+  create: UserCreateWithoutCurrentAddressInput!
 }
 
 input UserUpsertWithoutFriendRequestsInput {
@@ -25473,46 +25768,6 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
-  physicalAddress: String
-
-  """All values that are not equal to given value."""
-  physicalAddress_not: String
-
-  """All values that are contained in given list."""
-  physicalAddress_in: [String!]
-
-  """All values that are not contained in given list."""
-  physicalAddress_not_in: [String!]
-
-  """All values less than the given value."""
-  physicalAddress_lt: String
-
-  """All values less than or equal the given value."""
-  physicalAddress_lte: String
-
-  """All values greater than the given value."""
-  physicalAddress_gt: String
-
-  """All values greater than or equal the given value."""
-  physicalAddress_gte: String
-
-  """All values containing the given string."""
-  physicalAddress_contains: String
-
-  """All values not containing the given string."""
-  physicalAddress_not_contains: String
-
-  """All values starting with the given string."""
-  physicalAddress_starts_with: String
-
-  """All values not starting with the given string."""
-  physicalAddress_not_starts_with: String
-
-  """All values ending with the given string."""
-  physicalAddress_ends_with: String
-
-  """All values not ending with the given string."""
-  physicalAddress_not_ends_with: String
   acceptedSignupTerms: Boolean
 
   """All values that are not equal to given value."""
@@ -25567,6 +25822,7 @@ input UserWhereInput {
   rentalAppraisals_every: RentalAppraisalWhereInput
   rentalAppraisals_some: RentalAppraisalWhereInput
   rentalAppraisals_none: RentalAppraisalWhereInput
+  currentAddress: AddressWhereInput
   proofOfAddress: FileWhereInput
   adminSettings: AdminSettingWhereInput
   viewings_every: ViewingWhereInput

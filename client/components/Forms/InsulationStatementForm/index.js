@@ -32,6 +32,7 @@ import { toast } from 'react-toastify';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
+import Error from '../../ErrorMessage';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,9 +70,9 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
   const classes = useStyles();
   const [open, setIsOpen] = useState(false);
 
-  const handleLazyComplete = async data => {
-    await setIsOpen(true);
-  };
+  // const handleLazyComplete = async data => {
+  //   await setIsOpen(true);
+  // };
 
   const [loadForm, { called, loading, data }] = useLazyQuery(
     INSULATION_FORM_QUERY,
@@ -81,7 +82,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
           id: insulationFormId,
         },
       },
-      onCompleted: handleLazyComplete,
+      // onCompleted: handleLazyComplete,
       fetchPolicy: 'network-only', // simply becaus emutation isnt updating lazyQuery. at very least should retrigger network fetch
       partialRefetch: true,
     }
@@ -145,6 +146,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
     if (!insulationFormId) {
       createInsulationForm({
         variables: {
+          id: propertyId,
           data: {
             insulationForm: insulationFormId
               ? {
@@ -277,6 +279,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
           insulationFormId ? 'Edit' : 'Create'
         } INSULATION STATEMENT Form`}>
         <FormCreator
+          forceFormUpdates={true}
           title="Insulation Form"
           data={data ? data.insulationForm : null}
           isNew={propertyId ? false : true}
@@ -285,6 +288,8 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
           // data={{ wallCoverage: null }}
           onSubmit={handleSubmittedData}
         />
+        <Error error={createInsulationFormProps.error} />
+        <Error error={updateInsulationFormProps.error} />
       </Modal>
     </Paper>
   );

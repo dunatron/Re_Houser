@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 
 // components
 import LocationPicker from '../../LocationPicker';
+import FieldError from './FieldError';
 
 const useStyles = makeStyles(theme => ({}));
 
@@ -25,7 +26,7 @@ const Location = props => {
     fieldError,
   } = props;
 
-  const { fieldProps, refConf } = config;
+  const { fieldProps, refConf, mapToObjectKey } = config;
 
   if (!fieldProps) return 'This form component needs fieldProps';
   if (!fieldProps.fieldMaps) {
@@ -41,7 +42,14 @@ const Location = props => {
 
   useEffect(() => {
     for (const [key, value] of Object.entries(config.fieldProps.fieldMaps)) {
-      register({ name: value }, { ...config.refConf });
+      // if mapToObjectKey exists, put the fields inside that object
+      if (mapToObjectKey) {
+        const str = `${mapToObjectKey}.${value}`;
+        // console.log('REGISTERED STIRNG +++++++> ', str);
+        register({ name: str }, { ...config.refConf });
+      } else {
+        register({ name: value }, { ...config.refConf });
+      }
     }
     // maybe see if we can getfaultValues from the value of mapped keys and set those values as defaults
   }, [register]);
@@ -49,13 +57,18 @@ const Location = props => {
   return (
     <>
       {fieldError ? <Typography color="error">{fieldError}</Typography> : null}
+      <FieldError errors={errors} name={config.fieldProps.name} />
       <LocationPicker
         defaultLocation={defaultLocation}
         selection={data => {
           for (const [key, value] of Object.entries(
             config.fieldProps.fieldMaps
           )) {
-            setValue(value, data[key]);
+            if (mapToObjectKey) {
+              setValue(`${mapToObjectKey}.${value}`, data[key]);
+            } else {
+              setValue(value, data[key]);
+            }
           }
         }}
       />

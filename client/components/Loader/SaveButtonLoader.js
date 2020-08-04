@@ -51,7 +51,14 @@ const RenderBtnText = ({ success, text, successText }) => {
   return <span>{text}</span>;
 };
 
-const SaveButtonLoader = ({ loading, success, onClick, text, successText }) => {
+const SaveButtonLoader = ({
+  loading,
+  success,
+  onClick,
+  text,
+  successText,
+  disabled,
+}) => {
   const classes = useStyles();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
@@ -61,6 +68,7 @@ const SaveButtonLoader = ({ loading, success, onClick, text, successText }) => {
     <div className={classes.root}>
       <div className={classes.wrapper}>
         <Fab
+          disabled={disabled}
           aria-label="save"
           color="primary"
           className={buttonClassname}

@@ -5,8 +5,6 @@ import moment from 'moment';
 import { Typography } from '@material-ui/core';
 
 const OnceViewing = ({ viewing, ...rest }) => {
-  console.log('Viewing for Once OFF => ', viewing);
-
   const viewingDate = moment(viewing.dateTime).format(
     'dddd MMMM Do YYYY, h:mm:ss a'
   );

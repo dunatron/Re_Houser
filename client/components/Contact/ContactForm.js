@@ -6,7 +6,6 @@ import { Typography } from '@material-ui/core';
 
 const ContactForm = () => {
   const handleSubmit = data => {
-    console.log('COntact form data => ', data);
     alert(
       'ToDO create the submit form on the server and require a recaptcha token'
     );

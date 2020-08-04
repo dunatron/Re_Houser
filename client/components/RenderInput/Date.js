@@ -14,8 +14,6 @@ const DateInput = ({ fieldProps, defaultValue, onChange }) => {
   const classes = useStyles();
   const handleOnChange = e => onChange(e.target.value);
 
-  console.log('default value for a date input => ', defaultValue);
-
   const defaultRFCIsoValue = defaultValue
     ? moment(defaultValue).format('YYYY-MM-DD')
     : moment().format('YYYY-MM-DD');

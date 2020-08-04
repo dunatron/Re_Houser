@@ -274,7 +274,7 @@ const LocationPicker = ({ selection, defaultLocation }) => {
           }}>
           <LocationOnIcon color="secondary" />
           <Typography style={{ padding: '8px 16px' }}>{state.desc}</Typography>
-          <Typography style={{ padding: '8px 16px', wordBreak: 'break-all' }}>
+          {/* <Typography style={{ padding: '8px 16px', wordBreak: 'break-all' }}>
             PlaceId: {state.placeId}
           </Typography>
           <Typography style={{ padding: '8px 16px' }}>
@@ -282,7 +282,7 @@ const LocationPicker = ({ selection, defaultLocation }) => {
           </Typography>
           <Typography style={{ padding: '8px 16px' }}>
             Longitude: {state.lng}
-          </Typography>
+          </Typography> */}
         </div>
       )}
     </div>

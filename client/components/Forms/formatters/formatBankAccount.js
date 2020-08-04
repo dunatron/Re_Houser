@@ -1,6 +1,4 @@
 const _preFormatBankAccount = val => {
-  console.log('Pre format bank account nuber => ', val);
-
   // this may not quite work..
   const preformattedSring =
     val.bankNumber +
@@ -10,7 +8,6 @@ const _preFormatBankAccount = val => {
     val.accountNumber +
     '-' +
     val.suffix;
-  console.log('preformattedSring => ', preformattedSring);
   //   return {
   //     ...val,
   //   };
@@ -18,7 +15,6 @@ const _preFormatBankAccount = val => {
 };
 
 const _postFormatBankAccount = val => {
-  console.log('_postFormatBankAccount val => ', val);
   var bankAccountChunks = val.split('-');
   let bankObj = {
     bankNumber: bankAccountChunks[0],
@@ -26,7 +22,6 @@ const _postFormatBankAccount = val => {
     accountNumber: bankAccountChunks[2],
     suffix: bankAccountChunks[3],
   };
-  console.log('bankObj => ', val);
   return bankObj;
 };
 

@@ -38,7 +38,7 @@ type User {
   activity: [Activity!]!
   involvedActivity: [Activity!]!
   rentalAppraisals: [RentalAppraisal]
-  physicalAddress: String
+  currentAddress: Address
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting
@@ -288,6 +288,7 @@ type Query {
     last: Int
   ): [User!]!
   paymentsCount: Int
+  rentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal!
   rentalAppraisalsConnection(
     where: RentalAppraisalWhereInput
     orderBy: RentalAppraisalOrderByInput

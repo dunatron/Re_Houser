@@ -40,13 +40,22 @@ type User {
   activity: [Activity!]! @relation(name: "UserActivity")
   involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
-  physicalAddress: String
+  currentAddress: Address @relation(name: "CurrentUserAddress", link: TABLE)
   proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
   acceptedSignupTerms: Boolean!
   adminSettings: AdminSetting! @relation(name: "UserAdminSettings", link: TABLE)
   viewings: [Viewing!]! @relation(name: "HostViewings")
   acceptedTermsOfEngagement: Boolean
   bankDetails: BankDetail @relation(name: "UserBankDetails", link: TABLE)
+}
+
+type Address {
+  id: ID! @unique @id
+  user: User @relation(name: "CurrentUserAddress")
+  placeId: String!
+  desc: String!
+  lat: Float!
+  lng: Float!
 }
 
 type AdminSetting {
@@ -307,8 +316,6 @@ type RentalAppraisal {
   bathrooms: Int!
   garageSpaces: Int!
   heatSources: [HeatSource] @scalarList(strategy: RELATION)
-  lowRent: Float
-  highRent: Float
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean

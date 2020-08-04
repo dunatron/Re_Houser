@@ -34,6 +34,12 @@ const UserInfoFragment = gql`
     primaryCreditCard {
       id
     }
+    currentAddress {
+      placeId
+      desc
+      lat
+      lng
+    }
     friendRequests {
       id
       requestUser {

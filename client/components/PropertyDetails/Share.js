@@ -32,15 +32,12 @@ import moment from 'moment';
 //   appId?: string,
 //   redirectURI?: string,
 const ShareProperty = ({ property }) => {
-  const handleStatusChange = res => {
-    console.log('STatus Change => ', res);
-  };
+  const handleStatusChange = res => {};
 
   return (
     <>
       <Initialize>
         {({ isReady, api }) => {
-          console.log('api => ', api.ui);
           // our custom async/await api
           // original FB api is available via window.FB
           if (!isReady) return <div>Loading Facebook API</div>;
@@ -50,14 +47,7 @@ const ShareProperty = ({ property }) => {
               <Status>
                 {({ loading, status }) => {
                   if (loading) return 'Loading status';
-                  console.log(
-                    'FB Login STatus Render component loading => ',
-                    loading
-                  );
-                  console.log(
-                    'FB Login STatus Render component status => ',
-                    status
-                  );
+
                   return (
                     <div>
                       {JSON.stringify(status)}

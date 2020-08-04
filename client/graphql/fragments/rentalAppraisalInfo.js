@@ -15,8 +15,6 @@ const RentalAppraisalInfoFragment = gql`
     bathrooms
     heatSources
     rent
-    lowRent
-    highRent
     rentValueAccepted
     acceptTerms
     property {

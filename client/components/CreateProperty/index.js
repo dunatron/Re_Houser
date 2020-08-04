@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormCreator } from '../Forms';
-import { useMutation } from '@apollo/client';
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import {
   CREATE_PROPERTY_MUTATION,
   UPDATE_USER_MUTATION,
@@ -8,6 +9,7 @@ import {
 import {
   PROPERTIES_QUERY,
   OWNER_PROPERTIES_QUERY,
+  SINGLE_RENTAL_APPRAISAL_QUERY,
 } from '../../graphql/queries/index';
 
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
@@ -23,15 +25,62 @@ import Modal from '../Modal';
 import LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF from '../../lib/configs/landlordTermsOfEngagementForm';
 
 const CreatePropertyComponent = props => {
+  const router = useRouter();
+  const [waitForLazy, setWaitForLazy] = useState(
+    router.query.appraisalId ? true : false
+  );
   const { me } = props;
   const [createdPropertyId, setCreatedPropertyId] = useState(null);
   const [createdData, setCreatedData] = useState({});
   const [isChecking, setIsChecking] = useState(false);
+  const [defaultFormData, setDefaultFormData] = useState({
+    bankDetails: me.bankDetails ? me.bankDetails : {},
+  });
   const [submittedData, setSubmittedData] = useState({});
-  // No idea how the fuck me is getting into here
+
   if (!me) return 'You must be logged in to create a property appraisal';
 
-  console.log('tell me about me => ', me);
+  const [loadAppraisal, { called, loading, data, error }] = useLazyQuery(
+    SINGLE_RENTAL_APPRAISAL_QUERY,
+    {
+      fetchPolicy: 'network-only', // simply becaus emutation isnt updating lazyQuery. at very least should retrigger network fetch
+      partialRefetch: true,
+    }
+  );
+
+  useEffect(() => {
+    if (data && data.rentalAppraisal && !loading) {
+      // setDefaultFormData({ ...defaultFormData, ...data.rentalAppraisal });
+      setDefaultFormData({
+        lowRent: null,
+        location: '22 Oakland Street, Mataura, New Zealand',
+        acceptTerms: true,
+        __typename: 'RentalAppraisal',
+        highRent: null,
+        heatSources: ['HEAT_PUMP', 'ELECTRIC_HEATER'],
+        requestedBy: {
+          email: 'heath.dunlop.hd@gmail.com',
+          __typename: 'User',
+          profilePhoto: null,
+          lastName: 'Dunlop',
+          firstName: 'Heath',
+          id: 'ckdft77484maf0999xrbteqbp',
+          rehouserStamp: null,
+          phone: '0212439998',
+        },
+        rooms: 66,
+        locationLng: 168.8614981,
+        rentValueAccepted: null,
+        rent: null,
+        id: 'ckdfwcjbd55ho0999w71yv820',
+        createdAt: '2020-08-04T12:06:17.545Z',
+        bathrooms: 2,
+        property: null,
+        locationLat: -46.19499399999999,
+      });
+      setWaitForLazy(false);
+    }
+  }, [data, loading]);
 
   const handlePropertyCreated = data => {
     setCreatedData(data);
@@ -144,6 +193,16 @@ const CreatePropertyComponent = props => {
 
   // import a modal and chuck this in it <CheckAndSubmit data={} />
 
+  if (!called && router.query.appraisalId) {
+    loadAppraisal({
+      variables: {
+        where: {
+          id: router.query.appraisalId,
+        },
+      },
+    });
+  }
+
   return (
     <div style={{ maxWidth: '800px' }}>
       <Modal
@@ -180,6 +239,13 @@ const CreatePropertyComponent = props => {
                 variables: {
                   data: {
                     ...data,
+                    currentAddress: data.currentAddress
+                      ? {
+                          create: {
+                            ...data.currentAddress,
+                          },
+                        }
+                      : {},
                     bankDetails: data.bankDetails
                       ? {
                           create: {
@@ -209,16 +275,39 @@ const CreatePropertyComponent = props => {
           </Button> */}
         </div>
       )}
+
       {me.acceptedTermsOfEngagement && (
-        <FormCreator
-          title="Property"
-          data={{
-            bankDetails: me.bankDetails ? me.bankDetails : {},
-          }}
-          isNew={true}
-          config={CREATE_PROPERTY_FORM_CONF}
-          onSubmit={submitFormWithData}
-        />
+        <>
+          {/* {router.query.appraisalId && (
+            <Button
+              onClick={() =>
+                loadAppraisal({
+                  variables: {
+                    where: {
+                      id: router.query.appraisalId,
+                    },
+                  },
+                })
+              }>
+              LOAD IN YOUR APPRAISAL
+            </Button>
+          )} */}
+          {waitForLazy && <div>Loading in the appraisal data first</div>}
+
+          <Error error={error} />
+          {!waitForLazy && (
+            <FormCreator
+              title="Property"
+              forceFormUpdates={true}
+              data={{
+                ...defaultFormData,
+              }}
+              isNew={true}
+              config={CREATE_PROPERTY_FORM_CONF}
+              onSubmit={submitFormWithData}
+            />
+          )}
+        </>
       )}
     </div>
   );

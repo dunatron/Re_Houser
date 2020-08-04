@@ -57,15 +57,7 @@ const InputFieldType = props => {
   const label = fieldProps ? fieldProps.label : null;
 
   const fieldError = extractErrorFromErrors(errors, name);
-
-  console.log('defaultValues => ', defaultValues);
-
-  const defaultValue = defaultValues[name];
-
-  // const defaultValue = "";
-
-  console.log('name for this here field => ', name);
-  console.log('defaultValue for this here field => ', defaultValue);
+  const defaultValue = defaultValues ? defaultValues[name] : null;
 
   const TypeToRender = () => {
     switch (type) {
@@ -73,6 +65,8 @@ const InputFieldType = props => {
         return <Typography variant="h4">{label}</Typography>;
       case 'Subheader':
         return <Typography variant="h5">{label}</Typography>;
+      case 'RTypography':
+        return <Typography {...config.fieldProps}>{config.content}</Typography>;
       case 'Section':
         return <FormSection {...props} />;
       case 'String':
@@ -219,8 +213,8 @@ const InputFieldType = props => {
         );
       default:
         return (
-          <Typography>
-            This Item has no type specified for a form input type of {type}
+          <Typography color="error">
+            form type of "{type}" does not currently exist in the form system
           </Typography>
         );
     }

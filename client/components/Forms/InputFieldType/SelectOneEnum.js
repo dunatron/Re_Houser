@@ -50,8 +50,6 @@ export default function SimpleSelect(props) {
 
   const yuckErr = errors[name]; //thats why I labelled it yuck, shold work with architecture right.. .SO check this out wehen you have time
 
-  console.log('Tell me of these errors => ', errors);
-
   const { type, inners, fieldProps, refConf } = config;
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {
