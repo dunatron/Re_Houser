@@ -123,7 +123,15 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
       },
       {
         type: 'Image',
-        fieldProps: {},
+        fieldProps: {
+          style: {
+            paddingTop: '120px',
+          },
+          imageStyle: {
+            height: '120px',
+          },
+          src: '/images/signatures/rehouser_admin_signature.png',
+        },
       },
       {
         type: 'RTypography',

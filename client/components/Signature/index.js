@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Typography } from '@material-ui/core';
+import { TextField, Typography, Button, IconButton } from '@material-ui/core';
 import clsx from 'clsx';
 
 import SignatureCanvas from 'react-signature-canvas';
 import { useMutation } from '@apollo/client';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import { useCurrentUser } from '../User';
 import {
   UPDATE_USER_MUTATION,
   UPLOAD_SIGNATURE_FILE,
@@ -15,6 +16,8 @@ import { StyledButton, ButtonLoader } from '../Loader/ButtonLoader';
 import { border } from '@material-ui/system';
 import { toast } from 'react-toastify';
 import { css } from 'glamor';
+import Image from 'material-ui-image';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   canvas: {
@@ -22,8 +25,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignatureComponent = ({ me }) => {
+const SignatureComponent = () => {
   const classes = useStyles();
+
   // canvas pen settings
   const [velocityFilterWeight, setVelocityFilterWeight] = useState(0.7); // default: 0.7
   const [minWidth, setMinWidth] = useState(0.5); // default: 0.5
@@ -33,14 +37,20 @@ const SignatureComponent = ({ me }) => {
   const [penColor, setPenColor] = useState('black'); // default: 'black'
   const [throttle, setThrottle] = useState(16); // default: 16
 
+  const currentUser = useCurrentUser();
+
+  const me = currentUser.data ? currentUser.data.me : null;
+  const [isEditing, setIsEditing] = useState(me.signature ? false : true);
+
+  console.log('currentUser => ', currentUser);
+
   const handleCompleted = data => {
+    setIsEditing(false);
     toast.success(
       <div>
         <p>
           <Typography>Signature has been set</Typography>
           <img
-            // height="200px"
-            // width="200px"
             src={
               data.uploadSignature ? data.uploadSignature.signature.url : null
             }
@@ -109,21 +119,57 @@ const SignatureComponent = ({ me }) => {
   };
 
   useEffect(() => {
-    if (me.signature) {
+    if (me.signature && isEditing) {
       toDataURL(me.signature.url).then(dataUrl => {
         canvasRef.current.fromDataURL(dataUrl, {
           ratio: 1,
         });
       });
     }
-  }, [me.signature]);
+  }, [me.signature, isEditing]);
+
+  if (!me) {
+    return null;
+  }
+
+  if (!isEditing) {
+    return (
+      <div>
+        {me.signature && (
+          <Image
+            style={{
+              paddingTop: '120px',
+            }}
+            src={me.signature.url}
+            imageStyle={{
+              height: '120px',
+            }}
+          />
+        )}
+        <Button onClick={() => setIsEditing(true)}>Edit Signature</Button>
+      </div>
+    );
+  }
 
   return (
     <>
       <div style={{ maxWidth: '100%', overflow: 'auto' }}>
-        <Typography>
-          {me.firstName} {me.lastName} Signature
-        </Typography>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}>
+          {me.signature && (
+            <IconButton onClick={() => setIsEditing(false)}>
+              <CloseIcon />
+            </IconButton>
+          )}
+          <Typography>
+            {me.firstName} {me.lastName} Signature
+          </Typography>
+        </div>
+
         <SignatureCanvas
           ref={canvasRef}
           // penColor="green"
@@ -171,7 +217,7 @@ const SignatureComponent = ({ me }) => {
   const [dotSize, setDotSize] = useState(0.7); // default: () => (this.minWidth + this.maxWidth) / 2
   const [penColor, setPenColor] = useState('black'); // default: 'black'
   const [throttle, setThrottle] = useState(16); // default: 16 */}
-      <div style={{ marginTop: '16px' }}>
+      {/* <div style={{ marginTop: '16px' }}>
         <TextField
           type="number"
           value={velocityFilterWeight}
@@ -220,7 +266,13 @@ const SignatureComponent = ({ me }) => {
           onChange={e => setPenColor(e.target.value)}
         />
         <TextField value={throttle} name="throttle" label="throttle" />
-      </div>
+      </div> */}
+      {!me.signature && (
+        <Typography variant="body1" color="error">
+          You have not set a signature. We require it for the system before you
+          can progress any further
+        </Typography>
+      )}
     </>
   );
 };

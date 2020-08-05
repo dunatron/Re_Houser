@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import FormErrors from './FormErrors';
 import formatData from './formatters/formatData';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import { useCurrentUser } from '../User';
+import { toast } from 'react-toastify';
 
 // const configisNotEmpty = config => {
 //   if (isEmpty(config)) return true;
@@ -69,6 +71,10 @@ const FormCreator = props => {
     refetchQueries,
   } = props;
 
+  const currentUser = useCurrentUser();
+
+  const me = currentUser.data ? currentUser.data.me : null;
+
   const keysWithTypes = getKeyTypes(config);
 
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
@@ -88,7 +94,31 @@ const FormCreator = props => {
       ...preFormattedFormData,
     },
   }); // initalise the hook
+
+  const canSubmit = () => {
+    // check if the config has a signature field
+    // if it does me.signature needs to exists before the
+    var can = true;
+    config.forEach(item => {
+      if (item.type === 'Signature') {
+        if (!me.signature) {
+          toast.error(
+            <Typography>
+              You need to supply a signature before you can progress
+            </Typography>,
+            {
+              autoClose: 3000,
+            }
+          );
+          can = false;
+        }
+      }
+    });
+    return can;
+  };
+
   const onSubmit = data => {
+    if (!canSubmit()) return;
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid

@@ -32,6 +32,8 @@ import Float from './Float';
 import DateField from './Date';
 import AcceptTerms from './AcceptTerms';
 import Info from './Info';
+import Signature from './Signature';
+import Image from './Image';
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
@@ -211,6 +213,10 @@ const InputFieldType = props => {
             fieldError={fieldError}
           />
         );
+      case 'Signature':
+        return <Signature {...props} />;
+      case 'Image':
+        return <Image {...props} />;
       default:
         return (
           <Typography color="error">
