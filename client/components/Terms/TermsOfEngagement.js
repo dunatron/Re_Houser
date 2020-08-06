@@ -7,10 +7,9 @@ const TermsOfEngagement = ({ me }) => {
         Terms of engagement
       </Typography>
       <Typography gutterBottom>
-        Note: Any reference within this agreement to ‘Law, legislation,
-        legislative provision includes modification, amendment, re-enactment or
-        subordinate legislation or regulations issued in relation to that
-        legislation.
+        Any reference within this agreement to ‘Law, legislation, legislative
+        provision includes modification, amendment, re-enactment or subordinate
+        legislation or regulations issued in relation to that legislation.
       </Typography>
       <Typography gutterBottom>
         The OWNER hereby employs Rehouser Ltd to manage the above property as

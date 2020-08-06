@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const moment = require("moment");
+const { CEO_DETAILS } = require("../../const");
 
 // https://my.sendinblue.com/users/settings
 const transport = nodemailer.createTransport({
@@ -18,19 +19,19 @@ const makeANiceEmail = (text, user) => {
   return `
   <div className="email" style="
     border: 1px solid black;
+    border: 1px solid #e91e63;
     padding: 20px;
     font-family: sans-serif;
     line-height: 2;
     font-size: 16px;
   ">
     <!-- heading -->
-    <h2 style="border-bottom: 3px solid black; font-size: 26px">Rehouser Property Management Ltd</h2>
+    <h2 style="border-bottom: 3px solid black; border-bottom: 3px solid #e91e63; font-size: 26px">Rehouser Property Management Ltd</h2>
     <!-- adress details -->
     <div style="font-size: 12px; line-height: 18px;">
       <div>Rehouser</div>
-      <div>Christchuch</div>
-      <div>0273469387</div>
-      <div>admin@rehouser.co.nz</div>
+      <div>${CEO_DETAILS.phone}</div>
+      <div${CEO_DETAILS.email}</div>
     </div>
     <!-- date -->
     <div style="margin: 16px 0;">${today}</div>
@@ -44,13 +45,13 @@ const makeANiceEmail = (text, user) => {
          With Kind Regards,
       </div>
       <div>
-        Heath McDonough
+        ${CEO_DETAILS.firstname} ${CEO_DETAILS.lastname}
       </div>
       <div>
         Rehouser Property Manager
       </div>
       <div>
-        0273469387
+        ${CEO_DETAILS.phone}
       </div>
     </div>
   </div>

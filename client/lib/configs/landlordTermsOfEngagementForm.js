@@ -98,9 +98,17 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
   {
     type: 'Section',
     fieldProps: {
-      label: 'Authority to act as Manager:',
+      label: 'I Accept the Terms of Engagement:',
     },
     inners: [
+      {
+        type: 'RTypography',
+        content:
+          'Online authentication has occurred to confirm the parties are who they say they are. The parties consent to this agreement being in electronic form, being signed by either of them electronically and acknowledge that an electronic signature to this agreement is binding and valid.',
+        fieldProps: {
+          variant: 'body1',
+        },
+      },
       {
         type: 'RTypography',
         content:

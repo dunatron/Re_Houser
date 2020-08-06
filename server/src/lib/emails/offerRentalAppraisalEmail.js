@@ -14,8 +14,6 @@ const offerRentalAppraisalEmail = async function({
     bathrooms,
     heatSources,
     rent,
-    lowRent,
-    highRent,
     rentValueAccepted
   } = appraisal;
 
@@ -36,7 +34,9 @@ const offerRentalAppraisalEmail = async function({
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
   After considering your property and the current rental market conditions we would be able to secure a weekly
-  rent between $${lowRent} - $${highRent}. This amount has been based on similar properties within the vicinity of your property.
+  rent between $${rent}. This amount has been based on similar properties within the vicinity of your property. \n
+  You can begin adding this property to the platform by clicking the below link 
+  <a href="${process.env.EMAIL_PREFIX}/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
 </div>
 
 <div style="line-height: 18px; margin-top: 16px;">
@@ -51,10 +51,6 @@ To review our terms and conditions and to continue adding your property please g
   \n\n`,
       user
     )
-    // html: makeANiceEmail(`We have appraised the property at a weekly rent of $${rent}! \n
-    //   You can create a property at the following link ${process.env.EMAIL_PREFIX}/properties/add?eData=${strJSON} \n
-    //   It will prefill in the information with the appraised information. You can always edit this information
-    // \n\n`)
   });
 };
 
