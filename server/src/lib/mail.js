@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const moment = require("moment");
-const { CEO_DETAILS } = require("../../const");
+const { CEO_DETAILS } = require("../const");
 
 // https://my.sendinblue.com/users/settings
 const transport = nodemailer.createTransport({
@@ -10,28 +10,28 @@ const transport = nodemailer.createTransport({
     user: process.env.MAIL_USER, // replace with your Mailtrap credentials
     pass: process.env.MAIL_PASS
   },
-  debug: true, // show debug output
-  logger: true // log information in console
+  debug: process.env.STAGE === "dev" ? true : false, // show debug output
+  logger: process.env.STAGE === "dev" ? true : false // log information in console
 });
 
 const makeANiceEmail = (text, user) => {
   var today = moment().format("dddd, MMMM Do YYYY");
   return `
   <div className="email" style="
-    border: 1px solid black;
-    border: 1px solid #e91e63;
+    border: 2px solid black;
+    border: 2px solid #e91e63;
     padding: 20px;
     font-family: sans-serif;
     line-height: 2;
     font-size: 16px;
   ">
     <!-- heading -->
-    <h2 style="border-bottom: 3px solid black; border-bottom: 3px solid #e91e63; font-size: 26px">Rehouser Property Management Ltd</h2>
+    <h2 style="color: #3f51b5; border-bottom: 3px solid black; border-bottom: 3px solid #e91e63; font-size: 26px">Rehouser Property Management Ltd</h2>
     <!-- adress details -->
     <div style="font-size: 12px; line-height: 18px;">
       <div>Rehouser</div>
       <div>${CEO_DETAILS.phone}</div>
-      <div${CEO_DETAILS.email}</div>
+      <div>${CEO_DETAILS.email}</div>
     </div>
     <!-- date -->
     <div style="margin: 16px 0;">${today}</div>

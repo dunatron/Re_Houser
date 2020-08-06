@@ -50,34 +50,34 @@ const CreatePropertyComponent = props => {
 
   useEffect(() => {
     if (data && data.rentalAppraisal && !loading) {
-      // setDefaultFormData({ ...defaultFormData, ...data.rentalAppraisal });
-      setDefaultFormData({
-        lowRent: null,
-        location: '22 Oakland Street, Mataura, New Zealand',
-        acceptTerms: true,
-        __typename: 'RentalAppraisal',
-        highRent: null,
-        heatSources: ['HEAT_PUMP', 'ELECTRIC_HEATER'],
-        requestedBy: {
-          email: 'heath.dunlop.hd@gmail.com',
-          __typename: 'User',
-          profilePhoto: null,
-          lastName: 'Dunlop',
-          firstName: 'Heath',
-          id: 'ckdft77484maf0999xrbteqbp',
-          rehouserStamp: null,
-          phone: '0212439998',
-        },
-        rooms: 66,
-        locationLng: 168.8614981,
-        rentValueAccepted: null,
-        rent: null,
-        id: 'ckdfwcjbd55ho0999w71yv820',
-        createdAt: '2020-08-04T12:06:17.545Z',
-        bathrooms: 2,
-        property: null,
-        locationLat: -46.19499399999999,
-      });
+      setDefaultFormData({ ...defaultFormData, ...data.rentalAppraisal });
+      // setDefaultFormData({
+      //   lowRent: null,
+      //   location: '22 Oakland Street, Mataura, New Zealand',
+      //   acceptTerms: true,
+      //   __typename: 'RentalAppraisal',
+      //   highRent: null,
+      //   heatSources: ['HEAT_PUMP', 'ELECTRIC_HEATER'],
+      //   requestedBy: {
+      //     email: 'heath.dunlop.hd@gmail.com',
+      //     __typename: 'User',
+      //     profilePhoto: null,
+      //     lastName: 'Dunlop',
+      //     firstName: 'Heath',
+      //     id: 'ckdft77484maf0999xrbteqbp',
+      //     rehouserStamp: null,
+      //     phone: '0212439998',
+      //   },
+      //   rooms: 66,
+      //   locationLng: 168.8614981,
+      //   rentValueAccepted: null,
+      //   rent: null,
+      //   id: 'ckdfwcjbd55ho0999w71yv820',
+      //   createdAt: '2020-08-04T12:06:17.545Z',
+      //   bathrooms: 2,
+      //   property: null,
+      //   locationLat: -46.19499399999999,
+      // });
       setWaitForLazy(false);
     }
   }, [data, loading]);

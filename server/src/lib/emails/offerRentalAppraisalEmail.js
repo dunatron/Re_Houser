@@ -34,7 +34,7 @@ const offerRentalAppraisalEmail = async function({
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
   After considering your property and the current rental market conditions we would be able to secure a weekly
-  rent between $${rent}. This amount has been based on similar properties within the vicinity of your property. \n
+  rent of $${rent}. This amount has been based on similar properties within the vicinity of your property. \n
   You can begin adding this property to the platform by clicking the below link 
   <a href="${process.env.EMAIL_PREFIX}/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
 </div>
@@ -43,7 +43,10 @@ const offerRentalAppraisalEmail = async function({
   We would be grateful for the opportunity to Let and Manage your property with support of our platform <a href="${process.env.EMAIL_PREFIX}">Rehouser</a>
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
-To review our terms and conditions and to continue adding your property please go <a href="${process.env.EMAIL_PREFIX}/info/terms">here</a>
+  You can review our terms and conditions here <a href="${process.env.EMAIL_PREFIX}/info/landlord">here</a>
+</div>
+<div style="line-height: 18px; margin-top: 16px;">
+  <a href="${process.env.EMAIL_PREFIX}/properties/add?appraisalId=${appraisal.id}">Begin adding property based on appraisal</a> \n
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
   If you have any questions do not hesitate to give me a call.
