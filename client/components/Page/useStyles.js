@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => {
       border: '5px solid brown',
       [theme.breakpoints.up('lg')]: {
         border: '5px solid gold',
-        width: `calc(100% - ${theme.sideBarWidth}px !important)`,
+        width: `calc(100% - ${theme.sideBarWidth}px) !important`,
       },
     },
     appBarTransparent: {
