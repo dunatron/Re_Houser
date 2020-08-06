@@ -55,6 +55,7 @@ function MaterialPage(props) {
     <>
       <div className={classes.root}>
         <CssBaseline />
+        {/* Header */}
         <AppMenuBar {...props} handleDrawerToggle={handleDrawerToggle} />
         <nav className={classes.drawer} aria-label="mailbox folders">
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
