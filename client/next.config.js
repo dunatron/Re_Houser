@@ -1,4 +1,7 @@
 const { parsed: localEnv } = require('dotenv').config();
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 /**
  * NOTES
  * - For testing use this for recaptcha site key 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
@@ -39,3 +42,5 @@ module.exports = {
     FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET,
   },
 };
+
+module.exports = withBundleAnalyzer({});
