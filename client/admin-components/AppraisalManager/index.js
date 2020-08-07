@@ -17,11 +17,11 @@ import {
   Button,
 } from '@material-ui/core';
 
-import Modal from '../Modal/index';
 import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyAppraisalSub';
 import moment from 'moment';
 import formatCentsToDollars from '../../lib/formatCentsToDollars';
-import Error from '../ErrorMessage';
+import Modal from '../../components/Modal/index';
+import Error from '../../components/ErrorMessage';
 
 // querys
 import { RENTAL_APPRAISALS_CONNECTION_QUERY } from '../../graphql/connections';
@@ -242,48 +242,17 @@ const AdminRentalAppraisalsTable = ({ where }) => {
         }}
         editable={{
           isEditable: rowData => rowData.rent === null,
-          //   onRowUpdate: (newData, oldData) =>
-          //     new Promise((resolve, reject) => {
-          //       setTimeout(() => {
-          //         {
-          //           offerAppraisal({
-          //             variables: {
-          //               data: {
-          //                 rent: parseFloat(newData.rent),
-          //                 lowRent: parseFloat(newData.lowRent),
-          //                 highRent: parseFloat(newData.highRent),
-          //               },
-          //               where: {
-          //                 id: oldData.id,
-          //               },
-          //             },
-          //           });
-          //           // Note remove setTimeout and resolve onCOmpleted or on an error
-          //           resolve();
-          //         }
-          //         resolve();
-          //       }, 1000);
-          //     }),
-          // }}
+          // onRowUpdate must be promise based
           onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  offerAppraisal({
-                    variables: {
-                      data: {
-                        rent: parseFloat(newData.rent),
-                      },
-                      where: {
-                        id: oldData.id,
-                      },
-                    },
-                  });
-                  // Note remove setTimeout and resolve onCOmpleted or on an error
-                  resolve();
-                }
-                resolve();
-              }, 1000);
+            offerAppraisal({
+              variables: {
+                data: {
+                  rent: parseFloat(newData.rent),
+                },
+                where: {
+                  id: oldData.id,
+                },
+              },
             }),
         }}
       />

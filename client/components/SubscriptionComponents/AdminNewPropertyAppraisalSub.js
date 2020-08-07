@@ -20,6 +20,7 @@ import { store } from '../../store';
  * This should m,aybe create a context, newItemsCOunt
  */
 const AdminNewRentalAppraisalSub = () => {
+  console.log('==ATTEMPTING SUBSCRIPTION: RENTAL APPRAISAL SUB==');
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const { loading, data, error } = useSubscription(
@@ -39,6 +40,10 @@ const AdminNewRentalAppraisalSub = () => {
         },
       },
       onSubscriptionData: ({ client, subscriptionData }) => {
+        console.log(
+          'recieved new appraisal data from subscription => ',
+          subscriptionData
+        );
         dispatch({
           type: 'updateState',
           payload: {
@@ -49,13 +54,18 @@ const AdminNewRentalAppraisalSub = () => {
       },
     }
   );
-  if (loading) return null;
+  // if (loading) return null;
+  if (loading) {
+    console.log('Loading sub');
+    return null;
+  }
   if (error)
     return (
       <div>
         No Websocket connection. You will need to manually refresh for updates
       </div>
     );
+  console.log('==SUBSCRIPTION: RENTALAPPRAISALS SUB==');
   // they are just aledrts find the best way to return nothing
   return null;
 };

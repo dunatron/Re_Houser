@@ -23,9 +23,7 @@ const useStyles = makeStyles(theme => {
       //       : `${theme.palette.background.paper} !important`
       //     : 'transparent !important',
       width: '100%',
-      border: '5px solid brown',
       [theme.breakpoints.up('lg')]: {
-        border: '5px solid gold',
         width: `calc(100% - ${theme.sideBarWidth}px) !important`,
       },
     },

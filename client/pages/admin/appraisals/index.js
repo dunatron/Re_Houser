@@ -1,4 +1,4 @@
-import AppraisalManager from '../../../components/AppraisalManager';
+import AppraisalManager from '../../../admin-components/AppraisalManager';
 import PageHeader from '../../../components/PageHeader';
 import { Typography } from '@material-ui/core';
 

@@ -18,8 +18,6 @@ const PROPERTY_APPRAISAL_SUBSCRIPTION = gql`
         bathrooms
         garageSpaces
         heatSources
-        lowRent
-        highRent
         rent
         rentValueAccepted
         acceptTerms
@@ -31,8 +29,6 @@ const PROPERTY_APPRAISAL_SUBSCRIPTION = gql`
       previousValues {
         id
         rent
-        lowRent
-        highRent
       }
     }
   }
