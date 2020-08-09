@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Aug 05 2020 01:42:21 GMT+1200 (New Zealand Standard Time)
+# timestamp: Sun Aug 09 2020 15:24:04 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -21349,9 +21349,12 @@ type User implements Node {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   permissions: [Permission!]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
   lesseeLeases(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee!]
@@ -21405,9 +21408,12 @@ input UserCreateInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21573,9 +21579,12 @@ input UserCreateWithoutActivityInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21621,9 +21630,12 @@ input UserCreateWithoutAdminSettingsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21669,9 +21681,12 @@ input UserCreateWithoutAwaitingFriendsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21717,9 +21732,12 @@ input UserCreateWithoutBankDetailsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21765,9 +21783,12 @@ input UserCreateWithoutChatsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21813,9 +21834,12 @@ input UserCreateWithoutCreatedPropertiesInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21861,9 +21885,12 @@ input UserCreateWithoutCreditCardsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21909,9 +21936,12 @@ input UserCreateWithoutCurrentAddressInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -21957,9 +21987,12 @@ input UserCreateWithoutFriendRequestsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22005,9 +22038,12 @@ input UserCreateWithoutInvolvedActivityInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22053,9 +22089,12 @@ input UserCreateWithoutLesseeLeasesInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22101,9 +22140,12 @@ input UserCreateWithoutLessorLeasesInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22149,9 +22191,12 @@ input UserCreateWithoutPhotoIdentificationInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22197,9 +22242,12 @@ input UserCreateWithoutProfilePhotoInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22245,9 +22293,12 @@ input UserCreateWithoutProofOfAddressInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22293,9 +22344,12 @@ input UserCreateWithoutPropertiesInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22341,9 +22395,12 @@ input UserCreateWithoutRecievedMessagesInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22389,9 +22446,12 @@ input UserCreateWithoutRentalAppraisalsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22437,9 +22497,12 @@ input UserCreateWithoutSentMessagesInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22485,9 +22548,12 @@ input UserCreateWithoutSignatureInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22533,9 +22599,12 @@ input UserCreateWithoutViewingsInput {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -22600,12 +22669,18 @@ enum UserOrderByInput {
   phone_DESC
   email_ASC
   email_DESC
+  emailValidated_ASC
+  emailValidated_DESC
   password_ASC
   password_DESC
   resetToken_ASC
   resetToken_DESC
   resetTokenExpiry_ASC
   resetTokenExpiry_DESC
+  confirmEmailToken_ASC
+  confirmEmailToken_DESC
+  confirmEmailTokenExpiry_ASC
+  confirmEmailTokenExpiry_DESC
   identificationNumber_ASC
   identificationNumber_DESC
   emergencyContactName_ASC
@@ -22643,9 +22718,12 @@ type UserPreviousValues {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   permissions: [Permission!]!
   identificationNumber: String
   emergencyContactName: String
@@ -22937,6 +23015,10 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  emailValidated: Boolean
+
+  """All values that are not equal to given value."""
+  emailValidated_not: Boolean
   password: String
 
   """All values that are not equal to given value."""
@@ -23039,6 +23121,68 @@ input UserScalarWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  confirmEmailToken: String
+
+  """All values that are not equal to given value."""
+  confirmEmailToken_not: String
+
+  """All values that are contained in given list."""
+  confirmEmailToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  confirmEmailToken_not_in: [String!]
+
+  """All values less than the given value."""
+  confirmEmailToken_lt: String
+
+  """All values less than or equal the given value."""
+  confirmEmailToken_lte: String
+
+  """All values greater than the given value."""
+  confirmEmailToken_gt: String
+
+  """All values greater than or equal the given value."""
+  confirmEmailToken_gte: String
+
+  """All values containing the given string."""
+  confirmEmailToken_contains: String
+
+  """All values not containing the given string."""
+  confirmEmailToken_not_contains: String
+
+  """All values starting with the given string."""
+  confirmEmailToken_starts_with: String
+
+  """All values not starting with the given string."""
+  confirmEmailToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  confirmEmailToken_ends_with: String
+
+  """All values not ending with the given string."""
+  confirmEmailToken_not_ends_with: String
+  confirmEmailTokenExpiry: Float
+
+  """All values that are not equal to given value."""
+  confirmEmailTokenExpiry_not: Float
+
+  """All values that are contained in given list."""
+  confirmEmailTokenExpiry_in: [Float!]
+
+  """All values that are not contained in given list."""
+  confirmEmailTokenExpiry_not_in: [Float!]
+
+  """All values less than the given value."""
+  confirmEmailTokenExpiry_lt: Float
+
+  """All values less than or equal the given value."""
+  confirmEmailTokenExpiry_lte: Float
+
+  """All values greater than the given value."""
+  confirmEmailTokenExpiry_gt: Float
+
+  """All values greater than or equal the given value."""
+  confirmEmailTokenExpiry_gte: Float
   identificationNumber: String
 
   """All values that are not equal to given value."""
@@ -23496,9 +23640,12 @@ input UserUpdateDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -23544,9 +23691,12 @@ input UserUpdateInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -23592,9 +23742,12 @@ input UserUpdateManyDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -23629,9 +23782,12 @@ input UserUpdateManyMutationInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -23861,9 +24017,12 @@ input UserUpdateWithoutActivityDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -23908,9 +24067,12 @@ input UserUpdateWithoutAdminSettingsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -23955,9 +24117,12 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24002,9 +24167,12 @@ input UserUpdateWithoutBankDetailsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24049,9 +24217,12 @@ input UserUpdateWithoutChatsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24096,9 +24267,12 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24143,9 +24317,12 @@ input UserUpdateWithoutCreditCardsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24190,9 +24367,12 @@ input UserUpdateWithoutCurrentAddressDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24237,9 +24417,12 @@ input UserUpdateWithoutFriendRequestsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24284,9 +24467,12 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24331,9 +24517,12 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24378,9 +24567,12 @@ input UserUpdateWithoutLessorLeasesDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24425,9 +24617,12 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24472,9 +24667,12 @@ input UserUpdateWithoutProfilePhotoDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24519,9 +24717,12 @@ input UserUpdateWithoutProofOfAddressDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24566,9 +24767,12 @@ input UserUpdateWithoutPropertiesDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24613,9 +24817,12 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24660,9 +24867,12 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24707,9 +24917,12 @@ input UserUpdateWithoutSentMessagesDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24754,9 +24967,12 @@ input UserUpdateWithoutSignatureDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -24801,9 +25017,12 @@ input UserUpdateWithoutViewingsDataInput {
   lastName: String
   phone: String
   email: String
+  emailValidated: Boolean
   password: String
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -25262,6 +25481,10 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  emailValidated: Boolean
+
+  """All values that are not equal to given value."""
+  emailValidated_not: Boolean
   password: String
 
   """All values that are not equal to given value."""
@@ -25364,6 +25587,68 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  confirmEmailToken: String
+
+  """All values that are not equal to given value."""
+  confirmEmailToken_not: String
+
+  """All values that are contained in given list."""
+  confirmEmailToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  confirmEmailToken_not_in: [String!]
+
+  """All values less than the given value."""
+  confirmEmailToken_lt: String
+
+  """All values less than or equal the given value."""
+  confirmEmailToken_lte: String
+
+  """All values greater than the given value."""
+  confirmEmailToken_gt: String
+
+  """All values greater than or equal the given value."""
+  confirmEmailToken_gte: String
+
+  """All values containing the given string."""
+  confirmEmailToken_contains: String
+
+  """All values not containing the given string."""
+  confirmEmailToken_not_contains: String
+
+  """All values starting with the given string."""
+  confirmEmailToken_starts_with: String
+
+  """All values not starting with the given string."""
+  confirmEmailToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  confirmEmailToken_ends_with: String
+
+  """All values not ending with the given string."""
+  confirmEmailToken_not_ends_with: String
+  confirmEmailTokenExpiry: Float
+
+  """All values that are not equal to given value."""
+  confirmEmailTokenExpiry_not: Float
+
+  """All values that are contained in given list."""
+  confirmEmailTokenExpiry_in: [Float!]
+
+  """All values that are not contained in given list."""
+  confirmEmailTokenExpiry_not_in: [Float!]
+
+  """All values less than the given value."""
+  confirmEmailTokenExpiry_lt: Float
+
+  """All values less than or equal the given value."""
+  confirmEmailTokenExpiry_lte: Float
+
+  """All values greater than the given value."""
+  confirmEmailTokenExpiry_gt: Float
+
+  """All values greater than or equal the given value."""
+  confirmEmailTokenExpiry_gte: Float
   identificationNumber: String
 
   """All values that are not equal to given value."""

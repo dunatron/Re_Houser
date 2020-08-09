@@ -1,5 +1,6 @@
 const { createActivity } = require("../../lib/createActivity");
 const requestAppraisalEmail = require("../../lib/emails/requestAppraisalEmail");
+const emailCEO = require("../../lib/emails/emailCEO");
 
 async function createRentalAppraisal(parent, args, ctx, info) {
   const loggedInUserId = ctx.request.userId;
@@ -9,8 +10,8 @@ async function createRentalAppraisal(parent, args, ctx, info) {
   const currentUser = await ctx.db.query.user(
     {
       where: {
-        id: loggedInUserId
-      }
+        id: loggedInUserId,
+      },
     },
     `{id, email, firstName, lastName}`
   );
@@ -32,8 +33,8 @@ async function createRentalAppraisal(parent, args, ctx, info) {
   const rentalAppraisal = await ctx.db.mutation.createRentalAppraisal(
     {
       data: {
-        ...data
-      }
+        ...data,
+      },
     },
     info
   );
@@ -48,24 +49,31 @@ async function createRentalAppraisal(parent, args, ctx, info) {
       type: "CREATED_PROPERTY_APPRAISAL",
       user: {
         connect: {
-          id: loggedInUserId
-        }
+          id: loggedInUserId,
+        },
       },
       property: property
         ? {
             connect: {
-              id: property.id
-            }
+              id: property.id,
+            },
           }
-        : null
-    }
+        : null,
+    },
   });
 
   // send email
   requestAppraisalEmail({
     toEmail: currentUser.email,
-    user: currentUser
+    user: currentUser,
     // rentalApplication: rentalApplication,
+  });
+
+  // email CEO
+  emailCEO({
+    ctx: ctx,
+    subject: `New rental appraisal ${rentalAppraisal.id}`,
+    body: `a new rental appraisal has been requested. Go to the platform to check it out in the /admin/appraisals`,
   });
 
   return rentalAppraisal;

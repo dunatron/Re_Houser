@@ -43,4 +43,5 @@ module.exports = {
   },
 };
 
-module.exports = withBundleAnalyzer({});
+// uncomment to see bundle and run yarn package commande or figure out how to make it work proper
+// module.exports = withBundleAnalyzer({});

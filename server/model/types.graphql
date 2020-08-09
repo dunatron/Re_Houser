@@ -10,9 +10,12 @@ type User {
   lastName: String!
   phone: String!
   email: String! @unique
+  emailValidated: Boolean
   password: String!
   resetToken: String
   resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
   permissions: [Permission] @scalarList(strategy: RELATION)
   properties: [Property!]! @relation(name: "PropertyOwner")
   lesseeLeases: [Lessee!]! @relation(name: "UserLesseeLeases")

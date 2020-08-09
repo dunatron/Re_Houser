@@ -6,6 +6,7 @@ const UserInfoFragment = gql`
   fragment userInfo on User {
     id
     email
+    emailValidated
     firstName
     lastName
     dob

@@ -215,6 +215,7 @@ const Signup = props => {
             }
           />
         </div>
+        <Error error={error} />
         <ButtonLoader
           type="submit"
           data-cy="submit-signup"

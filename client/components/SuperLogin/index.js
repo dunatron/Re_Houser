@@ -18,6 +18,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import ResetIcon from '@material-ui/icons/Build';
 
 import LoggedInAs from './LoggedInAs';
+import Error from '../ErrorMessage';
 
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 
@@ -58,7 +59,7 @@ const LoginPage = props => {
 
   const { data, error } = useQuery(CURRENT_USER_QUERY, { suspend: true });
   if (error) {
-    return <div>Error! {error.message}</div>;
+    return <Error error={error} />;
   }
 
   // logged in so show show logged in page

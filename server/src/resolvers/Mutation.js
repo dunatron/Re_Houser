@@ -45,6 +45,8 @@ const updateWallet = require("./mutations/updateWallet");
 const createViewing = require("./mutations/createViewing");
 const updateViewing = require("./mutations/updateViewing");
 const deleteViewing = require("./mutations/deleteViewing");
+const confirmEmail = require("./mutations/confirmEmail");
+const resendConfirmEmail = require("./mutations/resendConfirmEmail");
 
 // a collection of our business logic mutations
 const mutations = {
@@ -71,6 +73,7 @@ const mutations = {
   renameFile,
   signup,
   signin,
+  confirmEmail,
   signout,
   deleteAccount,
   requestReset,
@@ -91,7 +94,8 @@ const mutations = {
   updateWallet,
   createViewing,
   updateViewing,
-  deleteViewing
+  deleteViewing,
+  resendConfirmEmail,
 };
 
 module.exports = mutations;

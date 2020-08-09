@@ -1,5 +1,7 @@
 import { SIGNUP_MUTATION } from './signup';
 import { SIGNIN_MUTATION } from './signin';
+import { CONFIRM_EMAIL_MUTATION } from './confirmEmail';
+import { RESEND_CONFIRM_EMAIL_MUTATION } from './resendConfirmEmail';
 import { DELETE_USER_ACCOUNT } from './deleteAccount';
 import { CREATE_PROPERTY_MUTATION } from './createProperty';
 import { CREATE_RENTAL_APPLICATION } from './createRentalApplication';
@@ -56,4 +58,6 @@ export {
   CREATE_VIEWING_MUTATION,
   UPDATE_VIEWING_MUTATION,
   DELETE_VIEWING,
+  CONFIRM_EMAIL_MUTATION,
+  RESEND_CONFIRM_EMAIL_MUTATION,
 };

@@ -11,6 +11,7 @@ type User {
   lastName: String!
   phone: String!
   email: String!
+  emailValidated: Boolean
   dob: DateTime
   properties: [Property!]!
   createdProperties: [Property!]!
@@ -65,6 +66,8 @@ type Mutation {
   signin(email: String!, password: String!, captchaToken: String!): User!
   signout: SuccessMessage
   requestReset(email: String!): SuccessMessage
+  confirmEmail(email: String!, token: String!): User!
+  resendConfirmEmail(email: String): User!
   deleteAccount(email: String!, password: String!): SuccessMessage
   resetPassword(
     resetToken: String!

@@ -5,18 +5,46 @@ const { createActivity } = require("../../lib/createActivity");
 const { createTokens } = require("../../auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 const signupEmail = require("../../lib/emails/signupEmail");
+const emailCEO = require("../../lib/emails/emailCEO");
+const signin = require("./signin");
+const resendConfirmEmail = require("./resendConfirmEmail");
+const { promisify } = require("util");
+const { randomBytes } = require("crypto");
 
 async function signup(parent, args, ctx, info) {
-  //lowercase their email
-  await validateRecaptcha({
-    ctx,
-    captchaToken: args.captchaToken
+  args.email = args.email.toLowerCase();
+
+  // little busines logic here. if they have this email and pass match just logem in
+  const userMaybeFromDb = await ctx.db.query.user({
+    where: {
+      email: args.email,
+    },
   });
+
+  // NEEDS TO HAPPEN AFTER CHECK FOR SIGNIN AS IT POTENTIALLY HANDLES IT
+  //lowercase their email
+  if (!userMaybeFromDb) {
+    await validateRecaptcha({
+      ctx,
+      captchaToken: args.captchaToken,
+    });
+  }
+
+  if (userMaybeFromDb) {
+    return signin(parent, args, ctx, info);
+  }
+
   // delete this now as it is not part creating a user
   delete args.captchaToken;
-  args.email = args.email.toLowerCase();
+
   // hash their password. 1 way so if you goy hold of the hashed pass you could not turn it back to what the user actually typed
   const password = await bcrypt.hash(args.password, 10);
+
+  const randomBytesPromiseified = promisify(randomBytes);
+  const confirmEmailToken = (await randomBytesPromiseified(20)).toString("hex");
+
+  const confirmEmailTokenExpiry = Date.now() + 3600000; // 1 hour from now
+
   // create the user in the database
   const user = await ctx.db.mutation.createUser(
     {
@@ -24,8 +52,10 @@ async function signup(parent, args, ctx, info) {
         ...args,
         password,
         permissions: { set: ["USER"] },
-        adminSettings: { create: {} }
-      }
+        adminSettings: { create: {} },
+        confirmEmailToken: confirmEmailToken,
+        confirmEmailTokenExpiry: confirmEmailTokenExpiry,
+      },
     },
     info
   );
@@ -42,10 +72,10 @@ async function signup(parent, args, ctx, info) {
   const cookieOptions = rehouserCookieOpt();
 
   ctx.response.cookie("token", token, {
-    ...cookieOptions
+    ...cookieOptions,
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...cookieOptions
+    ...cookieOptions,
   });
   // Finalllllly we return the user to the browser
   createActivity({
@@ -57,29 +87,40 @@ async function signup(parent, args, ctx, info) {
       jsonObj: user,
       user: {
         connect: {
-          id: user.id
-        }
+          id: user.id,
+        },
       },
       involved: {
         connect: [
           {
-            email: user.email
-          }
-        ]
-      }
-    }
+            email: user.email,
+          },
+        ],
+      },
+    },
   });
 
   // send the new signupEmail
   signupEmail({
     toEmail: user.email,
-    user: user
+    user: user,
+    confirmEmailToken: confirmEmailToken,
   });
+
+  emailCEO({
+    ctx: ctx,
+    subject: `New signup ${user.email}`,
+    body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`,
+  });
+
+  if (!user.emailValidated) {
+    resendConfirmEmail(parent, args, ctx, info);
+  }
 
   const userInfoWithToken = {
     ...user,
     token: token,
-    refreshToken: refreshToken
+    refreshToken: refreshToken,
   };
   return userInfoWithToken;
 }
