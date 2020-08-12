@@ -42,15 +42,16 @@ const HomePage = props => {
           }}>
           <ChangeRouteButton
             title="Free Appraisal"
+            s
             variant="contained"
             color="secondary"
             route="/freeappraisal"
           />
           <ChangeRouteButton
-            title="Look for rental"
+            title="Search for rental"
             variant="contained"
             color="primary"
-            route="/look"
+            route="/property-search"
           />
         </div>
         <Typography
