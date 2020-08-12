@@ -158,6 +158,7 @@ type Subscription {
   propertySub(
     where: PropertySubscriptionWhereInput
   ): PropertySubscriptionPayload
+  userSub(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type Query {

@@ -4,7 +4,7 @@ const offerRentalAppraisalEmail = async function({
   toEmail,
   appraisal,
   ctx,
-  user
+  user,
 }) {
   const {
     id,
@@ -14,7 +14,7 @@ const offerRentalAppraisalEmail = async function({
     bathrooms,
     heatSources,
     rent,
-    rentValueAccepted
+    rentValueAccepted,
   } = appraisal;
 
   const strJSON = encodeURIComponent(JSON.stringify(appraisal));
@@ -43,7 +43,7 @@ const offerRentalAppraisalEmail = async function({
   We would be grateful for the opportunity to Let and Manage your property with support of our platform <a href="${process.env.EMAIL_PREFIX}">Rehouser</a>
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
-  You can review our terms and conditions here <a href="${process.env.EMAIL_PREFIX}/info/landlord">here</a>
+  You can review our terms and conditions here at the landlord portal.<a href="${process.env.EMAIL_PREFIX}/landlord">Landlord Portal</a>
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
   <a href="${process.env.EMAIL_PREFIX}/properties/add?appraisalId=${appraisal.id}">Begin adding property based on appraisal</a> \n
@@ -53,7 +53,7 @@ const offerRentalAppraisalEmail = async function({
 </div>
   \n\n`,
       user
-    )
+    ),
   });
 };
 

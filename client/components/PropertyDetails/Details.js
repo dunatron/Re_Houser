@@ -15,11 +15,14 @@ import {
   Typography,
   Paper,
 } from '@material-ui/core';
+import RehouserPaper from '../../styles/RehouserPaper';
 //icons
 import EditIcon from '../../styles/icons/EditIcon';
 import MoreIcon from '../../styles/icons/MoreIcon';
 import DetailsIcon from '../../styles/icons/DetailsIcon';
 import CameraIcon from '../../styles/icons/CameraIcon';
+import CloseIcon from '../../styles/icons/CloseIcon';
+import CheckIcon from '../../styles/icons/CheckIcon';
 // Update variable components ToDo: move to own file
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
@@ -262,6 +265,7 @@ const useStyles = makeStyles(theme => ({
   },
   variablesHeader: {
     marginTop: '16px',
+    marginLeft: '16px',
   },
 }));
 
@@ -285,45 +289,117 @@ const Details = props => {
   );
   return (
     <div>
-      <h4>
-        Note: Updating data here will not affect any current agreements. It is
-        for new advertisements in the future or to update any info. In short
-        changing rent will have no impact on current agreements
-      </h4>
-      <div>
+      <Typography
+        variant="h5"
+        color="primary"
+        gutterBottom={true}
+        className={classes.variablesHeader}>
+        Manage
+      </Typography>
+      <RehouserPaper
+        square
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}>
+        <InsulationStatementForm
+          data={null}
+          propertyId={property.id}
+          insulationFormId={
+            property.insulationForm ? property.insulationForm.id : null
+          }
+          onSubmit={data => {
+            // setState({
+            //   ...state,
+            //   insulationForm: {
+            //     ...data,
+            //   },
+            // });
+            // setCompleteInsulationLater(true);
+          }}
+        />
         <ChangeRouteButton
-          title="Edit Original Form"
+          title="Edit with Original Form"
           route="/properties/property/edit"
           query={{ id: property.id }}
         />
-      </div>
-      <InsulationStatementForm
-        data={null}
-        propertyId={property.id}
-        insulationFormId={
-          property.insulationForm ? property.insulationForm.id : null
-        }
-        onSubmit={data => {
-          // setState({
-          //   ...state,
-          //   insulationForm: {
-          //     ...data,
-          //   },
-          // });
-          // setCompleteInsulationLater(true);
-        }}
-      />
+      </RehouserPaper>
       <Typography
         variant="h5"
+        color="primary"
+        gutterBottom={true}
+        className={classes.variablesHeader}>
+        Important Info
+      </Typography>
+      <RehouserPaper
+        square
+        style={{
+          padding: '16px',
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginRight: '16px',
+          }}>
+          {property.isLeased ? (
+            <CheckIcon fontSize="small" color="primary" />
+          ) : (
+            <CloseIcon fontSize="small" color="secondary" />
+          )}
+          <Typography>Leased</Typography>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginRight: '16px',
+          }}>
+          {property.onTheMarket ? (
+            <CheckIcon fontSize="small" color="primary" />
+          ) : (
+            <CloseIcon fontSize="small" color="secondary" />
+          )}
+          <Typography>onTheMarket</Typography>
+        </div>
+        {property.leaseId && (
+          <Typography>current lease id: {property.leaseId}</Typography>
+        )}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginRight: '16px',
+          }}>
+          <CloseIcon fontSize="small" />
+          <Typography>lease expires in</Typography>
+        </div>
+        {property.leaseId && (
+          <Typography>current lease id: {property.leaseId}</Typography>
+        )}
+      </RehouserPaper>
+      <Typography
+        variant="h5"
+        color="primary"
         gutterBottom={true}
         className={classes.variablesHeader}>
         Property variables
       </Typography>
       {/* <div className={classes.variablesHeader}>Property variables</div> */}
-      <Paper className={classes.detailsWrapper}>
+      <RehouserPaper className={classes.detailsWrapper} square>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon />}
+            icon={<CameraIcon color="primary" />}
             label="Rent"
             value={property.rent}
           />
@@ -338,7 +414,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon />}
+            icon={<CameraIcon color="primary" />}
             type={'boolean'}
             label="On The Market"
             value={property.onTheMarket}
@@ -354,7 +430,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon />}
+            icon={<CameraIcon color="primary" />}
             type={'date'}
             label="Move in Date"
             value={<LongDatePretty date={property.expiryDate} />}
@@ -372,7 +448,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon />}
+            icon={<CameraIcon color="primary" />}
             type={'date'}
             label="Expiry Date"
             value={<LongDatePretty date={property.moveInDate} />}
@@ -390,7 +466,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon />}
+            icon={<CameraIcon color="primary" />}
             label="Rooms"
             value={property.rooms}
           />
@@ -402,7 +478,7 @@ const Details = props => {
             value={property.rooms}
           />
         </div>
-      </Paper>
+      </RehouserPaper>
 
       <div>
         <LeaseLength

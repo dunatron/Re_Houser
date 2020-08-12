@@ -32,7 +32,6 @@ export default function SimpleSelect(props) {
   const {
     __type,
     values,
-    defaultValue,
     getValues,
     label,
     selectID,
@@ -51,39 +50,26 @@ export default function SimpleSelect(props) {
   const yuckErr = errors[name]; //thats why I labelled it yuck, shold work with architecture right.. .SO check this out wehen you have time
 
   const { type, inners, fieldProps, refConf } = config;
+  const defaultValue = defaultValues[fieldProps.name];
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {
       name: __type,
     },
   });
 
-  // const currValues = getValues();
-  // const currVal = currValues[fieldProps.name];
-
   const [currVal, setCurrVal] = useState(
     is(Array, defaultValue) ? defaultValue : []
   );
 
-  // const currVal = fieldProps.name
-
   if (!fieldProps) return 'This form component needs fieldProps';
 
-  // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
-  // useEffect(() => {
-  //   register({ name: fieldProps.name }, refConf);
-  //   if (!defaultValue) setValue(fieldProps.name, []);
-  // }, []);
-
   useEffect(() => {
-    if (config.refConf) {
-      register({ name: config.key }, { ...config.refConf });
+    register({ name: fieldProps.name }, refConf);
+    if (defaultValue) {
+      setValue(fieldProps.name, 'TOWNHOUSE');
     }
   }, []);
 
-  // if (loading)
-  //   return (
-  //     <Loader loading={loading} text={`loading ${fieldProps.name} options`} />
-  //   );
   if (error) return <Error error={error} />;
 
   const options = data
@@ -119,7 +105,7 @@ export default function SimpleSelect(props) {
         <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
 
         <Select
-          defaultValue={is(Array, defaultValue) ? defaultValue : []}
+          defaultValue={defaultValue}
           onChange={e => handleOnValueChange(e)}
           label={label}
           error={yuckErr}

@@ -39,7 +39,11 @@ async function resendConfirmEmail(parent, args, ctx, info) {
     html: makeANiceEmail(
       `Rehouser confirm account!
       \n\n
-      <a href="${process.env.FRONTEND_URL}/confirm-account?token=${confirmEmailToken}">Click Here to confirm your rehouser account</a>`,
+      <a href="${process.env.FRONTEND_URL}/confirm-account?token=${confirmEmailToken}">Click Here to confirm your rehouser account</a>
+      <div style="line-height: 18px;">
+        Alternatively you can copy paste the token <span>${confirmEmailToken}</span>
+      </div>
+      `,
       user
     ),
   });

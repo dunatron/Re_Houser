@@ -25,6 +25,7 @@ import darkPalette from '../../styles/_darkMUIPalette';
 // Admin Area Addisions
 import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAlertNewRentalApplicationSub';
 import AdminAlertsContainer from '../../containers/AdminAlertsContainer';
+import GeneralSubsContainer from '../../containers/GeneralSubsContainer';
 
 // theme typography
 import themeTypography from '../../styles/_themeTypography';
@@ -247,6 +248,7 @@ const Page = props => {
                 }}
               />
               <AdminAlertsContainer />
+              <GeneralSubsContainer />
               {/* <div>
                   <h1>Admin alerts LOL</h1>
                   <AdminAlertsContainer />

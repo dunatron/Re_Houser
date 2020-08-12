@@ -52,6 +52,7 @@ const Location = props => {
       }
     }
     // maybe see if we can getfaultValues from the value of mapped keys and set those values as defaults
+    console.log('Location STuff: defaultLocation => ', defaultLocation);
   }, [register]);
 
   return (

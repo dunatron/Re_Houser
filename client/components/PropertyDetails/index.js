@@ -142,7 +142,7 @@ const PropertyDetails = ({ id, location, me }) => {
     <>
       <PageHeader
         title={property ? property.location : null}
-        titleVariant="h3"
+        titleVariant="h4"
         intro={`this is where you can manage ${
           property ? property.location : null
         }. This is where you can review and accept applications, sign and manage leases associated with this property, and change the details before it goes on the market`}
@@ -157,8 +157,8 @@ const PropertyDetails = ({ id, location, me }) => {
         <Tabs
           value={tabIndex}
           onChange={(e, v) => setTabIndex(v)}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="secondary"
+          textColor="secondary"
           wrapped={true}
           variant="scrollable">
           <Tab label="Details" />

@@ -101,6 +101,7 @@ const MoneyField = props => {
   return (
     <TextInput
       variant="outlined"
+      defaultValue={defaultValues[fieldProps.name]}
       inputRef={register(refConf)}
       style={{ marginTop: 0 }}
       {...fieldProps}

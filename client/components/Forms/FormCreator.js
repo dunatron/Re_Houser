@@ -71,6 +71,8 @@ const FormCreator = props => {
     refetchQueries,
   } = props;
 
+  console.log('defaultFormData => ', data);
+
   const currentUser = useCurrentUser();
 
   const me = currentUser.data ? currentUser.data.me : null;

@@ -61,6 +61,9 @@ const PropertyInfoFragment = gql`
     inHallway3mOfEachBedroom
     tenYearPhotoelectricAlarms
     alarmsEachLevel
+    proofOfOwnership {
+      ...fileInfo
+    }
     bankDetails {
       name
       bankNumber

@@ -66,6 +66,7 @@ async function createRentalAppraisal(parent, args, ctx, info) {
   requestAppraisalEmail({
     toEmail: currentUser.email,
     user: currentUser,
+    location: data.location,
     // rentalApplication: rentalApplication,
   });
 

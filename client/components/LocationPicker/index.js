@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import Geosuggest from 'react-geosuggest';
 // import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
@@ -106,6 +106,7 @@ const StylesGeoSuggest = styled(Geosuggest)`
  * https://github.com/facebook/react/issues/14994
  */
 const LocationPicker = ({ selection, defaultLocation }) => {
+  const geosuggestEl = useRef(null);
   const defaultState = {
     placeId: null,
     desc: '',
@@ -208,13 +209,17 @@ const LocationPicker = ({ selection, defaultLocation }) => {
     return false;
   };
 
+  useEffect(() => {
+    geosuggestEl.current.update(state.desc);
+  }, []);
+
   // ToDo: compose the google props into a global to be able to be used
   // ToDo: make sure a selection ends in refocusing the input field
 
   return (
     <div>
       <StylesGeoSuggest
-        // ref={el => (_geoSuggest = el)}
+        ref={geosuggestEl}
         fixtures={_getFixtures()}
         onFocus={onFocus}
         onBlur={onBlur}

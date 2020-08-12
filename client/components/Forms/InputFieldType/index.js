@@ -64,9 +64,17 @@ const InputFieldType = props => {
   const TypeToRender = () => {
     switch (type) {
       case 'Header':
-        return <Typography variant="h4">{label}</Typography>;
+        return (
+          <Typography variant="h4" color="primary">
+            {label}
+          </Typography>
+        );
       case 'Subheader':
-        return <Typography variant="h5">{label}</Typography>;
+        return (
+          <Typography variant="h5" color="primary">
+            {label}
+          </Typography>
+        );
       case 'RTypography':
         return <Typography {...config.fieldProps}>{config.content}</Typography>;
       case 'Section':

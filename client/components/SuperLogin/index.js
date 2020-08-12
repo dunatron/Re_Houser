@@ -44,7 +44,8 @@ const styles = theme => ({
 });
 
 const LoginPage = props => {
-  const [tabIndex, setTabIndex] = useState(props.tabIndex ? props.tabIndex : 0);
+  // const [tabIndex, setTabIndex] = useState(props.tabIndex ? props.tabIndex : 0);
+  const [tabIndex, setTabIndex] = useState(0);
   const [state, setState] = useState({
     email: '',
     password: '',

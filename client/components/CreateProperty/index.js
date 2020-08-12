@@ -175,9 +175,11 @@ const CreatePropertyComponent = props => {
         <Typography gutterBottom>
           Rehouser Property Management Ltd will be in contact to arrange for
           their three keys to be handed over and photos of the property to be
-          taken if this has not already occurred. You can now rest easy knowing
-          your investment is in safe hands. We will keep you informed throughout
-          the letting process.
+          taken if this has not already occurred.
+        </Typography>
+        <Typography gutterBottom>
+          You can now rest easy knowing your investment is in safe hands. We
+          will keep you informed throughout the letting process.
         </Typography>
         <Typography gutterBottom>
           Your property has been created in our system. You may need to supply

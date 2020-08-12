@@ -20,6 +20,7 @@ import { store } from '../../store';
  * This should m,aybe create a context, newItemsCOunt
  */
 const AdminNewRentalAppraisalSub = () => {
+  console.log('==ATTEMPTING SUBSCRIPTION: RENTAL APPRAISAL SUB==');
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const { loading, data, error } = useSubscription(

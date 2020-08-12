@@ -111,6 +111,14 @@ const propertySub = {
   subscribe: property,
 };
 
+async function user(parent, args, context, info) {
+  return context.db.subscription.user({ ...args }, info);
+}
+
+const userSub = {
+  subscribe: user,
+};
+
 module.exports = {
   rentalApplicationCreatedSub,
   rentalApplicationUpdateSub,
@@ -122,4 +130,5 @@ module.exports = {
   chargeSub,
   rentalAppraisalSub,
   propertySub,
+  userSub,
 };

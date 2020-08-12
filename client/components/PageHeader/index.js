@@ -23,6 +23,7 @@ const PagerHeader = ({
       {title && (
         <Typography
           variant={titleVariant ? titleVariant : 'h1'}
+          color="primary"
           component="h1"
           gutterBottom={intro ? false : true}>
           {title}

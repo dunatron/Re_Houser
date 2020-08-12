@@ -145,22 +145,22 @@ const CREATE_PROPERTY_FORM_CONF = [
             party giving notice as required under the Residential Tenancies Act 1986`,
             refConf: {},
           },
-          {
-            type: 'Date',
-            key: 'expiryDate',
-            parentShowVals: ['FIXED'],
-            fieldProps: {
-              name: 'expiryDate',
-              label: 'Move out date',
-            },
-            refConf: {
-              required: {
-                value: true,
-                message:
-                  'You need to specify an ending date when the tenancy type is FIXED',
-              },
-            },
-          },
+          // {
+          //   type: 'Date',
+          //   key: 'expiryDate',
+          //   parentShowVals: ['FIXED'],
+          //   fieldProps: {
+          //     name: 'expiryDate',
+          //     label: 'Move out date',
+          //   },
+          //   refConf: {
+          //     required: {
+          //       value: true,
+          //       message:
+          //         'You need to specify an ending date when the tenancy type is FIXED',
+          //     },
+          //   },
+          // },
         ],
       },
       // tenancyType
@@ -349,7 +349,7 @@ const CREATE_PROPERTY_FORM_CONF = [
       isMultiple: false,
       maxFilesAllowed: 1,
       name: 'proofOfOwnership',
-      label: 'proofOfOwnership',
+      label: 'Proof of ownership',
       description: 'You need to upoad a file that proves you own the property',
     },
     refConf: {

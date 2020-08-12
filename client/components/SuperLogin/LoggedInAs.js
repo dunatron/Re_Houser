@@ -4,7 +4,7 @@ import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import Signout from '../Signout/index';
 
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import SendConfirmEmailButton from '../MutationButtons/SendConfrimEmailButton';
 import ResendConfirmEmailButton from '../MutationButtons/ResendConfirmEmail';
 import ConfirmEmail from '../ConfirmEmail';
@@ -19,7 +19,15 @@ const LoggedInAs = ({ me }) => {
           {me.firstName} {me.lastName}
         </span>
       </h2>
-      <ConfirmEmail />
+      {/* <ConfirmEmail /> */}
+      {!me.emailValidated && (
+        <>
+          <Typography gutterBottom variant="body1" color="error">
+            Please check your email for a link or token to validate your account
+          </Typography>
+          <SendConfirmEmailButton />
+        </>
+      )}
       <Signout me={me} />
 
       <div>

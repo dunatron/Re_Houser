@@ -4,6 +4,8 @@ import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
 import FormCreator from '../Forms/FormCreator';
 import { Button } from '@material-ui/core';
 import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries';
+import Loader from '../Loader';
+import Error from '../ErrorMessage';
 
 const EditPropertyForm = ({ propertyId }) => {
   const [edit, setEdit] = useState(true);
@@ -18,6 +20,11 @@ const EditPropertyForm = ({ propertyId }) => {
     setEdit(!edit);
   };
 
+  if (loading)
+    return <Loader loading={loading} text="Loading data into form" />;
+
+  if (error) return <Error error={error} />;
+
   if (!edit)
     return <Button onClick={handleSetEditChange}>Edit Original Form</Button>;
   return (
@@ -28,7 +35,10 @@ const EditPropertyForm = ({ propertyId }) => {
       // posting={updateInsulationFormProps.loading}
       config={CREATE_PROPERTY_FORM_CONF}
       // data={{ wallCoverage: null }}
-      //   onSubmit={handleSubmittedData}
+      onSubmit={data => {
+        console.log('UPdate propert form data => ', data);
+        alert('ToDo: allow update property trhough add property form ');
+      }}
     />
   );
 };

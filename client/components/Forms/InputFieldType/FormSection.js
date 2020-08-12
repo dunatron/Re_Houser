@@ -17,7 +17,7 @@ const FormSection = props => {
   return (
     <Paper style={{ padding: '8px' }}>
       {label && (
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom color="primary">
           {label}
         </Typography>
       )}

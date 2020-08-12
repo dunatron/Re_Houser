@@ -209,7 +209,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
   });
 
   return (
-    <Paper
+    <div
       style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -291,7 +291,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
         <Error error={createInsulationFormProps.error} />
         <Error error={updateInsulationFormProps.error} />
       </Modal>
-    </Paper>
+    </div>
   );
 };
 
