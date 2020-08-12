@@ -45,7 +45,7 @@ const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
     query: query,
-  });
+  }).then(() => window.scrollTo(0, 0));
 };
 
 const ProfileIcon = me => {
@@ -249,16 +249,16 @@ const NavigationConfig = (me, loadingUser) => {
     {
       key: 'account',
       items: [
-        {
-          icon: ProfileIcon(me),
-          text: 'Social',
-          route: '/social',
-          // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
+        // {
+        //   icon: ProfileIcon(me),
+        //   text: 'Social',
+        //   route: '/social',
+        //   // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
         {
           icon: ProfileIcon(me),
           text: 'Account',
@@ -269,16 +269,16 @@ const NavigationConfig = (me, loadingUser) => {
             return true;
           },
         },
-        {
-          icon: <DonutSmallIcon />,
-          text: 'Activity',
-          route: '/activity',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
+        // {
+        //   icon: <DonutSmallIcon />,
+        //   text: 'Activity',
+        //   route: '/activity',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
         {
           icon: <InfoIcon />,
           text: 'Info',

@@ -30,14 +30,11 @@ enum VisibilityLevel {
 }
 
 enum IndoorFeature {
-  AIR_CONDITIONING
   FURNISHED
   INTERNAL_LAUNDRY
-  DISHWASHER
   BUILT_IN_WARDROBES
   BALCONY
-  ALARM_SYSTEM
-  HEATING
+  ATTACHED_GARAGE
 }
 
 enum OutdoorFeature {

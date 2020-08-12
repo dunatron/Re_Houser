@@ -14,6 +14,7 @@ import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import { useCurrentUser } from '../User';
 import Dashboard from '../Dashboard';
 import DASHBOARD_CONFIG from '../../lib/configs/dashboardConfig';
+import SuperLogin from '../SuperLogin';
 
 // ugn inputs i Guess
 import TextInput from '../../components/Inputs/TextInput';
@@ -44,65 +45,24 @@ const SendConfirmEmailButton = () => {
   const router = useRouter();
 
   const [token, setToken] = useState(router.query.token);
-
-  const [email, setEmail] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const user = useCurrentUser();
-
-  const [acceptApplicationMutation, { data, loading, error }] = useMutation(
+  const [confirmEmailWithToken, { data, loading, error }] = useMutation(
     CONFIRM_EMAIL_MUTATION,
     {
       variables: {
-        email: email,
         token: token,
       },
     }
   );
 
-  console.log('Play some games you cl;own => ', user);
-
-  //will listen for a subscription and will fill in token and login
-  // note use email from token sub
-
-  // should be deep effect, wont work properly really, well might given what it does
-  useEffect(() => {
-    console.log('ZZZZZZZZZ => ', user);
-    // setEmail(user.data.email);
-    if (user.data) {
-      setEmail(user.data.me.email);
-    }
-  }, [user.loading]);
-
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
   });
 
-  if (user.data && user.data.me.emailValidated) {
-    return (
-      <>
-        <Typography variant="h5" gutterBottom>
-          Account email has been validated
-        </Typography>
-        <Dashboard
-          config={DASHBOARD_CONFIG}
-          elevation={1}
-          // heading="Dashboard"
-          // intro="intro"
-        />
-      </>
-    );
-  }
   return (
     <>
       <Error error={error} />
-      <Typography>
-        Firstname: {user.data ? user.data.me.firstName : null}
-      </Typography>
-      <Typography>
-        Lastname: {user.data ? user.data.me.lastName : null}
-      </Typography>
-      <Typography>Email: {user.data ? user.data.me.email : null}</Typography>
       <TextInput
         name="token"
         label="token"
@@ -111,18 +71,23 @@ const SendConfirmEmailButton = () => {
         onChange={e => setToken(e.target.value)}
       />
       <Button
+        style={{ marginBottom: '16px' }}
         className={buttonClassname}
         variant="outlined"
+        color="primary"
         disabled={loading}
         onClick={() => {
-          acceptApplicationMutation();
+          confirmEmailWithToken();
         }}>
         Confirm Email Address
         {loading && (
           <CircularProgress size={24} className={classes.buttonProgress} />
         )}
       </Button>
-      <ResendConfirmEmail email={email} />
+      <Typography>
+        To get another token emailed to you click the below button
+      </Typography>
+      <ResendConfirmEmail />
     </>
   );
 };

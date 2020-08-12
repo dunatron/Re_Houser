@@ -6,9 +6,9 @@ import withData from '../lib/withData';
 import Head from 'next/head';
 import { StateProvider } from '../store';
 import { FacebookProvider, Like } from 'react-facebook';
-import LogRocket from 'logrocket';
+// import LogRocket from 'logrocket';
 
-LogRocket.init('fxgdt9/rehouser');
+// LogRocket.init('fxgdt9/rehouser');
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {

@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import SendConfirmEmailButton from '../MutationButtons/SendConfrimEmailButton';
 import ResendConfirmEmailButton from '../MutationButtons/ResendConfirmEmail';
+import ConfirmEmail from '../ConfirmEmail';
 
 const LoggedInAs = ({ me }) => {
   if (!me) return null;
@@ -18,19 +19,7 @@ const LoggedInAs = ({ me }) => {
           {me.firstName} {me.lastName}
         </span>
       </h2>
-      {/* Check if email validated */}
-      {!me.emailValidated && (
-        <div>
-          <h2>Your email address has not been confirmed</h2>
-          <p>
-            Check your email client for an email from rehouser that will contain
-            a link that helps us confirm you are who you say you are
-          </p>
-          {/* send current logged in users email */}
-          <SendConfirmEmailButton />
-          {/* <ResendConfirmEmailButton /> */}
-        </div>
-      )}
+      <ConfirmEmail />
       <Signout me={me} />
 
       <div>

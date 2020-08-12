@@ -66,7 +66,7 @@ type Mutation {
   signin(email: String!, password: String!, captchaToken: String!): User!
   signout: SuccessMessage
   requestReset(email: String!): SuccessMessage
-  confirmEmail(email: String!, token: String!): User!
+  confirmEmail(token: String!): User!
   resendConfirmEmail(email: String): User!
   deleteAccount(email: String!, password: String!): SuccessMessage
   resetPassword(

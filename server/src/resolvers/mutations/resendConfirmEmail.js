@@ -29,11 +29,11 @@ async function resendConfirmEmail(parent, args, ctx, info) {
     },
   });
 
-  console.log("Resen email user updated => ", res);
-
   // 3. Email them that reset token
   const mailRes = await transport.sendMail({
-    from: "heath.dunlop.hd@gmail.com",
+    // from: "heath.dunlop.hd@gmail.com",
+    // to: user.email,
+    from: process.env.MAIL_USER,
     to: user.email,
     subject: "Your Password Reset Token",
     html: makeANiceEmail(

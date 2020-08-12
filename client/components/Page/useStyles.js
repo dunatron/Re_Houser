@@ -1,8 +1,6 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => {
-  console.log('DUNATRON CHeck the theme and for side ', theme);
-  console.log('DUNATRON THE THEME FROM PAGE useStyles => ', theme);
   return {
     root: {
       display: 'flex',

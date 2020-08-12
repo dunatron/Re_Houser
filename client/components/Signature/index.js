@@ -42,8 +42,6 @@ const SignatureComponent = () => {
   const me = currentUser.data ? currentUser.data.me : null;
   const [isEditing, setIsEditing] = useState(me.signature ? false : true);
 
-  console.log('currentUser => ', currentUser);
-
   const handleCompleted = data => {
     setIsEditing(false);
     toast.success(

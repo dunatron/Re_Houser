@@ -1,5 +1,6 @@
 import OwnerProperties from '../../components/OwnerProperties/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
+import ConfirmEmail from '../../components/ConfirmEmail';
 import PageHeader from '../../components/PageHeader';
 import { Typography } from '@material-ui/core';
 import Dashboard from '../../components/Dashboard';
@@ -64,12 +65,14 @@ const LandlordPage = props => {
             <strong>{pleaseSignInMessage}</strong>
           </p>
         }>
-        <Dashboard
-          config={LANDLORD_DASHBOARD_CONFIG}
-          elevation={10}
-          heading="Landlord Portal"
-          intro="Here is the tenant portal dashboard"
-        />
+        <ConfirmEmail me={currentUser.data ? currentUser.data.me : null}>
+          <Dashboard
+            config={LANDLORD_DASHBOARD_CONFIG}
+            elevation={10}
+            heading="Landlord Portal"
+            intro="Here is the tenant portal dashboard"
+          />
+        </ConfirmEmail>
       </PleaseSignIn>
     </>
   );

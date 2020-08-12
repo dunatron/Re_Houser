@@ -40,6 +40,7 @@ async function confirmEmail(parent, args, ctx, info) {
   const [user] = await ctx.db.query.users(
     {
       where: {
+        email: loggedInUser.email,
         confirmEmailToken: args.token,
         confirmEmailTokenExpiry_gte: Date.now() - 3600000,
       },
@@ -49,6 +50,10 @@ async function confirmEmail(parent, args, ctx, info) {
 
   if (!user) {
     throw new Error("This token is either invalid or expired!");
+  }
+
+  if (user.emailValidated) {
+    throw new Error("You have already validated this emails account");
   }
 
   // confirm the token is leget

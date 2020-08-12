@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Sun Aug 09 2020 15:24:04 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
+# timestamp: Wed Aug 12 2020 21:42:43 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -8184,14 +8184,11 @@ enum HeatSource {
 }
 
 enum IndoorFeature {
-  AIR_CONDITIONING
   FURNISHED
   INTERNAL_LAUNDRY
-  DISHWASHER
   BUILT_IN_WARDROBES
   BALCONY
-  ALARM_SYSTEM
-  HEATING
+  ATTACHED_GARAGE
 }
 
 enum InsulationConditionTypes {

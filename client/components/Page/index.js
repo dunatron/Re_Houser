@@ -175,6 +175,9 @@ const GlobalStyle = createGlobalStyle`
        box-shadow: 0 0 10px ${theme.palette.nProgress.main}, 0 0 5px ${theme.palette.nProgress.main};
     }
   }
+  .geosuggest__suggests {
+    z-index: 1000 !important
+  }
   
 `;
 

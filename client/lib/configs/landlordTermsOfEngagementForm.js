@@ -34,7 +34,7 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
       name: 'proofOfAddress',
       label: 'Proof of address',
       description:
-        'This is your proof of  address so we can confrim you are who you say you are',
+        'We accept the following: Utility company bills, Bank statement, Photographic ID with address on it, IRD statement and Correspondence from a government authority.',
     },
     refConf: {
       required: {
@@ -155,7 +155,7 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
     key: 'acceptedTermsOfEngagement',
     fieldProps: {
       name: 'acceptedTermsOfEngagement',
-      label: 'terms of engagement',
+      label: 'I Accept Rehouser Property Management Ltds terms of Engagement',
       helperText: 'your bank account to pay profits into',
     },
     refConf: {

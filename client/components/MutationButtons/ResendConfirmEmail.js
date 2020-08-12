@@ -42,8 +42,7 @@ const ResendConfirmEmailButton = ({ email }) => {
     RESEND_CONFIRM_EMAIL_MUTATION,
     {
       variables: {
-        email: 'Some email',
-        token: 'some token',
+        email: 'doesntmatter', // usingLoggedInUser and would need configured on backend
       },
     }
   );

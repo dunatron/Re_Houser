@@ -14,6 +14,9 @@ const signupEmail = async function({ toEmail, ctx, user, confirmEmailToken }) {
 
   <a href="${process.env.FRONTEND_URL}/confirm-account?token=${confirmEmailToken}">Click here to confirm your rehouser account</a>
 </div>
+<div style="line-height: 18px;">
+  Alternatively you can copy paste the token <span>${confirmEmailToken}</span>
+</div>
   \n\n`,
       user
     ),

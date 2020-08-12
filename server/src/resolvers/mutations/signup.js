@@ -99,7 +99,6 @@ async function signup(parent, args, ctx, info) {
       },
     },
   });
-
   // send the new signupEmail
   signupEmail({
     toEmail: user.email,
@@ -112,10 +111,6 @@ async function signup(parent, args, ctx, info) {
     subject: `New signup ${user.email}`,
     body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`,
   });
-
-  if (!user.emailValidated) {
-    resendConfirmEmail(parent, args, ctx, info);
-  }
 
   const userInfoWithToken = {
     ...user,
