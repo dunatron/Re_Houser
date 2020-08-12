@@ -22,19 +22,8 @@ const LookPage = props => {
         }}
         children={[
           <Typography gutterBottom>
-            Browse our range of available rental properties from your at-home
-            comforts. We are always working on new listings, so make sure to
-            come back for a visit every once and a while.
-          </Typography>,
-          <Typography gutterBottom>
-            See something you like? Click “Get viewing time” and one of our
+            See something you like? Click "Get viewing time" and one of our
             agents will be in touch with you shortly.
-          </Typography>,
-          <Typography gutterBottom>
-            If we don’t have anything you like the look of right now, register
-            your contact information and details of what you’re looking for via
-            our contact page. You will be top of our calling list if something
-            pops up.
           </Typography>,
         ]}
       />

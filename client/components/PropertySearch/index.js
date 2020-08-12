@@ -34,6 +34,8 @@ import SearchFilter from './SearchFilter';
 import FilterDrawer from './FilterDrawer';
 import { GoogleApiWrapper } from 'google-maps-react';
 
+import PropertyResultHit from './PropertyResultHit';
+
 // connected refinements
 import CurrentRefinements from './refinements/CurrentRefinements';
 import {
@@ -81,7 +83,8 @@ const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 
 const Hit = ({ hit }) => (
   <div className="si-hit">
-    <PropertyCard property={hit} isSearch={true} />
+    {/* <PropertyCard property={hit} isSearch={true} /> */}
+    <PropertyResultHit hit={hit} />
   </div>
 );
 
@@ -223,15 +226,19 @@ const PropertySearch = props => {
       <SearchInterface>
         <FilterDrawer open={open} handleClose={handleDrawerClose} />
         <Paper variant="outlined" square={true} style={{ padding: '8px' }}>
+          <Toolbar
+            disableGutters={true}
+            variant="dense"
+            style={{ marginBottom: '8px' }}>
+            <CustomSearchBox fullWidth={true} />
+          </Toolbar>
           <div>
             <GeoSearch />
           </div>
-          <Toolbar disableGutters={true} variant="dense">
-            <CustomSearchBox fullWidth={true} />
-          </Toolbar>
+
           <Grid container spacing={2} style={{ padding: '8px' }}>
             <Grid item xs={12} md={2}>
-              <Paper style={{ height: '100%' }}>
+              <Paper style={{ height: '100%' }} square>
                 <IconButton
                   // color="default"
                   color={open ? 'primary' : 'default'}
@@ -244,7 +251,7 @@ const PropertySearch = props => {
               </Paper>
             </Grid>
             <Grid item xs={12} md={10}>
-              <Paper style={{ height: '100%' }}>
+              <Paper style={{ height: '100%' }} square>
                 <SearchFilter />
               </Paper>
             </Grid>

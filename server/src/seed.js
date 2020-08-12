@@ -9,30 +9,33 @@ const { imagesList, userList, propertiesList } = seeds;
 
 async function main() {
   // createImages
-  imagesList.forEach(async img => {
+  await imagesList.forEach(async (img) => {
     await db.mutation.createFile({
-      data: { ...img }
+      data: { ...img },
     });
   });
 
   // create users
-  userList.forEach(async user => {
+  await userList.forEach(async (user) => {
     const password = await bcrypt.hash(user.password, 10);
     await db.mutation.createUser({
-      data: { ...user, password: password }
+      data: { ...user, password: password },
     });
   });
 
   // createProperties
-  propertiesList.forEach(async property => {
-    const res = await db.mutation.createProperty({
-      data: { ...property }
-    });
+  propertiesList.forEach(async (property) => {
+    const res = await db.mutation
+      .createProperty({
+        data: { ...property },
+      })
+      .catch((e) => console.log("Create Property err => ", e));
+    console.log("ADD PROPERTY RES => ", res);
     //updates, propertyId
     await addPropertySearchNode({
       propertyId: res.id,
-      db: db
-    });
+      db: db,
+    }).catch((e) => console.log("AN promise err => ", e));
   });
 }
 
@@ -47,4 +50,4 @@ async function main() {
 // });
 
 // main().catch(e => console.error(e));
-main().catch(e => console.log(e));
+main().catch((e) => console.log(e));

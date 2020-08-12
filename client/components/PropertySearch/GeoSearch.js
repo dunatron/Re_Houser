@@ -24,12 +24,6 @@ const GeoSearchWidget = props => {
   return (
     <>
       {/* <DynamicPlacesSearch /> */}
-      {enableRefine ? 'Refine is enabled' : 'refine disabled'}
-      {enableRefineOnMapMove
-        ? 'Refine  on map move is enabled'
-        : 'refine on map move disabled'}
-      <div>latPos: {latPos}</div>
-      <div>lngPos: {lngPos}</div>
       {/* <DynamicPlacesSearch
         defaultRefinement={{
           lat: latPos,
@@ -61,7 +55,7 @@ const GeoSearchWidget = props => {
       >
         {({ hits }) => (
           <div>
-            <Control />
+            {/* <Control /> */}
             {hits.map(hit => (
               <MapMarker hit={hit} key={hit.objectID} />
             ))}

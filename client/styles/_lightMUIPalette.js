@@ -45,15 +45,15 @@ const theme = {
     secondary: deepPurple,
     // primary: deepPurple,
     // secondary: teal,
-    error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
-      contrastText: '#fff',
-    },
+    // error: {
+    //   light: '#e57373',
+    //   main: '#f44336',
+    //   dark: '#d32f2f',
+    //   contrastText: '#fff',
+    // },
     text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.54)',
+      primary: 'rgba(0, 0, 0, 0.77)',
+      secondary: 'rgba(0, 0, 0, 0.65)',
       disabled: 'rgba(0, 0, 0, 0.38)',
       hint: 'rgba(0, 0, 0, 0.38)',
     },

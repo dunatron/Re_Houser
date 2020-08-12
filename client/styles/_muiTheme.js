@@ -57,12 +57,12 @@ const theme = {
       dark: '#d32f2f',
       contrastText: '#fff',
     },
-    text: {
-      primary: 'rgba(255, 255, 255, 0.87)',
-      secondary: 'rgba(255, 255, 255, 0.54)',
-      disabled: 'rgba(255, 255, 255, 0.38)',
-      hint: 'rgba(255, 255, 255, 0.38)',
-    },
+  },
+  text: {
+    primary: 'rgba(0, 0, 0, 0.87)',
+    secondary: 'rgba(0, 0, 0, 0.54)',
+    disabled: 'rgba(0, 0, 0, 0.38)',
+    hint: 'rgba(0, 0, 0, 0.38)',
   },
   // palette: {
   //   nProgress: {
@@ -99,6 +99,20 @@ const theme = {
   //   },
   // },
   overrides: {
+    MuiTooltipPopper: {
+      border: '2px solid red',
+    },
+    MuiTooltip: {
+      tooltip: {
+        fontSize: '2em',
+        color: 'yellow',
+        backgroundColor: 'red',
+      },
+    },
+    MuiTooltipTooltip: {},
+    tooltip: {
+      backgroundColor: 'red',
+    },
     MuiButton: {
       root: {
         fontSize: '1rem',

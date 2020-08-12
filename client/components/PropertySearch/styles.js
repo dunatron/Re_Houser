@@ -44,6 +44,7 @@ const SearchInterface = styled.div`
   }
   .ais-Hits-list {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     padding: 0;

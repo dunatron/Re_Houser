@@ -123,10 +123,13 @@ const Apply = props => {
 
   if (!me)
     return (
-      <div style={{ maxWidth: '100vw', padding: '16px' }}>
-        <h4>You need to sign in or up to apply</h4>
+      <div style={{ maxWidth: '100vw' }}>
+        <Typography variant="body1" gutterBottom>
+          You need to sign in or up to apply
+        </Typography>
         {/* <SuperLogin /> */}
         <ChangeRouteButton
+          size="small"
           route="/login"
           title="Login / Signup"
           variant="contained"
@@ -149,20 +152,16 @@ const Apply = props => {
             application={applicationData}
           />
         </Modal>
-        <Typography variant="body1">
-          You may create one application per property, if you have already
-          created one, you will be editing the application you originally
-          created. You can apply to other peoples applications
-        </Typography>
         <Button
           disabled={createApplicationProps.loading}
           color="primary"
           variant="outlined"
+          size="small"
           style={{ padding: '16px', margin: '0 0 16px 0' }}
           onClick={() => createApplication()}>
           {createApplicationProps.loading
             ? 'Processing Rental Application...'
-            : 'Create / Update Rental Application'}
+            : 'Apply for property'}
         </Button>
       </div>
       <RentalApplications

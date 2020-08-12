@@ -9,14 +9,14 @@ const propertyFrag = {
   type: "HOUSE",
   headline: "A yes there was a headline for a property",
   rooms: 2,
-  lowestRoomPrice: 17000,
-  highestRoomPrice: 19000,
+  lowestRoomPrice: 500,
+  highestRoomPrice: 500,
   useAdvancedRent: true,
   bathrooms: 1,
   garageSpaces: 1,
   carportSpaces: 1,
   offStreetSpaces: 1,
-  rent: 25000,
+  rent: 1000,
   moveInDate: moment()
     .subtract(1, "day")
     .format(),
@@ -44,7 +44,7 @@ const propertyFrag = {
   tenYearPhotoelectricAlarms: true,
   alarmsEachLevel: true,
   indoorFeatures: {
-    set: ["AIR_CONDITIONING", "BUILT_IN_WARDROBES", "DISHWASHER"],
+    set: ["FURNISHED"],
   },
   outdoorFeatures: {
     set: ["OUTDOOR_ENTERTAINMENT"],
@@ -77,20 +77,20 @@ const propertyFrag = {
     ],
   },
   proofOfOwnership: {
-    connect: {
-      id: imagesList[0].id,
+    create: {
+      ...imagesList[0],
     },
   },
   images: {
-    connect: [
+    create: [
       {
-        id: imagesList[0].id,
+        ...imagesList[0],
       },
       {
-        id: imagesList[1].id,
+        ...imagesList[1],
       },
       {
-        id: imagesList[2].id,
+        ...imagesList[2],
       },
     ],
   },
