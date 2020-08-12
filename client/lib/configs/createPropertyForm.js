@@ -337,7 +337,8 @@ const CREATE_PROPERTY_FORM_CONF = [
       maxFilesAllowed: 5,
       name: 'images',
       label: 'Images',
-      description: 'You need some images',
+      description:
+        'It is not necessary to upload photos of your property as that will be completed by Rehouser.',
     },
     refConf: {},
   },

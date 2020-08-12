@@ -19,24 +19,28 @@ const LandlordPage = props => {
         Rehouser is structured to show letting property status at every stage of the tenancy lifecycle and notify you of important 
         information at any stage. You can customise those notifications based on your preferences, so you can be as involved as you like."
         children={[
-          <Typography>
+          <Typography gutterBottom>
             We do everything to ensure that your investment is managed
             effectively, acting as a Landlord on your behalf while you can keep
             a finger on the pulse of your investment throughout the tenancy.
           </Typography>,
-          <Typography>
+          <Typography gutterBottom>
             All interactions with Tenants and Property Managers are completed
             via the Rehouser website to ensure a transparent and seamless
             tenancy.
           </Typography>,
-          <Typography variant="h6">Marketing of Properties</Typography>,
-          <Typography>
+          <Typography variant="h6" gutterBottom>
+            Marketing of Properties
+          </Typography>,
+          <Typography gutterBottom>
             We can easily market your property, including an online marketing
             campaign to ensure or target audience is reached, this will be on
-            our website, Facebook, Trademe and Realestate.co.nz
+            our website, Facebook, and Realestate.co.nz
           </Typography>,
-          <Typography variant="h6">Tenant Selection</Typography>,
-          <Typography>
+          <Typography variant="h6" gutterBottom>
+            Tenant Selection
+          </Typography>,
+          <Typography gutterBottom>
             Each potential Tenant is required to sign up to the platform where
             they will need to provide employment details, rental history,
             previous landlords contact details, references, credit check, photo
@@ -47,8 +51,9 @@ const LandlordPage = props => {
           </Typography>,
         ]}
         metaData={{
-          title: 'My Properties',
-          content: 'The properties for the current logged in user',
+          title: 'Landlord Portal',
+          content:
+            'Manage your property portfolio from rehousers landlord portal. It provides you with the tools and data to manage all of your properties',
         }}
       />
       <PleaseSignIn

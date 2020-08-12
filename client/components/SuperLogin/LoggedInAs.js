@@ -38,7 +38,7 @@ const LoggedInAs = ({ me }) => {
         {/* Search For Properties */}
         <ChangeRouteButton
           title="Look for rentals"
-          route="/look"
+          route="/property-search"
           variant="outlined"
         />
         <ChangeRouteButton

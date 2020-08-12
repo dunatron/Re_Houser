@@ -96,8 +96,8 @@ const NavigationConfig = (me, loadingUser) => {
       items: [
         {
           icon: <LocationSearchingIcon />,
-          text: 'Look',
-          route: '/look',
+          text: 'Search Properties',
+          route: '/property-search',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
@@ -111,16 +111,16 @@ const NavigationConfig = (me, loadingUser) => {
             return false;
           },
         },
-        {
-          icon: <DashboardIcon />,
-          text: 'Dashboard',
-          route: '/dashboard',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
+        // {
+        //   icon: <DashboardIcon />,
+        //   text: 'Dashboard',
+        //   route: '/dashboard',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
       ],
     },
     // {
@@ -165,7 +165,7 @@ const NavigationConfig = (me, loadingUser) => {
       key: 'landlord',
       // label: 'Landlords',
       canRender: () => {
-        if (me === null) return false;
+        // if (me === null) return false;
         return true;
       },
       items: [
@@ -219,7 +219,7 @@ const NavigationConfig = (me, loadingUser) => {
       key: 'tenant',
       // label: 'Tenant',
       canRender: () => {
-        if (me === null) return false;
+        // if (me === null) return false;
         return true;
       },
       items: [

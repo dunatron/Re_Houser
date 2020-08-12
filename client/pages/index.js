@@ -5,8 +5,6 @@ import { Button, Typography, IconButton } from '@material-ui/core';
 import ChangeRouteButton from '../components/Routes/ChangeRouteButton';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-import LookPage from './look';
-
 import Dashboard from '../components/Dashboard';
 
 import ContactForm from '../components/Contact/ContactForm';
