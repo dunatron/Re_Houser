@@ -170,11 +170,15 @@ const PropertyResultHit = ({ hit }) => {
       {/* Actions Container */}
       <RehouserPaper className={classes.actionsContainer} elevation={0}>
         <Button color="secondary" size="small">
+          More details
+        </Button>
+        <Button color="secondary" size="small">
           Share to social
         </Button>
         <Button color="secondary" size="small">
           Show Map
         </Button>
+
         <Apply property={hit} />
       </RehouserPaper>
     </Paper>
