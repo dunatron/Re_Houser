@@ -30,6 +30,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "crawler": "^1.2.0",
+    "cron": "^1.8.2",
     "docxtemplater": "^3.9.9",
     "dotenv": "^6.2.0",
     "formidable": "^1.2.2",
