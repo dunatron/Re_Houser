@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
 import SuperLogin from '../components/SuperLogin';
+import OpenSuperLoginButton from "../components/SuperLogin/OpenSuperLoginButton"
 import PageHeader from '../components/PageHeader';
 import SendConfirmEmailButton from '../components/MutationButtons/SendConfrimEmailButton';
 import ConfirmEmail from '../components/ConfirmEmail';

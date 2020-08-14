@@ -48,6 +48,7 @@ const Signup = props => {
       }
     );
     clearRecaptcha();
+    props.handleCompleted();
   };
 
   const handleOnError = error => {

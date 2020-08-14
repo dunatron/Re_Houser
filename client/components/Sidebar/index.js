@@ -259,16 +259,16 @@ const NavigationConfig = (me, loadingUser) => {
         //     return true;
         //   },
         // },
-        {
-          icon: ProfileIcon(me),
-          text: 'Account',
-          route: '/account',
-          // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-        },
+        // {
+        //   icon: ProfileIcon(me),
+        //   text: 'Account',
+        //   route: '/account',
+        //   // style: { ...defaultNavItemStyle, minWidth: '56px' }, // so actual MD defaults
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        // },
         // {
         //   icon: <DonutSmallIcon />,
         //   text: 'Activity',
@@ -279,10 +279,24 @@ const NavigationConfig = (me, loadingUser) => {
         //     return true;
         //   },
         // },
+        // {
+        //   icon: <InfoIcon />,
+        //   text: 'Info',
+        //   route: '/info',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => true, // set to try just to run it alot on the same account in dev
+        // },
         {
           icon: <InfoIcon />,
-          text: 'Info',
-          route: '/info',
+          text: 'Team',
+          route: '/team',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
+        {
+          icon: <InfoIcon />,
+          text: 'Contact',
+          route: '/contact',
           style: { ...defaultNavItemStyle },
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },

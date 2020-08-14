@@ -14,8 +14,6 @@ import Team from '../components/Team/index';
 
 import HOME_PAGE_DASHBOARD_CONFIG from '../lib/configs/homepageDashboardConf';
 
-import RChat from '../components/RChat';
-
 const HomePage = props => {
   const {
     appData: { currentUser },
@@ -71,7 +69,6 @@ const HomePage = props => {
         heading=""
         intro=""
       />
-      <RChat />
     </div>
   );
 };

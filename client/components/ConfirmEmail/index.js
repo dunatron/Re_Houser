@@ -1,5 +1,5 @@
 import SendConfrimEmailButton from '../MutationButtons/SendConfrimEmailButton';
-import SuperLogin from '../SuperLogin';
+import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
 import { Typography } from '@material-ui/core';
 
 const ConfirmEmail = ({ me, children }) => {
@@ -9,7 +9,8 @@ const ConfirmEmail = ({ me, children }) => {
         <Typography variant="h5" gutterBottom>
           To confirm your email you must first be logged in
         </Typography>
-        <SuperLogin tabIndex={1} />
+        <OpenSuperLoginButton />
+        {/* <SuperLogin tabIndex={1} /> */}
       </>
     );
   }

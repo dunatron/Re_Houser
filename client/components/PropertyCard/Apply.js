@@ -15,6 +15,7 @@ import Modal from '../Modal/index';
 import RentalApplicationStepperComponent from '../RentalApplicationStepper/index';
 import Typography from '@material-ui/core/Typography';
 import { toast } from 'react-toastify';
+import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
 
 import Router from 'next/router';
 
@@ -128,13 +129,14 @@ const Apply = props => {
           You need to sign in or up to apply
         </Typography>
         {/* <SuperLogin /> */}
-        <ChangeRouteButton
+        <OpenSuperLoginButton />
+        {/* <ChangeRouteButton
           size="small"
           route="/login"
           title="Login / Signup"
           variant="contained"
           color="secondary"
-        />
+        /> */}
       </div>
     );
 

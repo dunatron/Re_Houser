@@ -3,7 +3,7 @@ import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
 import { CURRENT_USER_QUERY } from '../User/index';
 import Signin from '../Signin/index';
-import SuperLogin from '../SuperLogin';
+import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
 import { toast } from 'react-toastify';
 import Error from '../ErrorMessage';
 import { useCurrentUser } from '../User';
@@ -104,12 +104,19 @@ const PleaseSignIn = props => {
 
   if (loading) return <Loader loading={loading} text="Loading user settings" />;
   if (error) return <Error error={error} />;
-  // return 'SIgh';
-  if (!data.me) {
+  if (!data)
     return (
       <div>
         <Message message={props.message} alert={props.alert} />
-        <SuperLogin />
+        <OpenSuperLoginButton />
+      </div>
+    );
+  // return 'SIgh';
+  if (!data && !data.me) {
+    return (
+      <div>
+        <Message message={props.message} alert={props.alert} />
+        <OpenSuperLoginButton />
       </div>
     );
   }
