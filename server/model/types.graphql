@@ -246,7 +246,9 @@ type Property implements PropertyInfo {
   tenancyType: TenancyType
   petsAllowed: Boolean
   pets: [Pet] @scalarList(strategy: RELATION)
-
+  manholeLocation: String
+  gardenToMaintain: Boolean
+  gardenResponsible: PartyResponsible
   chattels: [PropertyChattel] @scalarList(strategy: RELATION)
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
@@ -257,6 +259,14 @@ type Property implements PropertyInfo {
   viewings: [Viewing] @relation(name: "PropertyViewings")
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
+  healthyHome: HealthyHome @relation(name: "PropertyHealthy", link: TABLE)
+}
+
+type HealthyHome {
+  id: ID! @unique @id
+  property: Property @relation(name: "PropertyHealthy")
+  codeComplianceCert: Boolean
+  certOfAcceptance: Boolean
 }
 
 type PropertyAssist {

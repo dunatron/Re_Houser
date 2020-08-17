@@ -111,8 +111,7 @@ const PleaseSignIn = props => {
         <OpenSuperLoginButton />
       </div>
     );
-  // return 'SIgh';
-  if (!data && !data.me) {
+  if (!data.me) {
     return (
       <div>
         <Message message={props.message} alert={props.alert} />

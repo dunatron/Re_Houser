@@ -487,6 +487,76 @@ const CREATE_PROPERTY_FORM_CONF = [
   {
     type: 'Section',
     fieldProps: {
+      label: 'Some Section',
+    },
+    inners: [
+      {
+        type: 'String',
+        key: 'manholeLocation',
+        fieldProps: {
+          name: 'manholeLocation',
+          label: 'Where is the manhole located',
+          multiline: true,
+          rows: 1,
+          rowsMax: 5,
+        },
+        refConf: {
+          required: {
+            value: true,
+            message: `You need to tell us where the manhole is located even if your answer is "I don't know"`,
+          },
+        },
+      },
+      {
+        type: 'CheckReason',
+        key: 'gardenToMaintain',
+        fieldProps: {
+          name: 'gardenToMaintain',
+          label: 'Is there a garden to maintain',
+          defaultValue: 'Test',
+        },
+        refConf: {
+          required: {
+            value: true,
+            message: 'You must specify if there is a garden to maintain or not',
+          },
+        },
+        inners: [
+          {
+            type: 'SelectOneEnum',
+            __type: 'PartyResponsible',
+            key: 'gardenResponsible',
+            parentShowVals: ['Yes'],
+            fieldProps: {
+              name: 'gardenResponsible',
+              label: 'Who is responsible for the garden',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to tell us who will be responsible for managing the garden',
+              },
+            },
+          },
+        ],
+      },
+      // {
+      //   type: 'SelectOneEnum',
+      //   __type: 'PartyResponsible',
+      //   key: 'gardenResponsible',
+      //   exclude: true,
+      //   fieldProps: {
+      //     name: 'gardenResponsible',
+      //     label: 'Who is responsible for the garden',
+      //   },
+      //   refConf: {},
+      // },
+    ],
+  },
+  {
+    type: 'Section',
+    fieldProps: {
       label: 'Dates Section',
     },
     inners: [
@@ -582,6 +652,38 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'alarmsEachLevel',
           label: 'Alarms each level if multi level',
+        },
+        refConf: {},
+      },
+    ],
+  },
+  {
+    type: 'Section',
+    fieldProps: {
+      label: 'Healthy Homes Standard',
+    },
+    inners: [
+      {
+        type: 'File',
+        key: 'healthyHome.codeComplianceCert',
+        fieldProps: {
+          isMultiple: false,
+          maxFilesAllowed: 1,
+          name: 'healthyHome.codeComplianceCert',
+          label: 'Code Compliance Certificate',
+          description: 'Code compliance certificate',
+        },
+        refConf: {},
+      },
+      {
+        type: 'File',
+        key: 'healthyHome.certOfAcceptance',
+        fieldProps: {
+          isMultiple: false,
+          maxFilesAllowed: 1,
+          name: 'healthyHome.certOfAcceptance',
+          label: 'Certificate of acceptance',
+          description: 'Certificate of acceptance',
         },
         refConf: {},
       },

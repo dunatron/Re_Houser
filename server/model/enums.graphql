@@ -101,6 +101,12 @@ enum InsulationProof {
   REHOUSER
 }
 
+enum PartyResponsible {
+  LANDLORD
+  TENANT
+  REHOUSER
+}
+
 enum Pet {
   DOG
   CAT
