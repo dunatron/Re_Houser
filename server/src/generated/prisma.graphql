@@ -1,5 +1,5 @@
-# source: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
-# timestamp: Wed Aug 12 2020 21:42:43 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Mon Aug 17 2020 12:09:34 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1774,6 +1774,10 @@ type AggregateProperty {
 }
 
 type AggregatePropertyAdvertisement {
+  count: Int!
+}
+
+type AggregatePropertyAssist {
   count: Int!
 }
 
@@ -5374,6 +5378,7 @@ type File implements Node {
   userProofOfAddress: User
   propertyOwnershipProof: Property
   propertyImages: Property
+  propertyInsulationFile: Property
 }
 
 """A connection to a list of items."""
@@ -5418,6 +5423,7 @@ input FileCreateInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 input FileCreateManyWithoutPropertyImagesInput {
@@ -5427,6 +5433,11 @@ input FileCreateManyWithoutPropertyImagesInput {
 
 input FileCreateOneWithoutPreTenancyProofOfAddressInput {
   create: FileCreateWithoutPreTenancyProofOfAddressInput
+  connect: FileWhereUniqueInput
+}
+
+input FileCreateOneWithoutPropertyInsulationFileInput {
+  create: FileCreateWithoutPropertyInsulationFileInput
   connect: FileWhereUniqueInput
 }
 
@@ -5486,6 +5497,7 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 input FileCreateWithoutPropertyImagesInput {
@@ -5519,6 +5531,41 @@ input FileCreateWithoutPropertyImagesInput {
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+}
+
+input FileCreateWithoutPropertyInsulationFileInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyCreateOneWithoutImagesInput
 }
 
 input FileCreateWithoutPropertyOwnershipProofInput {
@@ -5552,6 +5599,7 @@ input FileCreateWithoutPropertyOwnershipProofInput {
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 input FileCreateWithoutUserPhotoIdInput {
@@ -5585,6 +5633,7 @@ input FileCreateWithoutUserPhotoIdInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -5618,6 +5667,7 @@ input FileCreateWithoutUserProfilePhotoInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 input FileCreateWithoutUserProofOfAddressInput {
@@ -5651,6 +5701,7 @@ input FileCreateWithoutUserProofOfAddressInput {
   preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 input FileCreateWithoutUserSignatureInput {
@@ -5684,6 +5735,7 @@ input FileCreateWithoutUserSignatureInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
 }
 
 """An edge in a connection."""
@@ -6678,6 +6730,7 @@ input FileUpdateInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateManyDataInput {
@@ -6758,6 +6811,15 @@ input FileUpdateOneWithoutPreTenancyProofOfAddressInput {
   upsert: FileUpsertWithoutPreTenancyProofOfAddressInput
 }
 
+input FileUpdateOneWithoutPropertyInsulationFileInput {
+  create: FileCreateWithoutPropertyInsulationFileInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutPropertyInsulationFileDataInput
+  upsert: FileUpsertWithoutPropertyInsulationFileInput
+}
+
 input FileUpdateOneWithoutPropertyOwnershipProofInput {
   create: FileCreateWithoutPropertyOwnershipProofInput
   connect: FileWhereUniqueInput
@@ -6833,6 +6895,7 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateWithoutPropertyImagesDataInput {
@@ -6865,6 +6928,40 @@ input FileUpdateWithoutPropertyImagesDataInput {
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+}
+
+input FileUpdateWithoutPropertyInsulationFileDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyUpdateOneWithoutImagesInput
 }
 
 input FileUpdateWithoutPropertyOwnershipProofDataInput {
@@ -6897,6 +6994,7 @@ input FileUpdateWithoutPropertyOwnershipProofDataInput {
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateWithoutUserPhotoIdDataInput {
@@ -6929,6 +7027,7 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -6961,6 +7060,7 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateWithoutUserProofOfAddressDataInput {
@@ -6993,6 +7093,7 @@ input FileUpdateWithoutUserProofOfAddressDataInput {
   preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateWithoutUserSignatureDataInput {
@@ -7025,6 +7126,7 @@ input FileUpdateWithoutUserSignatureDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
 }
 
 input FileUpdateWithWhereUniqueWithoutPropertyImagesInput {
@@ -7035,6 +7137,11 @@ input FileUpdateWithWhereUniqueWithoutPropertyImagesInput {
 input FileUpsertWithoutPreTenancyProofOfAddressInput {
   update: FileUpdateWithoutPreTenancyProofOfAddressDataInput!
   create: FileCreateWithoutPreTenancyProofOfAddressInput!
+}
+
+input FileUpsertWithoutPropertyInsulationFileInput {
+  update: FileUpdateWithoutPropertyInsulationFileDataInput!
+  create: FileCreateWithoutPropertyInsulationFileInput!
 }
 
 input FileUpsertWithoutPropertyOwnershipProofInput {
@@ -7904,6 +8011,7 @@ input FileWhereInput {
   userProofOfAddress: UserWhereInput
   propertyOwnershipProof: PropertyWhereInput
   propertyImages: PropertyWhereInput
+  propertyInsulationFile: PropertyWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -9317,6 +9425,12 @@ input InsulationFormWhereUniqueInput {
   id: ID
 }
 
+enum InsulationProof {
+  FILE
+  FORM
+  REHOUSER
+}
+
 """Raw JSON value"""
 scalar Json
 
@@ -10578,6 +10692,7 @@ type Mutation {
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createFile(data: FileCreateInput!): File!
   createProperty(data: PropertyCreateInput!): Property!
+  createPropertyAssist(data: PropertyAssistCreateInput!): PropertyAssist!
   createViewing(data: ViewingCreateInput!): Viewing!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
   createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
@@ -10604,6 +10719,7 @@ type Mutation {
   updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
+  updatePropertyAssist(data: PropertyAssistUpdateInput!, where: PropertyAssistWhereUniqueInput!): PropertyAssist
   updateViewing(data: ViewingUpdateInput!, where: ViewingWhereUniqueInput!): Viewing
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
   updateRentalAppraisal(data: RentalAppraisalUpdateInput!, where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
@@ -10629,6 +10745,7 @@ type Mutation {
   deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteFile(where: FileWhereUniqueInput!): File
   deleteProperty(where: PropertyWhereUniqueInput!): Property
+  deletePropertyAssist(where: PropertyAssistWhereUniqueInput!): PropertyAssist
   deleteViewing(where: ViewingWhereUniqueInput!): Viewing
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   deleteRentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
@@ -10655,6 +10772,7 @@ type Mutation {
   upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
+  upsertPropertyAssist(where: PropertyAssistWhereUniqueInput!, create: PropertyAssistCreateInput!, update: PropertyAssistUpdateInput!): PropertyAssist!
   upsertViewing(where: ViewingWhereUniqueInput!, create: ViewingCreateInput!, update: ViewingUpdateInput!): Viewing!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
   upsertRentalAppraisal(where: RentalAppraisalWhereUniqueInput!, create: RentalAppraisalCreateInput!, update: RentalAppraisalUpdateInput!): RentalAppraisal!
@@ -10679,6 +10797,7 @@ type Mutation {
   updateManyChats(data: ChatUpdateManyMutationInput!, where: ChatWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
+  updateManyPropertyAssists(data: PropertyAssistUpdateManyMutationInput!, where: PropertyAssistWhereInput): BatchPayload!
   updateManyViewings(data: ViewingUpdateManyMutationInput!, where: ViewingWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
   updateManyRentalAppraisals(data: RentalAppraisalUpdateManyMutationInput!, where: RentalAppraisalWhereInput): BatchPayload!
@@ -10704,6 +10823,7 @@ type Mutation {
   deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
+  deleteManyPropertyAssists(where: PropertyAssistWhereInput): BatchPayload!
   deleteManyViewings(where: ViewingWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
   deleteManyRentalAppraisals(where: RentalAppraisalWhereInput): BatchPayload!
@@ -13279,6 +13399,7 @@ type Property implements Node {
   createdAt: DateTime!
   bankDetails: BankDetail
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13291,7 +13412,9 @@ type Property implements Node {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   insulationForm: InsulationForm
+  insulationStatementFile: File
   indoorFeatures: [IndoorFeature!]!
   outdoorFeatures: [OutdoorFeature!]!
   heatSources: [HeatSource!]!
@@ -13323,6 +13446,8 @@ type Property implements Node {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
+  rehouserHandlesBills: Boolean
+  rehouserAssist: PropertyAssist
 }
 
 type PropertyAdvertisement implements Node {
@@ -13505,6 +13630,209 @@ input PropertyAdvertisementWhereUniqueInput {
   id: ID
 }
 
+type PropertyAssist implements Node {
+  id: ID!
+  property: Property
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+}
+
+"""A connection to a list of items."""
+type PropertyAssistConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PropertyAssistEdge]!
+  aggregate: AggregatePropertyAssist!
+}
+
+input PropertyAssistCreateInput {
+  id: ID
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+  property: PropertyCreateOneWithoutRehouserAssistInput
+}
+
+input PropertyAssistCreateOneWithoutPropertyInput {
+  create: PropertyAssistCreateWithoutPropertyInput
+  connect: PropertyAssistWhereUniqueInput
+}
+
+input PropertyAssistCreateWithoutPropertyInput {
+  id: ID
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+}
+
+"""An edge in a connection."""
+type PropertyAssistEdge {
+  """The item at the end of the edge."""
+  node: PropertyAssist!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PropertyAssistOrderByInput {
+  id_ASC
+  id_DESC
+  rates_ASC
+  rates_DESC
+  insurance_ASC
+  insurance_DESC
+  water_ASC
+  water_DESC
+}
+
+type PropertyAssistPreviousValues {
+  id: ID!
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+}
+
+type PropertyAssistSubscriptionPayload {
+  mutation: MutationType!
+  node: PropertyAssist
+  updatedFields: [String!]
+  previousValues: PropertyAssistPreviousValues
+}
+
+input PropertyAssistSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyAssistSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyAssistSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyAssistSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PropertyAssistWhereInput
+}
+
+input PropertyAssistUpdateInput {
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+  property: PropertyUpdateOneWithoutRehouserAssistInput
+}
+
+input PropertyAssistUpdateManyMutationInput {
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+}
+
+input PropertyAssistUpdateOneWithoutPropertyInput {
+  create: PropertyAssistCreateWithoutPropertyInput
+  connect: PropertyAssistWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyAssistUpdateWithoutPropertyDataInput
+  upsert: PropertyAssistUpsertWithoutPropertyInput
+}
+
+input PropertyAssistUpdateWithoutPropertyDataInput {
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
+}
+
+input PropertyAssistUpsertWithoutPropertyInput {
+  update: PropertyAssistUpdateWithoutPropertyDataInput!
+  create: PropertyAssistCreateWithoutPropertyInput!
+}
+
+input PropertyAssistWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyAssistWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyAssistWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyAssistWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  rates: Boolean
+
+  """All values that are not equal to given value."""
+  rates_not: Boolean
+  insurance: Boolean
+
+  """All values that are not equal to given value."""
+  insurance_not: Boolean
+  water: Boolean
+
+  """All values that are not equal to given value."""
+  water_not: Boolean
+  property: PropertyWhereInput
+}
+
+input PropertyAssistWhereUniqueInput {
+  id: ID
+}
+
 enum PropertyChattel {
   DISH_WASHER
   RANGE_HOOD
@@ -13551,6 +13879,7 @@ input PropertyCreateInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13562,6 +13891,7 @@ input PropertyCreateInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13579,6 +13909,7 @@ input PropertyCreateInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13587,6 +13918,7 @@ input PropertyCreateInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -13596,6 +13928,7 @@ input PropertyCreateInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateManyWithoutCreatorInput {
@@ -13633,6 +13966,11 @@ input PropertyCreateOneWithoutImagesInput {
   connect: PropertyWhereUniqueInput
 }
 
+input PropertyCreateOneWithoutInsulationStatementFileInput {
+  create: PropertyCreateWithoutInsulationStatementFileInput
+  connect: PropertyWhereUniqueInput
+}
+
 input PropertyCreateOneWithoutLeasesInput {
   create: PropertyCreateWithoutLeasesInput
   connect: PropertyWhereUniqueInput
@@ -13640,6 +13978,11 @@ input PropertyCreateOneWithoutLeasesInput {
 
 input PropertyCreateOneWithoutProofOfOwnershipInput {
   create: PropertyCreateWithoutProofOfOwnershipInput
+  connect: PropertyWhereUniqueInput
+}
+
+input PropertyCreateOneWithoutRehouserAssistInput {
+  create: PropertyCreateWithoutRehouserAssistInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -13668,6 +14011,7 @@ input PropertyCreateWithoutAccommodationInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13679,6 +14023,7 @@ input PropertyCreateWithoutAccommodationInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13696,6 +14041,7 @@ input PropertyCreateWithoutAccommodationInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13703,6 +14049,7 @@ input PropertyCreateWithoutAccommodationInput {
   chattels: PropertyCreatechattelsInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -13712,6 +14059,7 @@ input PropertyCreateWithoutAccommodationInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutActivityInput {
@@ -13721,6 +14069,7 @@ input PropertyCreateWithoutActivityInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13732,6 +14081,7 @@ input PropertyCreateWithoutActivityInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13749,6 +14099,7 @@ input PropertyCreateWithoutActivityInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13757,6 +14108,7 @@ input PropertyCreateWithoutActivityInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -13765,6 +14117,7 @@ input PropertyCreateWithoutActivityInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutAppraisalsInput {
@@ -13774,6 +14127,7 @@ input PropertyCreateWithoutAppraisalsInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13785,6 +14139,7 @@ input PropertyCreateWithoutAppraisalsInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13802,6 +14157,7 @@ input PropertyCreateWithoutAppraisalsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13810,6 +14166,7 @@ input PropertyCreateWithoutAppraisalsInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -13818,6 +14175,7 @@ input PropertyCreateWithoutAppraisalsInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutBankDetailsInput {
@@ -13827,6 +14185,7 @@ input PropertyCreateWithoutBankDetailsInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13838,6 +14197,7 @@ input PropertyCreateWithoutBankDetailsInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13855,6 +14215,7 @@ input PropertyCreateWithoutBankDetailsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13862,6 +14223,7 @@ input PropertyCreateWithoutBankDetailsInput {
   chattels: PropertyCreatechattelsInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -13871,6 +14233,7 @@ input PropertyCreateWithoutBankDetailsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutCreatorInput {
@@ -13880,6 +14243,7 @@ input PropertyCreateWithoutCreatorInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13891,6 +14255,7 @@ input PropertyCreateWithoutCreatorInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13908,6 +14273,7 @@ input PropertyCreateWithoutCreatorInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13916,6 +14282,7 @@ input PropertyCreateWithoutCreatorInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   images: FileCreateManyWithoutPropertyImagesInput
   proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
@@ -13924,6 +14291,7 @@ input PropertyCreateWithoutCreatorInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutImagesInput {
@@ -13933,6 +14301,7 @@ input PropertyCreateWithoutImagesInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13944,6 +14313,7 @@ input PropertyCreateWithoutImagesInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -13961,6 +14331,65 @@ input PropertyCreateWithoutImagesInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+  appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
+}
+
+input PropertyCreateWithoutInsulationStatementFileInput {
+  id: ID
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int!
+  maximumOccupants: Int
+  rent: Float!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean!
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -13971,12 +14400,14 @@ input PropertyCreateWithoutImagesInput {
   insulationForm: InsulationFormCreateOneInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyWithoutPropertyImagesInput
   proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutLeasesInput {
@@ -13986,6 +14417,7 @@ input PropertyCreateWithoutLeasesInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -13997,6 +14429,7 @@ input PropertyCreateWithoutLeasesInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -14014,6 +14447,7 @@ input PropertyCreateWithoutLeasesInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -14022,6 +14456,7 @@ input PropertyCreateWithoutLeasesInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -14030,6 +14465,7 @@ input PropertyCreateWithoutLeasesInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutOwnersInput {
@@ -14039,6 +14475,7 @@ input PropertyCreateWithoutOwnersInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -14050,6 +14487,7 @@ input PropertyCreateWithoutOwnersInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -14067,6 +14505,7 @@ input PropertyCreateWithoutOwnersInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -14075,6 +14514,7 @@ input PropertyCreateWithoutOwnersInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
   proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
@@ -14083,6 +14523,7 @@ input PropertyCreateWithoutOwnersInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutProofOfOwnershipInput {
@@ -14092,6 +14533,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -14103,6 +14545,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -14120,6 +14563,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -14128,9 +14572,69 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+  appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
+}
+
+input PropertyCreateWithoutRehouserAssistInput {
+  id: ID
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int!
+  maximumOccupants: Int
+  rent: Float!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean!
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyWithoutPropertyImagesInput
+  proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
@@ -14145,6 +14649,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -14156,6 +14661,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -14173,6 +14679,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -14181,6 +14688,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -14189,6 +14697,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutViewingsInput {
@@ -14198,6 +14707,7 @@ input PropertyCreateWithoutViewingsInput {
   locationLat: Float!
   locationLng: Float!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -14209,6 +14719,7 @@ input PropertyCreateWithoutViewingsInput {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -14226,6 +14737,7 @@ input PropertyCreateWithoutViewingsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -14234,6 +14746,7 @@ input PropertyCreateWithoutViewingsInput {
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
   images: FileCreateManyWithoutPropertyImagesInput
@@ -14242,6 +14755,7 @@ input PropertyCreateWithoutViewingsInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 """An edge in a connection."""
@@ -16085,6 +16599,8 @@ enum PropertyOrderByInput {
   createdAt_DESC
   type_ASC
   type_DESC
+  fixedLength_ASC
+  fixedLength_DESC
   headline_ASC
   headline_DESC
   rooms_ASC
@@ -16107,6 +16623,8 @@ enum PropertyOrderByInput {
   carportSpaces_DESC
   offStreetSpaces_ASC
   offStreetSpaces_DESC
+  insulationProof_ASC
+  insulationProof_DESC
   moveInDate_ASC
   moveInDate_DESC
   expiryDate_ASC
@@ -16141,6 +16659,8 @@ enum PropertyOrderByInput {
   tenYearPhotoelectricAlarms_DESC
   alarmsEachLevel_ASC
   alarmsEachLevel_DESC
+  rehouserHandlesBills_ASC
+  rehouserHandlesBills_DESC
 }
 
 type PropertyPreviousValues {
@@ -16152,6 +16672,7 @@ type PropertyPreviousValues {
   updatedAt: DateTime!
   createdAt: DateTime!
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -16163,6 +16684,7 @@ type PropertyPreviousValues {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   indoorFeatures: [IndoorFeature!]!
   outdoorFeatures: [OutdoorFeature!]!
   heatSources: [HeatSource!]!
@@ -16185,6 +16707,7 @@ type PropertyPreviousValues {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
 }
 
 input PropertyScalarWhereInput {
@@ -16414,6 +16937,16 @@ input PropertyScalarWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [PropertyType!]
+  fixedLength: TenancyFixedLength
+
+  """All values that are not equal to given value."""
+  fixedLength_not: TenancyFixedLength
+
+  """All values that are contained in given list."""
+  fixedLength_in: [TenancyFixedLength!]
+
+  """All values that are not contained in given list."""
+  fixedLength_not_in: [TenancyFixedLength!]
   headline: String
 
   """All values that are not equal to given value."""
@@ -16656,6 +17189,16 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   offStreetSpaces_gte: Int
+  insulationProof: InsulationProof
+
+  """All values that are not equal to given value."""
+  insulationProof_not: InsulationProof
+
+  """All values that are contained in given list."""
+  insulationProof_in: [InsulationProof!]
+
+  """All values that are not contained in given list."""
+  insulationProof_not_in: [InsulationProof!]
   moveInDate: DateTime
 
   """All values that are not equal to given value."""
@@ -16838,6 +17381,10 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   alarmsEachLevel_not: Boolean
+  rehouserHandlesBills: Boolean
+
+  """All values that are not equal to given value."""
+  rehouserHandlesBills_not: Boolean
 }
 
 type PropertySubscriptionPayload {
@@ -16908,6 +17455,7 @@ input PropertyUpdateInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -16919,6 +17467,7 @@ input PropertyUpdateInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16936,6 +17485,7 @@ input PropertyUpdateInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -16944,6 +17494,7 @@ input PropertyUpdateInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -16953,6 +17504,7 @@ input PropertyUpdateInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateManyDataInput {
@@ -16961,6 +17513,7 @@ input PropertyUpdateManyDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -16972,6 +17525,7 @@ input PropertyUpdateManyDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16989,6 +17543,7 @@ input PropertyUpdateManyDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17002,6 +17557,7 @@ input PropertyUpdateManyMutationInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17013,6 +17569,7 @@ input PropertyUpdateManyMutationInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17030,6 +17587,7 @@ input PropertyUpdateManyMutationInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17130,6 +17688,15 @@ input PropertyUpdateOneWithoutImagesInput {
   upsert: PropertyUpsertWithoutImagesInput
 }
 
+input PropertyUpdateOneWithoutInsulationStatementFileInput {
+  create: PropertyCreateWithoutInsulationStatementFileInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutInsulationStatementFileDataInput
+  upsert: PropertyUpsertWithoutInsulationStatementFileInput
+}
+
 input PropertyUpdateOneWithoutProofOfOwnershipInput {
   create: PropertyCreateWithoutProofOfOwnershipInput
   connect: PropertyWhereUniqueInput
@@ -17137,6 +17704,15 @@ input PropertyUpdateOneWithoutProofOfOwnershipInput {
   delete: Boolean
   update: PropertyUpdateWithoutProofOfOwnershipDataInput
   upsert: PropertyUpsertWithoutProofOfOwnershipInput
+}
+
+input PropertyUpdateOneWithoutRehouserAssistInput {
+  create: PropertyCreateWithoutRehouserAssistInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutRehouserAssistDataInput
+  upsert: PropertyUpsertWithoutRehouserAssistInput
 }
 
 input PropertyUpdateoutdoorFeaturesInput {
@@ -17153,6 +17729,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17164,6 +17741,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17181,6 +17759,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17188,6 +17767,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   chattels: PropertyUpdatechattelsInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17197,6 +17777,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutActivityDataInput {
@@ -17205,6 +17786,7 @@ input PropertyUpdateWithoutActivityDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17216,6 +17798,7 @@ input PropertyUpdateWithoutActivityDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17233,6 +17816,7 @@ input PropertyUpdateWithoutActivityDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17241,6 +17825,7 @@ input PropertyUpdateWithoutActivityDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17249,6 +17834,7 @@ input PropertyUpdateWithoutActivityDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutAppraisalsDataInput {
@@ -17257,6 +17843,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17268,6 +17855,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17285,6 +17873,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17293,6 +17882,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17301,6 +17891,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutBankDetailsDataInput {
@@ -17309,6 +17900,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17320,6 +17912,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17337,6 +17930,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17344,6 +17938,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   chattels: PropertyUpdatechattelsInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17353,6 +17948,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutCreatorDataInput {
@@ -17361,6 +17957,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17372,6 +17969,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17389,6 +17987,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17397,6 +17996,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
   proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
@@ -17405,6 +18005,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutImagesDataInput {
@@ -17413,6 +18014,7 @@ input PropertyUpdateWithoutImagesDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17424,6 +18026,7 @@ input PropertyUpdateWithoutImagesDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17441,6 +18044,64 @@ input PropertyUpdateWithoutImagesDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+  appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutInsulationStatementFileDataInput {
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int
+  maximumOccupants: Int
+  rent: Float
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17451,12 +18112,14 @@ input PropertyUpdateWithoutImagesDataInput {
   insulationForm: InsulationFormUpdateOneInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyWithoutPropertyImagesInput
   proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
@@ -17465,6 +18128,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17476,6 +18140,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17493,6 +18158,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17501,6 +18167,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17509,6 +18176,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
@@ -17517,6 +18185,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17528,6 +18197,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17545,6 +18215,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17553,6 +18224,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
   proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
@@ -17561,6 +18233,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutProofOfOwnershipDataInput {
@@ -17569,6 +18242,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17580,6 +18254,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17597,6 +18272,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17605,9 +18281,68 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+  appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutRehouserAssistDataInput {
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int
+  maximumOccupants: Int
+  rent: Float
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyWithoutPropertyImagesInput
+  proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
@@ -17621,6 +18356,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17632,6 +18368,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17649,6 +18386,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17657,6 +18395,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17665,6 +18404,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutViewingsDataInput {
@@ -17673,6 +18413,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   locationLat: Float
   locationLng: Float
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int
   maximumOccupants: Int
@@ -17684,6 +18425,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   garageSpaces: Int
   carportSpaces: Int
   offStreetSpaces: Int
+  insulationProof: InsulationProof
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17701,6 +18443,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -17709,6 +18452,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
   images: FileUpdateManyWithoutPropertyImagesInput
@@ -17717,6 +18461,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithWhereUniqueWithoutCreatorInput {
@@ -17754,6 +18499,11 @@ input PropertyUpsertWithoutImagesInput {
   create: PropertyCreateWithoutImagesInput!
 }
 
+input PropertyUpsertWithoutInsulationStatementFileInput {
+  update: PropertyUpdateWithoutInsulationStatementFileDataInput!
+  create: PropertyCreateWithoutInsulationStatementFileInput!
+}
+
 input PropertyUpsertWithoutLeasesInput {
   update: PropertyUpdateWithoutLeasesDataInput!
   create: PropertyCreateWithoutLeasesInput!
@@ -17762,6 +18512,11 @@ input PropertyUpsertWithoutLeasesInput {
 input PropertyUpsertWithoutProofOfOwnershipInput {
   update: PropertyUpdateWithoutProofOfOwnershipDataInput!
   create: PropertyCreateWithoutProofOfOwnershipInput!
+}
+
+input PropertyUpsertWithoutRehouserAssistInput {
+  update: PropertyUpdateWithoutRehouserAssistDataInput!
+  create: PropertyCreateWithoutRehouserAssistInput!
 }
 
 input PropertyUpsertWithoutRentalApplicationsInput {
@@ -18013,6 +18768,16 @@ input PropertyWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [PropertyType!]
+  fixedLength: TenancyFixedLength
+
+  """All values that are not equal to given value."""
+  fixedLength_not: TenancyFixedLength
+
+  """All values that are contained in given list."""
+  fixedLength_in: [TenancyFixedLength!]
+
+  """All values that are not contained in given list."""
+  fixedLength_not_in: [TenancyFixedLength!]
   headline: String
 
   """All values that are not equal to given value."""
@@ -18255,6 +19020,16 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   offStreetSpaces_gte: Int
+  insulationProof: InsulationProof
+
+  """All values that are not equal to given value."""
+  insulationProof_not: InsulationProof
+
+  """All values that are contained in given list."""
+  insulationProof_in: [InsulationProof!]
+
+  """All values that are not contained in given list."""
+  insulationProof_not_in: [InsulationProof!]
   moveInDate: DateTime
 
   """All values that are not equal to given value."""
@@ -18437,11 +19212,16 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   alarmsEachLevel_not: Boolean
+  rehouserHandlesBills: Boolean
+
+  """All values that are not equal to given value."""
+  rehouserHandlesBills_not: Boolean
   bankDetails: BankDetailWhereInput
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput
   accommodation_none: AccommodationWhereInput
   insulationForm: InsulationFormWhereInput
+  insulationStatementFile: FileWhereInput
   owners_every: UserWhereInput
   owners_some: UserWhereInput
   owners_none: UserWhereInput
@@ -18465,6 +19245,7 @@ input PropertyWhereInput {
   viewings_every: ViewingWhereInput
   viewings_some: ViewingWhereInput
   viewings_none: ViewingWhereInput
+  rehouserAssist: PropertyAssistWhereInput
 }
 
 input PropertyWhereUniqueInput {
@@ -18483,6 +19264,7 @@ type Query {
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
+  propertyAssists(where: PropertyAssistWhereInput, orderBy: PropertyAssistOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyAssist]!
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal]!
@@ -18509,6 +19291,7 @@ type Query {
   friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   file(where: FileWhereUniqueInput!): File
   property(where: PropertyWhereUniqueInput!): Property
+  propertyAssist(where: PropertyAssistWhereUniqueInput!): PropertyAssist
   viewing(where: ViewingWhereUniqueInput!): Viewing
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
   rentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
@@ -18535,6 +19318,7 @@ type Query {
   friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
+  propertyAssistsConnection(where: PropertyAssistWhereInput, orderBy: PropertyAssistOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyAssistConnection!
   viewingsConnection(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ViewingConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
   rentalAppraisalsConnection(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalAppraisalConnection!
@@ -21302,6 +22086,7 @@ type Subscription {
   friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
+  propertyAssist(where: PropertyAssistSubscriptionWhereInput): PropertyAssistSubscriptionPayload
   viewing(where: ViewingSubscriptionWhereInput): ViewingSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
   rentalAppraisal(where: RentalAppraisalSubscriptionWhereInput): RentalAppraisalSubscriptionPayload
@@ -21318,6 +22103,13 @@ type Subscription {
   insulationForm(where: InsulationFormSubscriptionWhereInput): InsulationFormSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
+}
+
+enum TenancyFixedLength {
+  MONTHS_12
+  MONTHS_9
+  MONTHS_6
+  MONTHS_3
 }
 
 enum TenancyType {

@@ -191,6 +191,7 @@ type File {
   userProofOfAddress: User @relation(name: "UserProofOfAddress")
   propertyOwnershipProof: Property @relation(name: "ProofOfOwnership")
   propertyImages: Property @relation(name: "PropertyImages")
+  propertyInsulationFile: Property @relation(name: "InsualtionStatementFile")
 }
 
 type Property implements PropertyInfo {
@@ -203,6 +204,7 @@ type Property implements PropertyInfo {
   createdAt: DateTime! @createdAt
   bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
   type: PropertyType
+  fixedLength: TenancyFixedLength
   headline: String
   rooms: Int!
   maximumOccupants: Int
@@ -215,7 +217,10 @@ type Property implements PropertyInfo {
   garageSpaces: Int!
   carportSpaces: Int!
   offStreetSpaces: Int!
+  insulationProof: InsulationProof
   insulationForm: InsulationForm
+  insulationStatementFile: File
+    @relation(name: "InsualtionStatementFile", link: TABLE)
   indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   heatSources: [HeatSource] @scalarList(strategy: RELATION)
@@ -250,6 +255,16 @@ type Property implements PropertyInfo {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   viewings: [Viewing] @relation(name: "PropertyViewings")
+  rehouserHandlesBills: Boolean
+  rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
+}
+
+type PropertyAssist {
+  id: ID! @unique @id
+  property: Property @relation(name: "PropertyAssists")
+  rates: Boolean
+  insurance: Boolean
+  water: Boolean
 }
 
 type Viewing {

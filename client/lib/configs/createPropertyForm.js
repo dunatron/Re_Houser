@@ -54,36 +54,144 @@ const CREATE_PROPERTY_FORM_CONF = [
     ],
   },
   {
-    type: 'Entity',
-    key: 'insulationForm',
-    resolveKey: 'insulationForm',
-    required: false,
-    title: 'Insualtion Statement',
-    description:
-      'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
-    formConf: INSULATIONFORM_CONF,
-    // Below is not true but cool to know it works like the dope flowing within my veins
-    refConf: {
-      required: {
-        value: false, // set t false because its not required upon creation
-        message: 'Insulation Statement form must  be supplied and submiitted',
-      },
+    type: 'Section',
+    fieldProps: {
+      label: 'Insulation statement',
     },
+    inners: [
+      {
+        type: 'SelectOneEnum',
+        __type: 'InsulationProof',
+        key: 'insulationProof',
+        exclude: true,
+        fieldProps: {
+          name: 'insulationProof',
+          label: 'Select Insulation proof method',
+        },
+        refConf: {},
+        inners: [
+          {
+            type: 'File',
+            parentShowVals: ['FILE'],
+            key: 'insulationStatementFile',
+            fieldProps: {
+              isMultiple: false,
+              maxFilesAllowed: 1,
+              name: 'insulationStatementFile',
+              label: 'insulation statement file',
+              description: 'You need to upload your insualtion statement',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to upload your insualtion statement when you have "FILE" selected for the insulation statement proof',
+              },
+            },
+          },
+          {
+            type: 'Entity',
+            parentShowVals: ['FORM'],
+            key: 'insulationForm',
+            resolveKey: 'insulationForm',
+            required: false,
+            title: 'Insualtion Statement',
+            description:
+              'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
+            formConf: INSULATIONFORM_CONF,
+            // Below is not true but cool to know it works like the dope flowing within my veins
+            refConf: {
+              required: {
+                value: false, // set t false because its not required upon creation
+                message:
+                  'Insulation Statement form must  be supplied and submiitted',
+              },
+            },
+          },
+          {
+            type: 'Info',
+            parentShowVals: ['REHOUSER'],
+            content: `Rehouser will make sure you have an insulation statement`,
+            refConf: {},
+          },
+        ],
+      },
+    ],
   },
-
   // {
-  //   type: 'Phone',
-  //   key: 'testPhone',
+  //   type: 'Section',
   //   fieldProps: {
-  //     name: 'testPhone',
-  //     label: 'testPhone',
+  //     label: 'Insulation statement',
   //   },
-  //   refConf: {
-  //     required: {
-  //       value: true,
-  //       message: 'you must supply a valid phone number format',
+  //   inners: [
+  //     {
+  //       type: 'SelectOneWithText',
+  //       key: 'insulationProof',
+  //       exclude: true,
+  //       fieldProps: {
+  //         name: 'insulationProof',
+  //         label: 'Select Insulation proof method',
+  //         options: [
+  //           {
+  //             label: 'file',
+  //             name: 'file',
+  //           },
+  //           {
+  //             label: 'form',
+  //             name: 'form',
+  //           },
+  //           {
+  //             label: 'rehouser',
+  //             name: 'rehouser',
+  //           },
+  //         ],
+  //       },
+  //       refConf: {},
+  //       inners: [
+  //         {
+  //           type: 'Info',
+  //           // parentShowVals: ['file'],
+  //           showOn: {
+  //             key: 'insulationProof',
+  //             values: ['file'],
+  //           },
+  //           content: `ToDo: add file upload`,
+  //           refConf: {},
+  //         },
+  //         {
+  //           type: 'Entity',
+  //           key: 'insulationForm',
+  //           showOn: {
+  //             key: 'insulationProof',
+  //             values: ['form'],
+  //           },
+  //           resolveKey: 'insulationForm',
+  //           required: false,
+  //           title: 'Insualtion Statement',
+  //           description:
+  //             'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
+  //           formConf: INSULATIONFORM_CONF,
+  //           // Below is not true but cool to know it works like the dope flowing within my veins
+  //           refConf: {
+  //             required: {
+  //               value: false, // set t false because its not required upon creation
+  //               message:
+  //                 'Insulation Statement form must  be supplied and submiitted',
+  //             },
+  //           },
+  //         },
+  //         {
+  //           type: 'Info',
+  //           showOn: {
+  //             key: 'insulationProof',
+  //             values: ['rehouser'],
+  //           },
+  //           content: `ToDo: add boolean stating rehouser has to handle this`,
+  //           refConf: {},
+  //         },
+  //       ],
   //     },
-  //   },
+  //   ],
   // },
   {
     type: 'Section',
@@ -144,6 +252,23 @@ const CREATE_PROPERTY_FORM_CONF = [
             content: `This is a periodic tenancy and may be ended by either
             party giving notice as required under the Residential Tenancies Act 1986`,
             refConf: {},
+          },
+          {
+            type: 'SelectOneEnum',
+            __type: 'TenancyFixedLength',
+            key: 'fixedLength',
+            parentShowVals: ['FIXED'],
+            fieldProps: {
+              name: 'fixedLength',
+              label: 'Fixed Length',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to specify an ending date when the tenancy type is FIXED',
+              },
+            },
           },
           // {
           //   type: 'Date',
@@ -483,6 +608,41 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'freeGlassCover',
           label: 'Free glass cover',
+        },
+        refConf: {},
+      },
+    ],
+  },
+  {
+    type: 'Section',
+    fieldProps: {
+      label: 'Assistance',
+    },
+    inners: [
+      {
+        type: 'Boolean',
+        key: 'rehouserAssist.rates',
+        fieldProps: {
+          name: 'rehouserAssist.rates',
+          label: 'Rates',
+        },
+        refConf: {},
+      },
+      {
+        type: 'Boolean',
+        key: 'rehouserAssist.water',
+        fieldProps: {
+          name: 'rehouserAssist.water',
+          label: 'Water',
+        },
+        refConf: {},
+      },
+      {
+        type: 'Boolean',
+        key: 'rehouserAssist.insurance',
+        fieldProps: {
+          name: 'rehouserAssist.insurance',
+          label: 'Insurance',
         },
         refConf: {},
       },
