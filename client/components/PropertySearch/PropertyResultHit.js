@@ -21,6 +21,13 @@ import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import CarouselSlider from '../CarouselSlider';
+import { useState } from 'react';
+
+import Modal from '../Modal';
+
+// Modal Contents
+import Map from '../Map';
+import PublicProperty from '../PublicProperty';
 
 const StyledBadge = withStyles(theme => ({
   badge: {
@@ -135,6 +142,7 @@ const DetailItemsArr = [
 
 const PropertyResultHit = ({ hit }) => {
   const classes = useStyles();
+  const [modalIdx, setModalIdx] = useState();
   return (
     <Paper square className={classes.root}>
       {/* Images Container */}
@@ -169,18 +177,49 @@ const PropertyResultHit = ({ hit }) => {
       </RehouserPaper>
       {/* Actions Container */}
       <RehouserPaper className={classes.actionsContainer} elevation={0}>
-        <Button color="secondary" size="small">
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => setModalIdx('details')}>
           More details
         </Button>
-        <Button color="secondary" size="small">
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => setModalIdx('share')}>
           Share to social
         </Button>
-        <Button color="secondary" size="small">
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => setModalIdx('viewings')}>
+          Viewings
+        </Button>
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => setModalIdx('map')}>
           Show Map
         </Button>
-
         <Apply property={hit} />
       </RehouserPaper>
+      <Modal
+        open={modalIdx ? true : false}
+        close={() => setModalIdx(null)}
+        title={modalIdx}>
+        {modalIdx === 'details' && <PublicProperty propertyId={hit.id} />}
+        {modalIdx === 'share' && <div>share Modal content</div>}
+        {modalIdx === 'viewings' && <div>viewings Modal content</div>}
+        {modalIdx === 'map' && (
+          <Map
+            center={{
+              lat: hit._geoloc.lat,
+              lng: hit._geoloc.lng,
+            }}
+            height={'900px'}
+          />
+        )}
+      </Modal>
     </Paper>
   );
 };
