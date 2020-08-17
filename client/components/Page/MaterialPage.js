@@ -10,6 +10,7 @@ import Sidebar from '../Sidebar';
 
 import AppMenuBar from './AppMenuBar';
 import Footer from '../Footer';
+import LoginModal from './LoginModal';
 
 function MaterialPage(props) {
   const theme = useTheme();
@@ -93,6 +94,7 @@ function MaterialPage(props) {
           <Footer />
         </main>
         {/* {me && <ChatsBar />} */}
+        <LoginModal />
       </div>
     </>
   );

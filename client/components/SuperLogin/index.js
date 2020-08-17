@@ -77,6 +77,10 @@ const LoginPage = props => {
     setTabIndex(index);
   };
 
+  const handleSignedInOrUp = data => {
+    props.handleSignedIn && props.handleSignedIn();
+  };
+
   const { classes, theme } = props;
 
   return (
@@ -111,6 +115,7 @@ const LoginPage = props => {
           <Signup
             email={state.email}
             password={state.password}
+            handleCompleted={handleSignedInOrUp}
             update={e => {
               saveToState(e);
             }}
@@ -120,6 +125,7 @@ const LoginPage = props => {
           <Signin
             email={state.email}
             password={state.password}
+            handleCompleted={handleSignedInOrUp}
             update={e => saveToState(e)}
           />
         </TabContainer>

@@ -32,6 +32,7 @@ const Signin = props => {
       </p>
     );
     clearRecaptcha();
+    props.handleCompleted(data);
   };
   const handleOnError = error => {
     clearRecaptcha();
@@ -72,7 +73,32 @@ const Signin = props => {
         e.preventDefault();
         signIn({
           variables: state,
-          refetchQueries: [{ query: CURRENT_USER_QUERY }],
+          // refetchQueries: [{ query: CURRENT_USER_QUERY }],
+          update: (cache, data) => {
+            console.log('Signin cache => ', cache);
+            console.log('Signin data => ', data);
+            // cache.modify({
+            //   id: cache.identify(myObject),
+            //   fields: {
+            //     ...data.signin,
+            //   },
+            //   /* broadcast: false // Include this to prevent automatic query refresh */
+            // });
+            cache.modify({
+              fields: {
+                me(existingMeRefs, { readField }) {
+                  console.log(
+                    'WIll this even work => existingRefs ',
+                    existingMeRefs
+                  );
+                  console.log(
+                    'WIll this even work => readField ',
+                    existingMeRefs
+                  );
+                },
+              },
+            });
+          },
         });
       }}>
       <fieldset

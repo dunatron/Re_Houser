@@ -21,6 +21,9 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+// account menu
+import AccountMenu from './AccountMenu';
+
 function HideOnScroll(props) {
   const { children, window } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -144,7 +147,7 @@ const AppMenuBar = props => {
                 <Brightness7Icon />
               </IconButton>
             </Tooltip>
-            <Tooltip title="go to Dashboard">
+            {/* <Tooltip title="go to Dashboard">
               <IconButton
                 onClick={() => {
                   router.push('/dashboard');
@@ -154,7 +157,8 @@ const AppMenuBar = props => {
                 edge="end">
                 <DashboardIcon />
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
+            <AccountMenu me={me} />
           </div>
         </Toolbar>
       </AppBar>

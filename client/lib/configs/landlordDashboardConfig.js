@@ -10,6 +10,7 @@ import ApartmentIcon from '@material-ui/icons/Apartment';
 import DonutSmallIcon from '@material-ui/icons/DonutSmall';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AddIcon from '@material-ui/icons/Add';
+import MoneyIcon from '@material-ui/icons/Money';
 
 const LANDLORD_DASHBOARD_CONFIG = [
   {
@@ -33,6 +34,20 @@ const LANDLORD_DASHBOARD_CONFIG = [
     route: '/properties',
     description:
       'Review your properties. This is where you can accept applications for your property and do general management for your property',
+    color: 'secondary',
+  },
+  {
+    icon: <MoneyIcon />,
+    label: 'Fees',
+    route: '/landlord/fees',
+    description: 'Review the rehouser fees for the system',
+    color: 'secondary',
+  },
+  {
+    icon: <MoneyIcon />,
+    label: 'Terms of engagement',
+    route: '/landlord/terms-of-engagement',
+    description: 'Review the terms of engagement for using our system',
     color: 'secondary',
   },
   // {

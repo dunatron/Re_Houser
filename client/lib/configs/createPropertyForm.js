@@ -54,36 +54,144 @@ const CREATE_PROPERTY_FORM_CONF = [
     ],
   },
   {
-    type: 'Entity',
-    key: 'insulationForm',
-    resolveKey: 'insulationForm',
-    required: false,
-    title: 'Insualtion Statement',
-    description:
-      'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
-    formConf: INSULATIONFORM_CONF,
-    // Below is not true but cool to know it works like the dope flowing within my veins
-    refConf: {
-      required: {
-        value: false, // set t false because its not required upon creation
-        message: 'Insulation Statement form must  be supplied and submiitted',
-      },
+    type: 'Section',
+    fieldProps: {
+      label: 'Insulation statement',
     },
+    inners: [
+      {
+        type: 'SelectOneEnum',
+        __type: 'InsulationProof',
+        key: 'insulationProof',
+        exclude: true,
+        fieldProps: {
+          name: 'insulationProof',
+          label: 'Select Insulation proof method',
+        },
+        refConf: {},
+        inners: [
+          {
+            type: 'File',
+            parentShowVals: ['FILE'],
+            key: 'insulationStatementFile',
+            fieldProps: {
+              isMultiple: false,
+              maxFilesAllowed: 1,
+              name: 'insulationStatementFile',
+              label: 'insulation statement file',
+              description: 'You need to upload your insualtion statement',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to upload your insualtion statement when you have "FILE" selected for the insulation statement proof',
+              },
+            },
+          },
+          {
+            type: 'Entity',
+            parentShowVals: ['FORM'],
+            key: 'insulationForm',
+            resolveKey: 'insulationForm',
+            required: false,
+            title: 'Insualtion Statement',
+            description:
+              'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
+            formConf: INSULATIONFORM_CONF,
+            // Below is not true but cool to know it works like the dope flowing within my veins
+            refConf: {
+              required: {
+                value: false, // set t false because its not required upon creation
+                message:
+                  'Insulation Statement form must  be supplied and submiitted',
+              },
+            },
+          },
+          {
+            type: 'Info',
+            parentShowVals: ['REHOUSER'],
+            content: `Rehouser will make sure you have an insulation statement`,
+            refConf: {},
+          },
+        ],
+      },
+    ],
   },
-
   // {
-  //   type: 'Phone',
-  //   key: 'testPhone',
+  //   type: 'Section',
   //   fieldProps: {
-  //     name: 'testPhone',
-  //     label: 'testPhone',
+  //     label: 'Insulation statement',
   //   },
-  //   refConf: {
-  //     required: {
-  //       value: true,
-  //       message: 'you must supply a valid phone number format',
+  //   inners: [
+  //     {
+  //       type: 'SelectOneWithText',
+  //       key: 'insulationProof',
+  //       exclude: true,
+  //       fieldProps: {
+  //         name: 'insulationProof',
+  //         label: 'Select Insulation proof method',
+  //         options: [
+  //           {
+  //             label: 'file',
+  //             name: 'file',
+  //           },
+  //           {
+  //             label: 'form',
+  //             name: 'form',
+  //           },
+  //           {
+  //             label: 'rehouser',
+  //             name: 'rehouser',
+  //           },
+  //         ],
+  //       },
+  //       refConf: {},
+  //       inners: [
+  //         {
+  //           type: 'Info',
+  //           // parentShowVals: ['file'],
+  //           showOn: {
+  //             key: 'insulationProof',
+  //             values: ['file'],
+  //           },
+  //           content: `ToDo: add file upload`,
+  //           refConf: {},
+  //         },
+  //         {
+  //           type: 'Entity',
+  //           key: 'insulationForm',
+  //           showOn: {
+  //             key: 'insulationProof',
+  //             values: ['form'],
+  //           },
+  //           resolveKey: 'insulationForm',
+  //           required: false,
+  //           title: 'Insualtion Statement',
+  //           description:
+  //             'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
+  //           formConf: INSULATIONFORM_CONF,
+  //           // Below is not true but cool to know it works like the dope flowing within my veins
+  //           refConf: {
+  //             required: {
+  //               value: false, // set t false because its not required upon creation
+  //               message:
+  //                 'Insulation Statement form must  be supplied and submiitted',
+  //             },
+  //           },
+  //         },
+  //         {
+  //           type: 'Info',
+  //           showOn: {
+  //             key: 'insulationProof',
+  //             values: ['rehouser'],
+  //           },
+  //           content: `ToDo: add boolean stating rehouser has to handle this`,
+  //           refConf: {},
+  //         },
+  //       ],
   //     },
-  //   },
+  //   ],
   // },
   {
     type: 'Section',
@@ -144,6 +252,23 @@ const CREATE_PROPERTY_FORM_CONF = [
             content: `This is a periodic tenancy and may be ended by either
             party giving notice as required under the Residential Tenancies Act 1986`,
             refConf: {},
+          },
+          {
+            type: 'SelectOneEnum',
+            __type: 'TenancyFixedLength',
+            key: 'fixedLength',
+            parentShowVals: ['FIXED'],
+            fieldProps: {
+              name: 'fixedLength',
+              label: 'Fixed Length',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to specify an ending date when the tenancy type is FIXED',
+              },
+            },
           },
           // {
           //   type: 'Date',
@@ -362,6 +487,76 @@ const CREATE_PROPERTY_FORM_CONF = [
   {
     type: 'Section',
     fieldProps: {
+      label: 'Some Section',
+    },
+    inners: [
+      {
+        type: 'String',
+        key: 'manholeLocation',
+        fieldProps: {
+          name: 'manholeLocation',
+          label: 'Where is the manhole located',
+          multiline: true,
+          rows: 1,
+          rowsMax: 5,
+        },
+        refConf: {
+          required: {
+            value: true,
+            message: `You need to tell us where the manhole is located even if your answer is "I don't know"`,
+          },
+        },
+      },
+      {
+        type: 'CheckReason',
+        key: 'gardenToMaintain',
+        fieldProps: {
+          name: 'gardenToMaintain',
+          label: 'Is there a garden to maintain',
+          defaultValue: 'Test',
+        },
+        refConf: {
+          required: {
+            value: true,
+            message: 'You must specify if there is a garden to maintain or not',
+          },
+        },
+        inners: [
+          {
+            type: 'SelectOneEnum',
+            __type: 'PartyResponsible',
+            key: 'gardenResponsible',
+            parentShowVals: ['Yes'],
+            fieldProps: {
+              name: 'gardenResponsible',
+              label: 'Who is responsible for the garden',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to tell us who will be responsible for managing the garden',
+              },
+            },
+          },
+        ],
+      },
+      // {
+      //   type: 'SelectOneEnum',
+      //   __type: 'PartyResponsible',
+      //   key: 'gardenResponsible',
+      //   exclude: true,
+      //   fieldProps: {
+      //     name: 'gardenResponsible',
+      //     label: 'Who is responsible for the garden',
+      //   },
+      //   refConf: {},
+      // },
+    ],
+  },
+  {
+    type: 'Section',
+    fieldProps: {
       label: 'Dates Section',
     },
     inners: [
@@ -465,6 +660,38 @@ const CREATE_PROPERTY_FORM_CONF = [
   {
     type: 'Section',
     fieldProps: {
+      label: 'Healthy Homes Standard',
+    },
+    inners: [
+      {
+        type: 'File',
+        key: 'healthyHome.codeComplianceCert',
+        fieldProps: {
+          isMultiple: false,
+          maxFilesAllowed: 1,
+          name: 'healthyHome.codeComplianceCert',
+          label: 'Code Compliance Certificate',
+          description: 'Code compliance certificate',
+        },
+        refConf: {},
+      },
+      {
+        type: 'File',
+        key: 'healthyHome.certOfAcceptance',
+        fieldProps: {
+          isMultiple: false,
+          maxFilesAllowed: 1,
+          name: 'healthyHome.certOfAcceptance',
+          label: 'Certificate of acceptance',
+          description: 'Certificate of acceptance',
+        },
+        refConf: {},
+      },
+    ],
+  },
+  {
+    type: 'Section',
+    fieldProps: {
       label: 'Cover',
     },
     inners: [
@@ -483,6 +710,41 @@ const CREATE_PROPERTY_FORM_CONF = [
         fieldProps: {
           name: 'freeGlassCover',
           label: 'Free glass cover',
+        },
+        refConf: {},
+      },
+    ],
+  },
+  {
+    type: 'Section',
+    fieldProps: {
+      label: 'Assistance',
+    },
+    inners: [
+      {
+        type: 'Boolean',
+        key: 'rehouserAssist.rates',
+        fieldProps: {
+          name: 'rehouserAssist.rates',
+          label: 'Rates',
+        },
+        refConf: {},
+      },
+      {
+        type: 'Boolean',
+        key: 'rehouserAssist.water',
+        fieldProps: {
+          name: 'rehouserAssist.water',
+          label: 'Water',
+        },
+        refConf: {},
+      },
+      {
+        type: 'Boolean',
+        key: 'rehouserAssist.insurance',
+        fieldProps: {
+          name: 'rehouserAssist.insurance',
+          label: 'Insurance',
         },
         refConf: {},
       },

@@ -88,6 +88,25 @@ enum TenancyType {
   FIXED
 }
 
+enum TenancyFixedLength {
+  MONTHS_12
+  MONTHS_9
+  MONTHS_6
+  MONTHS_3
+}
+
+enum InsulationProof {
+  FILE
+  FORM
+  REHOUSER
+}
+
+enum PartyResponsible {
+  LANDLORD
+  TENANT
+  REHOUSER
+}
+
 enum Pet {
   DOG
   CAT

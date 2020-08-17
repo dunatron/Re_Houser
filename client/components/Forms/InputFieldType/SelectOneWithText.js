@@ -41,6 +41,18 @@ const SelectOneWithText = props => {
     return false;
   };
 
+  // const resolveShowOnParentVals = (config, inner) => {
+  //   if (inner.parentShowVals.includes(currVal)) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
+
+  // const canDisplayInner = (config, inner) => {
+  //   if (inner.parentShowVals) return resolveShowOnParentVals(config, inner);
+  //   return true;
+  // };
+
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
