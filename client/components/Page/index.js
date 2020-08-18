@@ -27,6 +27,7 @@ import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAl
 import AdminAlertsContainer from '../../containers/AdminAlertsContainer';
 import GeneralSubsContainer from '../../containers/GeneralSubsContainer';
 
+
 // theme typography
 import themeTypography from '../../styles/_themeTypography';
 
@@ -196,6 +197,8 @@ const Page = props => {
   }, [window.Stripe]);
   const themeToUse = useDarkTheme ? darkTheme : lightTheme;
 
+  console.log('YAY PAGE PROPS => ', props);
+
   const handleDefaultDragover = e => {
     e = e || event;
     e.preventDefault();
@@ -249,11 +252,6 @@ const Page = props => {
               />
               <AdminAlertsContainer />
               <GeneralSubsContainer />
-              {/* <div>
-                  <h1>Admin alerts LOL</h1>
-                  <AdminAlertsContainer />
-                </div> */}
-              {/* </WithChats> */}
             </WithUser>
           </Elements>
         </ThemeProvider>

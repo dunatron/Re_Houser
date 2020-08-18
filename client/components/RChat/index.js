@@ -30,7 +30,7 @@ const RChat = props => {
   };
   // const user = { _id: 1, name: 'me' };
   const user = { _id: me.id, name: `${me.firstName} ${me.lastNaem}` };
-  const inverted = false;
+  const inverted = true;
   const width = '280px';
   const height = '390px';
   return (

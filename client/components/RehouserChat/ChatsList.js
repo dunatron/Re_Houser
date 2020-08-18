@@ -6,6 +6,9 @@ import { getChatName } from '../../lib/getChatName';
 import { store } from '../../store';
 import moment from 'moment';
 
+import Loader from '../Loader';
+import Error from '../ErrorMessage';
+
 export const MY_CHATS_QUERY = gql`
   query MY_CHATS_QUERY(
     $where: ChatWhereInput
@@ -44,22 +47,6 @@ export const MY_CHATS_QUERY = gql`
   }
 `;
 
-// id: "ckdzgaxzb6ud50999ndzjjg15"
-// lastMessage: null
-// name: "CHat room 0"
-// participants: Array(2)
-// 0:
-// firstName: "Ben"
-// id: "ckdzdhm5h6fe90999vbn2tutq"
-// lastName: "Tester"
-// __typename: "User"
-// __proto__: Object
-// 1: {__typename: "User", id: "ckdzdhm5vnpte0975dw0lomjk", firstName: "Heath R", lastName: "Dunlop"}
-// length: 2
-// __proto__: Array(0)
-// type: "PEER"
-// __typename: "Chat"
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -79,9 +66,8 @@ const ChatsList = ({ me }) => {
       },
     },
   });
-  console.log('CHats for this User => ', data);
-  if (loading) return <div>Loading chats</div>;
-  if (error) return <div>Error</div>;
+  if (loading) return <Loader loading={loading} text={'Loading chats'} />;
+  if (error) return <Error error={error} />;
   return data.chats.map((chat, i) => {
     return (
       <div

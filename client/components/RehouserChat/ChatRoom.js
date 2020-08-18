@@ -55,6 +55,7 @@ import styled from 'styled-components';
 // import MessageInput from './MessageInput';
 // import MessagesList from './MessagesList';
 import Error from '../ErrorMessage';
+import Loader from '../Loader';
 import { writeMessage } from '../../services/cache.service';
 import {
   CHAT_QUERY,
@@ -78,9 +79,6 @@ const Container = styled.div`
   // width: 280px;
   max-height: 300px;
   flex-flow: column;
-  /* height: 100vh; */
-  /* position: absolute;
-  top: 0; */
 `;
 
 const ChatRoomScreen = ({ me, chat, chatId }) => {
@@ -170,7 +168,6 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
         // },
         update: (proxy, { data }) => {
           if (data && data.createMessage) {
-            // writeMessage(client, data.createMessage);
             writeMessage(client, data.createMessage);
           }
         },
@@ -204,7 +201,7 @@ const ChatRoomScreenConnection = props => {
       },
     },
   });
-  if (loading) return 'Loading';
+  if (loading) return <Loader loading={loading} text="Initializing chat" />;
   if (error) return <Error error={error} />;
   // ToDo create a pagination provider for this
   return <ChatRoomScreen {...props} chat={data.chat} />;

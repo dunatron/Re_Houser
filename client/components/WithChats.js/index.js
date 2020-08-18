@@ -53,6 +53,7 @@ const LoadChats = ({ me }) => {
 };
 
 const WithChats = props => {
+  return props.children;
   const me = props.me ? props.me : null;
   if (me === null) return props.children;
   // all with chats has to do is put them into the store.

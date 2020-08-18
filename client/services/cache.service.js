@@ -44,10 +44,10 @@ const OPEN_CHAT_LOCAL_MUTATION = gql`
 `;
 
 export const writeMessage = async (client, message) => {
-  console.group('writeMessage cache service');
-  console.log('message => ', message);
-  console.log('client => ', client);
-  return;
+  // console.group('writeMessage cache service');
+  // console.log('message => ', message);
+  // console.log('client => ', client);
+  // return;
 
   // Might be better to write a writeOwnMessage
   // first figure out why its doing this though...

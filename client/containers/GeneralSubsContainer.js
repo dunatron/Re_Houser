@@ -1,6 +1,7 @@
 import AdminAlertNewRentalApplicationSub from '../components/SubscriptionComponents/AdminAlertNewRentalApplicationSub';
 import AdminNewPropertyAppraisalSub from '../components/SubscriptionComponents/AdminNewPropertyAppraisalSub';
 import GeneralUserUpdatesSub from '../components/SubscriptionComponents/GeneralUserUpdatesSub';
+import MessageCreatedSub from '../components/SubscriptionComponents/MessageCreatedSub';
 import User from '../components/User/index';
 
 const GeneralSubsContainer = props => {
@@ -14,6 +15,7 @@ const GeneralSubsContainer = props => {
           return (
             <>
               <GeneralUserUpdatesSub me={me} />
+              <MessageCreatedSub me={me} />
             </>
           );
         }}
