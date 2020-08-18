@@ -28,7 +28,10 @@ const RChat = () => {
   const onSend = newMsg => setMessages([...messages, ...newMsg]);
   const user = { _id: 1, name: 'me' };
   const inverted = false;
-  const { width, height } = Dimensions.get('window');
+  // const { width, height } = Dimensions.get('window');
+  // const { width, height } = Dimensions.get('window');
+  const width = '100%';
+  const height = '250px';
   return (
     <View style={{ width, height }}>
       <GiftedChat {...{ messages, onSend, user, inverted }} />

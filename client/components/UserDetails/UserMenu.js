@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import Router from 'next/router';
@@ -29,6 +29,9 @@ import { OPEN_CHAT_LOCAL_MUTATION } from '../../lib/store/resolvers';
 // chat service
 import { writeChat } from '../../services/cache.service';
 
+// useContext
+import { store } from '../../store';
+
 const ITEM_HEIGHT = 48;
 
 const handleLink = (route = '/', query = {}) => {
@@ -43,7 +46,12 @@ const handleLink = (route = '/', query = {}) => {
 // 2. we should create a little mini bar ike facebook does to hold our open chats
 // maybe this should be a cache.service which will create a chat, whatever type it is and return the id etc, ensuring it is open in the chat bar
 
+/**
+ * This will need to consume our context store
+ * When a message gets created, then this should be pushed to the openCHats
+ */
 const UserMenu = ({ me, user }) => {
+  const { state, dispatch } = useContext(store);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [openChat] = useMutation(OPEN_CHAT_LOCAL_MUTATION);
@@ -107,9 +115,13 @@ const UserMenu = ({ me, user }) => {
                   },
                 },
                 update: (cache, { data: { createChat } }) => {
-                  openChat({
-                    variables: { chat: createChat },
+                  dispatch({
+                    type: 'openChat',
+                    payload: createChat,
                   });
+                  // openChat({
+                  //   variables: { chat: createChat },
+                  // });
                 },
               });
               // handleClose()

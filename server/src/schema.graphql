@@ -28,10 +28,10 @@ type User {
   referee2Phone: String
   referee2Email: String
   primaryCreditCard: CreditCard
-  friends: [User!]!
-  friendRequests: [FriendRequest!]!
-  awaitingFriends: [FriendRequest!]!
-  chats: [Chat!]!
+  friends: [User!]
+  friendRequests: [FriendRequest!]
+  awaitingFriends: [FriendRequest!]
+  chats: [Chat!]
   permissions: [Permission]
   token: String
   rehouserStamp: Boolean
@@ -163,7 +163,7 @@ type Subscription {
 
 type Query {
   me: User
-  users: [User]!
+  users(where: UserWhereUniqueInput): [User]!
   file(id: ID!): File
   files: [File!]!
   activities(

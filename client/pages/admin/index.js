@@ -13,6 +13,7 @@ import { Badge } from '@material-ui/core';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SettingsIcon from '@material-ui/icons/Settings';
+import FriendManager from '../../components/FriendManager';
 
 /**
  *
@@ -88,6 +89,7 @@ const MyLeasePage = props => {
         currentUser={currentUser}
         message="You must be signed in to view the admin area">
         <Dashboard config={ADMIN_DASHBOARD_CONFIG} />
+        <FriendManager />
       </PleaseSignIn>
     </div>
   );

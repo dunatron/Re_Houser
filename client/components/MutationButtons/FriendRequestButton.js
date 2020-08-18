@@ -55,21 +55,21 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
     }
   );
 
-  const { friends, friendRequests, awaitingFriends } = me;
-  const awaitingFriendIds = awaitingFriends.map(v => v.acceptingUser.id);
-  const friendIds = friends.map(friend => friend.id);
-  // 1. check if they are already friends
-  if (friendIds.includes(requestFriendId)) {
-    return 'You are already friends with this user';
-  }
-  // 2. check if they are already awaiting approval
-  if (awaitingFriendIds.includes(requestFriendId)) {
-    return 'friend request sent awaiting user response';
-  }
-  // make sure its not them
-  if (requestFriendId === me.id) {
-    return 'Cant be friends with yourself';
-  }
+  // const { friends, friendRequests, awaitingFriends } = me;
+  // const awaitingFriendIds = awaitingFriends.map(v => v.acceptingUser.id);
+  // const friendIds = friends.map(friend => friend.id);
+  // // 1. check if they are already friends
+  // if (friendIds.includes(requestFriendId)) {
+  //   return 'You are already friends with this user';
+  // }
+  // // 2. check if they are already awaiting approval
+  // if (awaitingFriendIds.includes(requestFriendId)) {
+  //   return 'friend request sent awaiting user response';
+  // }
+  // // make sure its not them
+  // if (requestFriendId === me.id) {
+  //   return 'Cant be friends with yourself';
+  // }
   return (
     <>
       <Error error={createFriendRequestProps.error} />

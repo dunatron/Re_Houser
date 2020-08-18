@@ -89,14 +89,17 @@ const SearchAndRequestFriend = props => {
       <Button onClick={() => searchUsers()} variant="outlined">
         Search For Users
       </Button>
-      {results.map((result, i) => {
-        return (
-          <div>
-            <UserDetails me={me} user={result} />
-            <FriendRequestButton me={me} requestFriendId={result.id} />
-          </div>
-        );
-      })}
+      {results &&
+        results.map((result, i) => {
+          console.log('Ohh cool a result => ', result);
+          return (
+            <div>
+              A result BACK
+              <UserDetails me={me} user={result} />
+              <FriendRequestButton me={me} requestFriendId={result.id} />
+            </div>
+          );
+        })}
     </div>
   );
 };

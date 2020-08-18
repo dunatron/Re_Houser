@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '100%',
     width: '100%',
     alignItems: 'flex-end',
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('sm')]: {
       maxWidth: `calc(100% - ${theme.sideBarWidth}px)`,
       left: `${theme.sideBarWidth}px`,
     },
@@ -63,11 +63,15 @@ const useStyles = makeStyles(theme => ({
  * I should use Apollo local state.
  * I will simply hold any open chats.
  */
-const ChatsBar = ({ me }) => {
-  const classes = useStyles();
+const ChatsBar = () => {
+  // for whatever reason i have put it here. so just do a useQuery to get currentUser
+  //
+  // return 'CHats bar does not like apollo 3.0 upgrade';
+  const { loading, error, data } = useCurrentUser();
 
+  const classes = useStyles();
+  const { data: openChats } = useQuery(GET_OPEN_CHATS);
   const doShow = () => {
-    return true;
     if (Router.route === '/chat') {
       return false;
     }
@@ -82,33 +86,18 @@ const ChatsBar = ({ me }) => {
     return () => {
       document.getElementById('main-content').style.paddingBottom = '16px';
     };
-  }, [Router.route]);
+  }, [Router.route, openChats.openChats.length]);
 
   if (!doShow()) {
     return null;
   }
-
-  const testChats = [
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-  ];
-
+  if (loading) return null;
+  if (error) return null;
+  const { me } = data;
+  if (!me) return null;
   return (
     <div className={classes.root}>
-      {testChats.map((c, i) => {
+      {openChats.openChats.map((c, i) => {
         return <ChatBarItem chat={c} id={c.id} me={me} />;
       })}
     </div>

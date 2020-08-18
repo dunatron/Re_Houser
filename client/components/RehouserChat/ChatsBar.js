@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Router from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -9,11 +9,11 @@ import { getChatName } from '../../lib/getChatName';
 import { getChatImage } from '../../lib/getChatImage';
 // icons
 import CloseIcon from '../../styles/icons/CloseIcon';
-import {
-  OPEN_CHAT_LOCAL_MUTATION,
-  CLOSE_CHAT_LOCAL_MUTATION,
-  GET_OPEN_CHATS,
-} from '../../lib/store/resolvers';
+
+import SuperLogin from '../../components/SuperLogin';
+import { store } from '../../store';
+
+import ChatRoom from "./ChatRoom"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,6 +65,7 @@ const useStyles = makeStyles(theme => ({
  */
 const ChatsBar = ({ me }) => {
   const classes = useStyles();
+  const { state, dispatch } = useContext(store);
 
   const doShow = () => {
     return true;
@@ -77,7 +78,7 @@ const ChatsBar = ({ me }) => {
 
   useEffect(() => {
     if (doShow()) {
-      document.getElementById('main-content').style.paddingBottom = '100px';
+      document.getElementById('main-content').style.paddingBottom = '140px';
     }
     return () => {
       document.getElementById('main-content').style.paddingBottom = '16px';
@@ -88,41 +89,22 @@ const ChatsBar = ({ me }) => {
     return null;
   }
 
-  const testChats = [
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-    {
-      id: '1',
-    },
-  ];
+  //   console.log('Well what is the state => ', globalStore);
 
   return (
     <div className={classes.root}>
-      {testChats.map((c, i) => {
-        return <ChatBarItem chat={c} id={c.id} me={me} />;
-      })}
+      {state.openChats &&
+        state.openChats.map((c, i) => {
+          return <ChatBarItem chat={c} id={c.id} me={me} />;
+        })}
     </div>
   );
 };
 
 const ChatBarItem = ({ id, chat, me }) => {
+  const { state, dispatch } = useContext(store);
   const classes = useStyles();
   const [contentIn, setContentIn] = useState(false);
-  // const [closeChat] = useMutation(CLOSE_CHAT_LOCAL_MUTATION, {
-  //   variables: {
-  //     id: id,
-  //   },
-  // });
   return (
     <div className={`${classes.barItem} ${contentIn ? classes.barItemIn : ''}`}>
       <div
@@ -136,15 +118,16 @@ const ChatBarItem = ({ id, chat, me }) => {
           className={classes.close}
           onClick={e => {
             e.preventDefault();
-            // closeChat();
-            alert('need to close chat');
+            dispatch({
+              type: 'closeChat',
+            });
           }}>
           <CloseIcon />
         </div>
       </div>
       {contentIn && (
         <div>
-          <ChatRoomScreen chatId={id} me={me} />
+          <ChatRoom chatId={id} me={me} />
         </div>
       )}
     </div>

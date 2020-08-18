@@ -5,6 +5,11 @@ const initialState = {
   newRentalApplicationsCount: 0,
   newPropertiesCount: 0,
   loginModalOpen: false,
+  openChats: [
+    {
+      id: 1,
+    },
+  ],
 };
 const store = createContext(initialState);
 const { Provider } = store;
@@ -32,8 +37,17 @@ const StateProvider = ({ children }) => {
           ...state,
           loginModalOpen: false,
         };
-      // const newState = // do something with the action
-      // return newState;
+      case 'closeChat':
+        return {
+          ...state,
+          openChats: [],
+        };
+      case 'openChat':
+        console.log('The payload => ', action.payload);
+        return {
+          ...state,
+          openChats: [state.openChats, { ...action.payload }],
+        };
       default:
         throw new Error();
     }

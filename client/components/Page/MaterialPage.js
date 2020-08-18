@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import ChatsBar from '../ChatsBar';
+import ChatsBar from '../RehouserChat/ChatsBar';
 import useStyles from './useStyles';
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
@@ -93,7 +93,7 @@ function MaterialPage(props) {
           {children}
           <Footer />
         </main>
-        {/* {me && <ChatsBar />} */}
+        {me && <ChatsBar me={me} />}
         <LoginModal />
       </div>
     </>
