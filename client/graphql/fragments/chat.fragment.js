@@ -11,6 +11,11 @@ export default gql`
     }
     participants {
       id
+      firstName
+      lastName
+      profilePhoto {
+        url
+      }
     }
     seenInfo {
       id

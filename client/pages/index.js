@@ -59,7 +59,10 @@ const HomePage = props => {
           style={{ marginTop: '64px', textAlign: 'center' }}>
           Read More
         </Typography>
-        <IconButton aria-label="read-more" href="#banner-footer">
+        <IconButton
+          aria-label="read-more"
+          href="#banner-footer"
+          color="secondary">
           <ArrowDownwardIcon fontSize="large" />
         </IconButton>
       </Banner>
