@@ -2,7 +2,6 @@ import React, { Component, PureComponent, useMemo } from 'react';
 import styled from 'styled-components';
 import encodeImage from '../../lib/encodeImage';
 import Fab from '@material-ui/core/Fab';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const ImageList = styled.div`
   display: flex;
@@ -34,7 +33,6 @@ const ImgTile = styled.div`
   img {
     width: 100%;
     height: 300px;
-    /* max-width: 200px; */
     object-fit: cover;
   }
 `;

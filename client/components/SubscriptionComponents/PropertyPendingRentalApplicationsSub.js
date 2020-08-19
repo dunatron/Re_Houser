@@ -4,16 +4,6 @@ import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscript
 import ApplicationCard from '../PropertyDetails/ApplicationCard';
 import { ToastContainer, toast } from 'react-toastify';
 
-/**
- *
- * @param {*} param0
- * THE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.
- * collect, number of updates, implement refreshQueries || provide a child component
- * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
- * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
- * Na too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.
- *
- */
 const PropertyPendingRentalApplicationsSub = ({ property }) => {
   const [newObjects, setNewObjects] = useState([]);
   const [updateCount, setUpdateCount] = useState(0);
@@ -26,7 +16,6 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
           mutation_in: 'UPDATED',
           node: {
             stage_in: ['PENDING', 'INITIALIZING', 'DENIED', 'ACCEPTED'],
-            // id_in: applicationIds,
             property: {
               id: property.id,
             },

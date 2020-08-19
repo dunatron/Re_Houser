@@ -226,9 +226,6 @@ const ActivityItem = ({ activity }) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
-        {/* <Avatar className={classes.orange}>
-          <ActivityIcon type={activity.type} />
-        </Avatar> */}
         <ActivityIcon type={activity.type} />
         <Typography className={classes.heading}>
           <ActivityTitle activity={activity} /> <br />

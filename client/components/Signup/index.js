@@ -91,7 +91,6 @@ const Signup = props => {
   }, [props.password]);
 
   const canSignup = () => {
-    // state.captchaToken.length <= 0 ? true : false || loading
     if (state.captchaToken.length <= 0) return false;
     if (loading) return false;
     if (state.acceptedSignupTerms !== true) return false;
@@ -206,8 +205,6 @@ const Signup = props => {
             data-cy="signup-recaptcha-component"
             ref={recaptchaRef}
             sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
-            // this will require an investigation on its own. how to render these process.env with next
-            // check next.config
             onChange={token =>
               setState({
                 ...state,

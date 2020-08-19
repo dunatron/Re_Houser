@@ -83,7 +83,6 @@ const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 
 const Hit = ({ hit }) => (
   <div className="si-hit">
-    {/* <PropertyCard property={hit} isSearch={true} /> */}
     <PropertyResultHit hit={hit} />
   </div>
 );
@@ -112,7 +111,6 @@ const MapMarker = ({ hit }) => {
 
   // maybe a quick trick with the modal inside the marker node so it doesnt close
   // also the card for the modal. Then normal whatever it was doing right?
-
   return (
     <CustomMarker key={hit.objectID} hit={hit}>
       <div ref={node} onClick={() => setShowMore(true)} className="map-marker">
@@ -126,7 +124,6 @@ const MapMarker = ({ hit }) => {
         <div
           style={{
             display: 'flex',
-            // justifyContent: 'center',
             alignItems: 'center',
           }}>
           ${hit.rent}
@@ -137,7 +134,6 @@ const MapMarker = ({ hit }) => {
           )}
         </div>
         {showMore && <p className="marker-location-text">{hit.location}</p>}
-        {/* {showMore && <Typography variant="body2">{hit.location}</Typography>} */}
       </div>
     </CustomMarker>
   );
@@ -147,58 +143,12 @@ const Content = () => (
   <div className="si-content">
     <div className="si-info">
       <Stats />
-      {/* <ConnectedMaterialUiSortBy
-        items={[
-          {
-            value: `dev_PropertySearch`,
-            label: "Development results",
-          },
-          {
-            value: `prod_PropertySearch`,
-            label: "Production results",
-          },
-        ]}
-        defaultRefinement={`${indexPrefix}_PropertySearch`}
-      /> */}
     </div>
 
     <Hits hitComponent={Hit} />
     <div className="pagination">
       {/* <ConnectedMaterialPagination /> */}
       <Pagination />
-      {/* <Pagination
-        padding={5} // How many page links to display around the current page.'
-        showLast={true} // Whether to display the last page link.
-        showNext={true} // Whether to display the next page link.
-        showPrevious={true} // Whether to display the previous page link.
-        showFirst={true} // Whether to display the first page link.
-        translations={{
-          previous: (
-            <div className="icon-ChevronLeft">
-              <NavigateBeforeIcon />
-            </div>
-          ),
-          next: (
-            <div className="icon-ChevronRight">
-              <NavigateNextIcon />
-            </div>
-          ),
-          first: (
-            <div className="double-chevron">
-              <SkipPreviousIcon />
-            </div>
-          ),
-          last: (
-            <div className="double-chevron">
-              <SkipNextIcon />
-            </div>
-          ),
-          ariaPrevious: 'Previous page',
-          ariaNext: 'Next page',
-          ariaFirst: 'First page',
-          ariaLast: 'Last page',
-        }}
-      /> */}
     </div>
   </div>
 );
@@ -269,8 +219,6 @@ PropertySearch.propTypes = {
   // classes: PropTypes.object.isRequired,
   // theme: PropTypes.object.isRequired,
 };
-
-// export default PropertySearch;
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,

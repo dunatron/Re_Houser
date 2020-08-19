@@ -31,10 +31,6 @@ const Apply = props => {
   const me = user.data ? user.data.me : null;
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [applicationData, setApplicationData] = useState({});
-  // useEffect(() => {}, [modalIsOpen])
-  // const _apply = async createRentalApplication => {
-  //   const res = await createRentalApplication()
-  // }
 
   const [createApplication, createApplicationProps] = useMutation(
     CREATE_RENTAL_APPLICATION,
@@ -43,7 +39,7 @@ const Apply = props => {
         data: {
           stage: 'INITIALIZING',
           visibility: 'PRIVATE',
-          title: 'Jon Does Application',
+          title: `Jon Doe's Application`,
           finalised: false,
           property: {
             connect: {
@@ -100,9 +96,6 @@ const Apply = props => {
           });
         } catch (e) {
         } finally {
-          // setApplicationData(payload.data.createRentalApplication);
-          // setModalIsOpen(true);
-          // set a nice toast message
           toast.success(
             <div>
               <p>
@@ -128,15 +121,7 @@ const Apply = props => {
         <Typography variant="body1" gutterBottom>
           You need to sign in or up to apply
         </Typography>
-        {/* <SuperLogin /> */}
         <OpenSuperLoginButton />
-        {/* <ChangeRouteButton
-          size="small"
-          route="/login"
-          title="Login / Signup"
-          variant="contained"
-          color="secondary"
-        /> */}
       </div>
     );
 

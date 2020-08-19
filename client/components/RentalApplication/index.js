@@ -54,12 +54,6 @@ const RentalApplication = ({ id, me }) => {
       )}
     </>
   );
-
-  // return isOwner ? (
-  //   <OwnerView rentalApplication={data.rentalApplication} me={me} />
-  // ) : (
-  //   <ApplicantView rentalApplication={data.rentalApplication} me={me} />
-  // );
 };
 
 export default RentalApplication;

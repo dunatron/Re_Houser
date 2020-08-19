@@ -16,7 +16,6 @@ const TextInput = props => {
     <TextField
       id="standard-name"
       label="Name"
-      // className={classes.textField}
       value={value}
       onChange={onChange}
       margin="normal"

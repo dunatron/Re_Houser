@@ -90,9 +90,7 @@ class DragDropUploader extends Component {
             disabled={disabled}
             color={dragging ? 'secondary' : 'primary'}
             variant="contained"
-            component="span"
-            //  className={classes.button}
-          >
+            component="span">
             {this.renderBtnText()}
           </Button>
         </div>
@@ -104,9 +102,7 @@ class DragDropUploader extends Component {
           disabled={disabled}
           color={dragging ? 'secondary' : 'primary'}
           variant="contained"
-          component="span"
-          //  className={classes.button}
-        >
+          component="span">
           {this.renderBtnText()}
         </Button>
       </label>
@@ -135,12 +131,7 @@ class DragDropUploader extends Component {
           type="file"
           onChange={e => this.onFileChange(e)}
         />
-        <span
-        // className={classes.dropSubTitle}
-        >
-          {/* {processing ? "Please Wait" : "Add some files"} */}
-          {this.renderDropText()}
-        </span>
+        <span>{this.renderDropText()}</span>
         {this.renderUploadButton()}
       </DropZone>
     );

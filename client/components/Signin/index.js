@@ -51,7 +51,6 @@ const Signin = props => {
       [e.target.name]: e.target.value,
     });
     props.update(e);
-    // ToDo: push up to if we have update function to tell the container
   };
 
   useEffect(() => {
@@ -73,17 +72,7 @@ const Signin = props => {
         e.preventDefault();
         signIn({
           variables: state,
-          // refetchQueries: [{ query: CURRENT_USER_QUERY }],
           update: (cache, data) => {
-            console.log('Signin cache => ', cache);
-            console.log('Signin data => ', data);
-            // cache.modify({
-            //   id: cache.identify(myObject),
-            //   fields: {
-            //     ...data.signin,
-            //   },
-            //   /* broadcast: false // Include this to prevent automatic query refresh */
-            // });
             cache.modify({
               fields: {
                 me(existingMeRefs, { readField }) {

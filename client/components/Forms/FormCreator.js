@@ -125,91 +125,6 @@ const FormCreator = props => {
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 
-  // requires that the data is supplied with all the keys before hand, such is that of hooks
-  // if (forceFormUpdates) {
-  //   Object.keys(data).forEach(key =>
-  //     useEffect(() => {
-  //       const preFormattedFormDataReset = formatData(
-  //         data,
-  //         keysWithTypes,
-  //         'pre'
-  //       );
-  //       const newResetObj = {
-  //         [key]: preFormattedFormDataReset[key],
-  //       };
-  //       reset(newResetObj);
-  //     }, [data[key]])
-  //   );
-  // }
-  // if (forceFormUpdates) {
-  //   useDeepCompareEffect(
-  //     () => {
-  //       Object.keys(data).forEach(key => {
-  //         const preFormattedFormDataReset = formatData(
-  //           data,
-  //           keysWithTypes,
-  //           'pre'
-  //         );
-  //         const newResetObj = {
-  //           [key]: preFormattedFormDataReset[key],
-  //         };
-  //         reset(newResetObj);
-  //       });
-  //     },
-  //     // query is a string, but variables is an object. With the way Query is used
-  //     // in the example above, `variables` will be a new object every render.
-  //     // useDeepCompareEffect will do a deep comparison and your callback is only
-  //     // run when the variables object actually has changes.
-  //     [data]
-  //   );
-  // }
-  // useDeepCompareEffect(
-  //   () => {
-  //     // Object.keys(data).forEach(key => {
-  //     //   const preFormattedFormDataReset = formatData(
-  //     //     data,
-  //     //     keysWithTypes,
-  //     //     'pre'
-  //     //   );
-  //     //   const newResetObj = {
-  //     //     [key]: preFormattedFormDataReset[key],
-  //     //   };
-  //     //   reset(newResetObj);
-  //     // });
-  //     // reset(preFormattedFormData);
-  //     // setValue
-  //     // Object.keys(data).forEach(key => {
-  //     //   const preFormattedFormDataReset = formatData(
-  //     //     data,
-  //     //     keysWithTypes,
-  //     //     'pre'
-  //     //   );
-  //     //   const newResetObj = {
-  //     //     [key]: preFormattedFormDataReset[key],
-  //     //   };
-  //     //   setValue(key, preFormattedFormDataReset[key]);
-  //     // });
-  //   },
-  //   // query is a string, but variables is an object. With the way Query is used
-  //   // in the example above, `variables` will be a new object every render.
-  //   // useDeepCompareEffect will do a deep comparison and your callback is only
-  //   // run when the variables object actually has changes.
-  //   [data]
-  // );
-
-  // useDeepCompareEffect(
-  //   () => {
-  //     // make an HTTP request or whatever with the query and variables
-  //     // optionally return a cleanup function if necessary
-  //     console.log('Deep COmpare DAta RERENDER');
-  //   },
-  //   // query is a string, but variables is an object. With the way Query is used
-  //   // in the example above, `variables` will be a new object every render.
-  //   // useDeepCompareEffect will do a deep comparison and your callback is only
-  //   // run when the variables object actually has changes.
-  //   [data]
-  // );
-
   const _createText = () => {
     if (createText) return createText;
     return 'Create ' + title + ' Form';
@@ -272,13 +187,6 @@ const FormCreator = props => {
 
 FormCreator.propTypes = {
   name: PropTypes.string,
-  // config: PropTypes.arrayOf(
-  //   // PropTypes.shape({
-  //   //   type: PropTypes.oneOf(['CheckboxText', 'CheckMultipleWithText']),
-  //   //   key: PropTypes.string,
-  //   // })
-  //   PropTypes.instanceOf(InputFieldType)
-  // ),
 };
 
 export { FormCreator };

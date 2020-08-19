@@ -3,22 +3,8 @@ import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 class CheckBoxSelection extends React.Component {
-  // constructor(props) {
-  //   super(props)
-
-  //   // const selectionOptions = props.options.reduce(
-  //   //   (ac, option) => ({ ...ac, [option.id]: option.show }),
-  //   //   {}
-  //   // )
-
-  //   this.state = {
-  //     ...selectionOptions,
-  //   }
-  // }
-
   handleChange = name => event => {
     this.props.handleOptionChange({ [name]: event.target.checked });
-    // this.setState({ [name]: event.target.checked })
   };
 
   render() {

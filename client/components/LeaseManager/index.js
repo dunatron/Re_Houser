@@ -33,18 +33,7 @@ const LeaseManager = ({ leaseId }) => {
 
   // maybe list to a sub for this on the leaseManager?
   const handleOnSubscriptionData = ({ client, subscriptionData }) => {
-    alert(
-      'I should run over the mother => the data should be in added to the cache automaitically '
-    );
-    // const { amount } = subscriptionData.data.walletSub.node;
-    // const formattedAmount = formatCentsToDollar(amount);
-    // setWalletUpdating(false);
-    // toast.success(
-    //   <div>
-    //     <Typography>Lease wallet updated</Typography>
-    //     <Typography>{formattedAmount}</Typography>
-    //   </div>
-    // );
+    alert('Subscription data for lease manager');
   };
 
   useSubscription(PROPERTY_LEASE_SUBSCRIPTION, {
@@ -136,32 +125,6 @@ const LeaseManager = ({ leaseId }) => {
   );
 
   return 'You may have an invalid lease stage. please contact support';
-
-  // need to ensure they are a lessor or lessee to view
-
-  // everyone still needs to agree on lease and sign it
-  if (stage === 'INITIALIZING')
-    return <StageInitializing lease={data.myLease} me={me} />;
-
-  // Add some stuff into heres
-
-  // everyone has signed and a lessor has finalised it. wonder if they are the last person that needs to sign if we progress the stage
-  if (stage === 'SIGNED') return <StageSigned lease={data.myLease} me={me} />;
-
-  // The lease has been signed and a weeks worth of rent has been recieved
-  if (stage === 'PAID') return <StagePaid lease={data.myLease} me={me} />;
-
-  return 'You may have an invalid lease stage. please contact support';
-
-  // add
-
-  // // 1. if lease has been finalised <CompletedLease />
-  // if (stage !== 'INITIALIZING')
-  //   return (
-  //     <CompletedLease leaseId={data.myLease.id} lease={data.myLease} me={me} />
-  //   );
-  // // 2. we need to sign the lease <CompletedLease />
-  // return <SignLease lease={data.myLease} me={me} />;
 };
 
 export default LeaseManager;

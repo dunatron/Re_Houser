@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     top: 0,
     left: 0,
-    // background: fade(theme.palette.primary.main, 0.2),
     height: '100%',
     width: '100%',
     alignItems: 'center',
@@ -25,20 +24,16 @@ const useStyles = makeStyles(theme => ({
   content: {
     position: 'relative',
     overflow: 'auto',
-    // zIndex: 20,
     height: '100%',
     width: '100%',
   },
   modalInner: {
-    // background: '#FFF',
     borderRadius: 0,
     maxWidth: '500px',
     position: 'relative',
     zIndex: 30,
     height: 'auto',
     minHeight: '100%',
-    // top: props => (props.fullScreen ? 0 : '10%'),
-    // left: props => (props.fullScreen ? 0 : '10%'),
   },
   modalHeader: {
     display: 'flex',
@@ -61,11 +56,10 @@ const useStyles = makeStyles(theme => ({
     padding: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing
       .unit * 2}px`,
   },
-  overlay: {
+  backdrop: {
     pointerEvents: 'none',
     position: 'fixed',
     top: 0,
-    // background: fade(theme.palette.primary.main, 0.3),
     background: fade(theme.palette.background.paper, 0.85),
     height: '100%',
     width: '100%',
@@ -83,9 +77,7 @@ const Modal = props => {
   // const mainDiv = document.body;
 
   useEffect(() => {
-    // add when mounted
     document.addEventListener('mousedown', handleModalClick);
-    // return function to be called when unmounted
     return () => {
       document.removeEventListener('mousedown', handleModalClick);
     };
@@ -151,9 +143,6 @@ const Modal = props => {
                   color={'secondary'}
                   aria-label="Delete"
                   className={classes.closeBtn}
-                  // style={{
-                  //   position: 'fixed',
-                  // }}
                   onClick={() => close()}>
                   <CloseIcon fontSize="small" />
                 </IconButton>
@@ -161,16 +150,11 @@ const Modal = props => {
               <div className={classes.modalBody}>{props.children}</div>
             </Paper>
           </div>
+          {/* Backdrop */}
           <div
-            className={classes.overlay}
-            onClick={() => (disableBackdrop ? null : props.close())}>
-            Overlay
-          </div>
-          {/* {!disableBackdrop && (
-            <div className={classes.overlay} onClick={() => props.close()}>
-              Overlay
-            </div>
-          )} */}
+            className={classes.backdrop}
+            onClick={() => (disableBackdrop ? null : props.close())}
+          />
         </div>
       </Portal>
     )

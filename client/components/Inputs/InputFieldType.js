@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import TextInput from './TextInput';
-import SwitchInput from './SwitchInput';
-import DateInput from './DateInput';
 
 //Material Components
 import Switch from '@material-ui/core/Switch';
@@ -12,15 +10,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-
-// const setAndFormatMoveInDate = date => {
-//   setMoveInDate(date);
-//   setMoveInDateStamp(moment(date).unix());
-// };
 
 const CheckReason = props => {
   const { label, inners, register } = props;
@@ -75,7 +64,6 @@ const CheckboxText = props => {
 
   const [displayInners, setDisplayInners] = useState(false);
   const handleChange = event => {
-    // setState({ ...state, [event.target.name]: event.target.checked });
     setChecked(event.target.checked);
     setDisplayInners(event.target.checked);
   };
@@ -95,7 +83,6 @@ const CheckboxText = props => {
               checked={checked}
               onChange={handleChange}
               name={props.name}
-              // {...props}
             />
           }
           label={props.label}
@@ -120,21 +107,17 @@ const CheckboxText = props => {
 };
 
 const InputFieldType = props => {
-  // const { onChange, errors, errorMessage, name, fieldProps } = props;
   const { config, onChange } = props;
   const { type, label, fieldProps } = config;
   switch (type) {
     case 'Header':
-      // return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
       return <h1>{props.label}</h1>;
     case 'Subheader':
       return <h3>{props.label}</h3>;
     case 'String':
-      // return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
       return (
         <>
           <TextInput
-            // {...props}
             {...fieldProps}
             error={props.errors[props.name]}
             helperText={
@@ -146,7 +129,6 @@ const InputFieldType = props => {
           />
           {props.errors[props.name] && props.errorMessage}
         </>
-        // {errors[item.name] && item.errorMessage}
       );
     case 'CheckReason':
       return <CheckReason {...props} />;

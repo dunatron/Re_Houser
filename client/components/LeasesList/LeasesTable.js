@@ -197,7 +197,6 @@ const LeasesTable = ({ leases }) => {
   const showRawData = data => {
     setRawLeasData(data);
     setShowDataModal(true);
-    // alert(JSON.stringify(data, null, 2))
   };
   const executeFunctionByName = (functionName, dataObj /*, args */) => {
     switch (functionName) {
@@ -219,7 +218,6 @@ const LeasesTable = ({ leases }) => {
         title={`Raw Lease Data`}
         open={showDataModal}
         close={() => setShowDataModal(false)}>
-        {/* {this.renderModalDetails()} */}
         <div
           style={{
             maxWidth: '100%',
@@ -230,15 +228,6 @@ const LeasesTable = ({ leases }) => {
       </Modal>
       <SuperTable
         columnHeaders={columnHeaders()}
-        // tags={{
-        //   found: "tags",
-        //   key: "id",
-        //   options: [{ name: "one", value: "one" }],
-        //   // options: allTags
-        //   //   ? allTags.map(t => ({ name: t.name, value: t.id }))
-        //   //   : [],
-        // }}
-
         title="My Leases"
         data={prettyLeases}
         executeFunc={async (funcName, obj) => {

@@ -42,23 +42,6 @@ const UserDetails = ({ me, user }) => {
       <Divider variant="inset" component="li" />
     </Fragment>
   );
-  // return (
-  //   <Fragment>
-  //     <ListItem>
-  //       <ListItemAvatar>
-  //         <Avatar
-  //           alt={fullname}
-  //           src={user.profilePhoto ? user.profilePhoto.url : null}
-  //         />
-  //       </ListItemAvatar>
-  //       <ListItemText primary={fullname} secondary={'Friend'} />
-  //       <ListItemSecondaryAction>
-  //         <UserMenu me={me} user={user} />
-  //       </ListItemSecondaryAction>
-  //     </ListItem>
-  //     <Divider variant="inset" component="li" />
-  //   </Fragment>
-  // );
 };
 
 export default UserDetails;

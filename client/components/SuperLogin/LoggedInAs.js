@@ -19,7 +19,6 @@ const LoggedInAs = ({ me }) => {
           {me.firstName} {me.lastName}
         </span>
       </h2>
-      {/* <ConfirmEmail /> */}
       {!me.emailValidated && (
         <>
           <Typography gutterBottom variant="body1" color="error">

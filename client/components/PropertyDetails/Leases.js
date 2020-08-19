@@ -3,20 +3,6 @@ import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
-// query propertyLeases($where:PropertyLeaseWhereInput) {
-//   propertyLeases(where: $where) {
-//     id
-//   }
-// }
-
-// {
-//   "where": {
-//     "property": {
-//       "id": ""
-//     }
-//   }
-// }
-
 const SINGLE_PROPERTY_LEASES_QUERY = gql`
   query SINGLE_PROPERTY_LEASES_QUERY($where: PropertyLeaseWhereInput) {
     myLeases(where: $where) {

@@ -173,12 +173,6 @@ const ApplicationItem = props => {
           }}>
           UPDATE APPLICATION
         </Button>
-        {/* <Button
-          disabled={loading}
-          onClick={() => this._updateUser(updateUser)}
-          variant="outlined">
-          Update
-        </Button> */}
       </div>
     );
   };

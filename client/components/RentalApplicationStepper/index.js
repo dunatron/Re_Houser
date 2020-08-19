@@ -155,28 +155,6 @@ const RentalApplicationStepper = props => {
     applicant => applicant.user.id === me.id
   );
 
-  // useEffect(() => {
-  //   if (rentalApplication) {
-  //     setApplicationInfo(rentalApplication);
-  //     const applicantInfo = extractApplicantUserData(rentalApplication, me);
-  //     const userInfoFields = extractUserInfoFields(rentalApplication, me);
-  //     setUserInfo(userInfoFields);
-  //     // if user as completed step hide it
-
-  //     setCompleted({
-  //       0: applicantInfo.completed,
-  //       1: detailsStepIsComplete(rentalApplication),
-  //       2: applicantInfo.preTenancyApplicationForm,
-  //     });
-  //     if (applicantInfo.completed) {
-  //       setActiveStep(1);
-  //     }
-  //     if (applicantInfo.preTenancyApplicationForm) {
-  //       setActiveStep(1);
-  //     }
-  //   }
-  // }, [rentalApplication]);
-
   const completedSteps = () => {
     return Object.keys(completed).length;
   };
@@ -253,10 +231,6 @@ const RentalApplicationStepper = props => {
         break;
       }
       case 1: {
-        // const didSave = await _saveApplicationDetails(applicationInfo);
-        // if (!didSave) {
-        //   return;
-        // }
         break;
       }
       case 2: {
@@ -310,17 +284,6 @@ const RentalApplicationStepper = props => {
           alert('You need to have at least 1 applicant approved');
           return;
         }
-        // const didSave = await _saveApplicationDetails(applicationInfo);
-        // if (!didSave) {
-        //   return;
-        // }
-        // const didUpdate = await _updateApplication({
-        //   detailsStepComplete: true,
-        // });
-        // if (!didUpdate) {
-        //   alert('You need to confirm you have selected the applicants');
-        //   return;
-        // }
         break;
       }
       case 2: {
@@ -340,20 +303,6 @@ const RentalApplicationStepper = props => {
     setActiveStep(0);
     setCompleted({});
   };
-
-  // const completedSteps = () => {
-  //   return Object.keys(completed).length;
-  // };
-
-  // const isLastStep = () => {
-  //   return activeStep === totalSteps() - 1;
-  // };
-
-  // const allStepsCompleted = () => {
-  //   return completedSteps() === totalSteps();
-  // };
-
-  // const steps = getSteps();
 
   const _renderNextButtons = () => {
     switch (activeStep) {
@@ -451,7 +400,6 @@ const RentalApplicationStepper = props => {
         ) : (
           <div>
             <Typography className={classes.instructions} component="div">
-              {/* {getStepContent(activeStep, me, property, application)} */}
               {getStepContent(activeStep, me, property, rentalApplication)}
             </Typography>
             <div>

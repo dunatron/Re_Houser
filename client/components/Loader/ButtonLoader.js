@@ -12,9 +12,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   wrapper: {
-    // margin: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    // width: '100%',
     position: 'relative',
   },
   button: {
@@ -27,7 +25,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   buttonProgress: {
-    // color: green[500],
     color: theme.palette.primary.main,
     position: 'absolute',
     top: '50%',
@@ -40,11 +37,6 @@ const useStyles = makeStyles(theme => ({
 const StyledButton = withStyles(theme => ({
   root: {
     borderRadius: 0,
-    // color: theme.palette.getContrastText(purple[500]),
-    // backgroundColor: purple[500],
-    // '&:hover': {
-    //   backgroundColor: purple[700],
-    // },
   },
 }))(Button);
 
@@ -78,7 +70,6 @@ const ButtonLoader = props => {
   return (
     <StyledButton
       data-cy={cy}
-      // fullWidth
       variant="contained"
       color="primary"
       className={buttonClassname}
@@ -93,33 +84,6 @@ const ButtonLoader = props => {
       )}
     </StyledButton>
   );
-
-  // return (
-  //   <div className={classes.root}>
-  //     <div className={classes.wrapper}>
-  //       <StyledButton
-  //         data-cy={cy}
-  //         // fullWidth
-  //         variant="contained"
-  //         color="primary"
-  //         className={buttonClassname}
-  //         disabled={loading}
-  //         {...btnProps}
-  //         {...props}
-  //         onClick={onClick}>
-  //         {children}
-  //         <RenderBtnText
-  //           success={success}
-  //           text={text}
-  //           successText={successText}
-  //         />
-  //         {loading && (
-  //           <CircularProgress size={24} className={classes.buttonProgress} />
-  //         )}
-  //       </StyledButton>
-  //     </div>
-  //   </div>
-  // );
 };
 
 ButtonLoader.propTypes = {

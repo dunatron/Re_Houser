@@ -16,11 +16,6 @@ const SIGN_OUT_MUTATION = gql`
   }
 `;
 
-/**
- *
- * NOTE: it breaks if we try to update the user in the cache. because of the setup you kind of need to refetch the queries..
- *
- */
 const Signout = ({ label, fullWidth, me, color, variant }) => {
   const client = useApolloClient();
 

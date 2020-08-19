@@ -7,30 +7,9 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
-// import '../styles/2-Card-Detailed.css';
+
 import { useTheme, Button, Typography } from '@material-ui/core';
-import {
-  red,
-  pink,
-  purple,
-  deepPurple,
-  indigo,
-  blue,
-  lightBlue,
-  cyan,
-  teal,
-  green,
-  lightGreen,
-  lime,
-  yellow,
-  amber,
-  orange,
-  deepOrange,
-  brown,
-  grey,
-  blueGrey,
-  common,
-} from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
@@ -40,27 +19,20 @@ const CardField = ({ onChange }) => {
     iconStyle: 'solid',
     style: {
       base: {
-        //   iconColor: '#c4f0ff',
         iconColor: mdTheme.palette.primary.contrastText,
         color: mdTheme.palette.primary.contrastText,
-        // iconColor: green[700],
-        // color: green[700],
         fontWeight: 500,
         fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
         fontSize: '16px',
         fontSmoothing: 'antialiased',
         ':-webkit-autofill': {
-          //   color: '#fce883',
           color: fade(mdTheme.palette.primary.contrastText, 0.5),
         },
         '::placeholder': {
-          //   color: '#87bbfd',
           color: fade(mdTheme.palette.primary.contrastText, 0.5),
         },
       },
       invalid: {
-        //   iconColor: '#ffc7ee',
-        //   color: '#ffc7ee',
         iconColor: red[800],
         color: red[800],
       },
@@ -149,7 +121,6 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
   const [error, setError] = useState(null);
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
-  // const [amount, setAmount] = useState(undefined);
   const [billingDetails, setBillingDetails] = useState({
     email: me.email,
     phone: me.phone,
@@ -264,17 +235,6 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
               setBillingDetails({ ...billingDetails, phone: e.target.value });
             }}
           />
-          {/* <Field
-        label="Amount"
-        id="amount"
-        type="tel"
-        placeholder="100"
-        required
-        value={amount}
-        onChange={e => {
-          setAmount(e.target.value);
-        }}
-      /> */}
         </fieldset>
         <fieldset className="FormGroup">
           <CardField onChange={handleCardChange} />

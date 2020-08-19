@@ -11,7 +11,6 @@ import { green, purple, red } from '@material-ui/core/colors';
 
 const ErrorPaper = withStyles(theme => ({
   root: {
-    // color: theme.palette.getContrastText(purple[500]),
     padding: theme.spacing(1),
     backgroundColor: red[100],
     borderRadius: 0,
@@ -25,10 +24,6 @@ const useStyles = makeStyles(theme => ({
     color: red[900],
   },
   errorKey: {
-    // backgroundColor: green[500],
-    // '&:hover': {
-    //   backgroundColor: green[700],
-    // },
     color: red[900],
     fontWeight: '900',
   },

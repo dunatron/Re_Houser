@@ -23,10 +23,7 @@ const handleLink = (route = '/', query = {}) => {
 
 const manageApplicationForCurrentUser = (dataObj, me) => {
   const { applicants, owner, id, property, stage } = dataObj;
-  // Lol i told you. the rougiue name of lease maager. ... ffs
   if (me.id === owner.id) handleLink('/applications/application', { id: id });
-  // tripping, no below /my/applictaio0n existss. was thinking to use lases.js for an owneer..
-  //if (me.id === owner.id) return handleLink("/my/application", { leaseId: id })
 };
 
 const RentalApplicationsTable = props => {
@@ -36,8 +33,6 @@ const RentalApplicationsTable = props => {
    * We should be able to just create a new instance of the object
    */
   const formattedData = myRentalApplications.map(application => ({
-    // id: application.id,
-    // applicants: [...application.applicants],
     ...application,
   }));
 
@@ -148,7 +143,6 @@ const RentalApplicationsTable = props => {
           exportAllData: true, // Flag for export all data instead of rendered data
           filtering: true,
           grouping: true,
-          // selection: true,
           sorting: true,
         }}
         actions={[

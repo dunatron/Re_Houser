@@ -51,8 +51,6 @@ export default function SimpleSelect(props) {
   const getMappedItems = () => {
     if (!isEnum) return options;
     return [];
-    // if (loading) return [];
-    // if (error) return [];
   };
 
   const mappedOptions = getMappedItems();

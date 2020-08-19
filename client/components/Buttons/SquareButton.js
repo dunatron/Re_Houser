@@ -10,11 +10,6 @@ import { green, purple } from '@material-ui/core/colors';
 
 const SquareButton = withStyles(theme => ({
   root: {
-    // color: theme.palette.getContrastText(purple[500]),
-    // backgroundColor: purple[500],
-    // '&:hover': {
-    //   backgroundColor: purple[700],
-    // },
     borderRadius: 0,
   },
 }))(Button);

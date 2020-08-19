@@ -167,12 +167,7 @@ function Slide({ isCurrent, takeFocus, image, id, title, children }) {
       tabIndex="-1"
       aria-labelledby={id}
       className="Slide"
-      style={{ backgroundImage: `url(${image})` }}>
-      {/* <div className="SlideContent">
-        <h2 id={id}>{title}</h2>
-        {children}
-      </div> */}
-    </li>
+      style={{ backgroundImage: `url(${image})` }}></li>
   );
 }
 

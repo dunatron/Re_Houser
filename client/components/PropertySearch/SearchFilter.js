@@ -76,13 +76,7 @@ const SearchFilter = () => {
   // 1. ahhh where to start. date search on algolia i stimetsamp, and needs to be numeric
   return (
     <div>
-      <Configure
-        filters={filterLogic}
-        // hitsPerPage={4}
-        // analytics={false}
-        // enablePersonalization={true}
-        // distinct
-      />
+      <Configure filters={filterLogic} />
       <ExpansionPanel
         className={classes.expansionPanelRoot}
         expanded={expanded}>

@@ -15,11 +15,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import { TextField } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import Icon from '@material-ui/core/Icon';
-import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -28,7 +23,6 @@ const useStyles = makeStyles(theme => ({
   popper: {
     margin: theme.spacing(1),
     zIndex: 1500,
-    // padding: theme.spacing(2),
   },
   paper: {
     padding: theme.spacing(2),
@@ -61,7 +55,6 @@ const DeleteAccount = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   if (!user.data) return null;
-  // if (user.loading) return null;
 
   const handleOpenPopperClick = event => {
     setAnchorEl(anchorEl ? null : event.currentTarget);

@@ -9,63 +9,6 @@ const styles = theme => ({
   },
 });
 
-/*
-const NumberDelayInput = props => {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     lastTyped: false,
-  //     lastTypedVal: null,
-  //   }
-  // }
-  const [lastTyped, setLastTyped] = useState(false)
-  const [lastTypedVal, setLastTypedVal] = useState("")
-
-  const { classes, id, label, defaultValue, handleChange } = props
-
-  const showDone = v => {
-    if (v === lastTypedVal) {
-      props.handleChange(lastTypedVal)
-      alert("This is fine too")
-    }
-    alert("ALmost")
-  }
-
-  const sendValue = async v => {
-    await setLastTypedVal(v)
-    var wait = ms => new Promise((r, j) => setTimeout(r, ms))
-    // var prom = wait(props.waitLength) // prom, is a promise
-    var promWithWait = wait(props.waitLength) // prom, is a promise
-    var promWithWait = wait(2000) // prom, is a promise
-
-    promWithWait.then(showDone(v))
-  }
-
-  return (
-    <TextField
-      id={id}
-      label={label}
-      className={classes.searchField}
-      // value={value}
-      defaultValue={defaultValue}
-      onChange={e => sendValue(e.target.value)}
-      margin="normal"
-    />
-  )
-}
-
-NumberDelayInput.propTypes = {
-  id: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  waitLength: PropTypes.number.isRequired,
-}
-
-export default withStyles(styles)(NumberDelayInput)
-*/
-
 class NumberDelayInput extends Component {
   constructor(props) {
     super(props);

@@ -14,14 +14,6 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import CheckIcon from '@material-ui/icons/Check';
 
-// data: =>
-// found: "isLeased"
-// id: "isLeased"
-// label: "isLeased"
-// numeric: false
-// show: true
-// tableRenderKey: "th"
-// type: "truthly"
 const RenderCell = props => {
   const { data, index, allData, executeFunc } = props;
 
@@ -117,7 +109,6 @@ const RenderNumberOfObj = ({ data, index, allData }) => {
       align="left"
       key={index}
       numeric={data.numeric}
-      // style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
       padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
@@ -132,7 +123,6 @@ const RenderDeep = ({ data, index, allData }) => {
       align="left"
       key={index}
       numeric={data.numeric}
-      // style={{ minWidth: "90px" }}
       component={data.tableRenderKey}
       padding={index === 0 ? 'dense' : 'dense'}
       {...data.tableRenderProps}>
@@ -163,11 +153,6 @@ const RenderTruthly = ({ data, index, allData, executeFunc }) => {
   return (
     <TableCell size="small" {...data.tableRenderProps}>
       {value ? <CheckIcon color="primary" /> : <CloseIcon color="secondary" />}
-      {/* <Checkbox
-        checked={value}
-        color="primary"
-        onClick={() => executeFunc(data.funcName, allData)}
-      /> */}
     </TableCell>
   );
 };
@@ -181,14 +166,6 @@ const RenderImages = ({ data, index, allData, executeFunc }) => {
 
   return (
     <TableCell size="small" {...data.tableRenderProps}>
-      {/* {images && (
-        <img
-          src={images[0].url}
-          height="60px"
-          width="60px"
-          onClick={() => executeFunc(data.funcName, allData)}
-        />
-      )} */}
       {images && (
         <div
           onMouseEnter={() => setIsHovering(true)}
@@ -247,32 +224,6 @@ const RenderImages = ({ data, index, allData, executeFunc }) => {
           )}
         </div>
       )}
-      {/* {images && (
-        <div
-          src={images[0].url}
-          style={{
-            height: '60px',
-            width: '60px',
-            backgroundRepeat: 'no-repeat',
-            backgroundAttachment: 'fixed',
-            backgroundPosition: 'center',
-            backgroundImage: `url(${images[0].url})`,
-          }}
-          onClick={() => executeFunc(data.funcName, allData)}
-        />
-      )} */}
-      {/* background-image: url("https://res.cloudinary.com/dkhe0hx1r/image/upload/v1585803988/u2u1fet4qhkzbo2sg1mh.jpg"); */}
-      {/* {images &&
-        images.map(img => {
-          return <img src={img.url} height="40px" width="40px" />;
-        })} */}
-      {/* {value ? <CheckIcon color="primary" /> : <CloseIcon color="secondary" />} */}
-
-      {/* <Checkbox
-        checked={value}
-        color="primary"
-        onClick={() => executeFunc(data.funcName, allData)}
-      /> */}
     </TableCell>
   );
 };
@@ -298,8 +249,6 @@ const RenderMap = ({ data, index, allData }) => {
         })}
         limitChar={data.limitChar}
       />
-
-      {/* <CellContent content={"I will be tags"} /> */}
     </TableCell>
   );
 };

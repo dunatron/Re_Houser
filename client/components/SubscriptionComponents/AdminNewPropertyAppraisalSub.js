@@ -6,21 +6,7 @@ import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '../../graphql/subscriptions/Pro
 import ApplicationCard from '../PropertyDetails/ApplicationCard';
 import { store } from '../../store';
 
-/**
- *
- * @param {*} param0
- * THE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.
- * collect, number of updates, implement refreshQueries || provide a child component
- * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
- * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
- * Na too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.
- *
- */
-/**
- * This should m,aybe create a context, newItemsCOunt
- */
 const AdminNewRentalAppraisalSub = () => {
-  console.log('==ATTEMPTING SUBSCRIPTION: RENTAL APPRAISAL SUB==');
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const { loading, data, error } = useSubscription(
@@ -54,9 +40,7 @@ const AdminNewRentalAppraisalSub = () => {
       },
     }
   );
-  // if (loading) return null;
   if (loading) {
-    console.log('Loading sub');
     return null;
   }
   if (error)
@@ -65,8 +49,7 @@ const AdminNewRentalAppraisalSub = () => {
         No Websocket connection. You will need to manually refresh for updates
       </div>
     );
-  console.log('==SUBSCRIPTION: RENTALAPPRAISALS SUB==');
-  // they are just aledrts find the best way to return nothing
+
   return null;
 };
 

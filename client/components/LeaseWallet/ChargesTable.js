@@ -163,10 +163,8 @@ const ChargesTable = ({ where, walletId }) => {
     return client
       .query({
         query: CHARGES_QUERY,
-        // fetchPolicy: 'network-only', // simply for subscriptions...
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
-          //   orderBy: 'created_ASC',
           where: {
             ...where,
             OR: [
@@ -190,7 +188,6 @@ const ChargesTable = ({ where, walletId }) => {
             chargesConnection: { pageInfo, aggregate, edges },
           },
         } = res;
-        // immutatble/freezeObject
         const formattedData = edges.map(edge => ({
           ...edge.node,
         }));

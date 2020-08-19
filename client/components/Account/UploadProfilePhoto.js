@@ -26,7 +26,6 @@ const UploadProfilePhoto = ({ me }) => {
   const [imageUrl, setImageUrl] = useState(
     me.profilePhoto ? me.profilePhoto.url : null
   );
-  // const [uploadImage, uploadImageProps] = useMutation(UPLOAD_PROFILE_PHOTO);
 
   const refetchQueries = [
     {
@@ -40,15 +39,6 @@ const UploadProfilePhoto = ({ me }) => {
       refetchQueries: refetchQueries,
     }
   );
-  // title,
-  // description,
-  // files,
-  // maxFilesAllowed,
-  // recieveFile,
-  // removeFile,
-  // fileRemovedFromServer,
-  // refetchQueries,
-  // updateCacheOnRemovedFile,
   return (
     <div
       className={classes.root}
@@ -61,23 +51,12 @@ const UploadProfilePhoto = ({ me }) => {
         files={me.profilePhoto ? [me.profilePhoto] : []}
         refetchQueries={refetchQueries}
         updateCacheOnRemovedFile={(cache, result) => {
-          // update: {
-          //   proofOfAddress: {
-          //     disconnect: true,
-          //   },
-          // },
-
           updateUserProfile({
             variables: {
               data: {
                 profilePhoto: {
                   disconnect: true,
                 },
-                // update: {
-                //   profilePhoto: {
-                //     disconnect: true,
-                //   },
-                // },
               },
             },
           });
@@ -101,47 +80,3 @@ const UploadProfilePhoto = ({ me }) => {
 };
 
 export default UploadProfilePhoto;
-
-// const UploadProfilePhoto = ({ me }) => {
-//   const classes = useStyles();
-//   const [imageUrl, setImageUrl] = useState(
-//     me.profilePhoto ? me.profilePhoto.url : null
-//   );
-//   const [uploadImage, uploadImageProps] = useMutation(UPLOAD_PROFILE_PHOTO);
-
-//   return (
-//     <div className={classes.root}>
-//       {imageUrl && (
-//         <div className={classes.profilePhoto}>
-//           <Image
-//             src={imageUrl}
-//             style={{ width: '100%' }}
-//             imageStyle={{ width: '100%' }}
-//           />
-//         </div>
-//       )}
-//       <DragDropUploader
-//         style={{ padding: '40px' }}
-//         dropStyles={{ padding: '40px', minWidth: '300px' }}
-//         addText="DROP PROFILE PHOTO"
-//         addBtnText="Or Click to Browse"
-//         multiple={true}
-//         types={['image']}
-//         extensions={['.jpg', '.png']}
-//         receiveFile={file =>
-//           uploadImage({
-//             variables: {
-//               file: file.raw,
-//             },
-//             refetchQueries: [{ query: CURRENT_USER_QUERY }],
-//             update: (proxy, { data }) => {
-//               setImageUrl(data.uploadProfilePhoto.profilePhoto.url);
-//             },
-//           })
-//         }
-//       />
-//     </div>
-//   );
-// };
-
-// export default UploadProfilePhoto;

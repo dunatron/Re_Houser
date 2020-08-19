@@ -3,8 +3,6 @@ import { useDropzone } from 'react-dropzone';
 
 const MyDropzone = ({ receiveFile }) => {
   const onDrop = useCallback(acceptedFiles => {
-    // Do something with the files
-    // receiveFile(acceptedFiles[0]);
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
 
@@ -18,13 +16,6 @@ const MyDropzone = ({ receiveFile }) => {
           content: new Uint8Array(reader.result),
           raw: file,
         });
-        // callback({
-        //     name: file.name,
-        //     size: file.size,
-        //     type: file.type,
-        //     content: new Uint8Array(this.result),
-        //     raw: file,
-        //   });
       };
       reader.readAsArrayBuffer(file);
     });

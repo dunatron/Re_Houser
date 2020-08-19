@@ -1,7 +1,3 @@
-// https://github.com/beezeebly/next-stripe-checkout-example
-// https://www.serverlesstribe.com/using-the-new-stripe-checkout-in-next-js-ssr/
-// https://fireship.io/lessons/stripe-payment-intents-tutorial/
-// https://stripe.com/docs/stripe-cli run webhooks locally etc
 import React, { useState, useEffect } from 'react';
 import { useMutation, useSubscription } from '@apollo/client';
 import {
@@ -9,9 +5,6 @@ import {
   useStripe,
   PaymentRequestButtonElement,
   CardElement,
-  //   CardNumberElement,
-  //   CardExpiryElement,
-  //   CardCvcElement,
   AuBankAccountElement,
   IbanElement,
   IdealBankElement,
@@ -115,7 +108,6 @@ const LeaseWallet = ({ lease, me }) => {
     // we need to convert whatever was enetered to cents
     fetch(`${serverBackend}/stripe/intent`, {
       method: 'POST',
-      // credentials: 'same-origin', // include, *same-origin, omit
       credentials: 'include',
       headers: {
         Accept: 'application/json',
@@ -246,14 +238,12 @@ const LeaseWallet = ({ lease, me }) => {
           <div>
             The server is aware of your intent on a payment of
             {formatCentsToDollar(amount * 100)}
-            {/* <Button onClick={() => hanldePayIntent()}>Pay amount</Button> */}
             <CardPaymentForm
               intentSecret={intentSecret}
               amount={amount}
               me={me}
               onPaySuccess={handleOnPaySuccess}
             />
-            {/* <CardElement  /> */}
           </div>
         )}
       </RehouserPaper>

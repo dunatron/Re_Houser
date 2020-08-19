@@ -51,13 +51,8 @@ import {
 } from 'react-instantsearch-dom';
 
 const useStyles = makeStyles(theme => ({
-  drawerRoot: {
-    // width: '100%',
-    // maxWidth: 360,
-    // backgroundColor: theme.palette.background.paper,
-  },
+  drawerRoot: {},
   drawerPaper: {
-    // paddingLeft: theme.spacing(4),
     width: `${theme.sideBarWidth}px`,
   },
   drawerFullScreen: {
@@ -70,9 +65,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // padding: '16px 0px 16px 16px',
-    // padding: '16px 0px 0px 16px',
-    // padding: '0px 0px 16px 16px',
   },
 }));
 
@@ -80,19 +72,10 @@ const FilterDrawer = ({ open, handleClose }) => {
   const classes = useStyles();
   const [isFullScreen, setIsFullScreen] = useState(false);
 
-  // const paperClass = clsx('MuiDrawer-paper', {
-  //   width: '500px',
-  // });
-
   const paperClass = clsx({
     [classes.drawerPaper]: true,
     [classes.drawerFullScreen]: isFullScreen,
   });
-
-  // className={clsx('MuiButton-root', {
-  //   'Mui-disabled': disabled,
-  //   'Mui-selected': selected,
-  // })}
 
   return (
     <Drawer
@@ -101,16 +84,6 @@ const FilterDrawer = ({ open, handleClose }) => {
         root: classes.drawerRoot, // class name, e.g. `classes-nesting-root-x`
         paper: paperClass, // class name, e.g. `classes-nesting-label-x`
       }}
-      // style={{
-      //   overflowX: 'hidden',
-      //   width: '15px',
-      //   root: {
-      //     width: '15px',
-      //   },
-      //   paper: {
-      //     width: '120px',
-      //   },
-      // }}
       variant="persistent"
       anchor="left"
       open={open}>

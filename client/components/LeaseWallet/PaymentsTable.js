@@ -130,8 +130,6 @@ const PaymentsTable = ({ where, walletId }) => {
     },
   ];
 
-  // could also subscribe to wallet payments.
-  // perhaps it simply refetches?
   const { data, loading, error, refetch } = useQuery(PAYMENTS_COUNT_QUERY, {
     variables: {
       where: {
@@ -178,10 +176,8 @@ const PaymentsTable = ({ where, walletId }) => {
     return client
       .query({
         query: PAYMENTS_QUERY,
-        // fetchPolicy: 'network-only', // simply for subscriptions...
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
-          //   orderBy: 'created_ASC',
           where: {
             ...where,
             OR: [
@@ -194,7 +190,6 @@ const PaymentsTable = ({ where, walletId }) => {
             ],
           },
           orderBy: 'createdAt_DESC',
-          //   orderBy: 'amount_DESC',
           skip: query.page * query.pageSize,
           first: query.pageSize,
           limit: query.pageSize,

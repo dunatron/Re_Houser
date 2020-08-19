@@ -5,16 +5,6 @@ import { RENTAL_APPLICATION_SUBSCRIPTION } from '../../graphql/subscriptions/Ren
 import ApplicationCard from '../PropertyDetails/ApplicationCard';
 import { store } from '../../store';
 
-/**
- *
- * @param {*} param0
- * THE SMART MONEY SAYS: implement these quickly everywhere by providing the simple skeleton.
- * collect, number of updates, implement refreshQueries || provide a child component
- * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
- * child component i.e instead of <ApplicationCard /> use <Component component={child} {...props} />
- * Na too much. This is the explicit phase. Compiose heaps of these guys and pass in dumb components, that can do smart things wityhin reason.
- *
- */
 const AdminAlertNewRentalApplicationSub = () => {
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;

@@ -14,15 +14,12 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // background: lightGreen[500],
-    // background: green[500],
     backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     maxWidth: '920px',
   },
   checkIcon: {
-    // color: theme.palette.common.black,
     color: theme.palette.secondary.contrastText,
     marginRight: theme.spacing(2),
     marginTop: '6px',
@@ -31,11 +28,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   children: {
-    // color: theme.palette.common.black,
     color: theme.palette.secondary.contrastText,
   },
   button: {
-    // color: theme.palette.common.black,
     color: theme.palette.secondary.contrastText,
     marginTop: theme.spacing(2),
   },

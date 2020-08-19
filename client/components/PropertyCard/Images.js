@@ -81,16 +81,6 @@ const Details = props => {
           aria-label="Show more">
           <MapIcon />
         </IconButton>
-        {/* <Button
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="Show more"
-          variant={'outlined'}
-          color="primary"
-          className={classes.button}
-          endIcon={<MapIcon>map</MapIcon>}>
-          MAP
-        </Button> */}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

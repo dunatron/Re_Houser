@@ -50,17 +50,6 @@ const SearchAndRequestFriend = props => {
       query: FIND_USERS_QUERY,
       variables: {
         where: {
-          // OR: [
-          //   {
-          //     firstName_contains: firstName,
-          //   },
-          //   {
-          //     lastName_contains: lastName,
-          //   },
-          //   {
-          //     email_contains: email,
-          //   },
-          // ],
           AND: {
             firstName_contains: firstName,
             lastName_contains: lastName,

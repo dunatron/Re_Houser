@@ -18,29 +18,8 @@ const SearchTextInput = styled(TextField)`
   }
 `;
 
-// const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-//   <form noValidate action="" role="search">
-//     {/* <input
-//       type="search"
-//       value={currentRefinement}
-//       onChange={event => refine(event.currentTarget.value)}
-//     /> */}
-//     <SearchTextInput
-//       type="search"
-//       placeholder="Search Property stuff .. anything really "
-//       style={{ fontSize: "36px" }}
-//       fullWidth={true}
-//       value={currentRefinement}
-//       onChange={event => refine(event.currentTarget.value)}
-//     />
-//     {isSearchStalled ? "My search is stalled" : ""}
-//   </form>
-// )
 const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
   <FormControl fullWidth={true}>
-    {/* <InputLabel htmlFor="input-with-icon-adornment">
-      With a start adornment
-    </InputLabel> */}
     <Input
       id="property-main-search-input"
       type="search"
@@ -57,20 +36,6 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
       }
     />
   </FormControl>
-  // <SearchTextInput
-  //   type="search"
-  //   placeholder="search e.g Te Aro Wellington"
-  //   startAdornment={
-  //     <InputAdornment position="start">
-  //       <AccountCircle />
-  //     </InputAdornment>
-  //   }
-  //   style={{ fontSize: '36px' }}
-  //   fullWidth={true}
-  //   value={currentRefinement}
-  //   variant="standard"
-  //   onChange={event => refine(event.currentTarget.value)}
-  // />
 );
 
 const CustomSearchBox = connectSearchBox(SearchBox);

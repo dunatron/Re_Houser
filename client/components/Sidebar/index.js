@@ -26,6 +26,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import DonutSmallIcon from '@material-ui/icons/DonutSmall';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 
 import { useCurrentUser } from '../User';
 import { CURRENT_USER_QUERY } from '../User/index';
@@ -170,7 +171,7 @@ const NavigationConfig = (me, loadingUser) => {
       },
       items: [
         {
-          icon: <HomeWorkIcon />,
+          icon: <HouseIcon />,
           text: 'Landlord Portal',
           route: '/landlord',
           style: { ...defaultNavItemStyle },
@@ -288,43 +289,43 @@ const NavigationConfig = (me, loadingUser) => {
         // },
         {
           icon: <InfoIcon />,
-          text: 'Team',
-          route: '/team',
+          text: 'About Us',
+          route: '/about-us',
           style: { ...defaultNavItemStyle },
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },
         {
-          icon: <InfoIcon />,
+          icon: <ContactPhoneIcon />,
           text: 'Contact',
           route: '/contact',
           style: { ...defaultNavItemStyle },
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },
-        {
-          icon: loadingUser ? (
-            <Skeleton variant="circle" width={40} height={40} />
-          ) : (
-            <AccountCircleIcon />
-          ),
-          text: 'Login',
-          route: '/login',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me !== null) return false;
-            return true;
-          },
-        },
-        {
-          icon: <AccountCircleIcon />,
-          text: 'Logout',
-          route: '/logout',
-          style: { ...defaultNavItemStyle },
-          canRender: () => {
-            if (me === null) return false;
-            return true;
-          },
-          action: () => signOut(),
-        },
+        // {
+        //   icon: loadingUser ? (
+        //     <Skeleton variant="circle" width={40} height={40} />
+        //   ) : (
+        //     <AccountCircleIcon />
+        //   ),
+        //   text: 'Login',
+        //   route: '/login',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me !== null) return false;
+        //     return true;
+        //   },
+        // },
+        // {
+        //   icon: <AccountCircleIcon />,
+        //   text: 'Logout',
+        //   route: '/logout',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => {
+        //     if (me === null) return false;
+        //     return true;
+        //   },
+        //   action: () => signOut(),
+        // },
       ],
     },
   ];

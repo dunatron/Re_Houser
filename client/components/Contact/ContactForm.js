@@ -16,7 +16,6 @@ const ContactForm = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          // justifyContent: 'center',
         }}>
         <div
           style={{
@@ -50,18 +49,5 @@ const ContactForm = () => {
     </>
   );
 };
-
-// title,
-// data,
-// config,
-// isNew,
-// posting,
-// error,
-// fileRemovedFromServer,
-// updateCacheOnRemovedFile,
-// forceFormUpdates,
-// createText,
-// updateText,
-// refetchQueries,
 
 export default ContactForm;

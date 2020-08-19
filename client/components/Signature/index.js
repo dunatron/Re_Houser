@@ -208,63 +208,6 @@ const SignatureComponent = () => {
           disabled={loading}
           success={!error && !loading && called}></ButtonLoader>
       </div>
-      {/* const [velocityFilterWeight, setVelocityFilterWeight] = useState(0.7); // default: 0.7
-  const [minWidth, setMinWidth] = useState(0.5); // default: 0.5
-  const [maxWidth, setMaxWidth] = useState(2.5); // default: 2.5
-  const [minDistance, setMinDistance] = useState(5); // default: 5
-  const [dotSize, setDotSize] = useState(0.7); // default: () => (this.minWidth + this.maxWidth) / 2
-  const [penColor, setPenColor] = useState('black'); // default: 'black'
-  const [throttle, setThrottle] = useState(16); // default: 16 */}
-      {/* <div style={{ marginTop: '16px' }}>
-        <TextField
-          type="number"
-          value={velocityFilterWeight}
-          name="velocityFilterWeight"
-          label="velocityFilterWeight"
-          style={{ minWidth: '120px' }}
-          inputProps={{
-            step: 0.1,
-            max: 1.5,
-            min: 0.1,
-          }}
-          onChange={e => setVelocityFilterWeight(e.target.value)}
-        />
-        <TextField
-          type="number"
-          value={minWidth}
-          style={{ minWidth: '120px' }}
-          inputProps={{
-            step: 0.1,
-            max: 2,
-            min: 0.1,
-          }}
-          //   inputProps={{ min: 0.1, max: 2, step: 0.1 }}
-          name="minWidth"
-          label="minWidth"
-          onChange={e => setMinWidth(e.target.value)}
-        />
-        <TextField
-          type="number"
-          value={maxWidth}
-          style={{ minWidth: '120px' }}
-          inputProps={{
-            step: 0.1,
-            max: 6,
-            min: 0.1,
-          }}
-          name="maxWidth"
-          label="maxWidth"
-          onChange={e => setMaxWidth(e.target.value)}
-        />
-        <TextField value={minDistance} name="minDistance" label="minDistance" />
-        <TextField
-          value={penColor}
-          name="penColor"
-          label="penColor"
-          onChange={e => setPenColor(e.target.value)}
-        />
-        <TextField value={throttle} name="throttle" label="throttle" />
-      </div> */}
       {!me.signature && (
         <Typography variant="body1" color="error">
           You have not set a signature. We require it for the system before you

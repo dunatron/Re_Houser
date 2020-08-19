@@ -3,13 +3,6 @@ import { connectPagination } from 'react-instantsearch-dom';
 
 import { Button } from '@material-ui/core';
 
-/*
-canRefine: false
-createURL: ƒ ()
-currentRefinement: 1
-nbPages: 1
-refine: ƒ ()
-*/
 const AlgoliaMaterialPagination = props => {
   return (
     <div>

@@ -21,8 +21,6 @@ const useStyles = makeStyles({
     // display: 'flex',
   },
   teamGrid: {
-    // maxWidth: '860px',
-    // margin: 0, // ovverrider for negative margin
     margin: '0 -13px', // small bug for spacing 3 not
   },
   gridItem: {
@@ -86,11 +84,7 @@ const TeamComponent = () => {
                 xl={2}
                 spacing={0}
                 container
-                container
-                // alignItems="center"
-                // justify="center"
-              >
-                {/* // <Grid item xs={3} md={3} lg={3} xl={2} spacing={0}> */}
+                container>
                 <Card className={classes.cardRoot} square>
                   <CardActionArea
                     onClick={() => handleMemberClick({ member: member })}>

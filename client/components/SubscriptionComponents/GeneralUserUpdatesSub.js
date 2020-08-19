@@ -2,8 +2,6 @@ import { useContext } from 'react';
 import { useSubscription } from '@apollo/client';
 import { USER_SUBSCRIPTION } from '../../graphql/subscriptions/UserSubscription';
 
-
-
 const GeneralUserUpdatesSub = ({ me }) => {
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
     suspend: false,
@@ -23,10 +21,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
-      console.log(
-        'recieved USER UPDATES THROUGH A SUBSCRIPTION => ',
-        subscriptionData
-      );
+      console.log('GeneralUserUpdatesSub: data => ', subscriptionData);
     },
   });
   // if (loading) return null;

@@ -15,8 +15,12 @@ const PropertyAppraisal = props => {
 
   const [sentAppraisal, setSentAppraisal] = useState(false);
   const [message, setMessage] = useState('Some dummy message');
-  // No idea how the fuck me is getting into here
-  if (!me) return 'You must be logged in to create a property appraisal';
+  if (!me)
+    return (
+      <Typography variant="h6" gutterBottom>
+        You must be logged in to create a property appraisal
+      </Typography>
+    );
 
   const handleCompleted = data => {
     const { id } = data.createRentalAppraisal;
@@ -53,9 +57,6 @@ const PropertyAppraisal = props => {
           title="Property Appraisal"
           isNew={!propertyId}
           createText="Request Property Appraisal"
-          // data={{
-          //   heatSources: ['HEAT_PUMP'],
-          // }}
           config={PROPERTY_APPRAISAL_CONF}
           error={error}
           posting={loading}

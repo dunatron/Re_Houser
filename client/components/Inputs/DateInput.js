@@ -14,6 +14,7 @@ const styles = theme => ({
 /**
  * https://stackoverflow.com/questions/7372038/is-there-any-way-to-change-input-type-date-format
  * I was hoping to use material-ui/pickers but they are not fit for SSR
+ * Maybe we should use them and just use no SSR. Like look at googles new native picker sigh. But SSR though...
  * 1. use local date
  * 2. use moment and our db format
  * 3. catch our db format before entering datepicker and convert to YYYY-MM-DD as I am led to believe

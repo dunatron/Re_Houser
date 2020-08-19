@@ -220,20 +220,6 @@ const UpdatePropertyVariableModal = ({
               loading={updatePropertyPayload.loading}
               onClick={() => updateProperty()}
             />
-            {/* {canUpdate() && (
-              <SaveButtonLoader
-                loading={updatePropertyPayload.loading}
-                onClick={() => updateProperty()}
-              />
-            )} */}
-
-            {/* <Button
-              // disabled={loading}
-              disabled={updatePropertyPayload.loading}
-              onClick={() => updateProperty()}
-              variant="outlined">
-              Update
-            </Button> */}
           </div>
         </form>
       </InputModal>
@@ -309,15 +295,7 @@ const Details = props => {
           insulationFormId={
             property.insulationForm ? property.insulationForm.id : null
           }
-          onSubmit={data => {
-            // setState({
-            //   ...state,
-            //   insulationForm: {
-            //     ...data,
-            //   },
-            // });
-            // setCompleteInsulationLater(true);
-          }}
+          onSubmit={data => {}}
         />
         <ChangeRouteButton
           title="Edit with Original Form"
@@ -442,9 +420,7 @@ const Details = props => {
             type="date"
             cy="move-in-date"
             value={property.moveInDate}
-            // value={<LongDatePretty date={property.expiryDate} />}
           />
-          {/* <LongDatePretty date={property.expiryDate} /> */}
         </div>
         <div className={classes.detailItem}>
           <DetailItem
@@ -461,8 +437,6 @@ const Details = props => {
             cy="expiry-date"
             value={property.expiryDate}
           />
-          {/* <NowToDate date={property.moveInDate} /> */}
-          {/* <LongDatePretty date={property.moveInDate} /> */}
         </div>
         <div className={classes.detailItem}>
           <DetailItem
@@ -532,10 +506,7 @@ const Details = props => {
           });
         }}
       />
-
-      {/* <ImageSlider images={property.images} /> */}
       <CarouselSlider
-        // height="540px"
         slides={property.images.map(imgObj => ({ ...imgObj, img: imgObj.url }))}
       />
       <Map

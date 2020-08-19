@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 export default class InputErrors extends Component {
   render() {
-    // const { errors } = this.props
-    // if (!errors) return null
     if (!this.props.errors) {
       return null;
     }

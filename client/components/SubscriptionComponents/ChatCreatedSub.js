@@ -25,11 +25,8 @@ const ChatCreatedSub = ({ me }) => {
       } = subscriptionData;
 
       if (previousValues === null && updatedFields === null) {
-        // this is a brand new chat
       }
       if (mutation === 'CREATED') {
-        // this is a brand new chat
-        // writeMessage(client, node);
         dispatch({
           type: 'openChat',
           payload: subscriptionData.data.chatSub.node.chat,

@@ -1,77 +1,3 @@
-// import React, { Component } from "react"
-// import Snackbar from "@material-ui/core/Snackbar"
-// import Button from "@material-ui/core/Button"
-// import IconButton from "@material-ui/core/IconButton"
-// import CloseIcon from "@material-ui/icons/Close"
-// let openSnackbarFn
-// class Notifier extends React.Component {
-//   // 1. set the Notifier's initial state
-//   state = {
-//     open: false,
-//     message: "",
-//     duration: 3000,
-//   }
-//   componentDidMount() {
-//     openSnackbarFn = this.openSnackbar
-//   }
-//   // 2. define a function to open Snackbar and show a message
-//   openSnackbar = ({ message, duration }) => {
-//     this.setState({
-//       open: true,
-//       message,
-//       duration,
-//     })
-//   }
-//   // 3. define a function to close Snackbar when a user clicks away
-//   handleSnackbarClose = () => {
-//     this.setState({
-//       open: false,
-//       message: "",
-//     })
-//   }
-//   render() {
-//     // 4. show a message to users
-//     const message = (
-//       <span
-//         id="snackbar-message-id"
-//         dangerouslySetInnerHTML={{ __html: this.state.message }}
-//       />
-//     )
-//     return (
-//       <div>
-//         <Snackbar
-//           // 5. write styles and pass props to the Snackbar component
-//           anchorOrigin={{ vertical: "top", horizontal: "right" }}
-//           message={message}
-//           autoHideDuration={this.state.duration}
-//           onClose={this.handleSnackbarClose}
-//           open={this.state.open}
-//           variant="warning"
-//           action={[
-//             <IconButton
-//               key="close"
-//               aria-label="Close"
-//               color="secondary"
-//               // color="inherit"
-//               onClick={() => this.handleSnackbarClose()}>
-//               <CloseIcon />
-//             </IconButton>,
-//           ]}
-//           SnackbarContentProps={{
-//             "aria-describedby": "snackbar-message-id",
-//           }}
-//         />
-//       </div>
-//     )
-//   }
-// }
-
-// export function openSnackbar({ message, duration = 3000 }) {
-//   openSnackbarFn({ message, duration })
-// }
-
-// export default Notifier
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -188,15 +114,7 @@ class Notifier extends React.Component {
     openSnackbarFn = this.openSnackbar;
     closeSnackBarFn = this.closeSnackbar;
   }
-  // 2. define a function to open Snackbar and show a message
-  // openSnackbar = ({ message, duration, actions }) => {
-  //   this.setState({
-  //     open: true,
-  //     message,
-  //     duration,
-  //     actions,
-  //   })
-  // }
+
   state = {
     open: false,
     message: '',

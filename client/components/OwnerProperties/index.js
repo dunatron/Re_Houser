@@ -26,31 +26,6 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
-// const OWNER_PROPERTIES_QUERY = gql`
-//   query OWNER_PROPERTIES_QUERY {
-//     ownerProperties {
-//       id
-//       rooms
-//       rent
-//       moveInDate
-//       expiryDate
-//       onTheMarket
-//       location
-//       locationLat
-//       locationLng
-//       owners {
-//         id
-//         email
-//         firstName
-//       }
-//       images {
-//         url
-//       }
-//       isLeased
-//     }
-//   }
-// `;
-
 const UPDATE_PROPERTY_MUTATION = gql`
   mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
     updateProperty(id: $id, data: $data) {

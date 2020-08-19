@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Typography, TextField } from '@material-ui/core';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { isEmpty, equals } from 'ramda';
 import { useMutation } from '@apollo/client';
@@ -11,18 +10,6 @@ import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
 
 import DynamicCompletionIcon from './CompletionIcon';
 import SaveButtonLoader from '../Loader/SaveButtonLoader';
-
-const StyledInput = withStyles({
-  root: {},
-  formControl: {},
-  label: {
-    textTransform: 'uppercase',
-    fontSize: '18px',
-  },
-  textField: {
-    fontSize: '32px',
-  },
-})(TextField);
 
 const useStyles = makeStyles(theme => ({
   inputGrid: {
@@ -54,12 +41,7 @@ const useStyles = makeStyles(theme => ({
 const UserDetails = ({ me }) => {
   const classes = useStyles();
   const [updates, setUpdates] = useState({});
-
   const [updateUser, { error, loading }] = useMutation(UPDATE_USER_MUTATION);
-
-  // const saveToUpdates = e => {
-  //   setUpdates({ ...updates, [e.target.name]: e.target.value });
-  // };
 
   const saveToUpdates = (name, val) => {
     setUpdates({ ...updates, [name]: val });
@@ -105,14 +87,6 @@ const UserDetails = ({ me }) => {
                 defaultValue={me[fieldProps.name]}
                 onChange={v => saveToUpdates(fieldProps.name, v)}
               />
-              {/* <StyledInput
-                className={classes.textField}
-                fullWidth={true}
-                label={item.label}
-                name={item.variableName}
-                defaultValue={me[item.variableName]}
-                helperText={me[item.variableName]}
-                onChange={saveToUpdates}></StyledInput> */}
             </div>
           );
         })}

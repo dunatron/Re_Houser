@@ -13,7 +13,6 @@ const styles = theme => ({
     display: 'flex',
     position: 'fixed',
     top: 0,
-    // background: fade(theme.palette.primary.main, 0.2),
     height: '100%',
     width: '100%',
     alignItems: 'center',
@@ -21,14 +20,8 @@ const styles = theme => ({
     zIndex: 9000,
   },
   content: {
-    // height: 100,
-    // width: 100,
-    // background: '#FFF',
     borderRadius: 0,
     overflow: 'auto',
-    // zIndex: 9000,
-    // height: "100%",
-    // width: "100%",
     zIndex: 10,
   },
   modalHeader: {
@@ -50,15 +43,13 @@ const styles = theme => ({
       2
     )}px`,
   },
-  overlay: {
+  backdrop: {
     position: 'fixed',
     top: 0,
-    // background: fade(theme.palette.primary.main, 0.3),
     background: fade(theme.palette.background.paper, 0.85),
     height: '100%',
     width: '100%',
     zIndex: 5,
-    // zIndex: 1000,
   },
 });
 
@@ -89,11 +80,11 @@ class Modal extends Component {
                 </div>
                 <div className={classes.modalBody}>{this.props.children}</div>
               </Paper>
+              {/* Backdrop */}
               <div
-                className={classes.overlay}
-                onClick={() => this.props.close()}>
-                Overlay
-              </div>
+                className={classes.backdrop}
+                onClick={() => this.props.close()}
+              />
             </div>
           </Portal>
         )}

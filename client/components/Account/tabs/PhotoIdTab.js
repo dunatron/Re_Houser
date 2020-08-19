@@ -10,15 +10,7 @@ const PhotoIdTab = ({ me }) => {
       <Typography variant="subtitle1">
         Valid id includes: NZ drivers license, passport
       </Typography>
-      <PhotoIdentification
-        me={me}
-        // updateVariable={(name, val) => {
-        //   setUpdates({
-        //     ...updates,
-        //     [name]: val,
-        //   });
-        // }}
-      />
+      <PhotoIdentification me={me} />
     </RehouserPaper>
   );
 };

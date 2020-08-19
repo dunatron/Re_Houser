@@ -41,15 +41,6 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
-// 1. onClick we will do a createChat function.
-// it will create a chat on the server and return the chat id.
-// 2. we should create a little mini bar ike facebook does to hold our open chats
-// maybe this should be a cache.service which will create a chat, whatever type it is and return the id etc, ensuring it is open in the chat bar
-
-/**
- * This will need to consume our context store
- * When a message gets created, then this should be pushed to the openCHats
- */
 const UserMenu = ({ me, user }) => {
   const { state, dispatch } = useContext(store);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -77,7 +68,7 @@ const UserMenu = ({ me, user }) => {
         onClick={openMenu}>
         <MoreVertIcon fontSize="small" />
       </IconButton>
-      {/* Should extract this item away to own component... with mutation etc folder menu-items */}
+
       <Menu
         id="user-menu"
         anchorEl={anchorEl}
@@ -94,7 +85,6 @@ const UserMenu = ({ me, user }) => {
           'loading'
         ) : (
           <MenuItem
-            // selected={option === 'Pyxis'}
             dense={true}
             onClick={e => {
               createChat({
@@ -119,12 +109,8 @@ const UserMenu = ({ me, user }) => {
                     type: 'openChat',
                     payload: createChat,
                   });
-                  // openChat({
-                  //   variables: { chat: createChat },
-                  // });
                 },
               });
-              // handleClose()
             }}>
             Message
           </MenuItem>

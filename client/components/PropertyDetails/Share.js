@@ -12,25 +12,6 @@ import {
 } from 'react-facebook';
 import moment from 'moment';
 
-// display,
-//       hashtag,
-//       redirectUri,
-//       quote,
-//       mobileIframe,
-//       ...rest
-
-// children: Function,
-//   handleProcess: Function,
-//   loading: boolean,
-//   data: any,
-//   error: Error,
-//   href?: string,
-//   hashtag?: string,
-//   quote?: string,
-//   mobileIframe?: boolean,
-//   display?: string,
-//   appId?: string,
-//   redirectURI?: string,
 const ShareProperty = ({ property }) => {
   const handleStatusChange = res => {};
 
@@ -58,18 +39,11 @@ const ShareProperty = ({ property }) => {
                         <button
                           onClick={() => {
                             console.log('The api => ', api);
-                            // api('/me', 'GET', { fields: 'id,name' }, function(response) {
-                            //   // Insert your code here
-                            //   console.log('Did we get a me response => ', response);
-                            // });
                             api.login(function(response) {
                               if (response.authResponse) {
                                 console.log(
                                   'Welcome!  Fetching your information.... '
                                 );
-                                // api.api('/me', function(response) {
-                                //   console.log('Good to see you, ' + response.name + '.');
-                                // });
                               } else {
                                 console.log(
                                   'User cancelled login or did not fully authorize.'

@@ -10,7 +10,6 @@ const ConfirmEmail = ({ me, children }) => {
           To confirm your email you must first be logged in
         </Typography>
         <OpenSuperLoginButton />
-        {/* <SuperLogin tabIndex={1} /> */}
       </>
     );
   }

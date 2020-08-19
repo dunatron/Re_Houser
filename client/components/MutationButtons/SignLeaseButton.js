@@ -8,18 +8,6 @@ import { toast } from 'react-toastify';
 import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
 import { PropertyLeaseInfoFragment } from '../../graphql/fragments/propertyLeaseInfo';
 
-// const SIGN_LEASE_MUTATION = gql`
-//   mutation SIGN_LEASE_MUTATION($id: ID!, $type: String!, $leaseId: ID!) {
-//     signLease(id: $id, type: $type, leaseId: $leaseId) {
-//       ...propertyLeaseInfo
-//     }
-//   }
-//   ${PropertyLeaseInfoFragment}
-// `;
-
-/**
- * You only need the updated fields and the ids
- */
 const SIGN_LEASE_MUTATION = gql`
   mutation SIGN_LEASE_MUTATION($id: ID!, $type: String!, $leaseId: ID!) {
     signLease(id: $id, type: $type, leaseId: $leaseId) {

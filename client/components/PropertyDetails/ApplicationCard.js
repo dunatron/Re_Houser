@@ -45,12 +45,7 @@ const ApplicationCard = ({ application, property }) => {
       <Typography>FINALISED: {application.finalised ? 'YES' : 'NO'}</Typography>
 
       <ExpansionPanel highlight={false}>
-        <ExpansionPanelSummary
-          expandIcon={<ExpandMoreIcon />}
-          // highlight={isAnApplicant}
-          // highlightReverse={isOwner}
-          // background={isAnApplicant ? "green" : ""}
-        >
+        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <PersonIcon color={'secondary'} />
           <Typography
             // highlightReverse={isOwner}

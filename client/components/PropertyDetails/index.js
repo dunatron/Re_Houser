@@ -8,8 +8,6 @@ import Error from '../ErrorMessage/index';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { Tabs, Tab } from '@material-ui/core';
-// import Tab from "@material-ui/core/Tab"
-// import Tab from '../../styles/Tab';
 // tabs
 import Details from './Details';
 import Leases from './Leases';
@@ -27,24 +25,9 @@ import Loader from '../Loader/index';
 import PageHeader from '../PageHeader';
 import TabContainer from '../Account/TabContainer';
 
-// function TabContainer(props) {
-//   return (
-//     <Typography component="div" style={{ padding: 0 }}>
-//       {props.children}
-//     </Typography>
-//   );
-// }
-
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-// const fieldsOnBook = gql`
-//   fragment fieldsOnBook on Book {
-//     id
-//     author
-//   }
-// `;
 
 const aggregateFields = gql`
   fragment aggregateFields on RentalApplicationConnection {
@@ -80,7 +63,6 @@ const RENTAL_APPLICATIONS_CONNECTION = gql`
 `;
 
 // 1. create gql rentalApplicationsConnection for the aggregate data
-
 const PropertyApplicationsBadgeCount = ({ property }) => {
   const { data, loading, error } = useQuery(RENTAL_APPLICATIONS_CONNECTION, {
     variables: {
@@ -104,7 +86,7 @@ const PropertyApplicationsBadgeCount = ({ property }) => {
 
 const PropertyCard = styled.div`
   max-width: 1200px;
-  /* margin: 2rem auto; */
+
   margin: 0;
   box-shadow: ${props => props.theme.bs};
   box-sizing: border-box;
@@ -115,8 +97,6 @@ const PropertyCard = styled.div`
     line-height: 1;
   }
   @media (max-width: ${props => props.theme.breakpoints.values.sm}px) {
-    /* display: flex;
-    flex-wrap: wrap; */
   }
 `;
 

@@ -29,12 +29,6 @@ import Error from '../ErrorMessage';
 
 import { isEmpty } from 'ramda';
 
-/**
- * ToDo: currently when updated will refresh the me query
- * can do stuff with that, like reset the component position to the photo tab instead upload tab
- * also implement those tabs
- * we should check mutations
- */
 const PhotoIdUploader = ({ me }) => {
   const [file, setFile] = useState({});
   const [tabIndex, setTabIndex] = useState(0);
@@ -69,7 +63,6 @@ const PhotoIdUploader = ({ me }) => {
         );
       },
       refetchQueries: [{ query: CURRENT_USER_QUERY }],
-      // optimisticResponse: {},
     }
   );
 
@@ -127,10 +120,6 @@ const PhotoIdUploader = ({ me }) => {
               {file.content && (
                 <div className="preUpload">
                   <PreUploadImage file={file} />
-                  {/* <img
-                    className="preUpload__image"
-                    src={contentAsSrc(file.content)}
-                  /> */}
                   <div className="preUpload__overlay">
                     <Button
                       color="error"

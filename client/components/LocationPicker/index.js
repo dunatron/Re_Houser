@@ -30,23 +30,17 @@ const StylesGeoSuggest = styled(Geosuggest)`
   }
   .geosuggest__input {
     width: 100%;
-    /* border: 2px solid transparent; */
     border: 2px solid ${p => p.theme.palette.background.paper};
     background: ${p => p.theme.palette.background.paper};
     box-shadow: 0 0 1px ${p => p.theme.palette.primary.main};
     color: ${p => p.theme.palette.text.primary};
-    /* box-shadow: 0 0 1px #3d464d; */
-    /* padding: 0.5em 1em; */
     padding: ${p => p.theme.spacing(2)}px;
     -webkit-transition: border 0.2s, box-shadow 0.2s;
     transition: border 0.2s, box-shadow 0.2s;
   }
   .geosuggest__input:focus {
-    /* border-color: #267dc0; */
     border-color: ${p => p.theme.palette.primary.main};
     outline: none;
-    /* box-shadow: 0 0 0 transparent; */
-    /* box-shadow: 0 0 1px ${p => p.theme.palette.primary.main}; */
   }
   .geosuggest__suggests {
     position: absolute;
@@ -231,35 +225,6 @@ const LocationPicker = ({ selection, defaultLocation }) => {
         radius="20"
         country={state.country === 'ALL' ? null : state.country}
       />
-      {/* LOCATION PICKER OPTIONS DISABLED FOR NOW */}
-      {/* <div>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>Location advanced Options</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <SelectOption
-              id="location-country-select"
-              label="Country"
-              value={state.country}
-              options={[{ name: 'ALL', value: 'ALL' }].concat(
-                CountryCodesArray
-              )}
-              handleChange={e =>
-                setState({ ...state, country: e.target.value })
-              }
-            />
-
-            <SelectOption
-              id="location-type-select"
-              label="Type"
-              value={state.type}
-              options={[{ name: 'ALL', value: 'ALL' }].concat(LOCATION_TYPES)}
-              handleChange={e => setState({ ...state, type: e.target.value })}
-            />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </div> */}
       {state.showMap && state.desc && (
         <Map
           center={{
@@ -279,15 +244,6 @@ const LocationPicker = ({ selection, defaultLocation }) => {
           }}>
           <LocationOnIcon color="secondary" />
           <Typography style={{ padding: '8px 16px' }}>{state.desc}</Typography>
-          {/* <Typography style={{ padding: '8px 16px', wordBreak: 'break-all' }}>
-            PlaceId: {state.placeId}
-          </Typography>
-          <Typography style={{ padding: '8px 16px' }}>
-            Latitute: {state.lat}
-          </Typography>
-          <Typography style={{ padding: '8px 16px' }}>
-            Longitude: {state.lng}
-          </Typography> */}
         </div>
       )}
     </div>

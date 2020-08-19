@@ -23,13 +23,6 @@ const GeoSearchWidget = props => {
 
   return (
     <>
-      {/* <DynamicPlacesSearch /> */}
-      {/* <DynamicPlacesSearch
-        defaultRefinement={{
-          lat: latPos,
-          lng: lngPos,
-        }}
-      /> */}
       <GeoSearch
         google={google}
         initialZoom={8}
@@ -37,8 +30,6 @@ const GeoSearchWidget = props => {
           lat: latPos,
           lng: lngPos,
         }}
-        // setCenter={{ lat: latPos, lng: lngPos }}
-        // center={{ lat: latPos, lng: lngPos }}
         center={{
           lat: latPos,
           lng: lngPos,
@@ -50,7 +41,6 @@ const GeoSearchWidget = props => {
         zoom={20}
         enableRefineOnMapMove={enableRefineOnMapMove}
         enableRefine={enableRefine} // If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
-        // mapTypeId={google.maps.MapTypeId.SATELLITE}
         mapTypeId="hybrid" // hybrid, roadmap, satellite, terrain
       >
         {({ hits }) => (

@@ -36,15 +36,10 @@ TabContainer.propTypes = {
 };
 
 const styles = theme => ({
-  root: {
-    // backgroundColor: theme.palette.background.paper,
-    // maxWidth: 800,
-    // margin: "auto",
-  },
+  root: {},
 });
 
 const LoginPage = props => {
-  // const [tabIndex, setTabIndex] = useState(props.tabIndex ? props.tabIndex : 0);
   const [tabIndex, setTabIndex] = useState(0);
   const [state, setState] = useState({
     email: '',
@@ -63,8 +58,6 @@ const LoginPage = props => {
     return <Error error={error} />;
   }
 
-  // logged in so show show logged in page
-  // if (data.me) return <LoggedInAs me={data.me} />
   if (data) {
     if (data.me) return <LoggedInAs me={data.me} />;
   }
