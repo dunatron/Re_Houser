@@ -1,7 +1,7 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode,
+  addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail");
 
@@ -11,16 +11,11 @@ var fs = require("fs"),
 
 async function createProperty(parent, { data, files }, ctx, info) {
   const loggedInUserId = ctx.request.userId;
-  // need to be logged in
+
   if (!loggedInUserId) {
     throw new Error("You must be logged in to create a property!");
   }
-  // const uploadedFiles = files
-  //   ? await Promise.all(files.map((file) => processUpload(file, ctx)))
-  //   : [];
-  // const connectFileIds = uploadedFiles.map((file) => ({ id: file.id }));
 
-  // this here is dependent on using accomodation & useAdvancedRent is true
   const numberOfRooms = data.useAdvancedRent
     ? accommodation.length
     : data.rooms;
@@ -34,7 +29,6 @@ async function createProperty(parent, { data, files }, ctx, info) {
     roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
   try {
-    // Note, something is going wrong with deploy:prod etc
     const property = await ctx.db.mutation.createProperty(
       {
         data: {
@@ -42,11 +36,8 @@ async function createProperty(parent, { data, files }, ctx, info) {
           lowestRoomPrice,
           highestRoomPrice,
           rent: averageRoomPrice,
-          rooms: numberOfRooms,
-          // images: {
-          //   connect: connectFileIds,
-          // },
-        },
+          rooms: numberOfRooms
+        }
       },
       info
     );
@@ -59,31 +50,31 @@ async function createProperty(parent, { data, files }, ctx, info) {
         type: "CREATED_PROPERTY",
         property: {
           connect: {
-            id: property.id,
-          },
+            id: property.id
+          }
         },
         user: {
           connect: {
-            id: loggedInUserId,
-          },
-        },
-      },
+            id: loggedInUserId
+          }
+        }
+      }
     });
     addPropertySearchNode({
       propertyId: property.id,
-      db: ctx.db,
+      db: ctx.db
     });
 
     const user = ctx.db.query.user({
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     });
 
     // let admin know new property has been created. Frodo loves his leads. Ohh a lead
     propertyCreatedEmail({
       toEmail: "admin@rehouser.co.nz",
-      user: user,
+      user: user
     });
 
     // wow maybe return the thing too......

@@ -6,11 +6,6 @@ async function myRentalApplications(parent, args, ctx, info) {
   }
   return ctx.db.query.rentalApplications(
     {
-      // where: {
-      //   applicants_some: {
-      //     id: ctx.request.userId,
-      //   },
-      // },
       where: {
         OR: [
           {
@@ -28,7 +23,6 @@ async function myRentalApplications(parent, args, ctx, info) {
         ]
       }
     },
-    // {},
     info
   );
 }

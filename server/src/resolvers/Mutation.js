@@ -21,9 +21,6 @@ const createPreRentalDocument = require("./mutations/createPreRentalDocument");
 const applyToRentalGroup = require("./mutations/applyToRentalGroup");
 const updateProperty = require("./mutations/updateProperty");
 const createProperty = require("./mutations/createProperty");
-// the naming of this mutation will probably conflict with the fileApi/deleteFile
-// we do need deleteFile too. so do something here
-// should be fine now that the pattern is complete. leave comment here for awhile for a speedy resolve if needed
 const deleteFile = require("./mutations/deleteFile");
 const uploadFile = require("./mutations/uploadFile");
 const uploadFiles = require("./mutations/uplodaFiles");
@@ -95,7 +92,7 @@ const mutations = {
   createViewing,
   updateViewing,
   deleteViewing,
-  resendConfirmEmail,
+  resendConfirmEmail
 };
 
 module.exports = mutations;

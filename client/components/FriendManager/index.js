@@ -4,6 +4,7 @@ import SearchAndRequestFriend from './SearchAndRequestFriend';
 import PendingFriendRequests from './PendingFriendRequests';
 import FriendsList from './FriendsList';
 import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import UserSearch from '../UserSearch';
 
 const FriendManager = props => {
   const { me } = props;
@@ -12,7 +13,9 @@ const FriendManager = props => {
       <h1>Friend Manager</h1>
       <PendingFriendRequests me={me} />
       <h4>Search for users and add as friends</h4>
-      <SearchAndRequestFriend me={me} />
+      <UserSearch />
+      {/* <SearchAndRequestFriend me={me} /> */}
+
       <FriendsList me={me} />
     </div>
   );

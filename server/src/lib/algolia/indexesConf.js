@@ -26,6 +26,14 @@ const PROPERTY_INDEX = {
   }
 };
 
-const ALL_INDEXES = [PROPERTY_INDEX];
+const USER_INDEX = {
+  name: "UserSearch",
+  attributes: {
+    searchableAttributes: ["email", "firstName", "lastName"],
+    attributesForFaceting: ["permissions"]
+  }
+};
 
-module.exports = { ALL_INDEXES, PROPERTY_INDEX };
+const ALL_INDEXES = [PROPERTY_INDEX, USER_INDEX];
+
+module.exports = { ALL_INDEXES, PROPERTY_INDEX, USER_INDEX };

@@ -8,28 +8,24 @@ async function createPropertyLease(parent, { data }, ctx, info) {
   const recievedData = data;
 
   const newLease = await ctx.db.mutation.createPropertyLease(
-    // {
-    //   data: recievedData
-    // },
     {
       data: {
         ...recievedData,
         wallet: {
           create: {
-            amount: 0,
-          },
-        },
-      },
+            amount: 0
+          }
+        }
+      }
     },
-    // {},
     info
   );
 
   const connectProperty = newLease.property
     ? {
         connect: {
-          id: newLease.property.id,
-        },
+          id: newLease.property.id
+        }
       }
     : null;
 
@@ -41,20 +37,19 @@ async function createPropertyLease(parent, { data }, ctx, info) {
       type: "CREATED_LEASE",
       propertyLease: {
         connect: {
-          id: newLease.id,
-        },
+          id: newLease.id
+        }
       },
       user: {
         connect: {
-          id: loggedInUserId,
-        },
+          id: loggedInUserId
+        }
       },
-      property: connectProperty,
-    },
+      property: connectProperty
+    }
   });
 
   return newLease;
-  // ToDo: user should also be proper owner or maybe admin
 }
 
 module.exports = createPropertyLease;

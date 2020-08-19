@@ -63,14 +63,11 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     }`
   );
 
-  // only createn 1 lease per accepting rentalApplication
   if (application.leaseId)
     throw new Error(
       `rental application already has a lease associated with it ${application.leaseId}`
     );
 
-  // applicants will need to be filtered to the accepted applicants
-  // extract data from RentalApplication
   const { applicants, property } = application;
   const { owners } = property;
   const ownerIds = property.owners.map(owner => owner.id);
@@ -145,13 +142,6 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   owners.forEach((user, i) => {
     newLeaseLessorEmail({ ctx: ctx, toEmail: user.email, lease: lease });
   });
-
-  // I wonder if we should remove all rentalApplications on a successful lease.
-  // Yes we should do this, just not here. on finalisePropewrtyLease
-  // we should delete all rentalApplications on the property
-  // perhaps delete all groupChats
-  // deleting all these things cleans things up on the property
-  //
 
   return lease;
 }

@@ -24,9 +24,6 @@ const {
 
 const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-// web hook secret is diff from stripe. and in local we dynamically get it when
-// we run stripe:listen
-// whsec_JjL6QaWRq5ueLZJVXnVascAUgPANzYsF
 
 // sets up pasrsing the body of the request
 server.use(
@@ -43,18 +40,10 @@ server.use((req, res, next) => {
   }
 });
 
+// ToDo: extract to own file
 server.post("/stripe/intent", async (req, res, next) => {
-  // console.log("Payment intent req => ", req);
-  console.log("==START PAYMENT INTENT==");
-  console.log(
-    "Make sure to send the info we need back here in the metadata etc"
-  );
-
   const token = req.cookies.token;
   if (!token) {
-    console.log(
-      "we cannot fulfill your intent because we cant be sure you are a valid usert"
-    );
     return next();
   }
 
@@ -72,11 +61,6 @@ server.post("/stripe/intent", async (req, res, next) => {
     // throw errro as they must have an amount they intend to pay
   }
 
-  console.log("req.userId ", req);
-  console.log("req.userId = userId ", req.userId);
-
-  console.log("clients amount they are intent to pay => ", amount);
-
   // ToDo: get current logged in user and add there email etc
   try {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -88,26 +72,15 @@ server.post("/stripe/intent", async (req, res, next) => {
         leaseId: leaseId,
         walletId: walletId
       }
-      // NOTE< NOT LIKING THE RAW STUFF
-      // metadata: {
-      //   reqUserId: req.userId,
-      //   user: user,
-      //   lease: lease,
-      //   wallet: wallet
-      // }
     });
-    console.log("paymentIntent.client_secret => ", paymentIntent.client_secret);
-    console.log("==END PAYMENT INTENT==");
+
     res.send({ client_secret: paymentIntent.client_secret });
   } catch (err) {
-    console.log("AN error occurred => ", err);
     res.status(400).send(`Webhook Error: ${err.message}`);
   }
-
-  // res.send(paymentIntent);
 });
 
-// Stripe requires the raw body to construct the event
+// ToDo: extract to own file
 server.post(
   "/stripe/webhook",
   bodyParser.raw({ type: "application/json" }),
@@ -154,13 +127,7 @@ const expressLogger = function(req, res, next) {
   next();
 };
 
-// we could essentially add more than userId, like permissions?
-// the jwt would not verify if they tried to modify permissions etc
-// currently this logic will not work. as when the token expires we are not sending it along
-// meaning if(!token) will be true and we get no chance to refresh
-// play with this and if we cannot get expired token being sent then if !token
-// check for refreshToken, then do logic to refresh both
-// we could have 2 different token expiry dates...
+// ToDo: extract to own file
 const addUser = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -191,15 +158,12 @@ const addUser = async (req, res, next) => {
 };
 
 server.use(expressLogger);
-//disable cors for now
-// server.use(cors())
-
 server.express.use(cookieParser());
 server.express.use(addUser);
 
 server.get("/setup-indexes", function(req, res) {
   setupIndexes();
-  res.send("complete");
+  res.send("Algolia Indexes Initialized");
 });
 
 const allowedClientOrigins = [
@@ -213,12 +177,7 @@ const allowedClientOrigins = [
   process.env.FRONTEND_URL
 ];
 
-// Maybe try doing this to test ios gets its cookies???
-// comment out for now because we do it below? maybe both isnt bad??
-// server.express.use(cors({ origin: allowedClientOrigins, credentials: true }));
-// CORS middleware
-
-// Start gql express server
+// Start gql yoga/express server
 server.start(
   {
     cors: {
@@ -238,10 +197,3 @@ server.start(
     );
   }
 );
-
-// server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-//   console.log(`🚀 Server ready at ${url}`);
-// });
-// server.start({ port: process.env.PORT || 4000 }).then(({ url }) => {
-//   console.log(`🚀 Server ready at ${url}`);
-// });

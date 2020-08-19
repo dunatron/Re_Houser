@@ -25,10 +25,7 @@ async function createPreRentalDocument(
   var data = await fs.readFileSync(filePath);
 
   var docyBuf = convertDocument(myJSON, data);
-  // fs.writeFileSync(
-  //   path.resolve(__dirname, "../lib/documents/docy-document.docx"),
-  //   buf
-  // )
+
   return docyBuf;
 }
 

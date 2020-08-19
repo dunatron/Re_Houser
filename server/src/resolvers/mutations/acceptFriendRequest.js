@@ -18,8 +18,6 @@ async function acceptFriendRequest(parent, args, ctx, info) {
     `{id, requestUser{id}, acceptingUser{id}}`
   );
 
-  console.log("WE HAVE THE FRIEND REQUEST OBJECT ");
-
   // 1. make the users friends
   const updatedUser = await ctx.db.mutation.updateUser(
     {
@@ -36,10 +34,6 @@ async function acceptFriendRequest(parent, args, ctx, info) {
     },
     `{id, friends{id, firstName, email}}`
   );
-
-  // is friends opnly doing a 1 way connections...
-
-  console.log("Updated User => ", updatedUser);
 
   // delete the object
   await ctx.db.mutation.deleteFriendRequest({

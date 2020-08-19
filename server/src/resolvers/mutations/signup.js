@@ -11,14 +11,16 @@ const resendConfirmEmail = require("./resendConfirmEmail");
 const { promisify } = require("util");
 const { randomBytes } = require("crypto");
 
+const { addUserSearchNode } = require("../../lib/algolia/userSearchApi");
+
 async function signup(parent, args, ctx, info) {
   args.email = args.email.toLowerCase();
 
   // little busines logic here. if they have this email and pass match just logem in
   const userMaybeFromDb = await ctx.db.query.user({
     where: {
-      email: args.email,
-    },
+      email: args.email
+    }
   });
 
   // NEEDS TO HAPPEN AFTER CHECK FOR SIGNIN AS IT POTENTIALLY HANDLES IT
@@ -26,7 +28,7 @@ async function signup(parent, args, ctx, info) {
   if (!userMaybeFromDb) {
     await validateRecaptcha({
       ctx,
-      captchaToken: args.captchaToken,
+      captchaToken: args.captchaToken
     });
   }
 
@@ -54,28 +56,26 @@ async function signup(parent, args, ctx, info) {
         permissions: { set: ["USER"] },
         adminSettings: { create: {} },
         confirmEmailToken: confirmEmailToken,
-        confirmEmailTokenExpiry: confirmEmailTokenExpiry,
-      },
+        confirmEmailTokenExpiry: confirmEmailTokenExpiry
+      }
     },
     info
   );
-  // create the JWT token for them
-  // const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-  // // We set the jwt as a cookie on the response
-  // ctx.response.cookie("token", token, {
-  //   httpOnly: true,
-  //   maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
-  //   sameSite: "None",
-  //   Secure: true
-  // });
+
+  // We should use Algolia for users too
+  addUserSearchNode({
+    userId: user.id,
+    db: ctx.db
+  });
+
   const { token, refreshToken } = await createTokens(user, password);
   const cookieOptions = rehouserCookieOpt();
 
   ctx.response.cookie("token", token, {
-    ...cookieOptions,
+    ...cookieOptions
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...cookieOptions,
+    ...cookieOptions
   });
   // Finalllllly we return the user to the browser
   createActivity({
@@ -87,35 +87,35 @@ async function signup(parent, args, ctx, info) {
       jsonObj: user,
       user: {
         connect: {
-          id: user.id,
-        },
+          id: user.id
+        }
       },
       involved: {
         connect: [
           {
-            email: user.email,
-          },
-        ],
-      },
-    },
+            email: user.email
+          }
+        ]
+      }
+    }
   });
   // send the new signupEmail
   signupEmail({
     toEmail: user.email,
     user: user,
-    confirmEmailToken: confirmEmailToken,
+    confirmEmailToken: confirmEmailToken
   });
 
   emailCEO({
     ctx: ctx,
     subject: `New signup ${user.email}`,
-    body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`,
+    body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`
   });
 
   const userInfoWithToken = {
     ...user,
     token: token,
-    refreshToken: refreshToken,
+    refreshToken: refreshToken
   };
   return userInfoWithToken;
 }

@@ -2,52 +2,44 @@
 const db = require("./db");
 const seeds = require("./seeds/index");
 const { addPropertySearchNode } = require("./lib/algolia/propertySearchApi");
+const { addUserSearchNode } = require("./lib/algolia/userSearchApi");
 const bcrypt = require("bcryptjs");
 
-// const { userList, propertiesList } = require("./seedData");
 const { imagesList, userList, propertiesList } = seeds;
 
 async function main() {
   // createImages
-  await imagesList.forEach(async (img) => {
+  await imagesList.forEach(async img => {
     await db.mutation.createFile({
-      data: { ...img },
+      data: { ...img }
     });
   });
 
   // create users
-  await userList.forEach(async (user) => {
+  await userList.forEach(async user => {
     const password = await bcrypt.hash(user.password, 10);
-    await db.mutation.createUser({
-      data: { ...user, password: password },
+    const res = await db.mutation.createUser({
+      data: { ...user, password: password }
     });
+    await addUserSearchNode({
+      userId: res.id,
+      db: db
+    }).catch(e => console.log("AN promise err => ", e));
   });
 
   // createProperties
-  propertiesList.forEach(async (property) => {
+  propertiesList.forEach(async property => {
     const res = await db.mutation
       .createProperty({
-        data: { ...property },
+        data: { ...property }
       })
-      .catch((e) => console.log("Create Property err => ", e));
-    console.log("ADD PROPERTY RES => ", res);
-    //updates, propertyId
+      .catch(e => console.log("Create Property err => ", e));
+
     await addPropertySearchNode({
       propertyId: res.id,
-      db: db,
-    }).catch((e) => console.log("AN promise err => ", e));
+      db: db
+    }).catch(e => console.log("AN promise err => ", e));
   });
 }
 
-// await db.mutation.createCountry({
-//   data: {
-//     name: "Spain",
-//     image: "https://res.cloudinary.com/...",
-//     cities: {
-//       create: spainCities
-//     }
-//   }
-// });
-
-// main().catch(e => console.error(e));
-main().catch((e) => console.log(e));
+main().catch(e => console.log(e));

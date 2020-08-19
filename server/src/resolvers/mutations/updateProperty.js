@@ -16,32 +16,12 @@ async function updateProperty(parent, args, ctx, info) {
   const where = { id: args.id };
   // remove the ID from the updates
   delete updates.id;
-  // new file to update
-  // get the old item data
+
   const item = await ctx.db.query.property(
     { where },
     `{ id location images {id url} insulationForm {id} }`
   );
-  // Ok the below does not work and needs some attention
-  // if (updates.file) {
-  //   if (item.images) {
-  //     deleteFile({ id: item.image.id, url: item.image.url, ctx });
-  //   }
-  //   const uploadedFile = await processUpload(await updates.file, ctx);
-  //   updates.image = {
-  //     connect: {
-  //       id: uploadedFile.id
-  //     }
-  //   };
-  // }
-  // delete updates.file;
 
-  // ok so we send the image to connect it right. we need to pay attention to the disconnect and connect
-  // disconnect I believe you will need a url etc.
-  // ahh but we delete 1 by 1.
-  // here we just need to handle for algolia is all
-
-  // do extra stuff here for algolia
   if (updates.files) {
   }
 
