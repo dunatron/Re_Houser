@@ -12,8 +12,8 @@ const INFO_DASHBOARD_CONFIG = [
     icon: <MoneyIcon />,
   },
   {
-    label: 'Team',
-    route: '/info/team',
+    label: 'About Us',
+    route: '/about-us',
     description: 'Meet the rehouser team',
     color: 'secondary',
     icon: <GroupIcon />,

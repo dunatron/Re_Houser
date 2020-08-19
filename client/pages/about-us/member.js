@@ -1,3 +1,5 @@
+
+
 import TEAM_CONFIG from '../../lib/configs/teamConfig';
 import TeamMember from '../../components/Team/TeamMember';
 
@@ -20,3 +22,4 @@ const TeamMemberPage = props => {
 };
 
 export default TeamMemberPage;
+

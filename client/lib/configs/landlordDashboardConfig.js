@@ -20,6 +20,7 @@ const LANDLORD_DASHBOARD_CONFIG = [
     description:
       'Rehouser can give you an appraisal for your property with just a few details',
     color: 'secondary',
+    requiresLogin: false,
   },
   {
     icon: <AddIcon />,
@@ -27,6 +28,7 @@ const LANDLORD_DASHBOARD_CONFIG = [
     route: '/properties/add',
     description: 'Add property to the platform',
     color: 'secondary',
+    requiresLogin: true,
   },
   {
     icon: <HouseIcon />,
@@ -35,6 +37,7 @@ const LANDLORD_DASHBOARD_CONFIG = [
     description:
       'Review your properties. This is where you can accept applications for your property and do general management for your property',
     color: 'secondary',
+    requiresLogin: true,
   },
   {
     icon: <MoneyIcon />,
@@ -42,6 +45,7 @@ const LANDLORD_DASHBOARD_CONFIG = [
     route: '/landlord/fees',
     description: 'Review the rehouser fees for the system',
     color: 'secondary',
+    requiresLogin: false,
   },
   {
     icon: <MoneyIcon />,

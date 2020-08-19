@@ -4,16 +4,16 @@ import GroupIcon from '@material-ui/icons/Group';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 
 const HOME_PAGE_DASHBOARD_CONFIG = [
+  // {
+  //   label: 'Fees',
+  //   route: '/info/fees',
+  //   description: 'Details about our fees',
+  //   color: 'secondary',
+  //   icon: <MoneyIcon />,
+  // },
   {
-    label: 'Fees',
-    route: '/info/fees',
-    description: 'Details about our fees',
-    color: 'secondary',
-    icon: <MoneyIcon />,
-  },
-  {
-    label: 'Team',
-    route: '/info/team',
+    label: 'About Us',
+    route: '/about-us',
     description: 'Meet the rehouser team',
     color: 'secondary',
     icon: <GroupIcon />,

@@ -12,7 +12,7 @@ const TeamInfoPage = () => {
       <PageHeader
         title="About Us"
         metaData={{
-          title: 'Team',
+          title: `${SITE_NAME} | About Us`,
           content: `${SITE_NAME} team who make the platform happen`,
         }}
         children={[<TeamInfoText />]}

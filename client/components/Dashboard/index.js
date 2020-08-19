@@ -83,7 +83,7 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
-const Dashboard = ({ heading, intro, config, elevation }) => {
+const Dashboard = ({ heading, intro, config, elevation, me }) => {
   return (
     <DashBoardStyles elevation={elevation}>
       {/* {heading && <h1 className="heading">{heading}</h1>}
@@ -105,12 +105,22 @@ const Dashboard = ({ heading, intro, config, elevation }) => {
             <NavButton
               className="item-btn"
               color={dashboardItem.color}
+              disabled={dashboardItem.requiresLogin ? true : false}
               onClick={() => handleLink(dashboardItem.route)}>
               {dashboardItem.icon && (
                 <div className="item-btn-ico">{dashboardItem.icon}</div>
               )}
               {dashboardItem.label}
             </NavButton>
+            {dashboardItem.requiresLogin && !me && (
+              <Typography
+                gutterBottom
+                style={{
+                  textAlign: 'center',
+                }}>
+                (requires login)
+              </Typography>
+            )}
             <div className="item-description">{dashboardItem.description}</div>
           </BoardItemStyles>
         ))}

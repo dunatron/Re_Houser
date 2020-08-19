@@ -54,7 +54,7 @@ const TeamComponent = () => {
 
   const handleMemberClick = ({ member }) => {
     router.push({
-      pathname: `/team/member`,
+      pathname: `/about-us/member`,
       query: {
         name: member.subUrl,
       },
