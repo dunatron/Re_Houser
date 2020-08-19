@@ -97,6 +97,7 @@ const MessageCreatedSub = ({ me }) => {
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
+      alert('Message Created SUb Does this too');
       const {
         data: {
           messageSub: { mutation, node, updatedFields, previousValues },

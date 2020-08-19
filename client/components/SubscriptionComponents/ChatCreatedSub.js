@@ -1,65 +1,51 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
-
-const OPEN_CHAT_LOCAL_MUTATION = gql`
-  mutation OPEN_CHAT_LOCAL_MUTATION($id: Int!) {
-    openChat(id: $id) @client
-  }
-`;
+import { CHAT_SUBSCRIPTION } from '../../graphql/subscriptions/ChatSub';
+import { store } from '../../store';
 
 const ChatCreatedSub = ({ me }) => {
   const { state, dispatch } = useContext(store);
-  useSubscription(MESSAGE_CREATED_SUBSCRIPTION, {
+  useSubscription(CHAT_SUBSCRIPTION, {
     variables: {
       where: {
         node: {
-          chat: {
-            participants_some: {
+          participants_some: [
+            {
               id: me.id,
             },
-          },
+          ],
         },
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
       const {
         data: {
-          messageSub: { mutation, node, updatedFields, previousValues },
+          chatSub: { mutation, node, updatedFields, previousValues },
         },
       } = subscriptionData;
 
-      // we were the sender do nothing with this sub
-      if (me.id === node.sender.id) {
-        return;
-      }
-      // write message to cache service
-      // if previouseValues and updatedFields are null this is a new message
       if (previousValues === null && updatedFields === null) {
-        // this is a brand new message
+        // this is a brand new chat
       }
       if (mutation === 'CREATED') {
-        // this is a brand new message
-        writeMessage(client, node);
+        // this is a brand new chat
+        // writeMessage(client, node);
+        dispatch({
+          type: 'openChat',
+          payload: subscriptionData.data.chatSub.node.chat,
+        });
+        toast(
+          <div>
+            <h4>Message: New Chat created</h4>
+          </div>
+        );
       }
       if (mutation === 'UPDATED') {
-        // a message was updated
+        // a chat was updated
       }
       if (mutation === 'DELETE') {
-        // message was deleted
+        // chat was deleted
       }
-      dispatch({
-        type: 'openChat',
-        payload: subscriptionData.data.messageSub.node.chat,
-      });
-      toast(
-        <div>
-          <h4>
-            Message: {node.sender.firstName} {node.sender.lastName}
-          </h4>
-          <p>{node.content}</p>
-        </div>
-      );
     },
   });
   return null;

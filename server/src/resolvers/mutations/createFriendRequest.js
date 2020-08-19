@@ -6,7 +6,7 @@ async function createFriendRequest(parent, args, ctx, info) {
     throw new Error("You must be logged in!");
   }
   if (data.acceptingUser.connect.id == loggedInUserId) {
-    throw new Error("You cannot be friends with yourself you van twat!");
+    throw new Error("You cannot be friends with yourself you vain twat!");
   }
 
   // 1. get accepting user data
