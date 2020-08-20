@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Aug 20 2020 15:52:15 GMT+1200 (New Zealand Standard Time)
+# source: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
+# timestamp: Fri Aug 21 2020 11:55:32 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -5387,6 +5387,7 @@ type File implements Node {
   propertyOwnershipProof: Property
   propertyImages: Property
   propertyInsulationFile: Property
+  inspectionFiles: Inspection
 }
 
 """A connection to a list of items."""
@@ -5432,6 +5433,12 @@ input FileCreateInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
+}
+
+input FileCreateManyWithoutInspectionFilesInput {
+  create: [FileCreateWithoutInspectionFilesInput!]
+  connect: [FileWhereUniqueInput!]
 }
 
 input FileCreateManyWithoutPropertyImagesInput {
@@ -5474,6 +5481,41 @@ input FileCreateOneWithoutUserSignatureInput {
   connect: FileWhereUniqueInput
 }
 
+input FileCreateWithoutInspectionFilesInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+}
+
 input FileCreateWithoutPreTenancyProofOfAddressInput {
   id: ID
   filename: String!
@@ -5506,6 +5548,7 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutPropertyImagesInput {
@@ -5540,6 +5583,7 @@ input FileCreateWithoutPropertyImagesInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutPropertyInsulationFileInput {
@@ -5574,6 +5618,7 @@ input FileCreateWithoutPropertyInsulationFileInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutPropertyOwnershipProofInput {
@@ -5608,6 +5653,7 @@ input FileCreateWithoutPropertyOwnershipProofInput {
   userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutUserPhotoIdInput {
@@ -5642,6 +5688,7 @@ input FileCreateWithoutUserPhotoIdInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -5676,6 +5723,7 @@ input FileCreateWithoutUserProfilePhotoInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutUserProofOfAddressInput {
@@ -5710,6 +5758,7 @@ input FileCreateWithoutUserProofOfAddressInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 input FileCreateWithoutUserSignatureInput {
@@ -5744,6 +5793,7 @@ input FileCreateWithoutUserSignatureInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
 }
 
 """An edge in a connection."""
@@ -6739,6 +6789,7 @@ input FileUpdateInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateManyDataInput {
@@ -6791,6 +6842,18 @@ input FileUpdateManyMutationInput {
   secure_url: String
   access_mode: String
   original_filename: String
+}
+
+input FileUpdateManyWithoutInspectionFilesInput {
+  create: [FileCreateWithoutInspectionFilesInput!]
+  connect: [FileWhereUniqueInput!]
+  set: [FileWhereUniqueInput!]
+  disconnect: [FileWhereUniqueInput!]
+  delete: [FileWhereUniqueInput!]
+  update: [FileUpdateWithWhereUniqueWithoutInspectionFilesInput!]
+  updateMany: [FileUpdateManyWithWhereNestedInput!]
+  deleteMany: [FileScalarWhereInput!]
+  upsert: [FileUpsertWithWhereUniqueWithoutInspectionFilesInput!]
 }
 
 input FileUpdateManyWithoutPropertyImagesInput {
@@ -6873,6 +6936,40 @@ input FileUpdateOneWithoutUserSignatureInput {
   upsert: FileUpsertWithoutUserSignatureInput
 }
 
+input FileUpdateWithoutInspectionFilesDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+}
+
 input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   filename: String
   mimetype: String
@@ -6904,6 +7001,7 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutPropertyImagesDataInput {
@@ -6937,6 +7035,7 @@ input FileUpdateWithoutPropertyImagesDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutPropertyInsulationFileDataInput {
@@ -6970,6 +7069,7 @@ input FileUpdateWithoutPropertyInsulationFileDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutPropertyOwnershipProofDataInput {
@@ -7003,6 +7103,7 @@ input FileUpdateWithoutPropertyOwnershipProofDataInput {
   userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutUserPhotoIdDataInput {
@@ -7036,6 +7137,7 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -7069,6 +7171,7 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutUserProofOfAddressDataInput {
@@ -7102,6 +7205,7 @@ input FileUpdateWithoutUserProofOfAddressDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
 }
 
 input FileUpdateWithoutUserSignatureDataInput {
@@ -7135,6 +7239,12 @@ input FileUpdateWithoutUserSignatureDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
+}
+
+input FileUpdateWithWhereUniqueWithoutInspectionFilesInput {
+  where: FileWhereUniqueInput!
+  data: FileUpdateWithoutInspectionFilesDataInput!
 }
 
 input FileUpdateWithWhereUniqueWithoutPropertyImagesInput {
@@ -7175,6 +7285,12 @@ input FileUpsertWithoutUserProofOfAddressInput {
 input FileUpsertWithoutUserSignatureInput {
   update: FileUpdateWithoutUserSignatureDataInput!
   create: FileCreateWithoutUserSignatureInput!
+}
+
+input FileUpsertWithWhereUniqueWithoutInspectionFilesInput {
+  where: FileWhereUniqueInput!
+  update: FileUpdateWithoutInspectionFilesDataInput!
+  create: FileCreateWithoutInspectionFilesInput!
 }
 
 input FileUpsertWithWhereUniqueWithoutPropertyImagesInput {
@@ -8020,6 +8136,7 @@ input FileWhereInput {
   propertyOwnershipProof: PropertyWhereInput
   propertyImages: PropertyWhereInput
   propertyInsulationFile: PropertyWhereInput
+  inspectionFiles: InspectionWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -8499,12 +8616,15 @@ enum IndoorFeature {
 
 type Inspection implements Node {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+  property: Property
   lease: PropertyLease
   date: DateTime
   completedTime: DateTime
   completed: Boolean
-  updatedAt: DateTime!
-  createdAt: DateTime!
+  notes: String
+  files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
 }
 
 """A connection to a list of items."""
@@ -8522,7 +8642,10 @@ input InspectionCreateInput {
   date: DateTime
   completedTime: DateTime
   completed: Boolean
+  notes: String
+  property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  files: FileCreateManyWithoutInspectionFilesInput
 }
 
 input InspectionCreateManyWithoutLeaseInput {
@@ -8530,11 +8653,44 @@ input InspectionCreateManyWithoutLeaseInput {
   connect: [InspectionWhereUniqueInput!]
 }
 
+input InspectionCreateManyWithoutPropertyInput {
+  create: [InspectionCreateWithoutPropertyInput!]
+  connect: [InspectionWhereUniqueInput!]
+}
+
+input InspectionCreateOneWithoutFilesInput {
+  create: InspectionCreateWithoutFilesInput
+  connect: InspectionWhereUniqueInput
+}
+
+input InspectionCreateWithoutFilesInput {
+  id: ID
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  notes: String
+  property: PropertyCreateOneWithoutInspectionsInput
+  lease: PropertyLeaseCreateOneWithoutInspectionsInput
+}
+
 input InspectionCreateWithoutLeaseInput {
   id: ID
   date: DateTime
   completedTime: DateTime
   completed: Boolean
+  notes: String
+  property: PropertyCreateOneWithoutInspectionsInput
+  files: FileCreateManyWithoutInspectionFilesInput
+}
+
+input InspectionCreateWithoutPropertyInput {
+  id: ID
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  notes: String
+  lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  files: FileCreateManyWithoutInspectionFilesInput
 }
 
 """An edge in a connection."""
@@ -8549,25 +8705,28 @@ type InspectionEdge {
 enum InspectionOrderByInput {
   id_ASC
   id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
   date_ASC
   date_DESC
   completedTime_ASC
   completedTime_DESC
   completed_ASC
   completed_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
+  notes_ASC
+  notes_DESC
 }
 
 type InspectionPreviousValues {
   id: ID!
+  updatedAt: DateTime!
+  createdAt: DateTime!
   date: DateTime
   completedTime: DateTime
   completed: Boolean
-  updatedAt: DateTime!
-  createdAt: DateTime!
+  notes: String
 }
 
 input InspectionScalarWhereInput {
@@ -8619,6 +8778,50 @@ input InspectionScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   date: DateTime
 
   """All values that are not equal to given value."""
@@ -8667,50 +8870,46 @@ input InspectionScalarWhereInput {
 
   """All values that are not equal to given value."""
   completed_not: Boolean
-  updatedAt: DateTime
+  notes: String
 
   """All values that are not equal to given value."""
-  updatedAt_not: DateTime
+  notes_not: String
 
   """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
+  notes_in: [String!]
 
   """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
+  notes_not_in: [String!]
 
   """All values less than the given value."""
-  updatedAt_lt: DateTime
+  notes_lt: String
 
   """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
+  notes_lte: String
 
   """All values greater than the given value."""
-  updatedAt_gt: DateTime
+  notes_gt: String
 
   """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  createdAt: DateTime
+  notes_gte: String
 
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
+  """All values containing the given string."""
+  notes_contains: String
 
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
+  """All values not containing the given string."""
+  notes_not_contains: String
 
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
+  """All values starting with the given string."""
+  notes_starts_with: String
 
-  """All values less than the given value."""
-  createdAt_lt: DateTime
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
 
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
+  """All values ending with the given string."""
+  notes_ends_with: String
 
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
 }
 
 type InspectionSubscriptionPayload {
@@ -8754,19 +8953,24 @@ input InspectionUpdateInput {
   date: DateTime
   completedTime: DateTime
   completed: Boolean
+  notes: String
+  property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  files: FileUpdateManyWithoutInspectionFilesInput
 }
 
 input InspectionUpdateManyDataInput {
   date: DateTime
   completedTime: DateTime
   completed: Boolean
+  notes: String
 }
 
 input InspectionUpdateManyMutationInput {
   date: DateTime
   completedTime: DateTime
   completed: Boolean
+  notes: String
 }
 
 input InspectionUpdateManyWithoutLeaseInput {
@@ -8781,15 +8985,57 @@ input InspectionUpdateManyWithoutLeaseInput {
   upsert: [InspectionUpsertWithWhereUniqueWithoutLeaseInput!]
 }
 
+input InspectionUpdateManyWithoutPropertyInput {
+  create: [InspectionCreateWithoutPropertyInput!]
+  connect: [InspectionWhereUniqueInput!]
+  set: [InspectionWhereUniqueInput!]
+  disconnect: [InspectionWhereUniqueInput!]
+  delete: [InspectionWhereUniqueInput!]
+  update: [InspectionUpdateWithWhereUniqueWithoutPropertyInput!]
+  updateMany: [InspectionUpdateManyWithWhereNestedInput!]
+  deleteMany: [InspectionScalarWhereInput!]
+  upsert: [InspectionUpsertWithWhereUniqueWithoutPropertyInput!]
+}
+
 input InspectionUpdateManyWithWhereNestedInput {
   where: InspectionScalarWhereInput!
   data: InspectionUpdateManyDataInput!
+}
+
+input InspectionUpdateOneWithoutFilesInput {
+  create: InspectionCreateWithoutFilesInput
+  connect: InspectionWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: InspectionUpdateWithoutFilesDataInput
+  upsert: InspectionUpsertWithoutFilesInput
+}
+
+input InspectionUpdateWithoutFilesDataInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  notes: String
+  property: PropertyUpdateOneWithoutInspectionsInput
+  lease: PropertyLeaseUpdateOneWithoutInspectionsInput
 }
 
 input InspectionUpdateWithoutLeaseDataInput {
   date: DateTime
   completedTime: DateTime
   completed: Boolean
+  notes: String
+  property: PropertyUpdateOneWithoutInspectionsInput
+  files: FileUpdateManyWithoutInspectionFilesInput
+}
+
+input InspectionUpdateWithoutPropertyDataInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  notes: String
+  lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  files: FileUpdateManyWithoutInspectionFilesInput
 }
 
 input InspectionUpdateWithWhereUniqueWithoutLeaseInput {
@@ -8797,10 +9043,26 @@ input InspectionUpdateWithWhereUniqueWithoutLeaseInput {
   data: InspectionUpdateWithoutLeaseDataInput!
 }
 
+input InspectionUpdateWithWhereUniqueWithoutPropertyInput {
+  where: InspectionWhereUniqueInput!
+  data: InspectionUpdateWithoutPropertyDataInput!
+}
+
+input InspectionUpsertWithoutFilesInput {
+  update: InspectionUpdateWithoutFilesDataInput!
+  create: InspectionCreateWithoutFilesInput!
+}
+
 input InspectionUpsertWithWhereUniqueWithoutLeaseInput {
   where: InspectionWhereUniqueInput!
   update: InspectionUpdateWithoutLeaseDataInput!
   create: InspectionCreateWithoutLeaseInput!
+}
+
+input InspectionUpsertWithWhereUniqueWithoutPropertyInput {
+  where: InspectionWhereUniqueInput!
+  update: InspectionUpdateWithoutPropertyDataInput!
+  create: InspectionCreateWithoutPropertyInput!
 }
 
 input InspectionWhereInput {
@@ -8852,6 +9114,50 @@ input InspectionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   date: DateTime
 
   """All values that are not equal to given value."""
@@ -8900,51 +9206,51 @@ input InspectionWhereInput {
 
   """All values that are not equal to given value."""
   completed_not: Boolean
-  updatedAt: DateTime
+  notes: String
 
   """All values that are not equal to given value."""
-  updatedAt_not: DateTime
+  notes_not: String
 
   """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
+  notes_in: [String!]
 
   """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
+  notes_not_in: [String!]
 
   """All values less than the given value."""
-  updatedAt_lt: DateTime
+  notes_lt: String
 
   """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
+  notes_lte: String
 
   """All values greater than the given value."""
-  updatedAt_gt: DateTime
+  notes_gt: String
 
   """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  createdAt: DateTime
+  notes_gte: String
 
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
+  """All values containing the given string."""
+  notes_contains: String
 
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
+  """All values not containing the given string."""
+  notes_not_contains: String
 
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
+  """All values starting with the given string."""
+  notes_starts_with: String
 
-  """All values less than the given value."""
-  createdAt_lt: DateTime
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
 
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
+  """All values ending with the given string."""
+  notes_ends_with: String
 
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  property: PropertyWhereInput
   lease: PropertyLeaseWhereInput
+  files_every: FileWhereInput
+  files_some: FileWhereInput
+  files_none: FileWhereInput
 }
 
 input InspectionWhereUniqueInput {
@@ -14122,6 +14428,7 @@ type Property implements Node {
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist
   healthyHome: HealthyHome
+  inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
 }
 
 type PropertyAdvertisement implements Node {
@@ -14607,6 +14914,7 @@ input PropertyCreateInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateManyWithoutCreatorInput {
@@ -14646,6 +14954,11 @@ input PropertyCreateOneWithoutHealthyHomeInput {
 
 input PropertyCreateOneWithoutImagesInput {
   create: PropertyCreateWithoutImagesInput
+  connect: PropertyWhereUniqueInput
+}
+
+input PropertyCreateOneWithoutInspectionsInput {
+  create: PropertyCreateWithoutInspectionsInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -14747,6 +15060,7 @@ input PropertyCreateWithoutAccommodationInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutActivityInput {
@@ -14809,6 +15123,7 @@ input PropertyCreateWithoutActivityInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutAppraisalsInput {
@@ -14871,6 +15186,7 @@ input PropertyCreateWithoutAppraisalsInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutBankDetailsInput {
@@ -14933,6 +15249,7 @@ input PropertyCreateWithoutBankDetailsInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutCreatorInput {
@@ -14995,6 +15312,7 @@ input PropertyCreateWithoutCreatorInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutHealthyHomeInput {
@@ -15057,6 +15375,7 @@ input PropertyCreateWithoutHealthyHomeInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutImagesInput {
@@ -15111,6 +15430,70 @@ input PropertyCreateWithoutImagesInput {
   insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
   owners: UserCreateManyWithoutPropertiesInput
   creator: UserCreateOneWithoutCreatedPropertiesInput!
+  proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+  appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
+  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
+}
+
+input PropertyCreateWithoutInspectionsInput {
+  id: ID
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int!
+  maximumOccupants: Int
+  rent: Float!
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean!
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  manholeLocation: String
+  gardenToMaintain: Boolean
+  gardenResponsible: PartyResponsible
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
+  owners: UserCreateManyWithoutPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyWithoutPropertyImagesInput
   proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
   rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
   leases: PropertyLeaseCreateManyWithoutPropertyInput
@@ -15181,6 +15564,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutLeasesInput {
@@ -15243,6 +15627,7 @@ input PropertyCreateWithoutLeasesInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutOwnersInput {
@@ -15305,6 +15690,7 @@ input PropertyCreateWithoutOwnersInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutProofOfOwnershipInput {
@@ -15367,6 +15753,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutRehouserAssistInput {
@@ -15429,6 +15816,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutRentalApplicationsInput {
@@ -15491,6 +15879,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 input PropertyCreateWithoutViewingsInput {
@@ -15553,6 +15942,7 @@ input PropertyCreateWithoutViewingsInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
 }
 
 """An edge in a connection."""
@@ -18477,6 +18867,7 @@ input PropertyUpdateInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateManyDataInput {
@@ -18675,6 +19066,15 @@ input PropertyUpdateOneWithoutImagesInput {
   upsert: PropertyUpsertWithoutImagesInput
 }
 
+input PropertyUpdateOneWithoutInspectionsInput {
+  create: PropertyCreateWithoutInspectionsInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutInspectionsDataInput
+  upsert: PropertyUpsertWithoutInspectionsInput
+}
+
 input PropertyUpdateOneWithoutInsulationStatementFileInput {
   create: PropertyCreateWithoutInsulationStatementFileInput
   connect: PropertyWhereUniqueInput
@@ -18769,6 +19169,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutActivityDataInput {
@@ -18830,6 +19231,7 @@ input PropertyUpdateWithoutActivityDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutAppraisalsDataInput {
@@ -18891,6 +19293,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutBankDetailsDataInput {
@@ -18952,6 +19355,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutCreatorDataInput {
@@ -19013,6 +19417,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutHealthyHomeDataInput {
@@ -19074,6 +19479,7 @@ input PropertyUpdateWithoutHealthyHomeDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutImagesDataInput {
@@ -19127,6 +19533,69 @@ input PropertyUpdateWithoutImagesDataInput {
   insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
   owners: UserUpdateManyWithoutPropertiesInput
   creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+  appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
+  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutInspectionsDataInput {
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int
+  maximumOccupants: Int
+  rent: Float
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  manholeLocation: String
+  gardenToMaintain: Boolean
+  gardenResponsible: PartyResponsible
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  rehouserHandlesBills: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyWithoutPropertyImagesInput
   proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
   rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
@@ -19196,6 +19665,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
@@ -19257,6 +19727,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
@@ -19318,6 +19789,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutProofOfOwnershipDataInput {
@@ -19379,6 +19851,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutRehouserAssistDataInput {
@@ -19440,6 +19913,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutRentalApplicationsDataInput {
@@ -19501,6 +19975,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutViewingsDataInput {
@@ -19562,6 +20037,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
 input PropertyUpdateWithWhereUniqueWithoutCreatorInput {
@@ -19602,6 +20078,11 @@ input PropertyUpsertWithoutHealthyHomeInput {
 input PropertyUpsertWithoutImagesInput {
   update: PropertyUpdateWithoutImagesDataInput!
   create: PropertyCreateWithoutImagesInput!
+}
+
+input PropertyUpsertWithoutInspectionsInput {
+  update: PropertyUpdateWithoutInspectionsDataInput!
+  create: PropertyCreateWithoutInspectionsInput!
 }
 
 input PropertyUpsertWithoutInsulationStatementFileInput {
@@ -20406,6 +20887,9 @@ input PropertyWhereInput {
   viewings_none: ViewingWhereInput
   rehouserAssist: PropertyAssistWhereInput
   healthyHome: HealthyHomeWhereInput
+  inspections_every: InspectionWhereInput
+  inspections_some: InspectionWhereInput
+  inspections_none: InspectionWhereInput
 }
 
 input PropertyWhereUniqueInput {
