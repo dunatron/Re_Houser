@@ -57,6 +57,8 @@ const UserMenu = ({ me, user }) => {
 
   const [createChat, createChatProps] = useMutation(CREATE_CHAT_MUTATION);
 
+  if (!me) return 'No Me';
+
   return (
     <Fragment>
       <IconButton
@@ -109,6 +111,7 @@ const UserMenu = ({ me, user }) => {
                     type: 'openChat',
                     payload: createChat,
                   });
+                  setAnchorEl(null);
                 },
               });
             }}>

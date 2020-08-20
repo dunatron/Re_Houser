@@ -76,8 +76,8 @@ const DynamicPlacesSearch = dynamic(import('./places/widget'), {
 // THIS FOR NEXT JS
 // https://github.com/algolia/react-instantsearch/tree/master/examples/next
 
-var applicationId = '4QW4S8SE3J';
-var apiKey = '506b6dcf7516c20a1789e6eb9d9a5b39';
+var applicationId = process.env.ALGOLIA_APP_ID;
+var apiKey = process.env.ALGOLIA_API_KEY;
 const searchClient = algoliasearch(applicationId, apiKey);
 const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 

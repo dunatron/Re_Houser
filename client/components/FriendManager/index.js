@@ -13,7 +13,7 @@ const FriendManager = props => {
       <h1>Friend Manager</h1>
       <PendingFriendRequests me={me} />
       <h4>Search for users and add as friends</h4>
-      <UserSearch />
+      <UserSearch me={me} />
       {/* <SearchAndRequestFriend me={me} /> */}
 
       <FriendsList me={me} />

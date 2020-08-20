@@ -192,6 +192,7 @@ type File {
   propertyOwnershipProof: Property @relation(name: "ProofOfOwnership")
   propertyImages: Property @relation(name: "PropertyImages")
   propertyInsulationFile: Property @relation(name: "InsualtionStatementFile")
+  inspectionFiles: Inspection @relation(name: "InspectionFiles")
 }
 
 type Property implements PropertyInfo {
@@ -260,6 +261,7 @@ type Property implements PropertyInfo {
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
   healthyHome: HealthyHome @relation(name: "PropertyHealthy", link: TABLE)
+  inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
 }
 
 type HealthyHome {
@@ -332,12 +334,15 @@ type PropertyLease implements PropertyInfo {
 
 type Inspection {
   id: ID! @unique @id
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+  property: Property @relation(name: "PropertyInspections")
   lease: PropertyLease @relation(name: "LeaseInspections")
   date: DateTime
   completedTime: DateTime
   completed: Boolean
-  updatedAt: DateTime! @updatedAt
-  createdAt: DateTime! @createdAt
+  notes: String
+  files: [File] @relation(name: "InspectionFiles", link: TABLE)
 }
 
 # Must have a User, onCreate admin gets notified, does appraisal. New BE func to allow admins to sned appraisal

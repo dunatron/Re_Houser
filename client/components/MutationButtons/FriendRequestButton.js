@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage';
-import Button from '@material-ui/core/Button';
+import { Button, IconButton } from '@material-ui/core';
 import { toast } from 'react-toastify';
+
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const CREATE_FRIEND_REQUEST_MUTATION = gql`
   mutation CREATE_FRIEND_REQUEST_MUTATION($data: FriendRequestCreateInput!) {
@@ -73,12 +75,17 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
   return (
     <>
       <Error error={createFriendRequestProps.error} />
-      <Button
+      <IconButton
+        disabled={createFriendRequestProps.loading}
+        onClick={() => createFriendRequest()}>
+        <PersonAddIcon />
+      </IconButton>
+      {/* <Button
         variant="contained"
         disabled={createFriendRequestProps.loading}
         onClick={() => createFriendRequest()}>
         Send Friend request
-      </Button>
+      </Button> */}
     </>
   );
 };

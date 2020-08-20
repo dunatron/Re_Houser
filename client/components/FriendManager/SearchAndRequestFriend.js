@@ -83,7 +83,6 @@ const SearchAndRequestFriend = props => {
           console.log('Ohh cool a result => ', result);
           return (
             <div>
-              A result BACK
               <UserDetails me={me} user={result} />
               <FriendRequestButton me={me} requestFriendId={result.id} />
             </div>

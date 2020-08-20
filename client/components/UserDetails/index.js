@@ -26,21 +26,18 @@ const useStyles = makeStyles(theme => ({
 const UserDetails = ({ me, user }) => {
   const fullname = user.firstName + ' ' + user.lastName;
   return (
-    <Fragment>
-      <ListItem dense={true}>
-        <ListItemAvatar dense={true}>
-          <Avatar
-            alt={fullname}
-            src={user.profilePhoto ? user.profilePhoto.url : null}
-          />
-        </ListItemAvatar>
-        <ListItemText primary={fullname} secondary={'Friend'} dense={true} />
-        <ListItemSecondaryAction>
-          <UserMenu me={me} user={user} />
-        </ListItemSecondaryAction>
-      </ListItem>
-      <Divider variant="inset" component="li" />
-    </Fragment>
+    <ListItem dense={true}>
+      <ListItemAvatar dense={true}>
+        <Avatar
+          alt={fullname}
+          src={user.profilePhoto ? user.profilePhoto.url : null}
+        />
+      </ListItemAvatar>
+      <ListItemText primary={fullname} secondary={'Friend'} dense={true} />
+      <ListItemSecondaryAction>
+        <UserMenu me={me} user={user} />
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 };
 
