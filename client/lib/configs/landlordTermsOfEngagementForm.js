@@ -16,7 +16,7 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
         lat: 'lat',
         lng: 'lng',
       },
-      label: 'Property Location',
+      label: 'Your current address',
     },
     refConf: {
       required: {

@@ -42,23 +42,23 @@ const Location = props => {
 
   useEffect(() => {
     for (const [key, value] of Object.entries(config.fieldProps.fieldMaps)) {
-      // if mapToObjectKey exists, put the fields inside that object
       if (mapToObjectKey) {
         const str = `${mapToObjectKey}.${value}`;
-        // console.log('REGISTERED STIRNG +++++++> ', str);
+
         register({ name: str }, { ...config.refConf });
       } else {
         register({ name: value }, { ...config.refConf });
       }
     }
-    // maybe see if we can getfaultValues from the value of mapped keys and set those values as defaults
-    console.log('Location STuff: defaultLocation => ', defaultLocation);
   }, [register]);
 
   return (
     <>
       {fieldError ? <Typography color="error">{fieldError}</Typography> : null}
       <FieldError errors={errors} name={config.fieldProps.name} />
+      {config.fieldProps.label && (
+        <Typography variant="body1">{config.fieldProps.label}</Typography>
+      )}
       <LocationPicker
         defaultLocation={defaultLocation}
         selection={data => {
