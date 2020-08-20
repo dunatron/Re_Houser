@@ -92,11 +92,12 @@ const AccountMenu = ({ me = null }) => {
             ]
           : [
               <MenuItem
-                onClick={() =>
+                onClick={e => {
+                  handleClose(e);
                   dispatch({
                     type: 'openLoginModal',
-                  })
-                }>
+                  });
+                }}>
                 Login
               </MenuItem>,
             ]}

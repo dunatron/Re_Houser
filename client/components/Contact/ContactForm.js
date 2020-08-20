@@ -3,6 +3,7 @@ import CONTACT_FORM_CONF from '../../lib/configs/contactFormConf';
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
 import { Typography } from '@material-ui/core';
+import { CEO_DETAILS } from '../../config';
 
 const ContactForm = () => {
   const handleSubmit = data => {
@@ -26,7 +27,7 @@ const ContactForm = () => {
             justifyContent: 'center',
           }}>
           <PhoneIcon style={{ marginRight: '4px' }} />
-          <Typography>0212439998</Typography>
+          <Typography>{CEO_DETAILS.phone}</Typography>
         </div>
         <div
           style={{
@@ -36,7 +37,7 @@ const ContactForm = () => {
             marginBottom: '8px',
           }}>
           <EmailIcon style={{ marginRight: '4px' }} />{' '}
-          <Typography>admin@rehouser.co.nz</Typography>
+          <Typography>{CEO_DETAILS.email}</Typography>
         </div>
       </div>
       <FormCreator

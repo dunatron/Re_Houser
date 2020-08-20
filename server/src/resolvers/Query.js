@@ -27,6 +27,7 @@ const insulationForm = require("./querys/insulationForm");
 const rentalAppraisals = require("./querys/rentalAppraisals");
 const rentalAppraisal = require("./querys/rentalAppraisal");
 const viewings = require("./querys/viewings");
+const inspection = require("./querys/inspection");
 
 const Query = {
   me,
@@ -55,6 +56,7 @@ const Query = {
   rentalAppraisals,
   rentalAppraisal,
   viewings,
+  inspection
 };
 
 module.exports = Query;

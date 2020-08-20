@@ -137,6 +137,11 @@ type Mutation {
     data: ViewingUpdateInput!
     where: ViewingWhereUniqueInput!
   ): Viewing
+  createInspection(data: InspectionCreateInput!): Inspection!
+  updateInspection(
+    data: InspectionUpdateInput!
+    where: InspectionWhereUniqueInput!
+  ): Inspection
 }
 
 type Subscription {
@@ -311,4 +316,14 @@ type Query {
     first: Int
     last: Int
   ): PropertyConnection!
+  inspectionsConnection(
+    where: InspectionWhereInput
+    orderBy: InspectionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): InspectionConnection!
+  inspection(where: InspectionWhereUniqueInput!): Inspection
 }

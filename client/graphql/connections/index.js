@@ -1,9 +1,11 @@
 import { RENTAL_APPRAISALS_CONNECTION_QUERY } from './rentalAppraisalsConnection';
 import { RENTAL_APPLICATIONS_CONNECTION_QUERY } from './rentalApplicationsConnection';
 import { PROPERTIES_CONNECTION_QUERY } from './propertiesConnection';
+import { INSPECTIONS_CONNECTION_QUERY } from './inspectionsConnection';
 
 export {
   RENTAL_APPRAISALS_CONNECTION_QUERY,
   RENTAL_APPLICATIONS_CONNECTION_QUERY,
   PROPERTIES_CONNECTION_QUERY,
+  INSPECTIONS_CONNECTION_QUERY,
 };

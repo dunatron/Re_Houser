@@ -1,3 +1,5 @@
+import TextInput from '../../Inputs/TextInput';
+
 const DateTimeInput = props => {
   const {
     config,
@@ -10,6 +12,7 @@ const DateTimeInput = props => {
     defaultValues,
     defaultValue,
     updateCacheOnRemovedFile,
+    fieldError,
   } = props;
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
@@ -20,8 +23,8 @@ const DateTimeInput = props => {
       {...fieldProps}
       defaultValue={defaultValue}
       inputRef={register(refConf)}
-      error={extractErrorFromErrors(errors, name) ? true : false}
-      helperText={extractErrorFromErrors(errors, name)}
+      error={fieldError ? true : false}
+      helperText={fieldError}
       style={{ marginTop: 0 }}
       type={fieldProps.type ? fieldProps.type : 'datetime-local'}
       InputLabelProps={{

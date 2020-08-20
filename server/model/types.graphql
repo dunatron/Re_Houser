@@ -327,6 +327,17 @@ type PropertyLease implements PropertyInfo {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  inspections: [Inspection] @relation(name: "LeaseInspections", link: TABLE)
+}
+
+type Inspection {
+  id: ID! @unique @id
+  lease: PropertyLease @relation(name: "LeaseInspections")
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 # Must have a User, onCreate admin gets notified, does appraisal. New BE func to allow admins to sned appraisal

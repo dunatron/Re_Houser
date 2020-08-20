@@ -44,6 +44,8 @@ const updateViewing = require("./mutations/updateViewing");
 const deleteViewing = require("./mutations/deleteViewing");
 const confirmEmail = require("./mutations/confirmEmail");
 const resendConfirmEmail = require("./mutations/resendConfirmEmail");
+const createInspection = require("./mutations/createInspection");
+const updateInspection = require("./mutations/updateInspection");
 
 // a collection of our business logic mutations
 const mutations = {
@@ -92,7 +94,9 @@ const mutations = {
   createViewing,
   updateViewing,
   deleteViewing,
-  resendConfirmEmail
+  resendConfirmEmail,
+  createInspection,
+  updateInspection
 };
 
 module.exports = mutations;

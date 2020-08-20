@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Aug 17 2020 14:14:46 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu Aug 20 2020 15:52:15 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1746,6 +1746,10 @@ type AggregateFriendRequest {
 }
 
 type AggregateHealthyHome {
+  count: Int!
+}
+
+type AggregateInspection {
   count: Int!
 }
 
@@ -8493,6 +8497,460 @@ enum IndoorFeature {
   ATTACHED_GARAGE
 }
 
+type Inspection implements Node {
+  id: ID!
+  lease: PropertyLease
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type InspectionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [InspectionEdge]!
+  aggregate: AggregateInspection!
+}
+
+input InspectionCreateInput {
+  id: ID
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  lease: PropertyLeaseCreateOneWithoutInspectionsInput
+}
+
+input InspectionCreateManyWithoutLeaseInput {
+  create: [InspectionCreateWithoutLeaseInput!]
+  connect: [InspectionWhereUniqueInput!]
+}
+
+input InspectionCreateWithoutLeaseInput {
+  id: ID
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+}
+
+"""An edge in a connection."""
+type InspectionEdge {
+  """The item at the end of the edge."""
+  node: Inspection!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum InspectionOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  completedTime_ASC
+  completedTime_DESC
+  completed_ASC
+  completed_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type InspectionPreviousValues {
+  id: ID!
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input InspectionScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InspectionScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InspectionScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InspectionScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  completedTime: DateTime
+
+  """All values that are not equal to given value."""
+  completedTime_not: DateTime
+
+  """All values that are contained in given list."""
+  completedTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  completedTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  completedTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  completedTime_lte: DateTime
+
+  """All values greater than the given value."""
+  completedTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  completedTime_gte: DateTime
+  completed: Boolean
+
+  """All values that are not equal to given value."""
+  completed_not: Boolean
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+type InspectionSubscriptionPayload {
+  mutation: MutationType!
+  node: Inspection
+  updatedFields: [String!]
+  previousValues: InspectionPreviousValues
+}
+
+input InspectionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InspectionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InspectionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InspectionSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: InspectionWhereInput
+}
+
+input InspectionUpdateInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+}
+
+input InspectionUpdateManyDataInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+}
+
+input InspectionUpdateManyMutationInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+}
+
+input InspectionUpdateManyWithoutLeaseInput {
+  create: [InspectionCreateWithoutLeaseInput!]
+  connect: [InspectionWhereUniqueInput!]
+  set: [InspectionWhereUniqueInput!]
+  disconnect: [InspectionWhereUniqueInput!]
+  delete: [InspectionWhereUniqueInput!]
+  update: [InspectionUpdateWithWhereUniqueWithoutLeaseInput!]
+  updateMany: [InspectionUpdateManyWithWhereNestedInput!]
+  deleteMany: [InspectionScalarWhereInput!]
+  upsert: [InspectionUpsertWithWhereUniqueWithoutLeaseInput!]
+}
+
+input InspectionUpdateManyWithWhereNestedInput {
+  where: InspectionScalarWhereInput!
+  data: InspectionUpdateManyDataInput!
+}
+
+input InspectionUpdateWithoutLeaseDataInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+}
+
+input InspectionUpdateWithWhereUniqueWithoutLeaseInput {
+  where: InspectionWhereUniqueInput!
+  data: InspectionUpdateWithoutLeaseDataInput!
+}
+
+input InspectionUpsertWithWhereUniqueWithoutLeaseInput {
+  where: InspectionWhereUniqueInput!
+  update: InspectionUpdateWithoutLeaseDataInput!
+  create: InspectionCreateWithoutLeaseInput!
+}
+
+input InspectionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InspectionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InspectionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InspectionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  completedTime: DateTime
+
+  """All values that are not equal to given value."""
+  completedTime_not: DateTime
+
+  """All values that are contained in given list."""
+  completedTime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  completedTime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  completedTime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  completedTime_lte: DateTime
+
+  """All values greater than the given value."""
+  completedTime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  completedTime_gte: DateTime
+  completed: Boolean
+
+  """All values that are not equal to given value."""
+  completed_not: Boolean
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  lease: PropertyLeaseWhereInput
+}
+
+input InspectionWhereUniqueInput {
+  id: ID
+}
+
 enum InsulationConditionTypes {
   REASONABLE
   NOT_REASONABLE
@@ -10890,6 +11348,7 @@ type Mutation {
   createPropertyAssist(data: PropertyAssistCreateInput!): PropertyAssist!
   createViewing(data: ViewingCreateInput!): Viewing!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
+  createInspection(data: InspectionCreateInput!): Inspection!
   createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
   createAccommodation(data: AccommodationCreateInput!): Accommodation!
   createRentalGroupApplicant(data: RentalGroupApplicantCreateInput!): RentalGroupApplicant!
@@ -10918,6 +11377,7 @@ type Mutation {
   updatePropertyAssist(data: PropertyAssistUpdateInput!, where: PropertyAssistWhereUniqueInput!): PropertyAssist
   updateViewing(data: ViewingUpdateInput!, where: ViewingWhereUniqueInput!): Viewing
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
+  updateInspection(data: InspectionUpdateInput!, where: InspectionWhereUniqueInput!): Inspection
   updateRentalAppraisal(data: RentalAppraisalUpdateInput!, where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   updateAccommodation(data: AccommodationUpdateInput!, where: AccommodationWhereUniqueInput!): Accommodation
   updateRentalGroupApplicant(data: RentalGroupApplicantUpdateInput!, where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -10945,6 +11405,7 @@ type Mutation {
   deletePropertyAssist(where: PropertyAssistWhereUniqueInput!): PropertyAssist
   deleteViewing(where: ViewingWhereUniqueInput!): Viewing
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
+  deleteInspection(where: InspectionWhereUniqueInput!): Inspection
   deleteRentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   deleteAccommodation(where: AccommodationWhereUniqueInput!): Accommodation
   deleteRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -10973,6 +11434,7 @@ type Mutation {
   upsertPropertyAssist(where: PropertyAssistWhereUniqueInput!, create: PropertyAssistCreateInput!, update: PropertyAssistUpdateInput!): PropertyAssist!
   upsertViewing(where: ViewingWhereUniqueInput!, create: ViewingCreateInput!, update: ViewingUpdateInput!): Viewing!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
+  upsertInspection(where: InspectionWhereUniqueInput!, create: InspectionCreateInput!, update: InspectionUpdateInput!): Inspection!
   upsertRentalAppraisal(where: RentalAppraisalWhereUniqueInput!, create: RentalAppraisalCreateInput!, update: RentalAppraisalUpdateInput!): RentalAppraisal!
   upsertAccommodation(where: AccommodationWhereUniqueInput!, create: AccommodationCreateInput!, update: AccommodationUpdateInput!): Accommodation!
   upsertRentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!, create: RentalGroupApplicantCreateInput!, update: RentalGroupApplicantUpdateInput!): RentalGroupApplicant!
@@ -10999,6 +11461,7 @@ type Mutation {
   updateManyPropertyAssists(data: PropertyAssistUpdateManyMutationInput!, where: PropertyAssistWhereInput): BatchPayload!
   updateManyViewings(data: ViewingUpdateManyMutationInput!, where: ViewingWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
+  updateManyInspections(data: InspectionUpdateManyMutationInput!, where: InspectionWhereInput): BatchPayload!
   updateManyRentalAppraisals(data: RentalAppraisalUpdateManyMutationInput!, where: RentalAppraisalWhereInput): BatchPayload!
   updateManyAccommodations(data: AccommodationUpdateManyMutationInput!, where: AccommodationWhereInput): BatchPayload!
   updateManyRentalGroupApplicants(data: RentalGroupApplicantUpdateManyMutationInput!, where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -11026,6 +11489,7 @@ type Mutation {
   deleteManyPropertyAssists(where: PropertyAssistWhereInput): BatchPayload!
   deleteManyViewings(where: ViewingWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
+  deleteManyInspections(where: InspectionWhereInput): BatchPayload!
   deleteManyRentalAppraisals(where: RentalAppraisalWhereInput): BatchPayload!
   deleteManyAccommodations(where: AccommodationWhereInput): BatchPayload!
   deleteManyRentalGroupApplicants(where: RentalGroupApplicantWhereInput): BatchPayload!
@@ -15137,6 +15601,7 @@ type PropertyLease implements Node {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
+  inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
 }
 
 """A connection to a list of items."""
@@ -15192,6 +15657,7 @@ input PropertyLeaseCreateInput {
   lessors: LessorCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
   wallet: WalletCreateOneWithoutLeaseInput
+  inspections: InspectionCreateManyWithoutLeaseInput
 }
 
 input PropertyLeaseCreateManyWithoutPropertyInput {
@@ -15201,6 +15667,11 @@ input PropertyLeaseCreateManyWithoutPropertyInput {
 
 input PropertyLeaseCreateOneWithoutActivityInput {
   create: PropertyLeaseCreateWithoutActivityInput
+  connect: PropertyLeaseWhereUniqueInput
+}
+
+input PropertyLeaseCreateOneWithoutInspectionsInput {
+  create: PropertyLeaseCreateWithoutInspectionsInput
   connect: PropertyLeaseWhereUniqueInput
 }
 
@@ -15261,6 +15732,44 @@ input PropertyLeaseCreateWithoutActivityInput {
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
   wallet: WalletCreateOneWithoutLeaseInput
+  inspections: InspectionCreateManyWithoutLeaseInput
+}
+
+input PropertyLeaseCreateWithoutInspectionsInput {
+  id: ID
+  placeId: String!
+  stage: LeaseStage!
+  canAcceptPayment: Boolean
+  rooms: Int!
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  rent: Float!
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  indoorFeatures: PropertyLeaseCreateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseCreateoutdoorFeaturesInput
+  pets: PropertyLeaseCreatepetsInput
+  chattels: PropertyLeaseCreatechattelsInput
+  property: PropertyCreateOneWithoutLeasesInput!
+  lessees: LesseeCreateManyWithoutLeaseInput
+  lessors: LessorCreateManyWithoutLeaseInput
+  activity: ActivityCreateManyWithoutPropertyLeaseInput
+  wallet: WalletCreateOneWithoutLeaseInput
 }
 
 input PropertyLeaseCreateWithoutLesseesInput {
@@ -15297,6 +15806,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
   lessors: LessorCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
   wallet: WalletCreateOneWithoutLeaseInput
+  inspections: InspectionCreateManyWithoutLeaseInput
 }
 
 input PropertyLeaseCreateWithoutLessorsInput {
@@ -15333,6 +15843,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
   lessees: LesseeCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
   wallet: WalletCreateOneWithoutLeaseInput
+  inspections: InspectionCreateManyWithoutLeaseInput
 }
 
 input PropertyLeaseCreateWithoutPropertyInput {
@@ -15369,6 +15880,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
   lessors: LessorCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
   wallet: WalletCreateOneWithoutLeaseInput
+  inspections: InspectionCreateManyWithoutLeaseInput
 }
 
 input PropertyLeaseCreateWithoutWalletInput {
@@ -15405,6 +15917,7 @@ input PropertyLeaseCreateWithoutWalletInput {
   lessees: LesseeCreateManyWithoutLeaseInput
   lessors: LessorCreateManyWithoutLeaseInput
   activity: ActivityCreateManyWithoutPropertyLeaseInput
+  inspections: InspectionCreateManyWithoutLeaseInput
 }
 
 """An edge in a connection."""
@@ -16077,6 +16590,7 @@ input PropertyLeaseUpdateInput {
   lessors: LessorUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
   wallet: WalletUpdateOneWithoutLeaseInput
+  inspections: InspectionUpdateManyWithoutLeaseInput
 }
 
 input PropertyLeaseUpdateManyDataInput {
@@ -16167,6 +16681,15 @@ input PropertyLeaseUpdateOneWithoutActivityInput {
   upsert: PropertyLeaseUpsertWithoutActivityInput
 }
 
+input PropertyLeaseUpdateOneWithoutInspectionsInput {
+  create: PropertyLeaseCreateWithoutInspectionsInput
+  connect: PropertyLeaseWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyLeaseUpdateWithoutInspectionsDataInput
+  upsert: PropertyLeaseUpsertWithoutInspectionsInput
+}
+
 input PropertyLeaseUpdateOneWithoutLesseesInput {
   create: PropertyLeaseCreateWithoutLesseesInput
   connect: PropertyLeaseWhereUniqueInput
@@ -16235,6 +16758,43 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
   wallet: WalletUpdateOneWithoutLeaseInput
+  inspections: InspectionUpdateManyWithoutLeaseInput
+}
+
+input PropertyLeaseUpdateWithoutInspectionsDataInput {
+  placeId: String
+  stage: LeaseStage
+  canAcceptPayment: Boolean
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  rent: Float
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  location: String
+  locationLat: Float
+  locationLng: Float
+  tenancyType: TenancyType
+  petsAllowed: Boolean
+  maximumOccupants: Int
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  indoorFeatures: PropertyLeaseUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyLeaseUpdateoutdoorFeaturesInput
+  pets: PropertyLeaseUpdatepetsInput
+  chattels: PropertyLeaseUpdatechattelsInput
+  property: PropertyUpdateOneRequiredWithoutLeasesInput
+  lessees: LesseeUpdateManyWithoutLeaseInput
+  lessors: LessorUpdateManyWithoutLeaseInput
+  activity: ActivityUpdateManyWithoutPropertyLeaseInput
+  wallet: WalletUpdateOneWithoutLeaseInput
 }
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
@@ -16270,6 +16830,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
   lessors: LessorUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
   wallet: WalletUpdateOneWithoutLeaseInput
+  inspections: InspectionUpdateManyWithoutLeaseInput
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
@@ -16305,6 +16866,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
   lessees: LesseeUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
   wallet: WalletUpdateOneWithoutLeaseInput
+  inspections: InspectionUpdateManyWithoutLeaseInput
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
@@ -16340,6 +16902,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
   lessors: LessorUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
   wallet: WalletUpdateOneWithoutLeaseInput
+  inspections: InspectionUpdateManyWithoutLeaseInput
 }
 
 input PropertyLeaseUpdateWithoutWalletDataInput {
@@ -16375,6 +16938,7 @@ input PropertyLeaseUpdateWithoutWalletDataInput {
   lessees: LesseeUpdateManyWithoutLeaseInput
   lessors: LessorUpdateManyWithoutLeaseInput
   activity: ActivityUpdateManyWithoutPropertyLeaseInput
+  inspections: InspectionUpdateManyWithoutLeaseInput
 }
 
 input PropertyLeaseUpdateWithWhereUniqueWithoutPropertyInput {
@@ -16385,6 +16949,11 @@ input PropertyLeaseUpdateWithWhereUniqueWithoutPropertyInput {
 input PropertyLeaseUpsertWithoutActivityInput {
   update: PropertyLeaseUpdateWithoutActivityDataInput!
   create: PropertyLeaseCreateWithoutActivityInput!
+}
+
+input PropertyLeaseUpsertWithoutInspectionsInput {
+  update: PropertyLeaseUpdateWithoutInspectionsDataInput!
+  create: PropertyLeaseCreateWithoutInspectionsInput!
 }
 
 input PropertyLeaseUpsertWithoutLesseesInput {
@@ -16908,6 +17477,9 @@ input PropertyLeaseWhereInput {
   activity_some: ActivityWhereInput
   activity_none: ActivityWhereInput
   wallet: WalletWhereInput
+  inspections_every: InspectionWhereInput
+  inspections_some: InspectionWhereInput
+  inspections_none: InspectionWhereInput
 }
 
 input PropertyLeaseWhereUniqueInput {
@@ -19856,6 +20428,7 @@ type Query {
   propertyAssists(where: PropertyAssistWhereInput, orderBy: PropertyAssistOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyAssist]!
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
+  inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection]!
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal]!
   accommodations(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Accommodation]!
   rentalGroupApplicants(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalGroupApplicant]!
@@ -19884,6 +20457,7 @@ type Query {
   propertyAssist(where: PropertyAssistWhereUniqueInput!): PropertyAssist
   viewing(where: ViewingWhereUniqueInput!): Viewing
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
+  inspection(where: InspectionWhereUniqueInput!): Inspection
   rentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal
   accommodation(where: AccommodationWhereUniqueInput!): Accommodation
   rentalGroupApplicant(where: RentalGroupApplicantWhereUniqueInput!): RentalGroupApplicant
@@ -19912,6 +20486,7 @@ type Query {
   propertyAssistsConnection(where: PropertyAssistWhereInput, orderBy: PropertyAssistOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyAssistConnection!
   viewingsConnection(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ViewingConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
+  inspectionsConnection(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InspectionConnection!
   rentalAppraisalsConnection(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalAppraisalConnection!
   accommodationsConnection(where: AccommodationWhereInput, orderBy: AccommodationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AccommodationConnection!
   rentalGroupApplicantsConnection(where: RentalGroupApplicantWhereInput, orderBy: RentalGroupApplicantOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RentalGroupApplicantConnection!
@@ -22681,6 +23256,7 @@ type Subscription {
   propertyAssist(where: PropertyAssistSubscriptionWhereInput): PropertyAssistSubscriptionPayload
   viewing(where: ViewingSubscriptionWhereInput): ViewingSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload
+  inspection(where: InspectionSubscriptionWhereInput): InspectionSubscriptionPayload
   rentalAppraisal(where: RentalAppraisalSubscriptionWhereInput): RentalAppraisalSubscriptionPayload
   accommodation(where: AccommodationSubscriptionWhereInput): AccommodationSubscriptionPayload
   rentalGroupApplicant(where: RentalGroupApplicantSubscriptionWhereInput): RentalGroupApplicantSubscriptionPayload

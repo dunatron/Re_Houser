@@ -14,6 +14,7 @@ import Leases from './Leases';
 import Applications from './Applications';
 import Activity from '../ActivityManager/Activity';
 import PropertyViewings from './Viewings';
+import Inspections from './Inspections';
 import ShareProperty from './Share';
 // import Badge from "@material-ui/core/Badge"
 import Badge from '../../styles/Badge';
@@ -24,6 +25,7 @@ import { toast } from 'react-toastify';
 import Loader from '../Loader/index';
 import PageHeader from '../PageHeader';
 import TabContainer from '../Account/TabContainer';
+import InspectionsTable from '../Tables/InspectionsTable';
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -146,6 +148,7 @@ const PropertyDetails = ({ id, location, me }) => {
           <Tab label="Leases" />
           <Tab label="Activity" />
           <Tab label="Viewings" />
+          <Tab label="Inspections" />
           <Tab label="Share" />
         </Tabs>
 
@@ -184,6 +187,11 @@ const PropertyDetails = ({ id, location, me }) => {
           </TabContainer>
         )}
         {tabIndex === 5 && (
+          <TabContainer>
+            <Inspections property={property} me={me} />
+          </TabContainer>
+        )}
+        {tabIndex === 6 && (
           <TabContainer>
             <ShareProperty property={property} me={me} />
           </TabContainer>

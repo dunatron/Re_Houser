@@ -4,6 +4,7 @@ import RehouserPaper from '../../../styles/RehouserPaper';
 // components
 import LeaseWallet from '../../LeaseWallet';
 import DownloadLease from '../DownloadLease';
+import InspectionsTable from '../../Tables/InspectionsTable';
 
 const StagePaid = ({ lease, me }) => {
   return (
@@ -28,25 +29,15 @@ const StagePaid = ({ lease, me }) => {
         </Typography>
         <LeaseWallet lease={lease} me={me} />
       </RehouserPaper>
+      {/* Inspections */}
+      <RehouserPaper>
+        <Typography variant="h5" gutterBottom>
+          Inspections
+        </Typography>
+        <InspectionsTable />
+      </RehouserPaper>
     </>
   );
 };
-
-// const StagePaid = ({ lease, me }) => {
-//   return (
-//     <RehouserPaper>
-//       <Typography variant="h1" gutterBottom>
-//         Active Lease
-//       </Typography>
-//       <Typography>Lease is currently fully active</Typography>
-//       {/* Download Lease */}
-//       <Typography variant="h5">Download Lease</Typography>
-//       <DownloadLease lease={lease} me={me} />
-//       {/* Payments */}
-//       <Typography variant="h5">Payments</Typography>
-//       <LeaseWallet lease={lease} me={me} />
-//     </RehouserPaper>
-//   );
-// };
 
 export default StagePaid;

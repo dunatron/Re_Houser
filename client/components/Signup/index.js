@@ -15,6 +15,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import ButtonLoader from '../Loader/ButtonLoader';
 import ConfinedHeight from '../../components/ConfinedHeight';
 import SignupTerms from '../Terms/SignupTerms';
+import PhoneInput from '../Inputs/PhoneInput';
 
 const Signup = props => {
   const recaptchaRef = useRef();
@@ -151,7 +152,26 @@ const Signup = props => {
           value={state.lastName}
           onChange={saveToState}
         />
-        <TextInput
+        <PhoneInput
+          id="signup-phone"
+          defaultCountry={'nz'}
+          // regions={['oceania']}
+          inputProps={{
+            'data-cy': 'signup-phone',
+          }}
+          name="phone"
+          label="Phone Number"
+          fullWidth={true}
+          placeholder="please enter your phone number"
+          onChange={v => {
+            console.log('Mui phone change => ', v);
+            setState({
+              ...state,
+              phone: v,
+            });
+          }}
+        />
+        {/* <TextInput
           id="signup-phone"
           inputProps={{
             'data-cy': 'signup-phone',
@@ -163,7 +183,7 @@ const Signup = props => {
           placeholder="please enter your phone number"
           value={state.phone}
           onChange={saveToState}
-        />
+        /> */}
         <TextInput
           id="signup-password"
           inputProps={{

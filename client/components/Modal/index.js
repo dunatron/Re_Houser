@@ -74,7 +74,6 @@ const Modal = props => {
   const headerNode = useRef();
   const classes = useStyles();
   // If Open we need to make the body overflow hidden, to save our place and not scroll body when modal is open
-  // const mainDiv = document.body;
 
   useEffect(() => {
     document.addEventListener('mousedown', handleModalClick);

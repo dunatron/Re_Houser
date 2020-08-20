@@ -30,6 +30,7 @@ import BankAccount from './BankAccount';
 import Int from './Int';
 import Float from './Float';
 import DateField from './Date';
+import DateTimeInput from './DateTime';
 import AcceptTerms from './AcceptTerms';
 import Info from './Info';
 import Signature from './Signature';

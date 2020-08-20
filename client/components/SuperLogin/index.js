@@ -78,12 +78,13 @@ const LoginPage = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="default" dense>
         <Tabs
           value={tabIndex}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
+          dense
           variant="fullWidth">
           <Tab
             label="Sign Up "
