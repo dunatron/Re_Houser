@@ -31,7 +31,12 @@ const CreatePropertyComponent = props => {
   });
   const [submittedData, setSubmittedData] = useState({});
 
-  if (!me) return 'You must be logged in to create a property appraisal';
+  if (!me)
+    return (
+      <Typography gutterBottom variant="body1">
+        You must be logged in to create a property appraisal
+      </Typography>
+    );
 
   const [loadAppraisal, { called, loading, data, error }] = useLazyQuery(
     SINGLE_RENTAL_APPRAISAL_QUERY,
@@ -54,7 +59,9 @@ const CreatePropertyComponent = props => {
     setIsChecking(false);
     toast.success(
       <div>
-        <p>New Property Created</p>
+        <Typography gutterBottom variant="h6">
+          New Property Created
+        </Typography>
         <ChangeRouteButton
           title="Go to property"
           route="/properties/property"
@@ -197,7 +204,11 @@ const CreatePropertyComponent = props => {
 
       {me.acceptedTermsOfEngagement && (
         <>
-          {waitForLazy && <div>Loading in the appraisal data first</div>}
+          {waitForLazy && (
+            <Typography gutterBottom variant="h6">
+              Loading in the appraisal data first
+            </Typography>
+          )}
 
           <Error error={error} />
           {!waitForLazy && (

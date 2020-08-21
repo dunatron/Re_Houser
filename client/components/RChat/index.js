@@ -11,7 +11,9 @@ const getChatImageUrl = (chat, user) => {
 const RChat = props => {
   const { chat, me, onSendMessage } = props;
 
-  const messages = props.messages.map((msg, idx) => ({
+  const messageSet = Array.from(new Set(props.messages)); // removes duplicates
+
+  const messages = messageSet.map((msg, idx) => ({
     _id: msg.id,
     text: msg.content,
     user: {
@@ -21,6 +23,17 @@ const RChat = props => {
     },
     createdAt: new Date(msg.createdAt),
   }));
+
+  // const messages = props.messages.map((msg, idx) => ({
+  //   _id: msg.id,
+  //   text: msg.content,
+  //   user: {
+  //     _id: msg.sender.id,
+  //     name: `${msg.sender.firstName} ${msg.sender.lastName}`,
+  //     avatar: getChatImageUrl(chat, msg.sender),
+  //   },
+  //   createdAt: new Date(msg.createdAt),
+  // }));
 
   const onSend = newMsg => {
     console.log('New message => ', newMsg);

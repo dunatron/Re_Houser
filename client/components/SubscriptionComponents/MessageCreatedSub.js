@@ -22,7 +22,6 @@ const MessageCreatedSub = ({ me }) => {
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
-      alert('Message Created SUb Does this too');
       const {
         data: {
           messageSub: { mutation, node, updatedFields, previousValues },
@@ -52,14 +51,14 @@ const MessageCreatedSub = ({ me }) => {
         type: 'openChat',
         payload: subscriptionData.data.messageSub.node.chat,
       });
-      toast(
-        <div>
-          <h4>
-            Message: {node.sender.firstName} {node.sender.lastName}
-          </h4>
-          <p>{node.content}</p>
-        </div>
-      );
+      // toast(
+      //   <div>
+      //     <h4>
+      //       Message: {node.sender.firstName} {node.sender.lastName}
+      //     </h4>
+      //     <p>{node.content}</p>
+      //   </div>
+      // );
     },
   });
   return null;

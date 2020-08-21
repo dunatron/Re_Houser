@@ -114,7 +114,8 @@ export const writeMessage = async (client, message) => {
     data: {
       messagesConnection: {
         ...data.messagesConnection,
-        edges: data.messagesConnection.edges.concat(pagedMesssage),
+        edges: [pagedMesssage, ...data.messagesConnection.edges],
+        // edges: data.messagesConnection.edges.concat(pagedMesssage),
       },
     },
   });
