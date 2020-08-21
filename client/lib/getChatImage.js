@@ -17,7 +17,7 @@ const getChatImage = (chat, me) => {
       return <Avatar alt={`${p.firstName} ${p.lastName}`} />;
     }, '');
   }
-  return 'How to name a group chat';
+  return 'grp chat image';
 };
 
 const getChatImageUrl = (chat, me) => {
@@ -32,7 +32,7 @@ const getChatImageUrl = (chat, me) => {
       return '';
     }, '');
   }
-  return 'How to name a group chat';
+  return 'grp chat imgUrl';
 };
 
 export { getChatImage, getChatImageUrl };

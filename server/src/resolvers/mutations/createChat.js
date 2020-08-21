@@ -22,7 +22,15 @@ async function createChat(parent, args, ctx, info) {
       }
     }
     if (data.type === "GROUP") {
-      throw new Error("No way to handle group chats as of yet!");
+      // throw new Error("No way to handle group chats as of yet!");
+      return await ctx.db.mutation.createChat(
+        {
+          data: {
+            ...data
+          }
+        },
+        info
+      );
     }
   }
   const chat = await ctx.db.mutation.createChat(

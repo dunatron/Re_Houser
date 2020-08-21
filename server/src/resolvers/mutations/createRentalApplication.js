@@ -1,7 +1,9 @@
 const newRentalApplicationEmail = require("../../lib/emails/newRentalApplicationEmail");
 const mustBeAuthed = require("../../lib/mustBeAuthed");
+const createChat = require("./createChat");
 
 async function createRentalApplication(parent, { data, files }, ctx, info) {
+  console.log("WHAT DATA DO I HAVE => ", data);
   // await mustBeAuthed({ ctx: ctx });
   const currentApplications = await ctx.db.query.rentalApplications(
     {
@@ -28,10 +30,36 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
     );
     return fullApplication;
   }
+
+  /**
+   * ALL CLEAR TO CREATE NEW APPLICATION
+   */
+
+  // await rental applications chat creation
+  const applicationChat = await createChat(
+    parent,
+    {
+      data: {
+        type: "GROUP",
+        name: data.title,
+        participants: {
+          connect: [
+            {
+              id: ctx.request.userId
+            }
+          ]
+        }
+      }
+    },
+    ctx,
+    info
+  );
+
   const rentalApplication = await ctx.db.mutation.createRentalApplication(
     {
       data: {
-        ...data
+        ...data,
+        chatId: applicationChat.id
       }
     },
     info

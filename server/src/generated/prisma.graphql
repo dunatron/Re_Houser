@@ -1,5 +1,5 @@
-# source: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod
-# timestamp: Fri Aug 21 2020 11:55:32 GMT+1200 (New Zealand Standard Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Fri Aug 21 2020 15:37:59 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -21008,6 +21008,7 @@ type RentalApplication implements Node {
   detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   property: Property!
@@ -21030,6 +21031,7 @@ input RentalApplicationCreateInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
@@ -21053,6 +21055,7 @@ input RentalApplicationCreateWithoutApplicantsInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
@@ -21065,6 +21068,7 @@ input RentalApplicationCreateWithoutPropertyInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserCreateOneInput!
@@ -21095,6 +21099,8 @@ enum RentalApplicationOrderByInput {
   stage_DESC
   leaseId_ASC
   leaseId_DESC
+  chatId_ASC
+  chatId_DESC
   visibility_ASC
   visibility_DESC
   finalised_ASC
@@ -21109,6 +21115,7 @@ type RentalApplicationPreviousValues {
   detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
 }
@@ -21300,6 +21307,46 @@ input RentalApplicationScalarWhereInput {
 
   """All values not ending with the given string."""
   leaseId_not_ends_with: String
+  chatId: String
+
+  """All values that are not equal to given value."""
+  chatId_not: String
+
+  """All values that are contained in given list."""
+  chatId_in: [String!]
+
+  """All values that are not contained in given list."""
+  chatId_not_in: [String!]
+
+  """All values less than the given value."""
+  chatId_lt: String
+
+  """All values less than or equal the given value."""
+  chatId_lte: String
+
+  """All values greater than the given value."""
+  chatId_gt: String
+
+  """All values greater than or equal the given value."""
+  chatId_gte: String
+
+  """All values containing the given string."""
+  chatId_contains: String
+
+  """All values not containing the given string."""
+  chatId_not_contains: String
+
+  """All values starting with the given string."""
+  chatId_starts_with: String
+
+  """All values not starting with the given string."""
+  chatId_not_starts_with: String
+
+  """All values ending with the given string."""
+  chatId_ends_with: String
+
+  """All values not ending with the given string."""
+  chatId_not_ends_with: String
   visibility: VisibilityLevel
 
   """All values that are not equal to given value."""
@@ -21358,6 +21405,7 @@ input RentalApplicationUpdateInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
@@ -21370,6 +21418,7 @@ input RentalApplicationUpdateManyDataInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
 }
@@ -21379,6 +21428,7 @@ input RentalApplicationUpdateManyMutationInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
 }
@@ -21414,6 +21464,7 @@ input RentalApplicationUpdateWithoutApplicantsDataInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
@@ -21425,6 +21476,7 @@ input RentalApplicationUpdateWithoutPropertyDataInput {
   detailsStepComplete: Boolean
   stage: ApplicationStage
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   owner: UserUpdateOneRequiredInput
@@ -21634,6 +21686,46 @@ input RentalApplicationWhereInput {
 
   """All values not ending with the given string."""
   leaseId_not_ends_with: String
+  chatId: String
+
+  """All values that are not equal to given value."""
+  chatId_not: String
+
+  """All values that are contained in given list."""
+  chatId_in: [String!]
+
+  """All values that are not contained in given list."""
+  chatId_not_in: [String!]
+
+  """All values less than the given value."""
+  chatId_lt: String
+
+  """All values less than or equal the given value."""
+  chatId_lte: String
+
+  """All values greater than the given value."""
+  chatId_gt: String
+
+  """All values greater than or equal the given value."""
+  chatId_gte: String
+
+  """All values containing the given string."""
+  chatId_contains: String
+
+  """All values not containing the given string."""
+  chatId_not_contains: String
+
+  """All values starting with the given string."""
+  chatId_starts_with: String
+
+  """All values not starting with the given string."""
+  chatId_not_starts_with: String
+
+  """All values ending with the given string."""
+  chatId_ends_with: String
+
+  """All values not ending with the given string."""
+  chatId_not_ends_with: String
   visibility: VisibilityLevel
 
   """All values that are not equal to given value."""

@@ -39,7 +39,9 @@ const Apply = props => {
         data: {
           stage: 'INITIALIZING',
           visibility: 'PRIVATE',
-          title: `Jon Doe's Application`,
+          title: `${me && me.firstName} ${me && me.lastName} Application for ${
+            props.property.location
+          }`,
           finalised: false,
           property: {
             connect: {
@@ -97,12 +99,10 @@ const Apply = props => {
         } catch (e) {
         } finally {
           toast.success(
-            <div>
-              <p>
-                New Rental Application has been created. Please complete it and
-                send it to the landlord, placing it into the PENDING stage
-              </p>
-            </div>
+            <Typography variant="body1">
+              New Rental Application has been created. Please complete it and
+              send it to the landlord, placing it into the PENDING stage
+            </Typography>
           );
           handleLink({
             route: '/applications/application',

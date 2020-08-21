@@ -7,7 +7,7 @@ const getChatName = (chat, me) => {
       return acc + p.firstName + p.lastName;
     }, '');
   }
-  return 'How to name a group chat';
+  return chat.name;
 };
 
 export { getChatName };

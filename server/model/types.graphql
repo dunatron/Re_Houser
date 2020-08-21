@@ -405,6 +405,7 @@ type RentalApplication {
   detailsStepComplete: Boolean
   stage: ApplicationStage!
   leaseId: String
+  chatId: String
   visibility: VisibilityLevel
   finalised: Boolean
   property: Property! @relation(name: "PropertyRentalApplication")
