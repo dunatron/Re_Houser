@@ -135,6 +135,17 @@ const FormCreator = props => {
     return 'Update ' + title + ' Form';
   };
 
+  useEffect(() => {
+    return () => {
+      const formValsToSave = getValues();
+      console.log('formValsToSave => ', formValsToSave);
+      // Maybe a bit of a caveat here and will have to be robust
+      // ie. saving the form type to redux. if persistState = true
+      // Also perhaps a flag to say submitted? Would we have a clear? and a reset?
+      // clear would clear out the form. reset would reset to default state like, bank account and prefilled vals based on account
+    };
+  }, []);
+
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
