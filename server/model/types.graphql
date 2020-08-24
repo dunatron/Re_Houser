@@ -50,6 +50,7 @@ type User {
   viewings: [Viewing!]! @relation(name: "HostViewings")
   acceptedTermsOfEngagement: Boolean
   bankDetails: BankDetail @relation(name: "UserBankDetails", link: TABLE)
+  inspections: [Inspection] @relation(name: "InspectionInspector", link: TABLE)
 }
 
 type Address {
@@ -338,6 +339,7 @@ type Inspection {
   createdAt: DateTime! @createdAt
   property: Property @relation(name: "PropertyInspections")
   lease: PropertyLease @relation(name: "LeaseInspections")
+  inspector: User @relation(name: "InspectionInspector")
   date: DateTime
   completedTime: DateTime
   completed: Boolean

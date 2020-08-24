@@ -34,6 +34,11 @@ const INSPECTIONS_CONNECTION_QUERY = gql`
           id
           date
           completed
+          notes
+          property {
+            id
+            location
+          }
         }
       }
     }

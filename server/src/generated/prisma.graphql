@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Aug 21 2020 15:37:59 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Aug 24 2020 14:25:17 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -8620,6 +8620,7 @@ type Inspection implements Node {
   createdAt: DateTime!
   property: Property
   lease: PropertyLease
+  inspector: User
   date: DateTime
   completedTime: DateTime
   completed: Boolean
@@ -8645,7 +8646,13 @@ input InspectionCreateInput {
   notes: String
   property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  inspector: UserCreateOneWithoutInspectionsInput
   files: FileCreateManyWithoutInspectionFilesInput
+}
+
+input InspectionCreateManyWithoutInspectorInput {
+  create: [InspectionCreateWithoutInspectorInput!]
+  connect: [InspectionWhereUniqueInput!]
 }
 
 input InspectionCreateManyWithoutLeaseInput {
@@ -8671,6 +8678,18 @@ input InspectionCreateWithoutFilesInput {
   notes: String
   property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  inspector: UserCreateOneWithoutInspectionsInput
+}
+
+input InspectionCreateWithoutInspectorInput {
+  id: ID
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  notes: String
+  property: PropertyCreateOneWithoutInspectionsInput
+  lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  files: FileCreateManyWithoutInspectionFilesInput
 }
 
 input InspectionCreateWithoutLeaseInput {
@@ -8680,6 +8699,7 @@ input InspectionCreateWithoutLeaseInput {
   completed: Boolean
   notes: String
   property: PropertyCreateOneWithoutInspectionsInput
+  inspector: UserCreateOneWithoutInspectionsInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8690,6 +8710,7 @@ input InspectionCreateWithoutPropertyInput {
   completed: Boolean
   notes: String
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  inspector: UserCreateOneWithoutInspectionsInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8956,6 +8977,7 @@ input InspectionUpdateInput {
   notes: String
   property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  inspector: UserUpdateOneWithoutInspectionsInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -8971,6 +8993,18 @@ input InspectionUpdateManyMutationInput {
   completedTime: DateTime
   completed: Boolean
   notes: String
+}
+
+input InspectionUpdateManyWithoutInspectorInput {
+  create: [InspectionCreateWithoutInspectorInput!]
+  connect: [InspectionWhereUniqueInput!]
+  set: [InspectionWhereUniqueInput!]
+  disconnect: [InspectionWhereUniqueInput!]
+  delete: [InspectionWhereUniqueInput!]
+  update: [InspectionUpdateWithWhereUniqueWithoutInspectorInput!]
+  updateMany: [InspectionUpdateManyWithWhereNestedInput!]
+  deleteMany: [InspectionScalarWhereInput!]
+  upsert: [InspectionUpsertWithWhereUniqueWithoutInspectorInput!]
 }
 
 input InspectionUpdateManyWithoutLeaseInput {
@@ -9018,6 +9052,17 @@ input InspectionUpdateWithoutFilesDataInput {
   notes: String
   property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  inspector: UserUpdateOneWithoutInspectionsInput
+}
+
+input InspectionUpdateWithoutInspectorDataInput {
+  date: DateTime
+  completedTime: DateTime
+  completed: Boolean
+  notes: String
+  property: PropertyUpdateOneWithoutInspectionsInput
+  lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  files: FileUpdateManyWithoutInspectionFilesInput
 }
 
 input InspectionUpdateWithoutLeaseDataInput {
@@ -9026,6 +9071,7 @@ input InspectionUpdateWithoutLeaseDataInput {
   completed: Boolean
   notes: String
   property: PropertyUpdateOneWithoutInspectionsInput
+  inspector: UserUpdateOneWithoutInspectionsInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9035,7 +9081,13 @@ input InspectionUpdateWithoutPropertyDataInput {
   completed: Boolean
   notes: String
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  inspector: UserUpdateOneWithoutInspectionsInput
   files: FileUpdateManyWithoutInspectionFilesInput
+}
+
+input InspectionUpdateWithWhereUniqueWithoutInspectorInput {
+  where: InspectionWhereUniqueInput!
+  data: InspectionUpdateWithoutInspectorDataInput!
 }
 
 input InspectionUpdateWithWhereUniqueWithoutLeaseInput {
@@ -9051,6 +9103,12 @@ input InspectionUpdateWithWhereUniqueWithoutPropertyInput {
 input InspectionUpsertWithoutFilesInput {
   update: InspectionUpdateWithoutFilesDataInput!
   create: InspectionCreateWithoutFilesInput!
+}
+
+input InspectionUpsertWithWhereUniqueWithoutInspectorInput {
+  where: InspectionWhereUniqueInput!
+  update: InspectionUpdateWithoutInspectorDataInput!
+  create: InspectionCreateWithoutInspectorInput!
 }
 
 input InspectionUpsertWithWhereUniqueWithoutLeaseInput {
@@ -9248,6 +9306,7 @@ input InspectionWhereInput {
   notes_not_ends_with: String
   property: PropertyWhereInput
   lease: PropertyLeaseWhereInput
+  inspector: UserWhereInput
   files_every: FileWhereInput
   files_some: FileWhereInput
   files_none: FileWhereInput
@@ -23922,6 +23981,7 @@ type User implements Node {
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
   acceptedTermsOfEngagement: Boolean
   bankDetails: BankDetail
+  inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
 }
 
 """A connection to a list of items."""
@@ -23984,6 +24044,7 @@ input UserCreateInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateManyInput {
@@ -24053,6 +24114,11 @@ input UserCreateOneWithoutCurrentAddressInput {
 
 input UserCreateOneWithoutFriendRequestsInput {
   create: UserCreateWithoutFriendRequestsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutInspectionsInput {
+  create: UserCreateWithoutInspectionsInput
   connect: UserWhereUniqueInput
 }
 
@@ -24154,6 +24220,7 @@ input UserCreateWithoutActivityInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutAdminSettingsInput {
@@ -24205,6 +24272,7 @@ input UserCreateWithoutAdminSettingsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutAwaitingFriendsInput {
@@ -24256,6 +24324,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutBankDetailsInput {
@@ -24307,6 +24376,7 @@ input UserCreateWithoutBankDetailsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutChatsInput {
@@ -24358,6 +24428,7 @@ input UserCreateWithoutChatsInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutCreatedPropertiesInput {
@@ -24409,6 +24480,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutCreditCardsInput {
@@ -24460,6 +24532,7 @@ input UserCreateWithoutCreditCardsInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutCurrentAddressInput {
@@ -24511,6 +24584,7 @@ input UserCreateWithoutCurrentAddressInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutFriendRequestsInput {
@@ -24541,6 +24615,59 @@ input UserCreateWithoutFriendRequestsInput {
   acceptedTermsOfEngagement: Boolean
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
+}
+
+input UserCreateWithoutInspectionsInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  emailValidated: Boolean
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean!
+  acceptedTermsOfEngagement: Boolean
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   lesseeLeases: LesseeCreateManyWithoutUserInput
@@ -24613,6 +24740,7 @@ input UserCreateWithoutInvolvedActivityInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutLesseeLeasesInput {
@@ -24664,6 +24792,7 @@ input UserCreateWithoutLesseeLeasesInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutLessorLeasesInput {
@@ -24715,6 +24844,7 @@ input UserCreateWithoutLessorLeasesInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutPhotoIdentificationInput {
@@ -24766,6 +24896,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutProfilePhotoInput {
@@ -24817,6 +24948,7 @@ input UserCreateWithoutProfilePhotoInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutProofOfAddressInput {
@@ -24868,6 +25000,7 @@ input UserCreateWithoutProofOfAddressInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutPropertiesInput {
@@ -24919,6 +25052,7 @@ input UserCreateWithoutPropertiesInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutRecievedMessagesInput {
@@ -24970,6 +25104,7 @@ input UserCreateWithoutRecievedMessagesInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutRentalAppraisalsInput {
@@ -25021,6 +25156,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutSentMessagesInput {
@@ -25072,6 +25208,7 @@ input UserCreateWithoutSentMessagesInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutSignatureInput {
@@ -25123,6 +25260,7 @@ input UserCreateWithoutSignatureInput {
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 input UserCreateWithoutViewingsInput {
@@ -25174,6 +25312,7 @@ input UserCreateWithoutViewingsInput {
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
 }
 
 """An edge in a connection."""
@@ -26216,6 +26355,7 @@ input UserUpdateDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateInput {
@@ -26267,6 +26407,7 @@ input UserUpdateInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateManyDataInput {
@@ -26468,6 +26609,15 @@ input UserUpdateOneWithoutCurrentAddressInput {
   upsert: UserUpsertWithoutCurrentAddressInput
 }
 
+input UserUpdateOneWithoutInspectionsInput {
+  create: UserCreateWithoutInspectionsInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutInspectionsDataInput
+  upsert: UserUpsertWithoutInspectionsInput
+}
+
 input UserUpdateOneWithoutLesseeLeasesInput {
   create: UserCreateWithoutLesseeLeasesInput
   connect: UserWhereUniqueInput
@@ -26592,6 +26742,7 @@ input UserUpdateWithoutActivityDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutAdminSettingsDataInput {
@@ -26642,6 +26793,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
@@ -26692,6 +26844,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutBankDetailsDataInput {
@@ -26742,6 +26895,7 @@ input UserUpdateWithoutBankDetailsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutChatsDataInput {
@@ -26792,6 +26946,7 @@ input UserUpdateWithoutChatsDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
@@ -26842,6 +26997,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
@@ -26892,6 +27048,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutCurrentAddressDataInput {
@@ -26942,6 +27099,7 @@ input UserUpdateWithoutCurrentAddressDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutFriendRequestsDataInput {
@@ -26971,6 +27129,58 @@ input UserUpdateWithoutFriendRequestsDataInput {
   acceptedTermsOfEngagement: Boolean
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
+}
+
+input UserUpdateWithoutInspectionsDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  emailValidated: Boolean
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean
+  acceptedTermsOfEngagement: Boolean
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   lesseeLeases: LesseeUpdateManyWithoutUserInput
@@ -27042,6 +27252,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
@@ -27092,6 +27303,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
@@ -27142,6 +27354,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
@@ -27192,6 +27405,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
@@ -27242,6 +27456,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutProofOfAddressDataInput {
@@ -27292,6 +27507,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutPropertiesDataInput {
@@ -27342,6 +27558,7 @@ input UserUpdateWithoutPropertiesDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
@@ -27392,6 +27609,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
@@ -27442,6 +27660,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
@@ -27492,6 +27711,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutSignatureDataInput {
@@ -27542,6 +27762,7 @@ input UserUpdateWithoutSignatureDataInput {
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithoutViewingsDataInput {
@@ -27592,6 +27813,7 @@ input UserUpdateWithoutViewingsDataInput {
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
 input UserUpdateWithWhereUniqueNestedInput {
@@ -27662,6 +27884,11 @@ input UserUpsertWithoutCurrentAddressInput {
 input UserUpsertWithoutFriendRequestsInput {
   update: UserUpdateWithoutFriendRequestsDataInput!
   create: UserCreateWithoutFriendRequestsInput!
+}
+
+input UserUpsertWithoutInspectionsInput {
+  update: UserUpdateWithoutInspectionsDataInput!
+  create: UserCreateWithoutInspectionsInput!
 }
 
 input UserUpsertWithoutLesseeLeasesInput {
@@ -28647,6 +28874,9 @@ input UserWhereInput {
   viewings_some: ViewingWhereInput
   viewings_none: ViewingWhereInput
   bankDetails: BankDetailWhereInput
+  inspections_every: InspectionWhereInput
+  inspections_some: InspectionWhereInput
+  inspections_none: InspectionWhereInput
 }
 
 input UserWhereUniqueInput {

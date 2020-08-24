@@ -29,12 +29,14 @@ import Error from '../ErrorMessage';
 // connection querys
 import { INSPECTIONS_CONNECTION_QUERY } from '../../graphql/connections';
 // mutations
-import { OFFER_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
+import { UPDATE_INSPECTION_MUTATION } from '../../graphql/mutations';
 
 //icons
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import { resolve } from 'path';
+import { set } from 'date-fns';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -73,7 +75,7 @@ const INSPECTIONS_COUNT_QUERY = gql`
   }
 `;
 
-const InspectionsTable = ({ where, me }) => {
+const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   const connectionKey = 'inspectionsConnection'; // e.g inspectionsConnection
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
@@ -85,8 +87,9 @@ const InspectionsTable = ({ where, me }) => {
   const [tableErr, setTableErr] = useState(null);
 
   const tableColumnConfig = [
-    { title: 'id', field: 'id', editable: false },
-    { title: 'date', field: 'date', editable: false },
+    // { title: 'id', field: 'id', editable: true },
+    { title: 'property', field: 'property.location', editable: true },
+    { title: 'date', field: 'date', editable: true },
     {
       field: 'completed',
       title: 'completed',
@@ -94,6 +97,7 @@ const InspectionsTable = ({ where, me }) => {
         return rowData.completed ? 'Yes' : 'No';
       },
     },
+    { title: 'notes', field: 'notes' },
   ];
 
   const sharedWhere = {
@@ -105,8 +109,17 @@ const InspectionsTable = ({ where, me }) => {
       where: {
         ...where,
       },
+      orderBy: orderBy,
     },
   });
+
+  const [updateInspection, updateInspectionProps] = useMutation(
+    UPDATE_INSPECTION_MUTATION,
+    {
+      onError: err => setTableErr(err),
+      onCompleted: data => {},
+    }
+  );
 
   if (error) return <Error error={error} />;
 
@@ -152,9 +165,18 @@ const InspectionsTable = ({ where, me }) => {
       });
   };
 
-  //ToDo: listen to new items coming in based on the query to get the items yea?
+  const manageInspection = () => {
+    alert('ToDo: implement whatever managing an inspectrion looks like');
+  };
 
-  // that actually sounds half decent and robust if you can pull it off
+  const isCompleted = v => {
+    if (v === true) return true;
+    if (v === false) return false;
+    const valAsStr = String(v).toLowerCase();
+    if (valAsStr === 'yes' || valAsStr === 'true') return true;
+    return false;
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.tableHeader}></div>
@@ -168,6 +190,28 @@ const InspectionsTable = ({ where, me }) => {
         data={remoteData}
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
+        }}
+        actions={[
+          {
+            icon: 'settings',
+            tooltip: 'Manage property',
+            onClick: manageInspection,
+          },
+        ]}
+        editable={{
+          isEditable: rowData => rowData.completed === false,
+          onRowUpdate: (newData, oldData) =>
+            updateInspection({
+              variables: {
+                where: {
+                  id: oldData.id,
+                },
+                data: {
+                  completed: isCompleted(newData.completed),
+                  notes: newData.notes,
+                },
+              },
+            }),
         }}
       />
     </div>

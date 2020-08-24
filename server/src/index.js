@@ -25,6 +25,8 @@ const {
 const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
+const inspectionNotificationTask = require("./lib/leaseTasks/inspectionNotificationTask");
+
 // sets up pasrsing the body of the request
 server.use(
   bodyParser.urlencoded({
@@ -120,6 +122,8 @@ server.post(
 const createLeaseTasks = require("./lib/leaseTasks/index");
 
 createLeaseTasks();
+
+inspectionNotificationTask();
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 

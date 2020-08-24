@@ -28,6 +28,7 @@ import { UPLOAD_SIGNATURE_FILE } from './uploadSignature';
 import { CREATE_VIEWING_MUTATION } from './createViewing';
 import { UPDATE_VIEWING_MUTATION } from './updateViewing';
 import { DELETE_VIEWING } from './deleteViewing';
+import { UPDATE_INSPECTION_MUTATION } from './updateInspection';
 
 export {
   SIGNUP_MUTATION,
@@ -60,4 +61,5 @@ export {
   DELETE_VIEWING,
   CONFIRM_EMAIL_MUTATION,
   RESEND_CONFIRM_EMAIL_MUTATION,
+  UPDATE_INSPECTION_MUTATION,
 };
