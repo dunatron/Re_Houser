@@ -77,6 +77,10 @@ const NavigationConfig = (me, loadingUser) => {
   });
 
   const friendRequests = me ? me.friendRequests : [];
+
+  console.log('loadingUser => ', loadingUser);
+  console.log('Me in the navigation area => ', me);
+
   return [
     {
       key: 'admin-section',

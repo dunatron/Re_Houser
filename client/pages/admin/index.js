@@ -61,6 +61,13 @@ const MyLeasePage = props => {
       ),
     },
     {
+      label: 'Inspections',
+      route: '/admin/inspections',
+      description: 'View allinspections on the system',
+      color: 'secondary',
+      icon: <HomeWorkIcon />,
+    },
+    {
       label: 'Typography',
       route: '/admin/typography',
       description: 'Review system typography',
