@@ -142,6 +142,12 @@ type Mutation {
     data: InspectionUpdateInput!
     where: InspectionWhereUniqueInput!
   ): Inspection
+  createContactForm(
+    firstName: String!
+    email: String!
+    message: String!
+    captchaToken: String!
+  ): SuccessMessage
 }
 
 type Subscription {

@@ -71,17 +71,10 @@ const FormCreator = props => {
     refetchQueries,
   } = props;
 
-  console.log('defaultFormData => ', data);
-
   const currentUser = useCurrentUser();
-
   const me = currentUser.data ? currentUser.data.me : null;
-
   const keysWithTypes = getKeyTypes(config);
-
   const preFormattedFormData = formatData(data, keysWithTypes, 'pre');
-
-  console.log('Preformatted format data => ', preFormattedFormData);
 
   const {
     register,
@@ -90,16 +83,14 @@ const FormCreator = props => {
     setValue,
     getValues,
     reset,
-    // refetchQueries,
+    clearError,
   } = useForm({
     defaultValues: {
       ...preFormattedFormData,
     },
-  }); // initalise the hook
+  });
 
   const canSubmit = () => {
-    // check if the config has a signature field
-    // if it does me.signature needs to exists before the
     var can = true;
     config.forEach(item => {
       if (item.type === 'Signature') {
@@ -165,6 +156,7 @@ const FormCreator = props => {
                   errors={errors}
                   setValue={setValue}
                   getValues={getValues}
+                  clearError={clearError}
                   rawData={data}
                   defaultValues={preFormattedFormData}
                   refetchQueries={refetchQueries}

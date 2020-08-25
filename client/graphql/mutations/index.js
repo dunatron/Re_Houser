@@ -29,6 +29,7 @@ import { CREATE_VIEWING_MUTATION } from './createViewing';
 import { UPDATE_VIEWING_MUTATION } from './updateViewing';
 import { DELETE_VIEWING } from './deleteViewing';
 import { UPDATE_INSPECTION_MUTATION } from './updateInspection';
+import { CREATE_CONTACT_FORM_MUTATION } from './createContactForm';
 
 export {
   SIGNUP_MUTATION,
@@ -62,4 +63,5 @@ export {
   CONFIRM_EMAIL_MUTATION,
   RESEND_CONFIRM_EMAIL_MUTATION,
   UPDATE_INSPECTION_MUTATION,
+  CREATE_CONTACT_FORM_MUTATION,
 };

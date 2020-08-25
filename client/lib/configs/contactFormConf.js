@@ -16,6 +16,12 @@ const CONTACT_FORM_CONF = [
       label: 'Your name',
       name: 'firstName',
     },
+    refConf: {
+      required: {
+        value: true,
+        message: 'We need a name for a contact form',
+      },
+    },
   },
   {
     type: 'String',
@@ -23,6 +29,12 @@ const CONTACT_FORM_CONF = [
     fieldProps: {
       label: 'Your email',
       name: 'email',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'We need your email to be able to contact you back',
+      },
     },
   },
   {
@@ -33,6 +45,27 @@ const CONTACT_FORM_CONF = [
       name: 'message',
       multiline: true,
       rows: 3,
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'We need a message to know how to help you',
+      },
+    },
+  },
+  {
+    type: 'Captcha',
+    key: 'captchaToken',
+    fieldProps: {
+      label: 'Recaptcha token',
+      name: 'captchaToken',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message:
+          'We need to confirm you are not a robot as to not waste time with invalid submissions',
+      },
     },
   },
 ];

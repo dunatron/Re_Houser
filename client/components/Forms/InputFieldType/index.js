@@ -35,6 +35,7 @@ import AcceptTerms from './AcceptTerms';
 import Info from './Info';
 import Signature from './Signature';
 import Image from './Image';
+import CaptchaField from './Captcha';
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
@@ -226,6 +227,8 @@ const InputFieldType = props => {
         return <Signature {...props} />;
       case 'Image':
         return <Image {...props} />;
+      case 'Captcha':
+        return <CaptchaField {...props} />;
       default:
         return (
           <Typography color="error">

@@ -1,16 +1,47 @@
+import { useState } from 'react';
 import FormCreator from '../Forms/FormCreator';
 import CONTACT_FORM_CONF from '../../lib/configs/contactFormConf';
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import { CEO_DETAILS } from '../../config';
+import { useMutation } from '@apollo/client';
+import { CREATE_CONTACT_FORM_MUTATION } from '../../graphql/mutations';
+import Error from '../ErrorMessage';
+import Loading from '../Loader';
+import { toast } from 'react-toastify';
 
 const ContactForm = () => {
+  const [sent, setSent] = useState(false);
+  const [createContactForm, { data, loading, error }] = useMutation(
+    CREATE_CONTACT_FORM_MUTATION,
+    {
+      onCompleted: d => {
+        toast.success(
+          <div>
+            <p>{d.createContactForm.message}</p>
+          </div>
+        );
+        setSent(true);
+      },
+    }
+  );
   const handleSubmit = data => {
-    alert(
-      'ToDO create the submit form on the server and require a recaptcha token'
-    );
+    createContactForm({
+      variables: {
+        ...data,
+      },
+    });
   };
+
+  if (sent)
+    return (
+      <div>
+        <Typography gutterBottom>{data.message}</Typography>
+        <Button onClick={() => setSent(true)}>Send More</Button>
+      </div>
+    );
+
   return (
     <>
       <div
@@ -43,6 +74,8 @@ const ContactForm = () => {
       <FormCreator
         title="Contact form"
         createText="Submit contact form"
+        error={error}
+        posting={loading}
         config={CONTACT_FORM_CONF}
         isNew={true}
         onSubmit={handleSubmit}
