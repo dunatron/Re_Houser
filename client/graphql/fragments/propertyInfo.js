@@ -30,6 +30,10 @@ const PropertyInfoFragment = gql`
     insulationForm {
       id
     }
+    insulationStatementFile {
+      id
+      ...fileInfo
+    }
     outdoorFeatures
     indoorFeatures
     heatSources

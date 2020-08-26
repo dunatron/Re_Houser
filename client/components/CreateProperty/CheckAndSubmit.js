@@ -44,6 +44,7 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   );
 
   const handleCreate = () => {
+    console.log('formData DATA SUBMITTED => ', formData);
     createProperty({
       variables: {
         data: {
@@ -60,6 +61,21 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
             connect: {
               id: me.id,
             },
+          },
+          files: {
+            create: formData.files
+              ? Object.entries(formData.files).reduce(
+                  (a, [k, v]) => ({
+                    [k]: {
+                      connect: {
+                        id: v.id,
+                      },
+                    },
+                    ...a,
+                  }),
+                  {}
+                )
+              : {},
           },
           insulationForm: formData.insulationForm
             ? {

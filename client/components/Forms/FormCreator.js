@@ -111,8 +111,11 @@ const FormCreator = props => {
   };
 
   const onSubmit = data => {
+    console.log('Form Raw Data => ', data);
+
     if (!canSubmit()) return;
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
+    console.log('postFormattedFormData => ', postFormattedFormData);
     props.onSubmit(postFormattedFormData);
   }; // submission when input are valid
 

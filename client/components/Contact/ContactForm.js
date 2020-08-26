@@ -37,8 +37,8 @@ const ContactForm = () => {
   if (sent)
     return (
       <div>
-        <Typography gutterBottom>{data.message}</Typography>
-        <Button onClick={() => setSent(true)}>Send More</Button>
+        <Typography gutterBottom>{data.createContactForm.message}</Typography>
+        <Button onClick={() => setSent(false)}>Send More</Button>
       </div>
     );
 
@@ -48,6 +48,7 @@ const ContactForm = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
+          margin: '16px 0',
         }}>
         <div
           style={{

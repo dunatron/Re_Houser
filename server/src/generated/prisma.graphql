@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Aug 24 2020 14:25:17 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Aug 26 2020 16:57:53 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1745,10 +1745,6 @@ type AggregateFriendRequest {
   count: Int!
 }
 
-type AggregateHealthyHome {
-  count: Int!
-}
-
 type AggregateInspection {
   count: Int!
 }
@@ -1786,6 +1782,10 @@ type AggregatePropertyAdvertisement {
 }
 
 type AggregatePropertyAssist {
+  count: Int!
+}
+
+type AggregatePropertyFiles {
   count: Int!
 }
 
@@ -5388,6 +5388,8 @@ type File implements Node {
   propertyImages: Property
   propertyInsulationFile: Property
   inspectionFiles: Inspection
+  codeComplianceCert: PropertyFiles
+  certOfAcceptance: PropertyFiles
 }
 
 """A connection to a list of items."""
@@ -5434,6 +5436,8 @@ input FileCreateInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateManyWithoutInspectionFilesInput {
@@ -5444,6 +5448,16 @@ input FileCreateManyWithoutInspectionFilesInput {
 input FileCreateManyWithoutPropertyImagesInput {
   create: [FileCreateWithoutPropertyImagesInput!]
   connect: [FileWhereUniqueInput!]
+}
+
+input FileCreateOneWithoutCertOfAcceptanceInput {
+  create: FileCreateWithoutCertOfAcceptanceInput
+  connect: FileWhereUniqueInput
+}
+
+input FileCreateOneWithoutCodeComplianceCertInput {
+  create: FileCreateWithoutCodeComplianceCertInput
+  connect: FileWhereUniqueInput
 }
 
 input FileCreateOneWithoutPreTenancyProofOfAddressInput {
@@ -5481,6 +5495,80 @@ input FileCreateOneWithoutUserSignatureInput {
   connect: FileWhereUniqueInput
 }
 
+input FileCreateWithoutCertOfAcceptanceInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+}
+
+input FileCreateWithoutCodeComplianceCertInput {
+  id: ID
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+}
+
 input FileCreateWithoutInspectionFilesInput {
   id: ID
   filename: String!
@@ -5514,6 +5602,8 @@ input FileCreateWithoutInspectionFilesInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutPreTenancyProofOfAddressInput {
@@ -5549,6 +5639,8 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutPropertyImagesInput {
@@ -5584,6 +5676,8 @@ input FileCreateWithoutPropertyImagesInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutPropertyInsulationFileInput {
@@ -5619,6 +5713,8 @@ input FileCreateWithoutPropertyInsulationFileInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutPropertyOwnershipProofInput {
@@ -5654,6 +5750,8 @@ input FileCreateWithoutPropertyOwnershipProofInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutUserPhotoIdInput {
@@ -5689,6 +5787,8 @@ input FileCreateWithoutUserPhotoIdInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -5724,6 +5824,8 @@ input FileCreateWithoutUserProfilePhotoInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutUserProofOfAddressInput {
@@ -5759,6 +5861,8 @@ input FileCreateWithoutUserProofOfAddressInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 input FileCreateWithoutUserSignatureInput {
@@ -5794,6 +5898,8 @@ input FileCreateWithoutUserSignatureInput {
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
 
 """An edge in a connection."""
@@ -6790,6 +6896,8 @@ input FileUpdateInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateManyDataInput {
@@ -6873,6 +6981,24 @@ input FileUpdateManyWithWhereNestedInput {
   data: FileUpdateManyDataInput!
 }
 
+input FileUpdateOneWithoutCertOfAcceptanceInput {
+  create: FileCreateWithoutCertOfAcceptanceInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutCertOfAcceptanceDataInput
+  upsert: FileUpsertWithoutCertOfAcceptanceInput
+}
+
+input FileUpdateOneWithoutCodeComplianceCertInput {
+  create: FileCreateWithoutCodeComplianceCertInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutCodeComplianceCertDataInput
+  upsert: FileUpsertWithoutCodeComplianceCertInput
+}
+
 input FileUpdateOneWithoutPreTenancyProofOfAddressInput {
   create: FileCreateWithoutPreTenancyProofOfAddressInput
   connect: FileWhereUniqueInput
@@ -6936,6 +7062,78 @@ input FileUpdateOneWithoutUserSignatureInput {
   upsert: FileUpsertWithoutUserSignatureInput
 }
 
+input FileUpdateWithoutCertOfAcceptanceDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+}
+
+input FileUpdateWithoutCodeComplianceCertDataInput {
+  filename: String
+  mimetype: String
+  encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+}
+
 input FileUpdateWithoutInspectionFilesDataInput {
   filename: String
   mimetype: String
@@ -6968,6 +7166,8 @@ input FileUpdateWithoutInspectionFilesDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
@@ -7002,6 +7202,8 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutPropertyImagesDataInput {
@@ -7036,6 +7238,8 @@ input FileUpdateWithoutPropertyImagesDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutPropertyInsulationFileDataInput {
@@ -7070,6 +7274,8 @@ input FileUpdateWithoutPropertyInsulationFileDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutPropertyOwnershipProofDataInput {
@@ -7104,6 +7310,8 @@ input FileUpdateWithoutPropertyOwnershipProofDataInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutUserPhotoIdDataInput {
@@ -7138,6 +7346,8 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -7172,6 +7382,8 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutUserProofOfAddressDataInput {
@@ -7206,6 +7418,8 @@ input FileUpdateWithoutUserProofOfAddressDataInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithoutUserSignatureDataInput {
@@ -7240,6 +7454,8 @@ input FileUpdateWithoutUserSignatureDataInput {
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input FileUpdateWithWhereUniqueWithoutInspectionFilesInput {
@@ -7250,6 +7466,16 @@ input FileUpdateWithWhereUniqueWithoutInspectionFilesInput {
 input FileUpdateWithWhereUniqueWithoutPropertyImagesInput {
   where: FileWhereUniqueInput!
   data: FileUpdateWithoutPropertyImagesDataInput!
+}
+
+input FileUpsertWithoutCertOfAcceptanceInput {
+  update: FileUpdateWithoutCertOfAcceptanceDataInput!
+  create: FileCreateWithoutCertOfAcceptanceInput!
+}
+
+input FileUpsertWithoutCodeComplianceCertInput {
+  update: FileUpdateWithoutCodeComplianceCertDataInput!
+  create: FileCreateWithoutCodeComplianceCertInput!
 }
 
 input FileUpsertWithoutPreTenancyProofOfAddressInput {
@@ -8137,6 +8363,8 @@ input FileWhereInput {
   propertyImages: PropertyWhereInput
   propertyInsulationFile: PropertyWhereInput
   inspectionFiles: InspectionWhereInput
+  codeComplianceCert: PropertyFilesWhereInput
+  certOfAcceptance: PropertyFilesWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -8405,199 +8633,9 @@ input FriendRequestWhereUniqueInput {
   id: ID
 }
 
-type HealthyHome implements Node {
-  id: ID!
-  property: Property
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-}
-
-"""A connection to a list of items."""
-type HealthyHomeConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [HealthyHomeEdge]!
-  aggregate: AggregateHealthyHome!
-}
-
-input HealthyHomeCreateInput {
-  id: ID
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-  property: PropertyCreateOneWithoutHealthyHomeInput
-}
-
-input HealthyHomeCreateOneWithoutPropertyInput {
-  create: HealthyHomeCreateWithoutPropertyInput
-  connect: HealthyHomeWhereUniqueInput
-}
-
-input HealthyHomeCreateWithoutPropertyInput {
-  id: ID
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-}
-
-"""An edge in a connection."""
-type HealthyHomeEdge {
-  """The item at the end of the edge."""
-  node: HealthyHome!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum HealthyHomeOrderByInput {
-  id_ASC
-  id_DESC
-  codeComplianceCert_ASC
-  codeComplianceCert_DESC
-  certOfAcceptance_ASC
-  certOfAcceptance_DESC
-}
-
-type HealthyHomePreviousValues {
-  id: ID!
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-}
-
 enum HealthyHomesStandardStatementTypes {
   WILL_COMPLY
   ALREADY_COMPLYING
-}
-
-type HealthyHomeSubscriptionPayload {
-  mutation: MutationType!
-  node: HealthyHome
-  updatedFields: [String!]
-  previousValues: HealthyHomePreviousValues
-}
-
-input HealthyHomeSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [HealthyHomeSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [HealthyHomeSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [HealthyHomeSubscriptionWhereInput!]
-
-  """The subscription event gets dispatched when it's listed in mutation_in"""
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: HealthyHomeWhereInput
-}
-
-input HealthyHomeUpdateInput {
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-  property: PropertyUpdateOneWithoutHealthyHomeInput
-}
-
-input HealthyHomeUpdateManyMutationInput {
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-}
-
-input HealthyHomeUpdateOneWithoutPropertyInput {
-  create: HealthyHomeCreateWithoutPropertyInput
-  connect: HealthyHomeWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: HealthyHomeUpdateWithoutPropertyDataInput
-  upsert: HealthyHomeUpsertWithoutPropertyInput
-}
-
-input HealthyHomeUpdateWithoutPropertyDataInput {
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
-}
-
-input HealthyHomeUpsertWithoutPropertyInput {
-  update: HealthyHomeUpdateWithoutPropertyDataInput!
-  create: HealthyHomeCreateWithoutPropertyInput!
-}
-
-input HealthyHomeWhereInput {
-  """Logical AND on all given filters."""
-  AND: [HealthyHomeWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [HealthyHomeWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [HealthyHomeWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  codeComplianceCert: Boolean
-
-  """All values that are not equal to given value."""
-  codeComplianceCert_not: Boolean
-  certOfAcceptance: Boolean
-
-  """All values that are not equal to given value."""
-  certOfAcceptance_not: Boolean
-  property: PropertyWhereInput
-}
-
-input HealthyHomeWhereUniqueInput {
-  id: ID
 }
 
 enum HeatSource {
@@ -11709,7 +11747,7 @@ type Mutation {
   createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
   createFile(data: FileCreateInput!): File!
   createProperty(data: PropertyCreateInput!): Property!
-  createHealthyHome(data: HealthyHomeCreateInput!): HealthyHome!
+  createPropertyFiles(data: PropertyFilesCreateInput!): PropertyFiles!
   createPropertyAssist(data: PropertyAssistCreateInput!): PropertyAssist!
   createViewing(data: ViewingCreateInput!): Viewing!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
@@ -11738,7 +11776,7 @@ type Mutation {
   updateFriendRequest(data: FriendRequestUpdateInput!, where: FriendRequestWhereUniqueInput!): FriendRequest
   updateFile(data: FileUpdateInput!, where: FileWhereUniqueInput!): File
   updateProperty(data: PropertyUpdateInput!, where: PropertyWhereUniqueInput!): Property
-  updateHealthyHome(data: HealthyHomeUpdateInput!, where: HealthyHomeWhereUniqueInput!): HealthyHome
+  updatePropertyFiles(data: PropertyFilesUpdateInput!, where: PropertyFilesWhereUniqueInput!): PropertyFiles
   updatePropertyAssist(data: PropertyAssistUpdateInput!, where: PropertyAssistWhereUniqueInput!): PropertyAssist
   updateViewing(data: ViewingUpdateInput!, where: ViewingWhereUniqueInput!): Viewing
   updatePropertyLease(data: PropertyLeaseUpdateInput!, where: PropertyLeaseWhereUniqueInput!): PropertyLease
@@ -11766,7 +11804,7 @@ type Mutation {
   deleteFriendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   deleteFile(where: FileWhereUniqueInput!): File
   deleteProperty(where: PropertyWhereUniqueInput!): Property
-  deleteHealthyHome(where: HealthyHomeWhereUniqueInput!): HealthyHome
+  deletePropertyFiles(where: PropertyFilesWhereUniqueInput!): PropertyFiles
   deletePropertyAssist(where: PropertyAssistWhereUniqueInput!): PropertyAssist
   deleteViewing(where: ViewingWhereUniqueInput!): Viewing
   deletePropertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
@@ -11795,7 +11833,7 @@ type Mutation {
   upsertFriendRequest(where: FriendRequestWhereUniqueInput!, create: FriendRequestCreateInput!, update: FriendRequestUpdateInput!): FriendRequest!
   upsertFile(where: FileWhereUniqueInput!, create: FileCreateInput!, update: FileUpdateInput!): File!
   upsertProperty(where: PropertyWhereUniqueInput!, create: PropertyCreateInput!, update: PropertyUpdateInput!): Property!
-  upsertHealthyHome(where: HealthyHomeWhereUniqueInput!, create: HealthyHomeCreateInput!, update: HealthyHomeUpdateInput!): HealthyHome!
+  upsertPropertyFiles(where: PropertyFilesWhereUniqueInput!, create: PropertyFilesCreateInput!, update: PropertyFilesUpdateInput!): PropertyFiles!
   upsertPropertyAssist(where: PropertyAssistWhereUniqueInput!, create: PropertyAssistCreateInput!, update: PropertyAssistUpdateInput!): PropertyAssist!
   upsertViewing(where: ViewingWhereUniqueInput!, create: ViewingCreateInput!, update: ViewingUpdateInput!): Viewing!
   upsertPropertyLease(where: PropertyLeaseWhereUniqueInput!, create: PropertyLeaseCreateInput!, update: PropertyLeaseUpdateInput!): PropertyLease!
@@ -11822,7 +11860,6 @@ type Mutation {
   updateManyChats(data: ChatUpdateManyMutationInput!, where: ChatWhereInput): BatchPayload!
   updateManyFiles(data: FileUpdateManyMutationInput!, where: FileWhereInput): BatchPayload!
   updateManyProperties(data: PropertyUpdateManyMutationInput!, where: PropertyWhereInput): BatchPayload!
-  updateManyHealthyHomes(data: HealthyHomeUpdateManyMutationInput!, where: HealthyHomeWhereInput): BatchPayload!
   updateManyPropertyAssists(data: PropertyAssistUpdateManyMutationInput!, where: PropertyAssistWhereInput): BatchPayload!
   updateManyViewings(data: ViewingUpdateManyMutationInput!, where: ViewingWhereInput): BatchPayload!
   updateManyPropertyLeases(data: PropertyLeaseUpdateManyMutationInput!, where: PropertyLeaseWhereInput): BatchPayload!
@@ -11850,7 +11887,7 @@ type Mutation {
   deleteManyFriendRequests(where: FriendRequestWhereInput): BatchPayload!
   deleteManyFiles(where: FileWhereInput): BatchPayload!
   deleteManyProperties(where: PropertyWhereInput): BatchPayload!
-  deleteManyHealthyHomes(where: HealthyHomeWhereInput): BatchPayload!
+  deleteManyPropertyFileses(where: PropertyFilesWhereInput): BatchPayload!
   deleteManyPropertyAssists(where: PropertyAssistWhereInput): BatchPayload!
   deleteManyViewings(where: ViewingWhereInput): BatchPayload!
   deleteManyPropertyLeases(where: PropertyLeaseWhereInput): BatchPayload!
@@ -14430,6 +14467,7 @@ type Property implements Node {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   updatedAt: DateTime!
   createdAt: DateTime!
   bankDetails: BankDetail
@@ -14476,6 +14514,7 @@ type Property implements Node {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   chattels: [PropertyChattel!]!
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
@@ -14486,7 +14525,7 @@ type Property implements Node {
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist
-  healthyHome: HealthyHome
+  files: PropertyFiles
   inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
 }
 
@@ -14918,6 +14957,7 @@ input PropertyCreateInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -14946,6 +14986,7 @@ input PropertyCreateInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -14972,7 +15013,7 @@ input PropertyCreateInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15006,8 +15047,8 @@ input PropertyCreateOneWithoutBankDetailsInput {
   connect: PropertyWhereUniqueInput
 }
 
-input PropertyCreateOneWithoutHealthyHomeInput {
-  create: PropertyCreateWithoutHealthyHomeInput
+input PropertyCreateOneWithoutFilesInput {
+  create: PropertyCreateWithoutFilesInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -15065,6 +15106,7 @@ input PropertyCreateWithoutAccommodationInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15093,6 +15135,7 @@ input PropertyCreateWithoutAccommodationInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15118,7 +15161,7 @@ input PropertyCreateWithoutAccommodationInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15128,6 +15171,7 @@ input PropertyCreateWithoutActivityInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15156,6 +15200,7 @@ input PropertyCreateWithoutActivityInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15181,7 +15226,7 @@ input PropertyCreateWithoutActivityInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15191,6 +15236,7 @@ input PropertyCreateWithoutAppraisalsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15219,6 +15265,7 @@ input PropertyCreateWithoutAppraisalsInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15244,7 +15291,7 @@ input PropertyCreateWithoutAppraisalsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15254,6 +15301,7 @@ input PropertyCreateWithoutBankDetailsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15282,6 +15330,7 @@ input PropertyCreateWithoutBankDetailsInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15307,7 +15356,7 @@ input PropertyCreateWithoutBankDetailsInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15317,6 +15366,7 @@ input PropertyCreateWithoutCreatorInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15345,6 +15395,7 @@ input PropertyCreateWithoutCreatorInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15370,16 +15421,17 @@ input PropertyCreateWithoutCreatorInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
-input PropertyCreateWithoutHealthyHomeInput {
+input PropertyCreateWithoutFilesInput {
   id: ID
   placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15408,6 +15460,7 @@ input PropertyCreateWithoutHealthyHomeInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15443,6 +15496,7 @@ input PropertyCreateWithoutImagesInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15471,6 +15525,7 @@ input PropertyCreateWithoutImagesInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15496,7 +15551,7 @@ input PropertyCreateWithoutImagesInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15506,6 +15561,7 @@ input PropertyCreateWithoutInspectionsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15534,6 +15590,7 @@ input PropertyCreateWithoutInspectionsInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15560,7 +15617,7 @@ input PropertyCreateWithoutInspectionsInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutInsulationStatementFileInput {
@@ -15569,6 +15626,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15597,6 +15655,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15622,7 +15681,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15632,6 +15691,7 @@ input PropertyCreateWithoutLeasesInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15660,6 +15720,7 @@ input PropertyCreateWithoutLeasesInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15685,7 +15746,7 @@ input PropertyCreateWithoutLeasesInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15695,6 +15756,7 @@ input PropertyCreateWithoutOwnersInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15723,6 +15785,7 @@ input PropertyCreateWithoutOwnersInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15748,7 +15811,7 @@ input PropertyCreateWithoutOwnersInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15758,6 +15821,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15786,6 +15850,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15811,7 +15876,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15821,6 +15886,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15849,6 +15915,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15874,7 +15941,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15884,6 +15951,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15912,6 +15980,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -15937,7 +16006,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -15947,6 +16016,7 @@ input PropertyCreateWithoutViewingsInput {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -15975,6 +16045,7 @@ input PropertyCreateWithoutViewingsInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -16000,7 +16071,7 @@ input PropertyCreateWithoutViewingsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
-  healthyHome: HealthyHomeCreateOneWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
 }
 
@@ -16011,6 +16082,239 @@ type PropertyEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+type PropertyFiles implements Node {
+  id: ID!
+  property: Property
+  codeComplianceCert: File
+  certOfAcceptance: File
+}
+
+"""A connection to a list of items."""
+type PropertyFilesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PropertyFilesEdge]!
+  aggregate: AggregatePropertyFiles!
+}
+
+input PropertyFilesCreateInput {
+  id: ID
+  property: PropertyCreateOneWithoutFilesInput
+  codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
+}
+
+input PropertyFilesCreateOneWithoutCertOfAcceptanceInput {
+  create: PropertyFilesCreateWithoutCertOfAcceptanceInput
+  connect: PropertyFilesWhereUniqueInput
+}
+
+input PropertyFilesCreateOneWithoutCodeComplianceCertInput {
+  create: PropertyFilesCreateWithoutCodeComplianceCertInput
+  connect: PropertyFilesWhereUniqueInput
+}
+
+input PropertyFilesCreateOneWithoutPropertyInput {
+  create: PropertyFilesCreateWithoutPropertyInput
+  connect: PropertyFilesWhereUniqueInput
+}
+
+input PropertyFilesCreateWithoutCertOfAcceptanceInput {
+  id: ID
+  property: PropertyCreateOneWithoutFilesInput
+  codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
+}
+
+input PropertyFilesCreateWithoutCodeComplianceCertInput {
+  id: ID
+  property: PropertyCreateOneWithoutFilesInput
+  certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
+}
+
+input PropertyFilesCreateWithoutPropertyInput {
+  id: ID
+  codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
+}
+
+"""An edge in a connection."""
+type PropertyFilesEdge {
+  """The item at the end of the edge."""
+  node: PropertyFiles!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PropertyFilesOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type PropertyFilesPreviousValues {
+  id: ID!
+}
+
+type PropertyFilesSubscriptionPayload {
+  mutation: MutationType!
+  node: PropertyFiles
+  updatedFields: [String!]
+  previousValues: PropertyFilesPreviousValues
+}
+
+input PropertyFilesSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyFilesSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyFilesSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyFilesSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PropertyFilesWhereInput
+}
+
+input PropertyFilesUpdateInput {
+  property: PropertyUpdateOneWithoutFilesInput
+  codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
+}
+
+input PropertyFilesUpdateOneWithoutCertOfAcceptanceInput {
+  create: PropertyFilesCreateWithoutCertOfAcceptanceInput
+  connect: PropertyFilesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyFilesUpdateWithoutCertOfAcceptanceDataInput
+  upsert: PropertyFilesUpsertWithoutCertOfAcceptanceInput
+}
+
+input PropertyFilesUpdateOneWithoutCodeComplianceCertInput {
+  create: PropertyFilesCreateWithoutCodeComplianceCertInput
+  connect: PropertyFilesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyFilesUpdateWithoutCodeComplianceCertDataInput
+  upsert: PropertyFilesUpsertWithoutCodeComplianceCertInput
+}
+
+input PropertyFilesUpdateOneWithoutPropertyInput {
+  create: PropertyFilesCreateWithoutPropertyInput
+  connect: PropertyFilesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyFilesUpdateWithoutPropertyDataInput
+  upsert: PropertyFilesUpsertWithoutPropertyInput
+}
+
+input PropertyFilesUpdateWithoutCertOfAcceptanceDataInput {
+  property: PropertyUpdateOneWithoutFilesInput
+  codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
+}
+
+input PropertyFilesUpdateWithoutCodeComplianceCertDataInput {
+  property: PropertyUpdateOneWithoutFilesInput
+  certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
+}
+
+input PropertyFilesUpdateWithoutPropertyDataInput {
+  codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
+}
+
+input PropertyFilesUpsertWithoutCertOfAcceptanceInput {
+  update: PropertyFilesUpdateWithoutCertOfAcceptanceDataInput!
+  create: PropertyFilesCreateWithoutCertOfAcceptanceInput!
+}
+
+input PropertyFilesUpsertWithoutCodeComplianceCertInput {
+  update: PropertyFilesUpdateWithoutCodeComplianceCertDataInput!
+  create: PropertyFilesCreateWithoutCodeComplianceCertInput!
+}
+
+input PropertyFilesUpsertWithoutPropertyInput {
+  update: PropertyFilesUpdateWithoutPropertyDataInput!
+  create: PropertyFilesCreateWithoutPropertyInput!
+}
+
+input PropertyFilesWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PropertyFilesWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PropertyFilesWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PropertyFilesWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  property: PropertyWhereInput
+  codeComplianceCert: FileWhereInput
+  certOfAcceptance: FileWhereInput
+}
+
+input PropertyFilesWhereUniqueInput {
+  id: ID
 }
 
 type PropertyLease implements Node {
@@ -17947,6 +18251,8 @@ enum PropertyOrderByInput {
   locationLat_DESC
   locationLng_ASC
   locationLng_DESC
+  titleType_ASC
+  titleType_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -18007,6 +18313,8 @@ enum PropertyOrderByInput {
   gardenToMaintain_DESC
   gardenResponsible_ASC
   gardenResponsible_DESC
+  maintenanceResponsible_ASC
+  maintenanceResponsible_DESC
   landlordProtectionCover_ASC
   landlordProtectionCover_DESC
   freeGlassCover_ASC
@@ -18029,6 +18337,7 @@ type PropertyPreviousValues {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   updatedAt: DateTime!
   createdAt: DateTime!
   type: PropertyType
@@ -18063,6 +18372,7 @@ type PropertyPreviousValues {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   chattels: [PropertyChattel!]!
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
@@ -18246,6 +18556,16 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   locationLng_gte: Float
+  titleType: PropertyTitleType
+
+  """All values that are not equal to given value."""
+  titleType_not: PropertyTitleType
+
+  """All values that are contained in given list."""
+  titleType_in: [PropertyTitleType!]
+
+  """All values that are not contained in given list."""
+  titleType_not_in: [PropertyTitleType!]
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -18774,6 +19094,16 @@ input PropertyScalarWhereInput {
 
   """All values that are not contained in given list."""
   gardenResponsible_not_in: [PartyResponsible!]
+  maintenanceResponsible: PartyResponsible
+
+  """All values that are not equal to given value."""
+  maintenanceResponsible_not: PartyResponsible
+
+  """All values that are contained in given list."""
+  maintenanceResponsible_in: [PartyResponsible!]
+
+  """All values that are not contained in given list."""
+  maintenanceResponsible_not_in: [PartyResponsible!]
   landlordProtectionCover: Boolean
 
   """All values that are not equal to given value."""
@@ -18841,6 +19171,13 @@ input PropertySubscriptionWhereInput {
   node: PropertyWhereInput
 }
 
+enum PropertyTitleType {
+  UNIT_TITLE
+  FREEHOLD
+  CROSSLEASE
+  LEASEHOLD
+}
+
 enum PropertyType {
   HOUSE
   APARTMENT
@@ -18871,6 +19208,7 @@ input PropertyUpdateInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -18899,6 +19237,7 @@ input PropertyUpdateInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -18925,7 +19264,7 @@ input PropertyUpdateInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -18934,6 +19273,7 @@ input PropertyUpdateManyDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -18962,6 +19302,7 @@ input PropertyUpdateManyDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -18981,6 +19322,7 @@ input PropertyUpdateManyMutationInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19009,6 +19351,7 @@ input PropertyUpdateManyMutationInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19107,13 +19450,13 @@ input PropertyUpdateOneWithoutBankDetailsInput {
   upsert: PropertyUpsertWithoutBankDetailsInput
 }
 
-input PropertyUpdateOneWithoutHealthyHomeInput {
-  create: PropertyCreateWithoutHealthyHomeInput
+input PropertyUpdateOneWithoutFilesInput {
+  create: PropertyCreateWithoutFilesInput
   connect: PropertyWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: PropertyUpdateWithoutHealthyHomeDataInput
-  upsert: PropertyUpsertWithoutHealthyHomeInput
+  update: PropertyUpdateWithoutFilesDataInput
+  upsert: PropertyUpsertWithoutFilesInput
 }
 
 input PropertyUpdateOneWithoutImagesInput {
@@ -19174,6 +19517,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19202,6 +19546,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19227,7 +19572,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19236,6 +19581,7 @@ input PropertyUpdateWithoutActivityDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19264,6 +19610,7 @@ input PropertyUpdateWithoutActivityDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19289,7 +19636,7 @@ input PropertyUpdateWithoutActivityDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19298,6 +19645,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19326,6 +19674,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19351,7 +19700,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19360,6 +19709,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19388,6 +19738,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19413,7 +19764,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19422,6 +19773,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19450,6 +19802,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19475,15 +19828,16 @@ input PropertyUpdateWithoutCreatorDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
-input PropertyUpdateWithoutHealthyHomeDataInput {
+input PropertyUpdateWithoutFilesDataInput {
   placeId: String
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19512,6 +19866,7 @@ input PropertyUpdateWithoutHealthyHomeDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19546,6 +19901,7 @@ input PropertyUpdateWithoutImagesDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19574,6 +19930,7 @@ input PropertyUpdateWithoutImagesDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19599,7 +19956,7 @@ input PropertyUpdateWithoutImagesDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19608,6 +19965,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19636,6 +19994,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19662,7 +20021,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutInsulationStatementFileDataInput {
@@ -19670,6 +20029,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19698,6 +20058,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19723,7 +20084,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19732,6 +20093,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19760,6 +20122,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19785,7 +20148,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19794,6 +20157,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19822,6 +20186,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19847,7 +20212,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19856,6 +20221,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19884,6 +20250,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19909,7 +20276,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19918,6 +20285,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -19946,6 +20314,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -19971,7 +20340,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -19980,6 +20349,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -20008,6 +20378,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -20033,7 +20404,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -20042,6 +20413,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   location: String
   locationLat: Float
   locationLng: Float
+  titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
   headline: String
@@ -20070,6 +20442,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
   workingAlarms: Boolean
@@ -20095,7 +20468,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
-  healthyHome: HealthyHomeUpdateOneWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
 }
 
@@ -20129,9 +20502,9 @@ input PropertyUpsertWithoutBankDetailsInput {
   create: PropertyCreateWithoutBankDetailsInput!
 }
 
-input PropertyUpsertWithoutHealthyHomeInput {
-  update: PropertyUpdateWithoutHealthyHomeDataInput!
-  create: PropertyCreateWithoutHealthyHomeInput!
+input PropertyUpsertWithoutFilesInput {
+  update: PropertyUpdateWithoutFilesDataInput!
+  create: PropertyCreateWithoutFilesInput!
 }
 
 input PropertyUpsertWithoutImagesInput {
@@ -20359,6 +20732,16 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   locationLng_gte: Float
+  titleType: PropertyTitleType
+
+  """All values that are not equal to given value."""
+  titleType_not: PropertyTitleType
+
+  """All values that are contained in given list."""
+  titleType_in: [PropertyTitleType!]
+
+  """All values that are not contained in given list."""
+  titleType_not_in: [PropertyTitleType!]
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -20887,6 +21270,16 @@ input PropertyWhereInput {
 
   """All values that are not contained in given list."""
   gardenResponsible_not_in: [PartyResponsible!]
+  maintenanceResponsible: PartyResponsible
+
+  """All values that are not equal to given value."""
+  maintenanceResponsible_not: PartyResponsible
+
+  """All values that are contained in given list."""
+  maintenanceResponsible_in: [PartyResponsible!]
+
+  """All values that are not contained in given list."""
+  maintenanceResponsible_not_in: [PartyResponsible!]
   landlordProtectionCover: Boolean
 
   """All values that are not equal to given value."""
@@ -20945,7 +21338,7 @@ input PropertyWhereInput {
   viewings_some: ViewingWhereInput
   viewings_none: ViewingWhereInput
   rehouserAssist: PropertyAssistWhereInput
-  healthyHome: HealthyHomeWhereInput
+  files: PropertyFilesWhereInput
   inspections_every: InspectionWhereInput
   inspections_some: InspectionWhereInput
   inspections_none: InspectionWhereInput
@@ -20967,7 +21360,7 @@ type Query {
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest]!
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File]!
   properties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property]!
-  healthyHomes(where: HealthyHomeWhereInput, orderBy: HealthyHomeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HealthyHome]!
+  propertyFileses(where: PropertyFilesWhereInput, orderBy: PropertyFilesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyFiles]!
   propertyAssists(where: PropertyAssistWhereInput, orderBy: PropertyAssistOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyAssist]!
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing]!
   propertyLeases(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PropertyLease]!
@@ -20996,7 +21389,7 @@ type Query {
   friendRequest(where: FriendRequestWhereUniqueInput!): FriendRequest
   file(where: FileWhereUniqueInput!): File
   property(where: PropertyWhereUniqueInput!): Property
-  healthyHome(where: HealthyHomeWhereUniqueInput!): HealthyHome
+  propertyFiles(where: PropertyFilesWhereUniqueInput!): PropertyFiles
   propertyAssist(where: PropertyAssistWhereUniqueInput!): PropertyAssist
   viewing(where: ViewingWhereUniqueInput!): Viewing
   propertyLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease
@@ -21025,7 +21418,7 @@ type Query {
   friendRequestsConnection(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FriendRequestConnection!
   filesConnection(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
   propertiesConnection(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyConnection!
-  healthyHomesConnection(where: HealthyHomeWhereInput, orderBy: HealthyHomeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HealthyHomeConnection!
+  propertyFilesesConnection(where: PropertyFilesWhereInput, orderBy: PropertyFilesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyFilesConnection!
   propertyAssistsConnection(where: PropertyAssistWhereInput, orderBy: PropertyAssistOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyAssistConnection!
   viewingsConnection(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ViewingConnection!
   propertyLeasesConnection(where: PropertyLeaseWhereInput, orderBy: PropertyLeaseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PropertyLeaseConnection!
@@ -23887,7 +24280,7 @@ type Subscription {
   friendRequest(where: FriendRequestSubscriptionWhereInput): FriendRequestSubscriptionPayload
   file(where: FileSubscriptionWhereInput): FileSubscriptionPayload
   property(where: PropertySubscriptionWhereInput): PropertySubscriptionPayload
-  healthyHome(where: HealthyHomeSubscriptionWhereInput): HealthyHomeSubscriptionPayload
+  propertyFiles(where: PropertyFilesSubscriptionWhereInput): PropertyFilesSubscriptionPayload
   propertyAssist(where: PropertyAssistSubscriptionWhereInput): PropertyAssistSubscriptionPayload
   viewing(where: ViewingSubscriptionWhereInput): ViewingSubscriptionPayload
   propertyLease(where: PropertyLeaseSubscriptionWhereInput): PropertyLeaseSubscriptionPayload

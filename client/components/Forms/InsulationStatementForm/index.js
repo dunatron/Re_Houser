@@ -33,6 +33,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import Error from '../../ErrorMessage';
+import FileUploader from '../../FileUploader';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,7 +67,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
+const InsulationStatementForm = ({
+  insulationFormId,
+  propertyId,
+  property,
+}) => {
   const classes = useStyles();
   const [open, setIsOpen] = useState(false);
 
@@ -216,6 +221,10 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
         alignItems: 'center',
         justifyContent: 'start',
       }}>
+      {/* {property.insulationStatementFile && (
+        <h1>WE HAVE insulation statement as a file</h1>
+      )} */}
+
       <AssignmentIcon
         style={{
           margin: '16px 0 16px 16px',
@@ -291,6 +300,7 @@ const InsulationStatementForm = ({ insulationFormId, propertyId }) => {
         <Error error={createInsulationFormProps.error} />
         <Error error={updateInsulationFormProps.error} />
       </Modal>
+      <FileUploader files={[property.insulationStatementFile]} />
     </div>
   );
 };

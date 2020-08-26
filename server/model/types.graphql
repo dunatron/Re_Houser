@@ -194,6 +194,10 @@ type File {
   propertyImages: Property @relation(name: "PropertyImages")
   propertyInsulationFile: Property @relation(name: "InsualtionStatementFile")
   inspectionFiles: Inspection @relation(name: "InspectionFiles")
+  codeComplianceCert: PropertyFiles
+    @relation(name: "PropertyCodeComplianceFile")
+  certOfAcceptance: PropertyFiles
+    @relation(name: "PropertyCertOfAcceptanceFile")
 }
 
 type Property implements PropertyInfo {
@@ -202,6 +206,7 @@ type Property implements PropertyInfo {
   location: String!
   locationLat: Float!
   locationLng: Float!
+  titleType: PropertyTitleType!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
@@ -251,6 +256,7 @@ type Property implements PropertyInfo {
   manholeLocation: String
   gardenToMaintain: Boolean
   gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
   chattels: [PropertyChattel] @scalarList(strategy: RELATION)
   landlordProtectionCover: Boolean
   freeGlassCover: Boolean
@@ -261,15 +267,17 @@ type Property implements PropertyInfo {
   viewings: [Viewing] @relation(name: "PropertyViewings")
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
-  healthyHome: HealthyHome @relation(name: "PropertyHealthy", link: TABLE)
+  files: PropertyFiles @relation(name: "PropertyFiles", link: TABLE)
   inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
 }
 
-type HealthyHome {
+type PropertyFiles {
   id: ID! @unique @id
-  property: Property @relation(name: "PropertyHealthy")
-  codeComplianceCert: Boolean
-  certOfAcceptance: Boolean
+  property: Property @relation(name: "PropertyFiles")
+  codeComplianceCert: File
+    @relation(name: "PropertyCodeComplianceFile", link: INLINE)
+  certOfAcceptance: File
+    @relation(name: "PropertyCertOfAcceptanceFile", link: INLINE)
 }
 
 type PropertyAssist {

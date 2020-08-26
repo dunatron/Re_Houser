@@ -123,10 +123,6 @@ const CreatePropertyComponent = props => {
           Your property has been created in our system. You may need to supply
           some more data before your property can go on the market
         </Typography>
-        <Typography gutterBottom>
-          You can manage the property and put it on the market by clicking the
-          below button
-        </Typography>
         <ChangeRouteButton
           title="Go to property"
           route="/properties/property"

@@ -19,16 +19,18 @@ async function updateProperty(parent, args, ctx, info) {
 
   const item = await ctx.db.query.property(
     { where },
-    `{ id location images {id url} insulationForm {id} }`
+    `{ id location images {id url} insulationForm {id} insulationStatementFile {id} }`
   );
 
   if (updates.files) {
   }
 
   if (!item.insulationForm && updates.data.onTheMarket) {
-    throw new Error(
-      "You need an Insulation Statement before your property can go on the market"
-    );
+    if (!item.insulationStatementFile) {
+      throw new Error(
+        "You need an Insulation Statement before your property can go on the market"
+      );
+    }
   }
 
   createActivity({

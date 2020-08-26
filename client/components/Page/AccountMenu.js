@@ -7,6 +7,7 @@ import Error from '../ErrorMessage';
 import gql from 'graphql-tag';
 import { toast } from 'react-toastify';
 import { store } from '../../store';
+import RToolTip from '../../styles/RToolTip';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -56,16 +57,31 @@ const AccountMenu = ({ me = null }) => {
     setAnchorEl(null);
   };
 
+  const _profilePhotoUrl = () => {
+    if (me) {
+      if (me.profilePhoto) {
+        return me.profilePhoto.url;
+      }
+    }
+    return null;
+  };
+
+  const photoUrl = _profilePhotoUrl();
+
   return (
     <div className={classes.root}>
-      <Avatar
-        alt={me ? `${me.firstName} ${me.lastName}` : 'Account'}
-        src={me ? me.profilePhoto : ''}
-        className={classes.icon}
-        aria-controls="fade-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      />
+      <RToolTip
+        title={me ? `Signed in as ${me.firstName} ${me.lastName}` : 'Account'}>
+        <Avatar
+          alt={me ? `${me.firstName} ${me.lastName}` : 'Account'}
+          src={photoUrl}
+          className={classes.icon}
+          aria-controls="fade-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        />
+      </RToolTip>
+
       <Menu
         id="fade-menu"
         anchorEl={anchorEl}

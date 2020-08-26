@@ -275,7 +275,7 @@ const Details = props => {
   );
   return (
     <div>
-      <Typography
+      <Typography 
         variant="h5"
         color="primary"
         gutterBottom={true}
@@ -292,6 +292,7 @@ const Details = props => {
         <InsulationStatementForm
           data={null}
           propertyId={property.id}
+          property={property}
           insulationFormId={
             property.insulationForm ? property.insulationForm.id : null
           }

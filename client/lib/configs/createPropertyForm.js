@@ -51,6 +51,21 @@ const CREATE_PROPERTY_FORM_CONF = [
           },
         },
       },
+      {
+        type: 'SelectOneEnum',
+        __type: 'PropertyTitleType',
+        key: 'titleType',
+        fieldProps: {
+          name: 'titleType',
+          label: 'Property Type',
+        },
+        refConf: {
+          required: {
+            value: true,
+            message: 'You need to supply a "Title Type" for a property',
+          },
+        },
+      },
     ],
   },
   {
@@ -507,6 +522,23 @@ const CREATE_PROPERTY_FORM_CONF = [
           },
         },
       },
+      //maintenanceResponsible
+      {
+        type: 'SelectOneEnum',
+        __type: 'PartyResponsible',
+        key: 'maintenanceResponsible',
+        fieldProps: {
+          name: 'maintenanceResponsible',
+          label: 'Who is responsible for the maintenance',
+        },
+        refConf: {
+          required: {
+            value: true,
+            message:
+              'You need to tell us who will be responsible for the maintenance of the property',
+          },
+        },
+      },
       {
         type: 'CheckReason',
         key: 'gardenToMaintain',
@@ -660,16 +692,16 @@ const CREATE_PROPERTY_FORM_CONF = [
   {
     type: 'Section',
     fieldProps: {
-      label: 'Healthy Homes Standard',
+      label: 'Other Property Files',
     },
     inners: [
       {
         type: 'File',
-        key: 'healthyHome.codeComplianceCert',
+        key: 'files.codeComplianceCert',
         fieldProps: {
           isMultiple: false,
           maxFilesAllowed: 1,
-          name: 'healthyHome.codeComplianceCert',
+          name: 'files.codeComplianceCert',
           label: 'Code Compliance Certificate',
           description: 'Code compliance certificate',
         },
@@ -677,11 +709,11 @@ const CREATE_PROPERTY_FORM_CONF = [
       },
       {
         type: 'File',
-        key: 'healthyHome.certOfAcceptance',
+        key: 'files.certOfAcceptance',
         fieldProps: {
           isMultiple: false,
           maxFilesAllowed: 1,
-          name: 'healthyHome.certOfAcceptance',
+          name: 'files.certOfAcceptance',
           label: 'Certificate of acceptance',
           description: 'Certificate of acceptance',
         },

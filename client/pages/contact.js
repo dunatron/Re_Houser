@@ -15,11 +15,10 @@ const LookPage = props => {
       <PageHeader
         title="Contact"
         id="contact-page"
-        intro="Contact us"
         metaData={{
-          title: 'Contact Rehouser Team',
+          title: 'Contact Rehouser Support',
           content:
-            'Contact the rehouser team who will be in touch with promptly',
+            'Contact the rehouser support team who will be in touch with you promptly',
         }}
       />
       <ContactForm />

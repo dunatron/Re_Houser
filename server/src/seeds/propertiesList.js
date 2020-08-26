@@ -27,6 +27,7 @@ const propertyFrag = {
   location: "5 Monowai Road, Ravensbourne, Dunedin",
   locationLat: -45.86423299999999,
   locationLng: 170.548709,
+  titleType: "UNIT_TITLE",
   acceptedTerms: true,
   isLeased: false,
   lastLeaseId: "",

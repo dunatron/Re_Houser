@@ -88,6 +88,13 @@ enum TenancyType {
   FIXED
 }
 
+enum PropertyTitleType {
+  UNIT_TITLE
+  FREEHOLD
+  CROSSLEASE
+  LEASEHOLD
+}
+
 enum TenancyFixedLength {
   MONTHS_12
   MONTHS_9
