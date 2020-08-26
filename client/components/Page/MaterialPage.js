@@ -29,10 +29,21 @@ function MaterialPage(props) {
   const drawer = (
     <>
       <div className={classes.logoContainer}>
-        <ListItem>
+        <ListItem
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            // height: '162px',
+          }}>
           <Link href="/">
             {/* Space to serve image to the left with text. Note make image wide with this space, logo in it and slogan to the right */}
-            <img src="/images/rehouser_logo.png" width="100px" alt="my image" />
+            {/* <img src="/images/rehouser_logo.png" width="100px" alt="my image" /> */}
+            <img
+              src="/images/svg/ReHouse_main_logo.svg"
+              // width="100px"
+              alt="my image"
+            />
           </Link>
         </ListItem>
       </div>
