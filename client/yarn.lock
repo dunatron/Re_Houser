@@ -14789,6 +14789,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+pathseg@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/pathseg/-/pathseg-1.2.0.tgz#22af051e28037671e7799e296fe96c5dcbe53acd"
+  integrity sha512-+pQS7lTaoVIXhaCW7R3Wd/165APzZHWzYVqe7dxzdupxQwebgpBaCmf0/XZwmoA/rkDq3qvzO0qv4d5oFVrBRw==
+
 pbkdf2@^3.0.3:
   version "3.0.17"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.17.tgz#976c206530617b14ebb32114239f7b09336e93a6"
@@ -16541,6 +16546,14 @@ react-papaparse@^3.4.0:
     "@types/papaparse" "^5.0.4"
     papaparse "^5.2.0"
 
+react-particles-js@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-particles-js/-/react-particles-js-3.3.0.tgz#ecedd5b5c6b853bbf29a7e03ea2af898b8048091"
+  integrity sha512-pc9oJWEHH3UR1sJurL98TPrEWr0Yf2E8j+f8PLDpgbnQirTRqfwEvTRNJ/Ibvt6233WycCrndn6ImfL0PDEr7A==
+  dependencies:
+    lodash "^4.17.11"
+    tsparticles "^1.17.1"
+
 react-reconciler@^0.21.0:
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.21.0.tgz#8180342ab3c8295f860025a86d0a03742a294ea7"
@@ -16710,6 +16723,14 @@ react-transition-group@^4, react-transition-group@^4.0.0, react-transition-group
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-tsparticles@^1.17.9:
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/react-tsparticles/-/react-tsparticles-1.17.9.tgz#b0f3a105c63ca7cfca28e281e7ad9d521e087bce"
+  integrity sha512-x+ie181WAPAGb65iIXYMixigu1sHbW2qd5+88WpjZodgAq/rY0AgFrAfWUsIf50zIPU7oLBFJTSjE6q5UJ18mw==
+  dependencies:
+    lodash "^4.17.19"
+    tsparticles "^1.17.9"
 
 react-virtual-list@^2.3.0:
   version "2.3.0"
@@ -19273,6 +19294,19 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+
+tslib@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.1.tgz#410eb0d113e5b6356490eec749603725b021b43e"
+  integrity sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
+
+tsparticles@^1.17.1, tsparticles@^1.17.9:
+  version "1.17.9"
+  resolved "https://registry.yarnpkg.com/tsparticles/-/tsparticles-1.17.9.tgz#91893cb3e53b7a29518f347ab2c0421071ce6d83"
+  integrity sha512-jRu7OWAGqXPhFVb8ZW8NmEpEmEdSnN9dZ/xalg1izv8VwynqgMPTVYEQH2Nh1BYmVjbTyBvKnk0kiLHgDzn3Hw==
+  dependencies:
+    pathseg "^1.2.0"
+    tslib "^2.0.0"
 
 tsutils@^3.17.1:
   version "3.17.1"

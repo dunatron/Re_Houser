@@ -356,6 +356,7 @@ const Nav = ({ loadingUser, me }) => {
                   if (!item.canRender()) return null;
                   return (
                     <ListItem
+                      color="primary"
                       button
                       key={`${conf.key}${i}`}
                       onClick={() => {

@@ -8,6 +8,8 @@ import Loader from '../Loader';
 //hooks
 import useCurrentWidth from '../../lib/hooks/useCurrentWidth';
 import useCurrentHeight from '../../lib/hooks/useCurrentHeight';
+import ParticleOne from '../Particles/ParticleOne';
+import ParticleTwo from '../Particles/ParticleTwo';
 
 /**
  * Images are ugly until they're loaded. Materialize it with material image! It will fade in like the material image loading pattern suggests.
@@ -117,7 +119,11 @@ const Banner = props => {
         height: windowHeight,
       }}>
       {/* Simply here to detect when the image is loaded...  */}
-      <div className={classes.imageOverlay}></div>
+      <div className={classes.imageOverlay}>
+        <ParticleOne />
+        {/* <ParticleTwo /> */}
+      </div>
+
       <img
         onLoad={handleOnImageLoad}
         src={imageSrc}

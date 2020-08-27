@@ -1,5 +1,18 @@
 // https://in-your-saas.github.io/material-ui-theme-editor/
 //https://react-theming.github.io/create-mui-theme/
+
+// https://material.io/resources/color/#!/?view.left=1&view.right=0&primary.color=D81B60&secondary.color=673AB7&primary.text.color=ffffff&secondary.text.color=ffffff
+
+export const mainPrimaryColor = '#f70080';
+export const lightPrimaryColor = '#ff5baf';
+export const darkPrimaryColor = '#be0054';
+export const primaryContrastText = '#000000';
+
+export const mainSecondaryColor = '#673ab7';
+export const lightSecondaryColor = '#9a67ea';
+export const darkSecondaryColor = '#320b86';
+export const secondaryContrastText = '#ffffff';
+
 import {
   red,
   pink,
@@ -47,14 +60,17 @@ const theme = {
     // background: { paper: '#fff', default: '#fafafa' },
     background: { paper: '#fff', default: '#fff' },
     primary: {
-      light: '#e6339b',
-      main: '#e00082',
-      dark: '#9c005b',
-      // contrastText: 'rgba(255, 255, 255, 0.5)',
-      // contrastText: '#232324',
-      contrastText: '0c0c0d',
+      light: lightPrimaryColor,
+      main: mainPrimaryColor,
+      dark: darkPrimaryColor,
+      contrastText: primaryContrastText,
     },
-    secondary: deepPurple,
+    secondary: {
+      light: lightSecondaryColor,
+      main: mainSecondaryColor,
+      dark: darkSecondaryColor,
+      contrastText: secondaryContrastText,
+    },
     text: {
       primary: 'rgba(0, 0, 0, 0.77)',
       secondary: 'rgba(0, 0, 0, 0.65)',
@@ -63,50 +79,6 @@ const theme = {
       hint: 'rgba(0, 0, 0, 0.38)',
     },
   },
-  // palette: {
-  //   nProgress: {
-  //     main: 'red',
-  //   },
-  //   type: 'light',
-  //   common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
-  //   background: { paper: '#fff', default: '#fafafa' },
-  //   primary: {
-  //     light: '#fff',
-  //     main: '#fff',
-  //     dark: '#fff',
-  //   },
-  //   secondary: {
-  //     light: '#e6339b',
-  //     main: '#e00082',
-  //     dark: '#9c005b',
-  //   },
-  //   text: {
-  //     primary: 'rgba(0, 0, 0, 0.77)',
-  //     secondary: 'rgba(0, 0, 0, 0.65)',
-  //     disabled: 'rgba(0, 0, 0, 0.38)',
-  //     hint: 'rgba(0, 0, 0, 0.38)',
-  //   },
-  // },
-  // palette: {
-  //   nProgress: {
-  //     main: 'red',
-  //   },
-  //   type: 'light',
-  //   common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
-  //   background: { paper: '#fff', default: '#fafafa' },
-  //   primary: {
-  //     light: '#e6339b',
-  //     main: '#e00082',
-  //     dark: '#9c005b',
-  //   },
-  //   secondary: deepPurple,
-  //   text: {
-  //     primary: 'rgba(0, 0, 0, 0.77)',
-  //     secondary: 'rgba(0, 0, 0, 0.65)',
-  //     disabled: 'rgba(0, 0, 0, 0.38)',
-  //     hint: 'rgba(0, 0, 0, 0.38)',
-  //   },
-  // },
   text: {
     primary: 'rgba(0, 0, 0, 0.87)',
     secondary: 'rgba(0, 0, 0, 0.54)',
@@ -114,14 +86,21 @@ const theme = {
     hint: 'rgba(0, 0, 0, 0.38)',
   },
   overrides: {
+    // .MuiAppBar-colorPrimary
+    MuiAppBar: {
+      colorPrimary: {
+        // color: mainPrimaryColor,
+        // backgroundColor: '#ffffff',
+      },
+    },
     MuiTooltipPopper: {
       border: '2px solid red',
     },
     MuiTooltip: {
       tooltip: {
         fontSize: '2em',
-        color: 'yellow',
-        backgroundColor: 'red',
+        // color: 'yellow',
+        // backgroundColor: 'red',
       },
     },
     MuiTooltipTooltip: {},
@@ -134,7 +113,7 @@ const theme = {
         backgroundColor: '#fff',
       },
       contained: {
-        color: '#e00082',
+        color: mainPrimaryColor,
         backgroundColor: '#fff',
       },
       containedPrimary: {

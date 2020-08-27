@@ -14,11 +14,15 @@ import Team from '../components/Team/index';
 
 import HOME_PAGE_DASHBOARD_CONFIG from '../lib/configs/homepageDashboardConf';
 
+import Particles from 'react-particles-js';
+import Particles2 from 'react-tsparticles';
+
 const HomePage = props => {
   const {
     appData: { currentUser },
   } = props;
   // query={{ id: data.createProperty.id }}
+
   return (
     <div>
       <Banner

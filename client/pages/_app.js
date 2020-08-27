@@ -29,6 +29,7 @@ class AppEntryPointExtension extends App {
           <StateProvider>
             <Head>
               <script src="https://js.stripe.com/v3/" />
+              <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
             </Head>
             <Page>
               <Component {...pageProps} />

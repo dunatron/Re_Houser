@@ -7,9 +7,13 @@ const useStyles = makeStyles({
     width: '100%',
     maxWidth: 500,
   },
+  button: {
+    margin: '8px',
+  },
 });
 
 const ButtonsExample = () => {
+  const classes = useStyles();
   return (
     <div>
       <Typography variant="h2" gutterBottom>
@@ -18,38 +22,48 @@ const ButtonsExample = () => {
       <Typography variant="h6" gutterBottom>
         default buttons
       </Typography>
-      <Button>Default Button</Button>
-      <Button color="primary">Primary Button</Button>
-      <Button color="secondary">Secondary Button</Button>
+      <Button className={classes.button}>Default Button</Button>
+      <Button color="primary" className={classes.button}>
+        Primary Button
+      </Button>
+      <Button color="secondary" className={classes.button}>
+        Secondary Button
+      </Button>
 
       <Typography variant="h6" gutterBottom>
         contained buttons
       </Typography>
-      <Button variant="contained">Default contained Button</Button>
-      <Button color="primary" variant="contained">
+      <Button variant="contained" className={classes.button}>
+        Default contained Button
+      </Button>
+      <Button color="primary" variant="contained" className={classes.button}>
         Primary Contained Button
       </Button>
-      <Button color="secondary" variant="contained">
+      <Button color="secondary" variant="contained" className={classes.button}>
         Secondary contained Button
       </Button>
       <Typography variant="h6" gutterBottom>
         outlined buttons
       </Typography>
-      <Button variant="outlined">Default outlined Button</Button>
-      <Button color="primary" variant="outlined">
+      <Button variant="outlined" className={classes.button}>
+        Default outlined Button
+      </Button>
+      <Button color="primary" variant="outlined" className={classes.button}>
         Primary outlined Button
       </Button>
-      <Button color="secondary" variant="outlined">
+      <Button color="secondary" variant="outlined" className={classes.button}>
         Secondary outlined Button
       </Button>
       <Typography variant="h6" gutterBottom>
         text buttons
       </Typography>
-      <Button variant="text">Default text Button</Button>
-      <Button color="primary" variant="text">
+      <Button variant="text" className={classes.button}>
+        Default text Button
+      </Button>
+      <Button color="primary" variant="text" className={classes.button}>
         Primary text Button
       </Button>
-      <Button color="secondary" variant="text">
+      <Button color="secondary" variant="text" className={classes.button}>
         Secondary text Button
       </Button>
     </div>

@@ -6,14 +6,14 @@ const ADMIN_DASHBOARD_CONFIG = [
     label: 'Appraisals',
     route: '/admin/appraisals',
     description: 'Review system appraisals',
-    color: 'secondary',
+    color: 'primary',
     icon: <HomeWorkIcon />,
   },
   {
     label: 'Typography',
     route: '/admin/typography',
     description: 'Review system typography',
-    color: 'secondary',
+    color: 'primary',
     icon: <TextFieldsIcon />,
   },
 ];
