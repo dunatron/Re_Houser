@@ -19,14 +19,11 @@ import Meta from '../Meta/index';
 // Material UI
 import NoSsr from '@material-ui/core/NoSsr';
 import muiTheme from '../../styles/_muiTheme';
-import lightPalette from '../../styles/_lightMUIPalette';
-import darkPalette from '../../styles/_darkMUIPalette';
 
 // Admin Area Addisions
 import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAlertNewRentalApplicationSub';
 import AdminAlertsContainer from '../../containers/AdminAlertsContainer';
 import GeneralSubsContainer from '../../containers/GeneralSubsContainer';
-
 
 // theme typography
 import themeTypography from '../../styles/_themeTypography';
@@ -44,37 +41,7 @@ const theme = createMuiTheme({
   ...muiTheme,
   palette: {
     ...muiTheme.palette,
-    ...lightPalette.palette,
   },
-});
-
-const darkTheme = createMuiTheme({
-  ...muiTheme,
-  palette: {
-    ...muiTheme.palette,
-    ...darkPalette.palette,
-  },
-  overrides: {
-    MuiAppBar: { colorPrimary: { backgroundColor: '#212121', color: '#fff' } },
-    // MuiAppBar: {
-    //   colorPrimary: { backgroundColor: 'transparent', color: '#fff' },
-    // },
-  },
-  ...themeTypography,
-});
-const lightTheme = createMuiTheme({
-  ...muiTheme,
-  palette: {
-    ...muiTheme.palette,
-    ...lightPalette.palette,
-  },
-  overrides: {
-    MuiAppBar: { colorPrimary: { backgroundColor: '#fff', color: '#212121' } },
-    // MuiAppBar: {
-    //   colorPrimary: { backgroundColor: 'transparent', color: '#212121' },
-    // },
-  },
-  ...themeTypography,
 });
 
 import Router from 'next/router';
@@ -188,16 +155,13 @@ const GlobalStyle = createGlobalStyle`
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
-  const [useDarkTheme, setUseDarkTheme] = useState(false); // should set localStorage for this so each  device can remember its theme choice
+
   const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
       setStripe(window.Stripe(process.env.STRIPE_KEY));
     }
   }, [window.Stripe]);
-  const themeToUse = useDarkTheme ? darkTheme : lightTheme;
-
-  console.log('YAY PAGE PROPS => ', props);
 
   const handleDefaultDragover = e => {
     e = e || event;
@@ -224,7 +188,7 @@ const Page = props => {
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
       {/* <StateProvider> */}
-      <MuiThemeProvider theme={themeToUse}>
+      <MuiThemeProvider theme={theme}>
         <ToastContainer
           rtl={false}
           style={{
@@ -238,18 +202,12 @@ const Page = props => {
             </div>
           }
         />
-        <ThemeProvider theme={themeToUse}>
+        <ThemeProvider theme={theme}>
           <Elements stripe={stripe}>
             <WithUser>
               {/* <WithChats> */}
               <Meta />
-              <MaterialPage
-                children={props.children}
-                {...props}
-                toggleTheme={() => {
-                  setUseDarkTheme(!useDarkTheme);
-                }}
-              />
+              <MaterialPage children={props.children} {...props} />
               <AdminAlertsContainer />
               <GeneralSubsContainer />
             </WithUser>

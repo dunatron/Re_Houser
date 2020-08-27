@@ -35,34 +35,32 @@ const theme = {
     keys: ['xs', 'sm', 'md', 'lg', 'xl'],
     values: { xs: 0, lg: 1280, sm: 600, xl: 1920, md: 960 },
   },
+  // https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=ffffff&secondary.color=e00082
+  // https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=e00082&secondary.color=ffffff
   palette: {
     nProgress: {
-      main: 'red',
+      main: '#651fff',
     },
-    type: 'dark',
-    common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
-    background: { paper: '#212121', default: '#212121' },
-    primary: yellow,
-    secondary: {
-      light: '#ff4081',
-      main: '#f50057',
-      dark: '#c51162',
-      contrastText: '#fff',
+    type: 'light',
+    // common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
+    common: { black: 'rgba(12, 12, 13, 1)', white: 'rgba(255, 255, 255, 1)' },
+    // background: { paper: '#fff', default: '#fafafa' },
+    background: { paper: '#fff', default: '#fff' },
+    primary: {
+      light: '#e6339b',
+      main: '#e00082',
+      dark: '#9c005b',
+      // contrastText: 'rgba(255, 255, 255, 0.5)',
+      // contrastText: '#232324',
+      contrastText: '0c0c0d',
     },
-    // primary: blueGrey,
-    // secondary: deepOrange,
-    error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
-      contrastText: '#fff',
+    secondary: deepPurple,
+    text: {
+      primary: 'rgba(0, 0, 0, 0.77)',
+      secondary: 'rgba(0, 0, 0, 0.65)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
+      hint: 'rgba(0, 0, 0, 0.38)',
     },
-  },
-  text: {
-    primary: 'rgba(0, 0, 0, 0.87)',
-    secondary: 'rgba(0, 0, 0, 0.54)',
-    disabled: 'rgba(0, 0, 0, 0.38)',
-    hint: 'rgba(0, 0, 0, 0.38)',
   },
   // palette: {
   //   nProgress: {
@@ -72,32 +70,48 @@ const theme = {
   //   common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
   //   background: { paper: '#fff', default: '#fafafa' },
   //   primary: {
-  //     light: '#7986cb',
-  //     main: '#3f51b5',
-  //     dark: '#303f9f',
-  //     contrastText: '#fff',
+  //     light: '#fff',
+  //     main: '#fff',
+  //     dark: '#fff',
   //   },
   //   secondary: {
-  //     light: '#ff4081',
-  //     main: '#f50057',
-  //     dark: '#c51162',
-  //     contrastText: '#fff',
-  //   },
-  //   // primary: blueGrey,
-  //   // secondary: deepOrange,
-  //   error: {
-  //     light: '#e57373',
-  //     main: '#f44336',
-  //     dark: '#d32f2f',
-  //     contrastText: '#fff',
+  //     light: '#e6339b',
+  //     main: '#e00082',
+  //     dark: '#9c005b',
   //   },
   //   text: {
-  //     primary: 'rgba(0, 0, 0, 0.87)',
-  //     secondary: 'rgba(0, 0, 0, 0.54)',
+  //     primary: 'rgba(0, 0, 0, 0.77)',
+  //     secondary: 'rgba(0, 0, 0, 0.65)',
   //     disabled: 'rgba(0, 0, 0, 0.38)',
   //     hint: 'rgba(0, 0, 0, 0.38)',
   //   },
   // },
+  // palette: {
+  //   nProgress: {
+  //     main: 'red',
+  //   },
+  //   type: 'light',
+  //   common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
+  //   background: { paper: '#fff', default: '#fafafa' },
+  //   primary: {
+  //     light: '#e6339b',
+  //     main: '#e00082',
+  //     dark: '#9c005b',
+  //   },
+  //   secondary: deepPurple,
+  //   text: {
+  //     primary: 'rgba(0, 0, 0, 0.77)',
+  //     secondary: 'rgba(0, 0, 0, 0.65)',
+  //     disabled: 'rgba(0, 0, 0, 0.38)',
+  //     hint: 'rgba(0, 0, 0, 0.38)',
+  //   },
+  // },
+  text: {
+    primary: 'rgba(0, 0, 0, 0.87)',
+    secondary: 'rgba(0, 0, 0, 0.54)',
+    disabled: 'rgba(0, 0, 0, 0.38)',
+    hint: 'rgba(0, 0, 0, 0.38)',
+  },
   overrides: {
     MuiTooltipPopper: {
       border: '2px solid red',
@@ -116,6 +130,14 @@ const theme = {
     MuiButton: {
       root: {
         fontSize: '1rem',
+        backgroundColor: '#fff',
+      },
+      contained: {
+        backgroundColor: '#fff',
+      },
+      default: {
+        fontSize: '1rem',
+        backgroundColor: '#fff',
       },
     },
     MuiListItemIcon: {
@@ -133,29 +155,5 @@ const theme = {
       // },
     },
   },
-  // palette: {
-  //   type: 'light',
-
-  //   primary: {
-  //     // light: will be calculated from palette.primary.main,
-  //     main: '#673ab7',
-  //     // dark: will be calculated from palette.primary.main,
-  //     // contrastText: will be calculated to contrast with palette.primary.main
-  //   },
-  //   secondary: {
-  //     // light: will be calculated from palette.primary.main,
-
-  //     main: '#455A64',
-  //     // dark: will be calculated from palette.primary.main,
-  //     // contrastText: will be calculated to contrast with palette.primary.main
-  //   },
-  //   error: { light: '#e57373', main: '#f44336', dark: '#d32f2f' },
-
-  //   // custom prop so only defined props available
-  //   nProgress: {
-  //     main: 'red',
-  //   },
-  //   // error: will use the default color
-  // },
 };
 export default theme;

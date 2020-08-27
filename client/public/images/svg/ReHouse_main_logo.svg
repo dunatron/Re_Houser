@@ -24,10 +24,18 @@
 	.st1{fill:none;stroke:#651fff;stroke-width:8.438;stroke-miterlimit:10;}
 	.st2{fill:#651fff;}
 	.st3{fill:#364CA0;} -->
+	<!-- .st0{fill:#e00082;}
+	.st1{fill:none;stroke:#9c005b;stroke-width:8.438;stroke-miterlimit:10;}
+	.st2{fill:#9c005b;}
+	.st3{fill:#e00082;} -->
+	<!-- .st0{fill:#9c005b;}
+	.st1{fill:none;stroke:#e00082;stroke-width:8.438;stroke-miterlimit:10;}
+	.st2{fill:#e00082;}
+	.st3{fill:#9c005b;} -->
 	.st0{fill:#651fff;}
-	.st1{fill:none;stroke:#009688;stroke-width:8.438;stroke-miterlimit:10;}
-	.st2{fill:#009688;}
-	.st3{fill:#651fff;}
+	.st1{fill:none;stroke:#e00082;stroke-width:8.438;stroke-miterlimit:10;}
+	.st2{fill:#e00082;}
+	.st3{fill:#e00082;}
 </style>
 <metadata>
 	<sfw  xmlns="&ns_sfw;">

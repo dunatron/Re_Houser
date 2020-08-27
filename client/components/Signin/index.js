@@ -21,7 +21,8 @@ const Signin = props => {
 
   const recaptchaRef = useRef();
 
-  const clearRecaptcha = () => recaptchaRef.current.reset();
+  const clearRecaptcha = () =>
+    recaptchaRef.current ? recaptchaRef.current.reset() : null;
 
   const handleCompleted = data => {
     toast.success(
@@ -75,15 +76,17 @@ const Signin = props => {
           update: (cache, data) => {
             cache.modify({
               fields: {
-                me(existingMeRefs, { readField }) {
+                me(existingMeRef = {}, { readField }) {
+                  console.log('The data for a signin => ', data.data);
                   console.log(
                     'WIll this even work => existingRefs ',
-                    existingMeRefs
+                    existingMeRef
                   );
                   console.log(
                     'WIll this even work => readField ',
-                    existingMeRefs
+                    existingMeRef
                   );
+                  return { ...data.data.signin };
                 },
               },
             });

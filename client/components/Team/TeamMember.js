@@ -1,7 +1,11 @@
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import PageHeader from '../PageHeader';
+
+//icons
+import PhoneIcon from '@material-ui/icons/Phone';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -38,6 +42,9 @@ const useStyles = makeStyles(theme => ({
       margin: 'unset',
     },
   },
+  contactDetails: {
+    fontSize: '22px',
+  },
 }));
 
 const TeamMember = ({ member }) => {
@@ -62,7 +69,17 @@ const TeamMember = ({ member }) => {
         <div className={classes.imageWrapper}>
           <Image src={member.imgPath} />
         </div>
-        <div className={classes.description}>{member.description}</div>
+        <div className={classes.description}>
+          {member.description}
+          <div className={classes.contactDetails}>
+            <Button color="secondary" startIcon={<PhoneIcon />}>
+              {member.phone}
+            </Button>
+            <Button color="secondary" startIcon={<MailOutlineIcon />}>
+              {member.email}
+            </Button>
+          </div>
+        </div>
       </div>
     </Paper>
   );

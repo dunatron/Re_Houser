@@ -13,6 +13,7 @@ const GeneralSubsContainer = props => {
         {({ data }) => {
           const me = data ? data.me : null;
           if (!me) return null;
+          console.log('General Subs container has user => ', me);
           return (
             <>
               <GeneralUserUpdatesSub me={me} />

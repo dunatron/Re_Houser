@@ -15,7 +15,7 @@ import LoginModal from './LoginModal';
 function MaterialPage(props) {
   const theme = useTheme();
   const classes = useStyles();
-  const { container, appData, toggleTheme, setTheme } = props;
+  const { container, appData } = props;
   const { currentUser } = appData;
 
   const me = currentUser.data ? currentUser.data.me : null;

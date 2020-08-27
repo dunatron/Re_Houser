@@ -61,6 +61,8 @@ const MessageCreatedSub = ({ me }) => {
       // );
     },
   });
+  console.log('Likely subscribed to messages!');
+  console.log('Hi there');
   return null;
 };
 

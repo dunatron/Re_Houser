@@ -42,15 +42,14 @@ const HomePage = props => {
           }}>
           <ChangeRouteButton
             title="Free Appraisal"
-            s
             variant="contained"
-            color="secondary"
+            color="primary"
             route="/freeappraisal"
           />
           <ChangeRouteButton
             title="Search for rental"
             variant="contained"
-            color="primary"
+            // color="primary"
             route="/property-search"
           />
         </div>
@@ -62,7 +61,7 @@ const HomePage = props => {
         <IconButton
           aria-label="read-more"
           href="#banner-footer"
-          color="secondary">
+          color="primary">
           <ArrowDownwardIcon fontSize="large" />
         </IconButton>
       </Banner>

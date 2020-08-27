@@ -19,7 +19,11 @@ import PhoneInput from '../Inputs/PhoneInput';
 
 const Signup = props => {
   const recaptchaRef = useRef();
-  const clearRecaptcha = () => recaptchaRef.current.reset();
+  const clearRecaptcha = () => {
+    if (recaptchaRef.current) {
+      recaptchaRef.current.reset();
+    }
+  };
   const [state, setState] = useState({
     firstName: props.firstName ? props.firstName : '',
     lastName: props.lastName ? props.lastName : '',
@@ -58,7 +62,15 @@ const Signup = props => {
 
   const [signUp, { error, loading, data }] = useMutation(SIGNUP_MUTATION, {
     variables: state,
-    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+    update(cache, { data: { signup } }) {
+      cache.modify({
+        fields: {
+          me(existingMeRef = {}, { readField }) {
+            return { ...signup };
+          },
+        },
+      });
+    },
     onCompleted: handleCompleted,
     onError: handleOnError,
   });

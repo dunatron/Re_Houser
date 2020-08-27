@@ -42,7 +42,7 @@ const AppMenuBar = props => {
   // const { container, loadingUser, me } = props;
   const topPos = useCurrentScrollTop();
   const noTransparency = topPos > 10 ? true : false;
-  const { container, appData, toggleTheme, setTheme } = props;
+  const { container, appData } = props;
   const { currentUser } = appData;
 
   const me = currentUser.data ? currentUser.data.me : null;
@@ -136,28 +136,6 @@ const AppMenuBar = props => {
               flexWrap: 'wrap',
               alignItems: 'center',
             }}>
-            {/* <ThemePicker setTheme={setTheme} /> */}
-
-            <Tooltip title="toggle app theme">
-              <IconButton
-                onClick={() => toggleTheme()}
-                color="inherit"
-                aria-label="toggle Theme"
-                edge="end">
-                <Brightness7Icon />
-              </IconButton>
-            </Tooltip>
-            {/* <Tooltip title="go to Dashboard">
-              <IconButton
-                onClick={() => {
-                  router.push('/dashboard');
-                }}
-                color="inherit"
-                aria-label="go to dashboard"
-                edge="end">
-                <DashboardIcon />
-              </IconButton>
-            </Tooltip> */}
             <AccountMenu me={me} />
           </div>
         </Toolbar>

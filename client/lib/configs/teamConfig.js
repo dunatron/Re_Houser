@@ -1,4 +1,5 @@
 import { Typography } from '@material-ui/core';
+import { CEO_DETAILS, CTO_DETAILS } from '../../config';
 
 const TEAM_CONFIG = [
   {
@@ -6,6 +7,8 @@ const TEAM_CONFIG = [
     subUrl: 'heath_mcdonough',
     imgPath: '/images/team/heath_dunlop.jpg',
     role: 'CEO',
+    phone: CEO_DETAILS.phone,
+    email: CEO_DETAILS.email,
     description: (
       <div>
         <Typography gutterBottom>
@@ -23,6 +26,10 @@ const TEAM_CONFIG = [
           turn to when discovering a gap in the market that needed technology to
           bridge.
         </Typography>
+        <Typography gutterBottom>
+          Now a qualified Property Manager to ensure the platform does
+          everything the law requires it to
+        </Typography>
       </div>
     ),
   },
@@ -31,6 +38,8 @@ const TEAM_CONFIG = [
     subUrl: 'heath_dunlop',
     imgPath: '/images/team/heath_dunlop.jpg',
     role: 'CTO',
+    phone: CTO_DETAILS.Phone,
+    email: CTO_DETAILS.email,
     description: (
       <div>
         <Typography gutterBottom>
