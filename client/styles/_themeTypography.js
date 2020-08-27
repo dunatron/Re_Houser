@@ -13,7 +13,7 @@ const themeTypography = {
       fontSize: '4rem',
       lineHeight: 1.167,
       letterSpacing: '-0.01562em',
-      color: '#14a37f', //teal
+      // color: 'red', //teal
       // color: '#482880', //deepPurple
     },
     h2: {

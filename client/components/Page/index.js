@@ -42,6 +42,7 @@ const theme = createMuiTheme({
   palette: {
     ...muiTheme.palette,
   },
+  ...themeTypography,
 });
 
 import Router from 'next/router';

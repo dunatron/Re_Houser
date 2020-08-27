@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import { Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -9,12 +9,59 @@ const useStyles = makeStyles({
   },
 });
 
+const ButtonsExample = () => {
+  return (
+    <div>
+      <Typography variant="h2" gutterBottom>
+        Buttons
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+        default buttons
+      </Typography>
+      <Button>Default Button</Button>
+      <Button color="primary">Primary Button</Button>
+      <Button color="secondary">Secondary Button</Button>
+
+      <Typography variant="h6" gutterBottom>
+        contained buttons
+      </Typography>
+      <Button variant="contained">Default contained Button</Button>
+      <Button color="primary" variant="contained">
+        Primary Contained Button
+      </Button>
+      <Button color="secondary" variant="contained">
+        Secondary contained Button
+      </Button>
+      <Typography variant="h6" gutterBottom>
+        outlined buttons
+      </Typography>
+      <Button variant="outlined">Default outlined Button</Button>
+      <Button color="primary" variant="outlined">
+        Primary outlined Button
+      </Button>
+      <Button color="secondary" variant="outlined">
+        Secondary outlined Button
+      </Button>
+      <Typography variant="h6" gutterBottom>
+        text buttons
+      </Typography>
+      <Button variant="text">Default text Button</Button>
+      <Button color="primary" variant="text">
+        Primary text Button
+      </Button>
+      <Button color="secondary" variant="text">
+        Secondary text Button
+      </Button>
+    </div>
+  );
+};
+
 const TypographyTypesPage = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <Typography variant="h1" component="h2" gutterBottom>
+      <Typography variant="h1" component="h1" gutterBottom>
         h1. Heading
       </Typography>
       <Typography variant="h2" gutterBottom>
@@ -61,6 +108,7 @@ const TypographyTypesPage = () => {
       <Typography variant="overline" display="block" gutterBottom>
         overline text
       </Typography>
+      <ButtonsExample />
     </div>
   );
 };

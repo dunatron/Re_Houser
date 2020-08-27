@@ -74,10 +74,14 @@ const useStyles = makeStyles(theme => ({
   footer: {
     position: 'absolute',
     bottom: 0,
-    color: theme.palette.primary.contrastText,
+
     padding: theme.spacing(3),
     width: '100%',
-    backgroundColor: theme.palette.primary.main,
+    // color: theme.palette.primary.contrastText,
+    // backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.primary,
+    // backgroundColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 

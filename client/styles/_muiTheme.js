@@ -58,6 +58,7 @@ const theme = {
     text: {
       primary: 'rgba(0, 0, 0, 0.77)',
       secondary: 'rgba(0, 0, 0, 0.65)',
+      // secondary: 'rgba(255, 255, 255, 0.65)',
       disabled: 'rgba(0, 0, 0, 0.38)',
       hint: 'rgba(0, 0, 0, 0.38)',
     },
@@ -133,11 +134,16 @@ const theme = {
         backgroundColor: '#fff',
       },
       contained: {
+        color: '#e00082',
         backgroundColor: '#fff',
+      },
+      containedPrimary: {
+        color: '#fff',
+        // backgroundColor: 'red',
       },
       default: {
         fontSize: '1rem',
-        backgroundColor: '#fff',
+        // backgroundColor: 'black',
       },
     },
     MuiListItemIcon: {
