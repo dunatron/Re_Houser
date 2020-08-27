@@ -11,8 +11,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     // color: theme.palette.getContrastText(green[500]),
     // backgroundColor: green[500],
-    color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.main,
+    // color: theme.palette.primary.contrastText,
+    color: '#fff',
+    backgroundColor: theme.palette.primary.main,
     '&:hover': {
       cursor: 'pointer',
     },

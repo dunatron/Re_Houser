@@ -27,6 +27,7 @@ const HomePage = props => {
     <div>
       <Banner
         imageSrc="images/banners/home-page-banner.jpg"
+        disablePointerEvents={true}
         footer={[
           <Typography variant="h5" style={{ textAlign: 'center' }}>
             Turning empty houses into friendly abodes
@@ -34,7 +35,7 @@ const HomePage = props => {
         ]}>
         <Typography
           variant="h4"
-          color="secondary"
+          color="primary"
           style={{ marginBottom: '64px', textAlign: 'center' }}>
           Welcome to Rehouser
         </Typography>
@@ -50,25 +51,46 @@ const HomePage = props => {
             variant="contained"
             color="primary"
             route="/freeappraisal"
+            btnProps={{
+              style: {
+                pointerEvents: 'all',
+              },
+            }}
           />
           <ChangeRouteButton
             title="Search for rental"
             variant="contained"
             // color="primary"
             route="/property-search"
+            btnProps={{
+              style: {
+                pointerEvents: 'all',
+              },
+            }}
           />
         </div>
         <Typography
-          variant="h6"
+          variant="h5"
           color="primary"
           style={{ marginTop: '64px', textAlign: 'center' }}>
           Read More
         </Typography>
         <IconButton
+          style={{
+            pointerEvents: 'all',
+            // height: '3rem',
+            // width: '3rem',
+          }}
           aria-label="read-more"
           href="#banner-footer"
-          color="secondary">
-          <ArrowDownwardIcon fontSize="large" />
+          color="primary">
+          <ArrowDownwardIcon
+            fontSize="large"
+            style={{
+              height: '8rem',
+              width: '8rem',
+            }}
+          />
         </IconButton>
       </Banner>
       <Dashboard

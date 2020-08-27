@@ -83,7 +83,10 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: theme.palette.primary.main,
     color: theme.palette.text.primary,
     // backgroundColor: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
+    // opacity: '0.8',
+    // backgroundColor: 'rgba(255,255,255,0.5)',
+    backgroundColor: 'transparent',
   },
 }));
 
@@ -91,7 +94,13 @@ const useStyles = makeStyles(theme => ({
 const Banner = props => {
   const bannerNode = useRef();
   const [loadingImage, setLoadingImage] = useState(true);
-  const { imageSrc, text, children, footer } = props;
+  const {
+    imageSrc,
+    text,
+    children,
+    footer,
+    disablePointerEvents = false,
+  } = props;
   const classes = useStyles({ ...props, loadingImage });
   const handleOnImageLoad = () => {
     setLoadingImage(false);
@@ -130,7 +139,11 @@ const Banner = props => {
         style={{
           display: 'none',
         }}></img>
-      <div className={classes.overlay}>
+      <div
+        className={classes.overlay}
+        style={{
+          pointerEvents: disablePointerEvents ? 'none' : 'all',
+        }}>
         {loadingImage && (
           <Loader loading={loadingImage} text="wating for image to render" />
         )}
