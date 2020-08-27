@@ -34,6 +34,7 @@ const HomePage = props => {
         ]}>
         <Typography
           variant="h4"
+          color="secondary"
           style={{ marginBottom: '64px', textAlign: 'center' }}>
           Welcome to Rehouser
         </Typography>
@@ -59,13 +60,14 @@ const HomePage = props => {
         </div>
         <Typography
           variant="h6"
+          color="primary"
           style={{ marginTop: '64px', textAlign: 'center' }}>
           Read More
         </Typography>
         <IconButton
           aria-label="read-more"
           href="#banner-footer"
-          color="primary">
+          color="secondary">
           <ArrowDownwardIcon fontSize="large" />
         </IconButton>
       </Banner>

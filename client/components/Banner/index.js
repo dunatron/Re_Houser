@@ -53,12 +53,12 @@ const useStyles = makeStyles(theme => ({
     // opacity: props => (props.loadingImage ? 0 : 1),
     opacity: props => (props.loadingImage ? 0 : 0.64),
     transition: `opacity 2000ms cubic-bezier(0.4, 0.0, 0.2, 1)`,
-    backgroundImage: props =>
-      props.loadingImage
-        ? 'none'
-        : `url(${props.imageSrc})` /* The image used */,
+    // backgroundImage: props =>
+    //   props.loadingImage
+    //     ? 'none'
+    //     : `url(${props.imageSrc})` /* The image used */,
     // backgroundColor: '#cccccc' /* Used if the image is unavailable */,
-    backgroundColor: 'red' /* Used if the image is unavailable */,
+    backgroundColor: '#fff' /* Used if the image is unavailable */,
     backgroundPosition: 'center' /* Center the image */,
     backgroundRepeat: 'no-repeat' /* Do not repeat the image */,
     backgroundSize:
