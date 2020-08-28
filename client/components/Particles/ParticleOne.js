@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Particles from 'react-particles-js';
 
 import {
@@ -9,163 +10,46 @@ import {
   darkSecondaryColor,
 } from '../../styles/_muiTheme';
 
-const ParticleTwo = () => {
-  // return null;
+function debounce(fn, ms) {
+  let timer;
+  return _ => {
+    clearTimeout(timer);
+    timer = setTimeout(_ => {
+      timer = null;
+      fn.apply(this, arguments);
+    }, ms);
+  };
+}
 
-  //   return (
-  //     <Particles
-  //       width={2000}
-  //       height={800}
-  //       params={{
-  //         particles: {
-  //           number: { value: 80, density: { enable: true, value_area: 800 } },
-  //           color: { value: '#f70080' },
-  //           shape: {
-  //             type: 'circle',
-  //             stroke: { width: 0, color: '#ff5baf' },
-  //             polygon: { nb_sides: 5 },
-  //             image: { src: 'img/github.svg', width: 100, height: 100 },
-  //           },
-  //           opacity: {
-  //             value: 0.5,
-  //             random: false,
-  //             anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false },
-  //           },
-  //           size: {
-  //             value: 3,
-  //             random: true,
-  //             anim: { enable: false, speed: 40, size_min: 0.1, sync: false },
-  //           },
-  //           line_linked: {
-  //             enable: true,
-  //             distance: 150,
-  //             color: '#ff5baf',
-  //             opacity: 0.4,
-  //             width: 1,
-  //           },
-  //           move: {
-  //             enable: true,
-  //             speed: 6,
-  //             direction: 'none',
-  //             random: false,
-  //             straight: false,
-  //             out_mode: 'out',
-  //             bounce: false,
-  //             attract: { enable: true, rotateX: 600, rotateY: 1200 },
-  //           },
-  //         },
-  //         interactivity: {
-  //           detect_on: 'canvas',
-  //           events: {
-  //             onhover: { enable: true, mode: 'grab' },
-  //             onclick: { enable: true, mode: 'push' },
-  //             resize: true,
-  //           },
-  //           modes: {
-  //             grab: { distance: 400, line_linked: { opacity: 1 } },
-  //             bubble: {
-  //               distance: 400,
-  //               size: 40,
-  //               duration: 2,
-  //               opacity: 8,
-  //               speed: 3,
-  //             },
-  //             repulse: { distance: 200, duration: 0.4 },
-  //             push: { particles_nb: 4 },
-  //             remove: { particles_nb: 2 },
-  //           },
-  //         },
-  //         retina_detect: true,
-  //       }}
-  //     />
-  //   );
+const ParticleOne = () => {
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
 
-  //   return (
-  //     <Particles
-  //       width={2000}
-  //       height={800}
-  //       params={{
-  //         fps_limit: 28,
-  //         particles: {
-  //           collisions: {
-  //             enable: false,
-  //           },
-  //           number: {
-  //             value: 20,
-  //             density: {
-  //               enable: false,
-  //             },
-  //           },
-  //           //   line_linked: {
-  //           //     enable: true,
-  //           //     distance: 30,
-  //           //     opacity: 0.4,
-  //           //   },
-  //           line_linked: {
-  //             enable: true,
-  //             distance: 150,
-  //             color: '#ff5baf',
-  //             opacity: 0.4,
-  //             width: 1,
-  //           },
-  //           move: {
-  //             speed: 1,
-  //           },
-  //           opacity: {
-  //             anim: {
-  //               enable: true,
-  //               opacity_min: 0.05,
-  //               speed: 1,
-  //               sync: false,
-  //             },
-  //             value: 0.4,
-  //           },
-  //         },
-  //         polygon: {
-  //           enable: true,
-  //           scale: 0.5,
-  //           type: 'inline',
-  //           move: {
-  //             radius: 10,
-  //           },
-  //           url: 'images/svg/ReHouse_main_logo.svg',
-  //           inline: {
-  //             arrangement: 'equidistant',
-  //           },
-  //           draw: {
-  //             enable: true,
-  //             stroke: {
-  //               color: 'rgba(100, 80, 100, 1)',
-  //             },
-  //           },
-  //         },
-  //         retina_detect: false,
-  //         interactivity: {
-  //           events: {
-  //             onhover: {
-  //               enable: true,
-  //               mode: 'bubble',
-  //             },
-  //           },
-  //           modes: {
-  //             bubble: {
-  //               size: 6,
-  //               distance: 40,
-  //             },
-  //           },
-  //         },
-  //       }}
-  //     />
-  //   );
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }, 1000);
+
+    window.addEventListener('resize', debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize);
+    };
+  }, []);
   return (
     <Particles
-      id="tsparticles"
-      width={2000}
-      height={800}
+      id="rehouser-particles"
+      width={dimensions.width}
+      height={dimensions.height}
       params={{
         particles: {
           number: {
-            value: 50,
+            value: 25,
             density: {
               enable: true,
               value_area: 800,
@@ -223,7 +107,7 @@ const ParticleTwo = () => {
           },
           move: {
             enable: true,
-            speed: 6,
+            speed: 3,
             direction: 'none',
             random: false,
             straight: false,
@@ -281,4 +165,4 @@ const ParticleTwo = () => {
   );
 };
 
-export default ParticleTwo;
+export default ParticleOne;

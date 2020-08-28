@@ -50,6 +50,9 @@ const PropertyInfoFragment = gql`
     images {
       ...fileInfo
     }
+    files {
+      id
+    }
     acceptedTerms
     isLeased
     lastLeaseId

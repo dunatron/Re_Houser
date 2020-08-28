@@ -21,7 +21,6 @@ const HomePage = props => {
   const {
     appData: { currentUser },
   } = props;
-  // query={{ id: data.createProperty.id }}
 
   return (
     <div>
@@ -29,12 +28,14 @@ const HomePage = props => {
         imageSrc="images/banners/home-page-banner.jpg"
         disablePointerEvents={true}
         footer={[
-          <Typography variant="h5" style={{ textAlign: 'center' }}>
+          <Typography
+            variant="h5"
+            style={{ textAlign: 'center', padding: '0 30px' }}>
             Turning empty houses into friendly abodes
           </Typography>,
         ]}>
         <Typography
-          variant="h4"
+          variant="h3"
           color="primary"
           style={{ marginBottom: '64px', textAlign: 'center' }}>
           Welcome to Rehouser
@@ -52,6 +53,7 @@ const HomePage = props => {
             color="primary"
             route="/freeappraisal"
             btnProps={{
+              size: 'large',
               style: {
                 pointerEvents: 'all',
               },
@@ -63,6 +65,7 @@ const HomePage = props => {
             // color="primary"
             route="/property-search"
             btnProps={{
+              size: 'large',
               style: {
                 pointerEvents: 'all',
               },
@@ -70,13 +73,14 @@ const HomePage = props => {
           />
         </div>
         <Typography
-          variant="h5"
+          variant="h4"
           color="primary"
           style={{ marginTop: '64px', textAlign: 'center' }}>
           Read More
         </Typography>
         <IconButton
           style={{
+            marginTop: '16px',
             pointerEvents: 'all',
             // height: '3rem',
             // width: '3rem',
@@ -87,8 +91,8 @@ const HomePage = props => {
           <ArrowDownwardIcon
             fontSize="large"
             style={{
-              height: '8rem',
-              width: '8rem',
+              height: '6rem',
+              width: '6rem',
             }}
           />
         </IconButton>

@@ -95,6 +95,9 @@ const propertyFrag = {
       }
     ]
   },
+  files: {
+    create: {}
+  },
   inspections: {
     create: [
       {

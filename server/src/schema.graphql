@@ -238,6 +238,7 @@ type Query {
   property(where: PropertyWhereUniqueInput!): Property!
   ownerProperties: [Property!]!
   ownerProperty(id: ID!): Property
+  propertyFiles(where: PropertyFilesWhereUniqueInput!): PropertyFiles
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   myRentalApplications: [RentalApplication!]!
   rentalApplication(

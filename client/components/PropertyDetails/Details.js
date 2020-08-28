@@ -275,7 +275,7 @@ const Details = props => {
   );
   return (
     <div>
-      <Typography 
+      <Typography
         variant="h5"
         color="primary"
         gutterBottom={true}
@@ -289,7 +289,7 @@ const Details = props => {
           alignItems: 'center',
           flexWrap: 'wrap',
         }}>
-        <InsulationStatementForm
+        {/* <InsulationStatementForm
           data={null}
           propertyId={property.id}
           property={property}
@@ -302,7 +302,7 @@ const Details = props => {
           title="Edit with Original Form"
           route="/properties/property/edit"
           query={{ id: property.id }}
-        />
+        /> */}
       </RehouserPaper>
       <Typography
         variant="h5"

@@ -52,7 +52,7 @@ const theme = {
   // https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=e00082&secondary.color=ffffff
   palette: {
     nProgress: {
-      main: '#651fff',
+      main: mainPrimaryColor,
     },
     type: 'light',
     // common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },

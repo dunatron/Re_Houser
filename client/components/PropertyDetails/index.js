@@ -15,6 +15,7 @@ import Applications from './Applications';
 import Activity from '../ActivityManager/Activity';
 import PropertyViewings from './Viewings';
 import Inspections from './Inspections';
+import AssociatedFiles from './AssociatedFiles';
 import ShareProperty from './Share';
 // import Badge from "@material-ui/core/Badge"
 import Badge from '../../styles/Badge';
@@ -149,6 +150,7 @@ const PropertyDetails = ({ id, location, me }) => {
           <Tab label="Activity" />
           <Tab label="Viewings" />
           <Tab label="Inspections" />
+          <Tab label="Files" />
           <Tab label="Share" />
         </Tabs>
 
@@ -192,6 +194,13 @@ const PropertyDetails = ({ id, location, me }) => {
           </TabContainer>
         )}
         {tabIndex === 6 && (
+          <TabContainer>
+            <AssociatedFiles
+              filesId={property.files ? property.files.id : null}
+            />
+          </TabContainer>
+        )}
+        {tabIndex === 7 && (
           <TabContainer>
             <ShareProperty property={property} me={me} />
           </TabContainer>
