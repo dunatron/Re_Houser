@@ -121,6 +121,8 @@ const PropertyDetails = ({ id, location, me }) => {
     return 'No Property passed in to component';
   }
 
+  console.log('Single Property data => ', data);
+
   return (
     <>
       <PageHeader
@@ -195,9 +197,9 @@ const PropertyDetails = ({ id, location, me }) => {
         )}
         {tabIndex === 6 && (
           <TabContainer>
-            <AssociatedFiles
-              filesId={property.files ? property.files.id : null}
-            />
+            {property.files !== null && (
+              <AssociatedFiles filesId={property.files.id} />
+            )}
           </TabContainer>
         )}
         {tabIndex === 7 && (

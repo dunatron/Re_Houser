@@ -28,6 +28,7 @@ const rentalAppraisals = require("./querys/rentalAppraisals");
 const rentalAppraisal = require("./querys/rentalAppraisal");
 const viewings = require("./querys/viewings");
 const inspection = require("./querys/inspection");
+const propertyFiles = require("./querys/propertyFiles");
 
 const Query = {
   me,
@@ -38,6 +39,7 @@ const Query = {
   property,
   ownerProperty,
   ownerProperties,
+  propertyFiles,
   rentalApplications,
   myRentalApplications,
   myCreditCards,
