@@ -3,15 +3,36 @@
 
 // https://material.io/resources/color/#!/?view.left=1&view.right=0&primary.color=D81B60&secondary.color=673AB7&primary.text.color=ffffff&secondary.text.color=ffffff
 
-export const mainPrimaryColor = '#f70080';
-export const lightPrimaryColor = '#ff5baf';
-export const darkPrimaryColor = '#be0054';
+// Hottest pink
+// export const mainPrimaryColor = '#f70080';
+// export const lightPrimaryColor = '#ff5baf';
+// export const darkPrimaryColor = '#be0054';
+// export const primaryContrastText = '#000000';
+
+// Darkish Pink almost maroony and Dark Blue
+//material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=d81b60&secondary.color=172A3A&primary.text.color=ffffff
+export const mainPrimaryColor = '#d81b60';
+export const lightPrimaryColor = '#ff5c8d';
+export const darkPrimaryColor = '#a00037';
 export const primaryContrastText = '#000000';
 
-export const mainSecondaryColor = '#673ab7';
-export const lightSecondaryColor = '#9a67ea';
-export const darkSecondaryColor = '#320b86';
-export const secondaryContrastText = '#ffffff';
+// secondary color pink
+export const mainSecondaryColor = '#172a3a';
+export const lightSecondaryColor = '#405264';
+export const darkSecondaryColor = '#000015';
+export const secondaryContrastText = '#000000';
+
+// // 
+// export const mainPrimaryColor = '#d81b60';
+// export const lightPrimaryColor = '#ff5c8d';
+// export const darkPrimaryColor = '#a00037';
+// export const primaryContrastText = '#000000';
+
+// // secondary color pink
+// export const mainSecondaryColor = '#d81b60';
+// export const lightSecondaryColor = '#ff5c8d';
+// export const darkSecondaryColor = '#a00037';
+// export const secondaryContrastText = '#000000';
 
 import {
   red,
@@ -72,7 +93,8 @@ const theme = {
       contrastText: secondaryContrastText,
     },
     text: {
-      primary: 'rgba(0, 0, 0, 0.77)',
+      primary: 'rgba(23, 42, 58, .5)',
+      // primary: 'rgba(255, 180, 0, 0.77)',
       secondary: 'rgba(0, 0, 0, 0.65)',
       // secondary: 'rgba(255, 255, 255, 0.65)',
       disabled: 'rgba(0, 0, 0, 0.38)',
@@ -99,8 +121,6 @@ const theme = {
     MuiTooltip: {
       tooltip: {
         fontSize: '2em',
-        // color: 'yellow',
-        // backgroundColor: 'red',
       },
     },
     MuiTooltipTooltip: {},
@@ -119,6 +139,9 @@ const theme = {
       containedPrimary: {
         color: '#fff',
         // backgroundColor: 'red',
+      },
+      containedSecondary: {
+        color: '#fff',
       },
       default: {
         fontSize: '1rem',

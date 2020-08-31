@@ -5,6 +5,8 @@ import Error from '../ErrorMessage';
 import FileUploader from '../FileUploader';
 import accept from 'attr-accept';
 import { is } from 'ramda';
+import { toast } from 'react-toastify';
+import { Typography } from '@material-ui/core';
 
 const PROPERTY_FILES_QUERY = gql`
   query PROPERTY_FILES_QUERY($where: PropertyFilesWhereUniqueInput!) {
@@ -23,12 +25,7 @@ const PROPERTY_FILES_QUERY = gql`
   }
   ${FileInfoFragment}
 `;
-/**
- *
- * Firstly we will query for the fragment of associated files(files) field.
- * we will then Know that is an object with keys on it. may need to filter out __type
- * map over object then for the keys check if it has a value for create or update on this object
- */
+
 const AssociatedFiles = ({ filesId }) => {
   const { data, loading, error } = useQuery(PROPERTY_FILES_QUERY, {
     variables: {
@@ -43,34 +40,67 @@ const AssociatedFiles = ({ filesId }) => {
 
   if (!data.propertyFiles)
     return (
-      <div>
+      <Typography gutterBottom variant="h3">
         Please contact support as you should have files setup for a property
-      </div>
+      </Typography>
     );
 
   return <MappedFiles propertyFiles={data.propertyFiles} />;
 };
 
-const FileItem = ({ itemKey, val }) => {
-  console.log('FileItem: key => ', itemKey);
-  console.log('FileItem: val => ', val);
-  const [updatePropertyFiles, { loading, error, data }] = useMutation();
+const FileItem = ({ conf, val, propertyFilesId }) => {
+  const UPDATE_PROPERTY_FILES_MUTATION = gql`
+    mutation UPDATE_PROPERTY_FILES_MUTATION($data: PropertyFilesUpdateInput! $where: PropertyFilesWhereUniqueInput!) {
+      updatePropertyFiles(data: $data, where: $where) {
+      id
+      ${conf.key} {
+        ...fileInfo
+      }
+    }
+  }
+  ${FileInfoFragment}
+`;
+
+  const [updatePropertyFiles, { loading, error, data }] = useMutation(
+    UPDATE_PROPERTY_FILES_MUTATION,
+    {
+      onCompleted: data =>
+        toast.success(
+          <div>
+            <Typography>Updated {conf.title}</Typography>
+          </div>
+        ),
+    }
+  );
 
   const handleRecieveFile = file => {
-    alert('recieved file. ToDo: associate it with the propertyFilesObj');
-    console.log('recieved File');
+    updatePropertyFiles({
+      variables: {
+        where: {
+          id: propertyFilesId,
+        },
+        data: {
+          [conf.key]: {
+            connect: {
+              id: file.id,
+            },
+          },
+        },
+      },
+    });
   };
 
   return (
     <FileUploader
-      title={itemKey}
+      title={conf.title}
+      description={conf.description}
       recieveFile={handleRecieveFile}
       files={
         val === null
           ? []
           : [
               {
-                [itemKey]: val,
+                ...val,
               },
             ]
       }
@@ -81,25 +111,35 @@ const FileItem = ({ itemKey, val }) => {
 const filesConf = [
   {
     key: 'codeComplianceCert',
-    label: 'COde compliance file label',
+    title: 'Code compliance file label',
+    description: 'a describtion for each variable',
+  },
+  {
+    key: 'certOfAcceptance',
+    title: 'Certificate of acceptance',
+    description: 'a describtion for each variable',
   },
 ];
 
-// Was just trying a different way. revamp to a config ^^
-
 const MappedFiles = ({ propertyFiles }) => {
-  const allowedKeys = ['codeComplianceCert', 'certOfAcceptance'];
   if (!propertyFiles)
     return (
-      <div>
+      <Typography gutterBottom variant="h3">
         No property files associated. Please contact support so this can be
         setup
-      </div>
+      </Typography>
     );
-  return Object.entries(propertyFiles).reduce((a, [key, val]) => {
-    if (!allowedKeys.includes(key)) return a;
-    return [...a, <FileItem itemKey={key} val={val} />];
-  }, []);
+
+  return filesConf.map((conf, idx) => {
+    return (
+      <FileItem
+        key={idx}
+        propertyFilesId={propertyFiles.id}
+        conf={conf}
+        val={propertyFiles[conf.key]}
+      />
+    );
+  });
 };
 
 export default AssociatedFiles;

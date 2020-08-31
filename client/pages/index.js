@@ -36,7 +36,7 @@ const HomePage = props => {
         ]}>
         <Typography
           variant="h3"
-          color="primary"
+          // color="primary"
           style={{ marginBottom: '64px', textAlign: 'center' }}>
           Welcome to Rehouser
         </Typography>
@@ -74,7 +74,7 @@ const HomePage = props => {
         </div>
         <Typography
           variant="h4"
-          color="primary"
+          // color="primary"
           style={{ marginTop: '64px', textAlign: 'center' }}>
           Read More
         </Typography>

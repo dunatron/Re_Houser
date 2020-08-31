@@ -148,6 +148,10 @@ type Mutation {
     message: String!
     captchaToken: String!
   ): SuccessMessage
+  updatePropertyFiles(
+    data: PropertyFilesUpdateInput!
+    where: PropertyFilesWhereUniqueInput!
+  ): PropertyFiles
 }
 
 type Subscription {

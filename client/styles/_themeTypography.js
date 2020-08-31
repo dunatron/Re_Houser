@@ -1,3 +1,11 @@
+const darkBlue50 = 'rgba(23, 42, 58, .5)';
+const darkBlue70 = 'rgba(23, 42, 58, .7)';
+
+const black30 = 'rgba(0, 0, 0, .3)';
+const black40 = 'rgba(0, 0, 0, .4)';
+const black70 = 'rgba(0, 0, 0, .7)';
+const black80 = 'rgba(0, 0, 0, .8)';
+
 const themeTypography = {
   typography: {
     htmlFontSize: 16,
@@ -15,6 +23,8 @@ const themeTypography = {
       letterSpacing: '-0.01562em',
       // color: 'red', //teal
       // color: '#482880', //deepPurple
+      // color: 'rgba(23, 42, 58, .5)',
+      color: black80,
     },
     h2: {
       fontFamily: 'GustanMedium',
@@ -22,6 +32,7 @@ const themeTypography = {
       fontSize: '3.2rem',
       lineHeight: 1.2,
       letterSpacing: '-0.00833em',
+      color: black70,
     },
     h3: {
       fontFamily: 'GustanMedium',
@@ -29,6 +40,7 @@ const themeTypography = {
       fontSize: '2.8rem',
       lineHeight: 1.167,
       letterSpacing: '0em',
+      color: black70,
     },
     h4: {
       fontFamily: 'GustanMedium',
@@ -36,6 +48,7 @@ const themeTypography = {
       fontSize: '2.125rem',
       lineHeight: 1.235,
       letterSpacing: '0.00735em',
+      color: black70,
     },
     h5: {
       fontFamily: 'GustanMedium',
@@ -43,6 +56,7 @@ const themeTypography = {
       fontSize: '1.5rem',
       lineHeight: 1.334,
       letterSpacing: '0em',
+      color: black70,
     },
     h6: {
       fontFamily: 'GustanMedium',
@@ -50,6 +64,7 @@ const themeTypography = {
       fontSize: '1.25rem',
       lineHeight: 1.6,
       letterSpacing: '0.0075em',
+      color: black80,
     },
     subtitle1: {
       fontFamily: 'GustanMedium',
@@ -57,6 +72,7 @@ const themeTypography = {
       fontSize: '1rem',
       lineHeight: 1.75,
       letterSpacing: '0.00938em',
+      color: black30,
     },
     subtitle2: {
       fontFamily: 'GustanMedium',
@@ -64,6 +80,7 @@ const themeTypography = {
       fontSize: '0.875rem',
       lineHeight: 1.57,
       letterSpacing: '0.00714em',
+      color: black30,
     },
     body1: {
       fontFamily: 'GustanLight',
@@ -72,6 +89,7 @@ const themeTypography = {
       fontSize: '1.2rem',
       lineHeight: 1.5,
       letterSpacing: '0.00938em',
+      color: darkBlue70,
     },
     body2: {
       fontFamily: 'GustanLight',
@@ -80,6 +98,7 @@ const themeTypography = {
       fontSize: '1rem',
       lineHeight: 1.43,
       letterSpacing: '0.01071em',
+      color: darkBlue70,
     },
     button: {
       fontFamily: 'GustanExtraBlack',
@@ -96,6 +115,7 @@ const themeTypography = {
       fontSize: '0.75rem',
       lineHeight: 1.66,
       letterSpacing: '0.03333em',
+      color: black30,
     },
     overline: {
       fontFamily: 'GustanMedium',
