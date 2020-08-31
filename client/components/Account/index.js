@@ -59,7 +59,7 @@ export default function TabsWrappedLabel() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="transparent">
         <Tabs
           value={value}
           onChange={handleChange}

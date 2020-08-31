@@ -11,28 +11,29 @@
 
 // Darkish Pink almost maroony and Dark Blue
 //material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=d81b60&secondary.color=172A3A&primary.text.color=ffffff
-export const mainPrimaryColor = '#d81b60';
-export const lightPrimaryColor = '#ff5c8d';
-export const darkPrimaryColor = '#a00037';
-export const primaryContrastText = '#000000';
-
-// secondary color pink
-export const mainSecondaryColor = '#172a3a';
-export const lightSecondaryColor = '#405264';
-export const darkSecondaryColor = '#000015';
-export const secondaryContrastText = '#000000';
-
-// // 
 // export const mainPrimaryColor = '#d81b60';
 // export const lightPrimaryColor = '#ff5c8d';
 // export const darkPrimaryColor = '#a00037';
 // export const primaryContrastText = '#000000';
 
 // // secondary color pink
-// export const mainSecondaryColor = '#d81b60';
-// export const lightSecondaryColor = '#ff5c8d';
-// export const darkSecondaryColor = '#a00037';
+// export const mainSecondaryColor = '#172a3a';
+// export const lightSecondaryColor = '#405264';
+// export const darkSecondaryColor = '#000015';
 // export const secondaryContrastText = '#000000';
+
+// howtogql pink and Dark Blue
+//https://material.io/resources/color/#!/?view.left=1&view.right=1&primary.color=e00082&secondary.color=172A3A
+export const mainPrimaryColor = '#e00082';
+export const lightPrimaryColor = '#ff5c8d';
+export const darkPrimaryColor = '#a00037';
+export const primaryContrastText = '#000000';
+
+// secondary color pink
+export const mainSecondaryColor = '#172a3a';
+export const lightSecondaryColor = '#ff57b1';
+export const darkSecondaryColor = '#a90056';
+export const secondaryContrastText = '#000000';
 
 import {
   red,
@@ -113,6 +114,10 @@ const theme = {
       colorPrimary: {
         // color: mainPrimaryColor,
         // backgroundColor: '#ffffff',
+      },
+      colorSecondary: {
+        // backgroundColor: '#ffffff',
+        // color: mainPrimaryColor,
       },
     },
     MuiTooltipPopper: {

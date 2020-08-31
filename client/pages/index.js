@@ -35,7 +35,8 @@ const HomePage = props => {
           </Typography>,
         ]}>
         <Typography
-          variant="h3"
+          // variant="h3"
+          variant="h1"
           // color="primary"
           style={{ marginBottom: '64px', textAlign: 'center' }}>
           Welcome to Rehouser
