@@ -21,9 +21,26 @@ const formatCentsToDollars = (amount, type) => {
       style={{
         color: _color(),
       }}>
-      {formattedMoney}
+      {/* {formattedMoney} */}I need the HOUSE
     </span>
   );
 };
+
+const formatCentsToDollarsVal = amount => {
+  const dollarAmount = amount / 100;
+
+  console.log('doloar amount => ', dollarAmount);
+
+  const isPositive = dollarAmount > 0;
+
+  const formattedMoney = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    // currency: 'NZD',
+    currency: 'USD',
+  }).format(dollarAmount); // '$100.00'
+
+  return formattedMoney;
+};
+export { formatCentsToDollarsVal };
 
 export default formatCentsToDollars;

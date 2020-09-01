@@ -1,36 +1,21 @@
 import INSULATIONFORM_CONF from '../../lib/configs/insulationStatementForm';
 import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
+import formatCentsToDollars from '../formatCentsToDollars';
+import { formatCentsToDollarsVal } from '../formatCentsToDollars';
+import { HEALTHY_HOMES_ASSESSMENT_COST_CENTS } from '../configs/costings';
+
+const healthyHomesCost = formatCentsToDollarsVal(
+  HEALTHY_HOMES_ASSESSMENT_COST_CENTS
+);
 
 const CREATE_PROPERTY_FORM_CONF = [
-  // {
-  //   type: 'Header',
-  //   key: 'TheHeader',
-  //   fieldProps: {
-  //     label: 'Create Property',
-  //   },
-  // },
   {
     type: 'Section',
     fieldProps: {
       label: 'Location',
     },
     inners: [
-      // {
-      //   type: 'Location',
-      //   key: 'location',
-      //   fieldProps: {
-      //     name: 'location',
-      //     label:
-      //       'Lodation of property. SHould probs use google like normal property picker',
-      //   },
-      //   refConf: {
-      //     required: {
-      //       value: true,
-      //       message: 'You need a location to appraise a property...',
-      //     },
-      //   },
-      // },
       {
         type: 'Location',
         key: 'location',
@@ -105,6 +90,12 @@ const CREATE_PROPERTY_FORM_CONF = [
             },
           },
           {
+            type: 'Info',
+            parentShowVals: ['REHOUSER'],
+            content: `Rehouser completes a Healthy Homes Assessment for ${healthyHomesCost}`,
+            refConf: {},
+          },
+          {
             type: 'Entity',
             parentShowVals: ['FORM'],
             key: 'insulationForm',
@@ -133,88 +124,12 @@ const CREATE_PROPERTY_FORM_CONF = [
       },
     ],
   },
-  // {
-  //   type: 'Section',
-  //   fieldProps: {
-  //     label: 'Insulation statement',
-  //   },
-  //   inners: [
-  //     {
-  //       type: 'SelectOneWithText',
-  //       key: 'insulationProof',
-  //       exclude: true,
-  //       fieldProps: {
-  //         name: 'insulationProof',
-  //         label: 'Select Insulation proof method',
-  //         options: [
-  //           {
-  //             label: 'file',
-  //             name: 'file',
-  //           },
-  //           {
-  //             label: 'form',
-  //             name: 'form',
-  //           },
-  //           {
-  //             label: 'rehouser',
-  //             name: 'rehouser',
-  //           },
-  //         ],
-  //       },
-  //       refConf: {},
-  //       inners: [
-  //         {
-  //           type: 'Info',
-  //           // parentShowVals: ['file'],
-  //           showOn: {
-  //             key: 'insulationProof',
-  //             values: ['file'],
-  //           },
-  //           content: `ToDo: add file upload`,
-  //           refConf: {},
-  //         },
-  //         {
-  //           type: 'Entity',
-  //           key: 'insulationForm',
-  //           showOn: {
-  //             key: 'insulationProof',
-  //             values: ['form'],
-  //           },
-  //           resolveKey: 'insulationForm',
-  //           required: false,
-  //           title: 'Insualtion Statement',
-  //           description:
-  //             'You can complete the insulation form at a later time. It takes around 5-10 minutes to complete provided you have the data on hand',
-  //           formConf: INSULATIONFORM_CONF,
-  //           // Below is not true but cool to know it works like the dope flowing within my veins
-  //           refConf: {
-  //             required: {
-  //               value: false, // set t false because its not required upon creation
-  //               message:
-  //                 'Insulation Statement form must  be supplied and submiitted',
-  //             },
-  //           },
-  //         },
-  //         {
-  //           type: 'Info',
-  //           showOn: {
-  //             key: 'insulationProof',
-  //             values: ['rehouser'],
-  //           },
-  //           content: `ToDo: add boolean stating rehouser has to handle this`,
-  //           refConf: {},
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
   {
     type: 'Section',
     fieldProps: {
       label: 'Details',
     },
     inners: [
-      // { type: 'SelectMultipleEnum', fieldProps: { name: 'dsa' } },
       {
         type: 'BankAccount',
         key: 'bankDetails',
@@ -269,6 +184,13 @@ const CREATE_PROPERTY_FORM_CONF = [
             refConf: {},
           },
           {
+            type: 'Info',
+            parentShowVals: ['PERIODIC'],
+            content: `Landlord needs to provide a minimum of 42 days notice, Tenant provides a minimum of 21 days notice to end the tenancy`,
+            refConf: {},
+          },
+
+          {
             type: 'SelectOneEnum',
             __type: 'TenancyFixedLength',
             key: 'fixedLength',
@@ -285,25 +207,8 @@ const CREATE_PROPERTY_FORM_CONF = [
               },
             },
           },
-          // {
-          //   type: 'Date',
-          //   key: 'expiryDate',
-          //   parentShowVals: ['FIXED'],
-          //   fieldProps: {
-          //     name: 'expiryDate',
-          //     label: 'Move out date',
-          //   },
-          //   refConf: {
-          //     required: {
-          //       value: true,
-          //       message:
-          //         'You need to specify an ending date when the tenancy type is FIXED',
-          //     },
-          //   },
-          // },
         ],
       },
-      // tenancyType
       {
         type: 'Money',
         key: 'rent',
@@ -522,7 +427,6 @@ const CREATE_PROPERTY_FORM_CONF = [
           },
         },
       },
-      //maintenanceResponsible
       {
         type: 'SelectOneEnum',
         __type: 'PartyResponsible',
@@ -573,17 +477,6 @@ const CREATE_PROPERTY_FORM_CONF = [
           },
         ],
       },
-      // {
-      //   type: 'SelectOneEnum',
-      //   __type: 'PartyResponsible',
-      //   key: 'gardenResponsible',
-      //   exclude: true,
-      //   fieldProps: {
-      //     name: 'gardenResponsible',
-      //     label: 'Who is responsible for the garden',
-      //   },
-      //   refConf: {},
-      // },
     ],
   },
   {
@@ -692,9 +585,17 @@ const CREATE_PROPERTY_FORM_CONF = [
   {
     type: 'Section',
     fieldProps: {
-      label: 'Other Property Files',
+      label: 'Compliance Confirmation files',
     },
     inners: [
+      {
+        type: 'RTypography',
+        content:
+          'If your property has undergone any renovations/alterations that required a council approval please upload the approval here.',
+        fieldProps: {
+          variant: 'body1',
+        },
+      },
       {
         type: 'File',
         key: 'files.codeComplianceCert',
@@ -753,6 +654,14 @@ const CREATE_PROPERTY_FORM_CONF = [
       label: 'Assistance',
     },
     inners: [
+      {
+        type: 'RTypography',
+        content:
+          'If you would like Rehouser to pay these bills please let us know and we will be in contact to discuss this further.',
+        fieldProps: {
+          variant: 'h1',
+        },
+      },
       {
         type: 'Boolean',
         key: 'rehouserAssist.rates',

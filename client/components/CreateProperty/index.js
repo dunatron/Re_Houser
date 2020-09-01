@@ -16,6 +16,7 @@ import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
 import CheckAndSubmit from './CheckAndSubmit';
 import Modal from '../Modal';
 import LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF from '../../lib/configs/landlordTermsOfEngagementForm';
+import AcceptTermsOfEngagementForm from '../../components/Forms/AcceptTermsOfEngagementForm';
 
 const CreatePropertyComponent = props => {
   const router = useRouter();
@@ -162,7 +163,7 @@ const CreatePropertyComponent = props => {
             To add Property to our platform you must first accept the terms of
             engagement
           </Typography>
-          <TermsOfEngagement />
+          {/* <TermsOfEngagement />
           <br />
           <FormCreator
             title="huh"
@@ -194,7 +195,8 @@ const CreatePropertyComponent = props => {
                 },
               });
             }}
-          />
+          /> */}
+          <AcceptTermsOfEngagementForm me={me} />
         </div>
       )}
 

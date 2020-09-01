@@ -3,9 +3,14 @@ import { Paper, Typography } from '@material-ui/core';
 import Fees from '../../components/Fees';
 import PageHeader from '../../components/PageHeader';
 
-import { TermsOfEngagement } from '../../components/Terms';
+// import { TermsOfEngagement } from '../../components/Terms';
+import AcceptTermsOfEngagementForm from '../../components/Forms/AcceptTermsOfEngagementForm';
 
-const TermsOfEngagementPage = () => {
+const TermsOfEngagementPage = props => {
+  const {
+    appData: { currentUser },
+    query,
+  } = props;
   return (
     <>
       <PageHeader
@@ -17,7 +22,10 @@ const TermsOfEngagementPage = () => {
             'These are the terms of engagement a landlord will need to agree to so Rehouser Property Management Ltd can act on their behalf.',
         }}
       />
-      <TermsOfEngagement />
+      {/* <TermsOfEngagement me={currentUser.data ? currentUser.data.me : null} /> */}
+      <AcceptTermsOfEngagementForm
+        me={currentUser.data ? currentUser.data.me : null}
+      />
     </>
   );
 };
