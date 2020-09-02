@@ -1,0 +1,6 @@
+type InsuranceStatementForm {
+  id: ID! @unique @id
+  property: # Insurance form belongs to one property. and a property Has Only 1 Insurance Statement
+}
+
+

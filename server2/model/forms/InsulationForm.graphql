@@ -1,0 +1,68 @@
+type InsulationForm {
+  id: ID! @unique @id
+  meetsMinCeilingReq: Boolean
+  meetsMinCeilingReqReason: String
+  meetsMinUnderfloorReq: Boolean
+  meetsMinUnderfloorReqReason: String
+  ceilingCoverage: InsulationCoverageTypes
+  ceilingCoverageReason: String
+  ceilingTypes: [CeilingInsulationTypes] @scalarList(strategy: RELATION)
+  ceilingTypesOther: String
+  ceilingBulkRValue: String
+  ceilingMinimumThickness: String
+  ceilingInsulationInstallDate: DateTime
+  ceilingConditions: [InsulationConditionTypes] @scalarList(strategy: RELATION)
+  ceilingConditionReason: String
+  underfloorCoverage: InsulationCoverageTypes
+  underfloorCoverageReason: String
+  underfloorTypes: [UnderfloorInsulationTypes] @scalarList(strategy: RELATION)
+  underfloorTypesOther: String
+  underfloorBulkRValue: String
+  underfloorMinimumThickness: String
+  underfloorInsulationInstallDate: DateTime
+  underfloorConditions: [InsulationConditionTypes]
+    @scalarList(strategy: RELATION)
+  underfloorConditionReason: String
+  wallCoverage: InsulationCoverageTypes
+  wallCoverageReason: String
+  supplementaryInfo: String
+  lastUpgradedDate: DateTime
+  profesionallyAssessedDate: DateTime
+  declarationCheck: Boolean
+  healthyHomesStandardStatement: HealthyHomesStandardStatementTypes
+}
+
+enum InsulationCoverageTypes {
+  COMPLETE
+  PARTIAL
+  NONE
+  UNKNOWN
+}
+
+enum CeilingInsulationTypes {
+  SEGMENTS_BLANKETS
+  LOOSE_FILL
+  OTHER
+  NOT_ACCESSIBLE
+}
+
+enum InsulationConditionTypes {
+  REASONABLE
+  NOT_REASONABLE
+  NO_GAPS
+  NOT_ACCESSIBLE
+}
+
+enum UnderfloorInsulationTypes {
+  SEGMENTS_BLANKETS
+  POLYSTYRENE
+  FOIL
+  BULK_WITH_FOIL_LINING
+  OTHER
+  NOT_ACCESSIBLE
+}
+
+enum HealthyHomesStandardStatementTypes {
+  WILL_COMPLY
+  ALREADY_COMPLYING
+}

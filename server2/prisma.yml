@@ -1,0 +1,21 @@
+datamodel:
+  - model/types.graphql
+  - model/enums.graphql
+  - model/interfaces.graphql
+  - model/forms/InsulationForm.graphql
+  - model/forms/PreTenancyForm.graphql
+# secret is the database password, ommiting it in dev means easier development
+secret: ${env:PRISMA_SECRET}
+# generate docs https://v1.prisma.io/docs/1.34/prisma-cli-and-configuration/cli-command-reference/prisma-generate-xcv2/
+generate:
+  - generator: graphql-schema
+    output: ./src/generated/prisma.graphql
+# https://github.com/prisma/prisma/issues/4492
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
+# endpoint: https://rehouser-prisma-d9fa92f398.herokuapp.com/rehouser-prisma-service/prod
+endpoint: ${env:PRISMA_ENDPOINT}
+seed:
+  run: node src/seed.js
+# endpoint: https://rehouser-db-bf6fefccc7.herokuapp.com/rehouser-prisma/prod

@@ -1,0 +1,33 @@
+const { addPaymentToWallet } = require("../lib/payments/addPaymentToWallet");
+
+exports.payment_intent_succeeded = async ({ event, db }) => {
+  // just get the fields we need, including the lease the wallet is for. if it is not PAID we need to check if the new amount exceeds
+  // the 1 weeks rent. if it does, we update the lease status to paid
+
+  const { amount_received } = event.data.object;
+
+  const { userId, leaseId, walletId } = event.data.object.metadata;
+  addPaymentToWallet({
+    amount: amount_received,
+    db: db,
+    walletId: walletId,
+    userId: userId,
+    leaseId: leaseId,
+    paymentData: {
+      bankName: null,
+      bankBranch: null,
+      bankAccount: null,
+      bankRef: null,
+      type: "STRIPE",
+      userId: userId,
+      leaseId: leaseId,
+      // propertyId: ID
+      stripePaymentId: event.id,
+      object: event,
+      amount: event.data.object.amount_received,
+      description:
+        "Stripe payment acknowledged by system and added to lease wallet",
+      status: event.data.object.status
+    }
+  });
+};

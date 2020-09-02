@@ -1,0 +1,147 @@
+enum Permission {
+  ADMIN
+  USER
+  PERMISSIONUPDATE
+}
+
+enum ApplicationStage {
+  INITIALIZING
+  PENDING
+  DENIED
+  ACCEPTED
+}
+
+enum LeaseStage {
+  INITIALIZING
+  SIGNED
+  PAID
+  COMPLETED
+}
+
+enum PaymentType {
+  STRIPE
+  SYSTEM
+}
+
+enum VisibilityLevel {
+  PRIVATE
+  FRIENDS_ONLY
+  PUBLIC
+}
+
+enum IndoorFeature {
+  FURNISHED
+  INTERNAL_LAUNDRY
+  BUILT_IN_WARDROBES
+  BALCONY
+  ATTACHED_GARAGE
+}
+
+enum OutdoorFeature {
+  OUTDOOR_SPA
+  OUTDOOR_ENTERTAINMENT
+  SWIMMING_POOL
+  FULLY_FENCED
+}
+
+enum HeatSource {
+  FIRE_PLACE
+  HEAT_PUMP
+  ELECTRIC_HEATER
+}
+
+enum PropertyType {
+  HOUSE
+  APARTMENT
+  UNIT
+  TOWNHOUSE
+  VILLA
+  RETIREMENT_LIVING
+  STUDIO
+  FARM_LAND
+  ACREAGE_SEMI_RURAL
+  OTHER
+}
+
+enum ChatType {
+  PEER
+  GROUP
+}
+
+enum ActivityType {
+  SIGNED_UP
+  CREATED_PROPERTY
+  UPDATED_PROPERTY
+  PROPERTY_DRAFT
+  PROPERTY_LIVE
+  CREATED_LEASE
+  LEASE_SIGNED
+  LEASE_UPDATED
+  LEASE_FINALISED
+  LEASE_EXPIRED
+  CREATED_PROPERTY_APPRAISAL
+  CREATED_VIEWING
+}
+
+enum TenancyType {
+  PERIODIC
+  FIXED
+}
+
+enum PropertyTitleType {
+  UNIT_TITLE
+  FREEHOLD
+  CROSSLEASE
+  LEASEHOLD
+}
+
+enum TenancyFixedLength {
+  MONTHS_12
+  MONTHS_9
+  MONTHS_6
+  MONTHS_3
+}
+
+enum InsulationProof {
+  FILE
+  FORM
+  REHOUSER
+}
+
+enum PartyResponsible {
+  LANDLORD
+  TENANT
+  REHOUSER
+}
+
+enum Pet {
+  DOG
+  CAT
+  CAGED_BIRD
+  FISH
+}
+
+enum PropertyChattel {
+  DISH_WASHER
+  RANGE_HOOD
+  HOB_OR_STOVE
+  WALL_OVEN
+  DRAPES
+  BLINDS
+  HEAT_PUMP
+  GAS_FIRE
+  HEATED_TOWEL_RAIL
+  WALL_HEATER
+  ALARM
+  IRRIGATION
+  SMOKE_DETECTORS
+  AUTOMATIC_GARAGE_DOOR
+}
+
+enum RecurringType {
+  ONCE
+  DAILY
+  WEEKLY
+  # FORTNIGHTLY
+  # MONTHLY
+}

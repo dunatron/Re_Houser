@@ -1,0 +1,338 @@
+# import * from './generated/prisma.graphql'
+scalar Date
+scalar URL
+scalar Json
+scalar Float
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  emailValidated: Boolean
+  dob: DateTime
+  properties: [Property!]!
+  createdProperties: [Property!]!
+  photoIdentification: File
+  profilePhoto: File
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  primaryCreditCard: CreditCard
+  friends: [User!]
+  friendRequests: [FriendRequest!]
+  awaitingFriends: [FriendRequest!]
+  chats: [Chat!]
+  permissions: [Permission]
+  token: String
+  rehouserStamp: Boolean
+  signature: File
+  activity: [Activity!]!
+  involvedActivity: [Activity!]!
+  rentalAppraisals: [RentalAppraisal]
+  currentAddress: Address
+  proofOfAddress: File
+  acceptedSignupTerms: Boolean!
+  adminSettings: AdminSetting
+  viewings: [Viewing!]!
+  acceptedTermsOfEngagement: Boolean
+  bankDetails: BankDetail
+}
+
+type SuccessMessage {
+  message: String
+  data: Json
+}
+
+type Mutation {
+  signup(
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    phone: String!
+    captchaToken: String!
+    acceptedSignupTerms: Boolean!
+  ): User!
+  signin(email: String!, password: String!, captchaToken: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  confirmEmail(token: String!): User!
+  resendConfirmEmail(email: String): User!
+  deleteAccount(email: String!, password: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
+  updatePermissions(permissions: [Permission], userId: ID!): User
+  singleUpload(file: Upload!): File!
+  #
+  # singleUpload(file: Upload!, data: FileCreateInput!): File! # give this ago that way we can create links to other models perhaps e.g preTenancyProofOfAddress
+  # actually preTenancyProofOfAddress will just return the id as no form will have been created yet
+  uploadPhotoId(file: Upload!, photoId: String!): User
+  uploadProfilePhoto(file: Upload!): User
+  uploadSignature(file: Upload!): User
+  uploadFile(file: Upload!): File!
+  uploadFiles(files: [Upload!]!): [File!]!
+  deleteFile(id: ID!): File
+  deleteViewing(where: ViewingWhereUniqueInput!): Viewing
+  renameFile(id: ID!, filename: String!): File
+  # createPropertyAppraisal()
+  createRentalAppraisal(data: RentalAppraisalCreateInput!): RentalAppraisal!
+  offerRentalAppraisal(
+    data: RentalAppraisalUpdateInput!
+    where: RentalAppraisalWhereUniqueInput!
+  ): RentalAppraisal
+  createProperty(data: PropertyCreateInput!, files: [Upload]): Property
+  # updateProperty(id: ID!, onTheMarket: Boolean): Property!
+  updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
+  updateInsulationForm(
+    data: InsulationFormUpdateInput!
+    where: InsulationFormWhereUniqueInput!
+  ): InsulationForm
+  createPreTenancyForm(data: PreTenancyFormCreateInput!): PreTenancyForm!
+  createRentalApplication(
+    data: RentalApplicationCreateInput!
+  ): RentalApplication!
+  applyToRentalGroup(data: RentalGroupApplicantCreateInput!): RentalApplication!
+  updateRentalApplication(
+    data: RentalApplicationUpdateInput!
+    where: RentalApplicationWhereUniqueInput!
+  ): RentalApplication!
+  completeRentalApplication(applicationId: ID!): RentalApplication!
+  updateUser(data: UserUpdateInput!, photoFile: Upload): User!
+  updateRentalGroupApplicant(
+    data: RentalGroupApplicantUpdateInput!
+    where: RentalGroupApplicantWhereUniqueInput!
+  ): RentalGroupApplicant
+  acceptRentalApplication(applicationId: ID!): PropertyLease
+  declineRentalApplication(applicationId: ID!): SuccessMessage!
+  createCreditCard(token: String!): CreditCard!
+  createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
+  signLease(id: ID!, leaseId: ID!, type: String!): PropertyLease!
+  finalisePropertyLease(leaseId: ID!): PropertyLease!
+  createFriendRequest(data: FriendRequestCreateInput!): FriendRequest!
+  acceptFriendRequest(friendRequestId: ID!): SuccessMessage!
+  createChat(data: ChatCreateInput!): Chat!
+  createMessage(data: MessageCreateInput!): Message
+  updatePropertyLease(
+    data: PropertyLeaseUpdateInput!
+    where: PropertyLeaseWhereUniqueInput!
+  ): PropertyLease
+  createPayment(data: PaymentCreateInput!): Payment!
+  updateWallet(data: WalletUpdateInput!, where: WalletWhereUniqueInput!): Wallet
+  createViewing(data: ViewingCreateInput!): Viewing!
+  updateViewing(
+    data: ViewingUpdateInput!
+    where: ViewingWhereUniqueInput!
+  ): Viewing
+  createInspection(data: InspectionCreateInput!): Inspection!
+  updateInspection(
+    data: InspectionUpdateInput!
+    where: InspectionWhereUniqueInput!
+  ): Inspection
+  createContactForm(
+    firstName: String!
+    email: String!
+    message: String!
+    captchaToken: String!
+  ): SuccessMessage
+  updatePropertyFiles(
+    data: PropertyFilesUpdateInput!
+    where: PropertyFilesWhereUniqueInput!
+  ): PropertyFiles
+}
+
+type Subscription {
+  rentalApplicationCreatedSub: RentalApplicationSubscriptionPayload
+  rentalApplicationUpdateSub(
+    where: RentalApplicationSubscriptionWhereInput
+  ): RentalApplicationSubscriptionPayload
+  chatSub(where: ChatSubscriptionWhereInput): ChatSubscriptionPayload
+  messageSub(where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
+  walletSub(where: WalletSubscriptionWhereInput): WalletSubscriptionPayload
+  propertyLeaseSub(
+    where: PropertyLeaseSubscriptionWhereInput
+  ): PropertyLeaseSubscriptionPayload
+  paymentSub(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
+  chargeSub(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
+  rentalAppraisalSub(
+    where: RentalAppraisalSubscriptionWhereInput
+  ): RentalAppraisalSubscriptionPayload
+  propertySub(
+    where: PropertySubscriptionWhereInput
+  ): PropertySubscriptionPayload
+  userSub(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type Query {
+  me: User
+  users(where: UserWhereUniqueInput): [User]!
+  file(id: ID!): File
+  files: [File!]!
+  activities(
+    where: ActivityWhereInput
+    orderBy: ActivityOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Activity]!
+  activity(where: ActivityWhereUniqueInput!): Activity
+  chats(
+    where: ChatWhereInput
+    orderBy: ChatOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Chat]!
+  chatsConnection(
+    where: ChatWhereInput
+    orderBy: ChatOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ChatConnection!
+  chat(where: ChatWhereUniqueInput!): Chat
+  messages(
+    where: MessageWhereInput
+    orderBy: MessageOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Message]!
+  messagesConnection(
+    where: MessageWhereInput
+    orderBy: MessageOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): MessageConnection!
+  chatFeed(filter: String): [Message!]!
+  rentalAppraisals(
+    where: RentalAppraisalWhereInput
+    orderBy: RentalAppraisalOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [RentalAppraisal]!
+  properties: [Property!]!
+  property(where: PropertyWhereUniqueInput!): Property!
+  ownerProperties: [Property!]!
+  ownerProperty(id: ID!): Property
+  propertyFiles(where: PropertyFilesWhereUniqueInput!): PropertyFiles
+  insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
+  myRentalApplications: [RentalApplication!]!
+  rentalApplication(
+    where: RentalApplicationWhereUniqueInput!
+  ): RentalApplication!
+  rentalApplications(where: RentalApplicationWhereInput!): [RentalApplication!]!
+  viewings(
+    where: ViewingWhereInput
+    orderBy: ViewingOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Viewing!]!
+  rentalApplicationsConnection(
+    where: RentalApplicationWhereInput
+    orderBy: RentalApplicationOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): RentalApplicationConnection!
+  myCreditCards(where: CreditCardWhereInput!): [CreditCard!]!
+  myLeases(where: PropertyLeaseWhereInput): [PropertyLease!]!
+  myLease(where: PropertyLeaseWhereUniqueInput!): PropertyLease!
+  payment(where: PaymentWhereUniqueInput!): Payment
+  payments(
+    where: PaymentWhereInput
+    orderBy: PaymentOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Payment]!
+  paymentsConnection(
+    where: PaymentWhereInput
+    orderBy: PaymentOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): PaymentConnection!
+  chargesConnection(
+    where: ChargeWhereInput
+    orderBy: ChargeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ChargeConnection!
+  findUsers(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User!]!
+  paymentsCount: Int
+  rentalAppraisal(where: RentalAppraisalWhereUniqueInput!): RentalAppraisal!
+  rentalAppraisalsConnection(
+    where: RentalAppraisalWhereInput
+    orderBy: RentalAppraisalOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): RentalAppraisalConnection!
+  propertiesConnection(
+    where: PropertyWhereInput
+    orderBy: PropertyOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): PropertyConnection!
+  inspectionsConnection(
+    where: InspectionWhereInput
+    orderBy: InspectionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): InspectionConnection!
+  inspection(where: InspectionWhereUniqueInput!): Inspection
+}

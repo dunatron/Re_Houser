@@ -3,7 +3,7 @@ scalar Date
 scalar URL
 scalar Json
 scalar Float
-scalar Upload
+# scalar Upload
 
 type User {
   id: ID!
