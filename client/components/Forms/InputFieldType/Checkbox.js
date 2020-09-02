@@ -36,6 +36,7 @@ const CheckboxFormInput = props => {
       {config.inners &&
         config.inners.map((inner, idx) => (
           <InputFieldType
+            {...props}
             config={inner}
             key={idx}
             setValue={setValue}

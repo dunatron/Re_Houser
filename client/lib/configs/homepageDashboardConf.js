@@ -15,14 +15,14 @@ const HOME_PAGE_DASHBOARD_CONFIG = [
     label: 'About Us',
     route: '/about-us',
     description: 'Meet the rehouser team',
-    color: 'primary',
+    color: 'secondary',
     icon: <GroupIcon />,
   },
   {
     label: 'Contact',
     route: '/info/contact',
     description: 'All info about anyway you could want to contact us',
-    color: 'primary',
+    color: 'secondary',
     icon: <ContactPhoneIcon />,
   },
   {

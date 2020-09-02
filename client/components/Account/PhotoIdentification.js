@@ -42,6 +42,9 @@ const PHOTO_ID_FORM_CONF = [
       maxFilesAllowed: 1,
       name: 'photoIdentification',
       label: 'Photo Identification',
+      fileParams: {
+        folder: 'test',
+      },
       description:
         'You need a file attached for identification such as a passport or drivers NZ drivers license',
     },
@@ -90,6 +93,7 @@ const PhotoIdentification = props => {
         maxWidth: '550px',
       }}>
       <FormCreator
+        folder={`users/${me.id}/photo-id`}
         data={formData}
         config={PHOTO_ID_FORM_CONF}
         posting={loading}

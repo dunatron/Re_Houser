@@ -32,6 +32,8 @@ const CreatePropertyComponent = props => {
   });
   const [submittedData, setSubmittedData] = useState({});
 
+  const [folderName, setFolderName] = useState('properties');
+
   if (!me)
     return (
       <Typography gutterBottom variant="body1">
@@ -211,7 +213,16 @@ const CreatePropertyComponent = props => {
           <Error error={error} />
           {!waitForLazy && (
             <FormCreator
+              folder={folderName}
               title="Property"
+              watchFields={['placeId']}
+              handleWatchChanges={changes => {
+                // alert('FUck yes hoe');
+                console.log('changes => ', changes);
+
+                if (changes.placeId)
+                  setFolderName(`properties/${changes.placeId}`);
+              }}
               forceFormUpdates={true}
               data={{
                 ...defaultFormData,

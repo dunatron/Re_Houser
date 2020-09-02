@@ -46,6 +46,11 @@ const UploadProfilePhoto = ({ me }) => {
         maxWidth: '550px',
       }}>
       <FileUploader
+        fileParams={{
+          folder: `users/${me.id}/profile-photo`,
+          type: 'upload',
+          resource_type: 'image',
+        }}
         title="Upload Profile photo"
         maxFilesAllowed={1}
         files={me.profilePhoto ? [me.profilePhoto] : []}

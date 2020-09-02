@@ -1,7 +1,6 @@
 const {
-  updatePropertySearchNode
+  updatePropertySearchNode,
 } = require("../../lib/algolia/propertySearchApi");
-const { processUpload, deleteFile } = require("../../lib/fileApi");
 const { createActivity } = require("../../lib/createActivity");
 
 async function updateProperty(parent, args, ctx, info) {
@@ -42,15 +41,15 @@ async function updateProperty(parent, args, ctx, info) {
       type: "UPDATED_PROPERTY",
       user: {
         connect: {
-          id: loggedInUserId
-        }
+          id: loggedInUserId,
+        },
       },
       property: {
         connect: {
-          id: args.id
-        }
-      }
-    }
+          id: args.id,
+        },
+      },
+    },
   });
   if (args.data.onTheMarket) {
     const live = args.data.onTheMarket;
@@ -67,15 +66,15 @@ async function updateProperty(parent, args, ctx, info) {
         type: live ? "PROPERTY_LIVE" : "PROPERTY_DRAFT",
         user: {
           connect: {
-            id: loggedInUserId
-          }
+            id: loggedInUserId,
+          },
         },
         property: {
           connect: {
-            id: args.id
-          }
-        }
-      }
+            id: args.id,
+          },
+        },
+      },
     });
   }
 
@@ -84,8 +83,8 @@ async function updateProperty(parent, args, ctx, info) {
     {
       updates,
       where: {
-        id: args.id
-      }
+        id: args.id,
+      },
     },
     info
   );
@@ -96,7 +95,7 @@ async function updateProperty(parent, args, ctx, info) {
   const propertySearchNode = updatePropertySearchNode({
     updates: updates,
     propertyId: args.id,
-    ctx
+    ctx,
   });
 
   return updatedProperty;

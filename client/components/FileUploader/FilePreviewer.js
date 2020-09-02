@@ -55,6 +55,7 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds }) => {
 };
 
 const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
+  if (!file) return null;
   const genericType = findGenericFileType(file);
 
   let Componet = undefined;

@@ -1,7 +1,12 @@
 const { processUpload, deleteFile } = require("../../lib/fileApi");
 
-async function singleUpload(parent, { file }, ctx, info) {
-  return await processUpload(await file, ctx);
+async function singleUpload(parent, { file, data }, ctx, info) {
+  return await processUpload({
+    upload: file,
+    ctx,
+    info,
+    data,
+  });
 }
 
 module.exports = singleUpload;

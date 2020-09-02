@@ -9,37 +9,37 @@ const { imagesList, userList, propertiesList } = seeds;
 
 async function main() {
   // createImages
-  await imagesList.forEach(async img => {
+  await imagesList.forEach(async (img) => {
     await db.mutation.createFile({
-      data: { ...img }
+      data: { ...img },
     });
   });
 
   // create users
-  await userList.forEach(async user => {
+  await userList.forEach(async (user) => {
     const password = await bcrypt.hash(user.password, 10);
     const res = await db.mutation.createUser({
-      data: { ...user, password: password }
+      data: { ...user, password: password },
     });
     await addUserSearchNode({
       userId: res.id,
-      db: db
-    }).catch(e => console.log("AN promise err => ", e));
+      db: db,
+    }).catch((e) => console.log("AN promise err => ", e));
   });
 
   // createProperties
-  propertiesList.forEach(async property => {
+  await propertiesList.forEach(async (property) => {
     const res = await db.mutation
       .createProperty({
-        data: { ...property }
+        data: { ...property },
       })
-      .catch(e => console.log("Create Property err => ", e));
+      .catch((e) => console.log("Create Property err => ", e));
 
     await addPropertySearchNode({
       propertyId: res.id,
-      db: db
-    }).catch(e => console.log("AN promise err => ", e));
+      db: db,
+    }).catch((e) => console.log("AN promise err => ", e));
   });
 }
 
-main().catch(e => console.log(e));
+main().catch((e) => console.log(e));

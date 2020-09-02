@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Aug 26 2020 16:57:53 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Sep 02 2020 20:54:31 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -5356,9 +5356,9 @@ type File implements Node {
   id: ID!
   updatedAt: DateTime
   createdAt: DateTime!
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5404,9 +5404,9 @@ type FileConnection {
 
 input FileCreateInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5497,9 +5497,9 @@ input FileCreateOneWithoutUserSignatureInput {
 
 input FileCreateWithoutCertOfAcceptanceInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5534,9 +5534,9 @@ input FileCreateWithoutCertOfAcceptanceInput {
 
 input FileCreateWithoutCodeComplianceCertInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5571,9 +5571,9 @@ input FileCreateWithoutCodeComplianceCertInput {
 
 input FileCreateWithoutInspectionFilesInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5608,9 +5608,9 @@ input FileCreateWithoutInspectionFilesInput {
 
 input FileCreateWithoutPreTenancyProofOfAddressInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5645,9 +5645,9 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
 
 input FileCreateWithoutPropertyImagesInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5682,9 +5682,9 @@ input FileCreateWithoutPropertyImagesInput {
 
 input FileCreateWithoutPropertyInsulationFileInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5719,9 +5719,9 @@ input FileCreateWithoutPropertyInsulationFileInput {
 
 input FileCreateWithoutPropertyOwnershipProofInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5756,9 +5756,9 @@ input FileCreateWithoutPropertyOwnershipProofInput {
 
 input FileCreateWithoutUserPhotoIdInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5793,9 +5793,9 @@ input FileCreateWithoutUserPhotoIdInput {
 
 input FileCreateWithoutUserProfilePhotoInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5830,9 +5830,9 @@ input FileCreateWithoutUserProfilePhotoInput {
 
 input FileCreateWithoutUserProofOfAddressInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5867,9 +5867,9 @@ input FileCreateWithoutUserProofOfAddressInput {
 
 input FileCreateWithoutUserSignatureInput {
   id: ID
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int
@@ -5970,9 +5970,9 @@ type FilePreviousValues {
   id: ID!
   updatedAt: DateTime
   createdAt: DateTime!
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int

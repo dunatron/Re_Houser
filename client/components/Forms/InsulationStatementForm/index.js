@@ -70,6 +70,7 @@ const useStyles = makeStyles(theme => ({
 const InsulationStatementForm = ({
   insulationFormId,
   propertyId,
+  placeId,
   property,
 }) => {
   const classes = useStyles();
@@ -300,7 +301,16 @@ const InsulationStatementForm = ({
         <Error error={createInsulationFormProps.error} />
         <Error error={updateInsulationFormProps.error} />
       </Modal>
-      <FileUploader files={[property.insulationStatementFile]} />
+      <FileUploader
+        files={[property.insulationStatementFile]}
+        fileParams={{
+          folder: `properties/${placeId}/insulationStatementFile`,
+          type: 'private',
+        }}
+        recieveFile={() => {
+          alert('ToDo: associated this file with property');
+        }}
+      />
     </div>
   );
 };

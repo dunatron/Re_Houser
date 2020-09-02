@@ -1,4 +1,4 @@
-const { processUpload, deleteFile } = require("../../lib/fileApi");
+const { deleteFile } = require("../../lib/fileApi");
 
 async function deleteFileMutation(parent, { id }, ctx, info) {
   // const file = await ctx.db.query.file({ where: { id } }, `{id url}`);

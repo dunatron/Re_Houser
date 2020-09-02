@@ -62,6 +62,7 @@ const CheckboxText = props => {
       {showInners() &&
         inners.map((inner, idx) => (
           <InputFieldType
+            {...props}
             fieldConf={inner.fieldConf}
             label={inner.label}
             defaultValue={inner.defaultValue}

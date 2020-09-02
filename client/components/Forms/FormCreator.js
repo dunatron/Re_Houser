@@ -69,6 +69,9 @@ const FormCreator = props => {
     createText,
     updateText,
     refetchQueries,
+    folder,
+    watchFields = [],
+    handleWatchChanges,
   } = props;
 
   const currentUser = useCurrentUser();
@@ -84,11 +87,18 @@ const FormCreator = props => {
     getValues,
     reset,
     clearError,
+    watch,
   } = useForm({
     defaultValues: {
       ...preFormattedFormData,
     },
   });
+
+  if (handleWatchChanges) {
+    handleWatchChanges(watch(watchFields));
+  }
+
+  // know how to get it when i need that money
 
   const canSubmit = () => {
     var can = true;
@@ -140,6 +150,8 @@ const FormCreator = props => {
     };
   }, []);
 
+  console.log('THE FOLDER NAME => ', folder);
+
   return (
     // <form onSubmit={handleSubmit(onSubmit)}>
     <>
@@ -152,6 +164,7 @@ const FormCreator = props => {
             return (
               <div key={idx}>
                 <InputFieldType
+                  {...props}
                   config={item}
                   key={idx}
                   register={register}
@@ -161,6 +174,7 @@ const FormCreator = props => {
                   getValues={getValues}
                   clearError={clearError}
                   rawData={data}
+                  folder={folder}
                   defaultValues={preFormattedFormData}
                   refetchQueries={refetchQueries}
                   updateCacheOnRemovedFile={updateCacheOnRemovedFile}

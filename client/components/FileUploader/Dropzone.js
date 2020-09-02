@@ -33,6 +33,7 @@ const Dropzone = props => {
   const onFilesAdded = evt => {
     if (props.disabled) return;
     const files = evt.target.files;
+    console.log('onFilesAdded: files => ', files);
     if (props.onFilesAdded) {
       const array = fileListToArray(files);
       props.onFilesAdded(array);

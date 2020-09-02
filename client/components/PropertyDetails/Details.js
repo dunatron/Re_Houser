@@ -1,4 +1,5 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -277,7 +278,7 @@ const Details = props => {
     <div>
       <Typography
         variant="h5"
-        color="primary"
+        // color="primary"
         gutterBottom={true}
         className={classes.variablesHeader}>
         Manage
@@ -289,7 +290,7 @@ const Details = props => {
           alignItems: 'center',
           flexWrap: 'wrap',
         }}>
-        {/* <InsulationStatementForm
+        <InsulationStatementForm
           data={null}
           propertyId={property.id}
           property={property}
@@ -302,11 +303,11 @@ const Details = props => {
           title="Edit with Original Form"
           route="/properties/property/edit"
           query={{ id: property.id }}
-        /> */}
+        />
       </RehouserPaper>
       <Typography
         variant="h5"
-        color="primary"
+        // color="primary"
         gutterBottom={true}
         className={classes.variablesHeader}>
         Important Info
@@ -369,7 +370,7 @@ const Details = props => {
       </RehouserPaper>
       <Typography
         variant="h5"
-        color="primary"
+        // color="primary"
         gutterBottom={true}
         className={classes.variablesHeader}>
         Property variables
@@ -378,7 +379,7 @@ const Details = props => {
       <RehouserPaper className={classes.detailsWrapper} square>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon color="primary" />}
+            icon={<CameraIcon color="default" />}
             label="Rent"
             value={property.rent}
           />
@@ -393,7 +394,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon color="primary" />}
+            icon={<CameraIcon color="default" />}
             type={'boolean'}
             label="On The Market"
             value={property.onTheMarket}
@@ -409,7 +410,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon color="primary" />}
+            icon={<CameraIcon color="default" />}
             type={'date'}
             label="Move in Date"
             value={<LongDatePretty date={property.expiryDate} />}
@@ -425,7 +426,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon color="primary" />}
+            icon={<CameraIcon color="default" />}
             type={'date'}
             label="Expiry Date"
             value={<LongDatePretty date={property.moveInDate} />}
@@ -441,7 +442,7 @@ const Details = props => {
         </div>
         <div className={classes.detailItem}>
           <DetailItem
-            icon={<CameraIcon color="primary" />}
+            icon={<CameraIcon color="default" />}
             label="Rooms"
             value={property.rooms}
           />
@@ -462,7 +463,6 @@ const Details = props => {
           expiryDate={property.expiryDate}
         />
       </div>
-
       <FileUploader
         title="Property Images"
         files={property.images ? property.images : []}
@@ -474,6 +474,10 @@ const Details = props => {
             },
           },
         ]}
+        fileParams={{
+          type: 'upload',
+          folder: `properties/${property.placeId}/images`, // reasons for id and placeId. hmm.....
+        }}
         updateCacheOnRemovedFile={(cache, result) => {
           updateProperty({
             variables: {

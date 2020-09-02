@@ -6,9 +6,6 @@ import { isEmpty, is } from 'ramda';
 import FieldError from './FieldError';
 import InputFieldType from './index';
 
-// components
-import LocationPicker from '../../LocationPicker';
-
 const useStyles = makeStyles(theme => ({}));
 
 const File = props => {
@@ -30,6 +27,7 @@ const File = props => {
     defaultValues,
     extractErrorFromErrors,
     refetchQueries,
+    folder,
   } = props;
 
   const [hasRecievedAFile, setHasRecievedAFile] = useState();
@@ -75,10 +73,36 @@ const File = props => {
     return false;
   };
 
+  const createFolder = () => {
+    let folderName = '';
+
+    if (fieldProps.prefixFolderName)
+      folderName += `${fieldProps.prefixFolderName}/`;
+
+    if (folder) folderName += folder;
+
+    if (fieldProps.appendFolderName)
+      folderName += `/${fieldProps.appendFolderName}`;
+
+    if (!fieldProps.appendFolderName)
+      folderName += `/${fieldProps.name.replace('.', '/')}`;
+
+    console.log('Create folderName: after append => ', folderName);
+
+    return folderName;
+  };
+
+  const fileParams = fieldProps.fileParams ? fieldProps.fileParams : {};
+
   return (
     <>
       <FileUploader
         title={fieldProps.label}
+        // fileParams={fieldProps.fileParams}
+        fileParams={{
+          ...fileParams,
+          folder: createFolder(),
+        }}
         description={fieldProps.description}
         isMultiple={config.fieldProps.isMultiple}
         files={is(Array, filesData) ? [...filesData] : []}

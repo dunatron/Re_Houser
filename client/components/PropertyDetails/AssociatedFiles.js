@@ -26,7 +26,7 @@ const PROPERTY_FILES_QUERY = gql`
   ${FileInfoFragment}
 `;
 
-const AssociatedFiles = ({ filesId }) => {
+const AssociatedFiles = ({ filesId, placeId }) => {
   const { data, loading, error } = useQuery(PROPERTY_FILES_QUERY, {
     variables: {
       where: {
@@ -45,7 +45,7 @@ const AssociatedFiles = ({ filesId }) => {
       </Typography>
     );
 
-  return <MappedFiles propertyFiles={data.propertyFiles} />;
+  return <MappedFiles propertyFiles={data.propertyFiles} placeId={placeId} />;
 };
 
 const FileItem = ({ conf, val, propertyFilesId }) => {
@@ -92,6 +92,10 @@ const FileItem = ({ conf, val, propertyFilesId }) => {
 
   return (
     <FileUploader
+      fileParams={{
+        folder: conf.folder,
+        type: 'private',
+      }}
       title={conf.title}
       description={conf.description}
       recieveFile={handleRecieveFile}
@@ -108,20 +112,7 @@ const FileItem = ({ conf, val, propertyFilesId }) => {
   );
 };
 
-const filesConf = [
-  {
-    key: 'codeComplianceCert',
-    title: 'Code compliance file label',
-    description: 'a describtion for each variable',
-  },
-  {
-    key: 'certOfAcceptance',
-    title: 'Certificate of acceptance',
-    description: 'a describtion for each variable',
-  },
-];
-
-const MappedFiles = ({ propertyFiles }) => {
+const MappedFiles = ({ propertyFiles, placeId }) => {
   if (!propertyFiles)
     return (
       <Typography gutterBottom variant="h3">
@@ -129,6 +120,21 @@ const MappedFiles = ({ propertyFiles }) => {
         setup
       </Typography>
     );
+
+  const filesConf = [
+    {
+      key: 'codeComplianceCert',
+      title: 'Code compliance file label',
+      description: 'a describtion for each variable',
+      folder: `properties/${placeId}/files/codeComplianceCert`,
+    },
+    {
+      key: 'certOfAcceptance',
+      title: 'Certificate of acceptance',
+      description: 'a describtion for each variable',
+      folder: `properties/${placeId}/files/certOfAcceptance`,
+    },
+  ];
 
   return filesConf.map((conf, idx) => {
     return (

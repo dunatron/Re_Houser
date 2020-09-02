@@ -461,6 +461,7 @@ export const DEFAULT_DOCUMENT_FILES = [
 ];
 
 export const findGenericFileType = file => {
+  if (!file) return FILE_GENERAL_TYPE_DOCUMENT;
   if (DEFAULT_IMAGE_FILES.map(t => t.mimetype).includes(file.mimetype))
     return FILE_GENERAL_TYPE_IMAGE;
   if (DEFAULT_DOCUMENT_FILES.map(t => t.mimetype).includes(file.mimetype))

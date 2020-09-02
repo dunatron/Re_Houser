@@ -8,7 +8,7 @@ const insulationStatement1 = {
   ceilingCoverage: "COMPLETE",
   ceilingCoverageReason: "",
   ceilingTypes: {
-    set: ["SEGMENTS_BLANKETS", "LOOSE_FILL"]
+    set: ["SEGMENTS_BLANKETS", "LOOSE_FILL"],
   },
   ceilingTypesOther: "",
   ceilingBulkRValue: "Bulk R val",
@@ -17,13 +17,13 @@ const insulationStatement1 = {
     .subtract(3, "year")
     .format(),
   ceilingConditions: {
-    set: ["REASONABLE", "NO_GAPS"]
+    set: ["REASONABLE", "NO_GAPS"],
   },
   ceilingConditionReason: "",
   underfloorCoverage: "COMPLETE",
   underfloorCoverageReason: "",
   underfloorTypes: {
-    set: ["SEGMENTS_BLANKETS", "POLYSTYRENE", "FOIL", "BULK_WITH_FOIL_LINING"]
+    set: ["SEGMENTS_BLANKETS", "POLYSTYRENE", "FOIL", "BULK_WITH_FOIL_LINING"],
   },
   underfloorTypesOther: "",
   underfloorBulkRValue: "",
@@ -32,7 +32,7 @@ const insulationStatement1 = {
     .subtract(3, "year")
     .format(),
   underfloorConditions: {
-    set: ["NOT_REASONABLE"]
+    set: ["NOT_REASONABLE"],
   },
   underfloorConditionReason: "I couldnt be fucked, I am bad landlord",
   wallCoverage: "PARTIAL",
@@ -46,7 +46,7 @@ const insulationStatement1 = {
     .subtract(1, "year")
     .format(),
   declarationCheck: true,
-  healthyHomesStandardStatement: "ALREADY_COMPLYING"
+  healthyHomesStandardStatement: "ALREADY_COMPLYING",
 };
 
 const insulationStatement2 = {
@@ -57,7 +57,7 @@ const insulationStatement2 = {
   ceilingCoverage: "COMPLETE",
   ceilingCoverageReason: "",
   ceilingTypes: {
-    set: ["SEGMENTS_BLANKETS", "LOOSE_FILL"]
+    set: ["SEGMENTS_BLANKETS", "LOOSE_FILL"],
   },
   ceilingTypesOther: "",
   ceilingBulkRValue: "Bulk R val",
@@ -66,13 +66,13 @@ const insulationStatement2 = {
     .subtract(3, "year")
     .format(),
   ceilingConditions: {
-    set: ["REASONABLE", "NO_GAPS"]
+    set: ["REASONABLE", "NO_GAPS"],
   },
   ceilingConditionReason: "",
   underfloorCoverage: "COMPLETE",
   underfloorCoverageReason: "",
   underfloorTypes: {
-    set: ["SEGMENTS_BLANKETS", "POLYSTYRENE", "FOIL", "BULK_WITH_FOIL_LINING"]
+    set: ["SEGMENTS_BLANKETS", "POLYSTYRENE", "FOIL", "BULK_WITH_FOIL_LINING"],
   },
   underfloorTypesOther: "",
   underfloorBulkRValue: "",
@@ -81,7 +81,7 @@ const insulationStatement2 = {
     .subtract(3, "year")
     .format(),
   underfloorConditions: {
-    set: ["NOT_REASONABLE"]
+    set: ["NOT_REASONABLE"],
   },
   underfloorConditionReason: "I couldnt be fucked, I am bad landlord",
   wallCoverage: "PARTIAL",
@@ -95,9 +95,10 @@ const insulationStatement2 = {
     .subtract(1, "year")
     .format(),
   declarationCheck: true,
-  healthyHomesStandardStatement: "ALREADY_COMPLYING"
+  healthyHomesStandardStatement: "ALREADY_COMPLYING",
 };
 
 const insulationStatementsList = [insulationStatement1, insulationStatement2];
 
-module.exports = insulationStatementsList;
+module.exports = process.env.STAGE === "dev" ? insulationStatementsList : [];
+// module.exports = insulationStatementsList;

@@ -5,6 +5,14 @@ scalar Json
 scalar Float
 scalar Upload
 
+input CloudinaryParams {
+  filename: String
+  folder: String
+  resource_type: String
+  type: String
+  tags: Json
+}
+
 type User {
   id: ID!
   firstName: String!
@@ -75,9 +83,9 @@ type Mutation {
     confirmPassword: String!
   ): User!
   updatePermissions(permissions: [Permission], userId: ID!): User
-  singleUpload(file: Upload!): File!
+  # singleUpload(file: Upload!): File!
   #
-  # singleUpload(file: Upload!, data: FileCreateInput!): File! # give this ago that way we can create links to other models perhaps e.g preTenancyProofOfAddress
+  singleUpload(file: Upload!, data: CloudinaryParams): File! # give this ago that way we can create links to other models perhaps e.g preTenancyProofOfAddress
   # actually preTenancyProofOfAddress will just return the id as no form will have been created yet
   uploadPhotoId(file: Upload!, photoId: String!): User
   uploadProfilePhoto(file: Upload!): User

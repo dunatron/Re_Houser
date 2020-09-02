@@ -139,6 +139,7 @@ export default function SimpleSelect(props) {
           return (
             <div style={{ marginTop: '16px' }}>
               <InputFieldType
+                {...props}
                 config={inner}
                 key={idx}
                 register={register}

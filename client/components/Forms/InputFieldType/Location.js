@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+
+import InputFieldType from './index';
 
 // components
 import LocationPicker from '../../LocationPicker';
@@ -10,6 +12,7 @@ const useStyles = makeStyles(theme => ({}));
 
 const Location = props => {
   const classes = useStyles();
+
   const {
     __type,
     values,
@@ -24,9 +27,15 @@ const Location = props => {
     errors,
     rawData,
     fieldError,
+    reset,
+    defaultValues,
   } = props;
 
-  const { fieldProps, refConf, mapToObjectKey } = config;
+  const { fieldProps, refConf, mapToObjectKey, inners } = config;
+
+  const [placeId, setPlaceId] = useState(
+    rawData ? rawData[config.fieldProps.fieldMaps['placeId']] : null
+  );
 
   if (!fieldProps) return 'This form component needs fieldProps';
   if (!fieldProps.fieldMaps) {
@@ -52,6 +61,11 @@ const Location = props => {
     }
   }, [register]);
 
+  const canDisplayInner = () => {
+    if (!placeId) return false;
+    return true;
+  };
+
   return (
     <>
       {fieldError ? <Typography color="error">{fieldError}</Typography> : null}
@@ -62,6 +76,7 @@ const Location = props => {
       <LocationPicker
         defaultLocation={defaultLocation}
         selection={data => {
+          setPlaceId(data.placeId);
           for (const [key, value] of Object.entries(
             config.fieldProps.fieldMaps
           )) {
@@ -73,6 +88,24 @@ const Location = props => {
           }
         }}
       />
+      {inners &&
+        inners.map((inner, idx) => {
+          if (!canDisplayInner()) return null;
+          return (
+            <div style={{ marginTop: '16px' }}>
+              <InputFieldType
+                {...props}
+                config={inner}
+                key={idx}
+                register={register}
+                errors={errors}
+                setValue={setValue}
+                reset={reset}
+                defaultValues={defaultValues}
+              />
+            </div>
+          );
+        })}
     </>
   );
 };

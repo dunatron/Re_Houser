@@ -8,8 +8,8 @@ async function uploadPhotoId(parent, { file, photoId }, ctx, info) {
   const currData = await ctx.db.query.user(
     {
       where: {
-        id: ctx.request.userId
-      }
+        id: ctx.request.userId,
+      },
     },
     `{ photoIdentification{id, url} }`
   );
@@ -18,25 +18,32 @@ async function uploadPhotoId(parent, { file, photoId }, ctx, info) {
     await deleteFile({
       id: currData.photoIdentification.id,
       url: currData.photoIdentification.url,
-      ctx
+      ctx,
     });
   }
   // upload file to cloudinary
-  const uploadedFile = await processUpload(await file, ctx);
+  const uploadedFile = await processUpload({
+    upload: file,
+    ctx,
+    info,
+    data: {
+      type: "private",
+    },
+  });
   // update user
   const updatedUser = await ctx.db.mutation.updateUser(
     {
       where: {
-        id: ctx.request.userId
+        id: ctx.request.userId,
       },
       data: {
         photoIdentification: {
           connect: {
-            id: uploadedFile.id
-          }
+            id: uploadedFile.id,
+          },
         },
-        identificationNumber: photoId
-      }
+        identificationNumber: photoId,
+      },
     },
     info
   );

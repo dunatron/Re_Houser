@@ -33,4 +33,5 @@ const houseImage3 = {
 
 const imagesList = [houseImage1, houseImage2, houseImage3];
 
-module.exports = imagesList;
+module.exports = process.env.STAGE === "dev" ? imagesList : [];
+// module.exports = imagesList;

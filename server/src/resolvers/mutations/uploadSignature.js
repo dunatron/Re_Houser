@@ -8,8 +8,8 @@ async function uploadSignature(parent, { file }, ctx, info) {
   const currData = await ctx.db.query.user(
     {
       where: {
-        id: ctx.request.userId
-      }
+        id: ctx.request.userId,
+      },
     },
     `{ signature{id, url} }`
   );
@@ -18,24 +18,28 @@ async function uploadSignature(parent, { file }, ctx, info) {
     await deleteFile({
       id: currData.signature.id,
       url: currData.signature.url,
-      ctx
+      ctx,
     });
   }
   // upload file to cloudinary
-  const uploadedFile = await processUpload(await file, ctx);
+  const uploadedFile = await processUpload({
+    upload: file,
+    ctx,
+    info,
+  });
   // update user
   const updatedUser = await ctx.db.mutation.updateUser(
     {
       where: {
-        id: ctx.request.userId
+        id: ctx.request.userId,
       },
       data: {
         signature: {
           connect: {
-            id: uploadedFile.id
-          }
-        }
-      }
+            id: uploadedFile.id,
+          },
+        },
+      },
     },
     info
   );

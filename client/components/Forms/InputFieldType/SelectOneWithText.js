@@ -80,6 +80,7 @@ const SelectOneWithText = props => {
                   if (!canDisplayInner(opt, inner)) return null;
                   return (
                     <InputFieldType
+                      {...props}
                       config={inner}
                       key={idx}
                       register={register}

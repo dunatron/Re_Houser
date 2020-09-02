@@ -1,5 +1,6 @@
 import { uuid } from 'uuidv4';
 import ReactCardFlip from 'react-card-flip';
+import PropTypes from 'prop-types';
 import React, {
   useState,
   useReducer,
@@ -44,8 +45,8 @@ import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
 // maybe try for progress https://github.com/jaydenseric/apollo-upload-client/issues/88
 // TGHIS LOOKS GOOD => https://medium.com/@enespalaz/file-upload-with-graphql-9a4927775ef7
 const SINGLE_UPLOAD = gql`
-  mutation($file: Upload!) {
-    singleUpload(file: $file) {
+  mutation($file: Upload!, $data: CloudinaryParams) {
+    singleUpload(file: $file, data: $data) {
       id
       updatedAt
       createdAt
@@ -215,6 +216,7 @@ const UploadFile = forwardRef((props, ref) => {
     store,
     dispatch,
     isRemoving,
+    fileParams,
   } = props;
   const maxFilesAllowed = props.maxFilesAllowed ? props.maxFilesAllowed : 10;
   const client = useApolloClient();
@@ -317,6 +319,11 @@ const UploadFile = forwardRef((props, ref) => {
         mutation: SINGLE_UPLOAD,
         variables: {
           file: file.raw,
+          data: fileParams
+            ? {
+                ...fileParams,
+              }
+            : {},
         },
       })
       .then(res => {
@@ -363,9 +370,10 @@ const UploadFile = forwardRef((props, ref) => {
     ? recentlyUploaded.map(file => ({ ...file.serverFile }))
     : [];
 
-  //serverFiles
-
-  const serverIds = serverFiles.map(f => f.id);
+  const serverIds = serverFiles.map(f => {
+    if (f === null) return;
+    return f.id;
+  });
 
   const recentlyUploadedWithoutAttached = recentlyUploadedServerFiles.filter(
     f => {
@@ -532,6 +540,7 @@ const FileManager = props => {
     fileRemovedFromServer,
     refetchQueries,
     updateCacheOnRemovedFile,
+    fileParams,
   } = props;
 
   const [state, setState] = useState({
@@ -665,10 +674,46 @@ const FileManager = props => {
           isRemoving={loading}
           remove={removeFileFromServer}
           maxFilesAllowed={maxFilesAllowed}
+          fileParams={fileParams}
         />
       </ReactCardFlip>
     </>
   );
 };
 
+// title,
+//     description,
+//     files,
+//     maxFilesAllowed,
+//     recieveFile,
+//     removeFile,
+//     fileRemovedFromServer,
+//     refetchQueries,
+//     updateCacheOnRemovedFile,
+//     fileParams,
+
+//https://cloudinary.com/documentation/image_upload_api_reference#required_parameters
+FileManager.propTypes = {
+  title: PropTypes.string,
+  description: PropTypes.string,
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      type: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ),
+  maxFilesAllowed: PropTypes.number,
+  recieveFile: PropTypes.func.isRequired,
+  // removeFile,
+  fileRemovedFromServer: PropTypes.func,
+  updateCacheOnRemovedFile: PropTypes.func,
+  fileParams: PropTypes.shape({
+    filename: PropTypes.string,
+    folder: PropTypes.string,
+    resource_type: PropTypes.oneOf(['image', 'raw', 'video', 'auto']),
+    type: PropTypes.oneOf(['upload', 'private', 'authenticated']),
+    tags: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
 export default FileManager;

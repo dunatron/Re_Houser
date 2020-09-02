@@ -1,4 +1,4 @@
-const { processUpload, deleteFile } = require("../../lib/fileApi");
+const { deleteFile } = require("../../lib/fileApi");
 const bcrypt = require("bcryptjs");
 
 async function deleteAccount(parent, { email, password }, ctx, info) {
@@ -23,14 +23,14 @@ async function deleteAccount(parent, { email, password }, ctx, info) {
     deleteFile({
       id: photoIdentification.id,
       url: photoIdentification.url,
-      ctx
+      ctx,
     });
   }
 
   await ctx.db.mutation.deleteUser({ where: { email: email } });
 
   const message = {
-    message: `The account with an email of ${email} has been deleted`
+    message: `The account with an email of ${email} has been deleted`,
   };
 
   return message;

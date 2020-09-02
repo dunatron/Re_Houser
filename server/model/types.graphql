@@ -161,9 +161,9 @@ type File {
   id: ID! @unique @id
   updatedAt: DateTime @updatedAt
   createdAt: DateTime! @createdAt
-  filename: String!
-  mimetype: String!
-  encoding: String!
+  filename: String
+  mimetype: String
+  encoding: String
   asset_id: String
   public_id: String
   version: Int

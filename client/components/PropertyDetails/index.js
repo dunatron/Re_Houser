@@ -198,7 +198,10 @@ const PropertyDetails = ({ id, location, me }) => {
         {tabIndex === 6 && (
           <TabContainer>
             {property.files !== null && (
-              <AssociatedFiles filesId={property.files.id} />
+              <AssociatedFiles
+                filesId={property.files.id}
+                placeId={property.placeId}
+              />
             )}
           </TabContainer>
         )}
