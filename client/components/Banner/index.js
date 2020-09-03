@@ -120,7 +120,7 @@ const Banner = props => {
     };
   }, [windowWidth, windowHeight]);
 
-  console.log('RENDER=====BANNER RENDER=====');
+  console.log('render: Banner');
 
   return (
     <div

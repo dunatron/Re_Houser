@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Particles from 'react-particles-js';
 import PersonIcon from '@material-ui/icons/PersonAdd';
+import debounce from '../../lib/debounce';
 
 import {
   mainPrimaryColor,
@@ -10,17 +11,6 @@ import {
   lightSecondaryColor,
   darkSecondaryColor,
 } from '../../styles/_muiTheme';
-
-function debounce(fn, ms) {
-  let timer;
-  return _ => {
-    clearTimeout(timer);
-    timer = setTimeout(_ => {
-      timer = null;
-      fn.apply(this, arguments);
-    }, ms);
-  };
-}
 
 const particlesObj = {
   number: {
@@ -176,6 +166,8 @@ const ParticleOne = () => {
   // return <ImageParticle dimensions={dimensions} />;
 
   // return <OriginalParticle dimensions={dimensions} />;
+
+  console.log('render: PerticleOne');
 
   return (
     <Particles

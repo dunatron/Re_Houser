@@ -1,45 +1,80 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import useStyles from './useStyles';
 import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
 
 import Link from 'next/link';
 import Sidebar from '../Sidebar';
 import { store } from '../../store';
+import debounce from '../../lib/debounce';
 
 const AppDrawer = ({ me }) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
 
+  // const handleDrawerToggle = () => {
+  //   // setMobileOpen(!mobileOpen);
+  //   dispatch({
+  //     type: 'updateState',
+  //     payload: {
+  //       sideBarOpen: !state.sideBarOpen,
+  //     },
+  //   });
+  // };
+
+  /**
+   * lets just try a dispatch and not use state
+   */
   const handleDrawerToggle = () => {
     // setMobileOpen(!mobileOpen);
     dispatch({
       type: 'updateState',
       payload: {
-        sideBarOpen: !state.sideBarOpen,
+        sideBarOpen: false,
       },
     });
   };
 
-  const drawer = (
-    <>
-      <div className={classes.logoContainer}>
-        <ListItem
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Link href="/">
-            <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" />
-          </Link>
-        </ListItem>
-      </div>
-      <Divider />
-      <Sidebar loadingUser={false} me={me} />
-    </>
-  );
+  // const drawer = (
+  //   <>
+  //     <div className={classes.logoContainer}>
+  //       <ListItem
+  //         style={{
+  //           display: 'flex',
+  //           alignItems: 'center',
+  //           justifyContent: 'center',
+  //         }}>
+  //         <Link href="/">
+  //           <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" />
+  //         </Link>
+  //       </ListItem>
+  //     </div>
+  //     <Divider />
+  //     <Sidebar loadingUser={false} me={me} />
+  //   </>
+  // );
+
+  const drawer = () => {
+    console.log('render: Logo drawer item');
+    return (
+      <>
+        <div className={classes.logoContainer}>
+          <ListItem
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Link href="/">
+              <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" />
+            </Link>
+          </ListItem>
+        </div>
+        <Divider />
+        <Sidebar loadingUser={false} me={me} />
+      </>
+    );
+  };
 
   return (
     <nav className={classes.drawer} aria-label="mailbox folders">
@@ -53,10 +88,11 @@ const AppDrawer = ({ me }) => {
           classes={{
             paper: classes.drawerPaper,
           }}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}>
-          {drawer}
+          // ModalProps={{
+          //   keepMounted: true, // Better open performance on mobile.
+          // }}
+        >
+          {drawer()}
         </Drawer>
       </Hidden>
       <Hidden mdDown implementation="css">
@@ -66,9 +102,24 @@ const AppDrawer = ({ me }) => {
           }}
           variant="permanent"
           open={true}>
-          {drawer}
+          {drawer()}
         </Drawer>
       </Hidden>
+      {/* <Hidden implementation="css">
+        <Drawer
+          variant={isPermanent ? 'permanent' : 'temporary'}
+          anchor={'left'}
+          open={isPermanent ? true : false}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}>
+          {drawer()}
+        </Drawer>
+      </Hidden> */}
     </nav>
   );
 };

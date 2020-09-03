@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -68,7 +68,12 @@ const AccountMenu = ({ me = null }) => {
 
   const photoUrl = _profilePhotoUrl();
 
-  console.log('RENDER=====ACCOUNT MENU RENDER=====');
+  console.log('render: AcountMenu');
+
+  useEffect(() => {
+    console.log('render: AcountMenu useEffect');
+    return () => {};
+  }, []);
 
   return (
     <div className={classes.root}>

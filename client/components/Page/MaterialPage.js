@@ -48,11 +48,13 @@ function MaterialPage(props) {
     return child;
   });
 
+  console.log('render: Material Page props =>', props);
   useEffect(() => {
-    console.log('MD PAGE effect => ', props);
+    console.log('render: Material Page useEffect');
+    return () => {
+      console.log('render: Material Page useEffect cleanup');
+    };
   }, []);
-
-  console.log('RENDER: MATERIAL MD props => ', props);
 
   return (
     <>

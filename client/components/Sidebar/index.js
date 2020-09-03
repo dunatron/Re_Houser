@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { store } from '../../store';
 import Router from 'next/router';
 
@@ -335,8 +335,18 @@ const NavigationConfig = (me, loadingUser) => {
   ];
 };
 
-const Nav = ({ loadingUser, me }) => {
+const Nav = props => {
   const NAV_CONF = NavigationConfig(me, loadingUser);
+
+  const { loadingUser, me } = props;
+
+  console.log('render: SideBar props =>', props);
+  useEffect(() => {
+    console.log('render: SideBar useEffect');
+    return () => {
+      console.log('render: SideBar useEffect cleanup');
+    };
+  }, []);
   return (
     <div>
       {NAV_CONF.map((conf, index) => {

@@ -185,7 +185,12 @@ const Page = props => {
     };
   }, []);
 
-  console.log('RENDER=====ROOT PAGE RENDER=====');
+  useEffect(() => {
+    console.log('render: ROOT Page useEffect');
+    return () => {
+      console.log('render: ROOT Page useEffect cleanup');
+    };
+  }, []);
 
   return (
     <NoSsr>

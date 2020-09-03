@@ -10,6 +10,9 @@ import { FacebookProvider, Like } from 'react-facebook';
 
 // LogRocket.init('fxgdt9/rehouser');
 
+/**
+ * CONSUMER RERENDER ISSUES https://github.com/facebook/react/issues/15156
+ */
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};

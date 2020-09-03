@@ -135,7 +135,7 @@ const initialState = {
   newRentalApplicationsCount: 0,
   newPropertiesCount: 0,
   loginModalOpen: false,
-  sideBarOpen: true,
+  sideBarOpen: false,
   chatsListOpen: false,
   openChats: [],
   activeChat: null,
@@ -203,6 +203,8 @@ const StateProvider = ({ children }) => {
         throw new Error();
     }
   }, initialState);
+
+  console.log('render: store.js');
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;
 };
