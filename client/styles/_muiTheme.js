@@ -124,9 +124,9 @@ const theme = {
       border: '2px solid red',
     },
     MuiTooltip: {
-      tooltip: {
-        fontSize: '2em',
-      },
+      // tooltip: {
+      //   fontSize: '2em',
+      // },
     },
     MuiTooltipTooltip: {},
     tooltip: {
@@ -143,14 +143,9 @@ const theme = {
       },
       containedPrimary: {
         color: '#fff',
-        // backgroundColor: 'red',
       },
       containedSecondary: {
         color: '#fff',
-      },
-      default: {
-        fontSize: '1rem',
-        // backgroundColor: 'black',
       },
     },
     MuiListItemIcon: {

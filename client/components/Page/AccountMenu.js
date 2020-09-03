@@ -68,6 +68,8 @@ const AccountMenu = ({ me = null }) => {
 
   const photoUrl = _profilePhotoUrl();
 
+  console.log('RENDER=====ACCOUNT MENU RENDER=====');
+
   return (
     <div className={classes.root}>
       <RToolTip
@@ -76,14 +78,14 @@ const AccountMenu = ({ me = null }) => {
           alt={me ? `${me.firstName} ${me.lastName}` : 'Account'}
           src={photoUrl}
           className={classes.icon}
-          aria-controls="fade-menu"
+          aria-controls="faccount-menu"
           aria-haspopup="true"
           onClick={handleClick}
         />
       </RToolTip>
 
       <Menu
-        id="fade-menu"
+        id="account-menu"
         anchorEl={anchorEl}
         keepMounted
         open={open}
@@ -92,6 +94,7 @@ const AccountMenu = ({ me = null }) => {
         {me
           ? [
               <MenuItem
+                key="account-menu-account"
                 onClick={e => {
                   handleLink('/account');
                   handleClose(e);
@@ -99,6 +102,7 @@ const AccountMenu = ({ me = null }) => {
                 Account
               </MenuItem>,
               <MenuItem
+                key="account-menu-messages"
                 onClick={e => {
                   handleLink('/messages');
                   handleClose(e);
@@ -108,6 +112,7 @@ const AccountMenu = ({ me = null }) => {
             ]
           : [
               <MenuItem
+                key="account-menu-login"
                 onClick={e => {
                   handleClose(e);
                   dispatch({
@@ -150,7 +155,10 @@ const SignOutMenuItem = props => {
   };
 
   return me ? (
-    <MenuItem onClick={handleBtnClick} disabled={loading}>
+    <MenuItem
+      key="account-menu-logout"
+      onClick={handleBtnClick}
+      disabled={loading}>
       Logout
     </MenuItem>
   ) : null;

@@ -53,8 +53,9 @@ const useStyles = makeStyles(theme => ({
   closeBtn: {},
 
   modalBody: {
-    padding: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing
-      .unit * 2}px`,
+    padding: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
+      2
+    )}px`,
   },
   backdrop: {
     pointerEvents: 'none',

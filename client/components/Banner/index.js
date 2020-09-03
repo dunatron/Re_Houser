@@ -120,6 +120,8 @@ const Banner = props => {
     };
   }, [windowWidth, windowHeight]);
 
+  console.log('RENDER=====BANNER RENDER=====');
+
   return (
     <div
       ref={bannerNode}
@@ -147,10 +149,16 @@ const Banner = props => {
         {loadingImage && (
           <Loader loading={loadingImage} text="wating for image to render" />
         )}
-        {children}
+        {children.map((child, idx) => {
+          return <div key={idx}>{child}</div>;
+        })}
+        {/* {children} */}
         {footer && (
           <div id="banner-footer" className={classes.footer}>
-            {footer}
+            {footer.map((item, idx) => {
+              return <div key={idx}>{item}</div>;
+            })}
+            {/* {footer} */}
           </div>
         )}
       </div>

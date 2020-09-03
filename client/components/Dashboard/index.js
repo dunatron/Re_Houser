@@ -28,7 +28,7 @@ const Dashboard = ({ heading, intro, config, elevation, me }) => {
       )}
       <div className="items">
         {config.map((dashboardItem, i) => (
-          <Reveal repeat>
+          <Reveal key={i} repeat>
             <Tween from={{ opacity: 0 }} duration={2}>
               <BoardItemStyles key={i} elevation={8}>
                 <NavButton

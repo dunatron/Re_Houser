@@ -185,6 +185,8 @@ const Page = props => {
     };
   }, []);
 
+  console.log('RENDER=====ROOT PAGE RENDER=====');
+
   return (
     <NoSsr>
       {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
@@ -208,7 +210,8 @@ const Page = props => {
             <WithUser>
               {/* <WithChats> */}
               <Meta />
-              <MaterialPage children={props.children} {...props} />
+              <MaterialPage children={props.children} />
+              {/* <MaterialPage /> */}
               <AdminAlertsContainer />
               <GeneralSubsContainer />
             </WithUser>

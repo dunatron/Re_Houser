@@ -19,12 +19,14 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          <script
+          {/* THIS IS ACTUALLY IN _app.js do some research and see if it is better in a different place */}
+          {/* Ideally wit this we load client side as they may already have it. That is the purpose */}
+          {/* <script
             key="stripe-js"
             id="stripe-js"
             src="https://js.stripe.com/v3/"
             async
-          />
+          /> */}
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>

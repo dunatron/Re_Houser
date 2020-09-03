@@ -8,7 +8,7 @@ import User from '../components/User/index';
  * // We know what they are essentially, so just be smart with the where
  */
 const AdminAlertsContainer = props => {
-  console.log('Props for admin alerts => ', props);
+  console.log('RENDER: AdminALertContainer => ', props);
   // maybe create A page which can jsut turn these setting off. So using like the contextApi for hooks?
   // that way admins can uncheck these different subs
   return (

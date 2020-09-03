@@ -9,6 +9,8 @@ const LoginModal = () => {
 
   const _close = () => dispatch({ type: 'closeLoginModal' });
 
+  console.log('RENDER=====LOGIN MODAL RENDER=====');
+
   return (
     <Modal open={state.loginModalOpen} close={_close}>
       <SuperLogin handleSignedIn={_close} />

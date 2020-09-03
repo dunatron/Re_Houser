@@ -13,10 +13,10 @@ const cache = new CellMeasurerCache({
 });
 
 export default class TronsVirtualizedList extends Component {
-  componentWillReceiveProps(nextProps) {
-    //Really important !!
-    cache.clearAll(); //Clear the cache if row heights are recompute to be sure there are no "blank spaces" (some row are erased)
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   //Really important !!
+  //   cache.clearAll(); //Clear the cache if row heights are recompute to be sure there are no "blank spaces" (some row are erased)
+  // }
   renderRow = ({ index, parent, key, style }) => {
     return (
       <CellMeasurer

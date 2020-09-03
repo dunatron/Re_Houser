@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
@@ -11,48 +11,33 @@ import Sidebar from '../Sidebar';
 import AppMenuBar from './AppMenuBar';
 import Footer from '../Footer';
 import LoginModal from './LoginModal';
+import AppDrawer from './AppDrawer';
+import { store } from '../../store';
 
+/**
+ *
+ * This CUNT IS RERENDERING LIKE EVERYTHING WHEN WE OPEN THE FUCKEN SIDEBAR
+ * ALSO WHEN WE CLICK ON THINGS IT SHOULD JUST BE THE MIDDLE CONTENT RERENDERING plus like the url etc
+ */
 function MaterialPage(props) {
+  const globalStore = useContext(store);
+  const { dispatch, state } = globalStore;
   const theme = useTheme();
   const classes = useStyles();
+
   const { container, appData } = props;
   const { currentUser } = appData;
 
   const me = currentUser.data ? currentUser.data.me : null;
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <>
-      <div className={classes.logoContainer}>
-        <ListItem
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            // height: '162px',
-          }}>
-          <Link href="/">
-            {/* Space to serve image to the left with text. Note make image wide with this space, logo in it and slogan to the right */}
-            {/* <img src="/images/rehouser_logo.png" width="100px" alt="my image" /> */}
-            <img
-              src="/images/svg/ReHouse_main_logo.svg"
-              // width="100px"
-              alt="my image"
-            />
-          </Link>
-        </ListItem>
-      </div>
-      <Divider />
-      <Sidebar loadingUser={currentUser.loading} me={me} />
-    </>
-  );
-
+  // hmm not entireyy sure why this all rerenders when we open the sidebar
+  // could be the fact that we are. I have no idea clutching at strawa here. cloning and putting data into children
+  // using context global state. material, changing the layout essentially. could be a flag. assuming it would push content to the side etc.
+  // but then you would assume the sheet just gets offset.
+  // maybe memo the children. but into a function that depends on the children key changing ony...
+  // I actually have no idea
   const children = React.Children.map(props.children, child => {
+    console.log('Mapping children pages inside MAterial Page');
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
         appData: {
@@ -63,42 +48,30 @@ function MaterialPage(props) {
     return child;
   });
 
+  useEffect(() => {
+    console.log('MD PAGE effect => ', props);
+  }, []);
+
+  console.log('RENDER: MATERIAL MD props => ', props);
+
   return (
     <>
       <div className={classes.root}>
         <CssBaseline />
         {/* Header */}
-        <AppMenuBar {...props} handleDrawerToggle={handleDrawerToggle} />
-        <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden lgUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={mobileOpen}
-              // open={true}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}>
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden mdDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open={true}>
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
+        <AppMenuBar
+          {...props}
+          handleDrawerToggle={() => {
+            dispatch({
+              type: 'updateState',
+              payload: {
+                sideBarOpen: !state.sideBarOpen,
+              },
+            });
+          }}
+        />
+        <AppDrawer me={me} />
+
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
           {children}

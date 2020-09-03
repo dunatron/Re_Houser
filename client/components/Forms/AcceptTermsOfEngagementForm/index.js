@@ -51,6 +51,7 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
       <TermsOfEngagement />
       <br />
       <FormCreator
+        folder={`users/${me.id}`}
         title="huh"
         isNew={true}
         error={error}

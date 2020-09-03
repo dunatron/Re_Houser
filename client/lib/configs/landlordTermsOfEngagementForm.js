@@ -35,6 +35,7 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
       label: 'Proof of address',
       description:
         'We accept the following: Utility company bills, Bank statement, Photographic ID with address on it, IRD statement and Correspondence from a government authority.',
+      appendFolderName: 'proofOfAddress',
     },
     refConf: {
       required: {
@@ -53,6 +54,7 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
       label: 'Photo Identification',
       description:
         'You need a file attached for identification such as a passport or drivers NZ drivers license',
+      appendFolderName: 'photoIdentification',
     },
     refConf: {
       required: {

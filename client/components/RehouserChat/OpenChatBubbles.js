@@ -20,7 +20,7 @@ const OpenChatBubbles = ({ chats, me }) => {
   const { state, dispatch } = useContext(store);
   const classes = useStyles();
   return (
-    <div className={classes.root} square>
+    <div className={classes.root}>
       {chats &&
         chats
           .filter(

@@ -122,12 +122,9 @@
 //   }, {});
 // }
 
-
-
 /**
  * We will basically do a cheap store. initial state will just combine the states
  */
-
 
 // so like
 
@@ -138,6 +135,7 @@ const initialState = {
   newRentalApplicationsCount: 0,
   newPropertiesCount: 0,
   loginModalOpen: false,
+  sideBarOpen: true,
   chatsListOpen: false,
   openChats: [],
   activeChat: null,
