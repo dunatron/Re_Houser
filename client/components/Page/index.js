@@ -223,7 +223,7 @@ const Page = props => {
           </Elements>
         </ThemeProvider>
         <div id="modal-root" />
-        <GlobalStyle />
+        {/* <GlobalStyle /> */}
       </MuiThemeProvider>
       {/* </StateProvider> */}
     </NoSsr>
