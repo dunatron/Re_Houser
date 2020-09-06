@@ -78,50 +78,6 @@ const Page = props => {
     };
   }, []);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    console.log('render: ROOT Page useEffect');
-    return () => {
-      console.log('render: ROOT Page useEffect cleanup');
-    };
-  }, []);
-
-  return (
-    <NoSsr>
-      {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
-      {/* <StateProvider> */}
-      <MuiThemeProvider theme={theme}>
-        <ToastContainer
-          rtl={false}
-          style={{
-            minWidth: '280px',
-          }}
-          closeButton={
-            <div>
-              <IconButton color={'default'} aria-label="Delete">
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </div>
-          }
-        />
-        <ThemeProvider theme={theme}>
-          <Elements stripe={stripe}>
-            <WithUser>
-              {/* <WithChats> */}
-              <Meta />
-              <MaterialPage children={props.children} />
-              {/* <MaterialPage /> */}
-              <AdminAlertsContainer />
-              <GeneralSubsContainer />
-            </WithUser>
-          </Elements>
-        </ThemeProvider>
-        <div id="modal-root" />
-        {/* <GlobalStyle /> */}
-      </MuiThemeProvider>
-      {/* </StateProvider> */}
-    </NoSsr>
-=======
   console.log('===PAGE RENDER===');
   console.log('===PAGE PROPS ===> ', props);
 
@@ -144,7 +100,6 @@ const Page = props => {
         </FacebookProvider>
       </ThemeProvider>
     </MuiThemeProvider>
->>>>>>> fa5526bfb8d42b0bbc0319d76938e0adccc17650
   );
 };
 

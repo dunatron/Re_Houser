@@ -4,9 +4,6 @@ import { ApolloProvider } from '@apollo/client';
 import withData from '../lib/withData';
 import Head from 'next/head';
 
-/**
- * CONSUMER RERENDER ISSUES https://github.com/facebook/react/issues/15156
- */
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
