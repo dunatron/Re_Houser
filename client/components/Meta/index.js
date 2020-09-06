@@ -11,6 +11,7 @@ const Meta = () => (
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
     <link rel="stylesheet" type="text/css" href="/static/customToast.css" />
+    <link rel="stylesheet" type="text/css" href="/static/rehouser-fonts.css" />
     <link
       rel="stylesheet"
       type="text/css"

@@ -216,7 +216,7 @@ const Page = props => {
         </FacebookProvider>
       </ThemeProvider>
 
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
     </MuiThemeProvider>
   );
 };
