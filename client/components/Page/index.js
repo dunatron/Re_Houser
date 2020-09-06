@@ -7,6 +7,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { ToastContainer, toast } from 'react-toastify';
 import MaterialPage from './MaterialPage';
+import { FacebookProvider, Like } from 'react-facebook';
 
 import { StateProvider } from '../../store';
 
@@ -186,39 +187,37 @@ const Page = props => {
   }, []);
 
   return (
-    <NoSsr>
-      {/* Maybe toast go at bottom. as in bubble up effect of solve this to solve that below */}
-      {/* <StateProvider> */}
-      <MuiThemeProvider theme={theme}>
-        <ToastContainer
-          rtl={false}
-          style={{
-            minWidth: '280px',
-          }}
-          closeButton={
-            <div>
-              <IconButton color={'default'} aria-label="Delete">
-                <CloseIcon fontSize="small" />
-              </IconButton>
-            </div>
-          }
-        />
-        <ThemeProvider theme={theme}>
-          <Elements stripe={stripe}>
-            <WithUser>
-              {/* <WithChats> */}
-              <Meta />
-              <MaterialPage children={props.children} {...props} />
-              <AdminAlertsContainer />
-              <GeneralSubsContainer />
-            </WithUser>
-          </Elements>
-        </ThemeProvider>
-        <div id="modal-root" />
-        <GlobalStyle />
-      </MuiThemeProvider>
-      {/* </StateProvider> */}
-    </NoSsr>
+    <MuiThemeProvider theme={theme}>
+      <Meta />
+      <ToastContainer
+        rtl={false}
+        style={{
+          minWidth: '280px',
+        }}
+        closeButton={
+          <div>
+            <IconButton color={'default'} aria-label="Delete">
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </div>
+        }
+      />
+      <ThemeProvider theme={theme}>
+        <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
+          <StateProvider>
+            <Elements stripe={stripe}>
+              <WithUser>
+                <MaterialPage children={props.children} {...props} />
+                <AdminAlertsContainer />
+                <GeneralSubsContainer />
+              </WithUser>
+            </Elements>
+          </StateProvider>
+        </FacebookProvider>
+      </ThemeProvider>
+
+      <GlobalStyle />
+    </MuiThemeProvider>
   );
 };
 
