@@ -1,14 +1,16 @@
-import PageHeader from '../components/PageHeader';
+function ErrorPage({ statusCode }) {
+  return (
+    <p>
+      {statusCode
+        ? `An error ${statusCode} occurred on server`
+        : 'An error occurred on client'}
+    </p>
+  );
+}
 
-const LookPage = props => (
-  <PageHeader
-    title="Page not found"
-    intro="This page does not exist"
-    metaData={{
-      title: 'rehouser | page not found',
-      content: 'Rehouser page not found',
-    }}
-  />
-);
+ErrorPage.getInitialProps = ({ res, err }) => {
+  const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
+  return { statusCode };
+};
 
-export default LookPage;
+export default ErrorPage;
