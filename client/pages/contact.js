@@ -1,11 +1,7 @@
-// import PropertiesList from "../components/PropertiesList/index"
-import PropertySearch from '../components/PropertySearch/index';
-import NoSSR from 'react-no-ssr';
 import PageHeader from '../components/PageHeader';
-import { Typography } from '@material-ui/core';
 import ContactForm from '../components/Contact/ContactForm';
 
-const LookPage = props => {
+const ContactPage = props => {
   const {
     appData: { currentUser },
   } = props;
@@ -26,4 +22,4 @@ const LookPage = props => {
   );
 };
 
-export default LookPage;
+export default ContactPage;

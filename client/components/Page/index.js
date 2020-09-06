@@ -1,45 +1,29 @@
 import React, { Component, useState, useEffect } from 'react';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import { StripeProvider } from 'react-stripe-elements';
+import styled, { ThemeProvider } from 'styled-components';
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import { ToastContainer, toast } from 'react-toastify';
+
 import MaterialPage from './MaterialPage';
 import { FacebookProvider, Like } from 'react-facebook';
+import CustomToastContainer from '../../containers/CustomToastContainer';
 
 import { StateProvider } from '../../store';
 
-import {
-  withStyles,
-  MuiThemeProvider,
-  createMuiTheme,
-} from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
 // Material UI
-import NoSsr from '@material-ui/core/NoSsr';
-import muiTheme from '../../styles/_muiTheme';
+import theme from './theme';
 
 // Admin Area Addisions
 import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAlertNewRentalApplicationSub';
 import AdminAlertsContainer from '../../containers/AdminAlertsContainer';
 import GeneralSubsContainer from '../../containers/GeneralSubsContainer';
 
-// theme typography
-import themeTypography from '../../styles/_themeTypography';
+import GlobalStyle from './GlobalStyle';
 
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-// const theme = createMuiTheme(muiTheme);
-const theme = createMuiTheme({
-  ...muiTheme,
-  palette: {
-    ...muiTheme.palette,
-  },
-  ...themeTypography,
-});
+import WithUser from '../WithUser';
 
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -61,8 +45,6 @@ Router.onRouteChangeError = () => {
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
-
-  const { google } = props;
   useEffect(() => {
     if (window.Stripe) {
       setStripe(window.Stripe(process.env.STRIPE_KEY));
@@ -90,32 +72,23 @@ const Page = props => {
     };
   }, []);
 
+  console.log('===PAGE RENDER===');
+  console.log('===PAGE PROPS ===> ', props);
+
   return (
     <MuiThemeProvider theme={theme}>
       <Meta />
-      {/* <GlobalStyle /> */}
-      {/* <ToastContainer
-        rtl={false}
-        style={{
-          minWidth: '280px',
-        }}
-        closeButton={
-          <div>
-            <IconButton color={'default'} aria-label="Delete">
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </div>
-        }
-      /> */}
+      <GlobalStyle />
+      <CustomToastContainer />
       <ThemeProvider theme={theme}>
         <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
           <StateProvider>
             <Elements stripe={stripe}>
-              {/* <WithUser> */}
-              <MaterialPage children={props.children} {...props} />
-              <AdminAlertsContainer />
-              <GeneralSubsContainer />
-              {/* </WithUser> */}
+              <WithUser>
+                <MaterialPage children={props.children} {...props} />
+                <AdminAlertsContainer />
+                <GeneralSubsContainer />
+              </WithUser>
             </Elements>
           </StateProvider>
         </FacebookProvider>

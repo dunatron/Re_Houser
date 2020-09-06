@@ -27,13 +27,13 @@
 export const mainPrimaryColor = '#e00082';
 export const lightPrimaryColor = '#ff5c8d';
 export const darkPrimaryColor = '#a00037';
-export const primaryContrastText = '#000000';
+export const primaryContrastText = '#000';
 
-// secondary color pink
+// secondary color dark blue
 export const mainSecondaryColor = '#172a3a';
 export const lightSecondaryColor = '#ff57b1';
 export const darkSecondaryColor = '#a90056';
-export const secondaryContrastText = '#000000';
+export const secondaryContrastText = '#fff';
 
 import {
   red,

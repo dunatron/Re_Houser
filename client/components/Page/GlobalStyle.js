@@ -75,6 +75,22 @@ const GlobalStyle = createGlobalStyle`
   .geosuggest__suggests {
     z-index: 1000 !important
   }
+
+  // Toast Stuff
+  .Toastify__toast--info {
+    background: ${theme.palette.secondary.main}
+    color:  ${theme.palette.secondary.contrastText}
+  }
+  .Toastify__toast--success {
+    background: ${theme.palette.primary.main}
+    color:  ${theme.palette.primary.contrastText}
+  }
+  .Toastify__toast--warning {
+    background: #f1c40f;
+  }
+  .Toastify__toast--error {
+    background: #e74c3c;
+  }
 `;
 
 export default GlobalStyle;

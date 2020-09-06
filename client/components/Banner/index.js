@@ -128,10 +128,7 @@ const Banner = props => {
         height: windowHeight,
       }}>
       {/* Simply here to detect when the image is loaded...  */}
-      <div className={classes.imageOverlay}>
-        <ParticleOne />
-        {/* <ParticleTwo /> */}
-      </div>
+      <div className={classes.imageOverlay}></div>
 
       <img
         onLoad={handleOnImageLoad}

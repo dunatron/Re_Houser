@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
-import { Query, Mutation, Subscription } from '@apollo/react-components';
-import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
-import { CURRENT_USER_QUERY } from '../User/index';
-import Signin from '../Signin/index';
+import React, { useState, useEffect } from 'react';
 import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
 import { toast } from 'react-toastify';
 import Error from '../ErrorMessage';
-import { useCurrentUser } from '../User';
 import Loader from '../Loader/index';
+import Typography from '@material-ui/core/Typography';
 
 const Message = ({ message, alert }) => {
-  const [alertCount, setAlertCount] = useState(0);
   // only fire alerts once per mount
-  if (alertCount <= 0) {
+  useEffect(() => {
     if (alert) toast.info(alert);
-    if (message) return <p>{message}</p>;
-    setAlertCount(alertCount + 1);
-  }
+  }, []);
+
+  if (message) return <Typography variant="h3">{message}</Typography>;
   return null;
-  return <p>Please Sign In before Continuing</p>;
 };
 
 /**
@@ -29,25 +23,18 @@ const PleaseSignIn = props => {
   const { currentUser } = props;
   const { error, loading, data } = currentUser;
 
-  console.log('Please SIgn In render');
-
   if (loading) return <Loader loading={loading} text="Loading user settings" />;
   if (error) return <Error error={error} />;
-  if (!data)
-    return (
-      <div>
-        <Message message={props.message} alert={props.alert} />
-        <OpenSuperLoginButton />
-      </div>
-    );
-  if (!data.me) {
-    return (
-      <div>
-        <Message message={props.message} alert={props.alert} />
-        <OpenSuperLoginButton />
-      </div>
-    );
-  }
+
+  const notSIgnedInRender = (
+    <div>
+      <Message message={props.message} alert={props.alert} />
+      <OpenSuperLoginButton />
+    </div>
+  );
+
+  if (!data) return notSIgnedInRender;
+  if (!data.me) return notSIgnedInRender;
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
