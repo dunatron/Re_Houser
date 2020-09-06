@@ -75,24 +75,6 @@ const LandlordPage = props => {
         heading="Landlord Portal"
         intro="Landlord portal dashboard"
       />
-      {/* <PleaseSignIn
-        currentUser={currentUser}
-        message={pleaseSignInMessage}
-        alert={
-          <p>
-            <strong>{pleaseSignInMessage}</strong>
-          </p>
-        }>
-        <ConfirmEmail me={currentUser.data ? currentUser.data.me : null}>
-          <Dashboard
-            config={LANDLORD_DASHBOARD_CONFIG}
-            me={currentUser.data ? currentUser.data.me : null}
-            elevation={10}
-            heading="Landlord Portal"
-            intro="Here is the tenant portal dashboard"
-          />
-        </ConfirmEmail>
-      </PleaseSignIn> */}
     </>
   );
 };

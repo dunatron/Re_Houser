@@ -11,7 +11,11 @@ const MyApplication = props => {
   return (
     <PleaseSignIn
       currentUser={currentUser}
-      message="You cannot view an application without being signed in">
+      alert={
+        <p>
+          <strong>"Please SIgn in to view applications</strong>
+        </p>
+      }>
       <RentalApplication id={props.query.id} />
     </PleaseSignIn>
   );

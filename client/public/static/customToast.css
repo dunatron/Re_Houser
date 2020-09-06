@@ -101,26 +101,6 @@
   background: #673ab7;
   color: #fff;
 } */
-.Toastify__toast--info {
-  background: #1de9b6;
-  color: rgba(59, 40, 40, 1);
-  /* color: #000; */
-}
-.Toastify__toast--success {
-  background: #4caf50;
-  color: rgba(59, 40, 40, 1);
-}
-.Toastify__toast--warning {
-  background: #f1c40f;
-}
-.Toastify__toast--error {
-  background: #e74c3c;
-}
-.Toastify__toast-body {
-  margin: auto 0;
-  -ms-flex: 1;
-  flex: 1;
-}
 
 @media only screen and (max-width: 480px) {
   .Toastify__toast {

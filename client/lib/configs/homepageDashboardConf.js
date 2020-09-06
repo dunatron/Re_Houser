@@ -29,14 +29,14 @@ const HOME_PAGE_DASHBOARD_CONFIG = [
     label: 'Landlorld',
     route: '/landlord',
     description: 'Information concerning landlords',
-    color: 'primary',
+    color: 'secondary',
     icon: <AssignmentIcon />,
   },
   {
     label: 'Tenant',
     route: '/tenant',
     description: 'Information concerning tenants',
-    color: 'primary',
+    color: 'secondary',
     icon: <AssignmentIcon />,
   },
 ];

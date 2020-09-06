@@ -17,23 +17,28 @@ class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            type="text/css"
+            href="/static/rehouser-fonts.css"
           />
-          {/* THIS IS ACTUALLY IN _app.js do some research and see if it is better in a different place */}
-          {/* Ideally wit this we load client side as they may already have it. That is the purpose */}
-          {/* <script
+          {/* <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          /> */}
+          <script
             key="stripe-js"
             id="stripe-js"
             src="https://js.stripe.com/v3/"
             async
-          /> */}
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
         </Head>
         <body>
           <Main />
+
           <div id="modal" />
+          <div id="modal-root" />
           <NextScript />
         </body>
       </html>

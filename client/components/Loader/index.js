@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CircularProgress, Typography } from '@material-ui/core';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -10,6 +11,13 @@ const useStyles = makeStyles(theme => ({
     padding: '12px',
     display: 'flex',
     alignItems: 'center',
+  },
+  containerFullscreen: {
+    height: '100vh',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(4),
   },
   loader: {},
   text: {

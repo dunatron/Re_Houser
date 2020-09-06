@@ -25,6 +25,8 @@ const BoardItemStyles = styled(Paper)`
     font-family: "GustanLight";
     justify-content: flex-start;
     align-items: center;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
   .item-description {
     padding: 0 16px 16px 16px;
