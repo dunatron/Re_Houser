@@ -32,11 +32,6 @@ import themeTypography from '../../styles/_themeTypography';
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-// TRIAL ONLY
-import WithUser from '../WithUser';
-import WithChats from '../WithChats.js';
-import THEME_PICKER_CONFIG from '../../lib/configs/themePickerConfig';
-
 // const theme = createMuiTheme(muiTheme);
 const theme = createMuiTheme({
   ...muiTheme,
@@ -60,97 +55,6 @@ Router.onRouteChangeComplete = () => {
 Router.onRouteChangeError = () => {
   NProgress.done();
 };
-
-const GlobalStyle = createGlobalStyle`
- @font-face {
-    font-family: "GustanLight";
-    src: url('/static/fonts/Gustan-Light.woff') format('woff'); /* IE9 Compat Modes */
-    font-style:   normal;
-    font-weight:  200;
-  }
-  @font-face {
-    font-family: "GustanMedium";
-    src: url('/static/fonts/Gustan-Medium.woff') format('woff'); /* IE9 Compat Modes */
-    font-style:   normal;
-    font-weight:  200;
-  }
-  @font-face {
-    font-family: "GustanBold";
-    src: url('/static/fonts/Gustan-Bold.woff') format('woff'); /* IE9 Compat Modes */
-    font-style:   normal;
-    font-weight:  200;
-  }
-  @font-face {
-    font-family: "GustanExtraBlack";
-    src: url('/static/fonts/Gustan-Extrablack.woff') format('woff'); /* IE9 Compat Modes */
-    font-style:   normal;
-    font-weight:  200;
-  }
-  @font-face {
-    font-family: "Allison";
-    src: url('/static/fonts/Gustan-Light.woff') format('woff'); /* IE9 Compat Modes */
-    font-style:   normal;
-    font-weight:  200;
-  }
-  html {
-    box-sizing: border-box;
-    font-size: 14px;
-    scroll-behavior: smooth;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-  fieldset{ 
-    padding: 0;
-    margin-inline-start: unset;
-    margin-inline-end: unset;
-    padding-block-start: unset;
-    padding-inline-start: unset;
-    padding-inline-end: unset;
-    padding-block-end: unset;
-    min-inline-size: unset;
-    border: 0;
-  }
-  body {
-    padding: 0;
-    margin: 0;
-    font-size: ${theme.typography.fontSize}px;
-    line-height: 2;
-    font-family: ${theme.typography.fontFamily};
-  }
-  a {
-    text-decoration: none;
-    color: ${theme.palette.common.black};
-  }
-  .highlight {
-    color: black;
-    background-color: ${theme.palette.nProgress.main};
-  }
-  button {  font-family: ${theme.typography.fontFamily}; }
-  #nprogress {
-    background-color: azure;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    .bar {
-      height:5px;
-      background: ${theme.palette.nProgress.main};
-    }
-    .spinner {
-      .spinner-icon {
-        border-top-color:${theme.palette.nProgress.main};
-        border-left-color: ${theme.palette.nProgress.main};
-      }
-    }
-    .peg {
-       box-shadow: 0 0 10px ${theme.palette.nProgress.main}, 0 0 5px ${theme.palette.nProgress.main};
-    }
-  }
-  .geosuggest__suggests {
-    z-index: 1000 !important
-  }
-  
-`;
 
 /**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
@@ -189,7 +93,8 @@ const Page = props => {
   return (
     <MuiThemeProvider theme={theme}>
       <Meta />
-      <ToastContainer
+      {/* <GlobalStyle /> */}
+      {/* <ToastContainer
         rtl={false}
         style={{
           minWidth: '280px',
@@ -201,22 +106,20 @@ const Page = props => {
             </IconButton>
           </div>
         }
-      />
+      /> */}
       <ThemeProvider theme={theme}>
         <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
           <StateProvider>
             <Elements stripe={stripe}>
-              <WithUser>
-                <MaterialPage children={props.children} {...props} />
-                <AdminAlertsContainer />
-                <GeneralSubsContainer />
-              </WithUser>
+              {/* <WithUser> */}
+              <MaterialPage children={props.children} {...props} />
+              <AdminAlertsContainer />
+              <GeneralSubsContainer />
+              {/* </WithUser> */}
             </Elements>
           </StateProvider>
         </FacebookProvider>
       </ThemeProvider>
-
-      {/* <GlobalStyle /> */}
     </MuiThemeProvider>
   );
 };

@@ -5,13 +5,10 @@ const Meta = () => (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charSet="utf-8" />
     <link rel="stylesheet" type="text/css" href="/static/geosuggest.css" />
-    <link rel="stylesheet" type="text/css" href="/static/slick.css" />
-
-    <link rel="stylesheet" type="text/css" href="/static/slick-theme.css" />
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
     <link rel="stylesheet" type="text/css" href="/static/customToast.css" />
-    <link rel="stylesheet" type="text/css" href="/static/rehouser-fonts.css" />
+
     <link
       rel="stylesheet"
       type="text/css"

@@ -29,6 +29,8 @@ const PleaseSignIn = props => {
   const { currentUser } = props;
   const { error, loading, data } = currentUser;
 
+  console.log('Please SIgn In render');
+
   if (loading) return <Loader loading={loading} text="Loading user settings" />;
   if (error) return <Error error={error} />;
   if (!data)

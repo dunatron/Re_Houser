@@ -17,6 +17,16 @@ const WithUser = props => {
   const { data, error, loading } = useCurrentUser();
   const currentUserProps = useCurrentUser();
 
+  console.log('WITH USER RENDER');
+
+  if (loading)
+    <Loader
+      text="Loading User Data: ToDo: Check for token. If they dont have it we can skip this"
+      loading={true}
+      fullscreen={true}
+    />;
+
+  // if (loading)
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CircularProgress, Typography } from '@material-ui/core';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -10,17 +11,34 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  containerFullscreen: {
+    height: '100vh',
+    textAlign: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    padding: theme.spacing(4),
+  },
   loader: {},
   text: {
     padding: '8px',
   },
+  textFullScreen: {
+    fontSize: '22px',
+  },
 }));
 
 const Loader = props => {
-  const { color, text } = props;
+  const { color, text, fullscreen } = props;
   const classes = useStyles();
+
+  const containerClasses = clsx(
+    classes.container,
+    fullscreen && classes.containerFullscreen
+  );
+
+  const textClasses = clsx(classes.text, fullscreen && classes.textFullScreen);
   return (
-    <div className={classes.container}>
+    <div className={containerClasses}>
       <div>
         <CircularProgress
           className={classes.loader}
@@ -28,7 +46,7 @@ const Loader = props => {
         />
       </div>
       {text && (
-        <Typography color="primary" className={classes.text}>
+        <Typography color="primary" className={textClasses}>
           {text}
         </Typography>
       )}
