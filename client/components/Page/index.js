@@ -41,12 +41,6 @@ Router.onRouteChangeError = () => {
 };
 
 /**
- * PERFORMANCE ISSUES
- * - Fonts seem to be loaded everytime we change pages. remedy this and put it in the correct place for next.js
- * - For whatever reason opening the sidebar does cause components to reconcile
- */
-
-/**
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
 const Page = props => {
