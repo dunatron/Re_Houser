@@ -96,6 +96,16 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
       },
     },
   },
+  {
+    type: 'String',
+    key: 'bondLodgementNumber',
+    fieldProps: {
+      name: 'bondLodgementNumber',
+      label: 'Bond lodgement number',
+      helperText: 'If you have a bond lodgement number please supply it',
+    },
+    refConf: {},
+  },
   // Authority to act as Manager:
   {
     type: 'Section',

@@ -19,6 +19,7 @@ import Email from './Email';
 import Phone from './Phone';
 import Date from './Date';
 import DateTime from './DateTime';
+import BankAccount from './BankAccount';
 
 const RenderInput = ({ type, fieldProps, defaultValue, onChange }) => {
   const handleFieldChange = value => {
@@ -62,6 +63,14 @@ const RenderInput = ({ type, fieldProps, defaultValue, onChange }) => {
     case 'DateTime':
       return (
         <DateTime
+          fieldProps={fieldProps}
+          defaultValue={defaultValue}
+          onChange={handleFieldChange}
+        />
+      );
+    case 'BankAccount':
+      return (
+        <BankAccount
           fieldProps={fieldProps}
           defaultValue={defaultValue}
           onChange={handleFieldChange}

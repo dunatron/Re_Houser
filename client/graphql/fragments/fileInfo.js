@@ -4,6 +4,7 @@ const FileInfoFragment = gql`
   fragment fileInfo on File {
     id
     url
+    uploaderId
     filename
     mimetype
     encoding
@@ -13,7 +14,6 @@ const FileInfoFragment = gql`
     public_id
     version
     version_id
-    signature
     width
     height
     format

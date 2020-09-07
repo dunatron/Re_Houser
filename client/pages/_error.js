@@ -1,12 +1,14 @@
-function ErrorPage({ statusCode }) {
+import { Typography } from '@material-ui/core';
+
+const ErrorPage = ({ statusCode }) => {
   return (
-    <p>
+    <Typography variant="h6">
       {statusCode
         ? `An error ${statusCode} occurred on server`
         : 'An error occurred on client'}
-    </p>
+    </Typography>
   );
-}
+};
 
 ErrorPage.getInitialProps = ({ res, err }) => {
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;

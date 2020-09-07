@@ -53,6 +53,10 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
       <FormCreator
         folder={`users/${me.id}`}
         title="huh"
+        data={{
+          // bondLodgementNumber: 'ok',
+          ...me
+        }}
         isNew={true}
         error={error}
         posting={loading}

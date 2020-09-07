@@ -1,7 +1,7 @@
 const {
   GraphQLServer,
   PubSub,
-  SchemaDirectiveVisitor,
+  SchemaDirectiveVisitor
 } = require("graphql-yoga");
 const Mutation = require("./resolvers/Mutation");
 const Query = require("./resolvers/Query");
@@ -14,7 +14,7 @@ const db = require("./db");
 const {
   DateTimeResolver,
   URLResolver,
-  JSONResolver,
+  JSONResolver
 } = require("graphql-scalars");
 
 /**
@@ -34,9 +34,17 @@ const resolvers = {
       return {
         ...parent.photoIdentification,
         url:
-          "https://www.swtor.com/sites/all/files/en/coruscant/main/swtor_logo.png",
+          "https://www.swtor.com/sites/all/files/en/coruscant/main/swtor_logo.png"
       };
-    },
+    }
+    // signature: (parent, args, ctx, info) => {
+    //   if (parent.signature === null) return null;
+    //   return {
+    //     ...parent.signature,
+    //     url:
+    //       "https://www.swtor.com/sites/all/files/en/coruscant/main/swtor_logo.png"
+    //   };
+    // }
     // __resolveType(obj, context, info) {
     //   // if (obj.wingspan) {
     //   //   return "Airplane";
@@ -61,27 +69,16 @@ const resolvers = {
     // },
   },
   File: {
-    // if it was a private file then return null if not logged in.
-    // if a private file. Maybe viewers is a thing.
-    // if the logged in user is in the viewers list for the file or there permissions is admin
-    // need new field called viewers and will work  for private files only
-    // yeyeyeye yea sick shit
-    // on top of that we actually nned soom sort off field spolicy that that will not let cloudinary serve files withought expiry tokens etc
-    //
-    // url: file => file.url,
-    url: (file) => {
-      // throw new Error("Cant resolve urls of files atm ");
-      // return `${process.env.FRONTEND_URL}/images/private_stock.jpg`;
-      if (file.type === "private")
+    url: (file, args, ctx, info) => {
+      // I guess all admins can see private files. apart from that you must be uploader of the file!
+      if (file.type === "private") {
+        if (file.uploaderId === ctx.request.userId) {
+          return file.url;
+        }
         return `${process.env.FRONTEND_URL}/images/private_stock.jpg`;
+      }
       return file.url;
-    },
-    userPhotoId: (file, args, ctx, field) => {
-      if (file.userPhotoId === null) return null;
-      return {
-        ...file.userPhotoId,
-      };
-    },
+    }
   },
   Property: {
     files: (parent, args, ctx, field) => {
@@ -91,10 +88,10 @@ const resolvers = {
       //   "Purposely throwing an error when you try to get the files from a property"
       // );
       return {
-        ...parent.files,
+        ...parent.files
       };
     },
-    insulationStatementFile: {},
+    insulationStatementFile: {}
   },
   Date: DateTimeResolver,
   URL: URLResolver,
@@ -102,10 +99,10 @@ const resolvers = {
   // Query,
   Query: {
     ...Query,
-    ...Connection, // simply relay versions e.g aggregate and edges
+    ...Connection // simply relay versions e.g aggregate and edges
   },
   Mutation,
-  Subscription,
+  Subscription
 };
 const pubsub = new PubSub();
 // create the graphql yoga server
@@ -114,10 +111,10 @@ function createServer() {
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
     resolverValidationOptions: {
-      requireResolversForResolveType: false,
+      requireResolversForResolveType: false
     },
     // context: req => ({ ...req, db }) // probs just put this back
-    context: (req) => ({ ...req, db, pubsub }), // maybe this
+    context: req => ({ ...req, db, pubsub }) // maybe this
     // context: { pubsub }
   });
 }

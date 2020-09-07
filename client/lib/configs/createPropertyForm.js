@@ -909,6 +909,7 @@ const CREATE_PROPERTY_FORM_CONF = [
               },
             ],
           },
+
           {
             type: 'Money',
             key: 'rent',
@@ -920,6 +921,21 @@ const CREATE_PROPERTY_FORM_CONF = [
               required: {
                 value: true,
                 message: 'You need to supply the total rent fro the property',
+              },
+            },
+          },
+          {
+            type: 'SelectOneEnum',
+            __type: 'BondType',
+            key: 'bondType',
+            fieldProps: {
+              name: 'bondType',
+              label: 'Bond amount in weeks rent',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message: 'You need to supply the bond type in weeks rent',
               },
             },
           },
@@ -980,6 +996,22 @@ const CREATE_PROPERTY_FORM_CONF = [
               label: 'Select property chattels',
             },
             refConf: {},
+          },
+          {
+            type: 'SelectOneEnum',
+            __type: 'InspectionFrequency',
+            key: 'inspectionFrequency',
+            fieldProps: {
+              name: 'inspectionFrequency',
+              label: 'Inspection frequency',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to supply how often you wish inspections to occur',
+              },
+            },
           },
         ],
       },

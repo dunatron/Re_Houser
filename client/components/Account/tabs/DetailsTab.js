@@ -4,6 +4,7 @@ import { Typography, TextField } from '@material-ui/core';
 import CompletionRating from '../CompletionRating';
 import UserProfile from '../../UserProfile';
 import UserDetails from '../UserDetails';
+import LandLordDetails from '../LandLordDetails';
 import Signature from '../../Signature';
 
 import RehouserPaper from '../../../styles/RehouserPaper';
@@ -35,6 +36,14 @@ const DetailsTab = ({ me }) => {
           seamless as possible
         </Typography>
         <UserDetails me={me} />
+      </RehouserPaper>
+      <RehouserPaper>
+        <Typography variant="h5">Landlord specific details</Typography>
+        <Typography variant="subtitle1">
+          These details are used across the system to make the experience as
+          seamless as possible
+        </Typography>
+        <LandLordDetails me={me} />
       </RehouserPaper>
     </>
   );

@@ -65,7 +65,7 @@ const PhotoIdentification = props => {
 
   'PhotoIdentification props => ', props;
 
-  const [updateUserProfile, { loading, error, data }] = useMutation(
+  const [updateUser, { loading, error, data }] = useMutation(
     UPDATE_USER_MUTATION,
     {
       refetchQueries: [
@@ -100,19 +100,10 @@ const PhotoIdentification = props => {
         error={error}
         forceFormUpdates={true}
         refetchQueries={refetchQueries}
-        updateCacheOnRemovedFile={(cache, result) => {
-          // updateUserProfile({
-          //   variables: {
-          //     data: {
-          //       photoIdentification: {
-          //         disconnect: true,
-          //       },
-          //     },
-          //   },
-          // });
-        }}
+        updateCacheOnRemovedFile={(cache, result) => {}}
         onSubmit={data => {
-          updateUserProfile({
+          console.log('DATA FOR UPDATE USER PHOTO ID => ', data);
+          updateUser({
             variables: {
               data: {
                 ...data,

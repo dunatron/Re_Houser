@@ -1,4 +1,5 @@
-// pages/404.js
+import { Typography } from '@material-ui/core';
+
 export default function Custom404() {
-  return <h1>404 - Page Not Found</h1>;
+  return <Typography variant="h1">404 - Page Not Found</Typography>;
 }

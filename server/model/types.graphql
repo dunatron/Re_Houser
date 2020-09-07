@@ -51,6 +51,7 @@ type User {
   acceptedTermsOfEngagement: Boolean
   bankDetails: BankDetail @relation(name: "UserBankDetails", link: TABLE)
   inspections: [Inspection] @relation(name: "InspectionInspector", link: TABLE)
+  bondLodgementNumber: String
 }
 
 type Address {
@@ -161,6 +162,7 @@ type File {
   id: ID! @unique @id
   updatedAt: DateTime @updatedAt
   createdAt: DateTime! @createdAt
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -268,6 +270,8 @@ type Property implements PropertyInfo {
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
   files: PropertyFiles @relation(name: "PropertyFiles", link: TABLE)
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
 }
 

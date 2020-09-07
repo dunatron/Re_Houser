@@ -11,8 +11,11 @@ async function uploadSignature(parent, { file }, ctx, info) {
         id: ctx.request.userId
       }
     },
-    `{ signature{id, url} }`
+    `{ id, signature {id, url} }`
   );
+
+  console.log("CURRENT USER DATA => ", currData);
+
   // delete file on cloudinary if we have one
   if (currData.signature) {
     await deleteFile({
@@ -21,17 +24,17 @@ async function uploadSignature(parent, { file }, ctx, info) {
       ctx
     });
   }
-  // upload file to cloudinary
+
   const uploadedFile = await processUpload({
     upload: file,
     ctx,
-    info,
+    info: `{ id, url, type, uploaderId }`,
     data: {
       folder: `users/${ctx.request.userId}/signature`,
       type: "private"
     }
   });
-  // update user
+  // // update user
   const updatedUser = await ctx.db.mutation.updateUser(
     {
       where: {

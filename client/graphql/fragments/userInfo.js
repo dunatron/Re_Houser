@@ -72,6 +72,7 @@ const UserInfoFragment = gql`
       accountNumber
       suffix
     }
+    bondLodgementNumber
   }
   ${FileInfoFragment}
 `;

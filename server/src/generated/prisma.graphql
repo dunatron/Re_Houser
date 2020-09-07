@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Sep 02 2020 20:54:31 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Sep 07 2020 13:51:11 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -2284,6 +2284,12 @@ input BankDetailWhereUniqueInput {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+enum BondType {
+  WEEKS_RENT_2
+  WEEKS_RENT_3
+  WEEKS_RENT_4
 }
 
 enum CeilingInsulationTypes {
@@ -5356,6 +5362,7 @@ type File implements Node {
   id: ID!
   updatedAt: DateTime
   createdAt: DateTime!
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5404,6 +5411,7 @@ type FileConnection {
 
 input FileCreateInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5497,6 +5505,7 @@ input FileCreateOneWithoutUserSignatureInput {
 
 input FileCreateWithoutCertOfAcceptanceInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5534,6 +5543,7 @@ input FileCreateWithoutCertOfAcceptanceInput {
 
 input FileCreateWithoutCodeComplianceCertInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5571,6 +5581,7 @@ input FileCreateWithoutCodeComplianceCertInput {
 
 input FileCreateWithoutInspectionFilesInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5608,6 +5619,7 @@ input FileCreateWithoutInspectionFilesInput {
 
 input FileCreateWithoutPreTenancyProofOfAddressInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5645,6 +5657,7 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
 
 input FileCreateWithoutPropertyImagesInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5682,6 +5695,7 @@ input FileCreateWithoutPropertyImagesInput {
 
 input FileCreateWithoutPropertyInsulationFileInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5719,6 +5733,7 @@ input FileCreateWithoutPropertyInsulationFileInput {
 
 input FileCreateWithoutPropertyOwnershipProofInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5756,6 +5771,7 @@ input FileCreateWithoutPropertyOwnershipProofInput {
 
 input FileCreateWithoutUserPhotoIdInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5793,6 +5809,7 @@ input FileCreateWithoutUserPhotoIdInput {
 
 input FileCreateWithoutUserProfilePhotoInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5830,6 +5847,7 @@ input FileCreateWithoutUserProfilePhotoInput {
 
 input FileCreateWithoutUserProofOfAddressInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5867,6 +5885,7 @@ input FileCreateWithoutUserProofOfAddressInput {
 
 input FileCreateWithoutUserSignatureInput {
   id: ID
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -5918,6 +5937,8 @@ enum FileOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  uploaderId_ASC
+  uploaderId_DESC
   filename_ASC
   filename_DESC
   mimetype_ASC
@@ -5970,6 +5991,7 @@ type FilePreviousValues {
   id: ID!
   updatedAt: DateTime
   createdAt: DateTime!
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -6088,6 +6110,46 @@ input FileScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  uploaderId: String
+
+  """All values that are not equal to given value."""
+  uploaderId_not: String
+
+  """All values that are contained in given list."""
+  uploaderId_in: [String!]
+
+  """All values that are not contained in given list."""
+  uploaderId_not_in: [String!]
+
+  """All values less than the given value."""
+  uploaderId_lt: String
+
+  """All values less than or equal the given value."""
+  uploaderId_lte: String
+
+  """All values greater than the given value."""
+  uploaderId_gt: String
+
+  """All values greater than or equal the given value."""
+  uploaderId_gte: String
+
+  """All values containing the given string."""
+  uploaderId_contains: String
+
+  """All values not containing the given string."""
+  uploaderId_not_contains: String
+
+  """All values starting with the given string."""
+  uploaderId_starts_with: String
+
+  """All values not starting with the given string."""
+  uploaderId_not_starts_with: String
+
+  """All values ending with the given string."""
+  uploaderId_ends_with: String
+
+  """All values not ending with the given string."""
+  uploaderId_not_ends_with: String
   filename: String
 
   """All values that are not equal to given value."""
@@ -6864,6 +6926,7 @@ input FileSubscriptionWhereInput {
 }
 
 input FileUpdateInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -6901,6 +6964,7 @@ input FileUpdateInput {
 }
 
 input FileUpdateManyDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -6927,6 +6991,7 @@ input FileUpdateManyDataInput {
 }
 
 input FileUpdateManyMutationInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7063,6 +7128,7 @@ input FileUpdateOneWithoutUserSignatureInput {
 }
 
 input FileUpdateWithoutCertOfAcceptanceDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7099,6 +7165,7 @@ input FileUpdateWithoutCertOfAcceptanceDataInput {
 }
 
 input FileUpdateWithoutCodeComplianceCertDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7135,6 +7202,7 @@ input FileUpdateWithoutCodeComplianceCertDataInput {
 }
 
 input FileUpdateWithoutInspectionFilesDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7171,6 +7239,7 @@ input FileUpdateWithoutInspectionFilesDataInput {
 }
 
 input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7207,6 +7276,7 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
 }
 
 input FileUpdateWithoutPropertyImagesDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7243,6 +7313,7 @@ input FileUpdateWithoutPropertyImagesDataInput {
 }
 
 input FileUpdateWithoutPropertyInsulationFileDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7279,6 +7350,7 @@ input FileUpdateWithoutPropertyInsulationFileDataInput {
 }
 
 input FileUpdateWithoutPropertyOwnershipProofDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7315,6 +7387,7 @@ input FileUpdateWithoutPropertyOwnershipProofDataInput {
 }
 
 input FileUpdateWithoutUserPhotoIdDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7351,6 +7424,7 @@ input FileUpdateWithoutUserPhotoIdDataInput {
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7387,6 +7461,7 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
 }
 
 input FileUpdateWithoutUserProofOfAddressDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7423,6 +7498,7 @@ input FileUpdateWithoutUserProofOfAddressDataInput {
 }
 
 input FileUpdateWithoutUserSignatureDataInput {
+  uploaderId: String
   filename: String
   mimetype: String
   encoding: String
@@ -7618,6 +7694,46 @@ input FileWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  uploaderId: String
+
+  """All values that are not equal to given value."""
+  uploaderId_not: String
+
+  """All values that are contained in given list."""
+  uploaderId_in: [String!]
+
+  """All values that are not contained in given list."""
+  uploaderId_not_in: [String!]
+
+  """All values less than the given value."""
+  uploaderId_lt: String
+
+  """All values less than or equal the given value."""
+  uploaderId_lte: String
+
+  """All values greater than the given value."""
+  uploaderId_gt: String
+
+  """All values greater than or equal the given value."""
+  uploaderId_gte: String
+
+  """All values containing the given string."""
+  uploaderId_contains: String
+
+  """All values not containing the given string."""
+  uploaderId_not_contains: String
+
+  """All values starting with the given string."""
+  uploaderId_starts_with: String
+
+  """All values not starting with the given string."""
+  uploaderId_not_starts_with: String
+
+  """All values ending with the given string."""
+  uploaderId_ends_with: String
+
+  """All values not ending with the given string."""
+  uploaderId_not_ends_with: String
   filename: String
 
   """All values that are not equal to given value."""
@@ -8759,6 +8875,12 @@ type InspectionEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+enum InspectionFrequency {
+  MONTHLY
+  EVERY_3_MONTHS
+  EVERY_6_MONTHS
 }
 
 enum InspectionOrderByInput {
@@ -14526,6 +14648,8 @@ type Property implements Node {
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist
   files: PropertyFiles
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
 }
 
@@ -14994,6 +15118,8 @@ input PropertyCreateInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15143,6 +15269,8 @@ input PropertyCreateWithoutAccommodationInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15208,6 +15336,8 @@ input PropertyCreateWithoutActivityInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15273,6 +15403,8 @@ input PropertyCreateWithoutAppraisalsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15338,6 +15470,8 @@ input PropertyCreateWithoutBankDetailsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15403,6 +15537,8 @@ input PropertyCreateWithoutCreatorInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15468,6 +15604,8 @@ input PropertyCreateWithoutFilesInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15533,6 +15671,8 @@ input PropertyCreateWithoutImagesInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15598,6 +15738,8 @@ input PropertyCreateWithoutInspectionsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15663,6 +15805,8 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15728,6 +15872,8 @@ input PropertyCreateWithoutLeasesInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15793,6 +15939,8 @@ input PropertyCreateWithoutOwnersInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15858,6 +16006,8 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15923,6 +16073,8 @@ input PropertyCreateWithoutRehouserAssistInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15988,6 +16140,8 @@ input PropertyCreateWithoutRentalApplicationsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16053,6 +16207,8 @@ input PropertyCreateWithoutViewingsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -18329,6 +18485,10 @@ enum PropertyOrderByInput {
   alarmsEachLevel_DESC
   rehouserHandlesBills_ASC
   rehouserHandlesBills_DESC
+  bondType_ASC
+  bondType_DESC
+  inspectionFrequency_ASC
+  inspectionFrequency_DESC
 }
 
 type PropertyPreviousValues {
@@ -18381,6 +18541,8 @@ type PropertyPreviousValues {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
 }
 
 input PropertyScalarWhereInput {
@@ -19132,6 +19294,26 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   rehouserHandlesBills_not: Boolean
+  bondType: BondType
+
+  """All values that are not equal to given value."""
+  bondType_not: BondType
+
+  """All values that are contained in given list."""
+  bondType_in: [BondType!]
+
+  """All values that are not contained in given list."""
+  bondType_not_in: [BondType!]
+  inspectionFrequency: InspectionFrequency
+
+  """All values that are not equal to given value."""
+  inspectionFrequency_not: InspectionFrequency
+
+  """All values that are contained in given list."""
+  inspectionFrequency_in: [InspectionFrequency!]
+
+  """All values that are not contained in given list."""
+  inspectionFrequency_not_in: [InspectionFrequency!]
 }
 
 type PropertySubscriptionPayload {
@@ -19245,6 +19427,8 @@ input PropertyUpdateInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19310,6 +19494,8 @@ input PropertyUpdateManyDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19359,6 +19545,8 @@ input PropertyUpdateManyMutationInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19554,6 +19742,8 @@ input PropertyUpdateWithoutAccommodationDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19618,6 +19808,8 @@ input PropertyUpdateWithoutActivityDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19682,6 +19874,8 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19746,6 +19940,8 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19810,6 +20006,8 @@ input PropertyUpdateWithoutCreatorDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19874,6 +20072,8 @@ input PropertyUpdateWithoutFilesDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -19938,6 +20138,8 @@ input PropertyUpdateWithoutImagesDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20002,6 +20204,8 @@ input PropertyUpdateWithoutInspectionsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20066,6 +20270,8 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20130,6 +20336,8 @@ input PropertyUpdateWithoutLeasesDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20194,6 +20402,8 @@ input PropertyUpdateWithoutOwnersDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20258,6 +20468,8 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20322,6 +20534,8 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20386,6 +20600,8 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20450,6 +20666,8 @@ input PropertyUpdateWithoutViewingsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
+  bondType: BondType
+  inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21308,6 +21526,26 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   rehouserHandlesBills_not: Boolean
+  bondType: BondType
+
+  """All values that are not equal to given value."""
+  bondType_not: BondType
+
+  """All values that are contained in given list."""
+  bondType_in: [BondType!]
+
+  """All values that are not contained in given list."""
+  bondType_not_in: [BondType!]
+  inspectionFrequency: InspectionFrequency
+
+  """All values that are not equal to given value."""
+  inspectionFrequency_not: InspectionFrequency
+
+  """All values that are contained in given list."""
+  inspectionFrequency_in: [InspectionFrequency!]
+
+  """All values that are not contained in given list."""
+  inspectionFrequency_not_in: [InspectionFrequency!]
   bankDetails: BankDetailWhereInput
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput
@@ -24375,6 +24613,7 @@ type User implements Node {
   acceptedTermsOfEngagement: Boolean
   bankDetails: BankDetail
   inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
+  bondLodgementNumber: String
 }
 
 """A connection to a list of items."""
@@ -24413,6 +24652,7 @@ input UserCreateInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24590,6 +24830,7 @@ input UserCreateWithoutActivityInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24642,6 +24883,7 @@ input UserCreateWithoutAdminSettingsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24694,6 +24936,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24746,6 +24989,7 @@ input UserCreateWithoutBankDetailsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24798,6 +25042,7 @@ input UserCreateWithoutChatsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24850,6 +25095,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24902,6 +25148,7 @@ input UserCreateWithoutCreditCardsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -24954,6 +25201,7 @@ input UserCreateWithoutCurrentAddressInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25006,6 +25254,7 @@ input UserCreateWithoutFriendRequestsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
@@ -25058,6 +25307,7 @@ input UserCreateWithoutInspectionsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25110,6 +25360,7 @@ input UserCreateWithoutInvolvedActivityInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25162,6 +25413,7 @@ input UserCreateWithoutLesseeLeasesInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25214,6 +25466,7 @@ input UserCreateWithoutLessorLeasesInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25266,6 +25519,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25318,6 +25572,7 @@ input UserCreateWithoutProfilePhotoInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25370,6 +25625,7 @@ input UserCreateWithoutProofOfAddressInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25422,6 +25678,7 @@ input UserCreateWithoutPropertiesInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25474,6 +25731,7 @@ input UserCreateWithoutRecievedMessagesInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25526,6 +25784,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25578,6 +25837,7 @@ input UserCreateWithoutSentMessagesInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25630,6 +25890,7 @@ input UserCreateWithoutSignatureInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25682,6 +25943,7 @@ input UserCreateWithoutViewingsInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
@@ -25772,6 +26034,8 @@ enum UserOrderByInput {
   acceptedSignupTerms_DESC
   acceptedTermsOfEngagement_ASC
   acceptedTermsOfEngagement_DESC
+  bondLodgementNumber_ASC
+  bondLodgementNumber_DESC
 }
 
 type UserPreviousValues {
@@ -25803,6 +26067,7 @@ type UserPreviousValues {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
 }
 
 input UserScalarWhereInput {
@@ -26660,6 +26925,46 @@ input UserScalarWhereInput {
 
   """All values that are not equal to given value."""
   acceptedTermsOfEngagement_not: Boolean
+  bondLodgementNumber: String
+
+  """All values that are not equal to given value."""
+  bondLodgementNumber_not: String
+
+  """All values that are contained in given list."""
+  bondLodgementNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  bondLodgementNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  bondLodgementNumber_lt: String
+
+  """All values less than or equal the given value."""
+  bondLodgementNumber_lte: String
+
+  """All values greater than the given value."""
+  bondLodgementNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  bondLodgementNumber_gte: String
+
+  """All values containing the given string."""
+  bondLodgementNumber_contains: String
+
+  """All values not containing the given string."""
+  bondLodgementNumber_not_contains: String
+
+  """All values starting with the given string."""
+  bondLodgementNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  bondLodgementNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  bondLodgementNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  bondLodgementNumber_not_ends_with: String
 }
 
 type UserSubscriptionPayload {
@@ -26724,6 +27029,7 @@ input UserUpdateDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -26776,6 +27082,7 @@ input UserUpdateInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -26828,6 +27135,7 @@ input UserUpdateManyDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -26868,6 +27176,7 @@ input UserUpdateManyMutationInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
 }
 
@@ -27112,6 +27421,7 @@ input UserUpdateWithoutActivityDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27163,6 +27473,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27214,6 +27525,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27265,6 +27577,7 @@ input UserUpdateWithoutBankDetailsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27316,6 +27629,7 @@ input UserUpdateWithoutChatsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27367,6 +27681,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27418,6 +27733,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27469,6 +27785,7 @@ input UserUpdateWithoutCurrentAddressDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27520,6 +27837,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
@@ -27571,6 +27889,7 @@ input UserUpdateWithoutInspectionsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27622,6 +27941,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27673,6 +27993,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27724,6 +28045,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27775,6 +28097,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27826,6 +28149,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27877,6 +28201,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27928,6 +28253,7 @@ input UserUpdateWithoutPropertiesDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -27979,6 +28305,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -28030,6 +28357,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -28081,6 +28409,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -28132,6 +28461,7 @@ input UserUpdateWithoutSignatureDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -28183,6 +28513,7 @@ input UserUpdateWithoutViewingsDataInput {
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
@@ -29214,6 +29545,46 @@ input UserWhereInput {
 
   """All values that are not equal to given value."""
   acceptedTermsOfEngagement_not: Boolean
+  bondLodgementNumber: String
+
+  """All values that are not equal to given value."""
+  bondLodgementNumber_not: String
+
+  """All values that are contained in given list."""
+  bondLodgementNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  bondLodgementNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  bondLodgementNumber_lt: String
+
+  """All values less than or equal the given value."""
+  bondLodgementNumber_lte: String
+
+  """All values greater than the given value."""
+  bondLodgementNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  bondLodgementNumber_gte: String
+
+  """All values containing the given string."""
+  bondLodgementNumber_contains: String
+
+  """All values not containing the given string."""
+  bondLodgementNumber_not_contains: String
+
+  """All values starting with the given string."""
+  bondLodgementNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  bondLodgementNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  bondLodgementNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  bondLodgementNumber_not_ends_with: String
   friends_every: UserWhereInput
   friends_some: UserWhereInput
   friends_none: UserWhereInput

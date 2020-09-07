@@ -76,24 +76,6 @@ export const USER_PROFILE_CONF = [
     ],
   },
   {
-    type: 'DateTime',
-    key: 'dob',
-    fieldProps: {
-      name: 'dob',
-      label: 'Date of birth',
-    },
-    ratingVal: 10,
-    includeInRentalApplication: true,
-    editableInRentalApplication: true,
-    validation: [
-      {
-        key: 'isEmpty',
-        reverse: true,
-        message: 'date of birth cannot be empty',
-      },
-    ],
-  },
-  {
     type: 'Phone',
     key: 'phone',
     fieldProps: {

@@ -54,6 +54,8 @@ type User {
   viewings: [Viewing!]!
   acceptedTermsOfEngagement: Boolean
   bankDetails: BankDetail
+  inspections: [Inspection]
+  bondLodgementNumber: String
 }
 
 type SuccessMessage {

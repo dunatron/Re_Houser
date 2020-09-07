@@ -145,3 +145,15 @@ enum RecurringType {
   # FORTNIGHTLY
   # MONTHLY
 }
+
+enum InspectionFrequency {
+  MONTHLY
+  EVERY_3_MONTHS
+  EVERY_6_MONTHS
+}
+
+enum BondType {
+  WEEKS_RENT_2
+  WEEKS_RENT_3
+  WEEKS_RENT_4
+}

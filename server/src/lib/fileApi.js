@@ -6,7 +6,7 @@ const { extractFileKey } = require("./extractFileKey");
 const cloudinaryConfObj = {
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 };
 
 exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
@@ -15,7 +15,7 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     createReadStream,
     filename,
     mimetype,
-    encoding,
+    encoding
   } = await upload;
 
   cloudinary.config(cloudinaryConfObj);
@@ -27,12 +27,12 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
           {
             type: data.type ? data.type : "upload",
             access_mode: data.access_mode ? data.access_mode : "authenticated",
-            ...data,
+            ...data
           },
           function(error, result) {
             if (result) {
               resultObj = {
-                ...result,
+                ...result
               };
               resolve();
             } else {
@@ -54,7 +54,7 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     filename,
     mimetype,
     encoding,
-    ...resultObj,
+    ...resultObj
   };
 
   // return file;
@@ -62,7 +62,8 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     {
       data: {
         ...combinedFileData,
-      },
+        uploaderId: ctx.request.userId
+      }
     },
     info
   );
