@@ -67,8 +67,24 @@ const SignatureComponent = () => {
   const [uploadSignature, { loading, error, data, called }] = useMutation(
     UPLOAD_SIGNATURE_FILE,
     {
-      refetchQueries: [{ query: CURRENT_USER_QUERY }],
+      // refetchQueries: [{ query: CURRENT_USER_QUERY }],
       onCompleted: handleCompleted,
+      update: (cache, { data }) => {
+        console.log('The data after sig update => ', data);
+        cache.modify({
+          fields: {
+            me(existingMeRef = {}, { readField }) {
+              console.log('The data for a signin => ', data.data);
+              console.log(
+                'WIll this even work => existingRefs ',
+                existingMeRef
+              );
+              console.log('WIll this even work => readField ', existingMeRef);
+              return { ...data.uploadSignature };
+            },
+          },
+        });
+      },
     }
   );
   const canvasRef = useRef();
@@ -136,11 +152,12 @@ const SignatureComponent = () => {
         {me.signature && (
           <Image
             style={{
-              paddingTop: '120px',
+              paddingTop: '200px',
             }}
             src={me.signature.url}
             imageStyle={{
-              height: '120px',
+              height: '200px',
+              width: '500px',
             }}
           />
         )}

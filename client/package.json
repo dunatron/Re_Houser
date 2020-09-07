@@ -99,6 +99,7 @@
     "react-number-format": "^4.4.1",
     "react-papaparse": "^3.4.0",
     "react-particles-js": "^3.3.0",
+    "react-pdf": "^5.0.0",
     "react-signature-canvas": "^1.0.3",
     "react-stripe-elements": "^6.0.1",
     "react-swipeable-views": "^0.13.9",

@@ -141,25 +141,6 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
           variant: 'body1',
         },
       },
-      {
-        type: 'Image',
-        fieldProps: {
-          style: {
-            paddingTop: '120px',
-          },
-          imageStyle: {
-            height: '120px',
-          },
-          src: '/images/signatures/rehouser_admin_signature.png',
-        },
-      },
-      {
-        type: 'RTypography',
-        content: `Date: ${moment().format('DD / MM / YYYY')}`,
-        fieldProps: {
-          variant: 'body1',
-        },
-      },
     ],
   },
   {
@@ -176,6 +157,25 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
         message:
           'you need to accept the terms of engagement before you can proceed',
       },
+    },
+  },
+  {
+    type: 'Image',
+    fieldProps: {
+      style: {
+        paddingTop: '120px',
+      },
+      imageStyle: {
+        height: '120px',
+      },
+      src: '/images/signatures/rehouser_admin_signature.png',
+    },
+  },
+  {
+    type: 'RTypography',
+    content: `Date: ${moment().format('DD / MM / YYYY')}`,
+    fieldProps: {
+      variant: 'body1',
     },
   },
 ];

@@ -15,6 +15,20 @@ import {
   findGenericFileType,
 } from '../../lib/configs/fileConfigs';
 
+import { formatFileSizeUnits } from '../../lib/formatFileSizeUnits';
+
+import Modal from '../Modal';
+
+// import { Document, Page } from 'react-pdf';
+// import { Document, Page } from 'react-pdf/dist/esm/entry.parcel';
+// using CommonJS modules
+// import { Document, Page } from 'react-pdf/dist/umd/entry.parcel';
+import dynamic from 'next/dynamic';
+
+const DynamicPdfViewer = dynamic(import('./PdfViewer'), {
+  ssr: false,
+});
+
 const FilePreviewer = ({ files, remove, isRemoving, removingIds }) => {
   return (
     <div
@@ -106,30 +120,9 @@ const RenderGenericImage = ({ file }) => {
   return <Image src={file.url} />;
 };
 
-// createdAt
-// updatedAt
-// asset_id
-// public_id
-// version
-// version_id
-// signature
-// width
-// height
-// format
-// resource_type
-// created_at
-// tags
-// pages
-// bytes
-// type
-// etag
-// placeholder
-// url
-// secure_url
-// access_mode
-// original_filename
-
 const RenderGenericDocument = ({ file }) => {
+  const [preview, setPreview] = useState(false);
+
   return (
     <div
       style={{
@@ -139,12 +132,35 @@ const RenderGenericDocument = ({ file }) => {
         flexDirection: 'column',
         height: '100%',
       }}>
-      <Typography>Generic Document</Typography>
-      <Typography>{file.filename}</Typography>
-      <Typography>{file.mimetype}</Typography>
-      <Typography>{file.encoding}</Typography>
-      <Typography>BYTES{file.bytes}</Typography>
-
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          height: '100%',
+        }}>
+        {/* <Typography>Generic Document</Typography> */}
+        {/* <Typography>{file.filename}</Typography> */}
+        <Typography gutterBottom>{file.mimetype}</Typography>
+        {/* <Typography>{file.encoding}</Typography> */}
+        <Typography gutterBottom>{formatFileSizeUnits(file.bytes)}</Typography>
+      </div>
+      {/* <DynamicPdfViewer fileUrl={file.url} /> */}
+      <Button
+        startIcon={<DownloadIcon />}
+        size="small"
+        onClick={() => setPreview(true)}>
+        Preview
+      </Button>
+      {preview && (
+        <Modal
+          open={preview}
+          close={() => setPreview(false)}
+          title="PDF Previewer">
+          <DynamicPdfViewer fileUrl={file.url} />
+        </Modal>
+      )}
       <Button
         href={file.url}
         target="_blank"
