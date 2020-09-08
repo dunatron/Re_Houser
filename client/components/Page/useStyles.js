@@ -1,4 +1,5 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, lighten } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -44,6 +45,9 @@ const useStyles = makeStyles(theme => {
       ...theme.mixins.toolbar,
     },
     logoContainer: {
+      borderBottom: `2px solid ${theme.palette.secondary.contrastText}`,
+      paddingBottom: '32px',
+      paddingTop: '32px',
       '&:hover': {
         cursor: 'pointer',
       },
@@ -64,6 +68,9 @@ const useStyles = makeStyles(theme => {
     },
     drawerPaper: {
       width: theme.sideBarWidth,
+      backgroundColor: lighten(theme.palette.secondary.light, 0.5), // lighten by 50%. 1.0 is white
+      // backgroundColor: theme.palette.secondary.light,
+      // backgroundColor: theme.palette.secondary.light,
     },
     content: {
       position: 'relative',

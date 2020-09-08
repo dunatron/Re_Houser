@@ -94,7 +94,8 @@ const AppMenuBar = props => {
         elevation={noTransparency ? 4 : 0}>
         <Toolbar disableGutters={true} variant="regular">
           <IconButton
-            color="inherit"
+            // color="inherit"
+            color="secondary"
             aria-label="open drawer"
             edge="start"
             // onClick={props.handleDrawerToggle}

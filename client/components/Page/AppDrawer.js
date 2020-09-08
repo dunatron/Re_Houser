@@ -36,7 +36,7 @@ const AppDrawer = ({ me }) => {
             </Link>
           </ListItem>
         </div>
-        <Divider />
+        {/* <Divider /> */}
         <Sidebar loadingUser={false} me={me} />
       </>
     );

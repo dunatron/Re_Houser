@@ -58,6 +58,7 @@ const NavigationConfig = (me, loadingUser, pathname) => {
       key: 'general',
       items: [
         {
+          key: 'property-search',
           icon: <LocationSearchingIcon />,
           text: 'Search Properties',
           route: '/property-search',
@@ -65,6 +66,7 @@ const NavigationConfig = (me, loadingUser, pathname) => {
           canRender: () => true,
         },
         {
+          key: 'freeappraisal',
           icon: <HomeWorkIcon />,
           text: 'Free Appraisal',
           route: '/freeappraisal',
@@ -74,18 +76,8 @@ const NavigationConfig = (me, loadingUser, pathname) => {
             return false;
           },
         },
-      ],
-    },
-    {
-      key: 'landlord',
-      // label: 'Landlords',
-
-      canRender: () => {
-        // if (me === null) return false;
-        return true;
-      },
-      items: [
         {
+          key: 'landlord',
           icon: <HouseIcon />,
           text: 'Landlord Portal',
           route: '/landlord',
@@ -93,29 +85,16 @@ const NavigationConfig = (me, loadingUser, pathname) => {
           style: { ...defaultNavItemStyle },
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },
-      ],
-    },
-    {
-      key: 'tenant',
-      // label: 'Tenant',
-      canRender: () => {
-        // if (me === null) return false;
-        return true;
-      },
-      items: [
         {
+          key: 'tenant',
           icon: <AssignmentIcon />,
           text: 'Tenant Portal',
           route: '/tenant',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
-      ],
-    },
-    {
-      key: 'account',
-      items: [
         {
+          key: 'about-us',
           icon: <InfoIcon />,
           text: 'About Us',
           route: '/about-us',
@@ -123,6 +102,7 @@ const NavigationConfig = (me, loadingUser, pathname) => {
           canRender: () => true, // set to try just to run it alot on the same account in dev
         },
         {
+          key: 'contact',
           icon: <ContactPhoneIcon />,
           text: 'Contact',
           route: '/contact',
@@ -131,6 +111,61 @@ const NavigationConfig = (me, loadingUser, pathname) => {
         },
       ],
     },
+    // {
+    //   key: 'landlord',
+    //   // label: 'Landlords',
+
+    //   canRender: () => {
+    //     // if (me === null) return false;
+    //     return true;
+    //   },
+    //   items: [
+    //     {
+    //       icon: <HouseIcon />,
+    //       text: 'Landlord Portal',
+    //       route: '/landlord',
+    //       isCurrentPath: true,
+    //       style: { ...defaultNavItemStyle },
+    //       canRender: () => true, // set to try just to run it alot on the same account in dev
+    //     },
+    //   ],
+    // },
+    // {
+    //   key: 'tenant',
+    //   // label: 'Tenant',
+    //   canRender: () => {
+    //     // if (me === null) return false;
+    //     return true;
+    //   },
+    //   items: [
+    //     {
+    //       icon: <AssignmentIcon />,
+    //       text: 'Tenant Portal',
+    //       route: '/tenant',
+    //       style: { ...defaultNavItemStyle },
+    //       canRender: () => true,
+    //     },
+    //   ],
+    // },
+    // {
+    //   key: 'account',
+    //   items: [
+    //     {
+    //       icon: <InfoIcon />,
+    //       text: 'About Us',
+    //       route: '/about-us',
+    //       style: { ...defaultNavItemStyle },
+    //       canRender: () => true, // set to try just to run it alot on the same account in dev
+    //     },
+    //     {
+    //       icon: <ContactPhoneIcon />,
+    //       text: 'Contact',
+    //       route: '/contact',
+    //       style: { ...defaultNavItemStyle },
+    //       canRender: () => true, // set to try just to run it alot on the same account in dev
+    //     },
+    //   ],
+    // },
   ];
 };
 

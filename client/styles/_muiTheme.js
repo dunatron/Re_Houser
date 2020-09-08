@@ -32,8 +32,8 @@ export const primaryContrastText = '#fff';
 
 // secondary color dark blue
 export const mainSecondaryColor = '#172a3a';
-export const lightSecondaryColor = '#ff57b1';
-export const darkSecondaryColor = '#a90056';
+export const lightSecondaryColor = '#405264';
+export const darkSecondaryColor = '#000015';
 export const secondaryContrastText = '#fff';
 
 import {
@@ -130,9 +130,6 @@ const theme = {
       // },
     },
     MuiTooltipTooltip: {},
-    tooltip: {
-      backgroundColor: 'red',
-    },
     MuiButton: {
       root: {
         fontSize: '1rem',
@@ -149,6 +146,7 @@ const theme = {
         color: '#fff',
       },
     },
+    MuiListItem: {},
     MuiListItemIcon: {
       root: {
         minWidth: '56px', // originally 56px // and so it should be, u used wrong component
