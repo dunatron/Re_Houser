@@ -3,6 +3,9 @@ import PageHeader from '../../../components/PageHeader';
 import { Typography } from '@material-ui/core';
 import InspectionsTable from '../../../components/Tables/InspectionsTable';
 
+import { isAdmin } from '../../../lib/isAdmin';
+import AdminOnly from '../../../components/AdminOnly';
+
 const AppraisalsPage = props => {
   const {
     appData: { currentUser },
@@ -18,12 +21,16 @@ const AppraisalsPage = props => {
             'View all system inspections so we never miss an inspection or fail to inform people of incoming inspections',
         }}
       />
-      <InspectionsTable
-        me={currentUser.data ? currentUser.data.me : {}}
-        where={{
-          completed: false,
-        }}
-      />
+      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+        <InspectionsTable
+          me={currentUser.data ? currentUser.data.me : {}}
+          where={
+            {
+              // completed: false,
+            }
+          }
+        />
+      </AdminOnly>
     </>
   );
 };

@@ -5,28 +5,30 @@ import { Typography } from '@material-ui/core';
 //components
 import PageHeader from '../../components/PageHeader';
 // admin components
-import AdminSettings from '../../admin-components/AdminSettings';
 import AdminOnly from '../../components/AdminOnly';
+import SecurityStatementPdf from '../../components/Pdfs/SecurityStatementPdf';
 
-const SettingsPage = props => {
+const SecurityStatementPage = props => {
   const {
     appData: { currentUser },
   } = props;
   return (
     <>
       <PageHeader
-        title="Admin Settings"
-        intro="Decide what system updates you want to subscribe to"
+        title="Security Statement"
+        intro="Rehouser security statment which will be able to be downloaded as a pdf at any time"
         metaData={{
-          title: 'Admin Settings',
-          content: 'Admin settings for subscriptions',
+          title: 'Security Statement',
+          content:
+            'Rehouser security statment which will be able to be downloaded as a pdf at any time',
         }}
       />
       <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
-        <AdminSettings me={currentUser.me} />
+        {/* <AdminSettings me={currentUser.me} /> */}
+        <SecurityStatementPdf />
       </AdminOnly>
     </>
   );
 };
 
-export default SettingsPage;
+export default SecurityStatementPage;

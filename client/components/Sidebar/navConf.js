@@ -42,10 +42,11 @@ const NavigationConfig = (me, loadingUser, pathname) => {
   return [
     {
       key: 'admin-section',
-      label: 'Admins',
+      // label: 'Admins',
       canRender: () => (me ? me.permissions.includes('ADMIN') : false),
       items: [
         {
+          key: 'admin',
           icon: <DashboardIcon />,
           text: 'Admin Dashboard',
           route: '/admin',

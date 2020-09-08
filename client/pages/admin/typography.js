@@ -1,130 +1,78 @@
 import React from 'react';
-import { Typography, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    maxWidth: 500,
-  },
-  button: {
-    margin: '8px',
-  },
-});
+import PageHeader from '../../components/PageHeader';
+import AdminOnly from '../../components/AdminOnly';
 
-const ButtonsExample = () => {
-  const classes = useStyles();
+// examples
+import {
+  TypographyExamples,
+  ButtonExamples,
+  ToolTipExamples,
+  RenderInputExamples,
+  ExamplePdfExamples,
+} from '../../components/StyleExamples';
+
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+const EXAMPLES_CONF = [
+  {
+    label: 'Typography Examples',
+    component: <TypographyExamples />,
+  },
+  {
+    label: 'Buttons Examples',
+    component: <ButtonExamples />,
+  },
+  {
+    label: 'Tooltip Examples',
+    component: <ToolTipExamples />,
+  },
+  {
+    label: 'Render Input Examples',
+    component: <RenderInputExamples />,
+  },
+  {
+    label: 'Pdf Examples',
+    component: <ExamplePdfExamples />,
+  },
+];
+
+const ExpansionExampleItem = ({ item }) => {
   return (
-    <div>
-      <Typography variant="h2" gutterBottom>
-        Buttons
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        default buttons
-      </Typography>
-      <Button className={classes.button}>Default Button</Button>
-      <Button color="primary" className={classes.button}>
-        Primary Button
-      </Button>
-      <Button color="secondary" className={classes.button}>
-        Secondary Button
-      </Button>
-
-      <Typography variant="h6" gutterBottom>
-        contained buttons
-      </Typography>
-      <Button variant="contained" className={classes.button}>
-        Default contained Button
-      </Button>
-      <Button color="primary" variant="contained" className={classes.button}>
-        Primary Contained Button
-      </Button>
-      <Button color="secondary" variant="contained" className={classes.button}>
-        Secondary contained Button
-      </Button>
-      <Typography variant="h6" gutterBottom>
-        outlined buttons
-      </Typography>
-      <Button variant="outlined" className={classes.button}>
-        Default outlined Button
-      </Button>
-      <Button color="primary" variant="outlined" className={classes.button}>
-        Primary outlined Button
-      </Button>
-      <Button color="secondary" variant="outlined" className={classes.button}>
-        Secondary outlined Button
-      </Button>
-      <Typography variant="h6" gutterBottom>
-        text buttons
-      </Typography>
-      <Button variant="text" className={classes.button}>
-        Default text Button
-      </Button>
-      <Button color="primary" variant="text" className={classes.button}>
-        Primary text Button
-      </Button>
-      <Button color="secondary" variant="text" className={classes.button}>
-        Secondary text Button
-      </Button>
-    </div>
+    <ExpansionPanel>
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography>{item.label}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>{item.component}</ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 };
 
-const TypographyTypesPage = () => {
-  const classes = useStyles();
-
+const ConnectedTypographyPage = props => {
+  const {
+    appData: { currentUser },
+  } = props;
   return (
-    <div className={classes.root}>
-      <Typography variant="h1" component="h1" gutterBottom>
-        h1. Heading
-      </Typography>
-      <Typography variant="h2" gutterBottom>
-        h2. Heading
-      </Typography>
-      <Typography variant="h3" gutterBottom>
-        h3. Heading
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        h4. Heading
-      </Typography>
-      <Typography variant="h5" gutterBottom>
-        h5. Heading
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        h6. Heading
-      </Typography>
-      <Typography variant="subtitle1" gutterBottom>
-        subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Quos blanditiis tenetur
-      </Typography>
-      <Typography variant="subtitle2" gutterBottom>
-        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Quos blanditiis tenetur
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur unde suscipit, quam beatae rerum inventore
-        consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-        fugiat deleniti? Eum quasi quidem quibusdam.
-      </Typography>
-      <Typography variant="body2" gutterBottom>
-        body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-        blanditiis tenetur unde suscipit, quam beatae rerum inventore
-        consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-        fugiat deleniti? Eum quasi quidem quibusdam.
-      </Typography>
-      <Typography variant="button" display="block" gutterBottom>
-        button text
-      </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        caption text
-      </Typography>
-      <Typography variant="overline" display="block" gutterBottom>
-        overline text
-      </Typography>
-      <ButtonsExample />
-    </div>
+    <>
+      <PageHeader
+        title="Rehouser Brand Styles"
+        intro="Here are our global styles we have defined. I will try to expand on this collection, but the main parts are typography and buttons"
+        metaData={{
+          title: 'Admin Settings',
+          content: 'Admin settings for subscriptions',
+        }}
+      />
+      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+        {EXAMPLES_CONF.map((item, i) => (
+          <ExpansionExampleItem item={item} />
+        ))}
+      </AdminOnly>
+    </>
   );
 };
 
-export default TypographyTypesPage;
+export default ConnectedTypographyPage;

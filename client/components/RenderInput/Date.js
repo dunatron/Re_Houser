@@ -22,8 +22,6 @@ const DateInput = ({ fieldProps, defaultValue, onChange }) => {
     <StyledInput
       type={'date'}
       // type={fieldProps.type ? fieldProps.type : 'datetime-local'}
-      className={classes.root}
-      fullWidth={true}
       label={fieldProps.label}
       name={fieldProps.name}
       defaultValue={defaultRFCIsoValue}

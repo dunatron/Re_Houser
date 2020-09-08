@@ -1,6 +1,7 @@
 import RentalApplicationsManager from '../../../admin-components/RentalApplicationsManager';
 import PageHeader from '../../../components/PageHeader';
 import { Typography } from '@material-ui/core';
+import AdminOnly from '../../../components/AdminOnly';
 
 const AdminApplicationsPage = props => {
   const {
@@ -25,9 +26,11 @@ const AdminApplicationsPage = props => {
             'Admin portal to manage rehouser clients and day to day activities',
         }}
       />
-      <RentalApplicationsManager
-        me={currentUser.data ? currentUser.data.me : {}}
-      />
+      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+        <RentalApplicationsManager
+          me={currentUser.data ? currentUser.data.me : {}}
+        />
+      </AdminOnly>
     </>
   );
 };

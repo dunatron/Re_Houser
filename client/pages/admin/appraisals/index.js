@@ -1,6 +1,7 @@
 import AppraisalManager from '../../../admin-components/AppraisalManager';
 import PageHeader from '../../../components/PageHeader';
 import { Typography } from '@material-ui/core';
+import AdminOnly from '../../../components/AdminOnly';
 
 const AppraisalsPage = props => {
   const {
@@ -23,7 +24,9 @@ const AppraisalsPage = props => {
             'Admin portal to manage rehouser clients and day to day activities',
         }}
       />
-      <AppraisalManager />
+      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+        <AppraisalManager />
+      </AdminOnly>
     </>
   );
 };

@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { FormHelperText } from '@material-ui/core';
+import StyledInput from './StyledInput';
 
 import { _preFormatBankAccount } from '../Forms/formatters/formatBankAccount';
 
@@ -73,9 +74,9 @@ const PhoneInput = ({ defaultValue, fieldProps, onChange }) => {
     : '';
 
   return (
-    <FormControl variant="outlined">
+    <FormControl variant="standard">
       <InputLabel htmlFor={name}>{label}</InputLabel>
-      <OutlinedInput
+      <Input
         placeholder="BB-bbbb-AAAAAAA-SSS"
         id={name}
         name={fieldProps.name}

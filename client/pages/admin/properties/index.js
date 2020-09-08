@@ -1,6 +1,7 @@
 import PropertiesManager from '../../../admin-components/PropertiesManager';
 import PageHeader from '../../../components/PageHeader';
 import { Typography } from '@material-ui/core';
+import AdminOnly from '../../../components/AdminOnly';
 
 const AdminPropertiesPage = props => {
   const {
@@ -19,7 +20,9 @@ const AdminPropertiesPage = props => {
           content: 'manage properties on the system as an admin',
         }}
       />
-      <PropertiesManager me={currentUser.data ? currentUser.data.me : {}} />
+      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+        <PropertiesManager me={currentUser.data ? currentUser.data.me : {}} />
+      </AdminOnly>
     </>
   );
 };

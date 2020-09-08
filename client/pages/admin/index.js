@@ -15,6 +15,8 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FriendManager from '../../components/FriendManager';
 
+import AdminOnly from '../../components/AdminOnly';
+
 /**
  *
  * I have a dream, to put all my updates here for admins.
@@ -81,6 +83,13 @@ const MyLeasePage = props => {
       color: 'secondary',
       icon: <SettingsIcon />,
     },
+    {
+      label: 'Security statement',
+      route: '/admin/security-statement',
+      description: 'View our security statement',
+      color: 'secondary',
+      icon: <SettingsIcon />,
+    },
   ];
   return (
     <div>
@@ -92,12 +101,18 @@ const MyLeasePage = props => {
             'Admin portal to manage rehouser clients and day to day activities',
         }}
       />
-      <PleaseSignIn
-        currentUser={currentUser}
-        message="You must be signed in to view the admin area">
+      {/* <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+        <PleaseSignIn
+          currentUser={currentUser}
+          message="You must be signed in to view the admin area">
+          <Dashboard config={ADMIN_DASHBOARD_CONFIG} />
+          <FriendManager />
+        </PleaseSignIn>
+      </AdminOnly> */}
+      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
         <Dashboard config={ADMIN_DASHBOARD_CONFIG} />
         <FriendManager />
-      </PleaseSignIn>
+      </AdminOnly>
     </div>
   );
 };

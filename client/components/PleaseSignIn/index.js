@@ -11,7 +11,7 @@ const Message = ({ message, alert }) => {
     if (alert) toast.info(alert);
   }, []);
 
-  if (message) return <Typography variant="h3">{message}</Typography>;
+  if (message) return <Typography variant="h5">{message}</Typography>;
   return null;
 };
 

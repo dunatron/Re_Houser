@@ -15,12 +15,11 @@ const StringInput = ({ fieldProps, defaultValue, onChange }) => {
 
   return (
     <StyledInput
-      className={classes.root}
-      fullWidth={true}
       label={fieldProps.label}
       name={fieldProps.name}
       defaultValue={defaultValue}
       helperText={fieldProps.helperText}
+      {...fieldProps}
       onChange={handleOnChange}
     />
   );
