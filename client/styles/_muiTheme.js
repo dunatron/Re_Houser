@@ -27,7 +27,8 @@
 export const mainPrimaryColor = '#e00082';
 export const lightPrimaryColor = '#ff5c8d';
 export const darkPrimaryColor = '#a00037';
-export const primaryContrastText = '#000';
+// export const primaryContrastText = '#000';
+export const primaryContrastText = '#fff';
 
 // secondary color dark blue
 export const mainSecondaryColor = '#172a3a';

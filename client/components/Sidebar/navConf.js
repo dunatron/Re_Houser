@@ -1,0 +1,137 @@
+import { Fragment, useContext, useEffect } from 'react';
+import { store } from '../../store';
+
+// icons
+import PersonIcon from '../../styles/icons/PersonIcon';
+import DashboardIcon from '../../styles/icons/DashboardIcon';
+import LocationSearchingIcon from '../../styles/icons/LocationSearchingIcon';
+import AccountCircleIcon from '../../styles/icons/AccountCircleIcon';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import HouseIcon from '@material-ui/icons/House';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import DonutSmallIcon from '@material-ui/icons/DonutSmall';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+
+import { useCurrentUser } from '../User';
+import { CURRENT_USER_QUERY } from '../User/index';
+import { useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
+
+const SIGN_OUT_MUTATION = gql`
+  mutation SIGN_OUT_MUTATION {
+    signout {
+      message
+    }
+  }
+`;
+const defaultNavItemStyle = {
+  minWidth: '32px',
+};
+const NavigationConfig = (me, loadingUser, pathname) => {
+  const globalStore = useContext(store);
+  const { dispatch, state } = globalStore;
+  const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
+  const friendRequests = me ? me.friendRequests : [];
+
+  // router stuff
+
+  return [
+    {
+      key: 'admin-section',
+      label: 'Admins',
+      canRender: () => (me ? me.permissions.includes('ADMIN') : false),
+      items: [
+        {
+          icon: <DashboardIcon />,
+          text: 'Admin Dashboard',
+          route: '/admin',
+          style: { ...defaultNavItemStyle },
+          canRender: () => (me ? me.permissions.includes('ADMIN') : false),
+        },
+      ],
+    },
+    {
+      key: 'general',
+      items: [
+        {
+          icon: <LocationSearchingIcon />,
+          text: 'Search Properties',
+          route: '/property-search',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true,
+        },
+        {
+          icon: <HomeWorkIcon />,
+          text: 'Free Appraisal',
+          route: '/freeappraisal',
+          style: { ...defaultNavItemStyle },
+          canRender: () => {
+            if (me === null) return true;
+            return false;
+          },
+        },
+      ],
+    },
+    {
+      key: 'landlord',
+      // label: 'Landlords',
+
+      canRender: () => {
+        // if (me === null) return false;
+        return true;
+      },
+      items: [
+        {
+          icon: <HouseIcon />,
+          text: 'Landlord Portal',
+          route: '/landlord',
+          isCurrentPath: true,
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
+      ],
+    },
+    {
+      key: 'tenant',
+      // label: 'Tenant',
+      canRender: () => {
+        // if (me === null) return false;
+        return true;
+      },
+      items: [
+        {
+          icon: <AssignmentIcon />,
+          text: 'Tenant Portal',
+          route: '/tenant',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true,
+        },
+      ],
+    },
+    {
+      key: 'account',
+      items: [
+        {
+          icon: <InfoIcon />,
+          text: 'About Us',
+          route: '/about-us',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
+        {
+          icon: <ContactPhoneIcon />,
+          text: 'Contact',
+          route: '/contact',
+          style: { ...defaultNavItemStyle },
+          canRender: () => true, // set to try just to run it alot on the same account in dev
+        },
+      ],
+    },
+  ];
+};
+
+export default NavigationConfig;

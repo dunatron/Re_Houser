@@ -20,7 +20,7 @@ const HOME_PAGE_DASHBOARD_CONFIG = [
   },
   {
     label: 'Contact',
-    route: '/info/contact',
+    route: '/contact',
     description: 'All info about anyway you could want to contact us',
     color: 'secondary',
     icon: <ContactPhoneIcon />,
