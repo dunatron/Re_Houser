@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
   icon: {
     width: theme.spacing(5),
     height: theme.spacing(5),
+    backgroundColor: theme.palette.primary.main,
     '&:hover': {
       cursor: 'pointer',
     },

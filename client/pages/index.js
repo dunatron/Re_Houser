@@ -36,7 +36,7 @@ const HomePageBannerBody = () => {
         <ChangeRouteButton
           title="Free Appraisal"
           variant="contained"
-          color="primary"
+          color="secondary"
           route="/freeappraisal"
           btnProps={{
             size: 'large',
@@ -60,6 +60,7 @@ const HomePageBannerBody = () => {
       </div>
       <Typography
         variant="h4"
+        color="secondary"
         style={{ marginTop: '32px', textAlign: 'center' }}>
         Read More
       </Typography>
@@ -70,7 +71,7 @@ const HomePageBannerBody = () => {
         }}
         aria-label="read-more"
         href="#banner-footer"
-        color="primary">
+        color="secondary">
         <ArrowDownwardIcon
           fontSize="large"
           style={{
@@ -96,6 +97,7 @@ const HomePage = props => {
         footer={[
           <Typography
             variant="h5"
+            color="secondary"
             style={{ textAlign: 'center', padding: '0 30px' }}>
             Turning empty houses into friendly abodes
           </Typography>,

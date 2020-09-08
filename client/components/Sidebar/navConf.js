@@ -60,7 +60,7 @@ const NavigationConfig = (me, loadingUser, pathname) => {
         {
           key: 'property-search',
           icon: <LocationSearchingIcon />,
-          text: 'Search Properties',
+          text: 'Search',
           route: '/property-search',
           style: { ...defaultNavItemStyle },
           canRender: () => true,
@@ -79,7 +79,7 @@ const NavigationConfig = (me, loadingUser, pathname) => {
         {
           key: 'landlord',
           icon: <HouseIcon />,
-          text: 'Landlord Portal',
+          text: 'Landlord',
           route: '/landlord',
           isCurrentPath: true,
           style: { ...defaultNavItemStyle },
@@ -88,7 +88,7 @@ const NavigationConfig = (me, loadingUser, pathname) => {
         {
           key: 'tenant',
           icon: <AssignmentIcon />,
-          text: 'Tenant Portal',
+          text: 'Tenant',
           route: '/tenant',
           style: { ...defaultNavItemStyle },
           canRender: () => true,

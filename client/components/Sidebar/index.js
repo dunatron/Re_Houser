@@ -121,11 +121,11 @@ const SideBarItemWithRouter = ({ item, pathname }) => {
           handleLink(item.route);
         }
       }}>
-      <ListItemIcon
+      {/* <ListItemIcon
         style={item.style ? item.style : null}
         className={classes.listItemIcon}>
         {item.icon}
-      </ListItemIcon>
+      </ListItemIcon> */}
       <ListItemText
         primary={item.text}
         classes={{

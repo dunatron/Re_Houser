@@ -25,7 +25,7 @@ const themeTypography = {
       // color: '#482880', //deepPurple
       // color: 'rgba(23, 42, 58, .5)',
       // color: black80,
-      color: '#172a3a',
+      color: '#002443',
     },
     h2: {
       fontFamily: 'GustanMedium',

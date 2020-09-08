@@ -172,6 +172,9 @@ const ParticleOne = () => {
   return (
     <Particles
       id="rehouser-particles"
+      style={{
+        opacity: 0.6,
+      }}
       width={dimensions.width}
       height={dimensions.height}
       params={{

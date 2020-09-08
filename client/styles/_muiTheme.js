@@ -24,18 +24,44 @@
 
 // howtogql pink and Dark Blue
 //https://material.io/resources/color/#!/?view.left=1&view.right=1&primary.color=e00082&secondary.color=172A3A
-export const mainPrimaryColor = '#e00082';
-export const lightPrimaryColor = '#ff5c8d';
-export const darkPrimaryColor = '#a00037';
+// export const mainPrimaryColor = '#e00082';
+// export const lightPrimaryColor = '#ff5c8d';
+// export const darkPrimaryColor = '#a00037';
+// // export const primaryContrastText = '#000';
+// export const primaryContrastText = '#fff';
+
+// // secondary color dark blue
+// export const mainSecondaryColor = '#172a3a';
+// export const lightSecondaryColor = '#405264';
+// export const darkSecondaryColor = '#000015';
+// export const secondaryContrastText = '#fff';
+
+// https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=e00082&secondary.color=000444
+// export const mainPrimaryColor = '#e60085';
+// export const lightPrimaryColor = '#ff58b5';
+// export const darkPrimaryColor = '#ae0058';
+// // export const primaryContrastText = '#000';
+// export const primaryContrastText = '#fff';
+
+// // secondary color dark blue
+// export const mainSecondaryColor = '#000444';
+// export const lightSecondaryColor = '#342c70';
+// export const darkSecondaryColor = '#00001f';
+// export const secondaryContrastText = '#fff';
+
+// https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=e00082&secondary.color=000444
+
+export const mainPrimaryColor = '#e60085';
+export const lightPrimaryColor = '#ff58b5';
+export const darkPrimaryColor = '#ae0058';
 // export const primaryContrastText = '#000';
 export const primaryContrastText = '#fff';
 
 // secondary color dark blue
-export const mainSecondaryColor = '#172a3a';
-export const lightSecondaryColor = '#405264';
-export const darkSecondaryColor = '#000015';
+export const mainSecondaryColor = '#002443';
+export const lightSecondaryColor = '#334b6e';
+export const darkSecondaryColor = '#00001d';
 export const secondaryContrastText = '#fff';
-
 import {
   red,
   pink,
