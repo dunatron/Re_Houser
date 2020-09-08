@@ -16,7 +16,7 @@ const newRentalApplicationEmail = async function({
     applicants
   } = rentalApplication;
 
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `New Rental Application ID:${id}`,

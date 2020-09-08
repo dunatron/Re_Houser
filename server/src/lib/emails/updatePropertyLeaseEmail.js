@@ -1,7 +1,7 @@
 const { transport, makeANiceEmail } = require("../mail");
 
 const updatePropertyLeaseEmail = async function({ toEmail, lease, ctx, user }) {
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `Lease updated and unsigned: ${lease.id}`,

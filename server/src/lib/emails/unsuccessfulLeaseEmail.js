@@ -1,7 +1,7 @@
 const { transport, makeANiceEmail } = require("../mail");
 
 const unsuccessfulLeaseEmail = async function({ toEmail, user, property }) {
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `Usuccessful Lease for ${property.location}`,

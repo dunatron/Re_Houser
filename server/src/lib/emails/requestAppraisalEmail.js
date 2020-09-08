@@ -2,7 +2,7 @@ const { transport, makeANiceEmail } = require("../mail");
 const { CEO_DETAILS } = require("../../const");
 
 const requestAppraisalEmail = async function({ toEmail, ctx, user, location }) {
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `Appraisal recieved for ${location}`,
@@ -22,7 +22,7 @@ We may need to visit the property to increase the accuracy of this. I will be in
 
     \n\n`,
       user
-    ),
+    )
   });
 };
 

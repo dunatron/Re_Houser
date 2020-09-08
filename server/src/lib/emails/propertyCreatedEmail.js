@@ -1,13 +1,7 @@
 const { transport, makeANiceEmail } = require("../mail");
 
-const propertyCreatedEmail = async function({
-  toEmail,
-  appraisal,
-  ctx,
-  user
-}) {
-
-  transport.sendMail({
+const propertyCreatedEmail = async function({ toEmail, appraisal, ctx, user }) {
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `A new Property has been added`,

@@ -1,4 +1,5 @@
 # import * from './generated/prisma.graphql'
+
 scalar Date
 scalar URL
 scalar Json

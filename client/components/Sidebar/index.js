@@ -75,11 +75,7 @@ const NavigationConfig = (me, loadingUser) => {
   const [signOut, { data, loading, error }] = useMutation(SIGN_OUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
-
   const friendRequests = me ? me.friendRequests : [];
-
-  console.log('loadingUser => ', loadingUser);
-  console.log('Me in the navigation area => ', me);
 
   return [
     {
@@ -336,9 +332,8 @@ const NavigationConfig = (me, loadingUser) => {
 };
 
 const Nav = props => {
-  const NAV_CONF = NavigationConfig(me, loadingUser);
-
   const { loadingUser, me } = props;
+  const NAV_CONF = NavigationConfig(me, loadingUser);
 
   console.log('render: SideBar props =>', props);
   useEffect(() => {

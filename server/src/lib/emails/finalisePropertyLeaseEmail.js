@@ -8,7 +8,7 @@ const finalisePropertyLeaseEmail = async function({
   ctx,
   user
 }) {
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `Lease Accepted and Signed: ${lease.id}`,

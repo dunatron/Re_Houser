@@ -5,7 +5,7 @@ const unsuccessfulRentalApplicationEmail = async function({
   user,
   property
 }) {
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `A lease for ${property.location} has been signed`,

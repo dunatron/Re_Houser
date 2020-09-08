@@ -182,7 +182,7 @@ const allowedClientOrigins = [
 ];
 
 // Start gql yoga/express server
-server.start(
+const app = server.start(
   {
     cors: {
       credentials: true,
@@ -201,3 +201,7 @@ server.start(
     );
   }
 );
+
+module.exports = app;
+
+// app;

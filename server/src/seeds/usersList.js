@@ -2,8 +2,6 @@ const { CEO_DETAILS, CTO_DETAILS } = require("../const");
 
 const userPassword = "test";
 
-const userEmail1 = "heath.dunlop.hd@gmail.com";
-const userEmail2 = "heathd@rehouser.co.nz";
 const userEmail3 = "bob@test.com";
 const userEmail4 = "ted@test.com";
 const userEmail5 = "ken@test.com";
@@ -15,15 +13,15 @@ const userEmail10 = "ida@test.com";
 const userEmail11 = "lee@test.com";
 
 const setWizardPermissions = {
-  set: ["ADMIN", "USER", "PERMISSIONUPDATE"],
+  set: ["ADMIN", "USER", "PERMISSIONUPDATE"]
 };
 
 const setAdminPermissions = {
-  set: ["ADMIN", "USER"],
+  set: ["ADMIN", "USER"]
 };
 
 const setUserPermissions = {
-  set: ["USER"],
+  set: ["USER"]
 };
 
 const createAdminSettings = {
@@ -31,15 +29,15 @@ const createAdminSettings = {
     appraisalCreatedSub: true,
     propertyCreatedSub: true,
     rentalApplicationCreatedSub: true,
-    leaseCreatedSub: true,
-  },
+    leaseCreatedSub: true
+  }
 };
 
 const userFrag = {
-  email: userEmail1, // @unique String
+  email: userEmail3, // @unique String
   password: userPassword,
-  firstName: "Heath",
-  lastName: "Dunlop",
+  firstName: "Bob",
+  lastName: "Doe",
   phone: "0212439998",
   // profilePhoto: File
   identificationNumber: "DH812768",
@@ -54,42 +52,20 @@ const userFrag = {
   referee2Email: "garen@test.com",
   acceptedSignupTerms: true,
   adminSettings: {
-    create: {},
+    create: {}
   },
+  permissions: setUserPermissions
 };
 
 const wizardFrag = {
   ...userFrag,
   adminSettings: {
-    ...createAdminSettings,
+    ...createAdminSettings
   },
-  permissions: setWizardPermissions,
+  permissions: setWizardPermissions
 };
 
 const userList = [
-  {
-    ...userFrag,
-    ...wizardFrag,
-    email: "heath.dunlop.hd@gmail.com",
-    firstName: "Heath",
-    lastName: "Dunlop",
-    permissions: setWizardPermissions,
-  },
-  {
-    ...userFrag,
-    email: "heathd@rehouser.co.nz",
-    firstName: "Heath R",
-    lastName: "Dunlop",
-    permissions: setUserPermissions,
-  },
-  {
-    ...userFrag,
-    ...wizardFrag,
-    email: "siaujiun@gmail.com",
-    firstName: "Siau Jiun",
-    lastName: "Lim",
-    permissions: setAdminPermissions,
-  },
   {
     ...userFrag,
     ...wizardFrag,
@@ -97,7 +73,16 @@ const userList = [
     firstName: "Heath R",
     lastName: "McDounough",
     phone: "5555555",
-    permissions: setWizardPermissions,
+    permissions: setWizardPermissions
+  },
+  {
+    ...userFrag,
+    ...wizardFrag,
+    email: "heathd@rehouser.co.nz",
+    firstName: "Heath R",
+    lastName: "Dunlop",
+    phone: "0212439998",
+    permissions: setWizardPermissions
   },
   {
     ...userFrag,
@@ -106,92 +91,97 @@ const userList = [
     firstName: "Grace R",
     lastName: "McDounough",
     phone: "5555555",
-    permissions: setAdminPermissions,
+    permissions: setAdminPermissions
   },
   {
     ...userFrag,
     email: userEmail3,
     firstName: "Bob",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail4,
     firstName: "Ted",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail5,
     firstName: "Ken",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail6,
     firstName: "Ben",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail7,
     firstName: "Lou",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail8,
     firstName: "Leo",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail9,
     firstName: "Lia",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail10,
     firstName: "Ida",
     lastName: "Tester",
-    phone: "5555555",
+    phone: "5555555"
   },
   {
     ...userFrag,
     email: userEmail11,
     firstName: "Lee",
     lastName: "Tester",
-    phone: "5555555",
-  },
+    phone: "5555555"
+  }
 ];
 
 const prodSeedList = [
   {
-    ...userFrag,
     ...wizardFrag,
     email: CEO_DETAILS.email,
     firstName: CEO_DETAILS.firstname,
     lastName: CEO_DETAILS.lastname,
     phone: CEO_DETAILS.phone,
-    permissions: setWizardPermissions,
+    permissions: setWizardPermissions
   },
   {
-    ...userFrag,
     ...wizardFrag,
     email: CTO_DETAILS.email,
     firstName: CTO_DETAILS.firstname,
     lastName: CTO_DETAILS.lastname,
     phone: CTO_DETAILS.phone,
-    permissions: setWizardPermissions,
+    permissions: setWizardPermissions
   },
+  {
+    ...wizardFrag,
+    email: "siaujiun@gmail.com",
+    firstName: "Siau Jiun",
+    lastName: "Lim",
+    permissions: setAdminPermissions
+  }
 ];
 
 module.exports = process.env.STAGE === "dev" ? userList : prodSeedList;

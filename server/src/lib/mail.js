@@ -7,7 +7,7 @@ const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
   port: process.env.MAIL_PORT,
   auth: {
-    user: process.env.MAIL_USER, // replace with your Mailtrap credentials
+    user: process.env.MAIL_LOGIN, // replace with your Mailtrap credentials
     pass: process.env.MAIL_PASS
   },
   debug: process.env.STAGE === "dev" ? true : false, // show debug output
@@ -36,7 +36,8 @@ const makeANiceEmail = (text, user) => {
     <!-- date -->
     <div style="margin: 16px 0;">${today}</div>
     <!-- dear -->
-    <div style="margin-bottom: 16px;">To ${user.firstName} ${user.lastName}</div>
+    <div style="margin-bottom: 16px;">To ${user && user.firstName} ${user &&
+    user.lastName}</div>
     <!-- content/text -->
     ${text}
     <!-- regards -->

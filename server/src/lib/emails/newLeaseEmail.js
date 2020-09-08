@@ -33,7 +33,7 @@ const newLeaseLessorEmail = async function({
   type
 }) {
   const leaseLink = _leaseLink(lease.id);
-  transport.sendMail({
+  return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
     subject: `New Lease: ${lease.id} Signage Required`,
