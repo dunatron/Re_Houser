@@ -1,47 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import algoliasearch from 'algoliasearch/lite';
-import FriendRequestButton from '../MutationButtons/FriendRequestButton';
-import UserDetails from '../UserDetails';
+
 import { UserSearchInterface } from './styles';
 import CustomSearchBox from './SearchBox';
 import HitsConnection from './HitsConnection';
 
-import {
-  InstantSearch,
-  Hits,
-  connectHighlight,
-  SearchBox,
-  Pagination,
-  Stats,
-  SortBy,
-  Configure,
-  connectCurrentRefinements,
-} from 'react-instantsearch-dom';
+import mePropTypes from '../../propTypes/mePropTypes';
+
+import { InstantSearch, Pagination, Stats } from 'react-instantsearch-dom';
 
 var applicationId = process.env.ALGOLIA_APP_ID;
 var apiKey = process.env.ALGOLIA_API_KEY;
 const algoliaClient = algoliasearch(applicationId, apiKey);
 const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 
-const Hit = ({ hit, me }) => {
-  if (!me) return 'Hit Doesnt get me';
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'start',
-      }}>
-      <FriendRequestButton me={me} requestFriendId={hit.id} />
-      <UserDetails me={me} user={hit} />
-    </div>
-  );
-};
-
 const Content = ({ me }) => (
   <div className="si-content">
     <Stats />
-    {/* <Hits hitComponent={Hit} me={me} /> */}
     <HitsConnection me={me} />
     <Pagination />
   </div>
@@ -76,6 +52,14 @@ const UserSearch = ({ me, ...rest }) => {
       </UserSearchInterface>
     </InstantSearch>
   );
+};
+
+Content.propTypes = {
+  me: mePropTypes,
+};
+
+UserSearch.propTypes = {
+  me: mePropTypes,
 };
 
 export default UserSearch;

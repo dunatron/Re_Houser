@@ -1,21 +1,10 @@
 import { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { VIEWINGS_QUERY } from '../../graphql/queries';
+import { useMutation } from '@apollo/client';
+
 import { toast } from 'react-toastify';
-import {
-  DELETE_VIEWING,
-  UPDATE_VIEWING_MUTATION,
-  CREATE_VIEWING_MUTATION,
-} from '../../graphql/mutations';
+import { UPDATE_VIEWING_MUTATION } from '../../graphql/mutations';
 import PropTypes from 'prop-types';
-
-import Loading from '../Loader';
-import Error from '../ErrorMessage';
-
-// types
-import OnceViewing from './types/Once';
-import DailyViewing from './types/Daily';
-import WeeklyViewing from './types/Weekly';
+import mePropTypes from '../../propTypes/mePropTypes';
 
 import ViewingForm from './ViewingForm';
 
@@ -82,6 +71,15 @@ const EditViewing = ({ viewing, where, me }) => {
       />
     </div>
   );
+};
+
+EditViewing.propTypes = {
+  viewing: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    recurringType: PropTypes.string.isRequired,
+  }),
+  where: PropTypes.object,
+  me: mePropTypes,
 };
 
 export default EditViewing;

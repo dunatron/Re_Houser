@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import ComingSoon from '../../components/ComingSoon';
 import { Paper, Typography } from '@material-ui/core';
 import Fees from '../../components/Fees';
@@ -9,8 +10,10 @@ import AcceptTermsOfEngagementForm from '../../components/Forms/AcceptTermsOfEng
 const TermsOfEngagementPage = props => {
   const {
     appData: { currentUser },
-    query,
   } = props;
+
+  const me = currentUser.data ? currentUser.data.me : null;
+
   return (
     <>
       <PageHeader
@@ -23,11 +26,15 @@ const TermsOfEngagementPage = props => {
         }}
       />
       {/* <TermsOfEngagement me={currentUser.data ? currentUser.data.me : null} /> */}
-      <AcceptTermsOfEngagementForm
-        me={currentUser.data ? currentUser.data.me : null}
-      />
+      <AcceptTermsOfEngagementForm me={me} />
     </>
   );
+};
+
+TermsOfEngagementPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default TermsOfEngagementPage;

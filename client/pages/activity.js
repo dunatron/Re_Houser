@@ -1,14 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import PleaseSignIn from '../components/PleaseSignIn';
 import { ActivityManager, Activity } from '../components/ActivityManager';
 import PageHeader from '../components/PageHeader';
+import { Typography } from '@material-ui/core';
 
-const ActivityPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const ActivityPage = ({ appData: { currentUser } }) => {
   return (
-    <div>
+    <Fragment>
       <PageHeader
         title="Rehouser Activity"
         intro="Here is the system activity in regards to you. You can use this to
@@ -23,16 +22,24 @@ const ActivityPage = props => {
         currentUser={currentUser}
         alert={
           <div>
-            <p>
+            <Typography variant="body1">
               <strong>Please Sign In</strong>
-            </p>
-            <p>You must be signed in to view your activity</p>
+            </Typography>
+            <Typography variant="body1">
+              You must be signed in to view your activity
+            </Typography>
           </div>
         }>
         <ActivityManager />
       </PleaseSignIn>
-    </div>
+    </Fragment>
   );
+};
+
+ActivityPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default ActivityPage;

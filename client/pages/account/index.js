@@ -1,14 +1,11 @@
-import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import Account from '../../components/Account/index';
-import FileUploader from '../../components/FileUploader';
 import { Typography } from '@material-ui/core';
 import PageHeader from '../../components/PageHeader';
 
-const AccountPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const AccountPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
@@ -24,16 +21,22 @@ const AccountPage = props => {
         currentUser={currentUser}
         alert={
           <div>
-            <p>
+            <Typography>
               <strong>Please Sign In</strong>
-            </p>
-            <p>You must be signed in to view your account</p>
+            </Typography>
+            <Typography>You must be signed in to view your account</Typography>
           </div>
         }>
         <Account />
       </PleaseSignIn>
     </>
   );
+};
+
+AccountPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default AccountPage;

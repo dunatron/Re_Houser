@@ -1,11 +1,8 @@
-// import PropertyDetails from "../../components/PropertyDetails/index"
+import PropTypes from 'prop-types';
 import FriendManager from '../../components/FriendManager/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 
-const MyLeasePage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const SocialFriendsePage = ({ appData: { currentUser } }) => {
   return (
     <div>
       <PleaseSignIn
@@ -17,4 +14,10 @@ const MyLeasePage = props => {
   );
 };
 
-export default MyLeasePage;
+SocialFriendsePage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default SocialFriendsePage;

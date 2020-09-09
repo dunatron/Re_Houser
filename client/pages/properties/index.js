@@ -1,21 +1,23 @@
+import PropTypes from 'prop-types';
 import OwnerProperties from '../../components/OwnerProperties/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import PageHeader from '../../components/PageHeader';
 import { Typography } from '@material-ui/core';
 
-const PropertiesPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const PropertiesPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to manager your properties';
+
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
         title="My Properties"
         intro="Here is the portal to your properties, you can get a quick overview etc etc and add a property with the add property button"
         children={[
-          <Typography gutterBottom>Maybe something else to say</Typography>,
+          <Typography key={1} gutterBottom>
+            Maybe something else to say
+          </Typography>,
         ]}
         metaData={{
           title: 'My Properties',
@@ -26,14 +28,20 @@ const PropertiesPage = props => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <p>
-            <strong>{pleaseSignInMessage}</strong>
-          </p>
+          <Typography component="p">
+            <Typography component="strong">{pleaseSignInMessage}</Typography>
+          </Typography>
         }>
-        <OwnerProperties me={props.me ? props.me : null} />
+        <OwnerProperties me={me} />
       </PleaseSignIn>
     </>
   );
+};
+
+PropertiesPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default PropertiesPage;

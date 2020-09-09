@@ -1,14 +1,11 @@
-import OwnerProperties from '../../components/OwnerProperties/index';
+import PropTypes from 'prop-types';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import PageHeader from '../../components/PageHeader';
 import { Typography } from '@material-ui/core';
 import Dashboard from '../../components/Dashboard';
 import TENANT_DASHBOARD_CONFIG from '../../lib/configs/tenantDashboardConfig';
 
-const TenantPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const TenantPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to the system to do tenant activities';
   return (
@@ -26,9 +23,9 @@ const TenantPage = props => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <p>
+          <Typography variant="body1">
             <strong>{pleaseSignInMessage}</strong>
-          </p>
+          </Typography>
         }>
         <Dashboard
           config={TENANT_DASHBOARD_CONFIG}
@@ -39,6 +36,12 @@ const TenantPage = props => {
       </PleaseSignIn>
     </>
   );
+};
+
+TenantPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default TenantPage;

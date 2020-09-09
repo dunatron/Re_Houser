@@ -1,21 +1,18 @@
+import PropTypes from 'prop-types';
 import RentalApplicationsManager from '../../../admin-components/RentalApplicationsManager';
 import PageHeader from '../../../components/PageHeader';
 import { Typography } from '@material-ui/core';
 import AdminOnly from '../../../components/AdminOnly';
 
-const AdminApplicationsPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-
-  console.log('admin APplications Current user => ', currentUser);
+const AdminApplicationsPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
         title="Admin Appraisals"
         intro="This is where our admins will view appraisals that need to be appraised then fill in the details"
         children={[
-          <Typography gutterBottom>
+          <Typography key={1} gutterBottom>
             Perhaps some instructions on how to use it. FUck i guess thats my
             job for bits like this
           </Typography>,
@@ -26,13 +23,17 @@ const AdminApplicationsPage = props => {
             'Admin portal to manage rehouser clients and day to day activities',
         }}
       />
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
-        <RentalApplicationsManager
-          me={currentUser.data ? currentUser.data.me : {}}
-        />
+      <AdminOnly me={me}>
+        <RentalApplicationsManager me={me} />
       </AdminOnly>
     </>
   );
+};
+
+AdminApplicationsPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default AdminApplicationsPage;

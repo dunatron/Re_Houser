@@ -1,6 +1,4 @@
-// if viewing is Once then we just render the one  off viewing
-// if they are a host they will have a button that be clickable to edit, remove, save that will bubble up
-// can just be a modal that allows the editing of it
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Typography } from '@material-ui/core';
 
@@ -17,6 +15,12 @@ const OnceViewing = ({ viewing, ...rest }) => {
       </Typography>
     </div>
   );
+};
+
+OnceViewing.propTypes = {
+  viewing: PropTypes.shape({
+    dateTime: PropTypes.string,
+  }),
 };
 
 export default OnceViewing;

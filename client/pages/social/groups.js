@@ -11,6 +11,7 @@ import {
   CommentsCount,
   Group,
 } from 'react-facebook';
+import PropTypes from 'prop-types';
 
 const groupsConf = [
   {
@@ -20,7 +21,7 @@ const groupsConf = [
   },
 ];
 
-const SocialGroups = () => {
+const SocialGroupsPage = () => {
   return (
     <div>
       {/* Dunedin Group */}
@@ -41,4 +42,6 @@ const SocialGroups = () => {
   );
 };
 
-export default SocialGroups;
+SocialGroupsPage.propTypes = {};
+
+export default SocialGroupsPage;

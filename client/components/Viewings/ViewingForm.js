@@ -1,9 +1,6 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { withStyles } from '@material-ui//core/styles';
-import { useMutation } from '@apollo/client';
-import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
-import { toast } from 'react-toastify';
-import { VIEWINGS_QUERY } from '../../graphql/queries';
 
 import EnumSelectOption from '../Inputs/EnumSelectOption';
 import DateInput from '../Inputs/DateInput';
@@ -12,26 +9,21 @@ import NumberInput from '../Inputs/NumberInput';
 import Error from '../ErrorMessage';
 import Loader from '../Loader';
 // material
-import {
-  Button,
-  TextField,
-  InputAdornment,
-  Typography,
-} from '@material-ui/core';
+import { Button, InputAdornment } from '@material-ui/core';
 import moment from 'moment';
+
+// proptypes
+import mePropTypes from '../../propTypes/mePropTypes';
 
 const styles = theme => ({
   root: {
     marginBottom: theme.spacing(4),
-    // padding: theme.spacing(2),
   },
 });
 
 const ViewingForm = ({
   viewing,
-  propertyId,
   me,
-  where,
   cancel,
   error,
   loading,
@@ -104,6 +96,29 @@ const ViewingForm = ({
       <Button onClick={cancel}>CANCEL</Button>
     </div>
   );
+};
+
+ViewingForm.propTypes = {
+  viewing: PropTypes.shape({
+    dateTime: PropTypes.string,
+    recurringType: PropTypes.string,
+    minutesFor: PropTypes.number,
+    onRequest: PropTypes.bool,
+    hosts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        email: PropTypes.string,
+      })
+    ),
+  }),
+  me: mePropTypes,
+  cancel: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  loading: PropTypes.bool,
+  onSave: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ViewingForm);

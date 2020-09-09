@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import PageHeader from '../../components/PageHeader';
@@ -52,10 +53,8 @@ const ExpansionExampleItem = ({ item }) => {
   );
 };
 
-const ConnectedTypographyPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const ConnectedTypographyPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -66,13 +65,26 @@ const ConnectedTypographyPage = props => {
           content: 'Admin settings for subscriptions',
         }}
       />
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+      <AdminOnly me={me}>
         {EXAMPLES_CONF.map((item, i) => (
-          <ExpansionExampleItem item={item} />
+          <ExpansionExampleItem key={i} item={item} />
         ))}
       </AdminOnly>
     </>
   );
+};
+
+ExpansionExampleItem.propTypes = {
+  item: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    component: PropTypes.elementType,
+  }),
+};
+
+ConnectedTypographyPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default ConnectedTypographyPage;

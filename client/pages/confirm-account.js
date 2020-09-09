@@ -1,31 +1,18 @@
 import React, { useState, useEffect } from 'react';
-
 import PropTypes from 'prop-types';
-import SuperLogin from '../components/SuperLogin';
-import OpenSuperLoginButton from "../components/SuperLogin/OpenSuperLoginButton"
 import PageHeader from '../components/PageHeader';
-import SendConfirmEmailButton from '../components/MutationButtons/SendConfrimEmailButton';
 import ConfirmEmail from '../components/ConfirmEmail';
 import { Typography } from '@material-ui/core';
-
 import Dashboard from '../components/Dashboard/index';
-import PleaseSignIn from '../components/PleaseSignIn';
-
 import DASHBOARD_CONFIG from '../lib/configs/dashboardConfig';
 import INFO_DASHBOARD_CONFIG from '../lib/configs/infoDashboardConfig';
-
-import { SITE_NAME } from '../lib/const';
 
 /**
  *
  * Doesnt actually require login, just needs a token in the url bar
  */
-const LoginPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-
-  console.log('A CURRENT USER AGAIN => ', currentUser);
+const ConfirmAccountPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
 
   return (
     <>
@@ -36,9 +23,10 @@ const LoginPage = props => {
           content: 'rehouser platform login',
         }}
       />
-      <ConfirmEmail me={currentUser.data ? currentUser.data.me : null}>
+      <ConfirmEmail me={me}>
         <Typography variant="h5" gutterBottom>
-          Congratulations your account's email address has now been validated
+          Congratulations your {`account's`} email address has now been
+          validated
         </Typography>
         <Dashboard
           config={DASHBOARD_CONFIG}
@@ -58,4 +46,10 @@ const LoginPage = props => {
   );
 };
 
-export default LoginPage;
+ConfirmAccountPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default ConfirmAccountPage;

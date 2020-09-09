@@ -1,9 +1,8 @@
 // import PropertyDetails from "../../components/PropertyDetails/index"
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { store } from '../../store';
 
-import LeasesList from '../../components/LeasesList';
-import PleaseSignIn from '../../components/PleaseSignIn';
 import Dashboard from '../../components/Dashboard';
 import PageHeader from '../../components/PageHeader';
 
@@ -22,12 +21,11 @@ import AdminOnly from '../../components/AdminOnly';
  * I have a dream, to put all my updates here for admins.
  * except it wont work here. needs to be on the page root
  */
-const MyLeasePage = props => {
+const AdminDashboardPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
-  const {
-    appData: { currentUser },
-  } = props;
+
   const ADMIN_DASHBOARD_CONFIG = [
     {
       label: 'Appraisals',
@@ -101,19 +99,18 @@ const MyLeasePage = props => {
             'Admin portal to manage rehouser clients and day to day activities',
         }}
       />
-      {/* <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
-        <PleaseSignIn
-          currentUser={currentUser}
-          message="You must be signed in to view the admin area">
-          <Dashboard config={ADMIN_DASHBOARD_CONFIG} />
-          <FriendManager />
-        </PleaseSignIn>
-      </AdminOnly> */}
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+      <AdminOnly me={me}>
         <Dashboard config={ADMIN_DASHBOARD_CONFIG} />
         <FriendManager />
       </AdminOnly>
     </div>
   );
 };
-export default MyLeasePage;
+
+AdminDashboardPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default AdminDashboardPage;

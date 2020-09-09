@@ -1,0 +1,10 @@
+# don't ever lint node_modules
+node_modules
+# don't lint the .next folder
+.next
+# don't lint vscode
+.vscode
+# don't lint cypress
+cypress-tests
+# don't lint docz
+.docz

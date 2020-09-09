@@ -1,21 +1,27 @@
-// import PropertyDetails from "../../components/PropertyDetails/index"
+import PropTypes from 'prop-types';
 import LeaseManager from '../../components/LeaseManager/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 
-const MyLeasePage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const LeasePage = ({ appData: { currentUser }, query: { id } }) => {
   return (
     <div>
       {/* PageHeader on LeaseManager component*/}
       <PleaseSignIn
         currentUser={currentUser}
         message="You cannot view a lease without being signed in">
-        <LeaseManager leaseId={props.query.id} />
+        <LeaseManager leaseId={id} />
       </PleaseSignIn>
     </div>
   );
 };
 
-export default MyLeasePage;
+LeasePage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+  query: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default LeasePage;

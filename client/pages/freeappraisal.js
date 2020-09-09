@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import PleaseSignIn from '../components/PleaseSignIn';
 import PropertyAppraisal from '../components/PropertyAppraisal';
-import { Paper, Typography } from '@material-ui/core';
-import RehouserPaper from '../styles/RehouserPaper';
-import Head from 'next/head';
-import PageHeader from '../components/PageHeader';
-import Error from '../components/ErrorMessage';
+import { Typography } from '@material-ui/core';
 
-const FreeAppraisal = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-  console.log('current user for Free Appraisal => ', currentUser);
-  const { data, loading, error } = currentUser;
-  if (error) return <Error error={error} />;
-  if (loading) return 'Getting data for free appraisal page';
+import PageHeader from '../components/PageHeader';
+
+const FreeAppraisalPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <div>
       <PageHeader
@@ -24,7 +17,7 @@ const FreeAppraisal = props => {
           title: 'Free property appraisal',
           content: 'free property appraisal',
         }}>
-        {!data.me && (
+        {!me && (
           <Typography variant="h6" gutterBottom>
             Our platform requires that you be logged in to request a free
             appraisal{' '}
@@ -35,10 +28,12 @@ const FreeAppraisal = props => {
         currentUser={currentUser}
         alert={
           <div>
-            <p>
+            <Typography variant="body1">
               <strong>Please Sign In</strong>
-            </p>
-            <p>You must be signed up/in to get a free rental Appraisal</p>
+            </Typography>
+            <Typography variant="body1">
+              You must be signed up/in to get a free rental Appraisal
+            </Typography>
           </div>
         }>
         <PropertyAppraisal />
@@ -47,4 +42,10 @@ const FreeAppraisal = props => {
   );
 };
 
-export default FreeAppraisal;
+FreeAppraisalPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default FreeAppraisalPage;

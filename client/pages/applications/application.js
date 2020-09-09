@@ -1,24 +1,30 @@
-// actually this makes sense
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import RentalApplication from '../../components/RentalApplication';
-
 import PleaseSignIn from '../../components/PleaseSignIn';
-const MyApplication = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-  // PageHeader on RentalApplication component
+import { Typography } from '@material-ui/core';
+
+const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
   return (
     <PleaseSignIn
       currentUser={currentUser}
       alert={
-        <p>
-          <strong>"Please SIgn in to view applications</strong>
-        </p>
+        <Typography component="p">
+          <strong>Please SIgn in to view applications</strong>
+        </Typography>
       }>
-      <RentalApplication id={props.query.id} />
+      <RentalApplication id={id} />
     </PleaseSignIn>
   );
 };
 
-export default MyApplication;
+SingleApplicationPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+  query: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default SingleApplicationPage;

@@ -1,9 +1,8 @@
-import ComingSoon from '../../components/ComingSoon';
 import { Paper, Typography } from '@material-ui/core';
 import Fees from '../../components/Fees';
 import PageHeader from '../../components/PageHeader';
 
-const FeesInfoPage = () => {
+const LandlordFeesPage = () => {
   return (
     <>
       <PageHeader
@@ -23,4 +22,6 @@ const FeesInfoPage = () => {
   );
 };
 
-export default FeesInfoPage;
+LandlordFeesPage.propTypes = {};
+
+export default LandlordFeesPage;

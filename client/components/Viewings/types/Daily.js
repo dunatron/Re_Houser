@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Typography } from '@material-ui/core';
 
@@ -36,6 +37,12 @@ const DailyViewing = ({ viewing, ...rest }) => {
       </Typography>
     </div>
   );
+};
+
+DailyViewing.propTypes = {
+  viewing: PropTypes.shape({
+    dateTime: PropTypes.string,
+  }),
 };
 
 export default DailyViewing;

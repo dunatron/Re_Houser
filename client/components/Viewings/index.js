@@ -1,26 +1,19 @@
-import { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { withStyles } from '@material-ui/core/styles';
 import { VIEWINGS_QUERY } from '../../graphql/queries';
-import { toast } from 'react-toastify';
-import {
-  DELETE_VIEWING,
-  UPDATE_VIEWING_MUTATION,
-  CREATE_VIEWING_MUTATION,
-} from '../../graphql/mutations';
+
 import PropTypes from 'prop-types';
 
 import Loading from '../Loader';
 import Error from '../ErrorMessage';
 
-// types
-import OnceViewing from './types/Once';
-import DailyViewing from './types/Daily';
-import WeeklyViewing from './types/Weekly';
+import RenderViewingByRecurringType from './RenderViewingByRecurringType';
 
 import CreateViewing from './CreateViewing';
-import DeleteViewing from './DeleteViewing';
-import EditViewing from './EditViewing';
+import Actions from './Actions';
+
+// proptypes
+import mePropTypes from '../../propTypes/mePropTypes';
 
 const styles = theme => ({
   root: {
@@ -49,55 +42,23 @@ const Viewings = ({ where, me, propertyId, classes }) => {
     <div className={classes.root}>
       <CreateViewing propertyId={propertyId} me={me} where={where} />
       {data.viewings &&
-        data.viewings.map((viewing, idx) => {
-          return (
-            <div>
-              <RenderViewingByRecurringType viewing={viewing} me={me} />
-              <Actions viewing={viewing} me={me} where={where} />
-              <hr />
-            </div>
-          );
-        })}
-    </div>
-  );
-};
-
-// only render actions if they are a host for this viewing or an admin
-const Actions = ({ viewing, me, where }) => {
-  const { hosts } = viewing;
-  const _canView = () => {
-    if (!me) return false;
-    if (hosts.filter(host => host.id === me.id)) return true;
-    if (me.permissions.includes('ADMIN')) return true;
-    return false;
-  };
-
-  if (!_canView()) return null;
-
-  return (
-    <div>
-      <EditViewing viewing={viewing} where={where} me={me} />
-      <DeleteViewing viewing={viewing} where={where} />
+        data.viewings.map(viewing => (
+          <div key={viewing.id}>
+            <RenderViewingByRecurringType viewing={viewing} me={me} />
+            <Actions viewing={viewing} me={me} where={where} />
+          </div>
+        ))}
     </div>
   );
 };
 
 // add actions to the viewing
-const RenderViewingByRecurringType = ({ viewing, me, ...rest }) => {
-  switch (viewing.recurringType) {
-    case 'ONCE':
-      return <OnceViewing viewing={viewing} {...rest} />;
-    case 'DAILY':
-      return <DailyViewing viewing={viewing} {...rest} />;
-    case 'WEEKLY':
-      return <WeeklyViewing viewing={viewing} {...rest} />;
-    default:
-      return null;
-  }
-};
 
-RenderViewingByRecurringType.propTypes = {
-  viewing: PropTypes.object,
+Viewings.propTypes = {
+  where: PropTypes.object.isRequired,
+  me: mePropTypes,
+  propertyId: PropTypes.string,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Viewings);

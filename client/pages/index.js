@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ParticleBanner from '../components/Banner/ParticleBanner';
 import Banner from '../components/Banner/index';
 
@@ -84,11 +85,7 @@ const HomePageBannerBody = () => {
   );
 };
 
-const HomePage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-
+const HomePage = () => {
   return (
     <div>
       <ParticleBanner
@@ -96,6 +93,7 @@ const HomePage = props => {
         disablePointerEvents={true}
         footer={[
           <Typography
+            key={1}
             variant="h5"
             color="secondary"
             style={{ textAlign: 'center', padding: '0 30px' }}>
@@ -113,5 +111,7 @@ const HomePage = props => {
     </div>
   );
 };
+
+HomePage.propTypes = {};
 
 export default HomePage;

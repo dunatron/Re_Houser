@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CreateProperty from '../../components/CreateProperty/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import { is } from 'ramda';
 import PageHeader from '../../components/PageHeader';
 
-const AddPropertyPage = props => {
+const AddPropertyPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to add properties to the market';
-  const {
-    appData: { currentUser },
-    query,
-  } = props;
-  console.log('The query data attached => ', query);
 
   // just send normal data, useRamda. if its a string, decode the fucker
   const formattedData = {
@@ -42,6 +38,12 @@ const AddPropertyPage = props => {
       </PleaseSignIn>
     </>
   );
+};
+
+AddPropertyPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default AddPropertyPage;

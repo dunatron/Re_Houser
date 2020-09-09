@@ -1,14 +1,11 @@
+import PropTypes from 'prop-types';
 import PropertiesManager from '../../../admin-components/PropertiesManager';
 import PageHeader from '../../../components/PageHeader';
-import { Typography } from '@material-ui/core';
 import AdminOnly from '../../../components/AdminOnly';
 
-const AdminPropertiesPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const AdminPropertiesPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
 
-  console.log('admin APplications Current user => ', currentUser);
   return (
     <>
       <PageHeader
@@ -20,11 +17,17 @@ const AdminPropertiesPage = props => {
           content: 'manage properties on the system as an admin',
         }}
       />
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
-        <PropertiesManager me={currentUser.data ? currentUser.data.me : {}} />
+      <AdminOnly me={me}>
+        <PropertiesManager me={me} />
       </AdminOnly>
     </>
   );
+};
+
+AdminPropertiesPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default AdminPropertiesPage;

@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import SuperLogin from '../components/SuperLogin';
 import PageHeader from '../components/PageHeader';
 
-const LoginPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const LoginPage = () => {
   return (
     <>
       <PageHeader
@@ -20,5 +17,7 @@ const LoginPage = props => {
     </>
   );
 };
+
+LoginPage.propTypes = {};
 
 export default LoginPage;

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+import mePropTypes from '../../propTypes/mePropTypes';
 import gql from 'graphql-tag';
 import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
@@ -14,7 +16,7 @@ const styles = theme => ({
   },
 });
 
-const CreateViewing = ({ propertyId, me, where, classes }) => {
+const CreateViewing = ({ propertyId, me, classes }) => {
   const [isCreating, setIsCreating] = useState(false);
 
   const handleCompleted = data => {
@@ -39,7 +41,12 @@ const CreateViewing = ({ propertyId, me, where, classes }) => {
     {
       onCompleted: handleCompleted,
       onError: handleError,
-      update(cache, { data: { createViewing } }) {
+      update(
+        cache,
+        {
+          data: { createViewing },
+        }
+      ) {
         cache.modify({
           fields: {
             viewings(existingViewingRefs = [], { readField }) {
@@ -99,6 +106,12 @@ const CreateViewing = ({ propertyId, me, where, classes }) => {
       )}
     </div>
   );
+};
+
+CreateViewing.propTypes = {
+  me: mePropTypes,
+  propertyId: PropTypes.string,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(CreateViewing);

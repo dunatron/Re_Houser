@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import EditProperty from '../../../components/PropertyDetails/Edit';
 import PleaseSignIn from '../../../components/PleaseSignIn';
-import { is } from 'ramda';
+import { Typography } from '@material-ui/core';
 import PageHeader from '../../../components/PageHeader';
 
-const EditPropertyPage = props => {
+const EditPropertyPage = ({ appData: { currentUser }, query: { id } }) => {
   const pleaseSignInMessage =
     'You must be signed in to add properties to the market';
-  const {
-    appData: { currentUser },
-    query,
-  } = props;
 
-  if (!query.id) return <div>You need a property id as the id param</div>;
+  if (!id)
+    return (
+      <Typography variant="h5" color="error">
+        You need a property id as the id param
+      </Typography>
+    );
   return (
     <>
       <PageHeader
@@ -27,14 +29,23 @@ const EditPropertyPage = props => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <p>
+          <Typography variant="body1">
             <strong>{pleaseSignInMessage}</strong>
-          </p>
+          </Typography>
         }>
-        <EditProperty propertyId={query.id} />
+        <EditProperty propertyId={id} />
       </PleaseSignIn>
     </>
   );
+};
+
+EditPropertyPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+  query: PropTypes.shape({
+    id: PropTypes.string,
+  }),
 };
 
 export default EditPropertyPage;

@@ -1,10 +1,8 @@
+import PropTypes from 'prop-types';
 import PleaseSignIn from '../../../components/PleaseSignIn';
 import ChatsListScreen from '../../../components/ChatsListScreen';
 
-const MessagesPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const SocialChatsPage = ({ appData: { currentUser } }) => {
   return (
     <div>
       <PleaseSignIn
@@ -16,4 +14,10 @@ const MessagesPage = props => {
   );
 };
 
-export default MessagesPage;
+SocialChatsPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default SocialChatsPage;

@@ -11,6 +11,7 @@ import {
   CommentsCount,
   Group,
 } from 'react-facebook';
+import PropTypes from 'prop-types';
 
 import { Button } from '@material-ui/core';
 import LeasesList from '../../components/LeasesList';
@@ -18,10 +19,7 @@ import PleaseSignIn from '../../components/PleaseSignIn';
 import Dashboard from '../../components/Dashboard';
 import SOCIAL_DASHBOARD_CONFIG from '../../lib/configs/socialDashboard';
 
-const SocialPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const SocialPage = ({ appData: { currentUser } }) => {
   return (
     <div>
       <PleaseSignIn
@@ -55,6 +53,12 @@ const SocialPage = props => {
       </PleaseSignIn>
     </div>
   );
+};
+
+SocialPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default SocialPage;

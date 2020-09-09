@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import PageHeader from '../components/PageHeader';
 import { useMutation } from '@apollo/client';
 import FormCreator from '../components/Forms/FormCreator';
 import RESET_PASSWORD_FORM_CONF from '../lib/configs/resetPasswordForm';
 import { CURRENT_USER_QUERY } from '../graphql/queries/currentUser';
-import Signout from '../components/Signout';
-import { Typography } from '@material-ui/core';
 import SuperLogin from '../components/SuperLogin';
+import { Typography } from '@material-ui/core';
 
 const RESET_PASSWORD_MUTATION = gql`
   mutation resetPassword(
@@ -25,36 +24,8 @@ const RESET_PASSWORD_MUTATION = gql`
   }
 `;
 
-const ResetPage = props => {
-  const {
-    appData: { currentUser },
-    query,
-  } = props;
-
-  if (!query.resetToken) {
-    return 'There is no reset token attached, perhaps go to request reset..?';
-  }
-
-  if (currentUser.data && currentUser.data.me) {
-    return <SuperLogin />;
-    return (
-      <>
-        <Typography>
-          Signed in as {currentUser.data.me.firstName}{' '}
-          {currentUser.data.me.lastName}
-        </Typography>
-        <Signout
-          label="Signout"
-          fullWidth={true}
-          me={currentUser.data.me}
-          color="primary"
-          variant="contained"
-        />
-      </>
-    );
-  }
-
-  console.log('WHat props do we have here => ', props);
+const ResetPage = ({ appData: { currentUser }, query }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
 
   const handleOnCompleted = () => {};
 
@@ -72,7 +43,6 @@ const ResetPage = props => {
 
   const handleFormSubmit = data => {
     resetPassword({
-      //   ...data,
       variables: {
         ...data,
         resetToken: query.resetToken,
@@ -80,19 +50,17 @@ const ResetPage = props => {
     });
   };
 
-  //resetPassword mutation, takes data.password && data.confirmPassword
+  // if logged in no need to reset
+  if (me) return <SuperLogin />;
 
-  //   title,
-  //     data,
-  //     config,
-  //     isNew,
-  //     posting,
-  //     error,
-  //     fileRemovedFromServer,
-  //     updateCacheOnRemovedFile,
-  //     forceFormUpdates,
-  //     createText,
-  //     updateText,
+  // cant reset password if we have no valid resetToken
+  if (!query.resetToken)
+    return (
+      <Typography variant="body1" color="error">
+        There is no reset token attached, perhaps go to request reset..?
+      </Typography>
+    );
+
   return (
     <>
       <PageHeader
@@ -114,6 +82,15 @@ const ResetPage = props => {
       />
     </>
   );
+};
+
+ResetPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+  query: PropTypes.shape({
+    resetToken: PropTypes.string,
+  }),
 };
 
 export default ResetPage;

@@ -1,17 +1,14 @@
-import React, { useState, useRef } from 'react';
-import PleaseSignIn from '../../components/PleaseSignIn';
-import FileUploader from '../../components/FileUploader';
-import { Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
+
 //components
 import PageHeader from '../../components/PageHeader';
 // admin components
 import AdminOnly from '../../components/AdminOnly';
 import SecurityStatementPdf from '../../components/Pdfs/SecurityStatementPdf';
 
-const SecurityStatementPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const SecurityStatementPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -23,12 +20,17 @@ const SecurityStatementPage = props => {
             'Rehouser security statment which will be able to be downloaded as a pdf at any time',
         }}
       />
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
-        {/* <AdminSettings me={currentUser.me} /> */}
+      <AdminOnly me={me}>
         <SecurityStatementPdf />
       </AdminOnly>
     </>
   );
+};
+
+SecurityStatementPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default SecurityStatementPage;

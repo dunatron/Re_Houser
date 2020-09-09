@@ -1,13 +1,9 @@
-// import PropertyDetails from "../../components/PropertyDetails/index"
+import PropTypes from 'prop-types';
 import LeasesList from '../../components/LeasesList';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import PageHeader from '../../components/PageHeader';
 
-const MyLeasePage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-
+const LeasesListPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
@@ -26,4 +22,11 @@ const MyLeasePage = props => {
     </>
   );
 };
-export default MyLeasePage;
+
+LeasesListPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default LeasesListPage;

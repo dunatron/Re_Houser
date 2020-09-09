@@ -1,16 +1,10 @@
-import Dashboard from '../../components/Dashboard';
-import INFO_DASHBOARD_CONFIG from '../../lib/configs/infoDashboardConfig';
+import PropTypes from 'prop-types';
 import PageHeader from '../../components/PageHeader';
-import ContactForm from '../../components/Contact/ContactForm';
 import RChat from '../../components/RChat';
 import ChatsListScreen from '../../components/ChatsListScreen';
 
-const InfoDashboardPage = props => {
-  console.log('props for Messages page => ', props);
-
-  const { data, loading, error } = props.appData.currentUser;
-
-  const me = data ? data.me : null;
+const MessagesPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -28,4 +22,10 @@ const InfoDashboardPage = props => {
   );
 };
 
-export default InfoDashboardPage;
+MessagesPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default MessagesPage;

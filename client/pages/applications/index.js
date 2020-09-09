@@ -1,11 +1,9 @@
+import PropTypes from 'prop-types';
 import RentalApplications from '../../components/RentalApplications.js/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import PageHeader from '../../components/PageHeader';
 
-const RentalApplicationsPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const RentalApplicationsPage = ({ appData: { currentUser } }) => {
   return (
     <div>
       <PageHeader
@@ -23,6 +21,12 @@ const RentalApplicationsPage = props => {
       </PleaseSignIn>
     </div>
   );
+};
+
+RentalApplicationsPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default RentalApplicationsPage;

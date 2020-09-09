@@ -1,11 +1,8 @@
+import PropTypes from 'prop-types';
 import PageHeader from '../components/PageHeader';
 import ContactForm from '../components/Contact/ContactForm';
 
-const ContactPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-
+const ContactPage = () => {
   return (
     <>
       <PageHeader
@@ -21,5 +18,7 @@ const ContactPage = props => {
     </>
   );
 };
+
+ContactPage.propTypes = {};
 
 export default ContactPage;

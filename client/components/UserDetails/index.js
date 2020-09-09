@@ -1,27 +1,17 @@
-import React, { Fragment, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import {
+  ListItem,
+  ListItemSecondaryAction,
+  Avatar,
+  ListItemText,
+  ListItemAvatar,
+} from '@material-ui/core';
+
 // components
 import UserMenu from './UserMenu';
-// icons
-import DeleteIcon from '../../styles/icons/DeleteIcon';
-import FolderIcon from '@material-ui/icons/Folder';
-import MoreVertIcon from '../../styles/icons/MoreVertIcon';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+import PropTypes from 'prop-types';
+import { mePropTypes, filePropTypes } from '../../propTypes';
 
 const UserDetails = ({ me, user }) => {
   const fullname = user.firstName + ' ' + user.lastName;
@@ -39,6 +29,17 @@ const UserDetails = ({ me, user }) => {
       </ListItemSecondaryAction>
     </ListItem>
   );
+};
+
+UserDetails.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    profilePhoto: filePropTypes,
+  }),
+  me: mePropTypes,
 };
 
 export default UserDetails;

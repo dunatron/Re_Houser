@@ -1,17 +1,14 @@
-import React, { useState, useRef } from 'react';
-import PleaseSignIn from '../../components/PleaseSignIn';
-import FileUploader from '../../components/FileUploader';
-import { Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
+
 //components
 import PageHeader from '../../components/PageHeader';
 // admin components
 import AdminSettings from '../../admin-components/AdminSettings';
 import AdminOnly from '../../components/AdminOnly';
 
-const SettingsPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const AdminSettingsPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -22,11 +19,17 @@ const SettingsPage = props => {
           content: 'Admin settings for subscriptions',
         }}
       />
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
-        <AdminSettings me={currentUser.me} />
+      <AdminOnly me={me}>
+        <AdminSettings me={me} />
       </AdminOnly>
     </>
   );
 };
 
-export default SettingsPage;
+AdminSettingsPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default AdminSettingsPage;

@@ -1,15 +1,10 @@
-import AppraisalManager from '../../../admin-components/AppraisalManager';
+import PropTypes from 'prop-types';
 import PageHeader from '../../../components/PageHeader';
-import { Typography } from '@material-ui/core';
 import InspectionsTable from '../../../components/Tables/InspectionsTable';
-
-import { isAdmin } from '../../../lib/isAdmin';
 import AdminOnly from '../../../components/AdminOnly';
 
-const AppraisalsPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const AdminInspectionsPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -21,9 +16,9 @@ const AppraisalsPage = props => {
             'View all system inspections so we never miss an inspection or fail to inform people of incoming inspections',
         }}
       />
-      <AdminOnly me={currentUser.data ? currentUser.data.me : {}}>
+      <AdminOnly me={me}>
         <InspectionsTable
-          me={currentUser.data ? currentUser.data.me : {}}
+          me={me}
           where={
             {
               // completed: false,
@@ -35,4 +30,10 @@ const AppraisalsPage = props => {
   );
 };
 
-export default AppraisalsPage;
+AdminInspectionsPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+};
+
+export default AdminInspectionsPage;

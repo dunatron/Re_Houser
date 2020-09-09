@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connectHits } from 'react-instantsearch-dom';
 import FriendRequestButton from '../MutationButtons/FriendRequestButton';
 import UserDetails from '../UserDetails';
 
-const CustomHits = props => {
-  const { hits, me } = props;
+import mePropTypes from '../../propTypes/mePropTypes';
+
+const CustomHits = ({ hits, me }) => {
   return (
     <div className="a-search__hits">
       {hits.map((hit, i) => (
@@ -29,5 +31,15 @@ const UserHit = ({ hit, me }) => {
 };
 
 const CustomHitsConnection = connectHits(CustomHits);
+
+CustomHits.propTypes = {
+  hits: PropTypes.array,
+  me: mePropTypes,
+};
+
+UserHit.propTypes = {
+  hit: PropTypes.object.isRequired,
+  me: mePropTypes,
+};
 
 export default CustomHitsConnection;

@@ -1,23 +1,27 @@
+import PropTypes from 'prop-types';
 import PropertyDetails from '../../../components/PropertyDetails/index';
 import PleaseSignIn from '../../../components/PleaseSignIn';
-import PageHeader from '../../../components/PageHeader';
 
-const Item = props => {
-  const {
-    appData: { currentUser },
-    query,
-  } = props;
-
+const PropertyPage = ({ appData: { currentUser }, query: { id } }) => {
   return (
     <>
       {/* PageHeader is on this component */}
       <PleaseSignIn
         currentUser={currentUser}
         message="You must be signed in to manage this property">
-        <PropertyDetails id={props.query.id} />
+        <PropertyDetails id={id} />
       </PleaseSignIn>
     </>
   );
 };
 
-export default Item;
+PropertyPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+  query: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+};
+
+export default PropertyPage;

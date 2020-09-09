@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Tooltip, Typography } from '@material-ui/core';
 import Modal from '../Modal';
 
+import PropTypes from 'prop-types';
+import { mePropTypes, filePropTypes } from '../../propTypes';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -44,6 +47,17 @@ const UserProfile = ({ user, me }) => {
       </div>
     </>
   );
+};
+
+UserProfile.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+    profilePhoto: filePropTypes,
+  }),
+  me: mePropTypes,
 };
 
 export default UserProfile;

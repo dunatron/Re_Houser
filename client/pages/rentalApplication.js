@@ -1,21 +1,28 @@
 import React, { Component, Suspense } from 'react';
+import PropTypes from 'prop-types';
 
 import RentalApplicationStepper from '../components/RentalApplicationStepper';
 import PleaseSignIn from '../components/PleaseSignIn';
 
-const RentalApplication = props => {
-  const {
-    appData: { currentUser },
-    query,
-  } = props;
+const RentalApplicationPage = ({
+  appData: { currentUser },
+  query: { applicationId },
+}) => {
+  const me = currentUser.data ? currentUser.data.me : null;
 
   return (
     <PleaseSignIn currentUser={currentUser}>
-      <RentalApplicationStepper
-        applicationId={query.applicationId}
-        me={currentUser.data ? currentUser.data.me : null}
-      />
+      <RentalApplicationStepper applicationId={applicationId} me={me} />
     </PleaseSignIn>
-  ); // Notice its a page so we need to spread page props.
+  );
 };
-export default RentalApplication;
+
+RentalApplicationPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
+  query: PropTypes.shape({
+    applicationId: PropTypes.string,
+  }),
+};
+export default RentalApplicationPage;

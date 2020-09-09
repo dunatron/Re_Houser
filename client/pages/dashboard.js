@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Dashboard from '../components/Dashboard/index';
 import PleaseSignIn from '../components/PleaseSignIn';
 
@@ -7,10 +8,7 @@ import Head from 'next/head';
 import { SITE_NAME } from '../lib/const';
 import PageHeader from '../components/PageHeader';
 
-const DashboardPage = props => {
-  const {
-    appData: { currentUser },
-  } = props;
+const DashboardPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
@@ -40,6 +38,12 @@ const DashboardPage = props => {
       </PleaseSignIn>
     </>
   );
+};
+
+DashboardPage.propTypes = {
+  appData: PropTypes.shape({
+    currentUser: PropTypes.object.isRequired,
+  }),
 };
 
 export default DashboardPage;

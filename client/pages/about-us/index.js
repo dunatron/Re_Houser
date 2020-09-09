@@ -1,12 +1,10 @@
-import ComingSoon from '../../components/ComingSoon';
+import PropTypes from 'prop-types';
 import TeamComponent from '../../components/Team';
-import Head from 'next/head';
 import { SITE_NAME } from '../../lib/const';
 import PageHeader from '../../components/PageHeader';
-import { Typography } from '@material-ui/core';
 import TeamInfoText from '../../components/Team/TeamInfoText';
 
-const TeamInfoPage = () => {
+const AboutUsPage = () => {
   return (
     <>
       <PageHeader
@@ -15,11 +13,13 @@ const TeamInfoPage = () => {
           title: `${SITE_NAME} | About Us`,
           content: `${SITE_NAME} team who make the platform happen`,
         }}
-        children={[<TeamInfoText />]}
+        children={[<TeamInfoText key={1} />]}
       />
       <TeamComponent />
     </>
   );
 };
 
-export default TeamInfoPage;
+AboutUsPage.propTypes = {};
+
+export default AboutUsPage;

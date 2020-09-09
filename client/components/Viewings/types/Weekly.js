@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Typography } from '@material-ui/core';
 
@@ -34,6 +35,12 @@ const WeeklyViewing = ({ viewing, ...rest }) => {
       </Typography>
     </div>
   );
+};
+
+WeeklyViewing.propTypes = {
+  viewing: PropTypes.shape({
+    dateTime: PropTypes.string,
+  }),
 };
 
 export default WeeklyViewing;
