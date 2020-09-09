@@ -10,35 +10,21 @@ import React, {
 } from 'react';
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import clsx from 'clsx';
-import {
-  Paper,
-  Button,
-  IconButton,
-  CircularProgress,
-  Typography,
-} from '@material-ui/core';
+import { Paper, Button, IconButton, Typography } from '@material-ui/core';
 
 import { toast } from 'react-toastify';
 
 import Dropzone from './Dropzone';
 import FileActions from './FileActions';
 import FilePreviewer from './FilePreviewer';
-import UploadFileButton from './UploadFileButton';
-// import './index.css';
-import Progress from './Progress';
+
 import Error from '../ErrorMessage';
 import errorAlert from '../../lib/errorAlert';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import useUploadStyles from './UploadStyles';
-import UploadIcon from '@material-ui/icons/CloudUploadOutlined';
-import TrashIcon from '@material-ui/icons/DeleteOutlined';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForeverOutlined';
-import ViewIcon from '@material-ui/icons/VisibilityOutlined';
-import CheckIcon from '@material-ui/icons/Check';
+
 import FlipToBackIcon from '@material-ui/icons/FlipToBackOutlined';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFrontOutlined';
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
 import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
 
 // https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2
@@ -74,34 +60,13 @@ const DELETE_FILE_MUTATION = gql`
   }
 `;
 
-const UPLOAD_FILES_MUTATION = gql`
-  mutation($files: [Upload!]!) {
-    uploadFiles(files: $files) {
-      id
-      updatedAt
-      createdAt
-      filename
-      mimetype
-      encoding
-      url
-      ...fileInfo
-    }
-  }
-  ${FileInfoFragment}
-`;
-// type: 'ADD_TODO',
-
 const reducer = (state, action) => {
   switch (action.type) {
-    // Note put the min into here
     case 'ADD_FILES':
-      // combine the state
       return {
         ...state,
         files: [
           ...state.files,
-
-          // ...action.payload.files,
           ...action.payload.files.map((file, idx) => ({
             ...file,
             id: uuid(),
@@ -120,7 +85,7 @@ const reducer = (state, action) => {
     case 'START_LOADER':
       return {
         ...state,
-        files: state.files.map(f =>
+        files: state.files.map((f, idx) =>
           idx === action.payload.idx ? { ...f, loading: true } : f
         ),
       };
@@ -209,8 +174,6 @@ const reducer = (state, action) => {
 
 const UploadFile = forwardRef((props, ref) => {
   const {
-    flip,
-    removeFile,
     serverFiles,
     remove,
     store,
@@ -222,19 +185,13 @@ const UploadFile = forwardRef((props, ref) => {
   const client = useApolloClient();
   const multiple = true;
   const classes = useUploadStyles();
-  // const [store, dispatch] = useReducer(reducer, {
-  //   files: [],
-  //   errors: [],
-  //   recentlyUploaded: [],
-  //   uploadedCount: 0,
-  // });
-  const { files, errors, recentlyUploaded, uploadedCount, removingIds } = store;
+
+  const { files, recentlyUploaded, uploadedCount, removingIds } = store;
 
   // serverFiles Length + files length
   const totalFileCount = files.length + serverFiles.length;
 
   // when server files chnages we need to remove the from the files state
-
   useImperativeHandle(ref, () => ({
     getAlert() {
       alert('getAlert from Child');
@@ -243,12 +200,7 @@ const UploadFile = forwardRef((props, ref) => {
 
   const clientFilenames = files.map(f => f.raw.name);
 
-  const clientFileIds = files.map(f => f.id);
-
   const isLoadingAFile = files.some(f => f.loading === true);
-
-  const hasFilesToUpload =
-    files.filter(f => f.uploadCompleted === false).length >= 1 ? true : false;
 
   const hasAFileToUpload =
     files.filter(f => f.uploadCompleted === false).filter(f => !f.error)
@@ -352,11 +304,6 @@ const UploadFile = forwardRef((props, ref) => {
     });
   };
 
-  const uploadSingleFile = idx => {
-    const singleFileAtIndex = files[idx];
-    handleFileUpload(singleFileAtIndex, idx);
-  };
-
   const paperClasses = clsx({
     [classes.flipCard]: true,
     [classes.upload]: true,
@@ -410,11 +357,9 @@ const UploadFile = forwardRef((props, ref) => {
                     }}
                     isRemoving={isRemoving}
                     removingIds={removingIds}
-                    // deleteForever={handleDeleteForever}
                     deleteForever={remove}
                   />
                   <span className={classes.filename}>{f.raw.name}</span>{' '}
-                  {/* <Error key={idx} error={f.error} /> */}
                 </div>
                 {f.error && <Error key={idx} error={f.error} />}
               </>
@@ -444,7 +389,6 @@ const UploadFile = forwardRef((props, ref) => {
           <Typography variant="body2">
             These files will be connected when you upload the form
           </Typography>
-          {/* serverFile */}
           {/* Recently Added */}
           {files
             .filter(f => f.uploadCompleted)
@@ -468,7 +412,6 @@ const UploadFile = forwardRef((props, ref) => {
           />
         </div>
       )}
-
       {/* Attached Files */}
       {serverFiles.length > 0 && (
         <div
@@ -502,14 +445,8 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
   );
 };
 
-const UploadedServerFiles = ({
-  serverFiles,
-  flip,
-  remove,
-  store,
-  isRemoving,
-}) => {
-  const { files, errors, recentlyUploaded, uploadedCount, removingIds } = store;
+const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
+  const { removingIds } = store;
   const classes = useUploadStyles();
 
   const paperClasses = clsx({
@@ -529,14 +466,12 @@ const UploadedServerFiles = ({
 
 //remove gets fed into here
 const FileManager = props => {
-  const client = useApolloClient();
   const {
     title,
     description,
     files,
     maxFilesAllowed,
-    recieveFile,
-    removeFile,
+
     fileRemovedFromServer,
     refetchQueries,
     updateCacheOnRemovedFile,
@@ -563,25 +498,8 @@ const FileManager = props => {
     uploadedCount: 0,
     removingIds: [],
   });
-  // const { files, errors, recentlyUploaded, uploadedCount } = store;
-  const classes = useUploadStyles();
 
   const handleFileSuccessfullyRemovedFromServer = data => {
-    // console.log('Here is the data removed from server => ', data);
-    // console.log('client=> ', client);
-    // client.cache.data.delete(data.deleteFile.id);
-
-    // Object.keys(client.cache.data).forEach(
-    //   key => key.match(/^File/) && client.cache.data.delete(key)
-    // );
-
-    // OK TODO AND TOTEST we have finally reached a stable release for apollo client 3.0
-    // test that we dont have to refetch the queries
-
-    // client.cache.gc();
-    // This still only handle it for the component. e.g removing the photoIdentification doesnt update t in account if you do it from the stepper
-    // need to find it from initialFiles and removit
-    // cache.data.delete(key)
     fileRemovedFromServer && fileRemovedFromServer(data.deleteFile);
     setState({
       ...state,
@@ -601,7 +519,6 @@ const FileManager = props => {
         id: data.deleteFile.id,
       },
     });
-    // props.removeFile(res.data.deleteFile);
   };
 
   const [deleteFile, { data, loading, error }] = useMutation(
@@ -680,17 +597,6 @@ const FileManager = props => {
     </>
   );
 };
-
-// title,
-//     description,
-//     files,
-//     maxFilesAllowed,
-//     recieveFile,
-//     removeFile,
-//     fileRemovedFromServer,
-//     refetchQueries,
-//     updateCacheOnRemovedFile,
-//     fileParams,
 
 //https://cloudinary.com/documentation/image_upload_api_reference#required_parameters
 FileManager.propTypes = {

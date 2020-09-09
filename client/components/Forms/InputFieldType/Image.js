@@ -1,20 +1,9 @@
+import React from 'react';
 import Image from 'material-ui-image';
 
 const ImageField = props => {
-  const {
-    config,
-    onChange,
-    register,
-    errors,
-    getValues,
-    setValue,
-    reset,
-    defaultValues,
-    defaultValue,
-    updateCacheOnRemovedFile,
-    fieldError,
-  } = props;
-  const { type, fieldProps, refConf } = config;
+  const { config } = props;
+  const { fieldProps } = config;
   return <Image {...fieldProps} />;
 };
 

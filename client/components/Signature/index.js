@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Typography, Button, IconButton } from '@material-ui/core';
-import clsx from 'clsx';
+import { Typography, Button, IconButton } from '@material-ui/core';
 
 import SignatureCanvas from 'react-signature-canvas';
 import { useMutation } from '@apollo/client';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
 import { useCurrentUser } from '../User';
-import {
-  UPDATE_USER_MUTATION,
-  UPLOAD_SIGNATURE_FILE,
-} from '../../graphql/mutations/index';
+import { UPLOAD_SIGNATURE_FILE } from '../../graphql/mutations/index';
 import Error from '../ErrorMessage';
 import { StyledButton, ButtonLoader } from '../Loader/ButtonLoader';
-import { border } from '@material-ui/system';
 import { toast } from 'react-toastify';
 import { css } from 'glamor';
 import Image from 'material-ui-image';
@@ -29,13 +23,20 @@ const SignatureComponent = () => {
   const classes = useStyles();
 
   // canvas pen settings
-  const [velocityFilterWeight, setVelocityFilterWeight] = useState(0.7); // default: 0.7
-  const [minWidth, setMinWidth] = useState(0.5); // default: 0.5
-  const [maxWidth, setMaxWidth] = useState(2.5); // default: 2.5
-  const [minDistance, setMinDistance] = useState(5); // default: 5
-  const [dotSize, setDotSize] = useState(0.7); // default: () => (this.minWidth + this.maxWidth) / 2
-  const [penColor, setPenColor] = useState('black'); // default: 'black'
-  const [throttle, setThrottle] = useState(16); // default: 16
+  // const [velocityFilterWeight, setVelocityFilterWeight] = useState(0.7); // default: 0.7
+  // const [minWidth, setMinWidth] = useState(0.5); // default: 0.5
+  // const [maxWidth, setMaxWidth] = useState(2.5); // default: 2.5
+  // const [minDistance, setMinDistance] = useState(5); // default: 5
+  // const [dotSize, setDotSize] = useState(0.7); // default: () => (this.minWidth + this.maxWidth) / 2
+  // const [penColor, setPenColor] = useState('black'); // default: 'black'
+  // const [throttle, setThrottle] = useState(16); // default: 16
+  const velocityFilterWeight = 0.7; // default: 0.7
+  const minWidth = 0.5; // default: 0.5
+  const maxWidth = 2.5; // default: 2.5
+  const minDistance = 5; // default: 5
+  const dotSize = 0.7; // default: () => (this.minWidth + this.maxWidth) / 2
+  const penColor = 'black'; // default: 'black'
+  const throttle = 16; // default: 16
 
   const currentUser = useCurrentUser();
 
@@ -64,7 +65,7 @@ const SignatureComponent = () => {
       }
     );
   };
-  const [uploadSignature, { loading, error, data, called }] = useMutation(
+  const [uploadSignature, { loading, error, called }] = useMutation(
     UPLOAD_SIGNATURE_FILE,
     {
       // refetchQueries: [{ query: CURRENT_USER_QUERY }],

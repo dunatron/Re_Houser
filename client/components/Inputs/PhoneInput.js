@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 
 // https://github.com/bl00mber/react-phone-input-2

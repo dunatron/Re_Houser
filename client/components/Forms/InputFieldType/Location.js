@@ -11,16 +11,7 @@ import FieldError from './FieldError';
 const useStyles = makeStyles(theme => ({}));
 
 const Location = props => {
-  const classes = useStyles();
-
   const {
-    __type,
-    values,
-    defaultValue,
-    label,
-    selectID,
-    handleChange,
-    removeItem,
     register,
     config,
     setValue, // is from useForm
@@ -36,11 +27,6 @@ const Location = props => {
   const [placeId, setPlaceId] = useState(
     rawData ? rawData[config.fieldProps.fieldMaps['placeId']] : null
   );
-
-  if (!fieldProps) return 'This form component needs fieldProps';
-  if (!fieldProps.fieldMaps) {
-    return 'This form component needs fieldProps.fieldMaps to know how to map the values to your prisma ready object';
-  }
 
   const defaultLocation = {
     placeId: rawData ? rawData[config.fieldProps.fieldMaps['placeId']] : null,
@@ -59,12 +45,17 @@ const Location = props => {
         register({ name: value }, { ...config.refConf });
       }
     }
-  }, [register]);
+  }, [register, config.fieldProps.fieldMaps, mapToObjectKey, config.refConf]);
 
   const canDisplayInner = () => {
     if (!placeId) return false;
     return true;
   };
+
+  if (!fieldProps) return 'This form component needs fieldProps';
+  if (!fieldProps.fieldMaps) {
+    return 'This form component needs fieldProps.fieldMaps to know how to map the values to your prisma ready object';
+  }
 
   return (
     <>

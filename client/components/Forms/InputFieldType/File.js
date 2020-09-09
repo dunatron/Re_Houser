@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import FileUploader from './../../FileUploader';
-import { useForm } from 'react-hook-form';
-import { isEmpty, is } from 'ramda';
 import FieldError from './FieldError';
 import InputFieldType from './index';
 
-const useStyles = makeStyles(theme => ({}));
-
 const File = props => {
-  const classes = useStyles();
   const {
-    __type,
-    values,
-    defaultValue,
-    label,
-    selectID,
-    handleChange,
-    removeItem,
     register,
     config,
     setValue, // is from useForm
@@ -25,21 +12,20 @@ const File = props => {
     reset,
     errors,
     defaultValues,
-    extractErrorFromErrors,
     refetchQueries,
     folder,
   } = props;
 
   const [hasRecievedAFile, setHasRecievedAFile] = useState();
 
+  const filesData = defaultValues[config.key];
+
   // we essentially dont want to set any files that have already been added
-  const { fieldProps, refConf, inners } = config;
+  const { fieldProps, inners } = config;
 
-  const [serverFiles, setServerFiles] = useState(
-    is(Array, filesData) ? [...filesData] : []
-  );
-
-  if (!fieldProps) return 'This form component needs fieldProps';
+  // const [serverFiles, setServerFiles] = useState(
+  //   is(Array, filesData) ? [...filesData] : []
+  // );
 
   useEffect(() => {
     if (config.refConf) {
@@ -63,8 +49,6 @@ const File = props => {
     }
     setHasRecievedAFile(true);
   };
-
-  const filesData = defaultValues[config.key];
 
   const canDisplayInner = () => {
     // if files is greater than 1 then expose the inners...
@@ -91,6 +75,8 @@ const File = props => {
 
     return folderName;
   };
+
+  if (!fieldProps) return 'This form component needs fieldProps';
 
   const fileParams = fieldProps.fileParams ? fieldProps.fileParams : {};
 

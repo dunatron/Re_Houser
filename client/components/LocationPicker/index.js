@@ -1,21 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Head from 'next/head';
-import Geosuggest from 'react-geosuggest';
-// import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 import Map from '../Map/index';
-import SelectOption from '../Inputs/SelectOption';
-// Advanced Expansion
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { CountryCodesArray } from '../../lib/countryCodes';
-import { LOCATION_TYPES } from '../../lib/locationTypes';
-import { WORLD_FIXTURES } from '../../lib/locationFixtures';
-import StyledGeoSuggest from '../../styles/GeoSuggest';
 
-import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import StyledGeoSuggest from '../../styles/GeoSuggest';
 
 // icons
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -103,15 +90,6 @@ const LocationPicker = ({ selection, defaultLocation }) => {
         location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
         radius="20"
       />
-
-      {/* <button onClick={() => geosuggestEl.current.focus()}>Focus</button>
-      <button onClick={() => geosuggestEl.current.update('New Zealand')}>
-        Update
-      </button>
-      <button onClick={() => geosuggestEl.current.clear()}>Clear</button>
-      <button onClick={() => geosuggestEl.current.selectSuggest()}>
-        Search
-      </button> */}
       {state.showMap && state.desc && (
         <Map
           center={{

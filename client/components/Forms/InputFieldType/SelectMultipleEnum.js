@@ -43,12 +43,9 @@ const SelectMultipleEnum = props => {
   const classes = useStyles();
   const {
     __type,
-    values,
     defaultValues,
     label,
     selectID,
-    handleChange,
-    removeItem,
     register,
     config,
     setValue, // is from useForm
@@ -56,7 +53,7 @@ const SelectMultipleEnum = props => {
     helperText,
   } = props;
 
-  const { type, inners, fieldProps, refConf } = config;
+  const { fieldProps, refConf } = config;
   const defaultValue = defaultValues[fieldProps.name];
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {
@@ -64,14 +61,7 @@ const SelectMultipleEnum = props => {
     },
   });
 
-  if (!fieldProps) return 'This form component needs fieldProps';
-  if (!fieldProps.name)
-    return 'This form component also needs a name under field.props.name';
-
-  // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
   useEffect(() => {
-    console.log('Multiple Input: default value => ', defaultValues);
-    console.log('Multiple Input: name => ', fieldProps.name);
     register({ name: fieldProps.name }, refConf);
     if (defaultValue) {
       setValue(fieldProps.name, defaultValue);
@@ -79,6 +69,8 @@ const SelectMultipleEnum = props => {
       setValue(fieldProps.name, []);
     }
   }, [register]);
+
+  // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
 
   if (error) return <Error error={error} />;
 

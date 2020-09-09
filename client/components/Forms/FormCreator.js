@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { isEmpty, is } from 'ramda';
 import Errors from '../ErrorMessage';
-
 import InputFieldType from './InputFieldType/index';
-import moment from 'moment';
-import Button from '@material-ui/core/Button';
+import { Typography, Button } from '@material-ui/core';
 import FormErrors from './FormErrors';
 import formatData from './formatters/formatData';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 import { useCurrentUser } from '../User';
 import { toast } from 'react-toastify';
-
-// const configisNotEmpty = config => {
-//   if (isEmpty(config)) return true;
-//   return false;
-// };
 
 const configIsValid = config => {
   if (isEmpty(config)) return false;
@@ -35,17 +27,6 @@ const extractKeyType = obj => {
   };
 };
 
-/**
- * I'm at your face like NamKhan, and you can not reach me on my Samsung,
- * I'm busy fucking the world, and gicung the universe my damned tounge
- */
-
-/**
- *
- * ToDo: needs a lot of attention and a smart decision
- * it basically takes the key and type from a config object and makes sure its type is converted properly between pre and post data
- * I'm possibly trying to make it not fail when editing a config in the docs
- */
 const getKeyTypes = conf => {
   if (isEmpty(conf)) return {};
   if (conf == undefined) return {};
@@ -63,9 +44,7 @@ const FormCreator = props => {
     isNew,
     posting,
     error,
-    fileRemovedFromServer,
     updateCacheOnRemovedFile,
-    forceFormUpdates,
     createText,
     updateText,
     refetchQueries,
@@ -98,8 +77,6 @@ const FormCreator = props => {
     handleWatchChanges(watch(watchFields));
   }
 
-  // know how to get it when i need that money
-
   const canSubmit = () => {
     var can = true;
     config.forEach(item => {
@@ -121,13 +98,10 @@ const FormCreator = props => {
   };
 
   const onSubmit = data => {
-    console.log('Form Raw Data => ', data);
-
     if (!canSubmit()) return;
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
-    console.log('postFormattedFormData => ', postFormattedFormData);
     props.onSubmit(postFormattedFormData);
-  }; // submission when input are valid
+  };
 
   const _createText = () => {
     if (createText) return createText;
@@ -140,20 +114,35 @@ const FormCreator = props => {
   };
 
   useEffect(() => {
+    // maybe you can get the default form values
     return () => {
+      // get the values from useForm and save it somewhere when component dismounts
+      // ahhh hmmmm, well lets have something called. FormContext.
+      // basically we will give formCreators a unique key and they will greate objects and values etc. Genius I know.
+      // To think about is if we post format. I dont think we do. Its for like creating and shit right.
+      // mmm not true. I think maybe we do want to postFormat and preFormat
       const formValsToSave = getValues();
+      alert('ToDo: CreateForm COntext which will handle all form values');
       console.log('formValsToSave => ', formValsToSave);
       // Maybe a bit of a caveat here and will have to be robust
       // ie. saving the form type to redux. if persistState = true
       // Also perhaps a flag to say submitted? Would we have a clear? and a reset?
       // clear would clear out the form. reset would reset to default state like, bank account and prefilled vals based on account
     };
-  }, []);
+  });
 
-  console.log('THE FOLDER NAME => ', folder);
+  // useEffect(() => {
+  //   return () => {
+  //     const formValsToSave = getValues();
+  //     console.log('formValsToSave => ', formValsToSave);
+  //     // Maybe a bit of a caveat here and will have to be robust
+  //     // ie. saving the form type to redux. if persistState = true
+  //     // Also perhaps a flag to say submitted? Would we have a clear? and a reset?
+  //     // clear would clear out the form. reset would reset to default state like, bank account and prefilled vals based on account
+  //   };
+  // }, []);
 
   return (
-    // <form onSubmit={handleSubmit(onSubmit)}>
     <>
       <div
         style={{

@@ -61,14 +61,14 @@ export default function SimpleSelect(props) {
     is(Array, defaultValue) ? defaultValue : []
   );
 
-  if (!fieldProps) return 'This form component needs fieldProps';
-
   useEffect(() => {
     register({ name: fieldProps.name }, refConf);
     if (defaultValue) {
       setValue(fieldProps.name, 'TOWNHOUSE');
     }
-  }, []);
+  }, [fieldProps, defaultValue]);
+
+  if (!fieldProps) return 'This form component needs fieldProps';
 
   if (error) return <Error error={error} />;
 

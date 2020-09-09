@@ -1,22 +1,9 @@
+import React from 'react';
 import TextInput from '../../Inputs/TextInput';
 
 const DateTimeInput = props => {
-  const {
-    config,
-    onChange,
-    register,
-    errors,
-    getValues,
-    setValue,
-    reset,
-    defaultValues,
-    defaultValue,
-    updateCacheOnRemovedFile,
-    fieldError,
-  } = props;
-  const { type, fieldProps, refConf } = config;
-  const name = fieldProps ? fieldProps.name : null;
-  const label = fieldProps ? fieldProps.label : null;
+  const { config, register, defaultValue, fieldError } = props;
+  const { fieldProps, refConf } = config;
   return (
     <TextInput
       variant="outlined"

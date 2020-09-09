@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useMutation, gql } from '@apollo/client';
-import { Paper, Button, IconButton, CircularProgress } from '@material-ui/core';
+import React from 'react';
+import { IconButton, CircularProgress } from '@material-ui/core';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +8,7 @@ import { green, red } from '@material-ui/core/colors';
 
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import UploadIcon from '@material-ui/icons/CloudUploadOutlined';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   wrapper: {
-    // margin: theme.spacing(1),
     position: 'relative',
   },
   buttonSuccess: {
@@ -44,20 +43,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft: -12,
   },
 }));
-
-import UploadIcon from '@material-ui/icons/CloudUploadOutlined';
-
-const SINGLE_UPLOAD = gql`
-  mutation($file: Upload!) {
-    singleUpload(file: $file) {
-      id
-      filename
-      mimetype
-      encoding
-      url
-    }
-  }
-`;
 
 const UploadFileButton = props => {
   const { uploadCompleted } = props;

@@ -1,19 +1,11 @@
+import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import InputFieldType from './index';
 
 const FormSection = props => {
-  const {
-    register,
-    config,
-    errors,
-    errorMessage,
-    setValue,
-    reset,
-    defaultValue,
-  } = props;
-  const { type, inners, fieldProps, refConf } = config;
-  const { name, label } = fieldProps;
-  const { options } = fieldProps;
+  const { register, config, errors } = props;
+  const { inners, fieldProps } = config;
+  const { label } = fieldProps;
   return (
     <Paper style={{ padding: '8px' }}>
       {label && (

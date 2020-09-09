@@ -1,43 +1,23 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import Error from './FieldError';
 import FieldError from './FieldError';
 
 const CaptchaField = props => {
-  const {
-    config,
-    onChange,
-    register,
-    errors,
-    getValues,
-    setValue,
-    clearError,
-    reset,
-    defaultValues,
-    defaultValue,
-    updateCacheOnRemovedFile,
-  } = props;
-  const { type, fieldProps, refConf } = config;
+  const { config, register, errors, setValue } = props;
+  const { fieldProps } = config;
   const name = fieldProps ? fieldProps.name : null;
-  const label = fieldProps ? fieldProps.label : null;
 
   const recaptchaRef = useRef();
 
-  const clearRecaptcha = () => recaptchaRef.current.reset();
+  // const clearRecaptcha = () => recaptchaRef.current.reset();
 
-  const handleTokenChange = token => {
-    console.log('A token change => ', token);
-    console.log('Name of token field => ', name);
+  const handleTokenChange = token =>
     setValue(name, token, { shouldValidate: true, shouldDirty: true });
-    // setValue('WTD', 'captchaToken');
-
-    // clearError(name);
-  };
 
   useEffect(() => {
     register({ name: name }, { ...config.refConf });
     return () => {};
-  }, []);
+  }, [config.refConf, name, register]);
 
   return (
     <>

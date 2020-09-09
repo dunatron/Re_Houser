@@ -6,7 +6,7 @@ menu: Components
 import { Playground, Props } from 'docz'
 import FormCreator from "./FormCreator"
 import InputFieldType from './InputFieldType'
-import INSULATION_FORM_CONF from './InsulationStatementForm/fieldsConf'
+import INSULATION_FORM_CONF from '../../lib/configs/InsulationStatementForm'
 
 # Forms
 

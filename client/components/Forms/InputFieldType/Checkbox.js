@@ -1,23 +1,12 @@
+import React from 'react';
 import { FormControlLabel, Checkbox } from '@material-ui/core';
 
 import { InputFieldType } from './index';
 
 const CheckboxFormInput = props => {
-  const {
-    config,
-    onChange,
-    register,
-    errors,
-    getValues,
-    setValue,
-    reset,
-    defaultValues,
-    defaultValue,
-    updateCacheOnRemovedFile,
-  } = props;
-  const { type, fieldProps, refConf } = config;
+  const { config, register, errors, setValue, defaultValue } = props;
+  const { fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
-  const label = fieldProps ? fieldProps.label : null;
 
   return (
     <>
