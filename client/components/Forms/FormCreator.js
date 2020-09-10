@@ -60,6 +60,7 @@ const FormCreator = props => {
 
   const {
     register,
+    unregister,
     handleSubmit,
     errors,
     setValue,
@@ -122,7 +123,7 @@ const FormCreator = props => {
       // To think about is if we post format. I dont think we do. Its for like creating and shit right.
       // mmm not true. I think maybe we do want to postFormat and preFormat
       const formValsToSave = getValues();
-      alert('ToDo: CreateForm COntext which will handle all form values');
+      // alert('ToDo: CreateForm COntext which will handle all form values');
       console.log('formValsToSave => ', formValsToSave);
       // Maybe a bit of a caveat here and will have to be robust
       // ie. saving the form type to redux. if persistState = true
@@ -131,16 +132,7 @@ const FormCreator = props => {
     };
   });
 
-  // useEffect(() => {
-  //   return () => {
-  //     const formValsToSave = getValues();
-  //     console.log('formValsToSave => ', formValsToSave);
-  //     // Maybe a bit of a caveat here and will have to be robust
-  //     // ie. saving the form type to redux. if persistState = true
-  //     // Also perhaps a flag to say submitted? Would we have a clear? and a reset?
-  //     // clear would clear out the form. reset would reset to default state like, bank account and prefilled vals based on account
-  //   };
-  // }, []);
+  // clearError('test');
 
   return (
     <>
@@ -157,6 +149,7 @@ const FormCreator = props => {
                   config={item}
                   key={idx}
                   register={register}
+                  unregister={unregister}
                   reset={reset}
                   errors={errors}
                   setValue={setValue}
@@ -197,7 +190,7 @@ const FormCreator = props => {
 FormCreator.propTypes = {
   config: PropTypes.shape({
     forEach: PropTypes.func,
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   createText: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
@@ -212,7 +205,7 @@ FormCreator.propTypes = {
   title: PropTypes.any.isRequired,
   updateCacheOnRemovedFile: PropTypes.any.isRequired,
   updateText: PropTypes.any.isRequired,
-  watchFields: PropTypes.array.isRequired
+  watchFields: PropTypes.array.isRequired,
 };
 
 export { FormCreator };

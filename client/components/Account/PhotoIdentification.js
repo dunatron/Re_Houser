@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
@@ -64,8 +64,6 @@ const PhotoIdentification = props => {
   const { me } = props;
   const { photoIdentification } = me;
 
-  'PhotoIdentification props => ', props;
-
   const [updateUser, { loading, error, data }] = useMutation(
     UPDATE_USER_MUTATION,
     {
@@ -102,8 +100,7 @@ const PhotoIdentification = props => {
         forceFormUpdates={true}
         refetchQueries={refetchQueries}
         updateCacheOnRemovedFile={(cache, result) => {}}
-        onSubmit={data => {
-          console.log('DATA FOR UPDATE USER PHOTO ID => ', data);
+        onSubmit={data =>
           updateUser({
             variables: {
               data: {
@@ -111,8 +108,8 @@ const PhotoIdentification = props => {
               },
             },
             refetchQueries: refetchQueries,
-          });
-        }}
+          })
+        }
         isNew={photoIdentification ? true : false}
         title="Photo Identification Form"
       />
@@ -123,8 +120,9 @@ const PhotoIdentification = props => {
 PhotoIdentification.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
-    identificationNumber: PropTypes.any
+    identificationNumber: PropTypes.any,
+    photoIdentification: PropTypes.object
   }).isRequired
-}
+};
 
 export default PhotoIdentification;

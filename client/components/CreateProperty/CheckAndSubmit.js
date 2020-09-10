@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FormCreator } from '../Forms';
 import { useMutation } from '@apollo/client';
@@ -23,6 +23,20 @@ import Error from '../../components/ErrorMessage';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
+
+// hmmm i thought it would be an array?
+const connectFiles = files =>
+  Object.entries(files).reduce(
+    (a, [k, v]) => ({
+      [k]: {
+        connect: {
+          id: v.id,
+        },
+      },
+      ...a,
+    }),
+    {}
+  );
 
 const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   const handleCompleted = data => {
@@ -64,20 +78,23 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
               id: me.id,
             },
           },
+          // files: {
+          //   create: formData.files
+          //     ? Object.entries(formData.files).reduce(
+          //         (a, [k, v]) => ({
+          //           [k]: {
+          //             connect: {
+          //               id: v.id,
+          //             },
+          //           },
+          //           ...a,
+          //         }),
+          //         {}
+          //       )
+          //     : {},
+          // },
           files: {
-            create: formData.files
-              ? Object.entries(formData.files).reduce(
-                  (a, [k, v]) => ({
-                    [k]: {
-                      connect: {
-                        id: v.id,
-                      },
-                    },
-                    ...a,
-                  }),
-                  {}
-                )
-              : {},
+            create: {},
           },
           insulationForm: formData.insulationForm
             ? {
@@ -278,8 +295,8 @@ CheckAndSubmit.propTypes = {
     carportSpaces: PropTypes.any,
     chattels: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     expiryDate: PropTypes.any,
     files: PropTypes.any,
@@ -288,14 +305,14 @@ CheckAndSubmit.propTypes = {
     headline: PropTypes.any,
     heatSources: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     inHallway3mOfEachBedroom: PropTypes.any,
     indoorFeatures: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     insulationForm: PropTypes.any,
     landlordProtectionCover: PropTypes.any,
@@ -308,29 +325,29 @@ CheckAndSubmit.propTypes = {
     offStreetSpaces: PropTypes.any,
     outdoorFeatures: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     pets: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     petsAllowed: PropTypes.any,
     rent: PropTypes.shape({
-      replace: PropTypes.func
+      replace: PropTypes.func,
     }),
     rooms: PropTypes.any,
     tenYearPhotoelectricAlarms: PropTypes.any,
     type: PropTypes.any,
-    workingAlarms: PropTypes.any
+    workingAlarms: PropTypes.any,
   }).isRequired,
   handlePropertyCreated: PropTypes.func.isRequired,
   me: PropTypes.shape({
     firstName: PropTypes.any,
     id: PropTypes.any,
-    lastName: PropTypes.any
-  }).isRequired
-}
+    lastName: PropTypes.any,
+  }).isRequired,
+};
 
 export default CheckAndSubmit;

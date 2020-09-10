@@ -1,16 +1,17 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import FieldError from '../InputFieldType/FieldError';
 
 //Material Components
-import { Typography, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Box, Typography, Checkbox, FormControlLabel } from '@material-ui/core';
 
 const AcceptTerms = props => {
   const { config, register, errors, defaultValue } = props;
   const { fieldProps, refConf } = config;
   return (
     <>
-      <div
+      <Box
+        component="div"
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -28,7 +29,7 @@ const AcceptTerms = props => {
           }
           label={config.fieldProps.label}
         />
-      </div>
+      </Box>
       <FieldError errors={errors} name={name} />
     </>
   );
@@ -39,11 +40,12 @@ AcceptTerms.propTypes = {
     fieldProps: PropTypes.shape({
       label: PropTypes.any
     }),
+    refConf: PropTypes.object.isRequired,
     terms: PropTypes.any
   }).isRequired,
   defaultValue: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired
-}
+};
 
 export default AcceptTerms;

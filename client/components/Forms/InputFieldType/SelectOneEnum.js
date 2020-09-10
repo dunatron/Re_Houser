@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -46,6 +46,7 @@ export default function SimpleSelect(props) {
     defaultValues,
     helperText,
     fieldError,
+    clearError,
   } = props;
 
   const yuckErr = errors[name]; //thats why I labelled it yuck, shold work with architecture right.. .SO check this out wehen you have time
@@ -95,6 +96,7 @@ export default function SimpleSelect(props) {
   const handleOnValueChange = e => {
     setCurrVal(e.target.value);
     setValue(fieldProps.name, e.target.value);
+    clearError(fieldProps.name);
   };
 
   return (
@@ -159,7 +161,7 @@ export default function SimpleSelect(props) {
 SimpleSelect.propTypes = {
   __type: PropTypes.any.isRequired,
   config: PropTypes.shape({
-    key: PropTypes.any
+    key: PropTypes.any,
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -173,5 +175,5 @@ SimpleSelect.propTypes = {
   reset: PropTypes.any.isRequired,
   selectID: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  values: PropTypes.any.isRequired
-}
+  values: PropTypes.any.isRequired,
+};

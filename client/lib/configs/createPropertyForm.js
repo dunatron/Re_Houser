@@ -1409,7 +1409,7 @@ const CREATE_PROPERTY_FORM_CONF = [
             content:
               'If you would like Rehouser to pay these bills please let us know and we will be in contact to discuss this further.',
             fieldProps: {
-              variant: 'h1',
+              variant: 'body1',
             },
           },
           {

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import FileUploader from './../../FileUploader';
 import FieldError from './FieldError';
@@ -16,6 +16,7 @@ const File = props => {
     defaultValues,
     refetchQueries,
     folder,
+    clearError,
   } = props;
 
   const [hasRecievedAFile, setHasRecievedAFile] = useState();
@@ -50,6 +51,7 @@ const File = props => {
       setValue(config.key, combineVals);
     }
     setHasRecievedAFile(true);
+    clearError(config.key); // maybe check if it has an error first
   };
 
   const canDisplayInner = () => {
@@ -129,6 +131,7 @@ const File = props => {
           return (
             <div key={inner.key} style={{ marginTop: '16px' }}>
               <InputFieldType
+                {...props}
                 config={inner}
                 key={idx}
                 register={register}
@@ -148,10 +151,10 @@ File.propTypes = {
   config: PropTypes.shape({
     fieldProps: PropTypes.shape({
       isMultiple: PropTypes.any,
-      maxFilesAllowed: PropTypes.any
+      maxFilesAllowed: PropTypes.any,
     }),
     key: PropTypes.any,
-    refConf: PropTypes.any
+    refConf: PropTypes.any,
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -160,7 +163,7 @@ File.propTypes = {
   refetchQueries: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.func.isRequired
-}
+  setValue: PropTypes.func.isRequired,
+};
 
 export default File;

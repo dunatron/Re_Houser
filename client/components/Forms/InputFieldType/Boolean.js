@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { FormControlLabel, Switch } from '@material-ui/core';
 
 import { InputFieldType } from './index';
 
-const Boolean = props => {
-  const { config, register, errors, setValue, defaultValue } = props;
+const BooleanField = props => {
+  const { config, register, errors, setValue, defaultValue, label } = props;
   const { fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
 
@@ -21,7 +21,7 @@ const Boolean = props => {
             aria-label="LoginSwitch"
           />
         }
-        label={props.label ? props.label : fieldProps.label}
+        label={label ? label : fieldProps.label}
       />
       {config.inners &&
         config.inners.map((inner, idx) => (
@@ -38,17 +38,17 @@ const Boolean = props => {
   );
 };
 
-Boolean.propTypes = {
+BooleanField.propTypes = {
   config: PropTypes.shape({
     inners: PropTypes.shape({
-      map: PropTypes.func
-    })
+      map: PropTypes.func,
+    }),
   }).isRequired,
   defaultValue: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
-  setValue: PropTypes.any.isRequired
-}
+  setValue: PropTypes.any.isRequired,
+};
 
-export default Boolean;
+export default BooleanField;

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -273,8 +273,8 @@ Signup.propTypes = {
   lastName: PropTypes.any.isRequired,
   password: PropTypes.any.isRequired,
   phone: PropTypes.any.isRequired,
-  update: PropTypes.func.isRequired
-}
+  update: PropTypes.func.isRequired,
+};
 
 export default Signup;
 export { SIGNUP_MUTATION };

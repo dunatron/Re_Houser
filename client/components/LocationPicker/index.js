@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import Map from '../Map/index';
 
@@ -81,14 +81,12 @@ const LocationPicker = ({ selection, defaultLocation }) => {
       <StyledGeoSuggest
         ref={geosuggestEl}
         placeholder="Start typing!"
-        // initialValue="Hamburg"
         fixtures={fixtures}
         onSuggestSelect={onSuggestSelect}
-        // location={new google.maps.LatLng(53.558572, 9.9278215)}
         country="nz"
         queryDelay={250}
         // types={['establishment', 'geocode', 'regions', 'cities']}
-        // location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
+        location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
         radius="20"
       />
       {state.showMap && state.desc && (
@@ -118,7 +116,7 @@ const LocationPicker = ({ selection, defaultLocation }) => {
 
 LocationPicker.propTypes = {
   defaultLocation: PropTypes.any.isRequired,
-  selection: PropTypes.func.isRequired
-}
+  selection: PropTypes.func.isRequired,
+};
 
 export default LocationPicker;

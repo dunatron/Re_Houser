@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
@@ -90,6 +90,7 @@ const CheckReason = props => {
           return (
             <div key={inner.key} style={{ marginTop: '16px' }}>
               <InputFieldType
+                {...props}
                 config={inner}
                 key={idx}
                 register={register}
@@ -112,7 +113,7 @@ CheckReason.propTypes = {
   errors: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired
-}
+  setValue: PropTypes.any.isRequired,
+};
 
 export default CheckReason;

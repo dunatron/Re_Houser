@@ -57,11 +57,11 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds }) => {
 
 FilePreviewer.propTypes = {
   files: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.func.isRequired,
-  removingIds: PropTypes.any.isRequired,
+  removingIds: PropTypes.any.isRequired
 };
 
 const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
@@ -114,13 +114,13 @@ const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
 
 RenderFileType.propTypes = {
   file: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.any.isRequired,
   removingIds: PropTypes.shape({
-    includes: PropTypes.func,
-  }).isRequired,
+    includes: PropTypes.func
+  }).isRequired
 };
 
 const RenderGenericImage = ({ file }) => {
@@ -129,8 +129,8 @@ const RenderGenericImage = ({ file }) => {
 
 RenderGenericImage.propTypes = {
   file: PropTypes.shape({
-    url: PropTypes.any,
-  }).isRequired,
+    url: PropTypes.any
+  }).isRequired
 };
 
 const RenderGenericDocument = ({ file }) => {
@@ -189,8 +189,8 @@ RenderGenericDocument.propTypes = {
   file: PropTypes.shape({
     bytes: PropTypes.any,
     mimetype: PropTypes.any,
-    url: PropTypes.any,
-  }).isRequired,
+    url: PropTypes.any
+  }).isRequired
 };
 
 // createdAt: "2020-05-16T05:22:34.440Z"

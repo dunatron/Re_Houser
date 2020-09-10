@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TextInput from '../../Inputs/TextInput';
 import moment from 'moment';
@@ -48,6 +48,7 @@ const InputFieldType = props => {
     config,
     onChange,
     register,
+    unregister,
     errors,
     getValues,
     setValue,
@@ -55,6 +56,7 @@ const InputFieldType = props => {
     rawData,
     defaultValues,
     updateCacheOnRemovedFile,
+    clearErrors,
   } = props;
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
@@ -62,6 +64,15 @@ const InputFieldType = props => {
 
   const fieldError = extractErrorFromErrors(errors, name);
   const defaultValue = defaultValues ? defaultValues[name] : null;
+
+  useEffect(() => {
+    return () => {
+      // cleanup any requirements a field has placed on the form
+      // if (fieldProps.name) {
+      //   unregister(fieldProps.name);
+      // }
+    };
+  });
 
   const TypeToRender = () => {
     switch (type) {
@@ -247,7 +258,7 @@ InputFieldType.propTypes = {
   config: PropTypes.shape({
     __type: PropTypes.any,
     content: PropTypes.any,
-    fieldProps: PropTypes.any
+    fieldProps: PropTypes.any,
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -259,22 +270,22 @@ InputFieldType.propTypes = {
   reset: PropTypes.any.isRequired,
   setValue: PropTypes.any.isRequired,
   type: PropTypes.oneOf([
-    "Header",
-    "Subheader",
-    "String",
-    "CheckReason",
-    "CheckboxText",
-    "SelectOneWithText",
-    "CheckMultipleWithText",
-    "Boolean",
-    "Int",
-    "Money",
-    "Float",
-    "Date",
-    "DateTime",
-    "AcceptTerms"
+    'Header',
+    'Subheader',
+    'String',
+    'CheckReason',
+    'CheckboxText',
+    'SelectOneWithText',
+    'CheckMultipleWithText',
+    'Boolean',
+    'Int',
+    'Money',
+    'Float',
+    'Date',
+    'DateTime',
+    'AcceptTerms',
   ]).isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired
+  updateCacheOnRemovedFile: PropTypes.any.isRequired,
 };
 
 export { InputFieldType };

@@ -32,7 +32,7 @@ const TabContainer = ({ children, dir }) => {
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired
+  dir: PropTypes.string.isRequired,
 };
 
 const styles = theme => ({
@@ -134,7 +134,7 @@ const LoginPage = props => {
 LoginPage.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSignedIn: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(LoginPage);
