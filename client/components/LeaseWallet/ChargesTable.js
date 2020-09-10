@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useRef, useState } from 'react';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, useSubscription } from '@apollo/client';
@@ -231,5 +232,10 @@ const ChargesTable = ({ where, walletId }) => {
     </div>
   );
 };
+
+ChargesTable.propTypes = {
+  walletId: PropTypes.any.isRequired,
+  where: PropTypes.any.isRequired
+}
 
 export default ChargesTable;

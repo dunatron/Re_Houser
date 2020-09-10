@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState, useContext } from 'react';
 import Router from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
@@ -120,4 +121,12 @@ const ActiveChat = ({ id, chat, me }) => {
     </Paper>
   );
 };
+
+ActiveChat.propTypes = {
+  chat: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  id: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
+}
 export default ActiveChat;

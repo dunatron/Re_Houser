@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect, useRef } from 'react';
 import {
   CardElement,
@@ -22,6 +23,14 @@ const RenderError = ({ error }) => {
     </div>
   );
 };
+
+RenderError.propTypes = {
+  error: PropTypes.shape({
+    code: PropTypes.any,
+    message: PropTypes.any,
+    type: PropTypes.any
+  }).isRequired
+}
 
 const CreditCardForm = props => {
   const cardNumberRef = useRef(null);
@@ -141,5 +150,14 @@ const CreditCardForm = props => {
     </div>
   );
 };
+
+CreditCardForm.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  stripe: PropTypes.shape({
+    createToken: PropTypes.func
+  }).isRequired
+}
 
 export default injectStripe(CreditCardForm);

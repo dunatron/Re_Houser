@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
 import { toast } from 'react-toastify';
@@ -14,6 +15,11 @@ const Message = ({ message, alert }) => {
   if (message) return <Typography variant="h5">{message}</Typography>;
   return null;
 };
+
+Message.propTypes = {
+  alert: PropTypes.any.isRequired,
+  message: PropTypes.any.isRequired
+}
 
 /**
  * The WithUser is giving every page it's me variable
@@ -45,5 +51,12 @@ const PleaseSignIn = props => {
   });
   return children;
 };
+
+PleaseSignIn.propTypes = {
+  alert: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired,
+  currentUser: PropTypes.any.isRequired,
+  message: PropTypes.any.isRequired
+}
 
 export default PleaseSignIn;

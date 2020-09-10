@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from 'react';
 // import './dropzone.css';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -101,6 +102,13 @@ const Dropzone = props => {
     </div>
   );
 };
+
+Dropzone.propTypes = {
+  disabed: PropTypes.any.isRequired,
+  disabled: PropTypes.any.isRequired,
+  multiple: PropTypes.any.isRequired,
+  onFilesAdded: PropTypes.func.isRequired
+}
 
 export default Dropzone;
 

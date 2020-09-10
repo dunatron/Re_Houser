@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Configure } from 'react-instantsearch-dom';
@@ -53,6 +54,12 @@ const FilterSummary = ({ bottomPrice, topPrice, moveInDate }) => {
     </div>
   );
 };
+
+FilterSummary.propTypes = {
+  bottomPrice: PropTypes.any.isRequired,
+  moveInDate: PropTypes.any.isRequired,
+  topPrice: PropTypes.any.isRequired
+}
 
 const SearchFilter = () => {
   const stopPropagation = e => e.stopPropagation();

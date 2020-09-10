@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import { useMutation, useSubscription } from '@apollo/client';
 import {
@@ -266,5 +267,17 @@ const LeaseWallet = ({ lease, me }) => {
     </>
   );
 };
+
+LeaseWallet.propTypes = {
+  lease: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  me: PropTypes.shape({
+    email: PropTypes.any,
+    firstName: PropTypes.any,
+    lastName: PropTypes.any,
+    phone: PropTypes.any
+  }).isRequired
+}
 
 export default LeaseWallet;

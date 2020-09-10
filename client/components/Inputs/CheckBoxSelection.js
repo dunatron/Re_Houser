@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -29,5 +30,12 @@ const CheckBoxSelection = ({ options, handleOptionChange }) => {
     </div>
   );
 };
+
+CheckBoxSelection.propTypes = {
+  handleOptionChange: PropTypes.func.isRequired,
+  options: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired
+}
 
 export default CheckBoxSelection;

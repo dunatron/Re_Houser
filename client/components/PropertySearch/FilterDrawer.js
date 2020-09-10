@@ -98,6 +98,11 @@ const FilterDrawer = ({ open, handleClose }) => {
   );
 };
 
+FilterDrawer.propTypes = {
+  handleClose: PropTypes.any.isRequired,
+  open: PropTypes.any.isRequired
+}
+
 const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
   const classes = useStyles();
   return (
@@ -126,6 +131,12 @@ const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
     </div>
   );
 };
+
+DrawHeader.propTypes = {
+  close: PropTypes.any.isRequired,
+  isFullScreen: PropTypes.any.isRequired,
+  setFullScreen: PropTypes.any.isRequired
+}
 
 const Sidebar = () => (
   <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>

@@ -195,7 +195,24 @@ const FormCreator = props => {
 };
 
 FormCreator.propTypes = {
-  name: PropTypes.string,
+  config: PropTypes.shape({
+    forEach: PropTypes.func,
+    map: PropTypes.func
+  }).isRequired,
+  createText: PropTypes.any.isRequired,
+  data: PropTypes.any.isRequired,
+  error: PropTypes.any.isRequired,
+  folder: PropTypes.any.isRequired,
+  handleWatchChanges: PropTypes.func.isRequired,
+  isNew: PropTypes.any.isRequired,
+  name: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  posting: PropTypes.any.isRequired,
+  refetchQueries: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+  updateText: PropTypes.any.isRequired,
+  watchFields: PropTypes.array.isRequired
 };
 
 export { FormCreator };

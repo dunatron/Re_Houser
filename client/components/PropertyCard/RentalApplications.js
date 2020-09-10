@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import ApplicationItem from './ApplicationItem';
 import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
@@ -73,5 +74,14 @@ const RentalApplications = props => {
     </div>
   );
 };
+
+RentalApplications.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  openRentalAppModal: PropTypes.func.isRequired,
+  property: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired
+}
 
 export default RentalApplications;

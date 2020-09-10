@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -55,5 +56,17 @@ const ApplicantDetails = ({ applicant }) => {
     </div>
   );
 };
+
+ApplicantDetails.propTypes = {
+  applicant: PropTypes.shape({
+    approved: PropTypes.any,
+    email: PropTypes.any,
+    user: PropTypes.shape({
+      firstName: PropTypes.any,
+      lastName: PropTypes.any,
+      phone: PropTypes.any
+    })
+  }).isRequired
+}
 
 export default ApplicantDetails;

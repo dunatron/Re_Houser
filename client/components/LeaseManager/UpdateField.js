@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import Modal from '../Modal/index';
 import { Button } from '@material-ui/core';
@@ -48,5 +49,11 @@ const UpdateField = ({ fieldConf, defaultValue, update }) => {
     </>
   );
 };
+
+UpdateField.propTypes = {
+  defaultValue: PropTypes.any.isRequired,
+  fieldConf: PropTypes.any.isRequired,
+  update: PropTypes.func.isRequired
+}
 
 export default UpdateField;

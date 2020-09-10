@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
@@ -88,5 +89,10 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
     </>
   );
 };
+
+ChangeApplicationVisibilityBtn.propTypes = {
+  applicationId: PropTypes.any.isRequired,
+  visibility: PropTypes.any.isRequired
+}
 
 export default ChangeApplicationVisibilityBtn;

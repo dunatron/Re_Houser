@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import {
   createMuiTheme,
@@ -24,4 +25,10 @@ export default function CustomizedButtons({ btnProps, children, onClick }) {
       {children}
     </SquareButton>
   );
+}
+
+CustomizedButtons.propTypes = {
+  btnProps: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired,
+  onClick: PropTypes.any.isRequired
 }

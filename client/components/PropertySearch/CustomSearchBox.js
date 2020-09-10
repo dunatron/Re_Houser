@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { connectSearchBox } from 'react-instantsearch-dom';
 import styled from 'styled-components';
 import {
@@ -37,6 +38,12 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
     />
   </FormControl>
 );
+
+SearchBox.propTypes = {
+  currentRefinement: PropTypes.any.isRequired,
+  isSearchStalled: PropTypes.any.isRequired,
+  refine: PropTypes.func.isRequired
+}
 
 const CustomSearchBox = connectSearchBox(SearchBox);
 

@@ -244,23 +244,37 @@ const InputFieldType = props => {
 
 // };
 InputFieldType.propTypes = {
+  config: PropTypes.shape({
+    __type: PropTypes.any,
+    content: PropTypes.any,
+    fieldProps: PropTypes.any
+  }).isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  getValues: PropTypes.any.isRequired,
+  inners: PropTypes.arrayOf(PropTypes.any).isRequired,
+  onChange: PropTypes.any.isRequired,
+  rawData: PropTypes.any.isRequired,
+  register: PropTypes.any.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired,
   type: PropTypes.oneOf([
-    'Header',
-    'Subheader',
-    'String',
-    'CheckReason',
-    'CheckboxText',
-    'SelectOneWithText',
-    'CheckMultipleWithText',
-    'Boolean',
-    'Int',
-    'Money',
-    'Float',
-    'Date',
-    'DateTime',
-    'AcceptTerms',
-  ]),
-  inners: PropTypes.arrayOf(PropTypes.instanceOf(InputFieldType)),
+    "Header",
+    "Subheader",
+    "String",
+    "CheckReason",
+    "CheckboxText",
+    "SelectOneWithText",
+    "CheckMultipleWithText",
+    "Boolean",
+    "Int",
+    "Money",
+    "Float",
+    "Date",
+    "DateTime",
+    "AcceptTerms"
+  ]).isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
 };
 
 export { InputFieldType };

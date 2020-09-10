@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import TextInput from '../../Inputs/TextInput';
 
@@ -17,5 +18,12 @@ const Float = props => {
     />
   );
 };
+
+Float.propTypes = {
+  config: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  extractErrorFromErrors: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
+}
 
 export default Float;

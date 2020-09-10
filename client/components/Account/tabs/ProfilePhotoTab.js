@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import UploadProfilePhoto from '../UploadProfilePhoto';
 import RehouserPaper from '../../../styles/RehouserPaper';
 
@@ -14,5 +15,9 @@ const ProfilePhotoTab = ({ me }) => {
     </RehouserPaper>
   );
 };
+
+ProfilePhotoTab.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default ProfilePhotoTab;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from 'react';
 import Particles from 'react-particles-js';
 import PersonIcon from '@material-ui/icons/PersonAdd';
@@ -311,6 +312,13 @@ const OriginalParticle = ({ dimensions }) => {
   );
 };
 
+OriginalParticle.propTypes = {
+  dimensions: PropTypes.shape({
+    height: PropTypes.any,
+    width: PropTypes.any
+  }).isRequired
+}
+
 const ImageParticle = ({ dimensions }) => {
   return (
     <Particles
@@ -395,5 +403,12 @@ const ImageParticle = ({ dimensions }) => {
     />
   );
 };
+
+ImageParticle.propTypes = {
+  dimensions: PropTypes.shape({
+    height: PropTypes.any,
+    width: PropTypes.any
+  }).isRequired
+}
 
 export default ParticleOne;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import DragDropUploader from '../DragDropUploader/index';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
@@ -83,5 +84,14 @@ const UploadProfilePhoto = ({ me }) => {
     </div>
   );
 };
+
+UploadProfilePhoto.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any,
+    profilePhoto: PropTypes.shape({
+      url: PropTypes.any
+    })
+  }).isRequired
+}
 
 export default UploadProfilePhoto;

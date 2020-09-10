@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { connectSortBy } from 'react-instantsearch-dom';
 
@@ -15,6 +16,14 @@ const MaterialUiSortBy = props => (
     handleChange={e => props.refine(e.target.value)}
   />
 );
+
+MaterialUiSortBy.propTypes = {
+  currentRefinement: PropTypes.any.isRequired,
+  items: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  refine: PropTypes.func.isRequired
+}
 
 const ConnectedSortBy = connectSortBy(MaterialUiSortBy);
 

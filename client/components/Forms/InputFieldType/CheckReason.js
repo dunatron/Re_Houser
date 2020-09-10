@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
@@ -103,5 +104,15 @@ const CheckReason = props => {
     </>
   );
 };
+
+CheckReason.propTypes = {
+  config: PropTypes.any.isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errorMessage: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired
+}
 
 export default CheckReason;

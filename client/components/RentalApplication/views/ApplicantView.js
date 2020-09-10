@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 
@@ -10,5 +11,9 @@ const RentalApplicationApplicantView = ({ me }) => {
     </Paper>
   );
 };
+
+RentalApplicationApplicantView.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default RentalApplicationApplicantView;

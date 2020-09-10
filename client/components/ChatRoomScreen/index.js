@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import gql from 'graphql-tag';
 import React from 'react';
 import { useCallback, useEffect } from 'react';
@@ -189,6 +190,14 @@ const ChatRoomScreen = ({ me, chat, chatId }) => {
   );
 };
 
+ChatRoomScreen.propTypes = {
+  chat: PropTypes.any.isRequired,
+  chatId: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
+
 const ChatRoomScreenConnection = props => {
   const { chatId } = props;
   const { data, loading, error } = useQuery(CHAT_QUERY, {
@@ -203,5 +212,9 @@ const ChatRoomScreenConnection = props => {
   // ToDo create a pagination provider for this
   return <ChatRoomScreen {...props} chat={data.chat} />;
 };
+
+ChatRoomScreenConnection.propTypes = {
+  chatId: PropTypes.any.isRequired
+}
 
 export default ChatRoomScreenConnection;

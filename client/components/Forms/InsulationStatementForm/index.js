@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {
@@ -314,6 +315,15 @@ const InsulationStatementForm = ({
     </div>
   );
 };
+
+InsulationStatementForm.propTypes = {
+  insulationFormId: PropTypes.any.isRequired,
+  placeId: PropTypes.any.isRequired,
+  property: PropTypes.shape({
+    insulationStatementFile: PropTypes.any
+  }).isRequired,
+  propertyId: PropTypes.any.isRequired
+}
 
 export { InsulationStatementForm };
 export default InsulationStatementForm;

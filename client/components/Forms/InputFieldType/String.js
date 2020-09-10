@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import TextInput from '../../Inputs/TextInput';
 
@@ -24,5 +25,12 @@ const StringInput = props => {
     </>
   );
 };
+
+StringInput.propTypes = {
+  config: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  fieldError: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired
+}
 
 export default StringInput;

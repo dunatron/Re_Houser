@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import InputFieldType from './index';
@@ -28,5 +29,11 @@ const FormSection = props => {
     </Paper>
   );
 };
+
+FormSection.propTypes = {
+  config: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  register: PropTypes.any.isRequired
+}
 
 export default FormSection;

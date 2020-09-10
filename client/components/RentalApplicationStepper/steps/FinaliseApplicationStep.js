@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button';
@@ -66,5 +67,19 @@ const FinaliseApplicationStep = ({
     </div>
   );
 };
+
+FinaliseApplicationStep.propTypes = {
+  applicantData: PropTypes.any.isRequired,
+  applicationInfo: PropTypes.any.isRequired,
+  completed: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired,
+  property: PropTypes.any.isRequired,
+  rentalApplication: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  stepHeaders: PropTypes.shape({
+    filter: PropTypes.func
+  }).isRequired
+}
 
 export default FinaliseApplicationStep;

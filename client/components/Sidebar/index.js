@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Fragment, useContext, useEffect } from 'react';
 import { store } from '../../store';
 import Router from 'next/router';
@@ -95,6 +96,11 @@ const Nav = props => {
   );
 };
 
+Nav.propTypes = {
+  loadingUser: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
+}
+
 const SideBarItemWithRouter = ({ item, pathname }) => {
   const isCurrentPath = pathname === item.route ? true : false;
   const pathParts = pathname.split('/');
@@ -136,5 +142,18 @@ const SideBarItemWithRouter = ({ item, pathname }) => {
     </ListItem>
   );
 };
+
+SideBarItemWithRouter.propTypes = {
+  item: PropTypes.shape({
+    action: PropTypes.func,
+    canRender: PropTypes.func,
+    key: PropTypes.any,
+    route: PropTypes.any,
+    text: PropTypes.any
+  }).isRequired,
+  pathname: PropTypes.shape({
+    split: PropTypes.func
+  }).isRequired
+}
 
 export default Nav;

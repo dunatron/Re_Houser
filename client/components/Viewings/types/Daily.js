@@ -41,8 +41,8 @@ const DailyViewing = ({ viewing, ...rest }) => {
 
 DailyViewing.propTypes = {
   viewing: PropTypes.shape({
-    dateTime: PropTypes.string,
-  }),
+    dateTime: PropTypes.string
+  }).isRequired
 };
 
 export default DailyViewing;

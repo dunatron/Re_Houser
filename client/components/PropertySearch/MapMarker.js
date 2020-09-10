@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from 'react';
 
 // import Drawer from '@material-ui/core/Drawer';
@@ -60,5 +61,13 @@ const MapMarker = ({ hit }) => {
     </CustomMarker>
   );
 };
+
+MapMarker.propTypes = {
+  hit: PropTypes.shape({
+    location: PropTypes.any,
+    objectID: PropTypes.any,
+    rent: PropTypes.any
+  }).isRequired
+}
 
 export default MapMarker;

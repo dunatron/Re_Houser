@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -52,5 +53,11 @@ const LeasesTable = ({ leases }) => {
     </div>
   );
 };
+
+LeasesTable.propTypes = {
+  leases: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired
+}
 
 export default LeasesTable;

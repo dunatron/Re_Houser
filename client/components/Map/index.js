@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
@@ -52,6 +53,15 @@ const MapContainer = props => {
     </div>
   );
 };
+
+MapContainer.propTypes = {
+  center: PropTypes.shape({
+    lat: PropTypes.any,
+    lng: PropTypes.any
+  }).isRequired,
+  google: PropTypes.any.isRequired,
+  height: PropTypes.any.isRequired
+}
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,

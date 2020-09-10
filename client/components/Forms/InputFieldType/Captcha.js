@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useRef, useEffect } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import FieldError from './FieldError';
@@ -31,5 +32,14 @@ const CaptchaField = props => {
     </>
   );
 };
+
+CaptchaField.propTypes = {
+  config: PropTypes.shape({
+    refConf: PropTypes.any
+  }).isRequired,
+  errors: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired
+}
 
 export default CaptchaField;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useContext } from 'react';
 import { useSubscription } from '@apollo/client';
 import { CHAT_SUBSCRIPTION } from '../../graphql/subscriptions/ChatSub';
@@ -48,5 +49,11 @@ const ChatCreatedSub = ({ me }) => {
   });
   return null;
 };
+
+ChatCreatedSub.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default ChatCreatedSub;

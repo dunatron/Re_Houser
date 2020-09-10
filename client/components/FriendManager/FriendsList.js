@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useQuery, gql } from '@apollo/client';
 import UserDetails from '../UserDetails';
 
@@ -52,5 +53,9 @@ const FriendsList = ({ me }) => {
     </div>
   );
 };
+
+FriendsList.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default FriendsList;

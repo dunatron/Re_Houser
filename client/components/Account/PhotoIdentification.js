@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
@@ -118,5 +119,12 @@ const PhotoIdentification = props => {
     </div>
   );
 };
+
+PhotoIdentification.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any,
+    identificationNumber: PropTypes.any
+  }).isRequired
+}
 
 export default PhotoIdentification;

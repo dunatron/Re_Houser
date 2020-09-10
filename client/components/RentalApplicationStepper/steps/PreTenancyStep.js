@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
@@ -134,5 +135,25 @@ const PreTenancyStep = ({
     </div>
   );
 };
+
+PreTenancyStep.propTypes = {
+  completed: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    dob: PropTypes.any,
+    email: PropTypes.any,
+    firstName: PropTypes.string,
+    id: PropTypes.any,
+    lastName: PropTypes.any,
+    phone: PropTypes.any
+  }).isRequired,
+  property: PropTypes.any.isRequired,
+  rentalApplication: PropTypes.shape({
+    applicants: PropTypes.shape({
+      find: PropTypes.func
+    })
+  }).isRequired,
+  update: PropTypes.any.isRequired,
+  updateUser: PropTypes.func.isRequired
+}
 
 export default PreTenancyStep;

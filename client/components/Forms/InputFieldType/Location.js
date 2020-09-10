@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -100,5 +101,23 @@ const Location = props => {
     </>
   );
 };
+
+Location.propTypes = {
+  config: PropTypes.shape({
+    fieldProps: PropTypes.shape({
+      fieldMaps: PropTypes.any,
+      label: PropTypes.any,
+      name: PropTypes.any
+    }),
+    refConf: PropTypes.any
+  }).isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  fieldError: PropTypes.any.isRequired,
+  rawData: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.func.isRequired
+}
 
 export default Location;

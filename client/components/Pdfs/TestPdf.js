@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import {
   PDFViewer,
@@ -65,5 +66,15 @@ const MyDocument = ({ me }) => {
     </PDFViewer>
   );
 };
+
+MyDocument.propTypes = {
+  me: PropTypes.shape({
+    email: PropTypes.any,
+    firstName: PropTypes.any,
+    profilePhoto: PropTypes.shape({
+      url: PropTypes.any
+    })
+  }).isRequired
+}
 
 export default MyDocument;

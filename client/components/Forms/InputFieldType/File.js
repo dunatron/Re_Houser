@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react';
 import FileUploader from './../../FileUploader';
 import FieldError from './FieldError';
@@ -142,5 +143,24 @@ const File = props => {
     </>
   );
 };
+
+File.propTypes = {
+  config: PropTypes.shape({
+    fieldProps: PropTypes.shape({
+      isMultiple: PropTypes.any,
+      maxFilesAllowed: PropTypes.any
+    }),
+    key: PropTypes.any,
+    refConf: PropTypes.any
+  }).isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  folder: PropTypes.any.isRequired,
+  getValues: PropTypes.func.isRequired,
+  refetchQueries: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.func.isRequired
+}
 
 export default File;

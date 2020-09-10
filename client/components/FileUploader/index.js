@@ -434,6 +434,22 @@ const UploadFile = forwardRef((props, ref) => {
   );
 });
 
+UploadFile.propTypes = {
+  description: PropTypes.any.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  fileParams: PropTypes.any.isRequired,
+  isRemoving: PropTypes.any.isRequired,
+  maxFilesAllowed: PropTypes.any.isRequired,
+  recieveFile: PropTypes.func.isRequired,
+  remove: PropTypes.any.isRequired,
+  serverFiles: PropTypes.shape({
+    forEach: PropTypes.func,
+    length: PropTypes.number,
+    map: PropTypes.func
+  }).isRequired,
+  store: PropTypes.any.isRequired
+}
+
 const FlipCardHeader = ({ title, isFlipped, flip }) => {
   const classes = useUploadStyles();
   return (
@@ -445,6 +461,12 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
     </div>
   );
 };
+
+FlipCardHeader.propTypes = {
+  flip: PropTypes.any.isRequired,
+  isFlipped: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired
+}
 
 const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
   const { removingIds } = store;
@@ -464,6 +486,13 @@ const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
     </Paper>
   );
 };
+
+UploadedServerFiles.propTypes = {
+  isRemoving: PropTypes.any.isRequired,
+  remove: PropTypes.any.isRequired,
+  serverFiles: PropTypes.any.isRequired,
+  store: PropTypes.any.isRequired
+}
 
 //remove gets fed into here
 const FileManager = props => {
@@ -601,26 +630,24 @@ const FileManager = props => {
 
 //https://cloudinary.com/documentation/image_upload_api_reference#required_parameters
 FileManager.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  files: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      type: PropTypes.string,
-      url: PropTypes.string,
-    })
-  ),
-  maxFilesAllowed: PropTypes.number,
-  recieveFile: PropTypes.func.isRequired,
-  // removeFile,
-  fileRemovedFromServer: PropTypes.func,
-  updateCacheOnRemovedFile: PropTypes.func,
+  description: PropTypes.string.isRequired,
   fileParams: PropTypes.shape({
     filename: PropTypes.string,
     folder: PropTypes.string,
-    resource_type: PropTypes.oneOf(['image', 'raw', 'video', 'auto']),
-    type: PropTypes.oneOf(['upload', 'private', 'authenticated']),
+    resource_type: PropTypes.oneOf(["image", "raw", "video", "auto"]),
     tags: PropTypes.arrayOf(PropTypes.string),
-  }),
+    type: PropTypes.oneOf(["upload", "private", "authenticated"])
+  }).isRequired,
+  fileRemovedFromServer: PropTypes.func.isRequired,
+  files: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.string,
+    url: PropTypes.string
+  })).isRequired,
+  maxFilesAllowed: PropTypes.number.isRequired,
+  recieveFile: PropTypes.func.isRequired,
+  refetchQueries: PropTypes.any.isRequired,
+  title: PropTypes.string.isRequired,
+  updateCacheOnRemovedFile: PropTypes.func.isRequired
 };
 export default FileManager;

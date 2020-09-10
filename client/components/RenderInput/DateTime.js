@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
 import moment from 'moment';
@@ -30,5 +31,16 @@ const DateTimeInput = ({ fieldProps, defaultValue, onChange }) => {
     />
   );
 };
+
+DateTimeInput.propTypes = {
+  defaultValue: PropTypes.any.isRequired,
+  fieldProps: PropTypes.shape({
+    helperText: PropTypes.any,
+    label: PropTypes.any,
+    name: PropTypes.any,
+    type: PropTypes.any
+  }).isRequired,
+  onChange: PropTypes.func.isRequired
+}
 
 export default DateTimeInput;

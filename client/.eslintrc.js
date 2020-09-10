@@ -24,7 +24,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'react/no-children-prop': 'off',
     'react/display-name': 'off',
-    'react/prop-types': 'off',
+    'react/prop-types': 'warn',
     'react/no-unescaped-entities': 'off',
   },
 };

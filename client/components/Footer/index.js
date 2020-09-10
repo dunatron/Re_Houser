@@ -1,9 +1,14 @@
+import PropTypes from "prop-types";
 import { Like, MessageUs } from 'react-facebook';
 import { Paper } from '@material-ui/core';
 
 const ItemWrapper = ({ children }) => (
   <div style={{ padding: '16px' }}>{children}</div>
 );
+
+ItemWrapper.propTypes = {
+  children: PropTypes.any.isRequired
+}
 
 // will need to take into account the layout when snapped
 const Footer = () => {

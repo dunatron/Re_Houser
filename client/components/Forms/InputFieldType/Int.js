@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import TextInput from '../../Inputs/TextInput';
 
@@ -28,5 +29,19 @@ const Int = props => {
     />
   );
 };
+
+Int.propTypes = {
+  config: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  fieldError: PropTypes.any.isRequired,
+  getValues: PropTypes.any.isRequired,
+  onChange: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
+}
 
 export default Int;

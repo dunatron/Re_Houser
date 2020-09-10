@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -116,5 +117,9 @@ const ActivityIcon = ({ type }) => {
   };
   return <Tooltip title={type}>{avatarIcon()}</Tooltip>;
 };
+
+ActivityIcon.propTypes = {
+  type: PropTypes.any.isRequired
+}
 
 export default ActivityIcon;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import PhotoIdentification from '../PhotoIdentification';
 import RehouserPaper from '../../../styles/RehouserPaper';
 // material
@@ -14,5 +15,9 @@ const PhotoIdTab = ({ me }) => {
     </RehouserPaper>
   );
 };
+
+PhotoIdTab.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default PhotoIdTab;

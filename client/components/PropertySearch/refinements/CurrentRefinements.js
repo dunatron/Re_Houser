@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Fragment } from 'react';
 import { connectCurrentRefinements } from 'react-instantsearch-dom';
 import Chip from '@material-ui/core/Chip';
@@ -46,6 +47,15 @@ const RefinementValue = ({ item, refine, url }) => {
   );
 };
 
+RefinementValue.propTypes = {
+  item: PropTypes.shape({
+    label: PropTypes.any,
+    value: PropTypes.any
+  }).isRequired,
+  refine: PropTypes.func.isRequired,
+  url: PropTypes.any.isRequired
+}
+
 const RefinementGroupList = ({ item, refine, createURL }) => {
   return (
     <div className="refinement-group">
@@ -64,6 +74,17 @@ const RefinementGroupList = ({ item, refine, createURL }) => {
     </div>
   );
 };
+
+RefinementGroupList.propTypes = {
+  createURL: PropTypes.func.isRequired,
+  item: PropTypes.shape({
+    items: PropTypes.shape({
+      map: PropTypes.func
+    }),
+    label: PropTypes.any
+  }).isRequired,
+  refine: PropTypes.any.isRequired
+}
 
 const CurrentRefinements = ({ items, refine, createURL }) => (
   <CurrentRefinementStyles>
@@ -86,6 +107,14 @@ const CurrentRefinements = ({ items, refine, createURL }) => (
     ))}
   </CurrentRefinementStyles>
 );
+
+CurrentRefinements.propTypes = {
+  createURL: PropTypes.func.isRequired,
+  items: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  refine: PropTypes.any.isRequired
+}
 
 const CustomCurrentRefinements = connectCurrentRefinements(CurrentRefinements);
 

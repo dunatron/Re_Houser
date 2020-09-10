@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
@@ -30,6 +31,13 @@ const useStyles = makeStyles(theme => ({
 
 const ErrorSupplier = ({ errors, tronM }) =>
   errors.map((error, idx) => <Error key={idx} error={error} tronM={tronM} />);
+
+ErrorSupplier.propTypes = {
+  errors: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  tronM: PropTypes.any.isRequired
+}
 
 const AcceptApplicationButton = ({ application }) => {
   const classes = useStyles();
@@ -105,5 +113,18 @@ const AcceptApplicationButton = ({ application }) => {
     </>
   );
 };
+
+AcceptApplicationButton.propTypes = {
+  application: PropTypes.shape({
+    applicants: PropTypes.shape({
+      filter: PropTypes.func
+    }),
+    id: PropTypes.any,
+    owner: PropTypes.shape({
+      id: PropTypes.any
+    }),
+    stage: PropTypes.string
+  }).isRequired
+}
 
 export default AcceptApplicationButton;

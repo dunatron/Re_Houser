@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { isEmpty, equals } from 'ramda';
@@ -94,5 +95,9 @@ const UserDetails = ({ me }) => {
     </div>
   );
 };
+
+UserDetails.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default UserDetails;

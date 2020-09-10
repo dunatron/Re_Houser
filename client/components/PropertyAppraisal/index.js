@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { FormCreator } from '../Forms';
 import { CREATE_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
@@ -86,5 +87,12 @@ const PropertyAppraisal = props => {
     </div>
   );
 };
+
+PropertyAppraisal.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  propertyId: PropTypes.any.isRequired
+}
 
 export default PropertyAppraisal;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
@@ -101,6 +102,10 @@ const OwnerProperties = ({ me }) => {
     </>
   );
 };
+
+OwnerProperties.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default OwnerProperties;
 

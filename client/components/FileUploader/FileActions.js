@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Paper, Button, IconButton, CircularProgress } from '@material-ui/core';
@@ -90,6 +91,13 @@ const UploadFileButton = props => {
   );
 };
 
+UploadFileButton.propTypes = {
+  error: PropTypes.any.isRequired,
+  handleClick: PropTypes.any.isRequired,
+  loading: PropTypes.any.isRequired,
+  uploadCompleted: PropTypes.bool.isRequired
+}
+
 const FileActions = ({
   file,
   remove,
@@ -156,5 +164,21 @@ const FileActions = ({
     </div>
   );
 };
+
+FileActions.propTypes = {
+  deleteForever: PropTypes.func.isRequired,
+  file: PropTypes.shape({
+    error: PropTypes.any,
+    id: PropTypes.any,
+    loading: PropTypes.any,
+    uploadCompleted: PropTypes.any
+  }).isRequired,
+  isRemoving: PropTypes.any.isRequired,
+  remove: PropTypes.func.isRequired,
+  removingIds: PropTypes.shape({
+    includes: PropTypes.func
+  }).isRequired,
+  upload: PropTypes.func.isRequired
+}
 
 export default FileActions;

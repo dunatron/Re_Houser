@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { isEmpty } from 'ramda';
 import {
@@ -67,5 +68,9 @@ const FormErrors = ({ errors }) => {
     </ErrorPaper>
   );
 };
+
+FormErrors.propTypes = {
+  errors: PropTypes.any.isRequired
+}
 
 export default FormErrors;

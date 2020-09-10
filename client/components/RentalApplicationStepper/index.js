@@ -375,6 +375,19 @@ const RentalApplicationStepper = props => {
   );
 };
 
+RentalApplicationStepper.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any,
+    photoIdentification: PropTypes.any
+  }).isRequired,
+  property: PropTypes.any.isRequired,
+  rentalApplication: PropTypes.shape({
+    applicants: PropTypes.shape({
+      find: PropTypes.func
+    })
+  }).isRequired
+}
+
 const ConnectedRentalApplicationStepper = ({
   me,
   property,

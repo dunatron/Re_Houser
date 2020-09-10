@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery } from '@apollo/client';
 import { Mutation } from 'react-apollo';
@@ -52,4 +53,12 @@ const Signout = ({ label, fullWidth, me, color, variant }) => {
     </>
   );
 };
+
+Signout.propTypes = {
+  color: PropTypes.any.isRequired,
+  fullWidth: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired,
+  variant: PropTypes.any.isRequired
+}
 export default Signout;

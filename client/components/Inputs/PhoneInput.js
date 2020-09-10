@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import dynamic from 'next/dynamic';
 
@@ -29,5 +30,12 @@ const PhoneInput = ({ id, name, label, onChange, ...rest }) => {
     />
   );
 };
+
+PhoneInput.propTypes = {
+  id: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired
+}
 
 export default PhoneInput;

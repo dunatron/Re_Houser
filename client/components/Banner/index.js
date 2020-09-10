@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -162,5 +163,17 @@ const Banner = props => {
     </div>
   );
 };
+
+Banner.propTypes = {
+  children: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  disablePointerEvents: PropTypes.bool.isRequired,
+  footer: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  imageSrc: PropTypes.any.isRequired,
+  text: PropTypes.any.isRequired
+}
 
 export default Banner;

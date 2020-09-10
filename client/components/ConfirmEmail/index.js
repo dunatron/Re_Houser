@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import SendConfrimEmailButton from '../MutationButtons/SendConfrimEmailButton';
 import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
 import { Typography } from '@material-ui/core';
@@ -25,5 +26,12 @@ const ConfirmEmail = ({ me, children }) => {
     );
   return children ? children : null;
 };
+
+ConfirmEmail.propTypes = {
+  children: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    emailValidated: PropTypes.any
+  }).isRequired
+}
 
 export default ConfirmEmail;

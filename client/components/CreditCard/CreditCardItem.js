@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
@@ -54,5 +55,17 @@ const CreditCardItem = ({ card, isPrimary }) => {
     </CreditCardItemStyles>
   );
 };
+
+CreditCardItem.propTypes = {
+  card: PropTypes.shape({
+    exp_month: PropTypes.any,
+    exp_year: PropTypes.any,
+    id: PropTypes.any,
+    last4: PropTypes.any,
+    name: PropTypes.any,
+    type: PropTypes.any
+  }).isRequired,
+  isPrimary: PropTypes.any.isRequired
+}
 
 export default CreditCardItem;

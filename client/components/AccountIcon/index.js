@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -44,6 +45,11 @@ const AccountIcon = ({ me, sendRoute }) => {
     </div>
   );
 };
+
+AccountIcon.propTypes = {
+  me: PropTypes.any.isRequired,
+  sendRoute: PropTypes.func.isRequired
+}
 
 const RenderProfileFabContent = ({ me }) => {
   const firstName = me.firstName ? me.firstName.charAt(0) : '';

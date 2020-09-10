@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -105,4 +106,8 @@ const ThemePicker = ({ setTheme }) => {
     </div>
   );
 };
+
+ThemePicker.propTypes = {
+  setTheme: PropTypes.func.isRequired
+}
 export default ThemePicker;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
@@ -104,5 +105,14 @@ const MessagesList = ({ messages, me }) => {
     </Container>
   );
 };
+
+MessagesList.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  messages: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired
+}
 
 export default MessagesList;

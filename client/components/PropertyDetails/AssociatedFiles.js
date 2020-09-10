@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
 import Loader from '../Loader';
@@ -47,6 +48,11 @@ const AssociatedFiles = ({ filesId, placeId }) => {
 
   return <MappedFiles propertyFiles={data.propertyFiles} placeId={placeId} />;
 };
+
+AssociatedFiles.propTypes = {
+  filesId: PropTypes.any.isRequired,
+  placeId: PropTypes.any.isRequired
+}
 
 const FileItem = ({ conf, val, propertyFilesId }) => {
   const UPDATE_PROPERTY_FILES_MUTATION = gql`
@@ -112,6 +118,17 @@ const FileItem = ({ conf, val, propertyFilesId }) => {
   );
 };
 
+FileItem.propTypes = {
+  conf: PropTypes.shape({
+    description: PropTypes.any,
+    folder: PropTypes.any,
+    key: PropTypes.any,
+    title: PropTypes.any
+  }).isRequired,
+  propertyFilesId: PropTypes.any.isRequired,
+  val: PropTypes.any.isRequired
+}
+
 const MappedFiles = ({ propertyFiles, placeId }) => {
   if (!propertyFiles)
     return (
@@ -147,5 +164,12 @@ const MappedFiles = ({ propertyFiles, placeId }) => {
     );
   });
 };
+
+MappedFiles.propTypes = {
+  placeId: PropTypes.any.isRequired,
+  propertyFiles: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default AssociatedFiles;

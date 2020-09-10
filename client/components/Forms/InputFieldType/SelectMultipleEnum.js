@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -129,5 +130,17 @@ const SelectMultipleEnum = props => {
     </FormControl>
   );
 };
+
+SelectMultipleEnum.propTypes = {
+  __type: PropTypes.any.isRequired,
+  config: PropTypes.any.isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  helperText: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  selectID: PropTypes.any.isRequired,
+  setValue: PropTypes.func.isRequired
+}
 
 export default SelectMultipleEnum;

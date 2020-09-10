@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
@@ -46,5 +47,9 @@ const WithUser = props => {
   });
   return children;
 };
+
+WithUser.propTypes = {
+  children: PropTypes.any.isRequired
+}
 
 export default WithUser;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
@@ -62,6 +63,14 @@ const ActivityManager = props => {
     </>
   );
 };
+
+ActivityManager.propTypes = {
+  args: PropTypes.any.isRequired,
+  collapsed: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export { ActivityManager, Activity };
 export default ActivityManager;

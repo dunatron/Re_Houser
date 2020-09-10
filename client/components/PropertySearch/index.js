@@ -82,6 +82,10 @@ const Hit = ({ hit }) => (
   </div>
 );
 
+Hit.propTypes = {
+  hit: PropTypes.any.isRequired
+}
+
 const MapMarker = ({ hit }) => {
   const node = useRef();
   const [showMore, setShowMore] = useState(false);
@@ -133,6 +137,14 @@ const MapMarker = ({ hit }) => {
     </CustomMarker>
   );
 };
+
+MapMarker.propTypes = {
+  hit: PropTypes.shape({
+    location: PropTypes.any,
+    objectID: PropTypes.any,
+    rent: PropTypes.any
+  }).isRequired
+}
 
 const Content = () => (
   <div className="si-content">
@@ -211,8 +223,7 @@ const PropertySearch = props => {
 };
 
 PropertySearch.propTypes = {
-  // classes: PropTypes.object.isRequired,
-  // theme: PropTypes.object.isRequired,
+  google: PropTypes.any.isRequired
 };
 
 export default GoogleApiWrapper({

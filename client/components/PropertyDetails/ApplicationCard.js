@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
@@ -66,5 +67,20 @@ const ApplicationCard = ({ application, property }) => {
     </Card>
   );
 };
+
+ApplicationCard.propTypes = {
+  application: PropTypes.shape({
+    applicants: PropTypes.shape({
+      length: PropTypes.any,
+      map: PropTypes.func
+    }),
+    finalised: PropTypes.any,
+    id: PropTypes.any,
+    leaseId: PropTypes.any,
+    stage: PropTypes.any,
+    visibility: PropTypes.any
+  }).isRequired,
+  property: PropTypes.any.isRequired
+}
 
 export default ApplicationCard;

@@ -38,12 +38,15 @@ const BooleanInput = ({
 };
 
 BooleanInput.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string,
-  helperText: PropTypes.string,
-  defaultChecked: PropTypes.bool.isRequired, // the thought is a null value could be confused with false
+  classes: PropTypes.shape({
+    wrapper: PropTypes.any
+  }).isRequired,
+  defaultChecked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
+  helperText: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(BooleanInput);

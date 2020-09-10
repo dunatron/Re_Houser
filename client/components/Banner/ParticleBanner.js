@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 //hooks
@@ -93,5 +94,11 @@ const ParticleBanner = props => {
     </div>
   );
 };
+
+ParticleBanner.propTypes = {
+  children: PropTypes.any.isRequired,
+  disablePointerEvents: PropTypes.bool.isRequired,
+  footer: PropTypes.any.isRequired
+}
 
 export default ParticleBanner;

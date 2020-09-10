@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Share,
   ShareButton,
@@ -66,6 +67,10 @@ const ShareProperty = ({ property }) => {
   );
 };
 
+ShareProperty.propTypes = {
+  property: PropTypes.any.isRequired
+}
+
 const LoggedInComponents = ({ api, property }) => {
   return (
     <div>
@@ -116,5 +121,16 @@ const LoggedInComponents = ({ api, property }) => {
     </div>
   );
 };
+
+LoggedInComponents.propTypes = {
+  api: PropTypes.shape({
+    logout: PropTypes.func
+  }).isRequired,
+  property: PropTypes.shape({
+    location: PropTypes.any,
+    moveInDate: PropTypes.any,
+    placeId: PropTypes.any
+  }).isRequired
+}
 
 export default ShareProperty;

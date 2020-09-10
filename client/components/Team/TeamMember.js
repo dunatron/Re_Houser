@@ -88,13 +88,13 @@ const TeamMember = ({ member }) => {
 
 TeamMember.propTypes = {
   member: PropTypes.shape({
-    name: PropTypes.string,
-    role: PropTypes.string,
-    imgPath: PropTypes.string,
     description: PropTypes.string,
-    phone: PropTypes.string,
     email: PropTypes.string,
-  }),
+    imgPath: PropTypes.string,
+    name: PropTypes.string,
+    phone: PropTypes.string,
+    role: PropTypes.string
+  }).isRequired
 };
 
 export default TeamMember;

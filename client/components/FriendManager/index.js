@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Suspense } from 'react';
 import { useQuery } from '@apollo/client';
 import SearchAndRequestFriend from './SearchAndRequestFriend';
@@ -20,6 +21,10 @@ const FriendManager = props => {
     </div>
   );
 };
+
+FriendManager.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 const FriendManagerWithSuspense = () => {
   const { data, error, loading } = useQuery(CURRENT_USER_QUERY, {

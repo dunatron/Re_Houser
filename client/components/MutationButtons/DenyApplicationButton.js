@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
@@ -46,6 +47,13 @@ const useStyles = makeStyles(theme => ({
 // }
 const ErrorSupplier = ({ errors, tronM }) =>
   errors.map((error, idx) => <Error key={idx} error={error} tronM={tronM} />);
+
+ErrorSupplier.propTypes = {
+  errors: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  tronM: PropTypes.any.isRequired
+}
 
 const DenyApplicationButton = ({ application }) => {
   const classes = useStyles();
@@ -107,5 +115,15 @@ const DenyApplicationButton = ({ application }) => {
     </>
   );
 };
+
+DenyApplicationButton.propTypes = {
+  application: PropTypes.shape({
+    id: PropTypes.any,
+    owner: PropTypes.shape({
+      id: PropTypes.any
+    }),
+    stage: PropTypes.string
+  }).isRequired
+}
 
 export default DenyApplicationButton;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState } from 'react';
 import PropertyCard from '../../styles/PropertyCard';
 import Card from '@material-ui/core/Card';
@@ -87,5 +88,10 @@ const PropertyCardComponent = props => {
     </PropertyCard>
   );
 };
+
+PropertyCardComponent.propTypes = {
+  isSearch: PropTypes.any.isRequired,
+  property: PropTypes.any.isRequired
+}
 
 export default PropertyCardComponent;

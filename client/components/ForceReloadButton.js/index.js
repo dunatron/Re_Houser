@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import Router from 'next/router';
 import { Button } from '@material-ui/core';
@@ -7,5 +8,9 @@ const ForceReloadButton = ({ title }) => (
     {title ? title : 'Reload Page'}
   </Button>
 );
+
+ForceReloadButton.propTypes = {
+  title: PropTypes.any.isRequired
+}
 
 export default ForceReloadButton;

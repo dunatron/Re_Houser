@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
@@ -99,5 +100,12 @@ const CreateViewing = ({ propertyId, me }) => {
     </div>
   );
 };
+
+CreateViewing.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  propertyId: PropTypes.any.isRequired
+}
 
 export default CreateViewing;

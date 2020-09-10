@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -42,5 +43,9 @@ const DialogPopup = ({ isOpen }) => {
     </Dialog>
   );
 };
+
+DialogPopup.propTypes = {
+  isOpen: PropTypes.any.isRequired
+}
 
 export default DialogPopup;

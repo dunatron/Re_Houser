@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
@@ -80,5 +81,24 @@ const MultiSelectChip = ({
     </FormControl>
   );
 };
+
+MultiSelectChip.propTypes = {
+  classes: PropTypes.shape({
+    chip: PropTypes.any,
+    chips: PropTypes.any,
+    formControl: PropTypes.any
+  }).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  label: PropTypes.shape({
+    name: PropTypes.any
+  }).isRequired,
+  options: PropTypes.shape({
+    find: PropTypes.func,
+    map: PropTypes.func
+  }).isRequired,
+  removeItem: PropTypes.func.isRequired,
+  selectID: PropTypes.any.isRequired,
+  values: PropTypes.any.isRequired
+}
 
 export default withStyles(styles)(MultiSelectChip);

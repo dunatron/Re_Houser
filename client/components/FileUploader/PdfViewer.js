@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 // import { Document, Page } from 'react-pdf';
 import { Document, Page, Outline } from 'react-pdf/dist/esm/entry.webpack';
@@ -22,6 +23,10 @@ function RenderPdfDocument({ fileUrl }) {
       </p>
     </div>
   );
+}
+
+RenderPdfDocument.propTypes = {
+  fileUrl: PropTypes.any.isRequired
 }
 
 export default RenderPdfDocument;

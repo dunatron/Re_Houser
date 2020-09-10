@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   Share,
   ShareButton,
@@ -24,5 +25,9 @@ const LeaseChat = ({ leaseId }) => {
     </div>
   );
 };
+
+LeaseChat.propTypes = {
+  leaseId: PropTypes.any.isRequired
+}
 
 export default LeaseChat;

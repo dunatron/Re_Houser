@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
@@ -42,5 +43,9 @@ const EditPropertyForm = ({ propertyId }) => {
     />
   );
 };
+
+EditPropertyForm.propTypes = {
+  propertyId: PropTypes.any.isRequired
+}
 
 export default EditPropertyForm;

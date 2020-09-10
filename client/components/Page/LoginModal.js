@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useContext } from 'react';
 import Modal from '../../components/Modal';
 import SuperLogin from '../../components/SuperLogin';
@@ -75,5 +76,10 @@ const CheapLoginModal = React.memo(props => {
     </Modal>
   );
 });
+
+CheapLoginModal.propTypes = {
+  handleClose: PropTypes.any.isRequired,
+  open: PropTypes.any.isRequired
+}
 
 export default LoginModal;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { IconButton, CircularProgress } from '@material-ui/core';
 
@@ -77,5 +78,12 @@ const UploadFileButton = props => {
     </div>
   );
 };
+
+UploadFileButton.propTypes = {
+  error: PropTypes.any.isRequired,
+  handleClick: PropTypes.any.isRequired,
+  loading: PropTypes.any.isRequired,
+  uploadCompleted: PropTypes.bool.isRequired
+}
 
 export default UploadFileButton;

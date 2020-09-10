@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import TextInput from './TextInput';
 
@@ -58,6 +59,15 @@ const CheckReason = props => {
   );
 };
 
+CheckReason.propTypes = {
+  errors: PropTypes.any.isRequired,
+  inners: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  label: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired
+}
+
 const CheckboxText = props => {
   const { label, inners, register } = props;
   const [checked, setChecked] = useState(false);
@@ -105,6 +115,15 @@ const CheckboxText = props => {
     </>
   );
 };
+
+CheckboxText.propTypes = {
+  inners: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  label: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired
+}
 
 const InputFieldType = props => {
   const { config, onChange } = props;
@@ -173,4 +192,13 @@ const InputFieldType = props => {
       return <TextInput {...props} onChange={e => onChange(e.target.value)} />;
   }
 };
+
+InputFieldType.propTypes = {
+  config: PropTypes.any.isRequired,
+  errorMessage: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired
+}
 export default InputFieldType;

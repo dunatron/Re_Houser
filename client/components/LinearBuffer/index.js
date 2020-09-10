@@ -11,8 +11,9 @@ const LinearBuffer = props => {
 };
 
 LinearBuffer.propTypes = {
-  size: PropTypes.number.isRequired,
+  color: PropTypes.any.isRequired,
   currentSize: PropTypes.number.isRequired,
+  size: PropTypes.number.isRequired
 };
 
 export default LinearBuffer;

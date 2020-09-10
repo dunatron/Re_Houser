@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect, useContext } from 'react';
 
 import {
@@ -38,6 +39,11 @@ function HideOnScroll(props) {
       {children}
     </Slide>
   );
+}
+
+HideOnScroll.propTypes = {
+  children: PropTypes.any.isRequired,
+  window: PropTypes.func.isRequired
 }
 
 const AppMenuBar = props => {
@@ -151,6 +157,11 @@ const AppMenuBar = props => {
     </HideOnScroll>
   );
 };
+
+AppMenuBar.propTypes = {
+  appData: PropTypes.any.isRequired,
+  container: PropTypes.any.isRequired
+}
 
 export default AppMenuBar;
 

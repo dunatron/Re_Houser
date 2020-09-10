@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,5 +19,9 @@ const ConfinedHeight = props => {
 
   return <div className={classes.root}>{children}</div>;
 };
+
+ConfinedHeight.propTypes = {
+  children: PropTypes.any.isRequired
+}
 
 export default ConfinedHeight;

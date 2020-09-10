@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
@@ -218,6 +219,10 @@ const Activity = ({ args }) => {
   );
 };
 
+Activity.propTypes = {
+  args: PropTypes.any.isRequired
+}
+
 const ActivityItem = ({ activity }) => {
   const classes = useStyles();
   return (
@@ -291,5 +296,25 @@ const ActivityItem = ({ activity }) => {
     </ExpansionPanel>
   );
 };
+
+ActivityItem.propTypes = {
+  activity: PropTypes.shape({
+    content: PropTypes.any,
+    createdAt: PropTypes.any,
+    jsonObj: PropTypes.any,
+    property: PropTypes.shape({
+      id: PropTypes.any
+    }),
+    propertyLease: PropTypes.shape({
+      id: PropTypes.any
+    }),
+    type: PropTypes.any,
+    user: PropTypes.shape({
+      firstName: PropTypes.any,
+      id: PropTypes.any,
+      lastName: PropTypes.any
+    })
+  }).isRequired
+}
 
 export default Activity;

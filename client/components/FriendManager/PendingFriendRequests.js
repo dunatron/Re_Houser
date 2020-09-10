@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -52,5 +53,9 @@ const PendingFriendRequests = props => {
     </div>
   );
 };
+
+PendingFriendRequests.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default PendingFriendRequests;

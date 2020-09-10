@@ -51,6 +51,10 @@ function TextMaskCustom(props) {
   );
 }
 
+TextMaskCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired
+}
+
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
@@ -93,5 +97,15 @@ const PhoneInput = ({ defaultValue, fieldProps, onChange }) => {
     </FormControl>
   );
 };
+
+PhoneInput.propTypes = {
+  defaultValue: PropTypes.any.isRequired,
+  fieldProps: PropTypes.shape({
+    helperText: PropTypes.any,
+    label: PropTypes.any,
+    name: PropTypes.any
+  }).isRequired,
+  onChange: PropTypes.func.isRequired
+}
 
 export default PhoneInput;

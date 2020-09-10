@@ -24,4 +24,13 @@ const SearchFilter = ({ classes, value, handleChange, fullWidth }) => {
   );
 };
 
+SearchFilter.propTypes = {
+  classes: PropTypes.shape({
+    searchField: PropTypes.any
+  }).isRequired,
+  fullWidth: PropTypes.any.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  value: PropTypes.any.isRequired
+}
+
 export default withStyles(styles)(SearchFilter);

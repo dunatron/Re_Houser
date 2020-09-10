@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState, useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -160,5 +161,12 @@ const Signin = props => {
     </Form>
   );
 };
+
+Signin.propTypes = {
+  email: PropTypes.any.isRequired,
+  handleCompleted: PropTypes.func.isRequired,
+  password: PropTypes.any.isRequired,
+  update: PropTypes.func.isRequired
+}
 
 export default Signin;

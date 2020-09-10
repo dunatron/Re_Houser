@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import Router from 'next/router';
 import NavButton from '../../styles/NavButton';
@@ -61,5 +62,15 @@ const Dashboard = ({ heading, intro, config, elevation, me }) => {
     </DashBoardStyles>
   );
 };
+
+Dashboard.propTypes = {
+  config: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  elevation: PropTypes.any.isRequired,
+  heading: PropTypes.any.isRequired,
+  intro: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
+}
 
 export default Dashboard;

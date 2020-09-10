@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useContext, useEffect } from 'react';
 import useStyles from './useStyles';
 import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
@@ -70,5 +71,9 @@ const AppDrawer = ({ me }) => {
     </nav>
   );
 };
+
+AppDrawer.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default AppDrawer;

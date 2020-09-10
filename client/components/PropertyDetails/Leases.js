@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -80,5 +81,11 @@ const PropertyLeases = props => {
     </div>
   );
 };
+
+PropertyLeases.propTypes = {
+  property: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default PropertyLeases;

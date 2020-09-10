@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
@@ -39,5 +40,11 @@ const FinaliseLeaseBtn = ({ leaseId, stage, disabled }) => {
     </div>
   );
 };
+
+FinaliseLeaseBtn.propTypes = {
+  disabled: PropTypes.any.isRequired,
+  leaseId: PropTypes.any.isRequired,
+  stage: PropTypes.string.isRequired
+}
 
 export default FinaliseLeaseBtn;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { Mutation } from '@apollo/react-components';
 import { adopt } from 'react-adopt';
@@ -262,5 +263,23 @@ const ApplicationItem = props => {
     </ExpansionPanel>
   );
 };
+
+ApplicationItem.propTypes = {
+  application: PropTypes.shape({
+    applicants: PropTypes.shape({
+      map: PropTypes.func,
+      reduce: PropTypes.func
+    }),
+    id: PropTypes.any,
+    owner: PropTypes.shape({
+      id: PropTypes.any
+    }),
+    stage: PropTypes.any,
+    visibility: PropTypes.string
+  }).isRequired,
+  index: PropTypes.any.isRequired,
+  openRentalAppModal: PropTypes.func.isRequired,
+  property: PropTypes.any.isRequired
+}
 
 export default ApplicationItem;

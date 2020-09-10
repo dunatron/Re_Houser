@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -260,5 +261,9 @@ const LeaseDetails = ({ lease }) => {
     </div>
   );
 };
+
+LeaseDetails.propTypes = {
+  lease: PropTypes.any.isRequired
+}
 
 export default LeaseDetails;

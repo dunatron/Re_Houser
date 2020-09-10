@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useContext } from 'react';
 import ChatsListScreen from '../ChatsListScreen';
 import { makeStyles } from '@material-ui/core/styles';
@@ -74,5 +75,9 @@ const ChatsListSelector = ({ me }) => {
     </Paper>
   );
 };
+
+ChatsListSelector.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default ChatsListSelector;

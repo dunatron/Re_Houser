@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import React from 'react';
@@ -85,5 +86,9 @@ const MessageInput = ({ onSendMessage }) => {
     </Container>
   );
 };
+
+MessageInput.propTypes = {
+  onSendMessage: PropTypes.func.isRequired
+}
 
 export default MessageInput;

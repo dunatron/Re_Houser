@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useContext, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation } from '@apollo/client';
@@ -134,6 +135,16 @@ const AccountMenu = ({ me = null }) => {
   );
 };
 
+AccountMenu.propTypes = {
+  me: PropTypes.shape({
+    firstName: PropTypes.any,
+    lastName: PropTypes.any,
+    profilePhoto: PropTypes.shape({
+      url: PropTypes.any
+    })
+  }).isRequired
+}
+
 const SignOutMenuItem = props => {
   const { me } = props;
   const [signOut, { client, data, loading, error }] = useMutation(
@@ -169,5 +180,10 @@ const SignOutMenuItem = props => {
     </MenuItem>
   ) : null;
 };
+
+SignOutMenuItem.propTypes = {
+  me: PropTypes.any.isRequired,
+  onClick: PropTypes.func.isRequired
+}
 
 export default AccountMenu;

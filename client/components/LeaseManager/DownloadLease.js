@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import Modal from '../Modal/index';
@@ -14,5 +15,10 @@ const DownloadLease = ({ lease, me }) => {
     </>
   );
 };
+
+DownloadLease.propTypes = {
+  lease: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
+}
 
 export default DownloadLease;

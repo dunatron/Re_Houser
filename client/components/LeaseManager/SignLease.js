@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import FinaliseLeaseBtn from '../MutationButtons/FinaliseLeaseButton';
 import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
@@ -44,6 +45,13 @@ const SignLease = ({ lease, me, userIsLessor, userIsLessee }) => {
     </div>
   );
 };
+
+SignLease.propTypes = {
+  lease: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired,
+  userIsLessee: PropTypes.any.isRequired,
+  userIsLessor: PropTypes.any.isRequired
+}
 
 const groupHasSigned = group => {
   const signedValues = group.map(item => item.signed);
@@ -98,6 +106,12 @@ const LeaseDetailsBlock = ({ lease, userIsLessor, userIsLessee }) => {
   );
 };
 
+LeaseDetailsBlock.propTypes = {
+  lease: PropTypes.any.isRequired,
+  userIsLessee: PropTypes.any.isRequired,
+  userIsLessor: PropTypes.any.isRequired
+}
+
 const SignDetailsBlock = ({ items, me, type, lease }) => {
   const isLessor = type === 'LESSOR' ? true : false;
   const userTypeString = isLessor ? 'Lessors' : 'Lessees';
@@ -133,6 +147,15 @@ const SignDetailsBlock = ({ items, me, type, lease }) => {
   );
 };
 
+SignDetailsBlock.propTypes = {
+  items: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  lease: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired,
+  type: PropTypes.string.isRequired
+}
+
 const SignDetails = ({ item, me, type, lease }) => {
   const classes = useStyles();
   const { id, signed, user } = item;
@@ -157,5 +180,16 @@ const SignDetails = ({ item, me, type, lease }) => {
     </TableRow>
   );
 };
+
+SignDetails.propTypes = {
+  item: PropTypes.any.isRequired,
+  lease: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired,
+  type: PropTypes.string.isRequired
+}
 
 export default SignLease;

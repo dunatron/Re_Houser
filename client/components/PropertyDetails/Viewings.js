@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Viewings from '../Viewings';
 
 const PropertyViewings = ({ propertyId, me }) => {
@@ -15,5 +16,10 @@ const PropertyViewings = ({ propertyId, me }) => {
     </div>
   );
 };
+
+PropertyViewings.propTypes = {
+  me: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired
+}
 
 export default PropertyViewings;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { MY_RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
@@ -21,5 +22,9 @@ const RentalApplications = props => {
     />
   );
 };
+
+RentalApplications.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default RentalApplications;

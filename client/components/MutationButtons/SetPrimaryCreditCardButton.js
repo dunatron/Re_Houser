@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import {
@@ -54,5 +55,10 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
     </div>
   );
 };
+
+SetPrimaryCreditCardButton.propTypes = {
+  cardId: PropTypes.any.isRequired,
+  isPrimary: PropTypes.any.isRequired
+}
 
 export default SetPrimaryCreditCardButton;

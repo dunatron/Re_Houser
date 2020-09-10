@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Paper, IconButton } from '@material-ui/core';
@@ -71,4 +72,11 @@ const OpenChatBubbles = ({ chats, me }) => {
     </div>
   );
 };
+
+OpenChatBubbles.propTypes = {
+  chats: PropTypes.shape({
+    filter: PropTypes.func
+  }).isRequired,
+  me: PropTypes.any.isRequired
+}
 export default OpenChatBubbles;

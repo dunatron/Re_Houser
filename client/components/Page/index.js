@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Elements } from '@stripe/react-stripe-js';
@@ -96,6 +97,10 @@ const Page = props => {
     </MuiThemeProvider>
   );
 };
+
+Page.propTypes = {
+  children: PropTypes.any.isRequired
+}
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,

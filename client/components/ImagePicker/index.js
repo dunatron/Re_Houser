@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, PureComponent, useMemo } from 'react';
 import styled from 'styled-components';
 import encodeImage from '../../lib/encodeImage';
@@ -22,6 +23,13 @@ export default class ImagePicker extends PureComponent {
       </ImageList>
     );
   }
+}
+
+ImagePicker.propTypes = {
+  images: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  remove: PropTypes.func.isRequired
 }
 const ImgTile = styled.div`
   background: white;
@@ -64,3 +72,12 @@ const ImageTile = ({ image, remove }) => {
     </ImgTile>
   );
 };
+
+ImageTile.propTypes = {
+  image: PropTypes.shape({
+    data: PropTypes.shape({
+      content: PropTypes.any
+    })
+  }).isRequired,
+  remove: PropTypes.any.isRequired
+}

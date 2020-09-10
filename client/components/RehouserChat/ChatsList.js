@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, useMutation, gql } from '@apollo/client';
@@ -96,5 +97,11 @@ const ChatsList = ({ me }) => {
     );
   });
 };
+
+ChatsList.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default ChatsList;

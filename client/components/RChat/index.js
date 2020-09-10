@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { GiftedChat, IMessage, User } from 'react-native-gifted-chat';
 import { View, Dimensions } from 'react-native';
@@ -52,5 +53,16 @@ const RChat = props => {
     </View>
   );
 };
+
+RChat.propTypes = {
+  chat: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    firstName: PropTypes.any,
+    id: PropTypes.any,
+    lastNaem: PropTypes.any
+  }).isRequired,
+  messages: PropTypes.any.isRequired,
+  onSendMessage: PropTypes.func.isRequired
+}
 
 export default RChat;

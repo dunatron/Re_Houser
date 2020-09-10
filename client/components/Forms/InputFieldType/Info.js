@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
 import FieldError from '../InputFieldType/FieldError';
@@ -34,5 +35,20 @@ const Info = props => {
     </>
   );
 };
+
+Info.propTypes = {
+  config: PropTypes.shape({
+    content: PropTypes.any
+  }).isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  getValues: PropTypes.any.isRequired,
+  onChange: PropTypes.any.isRequired,
+  register: PropTypes.any.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
+}
 
 export default Info;

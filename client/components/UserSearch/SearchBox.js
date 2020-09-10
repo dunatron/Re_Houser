@@ -53,10 +53,10 @@ const SearchBox = ({
 const CustomSearchBox = connectSearchBox(SearchBox);
 
 SearchBox.propTypes = {
-  currentRefinement: PropTypes.string,
-  isSearchStalled: PropTypes.bool,
-  refine: PropTypes.func,
-  handleFocus: PropTypes.func,
+  currentRefinement: PropTypes.string.isRequired,
+  handleFocus: PropTypes.func.isRequired,
+  isSearchStalled: PropTypes.bool.isRequired,
+  refine: PropTypes.func.isRequired
 };
 
 export default CustomSearchBox;

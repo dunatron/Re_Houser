@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleApiWrapper } from 'google-maps-react';
 
@@ -50,6 +51,10 @@ const GeoSearchWidget = props => {
     </>
   );
 };
+
+GeoSearchWidget.propTypes = {
+  google: PropTypes.any.isRequired
+}
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,

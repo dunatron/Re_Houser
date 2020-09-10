@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -23,5 +24,11 @@ const TextInput = props => {
     />
   );
 };
+
+TextInput.propTypes = {
+  classes: PropTypes.any.isRequired,
+  onChange: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+}
 
 export default withStyles(styles)(TextInput);

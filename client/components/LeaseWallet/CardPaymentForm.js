@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import CardPaymentStyledForm from '../../styles/CardPaymentStyledForm';
@@ -45,6 +46,10 @@ const CardField = ({ onChange }) => {
   );
 };
 
+CardField.propTypes = {
+  onChange: PropTypes.any.isRequired
+}
+
 const Field = ({
   label,
   id,
@@ -72,6 +77,17 @@ const Field = ({
   </div>
 );
 
+Field.propTypes = {
+  autoComplete: PropTypes.any.isRequired,
+  id: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  onChange: PropTypes.any.isRequired,
+  placeholder: PropTypes.any.isRequired,
+  required: PropTypes.any.isRequired,
+  type: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+}
+
 const SubmitButton = ({
   processing,
   error,
@@ -97,12 +113,24 @@ const SubmitButton = ({
   );
 };
 
+SubmitButton.propTypes = {
+  cardComplete: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired,
+  disabled: PropTypes.any.isRequired,
+  error: PropTypes.any.isRequired,
+  processing: PropTypes.any.isRequired
+}
+
 const ErrorMessage = ({ children }) => (
   <div className="ErrorMessage" role="alert">
     <ErrorOutlineIcon />
     <Typography>{children}</Typography>
   </div>
 );
+
+ErrorMessage.propTypes = {
+  children: PropTypes.any.isRequired
+}
 
 const ResetButton = ({ onClick }) => (
   <button type="button" className="ResetButton" onClick={onClick}>
@@ -114,6 +142,10 @@ const ResetButton = ({ onClick }) => (
     </svg>
   </button>
 );
+
+ResetButton.propTypes = {
+  onClick: PropTypes.any.isRequired
+}
 
 const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
   const stripe = useStripe();
@@ -251,5 +283,17 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
     </CardPaymentStyledForm>
   );
 };
+
+CardPaymentForm.propTypes = {
+  amount: PropTypes.any.isRequired,
+  intentSecret: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    email: PropTypes.any,
+    firstName: PropTypes.any,
+    lastName: PropTypes.any,
+    phone: PropTypes.any
+  }).isRequired,
+  onPaySuccess: PropTypes.func.isRequired
+}
 
 export default CardPaymentForm;

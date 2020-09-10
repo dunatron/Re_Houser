@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import {
   Share,
@@ -183,6 +184,15 @@ const ApplicationDetailsStep = ({
     </div>
   );
 };
+
+ApplicationDetailsStep.propTypes = {
+  completed: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired,
+  property: PropTypes.any.isRequired,
+  rentalApplication: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default ApplicationDetailsStep;
 

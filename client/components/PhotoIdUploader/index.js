@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -159,12 +160,25 @@ const PhotoIdUploader = ({ me }) => {
   );
 };
 
+PhotoIdUploader.propTypes = {
+  me: PropTypes.shape({
+    photoIdentification: PropTypes.shape({
+      url: PropTypes.any
+    })
+  }).isRequired
+}
+
 function TabContainer({ children, dir }) {
   return (
     <Typography component="div" dir={dir} style={{ padding: `16px 0` }}>
       {children}
     </Typography>
   );
+}
+
+TabContainer.propTypes = {
+  children: PropTypes.any.isRequired,
+  dir: PropTypes.any.isRequired
 }
 
 const contentAsSrc = content => {

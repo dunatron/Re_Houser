@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import PaymentsTable from './PaymentsTable';
 const PaymentManager = ({ payments, title }) => {
   return (
@@ -7,5 +8,10 @@ const PaymentManager = ({ payments, title }) => {
     </div>
   );
 };
+
+PaymentManager.propTypes = {
+  payments: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired
+}
 
 export default PaymentManager;

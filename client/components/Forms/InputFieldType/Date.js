@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import TextInput from '../../Inputs/TextInput';
 
@@ -19,5 +20,11 @@ const DateField = props => {
     />
   );
 };
+
+DateField.propTypes = {
+  config: PropTypes.any.isRequired,
+  fieldError: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired
+}
 
 export default DateField;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Button from '@material-ui/core/Button';
@@ -167,5 +168,12 @@ const PaymentsTable = ({ payments, title }) => {
     </div>
   );
 };
+
+PaymentsTable.propTypes = {
+  payments: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  title: PropTypes.any.isRequired
+}
 
 export default PaymentsTable;

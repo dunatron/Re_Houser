@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import FormCreator from '../FormCreator';
 
@@ -56,5 +57,11 @@ const EntityFormType = props => {
     </Paper>
   );
 };
+
+EntityFormType.propTypes = {
+  config: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired
+}
 
 export default EntityFormType;

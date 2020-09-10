@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +21,12 @@ const MoveInTime = props => {
     </Typography>
   );
 };
+
+MoveInTime.propTypes = {
+  component: PropTypes.any.isRequired,
+  moveInDate: PropTypes.any.isRequired,
+  variant: PropTypes.any.isRequired
+}
 export { MoveInTime };
 
 const NowToDate = props => {
@@ -37,6 +44,13 @@ const NowToDate = props => {
     </Typography>
   );
 };
+
+NowToDate.propTypes = {
+  component: PropTypes.any.isRequired,
+  date: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired,
+  variant: PropTypes.any.isRequired
+}
 export { NowToDate };
 
 const LongDatePretty = props => {
@@ -52,6 +66,13 @@ const LongDatePretty = props => {
     </Typography>
   );
 };
+
+LongDatePretty.propTypes = {
+  component: PropTypes.any.isRequired,
+  date: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired,
+  variant: PropTypes.any.isRequired
+}
 export { LongDatePretty };
 
 const LeaseLength = props => {
@@ -80,6 +101,14 @@ const LeaseLength = props => {
     </Typography>
   );
 };
+
+LeaseLength.propTypes = {
+  component: PropTypes.any.isRequired,
+  expiryDate: PropTypes.any.isRequired,
+  moveInDate: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired,
+  variant: PropTypes.any.isRequired
+}
 export { LeaseLength };
 
 const LeaseLengthInfo = ({ moveInDate, expiryDate }) => {
@@ -107,6 +136,11 @@ const LeaseLengthInfo = ({ moveInDate, expiryDate }) => {
     </div>
   );
 };
+
+LeaseLengthInfo.propTypes = {
+  expiryDate: PropTypes.any.isRequired,
+  moveInDate: PropTypes.any.isRequired
+}
 export { LeaseLengthInfo };
 
 export default LeaseLengthInfo;

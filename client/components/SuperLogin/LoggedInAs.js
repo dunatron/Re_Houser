@@ -49,7 +49,12 @@ const LoggedInAs = ({ me }) => {
 
 LoggedInAs.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  me: PropTypes.shape({
+    emailValidated: PropTypes.any,
+    firstName: PropTypes.any,
+    lastName: PropTypes.any
+  }).isRequired,
+  theme: PropTypes.object.isRequired
 };
 
 export default LoggedInAs;

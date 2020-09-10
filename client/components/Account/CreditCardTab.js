@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
@@ -44,5 +45,14 @@ const CreditCardTab = ({ me }) => {
     </div>
   );
 };
+
+CreditCardTab.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any,
+    primaryCreditCard: PropTypes.shape({
+      id: PropTypes.any
+    })
+  }).isRequired
+}
 
 export default CreditCardTab;

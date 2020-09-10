@@ -93,4 +93,22 @@ class Modal extends Component {
   }
 }
 
+Modal.propTypes = {
+  children: PropTypes.any.isRequired,
+  classes: PropTypes.shape({
+    backdrop: PropTypes.any,
+    closeBtn: PropTypes.any,
+    content: PropTypes.any,
+    modalBody: PropTypes.any,
+    modalHeader: PropTypes.any,
+    modalTitle: PropTypes.any,
+    root: PropTypes.any
+  }).isRequired,
+  close: PropTypes.func.isRequired,
+  height: PropTypes.any.isRequired,
+  open: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired,
+  width: PropTypes.any.isRequired
+}
+
 export default withStyles(styles)(Modal);

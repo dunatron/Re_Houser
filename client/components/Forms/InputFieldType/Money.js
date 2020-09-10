@@ -49,7 +49,7 @@ function TextMaskCustom(props) {
 }
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
+  inputRef: PropTypes.func.isRequired
 };
 
 function NumberFormatCustom(props) {
@@ -77,7 +77,7 @@ function NumberFormatCustom(props) {
 NumberFormatCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 const MoneyField = props => {
@@ -112,5 +112,19 @@ const MoneyField = props => {
     />
   );
 };
+
+MoneyField.propTypes = {
+  config: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  fieldError: PropTypes.any.isRequired,
+  getValues: PropTypes.any.isRequired,
+  onChange: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
+}
 
 export default MoneyField;

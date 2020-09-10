@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
@@ -42,5 +43,9 @@ const NewChatButton = ({ me }) => {
     </>
   );
 };
+
+NewChatButton.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default NewChatButton;

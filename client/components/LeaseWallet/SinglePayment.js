@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useRef, useState } from 'react';
 import { useApolloClient, useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -43,5 +44,9 @@ const SinglePayment = ({ paymentId }) => {
     </div>
   );
 };
+
+SinglePayment.propTypes = {
+  paymentId: PropTypes.any.isRequired
+}
 
 export default SinglePayment;

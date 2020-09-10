@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries';
@@ -55,5 +56,12 @@ const RentalApplication = ({ id, me }) => {
     </>
   );
 };
+
+RentalApplication.propTypes = {
+  id: PropTypes.any.isRequired,
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default RentalApplication;

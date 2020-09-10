@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
@@ -37,5 +38,11 @@ const CreditCardsList = ({ cardsList }) => {
     </CreditCardGridStyles>
   );
 };
+
+CreditCardsList.propTypes = {
+  cardsList: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired
+}
 
 export default CreditCardsList;

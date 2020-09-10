@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 // import './progress.css';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -15,6 +16,10 @@ const Progress = props => {
     </div>
   );
 };
+
+Progress.propTypes = {
+  progress: PropTypes.string.isRequired
+}
 // class Progress extends Component {
 //   constructor(props) {
 //     super(props);

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useMutation } from '@apollo/client';
 import { LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF } from '../../../lib/configs/landlordTermsOfEngagementForm';
 
@@ -89,5 +90,12 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
     </>
   );
 };
+
+AcceptTermsOfEngagementForm.propTypes = {
+  me: PropTypes.shape({
+    acceptedTermsOfEngagement: PropTypes.any,
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default AcceptTermsOfEngagementForm;

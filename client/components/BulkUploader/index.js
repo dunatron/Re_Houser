@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from 'react';
 
 import { CSVReader } from 'react-papaparse';
@@ -20,6 +21,16 @@ const MyList = ({ virtual, itemHeight }) => (
     })}
   </ul>
 );
+
+MyList.propTypes = {
+  itemHeight: PropTypes.any.isRequired,
+  virtual: PropTypes.shape({
+    items: PropTypes.shape({
+      map: PropTypes.func
+    }),
+    style: PropTypes.any
+  }).isRequired
+}
 
 const BulkUploader = () => {
   const [rows, setRows] = useState([]);

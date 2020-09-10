@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
@@ -70,5 +71,9 @@ const ResendConfirmEmailButton = ({ email }) => {
     </>
   );
 };
+
+ResendConfirmEmailButton.propTypes = {
+  email: PropTypes.any.isRequired
+}
 
 export default ResendConfirmEmailButton;

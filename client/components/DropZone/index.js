@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
@@ -33,5 +34,9 @@ const MyDropzone = ({ receiveFile }) => {
     </div>
   );
 };
+
+MyDropzone.propTypes = {
+  receiveFile: PropTypes.func.isRequired
+}
 
 export default MyDropzone;

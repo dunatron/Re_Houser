@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import moment from 'moment';
 import { List, ListItem } from '@material-ui/core';
@@ -158,5 +159,11 @@ const ChatsList = props => {
     </Container>
   );
 };
+
+ChatsList.propTypes = {
+  me: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}
 
 export default ChatsList;

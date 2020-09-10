@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
@@ -74,5 +75,12 @@ const SignLeaseBtn = ({ id, type, leaseId, signed }) => {
     </div>
   );
 };
+
+SignLeaseBtn.propTypes = {
+  id: PropTypes.any.isRequired,
+  leaseId: PropTypes.any.isRequired,
+  signed: PropTypes.any.isRequired,
+  type: PropTypes.any.isRequired
+}
 
 export default SignLeaseBtn;

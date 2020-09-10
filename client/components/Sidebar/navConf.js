@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Fragment, useContext, useEffect } from 'react';
 import { store } from '../../store';
 
@@ -169,5 +170,12 @@ const NavigationConfig = (me, loadingUser, pathname) => {
     // },
   ];
 };
+
+NavigationConfig.propTypes = {
+  friendRequests: PropTypes.any.isRequired,
+  permissions: PropTypes.shape({
+    includes: PropTypes.func
+  }).isRequired
+}
 
 export default NavigationConfig;

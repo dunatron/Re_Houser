@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 
 const FieldError = ({ errors, name }) => {
@@ -10,5 +11,10 @@ const FieldError = ({ errors, name }) => {
     </p>
   );
 };
+
+FieldError.propTypes = {
+  errors: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired
+}
 
 export default FieldError;

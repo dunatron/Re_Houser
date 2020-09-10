@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Typography, TextField } from '@material-ui/core';
 
 // components
@@ -48,5 +49,9 @@ const DetailsTab = ({ me }) => {
     </>
   );
 };
+
+DetailsTab.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default DetailsTab;

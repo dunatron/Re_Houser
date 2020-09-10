@@ -39,8 +39,8 @@ const WeeklyViewing = ({ viewing, ...rest }) => {
 
 WeeklyViewing.propTypes = {
   viewing: PropTypes.shape({
-    dateTime: PropTypes.string,
-  }),
+    dateTime: PropTypes.string
+  }).isRequired
 };
 
 export default WeeklyViewing;

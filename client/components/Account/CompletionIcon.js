@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 // Icons
 import DoneIcon from '@material-ui/icons/Done';
@@ -12,5 +13,9 @@ const CompletionIcon = ({ val }) => {
   }
   return <DoneIcon color="primary" style={{ margin: '8px' }} />;
 };
+
+CompletionIcon.propTypes = {
+  val: PropTypes.string.isRequired
+}
 
 export default CompletionIcon;

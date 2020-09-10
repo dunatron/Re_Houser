@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
@@ -62,5 +63,12 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
     </div>
   );
 };
+
+PropertyPendingRentalApplicationsSub.propTypes = {
+  property: PropTypes.shape({
+    id: PropTypes.any,
+    location: PropTypes.any
+  }).isRequired
+}
 
 export default PropertyPendingRentalApplicationsSub;

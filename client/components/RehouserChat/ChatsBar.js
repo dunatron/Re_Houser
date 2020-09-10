@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -41,5 +42,9 @@ const ChatsBar = ({ me }) => {
     </div>
   );
 };
+
+ChatsBar.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default ChatsBar;

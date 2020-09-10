@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component, useState } from 'react';
 import {
   CardContent,
@@ -96,5 +97,9 @@ const Details = props => {
     </div>
   );
 };
+
+Details.propTypes = {
+  property: PropTypes.any.isRequired
+}
 
 export default Details;

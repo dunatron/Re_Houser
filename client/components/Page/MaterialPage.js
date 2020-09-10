@@ -87,13 +87,9 @@ function MaterialPage(props) {
 }
 
 MaterialPage.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  container: PropTypes.instanceOf(
-    typeof Element === 'undefined' ? Object : Element
-  ),
+  appData: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired,
+  container: PropTypes.any.isRequired
 };
 
 export default MaterialPage;

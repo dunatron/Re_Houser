@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { PAYMENTS_QUERY } from '../../graphql/queries/payments';
@@ -16,6 +17,12 @@ const CompletedLease = ({ leaseId, lease, me }) => {
     </div>
   );
 };
+
+CompletedLease.propTypes = {
+  lease: PropTypes.any.isRequired,
+  leaseId: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
+}
 
 export default CompletedLease;
 

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import FieldError from '../InputFieldType/FieldError';
 
@@ -32,5 +33,17 @@ const AcceptTerms = props => {
     </>
   );
 };
+
+AcceptTerms.propTypes = {
+  config: PropTypes.shape({
+    fieldProps: PropTypes.shape({
+      label: PropTypes.any
+    }),
+    terms: PropTypes.any
+  }).isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired
+}
 
 export default AcceptTerms;

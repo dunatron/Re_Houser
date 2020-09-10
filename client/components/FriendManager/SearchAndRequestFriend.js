@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -91,5 +92,9 @@ const SearchAndRequestFriend = props => {
     </div>
   );
 };
+
+SearchAndRequestFriend.propTypes = {
+  me: PropTypes.any.isRequired
+}
 
 export default SearchAndRequestFriend;

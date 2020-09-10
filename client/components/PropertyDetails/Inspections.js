@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import InspectionsTable from '../Tables/InspectionsTable';
 import CreateInspection from '../Inspections/CreateInspection';
 
@@ -10,5 +11,10 @@ const InspectionsTab = ({ property, me }) => {
     </>
   );
 };
+
+InspectionsTab.propTypes = {
+  me: PropTypes.any.isRequired,
+  property: PropTypes.any.isRequired
+}
 
 export default InspectionsTab;

@@ -19,8 +19,8 @@ const OnceViewing = ({ viewing, ...rest }) => {
 
 OnceViewing.propTypes = {
   viewing: PropTypes.shape({
-    dateTime: PropTypes.string,
-  }),
+    dateTime: PropTypes.string
+  }).isRequired
 };
 
 export default OnceViewing;

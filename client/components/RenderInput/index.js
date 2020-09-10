@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
 
@@ -85,5 +86,12 @@ const RenderInput = ({ type, fieldProps, defaultValue, onChange }) => {
       );
   }
 };
+
+RenderInput.propTypes = {
+  defaultValue: PropTypes.any.isRequired,
+  fieldProps: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired,
+  type: PropTypes.any.isRequired
+}
 
 export default RenderInput;

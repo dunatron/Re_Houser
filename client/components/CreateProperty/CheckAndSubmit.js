@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from 'react';
 import { FormCreator } from '../Forms';
 import { useMutation } from '@apollo/client';
@@ -269,5 +270,67 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
     </>
   );
 };
+
+CheckAndSubmit.propTypes = {
+  formData: PropTypes.shape({
+    alarmsEachLevel: PropTypes.any,
+    bathrooms: PropTypes.any,
+    carportSpaces: PropTypes.any,
+    chattels: PropTypes.shape({
+      set: PropTypes.shape({
+        map: PropTypes.func
+      })
+    }),
+    expiryDate: PropTypes.any,
+    files: PropTypes.any,
+    freeGlassCover: PropTypes.any,
+    garageSpaces: PropTypes.any,
+    headline: PropTypes.any,
+    heatSources: PropTypes.shape({
+      set: PropTypes.shape({
+        map: PropTypes.func
+      })
+    }),
+    inHallway3mOfEachBedroom: PropTypes.any,
+    indoorFeatures: PropTypes.shape({
+      set: PropTypes.shape({
+        map: PropTypes.func
+      })
+    }),
+    insulationForm: PropTypes.any,
+    landlordProtectionCover: PropTypes.any,
+    leaseLengthInMonths: PropTypes.any,
+    location: PropTypes.any,
+    locationLat: PropTypes.any,
+    locationLng: PropTypes.any,
+    maximumOccupants: PropTypes.any,
+    moveInDate: PropTypes.any,
+    offStreetSpaces: PropTypes.any,
+    outdoorFeatures: PropTypes.shape({
+      set: PropTypes.shape({
+        map: PropTypes.func
+      })
+    }),
+    pets: PropTypes.shape({
+      set: PropTypes.shape({
+        map: PropTypes.func
+      })
+    }),
+    petsAllowed: PropTypes.any,
+    rent: PropTypes.shape({
+      replace: PropTypes.func
+    }),
+    rooms: PropTypes.any,
+    tenYearPhotoelectricAlarms: PropTypes.any,
+    type: PropTypes.any,
+    workingAlarms: PropTypes.any
+  }).isRequired,
+  handlePropertyCreated: PropTypes.func.isRequired,
+  me: PropTypes.shape({
+    firstName: PropTypes.any,
+    id: PropTypes.any,
+    lastName: PropTypes.any
+  }).isRequired
+}
 
 export default CheckAndSubmit;

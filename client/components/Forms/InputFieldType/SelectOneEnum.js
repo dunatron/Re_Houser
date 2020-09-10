@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -153,4 +154,24 @@ export default function SimpleSelect(props) {
         })}
     </>
   );
+}
+
+SimpleSelect.propTypes = {
+  __type: PropTypes.any.isRequired,
+  config: PropTypes.shape({
+    key: PropTypes.any
+  }).isRequired,
+  defaultValues: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  fieldError: PropTypes.any.isRequired,
+  getValues: PropTypes.any.isRequired,
+  handleChange: PropTypes.any.isRequired,
+  helperText: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  removeItem: PropTypes.any.isRequired,
+  reset: PropTypes.any.isRequired,
+  selectID: PropTypes.any.isRequired,
+  setValue: PropTypes.func.isRequired,
+  values: PropTypes.any.isRequired
 }

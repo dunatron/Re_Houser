@@ -66,6 +66,12 @@ const SuperiorTable = props => {
   );
 };
 
+SuperiorTable.propTypes = {
+  columns: PropTypes.any.isRequired,
+  data: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired
+}
+
 SuperiorTable.propTypes = PropTypes.instanceOf(MaterialTable);
 
 export default SuperiorTable;

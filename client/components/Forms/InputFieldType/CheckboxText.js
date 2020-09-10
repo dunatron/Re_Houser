@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
@@ -76,5 +77,14 @@ const CheckboxText = props => {
     </>
   );
 };
+
+CheckboxText.propTypes = {
+  inners: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired,
+  label: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired
+}
 
 export default CheckboxText;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
 import StarRating from '../StarRating/index';
@@ -69,5 +70,11 @@ const CompletionRating = ({ me }) => {
     </div>
   );
 };
+
+CompletionRating.propTypes = {
+  me: PropTypes.shape({
+    firstName: PropTypes.any
+  }).isRequired
+}
 
 export default CompletionRating;

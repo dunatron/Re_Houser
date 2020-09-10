@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { FormControlLabel, Switch } from '@material-ui/core';
 
@@ -36,5 +37,18 @@ const Boolean = props => {
     </>
   );
 };
+
+Boolean.propTypes = {
+  config: PropTypes.shape({
+    inners: PropTypes.shape({
+      map: PropTypes.func
+    })
+  }).isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  setValue: PropTypes.any.isRequired
+}
 
 export default Boolean;

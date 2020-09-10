@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -36,5 +37,9 @@ const PropertiesSub = ({ where }) => {
   // they are just aledrts find the best way to return nothing
   return null;
 };
+
+PropertiesSub.propTypes = {
+  where: PropTypes.any.isRequired
+}
 
 export default PropertiesSub;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect, Component, memo, useMemo } from 'react';
 import encodeImage from '../../lib/encodeImage';
 
@@ -16,5 +17,11 @@ const PreUploadImage = ({ file }) => {
   ]);
   return <img className="preUpload__image" src={memoizedContent} />;
 };
+
+PreUploadImage.propTypes = {
+  file: PropTypes.shape({
+    content: PropTypes.any
+  }).isRequired
+}
 
 export default PreUploadImage;

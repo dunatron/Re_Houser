@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, IconButton, Tooltip } from '@material-ui/core';
@@ -39,5 +40,13 @@ const Help = ({ toolTip, helpConf }) => {
     </>
   );
 };
+
+Help.propTypes = {
+  helpConf: PropTypes.shape({
+    components: PropTypes.any,
+    title: PropTypes.any
+  }).isRequired,
+  toolTip: PropTypes.any.isRequired
+}
 
 export default Help;

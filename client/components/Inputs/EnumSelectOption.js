@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { withStyles } from '@material-ui//core/styles';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
@@ -58,5 +59,20 @@ const EnumSelectOption = props => {
     </FormControl>
   );
 };
+
+EnumSelectOption.propTypes = {
+  __type: PropTypes.any.isRequired,
+  classes: PropTypes.shape({
+    formControl: PropTypes.any,
+    selectEmpty: PropTypes.any
+  }).isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  helperText: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+  selectID: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+}
 
 export default withStyles(styles)(EnumSelectOption);

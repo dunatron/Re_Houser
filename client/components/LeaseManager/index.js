@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { useCurrentUser } from '../User/index';
@@ -118,5 +119,9 @@ const LeaseManager = ({ leaseId }) => {
     </div>
   );
 };
+
+LeaseManager.propTypes = {
+  leaseId: PropTypes.any.isRequired
+}
 
 export default LeaseManager;

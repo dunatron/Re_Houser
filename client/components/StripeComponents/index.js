@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import StripeClientSideWrapper from './StripeClientSideWrapper';
 import NoSSR from 'react-no-ssr';
@@ -16,5 +17,10 @@ const WithElements = props => {
     </NoSSR>
   );
 };
+
+WithElements.propTypes = {
+  children: PropTypes.any.isRequired,
+  clear: PropTypes.any.isRequired
+}
 
 export default WithElements;

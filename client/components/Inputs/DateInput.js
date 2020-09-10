@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -53,5 +54,15 @@ const DateInput = props => {
     />
   );
 };
+
+DateInput.propTypes = {
+  classes: PropTypes.shape({
+    root: PropTypes.any
+  }).isRequired,
+  id: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.any.isRequired
+}
 
 export default withStyles(styles)(DateInput);

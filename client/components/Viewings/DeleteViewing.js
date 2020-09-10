@@ -45,8 +45,8 @@ const DeleteViewing = ({ viewing }) => {
 
 DeleteViewing.propTypes = {
   viewing: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }),
+    id: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default DeleteViewing;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -134,6 +135,16 @@ export default function ExtraDetails({ property }) {
   );
 }
 
+ExtraDetails.propTypes = {
+  property: PropTypes.shape({
+    accommodation: PropTypes.shape({
+      length: PropTypes.any,
+      reduce: PropTypes.func
+    }),
+    location: PropTypes.any
+  }).isRequired
+}
+
 const FullDetails = ({ algoliaProperty }) => {
   const classes = useStyles();
   const { data, loading, error } = useQuery(SINGLE_PROPERTY_QUERY, {
@@ -215,3 +226,9 @@ const FullDetails = ({ algoliaProperty }) => {
     </>
   );
 };
+
+FullDetails.propTypes = {
+  algoliaProperty: PropTypes.shape({
+    id: PropTypes.any
+  }).isRequired
+}

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
@@ -95,5 +96,15 @@ const CheckMultipleWithText = props => {
     </FormControl>
   );
 };
+
+CheckMultipleWithText.propTypes = {
+  config: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any.isRequired,
+  errorMessage: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired,
+  register: PropTypes.func.isRequired,
+  reset: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired
+}
 
 export default CheckMultipleWithText;

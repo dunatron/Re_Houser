@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Image from 'material-ui-image';
 
@@ -29,7 +30,7 @@ import dynamic from 'next/dynamic';
 //   ssr: false,
 // });
 
-const DynamicPdfViewer = dynamic(require('./PdfViewer'), {
+const DynamicPdfViewer = dynamic('./PdfViewer', {
   ssr: false,
 });
 
@@ -52,6 +53,15 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds }) => {
       ))}
     </div>
   );
+};
+
+FilePreviewer.propTypes = {
+  files: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
+  isRemoving: PropTypes.any.isRequired,
+  remove: PropTypes.func.isRequired,
+  removingIds: PropTypes.any.isRequired,
 };
 
 const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
@@ -102,8 +112,25 @@ const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
   );
 };
 
+RenderFileType.propTypes = {
+  file: PropTypes.shape({
+    id: PropTypes.any,
+  }).isRequired,
+  isRemoving: PropTypes.any.isRequired,
+  remove: PropTypes.any.isRequired,
+  removingIds: PropTypes.shape({
+    includes: PropTypes.func,
+  }).isRequired,
+};
+
 const RenderGenericImage = ({ file }) => {
   return <Image src={file.url} />;
+};
+
+RenderGenericImage.propTypes = {
+  file: PropTypes.shape({
+    url: PropTypes.any,
+  }).isRequired,
 };
 
 const RenderGenericDocument = ({ file }) => {
@@ -156,6 +183,14 @@ const RenderGenericDocument = ({ file }) => {
       </Button>
     </div>
   );
+};
+
+RenderGenericDocument.propTypes = {
+  file: PropTypes.shape({
+    bytes: PropTypes.any,
+    mimetype: PropTypes.any,
+    url: PropTypes.any,
+  }).isRequired,
 };
 
 // createdAt: "2020-05-16T05:22:34.440Z"

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
@@ -168,5 +169,12 @@ const Apply = props => {
     </div>
   );
 };
+
+Apply.propTypes = {
+  property: PropTypes.shape({
+    id: PropTypes.any,
+    location: PropTypes.any
+  }).isRequired
+}
 
 export default Apply;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
 import { connectHighlight } from 'react-instantsearch-dom';
@@ -17,5 +18,11 @@ const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
     </div>
   );
 });
+
+CustomHighlight.propTypes = {
+  attribute: PropTypes.any.isRequired,
+  highlight: PropTypes.func.isRequired,
+  hit: PropTypes.any.isRequired
+}
 
 export default CustomHighlight;

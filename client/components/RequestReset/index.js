@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { useMutation } from '@apollo/client';
@@ -72,6 +73,10 @@ const RequestReset = props => {
     </Form>
   );
 };
+
+RequestReset.propTypes = {
+  email: PropTypes.any.isRequired
+}
 
 export default RequestReset;
 export { REQUEST_RESET_MUTATION };

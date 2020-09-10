@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useRef, useEffect } from 'react';
 import Map from '../Map/index';
 
@@ -114,5 +115,10 @@ const LocationPicker = ({ selection, defaultLocation }) => {
     </div>
   );
 };
+
+LocationPicker.propTypes = {
+  defaultLocation: PropTypes.any.isRequired,
+  selection: PropTypes.func.isRequired
+}
 
 export default LocationPicker;

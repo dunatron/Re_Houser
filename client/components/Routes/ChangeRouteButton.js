@@ -31,11 +31,13 @@ const ChangeRouteButton = ({
 );
 
 ChangeRouteButton.propTypes = {
+  btnProps: PropTypes.any.isRequired,
+  color: PropTypes.oneOf(["default", "inherit", "primary", "secondary"]).isRequired,
+  query: PropTypes.object.isRequired,
   route: PropTypes.string.isRequired,
-  query: PropTypes.object,
-  title: PropTypes.string,
-  color: PropTypes.oneOf(['default', 'inherit', 'primary', 'secondary']),
-  variant: PropTypes.oneOf(['text', 'outlined', 'contained']),
+  size: PropTypes.any.isRequired,
+  title: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(["text", "outlined", "contained"]).isRequired
 };
 
 export default ChangeRouteButton;

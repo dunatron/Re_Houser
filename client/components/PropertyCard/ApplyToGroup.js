@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import Fab from '@material-ui/core/Fab';
@@ -56,5 +57,12 @@ const ApplyToGroup = props => {
     </>
   );
 };
+
+ApplyToGroup.propTypes = {
+  application: PropTypes.any.isRequired,
+  applicationId: PropTypes.any.isRequired,
+  openRentalAppModal: PropTypes.func.isRequired,
+  property: PropTypes.any.isRequired
+}
 
 export default ApplyToGroup;

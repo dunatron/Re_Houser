@@ -234,6 +234,15 @@ const UpdatePropertyVariableModal = ({
   );
 };
 
+UpdatePropertyVariableModal.propTypes = {
+  cy: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
+}
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -523,5 +532,27 @@ const Details = props => {
     </div>
   );
 };
+
+Details.propTypes = {
+  property: PropTypes.shape({
+    expiryDate: PropTypes.any,
+    id: PropTypes.any,
+    images: PropTypes.shape({
+      map: PropTypes.func
+    }),
+    insulationForm: PropTypes.shape({
+      id: PropTypes.any
+    }),
+    isLeased: PropTypes.any,
+    leaseId: PropTypes.any,
+    locationLat: PropTypes.any,
+    locationLng: PropTypes.any,
+    moveInDate: PropTypes.any,
+    onTheMarket: PropTypes.any,
+    placeId: PropTypes.any,
+    rent: PropTypes.any,
+    rooms: PropTypes.any
+  }).isRequired
+}
 
 export default Details;

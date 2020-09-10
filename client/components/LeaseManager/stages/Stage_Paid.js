@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import SignLease from '../SignLease';
 import { Paper, Typography } from '@material-ui/core';
 import RehouserPaper from '../../../styles/RehouserPaper';
@@ -39,5 +40,10 @@ const StagePaid = ({ lease, me }) => {
     </>
   );
 };
+
+StagePaid.propTypes = {
+  lease: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
+}
 
 export default StagePaid;

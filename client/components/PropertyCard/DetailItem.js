@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 
 export default class DetailItem extends Component {
@@ -15,6 +16,13 @@ export default class DetailItem extends Component {
       </div>
     );
   }
+}
+
+DetailItem.propTypes = {
+  icon: PropTypes.any.isRequired,
+  label: PropTypes.any.isRequired,
+  type: PropTypes.string.isRequired,
+  value: PropTypes.any.isRequired
 }
 
 const renderValue = (value, type) => {

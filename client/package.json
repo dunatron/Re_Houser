@@ -26,7 +26,8 @@
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "lint": "eslint ./components/** ./pages/** -c .eslintrc.js --ext js,jsx",
-    "lint-fix": "eslint ./components/** ./pages/** -c .eslintrc.js --fix --ext js,jsx"
+    "lint-fix": "eslint ./components/** ./pages/** -c .eslintrc.js --fix --ext js,jsx",
+    "gen-prop-types": "npx react-proptypes-generate project components/"
   },
   "dependencies": {
     "@apollo/client": "^3.0.1",
@@ -137,6 +138,7 @@
     "jest": "^23.6.0",
     "jest-transform-graphql": "^2.1.0",
     "logrocket": "^1.0.10",
+    "react-proptypes-generate": "^1.6.1",
     "typescript": "^3.6.3"
   }
 }

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import RentalApplicationStepper from '../../RentalApplicationStepper';
@@ -30,5 +31,12 @@ const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
     </Paper>
   );
 };
+
+RentalApplicationOwnerView.propTypes = {
+  me: PropTypes.any.isRequired,
+  rentalApplication: PropTypes.shape({
+    property: PropTypes.any
+  }).isRequired
+}
 
 export default RentalApplicationOwnerView;
