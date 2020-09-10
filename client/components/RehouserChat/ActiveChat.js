@@ -77,12 +77,8 @@ const ActiveChat = ({ id, chat, me }) => {
     <Paper
       className={`${classes.barItem} ${contentIn ? classes.barItemIn : ''}`}
       elevation={5}>
-      <div
-        className={classes.barItemHeader}
-        // onClick={() => setContentIn(!contentIn)}
-      >
+      <div className={classes.barItemHeader}>
         <div className={classes.barItemTitle}>
-          {/* <Avatar /> */}
           {getChatImage(chat, me)}
           <div className={classes.chatName}>{getChatName(chat, me)}</div>
         </div>
@@ -123,6 +119,5 @@ const ActiveChat = ({ id, chat, me }) => {
       )}
     </Paper>
   );
-  return;
 };
 export default ActiveChat;

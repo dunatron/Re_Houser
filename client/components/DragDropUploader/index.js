@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
@@ -22,50 +22,54 @@ const readFileIntoMemory = (file, callback) => {
   reader.readAsArrayBuffer(file);
 };
 
-class DragDropUploader extends Component {
-  initialState = {
+const _allowedExtensions = (types, extensions) => {
+  const allowed = fileTypesGen(
+    types ? types : undefined,
+    extensions ? extensions : undefined
+  );
+  return allowed;
+};
+
+const DragDropUploader = ({
+  title,
+  classes,
+  addText,
+  addBtnText,
+  externalLoading,
+  disabled,
+  dropStyles,
+  receiveFile,
+  types,
+  extensions,
+  multiple,
+}) => {
+  const initialState = {
     dragging: false,
     processing: false,
     numToProcess: 0,
     numProcessed: 0,
   };
 
-  state = {
-    ...this.initialState,
+  const [state, setState] = useState({
+    ...initialState,
+  });
+
+  const { dragging, processing, numToProcess, numProcessed } = state;
+
+  const allowedExtensions = _allowedExtensions(types, extensions);
+
+  const reset = () => {
+    setState({
+      ...initialState,
+    });
   };
 
-  render = () => {
-    const { classes, title } = this.props;
-    const { dragging, processing, numToProcess, numProcessed } = this.state;
-
-    if (processing) {
-      return (
-        <ProgressBar>
-          streaming files to browser please wait
-          <LinearBuffer
-            size={numToProcess}
-            currentSize={numProcessed + 1}
-            color="secondary"
-          />
-        </ProgressBar>
-      );
-    }
-
-    return this.renderDropZone();
-  };
-
-  renderDropText = () => {
-    const { dragging, processing } = this.state;
-    const { addText, externalLoading } = this.props;
+  const renderDropText = () => {
     const text = addText ? addText : 'Click To Browse';
-    // Lokks bets when size doesn't change. So use btn for messages
-    // if (processing) return "Processing please wait..."
     return <h2>{text}</h2>;
   };
 
-  renderBtnText = () => {
-    const { dragging, processing } = this.state;
-    const { addBtnText, externalLoading } = this.props;
+  const renderBtnText = () => {
     const text = addBtnText ? addBtnText : 'Click To Browse';
 
     if (processing || externalLoading) return 'Please Wait';
@@ -73,16 +77,7 @@ class DragDropUploader extends Component {
     return text;
   };
 
-  renderUploadButton = () => {
-    const {
-      classes,
-      title,
-      disabled,
-      multiple,
-      dropStyles,
-      externalLoading,
-    } = this.props;
-    const { dragging, processing } = this.state;
+  const renderUploadButton = () => {
     if (processing || externalLoading)
       return (
         <div>
@@ -91,7 +86,7 @@ class DragDropUploader extends Component {
             color={dragging ? 'secondary' : 'primary'}
             variant="contained"
             component="span">
-            {this.renderBtnText()}
+            {renderBtnText()}
           </Button>
         </div>
       );
@@ -103,25 +98,23 @@ class DragDropUploader extends Component {
           color={dragging ? 'secondary' : 'primary'}
           variant="contained"
           component="span">
-          {this.renderBtnText()}
+          {renderBtnText()}
         </Button>
       </label>
     );
   };
 
-  renderDropZone = () => {
-    const { classes, title, disabled, multiple, dropStyles } = this.props;
-    const { dragging, processing } = this.state;
+  const renderDropZone = () => {
     return (
       <DropZone
         style={dropStyles ? dropStyles : {}}
         dragging={dragging}
         disabled={disabled}
-        onClick={this.onZoneClick}
-        onDrop={disabled ? e => e.preventDefault() : e => this.onDrop(e)}
-        onDragEnter={this.onDragEnter}
-        onDragLeave={this.onDragLeave}
-        onDragOver={this.onDragOver}>
+        onClick={onZoneClick}
+        onDrop={disabled ? e => e.preventDefault() : e => onDrop(e)}
+        onDragEnter={onDragEnter}
+        onDragLeave={onDragLeave}
+        onDragOver={onDragOver}>
         <span>{title}</span>
         <CloudUploadOutlinedIcon />
         <HiddenInput
@@ -129,104 +122,104 @@ class DragDropUploader extends Component {
           id="file-multi-input"
           multiple
           type="file"
-          onChange={e => this.onFileChange(e)}
+          onChange={e => onFileChange(e)}
         />
-        <span>{this.renderDropText()}</span>
-        {this.renderUploadButton()}
+        <span>{renderDropText()}</span>
+        {renderUploadButton()}
       </DropZone>
     );
   };
 
-  allowedExtensions = () => {
-    const { types, extensions } = this.props;
-    const allowed = fileTypesGen(
-      types ? types : undefined,
-      extensions ? extensions : undefined
-    );
-    return allowed;
-  };
-
-  updateProgress = () => {
-    let { numToProcess, numProcessed } = this.state;
+  const updateProgress = () => {
     const numberNowProcessed = numProcessed + 1;
-    this.setState({
+    setState({
+      ...state,
       processing: numToProcess <= numberNowProcessed ? false : true,
       numProcessed: numberNowProcessed,
     });
     if (numToProcess <= numberNowProcessed) {
-      this.reset();
+      reset();
     }
   };
 
-  processedFile = fileInfo => {
-    const { receiveFile } = this.props;
+  const processedFile = fileInfo => {
     receiveFile(fileInfo);
-    this.updateProgress();
+    updateProgress();
   };
 
-  handleSingleFile = file => {
-    readFileIntoMemory(file, this.processedFile);
+  const handleSingleFile = file => {
+    readFileIntoMemory(file, processedFile);
   };
 
-  handleFiles = async files => {
-    const { multiple } = this.props;
-    const allowedExtensions = this.allowedExtensions();
+  const handleFiles = async files => {
     const allowedFiles = Object.values(files)
       .map(file => file)
       .filter(f => allowedExtensions.includes(f.type));
     if (!multiple) {
-      return this.handleSingleFile(allowedFiles[0]);
+      return handleSingleFile(allowedFiles[0]);
     }
-    this.setState({ numToProcess: allowedFiles.length });
-    allowedFiles.map(file => readFileIntoMemory(file, this.processedFile));
+    setState({ ...state, numToProcess: allowedFiles.length });
+    allowedFiles.map(file => readFileIntoMemory(file, processedFile));
   };
 
-  onFileChange = e => {
-    const files = e.target.files;
-    this.handleFiles(files);
+  const onFileChange = e => {
+    // const files = e.target.files;
+    handleFiles(e.target.files);
   };
-  onDrop = e => {
+  const onDrop = e => {
     e.preventDefault();
-    this.setState({ dragging: false, processing: true });
-    const files = e.dataTransfer.files;
-    this.handleFiles(files);
+    setState({ ...state, dragging: false, processing: true });
+    // const files = e.dataTransfer.files;
+    handleFiles(e.dataTransfer.files);
   };
 
-  onDragEnter = e => {
+  const onDragEnter = e => {
     e.preventDefault();
-    if (!this.state.dragging) {
-      this.setState({
+    if (!state.dragging) {
+      setState({
+        ...state,
         dragging: true,
       });
     }
   };
 
-  onDragLeave = e => {
+  const onDragLeave = e => {
     e.preventDefault();
-    if (this.state.dragging) {
-      this.setState({
+    if (state.dragging) {
+      setState({
+        ...state,
         dragging: false,
       });
     }
   };
 
-  onDragOver = e => {
+  const onDragOver = e => {
     e.preventDefault();
-    if (!this.state.dragging) {
-      this.setState({
+    if (!state.dragging) {
+      setState({
+        ...state,
         dragging: true,
       });
     }
   };
 
-  onZoneClick = () => {};
+  const onZoneClick = () => {};
 
-  reset = () => {
-    this.setState({
-      ...this.initialState,
-    });
-  };
-}
+  if (processing) {
+    return (
+      <ProgressBar>
+        streaming files to browser please wait
+        <LinearBuffer
+          size={numToProcess}
+          currentSize={numProcessed + 1}
+          color="secondary"
+        />
+      </ProgressBar>
+    );
+  }
+
+  return renderDropZone();
+};
 
 DragDropUploader.propTypes = {
   types: PropTypes.array,

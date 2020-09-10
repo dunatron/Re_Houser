@@ -30,6 +30,7 @@ const OpenChatBubbles = ({ chats, me }) => {
           .map((c, i) => {
             return (
               <div
+                key={c.id}
                 style={{
                   position: 'relative',
                 }}>

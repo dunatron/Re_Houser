@@ -58,7 +58,7 @@ const ApplicationCard = ({ application, property }) => {
           <div>
             <h2>Some stuff</h2>
             {application.applicants.map((applicant, i) => (
-              <ApplicantDetails applicant={applicant} />
+              <ApplicantDetails key={applicant.id} applicant={applicant} />
             ))}
           </div>
         </ExpansionPanelDetails>

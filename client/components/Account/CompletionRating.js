@@ -8,8 +8,8 @@ const extractDeepValue = (str, dataObj) => {
     const value = str.split('.').reduce((o, i) => o[i], dataObj);
     if (value === null) return '';
     return value ? value : '';
-  } catch {
-    return '';
+  } catch (e) {
+    return e.message;
   }
 };
 const CompletionRating = ({ me }) => {

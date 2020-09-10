@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FileUploader from './../../FileUploader';
 import FieldError from './FieldError';
 import InputFieldType from './index';
+import { is } from 'ramda';
 
 const File = props => {
   const {
@@ -125,7 +126,7 @@ const File = props => {
         inners.map((inner, idx) => {
           if (!canDisplayInner()) return null;
           return (
-            <div style={{ marginTop: '16px' }}>
+            <div key={inner.key} style={{ marginTop: '16px' }}>
               <InputFieldType
                 config={inner}
                 key={idx}

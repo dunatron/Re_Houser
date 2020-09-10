@@ -397,6 +397,7 @@ const UploadFile = forwardRef((props, ref) => {
               if (!serverFile) return null;
               return (
                 <div
+                  key={f.id}
                   style={{
                     width: '100%',
                   }}>

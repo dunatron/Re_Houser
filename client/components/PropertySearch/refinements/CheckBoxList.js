@@ -76,7 +76,6 @@ const MaterialUiCheckBoxRefinementList = ({
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    fontSize: '1.2em',
                     fontWeight: '300',
                     fontSize: '1rem',
                     wordBreak: 'break-word',

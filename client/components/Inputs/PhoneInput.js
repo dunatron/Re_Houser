@@ -6,9 +6,16 @@ import dynamic from 'next/dynamic';
 // Area codes - https://github.com/bl00mber/react-phone-input-2#local-area-codes
 // Predefined localization - https://github.com/bl00mber/react-phone-input-2#predefined-localization
 // Local Area codes - https://github.com/bl00mber/react-phone-input-2#local-area-codes
-const NoSSRSMuiPhoneNumber = dynamic(() => import('material-ui-phone-number'), {
-  ssr: false,
-});
+// const NoSSRSMuiPhoneNumber = dynamic(() => import('material-ui-phone-number'), {
+//   ssr: false,
+// });
+
+const NoSSRSMuiPhoneNumber = dynamic(
+  () => require('material-ui-phone-number'),
+  {
+    ssr: false,
+  }
+);
 
 const PhoneInput = ({ id, name, label, onChange, ...rest }) => {
   return (

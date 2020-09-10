@@ -24,13 +24,6 @@ const useStyles = makeStyles(theme => ({
     // maxWidth: '500px',
   },
   content: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingTop: '16px',
-    boxSizing: 'border-box',
-    width: '100%',
-  },
-  content: {
     minWidth: '320px',
     marginLeft: '0px',
     [theme.breakpoints.up('sm')]: {

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { useQuery } from '@apollo/client';
 import { MY_LEASES_QUERY } from '../../graphql/queries/index';
 import Error from '../ErrorMessage';
-import LeasesTable from './LeasesTable';
-import SuperiorTable from '../SuperiorTable';
 import Loader from '../Loader/index';
+import LeasesTable from '../Tables/LeasesTable';
 
 const LeasesList = () => {
   const { data, error, loading } = useQuery(MY_LEASES_QUERY);

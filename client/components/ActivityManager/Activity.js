@@ -147,7 +147,7 @@ const ActivitySkeleton = () => {
         }}></ButtonLoader>
       {arr.map((activity, idx) => {
         return (
-          <ExpansionPanel>
+          <ExpansionPanel key={activity.id}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"

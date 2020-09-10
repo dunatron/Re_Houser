@@ -82,7 +82,7 @@ const SearchAndRequestFriend = props => {
         results.map((result, i) => {
           console.log('Ohh cool a result => ', result);
           return (
-            <div>
+            <div key={result.id}>
               <UserDetails me={me} user={result} />
               <FriendRequestButton me={me} requestFriendId={result.id} />
             </div>

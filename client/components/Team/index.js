@@ -75,6 +75,7 @@ const TeamComponent = () => {
           {TEAM_CONFIG.map((member, idx) => {
             return (
               <Grid
+                key={member.id}
                 className={classes.gridItem}
                 item
                 xs={12}
@@ -83,7 +84,6 @@ const TeamComponent = () => {
                 lg={3}
                 xl={2}
                 spacing={0}
-                container
                 container>
                 <Card className={classes.cardRoot} square>
                   <CardActionArea

@@ -87,7 +87,7 @@ const LocationPicker = ({ selection, defaultLocation }) => {
         country="nz"
         queryDelay={250}
         // types={['establishment', 'geocode', 'regions', 'cities']}
-        location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
+        // location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
         radius="20"
       />
       {state.showMap && state.desc && (

@@ -13,7 +13,11 @@ export default class ImagePicker extends PureComponent {
     return (
       <ImageList>
         {images.map((img, idx) => (
-          <ImageTile image={img} remove={() => this.props.remove(idx)} />
+          <ImageTile
+            key={idx}
+            image={img}
+            remove={() => this.props.remove(idx)}
+          />
         ))}
       </ImageList>
     );

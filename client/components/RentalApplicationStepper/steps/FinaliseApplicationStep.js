@@ -46,7 +46,7 @@ const FinaliseApplicationStep = ({
         .filter(step => step !== 'Finalise')
         .map((stepHeader, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <h2>
                 {stepHeader} {completed[idx] ? 'YES' : 'NO'}
               </h2>

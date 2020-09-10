@@ -134,7 +134,7 @@ const Modal = props => {
                 className={classes.modalHeader}
                 id={`${id}-modal-header`}
                 style={{
-                  position: '-webkit-sticky',
+                  // position: '-webkit-sticky',
                   position: 'sticky', // ToDo, only apply when elemnt is out of view
                   top: 0,
                 }}>

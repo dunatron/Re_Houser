@@ -6,19 +6,10 @@ import { IconButton } from '@material-ui/core';
 import PropertyCard from '../PropertyCard/index';
 
 import { CustomMarker } from 'react-instantsearch-dom-maps';
-import GeoSearch from './GeoSearch';
-
-// import Places from './places/widget';
 
 //icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
-
-import dynamic from 'next/dynamic';
 import Modal from '../../components/Modal/index';
-
-const DynamicPlacesSearch = dynamic(import('./places/widget'), {
-  ssr: false,
-});
 
 const MapMarker = ({ hit }) => {
   const node = useRef();
@@ -57,7 +48,7 @@ const MapMarker = ({ hit }) => {
             display: 'flex',
             alignItems: 'center',
           }}>
-          ${hit.rent}
+          {hit.rent}
           {showMore && (
             <IconButton onClick={() => setModalOpen(true)}>
               <VisibilityIcon />

@@ -3,6 +3,8 @@ import ApplicationItem from './ApplicationItem';
 import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
+import Error from '../ErrorMessage';
+import Loader from '../Loader';
 
 const RentalApplications = props => {
   const { propertyId, property, me } = props;
@@ -48,7 +50,8 @@ const RentalApplications = props => {
     }
   );
   if (applications.error) return <Error error={applications.error} />;
-  if (applications.loading) return <p>fetching applications...</p>;
+  if (applications.loading)
+    return <Loader loading={loading} text="fetching applications..." />;
   const { rentalApplications } = applications.data;
 
   return (

@@ -1,6 +1,5 @@
 import React, { Component, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import SuperTable from '../SuperTable/index';
 import Button from '@material-ui/core/Button';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import { toast } from 'react-toastify';
@@ -164,11 +163,7 @@ const PaymentsTable = ({ payments, title }) => {
   };
   return (
     <div>
-      <SuperTable
-        columnHeaders={columnHeaders()}
-        title={title}
-        data={prettyPayments}
-      />
+      <h2>SUPER TABLE has been REMOVED IN FAVOR OF SUPPERIOR TABLE</h2>
     </div>
   );
 };

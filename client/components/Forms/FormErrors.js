@@ -48,7 +48,7 @@ const FormErrors = ({ errors }) => {
     return (
       <>
         <Typography className={classes.errorKey}>
-          {err[0]} =>{' '}
+          {err[0]}:
           <span className={classes.errorMessage}>
             {err[1].type}: {err[1].message}
           </span>

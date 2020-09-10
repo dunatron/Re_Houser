@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { useQuery, useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
 
-import SuperTable from '../SuperTable/index';
 import SuperiorTable from '../SuperiorTable';
 import Modal from '../Modal/index';
 import PropertyDetails from '../PropertyDetails/index';

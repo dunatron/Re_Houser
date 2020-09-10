@@ -29,7 +29,8 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   };
 
   var rent = formData.rent;
-  const extractRentFloat = Number(rent.replace(/[^0-9\.-]+/g, ''));
+  // const extractRentFloat = Number(rent.replace(/[^0-9\.-]+/g, ''));
+  const extractRentFloat = Number(rent.replace(/[^0-9.-]+/g, '')); // no useles escape lint
   const rentVal = extractRentFloat * 100;
 
   const [createProperty, { loading, error, data }] = useMutation(

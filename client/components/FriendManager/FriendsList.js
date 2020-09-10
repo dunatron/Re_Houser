@@ -1,6 +1,11 @@
 import { useQuery, gql } from '@apollo/client';
 import UserDetails from '../UserDetails';
 
+import Loader from '../Loader';
+import Error from '../ErrorMessage';
+
+import { Box, Typography } from '@material-ui/core';
+
 const FRIENDS_QUERY = gql`
   query {
     me {
@@ -24,17 +29,11 @@ const FRIENDS_QUERY = gql`
  *
  * Should probably make a specific freiends query that allows to get them in batches...
  */
-const FriendsList = props => {
-  // const {
-  //   me: { friends },
-  // } = props;
-  // const friends = [];
+const FriendsList = ({ me }) => {
   const { data, loading, error } = useQuery(FRIENDS_QUERY);
 
-  console.log('Show me these friends data => ', data);
-
-  if (loading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
+  if (loading) return <Loader loading={loading} text="retrieveing friends" />;
+  if (error) return <Error error={error} />;
 
   return (
     <div>
@@ -42,12 +41,12 @@ const FriendsList = props => {
       {data.me.friends &&
         data.me.friends.map(friend => {
           return (
-            <div>
-              <p>
-                Friend => {friend.firstName} {friend.lastName}
-              </p>
-              <UserDetails user={friend} me={props.me} />
-            </div>
+            <Box component="div" key={friend.id}>
+              <Typography variant="body1">
+                {friend.firstName} {friend.lastName}
+              </Typography>
+              <UserDetails user={friend} me={me} />
+            </Box>
           );
         })}
     </div>

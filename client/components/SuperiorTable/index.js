@@ -17,6 +17,9 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
+import PropTypes from 'prop-types';
+import mePropTypes from '../../propTypes/mePropTypes';
+
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -62,5 +65,7 @@ const SuperiorTable = props => {
     />
   );
 };
+
+SuperiorTable.propTypes = PropTypes.instanceOf(MaterialTable);
 
 export default SuperiorTable;

@@ -83,7 +83,7 @@ const Location = props => {
         inners.map((inner, idx) => {
           if (!canDisplayInner()) return null;
           return (
-            <div style={{ marginTop: '16px' }}>
+            <div key={inner.key} style={{ marginTop: '16px' }}>
               <InputFieldType
                 {...props}
                 config={inner}

@@ -45,9 +45,6 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     width: '100%',
     maxWidth: '920px',
-    // [theme.breakpoints.up(600)]: {
-    //   flexWrap: 'noWrap',
-    // },
     [theme.breakpoints.up('sm')]: {
       maxWidth: '920px',
       flexWrap: 'wrap',
@@ -55,25 +52,18 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up(720)]: {
       flexWrap: 'noWrap',
     },
-    // [theme.breakpoints.up('md')]: {
-    //   maxWidth: '1100px',
-    //   flexWrap: 'nowrap',
-    // },
   },
   imageContainer: {
-    height: '200px',
     height: 'auto',
     minHeight: '200px',
     minWidth: '200px',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      height: '243px',
       height: 'auto',
       width: '220px',
       minWidth: '220px',
     },
     [theme.breakpoints.up('md')]: {
-      height: '200px',
       height: 'auto',
       width: '350px',
       minWidth: '350px',
@@ -92,14 +82,12 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    // marginBottom: '0 !important',
     alignItems: 'flex-end',
     maxWidth: '320px',
   },
   detailItems: {
     display: 'flex',
     marginTop: theme.spacing(2),
-    // padding: theme.spacing(2)
   },
 }));
 
@@ -171,7 +159,7 @@ const PropertyResultHit = ({ hit }) => {
         </Typography>
         <div className={classes.detailItems}>
           {DetailItemsArr.map((conf, i) => {
-            return <DetailItem hit={hit} conf={conf} />;
+            return <DetailItem key={i} hit={hit} conf={conf} />;
           })}
         </div>
       </RehouserPaper>

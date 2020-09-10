@@ -60,49 +60,6 @@ const extractApplicantUserData = (rentalApplication, me) => {
   return userRentalApplicantData;
 };
 
-/**
- *
- * @param {*} rentalApplication
- * @param {*} me
- * ToDo: rewrite this abomination. Make it use steps and that new hooks form thing.
- * Actually maybe not the hooks thing, to many custom componnets. Unless they set the values in there step.
- * Then you can opnly complete steps if values are there
- */
-const extractUserInfoFields = (rentalApplication, me) => {
-  const applicantUserData = extractApplicantUserData(rentalApplication, me);
-  const userInfoObj = RENTAL_GROUP_APPLICANT_CONF.reduce((bigObj, conf) => {
-    const objPiece = {
-      [conf.variableName]: {
-        ...conf,
-        label: conf.label,
-        value: applicantUserData[conf.variableName]
-          ? applicantUserData[conf.variableName]
-          : me[conf.variableName],
-        editable: conf.editable,
-      },
-    };
-    bigObj = { ...bigObj, ...objPiece };
-    return bigObj;
-  }, {});
-  return userInfoObj;
-};
-
-const isStepCompleted = () => {
-  return false;
-};
-
-const detailsStepIsComplete = rentalApplication => {
-  const { applicants } = rentalApplication;
-  // there must be at least 1 applicant approved
-  // return false;
-  const hasOneApplicantApproved = applicants.find(
-    aplcnt => aplcnt.approved === true
-  );
-  if (!hasOneApplicantApproved) return false;
-  if (rentalApplication.detailsStepComplete === false) return false;
-  return true;
-};
-
 const RentalApplicationStepper = props => {
   const { me, property, rentalApplication } = props;
   const { applicants } = rentalApplication;
@@ -117,30 +74,6 @@ const RentalApplicationStepper = props => {
 
   // an update user Mutation
   const [updateUser] = useMutation(UPDATE_USER_MUTATION);
-
-  // Will let us update application Info if owner
-  const _updateApplication = async data => {
-    if (rentalApplication.owner.id !== me.id) {
-      toast.error(
-        <div>
-          <h3>Only the owner can Update this section</h3>
-          <h3>${rentalApplication.owner.firstName}</h3>
-          <h3>${rentalApplication.owner.email}</h3>
-        </div>
-      );
-      return false;
-    }
-    // handle updating rentalApplication
-    await updateApplication({
-      variables: {
-        data: data,
-        where: {
-          id: rentalApplication.id,
-        },
-      },
-    });
-    return true;
-  };
 
   // Note: all hooks must go before first render
   const [activeStep, setActiveStep] = useState(0);

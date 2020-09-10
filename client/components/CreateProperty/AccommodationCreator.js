@@ -144,7 +144,7 @@ const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
       {accommodation.map((accom, i) => {
         if (editingIndex === i)
           return (
-            <>
+            <Fragment key={i}>
               <EditAccommodation
                 index={i}
                 accommodation={accom}
@@ -156,14 +156,14 @@ const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
               <Button onClick={() => setEditingIndex(null)}>
                 Quit Editing
               </Button>
-            </>
+            </Fragment>
           );
         return (
-          <div>
-            <p>Room Size => {accom.roomSize}</p>
-            <p>rent for room => {accom.rent}</p>
-            <p>expenses => {accom.expense}</p>
-            <p>room description => {accom.description}</p>
+          <div key={i}>
+            <p>Room Size {accom.roomSize}</p>
+            <p>rent for room {accom.rent}</p>
+            <p>expenses {accom.expense}</p>
+            <p>room description {accom.description}</p>
             <Button onClick={() => setEditingIndex(i)}>Edit</Button>
             <Button onClick={() => duplicate({ accommodation: accom })}>
               Duplicate

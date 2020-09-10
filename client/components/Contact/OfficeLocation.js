@@ -59,6 +59,7 @@ const RenderlLines = ({ title, lines }) => {
       <Typography variant="h5">{title}</Typography>
       {lines.map((line, idx) => (
         <Typography
+          key={idx}
           variant="body1"
           gutterBottom={idx + 1 === lines.length ? true : false}>
           {line}

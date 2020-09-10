@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
-export default function TabContainer(props) {
-  return <Typography component="div">{props.children}</Typography>;
-}
+import PropTypes from 'prop-types';
+import mePropTypes from '../../propTypes/mePropTypes';
+
+const TabContainer = ({ children }) => (
+  <Typography component="div">{children}</Typography>
+);
+
+TabContainer.propTypes = {
+  children: PropTypes.element,
+};
+
+export default TabContainer;

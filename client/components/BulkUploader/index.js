@@ -13,7 +13,7 @@ const MyList = ({ virtual, itemHeight }) => (
           items and the dom would noit render then, only the amount we specify.
           Well that was easy
           {item.data.map((cell, cellIdx) => {
-            return <span>{cell}</span>;
+            return <span key={cellIdx}>{cell}</span>;
           })}
         </li>
       );

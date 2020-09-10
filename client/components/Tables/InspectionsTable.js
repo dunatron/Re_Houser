@@ -1,42 +1,17 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { store } from '../../store';
 import gql from 'graphql-tag';
-import {
-  useApolloClient,
-  useQuery,
-  useSubscription,
-  useMutation,
-} from '@apollo/client';
+import { useApolloClient, useQuery, useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import {
-  Input,
-  Typography,
-  IconButton,
-  Icon,
-  Badge,
-  Button,
-} from '@material-ui/core';
-import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyAppraisalSub';
-import moment from 'moment';
-import formatCentsToDollars from '../../lib/formatCentsToDollars';
-
-//components
-import Modal from '../Modal/index';
 import Error from '../ErrorMessage';
 
-//rentalApplicationsConnection
-// connection querys
 import { INSPECTIONS_CONNECTION_QUERY } from '../../graphql/connections';
 // mutations
 import { UPDATE_INSPECTION_MUTATION } from '../../graphql/mutations';
 
-//icons
-import SearchIcon from '@material-ui/icons/Search';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import { resolve } from 'path';
-import { set } from 'date-fns';
+import PropTypes from 'prop-types';
+import { mePropTypes, propertyPropTypes } from '../../propTypes';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -216,6 +191,12 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
       />
     </div>
   );
+};
+
+InspectionsTable.propTypes = {
+  me: mePropTypes,
+  where: PropTypes.object,
+  orderBy: PropTypes.object,
 };
 
 export default InspectionsTable;

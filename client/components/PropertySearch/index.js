@@ -66,12 +66,7 @@ import {
   connectCurrentRefinements,
 } from 'react-instantsearch-dom';
 
-import dynamic from 'next/dynamic';
 import Modal from '../../components/Modal/index';
-
-const DynamicPlacesSearch = dynamic(import('./places/widget'), {
-  ssr: false,
-});
 
 // THIS FOR NEXT JS
 // https://github.com/algolia/react-instantsearch/tree/master/examples/next

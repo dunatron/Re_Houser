@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 //   return errors.map(error => <Error error={error} />)
 // }
 const ErrorSupplier = ({ errors, tronM }) =>
-  errors.map(error => <Error error={error} tronM={tronM} />);
+  errors.map((error, idx) => <Error key={idx} error={error} tronM={tronM} />);
 
 const DenyApplicationButton = ({ application }) => {
   const classes = useStyles();

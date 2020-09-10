@@ -25,7 +25,11 @@ import Modal from '../Modal';
 // import { Document, Page } from 'react-pdf/dist/umd/entry.parcel';
 import dynamic from 'next/dynamic';
 
-const DynamicPdfViewer = dynamic(import('./PdfViewer'), {
+// const DynamicPdfViewer = dynamic(import('./PdfViewer'), {
+//   ssr: false,
+// });
+
+const DynamicPdfViewer = dynamic(require('./PdfViewer'), {
   ssr: false,
 });
 
@@ -39,6 +43,7 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds }) => {
       }}>
       {files.map((f, idx) => (
         <RenderFileType
+          key={idx}
           isRemoving={isRemoving}
           file={f}
           remove={() => remove(f)}
@@ -47,25 +52,6 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds }) => {
       ))}
     </div>
   );
-
-  return files.map((f, idx) => {
-    return <RenderFileType file={f} />;
-    return (
-      <div
-        style={{
-          width: '100%',
-        }}>
-        <h3>{f.id}</h3>
-        <p>{f.url}</p>
-        <p>{f.createdAt}</p>
-        <p>{f.encoding}</p>
-        <p>{f.filename}</p>
-        <p>{f.mimetype}</p>
-        <p>{f.updatedAt}</p>
-        <p>{f.__typename}</p>
-      </div>
-    );
-  });
 };
 
 const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {

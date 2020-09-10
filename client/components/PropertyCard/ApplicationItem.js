@@ -239,7 +239,7 @@ const ApplicationItem = props => {
                 user: { id, firstName, lastName },
               } = applicant;
               return (
-                <div className="user__strip">
+                <div className="user__strip" key={id}>
                   <Tooltip
                     title={`view ${firstName} ${lastName}`}
                     placement="top">

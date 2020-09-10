@@ -6,7 +6,6 @@ const _preCheckMultipleWithText = values => {
     values !== null
   ) {
     return values.set ? values.set : values;
-    return values.set;
   }
   return values;
 };

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
+import { Typography } from '@material-ui/core';
 
-export default class InputErrors extends Component {
-  render() {
-    if (!this.props.errors) {
-      return null;
-    }
+const InputErrors = ({ errors }) => {
+  if (!errors) return null;
 
-    return (
-      <div>
-        {this.props.errors.map((err, i) => (
-          <div>
-            <h1 style={{ color: 'red' }}>{err}</h1>
-          </div>
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {errors.map((err, i) => (
+        <Typography key={i} component="div">
+          <Typography variant="h6" color="error">
+            {err}
+          </Typography>
+        </Typography>
+      ))}
+    </div>
+  );
+};
+
+export default InputErrors;

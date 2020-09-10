@@ -7,6 +7,9 @@ import PageHeader from '../PageHeader';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
+import PropTypes from 'prop-types';
+import mePropTypes from '../../propTypes/mePropTypes';
+
 const useStyles = makeStyles(theme => ({
   root: {},
   descPanel: {
@@ -18,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   imageWrapper: {
-    width: '50%',
     maxWidth: '550px', // maybe we should have this
     minWidth: '320px',
     margin: 'auto',
@@ -36,7 +38,6 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '750px',
     margin: 'auto',
     [theme.breakpoints.up('md')]: {
-      width: '50%',
       padding: '0 32px 32px 32px',
       width: 'unset',
       margin: 'unset',
@@ -83,6 +84,17 @@ const TeamMember = ({ member }) => {
       </div>
     </Paper>
   );
+};
+
+TeamMember.propTypes = {
+  member: PropTypes.shape({
+    name: PropTypes.string,
+    role: PropTypes.string,
+    imgPath: PropTypes.string,
+    description: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+  }),
 };
 
 export default TeamMember;

@@ -1,5 +1,5 @@
 // export individual objects from here to use
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import YouTube from 'react-youtube';
 
 const youTubeOptions = {
@@ -15,20 +15,20 @@ const youTubeOptions = {
 const ACTIVITY_MANAGER_HELP = {
   title: 'Activity Manager Helper',
   components: [
-    <Typography>
+    <Typography key={1}>
       You will be able to see activity you have made across the platform{' '}
     </Typography>,
-    <Typography>Can put anything we want in these</Typography>,
-    <Typography>
+    <Typography key={2}>Can put anything we want in these</Typography>,
+    <Typography key={3}>
       Like maybe a Youtube video explaining how to do things
     </Typography>,
-    <div style={{ maxWidth: '640px' }}>
+    <Box key={4} component="div" style={{ maxWidth: '640px' }}>
       <YouTube
         videoId="KBaGm-EqpF4"
         opts={youTubeOptions}
         //   onReady={this._onReady}
       />
-    </div>,
+    </Box>,
   ],
 };
 

@@ -45,7 +45,7 @@ const PropertyLeases = props => {
       <h1>I am the Leases details component</h1>
       {data.myLeases.map((lease, i) => {
         return (
-          <div>
+          <div key={lease.id}>
             <button onClick={() => alert('ROute To Lease Page')}>
               EDIT LEASE
             </button>
@@ -60,7 +60,7 @@ const PropertyLeases = props => {
             <h4>Owners</h4>
             {lease.lessors.map(owner => {
               return (
-                <div>
+                <div key={owner.id}>
                   <p>{owner.id}</p>
                 </div>
               );
@@ -68,7 +68,7 @@ const PropertyLeases = props => {
             <h4>Tenants</h4>
             {lease.lessees.map(tenant => {
               return (
-                <div>
+                <div key={tenant.id}>
                   <p>{tenant.id}</p>
                 </div>
               );

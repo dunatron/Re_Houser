@@ -97,6 +97,11 @@ const Apply = props => {
             variables: variables,
           });
         } catch (e) {
+          toast.error(
+            <Typography variant="body1" color="error">
+              An error occurred
+            </Typography>
+          );
         } finally {
           toast.success(
             <Typography variant="body1">

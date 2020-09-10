@@ -1,14 +1,8 @@
-import React, { Component } from 'react';
-import { adopt } from 'react-adopt';
-import gql from 'graphql-tag';
+import React from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { useCurrentUser } from '../User/index';
 import Loader from '../Loader';
 import Error from '../ErrorMessage';
-import FinaliseLeaseBtn from '../MutationButtons/FinaliseLeaseButton';
-import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
-import CompletedLease from './CompletedLease';
-import SignLease from './SignLease';
 import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
 import LeaseChat from './LeaseChat';
 
@@ -123,8 +117,6 @@ const LeaseManager = ({ leaseId }) => {
       <LeaseChat leaseId={leaseId} />
     </div>
   );
-
-  return 'You may have an invalid lease stage. please contact support';
 };
 
 export default LeaseManager;

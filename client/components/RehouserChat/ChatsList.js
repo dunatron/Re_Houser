@@ -71,6 +71,7 @@ const ChatsList = ({ me }) => {
   return data.chats.map((chat, i) => {
     return (
       <div
+        key={chat.id}
         className={classes.root}
         onClick={() =>
           dispatch({

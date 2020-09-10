@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
 import { useQuery, useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
-import SuperTable from '../SuperTable/index';
+
 import Modal from '../Modal/index';
 import PropertyDetails from '../PropertyDetails/index';
 import { ToastContainer, toast } from 'react-toastify';
@@ -74,27 +74,6 @@ const OwnerProperties = ({ me }) => {
 
   const goToAddBulkProperty = () => {
     handleLink('/properties/bulkadd');
-  };
-
-  const toggleOnTheMarket = dataObj => {
-    const current = dataObj.onTheMarket;
-    props.updateProperty({
-      variables: { id: dataObj.id, onTheMarket: !current },
-    });
-  };
-
-  const executeFunctionByName = (functionName, dataObj /*, args */) => {
-    switch (functionName) {
-      case 'showDetails':
-        showDetails(dataObj);
-        break;
-      case 'manageProperty':
-        return manageProperty(dataObj);
-      case 'toggleOnTheMarket':
-        return toggleOnTheMarket(dataObj);
-      default:
-        alert('No function specified');
-    }
   };
 
   if (loading) {

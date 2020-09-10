@@ -1,9 +1,4 @@
-import React, { Component } from 'react';
-import { adopt } from 'react-adopt';
-import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/client';
-import User from '../User/index';
-import Error from '../ErrorMessage';
+import React from 'react';
 import FinaliseLeaseBtn from '../MutationButtons/FinaliseLeaseButton';
 import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
 import { makeStyles } from '@material-ui/core/styles';
@@ -123,8 +118,14 @@ const SignDetailsBlock = ({ items, me, type, lease }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {items.map(item => (
-            <SignDetails item={item} me={me} type={type} lease={lease} />
+          {items.map((item, idx) => (
+            <SignDetails
+              key={idx}
+              item={item}
+              me={me}
+              type={type}
+              lease={lease}
+            />
           ))}
         </TableBody>
       </Table>

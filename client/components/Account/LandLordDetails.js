@@ -94,7 +94,7 @@ const UserDetails = ({ me }) => {
           const { type, fieldProps } = item;
           if (!fieldProps) return 'No field props for config item';
           return (
-            <div>
+            <div key={item.key}>
               <DynamicCompletionIcon val={me[item.variableName]} />
               <RenderInput
                 type={type}

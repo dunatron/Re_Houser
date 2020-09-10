@@ -42,7 +42,7 @@ const RentalApplication = ({ id, me }) => {
           content: `Rental application for ${data.rentalApplication.property.location}`,
         }}
         children={[
-          <Typography gutterBottom>
+          <Typography key={1} gutterBottom>
             Application ID: {data.rentalApplication.id}
           </Typography>,
         ]}

@@ -1,7 +1,8 @@
-import { useState, useContext } from 'react';
-import { useQuery, useMutation, useSubscription } from '@apollo/client';
+import { useContext } from 'react';
+import { useSubscription } from '@apollo/client';
 import { CHAT_SUBSCRIPTION } from '../../graphql/subscriptions/ChatSub';
 import { store } from '../../store';
+import { toast } from 'react-toastify';
 
 const ChatCreatedSub = ({ me }) => {
   const { state, dispatch } = useContext(store);
@@ -24,8 +25,8 @@ const ChatCreatedSub = ({ me }) => {
         },
       } = subscriptionData;
 
-      if (previousValues === null && updatedFields === null) {
-      }
+      // if (previousValues === null && updatedFields === null) {
+      // }
       if (mutation === 'CREATED') {
         dispatch({
           type: 'openChat',
@@ -37,12 +38,12 @@ const ChatCreatedSub = ({ me }) => {
           </div>
         );
       }
-      if (mutation === 'UPDATED') {
-        // a chat was updated
-      }
-      if (mutation === 'DELETE') {
-        // chat was deleted
-      }
+      // if (mutation === 'UPDATED') {
+      //   console.log('Catch chat updates');
+      // }
+      // if (mutation === 'DELETE') {
+      //   console.log('Catch when a chat gets deleted');
+      // }
     },
   });
   return null;

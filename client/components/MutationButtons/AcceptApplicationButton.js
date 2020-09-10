@@ -28,21 +28,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-/**
- * This is actually going to be tied to createALeaseButton aswel as the acceptRentalApplication
- * When W
- * NOTE !IMPORTANT JEFFREY => time to get rid of the explicit mutations from ../../mutation and just doing local
- * gql queries. Not opposed to fragments so just spend a few hours looking int getting them working inl;ine here
- * gql is client first ensure they are all hand crafted on demand, I repeat, ditch ../../ n=mutationm, empahsize .../../fragments
- *
- * @param {*} param0
- */
-
-// const ErrorSupplier = ({ errors }) => {
-//   return errors.map(error => <Error error={error} />)
-// }
 const ErrorSupplier = ({ errors, tronM }) =>
-  errors.map(error => <Error error={error} tronM={tronM} />);
+  errors.map((error, idx) => <Error key={idx} error={error} tronM={tronM} />);
 
 const AcceptApplicationButton = ({ application }) => {
   const classes = useStyles();

@@ -60,53 +60,9 @@ const ShareProperty = ({ property }) => {
               </Status>
             </div>
           );
-
-          return <div>Hiii</div>;
         }}
       </Initialize>
     </>
-  );
-  return (
-    <>
-      <SendToMessenger messengerAppId="123456789" pageId="123456789" />
-    </>
-  );
-
-  return (
-    <div>
-      I am the share property component
-      <CustomChat pageId="123456789" minimized={false} />
-      <Page href="https://www.facebook.com/rehousernz" tabs="timeline" />
-      {/* <Page href="https://www.facebook.com/rehousernz" tabs="posts" /> */}
-      <Initialize>
-        {({ isReady, api }) => {
-          console.log('api => ', api.ui);
-          // our custom async/await api
-          // original FB api is available via window.FB
-          if (!isReady) return <div>Loading Facebook API</div>;
-          return <div>Hiii</div>;
-        }}
-      </Initialize>
-      <Comments
-        href={`http://www.facebook.com/rehousernz/${property.placeId}`}
-      />
-      {/* <Comments href="http://www.facebook.com/rehousernz" /> */}
-      {/* <Share
-        href="http://www.facebook.com/rehouser/nz"
-        // redirectUri="https://app.rehouser.nz"
-        description="Road Lizard, Road, Lizard, Road Lizard, rraaaahhhrg"
-        actions={['https://app.rehouser.nz']}>
-        {props => {
-          console.log('Share props => ', props);
-          const { handleClick, loading, data, error } = props;
-          return (
-            <button type="button" disabled={loading} onClick={handleClick}>
-              Share Property to Facebook
-            </button>
-          );
-        }}
-      </Share> */}
-    </div>
   );
 };
 

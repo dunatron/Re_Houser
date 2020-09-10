@@ -87,7 +87,7 @@ const CheckReason = props => {
         inners.map((inner, idx) => {
           if (!canDisplayInner(config, inner)) return null;
           return (
-            <div style={{ marginTop: '16px' }}>
+            <div key={inner.key} style={{ marginTop: '16px' }}>
               <InputFieldType
                 config={inner}
                 key={idx}

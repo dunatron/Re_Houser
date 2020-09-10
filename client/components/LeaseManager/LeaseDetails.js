@@ -10,11 +10,7 @@ import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
 import Error from '../ErrorMessage';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    // display: 'grid',
-    // gridTemplateColumns: 'repeat(12, 1fr)',
-    // gridGap: theme.spacing(3),
-  },
+  container: {},
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -69,16 +65,10 @@ const LEASE_DETAILS_CONF = [
     },
   },
   {
-    // key: 'rooms',
-    // type: 'Int',
-    // canUpdate: true,
-    // label: 'Rooms',
-    // sizes: defaultDetailSize,
     type: 'Int',
     key: 'rooms',
     canUpdate: true,
     label: 'Last Updated',
-    // format: val => moment(val).format('dddd, MMMM Do YYYY, h:mm:ss a'),
     fieldProps: {
       name: 'rooms',
       label:
@@ -103,7 +93,6 @@ const LEASE_DETAILS_CONF = [
   {
     key: 'bathrooms',
     type: 'Int',
-    canUpdate: true,
     canUpdate: true,
     label: 'Bathrooms',
     sizes: defaultDetailSize,
@@ -206,10 +195,10 @@ const LeaseDetails = ({ lease }) => {
   return (
     <div style={{ margin: '16px 0' }}>
       <Grid container wrap="wrap" spacing={1} className={classes.container}>
-        {LEASE_DETAILS_CONF.map(confObj => {
+        {LEASE_DETAILS_CONF.map((confObj, idx) => {
           const { xs, sm, md, lg, xl } = confObj.sizes;
           return (
-            <Grid item {...confObj.sizes}>
+            <Grid key={idx} item {...confObj.sizes}>
               <Paper className={classes.paper}>
                 <Typography>
                   <span className={classes.itemLabel}>{confObj.label}</span>{' '}
@@ -271,14 +260,5 @@ const LeaseDetails = ({ lease }) => {
     </div>
   );
 };
-
-// const { data, error, loading } = useQuery(SINGLE_LEASE_QUERY, {
-// variables: {
-//   where: {
-//     id: leaseId,
-//   },
-// },
-//   suspend: false,
-// });
 
 export default LeaseDetails;

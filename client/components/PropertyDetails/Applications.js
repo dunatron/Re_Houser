@@ -7,15 +7,10 @@ import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscript
 import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
 import Loader from '../Loader';
 import Error from '../ErrorMessage';
-
 import ApplicationCard from './ApplicationCard';
-
 import { Paper, Typography } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
-// INITIALIZING
-// PENDING
-// DENIED
-// ACCEPTED
 const RentalApplications = props => {
   const { data, error, loading } = useQuery(RENTAL_APPLICATIONS_QUERY, {
     variables: {
@@ -23,7 +18,6 @@ const RentalApplications = props => {
         property: {
           id: props.property.id,
         },
-        // stage: "PENDING",
         stage_in: ['PENDING', 'ACCEPTED'],
       },
     },
@@ -33,59 +27,23 @@ const RentalApplications = props => {
   const applicationIds = loading
     ? []
     : data.rentalApplications.map(application => application.id);
-  /**
-   * JUST NOT USING FOR NOW
+
+  //
   useSubscription(RENTAL_APPLICATION_UPDATED_SUBSCRIPTION, {
     variables: {
       where: {
-        mutation_in: "UPDATED",
+        mutation_in: 'UPDATED',
         node: {
-          stage_in: ["PENDING", "INITIALIZING", "DENIED", "ACCEPTED"],
+          stage_in: ['PENDING', 'INITIALIZING', 'DENIED', 'ACCEPTED'],
           id_in: applicationIds,
         },
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
-      toast.info(<h3>Application is now in Pending mode</h3>)
+      toast.info(<h3>Application is now in Pending mode</h3>);
     },
     // ... rest options
-  })
-   */
-
-  // useSubscription(RENTAL_APPLICATION_CREATED_SUBSCRIPTION, {
-  //   // variables: {
-  //   //   // ...
-  //   // },
-  //   onSubscriptionData: ({ client, subscriptionData }) => {
-  //     const applications = client.readQuery({
-  //       query: RENTAL_APPLICATIONS_QUERY,
-  //       variables: {
-  //         where: {
-  //           property: {
-  //             id: props.property.id,
-  //           },
-  //         },
-  //       },
-  //     })
-  //     applications.rentalApplications.push(
-  //       subscriptionData.data.rentalApplicationCreatedSub.node
-  //     )
-  //     client.writeQuery({
-  //       query: RENTAL_APPLICATIONS_QUERY,
-  //       data: {
-  //         ...applications.rentalApplications,
-  //       },
-  //       variables: {
-  //         where: {
-  //           property: {
-  //             id: props.property.id,
-  //           },
-  //         },
-  //       },
-  //     })
-  //   },
-  //   // ... rest options
-  // })
+  });
 
   if (loading)
     return (
@@ -112,16 +70,16 @@ const RentalApplications = props => {
         INITIALIZING PAID SIGNED
         <ul>
           <li>INITIALIZING</li>
-          <li>All parties sign -> can finalise button appears</li>
+          <li>All parties sign - can finalise button appears</li>
           <li>Lessor finalises - SIGNED</li>
           <li>lesses pay - PAID</li>
-          <li>...</li>
         </ul>
       </Paper>
 
       {data.rentalApplications.map((application, i) => {
         return (
           <ApplicationCard
+            key={application.id}
             application={application}
             property={props.property}
           />

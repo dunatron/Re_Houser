@@ -3,12 +3,7 @@ import { GoogleApiWrapper } from 'google-maps-react';
 
 import { Control, GeoSearch } from 'react-instantsearch-dom-maps';
 
-import dynamic from 'next/dynamic';
 import MapMarker from './MapMarker';
-
-const DynamicPlacesSearch = dynamic(import('./places/widget'), {
-  ssr: false,
-});
 
 /**
  * DOCS

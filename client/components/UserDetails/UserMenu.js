@@ -1,26 +1,11 @@
 import React, { Fragment, useState, useContext } from 'react';
-import gql from 'graphql-tag';
-import { useQuery, useMutation, useSubscription } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Router from 'next/router';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 // icons
-import DeleteIcon from '../../styles/icons/DeleteIcon';
-import FolderIcon from '@material-ui/icons/Folder';
 import MoreVertIcon from '../../styles/icons/MoreVertIcon';
 // graphql
 import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
@@ -31,6 +16,9 @@ import { writeChat } from '../../services/cache.service';
 
 // useContext
 import { store } from '../../store';
+
+import PropTypes from 'prop-types';
+import mePropTypes from '../../propTypes/mePropTypes';
 
 const ITEM_HEIGHT = 48;
 
@@ -121,6 +109,13 @@ const UserMenu = ({ me, user }) => {
       </Menu>
     </Fragment>
   );
+};
+
+UserMenu.propTypes = {
+  me: mePropTypes,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequiredP,
+  }),
 };
 
 export default UserMenu;

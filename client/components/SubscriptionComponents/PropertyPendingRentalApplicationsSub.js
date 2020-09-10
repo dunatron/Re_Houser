@@ -61,16 +61,6 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
       No Websocket connection. You will need to manually refresh for updates
     </div>
   );
-  return (
-    <div>
-      You have {updateCount} New Applications{' '}
-      <button onClick={() => alert('refresh queries')}>refresh</button>
-      {newObjects.map(newObj => (
-        <ApplicationCard application={newObj} property={property} />
-      ))}
-      <hr />
-    </div>
-  );
 };
 
 export default PropertyPendingRentalApplicationsSub;
