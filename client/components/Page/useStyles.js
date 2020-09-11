@@ -68,7 +68,8 @@ const useStyles = makeStyles(theme => {
     },
     drawerPaper: {
       width: theme.sideBarWidth,
-      backgroundColor: lighten(theme.palette.secondary.light, 0.7), // lighten by 50%. 1.0 is white
+      backgroundColor: 'rgb(212,220,231)',
+      // backgroundColor: lighten(theme.palette.secondary.light, 0.7), // lighten by 50%. 1.0 is white
       // backgroundColor: theme.palette.secondary.light,
       // backgroundColor: theme.palette.secondary.light,
     },
