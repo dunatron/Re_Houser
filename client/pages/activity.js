@@ -22,10 +22,10 @@ const ActivityPage = ({ appData: { currentUser } }) => {
         currentUser={currentUser}
         alert={
           <div>
-            <Typography variant="body1">
+            <Typography variant="body1" gutterBottom color="inherit">
               <strong>Please Sign In</strong>
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" gutterBottom color="inherit">
               You must be signed in to view your activity
             </Typography>
           </div>

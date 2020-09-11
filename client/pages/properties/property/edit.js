@@ -29,7 +29,7 @@ const EditPropertyPage = ({ appData: { currentUser }, query: { id } }) => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <Typography variant="body1">
+          <Typography variant="body1" gutterBottom color="inherit">
             <strong>{pleaseSignInMessage}</strong>
           </Typography>
         }>

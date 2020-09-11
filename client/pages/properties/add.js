@@ -4,6 +4,7 @@ import CreateProperty from '../../components/CreateProperty/index';
 import PleaseSignIn from '../../components/PleaseSignIn';
 import { is } from 'ramda';
 import PageHeader from '../../components/PageHeader';
+import { Typography } from '@material-ui/core';
 
 const AddPropertyPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
@@ -30,9 +31,9 @@ const AddPropertyPage = ({ appData: { currentUser } }) => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <p>
+          <Typography variant="body1" gutterBottom color="inherit">
             <strong>{pleaseSignInMessage}</strong>
-          </p>
+          </Typography>
         }>
         <CreateProperty prefilledData={formattedData} />
       </PleaseSignIn>

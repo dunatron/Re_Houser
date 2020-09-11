@@ -9,7 +9,7 @@ const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
     <PleaseSignIn
       currentUser={currentUser}
       alert={
-        <Typography component="p">
+        <Typography component="p" gutterBottom color="inherit">
           <strong>Please SIgn in to view applications</strong>
         </Typography>
       }>

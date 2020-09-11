@@ -28,10 +28,10 @@ const FreeAppraisalPage = ({ appData: { currentUser } }) => {
         currentUser={currentUser}
         alert={
           <div>
-            <Typography variant="body1">
+            <Typography variant="body1" gutterBottom color="inherit">
               <strong>Please Sign In</strong>
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" gutterBottom color="inherit">
               You must be signed up/in to get a free rental Appraisal
             </Typography>
           </div>

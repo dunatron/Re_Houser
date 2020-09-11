@@ -28,7 +28,7 @@ const PropertiesPage = ({ appData: { currentUser } }) => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <Typography component="p">
+          <Typography variant="body1" gutterBottom color="inherit">
             <Typography component="strong">{pleaseSignInMessage}</Typography>
           </Typography>
         }>

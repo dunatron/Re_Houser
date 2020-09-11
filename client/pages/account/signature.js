@@ -10,10 +10,10 @@ const AccountPage = ({ appData: { currentUser } }) => {
       currentUser={currentUser}
       alert={
         <div>
-          <Typography>
+          <Typography gutterBottom color="inherit">
             <strong>Please Sign In</strong>
           </Typography>
-          <Typography>
+          <Typography gutterBottom color="inherit">
             You must be signed in to manage your rehouser signature
           </Typography>
         </div>

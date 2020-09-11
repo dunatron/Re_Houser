@@ -60,7 +60,7 @@ const LandlordPage = ({ appData: { currentUser } }) => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <Typography component="p">
+          <Typography component="p" gutterBottom color="inherit">
             <Typography component="strong">{pleaseSignInMessage}</Typography>
           </Typography>
         }>
