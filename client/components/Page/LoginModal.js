@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import Modal from '../../components/Modal';
 import SuperLogin from '../../components/SuperLogin';
@@ -48,38 +48,21 @@ const LoginModal = React.memo(props => {
 
   const _close = () => dispatch({ type: 'closeLoginModal' });
 
-  console.log('render: LoginModal With Context Provider');
-
   return <CheapLoginModal open={state.loginModalOpen} handleClose={_close} />;
-
-  // return (
-  //   <Modal open={true} close={_close}>
-  //     <SuperLogin handleSignedIn={_close} />
-  //   </Modal>
-  // );
 });
 
-// const CheapLoginModal = props => {
-//   console.log('render: CheapLoginModal');
-//   return (
-//     <Modal open={props.open} close={props.handleClose}>
-//       <SuperLogin handleSignedIn={props.handleClose} />
-//     </Modal>
-//   );
-// };
-
-const CheapLoginModal = React.memo(props => {
-  console.log('render: CheapLoginModal props => ', props);
-  return (
-    <Modal open={props.open} close={props.handleClose}>
-      <SuperLogin handleSignedIn={props.handleClose} />
-    </Modal>
-  );
-});
+const CheapLoginModal = React.memo(props => (
+  <Modal
+    title="Login / Signup / Reset"
+    open={props.open}
+    close={props.handleClose}>
+    <SuperLogin handleSignedIn={props.handleClose} />
+  </Modal>
+));
 
 CheapLoginModal.propTypes = {
   handleClose: PropTypes.any.isRequired,
-  open: PropTypes.any.isRequired
-}
+  open: PropTypes.any.isRequired,
+};
 
 export default LoginModal;

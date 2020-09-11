@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Button, Typography } from '@material-ui/core';
@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.secondary.contrastText,
   },
   button: {
-    color: theme.palette.secondary.contrastText,
     marginTop: theme.spacing(2),
   },
 }));
@@ -50,7 +49,11 @@ const SuccessPaper = ({ children, handleCreateMore, show }) => {
           {children}
         </Typography>
       </div>
-      <Button onClick={handleCreateMore} className={classes.button}>
+      <Button
+        onClick={handleCreateMore}
+        className={classes.button}
+        variant="contained"
+        color="default">
         Create More
       </Button>
     </Paper>
@@ -60,7 +63,7 @@ const SuccessPaper = ({ children, handleCreateMore, show }) => {
 SuccessPaper.propTypes = {
   children: PropTypes.any.isRequired,
   handleCreateMore: PropTypes.any.isRequired,
-  show: PropTypes.any.isRequired
-}
+  show: PropTypes.any.isRequired,
+};
 
 export default SuccessPaper;

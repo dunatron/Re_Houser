@@ -66,6 +66,8 @@ import {
   connectCurrentRefinements,
 } from 'react-instantsearch-dom';
 
+import HorizonScrollHits from './HorizonScrollHits';
+
 import Modal from '../../components/Modal/index';
 
 // THIS FOR NEXT JS
@@ -83,8 +85,8 @@ const Hit = ({ hit }) => (
 );
 
 Hit.propTypes = {
-  hit: PropTypes.any.isRequired
-}
+  hit: PropTypes.any.isRequired,
+};
 
 const MapMarker = ({ hit }) => {
   const node = useRef();
@@ -142,9 +144,9 @@ MapMarker.propTypes = {
   hit: PropTypes.shape({
     location: PropTypes.any,
     objectID: PropTypes.any,
-    rent: PropTypes.any
-  }).isRequired
-}
+    rent: PropTypes.any,
+  }).isRequired,
+};
 
 const Content = () => (
   <div className="si-content">
@@ -152,7 +154,7 @@ const Content = () => (
       <Stats />
     </div>
 
-    <Hits hitComponent={Hit} />
+    <HorizonScrollHits hitComponent={Hit} />
     <div className="pagination">
       {/* <ConnectedMaterialPagination /> */}
       <Pagination />
@@ -223,7 +225,7 @@ const PropertySearch = props => {
 };
 
 PropertySearch.propTypes = {
-  google: PropTypes.any.isRequired
+  google: PropTypes.any.isRequired,
 };
 
 export default GoogleApiWrapper({

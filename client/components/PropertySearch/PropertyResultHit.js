@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import RehouserPaper from '../../styles/RehouserPaper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
@@ -41,7 +41,8 @@ const StyledBadge = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: theme.spacing(1),
+    // margin: theme.spacing(1),
+    margin: 0,
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
@@ -110,10 +111,10 @@ DetailItem.propTypes = {
   conf: PropTypes.shape({
     icon: PropTypes.any,
     name: PropTypes.any,
-    title: PropTypes.any
+    title: PropTypes.any,
   }).isRequired,
-  hit: PropTypes.any.isRequired
-}
+  hit: PropTypes.any.isRequired,
+};
 
 const DetailItemsArr = [
   {
@@ -226,18 +227,18 @@ PropertyResultHit.propTypes = {
   hit: PropTypes.shape({
     _geoloc: PropTypes.shape({
       lat: PropTypes.any,
-      lng: PropTypes.any
+      lng: PropTypes.any,
     }),
     id: PropTypes.any,
     imageUrls: PropTypes.shape({
       length: PropTypes.number,
-      map: PropTypes.func
+      map: PropTypes.func,
     }),
     location: PropTypes.any,
     rent: PropTypes.any,
     rooms: PropTypes.any,
-    type: PropTypes.any
-  }).isRequired
-}
+    type: PropTypes.any,
+  }).isRequired,
+};
 
 export default PropertyResultHit;
