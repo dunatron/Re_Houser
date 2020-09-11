@@ -1,6 +1,6 @@
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode,
+  addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail");
 
@@ -8,12 +8,16 @@ var fs = require("fs"),
   path = require("path"),
   filePath = path.join(__dirname, "../lib/documents/test.docx");
 
-async function createProperty(parent, { data, files }, ctx, info) {
+async function createProperty(parent, { data }, ctx, info) {
   const loggedInUserId = ctx.request.userId;
 
   if (!loggedInUserId) {
     throw new Error("You must be logged in to create a property!");
   }
+
+  console.log("createProperty: data => ", data);
+
+  console.log("createProperty: info => ", info);
 
   const numberOfRooms = data.useAdvancedRent
     ? accommodation.length
@@ -35,8 +39,8 @@ async function createProperty(parent, { data, files }, ctx, info) {
           lowestRoomPrice,
           highestRoomPrice,
           rent: averageRoomPrice,
-          rooms: numberOfRooms,
-        },
+          rooms: numberOfRooms
+        }
       },
       info
     );
@@ -49,32 +53,34 @@ async function createProperty(parent, { data, files }, ctx, info) {
         type: "CREATED_PROPERTY",
         property: {
           connect: {
-            id: property.id,
-          },
+            id: property.id
+          }
         },
         user: {
           connect: {
-            id: loggedInUserId,
-          },
-        },
-      },
+            id: loggedInUserId
+          }
+        }
+      }
     });
     addPropertySearchNode({
       propertyId: property.id,
-      db: ctx.db,
+      db: ctx.db
     });
 
     const user = ctx.db.query.user({
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     });
 
     // let admin know new property has been created. Frodo loves his leads. Ohh a lead
     propertyCreatedEmail({
       toEmail: "admin@rehouser.co.nz",
-      user: user,
+      user: user
     });
+
+    console.log("createProperty: info => ", property);
 
     // wow maybe return the thing too......
     return property;

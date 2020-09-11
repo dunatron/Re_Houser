@@ -24,19 +24,18 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
-// hmmm i thought it would be an array?
 const connectFiles = files =>
-  Object.entries(files).reduce(
-    (a, [k, v]) => ({
+  Object.entries(files).reduce((a, [k, v]) => {
+    if (v === undefined) return { ...a };
+    return {
       [k]: {
         connect: {
           id: v.id,
         },
       },
       ...a,
-    }),
-    {}
-  );
+    };
+  }, {});
 
 const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   const handleCompleted = data => {
@@ -44,7 +43,7 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   };
 
   var rent = formData.rent;
-  // const extractRentFloat = Number(rent.replace(/[^0-9\.-]+/g, ''));
+
   const extractRentFloat = Number(rent.replace(/[^0-9.-]+/g, '')); // no useles escape lint
   const rentVal = extractRentFloat * 100;
 
@@ -60,7 +59,10 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   );
 
   const handleCreate = () => {
-    console.log('formData DATA SUBMITTED => ', formData);
+    const connectedFiles = connectFiles(formData.files);
+
+    console.log('connectedFiles => ', connectedFiles);
+    console.log('formData => ', formData);
     createProperty({
       variables: {
         data: {
@@ -78,23 +80,8 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
               id: me.id,
             },
           },
-          // files: {
-          //   create: formData.files
-          //     ? Object.entries(formData.files).reduce(
-          //         (a, [k, v]) => ({
-          //           [k]: {
-          //             connect: {
-          //               id: v.id,
-          //             },
-          //           },
-          //           ...a,
-          //         }),
-          //         {}
-          //       )
-          //     : {},
-          // },
           files: {
-            create: {},
+            create: connectFiles(formData.files),
           },
           insulationForm: formData.insulationForm
             ? {

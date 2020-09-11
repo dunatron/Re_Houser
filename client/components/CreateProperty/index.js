@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { FormCreator } from '../Forms';
 import { useMutation, useLazyQuery } from '@apollo/client';
@@ -242,8 +242,8 @@ const CreatePropertyComponent = props => {
 CreatePropertyComponent.propTypes = {
   me: PropTypes.shape({
     acceptedTermsOfEngagement: PropTypes.any,
-    bankDetails: PropTypes.any
-  }).isRequired
-}
+    bankDetails: PropTypes.any,
+  }).isRequired,
+};
 
 export default CreatePropertyComponent;

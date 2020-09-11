@@ -104,7 +104,7 @@ type Mutation {
     data: RentalAppraisalUpdateInput!
     where: RentalAppraisalWhereUniqueInput!
   ): RentalAppraisal
-  createProperty(data: PropertyCreateInput!, files: [Upload]): Property
+  createProperty(data: PropertyCreateInput!): Property
   # updateProperty(id: ID!, onTheMarket: Boolean): Property!
   updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
   updateInsulationForm(
