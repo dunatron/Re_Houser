@@ -4,11 +4,13 @@
     "paths": {
       //Assuming your components/utilities live in ./src
       //Update this path as necessary
-      "@Components/*": ["./Components/*"],
-      "@AdminComponents/*": ["./AdminComponents/*"],
-      "@Styles/*": ["./Styles/*"],
-      "@Lib/*": ["./Lib/*"],
-      "@Gql/*": ["./Gql/*"]
+      //https://nimblewebdeveloper.com/blog/absolute-alias-imports-in-javascript-vscode
+      "@Components/*": ["./components/*"],
+      "@AdminComponents/*": ["./admin-components/*"],
+      "@Styles/*": ["./styles/*"],
+      "@Lib/*": ["./lib/*"],
+      "@Gql/*": ["./graphql/*"],
+      "@Store/*": ["./store.js"]
     }
   },
   //Add any build/compiled folders here to stop vscode searching those
