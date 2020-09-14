@@ -39,6 +39,7 @@ const AdminAlertsContainer = props => {
           console.log('This users permissions => ', permissions);
           console.log('adminSettings => ', adminSettings);
           const canSubscribe = permissions.includes('ADMIN');
+          console.log('Can subscribe to admin => ', canSubscribe);
           if (!canSubscribe) return null;
           return (
             <>

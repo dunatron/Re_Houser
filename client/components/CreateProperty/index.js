@@ -68,6 +68,11 @@ const CreatePropertyComponent = props => {
         />
       </div>
     );
+    // Check if we had had an appraisalId attached. If we did.
+    // remove the query from the url bar
+    // send a mutation to update the rentalAppraisal field hasBeenUsed.
+    // Then on lazy load if hasBeenUsed we show something else explaining the appraisal has been used to create the property already!
+    // Send them to that property? if its not theres it will say so.
   };
 
   const submitFormWithData = data => {

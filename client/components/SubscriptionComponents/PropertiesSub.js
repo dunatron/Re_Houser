@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
@@ -27,19 +27,21 @@ const PropertiesSub = ({ where }) => {
       toast.success(<p>New Rental APpraisal has been requested</p>);
     },
   });
+  console.log('subscription: Properties 1');
   if (loading) return null;
+  console.log('subscription: Properties 2');
   if (error)
     return (
       <div>
         No Websocket connection. You will need to manually refresh for updates
       </div>
     );
-  // they are just aledrts find the best way to return nothing
+  console.log('subscription: Properties 3');
   return null;
 };
 
 PropertiesSub.propTypes = {
-  where: PropTypes.any.isRequired
-}
+  where: PropTypes.any.isRequired,
+};
 
 export default PropertiesSub;

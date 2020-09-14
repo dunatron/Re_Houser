@@ -80,13 +80,21 @@ const LocationPicker = ({ selection, defaultLocation }) => {
     <div>
       <StyledGeoSuggest
         ref={geosuggestEl}
-        placeholder="Start typing!"
+        placeholder={
+          defaultLocation.desc ? defaultLocation.desc : 'Start Typing'
+        }
         fixtures={fixtures}
         onSuggestSelect={onSuggestSelect}
         country="nz"
         queryDelay={250}
+        initialValue={defaultLocation.desc ? defaultLocation.desc : ''}
         // types={['establishment', 'geocode', 'regions', 'cities']}
-        location={new google.maps.LatLng(-46.1326615, 168.89592100000004)}
+        location={
+          new google.maps.LatLng(
+            defaultLocation.lat ? defaultLocation.lat : -46.1326615,
+            defaultLocation.lng ? defaultLocation.lng : 168.89592100000004
+          )
+        }
         radius="20"
       />
       {state.showMap && state.desc && (
@@ -98,6 +106,7 @@ const LocationPicker = ({ selection, defaultLocation }) => {
           zoom={_getZoom(state.desc)}
         />
       )}
+      <h2>WHY PLACEHOLDER NO UPDATE</h2>
       {state.desc && (
         <div
           style={{

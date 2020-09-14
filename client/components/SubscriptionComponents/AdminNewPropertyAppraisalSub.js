@@ -12,7 +12,7 @@ const AdminNewRentalAppraisalSub = () => {
   const { loading, data, error } = useSubscription(
     PROPERTY_APPRAISAL_SUBSCRIPTION,
     {
-      suspend: false,
+      // suspend: false,
       variables: {
         where: {
           mutation_in: 'CREATED',
@@ -40,16 +40,18 @@ const AdminNewRentalAppraisalSub = () => {
       },
     }
   );
+  console.log('subscription: RentalAppraisal 1');
   if (loading) {
     return null;
   }
+  console.log('subscription: RentalAppraisal 2');
   if (error)
     return (
       <div>
         No Websocket connection. You will need to manually refresh for updates
       </div>
     );
-
+  console.log('subscription: RentalAppraisal 3');
   return null;
 };
 
