@@ -16,16 +16,15 @@ const LANDLORD_DASHBOARD_CONFIG = [
   {
     icon: <HomeWorkIcon />,
     label: 'Free Appraisal',
-    route: '/freeappraisal',
-    description:
-      'Rehouser can give you an appraisal for your property with just a few details',
+    route: '/landlord/appraisals',
+    description: 'Land lord appraisals',
     color: 'secondary',
     requiresLogin: false,
   },
   {
     icon: <AddIcon />,
     label: 'Add Property',
-    route: '/properties/add',
+    route: '/landlord/properties/add',
     description: 'Add property to the platform',
     color: 'secondary',
     requiresLogin: true,
@@ -33,7 +32,7 @@ const LANDLORD_DASHBOARD_CONFIG = [
   {
     icon: <HouseIcon />,
     label: 'Properties',
-    route: '/properties',
+    route: '/landlord/properties',
     description:
       'Review your properties. This is where you can accept applications for your property and do general management for your property',
     color: 'secondary',

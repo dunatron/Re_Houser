@@ -4,14 +4,14 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 const TENANT_DASHBOARD_CONFIG = [
   {
     label: 'Applications',
-    route: '/applications',
+    route: '/tenant/applications',
     description: 'Review your rental applications',
     color: 'secondary',
     icon: <HomeWorkIcon />,
   },
   {
     label: 'Leases',
-    route: '/leases',
+    route: 'tenant/leases',
     description: 'Review your leases',
     color: 'secondary',
     icon: <TextFieldsIcon />,

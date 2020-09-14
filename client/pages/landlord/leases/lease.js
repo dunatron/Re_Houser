@@ -1,0 +1,1 @@
+<LeaseManager leaseId={id} />;
