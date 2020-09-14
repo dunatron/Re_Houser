@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import { List, ListItem } from '@material-ui/core';
@@ -111,7 +111,7 @@ const ChatsList = props => {
 
   const navToChat = chat => {
     Router.push({
-      pathname: '/chat',
+      pathname: '/messages/chat',
       query: {
         chatId: chat.id,
       },
@@ -162,8 +162,8 @@ const ChatsList = props => {
 
 ChatsList.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default ChatsList;

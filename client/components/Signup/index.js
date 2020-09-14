@@ -184,19 +184,6 @@ const Signup = props => {
             });
           }}
         />
-        {/* <TextInput
-          id="signup-phone"
-          inputProps={{
-            'data-cy': 'signup-phone',
-          }}
-          label="Phone Number"
-          fullWidth={true}
-          type="text"
-          name="phone"
-          placeholder="please enter your phone number"
-          value={state.phone}
-          onChange={saveToState}
-        /> */}
         <TextInput
           id="signup-password"
           inputProps={{

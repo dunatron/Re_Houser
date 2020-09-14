@@ -1,22 +1,17 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { FormCreator } from '../Forms';
-import { useMutation, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
 import { SINGLE_RENTAL_APPRAISAL_QUERY } from '../../graphql/queries/index';
-
 import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import { Typography, Button } from '@material-ui/core';
-
 import { toast } from 'react-toastify';
 import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
 import Error from '../../components/ErrorMessage';
 import SuccessPaper from '../../components/SuccessPaper';
-import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
 import CheckAndSubmit from './CheckAndSubmit';
 import Modal from '../Modal';
-import LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF from '../../lib/configs/landlordTermsOfEngagementForm';
 import AcceptTermsOfEngagementForm from '../../components/Forms/AcceptTermsOfEngagementForm';
 
 const CreatePropertyComponent = props => {
@@ -68,23 +63,12 @@ const CreatePropertyComponent = props => {
         </Typography>
         <ChangeRouteButton
           title="Go to property"
-          route="/properties/property"
+          route="/landlord/properties/property"
           query={{ id: data.createProperty.id }}
         />
       </div>
     );
   };
-
-  const handleTermsOfEngagementAccepted = data => {
-    window.scrollTo(0, 0);
-  };
-
-  const [
-    acceptedTermsOfEngagement,
-    acceptedTermsOfEngagementProps,
-  ] = useMutation(UPDATE_USER_MUTATION, {
-    onCompleted: handleTermsOfEngagementAccepted,
-  });
 
   const submitFormWithData = data => {
     setSubmittedData({
@@ -129,7 +113,7 @@ const CreatePropertyComponent = props => {
         </Typography>
         <ChangeRouteButton
           title="Go to property"
-          route="/properties/property"
+          route="/landlord/properties/property"
           query={{ id: createdData.createProperty.id }}
           variant="contained"
           color="primary"
@@ -166,39 +150,6 @@ const CreatePropertyComponent = props => {
             To add Property to our platform you must first accept the terms of
             engagement
           </Typography>
-          {/* <TermsOfEngagement />
-          <br />
-          <FormCreator
-            title="huh"
-            isNew={true}
-            error={acceptedTermsOfEngagementProps.error}
-            posting={acceptedTermsOfEngagementProps.loading}
-            createText="Submit terms of engagement"
-            config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
-            onSubmit={data => {
-              acceptedTermsOfEngagement({
-                variables: {
-                  data: {
-                    ...data,
-                    currentAddress: data.currentAddress
-                      ? {
-                          create: {
-                            ...data.currentAddress,
-                          },
-                        }
-                      : {},
-                    bankDetails: data.bankDetails
-                      ? {
-                          create: {
-                            ...data.bankDetails,
-                          },
-                        }
-                      : {},
-                  },
-                },
-              });
-            }}
-          /> */}
           <AcceptTermsOfEngagementForm me={me} />
         </div>
       )}
@@ -210,7 +161,6 @@ const CreatePropertyComponent = props => {
               Loading in the appraisal data first
             </Typography>
           )}
-
           <Error error={error} />
           {!waitForLazy && (
             <FormCreator
@@ -218,9 +168,6 @@ const CreatePropertyComponent = props => {
               title="Property"
               watchFields={['placeId']}
               handleWatchChanges={changes => {
-                // alert('FUck yes hoe');
-                console.log('changes => ', changes);
-
                 if (changes.placeId)
                   setFolderName(`properties/${changes.placeId}`);
               }}

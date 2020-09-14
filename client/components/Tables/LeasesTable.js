@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
@@ -16,7 +16,7 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
-const LeasesTable = ({ leases }) => {
+const LeasesTable = ({ leases, manageLink }) => {
   const prettyLeases = leases.map(lease => {
     const prettifiedData = {
       ...lease,
@@ -28,7 +28,8 @@ const LeasesTable = ({ leases }) => {
   });
 
   const manageProperty = data => {
-    handleLink('/leases/lease', { id: data.id });
+    // handleLink('/leases/lease', { id: data.id });
+    handleLink(manageLink, { id: data.id });
   };
 
   return (
@@ -56,8 +57,8 @@ const LeasesTable = ({ leases }) => {
 
 LeasesTable.propTypes = {
   leases: PropTypes.shape({
-    map: PropTypes.func
-  }).isRequired
-}
+    map: PropTypes.func,
+  }).isRequired,
+};
 
 export default LeasesTable;

@@ -378,15 +378,15 @@ const RentalApplicationStepper = props => {
 RentalApplicationStepper.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
-    photoIdentification: PropTypes.any
+    photoIdentification: PropTypes.any,
   }).isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func
-    })
-  }).isRequired
-}
+      find: PropTypes.func,
+    }),
+  }).isRequired,
+};
 
 const ConnectedRentalApplicationStepper = ({
   me,
@@ -416,7 +416,7 @@ const ConnectedRentalApplicationStepper = ({
         </Typography>
         {data.rentalApplication.leaseId && (
           <ChangeRouteButton
-            route="/leases/lease"
+            route="/tenant/leases/lease"
             query={{
               id: data.rentalApplication.leaseId,
             }}

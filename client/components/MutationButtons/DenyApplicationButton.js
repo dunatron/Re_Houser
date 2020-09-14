@@ -1,19 +1,13 @@
-import PropTypes from "prop-types";
-import React, { Component, useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
 import { toast } from 'react-toastify';
-import {
-  ACCEPT_RENTAL_APPLICATION_MUTATION,
-  DECLINE_RENTAL_APPLICATION_MUTATION,
-} from '../../graphql/mutations/index';
-import { useMatchFetch } from '../Effects/useMatchEffect';
-
+import { DECLINE_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/index';
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 const useStyles = makeStyles(theme => ({
   buttonSuccess: {
@@ -32,45 +26,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-/**
- * This is actually going to be tied to createALeaseButton aswel as the acceptRentalApplication
- * When W
- * NOTE !IMPORTANT JEFFREY => time to get rid of the explicit mutations from ../../mutation and just doing local
- * gql queries. Not opposed to fragments so just spend a few hours looking int getting them working inl;ine here
- * gql is client first ensure they are all hand crafted on demand, I repeat, ditch ../../ n=mutationm, empahsize .../../fragments
- *
- * @param {*} param0
- */
-
-// const ErrorSupplier = ({ errors }) => {
-//   return errors.map(error => <Error error={error} />)
-// }
 const ErrorSupplier = ({ errors, tronM }) =>
   errors.map((error, idx) => <Error key={idx} error={error} tronM={tronM} />);
 
 ErrorSupplier.propTypes = {
   errors: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  tronM: PropTypes.any.isRequired
-}
+  tronM: PropTypes.any.isRequired,
+};
 
 const DenyApplicationButton = ({ application }) => {
   const classes = useStyles();
   const [success, setSuccess] = useState(
     application.stage === 'ACCEPTED' ? true : false
   );
-  // 1. extract the applicants from the application
-  // application.
 
-  // havnt done this yet...
-  // const ownerIds = application
-  const ownerId = application.owner.id;
-
-  // 2. extract the owners from the application.
-  // 3. then get the data
-  // const createNewLease = useMutation(CREATE_PROPERTY_LEASE_MUTATION)
-  // ToDo: Mutation Props
   const [declineApplicationMutation, { data, loading, error }] = useMutation(
     DECLINE_RENTAL_APPLICATION_MUTATION,
     {
@@ -99,7 +70,6 @@ const DenyApplicationButton = ({ application }) => {
   return (
     <>
       <ErrorSupplier errors={[error]} tronM="Denying applicatiion failed" />
-      {/* <Example /> */}
       <Button
         className={buttonClassname}
         variant="outlined"
@@ -120,10 +90,10 @@ DenyApplicationButton.propTypes = {
   application: PropTypes.shape({
     id: PropTypes.any,
     owner: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
-    stage: PropTypes.string
-  }).isRequired
-}
+    stage: PropTypes.string,
+  }).isRequired,
+};
 
 export default DenyApplicationButton;

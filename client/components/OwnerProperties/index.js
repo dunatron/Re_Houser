@@ -1,23 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import gql from 'graphql-tag';
-import { Query, Mutation } from 'react-apollo';
-import { useQuery, useMutation } from '@apollo/client';
-import Error from '../ErrorMessage/index';
-
+import { useQuery } from '@apollo/client';
 import Modal from '../Modal/index';
 import PropertyDetails from '../PropertyDetails/index';
-import { ToastContainer, toast } from 'react-toastify';
 import Router from 'next/router';
-import { graphql, withApollo } from 'react-apollo';
-import { PROPERTIES_QUERY } from '../../graphql/queries/index';
-import ActivityManager from '../ActivityManager/index';
 import Loader from '../Loader/index';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import PropertiesTable from '../Tables/PropertiesTable';
 import { OWNER_PROPERTIES_QUERY } from '../../graphql/queries';
 import AddIcon from '@material-ui/icons/Add';
-
 import { Button } from '@material-ui/core';
 
 const handleLink = (route = '/', query = {}) => {
@@ -27,16 +17,6 @@ const handleLink = (route = '/', query = {}) => {
   });
 };
 
-const UPDATE_PROPERTY_MUTATION = gql`
-  mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
-    updateProperty(id: $id, data: $data) {
-      id
-      onTheMarket
-      location
-    }
-  }
-`;
-
 /**
  * ToDo: have not finished converting to use hooks. FINISH IT!!!
  */
@@ -44,7 +24,6 @@ const OwnerProperties = ({ me }) => {
   // set initial state for functional component
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalDetailsObj, setModalDetailsObj] = useState({});
-  const [updateData, setUpdateData] = useState({});
   // setup our gql queries for functional component
   const { data, loading, error } = useQuery(OWNER_PROPERTIES_QUERY);
 

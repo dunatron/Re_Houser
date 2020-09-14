@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
@@ -220,8 +220,8 @@ const Activity = ({ args }) => {
 };
 
 Activity.propTypes = {
-  args: PropTypes.any.isRequired
-}
+  args: PropTypes.any.isRequired,
+};
 
 const ActivityItem = ({ activity }) => {
   const classes = useStyles();
@@ -246,6 +246,7 @@ const ActivityItem = ({ activity }) => {
         <div className={classes.detailActions}>
           {activity.propertyLease && (
             <div className={classes.actionItem}>
+            {/* Maybe we can pass in a base route to activity. oneOf tenant || landlord */}
               <ChangeRouteButton
                 route="/leases/lease"
                 title="Lease"
@@ -254,7 +255,8 @@ const ActivityItem = ({ activity }) => {
                   fullWidth: true,
                   variant: 'outlined',
                   startIcon: <LibraryBooksIcon />,
-                }}></ChangeRouteButton>
+                }}
+              />
             </div>
           )}
           {activity.user && (
@@ -267,7 +269,8 @@ const ActivityItem = ({ activity }) => {
                   fullWidth: true,
                   variant: 'outlined',
                   startIcon: <PersonIcon />,
-                }}></ChangeRouteButton>
+                }}
+              />
             </div>
           )}
 
@@ -281,7 +284,8 @@ const ActivityItem = ({ activity }) => {
                   fullWidth: true,
                   variant: 'outlined',
                   startIcon: <RefreshIcon />,
-                }}></ChangeRouteButton>
+                }}
+              />
             </div>
           )}
         </div>
@@ -303,18 +307,18 @@ ActivityItem.propTypes = {
     createdAt: PropTypes.any,
     jsonObj: PropTypes.any,
     property: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
     propertyLease: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
     type: PropTypes.any,
     user: PropTypes.shape({
       firstName: PropTypes.any,
       id: PropTypes.any,
-      lastName: PropTypes.any
-    })
-  }).isRequired
-}
+      lastName: PropTypes.any,
+    }),
+  }).isRequired,
+};
 
 export default Activity;

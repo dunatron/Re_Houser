@@ -1,22 +1,12 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
-import { toast } from 'react-toastify';
 import { CONFIRM_EMAIL_MUTATION } from '../../graphql/mutations/index';
-import { useMatchFetch } from '../Effects/useMatchEffect';
-
 import { Button, CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
-import { useCurrentUser } from '../User';
-import Dashboard from '../Dashboard';
-import DASHBOARD_CONFIG from '../../lib/configs/dashboardConfig';
-import SuperLogin from '../SuperLogin';
-
-// ugn inputs i Guess
 import TextInput from '../../components/Inputs/TextInput';
 import ResendConfirmEmail from './ResendConfirmEmail';
 

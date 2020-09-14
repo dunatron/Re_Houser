@@ -1,23 +1,19 @@
-import PropTypes from "prop-types";
-import React, { useState, useEffect } from 'react';
-import gql from 'graphql-tag';
-import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { CREATE_RENTAL_APPLICATION } from '../../graphql/mutations/index';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
+import { CREATE_RENTAL_APPLICATION } from '@/Gql/mutations/index';
 import {
   RENTAL_APPLICATIONS_QUERY,
   CURRENT_USER_QUERY,
-} from '../../graphql/queries/index';
-
+} from '@/Gql/queries/index';
 import RentalApplications from './RentalApplications';
 import Button from '@material-ui/core/Button';
-import Error from '../ErrorMessage/index';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
-import Modal from '../Modal/index';
-import RentalApplicationStepperComponent from '../RentalApplicationStepper/index';
+import Error from '@/Components/ErrorMessage/index';
+import Modal from '@/Components/Modal/index';
+import RentalApplicationStepperComponent from '@/Components/RentalApplicationStepper/index';
 import Typography from '@material-ui/core/Typography';
 import { toast } from 'react-toastify';
-import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
-
+import OpenSuperLoginButton from '@/Components/SuperLogin/OpenSuperLoginButton';
 import Router from 'next/router';
 
 const handleLink = ({ route, query }) => {
@@ -111,7 +107,7 @@ const Apply = props => {
             </Typography>
           );
           handleLink({
-            route: '/applications/application',
+            route: '/tenant/applications/application',
             query: {
               id: payload.data.createRentalApplication.id,
             },
@@ -173,8 +169,8 @@ const Apply = props => {
 Apply.propTypes = {
   property: PropTypes.shape({
     id: PropTypes.any,
-    location: PropTypes.any
-  }).isRequired
-}
+    location: PropTypes.any,
+  }).isRequired,
+};
 
 export default Apply;

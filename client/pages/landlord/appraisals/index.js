@@ -9,7 +9,7 @@ const LandLordAppraisalsPage = ({
   return (
     <PleaseSignIn
       currentUser={currentUser}
-      message="Please Sign in to view: Landord Properties Page">
+      message="Please Sign in to view: Landord Appraisals Page">
       <PropertyAppraisal />
     </PleaseSignIn>
   );

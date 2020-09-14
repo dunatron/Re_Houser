@@ -1,6 +1,7 @@
 const { transport, makeANiceEmail } = require("../mail");
 
 const finalisePropertyLeaseEmail = async function({
+  baseLink,
   toEmail,
   lease,
   // payment,
@@ -15,7 +16,7 @@ const finalisePropertyLeaseEmail = async function({
     html: makeANiceEmail(
       `Congratulations the lease has now been signed and is in full effect! \n
       The Lease wallet has ($${wallet.amount}) \n
-      Head on over to the lease to view the details and manage the thing ${process.env.EMAIL_PREFIX}/leases/lease?id=${lease.id} \n
+      Head on over to the lease to view the details and manage the thing ${process.env.EMAIL_PREFIX}/${baseLink}/leases/lease?id=${lease.id} \n
     \n\n`,
       user
     )

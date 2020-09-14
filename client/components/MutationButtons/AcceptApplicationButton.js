@@ -1,10 +1,9 @@
-import PropTypes from "prop-types";
-import React, { Component, useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
 import { toast } from 'react-toastify';
 import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/index';
-import { useMatchFetch } from '../Effects/useMatchEffect';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,18 +33,16 @@ const ErrorSupplier = ({ errors, tronM }) =>
 
 ErrorSupplier.propTypes = {
   errors: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  tronM: PropTypes.any.isRequired
-}
+  tronM: PropTypes.any.isRequired,
+};
 
 const AcceptApplicationButton = ({ application }) => {
   const classes = useStyles();
   const [success, setSuccess] = useState(
     application.stage === 'ACCEPTED' ? true : false
   );
-  // 1. extract the applicants from the application
-  // application.
 
   const tenantIds = application.applicants
     .filter(f => f.approved === true)
@@ -56,10 +53,6 @@ const AcceptApplicationButton = ({ application }) => {
   // const ownerIds = application
   const ownerId = application.owner.id;
 
-  // 2. extract the owners from the application.
-  // 3. then get the data
-  // const createNewLease = useMutation(CREATE_PROPERTY_LEASE_MUTATION)
-  // ToDo: Mutation Props
   const [acceptApplicationMutation, { data, loading, error }] = useMutation(
     ACCEPT_RENTAL_APPLICATION_MUTATION,
     {
@@ -78,7 +71,7 @@ const AcceptApplicationButton = ({ application }) => {
               </p>
               <ChangeRouteButton
                 title="Manage & Sign Lease"
-                route="/leases/lease"
+                route="/landlord/leases/lease"
                 query={{ id: payload.data.acceptRentalApplication.id }}
               />
             </div>,
@@ -117,14 +110,14 @@ const AcceptApplicationButton = ({ application }) => {
 AcceptApplicationButton.propTypes = {
   application: PropTypes.shape({
     applicants: PropTypes.shape({
-      filter: PropTypes.func
+      filter: PropTypes.func,
     }),
     id: PropTypes.any,
     owner: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
-    stage: PropTypes.string
-  }).isRequired
-}
+    stage: PropTypes.string,
+  }).isRequired,
+};
 
 export default AcceptApplicationButton;

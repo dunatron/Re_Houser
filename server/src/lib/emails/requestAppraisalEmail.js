@@ -20,6 +20,11 @@ In the meantime if you have any questions please do not hesitate to contact me v
 We may need to visit the property to increase the accuracy of this. I will be in touch with you to discuss this further if necessary.
 </div>
 
+<div style="line-height: 18px;">
+We will contact you via email when this appraisal has been completed. It can also be found on the system here \n
+<a href="${process.env.EMAIL_PREFIX}/landlord/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
+</div>
+
     \n\n`,
       user
     )

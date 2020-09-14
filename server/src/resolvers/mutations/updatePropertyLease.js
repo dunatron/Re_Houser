@@ -119,6 +119,7 @@ async function updatePropertyLease(parent, { data, where }, ctx, info) {
   // send some emails about the lease being changed and needing to be signed?
   lessorUsers.map((usr, indx) => {
     updatePropertyLeaseEmail({
+      baseLink: "landlord",
       ctx: ctx,
       lease: lease,
       toEmail: usr.email
@@ -127,6 +128,7 @@ async function updatePropertyLease(parent, { data, where }, ctx, info) {
 
   lesseeUsers.map((usr, indx) => {
     updatePropertyLeaseEmail({
+      baseLink: "tenant",
       ctx: ctx,
       lease: lease,
       toEmail: usr.email

@@ -49,7 +49,7 @@ const PropertiesTable = props => {
   ];
 
   const manageProperty = (event, rowData) => {
-    handleLink('/properties/property', {
+    handleLink('/landlord/properties/property', {
       id: rowData.id,
     });
   };

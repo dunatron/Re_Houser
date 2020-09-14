@@ -4,6 +4,7 @@ import RentalApplication from '@/Components/RentalApplication';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import { Typography } from '@material-ui/core';
 
+
 const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
   return (
     <PleaseSignIn

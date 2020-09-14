@@ -112,6 +112,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   // success emails to lessors
   lessorUsers.map((usr, indx) => {
     finalisePropertyLeaseEmail({
+      baseLink: "tenant",
       ctx: ctx,
       lease: lease,
       // payment: payment,
@@ -124,6 +125,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   // success emails to lessees
   lesseeUsers.map((usr, indx) => {
     finalisePropertyLeaseEmail({
+      baseLink: "landlord",
       ctx: ctx,
       lease: lease,
       // payment: payment,

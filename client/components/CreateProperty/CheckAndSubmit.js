@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { FormCreator } from '../Forms';
 import { useMutation } from '@apollo/client';
 import { CREATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
 import {
@@ -9,7 +7,6 @@ import {
 } from '../../graphql/queries/index';
 
 import {
-  Paper,
   Typography,
   Button,
   ExpansionPanel,
@@ -17,12 +14,9 @@ import {
   ExpansionPanelDetails,
   Chip,
 } from '@material-ui/core';
-import { toast } from 'react-toastify';
-import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
 import Error from '../../components/ErrorMessage';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
 
 const connectFiles = files =>
   Object.entries(files).reduce((a, [k, v]) => {
@@ -60,9 +54,6 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
 
   const handleCreate = () => {
     const connectedFiles = connectFiles(formData.files);
-
-    console.log('connectedFiles => ', connectedFiles);
-    console.log('formData => ', formData);
     createProperty({
       variables: {
         data: {

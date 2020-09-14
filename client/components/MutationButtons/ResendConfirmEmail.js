@@ -1,20 +1,13 @@
-import PropTypes from "prop-types";
-import React, { Component, useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import Error from '../ErrorMessage/index';
-import { toast } from 'react-toastify';
 import { RESEND_CONFIRM_EMAIL_MUTATION } from '../../graphql/mutations/index';
-import { useMatchFetch } from '../Effects/useMatchEffect';
-
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
 import { useCurrentUser } from '../User';
-
-// ugn inputs i Guess
-import TextInput from '../../components/Inputs/TextInput';
 
 const useStyles = makeStyles(theme => ({
   buttonSuccess: {
@@ -73,7 +66,7 @@ const ResendConfirmEmailButton = ({ email }) => {
 };
 
 ResendConfirmEmailButton.propTypes = {
-  email: PropTypes.any.isRequired
-}
+  email: PropTypes.any.isRequired,
+};
 
 export default ResendConfirmEmailButton;

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import { LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF } from '../../../lib/configs/landlordTermsOfEngagementForm';
 
@@ -34,7 +34,7 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
           the platform
         </Typography>
         <ChangeRouteButton
-          route="/properties/add"
+          route="/landlord/properties/add"
           title="Add Property"
           color="primary"
           variant="contained"
@@ -55,8 +55,7 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
         folder={`users/${me.id}`}
         title="huh"
         data={{
-          // bondLodgementNumber: 'ok',
-          ...me
+          ...me,
         }}
         isNew={true}
         error={error}
@@ -94,8 +93,8 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
 AcceptTermsOfEngagementForm.propTypes = {
   me: PropTypes.shape({
     acceptedTermsOfEngagement: PropTypes.any,
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default AcceptTermsOfEngagementForm;

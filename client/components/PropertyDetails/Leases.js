@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -52,7 +52,7 @@ const PropertyLeases = props => {
             </button>
             <ChangeRouteButton
               title="Edit Lease"
-              route="/leases/lease"
+              route="/landlord/leases/lease"
               query={{ id: lease.id }}
             />
             <p>{lease.id}</p>
@@ -84,8 +84,8 @@ const PropertyLeases = props => {
 
 PropertyLeases.propTypes = {
   property: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default PropertyLeases;
