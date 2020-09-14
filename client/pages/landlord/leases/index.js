@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import PropertyDetails from '../../../components/PropertyDetails/index';
-import PleaseSignIn from '../../../components/PleaseSignIn';
+import PropertyDetails from '@Components/PropertyDetails';
+import PleaseSignIn from '@Components/PleaseSignIn';
 
-import LeasesList from '../../../components/LeasesList';
+import LeasesList from '@Components/LeasesList';
 
 const LandLordLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
   return (

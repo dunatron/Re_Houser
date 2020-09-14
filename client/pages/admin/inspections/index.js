@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import PageHeader from '../../../components/PageHeader';
-import InspectionsTable from '../../../components/Tables/InspectionsTable';
-import AdminOnly from '../../../components/AdminOnly';
+import PageHeader from '@Components/PageHeader';
+import InspectionsTable from '@Components/Tables/InspectionsTable';
+import AdminOnly from '@Components/AdminOnly';
 
 const AdminInspectionsPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

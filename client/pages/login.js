@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SuperLogin from '../components/SuperLogin';
-import PageHeader from '../components/PageHeader';
+import SuperLogin from '@Components/SuperLogin';
+import PageHeader from '@Components/PageHeader';
 
 const LoginPage = () => {
   return (

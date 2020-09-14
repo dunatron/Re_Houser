@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import PleaseSignIn from '../components/PleaseSignIn';
-import { ActivityManager, Activity } from '../components/ActivityManager';
-import PageHeader from '../components/PageHeader';
+import PleaseSignIn from '@Components/PleaseSignIn';
+import { ActivityManager, Activity } from '@Components/ActivityManager';
+import PageHeader from '@Components//PageHeader';
 import { Typography } from '@material-ui/core';
 
 const ActivityPage = ({ appData: { currentUser } }) => {

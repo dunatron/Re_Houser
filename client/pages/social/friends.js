@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import FriendManager from '../../components/FriendManager/index';
-import PleaseSignIn from '../../components/PleaseSignIn';
+import FriendManager from '@Components/FriendManager/index';
+import PleaseSignIn from '@Components/PleaseSignIn';
 
 const SocialFriendsePage = ({ appData: { currentUser } }) => {
   return (

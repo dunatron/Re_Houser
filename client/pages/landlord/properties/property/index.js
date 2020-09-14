@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import PropertyDetails from '../../../components/PropertyDetails/index';
-import PleaseSignIn from '../../../components/PleaseSignIn';
+import PropertyDetails from '@Components/PropertyDetails/index';
+import PleaseSignIn from '@Components/PleaseSignIn';
 
 const PropertyPage = ({ appData: { currentUser }, query: { id } }) => {
   return (

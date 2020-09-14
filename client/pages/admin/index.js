@@ -1,10 +1,9 @@
-// import PropertyDetails from "../../components/PropertyDetails/index"
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { store } from '../../store';
+import { store } from '@Store';
 
-import Dashboard from '../../components/Dashboard';
-import PageHeader from '../../components/PageHeader';
+import Dashboard from '@Components/Dashboard';
+import PageHeader from '@Components/PageHeader';
 
 //material
 import { Badge } from '@material-ui/core';
@@ -12,9 +11,9 @@ import { Badge } from '@material-ui/core';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SettingsIcon from '@material-ui/icons/Settings';
-import FriendManager from '../../components/FriendManager';
+import FriendManager from '@Components/FriendManager';
 
-import AdminOnly from '../../components/AdminOnly';
+import AdminOnly from '@Components/AdminOnly';
 
 /**
  *

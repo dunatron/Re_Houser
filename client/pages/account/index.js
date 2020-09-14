@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import PleaseSignIn from '../../components/PleaseSignIn';
-import Account from '../../components/Account/index';
+import PleaseSignIn from '@Components/PleaseSignIn';
+import Account from '@Components/Account/index';
 import { Typography } from '@material-ui/core';
-import PageHeader from '../../components/PageHeader';
+import PageHeader from '@Components/PageHeader';
 
 const AccountPage = ({ appData: { currentUser } }) => {
   return (

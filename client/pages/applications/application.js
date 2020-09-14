@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import RentalApplication from '../../components/RentalApplication';
-import PleaseSignIn from '../../components/PleaseSignIn';
+import RentalApplication from '@Components/RentalApplication';
+import PleaseSignIn from '@Components/PleaseSignIn';
 import { Typography } from '@material-ui/core';
 
 const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
@@ -10,7 +10,7 @@ const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
       currentUser={currentUser}
       alert={
         <Typography component="p" gutterBottom color="inherit">
-          <strong>Please SIgn in to view applications</strong>
+          <strong>Please Sign in to view applications</strong>
         </Typography>
       }>
       <RentalApplication id={id} />

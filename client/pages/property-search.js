@@ -1,6 +1,6 @@
-import PropertySearch from '../components/PropertySearch/index';
+import PropertySearch from '@Components/PropertySearch/index';
 import NoSSR from 'react-no-ssr';
-import PageHeader from '../components/PageHeader';
+import PageHeader from '@Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
 const PropertySearchPage = () => {

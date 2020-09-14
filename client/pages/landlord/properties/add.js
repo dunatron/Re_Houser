@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CreateProperty from '../../../components/CreateProperty/index';
-import PleaseSignIn from '../../../components/PleaseSignIn';
+import CreateProperty from '@Components/CreateProperty/index';
+import PleaseSignIn from '@Components/PleaseSignIn';
 import { is } from 'ramda';
-import PageHeader from '../../../components/PageHeader';
+import PageHeader from '@Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
 const AddPropertyPage = ({ appData: { currentUser } }) => {

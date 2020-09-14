@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import PageHeader from '../../components/PageHeader';
-import AdminOnly from '../../components/AdminOnly';
+import PageHeader from '@Components/ageHeader';
+import AdminOnly from '@Components/AdminOnly';
 
 // examples
 import {
@@ -11,7 +11,7 @@ import {
   ToolTipExamples,
   RenderInputExamples,
   ExamplePdfExamples,
-} from '../../components/StyleExamples';
+} from '@Components/StyleExamples';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';

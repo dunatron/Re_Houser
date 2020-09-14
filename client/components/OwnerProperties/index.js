@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
@@ -66,15 +66,15 @@ const OwnerProperties = ({ me }) => {
   };
 
   const manageProperty = data => {
-    handleLink('/properties/property', { id: data.id });
+    handleLink('/landlord/properties/property', { id: data.id });
   };
 
   const goToAddPropertyPage = () => {
-    handleLink('/properties/add');
+    handleLink('/landlord/properties/add');
   };
 
   const goToAddBulkProperty = () => {
-    handleLink('/properties/bulkadd');
+    handleLink('/landlord/properties/bulkadd');
   };
 
   if (loading) {
@@ -104,8 +104,8 @@ const OwnerProperties = ({ me }) => {
 };
 
 OwnerProperties.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default OwnerProperties;
 

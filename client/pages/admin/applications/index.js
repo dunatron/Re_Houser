@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import RentalApplicationsManager from '../../../admin-components/RentalApplicationsManager';
-import PageHeader from '../../../components/PageHeader';
+import RentalApplicationsManager from '@AdminComponents/RentalApplicationsManager';
+import PageHeader from '@Components/PageHeader';
 import { Typography } from '@material-ui/core';
-import AdminOnly from '../../../components/AdminOnly';
+import AdminOnly from '@Components/AdminOnly';
 
 const AdminApplicationsPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

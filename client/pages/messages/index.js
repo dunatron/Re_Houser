@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import PageHeader from '../../components/PageHeader';
-import RChat from '../../components/RChat';
-import ChatsListScreen from '../../components/ChatsListScreen';
+import PageHeader from '@Components/PageHeader';
+import RChat from '@Components/RChat';
+import ChatsListScreen from '@Components/ChatsListScreen';
 
 const MessagesPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

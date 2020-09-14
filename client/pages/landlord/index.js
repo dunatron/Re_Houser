@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import OwnerProperties from '../../components/OwnerProperties/index';
-import PleaseSignIn from '../../components/PleaseSignIn';
-import ConfirmEmail from '../../components/ConfirmEmail';
-import PageHeader from '../../components/PageHeader';
+import OwnerProperties from '@Components/OwnerProperties/index';
+import PleaseSignIn from '@Components/PleaseSignIn';
+import ConfirmEmail from '@Components/ConfirmEmail';
+import PageHeader from '@Components/PageHeader';
 import { Typography } from '@material-ui/core';
-import Dashboard from '../../components/Dashboard';
-import LANDLORD_DASHBOARD_CONFIG from '../../lib/configs/landlordDashboardConfig';
+import Dashboard from '@Components/Dashboard';
+import LANDLORD_DASHBOARD_CONFIG from '@Lib/configs/landlordDashboardConfig';
 
 const LandlordPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =

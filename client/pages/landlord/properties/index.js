@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import OwnerProperties from '../../../components/OwnerProperties/index';
-import PleaseSignIn from '../../../components/PleaseSignIn';
-import PageHeader from '../../../components/PageHeader';
+import OwnerProperties from '@Components/OwnerProperties/index';
+import PleaseSignIn from '@Components/PleaseSignIn';
+import PageHeader from '@Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
 const PropertiesPage = ({ appData: { currentUser } }) => {

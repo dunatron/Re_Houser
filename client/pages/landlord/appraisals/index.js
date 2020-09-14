@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import PropertyDetails from '../../../components/PropertyDetails/index';
-import PleaseSignIn from '../../../components/PleaseSignIn';
-import PropertyAppraisal from '../../../components/PropertyAppraisal';
+import PleaseSignIn from '@Components/PleaseSignIn';
+import PropertyAppraisal from '@Components/PropertyAppraisal';
 
 const LandLordAppraisalsPage = ({
   appData: { currentUser },

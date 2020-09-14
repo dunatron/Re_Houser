@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import TeamComponent from '../../components/Team';
-import { SITE_NAME } from '../../lib/const';
-import PageHeader from '../../components/PageHeader';
-import TeamInfoText from '../../components/Team/TeamInfoText';
+import TeamComponent from '@Components/Team';
+import { SITE_NAME } from '@Lib/const';
+import PageHeader from '@Components/PageHeader';
+import TeamInfoText from '@Components/Team/TeamInfoText';
 
 const AboutUsPage = () => {
   return (

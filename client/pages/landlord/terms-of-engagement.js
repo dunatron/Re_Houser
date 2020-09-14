@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types';
-import ComingSoon from '../../components/ComingSoon';
-import { Paper, Typography } from '@material-ui/core';
-import Fees from '../../components/Fees';
-import PageHeader from '../../components/PageHeader';
-
-// import { TermsOfEngagement } from '../../components/Terms';
-import AcceptTermsOfEngagementForm from '../../components/Forms/AcceptTermsOfEngagementForm';
+import PageHeader from '@Components/PageHeader';
+import AcceptTermsOfEngagementForm from '@Components/Forms/AcceptTermsOfEngagementForm';
 
 const TermsOfEngagementPage = props => {
   const {
@@ -25,7 +20,6 @@ const TermsOfEngagementPage = props => {
             'These are the terms of engagement a landlord will need to agree to so Rehouser Property Management Ltd can act on their behalf.',
         }}
       />
-      {/* <TermsOfEngagement me={currentUser.data ? currentUser.data.me : null} /> */}
       <AcceptTermsOfEngagementForm me={me} />
     </>
   );

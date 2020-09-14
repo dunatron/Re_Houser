@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PleaseSignIn from '../components/PleaseSignIn';
-import PropertyAppraisal from '../components/PropertyAppraisal';
+import PleaseSignIn from '@Components/PleaseSignIn';
+import PropertyAppraisal from '@Components/PropertyAppraisal';
 import { Typography } from '@material-ui/core';
 
-import PageHeader from '../components/PageHeader';
+import PageHeader from '@Components/PageHeader';
 
 const FreeAppraisalPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

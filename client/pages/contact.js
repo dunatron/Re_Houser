@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import PageHeader from '../components/PageHeader';
-import ContactForm from '../components/Contact/ContactForm';
+import PageHeader from '@Components/PageHeader';
+import ContactForm from '@Components/Contact/ContactForm';
 
 const ContactPage = () => {
   return (
