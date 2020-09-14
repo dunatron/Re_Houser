@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import PropertiesManager from '@AdminComponents/PropertiesManager';
-import PageHeader from '@Components/PageHeader';
-import AdminOnly from '@Components/AdminOnly';
+import PropertiesManager from '@/AdminComponents/PropertiesManager';
+import PageHeader from '@/Components/PageHeader';
+import AdminOnly from '@/Components/AdminOnly';
 
 const AdminPropertiesPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

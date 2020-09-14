@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import EditProperty from '@Components/PropertyDetails/Edit';
-import PleaseSignIn from '@Components/PleaseSignIn';
+import EditProperty from '@/Components/PropertyDetails/Edit';
+import PleaseSignIn from '@/Components/PleaseSignIn';
 import { Typography } from '@material-ui/core';
-import PageHeader from '@Components/PageHeader';
+import PageHeader from '@/Components/PageHeader';
 
 const EditPropertyPage = ({ appData: { currentUser }, query: { id } }) => {
   const pleaseSignInMessage =

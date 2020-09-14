@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
-import TEAM_CONFIG from '@Lib/configs/teamConfig';
-import TeamMember from '@Components/Team/TeamMember';
+import TEAM_CONFIG from '@/Lib/configs/teamConfig';
+import TeamMember from '@/Components/Team/TeamMember';
 
 const TeamMemberPage = ({ query: { name } }) => {
   // get the name from query param. use it to find trhe subUrl and pass that member in

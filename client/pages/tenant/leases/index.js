@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import PleaseSignIn from '@Components/PleaseSignIn';
+import PleaseSignIn from '@/Components/PleaseSignIn';
 
 const TenantLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
   return (

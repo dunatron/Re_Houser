@@ -1,8 +1,8 @@
 import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-import RentalApplicationStepper from '@Components/RentalApplicationStepper';
-import PleaseSignIn from '@Components/PleaseSignIn';
+import RentalApplicationStepper from '@/Components/RentalApplicationStepper';
+import PleaseSignIn from '@/Components/PleaseSignIn';
 
 const RentalApplicationPage = ({
   appData: { currentUser },

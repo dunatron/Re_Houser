@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import PageHeader from '@Components/PageHeader';
-import AcceptTermsOfEngagementForm from '@Components/Forms/AcceptTermsOfEngagementForm';
+import PageHeader from '@/Components/PageHeader';
+import AcceptTermsOfEngagementForm from '@/Components/Forms/AcceptTermsOfEngagementForm';
 
 const TermsOfEngagementPage = props => {
   const {

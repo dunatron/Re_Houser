@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import AppraisalManager from '@AdminComponents/AppraisalManager';
-import PageHeader from '@Components/PageHeader';
+import AppraisalManager from '@/AdminComponents/AppraisalManager';
+import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
-import AdminOnly from '@Components/AdminOnly';
+import AdminOnly from '@/Components/AdminOnly';
 
 const AdminAppraisalsPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import RentalApplications from '@Components/RentalApplications';
-import PleaseSignIn from '@Components/PleaseSignIn';
-import PageHeader from '@Components/PageHeader';
+import RentalApplications from '@/Components/RentalApplications';
+import PleaseSignIn from '@/Components/PleaseSignIn';
+import PageHeader from '@/Components/PageHeader';
 
 const RentalApplicationsPage = ({ appData: { currentUser } }) => {
   return (

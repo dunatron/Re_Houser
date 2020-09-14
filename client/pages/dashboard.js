@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import Dashboard from '@Components/Dashboard/index';
-import PleaseSignIn from '@Components/PleaseSignIn';
+import Dashboard from '@/Components/Dashboard/index';
+import PleaseSignIn from '@/Components/PleaseSignIn';
 
-import DASHBOARD_CONFIG from '@Lib/configs/dashboardConfig';
-import INFO_DASHBOARD_CONFIG from '@Lib/configs/infoDashboardConfig';
+import DASHBOARD_CONFIG from '@/Lib/configs/dashboardConfig';
+import INFO_DASHBOARD_CONFIG from '@/Lib/configs/infoDashboardConfig';
 import Head from 'next/head';
-import { SITE_NAME } from '@Lib/const';
-import PageHeader from '@Components/PageHeader';
+import { SITE_NAME } from '@/Lib/const';
+import PageHeader from '@/Components/PageHeader';
 
 const DashboardPage = ({ appData: { currentUser } }) => {
   return (

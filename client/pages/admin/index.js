@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { store } from '@Store';
+import { store } from '@/Store';
 
-import Dashboard from '@Components/Dashboard';
-import PageHeader from '@Components/PageHeader';
+import Dashboard from '@/Components/Dashboard';
+import PageHeader from '@/Components/PageHeader';
 
 //material
 import { Badge } from '@material-ui/core';
@@ -11,9 +11,8 @@ import { Badge } from '@material-ui/core';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SettingsIcon from '@material-ui/icons/Settings';
-import FriendManager from '@Components/FriendManager';
-
-import AdminOnly from '@Components/AdminOnly';
+import FriendManager from '@/Components/FriendManager';
+import AdminOnly from '@/Components/AdminOnly';
 
 /**
  *

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import _isAdmin from '../../lib/isAdmin';
 import { Typography } from '@material-ui/core';
 import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
@@ -45,8 +45,8 @@ const AdminOnly = ({ me, children }) => {
 AdminOnly.propTypes = {
   children: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    permissions: PropTypes.any
-  }).isRequired
-}
+    permissions: PropTypes.any,
+  }).isRequired,
+};
 
 export default AdminOnly;

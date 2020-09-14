@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import PleaseSignIn from '@Components/PleaseSignIn';
-import Signature from '@Components/Signature/index';
+import PleaseSignIn from '@/Components/PleaseSignIn';
+import Signature from '@/Components/Signature/index';
 import { Typography } from '@material-ui/core';
 
 const AccountPage = ({ appData: { currentUser } }) => {

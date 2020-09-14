@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import PleaseSignIn from '@Components/PleaseSignIn';
-import PageHeader from '@Components/PageHeader';
+import PleaseSignIn from '@/Components/PleaseSignIn';
+import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
-import Dashboard from '@Components/Dashboard';
-import TENANT_DASHBOARD_CONFIG from '@Lib/configs/tenantDashboardConfig';
+import Dashboard from '@/Components/Dashboard';
+import TENANT_DASHBOARD_CONFIG from '@/Lib/configs/tenantDashboardConfig';
 
 const TenantPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =

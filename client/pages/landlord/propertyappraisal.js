@@ -1,6 +1,6 @@
 import { Paper, Typography } from '@material-ui/core';
-import Fees from '@Components/Fees';
-import PageHeader from '@Components/PageHeader';
+import Fees from '@/Components/Fees';
+import PageHeader from '@/Components/PageHeader';
 
 const LandlordAppraisalPage = () => {
   return (

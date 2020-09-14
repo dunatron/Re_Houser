@@ -2,17 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      //Assuming your components/utilities live in ./src
-      //Update this path as necessary
-      //https://nimblewebdeveloper.com/blog/absolute-alias-imports-in-javascript-vscode
-      "@Components/*": ["./components/*"],
-      "@AdminComponents/*": ["./admin-components/*"],
-      "@Styles/*": ["./styles/*"],
-      "@Lib/*": ["./lib/*"],
-      "@Gql/*": ["./graphql/*"],
-      "@Store/*": ["./store.js"]
+      "@/Components/*": ["./Components/*"],
+      "@/AdminComponents/*": ["./AdminComponents/*"],
+      "@/Styles/*": ["./styles/*"],
+      "@/Lib/*": ["./lib/*"],
+      "@/Gql/*": ["./graphql/*"],
+      "@/Store/*": ["./store.js"]
     }
   },
-  //Add any build/compiled folders here to stop vscode searching those
   "exclude": ["node_modules", "build", ".next", ".docz"]
 }

@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ParticleBanner from '@Components/Banner/ParticleBanner';
-import Banner from '@Components/Banner/index';
+import ParticleBanner from '@/Components/Banner/ParticleBanner';
+import Banner from '@/Components/Banner/index';
 
 import { Button, Typography, IconButton } from '@material-ui/core';
-import ChangeRouteButton from '@Components/Routes/ChangeRouteButton';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-import Dashboard from '@Components/Dashboard';
+import Dashboard from '@/Components/Dashboard';
 
-import ContactForm from '@Components/Contact/ContactForm';
-import Fees from '@Components/Fees';
-import TeamInfoText from '@Components/Team/TeamInfoText';
-import Team from '@Components/Team/index';
+import ContactForm from '@/Components/Contact/ContactForm';
+import Fees from '@/Components/Fees';
+import TeamInfoText from '@/Components/Team/TeamInfoText';
+import Team from '@/Components/Team/index';
 
-import HOME_PAGE_DASHBOARD_CONFIG from '@Lib/configs/homepageDashboardConf';
+import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/homepageDashboardConf';
 
 import Particles from 'react-particles-js';
 import Particles2 from 'react-tsparticles';

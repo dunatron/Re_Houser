@@ -14,10 +14,10 @@ import {
 import PropTypes from 'prop-types';
 
 import { Button } from '@material-ui/core';
-import LeasesList from '@Components/LeasesList';
-import PleaseSignIn from '@Components/PleaseSignIn';
-import Dashboard from '@Components/Dashboard';
-import SOCIAL_DASHBOARD_CONFIG from '@Lib/configs/socialDashboard';
+import LeasesList from '@/Components/LeasesList';
+import PleaseSignIn from '@/Components/PleaseSignIn';
+import Dashboard from '@/Components/Dashboard';
+import SOCIAL_DASHBOARD_CONFIG from '@/Lib/configs/socialDashboard';
 
 const SocialPage = ({ appData: { currentUser } }) => {
   return (

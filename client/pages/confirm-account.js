@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import PageHeader from '@Components/PageHeader';
-import ConfirmEmail from '@Components/ConfirmEmail';
+import PageHeader from '@/Components/PageHeader';
+import ConfirmEmail from '@/Components/ConfirmEmail';
 import { Typography } from '@material-ui/core';
-import Dashboard from '@Components/Dashboard/index';
-import DASHBOARD_CONFIG from '@Lib/configs/dashboardConfig';
-import INFO_DASHBOARD_CONFIG from '@Lib/configs/infoDashboardConfig';
+import Dashboard from '@/Components/Dashboard/index';
+import DASHBOARD_CONFIG from '@/Lib/configs/dashboardConfig';
+import INFO_DASHBOARD_CONFIG from '@/Lib/configs/infoDashboardConfig';
 
 /**
  *

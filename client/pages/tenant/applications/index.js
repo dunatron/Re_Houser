@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import PleaseSignIn from '@Components/PleaseSignIn';
-import RentalApplications from '@Components/RentalApplications/index';
+import PleaseSignIn from '@/Components/PleaseSignIn';
+import RentalApplications from '@/Components/RentalApplications/index';
 
 const TenantApplicationsPage = ({
   appData: { currentUser },

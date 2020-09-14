@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import RentalApplication from '@Components/RentalApplication';
-import PleaseSignIn from '@Components/PleaseSignIn';
+import RentalApplication from '@/Components/RentalApplication';
+import PleaseSignIn from '@/Components/PleaseSignIn';
 import { Typography } from '@material-ui/core';
 
 const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {

@@ -29,12 +29,12 @@ module.exports = withTM({
       ...(config.resolve.alias || {}),
       // Transform all direct `react-native` imports to `react-native-web`
       'react-native$': 'react-native-web',
-      '@Components': path.resolve(__dirname, 'components/'),
-      '@AdminComponents': path.resolve(__dirname, 'admin-components/'),
-      '@Styles': path.resolve(__dirname, 'admin-components/'),
-      '@Lib': path.resolve(__dirname, 'lib/'),
-      '@Gql': path.resolve(__dirname, 'graphql/'),
-      '@Store': path.resolve(__dirname, 'store.js'),
+      '@/Components': path.resolve(__dirname, 'components/'),
+      '@/AdminComponents': path.resolve(__dirname, 'admin-components/'),
+      '@/Styles': path.resolve(__dirname, 'admin-components/'),
+      '@/Lib': path.resolve(__dirname, 'lib/'),
+      '@/Gql': path.resolve(__dirname, 'graphql/'),
+      '@/Store': path.resolve(__dirname, 'store.js'),
       // 'react-native-gifted-chat': 'react-native-web',
     };
     config.resolve.extensions = [

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
-import PageHeader from '@Components/PageHeader';
+import PageHeader from '@/Components/PageHeader';
 import { useMutation } from '@apollo/client';
-import FormCreator from '@Components/Forms/FormCreator';
-import RESET_PASSWORD_FORM_CONF from '@Lib/configs/resetPasswordForm';
-import { CURRENT_USER_QUERY } from '@Gql/queries/currentUser';
-import SuperLogin from '@Components/SuperLogin';
+import FormCreator from '@/Components/Forms/FormCreator';
+import RESET_PASSWORD_FORM_CONF from '@/Lib/configs/resetPasswordForm';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/currentUser';
+import SuperLogin from '@/Components/SuperLogin';
 import { Typography } from '@material-ui/core';
 
 const RESET_PASSWORD_MUTATION = gql`

@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 //components
-import PageHeader from '@Components/PageHeader';
+import PageHeader from '@/Components/PageHeader';
 // admin components
-import AdminSettings from '@Components/AdminSettings';
-import AdminOnly from '@Components/AdminOnly';
+import AdminSettings from '@/AdminComponents/AdminSettings';
+import AdminOnly from '@/Components/AdminOnly';
 
 const AdminSettingsPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

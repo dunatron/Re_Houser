@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import PleaseSignIn from '@Components/PleaseSignIn';
-import LeaseManager from '@Components/LeaseManager';
+import PleaseSignIn from '@/Components/PleaseSignIn';
+import LeaseManager from '@/Components/LeaseManager';
 
 const LandLordSingleLeasePage = ({
   appData: { currentUser },
@@ -25,4 +25,4 @@ LandLordSingleLeasePage.propTypes = {
   }),
 };
 
-export default LandLordSingleLeasePages;
+export default LandLordSingleLeasePage;
