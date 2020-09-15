@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component, useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Elements } from '@stripe/react-stripe-js';
+import { StateProvider } from '@/Store/index';
 
 import MaterialPage from './MaterialPage';
 import { FacebookProvider, Like } from 'react-facebook';
