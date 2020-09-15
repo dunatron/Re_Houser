@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
-import Signout from '../Signout/index';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
+import Signout from '@/Components/Signout/index';
 
 import PropTypes from 'prop-types';
 import { Button, Typography } from '@material-ui/core';
-import SendConfirmEmailButton from '../MutationButtons/SendConfrimEmailButton';
-import ResendConfirmEmailButton from '../MutationButtons/ResendConfirmEmail';
-import ConfirmEmail from '../ConfirmEmail';
+import SendConfirmEmailButton from '@/Components/MutationButtons/SendConfrimEmailButton';
+import ResendConfirmEmailButton from '@/Components/MutationButtons/ResendConfirmEmail';
+import ConfirmEmail from '@/Components/ConfirmEmail';
 
 const LoggedInAs = ({ me }) => {
   if (!me) return null;

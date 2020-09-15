@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
-import { LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF } from '../../../lib/configs/landlordTermsOfEngagementForm';
+import { LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF } from '@/Lib/configs/landlordTermsOfEngagementForm';
 
-import { UPDATE_USER_MUTATION } from '../../../graphql/mutations/index';
-import FormCreator from '../../Forms/FormCreator';
-import TermsOfEngagement from '../../Terms/TermsOfEngagement';
+import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
+import FormCreator from '@/Components/Forms/FormCreator';
+import TermsOfEngagement from '@/Components/Terms/TermsOfEngagement';
 import { Typography } from '@material-ui/core';
-import ChangeRouteButton from '../../Routes/ChangeRouteButton';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const AcceptTermsOfEngagementForm = ({ me }) => {

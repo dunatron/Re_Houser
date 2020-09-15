@@ -3,13 +3,10 @@ import React from 'react';
 import moment from 'moment';
 import { List, ListItem } from '@material-ui/core';
 import styled from 'styled-components';
-import { useCallback } from 'react';
 import Router from 'next/router';
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/client';
-import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
-import Error from '../ErrorMessage';
-import { getChatName } from '../../lib/getChatName';
+import { useQuery } from '@apollo/client';
+import { getChatName } from '@/Lib/getChatName';
 
 const Container = styled.div`
   height: calc(100% - 56px);

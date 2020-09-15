@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import FileUploader from './../../FileUploader';
+import FileUploader from '@/Components/FileUploader';
 import FieldError from './FieldError';
 import InputFieldType from './index';
 import { is } from 'ramda';

@@ -6,7 +6,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { IconButton, Paper } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { Portal } from '../Portal/index';
+import { Portal } from '@/Components/Portal/index';
 
 const styles = theme => ({
   root: {
@@ -102,13 +102,13 @@ Modal.propTypes = {
     modalBody: PropTypes.any,
     modalHeader: PropTypes.any,
     modalTitle: PropTypes.any,
-    root: PropTypes.any
+    root: PropTypes.any,
   }).isRequired,
   close: PropTypes.func.isRequired,
   height: PropTypes.any.isRequired,
   open: PropTypes.any.isRequired,
   title: PropTypes.any.isRequired,
-  width: PropTypes.any.isRequired
-}
+  width: PropTypes.any.isRequired,
+};
 
 export default withStyles(styles)(Modal);

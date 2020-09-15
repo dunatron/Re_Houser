@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Button, Fab } from '@material-ui/core';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 

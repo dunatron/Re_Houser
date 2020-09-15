@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
-import React, { useRef, useState } from 'react';
-import { useApolloClient, useQuery } from '@apollo/client';
+import PropTypes from 'prop-types';
+import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 
 const SINGLE_PAYMENT_QUERY = gql`
   query SINGLE_PAYMENT_QUERY($where: PaymentWhereUniqueInput!) {
@@ -46,7 +45,7 @@ const SinglePayment = ({ paymentId }) => {
 };
 
 SinglePayment.propTypes = {
-  paymentId: PropTypes.any.isRequired
-}
+  paymentId: PropTypes.any.isRequired,
+};
 
 export default SinglePayment;

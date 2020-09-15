@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { store } from '../../store';
+import { store } from '@/Store/index';
 
 import OpenChatBubbles from './OpenChatBubbles';
 import ChatsListSelector from './ChatsListSelector';
@@ -44,7 +44,7 @@ const ChatsBar = ({ me }) => {
 };
 
 ChatsBar.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default ChatsBar;

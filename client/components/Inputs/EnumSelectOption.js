@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui//core/styles';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select/Select';
 import { useQuery } from '@apollo/client';
-import { GET_ENUM_QUERY } from '../../graphql/queries';
+import { GET_ENUM_QUERY } from '@/Gql/queries';
 
 const styles = theme => ({
   formControl: {
@@ -64,7 +64,7 @@ EnumSelectOption.propTypes = {
   __type: PropTypes.any.isRequired,
   classes: PropTypes.shape({
     formControl: PropTypes.any,
-    selectEmpty: PropTypes.any
+    selectEmpty: PropTypes.any,
   }).isRequired,
   defaultValue: PropTypes.any.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -72,7 +72,7 @@ EnumSelectOption.propTypes = {
   label: PropTypes.any.isRequired,
   name: PropTypes.any.isRequired,
   selectID: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-}
+  value: PropTypes.any.isRequired,
+};
 
 export default withStyles(styles)(EnumSelectOption);

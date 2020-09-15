@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
-import Error from '../ErrorMessage';
-import { DELETE_USER_ACCOUNT } from '../../graphql/mutations';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import Error from '@/Components/ErrorMessage';
+import { DELETE_USER_ACCOUNT } from '@/Gql/mutations';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 // Material
 import Popper from '@material-ui/core/Popper';
 import Fade from '@material-ui/core/Fade';

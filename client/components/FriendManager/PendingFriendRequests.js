@@ -1,12 +1,8 @@
-import PropTypes from "prop-types";
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import TextInput from '../Inputs/TextInput';
-import Button from '@material-ui/core/Button';
-import FriendRequestButton from '../MutationButtons/FriendRequestButton';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
-import Error from '../ErrorMessage';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
+import Error from '@/Components/ErrorMessage';
 
 const ACCEPT_FRIEND_REQUEST_MUTATION = gql`
   mutation ACCEPT_FRIEND_REQUEST_MUTATION($friendRequestId: ID!) {
@@ -55,7 +51,7 @@ const PendingFriendRequests = props => {
 };
 
 PendingFriendRequests.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default PendingFriendRequests;

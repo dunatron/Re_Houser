@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
-import _isAdmin from '../../lib/isAdmin';
+import _isAdmin from '@/Lib/isAdmin';
 import { Typography } from '@material-ui/core';
-import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
-import ContactForm from '../Contact/ContactForm';
+import OpenSuperLoginButton from '@/Components/SuperLogin/OpenSuperLoginButton';
+import ContactForm from '@/Components/Contact/ContactForm';
 /**
  *
  * Maybe we make this a direct query for the user and use network only.

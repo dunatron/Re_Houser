@@ -1,40 +1,30 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {
   INSULATION_FORM_QUERY,
   SINGLE_OWNER_PROPERTY_QUERY,
-} from '../../../graphql/queries';
+} from '@/Gql/queries';
 import {
   UPDATE_INSULATION_FORM_MUTATION,
   UPDATE_PROPERTY_MUTATION,
-} from '../../../graphql/mutations';
-import Errors from '../../ErrorMessage';
+} from '@/Gql/mutations';
 
-import FormCreator from '../FormCreator';
-import { INSULATION_STATEMENT_FORM_CONF } from '../../../lib/configs/insulationStatementForm';
+import FormCreator from '@/Components/Forms/FormCreator';
+import { INSULATION_STATEMENT_FORM_CONF } from '@/Lib/configs/insulationStatementForm';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import {
-  Paper,
-  Typography,
-  IconButton,
-  CircularProgress,
-  Button,
-  Fab,
-} from '@material-ui/core';
+import { Typography, IconButton, CircularProgress } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import AssignmentIcon from '@material-ui/icons/AssignmentOutlined';
 import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import EditIcon from '@material-ui/icons/Edit';
-import Modal from '../../Modal';
+import Modal from '@/Components/Modal';
 import { toast } from 'react-toastify';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import SaveIcon from '@material-ui/icons/Save';
-import Error from '../../ErrorMessage';
-import FileUploader from '../../FileUploader';
+import Error from '@/Components/ErrorMessage';
+import FileUploader from '@/Components/FileUploader';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,10 +67,6 @@ const InsulationStatementForm = ({
   const classes = useStyles();
   const [open, setIsOpen] = useState(false);
 
-  // const handleLazyComplete = async data => {
-  //   await setIsOpen(true);
-  // };
-
   const [loadForm, { called, loading, data }] = useLazyQuery(
     INSULATION_FORM_QUERY,
     {
@@ -120,17 +106,10 @@ const InsulationStatementForm = ({
     }
   );
 
-  // const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
-  //   variables: {
-  //     id: id,
-  //   },
-  // });
-
   const [updateInsulationForm, updateInsulationFormProps] = useMutation(
     UPDATE_INSULATION_FORM_MUTATION,
     {
       variables: {
-        // id: insulationFormId,
         where: {
           id: insulationFormId,
         },
@@ -147,9 +126,6 @@ const InsulationStatementForm = ({
   );
 
   const handleSubmittedData = data => {
-    // data;
-    // if no insulationFormId then we will be needing to create on
-    // if we have one we will simply update the form
     if (!insulationFormId) {
       createInsulationForm({
         variables: {
@@ -188,21 +164,6 @@ const InsulationStatementForm = ({
         },
       });
     }
-
-    // if (!insulationFormId) {
-    //   createInsulationForm({
-    //     variables: {
-    //       data: {
-    //         insulationForm: {
-    //           create: {
-    //             ...data,
-    //           },
-    //         },
-    //       },
-    //       onCompleted: handleLazyComplete,
-    //     },
-    //   });
-    // }
   };
 
   useEffect(() => {
@@ -223,10 +184,6 @@ const InsulationStatementForm = ({
         alignItems: 'center',
         justifyContent: 'start',
       }}>
-      {/* {property.insulationStatementFile && (
-        <h1>WE HAVE insulation statement as a file</h1>
-      )} */}
-
       <AssignmentIcon
         style={{
           margin: '16px 0 16px 16px',
@@ -320,10 +277,10 @@ InsulationStatementForm.propTypes = {
   insulationFormId: PropTypes.any.isRequired,
   placeId: PropTypes.any.isRequired,
   property: PropTypes.shape({
-    insulationStatementFile: PropTypes.any
+    insulationStatementFile: PropTypes.any,
   }).isRequired,
-  propertyId: PropTypes.any.isRequired
-}
+  propertyId: PropTypes.any.isRequired,
+};
 
 export { InsulationStatementForm };
 export default InsulationStatementForm;

@@ -1,9 +1,8 @@
 import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { RENTAL_APPLICATION_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationSub';
-import ApplicationCard from '../PropertyDetails/ApplicationCard';
-import { store } from '../../store';
+import { RENTAL_APPLICATION_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationSub';
+import { store } from '@/Store/index';
 
 const AdminAlertNewRentalApplicationSub = () => {
   const globalStore = useContext(store);

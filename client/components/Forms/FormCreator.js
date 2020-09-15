@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { isEmpty, is } from 'ramda';
-import Errors from '../ErrorMessage';
+import Errors from '@/Components/ErrorMessage';
 import InputFieldType from './InputFieldType/index';
 import { Typography, Button } from '@material-ui/core';
 import FormErrors from './FormErrors';

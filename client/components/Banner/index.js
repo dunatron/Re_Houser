@@ -1,16 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Button } from '@material-ui/core';
-import Error from '../ErrorMessage';
-import Loader from '../Loader';
+import Loader from '@/Components/Loader';
 
 //hooks
-import useCurrentWidth from '../../lib/hooks/useCurrentWidth';
-import useCurrentHeight from '../../lib/hooks/useCurrentHeight';
-import ParticleOne from '../Particles/ParticleOne';
-import ParticleTwo from '../Particles/ParticleTwo';
+import useCurrentWidth from '@/Lib/hooks/useCurrentWidth';
+import useCurrentHeight from '@/Lib/hooks/useCurrentHeight';
 
 /**
  * Images are ugly until they're loaded. Materialize it with material image! It will fade in like the material image loading pattern suggests.
@@ -166,14 +162,14 @@ const Banner = props => {
 
 Banner.propTypes = {
   children: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   disablePointerEvents: PropTypes.bool.isRequired,
   footer: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   imageSrc: PropTypes.any.isRequired,
-  text: PropTypes.any.isRequired
-}
+  text: PropTypes.any.isRequired,
+};
 
 export default Banner;

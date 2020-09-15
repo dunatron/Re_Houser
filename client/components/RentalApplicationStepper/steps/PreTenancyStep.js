@@ -1,21 +1,15 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import CloseIcon from '@material-ui/icons/CloseOutlined';
 import EditIcon from '@material-ui/icons/EditOutlined';
-import FormCreator from '../../Forms/FormCreator';
-import PRE_TENENACY_FORM_CONF from '../../../lib/configs/preTenancyFormConf';
+import FormCreator from '@/Components/Forms/FormCreator';
+import PRE_TENENACY_FORM_CONF from '@/Lib/configs/preTenancyFormConf';
+import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '@/Gql/mutations/index';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries/index';
 
-import { UPDATE_RENTAL_GROUP_APPLICANT_MUTATION } from '../../../graphql/mutations/index';
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../../graphql/queries/index';
-
-/**
- *
- * The best thing to do, would be to get the the form individually.
- * then we can create/update, also so it refetches the correct info and not all of it etc
- */
 const PreTenancyStep = ({
   me,
   rentalApplication,
@@ -144,16 +138,16 @@ PreTenancyStep.propTypes = {
     firstName: PropTypes.string,
     id: PropTypes.any,
     lastName: PropTypes.any,
-    phone: PropTypes.any
+    phone: PropTypes.any,
   }).isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func
-    })
+      find: PropTypes.func,
+    }),
   }).isRequired,
   update: PropTypes.any.isRequired,
-  updateUser: PropTypes.func.isRequired
-}
+  updateUser: PropTypes.func.isRequired,
+};
 
 export default PreTenancyStep;

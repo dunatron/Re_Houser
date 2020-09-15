@@ -1,12 +1,9 @@
-import PropTypes from "prop-types";
-import React, { useState } from 'react';
-// import './progress.css';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
 import useProgressStyles from './ProgressStyles';
 
 const Progress = props => {
   const classes = useProgressStyles();
-  const [state, setState] = useState({});
   return (
     <div className={classes.progressBar}>
       <div
@@ -18,23 +15,7 @@ const Progress = props => {
 };
 
 Progress.propTypes = {
-  progress: PropTypes.string.isRequired
-}
-// class Progress extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {};
-//   }
-//   render() {
-//     return (
-//       <div className="ProgressBar">
-//         <div
-//           className="Progress"
-//           style={{ width: this.props.progress + '%' }}
-//         />
-//       </div>
-//     );
-//   }
-// }
+  progress: PropTypes.string.isRequired,
+};
 
 export default Progress;

@@ -18,14 +18,14 @@ import Dropzone from './Dropzone';
 import FileActions from './FileActions';
 import FilePreviewer from './FilePreviewer';
 
-import Error from '../ErrorMessage';
-import errorAlert from '../../lib/errorAlert';
+import Error from '@/Components/ErrorMessage';
+import errorAlert from '@/Lib/errorAlert';
 
 import useUploadStyles from './UploadStyles';
 
 import FlipToBackIcon from '@material-ui/icons/FlipToBackOutlined';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFrontOutlined';
-import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
+import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 
 // https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2
 // maybe try for progress https://github.com/jaydenseric/apollo-upload-client/issues/88
@@ -445,10 +445,10 @@ UploadFile.propTypes = {
   serverFiles: PropTypes.shape({
     forEach: PropTypes.func,
     length: PropTypes.number,
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  store: PropTypes.any.isRequired
-}
+  store: PropTypes.any.isRequired,
+};
 
 const FlipCardHeader = ({ title, isFlipped, flip }) => {
   const classes = useUploadStyles();
@@ -465,8 +465,8 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
 FlipCardHeader.propTypes = {
   flip: PropTypes.any.isRequired,
   isFlipped: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired
-}
+  title: PropTypes.any.isRequired,
+};
 
 const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
   const { removingIds } = store;
@@ -491,8 +491,8 @@ UploadedServerFiles.propTypes = {
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.any.isRequired,
   serverFiles: PropTypes.any.isRequired,
-  store: PropTypes.any.isRequired
-}
+  store: PropTypes.any.isRequired,
+};
 
 //remove gets fed into here
 const FileManager = props => {
@@ -634,20 +634,22 @@ FileManager.propTypes = {
   fileParams: PropTypes.shape({
     filename: PropTypes.string,
     folder: PropTypes.string,
-    resource_type: PropTypes.oneOf(["image", "raw", "video", "auto"]),
+    resource_type: PropTypes.oneOf(['image', 'raw', 'video', 'auto']),
     tags: PropTypes.arrayOf(PropTypes.string),
-    type: PropTypes.oneOf(["upload", "private", "authenticated"])
+    type: PropTypes.oneOf(['upload', 'private', 'authenticated']),
   }).isRequired,
   fileRemovedFromServer: PropTypes.func.isRequired,
-  files: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    type: PropTypes.string,
-    url: PropTypes.string
-  })).isRequired,
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      type: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ).isRequired,
   maxFilesAllowed: PropTypes.number.isRequired,
   recieveFile: PropTypes.func.isRequired,
   refetchQueries: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,
-  updateCacheOnRemovedFile: PropTypes.func.isRequired
+  updateCacheOnRemovedFile: PropTypes.func.isRequired,
 };
 export default FileManager;

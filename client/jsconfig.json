@@ -2,13 +2,20 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/Components/*": ["./Components/*"],
-      "@/AdminComponents/*": ["./AdminComponents/*"],
+      // "@/Components/*": ["./Components/*"],
+      // "@/AdminComponents/*": ["./AdminComponents/*"],
+      // "@/Styles/*": ["./styles/*"],
+      // "@/Lib/*": ["./lib/*"],
+      // "@/Gql/*": ["./graphql/*"],
+      // "@/Store/*": ["./store.js"]
+      "@/Components/*": ["./components/*"],
+      "@/AdminComponents/*": ["./admin-components/*"],
+      "@/Containers/*": ["./containers/*"],
       "@/Styles/*": ["./styles/*"],
       "@/Lib/*": ["./lib/*"],
       "@/Gql/*": ["./graphql/*"],
-      "@/Store/*": ["./store.js"]
+      "@/Store/*": ["./store/*"]
     }
   },
-  "exclude": ["node_modules", "build", ".next", ".docz"]
+  "exclude": ["node_modules", "build", ".next", ".docz", "cypress-tests"]
 }

@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { gql, useQuery, useMutation } from '@apollo/client';
-import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
-import FileUploader from '../FileUploader';
+import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
+import FileUploader from '@/Components/FileUploader';
 import accept from 'attr-accept';
 import { is } from 'ramda';
 import { toast } from 'react-toastify';
@@ -51,8 +51,8 @@ const AssociatedFiles = ({ filesId, placeId }) => {
 
 AssociatedFiles.propTypes = {
   filesId: PropTypes.any.isRequired,
-  placeId: PropTypes.any.isRequired
-}
+  placeId: PropTypes.any.isRequired,
+};
 
 const FileItem = ({ conf, val, propertyFilesId }) => {
   const UPDATE_PROPERTY_FILES_MUTATION = gql`
@@ -123,11 +123,11 @@ FileItem.propTypes = {
     description: PropTypes.any,
     folder: PropTypes.any,
     key: PropTypes.any,
-    title: PropTypes.any
+    title: PropTypes.any,
   }).isRequired,
   propertyFilesId: PropTypes.any.isRequired,
-  val: PropTypes.any.isRequired
-}
+  val: PropTypes.any.isRequired,
+};
 
 const MappedFiles = ({ propertyFiles, placeId }) => {
   if (!propertyFiles)
@@ -168,8 +168,8 @@ const MappedFiles = ({ propertyFiles, placeId }) => {
 MappedFiles.propTypes = {
   placeId: PropTypes.any.isRequired,
   propertyFiles: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default AssociatedFiles;

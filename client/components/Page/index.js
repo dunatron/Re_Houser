@@ -1,13 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component, useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Elements } from '@stripe/react-stripe-js';
 
 import MaterialPage from './MaterialPage';
 import { FacebookProvider, Like } from 'react-facebook';
-import CustomToastContainer from '../../containers/CustomToastContainer';
-
-import { StateProvider } from '../../store';
+import CustomToastContainer from '@/Containers/CustomToastContainer';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
@@ -15,16 +13,15 @@ import Meta from '../Meta/index';
 import theme from './theme';
 
 // Admin Area Addisions
-import AdminAlertNewRentalApplicationSub from '../SubscriptionComponents/AdminAlertNewRentalApplicationSub';
-import AdminAlertsContainer from '../../containers/AdminAlertsContainer';
-import GeneralSubsContainer from '../../containers/GeneralSubsContainer';
+import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
+import GeneralSubsContainer from '@/Containers/GeneralSubsContainer';
 
 import GlobalStyle from './GlobalStyle';
 
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-import WithUser from '../WithUser';
+import WithUser from '@/Components/WithUser';
 
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -99,8 +96,8 @@ const Page = props => {
 };
 
 Page.propTypes = {
-  children: PropTypes.any.isRequired
-}
+  children: PropTypes.any.isRequired,
+};
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,

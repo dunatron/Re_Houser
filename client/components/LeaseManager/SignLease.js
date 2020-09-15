@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
-import FinaliseLeaseBtn from '../MutationButtons/FinaliseLeaseButton';
-import SignLeaseBtn from '../MutationButtons/SignLeaseButton';
+import FinaliseLeaseBtn from '@/Components/MutationButtons/FinaliseLeaseButton';
+import SignLeaseBtn from '@/Components/MutationButtons/SignLeaseButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
@@ -13,7 +13,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import LeaseDetails from './LeaseDetails';
-import LeaseWallet from '../LeaseWallet';
 
 const useStyles = makeStyles({
   table: {
@@ -50,8 +49,8 @@ SignLease.propTypes = {
   lease: PropTypes.any.isRequired,
   me: PropTypes.any.isRequired,
   userIsLessee: PropTypes.any.isRequired,
-  userIsLessor: PropTypes.any.isRequired
-}
+  userIsLessor: PropTypes.any.isRequired,
+};
 
 const groupHasSigned = group => {
   const signedValues = group.map(item => item.signed);
@@ -109,8 +108,8 @@ const LeaseDetailsBlock = ({ lease, userIsLessor, userIsLessee }) => {
 LeaseDetailsBlock.propTypes = {
   lease: PropTypes.any.isRequired,
   userIsLessee: PropTypes.any.isRequired,
-  userIsLessor: PropTypes.any.isRequired
-}
+  userIsLessor: PropTypes.any.isRequired,
+};
 
 const SignDetailsBlock = ({ items, me, type, lease }) => {
   const isLessor = type === 'LESSOR' ? true : false;
@@ -149,12 +148,12 @@ const SignDetailsBlock = ({ items, me, type, lease }) => {
 
 SignDetailsBlock.propTypes = {
   items: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   lease: PropTypes.any.isRequired,
   me: PropTypes.any.isRequired,
-  type: PropTypes.string.isRequired
-}
+  type: PropTypes.string.isRequired,
+};
 
 const SignDetails = ({ item, me, type, lease }) => {
   const classes = useStyles();
@@ -184,12 +183,12 @@ const SignDetails = ({ item, me, type, lease }) => {
 SignDetails.propTypes = {
   item: PropTypes.any.isRequired,
   lease: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
-  type: PropTypes.string.isRequired
-}
+  type: PropTypes.string.isRequired,
+};
 
 export default SignLease;

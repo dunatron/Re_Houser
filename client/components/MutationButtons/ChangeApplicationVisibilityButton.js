@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
-import Error from '../ErrorMessage';
-import SelectOption from '../../components/Inputs/SelectOption';
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
+import Error from '@/Components/ErrorMessage';
+import SelectOption from '@/Components/Inputs/SelectOption';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries/index';
 /**
  * PRIVATE
  * FRIENDS_ONLY
@@ -92,7 +92,7 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
 
 ChangeApplicationVisibilityBtn.propTypes = {
   applicationId: PropTypes.any.isRequired,
-  visibility: PropTypes.any.isRequired
-}
+  visibility: PropTypes.any.isRequired,
+};
 
 export default ChangeApplicationVisibilityBtn;

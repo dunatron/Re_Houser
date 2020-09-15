@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { FormCreator } from '../Forms';
+import { FormCreator } from '@/Components/Forms';
 import { useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { SINGLE_RENTAL_APPRAISAL_QUERY } from '../../graphql/queries/index';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
-import { Typography, Button } from '@material-ui/core';
+import { SINGLE_RENTAL_APPRAISAL_QUERY } from '@/Gql/queries/index';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
+import { Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
-import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
-import Error from '../../components/ErrorMessage';
-import SuccessPaper from '../../components/SuccessPaper';
+import CREATE_PROPERTY_FORM_CONF from '@/Lib/configs/createPropertyForm';
+import Error from '@/Components/ErrorMessage';
+import SuccessPaper from '@/Components/SuccessPaper';
 import CheckAndSubmit from './CheckAndSubmit';
-import Modal from '../Modal';
-import AcceptTermsOfEngagementForm from '../../components/Forms/AcceptTermsOfEngagementForm';
+import Modal from '@/Components/Modal';
+import AcceptTermsOfEngagementForm from '@/Components/Forms/AcceptTermsOfEngagementForm';
 
 const CreatePropertyComponent = props => {
   const router = useRouter();

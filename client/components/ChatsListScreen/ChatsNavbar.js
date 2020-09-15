@@ -1,7 +1,7 @@
 import React from 'react';
 import { Toolbar } from '@material-ui/core';
 import styled from 'styled-components';
-import { SITE_NAME } from '../../lib/const';
+import { SITE_NAME } from '@/Lib/const';
 
 const Container = styled(Toolbar)`
   background-color: var(--primary-bg);

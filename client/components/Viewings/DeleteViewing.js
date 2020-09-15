@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { DELETE_VIEWING } from '../../graphql/mutations';
+import { DELETE_VIEWING } from '@/Gql/mutations';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 
@@ -17,12 +17,7 @@ const DeleteViewing = ({ viewing }) => {
       },
     },
 
-    update(
-      cache,
-      {
-        data: { deleteViewing },
-      }
-    ) {
+    update(cache, { data: { deleteViewing } }) {
       const idToRemove = deleteViewing.id;
       cache.modify({
         // id: cache.identify(deleteViewing), // so do this made it like not work...
@@ -45,8 +40,8 @@ const DeleteViewing = ({ viewing }) => {
 
 DeleteViewing.propTypes = {
   viewing: PropTypes.shape({
-    id: PropTypes.string.isRequired
-  }).isRequired
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default DeleteViewing;

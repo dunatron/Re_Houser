@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, { useState, useRef, useEffect } from 'react';
-import Map from '../Map/index';
+import React, { useState, useRef } from 'react';
+import Map from '@/Components/Map/index';
 
 import Typography from '@material-ui/core/Typography';
-import StyledGeoSuggest from '../../styles/GeoSuggest';
+import StyledGeoSuggest from '@/Styles/GeoSuggest';
 
 // icons
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -106,7 +106,6 @@ const LocationPicker = ({ selection, defaultLocation }) => {
           zoom={_getZoom(state.desc)}
         />
       )}
-      <h2>WHY PLACEHOLDER NO UPDATE</h2>
       {state.desc && (
         <div
           style={{

@@ -2,7 +2,7 @@ import { TypographyExamples } from './TypographyExamples';
 import { ButtonExamples } from './ButtonExamples';
 import { ToolTipExamples } from './ToolTipExamples';
 import { RenderInputExamples } from './RenderInputExamples';
-import ExamplePdfExamples from '../Pdfs/ExamplePdf/index';
+import ExamplePdfExamples from '@/Components/Pdfs/ExamplePdf/index';
 
 export {
   TypographyExamples,

@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import { DropZone, HiddenInput, InputLabel, ProgressBar } from './styles';
-import LinearBuffer from '../LinearBuffer/index';
+import LinearBuffer from '@/Components/LinearBuffer/index';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import fileTypesGen from './fileTypeGen';
 
@@ -232,7 +232,7 @@ DragDropUploader.propTypes = {
   multiple: PropTypes.any.isRequired,
   receiveFile: PropTypes.func.isRequired,
   title: PropTypes.any.isRequired,
-  types: PropTypes.array.isRequired
+  types: PropTypes.array.isRequired,
 };
 
 export default DragDropUploader;

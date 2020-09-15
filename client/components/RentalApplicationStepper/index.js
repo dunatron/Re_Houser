@@ -9,24 +9,24 @@ import StepButton from '@material-ui/core/StepButton';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Error from '../ErrorMessage/index';
-import Loader from '../Loader/index';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import Error from '@/Components/ErrorMessage/index';
+import Loader from '@/Components/Loader/index';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 // Steps
 import UserDetailsStep from './steps/UserDetailsStep';
 import ApplicationDetailsStep from './steps/ApplicationDetailsStep';
 import PreTenancyStep from './steps/PreTenancyStep';
 import FinaliseApplicationStep from './steps/FinaliseApplicationStep';
 // configs
-import { RENTAL_GROUP_APPLICANT_CONF } from '../../lib/configs/rentalGroupApplicantConfig';
-import customErrorsBag from '../../lib/errorsBagGenerator';
+import { RENTAL_GROUP_APPLICANT_CONF } from '@/Lib/configs/rentalGroupApplicantConfig';
+import customErrorsBag from '@/Lib/errorsBagGenerator';
 import {
   UPDATE_RENTAL_APPLICATION_MUTATION,
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
   UPDATE_USER_MUTATION,
-} from '../../graphql/mutations/index';
+} from '@/Gql/mutations/index';
 
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries/index';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries/index';
 
 import { isEmpty } from 'ramda';
 

@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
-import Error from '../../ErrorMessage/index';
-import { COMPLETE_RENTAL_APPLICATION } from '../../../graphql/mutations/index';
+import Error from '@/Components/ErrorMessage/index';
+import { COMPLETE_RENTAL_APPLICATION } from '@/Gql/mutations/index';
 
 const FinaliseApplicationStep = ({
   rentalApplication,
@@ -75,11 +75,11 @@ FinaliseApplicationStep.propTypes = {
   me: PropTypes.any.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   stepHeaders: PropTypes.shape({
-    filter: PropTypes.func
-  }).isRequired
-}
+    filter: PropTypes.func,
+  }).isRequired,
+};
 
 export default FinaliseApplicationStep;

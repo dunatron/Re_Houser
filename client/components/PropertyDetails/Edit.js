@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import CREATE_PROPERTY_FORM_CONF from '../../lib/configs/createPropertyForm';
-import FormCreator from '../Forms/FormCreator';
+import CREATE_PROPERTY_FORM_CONF from '@/Lib/configs/createPropertyForm';
+import FormCreator from '@/Components/Forms/FormCreator';
 import { Button } from '@material-ui/core';
-import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries';
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import { SINGLE_OWNER_PROPERTY_QUERY } from '@/Gql/queries';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 
 const EditPropertyForm = ({ propertyId }) => {
   const [edit, setEdit] = useState(true);
@@ -45,7 +45,7 @@ const EditPropertyForm = ({ propertyId }) => {
 };
 
 EditPropertyForm.propTypes = {
-  propertyId: PropTypes.any.isRequired
-}
+  propertyId: PropTypes.any.isRequired,
+};
 
 export default EditPropertyForm;

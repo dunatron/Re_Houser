@@ -1,7 +1,7 @@
 import { Paper, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
-import PageHeader from '../PageHeader';
+import PageHeader from '@/Components/PageHeader';
 
 //icons
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -93,8 +93,8 @@ TeamMember.propTypes = {
     imgPath: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.string,
-    role: PropTypes.string
-  }).isRequired
+    role: PropTypes.string,
+  }).isRequired,
 };
 
 export default TeamMember;

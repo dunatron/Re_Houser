@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import Error from '../ErrorMessage/index';
+import Error from '@/Components/ErrorMessage/index';
 import { toast } from 'react-toastify';
-import { DECLINE_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/index';
+import { DECLINE_RENTAL_APPLICATION_MUTATION } from '@/Gql/mutations/index';
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';

@@ -13,7 +13,7 @@ const TenantSingleLeasePage = ({ appData: { currentUser }, query: { id } }) => {
   );
 };
 
-LandLordSingleLeasePage.propTypes = {
+TenantSingleLeasePage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,
   }),
@@ -22,4 +22,4 @@ LandLordSingleLeasePage.propTypes = {
   }),
 };
 
-export default LandLordSingleLeasePage;
+export default TenantSingleLeasePage;

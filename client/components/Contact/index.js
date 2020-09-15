@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import Map from '../Map';
+import Map from '@/Components/Map';
 import OfficeLocation from './OfficeLocation';
 import ContactForm from './ContactForm';
 

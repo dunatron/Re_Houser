@@ -1,18 +1,18 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { isEmpty, equals } from 'ramda';
+import { makeStyles } from '@material-ui/core/styles';
+import { isEmpty } from 'ramda';
 import { useMutation } from '@apollo/client';
 
-import { LANDLORD_USER_CONF } from '../../lib/configs/landlordUserConf';
-import RenderInput from '../../components/RenderInput';
+import { LANDLORD_USER_CONF } from '@/Lib/configs/landlordUserConf';
+import RenderInput from '@/Components/RenderInput';
 
-import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
+import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
 
 import DynamicCompletionIcon from './CompletionIcon';
-import SaveButtonLoader from '../Loader/SaveButtonLoader';
+import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
 
-import { _postFormatBankAccount } from '../Forms/formatters/formatBankAccount';
+import { _postFormatBankAccount } from '@/Components/Forms/formatters/formatBankAccount';
 
 const useStyles = makeStyles(theme => ({
   inputGrid: {
@@ -112,7 +112,7 @@ const UserDetails = ({ me }) => {
 };
 
 UserDetails.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default UserDetails;

@@ -1,13 +1,12 @@
 import useStyles from './useStyles';
 import { Typography, Link } from '@material-ui/core';
 
-import BankAccount from '../RenderInput/BankAccount';
-import Date from '../RenderInput/Date';
-import DateTime from '../RenderInput/DateTime';
-import Email from '../RenderInput/Email';
-import Phone from '../RenderInput/Phone';
-import String from '../RenderInput/String';
-import StyledInput from '../RenderInput/StyledInput';
+import BankAccount from '@/Components/RenderInput/BankAccount';
+import Date from '@/Components/RenderInput/Date';
+import DateTime from '@/Components/RenderInput/DateTime';
+import Email from '@/Components/RenderInput/Email';
+import Phone from '@/Components/RenderInput/Phone';
+import String from '@/Components/RenderInput/String';
 
 const RenderInputExamples = () => {
   return (

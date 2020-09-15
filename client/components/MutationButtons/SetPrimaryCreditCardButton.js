@@ -1,13 +1,8 @@
-import PropTypes from "prop-types";
-import React, { Component } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import {
-  CURRENT_USER_QUERY,
-  MY_CREDIT_CARDS_QUERY,
-} from '../../graphql/queries/index';
-import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
-import Button from '@material-ui/core/Button';
-import ButtonLoader from '../Loader/ButtonLoader';
+import PropTypes from 'prop-types';
+import { useMutation } from '@apollo/client';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
+import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
+import ButtonLoader from '@/Components/Loader/ButtonLoader';
 
 const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
   // ToDo: Mutation Props
@@ -58,7 +53,7 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
 
 SetPrimaryCreditCardButton.propTypes = {
   cardId: PropTypes.any.isRequired,
-  isPrimary: PropTypes.any.isRequired
-}
+  isPrimary: PropTypes.any.isRequired,
+};
 
 export default SetPrimaryCreditCardButton;

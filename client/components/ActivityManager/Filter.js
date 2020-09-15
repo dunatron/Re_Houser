@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import TextInput from '../Inputs/TextInput';
-import SelectOption from '../Inputs/SelectOption';
+import TextInput from '@/Components/Inputs/TextInput';
+import SelectOption from '@/Components/Inputs/SelectOption';
 import { makeStyles } from '@material-ui/core/styles';
-import SquareButton from '../Buttons/SquareButton';
+import SquareButton from '@/Components/Buttons/SquareButton';
 import SerachOutlinedIcon from '@material-ui/icons/SearchOutlined';
 
 const useStyles = makeStyles(theme => ({
@@ -105,8 +105,8 @@ const ActivityFilter = ({ doSearch, me }) => {
 ActivityFilter.propTypes = {
   doSearch: PropTypes.func.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default ActivityFilter;

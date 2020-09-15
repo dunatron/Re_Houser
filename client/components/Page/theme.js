@@ -1,6 +1,6 @@
 // theme typography
-import themeTypography from '../../styles/_themeTypography';
-import muiTheme from '../../styles/_muiTheme';
+import themeTypography from '@/Styles/_themeTypography';
+import muiTheme from '@/Styles/_muiTheme';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({

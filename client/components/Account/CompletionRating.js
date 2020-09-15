@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { USER_PROFILE_CONF } from '../../lib/configs/userProfileConfig';
-import StarRating from '../StarRating/index';
+import { USER_PROFILE_CONF } from '@/Lib/configs/userProfileConfig';
+import StarRating from '@/Components/StarRating/index';
 import ProfileSummaryText from './ProfileSummaryText';
 
 const extractDeepValue = (str, dataObj) => {
@@ -73,8 +73,8 @@ const CompletionRating = ({ me }) => {
 
 CompletionRating.propTypes = {
   me: PropTypes.shape({
-    firstName: PropTypes.any
-  }).isRequired
-}
+    firstName: PropTypes.any,
+  }).isRequired,
+};
 
 export default CompletionRating;

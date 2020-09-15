@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 import { toast } from 'react-toastify';
-import { UPDATE_VIEWING_MUTATION } from '../../graphql/mutations';
+import { UPDATE_VIEWING_MUTATION } from '@/Gql/mutations';
 import PropTypes from 'prop-types';
 import mePropTypes from '../../propTypes/mePropTypes';
 

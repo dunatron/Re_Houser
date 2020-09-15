@@ -18,11 +18,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-// import Divider from "@material-ui/core/Divider";
 import CustomSearchBox from './CustomSearchBox';
-import SettingsIcon from '../../styles/icons/SettingsIcon';
-import SettingsInputIcon from '../../styles/icons/SettingsInputIcon';
-import CloseIcon from '../../styles/icons/CloseIcon';
+import SettingsIcon from '@/Styles/icons/SettingsIcon';
+import SettingsInputIcon from '@/Styles/icons/SettingsInputIcon';
+import CloseIcon from '@/Styles/icons/CloseIcon';
 
 import { SearchInterface } from './styles';
 
@@ -30,14 +29,14 @@ import ConnectedCheckBoxRefinementList from './refinements/CheckBoxList';
 import ConnectedMaterialUiSortBy from './refinements/SortBy';
 import ConnectedMaterialPagination from './refinements/Pagination';
 import CustomHighlight from './refinements/CustomHiglight';
-import PropertyCard from '../PropertyCard/index';
+import PropertyCard from '@/Components/PropertyCard/index';
 import SearchFilter from './SearchFilter';
 
 //icons
-import NavigateBeforeIcon from '../../styles/icons/NavigateBefore';
-import NavigateNextIcon from '../../styles/icons/NavigateNext';
-import SkipPreviousIcon from '../../styles/icons/SkipPrevious';
-import SkipNextIcon from '../../styles/icons/SkipNext';
+import NavigateBeforeIcon from '@/Styles/icons/NavigateBefore';
+import NavigateNextIcon from '@/Styles/icons/NavigateNext';
+import SkipPreviousIcon from '@/Styles/icons/SkipPrevious';
+import SkipNextIcon from '@/Styles/icons/SkipNext';
 
 import {
   InstantSearch,
@@ -100,8 +99,8 @@ const FilterDrawer = ({ open, handleClose }) => {
 
 FilterDrawer.propTypes = {
   handleClose: PropTypes.any.isRequired,
-  open: PropTypes.any.isRequired
-}
+  open: PropTypes.any.isRequired,
+};
 
 const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
   const classes = useStyles();
@@ -135,8 +134,8 @@ const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
 DrawHeader.propTypes = {
   close: PropTypes.any.isRequired,
   isFullScreen: PropTypes.any.isRequired,
-  setFullScreen: PropTypes.any.isRequired
-}
+  setFullScreen: PropTypes.any.isRequired,
+};
 
 const Sidebar = () => (
   <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>

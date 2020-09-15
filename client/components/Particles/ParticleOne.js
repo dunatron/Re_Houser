@@ -1,17 +1,10 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import Particles from 'react-particles-js';
-import PersonIcon from '@material-ui/icons/PersonAdd';
-import debounce from '../../lib/debounce';
 
-import {
-  mainPrimaryColor,
-  lightPrimaryColor,
-  darkPrimaryColor,
-  mainSecondaryColor,
-  lightSecondaryColor,
-  darkSecondaryColor,
-} from '../../styles/_muiTheme';
+import debounce from '@/Lib/debounce';
+
+import { mainPrimaryColor } from '@/Styles/_muiTheme';
 
 const particlesObj = {
   number: {
@@ -315,9 +308,9 @@ const OriginalParticle = ({ dimensions }) => {
 OriginalParticle.propTypes = {
   dimensions: PropTypes.shape({
     height: PropTypes.any,
-    width: PropTypes.any
-  }).isRequired
-}
+    width: PropTypes.any,
+  }).isRequired,
+};
 
 const ImageParticle = ({ dimensions }) => {
   return (
@@ -407,8 +400,8 @@ const ImageParticle = ({ dimensions }) => {
 ImageParticle.propTypes = {
   dimensions: PropTypes.shape({
     height: PropTypes.any,
-    width: PropTypes.any
-  }).isRequired
-}
+    width: PropTypes.any,
+  }).isRequired,
+};
 
 export default ParticleOne;

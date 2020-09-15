@@ -1,20 +1,14 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
 import FieldError from './FieldError';
 //Material Components
-import Switch from '@material-ui/core/Switch';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import { isEmpty } from 'ramda';
 
 const _preFormatCheckedOptions = (options, values) => {
   const valuesAsKeys = values
@@ -104,7 +98,7 @@ CheckMultipleWithText.propTypes = {
   errors: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired
-}
+  setValue: PropTypes.any.isRequired,
+};
 
 export default CheckMultipleWithText;

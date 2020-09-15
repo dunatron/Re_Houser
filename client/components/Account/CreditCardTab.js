@@ -1,14 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
-import CreditCardsList from '../CreditCard/CreditCardsList';
-import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
-import { Button, Typography } from '@material-ui/core';
-import StripeComponents from '../StripeComponents/index';
-import CreateCardForm from '../StripeComponents/CreateCardForm';
-import Loader from '../Loader';
-import ErrorMessage from '../ErrorMessage';
+import { useQuery } from '@apollo/client';
+import { MY_CREDIT_CARDS_QUERY } from '@/Gql/queries/index';
+import CreditCardsList from '@/Components/CreditCard/CreditCardsList';
+import { Typography } from '@material-ui/core';
+import Loader from '@/Components/Loader';
+import ErrorMessage from '@/Components/ErrorMessage';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -50,9 +47,9 @@ CreditCardTab.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
     primaryCreditCard: PropTypes.shape({
-      id: PropTypes.any
-    })
-  }).isRequired
-}
+      id: PropTypes.any,
+    }),
+  }).isRequired,
+};
 
 export default CreditCardTab;

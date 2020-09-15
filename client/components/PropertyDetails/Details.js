@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { InsulationStatementForm } from '../Forms/index';
-import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries/index';
+import { InsulationStatementForm } from '@/Components/Forms/index';
+import { SINGLE_OWNER_PROPERTY_QUERY } from '@/Gql/queries/index';
 
-import Map from '../Map/index';
-import CarouselSlider from '../CarouselSlider';
-import DetailItem from '../PropertyCard/DetailItem';
+import Map from '@/Components/Map/index';
+import CarouselSlider from '@/Components/CarouselSlider';
+import DetailItem from '@/Components/PropertyCard/DetailItem';
 import {
   IconButton,
   Button,
@@ -16,37 +16,37 @@ import {
   Typography,
   Paper,
 } from '@material-ui/core';
-import RehouserPaper from '../../styles/RehouserPaper';
+import RehouserPaper from '@/Styles/RehouserPaper';
 //icons
-import EditIcon from '../../styles/icons/EditIcon';
-import MoreIcon from '../../styles/icons/MoreIcon';
-import DetailsIcon from '../../styles/icons/DetailsIcon';
-import CameraIcon from '../../styles/icons/CameraIcon';
-import CloseIcon from '../../styles/icons/CloseIcon';
-import CheckIcon from '../../styles/icons/CheckIcon';
+import EditIcon from '@/Styles/icons/EditIcon';
+import MoreIcon from '@/Styles/icons/MoreIcon';
+import DetailsIcon from '@/Styles/icons/DetailsIcon';
+import CameraIcon from '@/Styles/icons/CameraIcon';
+import CloseIcon from '@/Styles/icons/CloseIcon';
+import CheckIcon from '@/Styles/icons/CheckIcon';
 // Update variable components ToDo: move to own file
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
-import InputModal from '../Modal/InputModal';
-import TextInput from '../../styles/TextInput';
-import DateInput from '../Inputs/DateInput';
-import Error from '../ErrorMessage/index';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import InputModal from '@/Components/Modal/InputModal';
+import TextInput from '@/Styles/TextInput';
+import DateInput from '@/Components/Inputs/DateInput';
+import Error from '@/Components/ErrorMessage/index';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 
-import { UPDATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
-import { OWNER_PROPERTIES_QUERY } from '../../graphql/queries/index';
-import useKeyPress from '../../lib/useKeyPress';
+import { UPDATE_PROPERTY_MUTATION } from '@/Gql/mutations/index';
+import { OWNER_PROPERTIES_QUERY } from '@/Gql/queries/index';
+import useKeyPress from '@/Lib/useKeyPress';
 import EditProperty from './Edit';
 
 import {
   NowToDate,
   LongDatePretty,
   LeaseLength,
-} from '../LeaseManager/LeaseLengthInfo';
+} from '@/Components/LeaseManager/LeaseLengthInfo';
 
-import FileUploader from '../FileUploader';
-import { FileInfoFragment } from '../../graphql/fragments/fileInfo';
-import SaveButtonLoader from '../Loader/SaveButtonLoader';
+import FileUploader from '@/Components/FileUploader';
+import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
+import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
 
 const sanitizeInput = (type, value) => {
   if (type === 'number') {

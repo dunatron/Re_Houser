@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/acceptRentalApplication';
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
-import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
-import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import { RENTAL_APPLICATIONS_QUERY } from '@/Gql/queries/index';
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '@/Gql/mutations/acceptRentalApplication';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationCreatedSub';
+import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationUpdatedSub';
+import PropertyPendingRentalApplicationsSub from '@/Components/SubscriptionComponents/PropertyPendingRentalApplicationsSub';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 import ApplicationCard from './ApplicationCard';
 import { Paper, Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
@@ -92,8 +92,8 @@ const RentalApplications = props => {
 
 RentalApplications.propTypes = {
   property: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default RentalApplications;

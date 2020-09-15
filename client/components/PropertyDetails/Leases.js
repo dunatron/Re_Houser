@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 
 const SINGLE_PROPERTY_LEASES_QUERY = gql`
   query SINGLE_PROPERTY_LEASES_QUERY($where: PropertyLeaseWhereInput) {

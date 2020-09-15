@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 
-import SuperiorTable from '../SuperiorTable';
+import SuperiorTable from '@/Components/SuperiorTable';
 
 //icons
-import DetailsIcon from '../../styles/icons/DetailsIcon';
+import DetailsIcon from '@/Styles/icons/DetailsIcon';
 
 import PropTypes from 'prop-types';
 import { mePropTypes, propertyPropTypes } from '../../propTypes';

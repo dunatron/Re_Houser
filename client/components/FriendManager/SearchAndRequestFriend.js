@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useApolloClient } from '@apollo/client';
 import gql from 'graphql-tag';
-import TextInput from '../Inputs/TextInput';
+import TextInput from '@/Components/Inputs/TextInput';
 import Button from '@material-ui/core/Button';
-import FriendRequestButton from '../MutationButtons/FriendRequestButton';
-import UserDetails from '../UserDetails';
+import FriendRequestButton from '@/Components/MutationButtons/FriendRequestButton';
+import UserDetails from '@/Components/UserDetails';
 
 const FIND_USERS_QUERY = gql`
   query FIND_USERS_QUERY(
@@ -94,7 +94,7 @@ const SearchAndRequestFriend = props => {
 };
 
 SearchAndRequestFriend.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default SearchAndRequestFriend;

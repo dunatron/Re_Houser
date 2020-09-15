@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useContext, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation } from '@apollo/client';
@@ -7,8 +7,9 @@ import { Avatar, Button, Menu, MenuItem, Fade } from '@material-ui/core';
 import Error from '../ErrorMessage';
 import gql from 'graphql-tag';
 import { toast } from 'react-toastify';
-import { store } from '../../store';
-import RToolTip from '../../styles/RToolTip';
+// import { store } from '../../store';
+import { store } from '@/Store/index';
+import RToolTip from '@/Styles/RToolTip';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -140,10 +141,10 @@ AccountMenu.propTypes = {
     firstName: PropTypes.any,
     lastName: PropTypes.any,
     profilePhoto: PropTypes.shape({
-      url: PropTypes.any
-    })
-  }).isRequired
-}
+      url: PropTypes.any,
+    }),
+  }).isRequired,
+};
 
 const SignOutMenuItem = props => {
   const { me } = props;
@@ -183,7 +184,7 @@ const SignOutMenuItem = props => {
 
 SignOutMenuItem.propTypes = {
   me: PropTypes.any.isRequired,
-  onClick: PropTypes.func.isRequired
-}
+  onClick: PropTypes.func.isRequired,
+};
 
 export default AccountMenu;

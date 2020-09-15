@@ -1,13 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { FormCreator } from '../Forms';
-import { CREATE_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
+import { FormCreator } from '@/Components/Forms';
+import { CREATE_RENTAL_APPRAISAL_MUTATION } from '@/Gql/mutations';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
-import SpanRoute from '../Routes/SpanRoute';
-import { Paper, Typography, Button } from '@material-ui/core';
-import SuccessPaper from '../SuccessPaper';
-import RehouserPaper from '../../styles/RehouserPaper';
+import { Typography } from '@material-ui/core';
+import SuccessPaper from '@/Components/SuccessPaper';
 
 import PROPERTY_APPRAISAL_CONF from '../../lib/configs/propertyAppraisalForm';
 
@@ -90,9 +88,9 @@ const PropertyAppraisal = props => {
 
 PropertyAppraisal.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
-  propertyId: PropTypes.any.isRequired
-}
+  propertyId: PropTypes.any.isRequired,
+};
 
 export default PropertyAppraisal;

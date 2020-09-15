@@ -1,32 +1,29 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-import { UPLOAD_PHOTO_IDENTIFICATION } from '../../graphql/mutations/index';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
-import encodeImage from '../../lib/encodeImage';
+import { UPLOAD_PHOTO_IDENTIFICATION } from '@/Gql/mutations/index';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
+import encodeImage from '@/Lib/encodeImage';
 
 import { DetailStyles, UploaderStyles } from './styles';
 import PreUploadImage from './PreUploadImage';
 
 import Card from '@material-ui/core/Card';
-import DragDropUploader from '../DragDropUploader/index';
-import TextInput from '../../styles/TextInput';
+import DragDropUploader from '@/Components/DragDropUploader/index';
+import TextInput from '@/Styles/TextInput';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import SwipeableViews from 'react-swipeable-views';
 import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 // Icons
-import EditIcon from '../../styles/icons/EditIcon';
+import EditIcon from '@/Styles/icons/EditIcon';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
-import ResetIcon from '@material-ui/icons/Build';
-import Error from '../ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 
 import { isEmpty } from 'ramda';
 
@@ -163,10 +160,10 @@ const PhotoIdUploader = ({ me }) => {
 PhotoIdUploader.propTypes = {
   me: PropTypes.shape({
     photoIdentification: PropTypes.shape({
-      url: PropTypes.any
-    })
-  }).isRequired
-}
+      url: PropTypes.any,
+    }),
+  }).isRequired,
+};
 
 function TabContainer({ children, dir }) {
   return (
@@ -178,8 +175,8 @@ function TabContainer({ children, dir }) {
 
 TabContainer.propTypes = {
   children: PropTypes.any.isRequired,
-  dir: PropTypes.any.isRequired
-}
+  dir: PropTypes.any.isRequired,
+};
 
 const contentAsSrc = content => {
   const src = 'data:image/png;base64,' + encodeImage(content);

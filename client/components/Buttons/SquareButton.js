@@ -1,13 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  createMuiTheme,
-  withStyles,
-  makeStyles,
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { green, purple } from '@material-ui/core/colors';
 
 const SquareButton = withStyles(theme => ({
   root: {
@@ -30,5 +24,5 @@ export default function CustomizedButtons({ btnProps, children, onClick }) {
 CustomizedButtons.propTypes = {
   btnProps: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
-  onClick: PropTypes.any.isRequired
-}
+  onClick: PropTypes.any.isRequired,
+};

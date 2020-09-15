@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from '@apollo/react-components';
 import { useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
 const useCurrentUser = props => {
   const { data, error, loading } = useQuery(CURRENT_USER_QUERY);
@@ -23,7 +23,7 @@ const User = props => (
 );
 
 User.propTypes = {
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
 };
 
 export default User;

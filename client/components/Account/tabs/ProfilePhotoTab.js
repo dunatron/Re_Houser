@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import UploadProfilePhoto from '../UploadProfilePhoto';
-import RehouserPaper from '../../../styles/RehouserPaper';
+import RehouserPaper from '@/Styles/RehouserPaper';
 
 import { Typography } from '@material-ui/core';
 
@@ -17,7 +17,7 @@ const ProfilePhotoTab = ({ me }) => {
 };
 
 ProfilePhotoTab.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default ProfilePhotoTab;

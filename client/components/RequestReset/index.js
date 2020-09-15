@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import Form from '../../styles/Form';
-import Error from '../ErrorMessage/index';
-import FabButton from '../../styles/FabButton';
+import Form from '@/Styles/Form';
+import Error from '@/Components/ErrorMessage/index';
+import FabButton from '@/Styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
-import TextInput from '../../styles/TextInput';
+import TextInput from '@/Styles/TextInput';
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -75,8 +75,8 @@ const RequestReset = props => {
 };
 
 RequestReset.propTypes = {
-  email: PropTypes.any.isRequired
-}
+  email: PropTypes.any.isRequired,
+};
 
 export default RequestReset;
 export { REQUEST_RESET_MUTATION };

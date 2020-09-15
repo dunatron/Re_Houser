@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import ChatsBar from '../RehouserChat/ChatsBar';
+import ChatsBar from '@/Components/RehouserChat/ChatsBar';
 import useStyles from './useStyles';
-import Link from 'next/link';
-import Sidebar from '../Sidebar';
 
 import AppMenuBar from './AppMenuBar';
-import Footer from '../Footer';
+import Footer from '@/Components/Footer';
 import LoginModal from './LoginModal';
 import AppDrawer from './AppDrawer';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 
 /**
  *
@@ -89,7 +86,7 @@ function MaterialPage(props) {
 MaterialPage.propTypes = {
   appData: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
-  container: PropTypes.any.isRequired
+  container: PropTypes.any.isRequired,
 };
 
 export default MaterialPage;

@@ -9,18 +9,18 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 // Forms
-import Signup from '../Signup/index';
-import Signin from '../Signin/index';
-import RequestReset from '../RequestReset/index';
+import Signup from '@/Components/Signup/index';
+import Signin from '@/Components/Signin/index';
+import RequestReset from '@/Components/RequestReset/index';
 // icons
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
 import ResetIcon from '@material-ui/icons/Build';
 
 import LoggedInAs from './LoggedInAs';
-import Error from '../ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
 const TabContainer = ({ children, dir }) => {
   return (

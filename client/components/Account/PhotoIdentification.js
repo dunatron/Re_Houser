@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { UPDATE_USER_MUTATION } from '../../graphql/mutations/index';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 import { makeStyles } from '@material-ui/core/styles';
-import FormCreator from '../Forms/FormCreator';
+import FormCreator from '@/Components/Forms/FormCreator';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -121,8 +121,8 @@ PhotoIdentification.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
     identificationNumber: PropTypes.any,
-    photoIdentification: PropTypes.object
-  }).isRequired
+    photoIdentification: PropTypes.object,
+  }).isRequired,
 };
 
 export default PhotoIdentification;

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
-import Error from '../ErrorMessage/index';
-import Loader from '../Loader';
-import PropertyCard from '../PropertyCard/index';
-import { PROPERTIES_QUERY } from '../../graphql/queries/propertiesQuery';
+import Error from '@/Components/ErrorMessage/index';
+import Loader from '@/Components/Loader';
+import PropertyCard from '@/Components/PropertyCard/index';
+import { PROPERTIES_QUERY } from '@/Gql/queries/propertiesQuery';
 
 const PropertiesList = () => {
   const { data, loading, error } = useQuery(PROPERTIES_QUERY);

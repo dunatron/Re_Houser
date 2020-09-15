@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ApplicationItem from './ApplicationItem';
-import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
+import { RENTAL_APPLICATIONS_QUERY } from '@/Gql/queries/index';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
-import Error from '../ErrorMessage';
-import Loader from '../Loader';
+import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationCreatedSub';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 
 const RentalApplications = props => {
   const { propertyId, property, me } = props;
@@ -77,11 +77,11 @@ const RentalApplications = props => {
 
 RentalApplications.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   openRentalAppModal: PropTypes.func.isRequired,
   property: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired
-}
+  propertyId: PropTypes.any.isRequired,
+};
 
 export default RentalApplications;

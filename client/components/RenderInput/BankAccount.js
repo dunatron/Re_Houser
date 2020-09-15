@@ -11,7 +11,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { FormHelperText } from '@material-ui/core';
 import StyledInput from './StyledInput';
 
-import { _preFormatBankAccount } from '../Forms/formatters/formatBankAccount';
+import { _preFormatBankAccount } from '@/Components/Forms/formatters/formatBankAccount';
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -52,8 +52,8 @@ function TextMaskCustom(props) {
 }
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
-}
+  inputRef: PropTypes.func.isRequired,
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -103,9 +103,9 @@ PhoneInput.propTypes = {
   fieldProps: PropTypes.shape({
     helperText: PropTypes.any,
     label: PropTypes.any,
-    name: PropTypes.any
+    name: PropTypes.any,
   }).isRequired,
-  onChange: PropTypes.func.isRequired
-}
+  onChange: PropTypes.func.isRequired,
+};
 
 export default PhoneInput;

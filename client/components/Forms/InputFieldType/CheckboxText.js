@@ -1,14 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
 
 //Material Components
-import Switch from '@material-ui/core/Switch';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -80,11 +75,11 @@ const CheckboxText = props => {
 
 CheckboxText.propTypes = {
   inners: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   label: PropTypes.any.isRequired,
   name: PropTypes.any.isRequired,
-  register: PropTypes.func.isRequired
-}
+  register: PropTypes.func.isRequired,
+};
 
 export default CheckboxText;

@@ -4,10 +4,10 @@ import { Typography, Button, IconButton } from '@material-ui/core';
 
 import SignatureCanvas from 'react-signature-canvas';
 import { useMutation } from '@apollo/client';
-import { useCurrentUser } from '../User';
-import { UPLOAD_SIGNATURE_FILE } from '../../graphql/mutations/index';
-import Error from '../ErrorMessage';
-import { StyledButton, ButtonLoader } from '../Loader/ButtonLoader';
+import { useCurrentUser } from '@/Components/User';
+import { UPLOAD_SIGNATURE_FILE } from '@/Gql/mutations/index';
+import Error from '@/Components/ErrorMessage';
+import { StyledButton, ButtonLoader } from '@/Components/Loader/ButtonLoader';
 import { toast } from 'react-toastify';
 import { css } from 'glamor';
 import Image from 'material-ui-image';

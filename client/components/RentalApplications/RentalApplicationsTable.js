@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { useQuery, useMutation } from '@apollo/client';
 import { Button, Typography } from '@material-ui/core';
 
-import SuperiorTable from '../SuperiorTable';
-import Modal from '../Modal/index';
-import PropertyDetails from '../PropertyDetails/index';
-import RentalApplication from '../RentalApplication';
-import RehouserPaper from '../../styles/RehouserPaper';
+import SuperiorTable from '@/Components/SuperiorTable';
+import Modal from '@/Components/Modal/index';
+import PropertyDetails from '@/Components/PropertyDetails/index';
+import RentalApplication from '@/Components/RentalApplication';
+import RehouserPaper from '@/Styles/RehouserPaper';
 
 //icons
-import DetailsIcon from '../../styles/icons/DetailsIcon';
+import DetailsIcon from '@/Styles/icons/DetailsIcon';
 
 const handleLink = (route = '/', query = {}) => {
   Router.push({

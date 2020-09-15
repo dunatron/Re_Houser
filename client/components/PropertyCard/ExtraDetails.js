@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,15 +12,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import { SINGLE_PROPERTY_QUERY } from '../../graphql/queries/singlePropertyQuery';
+import { SINGLE_PROPERTY_QUERY } from '@/Gql/queries/singlePropertyQuery';
 import DetailItem from './DetailItem';
 //icons
 import HouseIcon from '@material-ui/icons/House';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import RoomIcon from '@material-ui/icons/Room';
 
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -139,11 +139,11 @@ ExtraDetails.propTypes = {
   property: PropTypes.shape({
     accommodation: PropTypes.shape({
       length: PropTypes.any,
-      reduce: PropTypes.func
+      reduce: PropTypes.func,
     }),
-    location: PropTypes.any
-  }).isRequired
-}
+    location: PropTypes.any,
+  }).isRequired,
+};
 
 const FullDetails = ({ algoliaProperty }) => {
   const classes = useStyles();
@@ -229,6 +229,6 @@ const FullDetails = ({ algoliaProperty }) => {
 
 FullDetails.propTypes = {
   algoliaProperty: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};

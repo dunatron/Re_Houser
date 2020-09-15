@@ -6,16 +6,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 // icons
-import MoreVertIcon from '../../styles/icons/MoreVertIcon';
+import MoreVertIcon from '@/Styles/icons/MoreVertIcon';
 // graphql
-import { CREATE_CHAT_MUTATION } from '../../graphql/mutations';
-import { OPEN_CHAT_LOCAL_MUTATION } from '../../lib/store/resolvers';
+import { CREATE_CHAT_MUTATION } from '@/Gql/mutations';
+import { OPEN_CHAT_LOCAL_MUTATION } from '@/Lib/store/resolvers';
 
 // chat service
 import { writeChat } from '../../services/cache.service';
 
 // useContext
-import { store } from '../../store';
+import { store } from '@/Store/index';
 
 import PropTypes from 'prop-types';
 import mePropTypes from '../../propTypes/mePropTypes';

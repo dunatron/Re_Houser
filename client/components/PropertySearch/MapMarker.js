@@ -1,16 +1,14 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
-
-// import Drawer from '@material-ui/core/Drawer';
 import { IconButton } from '@material-ui/core';
 
-import PropertyCard from '../PropertyCard/index';
+import PropertyCard from '@/Components/PropertyCard/index';
 
 import { CustomMarker } from 'react-instantsearch-dom-maps';
 
 //icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import Modal from '../../components/Modal/index';
+import Modal from '@/Components/Modal/index';
 
 const MapMarker = ({ hit }) => {
   const node = useRef();
@@ -66,8 +64,8 @@ MapMarker.propTypes = {
   hit: PropTypes.shape({
     location: PropTypes.any,
     objectID: PropTypes.any,
-    rent: PropTypes.any
-  }).isRequired
-}
+    rent: PropTypes.any,
+  }).isRequired,
+};
 
 export default MapMarker;

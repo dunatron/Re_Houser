@@ -1,18 +1,15 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar } from '@material-ui/core';
-import Modal from '../Modal';
+import Modal from '@/Components/Modal';
 import ChatIcon from '@material-ui/icons/Chat';
 import { green, pink } from '@material-ui/core/colors';
-import ChatsListScreen from '../ChatsListScreen';
-import { store } from '../../store';
+import ChatsListScreen from '@/Components/ChatsListScreen';
+import { store } from '@/Store/index';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    // color: theme.palette.getContrastText(green[500]),
-    // backgroundColor: green[500],
-    // color: theme.palette.primary.contrastText,
     color: '#fff',
     backgroundColor: theme.palette.primary.main,
     '&:hover': {
@@ -37,15 +34,12 @@ const NewChatButton = ({ me }) => {
         }>
         <ChatIcon />
       </Avatar>
-      {/* <Modal open={open} close={() => setOpen(false)} disableBackdrop={true}>
-        <ChatsListScreen me={me} />
-      </Modal> */}
     </>
   );
 };
 
 NewChatButton.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default NewChatButton;

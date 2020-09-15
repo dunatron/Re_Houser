@@ -1,17 +1,14 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component, useState, useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
-import Form from '../../styles/Form';
-import Error from '../ErrorMessage/index';
-import { CURRENT_USER_QUERY } from '../User/index';
-import FabButton from '../../styles/FabButton';
+import Form from '@/Styles/Form';
+import Error from '@/Components/ErrorMessage/index';
 import NavigationIcon from '@material-ui/icons/Navigation';
-// import TextInput from '../../styles/TextInput';
-import TextInput from '../../styles/TextInput';
-import { SIGNIN_MUTATION } from '../../graphql/mutations';
+import TextInput from '@/Styles/TextInput';
+import { SIGNIN_MUTATION } from '@/Gql/mutations';
 import ReCAPTCHA from 'react-google-recaptcha';
-import ButtonLoader from '../Loader/ButtonLoader';
+import ButtonLoader from '@/Components/Loader/ButtonLoader';
 
 const Signin = props => {
   const [state, setState] = useState({
@@ -166,7 +163,7 @@ Signin.propTypes = {
   email: PropTypes.any.isRequired,
   handleCompleted: PropTypes.func.isRequired,
   password: PropTypes.any.isRequired,
-  update: PropTypes.func.isRequired
-}
+  update: PropTypes.func.isRequired,
+};
 
 export default Signin;

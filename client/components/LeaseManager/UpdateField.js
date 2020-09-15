@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Modal from '../Modal/index';
+import Modal from '@/Components/Modal/index';
 import { Button } from '@material-ui/core';
-import InputFieldType from '../Inputs/InputFieldType';
+import InputFieldType from '@/Components/Inputs/InputFieldType';
 
 const UpdateField = ({ fieldConf, defaultValue, update }) => {
   const { key, label, format } = fieldConf;
@@ -53,7 +53,7 @@ const UpdateField = ({ fieldConf, defaultValue, update }) => {
 UpdateField.propTypes = {
   defaultValue: PropTypes.any.isRequired,
   fieldConf: PropTypes.any.isRequired,
-  update: PropTypes.func.isRequired
-}
+  update: PropTypes.func.isRequired,
+};
 
 export default UpdateField;

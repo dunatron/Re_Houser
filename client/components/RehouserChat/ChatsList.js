@@ -1,14 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { Paper, Avatar } from '@material-ui/core';
-import { getChatName } from '../../lib/getChatName';
-import { store } from '../../store';
+import { getChatName } from '@/Lib/getChatName';
+import { store } from '@/Store/index';
 import moment from 'moment';
-
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 
 export const MY_CHATS_QUERY = gql`
   query MY_CHATS_QUERY(
@@ -100,8 +99,8 @@ const ChatsList = ({ me }) => {
 
 ChatsList.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default ChatsList;

@@ -1,15 +1,13 @@
-import PropTypes from "prop-types";
-import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
 import Fab from '@material-ui/core/Fab';
-import Error from '../ErrorMessage/index';
+import Error from '@/Components/ErrorMessage/index';
 import Tooltip from '@material-ui/core/Tooltip';
-import { useCurrentUser } from '../User/index';
+import { useCurrentUser } from '@/Components/User/index';
 // Mutations
-import { APPLY_TO_RENTAL_GROUP_APPLICATION } from '../../graphql/mutations/index';
+import { APPLY_TO_RENTAL_GROUP_APPLICATION } from '@/Gql/mutations/index';
 
 //icons
-import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const ApplyToGroup = props => {
@@ -62,7 +60,7 @@ ApplyToGroup.propTypes = {
   application: PropTypes.any.isRequired,
   applicationId: PropTypes.any.isRequired,
   openRentalAppModal: PropTypes.func.isRequired,
-  property: PropTypes.any.isRequired
-}
+  property: PropTypes.any.isRequired,
+};
 
 export default ApplyToGroup;

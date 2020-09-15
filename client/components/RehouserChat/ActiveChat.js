@@ -1,18 +1,13 @@
-import PropTypes from "prop-types";
-import React, { useEffect, useState, useContext } from 'react';
-import Router from 'next/router';
-import { useQuery, useMutation } from '@apollo/client';
-import { IconButton, Avatar, Paper } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-
-import { getChatName } from '../../lib/getChatName';
-import { getChatImage } from '../../lib/getChatImage';
+import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
+import { IconButton, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { getChatName } from '@/Lib/getChatName';
+import { getChatImage } from '@/Lib/getChatImage';
 // icons
-import CloseIcon from '../../styles/icons/CloseIcon';
+import CloseIcon from '@/Styles/icons/CloseIcon';
 import RemoveIcon from '@material-ui/icons/Remove';
-
-import { store } from '../../store';
-
+import { store } from '@/Store/index';
 import ChatRoom from './ChatRoom';
 
 const useStyles = makeStyles(theme => ({
@@ -37,10 +32,6 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'auto', // re-enable pointer events
     width: '280px',
     marginRight: '8px',
-
-    // borderTop: `1px solid ${theme.palette.primary.main}`,
-    // borderRight: `1px solid ${theme.palette.primary.main}`,
-    // borderLeft: `1px solid ${theme.palette.primary.main}`,
   },
   barItemIn: {
     // height: '5000px',
@@ -124,9 +115,9 @@ const ActiveChat = ({ id, chat, me }) => {
 
 ActiveChat.propTypes = {
   chat: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   id: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 export default ActiveChat;

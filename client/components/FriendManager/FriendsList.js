@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useQuery, gql } from '@apollo/client';
-import UserDetails from '../UserDetails';
+import UserDetails from '@/Components/UserDetails';
 
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 
 import { Box, Typography } from '@material-ui/core';
 
@@ -55,7 +55,7 @@ const FriendsList = ({ me }) => {
 };
 
 FriendsList.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default FriendsList;

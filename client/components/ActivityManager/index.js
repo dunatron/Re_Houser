@@ -1,11 +1,9 @@
-import PropTypes from "prop-types";
-import React, { useState, useEffect } from 'react';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/client';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import Filter from './Filter';
 import Activity from './Activity';
-import Help from '../Help';
-import { ACTIVITY_MANAGER_HELP } from '../Help/helpItemsConf';
+import Help from '@/Components/Help';
+import { ACTIVITY_MANAGER_HELP } from '@/Lib/configs/help/activityManagerHelp';
 import { Button } from '@material-ui/core';
 
 const ActivityManager = props => {
@@ -68,9 +66,9 @@ ActivityManager.propTypes = {
   args: PropTypes.any.isRequired,
   collapsed: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export { ActivityManager, Activity };
 export default ActivityManager;

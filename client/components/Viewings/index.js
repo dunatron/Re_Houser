@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { withStyles } from '@material-ui/core/styles';
-import { VIEWINGS_QUERY } from '../../graphql/queries';
+import { VIEWINGS_QUERY } from '@/Gql/queries';
 
 import PropTypes from 'prop-types';
 
-import Loading from '../Loader';
-import Error from '../ErrorMessage';
+import Loading from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 
 import RenderViewingByRecurringType from './RenderViewingByRecurringType';
 

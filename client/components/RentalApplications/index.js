@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { MY_RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
-import Error from '../ErrorMessage/index';
-import Loader from '../Loader/index';
+import { MY_RENTAL_APPLICATIONS_QUERY } from '@/Gql/queries/index';
+import Error from '@/Components/ErrorMessage/index';
+import Loader from '@/Components/Loader/index';
 import RentalApplicationsTable from './RentalApplicationsTable';
 
 const RentalApplications = props => {
@@ -24,7 +24,7 @@ const RentalApplications = props => {
 };
 
 RentalApplications.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default RentalApplications;

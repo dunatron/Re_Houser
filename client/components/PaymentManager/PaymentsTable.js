@@ -1,11 +1,4 @@
-import PropTypes from "prop-types";
-import React, { Component, useState } from 'react';
-import { useQuery } from '@apollo/client';
-import Button from '@material-ui/core/Button';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
-import { toast } from 'react-toastify';
-import Router from 'next/router';
-import Modal from '../Modal/index';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const PaymentsTable = ({ payments, title }) => {
@@ -171,9 +164,9 @@ const PaymentsTable = ({ payments, title }) => {
 
 PaymentsTable.propTypes = {
   payments: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  title: PropTypes.any.isRequired
-}
+  title: PropTypes.any.isRequired,
+};
 
 export default PaymentsTable;

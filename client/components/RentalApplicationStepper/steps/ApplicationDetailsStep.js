@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Share,
@@ -22,13 +22,13 @@ import {
   Button,
 } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
-import SuperiorTable from '../../SuperiorTable';
-import UserProfile from '../../UserProfile';
+import SuperiorTable from '@/Components/SuperiorTable';
+import UserProfile from '@/Components/UserProfile';
 import {
   UPDATE_RENTAL_APPLICATION_MUTATION,
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
-} from '../../../graphql/mutations/index';
-import Error from '../../ErrorMessage';
+} from '@/Gql/mutations/index';
+import Error from '@/Components/ErrorMessage';
 
 const ApplicationDetailsStep = ({
   property,
@@ -190,9 +190,9 @@ ApplicationDetailsStep.propTypes = {
   me: PropTypes.any.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default ApplicationDetailsStep;
 

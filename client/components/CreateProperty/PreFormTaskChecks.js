@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import React, { useState, useEffect } from 'react';
-import CreditCardTab from '../Account/CreditCardTab';
-import { Button, useTheme } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import CreditCardTab from '@/Components/Account/CreditCardTab';
+import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -73,7 +73,7 @@ const PreFormTaskChecks = ({ me }) => {
 };
 
 PreFormTaskChecks.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default PreFormTaskChecks;

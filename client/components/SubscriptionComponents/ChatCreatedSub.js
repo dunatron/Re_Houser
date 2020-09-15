@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { useSubscription } from '@apollo/client';
-import { CHAT_SUBSCRIPTION } from '../../graphql/subscriptions/ChatSub';
-import { store } from '../../store';
+import { CHAT_SUBSCRIPTION } from '@/Gql/subscriptions/ChatSub';
+import { store } from '@/Store/index';
 import { toast } from 'react-toastify';
 
 const ChatCreatedSub = ({ me }) => {
@@ -52,8 +52,8 @@ const ChatCreatedSub = ({ me }) => {
 
 ChatCreatedSub.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default ChatCreatedSub;

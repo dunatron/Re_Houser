@@ -1,19 +1,14 @@
-// const DetailsStep = () => {
-//   return <h2>I am details Step</h2>;
-// };
-// export default DetailsStep;
-
 import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { USER_PROFILE_CONF } from '../../../lib/configs/userProfileConfig';
-import TextInput from '../../../styles/TextInput';
-import InputErrors from '../../InputErrors/index';
-import PhotoIdUploader from '../../PhotoIdUploader/index';
-import { isEmptyObj } from '../../../lib/isEmpty';
+import { USER_PROFILE_CONF } from '@/Lib/configs/userProfileConfig';
+import TextInput from '@/Styles/TextInput';
+import InputErrors from '@/Components/InputErrors/index';
+import PhotoIdUploader from '@/Components/PhotoIdUploader/index';
+import { isEmptyObj } from '@/Lib/isEmpty';
 import { Button, Typography } from '@material-ui/core';
-import FileUploader from '../../FileUploader';
-import { CURRENT_USER_QUERY } from '../../../graphql/queries';
+import FileUploader from '@/Components/FileUploader';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 import { isEmpty } from 'ramda';
 
@@ -106,17 +101,17 @@ UserDetailsStep.propTypes = {
   errorsBag: PropTypes.any.isRequired,
   me: PropTypes.shape({
     id: PropTypes.any,
-    identificationNumber: PropTypes.any
+    identificationNumber: PropTypes.any,
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func
-    })
+      find: PropTypes.func,
+    }),
   }).isRequired,
   updateRentalGroupApplicant: PropTypes.func.isRequired,
-  userInfo: PropTypes.any.isRequired
-}
+  userInfo: PropTypes.any.isRequired,
+};
 
 export default UserDetailsStep;

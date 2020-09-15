@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect, Component, memo, useMemo } from 'react';
-import encodeImage from '../../lib/encodeImage';
+import encodeImage from '@/Lib/encodeImage';
 
 const contentAsSrc = content => {
   const src = 'data:image/png;base64,' + encodeImage(content);
@@ -20,8 +20,8 @@ const PreUploadImage = ({ file }) => {
 
 PreUploadImage.propTypes = {
   file: PropTypes.shape({
-    content: PropTypes.any
-  }).isRequired
-}
+    content: PropTypes.any,
+  }).isRequired,
+};
 
 export default PreUploadImage;

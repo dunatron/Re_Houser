@@ -1,35 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
 import algoliasearch from 'algoliasearch/lite';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
+
 // import Drawer from '@material-ui/core/Drawer';
-import {
-  IconButton,
-  Divider,
-  Drawer,
-  AppBar,
-  Paper,
-  Grid,
-  Toolbar,
-  List,
-  Typography,
-} from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
+import { IconButton, Paper, Grid, Toolbar } from '@material-ui/core';
 // import Divider from "@material-ui/core/Divider";
 import CustomSearchBox from './CustomSearchBox';
-import SettingsIcon from '../../styles/icons/SettingsIcon';
-import SettingsInputIcon from '../../styles/icons/SettingsInputIcon';
-import CloseIcon from '../../styles/icons/CloseIcon';
-
+import SettingsInputIcon from '@/Styles/icons/SettingsInputIcon';
 import { SearchInterface } from './styles';
-
-import ConnectedCheckBoxRefinementList from './refinements/CheckBoxList';
-import ConnectedMaterialUiSortBy from './refinements/SortBy';
-import ConnectedMaterialPagination from './refinements/Pagination';
-import CustomHighlight from './refinements/CustomHiglight';
-import PropertyCard from '../PropertyCard/index';
+import PropertyCard from '@/Components/PropertyCard/index';
 import SearchFilter from './SearchFilter';
 import FilterDrawer from './FilterDrawer';
 import { GoogleApiWrapper } from 'google-maps-react';
@@ -49,10 +28,10 @@ import GeoSearch from './GeoSearch';
 // import Places from './places/widget';
 
 //icons
-import NavigateBeforeIcon from '../../styles/icons/NavigateBefore';
-import NavigateNextIcon from '../../styles/icons/NavigateNext';
-import SkipPreviousIcon from '../../styles/icons/SkipPrevious';
-import SkipNextIcon from '../../styles/icons/SkipNext';
+import NavigateBeforeIcon from '@/Styles/icons/NavigateBefore';
+import NavigateNextIcon from '@/Styles/icons/NavigateNext';
+import SkipPreviousIcon from '@/Styles/icons/SkipPrevious';
+import SkipNextIcon from '@/Styles/icons/SkipNext';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
 import {
@@ -68,7 +47,7 @@ import {
 
 import HorizonScrollHits from './HorizonScrollHits';
 
-import Modal from '../../components/Modal/index';
+import Modal from '@/Components/Modal/index';
 
 // THIS FOR NEXT JS
 // https://github.com/algolia/react-instantsearch/tree/master/examples/next

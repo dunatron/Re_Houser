@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Paper, IconButton } from '@material-ui/core';
 import NewChatButton from './NewChatButton';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 import CloseIcon from '@material-ui/icons/Close';
-import { getChatImageUrl } from '../../lib/getChatImage';
+import { getChatImageUrl } from '@/Lib/getChatImage';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,8 +38,6 @@ const OpenChatBubbles = ({ chats, me }) => {
                 <IconButton
                   style={{
                     position: 'absolute',
-                    // top: '-8px',
-                    // right: '-4px',
                     top: '-20px',
                     right: '-8px',
                     zIndex: '99',
@@ -56,7 +54,6 @@ const OpenChatBubbles = ({ chats, me }) => {
 
                 <Avatar
                   alt="Rehouser Chat"
-                  // src="/static/images/avatar/1.jpg"
                   src={getChatImageUrl(c, me)}
                   onClick={() =>
                     dispatch({
@@ -75,8 +72,8 @@ const OpenChatBubbles = ({ chats, me }) => {
 
 OpenChatBubbles.propTypes = {
   chats: PropTypes.shape({
-    filter: PropTypes.func
+    filter: PropTypes.func,
   }).isRequired,
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 export default OpenChatBubbles;

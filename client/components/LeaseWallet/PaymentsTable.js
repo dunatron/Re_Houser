@@ -1,22 +1,16 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, useSubscription } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import {
-  Button,
-  Input,
-  Typography,
-  MenuIcon,
-  IconButton,
-} from '@material-ui/core';
+import { Input, Typography, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import Modal from '../Modal/index';
+import Modal from '@/Components/Modal/index';
 import SinglePayment from './SinglePayment';
-import { PAYMENT_SUBSCRIPTION } from '../../graphql/subscriptions/PaymentSubscription';
+import { PAYMENT_SUBSCRIPTION } from '@/Gql/subscriptions/PaymentSubscription';
 import moment from 'moment';
-import formatCentsToDollars from '../../lib/formatCentsToDollars';
+import formatCentsToDollars from '@/Lib/formatCentsToDollars';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -263,7 +257,7 @@ const PaymentsTable = ({ where, walletId }) => {
 
 PaymentsTable.propTypes = {
   walletId: PropTypes.any.isRequired,
-  where: PropTypes.any.isRequired
-}
+  where: PropTypes.any.isRequired,
+};
 
 export default PaymentsTable;

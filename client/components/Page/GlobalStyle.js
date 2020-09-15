@@ -5,9 +5,9 @@ import {
   createMuiTheme,
 } from '@material-ui/core/styles';
 
-import muiTheme from '../../styles/_muiTheme';
+import muiTheme from '@/Styles/_muiTheme';
 // theme typography
-import themeTypography from '../../styles/_themeTypography';
+import themeTypography from '@/Styles/_themeTypography';
 
 const theme = createMuiTheme({
   ...muiTheme,

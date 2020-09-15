@@ -1,13 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
-import Error from '../ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
-// import { SINGLE_LEASE_QUERY } from '../LeaseManager';
-import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
-import { PropertyLeaseInfoFragment } from '../../graphql/fragments/propertyLeaseInfo';
+import { SINGLE_LEASE_QUERY } from '@/Gql/queries';
+import { PropertyLeaseInfoFragment } from '@/Gql/fragments/propertyLeaseInfo';
 
 const SIGN_LEASE_MUTATION = gql`
   mutation SIGN_LEASE_MUTATION($id: ID!, $type: String!, $leaseId: ID!) {
@@ -80,7 +79,7 @@ SignLeaseBtn.propTypes = {
   id: PropTypes.any.isRequired,
   leaseId: PropTypes.any.isRequired,
   signed: PropTypes.any.isRequired,
-  type: PropTypes.any.isRequired
-}
+  type: PropTypes.any.isRequired,
+};
 
 export default SignLeaseBtn;

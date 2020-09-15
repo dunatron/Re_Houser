@@ -1,14 +1,14 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
-import Error from '../ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 
-import { INSPECTIONS_CONNECTION_QUERY } from '../../graphql/connections';
+import { INSPECTIONS_CONNECTION_QUERY } from '@/Gql/connections';
 // mutations
-import { UPDATE_INSPECTION_MUTATION } from '../../graphql/mutations';
+import { UPDATE_INSPECTION_MUTATION } from '@/Gql/mutations';
 
 import PropTypes from 'prop-types';
 import { mePropTypes, propertyPropTypes } from '../../propTypes';

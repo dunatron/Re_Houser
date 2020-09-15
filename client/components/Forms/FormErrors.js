@@ -1,12 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { isEmpty } from 'ramda';
-import {
-  createMuiTheme,
-  withStyles,
-  makeStyles,
-  ThemeProvider,
-} from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Button, Paper, Typography } from '@material-ui/core';
 import { green, purple, red } from '@material-ui/core/colors';
 
@@ -70,7 +65,7 @@ const FormErrors = ({ errors }) => {
 };
 
 FormErrors.propTypes = {
-  errors: PropTypes.any.isRequired
-}
+  errors: PropTypes.any.isRequired,
+};
 
 export default FormErrors;

@@ -1,46 +1,8 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import Modal from '../../components/Modal';
-import SuperLogin from '../../components/SuperLogin';
-import { store } from '../../store';
-
-/**
- * I DO WONDER if the LoginModal requiring store stuff does this.
- * Having a global state is not much fun if everythung rerenders when a store prop changes
- */
-// const LoginModal = () => {
-//   const globalStore = useContext(store);
-//   const { dispatch, state } = globalStore;
-
-//   const _close = () => dispatch({ type: 'closeLoginModal' });
-
-//   console.log('render: LoginModal');
-
-//   return (
-//     <Modal open={state.loginModalOpen} close={_close}>
-//       <SuperLogin handleSignedIn={_close} />
-//     </Modal>
-//   );
-// };
-
-// const LoginModal = React.memo(props => {
-//   const globalStore = useContext(store);
-//   const { dispatch, state } = globalStore;
-
-//   const _close = () => dispatch({ type: 'closeLoginModal' });
-
-//   console.log('render: LoginModal');
-
-//   return (
-//     <Modal open={state.loginModalOpen} close={_close}>
-//       <SuperLogin handleSignedIn={_close} />
-//     </Modal>
-//   );
-// });
-
-/**
- * CONSUMER RERENDER ISSUES https://github.com/facebook/react/issues/15156
- */
+import Modal from '@/Components/Modal';
+import SuperLogin from '@/Components/SuperLogin';
+import { store } from '@/Store/index';
 
 const LoginModal = React.memo(props => {
   const globalStore = useContext(store);

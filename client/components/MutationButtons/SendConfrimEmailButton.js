@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
-import Error from '../ErrorMessage/index';
-import { CONFIRM_EMAIL_MUTATION } from '../../graphql/mutations/index';
+import Error from '@/Components/ErrorMessage/index';
+import { CONFIRM_EMAIL_MUTATION } from '@/Gql/mutations/index';
 import { Button, CircularProgress, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import TextInput from '../../components/Inputs/TextInput';
+import TextInput from '@/Components/Inputs/TextInput';
 import ResendConfirmEmail from './ResendConfirmEmail';
 
 const useStyles = makeStyles(theme => ({

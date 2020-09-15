@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Fragment, useContext, useEffect } from 'react';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 import Router from 'next/router';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
@@ -98,8 +98,8 @@ const Nav = props => {
 
 Nav.propTypes = {
   loadingUser: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 const SideBarItemWithRouter = ({ item, pathname }) => {
   const isCurrentPath = pathname === item.route ? true : false;
@@ -149,11 +149,11 @@ SideBarItemWithRouter.propTypes = {
     canRender: PropTypes.func,
     key: PropTypes.any,
     route: PropTypes.any,
-    text: PropTypes.any
+    text: PropTypes.any,
   }).isRequired,
   pathname: PropTypes.shape({
-    split: PropTypes.func
-  }).isRequired
-}
+    split: PropTypes.func,
+  }).isRequired,
+};
 
 export default Nav;

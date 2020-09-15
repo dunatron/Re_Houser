@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { Query, Mutation, Subscription } from '@apollo/react-components';
 import { ApolloProvider, useQuery, useApolloClient } from '@apollo/client';
-import { CURRENT_USER_QUERY } from '../User/index';
-import { useCurrentUser } from '../User';
-import Loader from '../Loader';
+import { CURRENT_USER_QUERY } from '@/Components/User/index';
+import { useCurrentUser } from '@/Components/User';
+import Loader from '@/Components/Loader';
 
 /**
  * Ok listen up chump, here is the architecture
@@ -17,8 +17,6 @@ import Loader from '../Loader';
 const WithUser = props => {
   const { data, error, loading } = useCurrentUser();
   const currentUserProps = useCurrentUser();
-
-  console.log('RENDER: WithUser');
 
   if (currentUserProps.loading)
     return (
@@ -49,7 +47,7 @@ const WithUser = props => {
 };
 
 WithUser.propTypes = {
-  children: PropTypes.any.isRequired
-}
+  children: PropTypes.any.isRequired,
+};
 
 export default WithUser;

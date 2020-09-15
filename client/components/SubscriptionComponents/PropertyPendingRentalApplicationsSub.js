@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
-import ApplicationCard from '../PropertyDetails/ApplicationCard';
+import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationUpdatedSub';
+import ApplicationCard from '@/Components/PropertyDetails/ApplicationCard';
 import { ToastContainer, toast } from 'react-toastify';
 
 const PropertyPendingRentalApplicationsSub = ({ property }) => {
@@ -67,8 +67,8 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
 PropertyPendingRentalApplicationsSub.propTypes = {
   property: PropTypes.shape({
     id: PropTypes.any,
-    location: PropTypes.any
-  }).isRequired
-}
+    location: PropTypes.any,
+  }).isRequired,
+};
 
 export default PropertyPendingRentalApplicationsSub;

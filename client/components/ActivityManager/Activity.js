@@ -9,18 +9,17 @@ import {
   ExpansionPanelDetails,
   Typography,
   Avatar,
-  Button,
 } from '@material-ui/core';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import moment from 'moment';
-import ButtonLoader from '../Loader/ButtonLoader';
+import ButtonLoader from '@/Components/Loader/ButtonLoader';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RefreshIcon from '@material-ui/icons/RefreshOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutline';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooksOutlined';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 import ActivityIcon from './ActivityIcon';
 
 const ACTIVITY_QUERY = gql`
@@ -246,7 +245,7 @@ const ActivityItem = ({ activity }) => {
         <div className={classes.detailActions}>
           {activity.propertyLease && (
             <div className={classes.actionItem}>
-            {/* Maybe we can pass in a base route to activity. oneOf tenant || landlord */}
+              {/* Maybe we can pass in a base route to activity. oneOf tenant || landlord */}
               <ChangeRouteButton
                 route="/leases/lease"
                 title="Lease"

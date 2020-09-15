@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
-import React, { useState, useReducer, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import React, { useReducer, useEffect, useRef } from 'react';
 import Alert from '@reach/alert';
 import VisuallyHidden from '@reach/visually-hidden';
 import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 import styled from 'styled-components';
 
-import useProgress from '../../lib/useProgress';
+import useProgress from '@/Lib/useProgress';
 
 const CarouselStyles = styled.div`
   position: relative;
@@ -178,8 +178,8 @@ Slide.propTypes = {
   image: PropTypes.any.isRequired,
   isCurrent: PropTypes.any.isRequired,
   takeFocus: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired
-}
+  title: PropTypes.any.isRequired,
+};
 
 function SlideNav(props) {
   return <ul className="SlideNav" {...props} />;
@@ -196,8 +196,8 @@ function SlideNavItem({ isCurrent, ...props }) {
 }
 
 SlideNavItem.propTypes = {
-  isCurrent: PropTypes.any.isRequired
-}
+  isCurrent: PropTypes.any.isRequired,
+};
 
 function Controls(props) {
   return <div className="Controls" {...props} />;
@@ -219,16 +219,16 @@ function ProgressBar({ animate, time }) {
 
 ProgressBar.propTypes = {
   animate: PropTypes.any.isRequired,
-  time: PropTypes.any.isRequired
-}
+  time: PropTypes.any.isRequired,
+};
 
 function SpacerGif({ width }) {
   return <div style={{ display: 'inline-block', width }} />;
 }
 
 SpacerGif.propTypes = {
-  width: PropTypes.any.isRequired
-}
+  width: PropTypes.any.isRequired,
+};
 
 const CarouselSlider = ({ slides, height, width }) => {
   let [state, dispatch] = useReducer(
@@ -386,9 +386,9 @@ CarouselSlider.propTypes = {
   height: PropTypes.any.isRequired,
   slides: PropTypes.shape({
     length: PropTypes.number,
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  width: PropTypes.any.isRequired
-}
+  width: PropTypes.any.isRequired,
+};
 
 export default CarouselSlider;

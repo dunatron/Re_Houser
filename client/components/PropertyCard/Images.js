@@ -1,25 +1,17 @@
-import PropTypes from "prop-types";
-import React, { Component, useState } from 'react';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import {
   CardContent,
   IconButton,
-  Button,
-  Typography,
   CardActions,
   Collapse,
 } from '@material-ui/core';
-import CarouselSlider from '../CarouselSlider';
-import CameraIcon from '../../styles/icons/CameraIcon';
+import CarouselSlider from '@/Components/CarouselSlider';
 import MapIcon from '@material-ui/icons/Map';
-import DetailItem from './DetailItem';
-import moment from 'moment';
-
-import Map from '../Map/index';
+import Map from '@/Components/Map/index';
 
 //icons
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -99,7 +91,7 @@ const Details = props => {
 };
 
 Details.propTypes = {
-  property: PropTypes.any.isRequired
-}
+  property: PropTypes.any.isRequired,
+};
 
 export default Details;

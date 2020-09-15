@@ -1,12 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, IconButton, Tooltip } from '@material-ui/core';
-
-import DeleteIcon from '@material-ui/icons/Delete';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import { IconButton, Tooltip } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import Modal from '../Modal';
+import Modal from '@/Components/Modal';
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -44,9 +41,9 @@ const Help = ({ toolTip, helpConf }) => {
 Help.propTypes = {
   helpConf: PropTypes.shape({
     components: PropTypes.any,
-    title: PropTypes.any
+    title: PropTypes.any,
   }).isRequired,
-  toolTip: PropTypes.any.isRequired
-}
+  toolTip: PropTypes.any.isRequired,
+};
 
 export default Help;

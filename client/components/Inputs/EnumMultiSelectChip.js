@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
@@ -9,7 +9,7 @@ import Chip from '@material-ui/core/Chip';
 import Input from '@material-ui/core/Input';
 import LabelIcon from '@material-ui/icons/Label';
 import { useQuery } from '@apollo/client';
-import { GET_ENUM_QUERY } from '../../graphql/queries';
+import { GET_ENUM_QUERY } from '@/Gql/queries';
 
 const styles = theme => ({
   root: {
@@ -103,15 +103,15 @@ EnumMultiSelectChip.propTypes = {
   classes: PropTypes.shape({
     chip: PropTypes.any,
     chips: PropTypes.any,
-    formControl: PropTypes.any
+    formControl: PropTypes.any,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.shape({
-    name: PropTypes.any
+    name: PropTypes.any,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
   selectID: PropTypes.any.isRequired,
-  values: PropTypes.any.isRequired
-}
+  values: PropTypes.any.isRequired,
+};
 
 export default withStyles(styles)(EnumMultiSelectChip);

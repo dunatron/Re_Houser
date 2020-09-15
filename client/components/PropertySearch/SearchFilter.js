@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Configure } from 'react-instantsearch-dom';
-import TextInput from '../Inputs/TextInput';
-import DateInput from '../Inputs/DateInput';
+import TextInput from '@/Components/Inputs/TextInput';
+import DateInput from '@/Components/Inputs/DateInput';
 import moment from 'moment';
 import CurrentRefinements from './refinements/CurrentRefinements';
 
@@ -58,8 +58,8 @@ const FilterSummary = ({ bottomPrice, topPrice, moveInDate }) => {
 FilterSummary.propTypes = {
   bottomPrice: PropTypes.any.isRequired,
   moveInDate: PropTypes.any.isRequired,
-  topPrice: PropTypes.any.isRequired
-}
+  topPrice: PropTypes.any.isRequired,
+};
 
 const SearchFilter = () => {
   const stopPropagation = e => e.stopPropagation();

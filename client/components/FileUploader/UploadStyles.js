@@ -14,14 +14,11 @@ const useStyles = makeStyles(theme => ({
   upload: {
     display: 'flex',
     flexWrap: 'wrap',
-    // flexDirection: 'column', // Do this for mobile
     flex: 1,
     alignItems: 'flex-start',
     textAlign: 'left',
     overflow: 'hidden',
-
     justifyContent: 'center',
-    // maxWidth: '500px',
   },
   content: {
     minWidth: '320px',
@@ -54,7 +51,6 @@ const useStyles = makeStyles(theme => ({
   },
   row: {
     display: 'flex',
-    // flexWrap: 'wrap',
     flex: 1,
     flexDirection: 'column-reverse',
     justifyContent: 'start',
@@ -94,10 +90,5 @@ const useStyles = makeStyles(theme => ({
     marginTop: '16px',
   },
 }));
-
-// button:disabled {
-//   background: rgb(189, 189, 189);
-//   cursor: default;
-// }
 
 export default useStyles;

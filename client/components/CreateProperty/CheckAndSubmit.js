@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import { useMutation } from '@apollo/client';
-import { CREATE_PROPERTY_MUTATION } from '../../graphql/mutations/index';
-import {
-  PROPERTIES_QUERY,
-  OWNER_PROPERTIES_QUERY,
-} from '../../graphql/queries/index';
+import { CREATE_PROPERTY_MUTATION } from '@/Gql/mutations/index';
+import { PROPERTIES_QUERY, OWNER_PROPERTIES_QUERY } from '@/Gql/queries/index';
 
 import {
   Typography,
@@ -14,9 +11,9 @@ import {
   ExpansionPanelDetails,
   Chip,
 } from '@material-ui/core';
-import Error from '../../components/ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TermsOfEngagement from '../../components/Terms/TermsOfEngagement';
+import TermsOfEngagement from '@/Components/Terms/TermsOfEngagement';
 
 const connectFiles = files =>
   Object.entries(files).reduce((a, [k, v]) => {

@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
-import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React, { useRef, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 //hooks
-import useCurrentWidth from '../../lib/hooks/useCurrentWidth';
-import useCurrentHeight from '../../lib/hooks/useCurrentHeight';
-import ParticleOne from '../Particles/ParticleOne';
-import ParticleTwo from '../Particles/ParticleTwo';
+import useCurrentWidth from '@/Lib/hooks/useCurrentWidth';
+import useCurrentHeight from '@/Lib/hooks/useCurrentHeight';
+import ParticleOne from '@/Components/Particles/ParticleOne';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -98,7 +97,7 @@ const ParticleBanner = props => {
 ParticleBanner.propTypes = {
   children: PropTypes.any.isRequired,
   disablePointerEvents: PropTypes.bool.isRequired,
-  footer: PropTypes.any.isRequired
-}
+  footer: PropTypes.any.isRequired,
+};
 
 export default ParticleBanner;

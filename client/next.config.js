@@ -7,7 +7,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
  * NOTES
  * - For testing use this for recaptcha site key 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
  */
-
 const withTM = require('next-transpile-modules')([
   'react-native-gifted-chat',
   'react-native-lightbox',
@@ -21,21 +20,24 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = withTM({
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Note: we provide webpack above so you should not `require` it
-    // Perform customizations to webpack config
-    // Important: return the modified config
+    config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+    console.log('Webpack environment => ', dev);
+    const absolutePaths = dev
+      ? {}
+      : {
+          '@/Components': path.resolve(__dirname, 'components/'),
+          '@/AdminComponents': path.resolve(__dirname, 'admin-components/'),
+          '@/Containers': path.resolve(__dirname, 'containers/'),
+          '@/Styles': path.resolve(__dirname, 'admin-components/'),
+          '@/Lib': path.resolve(__dirname, 'lib/'),
+          '@/Gql': path.resolve(__dirname, 'graphql/'),
+          '@/Store': path.resolve(__dirname, 'store/'),
+        };
 
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
-      // Transform all direct `react-native` imports to `react-native-web`
+      ...absolutePaths,
       'react-native$': 'react-native-web',
-      '@/Components': path.resolve(__dirname, 'components/'),
-      '@/AdminComponents': path.resolve(__dirname, 'admin-components/'),
-      '@/Styles': path.resolve(__dirname, 'admin-components/'),
-      '@/Lib': path.resolve(__dirname, 'lib/'),
-      '@/Gql': path.resolve(__dirname, 'graphql/'),
-      '@/Store': path.resolve(__dirname, 'store.js'),
-      // 'react-native-gifted-chat': 'react-native-web',
     };
     config.resolve.extensions = [
       '.web.js',
@@ -44,7 +46,7 @@ module.exports = withTM({
       ...config.resolve.extensions,
     ];
     // read .env environment variables
-    config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+    // config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
     return config;
   },
   webpackDevMiddleware: config => {

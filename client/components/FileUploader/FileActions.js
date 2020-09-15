@@ -1,7 +1,5 @@
-import PropTypes from "prop-types";
-import React, { useEffect } from 'react';
-import { useMutation, gql } from '@apollo/client';
-import { Paper, Button, IconButton, CircularProgress } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { IconButton, CircularProgress } from '@material-ui/core';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +26,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   wrapper: {
-    // margin: theme.spacing(1),
     position: 'relative',
   },
   buttonSuccess: {
@@ -95,8 +92,8 @@ UploadFileButton.propTypes = {
   error: PropTypes.any.isRequired,
   handleClick: PropTypes.any.isRequired,
   loading: PropTypes.any.isRequired,
-  uploadCompleted: PropTypes.bool.isRequired
-}
+  uploadCompleted: PropTypes.bool.isRequired,
+};
 
 const FileActions = ({
   file,
@@ -171,14 +168,14 @@ FileActions.propTypes = {
     error: PropTypes.any,
     id: PropTypes.any,
     loading: PropTypes.any,
-    uploadCompleted: PropTypes.any
+    uploadCompleted: PropTypes.any,
   }).isRequired,
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.func.isRequired,
   removingIds: PropTypes.shape({
-    includes: PropTypes.func
+    includes: PropTypes.func,
   }).isRequired,
-  upload: PropTypes.func.isRequired
-}
+  upload: PropTypes.func.isRequired,
+};
 
 export default FileActions;

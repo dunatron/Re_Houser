@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
-import React, { Component, PureComponent, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import React, { PureComponent, useMemo } from 'react';
 import styled from 'styled-components';
-import encodeImage from '../../lib/encodeImage';
+import encodeImage from '@/Lib/encodeImage';
 import Fab from '@material-ui/core/Fab';
 
 const ImageList = styled.div`
@@ -27,10 +27,10 @@ export default class ImagePicker extends PureComponent {
 
 ImagePicker.propTypes = {
   images: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  remove: PropTypes.func.isRequired
-}
+  remove: PropTypes.func.isRequired,
+};
 const ImgTile = styled.div`
   background: white;
   border: 1px solid ${props => props.theme.offWhite};
@@ -76,8 +76,8 @@ const ImageTile = ({ image, remove }) => {
 ImageTile.propTypes = {
   image: PropTypes.shape({
     data: PropTypes.shape({
-      content: PropTypes.any
-    })
+      content: PropTypes.any,
+    }),
   }).isRequired,
-  remove: PropTypes.any.isRequired
-}
+  remove: PropTypes.any.isRequired,
+};

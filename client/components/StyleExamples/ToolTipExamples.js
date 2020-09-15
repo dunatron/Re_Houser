@@ -1,6 +1,6 @@
 import useStyles from './useStyles';
 import { Typography, Button } from '@material-ui/core';
-import RToolTip from '../../styles/RToolTip';
+import RToolTip from '@/Styles/RToolTip';
 
 const ToolTipExamples = () => {
   return (

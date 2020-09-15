@@ -3,9 +3,9 @@ import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 // import { RENTAL_APPLICATION_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationSub';
-import { PROPERTY_SUBSCRIPTION } from '../../graphql/subscriptions/PropertySubscription';
-import ApplicationCard from '../PropertyDetails/ApplicationCard';
-import { store } from '../../store';
+import { PROPERTY_SUBSCRIPTION } from '@/Gql/subscriptions/PropertySubscription';
+import ApplicationCard from '@/Components/PropertyDetails/ApplicationCard';
+import { store } from '@/Store/index';
 
 const PropertiesSub = ({ where }) => {
   const globalStore = useContext(store);

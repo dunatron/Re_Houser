@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState, useContext, useEffect } from 'react';
 import useStyles from './useStyles';
 import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
 
 import Link from 'next/link';
-import Sidebar from '../Sidebar';
-import { store } from '../../store';
+import Sidebar from '@/Components/Sidebar';
+import { store } from '@/Store/index';
 
 const AppDrawer = ({ me }) => {
   const globalStore = useContext(store);
@@ -73,7 +73,7 @@ const AppDrawer = ({ me }) => {
 };
 
 AppDrawer.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default AppDrawer;

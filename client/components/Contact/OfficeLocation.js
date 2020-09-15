@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Paper } from '@material-ui/core';
-import Map from '../Map';
+import Map from '@/Components/Map';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,11 +57,11 @@ const OfficeLocation = ({ name, physicalLines, mailLines, map }) => {
 OfficeLocation.propTypes = {
   mailLines: PropTypes.any.isRequired,
   map: PropTypes.shape({
-    center: PropTypes.any
+    center: PropTypes.any,
   }).isRequired,
   name: PropTypes.any.isRequired,
-  physicalLines: PropTypes.any.isRequired
-}
+  physicalLines: PropTypes.any.isRequired,
+};
 
 const RenderlLines = ({ title, lines }) => {
   return (
@@ -82,9 +82,9 @@ const RenderlLines = ({ title, lines }) => {
 RenderlLines.propTypes = {
   lines: PropTypes.shape({
     length: PropTypes.any,
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  title: PropTypes.any.isRequired
-}
+  title: PropTypes.any.isRequired,
+};
 
 export default OfficeLocation;

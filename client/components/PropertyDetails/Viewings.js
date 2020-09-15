@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import Viewings from '../Viewings';
+import PropTypes from 'prop-types';
+import Viewings from '@/Components/Viewings';
 
 const PropertyViewings = ({ propertyId, me }) => {
   return (
@@ -19,7 +19,7 @@ const PropertyViewings = ({ propertyId, me }) => {
 
 PropertyViewings.propTypes = {
   me: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired
-}
+  propertyId: PropTypes.any.isRequired,
+};
 
 export default PropertyViewings;

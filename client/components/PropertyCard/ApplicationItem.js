@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Mutation } from '@apollo/react-components';
 import { adopt } from 'react-adopt';
@@ -7,30 +7,26 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-// import ExpansionPanel from "@material-ui/core/ExpansionPanel"
-import ExpansionPanel from '../../styles/ExpansionPanel';
-import ExpansionPanelSummary from '../../styles/ExpansionPanelSummary';
-// import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
+import ExpansionPanel from '@/Styles/ExpansionPanel';
+import ExpansionPanelSummary from '@/Styles/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-// import Typography from "@material-ui/core/Typography"
-import Typography from '../../styles/Typography';
+import Typography from '@/Styles/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 //icons
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import StarIcon from '../../styles/icons/StarIcon';
+import StarIcon from '@/Styles/icons/StarIcon';
 // Mutations
 import {
   APPLY_TO_RENTAL_GROUP_APPLICATION,
   CREATE_PRE_RENTAL_DOCUMENT_MUTATION,
-} from '../../graphql/mutations/index';
+} from '@/Gql/mutations/index';
 import ApplyToGroup from './ApplyToGroup.js';
-import User from '../User/index';
+import User from '@/Components/User/index';
 import { useMutation } from '@apollo/client';
-import { useCurrentUser } from '../User';
+import { useCurrentUser } from '@/Components/User';
 
 const Composed = adopt({
   user: ({ render }) => <User>{render}</User>,
@@ -268,18 +264,18 @@ ApplicationItem.propTypes = {
   application: PropTypes.shape({
     applicants: PropTypes.shape({
       map: PropTypes.func,
-      reduce: PropTypes.func
+      reduce: PropTypes.func,
     }),
     id: PropTypes.any,
     owner: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
     stage: PropTypes.any,
-    visibility: PropTypes.string
+    visibility: PropTypes.string,
   }).isRequired,
   index: PropTypes.any.isRequired,
   openRentalAppModal: PropTypes.func.isRequired,
-  property: PropTypes.any.isRequired
-}
+  property: PropTypes.any.isRequired,
+};
 
 export default ApplicationItem;

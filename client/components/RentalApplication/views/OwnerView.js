@@ -1,9 +1,7 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
-import RentalApplicationStepper from '../../RentalApplicationStepper';
-import { useSubscription, useQuery } from '@apollo/client';
-import { SINGLE_PROPERTY_QUERY } from '../../../graphql/queries';
+import RentalApplicationStepper from '@/Components/RentalApplicationStepper';
 
 /**
  * This is the person who originally applied fro the property
@@ -35,8 +33,8 @@ const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
 RentalApplicationOwnerView.propTypes = {
   me: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    property: PropTypes.any
-  }).isRequired
-}
+    property: PropTypes.any,
+  }).isRequired,
+};
 
 export default RentalApplicationOwnerView;

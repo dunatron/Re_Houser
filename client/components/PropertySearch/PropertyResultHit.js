@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import RehouserPaper from '../../styles/RehouserPaper';
+import RehouserPaper from '@/Styles/RehouserPaper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Paper,
@@ -11,8 +11,8 @@ import {
   Button,
 } from '@material-ui/core';
 
-import RToolTip from '../../styles/RToolTip';
-import Apply from '../PropertyCard/Apply';
+import RToolTip from '@/Styles/RToolTip';
+import Apply from '@/Components/PropertyCard/Apply';
 
 //icons
 import BathtubIcon from '@material-ui/icons/Bathtub';
@@ -21,14 +21,14 @@ import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
-import CarouselSlider from '../CarouselSlider';
+import CarouselSlider from '@/Components/CarouselSlider';
 import { useState } from 'react';
 
-import Modal from '../Modal';
+import Modal from '@/Components/Modal';
 
 // Modal Contents
-import Map from '../Map';
-import PublicProperty from '../PublicProperty';
+import Map from '@/Components/Map';
+import PublicProperty from '@/Components/PublicProperty';
 
 const StyledBadge = withStyles(theme => ({
   badge: {

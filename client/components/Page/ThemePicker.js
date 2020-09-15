@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -10,13 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import THEME_PICKER_CONFIG from '../../lib/configs/themePickerConfig';
-
-// const options = [
-//   'Create a merge commit',
-//   'Squash and merge',
-//   'Rebase and merge',
-// ];
+import THEME_PICKER_CONFIG from '@/Lib/configs/themePickerConfig';
 
 const options = THEME_PICKER_CONFIG.map((theme, idx) => theme.name);
 
@@ -108,6 +102,6 @@ const ThemePicker = ({ setTheme }) => {
 };
 
 ThemePicker.propTypes = {
-  setTheme: PropTypes.func.isRequired
-}
+  setTheme: PropTypes.func.isRequired,
+};
 export default ThemePicker;

@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import Modal from '../Modal/index';
-import PropertyDetails from '../PropertyDetails/index';
+import Modal from '@/Components/Modal/index';
+import PropertyDetails from '@/Components/PropertyDetails/index';
 import Router from 'next/router';
-import Loader from '../Loader/index';
-import PropertiesTable from '../Tables/PropertiesTable';
-import { OWNER_PROPERTIES_QUERY } from '../../graphql/queries';
+import Loader from '@/Components/Loader/index';
+import PropertiesTable from '@/Components/Tables/PropertiesTable';
+import { OWNER_PROPERTIES_QUERY } from '@/Gql/queries';
 import AddIcon from '@material-ui/icons/Add';
 import { Button } from '@material-ui/core';
 

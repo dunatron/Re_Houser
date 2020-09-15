@@ -1,32 +1,19 @@
-import PropTypes from "prop-types";
-import React, { Component } from 'react';
-import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { RENTAL_APPLICATIONS_QUERY } from '../../graphql/queries/index';
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/acceptRentalApplication';
-import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationCreatedSub';
-import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '../../graphql/subscriptions/RentalApplicationUpdatedSub';
-import PropertyPendingRentalApplicationsSub from '../SubscriptionComponents/PropertyPendingRentalApplicationsSub';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
-import ExpansionPanel from '../../styles/ExpansionPanel';
-import ExpansionPanelSummary from '../../styles/ExpansionPanelSummary';
+import ExpansionPanel from '@/Styles/ExpansionPanel';
+import ExpansionPanelSummary from '@/Styles/ExpansionPanelSummary';
 
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import DialogPopup from '../DialogPopup/index';
 // import Typography from "@material-ui/core/Typography"
-import Typography from '../../styles/Typography';
+import Typography from '@/Styles/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 //icons
 import PersonIcon from '@material-ui/icons/Person';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
-import StarIcon from '../../styles/icons/StarIcon';
-
-import ApplicantDetails from '../ApplicantDetails/index';
-import AcceptApplicationButton from '../MutationButtons/AcceptApplicationButton';
-import DenyApplicationButton from '../MutationButtons/DenyApplicationButton';
-import { Button } from '@material-ui/core';
+import ApplicantDetails from '@/Components/ApplicantDetails/index';
+import AcceptApplicationButton from '@/Components/MutationButtons/AcceptApplicationButton';
+import DenyApplicationButton from '@/Components/MutationButtons/DenyApplicationButton';
 
 const ApplicationCard = ({ application, property }) => {
   return (
@@ -72,15 +59,15 @@ ApplicationCard.propTypes = {
   application: PropTypes.shape({
     applicants: PropTypes.shape({
       length: PropTypes.any,
-      map: PropTypes.func
+      map: PropTypes.func,
     }),
     finalised: PropTypes.any,
     id: PropTypes.any,
     leaseId: PropTypes.any,
     stage: PropTypes.any,
-    visibility: PropTypes.any
+    visibility: PropTypes.any,
   }).isRequired,
-  property: PropTypes.any.isRequired
-}
+  property: PropTypes.any.isRequired,
+};
 
 export default ApplicationCard;

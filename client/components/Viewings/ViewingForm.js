@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { withStyles } from '@material-ui//core/styles';
 
-import EnumSelectOption from '../Inputs/EnumSelectOption';
-import DateInput from '../Inputs/DateInput';
-import BooleanInput from '../Inputs/Boolean';
-import NumberInput from '../Inputs/NumberInput';
-import Error from '../ErrorMessage';
-import Loader from '../Loader';
+import EnumSelectOption from '@/Components/Inputs/EnumSelectOption';
+import DateInput from '@/Components/Inputs/DateInput';
+import BooleanInput from '@/Components/Inputs/Boolean';
+import NumberInput from '@/Components/Inputs/NumberInput';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 // material
 import { Button, InputAdornment } from '@material-ui/core';
 import moment from 'moment';

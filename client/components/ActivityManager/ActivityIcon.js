@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -6,7 +6,6 @@ import { Avatar, Tooltip } from '@material-ui/core';
 // icons
 import PersonIcon from '@material-ui/icons/PersonOutline';
 import AccountCircleIcon from '@material-ui/icons/AccountCircleOutlined';
-import HomeIcon from '@material-ui/icons/HomeOutlined';
 import HouseIcon from '@material-ui/icons/HouseOutlined';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooksOutlined';
 import LibraryBooksAdd from '@material-ui/icons/LibraryAdd';
@@ -15,7 +14,6 @@ import LibraryBooksAddCheck from '@material-ui/icons/LibraryAddCheckOutlined';
 import {
   deepOrange,
   deepPurple,
-  blueGrey,
   lightGreen,
   lightBlue,
   red,
@@ -119,7 +117,7 @@ const ActivityIcon = ({ type }) => {
 };
 
 ActivityIcon.propTypes = {
-  type: PropTypes.any.isRequired
-}
+  type: PropTypes.any.isRequired,
+};
 
 export default ActivityIcon;

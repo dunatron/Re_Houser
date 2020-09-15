@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { useMutation, useSubscription } from '@apollo/client';
 import {
@@ -21,7 +21,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@material-ui/core';
-import RehouserPaper from '../../styles/RehouserPaper';
+import RehouserPaper from '@/Styles/RehouserPaper';
 
 import {
   endpoint,
@@ -32,14 +32,14 @@ import {
 
 // Paymnet method components
 import CardPaymentForm from './CardPaymentForm';
-import { WALLET_SUBSCRIPTION } from '../../graphql/subscriptions/WalletSubscription';
-import Loader from '../Loader';
+import { WALLET_SUBSCRIPTION } from '@/Gql/subscriptions/WalletSubscription';
+import Loader from '@/Components/Loader';
 import { toast } from 'react-toastify';
 import PaymentsTable from './PaymentsTable';
 import ChargesTable from './ChargesTable';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
-import Error from '../ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 
 const formatCentsToDollar = amount => {
   const dollarAmount = amount / 100;
@@ -270,14 +270,14 @@ const LeaseWallet = ({ lease, me }) => {
 
 LeaseWallet.propTypes = {
   lease: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   me: PropTypes.shape({
     email: PropTypes.any,
     firstName: PropTypes.any,
     lastName: PropTypes.any,
-    phone: PropTypes.any
-  }).isRequired
-}
+    phone: PropTypes.any,
+  }).isRequired,
+};
 
 export default LeaseWallet;

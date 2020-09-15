@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
 import { useQuery } from '@apollo/client';
-import { MY_LEASES_QUERY } from '../../graphql/queries/index';
-import Error from '../ErrorMessage';
-import Loader from '../Loader/index';
-import LeasesTable from '../Tables/LeasesTable';
+import { MY_LEASES_QUERY } from '@/Gql/queries/index';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader/index';
+import LeasesTable from '@/Components/Tables/LeasesTable';
 
 const LeasesList = () => {
   const { data, error, loading } = useQuery(MY_LEASES_QUERY);

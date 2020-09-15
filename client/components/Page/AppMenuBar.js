@@ -14,12 +14,12 @@ import clsx from 'clsx';
 
 import { useRouter } from 'next/router';
 import useStyles from './useStyles';
-import useCurrentScrollTop from '../../lib/hooks/useCurrentScrollTop';
+import useCurrentScrollTop from '@/Lib/hooks/useCurrentScrollTop';
 
-import { store } from '../../store';
+import { store } from '@/Store/index';
 
 //icons
-import DashboardIcon from '../../styles/icons/DashboardIcon';
+import DashboardIcon from '@/Styles/icons/DashboardIcon';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';

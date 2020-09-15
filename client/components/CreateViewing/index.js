@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
+import { CREATE_VIEWING_MUTATION } from '@/Gql/mutations';
 import { toast } from 'react-toastify';
 
-import EnumSelectOption from '../Inputs/EnumSelectOption';
-import DateInput from '../Inputs/DateInput';
-import Error from '../ErrorMessage';
-import Loader from '../Loader';
+import EnumSelectOption from '@/Components/Inputs/EnumSelectOption';
+import DateInput from '@/Components/Inputs/DateInput';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 // material
 import { Button, TextField } from '@material-ui/core';
 
@@ -103,9 +103,9 @@ const CreateViewing = ({ propertyId, me }) => {
 
 CreateViewing.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
-  propertyId: PropTypes.any.isRequired
-}
+  propertyId: PropTypes.any.isRequired,
+};
 
 export default CreateViewing;

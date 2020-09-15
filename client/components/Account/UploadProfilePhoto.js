@@ -1,16 +1,11 @@
-import PropTypes from "prop-types";
-import DragDropUploader from '../DragDropUploader/index';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import {
-  UPLOAD_PROFILE_PHOTO,
-  UPDATE_USER_MUTATION,
-} from '../../graphql/mutations';
+import { UPDATE_USER_MUTATION } from '@/Gql/mutations';
 
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
-import Image from 'material-ui-image';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 import { makeStyles } from '@material-ui/core/styles';
-import FileUploader from '../FileUploader';
+import FileUploader from '@/Components/FileUploader';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -89,9 +84,9 @@ UploadProfilePhoto.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
     profilePhoto: PropTypes.shape({
-      url: PropTypes.any
-    })
-  }).isRequired
-}
+      url: PropTypes.any,
+    }),
+  }).isRequired,
+};
 
 export default UploadProfilePhoto;

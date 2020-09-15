@@ -3,10 +3,10 @@ import React, { Component, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 
 import Button from '@material-ui/core/Button';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 import { toast } from 'react-toastify';
 import Router from 'next/router';
-import Modal from '../Modal/index';
+import Modal from '@/Components/Modal/index';
 import moment from 'moment';
 
 const handleLink = (route = '/', query = {}) => {

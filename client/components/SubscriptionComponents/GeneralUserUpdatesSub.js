@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useSubscription } from '@apollo/client';
-import { USER_SUBSCRIPTION } from '../../graphql/subscriptions/UserSubscription';
+import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
 
 const GeneralUserUpdatesSub = ({ me }) => {
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {

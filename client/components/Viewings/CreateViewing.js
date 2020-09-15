@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
-import { CREATE_VIEWING_MUTATION } from '../../graphql/mutations';
+import { CREATE_VIEWING_MUTATION } from '@/Gql/mutations';
 import ViewingForm from './ViewingForm';
 import { Button } from '@material-ui/core';
 
@@ -41,12 +41,7 @@ const CreateViewing = ({ propertyId, me, classes }) => {
     {
       onCompleted: handleCompleted,
       onError: handleError,
-      update(
-        cache,
-        {
-          data: { createViewing },
-        }
-      ) {
+      update(cache, { data: { createViewing } }) {
         cache.modify({
           fields: {
             viewings(existingViewingRefs = [], { readField }) {

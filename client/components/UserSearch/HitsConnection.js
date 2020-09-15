@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connectHits } from 'react-instantsearch-dom';
-import FriendRequestButton from '../MutationButtons/FriendRequestButton';
-import UserDetails from '../UserDetails';
+import FriendRequestButton from '@/Components/MutationButtons/FriendRequestButton';
+import UserDetails from '@/Components/UserDetails';
 
 import mePropTypes from '../../propTypes/mePropTypes';
 

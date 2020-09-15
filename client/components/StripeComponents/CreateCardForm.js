@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   CardElement,
@@ -8,9 +8,9 @@ import {
   injectStripe,
 } from 'react-stripe-elements';
 import { useMutation } from '@apollo/client';
-import { CREATE_CREDIT_CARD_MUTATION } from '../../graphql/mutations/createCreditCard';
-import { MY_CREDIT_CARDS_QUERY } from '../../graphql/queries/index';
-import ButtonLoader from '../Loader/ButtonLoader';
+import { CREATE_CREDIT_CARD_MUTATION } from '@/Gql/mutations/createCreditCard';
+import { MY_CREDIT_CARDS_QUERY } from '@/Gql/queries/index';
+import ButtonLoader from '@/Components/Loader/ButtonLoader';
 import { Button } from '@material-ui/core';
 
 const RenderError = ({ error }) => {
@@ -28,9 +28,9 @@ RenderError.propTypes = {
   error: PropTypes.shape({
     code: PropTypes.any,
     message: PropTypes.any,
-    type: PropTypes.any
-  }).isRequired
-}
+    type: PropTypes.any,
+  }).isRequired,
+};
 
 const CreditCardForm = props => {
   const cardNumberRef = useRef(null);
@@ -153,11 +153,11 @@ const CreditCardForm = props => {
 
 CreditCardForm.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   stripe: PropTypes.shape({
-    createToken: PropTypes.func
-  }).isRequired
-}
+    createToken: PropTypes.func,
+  }).isRequired,
+};
 
 export default injectStripe(CreditCardForm);

@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,9 +6,9 @@ import { Typography, Paper, Grid, Divider, Button } from '@material-ui/core';
 import moment from 'moment';
 import { isEmpty } from 'ramda';
 import UpdateField from './UpdateField';
-import { UPDATE_PROPERTY_LEASE_MUTATION } from '../../graphql/mutations';
-import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
-import Error from '../ErrorMessage';
+import { UPDATE_PROPERTY_LEASE_MUTATION } from '@/Gql/mutations';
+import { SINGLE_LEASE_QUERY } from '@/Gql/queries';
+import Error from '@/Components/ErrorMessage';
 
 const useStyles = makeStyles(theme => ({
   container: {},
@@ -263,7 +263,7 @@ const LeaseDetails = ({ lease }) => {
 };
 
 LeaseDetails.propTypes = {
-  lease: PropTypes.any.isRequired
-}
+  lease: PropTypes.any.isRequired,
+};
 
 export default LeaseDetails;

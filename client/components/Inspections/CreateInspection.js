@@ -1,7 +1,6 @@
 import FormCreator from '../Forms/FormCreator';
 import { useMutation, gql } from '@apollo/client';
-import { CREATE_INSPECTION_FORM_CONF } from '../../lib/configs/forms/createInspection';
-import Error from '../ErrorMessage';
+import { CREATE_INSPECTION_FORM_CONF } from '@/Lib/configs/forms/createInspection';
 
 export const CREATE_INSPECTION_MUTATION = gql`
   mutation CREATE_INSPECTION_MUTATION($data: InspectionCreateInput!) {

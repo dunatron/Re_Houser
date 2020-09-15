@@ -1,7 +1,5 @@
-import PropTypes from "prop-types";
-import React, { Component } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import SetPrimaryCreditCardButton from '../MutationButtons/SetPrimaryCreditCardButton';
+import PropTypes from 'prop-types';
+import SetPrimaryCreditCardButton from '@/Components/MutationButtons/SetPrimaryCreditCardButton';
 
 import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
@@ -63,9 +61,9 @@ CreditCardItem.propTypes = {
     id: PropTypes.any,
     last4: PropTypes.any,
     name: PropTypes.any,
-    type: PropTypes.any
+    type: PropTypes.any,
   }).isRequired,
-  isPrimary: PropTypes.any.isRequired
-}
+  isPrimary: PropTypes.any.isRequired,
+};
 
 export default CreditCardItem;

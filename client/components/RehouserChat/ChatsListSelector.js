@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
-import ChatsListScreen from '../ChatsListScreen';
+import ChatsListScreen from '@/Components/ChatsListScreen';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Paper, IconButton, Card, CardHeader } from '@material-ui/core';
-import FriendManager from '../FriendManager';
+import FriendManager from '@/Components/FriendManager';
 import ChatIcon from '@material-ui/icons/Chat';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import CloseIcon from '@material-ui/icons/Close';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 import ChatsList from './ChatsList';
 
 const useStyles = makeStyles(theme => ({
@@ -77,7 +77,7 @@ const ChatsListSelector = ({ me }) => {
 };
 
 ChatsListSelector.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default ChatsListSelector;

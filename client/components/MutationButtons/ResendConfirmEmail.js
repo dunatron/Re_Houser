@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import Error from '../ErrorMessage/index';
-import { RESEND_CONFIRM_EMAIL_MUTATION } from '../../graphql/mutations/index';
+import Error from '@/Components/ErrorMessage/index';
+import { RESEND_CONFIRM_EMAIL_MUTATION } from '@/Gql/mutations/index';
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import { useCurrentUser } from '../User';
+import { useCurrentUser } from '@/Components/User';
 
 const useStyles = makeStyles(theme => ({
   buttonSuccess: {

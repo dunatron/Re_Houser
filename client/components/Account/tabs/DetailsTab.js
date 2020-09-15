@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Typography, TextField } from '@material-ui/core';
 
 // components
@@ -6,9 +6,9 @@ import CompletionRating from '../CompletionRating';
 import UserProfile from '../../UserProfile';
 import UserDetails from '../UserDetails';
 import LandLordDetails from '../LandLordDetails';
-import Signature from '../../Signature';
+import Signature from '@/Components/Signature';
 
-import RehouserPaper from '../../../styles/RehouserPaper';
+import RehouserPaper from '@/Styles/RehouserPaper';
 
 const DetailsTab = ({ me }) => {
   return (
@@ -51,7 +51,7 @@ const DetailsTab = ({ me }) => {
 };
 
 DetailsTab.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default DetailsTab;

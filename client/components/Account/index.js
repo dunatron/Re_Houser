@@ -1,22 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/client';
 
 // gql queries/mutations
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
 // material-ui
 import { AppBar, Tabs, Tab } from '@material-ui/core';
 
 // Icons
-import DetailsIcon from '../../styles/icons/DetailsIcon';
+import DetailsIcon from '@/Styles/icons/DetailsIcon';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 // components
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
 
 import TabContainer from './TabContainer';
 // Tabs

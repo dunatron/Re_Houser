@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/client';
-import Error from '../ErrorMessage';
+import Error from '@/Components/ErrorMessage';
 import { Button, IconButton } from '@material-ui/core';
 import { toast } from 'react-toastify';
 
@@ -93,7 +93,7 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
 
 FriendRequestButton.propTypes = {
   me: PropTypes.any.isRequired,
-  requestFriendId: PropTypes.any.isRequired
-}
+  requestFriendId: PropTypes.any.isRequired,
+};
 
 export default FriendRequestButton;

@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { useCurrentUser } from '../User/index';
-import Loader from '../Loader';
-import Error from '../ErrorMessage';
-import { SINGLE_LEASE_QUERY } from '../../graphql/queries';
+import { useCurrentUser } from '@/Components/User/index';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
+import { SINGLE_LEASE_QUERY } from '@/Gql/queries';
 import LeaseChat from './LeaseChat';
 
 // stages
@@ -12,7 +12,7 @@ import StageInitializing from './stages/Stage_Initializing';
 import StageSigned from './stages/Stage_Signed';
 import StagePaid from './stages/Stage_Paid';
 import { Typography } from '@material-ui/core';
-import { PROPERTY_LEASE_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyLeaseSub';
+import { PROPERTY_LEASE_SUBSCRIPTION } from '@/Gql/subscriptions/PropertyLeaseSub';
 
 const LeaseManager = ({ leaseId }) => {
   const user = useCurrentUser();
@@ -121,7 +121,7 @@ const LeaseManager = ({ leaseId }) => {
 };
 
 LeaseManager.propTypes = {
-  leaseId: PropTypes.any.isRequired
-}
+  leaseId: PropTypes.any.isRequired,
+};
 
 export default LeaseManager;

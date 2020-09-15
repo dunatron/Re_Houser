@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import ForceReloadButton from '../ForceReloadButton.js';
-import RefreshIcon from '../../styles/icons/RefreshIcon';
+import RefreshIcon from '@/Styles/icons/RefreshIcon';
 
 const StripeClientSideWrapper = props => {
   const { stripe, clear } = props;
@@ -29,7 +29,7 @@ const StripeClientSideWrapper = props => {
 StripeClientSideWrapper.propTypes = {
   children: PropTypes.any.isRequired,
   clear: PropTypes.any.isRequired,
-  stripe: PropTypes.any.isRequired
-}
+  stripe: PropTypes.any.isRequired,
+};
 
 export default injectStripe(StripeClientSideWrapper);

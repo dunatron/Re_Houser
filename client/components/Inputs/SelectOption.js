@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui//core/styles';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
@@ -80,17 +80,17 @@ const SelectOption = props => {
 SelectOption.propTypes = {
   classes: PropTypes.shape({
     formControl: PropTypes.any,
-    selectEmpty: PropTypes.any
+    selectEmpty: PropTypes.any,
   }).isRequired,
   handleChange: PropTypes.any.isRequired,
   helperText: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
   name: PropTypes.any.isRequired,
   options: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   selectID: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-}
+  value: PropTypes.any.isRequired,
+};
 
 export default withStyles(styles)(SelectOption);

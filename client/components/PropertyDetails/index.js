@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { useQuery, useMutation } from '@apollo/client';
-import { SINGLE_OWNER_PROPERTY_QUERY } from '../../graphql/queries/index';
-import Error from '../ErrorMessage/index';
+import { SINGLE_OWNER_PROPERTY_QUERY } from '@/Gql/queries/index';
+import Error from '@/Components/ErrorMessage/index';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { Tabs, Tab } from '@material-ui/core';
@@ -18,15 +18,15 @@ import Inspections from './Inspections';
 import AssociatedFiles from './AssociatedFiles';
 import ShareProperty from './Share';
 // import Badge from "@material-ui/core/Badge"
-import Badge from '../../styles/Badge';
+import Badge from '@/Styles/Badge';
 import Typography from '@material-ui/core/Typography';
 // constants
-import { SITE_NAME } from '../../lib/const';
+import { SITE_NAME } from '@/Lib/const';
 import { toast } from 'react-toastify';
-import Loader from '../Loader/index';
-import PageHeader from '../PageHeader';
-import TabContainer from '../Account/TabContainer';
-import InspectionsTable from '../Tables/InspectionsTable';
+import Loader from '@/Components/Loader/index';
+import PageHeader from '@/Components/PageHeader';
+import TabContainer from '@/Components/Account/TabContainer';
+import InspectionsTable from '@/Components/Tables/InspectionsTable';
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -89,9 +89,9 @@ const PropertyApplicationsBadgeCount = ({ property }) => {
 
 PropertyApplicationsBadgeCount.propTypes = {
   property: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 const PropertyCard = styled.div`
   max-width: 1200px;
@@ -224,7 +224,7 @@ const PropertyDetails = ({ id, location, me }) => {
 PropertyDetails.propTypes = {
   id: PropTypes.any.isRequired,
   location: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default PropertyDetails;

@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Paper } from '@material-ui/core';
 
-import { Portal } from '../Portal/index';
+import { Portal } from '@/Components/Portal/index';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -171,7 +171,7 @@ Modal.propTypes = {
   id: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  width: PropTypes.any.isRequired
+  width: PropTypes.any.isRequired,
 };
 
 export default Modal;

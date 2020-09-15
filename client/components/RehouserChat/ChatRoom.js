@@ -1,86 +1,20 @@
-// import { useQuery } from '@apollo/client';
-// import { CHAT_QUERY } from '../../graphql/queries';
-
-// import Loader from '../Loader';
-// import RChat from '../RChat';
-
-// const ChatRoom = ({ chat }) => {
-//   console.log('The chat => ', chat);
-//   return (
-//     <div>
-//       <RChat />
-//     </div>
-//   );
-// };
-
-// /**
-//  *
-//  * @param {*} props
-//  */
-// const ChatRoomScreenConnection = props => {
-//   const { chatId } = props;
-//   const { data, loading, error } = useQuery(CHAT_QUERY, {
-//     variables: {
-//       where: {
-//         id: chatId,
-//       },
-//     },
-//   });
-
-//   console.log('ChatRoomScreenConnection data => ', data);
-//   if (loading) return <Loader loading={loading} />;
-//   if (error) return <Error error={error} />;
-//   // ToDo create a pagination provider for this
-//   return <ChatRoom {...props} chat={data.chat} />;
-// };
-
-// export default ChatRoomScreenConnection;
-
-// /**
-//  * Think about how this should actually work. i.e a really nice architecture for all of this\
-//  * - when chat bar is closed
-//  */
-
-import PropTypes from "prop-types";
-import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useEffect } from 'react';
-import {
-  useQuery,
-  useMutation,
-  useApolloClient,
-  useSubscription,
-} from '@apollo/client';
+import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 import styled from 'styled-components';
-// import ChatNavbar from './ChatNavBar';
-// import MessageInput from './MessageInput';
-// import MessagesList from './MessagesList';
-import Error from '../ErrorMessage';
-import Loader from '../Loader';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 import { writeMessage } from '../../services/cache.service';
-import {
-  CHAT_QUERY,
-  MESSAGES_QUERY,
-  MESSAGES_CONNECTION_QUERY,
-} from '../../graphql/queries/index';
-import { CREATE_MESSAGE_MUTATION } from '../../graphql/mutations/index';
+import { CHAT_QUERY, MESSAGES_CONNECTION_QUERY } from '@/Gql/queries/index';
+import { CREATE_MESSAGE_MUTATION } from '@/Gql/mutations/index';
 import {
   MESSAGES_CONNECTION_ORDER_BY,
   MESSAGES_CONNECTION_FIRST,
   MESSAGES_CONNECTION_SKIP,
-} from '../../lib/const';
+} from '@/Lib/const';
 
-import RChat from '../RChat';
-
-const Container = styled.div`
-  background: url(/assets/chat-background.jpg);
-  display: flex;
-  // border-top: 1px solid red;
-  border-top: ${props => `1px solid ${props.theme.palette.primary.main}`};
-  // width: 280px;
-  max-height: 300px;
-  flex-flow: column;
-`;
+import RChat from '@/Components/RChat';
 
 const ChatRoomScreen = ({ me, chat, chatId }) => {
   const client = useApolloClient();
@@ -197,9 +131,9 @@ ChatRoomScreen.propTypes = {
   chat: PropTypes.any.isRequired,
   chatId: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 const ChatRoomScreenConnection = props => {
   const { chatId } = props;
@@ -217,7 +151,7 @@ const ChatRoomScreenConnection = props => {
 };
 
 ChatRoomScreenConnection.propTypes = {
-  chatId: PropTypes.any.isRequired
-}
+  chatId: PropTypes.any.isRequired,
+};
 
 export default ChatRoomScreenConnection;

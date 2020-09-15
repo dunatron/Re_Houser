@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { connectSortBy } from 'react-instantsearch-dom';
 
-import SelectOption from '../../Inputs/SelectOption';
+import SelectOption from '@/Components/Inputs/SelectOption';
 
 const MaterialUiSortBy = props => (
   <SelectOption
@@ -20,10 +20,10 @@ const MaterialUiSortBy = props => (
 MaterialUiSortBy.propTypes = {
   currentRefinement: PropTypes.any.isRequired,
   items: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  refine: PropTypes.func.isRequired
-}
+  refine: PropTypes.func.isRequired,
+};
 
 const ConnectedSortBy = connectSortBy(MaterialUiSortBy);
 

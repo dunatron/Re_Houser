@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Fragment, useContext, useEffect } from 'react';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 
 // icons
-import PersonIcon from '../../styles/icons/PersonIcon';
-import DashboardIcon from '../../styles/icons/DashboardIcon';
-import LocationSearchingIcon from '../../styles/icons/LocationSearchingIcon';
-import AccountCircleIcon from '../../styles/icons/AccountCircleIcon';
+import PersonIcon from '@/Styles/icons/PersonIcon';
+import DashboardIcon from '@/Styles/icons/DashboardIcon';
+import LocationSearchingIcon from '@/Styles/icons/LocationSearchingIcon';
+import AccountCircleIcon from '@/Styles/icons/AccountCircleIcon';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import HouseIcon from '@material-ui/icons/House';
 import AssignmentIcon from '@material-ui/icons/Assignment';
@@ -15,8 +15,8 @@ import DonutSmallIcon from '@material-ui/icons/DonutSmall';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 
-import { useCurrentUser } from '../User';
-import { CURRENT_USER_QUERY } from '../User/index';
+import { useCurrentUser } from '@/Components/User';
+import { CURRENT_USER_QUERY } from '@/Components/User/index';
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 
@@ -174,8 +174,8 @@ const NavigationConfig = (me, loadingUser, pathname) => {
 NavigationConfig.propTypes = {
   friendRequests: PropTypes.any.isRequired,
   permissions: PropTypes.shape({
-    includes: PropTypes.func
-  }).isRequired
-}
+    includes: PropTypes.func,
+  }).isRequired,
+};
 
 export default NavigationConfig;

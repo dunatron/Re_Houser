@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import { OPEN_CHAT_LOCAL_MUTATION } from '../../lib/store/resolvers';
-import { MESSAGE_CREATED_SUBSCRIPTION } from '../../graphql/subscriptions/MessageCreatedSub';
+import { OPEN_CHAT_LOCAL_MUTATION } from '@/Lib/store/resolvers';
+import { MESSAGE_CREATED_SUBSCRIPTION } from '@/Gql/subscriptions/MessageCreatedSub';
 import { writeMessage } from '../../services/cache.service';
 import { toast } from 'react-toastify';
 import gql from 'graphql-tag';
-import { store } from '../../store';
+import { store } from '@/Store/index';
 
 const MessageCreatedSub = ({ me }) => {
   const { state, dispatch } = useContext(store);

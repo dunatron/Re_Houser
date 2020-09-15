@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import StarIcon from '../../styles/icons/StarIcon';
-import StarBorderIcon from '../../styles/icons/StarBorderIcon';
-import StarHalfIcon from '../../styles/icons/StarHalfIcon';
+import StarIcon from '@/Styles/icons/StarIcon';
+import StarBorderIcon from '@/Styles/icons/StarBorderIcon';
+import StarHalfIcon from '@/Styles/icons/StarHalfIcon';
 
 export default class StarRating extends Component {
   render() {
@@ -55,5 +55,5 @@ export default class StarRating extends Component {
 }
 
 StarRating.propTypes = {
-  percentage: PropTypes.number.isRequired
-}
+  percentage: PropTypes.number.isRequired,
+};

@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { useQuery } from '@apollo/client';
 import { Mutation } from 'react-apollo';
 import { useMutation, useApolloClient } from '@apollo/client';
 import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from '../User/index';
-import NavButton from '../../styles/NavButton';
-import Error from '../ErrorMessage/index';
+import { CURRENT_USER_QUERY } from '@/Components/User/index';
+import NavButton from '@/Styles/NavButton';
+import Error from '@/Components/ErrorMessage/index';
 import { toast } from 'react-toastify';
 
 const SIGN_OUT_MUTATION = gql`
@@ -59,6 +59,6 @@ Signout.propTypes = {
   fullWidth: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
   me: PropTypes.any.isRequired,
-  variant: PropTypes.any.isRequired
-}
+  variant: PropTypes.any.isRequired,
+};
 export default Signout;

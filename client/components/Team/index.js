@@ -1,4 +1,4 @@
-import TEAM_CONFIG from '../../lib/configs/teamConfig';
+import TEAM_CONFIG from '@/Lib/configs/teamConfig';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import { useRouter } from 'next/router';

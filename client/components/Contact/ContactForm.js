@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import FormCreator from '../Forms/FormCreator';
-import CONTACT_FORM_CONF from '../../lib/configs/contactFormConf';
+import FormCreator from '@/Components/Forms/FormCreator';
+import CONTACT_FORM_CONF from '@/Lib/configs/contactFormConf';
 import PhoneIcon from '@material-ui/icons/Phone';
 import EmailIcon from '@material-ui/icons/Email';
 import { Typography, Button } from '@material-ui/core';
 import { CEO_DETAILS } from '../../config';
 import { useMutation } from '@apollo/client';
-import { CREATE_CONTACT_FORM_MUTATION } from '../../graphql/mutations';
-import Error from '../ErrorMessage';
-import Loading from '../Loader';
+import { CREATE_CONTACT_FORM_MUTATION } from '@/Gql/mutations';
 import { toast } from 'react-toastify';
 
 const ContactForm = () => {

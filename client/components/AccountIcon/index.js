@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Signout from '../Signout/index';
-import Avatar from '@material-ui/core/Avatar';
+import Signout from '@/Components/Signout/index';
 import Fab from '@material-ui/core/Fab';
 
 const AccountIcon = ({ me, sendRoute }) => {
@@ -48,8 +46,8 @@ const AccountIcon = ({ me, sendRoute }) => {
 
 AccountIcon.propTypes = {
   me: PropTypes.any.isRequired,
-  sendRoute: PropTypes.func.isRequired
-}
+  sendRoute: PropTypes.func.isRequired,
+};
 
 const RenderProfileFabContent = ({ me }) => {
   const firstName = me.firstName ? me.firstName.charAt(0) : '';

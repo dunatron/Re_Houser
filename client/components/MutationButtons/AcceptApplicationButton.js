@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import Error from '../ErrorMessage/index';
+import Error from '@/Components/ErrorMessage/index';
 import { toast } from 'react-toastify';
-import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '../../graphql/mutations/index';
+import { ACCEPT_RENTAL_APPLICATION_MUTATION } from '@/Gql/mutations/index';
 
 import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import ChangeRouteButton from '../Routes/ChangeRouteButton';
+import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 
 const useStyles = makeStyles(theme => ({
   buttonSuccess: {

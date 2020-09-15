@@ -1,9 +1,9 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import OpenSuperLoginButton from '../SuperLogin/OpenSuperLoginButton';
+import OpenSuperLoginButton from '@/Components/SuperLogin/OpenSuperLoginButton';
 import { toast } from 'react-toastify';
-import Error from '../ErrorMessage';
-import Loader from '../Loader/index';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader/index';
 import Typography from '@material-ui/core/Typography';
 
 const Message = ({ message, alert }) => {
@@ -18,8 +18,8 @@ const Message = ({ message, alert }) => {
 
 Message.propTypes = {
   alert: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired
-}
+  message: PropTypes.any.isRequired,
+};
 
 /**
  * The WithUser is giving every page it's me variable
@@ -56,7 +56,7 @@ PleaseSignIn.propTypes = {
   alert: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
   currentUser: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired
-}
+  message: PropTypes.any.isRequired,
+};
 
 export default PleaseSignIn;

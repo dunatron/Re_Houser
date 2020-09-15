@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Suspense } from 'react';
 import { useQuery } from '@apollo/client';
-import SearchAndRequestFriend from './SearchAndRequestFriend';
 import PendingFriendRequests from './PendingFriendRequests';
 import FriendsList from './FriendsList';
-import { CURRENT_USER_QUERY } from '../../graphql/queries/index';
-import UserSearch from '../UserSearch';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
+import UserSearch from '@/Components/UserSearch';
 
 const FriendManager = props => {
   const { me } = props;
@@ -15,16 +14,14 @@ const FriendManager = props => {
       <PendingFriendRequests me={me} />
       <h4>Search for users and add as friends</h4>
       <UserSearch me={me} />
-      {/* <SearchAndRequestFriend me={me} /> */}
-
       <FriendsList me={me} />
     </div>
   );
 };
 
 FriendManager.propTypes = {
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 const FriendManagerWithSuspense = () => {
   const { data, error, loading } = useQuery(CURRENT_USER_QUERY, {

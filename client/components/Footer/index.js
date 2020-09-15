@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { Like, MessageUs } from 'react-facebook';
 import { Paper } from '@material-ui/core';
 
@@ -7,8 +7,8 @@ const ItemWrapper = ({ children }) => (
 );
 
 ItemWrapper.propTypes = {
-  children: PropTypes.any.isRequired
-}
+  children: PropTypes.any.isRequired,
+};
 
 // will need to take into account the layout when snapped
 const Footer = () => {
@@ -31,9 +31,6 @@ const Footer = () => {
           href="http://www.facebook.com/rehousernz"
           pageId="115899600192696"
           messengerAppId="115899600192696"
-          // messengerAppId="1188617168164715"
-          // pageId="1188617168164715"
-          // href="http://www.facebook.com/rehousernz"
         />
       </ItemWrapper>
       <ItemWrapper>

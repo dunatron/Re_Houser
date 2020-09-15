@@ -1,9 +1,7 @@
-import PropTypes from "prop-types";
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
-import NavButton from '../../styles/NavButton';
+import NavButton from '@/Styles/NavButton';
 import { DashBoardStyles, BoardItemStyles } from './styles';
-import { SITE_NAME } from '../../lib/const';
 import { Typography } from '@material-ui/core';
 import { Reveal, Tween } from 'react-gsap';
 
@@ -65,12 +63,12 @@ const Dashboard = ({ heading, intro, config, elevation, me }) => {
 
 Dashboard.propTypes = {
   config: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   elevation: PropTypes.any.isRequired,
   heading: PropTypes.any.isRequired,
   intro: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
-}
+  me: PropTypes.any.isRequired,
+};
 
 export default Dashboard;

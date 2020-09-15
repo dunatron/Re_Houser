@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, Tooltip, Typography } from '@material-ui/core';
-import Modal from '../Modal';
+import Modal from '@/Components/Modal';
 
 import PropTypes from 'prop-types';
 import { mePropTypes, filePropTypes } from '../../propTypes';

@@ -1,12 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { SINGLE_RENTAL_APPLICATION_QUERY } from '../../graphql/queries';
-import Error from '../ErrorMessage';
+import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries';
+import Error from '@/Components/ErrorMessage';
 import { Paper, Typography } from '@material-ui/core';
 import OwnerView from './views/OwnerView';
 import ApplicantView from './views/ApplicantView';
-import PageHeader from '../../components/PageHeader';
+import PageHeader from '@/Components/PageHeader';
+
 /**
  * page is wrapped in a must be loggedIn
  */
@@ -60,8 +61,8 @@ const RentalApplication = ({ id, me }) => {
 RentalApplication.propTypes = {
   id: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
-}
+    id: PropTypes.any,
+  }).isRequired,
+};
 
 export default RentalApplication;

@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
-import InspectionsTable from '../Tables/InspectionsTable';
-import CreateInspection from '../Inspections/CreateInspection';
+import PropTypes from 'prop-types';
+import InspectionsTable from '@/Components/Tables/InspectionsTable';
+import CreateInspection from '@/Components/Inspections/CreateInspection';
 
 const InspectionsTab = ({ property, me }) => {
   return (
@@ -14,7 +14,7 @@ const InspectionsTab = ({ property, me }) => {
 
 InspectionsTab.propTypes = {
   me: PropTypes.any.isRequired,
-  property: PropTypes.any.isRequired
-}
+  property: PropTypes.any.isRequired,
+};
 
 export default InspectionsTab;
