@@ -10,6 +10,7 @@ import Footer from '@/Components/Footer';
 import LoginModal from './LoginModal';
 import AppDrawer from './AppDrawer';
 import { store } from '@/Store/index';
+import Announcements from './Announcements';
 
 /**
  *
@@ -73,7 +74,16 @@ function MaterialPage(props) {
 
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
-          {children}
+          {/* <Announcements /> */}
+          {/* {children} */}
+          {/* Let me show you how to burn for eternity */}
+          {/* My best days, are stress days */}
+          {/* Whatever it is, know its my next grave */}
+          {/* The truth will set you free, so to me, be completly honest */}
+          <div>
+            <Announcements bannerRoutes={['/']} />
+            {children}
+          </div>
           <Footer />
         </main>
         {me && <ChatsBar me={me} />}
@@ -86,7 +96,7 @@ function MaterialPage(props) {
 MaterialPage.propTypes = {
   appData: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
-  container: PropTypes.any.isRequired
+  container: PropTypes.any.isRequired,
 };
 
 export default MaterialPage;

@@ -43,7 +43,7 @@ function HideOnScroll(props) {
 
 HideOnScroll.propTypes = {
   children: PropTypes.any.isRequired,
-  window: PropTypes.func.isRequired
+  window: PropTypes.func.isRequired,
 };
 
 const AppMenuBar = props => {
@@ -173,7 +173,7 @@ const AppMenuBar = props => {
 
 AppMenuBar.propTypes = {
   appData: PropTypes.any.isRequired,
-  container: PropTypes.any.isRequired
+  container: PropTypes.any.isRequired,
 };
 
 export default AppMenuBar;

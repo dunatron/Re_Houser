@@ -10,6 +10,15 @@ const CustomToastContainer = () => {
       style={{
         minWidth: '280px',
       }}
+      position="top-right"
+      autoClose={10000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
       closeButton={
         <div>
           <IconButton color={'primary'} aria-label="Delete">

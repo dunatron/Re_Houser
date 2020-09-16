@@ -40,6 +40,19 @@ const EXAMPLES_CONF = [
     label: 'Pdf Examples',
     component: <ExamplePdfExamples />,
   },
+  {
+    label: 'Toast/Notifiction',
+    component: (
+      <div>
+        <a
+          target="_blank"
+          href="https://fkhadra.github.io/react-toastify/introduction/?fbclid=IwAR0oopCjlLHWyUVYdYy7XFu6Lk9qKdCaW_3HFtYQP-hY9Yz--GxNb_ut1_w">
+          Just CLICK ME, a demo speaks a thousand words. Let me know what conf
+          you guys think
+        </a>
+      </div>
+    ),
+  },
 ];
 
 const ExpansionExampleItem = ({ item }) => {

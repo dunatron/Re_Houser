@@ -3,7 +3,7 @@ import OwnerProperties from '@/Components/OwnerProperties/index';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import ConfirmEmail from '@/Components/ConfirmEmail';
 import PageHeader from '@/Components/PageHeader';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
 import LANDLORD_DASHBOARD_CONFIG from '@/Lib/configs/landlordDashboardConfig';
 
@@ -60,9 +60,14 @@ const LandlordPage = ({ appData: { currentUser } }) => {
         currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
-          <Typography component="p" gutterBottom color="inherit">
-            <Typography component="strong">{pleaseSignInMessage}</Typography>
-          </Typography>
+          <Box>
+            <Typography component="p" variant="h6" gutterBottom color="inherit">
+              Alert!
+            </Typography>
+            <Typography component="strong" color="inherit" gutterBottom>
+              {pleaseSignInMessage}
+            </Typography>
+          </Box>
         }>
         <ConfirmEmail me={me}></ConfirmEmail>
       </PleaseSignIn>
