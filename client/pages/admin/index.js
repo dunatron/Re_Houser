@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { store } from '@/Store';
+import { store } from '@/Store/index';
 
 import Dashboard from '@/Components/Dashboard';
 import PageHeader from '@/Components/PageHeader';

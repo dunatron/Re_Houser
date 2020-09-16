@@ -1,18 +1,25 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { FormCreator } from '@/Components/Forms';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { SINGLE_RENTAL_APPRAISAL_QUERY } from '@/Gql/queries/index';
+import { UPDATE_RENTAL_APPRAISAL_MUTATION } from '@/Gql/mutations/index';
 import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import CREATE_PROPERTY_FORM_CONF from '@/Lib/configs/createPropertyForm';
 import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 import SuccessPaper from '@/Components/SuccessPaper';
 import CheckAndSubmit from './CheckAndSubmit';
 import Modal from '@/Components/Modal';
 import AcceptTermsOfEngagementForm from '@/Components/Forms/AcceptTermsOfEngagementForm';
+import AssociatedAppraisal from './AssociatedAppraisal';
+
+const LoadingAppraisal = () => (
+  <Loader loading={true} text="Loading in Appraisal" />
+);
 
 const CreatePropertyComponent = props => {
   const router = useRouter();
@@ -47,17 +54,46 @@ const CreatePropertyComponent = props => {
 
   useEffect(() => {
     if (data && data.rentalAppraisal && !loading) {
-      setDefaultFormData({ ...defaultFormData, ...data.rentalAppraisal });
+      if (data.rentalAppraisal.hasBeenUsed) {
+        toast.info(
+          <Box>
+            <Typography variant="h6" color="inherit" gutterBottom>
+              Alert!
+            </Typography>
+            <Typography color="inherit" gutterBottom>
+              Appraisal has been used to create a property already and will not
+              be used
+            </Typography>
+          </Box>
+        );
+      } else {
+        setDefaultFormData({ ...defaultFormData, ...data.rentalAppraisal });
+      }
       setWaitForLazy(false);
     }
   }, [data, loading]);
+
+  // Will watch for changes to me, and fill the form
+  useEffect(() => {
+    setDefaultFormData({
+      ...defaultFormData,
+      bankDetails: me.bankDetails,
+    });
+    return () => {
+      console.log('Create Property dismounted');
+    };
+  }, [me.bankDetails]);
+
+  const [updateAppraisal, updateAppraisalProps] = useMutation(
+    UPDATE_RENTAL_APPRAISAL_MUTATION
+  );
 
   const handlePropertyCreated = data => {
     setCreatedData(data);
     setCreatedPropertyId(data.createProperty.id);
     setIsChecking(false);
     toast.success(
-      <div>
+      <Box component="div">
         <Typography gutterBottom variant="h6">
           New Property Created
         </Typography>
@@ -66,8 +102,22 @@ const CreatePropertyComponent = props => {
           route="/landlord/properties/property"
           query={{ id: data.createProperty.id }}
         />
-      </div>
+      </Box>
     );
+
+    if (router.query.appraisalId) {
+      updateAppraisal({
+        variables: {
+          where: {
+            id: router.query.appraisalId,
+          },
+          data: {
+            hasBeenUsed: true,
+          },
+        },
+      });
+    }
+
     // Check if we had had an appraisalId attached. If we did.
     // remove the query from the url bar
     // send a mutation to update the rentalAppraisal field hasBeenUsed.
@@ -134,6 +184,11 @@ const CreatePropertyComponent = props => {
         },
       },
     });
+    return <LoadingAppraisal />;
+  }
+
+  if ((!called && router.query.appraisalId) || loading) {
+    return <LoadingAppraisal />;
   }
 
   return (
@@ -165,6 +220,9 @@ const CreatePropertyComponent = props => {
             <Typography gutterBottom variant="h6">
               Loading in the appraisal data first
             </Typography>
+          )}
+          {data.rentalAppraisal && (
+            <AssociatedAppraisal id={router.query.appraisalId} />
           )}
           <Error error={error} />
           {!waitForLazy && (

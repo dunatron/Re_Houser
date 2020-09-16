@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Sep 07 2020 13:51:11 GMT+1200 (New Zealand Standard Time)
+# timestamp: Wed Sep 16 2020 11:03:40 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -22458,6 +22458,7 @@ type RentalAppraisal implements Node {
   rentValueAccepted: Boolean
   acceptTerms: Boolean
   property: Property
+  hasBeenUsed: Boolean!
 }
 
 """A connection to a list of items."""
@@ -22486,6 +22487,7 @@ input RentalAppraisalCreateInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean!
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
   property: PropertyCreateOneWithoutAppraisalsInput
@@ -22513,6 +22515,7 @@ input RentalAppraisalCreateWithoutPropertyInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean!
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
 }
@@ -22529,6 +22532,7 @@ input RentalAppraisalCreateWithoutRequestedByInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean!
   heatSources: RentalAppraisalCreateheatSourcesInput
   property: PropertyCreateOneWithoutAppraisalsInput
 }
@@ -22569,6 +22573,8 @@ enum RentalAppraisalOrderByInput {
   rentValueAccepted_DESC
   acceptTerms_ASC
   acceptTerms_DESC
+  hasBeenUsed_ASC
+  hasBeenUsed_DESC
 }
 
 type RentalAppraisalPreviousValues {
@@ -22586,6 +22592,7 @@ type RentalAppraisalPreviousValues {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean!
 }
 
 input RentalAppraisalScalarWhereInput {
@@ -22901,6 +22908,10 @@ input RentalAppraisalScalarWhereInput {
 
   """All values that are not equal to given value."""
   acceptTerms_not: Boolean
+  hasBeenUsed: Boolean
+
+  """All values that are not equal to given value."""
+  hasBeenUsed_not: Boolean
 }
 
 type RentalAppraisalSubscriptionPayload {
@@ -22955,6 +22966,7 @@ input RentalAppraisalUpdateInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
   property: PropertyUpdateOneWithoutAppraisalsInput
@@ -22971,6 +22983,7 @@ input RentalAppraisalUpdateManyDataInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
 }
 
@@ -22985,6 +22998,7 @@ input RentalAppraisalUpdateManyMutationInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
 }
 
@@ -23028,6 +23042,7 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
 }
@@ -23043,6 +23058,7 @@ input RentalAppraisalUpdateWithoutRequestedByDataInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
   property: PropertyUpdateOneWithoutAppraisalsInput
 }
@@ -23382,6 +23398,10 @@ input RentalAppraisalWhereInput {
 
   """All values that are not equal to given value."""
   acceptTerms_not: Boolean
+  hasBeenUsed: Boolean
+
+  """All values that are not equal to given value."""
+  hasBeenUsed_not: Boolean
   requestedBy: UserWhereInput
   property: PropertyWhereInput
 }

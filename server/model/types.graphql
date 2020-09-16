@@ -378,6 +378,7 @@ type RentalAppraisal {
   rentValueAccepted: Boolean
   acceptTerms: Boolean
   property: Property @relation(name: "PropertyRentalAppraisals")
+  hasBeenUsed: Boolean!
 }
 
 type Accommodation {

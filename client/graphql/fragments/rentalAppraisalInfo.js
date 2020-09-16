@@ -22,8 +22,11 @@ const RentalAppraisalInfoFragment = gql`
       id
       location
     }
+    hasBeenUsed
   }
   ${PublicUserInfoFragment}
 `;
 
 export { RentalAppraisalInfoFragment };
+
+export default RentalAppraisalInfoFragment;
