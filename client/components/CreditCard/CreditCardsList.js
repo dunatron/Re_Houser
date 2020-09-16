@@ -38,8 +38,8 @@ const CreditCardsList = ({ cardsList }) => {
 
 CreditCardsList.propTypes = {
   cardsList: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
+    map: PropTypes.func
+  }).isRequired
 };
 
 export default CreditCardsList;

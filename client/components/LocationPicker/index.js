@@ -123,8 +123,12 @@ const LocationPicker = ({ selection, defaultLocation }) => {
 };
 
 LocationPicker.propTypes = {
-  defaultLocation: PropTypes.any.isRequired,
-  selection: PropTypes.func.isRequired,
+  defaultLocation: PropTypes.shape({
+    desc: PropTypes.any,
+    lat: PropTypes.any,
+    lng: PropTypes.any
+  }).isRequired,
+  selection: PropTypes.func.isRequired
 };
 
 export default LocationPicker;

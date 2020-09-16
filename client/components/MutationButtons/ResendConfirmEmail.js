@@ -66,7 +66,7 @@ const ResendConfirmEmailButton = ({ email }) => {
 };
 
 ResendConfirmEmailButton.propTypes = {
-  email: PropTypes.any.isRequired,
+  email: PropTypes.any.isRequired
 };
 
 export default ResendConfirmEmailButton;

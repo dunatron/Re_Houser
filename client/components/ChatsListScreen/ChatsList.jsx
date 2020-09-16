@@ -159,8 +159,8 @@ const ChatsList = props => {
 
 ChatsList.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export default ChatsList;

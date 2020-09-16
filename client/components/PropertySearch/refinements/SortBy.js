@@ -20,9 +20,9 @@ const MaterialUiSortBy = props => (
 MaterialUiSortBy.propTypes = {
   currentRefinement: PropTypes.any.isRequired,
   items: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
-  refine: PropTypes.func.isRequired,
+  refine: PropTypes.func.isRequired
 };
 
 const ConnectedSortBy = connectSortBy(MaterialUiSortBy);

@@ -164,9 +164,9 @@ const PaymentsTable = ({ payments, title }) => {
 
 PaymentsTable.propTypes = {
   payments: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
-  title: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired
 };
 
 export default PaymentsTable;

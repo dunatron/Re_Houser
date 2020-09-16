@@ -92,7 +92,7 @@ UploadFileButton.propTypes = {
   error: PropTypes.any.isRequired,
   handleClick: PropTypes.any.isRequired,
   loading: PropTypes.any.isRequired,
-  uploadCompleted: PropTypes.bool.isRequired,
+  uploadCompleted: PropTypes.bool.isRequired
 };
 
 const FileActions = ({
@@ -168,14 +168,14 @@ FileActions.propTypes = {
     error: PropTypes.any,
     id: PropTypes.any,
     loading: PropTypes.any,
-    uploadCompleted: PropTypes.any,
+    uploadCompleted: PropTypes.any
   }).isRequired,
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.func.isRequired,
   removingIds: PropTypes.shape({
-    includes: PropTypes.func,
+    includes: PropTypes.func
   }).isRequired,
-  upload: PropTypes.func.isRequired,
+  upload: PropTypes.func.isRequired
 };
 
 export default FileActions;

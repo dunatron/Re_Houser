@@ -21,6 +21,20 @@ const LoadingAppraisal = () => (
   <Loader loading={true} text="Loading in Appraisal" />
 );
 
+const HasBeenUsedMessage = () => {
+  return (
+    <Box>
+      <Typography variant="h6" color="inherit" gutterBottom>
+        Alert!
+      </Typography>
+      <Typography color="inherit" gutterBottom>
+        Appraisal has been used to create a property already and will not be
+        used to prefill the add property form
+      </Typography>
+    </Box>
+  );
+};
+
 const CreatePropertyComponent = props => {
   const router = useRouter();
   const [waitForLazy, setWaitForLazy] = useState(
@@ -30,8 +44,13 @@ const CreatePropertyComponent = props => {
   const [createdPropertyId, setCreatedPropertyId] = useState(null);
   const [createdData, setCreatedData] = useState({});
   const [isChecking, setIsChecking] = useState(false);
-  const [defaultFormData, setDefaultFormData] = useState({
+
+  const defaultMeData = {
     bankDetails: me.bankDetails ? me.bankDetails : {},
+  };
+
+  const [defaultFormData, setDefaultFormData] = useState({
+    ...defaultMeData,
   });
   const [submittedData, setSubmittedData] = useState({});
 
@@ -53,19 +72,9 @@ const CreatePropertyComponent = props => {
   );
 
   useEffect(() => {
-    if (data && data.rentalAppraisal && !loading) {
+    if (data && data.rentalAppraisal && !loading && !createdPropertyId) {
       if (data.rentalAppraisal.hasBeenUsed) {
-        toast.info(
-          <Box>
-            <Typography variant="h6" color="inherit" gutterBottom>
-              Alert!
-            </Typography>
-            <Typography color="inherit" gutterBottom>
-              Appraisal has been used to create a property already and will not
-              be used
-            </Typography>
-          </Box>
-        );
+        toast.info(<HasBeenUsedMessage />);
       } else {
         setDefaultFormData({ ...defaultFormData, ...data.rentalAppraisal });
       }
@@ -92,6 +101,9 @@ const CreatePropertyComponent = props => {
     setCreatedData(data);
     setCreatedPropertyId(data.createProperty.id);
     setIsChecking(false);
+    setDefaultFormData({
+      ...defaultMeData,
+    });
     toast.success(
       <Box component="div">
         <Typography gutterBottom variant="h6">
@@ -113,16 +125,11 @@ const CreatePropertyComponent = props => {
           },
           data: {
             hasBeenUsed: true,
+            property: {},
           },
         },
       });
     }
-
-    // Check if we had had an appraisalId attached. If we did.
-    // remove the query from the url bar
-    // send a mutation to update the rentalAppraisal field hasBeenUsed.
-    // Then on lazy load if hasBeenUsed we show something else explaining the appraisal has been used to create the property already!
-    // Send them to that property? if its not theres it will say so.
   };
 
   const submitFormWithData = data => {
@@ -144,8 +151,12 @@ const CreatePropertyComponent = props => {
     setIsChecking(true);
   };
 
+  // lets see if we can get rid of the appraisal for a create more
   const handleCreateMore = () => {
     setCreatedPropertyId(null);
+    router.push({
+      url: '/landlord/properties/add',
+    });
   };
 
   if (createdPropertyId) {
@@ -221,8 +232,21 @@ const CreatePropertyComponent = props => {
               Loading in the appraisal data first
             </Typography>
           )}
-          {data.rentalAppraisal && (
-            <AssociatedAppraisal id={router.query.appraisalId} />
+          {data && data.rentalAppraisal && (
+            <>
+              <AssociatedAppraisal
+                rentalAppraisal={data.rentalAppraisal}
+                appraisalId={router.query.appraisalId}
+              />
+              {data.rentalAppraisal.hasBeenUsed && (
+                <Box
+                  style={{
+                    marginBottom: '16px',
+                  }}>
+                  <HasBeenUsedMessage />
+                </Box>
+              )}
+            </>
           )}
           <Error error={error} />
           {!waitForLazy && (

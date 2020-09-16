@@ -51,7 +51,7 @@ const AssociatedFiles = ({ filesId, placeId }) => {
 
 AssociatedFiles.propTypes = {
   filesId: PropTypes.any.isRequired,
-  placeId: PropTypes.any.isRequired,
+  placeId: PropTypes.any.isRequired
 };
 
 const FileItem = ({ conf, val, propertyFilesId }) => {
@@ -123,10 +123,10 @@ FileItem.propTypes = {
     description: PropTypes.any,
     folder: PropTypes.any,
     key: PropTypes.any,
-    title: PropTypes.any,
+    title: PropTypes.any
   }).isRequired,
   propertyFilesId: PropTypes.any.isRequired,
-  val: PropTypes.any.isRequired,
+  val: PropTypes.any.isRequired
 };
 
 const MappedFiles = ({ propertyFiles, placeId }) => {
@@ -168,8 +168,8 @@ const MappedFiles = ({ propertyFiles, placeId }) => {
 MappedFiles.propTypes = {
   placeId: PropTypes.any.isRequired,
   propertyFiles: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export default AssociatedFiles;

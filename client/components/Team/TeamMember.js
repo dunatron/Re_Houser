@@ -93,8 +93,8 @@ TeamMember.propTypes = {
     imgPath: PropTypes.string,
     name: PropTypes.string,
     phone: PropTypes.string,
-    role: PropTypes.string,
-  }).isRequired,
+    role: PropTypes.string
+  }).isRequired
 };
 
 export default TeamMember;

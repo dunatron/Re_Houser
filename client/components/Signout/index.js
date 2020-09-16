@@ -59,6 +59,6 @@ Signout.propTypes = {
   fullWidth: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
   me: PropTypes.any.isRequired,
-  variant: PropTypes.any.isRequired,
+  variant: PropTypes.any.isRequired
 };
 export default Signout;

@@ -190,7 +190,7 @@ const FormCreator = props => {
 FormCreator.propTypes = {
   config: PropTypes.shape({
     forEach: PropTypes.func,
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   createText: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
@@ -205,7 +205,7 @@ FormCreator.propTypes = {
   title: PropTypes.any.isRequired,
   updateCacheOnRemovedFile: PropTypes.any.isRequired,
   updateText: PropTypes.any.isRequired,
-  watchFields: PropTypes.array.isRequired,
+  watchFields: PropTypes.array.isRequired
 };
 
 export { FormCreator };

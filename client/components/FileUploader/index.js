@@ -445,9 +445,9 @@ UploadFile.propTypes = {
   serverFiles: PropTypes.shape({
     forEach: PropTypes.func,
     length: PropTypes.number,
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
-  store: PropTypes.any.isRequired,
+  store: PropTypes.any.isRequired
 };
 
 const FlipCardHeader = ({ title, isFlipped, flip }) => {
@@ -465,7 +465,7 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
 FlipCardHeader.propTypes = {
   flip: PropTypes.any.isRequired,
   isFlipped: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired
 };
 
 const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
@@ -491,7 +491,7 @@ UploadedServerFiles.propTypes = {
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.any.isRequired,
   serverFiles: PropTypes.any.isRequired,
-  store: PropTypes.any.isRequired,
+  store: PropTypes.any.isRequired
 };
 
 //remove gets fed into here
@@ -634,22 +634,20 @@ FileManager.propTypes = {
   fileParams: PropTypes.shape({
     filename: PropTypes.string,
     folder: PropTypes.string,
-    resource_type: PropTypes.oneOf(['image', 'raw', 'video', 'auto']),
+    resource_type: PropTypes.oneOf(["image", "raw", "video", "auto"]),
     tags: PropTypes.arrayOf(PropTypes.string),
-    type: PropTypes.oneOf(['upload', 'private', 'authenticated']),
+    type: PropTypes.oneOf(["upload", "private", "authenticated"])
   }).isRequired,
   fileRemovedFromServer: PropTypes.func.isRequired,
-  files: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      type: PropTypes.string,
-      url: PropTypes.string,
-    })
-  ).isRequired,
+  files: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.string,
+    url: PropTypes.string
+  })).isRequired,
   maxFilesAllowed: PropTypes.number.isRequired,
   recieveFile: PropTypes.func.isRequired,
   refetchQueries: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,
-  updateCacheOnRemovedFile: PropTypes.func.isRequired,
+  updateCacheOnRemovedFile: PropTypes.func.isRequired
 };
 export default FileManager;

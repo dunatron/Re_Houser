@@ -169,8 +169,8 @@ const Apply = props => {
 Apply.propTypes = {
   property: PropTypes.shape({
     id: PropTypes.any,
-    location: PropTypes.any,
-  }).isRequired,
+    location: PropTypes.any
+  }).isRequired
 };
 
 export default Apply;

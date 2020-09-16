@@ -75,11 +75,11 @@ FinaliseApplicationStep.propTypes = {
   me: PropTypes.any.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
   stepHeaders: PropTypes.shape({
-    filter: PropTypes.func,
-  }).isRequired,
+    filter: PropTypes.func
+  }).isRequired
 };
 
 export default FinaliseApplicationStep;

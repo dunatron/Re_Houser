@@ -115,9 +115,9 @@ const ActiveChat = ({ id, chat, me }) => {
 
 ActiveChat.propTypes = {
   chat: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
   id: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 export default ActiveChat;

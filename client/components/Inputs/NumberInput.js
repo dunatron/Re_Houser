@@ -47,15 +47,15 @@ const NumberInput = ({
 
 NumberInput.propTypes = {
   InputProps: PropTypes.shape({
-    inputProps: PropTypes.any,
+    inputProps: PropTypes.any
   }).isRequired,
   classes: PropTypes.shape({
-    formControl: PropTypes.any,
+    formControl: PropTypes.any
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   helperText: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
+  name: PropTypes.any.isRequired
 };
 
 export default withStyles(styles)(NumberInput);

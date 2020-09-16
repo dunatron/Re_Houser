@@ -79,7 +79,7 @@ SignLeaseBtn.propTypes = {
   id: PropTypes.any.isRequired,
   leaseId: PropTypes.any.isRequired,
   signed: PropTypes.any.isRequired,
-  type: PropTypes.any.isRequired,
+  type: PropTypes.any.isRequired
 };
 
 export default SignLeaseBtn;

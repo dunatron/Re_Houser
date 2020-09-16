@@ -38,12 +38,12 @@ const AccommodationCreator = props => {
 
 AccommodationCreator.propTypes = {
   accommodation: PropTypes.shape({
-    length: PropTypes.any,
+    length: PropTypes.any
   }).isRequired,
   add: PropTypes.func.isRequired,
   duplicate: PropTypes.any.isRequired,
   remove: PropTypes.any.isRequired,
-  update: PropTypes.any.isRequired,
+  update: PropTypes.any.isRequired
 };
 
 const CreateAccommodation = ({ accommodation, add, type }) => {
@@ -153,10 +153,10 @@ CreateAccommodation.propTypes = {
     description: PropTypes.any,
     expenses: PropTypes.any,
     rent: PropTypes.any,
-    roomSize: PropTypes.any,
+    roomSize: PropTypes.any
   }).isRequired,
   add: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };
 
 const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
@@ -200,11 +200,11 @@ const RenderAccommodation = ({ accommodation, update, duplicate, remove }) => {
 
 RenderAccommodation.propTypes = {
   accommodation: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   duplicate: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired,
-  update: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired
 };
 
 const EditAccommodation = ({ index, accommodation, update }) => {
@@ -227,7 +227,7 @@ const EditAccommodation = ({ index, accommodation, update }) => {
 EditAccommodation.propTypes = {
   accommodation: PropTypes.any.isRequired,
   index: PropTypes.any.isRequired,
-  update: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired
 };
 
 export default AccommodationCreator;

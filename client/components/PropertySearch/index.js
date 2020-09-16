@@ -64,7 +64,7 @@ const Hit = ({ hit }) => (
 );
 
 Hit.propTypes = {
-  hit: PropTypes.any.isRequired,
+  hit: PropTypes.any.isRequired
 };
 
 const MapMarker = ({ hit }) => {
@@ -123,8 +123,8 @@ MapMarker.propTypes = {
   hit: PropTypes.shape({
     location: PropTypes.any,
     objectID: PropTypes.any,
-    rent: PropTypes.any,
-  }).isRequired,
+    rent: PropTypes.any
+  }).isRequired
 };
 
 const Content = () => (
@@ -204,7 +204,7 @@ const PropertySearch = props => {
 };
 
 PropertySearch.propTypes = {
-  google: PropTypes.any.isRequired,
+  google: PropTypes.any.isRequired
 };
 
 export default GoogleApiWrapper({

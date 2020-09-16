@@ -67,8 +67,8 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
 PropertyPendingRentalApplicationsSub.propTypes = {
   property: PropTypes.shape({
     id: PropTypes.any,
-    location: PropTypes.any,
-  }).isRequired,
+    location: PropTypes.any
+  }).isRequired
 };
 
 export default PropertyPendingRentalApplicationsSub;

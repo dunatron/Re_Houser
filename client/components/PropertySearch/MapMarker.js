@@ -64,8 +64,8 @@ MapMarker.propTypes = {
   hit: PropTypes.shape({
     location: PropTypes.any,
     objectID: PropTypes.any,
-    rent: PropTypes.any,
-  }).isRequired,
+    rent: PropTypes.any
+  }).isRequired
 };
 
 export default MapMarker;

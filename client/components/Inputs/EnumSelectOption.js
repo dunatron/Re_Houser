@@ -64,7 +64,7 @@ EnumSelectOption.propTypes = {
   __type: PropTypes.any.isRequired,
   classes: PropTypes.shape({
     formControl: PropTypes.any,
-    selectEmpty: PropTypes.any,
+    selectEmpty: PropTypes.any
   }).isRequired,
   defaultValue: PropTypes.any.isRequired,
   handleChange: PropTypes.func.isRequired,
@@ -72,7 +72,7 @@ EnumSelectOption.propTypes = {
   label: PropTypes.any.isRequired,
   name: PropTypes.any.isRequired,
   selectID: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
 };
 
 export default withStyles(styles)(EnumSelectOption);

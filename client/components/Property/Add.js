@@ -18,8 +18,8 @@ const AddProperty = () => {
 
 AddProperty.propTypes = {
   appData: PropTypes.shape({
-    currentUser: PropTypes.object.isRequired,
-  }),
+    currentUser: PropTypes.object.isRequired
+  }).isRequired
 };
 
 export default AddProperty;

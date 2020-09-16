@@ -232,7 +232,7 @@ DragDropUploader.propTypes = {
   multiple: PropTypes.any.isRequired,
   receiveFile: PropTypes.func.isRequired,
   title: PropTypes.any.isRequired,
-  types: PropTypes.array.isRequired,
+  types: PropTypes.array.isRequired
 };
 
 export default DragDropUploader;

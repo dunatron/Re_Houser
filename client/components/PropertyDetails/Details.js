@@ -240,7 +240,7 @@ UpdatePropertyVariableModal.propTypes = {
   name: PropTypes.any.isRequired,
   propertyId: PropTypes.any.isRequired,
   type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 const useStyles = makeStyles(theme => ({
@@ -538,10 +538,10 @@ Details.propTypes = {
     expiryDate: PropTypes.any,
     id: PropTypes.any,
     images: PropTypes.shape({
-      map: PropTypes.func,
+      map: PropTypes.func
     }),
     insulationForm: PropTypes.shape({
-      id: PropTypes.any,
+      id: PropTypes.any
     }),
     isLeased: PropTypes.any,
     leaseId: PropTypes.any,
@@ -551,8 +551,8 @@ Details.propTypes = {
     onTheMarket: PropTypes.any,
     placeId: PropTypes.any,
     rent: PropTypes.any,
-    rooms: PropTypes.any,
-  }).isRequired,
+    rooms: PropTypes.any
+  }).isRequired
 };
 
 export default Details;

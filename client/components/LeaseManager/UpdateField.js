@@ -53,7 +53,7 @@ const UpdateField = ({ fieldConf, defaultValue, update }) => {
 UpdateField.propTypes = {
   defaultValue: PropTypes.any.isRequired,
   fieldConf: PropTypes.any.isRequired,
-  update: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired
 };
 
 export default UpdateField;

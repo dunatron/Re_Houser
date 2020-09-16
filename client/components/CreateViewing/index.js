@@ -103,9 +103,9 @@ const CreateViewing = ({ propertyId, me }) => {
 
 CreateViewing.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
-  propertyId: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired
 };
 
 export default CreateViewing;

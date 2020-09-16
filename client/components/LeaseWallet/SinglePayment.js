@@ -45,7 +45,7 @@ const SinglePayment = ({ paymentId }) => {
 };
 
 SinglePayment.propTypes = {
-  paymentId: PropTypes.any.isRequired,
+  paymentId: PropTypes.any.isRequired
 };
 
 export default SinglePayment;

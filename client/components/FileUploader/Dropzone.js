@@ -86,7 +86,7 @@ Dropzone.propTypes = {
   disabed: PropTypes.any.isRequired,
   disabled: PropTypes.any.isRequired,
   multiple: PropTypes.any.isRequired,
-  onFilesAdded: PropTypes.func.isRequired,
+  onFilesAdded: PropTypes.func.isRequired
 };
 
 export default Dropzone;

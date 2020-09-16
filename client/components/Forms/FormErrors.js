@@ -65,7 +65,7 @@ const FormErrors = ({ errors }) => {
 };
 
 FormErrors.propTypes = {
-  errors: PropTypes.any.isRequired,
+  errors: PropTypes.any.isRequired
 };
 
 export default FormErrors;

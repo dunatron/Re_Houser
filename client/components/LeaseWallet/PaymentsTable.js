@@ -257,7 +257,7 @@ const PaymentsTable = ({ where, walletId }) => {
 
 PaymentsTable.propTypes = {
   walletId: PropTypes.any.isRequired,
-  where: PropTypes.any.isRequired,
+  where: PropTypes.any.isRequired
 };
 
 export default PaymentsTable;

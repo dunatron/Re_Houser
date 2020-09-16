@@ -160,8 +160,9 @@ export default function SimpleSelect(props) {
 
 SimpleSelect.propTypes = {
   __type: PropTypes.any.isRequired,
+  clearError: PropTypes.func.isRequired,
   config: PropTypes.shape({
-    key: PropTypes.any,
+    key: PropTypes.any
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -175,5 +176,5 @@ SimpleSelect.propTypes = {
   reset: PropTypes.any.isRequired,
   selectID: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  values: PropTypes.any.isRequired,
+  values: PropTypes.any.isRequired
 };

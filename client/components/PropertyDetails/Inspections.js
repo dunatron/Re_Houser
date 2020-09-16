@@ -14,7 +14,7 @@ const InspectionsTab = ({ property, me }) => {
 
 InspectionsTab.propTypes = {
   me: PropTypes.any.isRequired,
-  property: PropTypes.any.isRequired,
+  property: PropTypes.any.isRequired
 };
 
 export default InspectionsTab;

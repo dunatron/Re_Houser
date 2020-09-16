@@ -138,16 +138,16 @@ PreTenancyStep.propTypes = {
     firstName: PropTypes.string,
     id: PropTypes.any,
     lastName: PropTypes.any,
-    phone: PropTypes.any,
+    phone: PropTypes.any
   }).isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func,
-    }),
+      find: PropTypes.func
+    })
   }).isRequired,
   update: PropTypes.any.isRequired,
-  updateUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired
 };
 
 export default PreTenancyStep;

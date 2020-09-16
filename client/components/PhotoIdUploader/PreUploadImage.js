@@ -20,8 +20,8 @@ const PreUploadImage = ({ file }) => {
 
 PreUploadImage.propTypes = {
   file: PropTypes.shape({
-    content: PropTypes.any,
-  }).isRequired,
+    content: PropTypes.any
+  }).isRequired
 };
 
 export default PreUploadImage;

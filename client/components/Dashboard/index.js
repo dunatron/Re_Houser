@@ -63,12 +63,12 @@ const Dashboard = ({ heading, intro, config, elevation, me }) => {
 
 Dashboard.propTypes = {
   config: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   elevation: PropTypes.any.isRequired,
   heading: PropTypes.any.isRequired,
   intro: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default Dashboard;

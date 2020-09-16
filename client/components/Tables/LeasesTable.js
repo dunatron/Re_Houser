@@ -57,8 +57,9 @@ const LeasesTable = ({ leases, manageLink }) => {
 
 LeasesTable.propTypes = {
   leases: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
+  manageLink: PropTypes.any.isRequired
 };
 
 export default LeasesTable;

@@ -55,5 +55,5 @@ export default class StarRating extends Component {
 }
 
 StarRating.propTypes = {
-  percentage: PropTypes.number.isRequired,
+  percentage: PropTypes.number.isRequired
 };

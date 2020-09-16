@@ -73,7 +73,7 @@ const PreFormTaskChecks = ({ me }) => {
 };
 
 PreFormTaskChecks.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default PreFormTaskChecks;

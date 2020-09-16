@@ -17,7 +17,6 @@ import useStyles from './useStyles';
 import useCurrentScrollTop from '@/Lib/hooks/useCurrentScrollTop';
 
 import { store } from '@/Store/index';
-
 //icons
 import DashboardIcon from '@/Styles/icons/DashboardIcon';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
@@ -44,7 +43,7 @@ function HideOnScroll(props) {
 
 HideOnScroll.propTypes = {
   children: PropTypes.any.isRequired,
-  window: PropTypes.func.isRequired,
+  window: PropTypes.func.isRequired
 };
 
 const AppMenuBar = props => {
@@ -174,7 +173,7 @@ const AppMenuBar = props => {
 
 AppMenuBar.propTypes = {
   appData: PropTypes.any.isRequired,
-  container: PropTypes.any.isRequired,
+  container: PropTypes.any.isRequired
 };
 
 export default AppMenuBar;

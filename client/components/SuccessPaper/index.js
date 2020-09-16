@@ -63,7 +63,7 @@ const SuccessPaper = ({ children, handleCreateMore, show }) => {
 SuccessPaper.propTypes = {
   children: PropTypes.any.isRequired,
   handleCreateMore: PropTypes.any.isRequired,
-  show: PropTypes.any.isRequired,
+  show: PropTypes.any.isRequired
 };
 
 export default SuccessPaper;

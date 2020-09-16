@@ -73,7 +73,7 @@ const AppDrawer = ({ me }) => {
 };
 
 AppDrawer.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default AppDrawer;

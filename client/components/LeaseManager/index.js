@@ -121,7 +121,7 @@ const LeaseManager = ({ leaseId }) => {
 };
 
 LeaseManager.propTypes = {
-  leaseId: PropTypes.any.isRequired,
+  leaseId: PropTypes.any.isRequired
 };
 
 export default LeaseManager;

@@ -45,10 +45,10 @@ RChat.propTypes = {
   me: PropTypes.shape({
     firstName: PropTypes.any,
     id: PropTypes.any,
-    lastNaem: PropTypes.any,
+    lastNaem: PropTypes.any
   }).isRequired,
   messages: PropTypes.any.isRequired,
-  onSendMessage: PropTypes.func.isRequired,
+  onSendMessage: PropTypes.func.isRequired
 };
 
 export default RChat;

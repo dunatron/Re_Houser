@@ -66,8 +66,8 @@ ActivityManager.propTypes = {
   args: PropTypes.any.isRequired,
   collapsed: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export { ActivityManager, Activity };

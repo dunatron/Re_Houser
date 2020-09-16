@@ -52,9 +52,9 @@ LoggedInAs.propTypes = {
   me: PropTypes.shape({
     emailValidated: PropTypes.any,
     firstName: PropTypes.any,
-    lastName: PropTypes.any,
+    lastName: PropTypes.any
   }).isRequired,
-  theme: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired
 };
 
 export default LoggedInAs;

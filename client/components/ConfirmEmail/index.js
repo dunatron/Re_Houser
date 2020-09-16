@@ -30,8 +30,8 @@ const ConfirmEmail = ({ me, children }) => {
 ConfirmEmail.propTypes = {
   children: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    emailValidated: PropTypes.any,
-  }).isRequired,
+    emailValidated: PropTypes.any
+  }).isRequired
 };
 
 export default ConfirmEmail;

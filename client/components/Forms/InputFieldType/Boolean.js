@@ -41,14 +41,14 @@ const BooleanField = props => {
 BooleanField.propTypes = {
   config: PropTypes.shape({
     inners: PropTypes.shape({
-      map: PropTypes.func,
-    }),
+      map: PropTypes.func
+    })
   }).isRequired,
   defaultValue: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
-  setValue: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired
 };
 
 export default BooleanField;

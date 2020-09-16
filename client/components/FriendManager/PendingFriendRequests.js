@@ -51,7 +51,7 @@ const PendingFriendRequests = props => {
 };
 
 PendingFriendRequests.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default PendingFriendRequests;

@@ -7,7 +7,7 @@ const ItemWrapper = ({ children }) => (
 );
 
 ItemWrapper.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired
 };
 
 // will need to take into account the layout when snapped

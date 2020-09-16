@@ -264,18 +264,18 @@ ApplicationItem.propTypes = {
   application: PropTypes.shape({
     applicants: PropTypes.shape({
       map: PropTypes.func,
-      reduce: PropTypes.func,
+      reduce: PropTypes.func
     }),
     id: PropTypes.any,
     owner: PropTypes.shape({
-      id: PropTypes.any,
+      id: PropTypes.any
     }),
     stage: PropTypes.any,
-    visibility: PropTypes.string,
+    visibility: PropTypes.string
   }).isRequired,
   index: PropTypes.any.isRequired,
   openRentalAppModal: PropTypes.func.isRequired,
-  property: PropTypes.any.isRequired,
+  property: PropTypes.any.isRequired
 };
 
 export default ApplicationItem;

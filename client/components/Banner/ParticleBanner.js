@@ -97,7 +97,7 @@ const ParticleBanner = props => {
 ParticleBanner.propTypes = {
   children: PropTypes.any.isRequired,
   disablePointerEvents: PropTypes.bool.isRequired,
-  footer: PropTypes.any.isRequired,
+  footer: PropTypes.any.isRequired
 };
 
 export default ParticleBanner;

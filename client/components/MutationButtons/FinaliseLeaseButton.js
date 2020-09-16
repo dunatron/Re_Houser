@@ -44,7 +44,7 @@ const FinaliseLeaseBtn = ({ leaseId, stage, disabled }) => {
 FinaliseLeaseBtn.propTypes = {
   disabled: PropTypes.any.isRequired,
   leaseId: PropTypes.any.isRequired,
-  stage: PropTypes.string.isRequired,
+  stage: PropTypes.string.isRequired
 };
 
 export default FinaliseLeaseBtn;

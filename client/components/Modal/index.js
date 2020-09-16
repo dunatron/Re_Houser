@@ -171,7 +171,7 @@ Modal.propTypes = {
   id: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  width: PropTypes.any.isRequired,
+  width: PropTypes.any.isRequired
 };
 
 export default Modal;

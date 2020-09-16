@@ -15,7 +15,7 @@ const Progress = props => {
 };
 
 Progress.propTypes = {
-  progress: PropTypes.string.isRequired,
+  progress: PropTypes.string.isRequired
 };
 
 export default Progress;

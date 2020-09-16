@@ -31,9 +31,9 @@ const ErrorSupplier = ({ errors, tronM }) =>
 
 ErrorSupplier.propTypes = {
   errors: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
-  tronM: PropTypes.any.isRequired,
+  tronM: PropTypes.any.isRequired
 };
 
 const DenyApplicationButton = ({ application }) => {
@@ -90,10 +90,10 @@ DenyApplicationButton.propTypes = {
   application: PropTypes.shape({
     id: PropTypes.any,
     owner: PropTypes.shape({
-      id: PropTypes.any,
+      id: PropTypes.any
     }),
-    stage: PropTypes.string,
-  }).isRequired,
+    stage: PropTypes.string
+  }).isRequired
 };
 
 export default DenyApplicationButton;

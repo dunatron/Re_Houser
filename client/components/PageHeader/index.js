@@ -42,11 +42,11 @@ PagerHeader.propTypes = {
   intro: PropTypes.any.isRequired,
   metaData: PropTypes.shape({
     content: PropTypes.any,
-    title: PropTypes.any,
+    title: PropTypes.any
   }).isRequired,
   title: PropTypes.any.isRequired,
   titleOverride: PropTypes.any.isRequired,
-  titleVariant: PropTypes.any.isRequired,
+  titleVariant: PropTypes.any.isRequired
 };
 
 export default PagerHeader;

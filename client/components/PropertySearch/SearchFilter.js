@@ -58,7 +58,7 @@ const FilterSummary = ({ bottomPrice, topPrice, moveInDate }) => {
 FilterSummary.propTypes = {
   bottomPrice: PropTypes.any.isRequired,
   moveInDate: PropTypes.any.isRequired,
-  topPrice: PropTypes.any.isRequired,
+  topPrice: PropTypes.any.isRequired
 };
 
 const SearchFilter = () => {

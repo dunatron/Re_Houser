@@ -84,8 +84,8 @@ const PropertyLeases = props => {
 
 PropertyLeases.propTypes = {
   property: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export default PropertyLeases;

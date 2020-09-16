@@ -18,7 +18,7 @@ const Message = ({ message, alert }) => {
 
 Message.propTypes = {
   alert: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired,
+  message: PropTypes.any.isRequired
 };
 
 /**
@@ -56,7 +56,7 @@ PleaseSignIn.propTypes = {
   alert: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
   currentUser: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired,
+  message: PropTypes.any.isRequired
 };
 
 export default PleaseSignIn;

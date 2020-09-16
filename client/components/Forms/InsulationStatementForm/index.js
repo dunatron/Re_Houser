@@ -277,9 +277,9 @@ InsulationStatementForm.propTypes = {
   insulationFormId: PropTypes.any.isRequired,
   placeId: PropTypes.any.isRequired,
   property: PropTypes.shape({
-    insulationStatementFile: PropTypes.any,
+    insulationStatementFile: PropTypes.any
   }).isRequired,
-  propertyId: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired
 };
 
 export { InsulationStatementForm };

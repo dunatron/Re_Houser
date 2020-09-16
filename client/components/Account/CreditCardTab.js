@@ -47,9 +47,9 @@ CreditCardTab.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
     primaryCreditCard: PropTypes.shape({
-      id: PropTypes.any,
-    }),
-  }).isRequired,
+      id: PropTypes.any
+    })
+  }).isRequired
 };
 
 export default CreditCardTab;

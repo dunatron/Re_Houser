@@ -270,14 +270,14 @@ const LeaseWallet = ({ lease, me }) => {
 
 LeaseWallet.propTypes = {
   lease: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
   me: PropTypes.shape({
     email: PropTypes.any,
     firstName: PropTypes.any,
     lastName: PropTypes.any,
-    phone: PropTypes.any,
-  }).isRequired,
+    phone: PropTypes.any
+  }).isRequired
 };
 
 export default LeaseWallet;

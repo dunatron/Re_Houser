@@ -139,10 +139,10 @@ ExtraDetails.propTypes = {
   property: PropTypes.shape({
     accommodation: PropTypes.shape({
       length: PropTypes.any,
-      reduce: PropTypes.func,
+      reduce: PropTypes.func
     }),
-    location: PropTypes.any,
-  }).isRequired,
+    location: PropTypes.any
+  }).isRequired
 };
 
 const FullDetails = ({ algoliaProperty }) => {
@@ -229,6 +229,6 @@ const FullDetails = ({ algoliaProperty }) => {
 
 FullDetails.propTypes = {
   algoliaProperty: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };

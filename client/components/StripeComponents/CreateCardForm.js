@@ -28,8 +28,8 @@ RenderError.propTypes = {
   error: PropTypes.shape({
     code: PropTypes.any,
     message: PropTypes.any,
-    type: PropTypes.any,
-  }).isRequired,
+    type: PropTypes.any
+  }).isRequired
 };
 
 const CreditCardForm = props => {
@@ -153,11 +153,11 @@ const CreditCardForm = props => {
 
 CreditCardForm.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
   stripe: PropTypes.shape({
-    createToken: PropTypes.func,
-  }).isRequired,
+    createToken: PropTypes.func
+  }).isRequired
 };
 
 export default injectStripe(CreditCardForm);

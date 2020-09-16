@@ -17,7 +17,7 @@ const PhotoIdTab = ({ me }) => {
 };
 
 PhotoIdTab.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default PhotoIdTab;

@@ -162,14 +162,14 @@ const Banner = props => {
 
 Banner.propTypes = {
   children: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   disablePointerEvents: PropTypes.bool.isRequired,
   footer: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   imageSrc: PropTypes.any.isRequired,
-  text: PropTypes.any.isRequired,
+  text: PropTypes.any.isRequired
 };
 
 export default Banner;

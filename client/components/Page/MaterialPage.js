@@ -86,7 +86,7 @@ function MaterialPage(props) {
 MaterialPage.propTypes = {
   appData: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
-  container: PropTypes.any.isRequired,
+  container: PropTypes.any.isRequired
 };
 
 export default MaterialPage;

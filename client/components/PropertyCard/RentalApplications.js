@@ -77,11 +77,11 @@ const RentalApplications = props => {
 
 RentalApplications.propTypes = {
   me: PropTypes.shape({
-    id: PropTypes.any,
+    id: PropTypes.any
   }).isRequired,
   openRentalAppModal: PropTypes.func.isRequired,
   property: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired
 };
 
 export default RentalApplications;

@@ -163,7 +163,7 @@ Signin.propTypes = {
   email: PropTypes.any.isRequired,
   handleCompleted: PropTypes.func.isRequired,
   password: PropTypes.any.isRequired,
-  update: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired
 };
 
 export default Signin;

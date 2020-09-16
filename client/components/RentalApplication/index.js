@@ -61,8 +61,8 @@ const RentalApplication = ({ id, me }) => {
 RentalApplication.propTypes = {
   id: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export default RentalApplication;

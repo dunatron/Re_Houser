@@ -73,8 +73,8 @@ const CompletionRating = ({ me }) => {
 
 CompletionRating.propTypes = {
   me: PropTypes.shape({
-    firstName: PropTypes.any,
-  }).isRequired,
+    firstName: PropTypes.any
+  }).isRequired
 };
 
 export default CompletionRating;

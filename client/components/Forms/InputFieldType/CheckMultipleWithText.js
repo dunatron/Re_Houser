@@ -98,7 +98,7 @@ CheckMultipleWithText.propTypes = {
   errors: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired,
+  setValue: PropTypes.any.isRequired
 };
 
 export default CheckMultipleWithText;

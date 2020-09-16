@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useRef, useEffect } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
 import PropertyResultHit from './PropertyResultHit';
@@ -78,6 +79,10 @@ const ScrollRightBox = ({ onClick }) => {
   );
 };
 
+ScrollRightBox.propTypes = {
+  onClick: PropTypes.any.isRequired
+}
+
 const ScrollLeftBox = ({ onClick }) => {
   const classes = useStyles();
   return (
@@ -93,6 +98,10 @@ const ScrollLeftBox = ({ onClick }) => {
     </Box>
   );
 };
+
+ScrollLeftBox.propTypes = {
+  onClick: PropTypes.any.isRequired
+}
 
 const Hits = ({ hits }) => {
   const scrollNode = useRef();
@@ -122,6 +131,12 @@ const Hits = ({ hits }) => {
     </Box>
   );
 };
+
+Hits.propTypes = {
+  hits: PropTypes.shape({
+    map: PropTypes.func
+  }).isRequired
+}
 
 const CustomHits = connectHits(Hits);
 

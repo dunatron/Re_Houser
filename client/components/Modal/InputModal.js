@@ -102,13 +102,13 @@ Modal.propTypes = {
     modalBody: PropTypes.any,
     modalHeader: PropTypes.any,
     modalTitle: PropTypes.any,
-    root: PropTypes.any,
+    root: PropTypes.any
   }).isRequired,
   close: PropTypes.func.isRequired,
   height: PropTypes.any.isRequired,
   open: PropTypes.any.isRequired,
   title: PropTypes.any.isRequired,
-  width: PropTypes.any.isRequired,
+  width: PropTypes.any.isRequired
 };
 
 export default withStyles(styles)(Modal);

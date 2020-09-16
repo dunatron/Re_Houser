@@ -308,8 +308,8 @@ const OriginalParticle = ({ dimensions }) => {
 OriginalParticle.propTypes = {
   dimensions: PropTypes.shape({
     height: PropTypes.any,
-    width: PropTypes.any,
-  }).isRequired,
+    width: PropTypes.any
+  }).isRequired
 };
 
 const ImageParticle = ({ dimensions }) => {
@@ -400,8 +400,8 @@ const ImageParticle = ({ dimensions }) => {
 ImageParticle.propTypes = {
   dimensions: PropTypes.shape({
     height: PropTypes.any,
-    width: PropTypes.any,
-  }).isRequired,
+    width: PropTypes.any
+  }).isRequired
 };
 
 export default ParticleOne;

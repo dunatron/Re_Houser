@@ -93,8 +93,8 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
 AcceptTermsOfEngagementForm.propTypes = {
   me: PropTypes.shape({
     acceptedTermsOfEngagement: PropTypes.any,
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export default AcceptTermsOfEngagementForm;

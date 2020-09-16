@@ -94,7 +94,7 @@ const SearchAndRequestFriend = props => {
 };
 
 SearchAndRequestFriend.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default SearchAndRequestFriend;

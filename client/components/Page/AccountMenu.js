@@ -141,9 +141,9 @@ AccountMenu.propTypes = {
     firstName: PropTypes.any,
     lastName: PropTypes.any,
     profilePhoto: PropTypes.shape({
-      url: PropTypes.any,
-    }),
-  }).isRequired,
+      url: PropTypes.any
+    })
+  }).isRequired
 };
 
 const SignOutMenuItem = props => {
@@ -184,7 +184,7 @@ const SignOutMenuItem = props => {
 
 SignOutMenuItem.propTypes = {
   me: PropTypes.any.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default AccountMenu;

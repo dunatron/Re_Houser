@@ -84,9 +84,9 @@ UploadProfilePhoto.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
     profilePhoto: PropTypes.shape({
-      url: PropTypes.any,
-    }),
-  }).isRequired,
+      url: PropTypes.any
+    })
+  }).isRequired
 };
 
 export default UploadProfilePhoto;

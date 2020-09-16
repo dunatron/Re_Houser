@@ -219,7 +219,7 @@ const Activity = ({ args }) => {
 };
 
 Activity.propTypes = {
-  args: PropTypes.any.isRequired,
+  args: PropTypes.any.isRequired
 };
 
 const ActivityItem = ({ activity }) => {
@@ -306,18 +306,18 @@ ActivityItem.propTypes = {
     createdAt: PropTypes.any,
     jsonObj: PropTypes.any,
     property: PropTypes.shape({
-      id: PropTypes.any,
+      id: PropTypes.any
     }),
     propertyLease: PropTypes.shape({
-      id: PropTypes.any,
+      id: PropTypes.any
     }),
     type: PropTypes.any,
     user: PropTypes.shape({
       firstName: PropTypes.any,
       id: PropTypes.any,
-      lastName: PropTypes.any,
-    }),
-  }).isRequired,
+      lastName: PropTypes.any
+    })
+  }).isRequired
 };
 
 export default Activity;

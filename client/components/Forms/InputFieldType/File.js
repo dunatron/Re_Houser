@@ -148,13 +148,14 @@ const File = props => {
 };
 
 File.propTypes = {
+  clearError: PropTypes.func.isRequired,
   config: PropTypes.shape({
     fieldProps: PropTypes.shape({
       isMultiple: PropTypes.any,
-      maxFilesAllowed: PropTypes.any,
+      maxFilesAllowed: PropTypes.any
     }),
     key: PropTypes.any,
-    refConf: PropTypes.any,
+    refConf: PropTypes.any
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -163,7 +164,7 @@ File.propTypes = {
   refetchQueries: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired
 };
 
 export default File;

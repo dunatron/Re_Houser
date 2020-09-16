@@ -47,7 +47,7 @@ const WithUser = props => {
 };
 
 WithUser.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any.isRequired
 };
 
 export default WithUser;

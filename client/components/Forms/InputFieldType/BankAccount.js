@@ -48,7 +48,7 @@ function TextMaskCustom(props) {
 }
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
+  inputRef: PropTypes.func.isRequired
 };
 
 const useStyles = makeStyles(theme => ({
@@ -127,7 +127,7 @@ PhoneInput.propTypes = {
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
 };
 
 export default PhoneInput;

@@ -98,7 +98,7 @@ const Nav = props => {
 
 Nav.propTypes = {
   loadingUser: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 const SideBarItemWithRouter = ({ item, pathname }) => {
@@ -149,11 +149,11 @@ SideBarItemWithRouter.propTypes = {
     canRender: PropTypes.func,
     key: PropTypes.any,
     route: PropTypes.any,
-    text: PropTypes.any,
+    text: PropTypes.any
   }).isRequired,
   pathname: PropTypes.shape({
-    split: PropTypes.func,
-  }).isRequired,
+    split: PropTypes.func
+  }).isRequired
 };
 
 export default Nav;

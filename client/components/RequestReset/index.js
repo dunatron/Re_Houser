@@ -75,7 +75,7 @@ const RequestReset = props => {
 };
 
 RequestReset.propTypes = {
-  email: PropTypes.any.isRequired,
+  email: PropTypes.any.isRequired
 };
 
 export default RequestReset;

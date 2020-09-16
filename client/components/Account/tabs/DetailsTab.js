@@ -51,7 +51,7 @@ const DetailsTab = ({ me }) => {
 };
 
 DetailsTab.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any.isRequired
 };
 
 export default DetailsTab;

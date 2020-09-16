@@ -57,10 +57,10 @@ const OfficeLocation = ({ name, physicalLines, mailLines, map }) => {
 OfficeLocation.propTypes = {
   mailLines: PropTypes.any.isRequired,
   map: PropTypes.shape({
-    center: PropTypes.any,
+    center: PropTypes.any
   }).isRequired,
   name: PropTypes.any.isRequired,
-  physicalLines: PropTypes.any.isRequired,
+  physicalLines: PropTypes.any.isRequired
 };
 
 const RenderlLines = ({ title, lines }) => {
@@ -82,9 +82,9 @@ const RenderlLines = ({ title, lines }) => {
 RenderlLines.propTypes = {
   lines: PropTypes.shape({
     length: PropTypes.any,
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
-  title: PropTypes.any.isRequired,
+  title: PropTypes.any.isRequired
 };
 
 export default OfficeLocation;

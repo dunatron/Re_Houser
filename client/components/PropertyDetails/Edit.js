@@ -45,7 +45,7 @@ const EditPropertyForm = ({ propertyId }) => {
 };
 
 EditPropertyForm.propTypes = {
-  propertyId: PropTypes.any.isRequired,
+  propertyId: PropTypes.any.isRequired
 };
 
 export default EditPropertyForm;

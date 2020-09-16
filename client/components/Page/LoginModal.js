@@ -24,7 +24,7 @@ const CheapLoginModal = React.memo(props => (
 
 CheapLoginModal.propTypes = {
   handleClose: PropTypes.any.isRequired,
-  open: PropTypes.any.isRequired,
+  open: PropTypes.any.isRequired
 };
 
 export default LoginModal;

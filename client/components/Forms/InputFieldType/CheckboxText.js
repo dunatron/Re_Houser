@@ -75,11 +75,11 @@ const CheckboxText = props => {
 
 CheckboxText.propTypes = {
   inners: PropTypes.shape({
-    map: PropTypes.func,
+    map: PropTypes.func
   }).isRequired,
   label: PropTypes.any.isRequired,
   name: PropTypes.any.isRequired,
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired
 };
 
 export default CheckboxText;

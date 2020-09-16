@@ -174,8 +174,8 @@ const NavigationConfig = (me, loadingUser, pathname) => {
 NavigationConfig.propTypes = {
   friendRequests: PropTypes.any.isRequired,
   permissions: PropTypes.shape({
-    includes: PropTypes.func,
-  }).isRequired,
+    includes: PropTypes.func
+  }).isRequired
 };
 
 export default NavigationConfig;

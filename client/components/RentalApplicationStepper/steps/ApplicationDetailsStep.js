@@ -190,8 +190,8 @@ ApplicationDetailsStep.propTypes = {
   me: PropTypes.any.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+    id: PropTypes.any
+  }).isRequired
 };
 
 export default ApplicationDetailsStep;

@@ -33,8 +33,8 @@ const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
 RentalApplicationOwnerView.propTypes = {
   me: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    property: PropTypes.any,
-  }).isRequired,
+    property: PropTypes.any
+  }).isRequired
 };
 
 export default RentalApplicationOwnerView;

@@ -69,6 +69,7 @@ const PropertyAppraisal = props => {
                       id: me.id,
                     },
                   },
+                  hasBeenUsed: false,
                   property: propertyId
                     ? {
                         connect: {
