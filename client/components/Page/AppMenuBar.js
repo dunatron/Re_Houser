@@ -18,8 +18,6 @@ import useCurrentScrollTop from '@/Lib/hooks/useCurrentScrollTop';
 
 import { store } from '@/Store/index';
 //icons
-import DashboardIcon from '@/Styles/icons/DashboardIcon';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import SearchIcon from '@material-ui/icons/Search';
@@ -29,9 +27,6 @@ import AccountMenu from './AccountMenu';
 
 function HideOnScroll(props) {
   const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({ target: window ? window() : undefined });
 
   return (

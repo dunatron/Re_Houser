@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import Error from '@/Components/ErrorMessage/index';
 import { RESEND_CONFIRM_EMAIL_MUTATION } from '@/Gql/mutations/index';
-import { Button, CircularProgress } from '@material-ui/core';
+import { Button, CircularProgress, Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import clsx from 'clsx';
 import { useCurrentUser } from '@/Components/User';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
   buttonSuccess: {
@@ -26,11 +27,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ResendConfirmEmailButton = ({ email }) => {
+const ResendConfirmEmailButton = ({ email, ...rest }) => {
   const classes = useStyles();
   const [success, setSuccess] = useState(false);
 
   const user = useCurrentUser();
+
+  const handleCompleted = data => {
+    toast.info(
+      <Box>
+        <Typography color="inherit" variant="h6">
+          Alert!
+        </Typography>
+        <Typography color="inherit">
+          Please check your email for a confirmation link. It should arrive
+          shortly
+        </Typography>
+      </Box>
+    );
+  };
 
   const [acceptApplicationMutation, { data, loading, error }] = useMutation(
     RESEND_CONFIRM_EMAIL_MUTATION,
@@ -38,6 +53,7 @@ const ResendConfirmEmailButton = ({ email }) => {
       variables: {
         email: 'doesntmatter', // usingLoggedInUser and would need configured on backend
       },
+      onCompleted: handleCompleted,
     }
   );
 
@@ -55,7 +71,8 @@ const ResendConfirmEmailButton = ({ email }) => {
         disabled={loading}
         onClick={() => {
           acceptApplicationMutation();
-        }}>
+        }}
+        {...rest}>
         Resend email
         {loading && (
           <CircularProgress size={24} className={classes.buttonProgress} />
@@ -66,7 +83,7 @@ const ResendConfirmEmailButton = ({ email }) => {
 };
 
 ResendConfirmEmailButton.propTypes = {
-  email: PropTypes.any.isRequired
+  email: PropTypes.any.isRequired,
 };
 
 export default ResendConfirmEmailButton;

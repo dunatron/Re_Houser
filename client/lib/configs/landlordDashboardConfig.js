@@ -16,6 +16,14 @@ const LANDLORD_DASHBOARD_CONFIG = [
   {
     icon: <HomeWorkIcon />,
     label: 'Free Appraisal',
+    route: '/landlord/appraisals/add',
+    description: 'Create a new Rental Appraisal ',
+    color: 'secondary',
+    requiresLogin: false,
+  },
+  {
+    icon: <HomeWorkIcon />,
+    label: 'Appraisals',
     route: '/landlord/appraisals',
     description: 'Land lord appraisals',
     color: 'secondary',

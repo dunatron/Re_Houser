@@ -9,140 +9,22 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import formatMoney from '@/Lib/formatMoney';
+import RentalAppraisal from '@/Components/RentalAppraisal';
 
-const AssociatedAppraisal = ({
-  appraisalId,
-  rentalAppraisal: {
-    id,
-    placeId,
-    location,
-    rooms,
-    bathrooms,
-    heatSources,
-    requestedBy,
-    rent,
-    hasBeenUsed,
-    property,
-  },
-}) => {
+const AssociatedAppraisal = ({ appraisalId, rentalAppraisal }) => {
   if (!appraisalId) return null;
   return (
     <div style={{ marginBottom: '16px' }}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Appraisal for: {location}</Typography>
+          <Typography>Appraisal for: {rentalAppraisal.location}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Box
-                style={{
-                  flexWrap: 'wrap',
-                }}>
-                <Typography variant="h5" color="secondary" gutterBottom>
-                  Appraisal
-                </Typography>
-                <LabelKeyVal label="location" val={location} />
-                <LabelKeyVal label="rooms" val={rooms} />
-                <LabelKeyVal label="bathrooms" val={bathrooms} />
-                <LabelArrayVal label="heatSources" val={heatSources} />
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h5" color="secondary" gutterBottom>
-                Requested by
-              </Typography>
-              <RequestedBy user={requestedBy} />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h6" color="default">
-                Suggested rent{' '}
-                <Typography component="span" variant="h5" color="primary">
-                  ${formatMoney(rent, 2)}
-                </Typography>
-              </Typography>
-              <Typography>{hasBeenUsed}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h6" color="default">
-                Appraisal used{' '}
-                <Typography component="span" variant="h5" color="primary">
-                  {hasBeenUsed ? 'YES' : 'NO'}
-                </Typography>
-                {hasBeenUsed && (
-                  <Typography color="default" variant="body2">
-                    An appraisal can only be used once, suggesting it has
-                    already been used to create the property
-                  </Typography>
-                )}
-              </Typography>
-              <Typography>{hasBeenUsed}</Typography>
-            </Grid>
-          </Grid>
-          {property && (
-            <Grid item xs={12} sm={6}>
-              <Typography variant="h6" color="default">
-                Cool WE should include the property created by this appraisal
-              </Typography>
-            </Grid>
-          )}
+          <RentalAppraisal rentalAppraisal={rentalAppraisal} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
   );
-};
-
-const RequestedBy = ({ user: { id, firstName, lastName, email } }) => {
-  return (
-    <Box>
-      <LabelKeyVal label="id" val={id} />
-      <LabelKeyVal label="firstName" val={firstName} />
-      <LabelKeyVal label="lastName" val={lastName} />
-      <LabelKeyVal label="email" val={email} />
-    </Box>
-  );
-};
-
-const LabelArrayVal = ({ label, val }) => {
-  return (
-    <Box>
-      <Typography color="default" gutterBottom>
-        {label}
-      </Typography>
-      <Typography component="ul">
-        {val.map(item => (
-          <Typography key={item} component="li" color="secondary">
-            {item}
-          </Typography>
-        ))}
-      </Typography>
-    </Box>
-  );
-};
-
-LabelArrayVal.propTypes = {
-  label: PropTypes.any.isRequired,
-  val: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
-};
-
-const LabelKeyVal = ({ label, val }) => {
-  return (
-    <Typography gutterBottom>
-      <Typography color="default" component="span">
-        {label}:{' '}
-      </Typography>
-      <Typography color="secondary" component="span">
-        {val}
-      </Typography>
-    </Typography>
-  );
-};
-
-LabelKeyVal.propTypes = {
-  label: PropTypes.any.isRequired,
-  val: PropTypes.any.isRequired,
 };
 
 export default AssociatedAppraisal;

@@ -10,7 +10,7 @@ import Footer from '@/Components/Footer';
 import LoginModal from './LoginModal';
 import AppDrawer from './AppDrawer';
 import { store } from '@/Store/index';
-import Announcements from './Announcements';
+import Announcements from '@/Components/Announcements';
 
 /**
  *
@@ -74,14 +74,8 @@ function MaterialPage(props) {
 
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
-          {/* <Announcements /> */}
-          {/* {children} */}
-          {/* Let me show you how to burn for eternity */}
-          {/* My best days, are stress days */}
-          {/* Whatever it is, know its my next grave */}
-          {/* The truth will set you free, so to me, be completly honest */}
           <div>
-            <Announcements bannerRoutes={['/']} />
+            <Announcements bannerRoutes={['/']} me={me} />
             {children}
           </div>
           <Footer />

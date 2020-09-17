@@ -13,10 +13,6 @@ import {
   Button,
   Tooltip,
 } from '@material-ui/core';
-
-// material-icons
-import SearchIcon from '@material-ui/icons/Search';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
 const SubscriberBell = ({ me, variable, title }) => {
@@ -26,13 +22,6 @@ const SubscriberBell = ({ me, variable, title }) => {
     UPDATE_USER_MUTATION,
     {
       onCompleted: handleOnCompleted,
-      //   variables: {
-      //     data: {
-      //       update: {
-      //         ...updates,
-      //       },
-      //     },
-      //   },
     }
   );
 

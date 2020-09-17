@@ -1,27 +1,21 @@
 import PropTypes from 'prop-types';
 import PleaseSignIn from '@/Components/PleaseSignIn';
-import AppraisalsTable from '@/Components/Tables/AppraisalsTable';
+import PropertyAppraisal from '@/Components/PropertyAppraisal';
 
-const LandLordAppraisalsPage = ({
-  appData: { currentUser },
-  query: { id },
-}) => {
+const LandlordAppraisalAddPage = ({ appData: { currentUser } }) => {
   return (
     <PleaseSignIn
       currentUser={currentUser}
       message="Please Sign in to view: Landord Appraisals Page">
-      <AppraisalsTable />
+      <PropertyAppraisal />
     </PleaseSignIn>
   );
 };
 
-LandLordAppraisalsPage.propTypes = {
+LandlordAppraisalAddPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,
   }),
-  query: PropTypes.shape({
-    id: PropTypes.string,
-  }),
 };
 
-export default LandLordAppraisalsPage;
+export default LandlordAppraisalAddPage;

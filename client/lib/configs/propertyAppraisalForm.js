@@ -18,8 +18,7 @@ const PROPERTY_APPRAISAL_CONF = [
             lat: 'locationLat',
             lng: 'locationLng',
           },
-          label:
-            'Lodation of property. SHould probs use google like normal property picker',
+          label: 'Property location',
         },
         refConf: {
           required: {

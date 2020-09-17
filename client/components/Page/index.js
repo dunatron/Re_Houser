@@ -71,9 +71,6 @@ const Page = props => {
     };
   }, []);
 
-  console.log('===PAGE RENDER===');
-  console.log('===PAGE PROPS ===> ', props);
-
   return (
     <MuiThemeProvider theme={theme}>
       <Meta />
