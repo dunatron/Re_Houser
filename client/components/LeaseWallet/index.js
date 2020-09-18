@@ -23,13 +23,6 @@ import {
 } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
 
-import {
-  endpoint,
-  prodEndpoint,
-  wsEndpoint,
-  wsProdEndpoint,
-} from '../../config';
-
 // Paymnet method components
 import CardPaymentForm from './CardPaymentForm';
 import { WALLET_SUBSCRIPTION } from '@/Gql/subscriptions/WalletSubscription';
@@ -61,8 +54,10 @@ const formatCentsToDollar = amount => {
   );
 };
 
-const serverBackend =
-  process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+// const serverBackend =
+//   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+
+const serverBackend = process.env.ENDPOINT;
 
 // should probably actually refetch the lease on a successful payment might be best.
 // or perhaps get the wallet by itself here. and refetch that as it has payments and actually the right level we want to refetch on
@@ -270,14 +265,14 @@ const LeaseWallet = ({ lease, me }) => {
 
 LeaseWallet.propTypes = {
   lease: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   me: PropTypes.shape({
     email: PropTypes.any,
     firstName: PropTypes.any,
     lastName: PropTypes.any,
-    phone: PropTypes.any
-  }).isRequired
+    phone: PropTypes.any,
+  }).isRequired,
 };
 
 export default LeaseWallet;
