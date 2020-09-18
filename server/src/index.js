@@ -11,6 +11,8 @@ const { convertDocument } = require("./lib/DocGenerator");
 const createServer = require("./createServer");
 const db = require("./db");
 const setupIndexes = require("./lib/algolia/setupIndexes");
+const initialiseTasks = require("./lib/tasks/index");
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const server = createServer();
 const { refreshTokens } = require("./auth");
@@ -24,8 +26,6 @@ const {
 
 const bodyParser = require("body-parser");
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-const inspectionNotificationTask = require("./lib/leaseTasks/inspectionNotificationTask");
 
 // sets up pasrsing the body of the request
 server.use(
@@ -118,15 +118,6 @@ server.post(
   }
 );
 
-// lease cronjob tasks
-const createLeaseTasks = require("./lib/leaseTasks/index");
-
-createLeaseTasks();
-
-inspectionNotificationTask();
-
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
-
 const expressLogger = function(req, res, next) {
   next();
 };
@@ -181,6 +172,10 @@ const allowedClientOrigins = [
   "http://app.uat.rehouser.co.nz",
   process.env.FRONTEND_URL
 ];
+
+// lease cronjob tasks
+
+initialiseTasks();
 
 // Start gql yoga/express server
 const app = server.start(
