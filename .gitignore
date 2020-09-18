@@ -8,6 +8,7 @@
 .pnp.js
 
 /server/variables.env
+/server/variables-uat.env
 /server/variables-prod.env
 
 # testing
@@ -23,7 +24,6 @@
 .env.test.local
 .env.production.local
 /client/.env
-/server/variables.prod.env
 
 npm-debug.log*
 yarn-debug.log*

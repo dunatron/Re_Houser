@@ -2,12 +2,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      // "@/Components/*": ["./Components/*"],
-      // "@/AdminComponents/*": ["./AdminComponents/*"],
-      // "@/Styles/*": ["./styles/*"],
-      // "@/Lib/*": ["./lib/*"],
-      // "@/Gql/*": ["./graphql/*"],
-      // "@/Store/*": ["./store.js"]
       "@/Components/*": ["./components/*"],
       "@/AdminComponents/*": ["./admin-components/*"],
       "@/Containers/*": ["./containers/*"],

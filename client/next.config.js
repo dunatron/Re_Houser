@@ -55,6 +55,9 @@ module.exports = withTM({
     return config;
   },
   env: {
+    STAGE: process.env.STAGE,
+    ENDPOINT: process.env.ENDPOINT,
+    WS_ENDPOINT: process.env.WS_ENDPOINT,
     STRIPE_KEY: process.env.STRIPE_KEY,
     GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     GOOGLE_RECAPTCHA_SITE_KEY: process.env.GOOGLE_RECAPTCHA_SITE_KEY,

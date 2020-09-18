@@ -492,7 +492,12 @@ CORS
 - `git subtree push --prefix server heroku-server master`
 - `git subtree push --prefix client heroku-client master`
 
-- client docs
+Uat Deploy
+
+- `git subtree push --prefix server heroku-server-uat master`
+- `git subtree push --prefix client heroku-client-uat master`
+
+* client docs
 
   - run `heroku apps:create client-docs` which will generate a new git remote
   - https://client-docs.herokuapp.com/ | https://git.heroku.com/client-docs.git

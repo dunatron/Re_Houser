@@ -10,6 +10,7 @@
     "test": "mocha",
     "deploy": "prisma deploy --env-file variables.env",
     "deploy:prod": "prisma deploy --env-file variables-prod.env",
+    "deploy:uat": "prisma deploy --env-file variables-uat.env",
     "deploy-prod": "prisma deploy --env-file variables-prod.env",
     "reset": "prisma reset --env-file variables.env",
     "reset-prod": "prisma reset --env-file variables-prod.env",

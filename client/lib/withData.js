@@ -11,13 +11,16 @@ import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/link-ws';
 
 import CacheWrapper from './store/cache';
-import { endpoint, prodEndpoint, wsEndpoint, wsProdEndpoint } from '../config';
+// import { endpoint, prodEndpoint, wsEndpoint, wsProdEndpoint } from '../config';
 
 function createClient({ headers, initialState }) {
-  const websocketEndpoint =
-    process.env.NODE_ENV === 'development' ? wsEndpoint : wsProdEndpoint;
-  const authUri =
-    process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+  // const websocketEndpoint =
+  //   process.env.NODE_ENV === 'development' ? wsEndpoint : wsProdEndpoint;
+  // const authUri =
+  //   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+
+  const websocketEndpoint = process.env.ENDPOINT;
+  const authUri = process.env.WS_ENDPOINT;
 
   // create our apollo authLink
   const authLink = ApolloLink.from([
