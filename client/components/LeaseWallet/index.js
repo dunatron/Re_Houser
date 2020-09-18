@@ -54,9 +54,6 @@ const formatCentsToDollar = amount => {
   );
 };
 
-// const serverBackend =
-//   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
-
 const serverBackend = process.env.ENDPOINT;
 
 // should probably actually refetch the lease on a successful payment might be best.

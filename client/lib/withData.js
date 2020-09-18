@@ -19,8 +19,8 @@ function createClient({ headers, initialState }) {
   // const authUri =
   //   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
 
-  const websocketEndpoint = process.env.ENDPOINT;
-  const authUri = process.env.WS_ENDPOINT;
+  const websocketEndpoint = process.env.WS_ENDPOINT;
+  const authUri = process.env.ENDPOINT;
 
   // create our apollo authLink
   const authLink = ApolloLink.from([
