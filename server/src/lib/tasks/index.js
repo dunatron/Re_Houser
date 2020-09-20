@@ -1,12 +1,15 @@
-const chargeActiveLeasesWeeklyJob = require("./chargeActiveLeasesWeeklyJob");
-const inspectionNotificationTask = require("./inspectionNotificationTask");
+const chargeActiveLeasesWeeklyJob = require("./leaseJobs/chargeActiveLeasesWeeklyJob");
+const dailyInspectionsJob = require("./inspectionJobs/dailyInspectionsJob");
+const weeklyInspectionsJob = require("./inspectionJobs/weeklyInspectionsJob");
 
 // create a new charge too
 
 // Cron examples => https://github.com/kelektiv/node-cron/tree/master/examples
 async function createLeaseTasks() {
   chargeActiveLeasesWeeklyJob.start();
-  inspectionNotificationTask(); // already starts inside a func. split the two jobs
+  weeklyInspectionsJob.start();
+  dailyInspectionsJob.start();
+
   // 10:52 am
   // const morningJob = new CronJob("00 52 10 * * *", function() {
 

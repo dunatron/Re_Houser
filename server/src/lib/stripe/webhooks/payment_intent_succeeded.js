@@ -1,6 +1,9 @@
-const { addPaymentToWallet } = require("../lib/payments/addPaymentToWallet");
+const {
+  addPaymentToWallet
+} = require("../../../lib/payments/addPaymentToWallet");
+const db = require("../../../db");
 
-exports.payment_intent_succeeded = async ({ event, db }) => {
+exports.payment_intent_succeeded = async ({ event }) => {
   // just get the fields we need, including the lease the wallet is for. if it is not PAID we need to check if the new amount exceeds
   // the 1 weeks rent. if it does, we update the lease status to paid
 

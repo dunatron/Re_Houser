@@ -1,8 +1,6 @@
-
-
 var CronJob = require("cron").CronJob;
 
-const db = require("../../db");
+const db = require("../../../db");
 
 async function getActiveLeases() {
   const activeLeases = await db.query
