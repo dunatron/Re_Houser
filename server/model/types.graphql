@@ -218,6 +218,7 @@ type Property implements PropertyInfo {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -270,7 +271,6 @@ type Property implements PropertyInfo {
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
   files: PropertyFiles @relation(name: "PropertyFiles", link: TABLE)
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
 }
@@ -323,6 +323,7 @@ type PropertyLease implements PropertyInfo {
   indoorFeatures: [IndoorFeature] @scalarList(strategy: RELATION)
   outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int

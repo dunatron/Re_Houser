@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Sep 16 2020 11:03:40 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue Sep 22 2020 02:46:41 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1746,6 +1746,10 @@ type AggregateFriendRequest {
 }
 
 type AggregateInspection {
+  count: Int!
+}
+
+type AggregateInspectionForm {
   count: Int!
 }
 
@@ -8779,6 +8783,7 @@ type Inspection implements Node {
   completedTime: DateTime
   completed: Boolean
   notes: String
+  inspectionForm: InspectionForm
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
 }
 
@@ -8801,6 +8806,7 @@ input InspectionCreateInput {
   property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormCreateOneInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8833,6 +8839,7 @@ input InspectionCreateWithoutFilesInput {
   property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormCreateOneInput
 }
 
 input InspectionCreateWithoutInspectorInput {
@@ -8843,6 +8850,7 @@ input InspectionCreateWithoutInspectorInput {
   notes: String
   property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormCreateOneInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8854,6 +8862,7 @@ input InspectionCreateWithoutLeaseInput {
   notes: String
   property: PropertyCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormCreateOneInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8865,6 +8874,7 @@ input InspectionCreateWithoutPropertyInput {
   notes: String
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormCreateOneInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8875,6 +8885,196 @@ type InspectionEdge {
 
   """A cursor for use in pagination."""
   cursor: String!
+}
+
+type InspectionForm implements Node {
+  id: ID!
+  createdAt: DateTime
+  json: Json
+}
+
+"""A connection to a list of items."""
+type InspectionFormConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [InspectionFormEdge]!
+  aggregate: AggregateInspectionForm!
+}
+
+input InspectionFormCreateInput {
+  id: ID
+  json: Json
+}
+
+input InspectionFormCreateOneInput {
+  create: InspectionFormCreateInput
+  connect: InspectionFormWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type InspectionFormEdge {
+  """The item at the end of the edge."""
+  node: InspectionForm!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum InspectionFormOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  json_ASC
+  json_DESC
+}
+
+type InspectionFormPreviousValues {
+  id: ID!
+  createdAt: DateTime
+  json: Json
+}
+
+type InspectionFormSubscriptionPayload {
+  mutation: MutationType!
+  node: InspectionForm
+  updatedFields: [String!]
+  previousValues: InspectionFormPreviousValues
+}
+
+input InspectionFormSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InspectionFormSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InspectionFormSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InspectionFormSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: InspectionFormWhereInput
+}
+
+input InspectionFormUpdateDataInput {
+  json: Json
+}
+
+input InspectionFormUpdateInput {
+  json: Json
+}
+
+input InspectionFormUpdateManyMutationInput {
+  json: Json
+}
+
+input InspectionFormUpdateOneInput {
+  create: InspectionFormCreateInput
+  connect: InspectionFormWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: InspectionFormUpdateDataInput
+  upsert: InspectionFormUpsertNestedInput
+}
+
+input InspectionFormUpsertNestedInput {
+  update: InspectionFormUpdateDataInput!
+  create: InspectionFormCreateInput!
+}
+
+input InspectionFormWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InspectionFormWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InspectionFormWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InspectionFormWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+input InspectionFormWhereUniqueInput {
+  id: ID
 }
 
 enum InspectionFrequency {
@@ -9138,6 +9338,7 @@ input InspectionUpdateInput {
   property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormUpdateOneInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9213,6 +9414,7 @@ input InspectionUpdateWithoutFilesDataInput {
   property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormUpdateOneInput
 }
 
 input InspectionUpdateWithoutInspectorDataInput {
@@ -9222,6 +9424,7 @@ input InspectionUpdateWithoutInspectorDataInput {
   notes: String
   property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormUpdateOneInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9232,6 +9435,7 @@ input InspectionUpdateWithoutLeaseDataInput {
   notes: String
   property: PropertyUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormUpdateOneInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9242,6 +9446,7 @@ input InspectionUpdateWithoutPropertyDataInput {
   notes: String
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
+  inspectionForm: InspectionFormUpdateOneInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9467,6 +9672,7 @@ input InspectionWhereInput {
   property: PropertyWhereInput
   lease: PropertyLeaseWhereInput
   inspector: UserWhereInput
+  inspectionForm: InspectionFormWhereInput
   files_every: FileWhereInput
   files_some: FileWhereInput
   files_none: FileWhereInput
@@ -11885,6 +12091,7 @@ type Mutation {
   createCharge(data: ChargeCreateInput!): Charge!
   createPayment(data: PaymentCreateInput!): Payment!
   createPreTenancyForm(data: PreTenancyFormCreateInput!): PreTenancyForm!
+  createInspectionForm(data: InspectionFormCreateInput!): InspectionForm!
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
@@ -11913,6 +12120,7 @@ type Mutation {
   updateCharge(data: ChargeUpdateInput!, where: ChargeWhereUniqueInput!): Charge
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
   updatePreTenancyForm(data: PreTenancyFormUpdateInput!, where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
+  updateInspectionForm(data: InspectionFormUpdateInput!, where: InspectionFormWhereUniqueInput!): InspectionForm
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
@@ -11942,6 +12150,7 @@ type Mutation {
   deleteCharge(where: ChargeWhereUniqueInput!): Charge
   deletePayment(where: PaymentWhereUniqueInput!): Payment
   deletePreTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
+  deleteInspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
@@ -11970,6 +12179,7 @@ type Mutation {
   upsertCharge(where: ChargeWhereUniqueInput!, create: ChargeCreateInput!, update: ChargeUpdateInput!): Charge!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
   upsertPreTenancyForm(where: PreTenancyFormWhereUniqueInput!, create: PreTenancyFormCreateInput!, update: PreTenancyFormUpdateInput!): PreTenancyForm!
+  upsertInspectionForm(where: InspectionFormWhereUniqueInput!, create: InspectionFormCreateInput!, update: InspectionFormUpdateInput!): InspectionForm!
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
@@ -11996,6 +12206,7 @@ type Mutation {
   updateManyCharges(data: ChargeUpdateManyMutationInput!, where: ChargeWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
   updateManyPreTenancyForms(data: PreTenancyFormUpdateManyMutationInput!, where: PreTenancyFormWhereInput): BatchPayload!
+  updateManyInspectionForms(data: InspectionFormUpdateManyMutationInput!, where: InspectionFormWhereInput): BatchPayload!
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
@@ -12025,6 +12236,7 @@ type Mutation {
   deleteManyCharges(where: ChargeWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
   deleteManyPreTenancyForms(where: PreTenancyFormWhereInput): BatchPayload!
+  deleteManyInspectionForms(where: InspectionFormWhereInput): BatchPayload!
   deleteManyInsulationForms(where: InsulationFormWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
@@ -14599,6 +14811,7 @@ type Property implements Node {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -14648,7 +14861,6 @@ type Property implements Node {
   rehouserHandlesBills: Boolean
   rehouserAssist: PropertyAssist
   files: PropertyFiles
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
 }
@@ -15088,6 +15300,7 @@ input PropertyCreateInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15118,7 +15331,6 @@ input PropertyCreateInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15239,6 +15451,7 @@ input PropertyCreateWithoutAccommodationInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15269,7 +15482,6 @@ input PropertyCreateWithoutAccommodationInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15306,6 +15518,7 @@ input PropertyCreateWithoutActivityInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15336,7 +15549,6 @@ input PropertyCreateWithoutActivityInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15373,6 +15585,7 @@ input PropertyCreateWithoutAppraisalsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15403,7 +15616,6 @@ input PropertyCreateWithoutAppraisalsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15440,6 +15652,7 @@ input PropertyCreateWithoutBankDetailsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15470,7 +15683,6 @@ input PropertyCreateWithoutBankDetailsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15507,6 +15719,7 @@ input PropertyCreateWithoutCreatorInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15537,7 +15750,6 @@ input PropertyCreateWithoutCreatorInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15574,6 +15786,7 @@ input PropertyCreateWithoutFilesInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15604,7 +15817,6 @@ input PropertyCreateWithoutFilesInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15641,6 +15853,7 @@ input PropertyCreateWithoutImagesInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15671,7 +15884,6 @@ input PropertyCreateWithoutImagesInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15708,6 +15920,7 @@ input PropertyCreateWithoutInspectionsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15738,7 +15951,6 @@ input PropertyCreateWithoutInspectionsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15775,6 +15987,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15805,7 +16018,6 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15842,6 +16054,7 @@ input PropertyCreateWithoutLeasesInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15872,7 +16085,6 @@ input PropertyCreateWithoutLeasesInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15909,6 +16121,7 @@ input PropertyCreateWithoutOwnersInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -15939,7 +16152,6 @@ input PropertyCreateWithoutOwnersInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -15976,6 +16188,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -16006,7 +16219,6 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16043,6 +16255,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -16073,7 +16286,6 @@ input PropertyCreateWithoutRehouserAssistInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16110,6 +16322,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -16140,7 +16353,6 @@ input PropertyCreateWithoutRentalApplicationsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16177,6 +16389,7 @@ input PropertyCreateWithoutViewingsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -16207,7 +16420,6 @@ input PropertyCreateWithoutViewingsInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16491,6 +16703,7 @@ type PropertyLease implements Node {
   indoorFeatures: [IndoorFeature!]!
   outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16542,6 +16755,7 @@ input PropertyLeaseCreateInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16618,6 +16832,7 @@ input PropertyLeaseCreateWithoutActivityInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16655,6 +16870,7 @@ input PropertyLeaseCreateWithoutInspectionsInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16692,6 +16908,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16729,6 +16946,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16766,6 +16984,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16803,6 +17022,7 @@ input PropertyLeaseCreateWithoutWalletInput {
   carportSpaces: Int!
   offStreetSpaces: Int!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -16863,6 +17083,8 @@ enum PropertyLeaseOrderByInput {
   offStreetSpaces_DESC
   rent_ASC
   rent_DESC
+  bondType_ASC
+  bondType_DESC
   moveInDate_ASC
   moveInDate_DESC
   expiryDate_ASC
@@ -16910,6 +17132,7 @@ type PropertyLeasePreviousValues {
   indoorFeatures: [IndoorFeature!]!
   outdoorFeatures: [OutdoorFeature!]!
   rent: Float!
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17208,6 +17431,16 @@ input PropertyLeaseScalarWhereInput {
 
   """All values greater than or equal the given value."""
   rent_gte: Float
+  bondType: BondType
+
+  """All values that are not equal to given value."""
+  bondType_not: BondType
+
+  """All values that are contained in given list."""
+  bondType_in: [BondType!]
+
+  """All values that are not contained in given list."""
+  bondType_not_in: [BondType!]
   moveInDate: DateTime
 
   """All values that are not equal to given value."""
@@ -17475,6 +17708,7 @@ input PropertyLeaseUpdateInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17512,6 +17746,7 @@ input PropertyLeaseUpdateManyDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17543,6 +17778,7 @@ input PropertyLeaseUpdateManyMutationInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17644,6 +17880,7 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17680,6 +17917,7 @@ input PropertyLeaseUpdateWithoutInspectionsDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17716,6 +17954,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17752,6 +17991,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17788,6 +18028,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -17824,6 +18065,7 @@ input PropertyLeaseUpdateWithoutWalletDataInput {
   carportSpaces: Int
   offStreetSpaces: Int
   rent: Float
+  bondType: BondType
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
@@ -18165,6 +18407,16 @@ input PropertyLeaseWhereInput {
 
   """All values greater than or equal the given value."""
   rent_gte: Float
+  bondType: BondType
+
+  """All values that are not equal to given value."""
+  bondType_not: BondType
+
+  """All values that are contained in given list."""
+  bondType_in: [BondType!]
+
+  """All values that are not contained in given list."""
+  bondType_not_in: [BondType!]
   moveInDate: DateTime
 
   """All values that are not equal to given value."""
@@ -18425,6 +18677,8 @@ enum PropertyOrderByInput {
   maximumOccupants_DESC
   rent_ASC
   rent_DESC
+  bondType_ASC
+  bondType_DESC
   lowestRoomPrice_ASC
   lowestRoomPrice_DESC
   highestRoomPrice_ASC
@@ -18485,8 +18739,6 @@ enum PropertyOrderByInput {
   alarmsEachLevel_DESC
   rehouserHandlesBills_ASC
   rehouserHandlesBills_DESC
-  bondType_ASC
-  bondType_DESC
   inspectionFrequency_ASC
   inspectionFrequency_DESC
 }
@@ -18506,6 +18758,7 @@ type PropertyPreviousValues {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -18541,7 +18794,6 @@ type PropertyPreviousValues {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
 }
 
@@ -18898,6 +19150,16 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   rent_gte: Float
+  bondType: BondType
+
+  """All values that are not equal to given value."""
+  bondType_not: BondType
+
+  """All values that are contained in given list."""
+  bondType_in: [BondType!]
+
+  """All values that are not contained in given list."""
+  bondType_not_in: [BondType!]
   lowestRoomPrice: Float
 
   """All values that are not equal to given value."""
@@ -19294,16 +19556,6 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   rehouserHandlesBills_not: Boolean
-  bondType: BondType
-
-  """All values that are not equal to given value."""
-  bondType_not: BondType
-
-  """All values that are contained in given list."""
-  bondType_in: [BondType!]
-
-  """All values that are not contained in given list."""
-  bondType_not_in: [BondType!]
   inspectionFrequency: InspectionFrequency
 
   """All values that are not equal to given value."""
@@ -19397,6 +19649,7 @@ input PropertyUpdateInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19427,7 +19680,6 @@ input PropertyUpdateInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19464,6 +19716,7 @@ input PropertyUpdateManyDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19494,7 +19747,6 @@ input PropertyUpdateManyDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19515,6 +19767,7 @@ input PropertyUpdateManyMutationInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19545,7 +19798,6 @@ input PropertyUpdateManyMutationInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19712,6 +19964,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19742,7 +19995,6 @@ input PropertyUpdateWithoutAccommodationDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19778,6 +20030,7 @@ input PropertyUpdateWithoutActivityDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19808,7 +20061,6 @@ input PropertyUpdateWithoutActivityDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19844,6 +20096,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19874,7 +20127,6 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19910,6 +20162,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -19940,7 +20193,6 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -19976,6 +20228,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20006,7 +20259,6 @@ input PropertyUpdateWithoutCreatorDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20042,6 +20294,7 @@ input PropertyUpdateWithoutFilesDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20072,7 +20325,6 @@ input PropertyUpdateWithoutFilesDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20108,6 +20360,7 @@ input PropertyUpdateWithoutImagesDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20138,7 +20391,6 @@ input PropertyUpdateWithoutImagesDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20174,6 +20426,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20204,7 +20457,6 @@ input PropertyUpdateWithoutInspectionsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20240,6 +20492,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20270,7 +20523,6 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20306,6 +20558,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20336,7 +20589,6 @@ input PropertyUpdateWithoutLeasesDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20372,6 +20624,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20402,7 +20655,6 @@ input PropertyUpdateWithoutOwnersDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20438,6 +20690,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20468,7 +20721,6 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20504,6 +20756,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20534,7 +20787,6 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20570,6 +20822,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20600,7 +20853,6 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20636,6 +20888,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean
@@ -20666,7 +20919,6 @@ input PropertyUpdateWithoutViewingsDataInput {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
-  bondType: BondType
   inspectionFrequency: InspectionFrequency
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21130,6 +21382,16 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   rent_gte: Float
+  bondType: BondType
+
+  """All values that are not equal to given value."""
+  bondType_not: BondType
+
+  """All values that are contained in given list."""
+  bondType_in: [BondType!]
+
+  """All values that are not contained in given list."""
+  bondType_not_in: [BondType!]
   lowestRoomPrice: Float
 
   """All values that are not equal to given value."""
@@ -21526,16 +21788,6 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   rehouserHandlesBills_not: Boolean
-  bondType: BondType
-
-  """All values that are not equal to given value."""
-  bondType_not: BondType
-
-  """All values that are contained in given list."""
-  bondType_in: [BondType!]
-
-  """All values that are not contained in given list."""
-  bondType_not_in: [BondType!]
   inspectionFrequency: InspectionFrequency
 
   """All values that are not equal to given value."""
@@ -21614,6 +21866,7 @@ type Query {
   charges(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charge]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
   preTenancyForms(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PreTenancyForm]!
+  inspectionForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm]!
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
@@ -21643,6 +21896,7 @@ type Query {
   charge(where: ChargeWhereUniqueInput!): Charge
   payment(where: PaymentWhereUniqueInput!): Payment
   preTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
+  inspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
@@ -21672,6 +21926,7 @@ type Query {
   chargesConnection(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChargeConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
   preTenancyFormsConnection(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PreTenancyFormConnection!
+  inspectionFormsConnection(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InspectionFormConnection!
   insulationFormsConnection(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InsulationFormConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
@@ -24554,6 +24809,7 @@ type Subscription {
   charge(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   preTenancyForm(where: PreTenancyFormSubscriptionWhereInput): PreTenancyFormSubscriptionPayload
+  inspectionForm(where: InspectionFormSubscriptionWhereInput): InspectionFormSubscriptionPayload
   insulationForm(where: InsulationFormSubscriptionWhereInput): InsulationFormSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload

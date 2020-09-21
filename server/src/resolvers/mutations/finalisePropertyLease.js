@@ -13,15 +13,15 @@ const finaliseLeaseCleanup = require("../../lib/cleanup/finaliseLeaseCleanup");
 async function finalisePropertyLease(parent, args, ctx, info) {
   const reqUserId = await mustBeAuthed({
     ctx: ctx,
-    errorMessage: "You must be logged in to finalise a lease"
+    errorMessage: "You must be logged in to finalise a lease",
   });
   const leaseId = args.leaseId;
   // 1. get the property lease via the id and all of the data we will need
   const lease = await ctx.db.query.propertyLease(
     {
       where: {
-        id: leaseId
-      }
+        id: leaseId,
+      },
     },
     `{
       id
@@ -54,12 +54,12 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   );
 
   // easy accessors
-  const lessorUsers = lease.lessors.map(lessor => lessor.user);
-  const lesseeUsers = lease.lessees.map(lessee => lessee.user);
-  const lessorIds = lease.lessors.map(lessor => lessor.user.id);
-  const lesseeIds = lease.lessees.map(lessee => lessee.user.id);
-  const lessorSignatures = lease.lessors.map(lessor => lessor.signed);
-  const lesseeSignatures = lease.lessees.map(lessee => lessee.signed);
+  const lessorUsers = lease.lessors.map((lessor) => lessor.user);
+  const lesseeUsers = lease.lessees.map((lessee) => lessee.user);
+  const lessorIds = lease.lessors.map((lessor) => lessor.user.id);
+  const lesseeIds = lease.lessees.map((lessee) => lessee.user.id);
+  const lessorSignatures = lease.lessors.map((lessor) => lessor.signed);
+  const lesseeSignatures = lease.lessees.map((lessee) => lessee.signed);
 
   // must be a lessor to finalise lease
   const isALessor = lessorIds.includes(reqUserId);
@@ -83,7 +83,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   const acceptedLease = await ctx.db.mutation.updatePropertyLease(
     {
       where: {
-        id: leaseId
+        id: leaseId,
       },
       data: {
         stage: "SIGNED",
@@ -93,16 +93,17 @@ async function finalisePropertyLease(parent, args, ctx, info) {
             charges: {
               create: {
                 amount: lease.rent,
-                description: "We require 1 weeks rent in advance hence a charge"
+                description:
+                  "We require 1 weeks rent in advance hence a charge",
               },
               create: {
                 amount: getBondAmount(lease),
-                description: `We require the bond in advance ${lease.bondType}`
-              }
-            }
-          }
-        }
-      }
+                description: `We require the bond in advance ${lease.bondType}`,
+              },
+            },
+          },
+        },
+      },
     },
     info
   );
@@ -111,7 +112,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   finaliseLeaseCleanup({
     leaseId: leaseId,
     propertyId: lease.property.id,
-    ctx: ctx
+    ctx: ctx,
   });
 
   // THIS DIDNT SEEM TO FIRE BELOW. added user, probs does now
@@ -124,7 +125,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       // payment: payment,
       wallet: lease.wallet,
       toEmail: usr.email,
-      user: usr
+      user: usr,
     });
   });
 
@@ -137,7 +138,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       // payment: payment,
       wallet: lease.wallet,
       toEmail: usr.email,
-      user: usr
+      user: usr,
     });
   });
 
@@ -152,21 +153,21 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       jsonObj: lease,
       propertyLease: {
         connect: {
-          id: lease.id
-        }
+          id: lease.id,
+        },
       },
       user: {
         connect: {
-          id: reqUserId
-        }
+          id: reqUserId,
+        },
       },
       involved: {
         connect: [
-          ...lessorIds.map(id => ({ id: id })),
-          ...lesseeIds.map(id => ({ id: id }))
-        ]
-      }
-    }
+          ...lessorIds.map((id) => ({ id: id })),
+          ...lesseeIds.map((id) => ({ id: id })),
+        ],
+      },
+    },
   });
 
   return acceptedLease;

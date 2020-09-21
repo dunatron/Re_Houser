@@ -1,22 +1,26 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = [
-  {
-    key: 'BLM',
-    text: 'Black Lives Matter Movement',
-    url: 'https://blacklivesmatter.com/',
-    type: 'offsite',
-  },
-  {
-    key: 'example',
-    text: 'Landlord Portal Promotion',
-    url: '/landlord/properties/add',
-    type: 'onsite',
-  },
+  // {
+  //   key: 'BLM',
+  //   text: 'Black Lives Matter Movement',
+  //   url: 'https://blacklivesmatter.com/',
+  //   type: 'offsite',
+  // },
+  // {
+  //   key: 'example',
+  //   text: 'Landlord Portal Promotion',
+  //   url: '/landlord/properties/add',
+  //   type: 'onsite',
+  // },
 ];
 const announcementStore = createContext(initialState);
 const { Provider } = announcementStore;
 
+/**
+ *
+ * ToDo: shouldnt be able to add when we already have it
+ */
 const AnnouncementProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {

@@ -5,6 +5,7 @@ datamodel:
   - model/interfaces.graphql
   - model/forms/InsulationForm.graphql
   - model/forms/PreTenancyForm.graphql
+  - model/forms/InspectionForm.graphql
 # secret is the database password, ommiting it in dev means easier development
 secret: ${env:PRISMA_SECRET}
 # https://github.com/prisma/prisma/issues/4492
