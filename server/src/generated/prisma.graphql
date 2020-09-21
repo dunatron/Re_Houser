@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Sep 22 2020 02:46:41 GMT+1200 (New Zealand Standard Time)
+# timestamp: Tue Sep 22 2020 03:52:29 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -14811,6 +14811,7 @@ type Property implements Node {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -14843,7 +14844,6 @@ type Property implements Node {
   rehouserStamp: Boolean
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   appraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
-  tenancyType: TenancyType
   petsAllowed: Boolean
   pets: [Pet!]!
   manholeLocation: String
@@ -15300,6 +15300,7 @@ input PropertyCreateInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15318,7 +15319,6 @@ input PropertyCreateInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15451,6 +15451,7 @@ input PropertyCreateWithoutAccommodationInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15469,7 +15470,6 @@ input PropertyCreateWithoutAccommodationInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15518,6 +15518,7 @@ input PropertyCreateWithoutActivityInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15536,7 +15537,6 @@ input PropertyCreateWithoutActivityInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15585,6 +15585,7 @@ input PropertyCreateWithoutAppraisalsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15603,7 +15604,6 @@ input PropertyCreateWithoutAppraisalsInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15652,6 +15652,7 @@ input PropertyCreateWithoutBankDetailsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15670,7 +15671,6 @@ input PropertyCreateWithoutBankDetailsInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15719,6 +15719,7 @@ input PropertyCreateWithoutCreatorInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15737,7 +15738,6 @@ input PropertyCreateWithoutCreatorInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15786,6 +15786,7 @@ input PropertyCreateWithoutFilesInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15804,7 +15805,6 @@ input PropertyCreateWithoutFilesInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15853,6 +15853,7 @@ input PropertyCreateWithoutImagesInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15871,7 +15872,6 @@ input PropertyCreateWithoutImagesInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15920,6 +15920,7 @@ input PropertyCreateWithoutInspectionsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -15938,7 +15939,6 @@ input PropertyCreateWithoutInspectionsInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -15987,6 +15987,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16005,7 +16006,6 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16054,6 +16054,7 @@ input PropertyCreateWithoutLeasesInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16072,7 +16073,6 @@ input PropertyCreateWithoutLeasesInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16121,6 +16121,7 @@ input PropertyCreateWithoutOwnersInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16139,7 +16140,6 @@ input PropertyCreateWithoutOwnersInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16188,6 +16188,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16206,7 +16207,6 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16255,6 +16255,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16273,7 +16274,6 @@ input PropertyCreateWithoutRehouserAssistInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16322,6 +16322,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16340,7 +16341,6 @@ input PropertyCreateWithoutRentalApplicationsInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16389,6 +16389,7 @@ input PropertyCreateWithoutViewingsInput {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -16407,7 +16408,6 @@ input PropertyCreateWithoutViewingsInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -16687,9 +16687,12 @@ input PropertyFilesWhereUniqueInput {
 
 type PropertyLease implements Node {
   id: ID!
-  placeId: String!
   stage: LeaseStage!
   property: Property!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   updatedAt: DateTime!
   createdAt: DateTime!
   lessees(where: LesseeWhereInput, orderBy: LesseeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessee!]
@@ -16707,9 +16710,6 @@ type PropertyLease implements Node {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   wallet: Wallet
   tenancyType: TenancyType
@@ -16746,8 +16746,11 @@ input PropertyLeaseCreateindoorFeaturesInput {
 
 input PropertyLeaseCreateInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -16759,9 +16762,6 @@ input PropertyLeaseCreateInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -16823,8 +16823,11 @@ input PropertyLeaseCreatepetsInput {
 
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -16836,9 +16839,6 @@ input PropertyLeaseCreateWithoutActivityInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -16861,8 +16861,11 @@ input PropertyLeaseCreateWithoutActivityInput {
 
 input PropertyLeaseCreateWithoutInspectionsInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -16874,9 +16877,6 @@ input PropertyLeaseCreateWithoutInspectionsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -16899,8 +16899,11 @@ input PropertyLeaseCreateWithoutInspectionsInput {
 
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -16912,9 +16915,6 @@ input PropertyLeaseCreateWithoutLesseesInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -16937,8 +16937,11 @@ input PropertyLeaseCreateWithoutLesseesInput {
 
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -16950,9 +16953,6 @@ input PropertyLeaseCreateWithoutLessorsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -16975,8 +16975,11 @@ input PropertyLeaseCreateWithoutLessorsInput {
 
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -16988,9 +16991,6 @@ input PropertyLeaseCreateWithoutPropertyInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17013,8 +17013,11 @@ input PropertyLeaseCreateWithoutPropertyInput {
 
 input PropertyLeaseCreateWithoutWalletInput {
   id: ID
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   canAcceptPayment: Boolean
   rooms: Int!
   bathrooms: Int
@@ -17026,9 +17029,6 @@ input PropertyLeaseCreateWithoutWalletInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17061,10 +17061,16 @@ type PropertyLeaseEdge {
 enum PropertyLeaseOrderByInput {
   id_ASC
   id_DESC
-  placeId_ASC
-  placeId_DESC
   stage_ASC
   stage_DESC
+  placeId_ASC
+  placeId_DESC
+  location_ASC
+  location_DESC
+  locationLat_ASC
+  locationLat_DESC
+  locationLng_ASC
+  locationLng_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -17091,12 +17097,6 @@ enum PropertyLeaseOrderByInput {
   expiryDate_DESC
   leaseLengthInMonths_ASC
   leaseLengthInMonths_DESC
-  location_ASC
-  location_DESC
-  locationLat_ASC
-  locationLat_DESC
-  locationLng_ASC
-  locationLng_DESC
   tenancyType_ASC
   tenancyType_DESC
   petsAllowed_ASC
@@ -17119,8 +17119,11 @@ enum PropertyLeaseOrderByInput {
 
 type PropertyLeasePreviousValues {
   id: ID!
-  placeId: String!
   stage: LeaseStage!
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   updatedAt: DateTime!
   createdAt: DateTime!
   canAcceptPayment: Boolean
@@ -17136,9 +17139,6 @@ type PropertyLeasePreviousValues {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
   tenancyType: TenancyType
   petsAllowed: Boolean
   pets: [Pet!]!
@@ -17201,6 +17201,16 @@ input PropertyLeaseScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  stage: LeaseStage
+
+  """All values that are not equal to given value."""
+  stage_not: LeaseStage
+
+  """All values that are contained in given list."""
+  stage_in: [LeaseStage!]
+
+  """All values that are not contained in given list."""
+  stage_not_in: [LeaseStage!]
   placeId: String
 
   """All values that are not equal to given value."""
@@ -17241,16 +17251,90 @@ input PropertyLeaseScalarWhereInput {
 
   """All values not ending with the given string."""
   placeId_not_ends_with: String
-  stage: LeaseStage
+  location: String
 
   """All values that are not equal to given value."""
-  stage_not: LeaseStage
+  location_not: String
 
   """All values that are contained in given list."""
-  stage_in: [LeaseStage!]
+  location_in: [String!]
 
   """All values that are not contained in given list."""
-  stage_not_in: [LeaseStage!]
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
+  locationLat: Float
+
+  """All values that are not equal to given value."""
+  locationLat_not: Float
+
+  """All values that are contained in given list."""
+  locationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLat_lte: Float
+
+  """All values greater than the given value."""
+  locationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLat_gte: Float
+  locationLng: Float
+
+  """All values that are not equal to given value."""
+  locationLng_not: Float
+
+  """All values that are contained in given list."""
+  locationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLng_lte: Float
+
+  """All values greater than the given value."""
+  locationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLng_gte: Float
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -17507,90 +17591,6 @@ input PropertyLeaseScalarWhereInput {
 
   """All values greater than or equal the given value."""
   leaseLengthInMonths_gte: Int
-  location: String
-
-  """All values that are not equal to given value."""
-  location_not: String
-
-  """All values that are contained in given list."""
-  location_in: [String!]
-
-  """All values that are not contained in given list."""
-  location_not_in: [String!]
-
-  """All values less than the given value."""
-  location_lt: String
-
-  """All values less than or equal the given value."""
-  location_lte: String
-
-  """All values greater than the given value."""
-  location_gt: String
-
-  """All values greater than or equal the given value."""
-  location_gte: String
-
-  """All values containing the given string."""
-  location_contains: String
-
-  """All values not containing the given string."""
-  location_not_contains: String
-
-  """All values starting with the given string."""
-  location_starts_with: String
-
-  """All values not starting with the given string."""
-  location_not_starts_with: String
-
-  """All values ending with the given string."""
-  location_ends_with: String
-
-  """All values not ending with the given string."""
-  location_not_ends_with: String
-  locationLat: Float
-
-  """All values that are not equal to given value."""
-  locationLat_not: Float
-
-  """All values that are contained in given list."""
-  locationLat_in: [Float!]
-
-  """All values that are not contained in given list."""
-  locationLat_not_in: [Float!]
-
-  """All values less than the given value."""
-  locationLat_lt: Float
-
-  """All values less than or equal the given value."""
-  locationLat_lte: Float
-
-  """All values greater than the given value."""
-  locationLat_gt: Float
-
-  """All values greater than or equal the given value."""
-  locationLat_gte: Float
-  locationLng: Float
-
-  """All values that are not equal to given value."""
-  locationLng_not: Float
-
-  """All values that are contained in given list."""
-  locationLng_in: [Float!]
-
-  """All values that are not contained in given list."""
-  locationLng_not_in: [Float!]
-
-  """All values less than the given value."""
-  locationLng_lt: Float
-
-  """All values less than or equal the given value."""
-  locationLng_lte: Float
-
-  """All values greater than the given value."""
-  locationLng_gt: Float
-
-  """All values greater than or equal the given value."""
-  locationLng_gte: Float
   tenancyType: TenancyType
 
   """All values that are not equal to given value."""
@@ -17699,8 +17699,11 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17712,9 +17715,6 @@ input PropertyLeaseUpdateInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17737,8 +17737,11 @@ input PropertyLeaseUpdateInput {
 }
 
 input PropertyLeaseUpdateManyDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17750,9 +17753,6 @@ input PropertyLeaseUpdateManyDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17769,8 +17769,11 @@ input PropertyLeaseUpdateManyDataInput {
 }
 
 input PropertyLeaseUpdateManyMutationInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17782,9 +17785,6 @@ input PropertyLeaseUpdateManyMutationInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17871,8 +17871,11 @@ input PropertyLeaseUpdatepetsInput {
 }
 
 input PropertyLeaseUpdateWithoutActivityDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17884,9 +17887,6 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17908,8 +17908,11 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
 }
 
 input PropertyLeaseUpdateWithoutInspectionsDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17921,9 +17924,6 @@ input PropertyLeaseUpdateWithoutInspectionsDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17945,8 +17945,11 @@ input PropertyLeaseUpdateWithoutInspectionsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17958,9 +17961,6 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -17982,8 +17982,11 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -17995,9 +17998,6 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -18019,8 +18019,11 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -18032,9 +18035,6 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -18056,8 +18056,11 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
 }
 
 input PropertyLeaseUpdateWithoutWalletDataInput {
-  placeId: String
   stage: LeaseStage
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
   canAcceptPayment: Boolean
   rooms: Int
   bathrooms: Int
@@ -18069,9 +18072,6 @@ input PropertyLeaseUpdateWithoutWalletDataInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String
-  locationLat: Float
-  locationLng: Float
   tenancyType: TenancyType
   petsAllowed: Boolean
   maximumOccupants: Int
@@ -18177,6 +18177,16 @@ input PropertyLeaseWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  stage: LeaseStage
+
+  """All values that are not equal to given value."""
+  stage_not: LeaseStage
+
+  """All values that are contained in given list."""
+  stage_in: [LeaseStage!]
+
+  """All values that are not contained in given list."""
+  stage_not_in: [LeaseStage!]
   placeId: String
 
   """All values that are not equal to given value."""
@@ -18217,16 +18227,90 @@ input PropertyLeaseWhereInput {
 
   """All values not ending with the given string."""
   placeId_not_ends_with: String
-  stage: LeaseStage
+  location: String
 
   """All values that are not equal to given value."""
-  stage_not: LeaseStage
+  location_not: String
 
   """All values that are contained in given list."""
-  stage_in: [LeaseStage!]
+  location_in: [String!]
 
   """All values that are not contained in given list."""
-  stage_not_in: [LeaseStage!]
+  location_not_in: [String!]
+
+  """All values less than the given value."""
+  location_lt: String
+
+  """All values less than or equal the given value."""
+  location_lte: String
+
+  """All values greater than the given value."""
+  location_gt: String
+
+  """All values greater than or equal the given value."""
+  location_gte: String
+
+  """All values containing the given string."""
+  location_contains: String
+
+  """All values not containing the given string."""
+  location_not_contains: String
+
+  """All values starting with the given string."""
+  location_starts_with: String
+
+  """All values not starting with the given string."""
+  location_not_starts_with: String
+
+  """All values ending with the given string."""
+  location_ends_with: String
+
+  """All values not ending with the given string."""
+  location_not_ends_with: String
+  locationLat: Float
+
+  """All values that are not equal to given value."""
+  locationLat_not: Float
+
+  """All values that are contained in given list."""
+  locationLat_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLat_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLat_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLat_lte: Float
+
+  """All values greater than the given value."""
+  locationLat_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLat_gte: Float
+  locationLng: Float
+
+  """All values that are not equal to given value."""
+  locationLng_not: Float
+
+  """All values that are contained in given list."""
+  locationLng_in: [Float!]
+
+  """All values that are not contained in given list."""
+  locationLng_not_in: [Float!]
+
+  """All values less than the given value."""
+  locationLng_lt: Float
+
+  """All values less than or equal the given value."""
+  locationLng_lte: Float
+
+  """All values greater than the given value."""
+  locationLng_gt: Float
+
+  """All values greater than or equal the given value."""
+  locationLng_gte: Float
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -18483,90 +18567,6 @@ input PropertyLeaseWhereInput {
 
   """All values greater than or equal the given value."""
   leaseLengthInMonths_gte: Int
-  location: String
-
-  """All values that are not equal to given value."""
-  location_not: String
-
-  """All values that are contained in given list."""
-  location_in: [String!]
-
-  """All values that are not contained in given list."""
-  location_not_in: [String!]
-
-  """All values less than the given value."""
-  location_lt: String
-
-  """All values less than or equal the given value."""
-  location_lte: String
-
-  """All values greater than the given value."""
-  location_gt: String
-
-  """All values greater than or equal the given value."""
-  location_gte: String
-
-  """All values containing the given string."""
-  location_contains: String
-
-  """All values not containing the given string."""
-  location_not_contains: String
-
-  """All values starting with the given string."""
-  location_starts_with: String
-
-  """All values not starting with the given string."""
-  location_not_starts_with: String
-
-  """All values ending with the given string."""
-  location_ends_with: String
-
-  """All values not ending with the given string."""
-  location_not_ends_with: String
-  locationLat: Float
-
-  """All values that are not equal to given value."""
-  locationLat_not: Float
-
-  """All values that are contained in given list."""
-  locationLat_in: [Float!]
-
-  """All values that are not contained in given list."""
-  locationLat_not_in: [Float!]
-
-  """All values less than the given value."""
-  locationLat_lt: Float
-
-  """All values less than or equal the given value."""
-  locationLat_lte: Float
-
-  """All values greater than the given value."""
-  locationLat_gt: Float
-
-  """All values greater than or equal the given value."""
-  locationLat_gte: Float
-  locationLng: Float
-
-  """All values that are not equal to given value."""
-  locationLng_not: Float
-
-  """All values that are contained in given list."""
-  locationLng_in: [Float!]
-
-  """All values that are not contained in given list."""
-  locationLng_not_in: [Float!]
-
-  """All values less than the given value."""
-  locationLng_lt: Float
-
-  """All values less than or equal the given value."""
-  locationLng_lte: Float
-
-  """All values greater than the given value."""
-  locationLng_gt: Float
-
-  """All values greater than or equal the given value."""
-  locationLng_gte: Float
   tenancyType: TenancyType
 
   """All values that are not equal to given value."""
@@ -18677,6 +18677,8 @@ enum PropertyOrderByInput {
   maximumOccupants_DESC
   rent_ASC
   rent_DESC
+  tenancyType_ASC
+  tenancyType_DESC
   bondType_ASC
   bondType_DESC
   lowestRoomPrice_ASC
@@ -18713,8 +18715,6 @@ enum PropertyOrderByInput {
   leaseExpiryDate_DESC
   rehouserStamp_ASC
   rehouserStamp_DESC
-  tenancyType_ASC
-  tenancyType_DESC
   petsAllowed_ASC
   petsAllowed_DESC
   manholeLocation_ASC
@@ -18758,6 +18758,7 @@ type PropertyPreviousValues {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -18779,7 +18780,6 @@ type PropertyPreviousValues {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   pets: [Pet!]!
   manholeLocation: String
@@ -19150,6 +19150,16 @@ input PropertyScalarWhereInput {
 
   """All values greater than or equal the given value."""
   rent_gte: Float
+  tenancyType: TenancyType
+
+  """All values that are not equal to given value."""
+  tenancyType_not: TenancyType
+
+  """All values that are contained in given list."""
+  tenancyType_in: [TenancyType!]
+
+  """All values that are not contained in given list."""
+  tenancyType_not_in: [TenancyType!]
   bondType: BondType
 
   """All values that are not equal to given value."""
@@ -19450,16 +19460,6 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
-  tenancyType: TenancyType
-
-  """All values that are not equal to given value."""
-  tenancyType_not: TenancyType
-
-  """All values that are contained in given list."""
-  tenancyType_in: [TenancyType!]
-
-  """All values that are not contained in given list."""
-  tenancyType_not_in: [TenancyType!]
   petsAllowed: Boolean
 
   """All values that are not equal to given value."""
@@ -19649,6 +19649,7 @@ input PropertyUpdateInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -19667,7 +19668,6 @@ input PropertyUpdateInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -19716,6 +19716,7 @@ input PropertyUpdateManyDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -19734,7 +19735,6 @@ input PropertyUpdateManyDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -19767,6 +19767,7 @@ input PropertyUpdateManyMutationInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -19785,7 +19786,6 @@ input PropertyUpdateManyMutationInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -19964,6 +19964,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -19982,7 +19983,6 @@ input PropertyUpdateWithoutAccommodationDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20030,6 +20030,7 @@ input PropertyUpdateWithoutActivityDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20048,7 +20049,6 @@ input PropertyUpdateWithoutActivityDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20096,6 +20096,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20114,7 +20115,6 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20162,6 +20162,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20180,7 +20181,6 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20228,6 +20228,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20246,7 +20247,6 @@ input PropertyUpdateWithoutCreatorDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20294,6 +20294,7 @@ input PropertyUpdateWithoutFilesDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20312,7 +20313,6 @@ input PropertyUpdateWithoutFilesDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20360,6 +20360,7 @@ input PropertyUpdateWithoutImagesDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20378,7 +20379,6 @@ input PropertyUpdateWithoutImagesDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20426,6 +20426,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20444,7 +20445,6 @@ input PropertyUpdateWithoutInspectionsDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20492,6 +20492,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20510,7 +20511,6 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20558,6 +20558,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20576,7 +20577,6 @@ input PropertyUpdateWithoutLeasesDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20624,6 +20624,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20642,7 +20643,6 @@ input PropertyUpdateWithoutOwnersDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20690,6 +20690,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20708,7 +20709,6 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20756,6 +20756,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20774,7 +20775,6 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20822,6 +20822,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20840,7 +20841,6 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -20888,6 +20888,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   rooms: Int
   maximumOccupants: Int
   rent: Float
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -20906,7 +20907,6 @@ input PropertyUpdateWithoutViewingsDataInput {
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
-  tenancyType: TenancyType
   petsAllowed: Boolean
   manholeLocation: String
   gardenToMaintain: Boolean
@@ -21382,6 +21382,16 @@ input PropertyWhereInput {
 
   """All values greater than or equal the given value."""
   rent_gte: Float
+  tenancyType: TenancyType
+
+  """All values that are not equal to given value."""
+  tenancyType_not: TenancyType
+
+  """All values that are contained in given list."""
+  tenancyType_in: [TenancyType!]
+
+  """All values that are not contained in given list."""
+  tenancyType_not_in: [TenancyType!]
   bondType: BondType
 
   """All values that are not equal to given value."""
@@ -21682,16 +21692,6 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   rehouserStamp_not: Boolean
-  tenancyType: TenancyType
-
-  """All values that are not equal to given value."""
-  tenancyType_not: TenancyType
-
-  """All values that are contained in given list."""
-  tenancyType_in: [TenancyType!]
-
-  """All values that are not contained in given list."""
-  tenancyType_not_in: [TenancyType!]
   petsAllowed: Boolean
 
   """All values that are not equal to given value."""

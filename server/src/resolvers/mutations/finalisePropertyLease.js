@@ -91,15 +91,17 @@ async function finalisePropertyLease(parent, args, ctx, info) {
           update: {
             amount: lease.wallet.amount - lease.rent,
             charges: {
-              create: {
-                amount: lease.rent,
-                description:
-                  "We require 1 weeks rent in advance hence a charge",
-              },
-              create: {
-                amount: getBondAmount(lease),
-                description: `We require the bond in advance ${lease.bondType}`,
-              },
+              create: [
+                {
+                  amount: lease.rent,
+                  description:
+                    "We require 1 weeks rent in advance hence a charge",
+                },
+                {
+                  amount: getBondAmount(lease),
+                  description: `We require the bond in advance ${lease.bondType}`,
+                },
+              ],
             },
           },
         },

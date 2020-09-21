@@ -218,6 +218,7 @@ type Property implements PropertyInfo {
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
+  tenancyType: TenancyType
   bondType: BondType
   lowestRoomPrice: Float
   highestRoomPrice: Float
@@ -253,7 +254,6 @@ type Property implements PropertyInfo {
   rehouserStamp: Boolean
   activity: [Activity!]! @relation(name: "PropertyActivity")
   appraisals: [RentalAppraisal] @relation(name: "PropertyRentalAppraisals")
-  tenancyType: TenancyType
   petsAllowed: Boolean
   pets: [Pet] @scalarList(strategy: RELATION)
   manholeLocation: String
@@ -307,9 +307,13 @@ type Viewing {
 
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
-  placeId: String! @unique
   stage: LeaseStage!
   property: Property! @relation(name: "PropertyLeases")
+
+  placeId: String! @unique
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   lessees: [Lessee!]! @relation(name: "LeaseLessees")
@@ -327,9 +331,7 @@ type PropertyLease implements PropertyInfo {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  location: String!
-  locationLat: Float!
-  locationLng: Float!
+
   activity: [Activity!]! @relation(name: "PropertyLeaseActivity")
   wallet: Wallet @relation(name: "LeaseWallet", link: INLINE)
   tenancyType: TenancyType

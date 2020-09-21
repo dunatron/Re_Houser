@@ -89,8 +89,8 @@ const PropertyApplicationsBadgeCount = ({ property }) => {
 
 PropertyApplicationsBadgeCount.propTypes = {
   property: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
+    id: PropTypes.any,
+  }).isRequired,
 };
 
 const PropertyCard = styled.div`
@@ -169,7 +169,7 @@ const PropertyDetails = ({ id, location, me }) => {
         )}
         {tabIndex === 1 && (
           <TabContainer>
-            <Applications property={property} />
+            <Applications property={property} me={me} />
           </TabContainer>
         )}
         {tabIndex === 2 && (
@@ -224,7 +224,7 @@ const PropertyDetails = ({ id, location, me }) => {
 PropertyDetails.propTypes = {
   id: PropTypes.any.isRequired,
   location: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
+  me: PropTypes.any.isRequired,
 };
 
 export default PropertyDetails;

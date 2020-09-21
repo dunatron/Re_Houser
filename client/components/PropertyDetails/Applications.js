@@ -54,7 +54,10 @@ const RentalApplications = props => {
   return (
     <div>
       {/* <PropertyPendingRentalApplicationsSub property={props.property} /> */}
-      <Paper>
+      <Paper
+        style={{
+          padding: '16px',
+        }}>
         <Typography>
           You can handle applications for your property here
         </Typography>
@@ -83,6 +86,7 @@ const RentalApplications = props => {
             key={application.id}
             application={application}
             property={props.property}
+            me={props.me}
           />
         );
       })}
@@ -92,8 +96,8 @@ const RentalApplications = props => {
 
 RentalApplications.propTypes = {
   property: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
+    id: PropTypes.any,
+  }).isRequired,
 };
 
 export default RentalApplications;

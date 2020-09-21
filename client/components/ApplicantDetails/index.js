@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -13,13 +13,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    background: theme.palette.secondary.light,
     borderRadius: 0,
     wordWrap: 'break-word',
     height: '100%',
   },
   approvedPaper: {
-    background: theme.palette.primary.light,
-    color: theme.palette.primary.contrastText,
+    background: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
   },
   gridItem: {
     // border: "1px solid red",
@@ -64,9 +65,9 @@ ApplicantDetails.propTypes = {
     user: PropTypes.shape({
       firstName: PropTypes.any,
       lastName: PropTypes.any,
-      phone: PropTypes.any
-    })
-  }).isRequired
-}
+      phone: PropTypes.any,
+    }),
+  }).isRequired,
+};
 
 export default ApplicantDetails;

@@ -4,7 +4,7 @@ const { transport, makeANiceEmail } = require("../../lib/mail");
 const createPropertyLease = require("./createPropertyLease");
 const {
   newLeaseLesseeEmail,
-  newLeaseLessorEmail
+  newLeaseLessorEmail,
 } = require("../../lib/emails/newLeaseEmail");
 
 /**
@@ -27,8 +27,8 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const application = await ctx.db.query.rentalApplication(
     {
       where: {
-        id: applicationId
-      }
+        id: applicationId,
+      },
     },
     `{
       owner {
@@ -51,14 +51,34 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         locationLng
         rooms
         rent
+        bondType
+        leaseExpiryDate
+        isLeased
+        lastLeaseId
+        tenancyType
+        fixedLength
+        moveInDate
+        expiryDate
         bathrooms
         garageSpaces
         carportSpaces
         offStreetSpaces
+        indoorFeatures
+        outdoorFeatures
+        petsAllowed
+        pets
+        maximumOccupants
+        chattels
         owners {
           id
           email
         } 
+        landlordProtectionCover
+        freeGlassCover
+        workingAlarms
+        inHallway3mOfEachBedroom
+        tenYearPhotoelectricAlarms
+        alarmsEachLevel
       }
     }`
   );
@@ -70,8 +90,8 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   const { applicants, property } = application;
   const { owners } = property;
-  const ownerIds = property.owners.map(owner => owner.id);
-  const lesseeUsers = applicants.map(applicant => applicant.user);
+  const ownerIds = property.owners.map((owner) => owner.id);
+  const lesseeUsers = applicants.map((applicant) => applicant.user);
 
   // check that loggedInUser is one of the owners for the property
   if (!ownerIds.includes(loggedInUser)) {
@@ -83,35 +103,60 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     parent,
     {
       data: {
+        stage: "INITIALIZING",
+        property: {
+          connect: {
+            id: property.id,
+          },
+        },
         placeId: property.placeId,
         location: property.location,
         locationLat: property.locationLat,
         locationLng: property.locationLng,
-        rooms: property.rooms,
+        lessors: {
+          create: owners.map((owner) => ({
+            signed: false,
+            user: { connect: { id: owner.id } },
+          })),
+        },
+        lessees: {
+          create: lesseeUsers.map((user) => ({
+            signed: false,
+            user: { connect: { id: user.id } },
+          })),
+        },
         rent: property.rent,
+        bondType: property.bondType,
+        tenancyType: property.bondType,
+        rooms: property.rooms,
+        maximumOccupants: property.maximumOccupants,
         bathrooms: property.bathrooms,
-        stage: "INITIALIZING",
         garageSpaces: property.garageSpaces,
         carportSpaces: property.carportSpaces,
         offStreetSpaces: property.offStreetSpaces,
-        property: {
-          connect: {
-            id: property.id
-          }
+        indoorFeatures: {
+          set: property.indoorFeatures,
         },
-        lessors: {
-          create: owners.map(owner => ({
-            signed: false,
-            user: { connect: { id: owner.id } }
-          }))
+        outdoorFeatures: {
+          set: property.outdoorFeatures,
         },
-        lessees: {
-          create: lesseeUsers.map(user => ({
-            signed: false,
-            user: { connect: { id: user.id } }
-          }))
-        }
-      }
+        moveInDate: property.moveInDate,
+        expiryDate: property.expiryDate,
+        leaseLengthInMonths: 12, // ToDo initially should maybe have a server function. let FE calc
+        petsAllowed: property.petsAllowed,
+        pets: {
+          set: property.pets,
+        },
+        chattels: {
+          set: property.chattels,
+        },
+        workingAlarms: property.workingAlarms,
+        inHallway3mOfEachBedroom: property.inHallway3mOfEachBedroom,
+        tenYearPhotoelectricAlarms: property.tenYearPhotoelectricAlarms,
+        alarmsEachLevel: property.alarmsEachLevel,
+        landlordProtectionCover: property.landlordProtectionCover,
+        freeGlassCover: property.freeGlassCover,
+      },
     },
     ctx,
     info
@@ -122,12 +167,12 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   ctx.db.mutation.updateRentalApplication(
     {
       where: {
-        id: applicationId
+        id: applicationId,
       },
       data: {
         stage: "ACCEPTED",
-        leaseId: lease.id
-      }
+        leaseId: lease.id,
+      },
     },
     info
   );
