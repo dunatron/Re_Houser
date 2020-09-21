@@ -150,6 +150,8 @@ const LeaseWallet = ({ lease, me }) => {
     });
   };
 
+  console.log('The STripe to use inside of the lease wallet => ', stripe);
+
   return (
     <>
       <RehouserPaper>

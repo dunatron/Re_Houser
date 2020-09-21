@@ -2,6 +2,7 @@ const { createCard, chargeCard } = require("../../lib/paymentAPI");
 const finalisePropertyLeaseEmail = require("../../lib/emails/finalisePropertyLeaseEmail");
 const mustBeAuthed = require("../../lib/mustBeAuthed");
 const { createActivity } = require("../../lib/createActivity");
+const getBondAmount = require("../../lib/payments/getBondAmount");
 
 // cleanup
 const finaliseLeaseCleanup = require("../../lib/cleanup/finaliseLeaseCleanup");
@@ -25,6 +26,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     `{
       id
       rent
+      bondType
       lessors {
         id
         signed
@@ -92,6 +94,10 @@ async function finalisePropertyLease(parent, args, ctx, info) {
               create: {
                 amount: lease.rent,
                 description: "We require 1 weeks rent in advance hence a charge"
+              },
+              create: {
+                amount: getBondAmount(lease),
+                description: `We require the bond in advance ${lease.bondType}`
               }
             }
           }

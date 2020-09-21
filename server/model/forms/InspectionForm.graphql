@@ -1,0 +1,10 @@
+type InspectionForm {
+  id: ID! @unique @id
+  createdAt: DateTime @createdAt
+  #   Think about how we are going to design this form
+  # perhaps a json object could be useful for this
+  # ideally the form itself is created from the property and the features and rooms it has on the property.
+  # so we almost have a key/val structure. or rather an array of items that are objects. These objects will have things like.
+  # status(poor, average, very good) and comments and a key for the name? and perhaps a type
+  json: Json
+}

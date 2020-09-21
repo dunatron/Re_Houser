@@ -82,7 +82,16 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
         }
       }
     },
-    `{ id, firstName, lastName, email, approved, completed ,user{id, firstName, lastName, phone, email, rehouserStamp}}`
+    `{ id, firstName, lastName, email, approved, completed,
+      user{
+        id, firstName, lastName, phone, email, rehouserStamp
+        photoIdentification {
+          id
+          url
+          createdAt
+        }
+      }
+    }`
   );
 
   rentalApplication.applicants.push({ ...rentalGroupNode });

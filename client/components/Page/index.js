@@ -46,6 +46,7 @@ const Page = props => {
   const [stripe, setStripe] = useState(null);
   useEffect(() => {
     if (window.Stripe) {
+      console.log('Window Stripe => ', window.Stripe);
       setStripe(window.Stripe(process.env.STRIPE_KEY));
     }
   }, [window.Stripe]);

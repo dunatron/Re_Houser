@@ -1,5 +1,6 @@
 exports.addPaymentToWallet = async ({ amount, db, walletId, paymentData }) => {
   try {
+    console.log("ADD PAYMENT TO WALLET");
     const wallet = await db.query.wallet(
       {
         where: {
@@ -8,6 +9,8 @@ exports.addPaymentToWallet = async ({ amount, db, walletId, paymentData }) => {
       },
       `{id, amount, lease{id,stage,rent}}`
     );
+
+    console.log("Original Wallet => ", wallet);
 
     const updatedWallet = await db.mutation.updateWallet({
       where: {
@@ -23,10 +26,17 @@ exports.addPaymentToWallet = async ({ amount, db, walletId, paymentData }) => {
       }
     });
 
+    console.log("Updated Wallet => ", updatedWallet);
+
+    // this logic should work.
+    // if the updatedWallet amount is greater than or = to 1 weeks rent on the wallet.lease.rent
+    // Lets make this work well.
+    // Like atm, when the lease gets fialised and placed into the signed stage we automatically are charging 2 weeks rent
+
     if (wallet.lease.stage !== "PAID") {
       // if wallet.amount >= wallet.lease.rent
       // update the lease stage
-      if (wallet.amount >= wallet.lease.rent) {
+      if (updatedWallet.amount >= wallet.lease.rent) {
         db.mutation.updatePropertyLease({
           where: {
             id: wallet.lease.id

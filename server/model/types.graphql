@@ -356,6 +356,7 @@ type Inspection {
   completedTime: DateTime
   completed: Boolean
   notes: String
+  inspectionForm: InspectionForm
   files: [File] @relation(name: "InspectionFiles", link: TABLE)
 }
 

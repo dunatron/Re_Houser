@@ -20,7 +20,7 @@ class AppEntryPointExtension extends App {
     return (
       <ApolloProvider client={apollo}>
         <Head>
-          <script src="https://js.stripe.com/v3/" />
+          {/* <script src="https://js.stripe.com/v3/" /> */}
           <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
         </Head>
         <Page>

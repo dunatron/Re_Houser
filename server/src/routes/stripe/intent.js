@@ -1,6 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 const stripePostIntentRoute = async (req, res, next) => {
+  console.log("A STRIPE INTENT TO PAY");
   const token = req.cookies.token;
   if (!token) {
     return next();

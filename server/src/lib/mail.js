@@ -10,8 +10,10 @@ const transport = nodemailer.createTransport({
     user: process.env.MAIL_LOGIN, // replace with your Mailtrap credentials
     pass: process.env.MAIL_PASS
   },
-  debug: process.env.STAGE === "dev" ? true : false, // show debug output
-  logger: process.env.STAGE === "dev" ? true : false // log information in console
+  // debug: process.env.STAGE === "dev" ? true : false, // show debug output
+  // logger: process.env.STAGE === "dev" ? true : false // log information in console
+  debug: false, // show debug output
+  logger: false // log information in console
 });
 
 const makeANiceEmail = (text, user) => {
