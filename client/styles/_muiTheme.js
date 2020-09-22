@@ -160,7 +160,7 @@ const theme = {
     MuiButton: {
       root: {
         fontSize: '1rem',
-        backgroundColor: '#fff',
+        backgroundColor: 'inherit',
       },
       contained: {
         color: mainPrimaryColor,
@@ -171,6 +171,20 @@ const theme = {
       },
       containedSecondary: {
         color: '#fff',
+      },
+    },
+    MuiButtonBase: {
+      root: {
+        color: 'inherit',
+      },
+    },
+    MuiIconButton: {
+      root: { color: 'inherit' },
+      label: { color: 'inherit' },
+    },
+    MuiInputBase: {
+      root: {
+        color: 'inherit',
       },
     },
     MuiListItem: {},
@@ -187,6 +201,43 @@ const theme = {
       // paper: {
       //   width: '120px',
       // },
+    },
+    // PICKERS override
+    MuiPickersToolbar: {
+      toolbar: {
+        // backgroundColor: lightBlue.A200,
+        // backgroundColor: lightBlue.A200,
+      },
+    },
+    MuiPickersCalendarHeader: {
+      switchHeader: {
+        // backgroundColor: lightBlue.A200,
+        // color: "white",
+      },
+    },
+    MuiPickersDay: {
+      day: {
+        // color: lightBlue.A700,
+        // color: lightBlue.A700,
+      },
+      daySelected: {
+        // backgroundColor: lightBlue['400'],
+        // backgroundColor: lightBlue['400'],
+      },
+      dayDisabled: {
+        // color: lightBlue['100'],
+        // color: lightBlue['100'],
+      },
+      current: {
+        // color: lightBlue['900'],
+        // color: lightBlue['900'],
+      },
+    },
+    MuiPickersModal: {
+      dialogAction: {
+        // color: lightBlue['400'],
+        // color: lightBlue['400'],
+      },
     },
   },
 };

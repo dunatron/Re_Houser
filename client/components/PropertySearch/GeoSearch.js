@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleApiWrapper } from 'google-maps-react';
 
@@ -18,8 +18,9 @@ const GeoSearchWidget = props => {
   const [lngPos, setLngPos] = useState(172.6233322);
 
   return (
-    <>
+    <div>
       <GeoSearch
+        style={{ height: 100 }}
         google={google}
         initialZoom={8}
         initialPosition={{
@@ -37,10 +38,10 @@ const GeoSearchWidget = props => {
         zoom={20}
         enableRefineOnMapMove={enableRefineOnMapMove}
         enableRefine={enableRefine} // If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
-        mapTypeId="hybrid" // hybrid, roadmap, satellite, terrain
+        mapTypeId="roadmap" // hybrid, roadmap, satellite, terrain
       >
         {({ hits }) => (
-          <div>
+          <div style={{ height: 100 }}>
             {/* <Control /> */}
             {hits.map(hit => (
               <MapMarker hit={hit} key={hit.objectID} />
@@ -48,13 +49,13 @@ const GeoSearchWidget = props => {
           </div>
         )}
       </GeoSearch>
-    </>
+    </div>
   );
 };
 
 GeoSearchWidget.propTypes = {
-  google: PropTypes.any.isRequired
-}
+  google: PropTypes.any.isRequired,
+};
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,

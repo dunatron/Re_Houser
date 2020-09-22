@@ -25,6 +25,7 @@ import CloseIcon from '@/Styles/icons/CloseIcon';
 
 import { SearchInterface } from './styles';
 
+import ConnectedRefinements from './refinements/ConnectedRefinements';
 import ConnectedCheckBoxRefinementList from './refinements/CheckBoxList';
 import ConnectedMaterialUiSortBy from './refinements/SortBy';
 import ConnectedMaterialPagination from './refinements/Pagination';
@@ -99,7 +100,7 @@ const FilterDrawer = ({ open, handleClose }) => {
 
 FilterDrawer.propTypes = {
   handleClose: PropTypes.any.isRequired,
-  open: PropTypes.any.isRequired
+  open: PropTypes.any.isRequired,
 };
 
 const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
@@ -134,23 +135,13 @@ const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
 DrawHeader.propTypes = {
   close: PropTypes.any.isRequired,
   isFullScreen: PropTypes.any.isRequired,
-  setFullScreen: PropTypes.any.isRequired
+  setFullScreen: PropTypes.any.isRequired,
 };
 
 const Sidebar = () => (
   <div className="si-drawer__sidebar" style={{ maxWidth: '100vw' }}>
     <div>
-      <ConnectedCheckBoxRefinementList attribute="rooms" operator="or" />
-      <ConnectedCheckBoxRefinementList attribute="type" operator="or" />
-      <ConnectedCheckBoxRefinementList
-        attribute="outdoorFeatures"
-        operator="or"
-      />
-      <ConnectedCheckBoxRefinementList
-        attribute="indoorFeatures"
-        operator="or"
-      />
-      <ConnectedCheckBoxRefinementList attribute="price" operator="or" />
+      <ConnectedRefinements />
     </div>
   </div>
 );

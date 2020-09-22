@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
 import Head from 'next/head';
 
-const PagerHeader = ({
+const PageHeader = ({
   title,
   id,
   titleOverride,
@@ -10,6 +10,7 @@ const PagerHeader = ({
   intro,
   children,
   metaData,
+  hidden,
 }) => {
   return (
     <div style={{ maxWidth: '800px' }} id={id}>
@@ -22,6 +23,8 @@ const PagerHeader = ({
       {titleOverride && titleOverride}
       {title && (
         <Typography
+          display="none"
+          hidden={hidden}
           variant={titleVariant ? titleVariant : 'h1'}
           // color="primary"
           component="h1"
@@ -30,23 +33,28 @@ const PagerHeader = ({
         </Typography>
       )}
 
-      {intro && <Typography gutterBottom>{intro}</Typography>}
-      {children}
+      {intro && (
+        <Typography gutterBottom hidden={hidden}>
+          {intro}
+        </Typography>
+      )}
+      {!hidden && children}
     </div>
   );
 };
 
-PagerHeader.propTypes = {
+PageHeader.propTypes = {
   children: PropTypes.any.isRequired,
   id: PropTypes.any.isRequired,
+  hidden: PropTypes.bool,
   intro: PropTypes.any.isRequired,
   metaData: PropTypes.shape({
     content: PropTypes.any,
-    title: PropTypes.any
+    title: PropTypes.any,
   }).isRequired,
   title: PropTypes.any.isRequired,
   titleOverride: PropTypes.any.isRequired,
-  titleVariant: PropTypes.any.isRequired
+  titleVariant: PropTypes.any.isRequired,
 };
 
-export default PagerHeader;
+export default PageHeader;

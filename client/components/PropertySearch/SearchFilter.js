@@ -6,13 +6,22 @@ import TextInput from '@/Components/Inputs/TextInput';
 import DateInput from '@/Components/Inputs/DateInput';
 import moment from 'moment';
 import CurrentRefinements from './refinements/CurrentRefinements';
+import ConnectedRefinements from './refinements/ConnectedRefinements';
+import ExpansionRefinement from './refinements/ExpansionRefinement';
+import PriceFilter from './refinements/PriceFilter';
+import {
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Input,
+} from '@material-ui/core';
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import DatePicker from '@/Components/Pickers/DatePicker';
 
 import Typography from '@material-ui/core/Typography';
+// icons
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TuneIcon from '@material-ui/icons/Tune';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,11 +29,19 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   expansionPanelRoot: {
-    // border: '3px solid blue',
-    boxShadow: 'unset',
+    alignItems: 'center',
   },
   expansionPanelDetails: {
     padding: 0,
+  },
+  expansionPanelSummaryContent: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  textInputRoot: {
+    // color: `yellow !important`,
+    color: 'inherit',
+    backgroundColor: 'inherit',
   },
   filterGrid: {
     display: 'grid',
@@ -43,24 +60,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const FilterSummary = ({ bottomPrice, topPrice, moveInDate }) => {
-  const moveInPretty = moment(moveInDate).format('MMMM Do YYYY');
-  return (
-    <div>
-      <Typography>
-        rent per week ${bottomPrice} - ${topPrice}, move in no later than{' '}
-        {moveInPretty}
-      </Typography>
-    </div>
-  );
-};
-
-FilterSummary.propTypes = {
-  bottomPrice: PropTypes.any.isRequired,
-  moveInDate: PropTypes.any.isRequired,
-  topPrice: PropTypes.any.isRequired
-};
-
 const SearchFilter = () => {
   const stopPropagation = e => e.stopPropagation();
   const classes = useStyles();
@@ -72,8 +71,15 @@ const SearchFilter = () => {
   const [moveInDateStamp, setMoveInDateStamp] = useState(now.unix());
 
   const setAndFormatMoveInDate = date => {
-    setMoveInDate(date);
+    console.log('Date to format => ', moment(date).unix());
+    // setMoveInDate(date);
     setMoveInDateStamp(moment(date).unix());
+  };
+
+  // topPrice, bottomPrice
+  const handleSetPriceFilter = ({ bottomPrice, topPrice }) => {
+    setTopPrice(topPrice);
+    setBottomPrice(bottomPrice);
   };
 
   // must be a all on one line
@@ -88,45 +94,31 @@ const SearchFilter = () => {
         className={classes.expansionPanelRoot}
         expanded={expanded}>
         <ExpansionPanelSummary
+          classes={{
+            root: classes.expansionPanelRoot,
+            content: classes.expansionPanelSummaryContent,
+          }}
           expandIcon={<ExpandMoreIcon />}
           onClick={() => setExpanded(!expanded)}
           aria-controls="panel1bh-content"
           id="panel1bh-header">
-          <FilterSummary
-            bottomPrice={bottomPrice}
-            topPrice={topPrice}
-            moveInDate={moveInDate}
-          />
+          <TuneIcon style={{ marginRight: '8px' }} />
+          <Typography variant="body1">SET FILTER</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-          <div className={classes.filterGrid}>
-            <TextInput
-              label="Bottom Price filter"
-              value={bottomPrice}
-              type="number"
-              style={{
-                marginTop: 0,
-              }}
-              onChange={e => setBottomPrice(e.target.value)}
-            />
-            <TextInput
-              label="Top Price filter"
-              value={topPrice}
-              type="number"
-              style={{
-                marginTop: 0,
-              }}
-              onChange={e => setTopPrice(e.target.value)}
-            />
-            <DateInput
-              label="move in date no later than"
-              value={moveInDate}
-              style={{
-                marginTop: 0,
-              }}
-              onChange={date => setAndFormatMoveInDate(date)}
-            />
-          </div>
+          <ConnectedRefinements childrenBefore={true}>
+            <ExpansionRefinement title="Price">
+              <PriceFilter setPrice={handleSetPriceFilter} />
+            </ExpansionRefinement>
+            <ExpansionRefinement title={'Available date'}>
+              <div
+                style={{
+                  padding: '16px',
+                }}>
+                <DatePicker />
+              </div>
+            </ExpansionRefinement>
+          </ConnectedRefinements>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

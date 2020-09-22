@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import styled from 'styled-components';
 import {
@@ -11,39 +11,44 @@ import {
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 
-const SearchTextInput = styled(TextField)`
-  && {
-    input {
-      font-size: 18px;
-    }
-  }
-`;
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => (
-  <FormControl fullWidth={true}>
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    color: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.contrastText,
+    fontSize: '26px',
+    // border: '2px solid red',
+    padding: theme.spacing(1),
+    marginTop: theme.spacing(1),
+  },
+}));
+
+const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => {
+  const classes = useStyles();
+  return (
     <Input
       id="property-main-search-input"
       type="search"
       value={currentRefinement}
-      style={{
-        fontSize: '26px',
-      }}
-      placeholder="search e.g Te Aro Wellington"
+      className={classes.root}
+      placeholder="Location"
       onChange={event => refine(event.currentTarget.value)}
-      startAdornment={
+      endAdornment={
         <InputAdornment position="start">
           <SearchIcon />
         </InputAdornment>
       }
     />
-  </FormControl>
-);
+  );
+};
 
 SearchBox.propTypes = {
   currentRefinement: PropTypes.any.isRequired,
   isSearchStalled: PropTypes.any.isRequired,
-  refine: PropTypes.func.isRequired
-}
+  refine: PropTypes.func.isRequired,
+};
 
 const CustomSearchBox = connectSearchBox(SearchBox);
 

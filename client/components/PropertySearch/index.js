@@ -3,7 +3,13 @@ import algoliasearch from 'algoliasearch/lite';
 import PropTypes from 'prop-types';
 
 // import Drawer from '@material-ui/core/Drawer';
-import { IconButton, Paper, Grid, Toolbar } from '@material-ui/core';
+import {
+  IconButton,
+  Paper,
+  Grid,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 // import Divider from "@material-ui/core/Divider";
 import CustomSearchBox from './CustomSearchBox';
 import SettingsInputIcon from '@/Styles/icons/SettingsInputIcon';
@@ -48,6 +54,7 @@ import {
 import HorizonScrollHits from './HorizonScrollHits';
 
 import Modal from '@/Components/Modal/index';
+import SearchHeader from './SearchHeader';
 
 // THIS FOR NEXT JS
 // https://github.com/algolia/react-instantsearch/tree/master/examples/next
@@ -64,7 +71,7 @@ const Hit = ({ hit }) => (
 );
 
 Hit.propTypes = {
-  hit: PropTypes.any.isRequired
+  hit: PropTypes.any.isRequired,
 };
 
 const MapMarker = ({ hit }) => {
@@ -123,8 +130,8 @@ MapMarker.propTypes = {
   hit: PropTypes.shape({
     location: PropTypes.any,
     objectID: PropTypes.any,
-    rent: PropTypes.any
-  }).isRequired
+    rent: PropTypes.any,
+  }).isRequired,
 };
 
 const Content = () => (
@@ -163,13 +170,9 @@ const PropertySearch = props => {
       searchClient={searchClient}>
       <SearchInterface>
         <FilterDrawer open={open} handleClose={handleDrawerClose} />
-        <Paper variant="outlined" square={true} style={{ padding: '8px' }}>
-          <Toolbar
-            disableGutters={true}
-            variant="dense"
-            style={{ marginBottom: '8px' }}>
-            <CustomSearchBox fullWidth={true} />
-          </Toolbar>
+        <Paper variant="outlined" square={true}>
+          <SearchHeader />
+          <SearchFilter />
           <div>
             <GeoSearch />
           </div>
@@ -188,11 +191,6 @@ const PropertySearch = props => {
                 Filter Facets
               </Paper>
             </Grid>
-            <Grid item xs={12} md={10}>
-              <Paper style={{ height: '100%' }} square>
-                <SearchFilter />
-              </Paper>
-            </Grid>
           </Grid>
           <CurrentRefinements />
         </Paper>
@@ -204,7 +202,7 @@ const PropertySearch = props => {
 };
 
 PropertySearch.propTypes = {
-  google: PropTypes.any.isRequired
+  google: PropTypes.any.isRequired,
 };
 
 export default GoogleApiWrapper({

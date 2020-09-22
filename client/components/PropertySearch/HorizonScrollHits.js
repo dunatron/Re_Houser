@@ -1,9 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { useRef, useEffect } from 'react';
 import { connectHits } from 'react-instantsearch-dom';
 import PropertyResultHit from './PropertyResultHit';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, IconButton } from '@material-ui/core';
+
+import { AutoSizer, List, ColumnSizer, Grid } from 'react-virtualized';
+import VirtualizedColumns from './VirtualizedColumns';
+// import 'react-virtualized/styles.css'; // only needs to be imported once
 
 // icons
 import ArrowLeft from '@material-ui/icons/ArrowBackIos';
@@ -80,8 +84,8 @@ const ScrollRightBox = ({ onClick }) => {
 };
 
 ScrollRightBox.propTypes = {
-  onClick: PropTypes.any.isRequired
-}
+  onClick: PropTypes.any.isRequired,
+};
 
 const ScrollLeftBox = ({ onClick }) => {
   const classes = useStyles();
@@ -100,7 +104,20 @@ const ScrollLeftBox = ({ onClick }) => {
 };
 
 ScrollLeftBox.propTypes = {
-  onClick: PropTypes.any.isRequired
+  onClick: PropTypes.any.isRequired,
+};
+
+const list = [
+  'Brian Vaughn',
+  // And so on...
+];
+
+function rowRenderer({ key, index, style, hits }) {
+  return (
+    <div key={key} style={style}>
+      {hits}
+    </div>
+  );
 }
 
 const Hits = ({ hits }) => {
@@ -116,6 +133,49 @@ const Hits = ({ hits }) => {
   useEffect(() => {
     return () => {};
   }, []);
+
+  return (
+    <VirtualizedColumns
+      hits={hits}
+      columnCount={hits.length ? hits.length : 0}
+    />
+  );
+
+  return (
+    <div>
+      <AutoSizer disableHeight>
+        {({ width }) => (
+          <ColumnSizer
+            // columnMaxWidth={columnMaxWidth}
+            // columnMinWidth={columnMinWidth}
+            // columnCount={columnCount}
+            key="GridColumnSizer"
+            width={width}>
+            {({ adjustedWidth, columnWidth, registerChild }) => (
+              <div
+                // className={styles.GridContainer}
+                style={{
+                  height: 50,
+                  width: adjustedWidth,
+                }}>
+                <Grid
+                  ref={registerChild}
+                  columnWidth={columnWidth}
+                  // columnCount={columnCount}
+                  height={50}
+                  // noContentRenderer={this._noContentRenderer}
+                  // cellRenderer={this._cellRenderer}
+                  rowHeight={50}
+                  rowCount={1}
+                  width={adjustedWidth}
+                />
+              </div>
+            )}
+          </ColumnSizer>
+        )}
+      </AutoSizer>
+    </div>
+  );
 
   return (
     <Box component="div" className={classes.root}>
@@ -134,9 +194,9 @@ const Hits = ({ hits }) => {
 
 Hits.propTypes = {
   hits: PropTypes.shape({
-    map: PropTypes.func
-  }).isRequired
-}
+    map: PropTypes.func,
+  }).isRequired,
+};
 
 const CustomHits = connectHits(Hits);
 

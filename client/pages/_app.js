@@ -3,6 +3,7 @@ import Page from '@/Components/Page/index';
 import { ApolloProvider } from '@apollo/client';
 import withData from '@/Lib/withData';
 import Head from 'next/head';
+import 'react-virtualized/styles.css'; // only needs to be imported once
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {

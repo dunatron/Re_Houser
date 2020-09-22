@@ -7,6 +7,7 @@ const PropertySearchPage = () => {
   return (
     <>
       <PageHeader
+        hidden={true}
         title="Property search"
         id="property-search"
         intro="Browse our range of available rental properties from your at-home comforts. 

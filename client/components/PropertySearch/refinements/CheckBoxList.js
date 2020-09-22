@@ -1,7 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connectRefinementList } from 'react-instantsearch-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Collapse,
   Checkbox,
@@ -10,36 +11,50 @@ import {
   ListItem,
 } from '@material-ui/core';
 
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
+import ExpansionRefinement from './ExpansionRefinement';
 
-const CollapseMenu = styled(Collapse)`
-  && {
-  }
-`;
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    // color: theme.palette.secondary.contrastText,
+    // backgroundColor: theme.palette.secondary.main,
+    margin: 0,
+  },
+  controlLabel: {
+    color: theme.palette.secondary.contrastText,
+  },
+  label: {
+    display: 'flex',
+    color: 'inherit',
+    alignItems: 'center',
+    fontWeight: '300',
+    fontSize: '1rem',
+    wordBreak: 'break-word',
+  },
+  labelCount: {
+    fontSize: '0.8em',
+    alignSelf: 'end',
+    padding: '0 0 0 4px',
+    wordBreak: 'break-all',
+  },
+  checkboxRoot: {
+    color: 'inherit',
+  },
+  checkboxChecked: {
+    color: 'inherit',
+  },
+}));
 
-const ListStyle = styled(List)`
-  && {
-    /* margin: ${props => props.theme.spacing(3)}px 0 0 0; */
-    margin: 0 0 16px 0;
-    padding: 0;
-    border-bottom: 1px dashed grey;
-  }
-`;
-
-const CheckboxItem = styled(FormControlLabel)`
-  && {
-    margin: ${props => props.theme.spacing(3)}px 0 0 0;
-    margin: 0;
-    padding: 0;
-  }
-`;
+const CheckboxItemLabel = ({ label, count }) => {
+  const classes = useStyles();
+  return (
+    <span className={classes.label}>
+      {label}
+      <span className={classes.labelCount}>({count})</span>
+    </span>
+  );
+};
 
 const MaterialUiCheckBoxRefinementList = ({
   items,
@@ -47,71 +62,49 @@ const MaterialUiCheckBoxRefinementList = ({
   refine,
   createURL,
 }) => {
-  const [open, setOpen] = useState(false);
+  const classes = useStyles();
   return (
-    <>
-      <ListItem button onClick={() => setOpen(!open)}>
-        <ListItemIcon style={{ minWidth: '32px' }}>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText inset={false} primary={attribute.toUpperCase()} />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <CollapseMenu in={open} timeout="auto" unmountOnExit>
-        <ListStyle>
-          {items.map(({ count, isRefined, label, value }, i) => (
-            <CheckboxItem
-              key={i}
-              control={
-                <Checkbox
-                  checked={isRefined}
-                  onClick={event => {
-                    event.preventDefault();
-                    refine(value);
-                  }}
-                  value="checkedA"
-                />
-              }
-              label={
-                <span
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    fontWeight: '300',
-                    fontSize: '1rem',
-                    wordBreak: 'break-word',
-                    // letterSpacing: '0.00938em',
-                  }}>
-                  {label}
-                  <span
-                    style={{
-                      fontSize: '0.8em',
-                      alignSelf: 'end',
-                      padding: '0 0 0 4px',
-                      wordBreak: 'break-all',
-                    }}>
-                    ({count})
-                  </span>
-                </span>
-              }
+    <ExpansionRefinement title={attribute.toUpperCase()} nested={true}>
+      {items.map(({ count, isRefined, label, value }, i) => (
+        <FormControlLabel
+          classes={{
+            root: classes.root,
+            label: classes.controlLabel,
+          }}
+          key={i}
+          control={
+            <Checkbox
+              classes={{
+                root: classes.checkboxRoot,
+                checked: classes.checkboxChecked,
+              }}
+              // color="primary"
+              color="default"
+              checked={isRefined}
+              onClick={event => {
+                event.preventDefault();
+                refine(value);
+              }}
+              // value="checkedA"
             />
-          ))}
-        </ListStyle>
-      </CollapseMenu>
-    </>
+          }
+          label={<CheckboxItemLabel label={label} count={count} />}
+        />
+      ))}
+    </ExpansionRefinement>
   );
 };
 
 MaterialUiCheckBoxRefinementList.propTypes = {
   attribute: PropTypes.shape({
-    toUpperCase: PropTypes.func
+    toUpperCase: PropTypes.func,
   }).isRequired,
   createURL: PropTypes.any.isRequired,
   items: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  refine: PropTypes.func.isRequired
-}
+  refine: PropTypes.func.isRequired,
+};
 
 const CheckBoxList = connectRefinementList(MaterialUiCheckBoxRefinementList);
 

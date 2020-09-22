@@ -22,6 +22,9 @@ import GlobalStyle from './GlobalStyle';
 // Google
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+
 import WithUser from '@/Components/WithUser';
 
 import Router from 'next/router';
@@ -79,15 +82,17 @@ const Page = props => {
       <CustomToastContainer />
       <ThemeProvider theme={theme}>
         <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
-          <StateProvider>
-            <Elements stripe={stripe}>
-              <WithUser>
-                <MaterialPage children={props.children} {...props} />
-                <AdminAlertsContainer />
-                <GeneralSubsContainer />
-              </WithUser>
-            </Elements>
-          </StateProvider>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <StateProvider>
+              <Elements stripe={stripe}>
+                <WithUser>
+                  <MaterialPage children={props.children} {...props} />
+                  <AdminAlertsContainer />
+                  <GeneralSubsContainer />
+                </WithUser>
+              </Elements>
+            </StateProvider>
+          </MuiPickersUtilsProvider>
         </FacebookProvider>
       </ThemeProvider>
     </MuiThemeProvider>
