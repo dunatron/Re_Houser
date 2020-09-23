@@ -21,7 +21,7 @@ const formatCentsToDollars = (amount, type) => {
       style={{
         color: _color(),
       }}>
-      {/* {formattedMoney} */}I need the HOUSE
+      {formattedMoney}
     </span>
   );
 };

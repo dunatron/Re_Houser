@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flex: '1 1 auto',
     // padding: '16px',
+    backgroundColor: theme.palette.secondary.main,
   },
   leftSearchPanel: {
     // border: '2px solid yellow',

@@ -9,6 +9,7 @@ import { CustomMarker } from 'react-instantsearch-dom-maps';
 //icons
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Modal from '@/Components/Modal/index';
+import { formatCentsToDollarsVal } from '@/Lib/formatCentsToDollars';
 
 const MapMarker = ({ hit }) => {
   const node = useRef();
@@ -47,7 +48,7 @@ const MapMarker = ({ hit }) => {
             display: 'flex',
             alignItems: 'center',
           }}>
-          {hit.rent}
+          {formatCentsToDollarsVal(hit.rent)}
           {showMore && (
             <IconButton onClick={() => setModalOpen(true)}>
               <VisibilityIcon />
@@ -64,8 +65,8 @@ MapMarker.propTypes = {
   hit: PropTypes.shape({
     location: PropTypes.any,
     objectID: PropTypes.any,
-    rent: PropTypes.any
-  }).isRequired
+    rent: PropTypes.any,
+  }).isRequired,
 };
 
 export default MapMarker;

@@ -136,9 +136,10 @@ const SearchInterface = styled.div`
   .map-marker {
     display: flex;
     flex-wrap: wrap;
-    background-color: #fff;
+    background-color: #002443;
+    color: #e60085;
     font-size: 1rem;
-    padding: 2px;
+    padding: 4px;
     max-width: 180px;
     word-break: break-all;
   }
@@ -149,6 +150,7 @@ const SearchInterface = styled.div`
     word-break: break-all;
     white-space: normal;
     margin: 0;
+    z-index: 99999;
   }
 `;
 

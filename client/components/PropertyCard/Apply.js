@@ -153,7 +153,7 @@ const Apply = props => {
             : 'Apply for property'}
         </Button>
       </div>
-      <RentalApplications
+      {/* <RentalApplications
         propertyId={props.property.id}
         property={props.property}
         me={me}
@@ -161,7 +161,7 @@ const Apply = props => {
           setModalIsOpen(true);
           setApplicationData(rentalData);
         }}
-      />
+      /> */}
     </div>
   );
 };
@@ -169,8 +169,8 @@ const Apply = props => {
 Apply.propTypes = {
   property: PropTypes.shape({
     id: PropTypes.any,
-    location: PropTypes.any
-  }).isRequired
+    location: PropTypes.any,
+  }).isRequired,
 };
 
 export default Apply;

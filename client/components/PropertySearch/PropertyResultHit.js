@@ -30,6 +30,8 @@ import Modal from '@/Components/Modal';
 import Map from '@/Components/Map';
 import PublicProperty from '@/Components/PublicProperty';
 
+import RentalApplications from '@/Components/PropertyCard/RentalApplications';
+
 const StyledBadge = withStyles(theme => ({
   badge: {
     right: -3,
@@ -200,6 +202,12 @@ const PropertyResultHit = ({ hit }) => {
           onClick={() => setModalIdx('map')}>
           Show Map
         </Button>
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => setModalIdx('applications')}>
+          Applications
+        </Button>
         <Apply property={hit} />
       </RehouserPaper>
       <Modal
@@ -216,6 +224,17 @@ const PropertyResultHit = ({ hit }) => {
               lng: hit._geoloc.lng,
             }}
             height={'900px'}
+          />
+        )}
+        {modalIdx === 'applications' && (
+          <RentalApplications
+            propertyId={hit.id}
+            // property={props.property}
+            // me={me}
+            openRentalAppModal={rentalData => {
+              // setModalIsOpen(true);
+              // setApplicationData(rentalData);
+            }}
           />
         )}
       </Modal>

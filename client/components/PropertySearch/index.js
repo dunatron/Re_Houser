@@ -32,15 +32,6 @@ import {
 } from 'react-instantsearch-dom-maps';
 import GeoSearch from './GeoSearch';
 
-// import Places from './places/widget';
-
-//icons
-import NavigateBeforeIcon from '@/Styles/icons/NavigateBefore';
-import NavigateNextIcon from '@/Styles/icons/NavigateNext';
-import SkipPreviousIcon from '@/Styles/icons/SkipPrevious';
-import SkipNextIcon from '@/Styles/icons/SkipNext';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-
 import {
   InstantSearch,
   Hits,
@@ -76,66 +67,6 @@ Hit.propTypes = {
   hit: PropTypes.any.isRequired,
 };
 
-const MapMarker = ({ hit }) => {
-  const node = useRef();
-  const [showMore, setShowMore] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleClick = e => {
-    if (node.current.contains(e.target)) {
-      // inside click
-      return;
-    }
-    // outside click
-    setShowMore(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClick);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-    };
-  }, []);
-
-  // maybe a quick trick with the modal inside the marker node so it doesnt close
-  // also the card for the modal. Then normal whatever it was doing right?
-  return (
-    <CustomMarker key={hit.objectID} hit={hit}>
-      <div ref={node} onClick={() => setShowMore(true)} className="map-marker">
-        <Modal
-          title={hit.location}
-          open={modalOpen}
-          disableBackdrop={true}
-          close={() => setModalOpen(false)}>
-          <PropertyCard property={hit} isSearch={true} />
-        </Modal>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}>
-          ${hit.rent}
-          {showMore && (
-            <IconButton onClick={() => setModalOpen(true)}>
-              <VisibilityIcon />
-            </IconButton>
-          )}
-        </div>
-        {showMore && <p className="marker-location-text">{hit.location}</p>}
-      </div>
-    </CustomMarker>
-  );
-};
-
-MapMarker.propTypes = {
-  hit: PropTypes.shape({
-    location: PropTypes.any,
-    objectID: PropTypes.any,
-    rent: PropTypes.any,
-  }).isRequired,
-};
-
 const Content = () => (
   <div className="si-content">
     <div className="si-info">
@@ -155,26 +86,12 @@ const PropertySearch = props => {
   const { google } = props;
   const classes = useStyles();
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const toggleDraw = () => {
-    setOpen(!open);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     <InstantSearch
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
       <SearchInterface>
         <div className={classes.root}>
-          <FilterDrawer open={open} handleClose={handleDrawerClose} />
-
           <Paper variant="outlined" square={true}>
             <Box className={classes.searchPanel}>
               <Box className={classes.leftSearchPanel}>
