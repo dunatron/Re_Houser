@@ -127,7 +127,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         },
         rent: property.rent,
         bondType: property.bondType,
-        tenancyType: property.bondType,
+        tenancyType: property.tenancyType,
         rooms: property.rooms,
         maximumOccupants: property.maximumOccupants,
         bathrooms: property.bathrooms,
