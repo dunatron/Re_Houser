@@ -86,8 +86,8 @@ const SearchFilter = () => {
 
   // must be a all on one line
   // const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent: ${bottomPrice} TO ${topPrice}`
-  const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent >= ${bottomPrice *
-    100} AND rent <= ${topPrice * 100}`;
+  const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND lowestRoomPrice >= ${bottomPrice *
+    100} AND highestRoomPrice <= ${topPrice * 100}`;
   // 1. ahhh where to start. date search on algolia i stimetsamp, and needs to be numeric
   return (
     <div>

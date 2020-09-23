@@ -23,7 +23,11 @@ const User = props => (
 );
 
 User.propTypes = {
-  children: PropTypes.func.isRequired
+  children: PropTypes.func.isRequired,
+};
+
+const Me = () => {
+  const { data, loading, error } = useCurrentUser();
 };
 
 export default User;
