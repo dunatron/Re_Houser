@@ -1,6 +1,6 @@
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode
+  addPropertySearchNode,
 } = require("../../lib/algolia/propertySearchApi");
 const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail");
 
@@ -24,12 +24,10 @@ async function createProperty(parent, { data }, ctx, info) {
     : data.rooms;
   const roomPrices = data.useAdvancedRent
     ? data.accommodation.create.map((a, i) => a.rent)
-    : [data.rent];
+    : [data.rent / numberOfRooms];
   // get lowest roomPrice
   const lowestRoomPrice = parseFloat(Math.min(...roomPrices));
   const highestRoomPrice = parseFloat(Math.max(...roomPrices));
-  const averageRoomPrice =
-    roomPrices.reduce((a, b) => a + b, 0) / roomPrices.length;
 
   try {
     const property = await ctx.db.mutation.createProperty(
@@ -38,9 +36,9 @@ async function createProperty(parent, { data }, ctx, info) {
           ...data,
           lowestRoomPrice,
           highestRoomPrice,
-          rent: averageRoomPrice,
-          rooms: numberOfRooms
-        }
+          rent: data.rent,
+          rooms: numberOfRooms,
+        },
       },
       info
     );
@@ -53,31 +51,31 @@ async function createProperty(parent, { data }, ctx, info) {
         type: "CREATED_PROPERTY",
         property: {
           connect: {
-            id: property.id
-          }
+            id: property.id,
+          },
         },
         user: {
           connect: {
-            id: loggedInUserId
-          }
-        }
-      }
+            id: loggedInUserId,
+          },
+        },
+      },
     });
     addPropertySearchNode({
       propertyId: property.id,
-      db: ctx.db
+      db: ctx.db,
     });
 
     const user = ctx.db.query.user({
       where: {
-        id: loggedInUserId
-      }
+        id: loggedInUserId,
+      },
     });
 
     // let admin know new property has been created. Frodo loves his leads. Ohh a lead
     propertyCreatedEmail({
       toEmail: "admin@rehouser.co.nz",
-      user: user
+      user: user,
     });
 
     console.log("createProperty: info => ", property);
