@@ -134,6 +134,12 @@ const Hits = ({ hits }) => {
     return () => {};
   }, []);
 
+  // return hits.map(hit => (
+  //   <Box component="div" className={classes.item}>
+  //     <PropertyResultHit key={hit.objectID} hit={hit} />
+  //   </Box>
+  // ));
+
   return (
     <VirtualizedColumns
       hits={hits}

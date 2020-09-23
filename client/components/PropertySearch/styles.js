@@ -126,8 +126,12 @@ const SearchInterface = styled.div`
     color: #fff;
     background-color: #99aefa;
   }
+  .ais-GeoSearch {
+    height: 100%;
+  }
   .ais-GeoSearch-map {
-    height: 500px;
+    /* height: 500px; */
+    height: 100%;
   }
   .map-marker {
     display: flex;

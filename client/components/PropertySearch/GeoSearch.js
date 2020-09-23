@@ -18,38 +18,35 @@ const GeoSearchWidget = props => {
   const [lngPos, setLngPos] = useState(172.6233322);
 
   return (
-    <div>
-      <GeoSearch
-        style={{ height: 100 }}
-        google={google}
-        initialZoom={8}
-        initialPosition={{
-          lat: latPos,
-          lng: lngPos,
-        }}
-        center={{
-          lat: latPos,
-          lng: lngPos,
-        }}
-        initialCenter={{
-          lat: latPos,
-          lng: lngPos,
-        }}
-        zoom={20}
-        enableRefineOnMapMove={enableRefineOnMapMove}
-        enableRefine={enableRefine} // If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
-        mapTypeId="roadmap" // hybrid, roadmap, satellite, terrain
-      >
-        {({ hits }) => (
-          <div style={{ height: 100 }}>
-            {/* <Control /> */}
-            {hits.map(hit => (
-              <MapMarker hit={hit} key={hit.objectID} />
-            ))}
-          </div>
-        )}
-      </GeoSearch>
-    </div>
+    <GeoSearch
+      google={google}
+      initialZoom={8}
+      initialPosition={{
+        lat: latPos,
+        lng: lngPos,
+      }}
+      center={{
+        lat: latPos,
+        lng: lngPos,
+      }}
+      initialCenter={{
+        lat: latPos,
+        lng: lngPos,
+      }}
+      zoom={20}
+      enableRefineOnMapMove={enableRefineOnMapMove}
+      enableRefine={enableRefine} // If true, the map is used for refining the search. Otherwise, it’s only for display purposes.
+      mapTypeId="roadmap" // hybrid, roadmap, satellite, terrain
+    >
+      {({ hits }) => (
+        <div>
+          {/* <Control /> */}
+          {hits.map(hit => (
+            <MapMarker hit={hit} key={hit.objectID} />
+          ))}
+        </div>
+      )}
+    </GeoSearch>
   );
 };
 

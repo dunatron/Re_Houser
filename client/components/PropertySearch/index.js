@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // import Drawer from '@material-ui/core/Drawer';
 import {
   IconButton,
+  Box,
   Paper,
   Grid,
   Toolbar,
@@ -55,6 +56,7 @@ import HorizonScrollHits from './HorizonScrollHits';
 
 import Modal from '@/Components/Modal/index';
 import SearchHeader from './SearchHeader';
+import useStyles from './useStyles';
 
 // THIS FOR NEXT JS
 // https://github.com/algolia/react-instantsearch/tree/master/examples/next
@@ -151,6 +153,7 @@ const Content = () => (
 const PropertySearch = props => {
   const [open, setOpen] = useState(false);
   const { google } = props;
+  const classes = useStyles();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -169,33 +172,23 @@ const PropertySearch = props => {
       indexName={`${indexPrefix}_PropertySearch`}
       searchClient={searchClient}>
       <SearchInterface>
-        <FilterDrawer open={open} handleClose={handleDrawerClose} />
-        <Paper variant="outlined" square={true}>
-          <SearchHeader />
-          <SearchFilter />
-          <div>
-            <GeoSearch />
-          </div>
+        <div className={classes.root}>
+          <FilterDrawer open={open} handleClose={handleDrawerClose} />
 
-          <Grid container spacing={2} style={{ padding: '8px' }}>
-            <Grid item xs={12} md={2}>
-              <Paper style={{ height: '100%' }} square>
-                <IconButton
-                  // color="default"
-                  color={open ? 'primary' : 'default'}
-                  style={{ margin: '0 12px 0 0' }}
-                  aria-label="Open drawer"
-                  onClick={toggleDraw}>
-                  <SettingsInputIcon />
-                </IconButton>{' '}
-                Filter Facets
-              </Paper>
-            </Grid>
-          </Grid>
-          <CurrentRefinements />
-        </Paper>
-
-        <Content />
+          <Paper variant="outlined" square={true}>
+            <Box className={classes.searchPanel}>
+              <Box className={classes.leftSearchPanel}>
+                <SearchHeader />
+                <SearchFilter />
+              </Box>
+              <Box className={classes.rightSearchPanel}>
+                <GeoSearch />
+              </Box>
+            </Box>
+            <CurrentRefinements />
+          </Paper>
+          <Content />
+        </div>
       </SearchInterface>
     </InstantSearch>
   );
