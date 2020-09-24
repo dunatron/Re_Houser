@@ -60,6 +60,24 @@ const extractApplicantUserData = (rentalApplication, me) => {
   return userRentalApplicantData;
 };
 
+const editableMeData = me => ({
+  firstName: {
+    label: 'First Name',
+    value: me.firstName,
+    editable: false,
+  },
+  lastName: {
+    label: 'First Name',
+    value: me.lastName,
+    editable: false,
+  },
+  email: {
+    label: 'First Name',
+    value: me.email,
+    editable: false,
+  },
+});
+
 const RentalApplicationStepper = props => {
   const { me, property, rentalApplication } = props;
   const { applicants } = rentalApplication;
@@ -78,7 +96,7 @@ const RentalApplicationStepper = props => {
   // Note: all hooks must go before first render
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState(editableMeData(me));
   const [applicationInfo, setApplicationInfo] = useState({});
   const [userErrorsBag, setUserErrorsBag] = useState({});
 
@@ -378,14 +396,14 @@ const RentalApplicationStepper = props => {
 RentalApplicationStepper.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
-    photoIdentification: PropTypes.any
+    photoIdentification: PropTypes.any,
   }).isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func
-    })
-  }).isRequired
+      find: PropTypes.func,
+    }),
+  }).isRequired,
 };
 
 const ConnectedRentalApplicationStepper = ({

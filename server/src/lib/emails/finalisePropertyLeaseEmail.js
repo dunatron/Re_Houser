@@ -14,9 +14,9 @@ const finalisePropertyLeaseEmail = async function({
     to: toEmail,
     subject: `Lease Accepted and Signed: ${lease.id}`,
     html: makeANiceEmail(
-      `Congratulations the lease has now been signed and is in full effect! \n
-      The Lease wallet has ($${wallet.amount}) \n
-      Head on over to the lease to view the details and manage the thing ${process.env.EMAIL_PREFIX}/${baseLink}/leases/lease?id=${lease.id} \n
+      `Congratulations the lease for ${lease.property.location} has now been signed and is in full effect! \n
+      The Lease wallet has ($${wallet.amount}) which includes a weekly rent charge and the bond charge. \n
+      Head on over to the lease to view and manage ${process.env.EMAIL_PREFIX}/${baseLink}/leases/lease?id=${lease.id} \n
     \n\n`,
       user
     )

@@ -12,7 +12,7 @@ const PRE_TENANCY_FORM_CONF = [
     },
     inners: [
       {
-        type: 'Boolean',
+        type: 'CheckReason',
         key: 'firstTimeTenant',
         fieldProps: {
           name: 'firstTimeTenant',

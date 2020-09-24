@@ -7,7 +7,7 @@ exports.addPaymentToWallet = async ({ amount, db, walletId, paymentData }) => {
           id: walletId
         }
       },
-      `{id, amount, lease{id,stage,rent}}`
+      `{id, amount, lease{id,stage,rent,bondType}}`
     );
 
     console.log("Original Wallet => ", wallet);
@@ -36,7 +36,8 @@ exports.addPaymentToWallet = async ({ amount, db, walletId, paymentData }) => {
     if (wallet.lease.stage !== "PAID") {
       // if wallet.amount >= wallet.lease.rent
       // update the lease stage
-      if (updatedWallet.amount >= wallet.lease.rent) {
+      const bondAmount = getBondAmount(lease);
+      if (updatedWallet.amount >= wallet.lease.rent - bondAmount) {
         db.mutation.updatePropertyLease({
           where: {
             id: wallet.lease.id

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Tue Sep 22 2020 03:52:29 GMT+1200 (New Zealand Standard Time)
+# timestamp: Thu Sep 24 2020 10:57:07 GMT+1200 (New Zealand Standard Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1828,6 +1828,7 @@ type AggregateWallet {
 enum ApplicationStage {
   INITIALIZING
   PENDING
+  SHORTLISTED
   DENIED
   ACCEPTED
 }

@@ -2,18 +2,23 @@
 // const JWT_TOKEN_MAX_AGE = 1000 * 60 * 5; // 5 minutes
 const JWT_TOKEN_MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 5 minutes
 
-const CEO_DETAILS = {
-  firstname: "Heath",
-  lastname: "McDonough",
-  email: "admin@rehouser.co.nz",
-  phone: "022 302 5510",
-};
 const CTO_DETAILS = {
   firstname: "Heath",
   lastname: "Dunlop",
   email: "heathd@rehouser.co.nz",
-  phone: "021 243 9998",
+  phone: "021 243 9998"
 };
+
+const CEO_DETAILS =
+  process.env.APP_SECRET === "dev"
+    ? {
+        firstname: "Heath",
+        lastname: "McDonough",
+        email: "admin@rehouser.co.nz",
+        phone: "022 302 5510"
+      }
+    : { ...CTO_DETAILS };
+
 // maxAge: 1000 * 60 * 60 * 24 * 365
 // https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81
 // https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
@@ -28,26 +33,26 @@ exports.rehouserCookieOpt = () => {
   if (envStage == "dev")
     return {
       maxAge: JWT_TOKEN_MAX_AGE,
-      httpOnly: true,
+      httpOnly: true
       // sameSite: "lax"
     };
   return {
     maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
     httpOnly: true,
     sameSite: "None",
-    secure: envStage == "dev" ? false : true, // connection needs to be over HTTPS
+    secure: envStage == "dev" ? false : true // connection needs to be over HTTPS
   };
 
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "None",
-    secure: false, // false for dev
+    secure: false // false for dev
   };
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "Lax",
-    secure: true,
+    secure: true
   };
 };

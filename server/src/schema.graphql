@@ -253,6 +253,15 @@ type Query {
     first: Int
     last: Int
   ): [RentalAppraisal]!
+  propertyLeasesConnection(
+    where: PropertyLeaseWhereInput
+    orderBy: PropertyLeaseOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [PropertyLease]!
   properties: [Property!]!
   property(where: PropertyWhereUniqueInput!): Property!
   ownerProperties: [Property!]!

@@ -49,7 +49,50 @@ const PreTenancyStep = ({
     phone: me.phone,
     email: me.email,
     dob: me.dob,
+    referrence1Name: me.referee1Name,
+    referrence1Phone: me.referee1Phone,
+    referrence1Email: me.referee1Email,
+    referrence2Name: me.referee2Name,
+    referrence2Phone: me.referee2Phone,
+    referrence2Email: me.referee2Email,
   };
+
+  emergencyContactName: String;
+  emergencyContactNumber: String;
+  emergencyContactEmail: String;
+  referee1Name: String;
+  referee1Phone: String;
+  referee1Email: String;
+  referee2Name: String;
+  referee2Phone: String;
+  referee2Email: String;
+
+  // firstTimeTenant: Boolean
+  // preferredMoveInDate: DateTime
+  // fullName: String
+  // dob: DateTime
+  // under18: Boolean
+  // phone: String
+  // email: String
+  // placeId: String!
+  // currentLocation: String!
+  // currentLocationLat: Float!
+  // currentLocationLng: Float!
+  // proofOfAddress: File @relation(name: "PreTenancyProofOfAddress", link: TABLE)
+  // yearsAtAddress: Int
+  // monthsAtAddress: Int
+  // reasonForLeaving: String
+  // currentLandlordName: String
+  // currentLandlordNumber: String
+  // currentLandlordEmail: String
+  // consentToLandlordContact: Boolean
+  // referrence1Name: String
+  // referrence1Phone: String
+  // referrence1Email: String
+  // referrence2Name: String
+  // referrence2Phone: String
+  // referrence2Email: String
+  // acceptedTerms: Boolean
 
   const TheForm = () => (
     <FormCreator
@@ -138,16 +181,16 @@ PreTenancyStep.propTypes = {
     firstName: PropTypes.string,
     id: PropTypes.any,
     lastName: PropTypes.any,
-    phone: PropTypes.any
+    phone: PropTypes.any,
   }).isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func
-    })
+      find: PropTypes.func,
+    }),
   }).isRequired,
   update: PropTypes.any.isRequired,
-  updateUser: PropTypes.func.isRequired
+  updateUser: PropTypes.func.isRequired,
 };
 
 export default PreTenancyStep;
