@@ -96,9 +96,13 @@ const AppMenuBar = props => {
         <Toolbar disableGutters={true} variant="regular">
           <IconButton
             // color="inherit"
-            color="secondary"
+            color="primary"
             aria-label="open drawer"
             edge="start"
+            // classes={{
+            //   root: classes.menuButton,
+            // }}
+            className={classes.menuButton}
             // onClick={props.handleDrawerToggle}
             onClick={() =>
               dispatch({
@@ -107,12 +111,16 @@ const AppMenuBar = props => {
                   sideBarOpen: true,
                 },
               })
-            }
-            className={classes.menuButton}>
+            }>
             <MenuIcon />
           </IconButton>
           {formattedPathParts.length > 0 && (
-            <IconButton onClick={handleGoBackToPreviousPage}>
+            <IconButton
+              onClick={handleGoBackToPreviousPage}
+              color="primary"
+              classes={{
+                root: classes.backBtnRoot,
+              }}>
               <ArrowBackIcon fontSize="large" />
             </IconButton>
           )}

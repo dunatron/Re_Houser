@@ -4,7 +4,10 @@ import Particles from 'react-particles-js';
 
 import debounce from '@/Lib/debounce';
 
-import { mainPrimaryColor } from '@/Styles/_muiTheme';
+import { mainPrimaryColor, darkPrimaryColor } from '@/Styles/_muiTheme';
+
+const lineColor = mainPrimaryColor;
+const dotColor = darkPrimaryColor;
 
 const particlesObj = {
   number: {
@@ -21,7 +24,7 @@ const particlesObj = {
     // value: '#ff5baf',
     // value: '#000',
     // value: darkPrimaryColor,
-    value: mainPrimaryColor,
+    value: dotColor,
   },
   shape: {
     type: 'circle',
@@ -73,7 +76,7 @@ const particlesObj = {
   line_linked: {
     enable: true,
     distance: 150,
-    color: '#ff5baf',
+    color: lineColor,
     opacity: 0.4,
     width: 1,
   },
@@ -308,8 +311,8 @@ const OriginalParticle = ({ dimensions }) => {
 OriginalParticle.propTypes = {
   dimensions: PropTypes.shape({
     height: PropTypes.any,
-    width: PropTypes.any
-  }).isRequired
+    width: PropTypes.any,
+  }).isRequired,
 };
 
 const ImageParticle = ({ dimensions }) => {
@@ -400,8 +403,8 @@ const ImageParticle = ({ dimensions }) => {
 ImageParticle.propTypes = {
   dimensions: PropTypes.shape({
     height: PropTypes.any,
-    width: PropTypes.any
-  }).isRequired
+    width: PropTypes.any,
+  }).isRequired,
 };
 
 export default ParticleOne;

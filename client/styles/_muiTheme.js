@@ -51,9 +51,21 @@
 
 // https://material.io/resources/color/#!/?view.left=0&view.right=1&primary.color=e00082&secondary.color=000444
 
-export const mainPrimaryColor = '#e60085';
+// export const mainPrimaryColor = '#e60085';
+// export const lightPrimaryColor = '#ff58b5';
+// export const darkPrimaryColor = '#ae0058';
+// // export const primaryContrastText = '#000';
+// export const primaryContrastText = '#fff';
+
+// // secondary color dark blue
+// export const mainSecondaryColor = '#002443';
+// export const lightSecondaryColor = '#ffd98b';
+// export const darkSecondaryColor = '#00001d';
+// export const secondaryContrastText = '#fff';
+
+export const mainPrimaryColor = '#d0a85c';
 export const lightPrimaryColor = '#ff58b5';
-export const darkPrimaryColor = '#ae0058';
+export const darkPrimaryColor = '#9c792f';
 // export const primaryContrastText = '#000';
 export const primaryContrastText = '#fff';
 
@@ -62,6 +74,7 @@ export const mainSecondaryColor = '#002443';
 export const lightSecondaryColor = '#334b6e';
 export const darkSecondaryColor = '#00001d';
 export const secondaryContrastText = '#fff';
+
 import {
   red,
   pink,

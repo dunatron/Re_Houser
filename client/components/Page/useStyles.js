@@ -37,9 +37,13 @@ const useStyles = makeStyles(theme => {
     },
     menuButton: {
       marginLeft: 0,
+
       [theme.breakpoints.up('lg')]: {
         display: 'none',
       },
+    },
+    backBtnRoot: {
+      // color: 'red',
     },
     toolbar: {
       ...theme.mixins.toolbar,
