@@ -34,9 +34,15 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: '800px',
+
+    // color: theme.palette.primary.main
     // flexGrow: 1,
     // backgroundColor: theme.palette.background.paper,
   },
+  appBarRoot: {
+    marginBottom: theme.spacing(1),
+  },
+  tabsRoot: {},
 }));
 
 export default function TabsWrappedLabel() {
@@ -58,9 +64,19 @@ export default function TabsWrappedLabel() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent">
+      <AppBar
+        position="static"
+        color="transparent"
+        classes={{
+          root: classes.appBarRoot,
+        }}>
         <Tabs
+          classes={{
+            root: classes.tabsRoot,
+          }}
           value={value}
+          indicatorColor="primary"
+          textColor="primary"
           onChange={handleChange}
           aria-label="wrapped label tabs example">
           <Tab

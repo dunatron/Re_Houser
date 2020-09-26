@@ -25,6 +25,9 @@ import useUploadStyles from './UploadStyles';
 
 import FlipToBackIcon from '@material-ui/icons/FlipToBackOutlined';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFrontOutlined';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 
 // https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2
@@ -180,6 +183,7 @@ const UploadFile = forwardRef((props, ref) => {
     dispatch,
     isRemoving,
     fileParams,
+    flip,
   } = props;
   const maxFilesAllowed = props.maxFilesAllowed ? props.maxFilesAllowed : 10;
   const client = useApolloClient();
@@ -408,6 +412,7 @@ const UploadFile = forwardRef((props, ref) => {
           <FilePreviewer
             files={recentlyUploadedWithoutAttached}
             remove={remove}
+            flip={flip}
             isRemoving={isRemoving}
             removingIds={removingIds}
           />
@@ -425,6 +430,7 @@ const UploadFile = forwardRef((props, ref) => {
           <FilePreviewer
             files={serverFiles}
             remove={remove}
+            flip={flip}
             isRemoving={isRemoving}
             removingIds={removingIds}
           />
@@ -445,17 +451,20 @@ UploadFile.propTypes = {
   serverFiles: PropTypes.shape({
     forEach: PropTypes.func,
     length: PropTypes.number,
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  store: PropTypes.any.isRequired
+  store: PropTypes.any.isRequired,
 };
 
-const FlipCardHeader = ({ title, isFlipped, flip }) => {
+const FlipCardHeader = ({ title, isFlipped, flip, expanded, expand }) => {
   const classes = useUploadStyles();
   return (
     <div className={classes.flipHeader}>
       <IconButton onClick={flip}>
         {isFlipped ? <FlipToBackIcon /> : <FlipToFrontIcon />}
+      </IconButton>
+      <IconButton onClick={expand}>
+        {expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />}
       </IconButton>
       <Typography>{title}</Typography>
     </div>
@@ -465,10 +474,16 @@ const FlipCardHeader = ({ title, isFlipped, flip }) => {
 FlipCardHeader.propTypes = {
   flip: PropTypes.any.isRequired,
   isFlipped: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired
+  title: PropTypes.any.isRequired,
 };
 
-const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
+const UploadedServerFiles = ({
+  serverFiles,
+  remove,
+  store,
+  isRemoving,
+  flip,
+}) => {
   const { removingIds } = store;
   const classes = useUploadStyles();
 
@@ -480,6 +495,7 @@ const UploadedServerFiles = ({ serverFiles, remove, store, isRemoving }) => {
       <FilePreviewer
         files={serverFiles}
         remove={remove}
+        flip={flip}
         removingIds={removingIds}
         isRemoving={isRemoving}
       />
@@ -491,7 +507,7 @@ UploadedServerFiles.propTypes = {
   isRemoving: PropTypes.any.isRequired,
   remove: PropTypes.any.isRequired,
   serverFiles: PropTypes.any.isRequired,
-  store: PropTypes.any.isRequired
+  store: PropTypes.any.isRequired,
 };
 
 //remove gets fed into here
@@ -501,7 +517,6 @@ const FileManager = props => {
     description,
     files,
     maxFilesAllowed,
-
     fileRemovedFromServer,
     refetchQueries,
     updateCacheOnRemovedFile,
@@ -511,6 +526,7 @@ const FileManager = props => {
   const [state, setState] = useState({
     isFlipped: props.files.length > 0 ? false : true,
     initialFiles: files,
+    expanded: props.expanded ? true : false,
   });
 
   useEffect(() => {
@@ -565,6 +581,12 @@ const FileManager = props => {
       isFlipped: !state.isFlipped,
     });
 
+  const handleExpand = () =>
+    setState({
+      ...state,
+      expanded: !state.expanded,
+    });
+
   const removeFileFromServer = file => {
     // dispatch to ADD_ID_TO_REMOVING_IDS
     dispatch({
@@ -589,41 +611,45 @@ const FileManager = props => {
         title={title}
         isFlipped={state.isFlipped}
         flip={handleFlip}
+        expand={handleExpand}
+        expanded={state.expanded}
       />
       <Error error={error} />
-      <ReactCardFlip
-        cardZIndex="900"
-        containerStyle={{
-          position: 'relative',
-        }}
-        isFlipped={state.isFlipped}
-        flipDirection="vertical"
-        flipSpeedBackToFront={0.6}
-        flipSpeedFrontToBack={0.6}
-        infinite={false}>
-        {/* FRONT OF CARD */}
-        <UploadedServerFiles
-          store={store}
-          isRemoving={loading}
-          dispatch={dispatch}
-          serverFiles={state.initialFiles}
-          flip={handleFlip}
-          remove={removeFileFromServer}
-        />
-        {/* BACK OF CARD */}
-        <UploadFile
-          store={store}
-          dispatch={dispatch}
-          serverFiles={state.initialFiles}
-          flip={handleFlip}
-          description={description}
-          {...props}
-          isRemoving={loading}
-          remove={removeFileFromServer}
-          maxFilesAllowed={maxFilesAllowed}
-          fileParams={fileParams}
-        />
-      </ReactCardFlip>
+      {state.expanded && (
+        <ReactCardFlip
+          cardZIndex="900"
+          containerStyle={{
+            position: 'relative',
+          }}
+          isFlipped={state.isFlipped}
+          flipDirection="vertical"
+          flipSpeedBackToFront={0.6}
+          flipSpeedFrontToBack={0.6}
+          infinite={false}>
+          {/* FRONT OF CARD */}
+          <UploadedServerFiles
+            store={store}
+            isRemoving={loading}
+            dispatch={dispatch}
+            serverFiles={state.initialFiles}
+            flip={handleFlip}
+            remove={removeFileFromServer}
+          />
+          {/* BACK OF CARD */}
+          <UploadFile
+            store={store}
+            dispatch={dispatch}
+            serverFiles={state.initialFiles}
+            flip={handleFlip}
+            description={description}
+            {...props}
+            isRemoving={loading}
+            remove={removeFileFromServer}
+            maxFilesAllowed={maxFilesAllowed}
+            fileParams={fileParams}
+          />
+        </ReactCardFlip>
+      )}
     </>
   );
 };
@@ -634,20 +660,22 @@ FileManager.propTypes = {
   fileParams: PropTypes.shape({
     filename: PropTypes.string,
     folder: PropTypes.string,
-    resource_type: PropTypes.oneOf(["image", "raw", "video", "auto"]),
+    resource_type: PropTypes.oneOf(['image', 'raw', 'video', 'auto']),
     tags: PropTypes.arrayOf(PropTypes.string),
-    type: PropTypes.oneOf(["upload", "private", "authenticated"])
+    type: PropTypes.oneOf(['upload', 'private', 'authenticated']),
   }).isRequired,
   fileRemovedFromServer: PropTypes.func.isRequired,
-  files: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    type: PropTypes.string,
-    url: PropTypes.string
-  })).isRequired,
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      type: PropTypes.string,
+      url: PropTypes.string,
+    })
+  ).isRequired,
   maxFilesAllowed: PropTypes.number.isRequired,
   recieveFile: PropTypes.func.isRequired,
   refetchQueries: PropTypes.any.isRequired,
   title: PropTypes.string.isRequired,
-  updateCacheOnRemovedFile: PropTypes.func.isRequired
+  updateCacheOnRemovedFile: PropTypes.func.isRequired,
 };
 export default FileManager;

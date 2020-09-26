@@ -136,8 +136,14 @@ const SearchInterface = styled.div`
   .map-marker {
     display: flex;
     flex-wrap: wrap;
-    background-color: #002443;
-    color: #e60085;
+    // background-color: #002443;
+    // color: #e60085;
+    background-color: ${props => `${props.theme.palette.secondary.main};`}
+    // background-color: ${props =>
+      `${props.theme.palette.primary.contrastText};`}
+    border: ${props => `2px solid ${props.theme.palette.primary.main};`}
+    color: ${props => `${props.theme.palette.primary.main};`}
+    margin-right: ${props => `${props.theme.spacing(1)}px;`}
     font-size: 1rem;
     padding: 4px;
     max-width: 180px;

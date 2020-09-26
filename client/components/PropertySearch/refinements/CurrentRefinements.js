@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { Fragment } from 'react';
 import { connectCurrentRefinements } from 'react-instantsearch-dom';
 import Chip from '@material-ui/core/Chip';
@@ -8,9 +8,10 @@ const CurrentRefinementStyles = Styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: ${props => `${props.theme.spacing(1)}px;`}
+  margin-left: ${props => `${props.theme.spacing(1)}px;`}
   .refinement-group {
-    /* padding: 16px 16px 0 16px; */
-    padding: 0 16px;
+   
   }
   .refinement-group__label {
     color: ${props => props.theme.palette.secondary.main}
@@ -25,6 +26,8 @@ const CurrentRefinementStyles = Styled.ul`
   }
   .refinement-listItem {
     list-style: none;
+    margin-right: ${props => `${props.theme.spacing(1)}px;`}
+    margin-bottom: ${props => `${props.theme.spacing(1)}px;`}
   }
   .refinement-chip {
     margin: 0 6px 6px 0
@@ -50,11 +53,11 @@ const RefinementValue = ({ item, refine, url }) => {
 RefinementValue.propTypes = {
   item: PropTypes.shape({
     label: PropTypes.any,
-    value: PropTypes.any
+    value: PropTypes.any,
   }).isRequired,
   refine: PropTypes.func.isRequired,
-  url: PropTypes.any.isRequired
-}
+  url: PropTypes.any.isRequired,
+};
 
 const RefinementGroupList = ({ item, refine, createURL }) => {
   return (
@@ -79,12 +82,12 @@ RefinementGroupList.propTypes = {
   createURL: PropTypes.func.isRequired,
   item: PropTypes.shape({
     items: PropTypes.shape({
-      map: PropTypes.func
+      map: PropTypes.func,
     }),
-    label: PropTypes.any
+    label: PropTypes.any,
   }).isRequired,
-  refine: PropTypes.any.isRequired
-}
+  refine: PropTypes.any.isRequired,
+};
 
 const CurrentRefinements = ({ items, refine, createURL }) => (
   <CurrentRefinementStyles>
@@ -111,10 +114,10 @@ const CurrentRefinements = ({ items, refine, createURL }) => (
 CurrentRefinements.propTypes = {
   createURL: PropTypes.func.isRequired,
   items: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
-  refine: PropTypes.any.isRequired
-}
+  refine: PropTypes.any.isRequired,
+};
 
 const CustomCurrentRefinements = connectCurrentRefinements(CurrentRefinements);
 
