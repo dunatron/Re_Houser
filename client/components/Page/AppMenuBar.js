@@ -118,10 +118,11 @@ const AppMenuBar = props => {
             <IconButton
               onClick={handleGoBackToPreviousPage}
               color="primary"
+              size="medium"
               classes={{
                 root: classes.backBtnRoot,
               }}>
-              <ArrowBackIcon fontSize="large" />
+              <ArrowBackIcon fontSize="small" />
             </IconButton>
           )}
           {formattedPathParts.length > 0 && (
