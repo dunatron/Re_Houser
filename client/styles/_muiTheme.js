@@ -115,7 +115,7 @@ const theme = {
   palette: {
     nProgress: {
       // main: mainPrimaryColor,
-      main: mainSecondaryColor,
+      main: mainPrimaryColor,
     },
     type: 'light',
     // common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
