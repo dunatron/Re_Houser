@@ -8,8 +8,16 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-const RehouserDatePicker = ({ value, onChange }) => {
+// https://material-ui-pickers.dev/demo/datepicker
+// https://material-ui-pickers.dev/api/DatePicker
+const RehouserDatePicker = ({ value, onChange, ...rest }) => {
   // const [selectedDate, handleDateChange] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = date => {
+    onChange(date);
+    setSelectedDate(date);
+  };
   return (
     <div>
       <KeyboardDatePicker
@@ -17,12 +25,10 @@ const RehouserDatePicker = ({ value, onChange }) => {
         style={{
           color: `inherit !important`,
         }}
-        // value={selectedDate}
-        value={value}
-        onChange={onChange}
-        // variant="inline"
-        // inputVariant="outlined"
+        value={selectedDate}
+        onChange={handleDateChange}
         InputAdornmentProps={{ position: 'start' }}
+        {...rest}
       />
     </div>
   );

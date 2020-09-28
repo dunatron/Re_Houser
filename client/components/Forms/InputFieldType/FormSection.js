@@ -8,9 +8,9 @@ const FormSection = props => {
   const { inners, fieldProps } = config;
   const { label } = fieldProps;
   return (
-    <Paper style={{ padding: '8px', marginBottom: '16px' }}>
+    <Paper style={{ padding: '8px' }}>
       {label && (
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom style={{ marginBottom: '16px' }}>
           {label}
         </Typography>
       )}

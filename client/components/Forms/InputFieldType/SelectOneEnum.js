@@ -27,6 +27,7 @@ export default function SimpleSelect(props) {
     handleChange,
     removeItem,
     register,
+    unregister,
     config,
     setValue, // is from useForm
     reset,
@@ -54,8 +55,13 @@ export default function SimpleSelect(props) {
   useEffect(() => {
     register({ name: fieldProps.name }, refConf);
     if (defaultValue) {
-      setValue(fieldProps.name, 'TOWNHOUSE');
+      // setValue(fieldProps.name, 'TOWNHOUSE');
+      setValue(fieldProps.name, defaultValue);
     }
+    return () => {
+      clearError(fieldProps.name);
+      unregister(fieldProps.name);
+    };
   }, [fieldProps, defaultValue]);
 
   if (!fieldProps) return 'This form component needs fieldProps';
@@ -90,7 +96,7 @@ export default function SimpleSelect(props) {
   return (
     <>
       <FormControl
-        variant={fieldProps.variant ? fieldProps.variant : 'contained'}
+        variant={fieldProps.variant ? fieldProps.variant : 'outlined'}
         className={classes.formControl}
         error={yuckErr}>
         <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>

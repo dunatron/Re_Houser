@@ -81,7 +81,8 @@ const FormCreator = props => {
   }
 
   const handleClearError = name => {
-    console.log('nothing');
+    console.log('handleClearError name => ', name);
+    console.log('handleClearError errors => ', errors);
     if (errors[name]) {
       clearError(name);
     }
@@ -185,6 +186,9 @@ const FormCreator = props => {
         <Errors error={error} />
 
         <ButtonGroup
+          style={{
+            marginTop: '16px',
+          }}
           color="primary"
           square
           aria-label="outlined primary button group square">

@@ -472,12 +472,12 @@ const FlipCardHeader = ({
   flip,
   expanded,
   expand,
-  hasServerFile,
+  hasFile,
 }) => {
   const classes = useUploadStyles();
   return (
     <div className={classes.flipHeader}>
-      {hasServerFile && (
+      {hasFile && (
         <DoneIcon color="primary" className={classes.hasServerIcon} />
       )}
       <ButtonGroup size="small" aria-label="small outlined button group">
@@ -494,6 +494,7 @@ const FlipCardHeader = ({
           {expanded ? 'Close' : 'Add'}
         </Button>
       </ButtonGroup>
+      <Typography style={{ marginLeft: '8px' }}>{title}</Typography>
     </div>
   );
 };
@@ -550,15 +551,25 @@ const FileManager = props => {
     fileParams,
   } = props;
 
+  const [store, dispatch] = useReducer(reducer, {
+    files: [],
+    errors: [],
+    recentlyUploaded: [],
+    uploadedCount: 0,
+    removingIds: [],
+  });
+
   const [state, setState] = useState({
     isFlipped: props.files.length > 0 ? false : true,
     initialFiles: files,
     expanded: props.expanded ? true : false,
   });
 
-  const _hasServerFile = () => {
+  const _hasFile = () => {
     if (state.initialFiles.length >= 1) return true;
     if (files.length >= 1) return true;
+    if (store.files.length >= 1) return true;
+    if (store.recentlyUploaded.length >= 1) return true;
     return false;
   };
 
@@ -569,14 +580,6 @@ const FileManager = props => {
       initialFiles: files,
     });
   }, [files]);
-
-  const [store, dispatch] = useReducer(reducer, {
-    files: [],
-    errors: [],
-    recentlyUploaded: [],
-    uploadedCount: 0,
-    removingIds: [],
-  });
 
   const handleFileSuccessfullyRemovedFromServer = data => {
     fileRemovedFromServer && fileRemovedFromServer(data.deleteFile);
@@ -638,14 +641,14 @@ const FileManager = props => {
     });
   };
 
-  const hasServerFile = _hasServerFile();
+  const hasFile = _hasFile();
 
   return (
     <>
       <FlipCardHeader
         title={title}
         isFlipped={state.isFlipped}
-        hasServerFile={hasServerFile}
+        hasFile={hasFile}
         flip={handleFlip}
         expand={handleExpand}
         expanded={state.expanded}

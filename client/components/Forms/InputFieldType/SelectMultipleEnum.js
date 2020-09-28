@@ -25,6 +25,7 @@ const SelectMultipleEnum = props => {
     label,
     selectID,
     register,
+    unregister,
     config,
     setValue, // is from useForm
     errors,
@@ -47,6 +48,9 @@ const SelectMultipleEnum = props => {
     } else {
       setValue(fieldProps.name, []);
     }
+    return () => {
+      unregister(fieldProps.name);
+    };
   }, [register]);
 
   // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
@@ -61,15 +65,18 @@ const SelectMultipleEnum = props => {
     : [];
 
   return (
-    <FormControl className={classes.formControl}>
-      <InputLabel id={`${selectID}-label`} variant="outlined">
+    <FormControl
+      className={classes.formControl}
+      variant={fieldProps.variant ? fieldProps.variant : 'outlined'}>
+      <InputLabel
+        id={`${selectID}-label`}
+        variant={fieldProps.variant ? fieldProps.variant : 'outlined'}>
         {label}
       </InputLabel>
       <FieldError errors={errors} name={name} />
       <Select
         name={fieldProps.name}
         labelId={`${selectID}-label`}
-        variant="outlined"
         multiple={true} // this needs to be ture but will fail compnet
         id={selectID}
         label={label}

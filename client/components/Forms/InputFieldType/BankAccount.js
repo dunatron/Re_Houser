@@ -5,6 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { FormHelperText } from '@material-ui/core';
+import useStyles from '@/Components/Forms/useStyles';
 
 import FieldError from './FieldError';
 
@@ -65,6 +66,7 @@ const PhoneInput = props => {
     fieldError,
     extractErrorFromErrors,
   } = props;
+  const classes = useStyles();
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
   const label = fieldProps ? fieldProps.label : null;
@@ -83,7 +85,7 @@ const PhoneInput = props => {
   }, []);
 
   return (
-    <FormControl variant="outlined">
+    <FormControl variant="outlined" className={classes.formControl}>
       <InputLabel htmlFor={name}>{label}</InputLabel>
       <OutlinedInput
         placeholder="BB-bbbb-AAAAAAA-SSS"

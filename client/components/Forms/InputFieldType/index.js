@@ -66,15 +66,6 @@ const InputFieldType = props => {
   const fieldError = extractErrorFromErrors(errors, name);
   const defaultValue = defaultValues ? defaultValues[name] : null;
 
-  useEffect(() => {
-    return () => {
-      // cleanup any requirements a field has placed on the form
-      // if (fieldProps.name) {
-      //   unregister(fieldProps.name);
-      // }
-    };
-  });
-
   const TypeToRender = () => {
     switch (type) {
       case 'Header':
