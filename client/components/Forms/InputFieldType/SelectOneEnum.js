@@ -102,7 +102,8 @@ export default function SimpleSelect(props) {
   return (
     <>
       <FormControl
-        variant="outlined"
+        // variant="outlined"
+        variant={fieldProps.variant ? fieldProps.variant : 'outlined'}
         className={classes.formControl}
         error={yuckErr}>
         <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
@@ -162,7 +163,7 @@ SimpleSelect.propTypes = {
   __type: PropTypes.any.isRequired,
   clearError: PropTypes.func.isRequired,
   config: PropTypes.shape({
-    key: PropTypes.any
+    key: PropTypes.any,
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -176,5 +177,5 @@ SimpleSelect.propTypes = {
   reset: PropTypes.any.isRequired,
   selectID: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  values: PropTypes.any.isRequired
+  values: PropTypes.any.isRequired,
 };

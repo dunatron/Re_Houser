@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import PhoneInput from '../../Inputs/PhoneInput';
 
@@ -18,6 +18,36 @@ const Phone = ({
   fieldError,
   extractErrorFromErrors,
 }) => {
+  const { type, fieldProps, refConf } = config;
+  const name = fieldProps ? fieldProps.name : null;
+  const label = fieldProps ? fieldProps.label : null;
+  const classes = useStyles();
+
+  useEffect(() => {
+    register({ name: name }, { ...config.refConf });
+    return () => {};
+  }, [config.refConf, name, register]);
+
+  return (
+    <>
+      <FormControl
+        className={classes.formControl}
+        error={fieldError ? true : false}>
+        <PhoneInput
+          label={fieldProps.label}
+          onChange={v => {
+            setValue(config.key, v);
+            clearError(name);
+          }}
+          // variant="outlined"
+          // variant="outlined"
+          helperText={fieldError}
+          error={fieldError ? true : false}
+          {...fieldProps}
+        />
+      </FormControl>
+    </>
+  );
   return (
     <PhoneInput
       onChange={v => {
@@ -39,7 +69,7 @@ Phone.propTypes = {
   register: PropTypes.any.isRequired,
   reset: PropTypes.any.isRequired,
   setValue: PropTypes.any.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired
-}
+  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+};
 
 export default Phone;
