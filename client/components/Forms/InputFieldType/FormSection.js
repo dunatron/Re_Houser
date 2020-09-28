@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React from 'react';
 import { Paper, Typography } from '@material-ui/core';
 import InputFieldType from './index';
@@ -8,7 +8,7 @@ const FormSection = props => {
   const { inners, fieldProps } = config;
   const { label } = fieldProps;
   return (
-    <Paper style={{ padding: '8px', marginBottom: '16px' }}>
+    <Paper style={{ padding: '8px' }}>
       {label && (
         <Typography variant="h6" gutterBottom>
           {label}
@@ -33,7 +33,7 @@ const FormSection = props => {
 FormSection.propTypes = {
   config: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
-  register: PropTypes.any.isRequired,
-};
+  register: PropTypes.any.isRequired
+}
 
 export default FormSection;

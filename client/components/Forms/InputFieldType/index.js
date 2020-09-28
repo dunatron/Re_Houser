@@ -36,7 +36,6 @@ import Info from './Info';
 import Signature from './Signature';
 import Image from './Image';
 import CaptchaField from './Captcha';
-import Email from './Email';
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
@@ -93,14 +92,6 @@ const InputFieldType = props => {
             defaultValue={defaultValue}
           />
         );
-      case 'Email':
-        return (
-          <Email
-            {...props}
-            fieldError={fieldError}
-            defaultValue={defaultValue}
-          />
-        );
       case 'CheckReason':
         return <CheckReason {...props} />;
       case 'CheckboxText':
@@ -126,7 +117,6 @@ const InputFieldType = props => {
             __type={config.__type}
             onChange={() => {}}
             helperText={fieldError}
-            fieldError={fieldError}
           />
         );
       case 'SelectOneEnum':
@@ -137,7 +127,6 @@ const InputFieldType = props => {
             __type={config.__type}
             onChange={() => {}}
             helperText={fieldError}
-            fieldError={fieldError}
           />
         );
       case 'Location':
@@ -257,7 +246,7 @@ const InputFieldType = props => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        // marginBottom: '16px',
+        marginBottom: '16px',
       }}>
       {TypeToRender()}
     </div>
@@ -270,7 +259,7 @@ InputFieldType.propTypes = {
   config: PropTypes.shape({
     __type: PropTypes.any,
     content: PropTypes.any,
-    fieldProps: PropTypes.any,
+    fieldProps: PropTypes.any
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -282,23 +271,23 @@ InputFieldType.propTypes = {
   reset: PropTypes.any.isRequired,
   setValue: PropTypes.any.isRequired,
   type: PropTypes.oneOf([
-    'Header',
-    'Subheader',
-    'String',
-    'CheckReason',
-    'CheckboxText',
-    'SelectOneWithText',
-    'CheckMultipleWithText',
-    'Boolean',
-    'Int',
-    'Money',
-    'Float',
-    'Date',
-    'DateTime',
-    'AcceptTerms',
+    "Header",
+    "Subheader",
+    "String",
+    "CheckReason",
+    "CheckboxText",
+    "SelectOneWithText",
+    "CheckMultipleWithText",
+    "Boolean",
+    "Int",
+    "Money",
+    "Float",
+    "Date",
+    "DateTime",
+    "AcceptTerms"
   ]).isRequired,
   unregister: PropTypes.any.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
 };
 
 export { InputFieldType };

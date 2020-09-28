@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import React, { useState } from 'react';
 
 import InputFieldType from './index';
@@ -14,7 +14,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import useStyles from '@/Components/Forms/useStyles';
 
 const SelectOneWithText = props => {
   const {
@@ -26,7 +25,6 @@ const SelectOneWithText = props => {
     reset,
     defaultValue,
   } = props;
-  const classes = useStyles();
   const { type, inners, fieldProps, refConf } = config;
   const { name, label } = fieldProps;
   const { options } = fieldProps;
@@ -57,7 +55,7 @@ const SelectOneWithText = props => {
   // };
 
   return (
-    <FormControl component="fieldset" className={classes.formControl}>
+    <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
       <FieldError errors={errors} name={name} />
       <RadioGroup
@@ -105,7 +103,7 @@ SelectOneWithText.propTypes = {
   errors: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired,
-};
+  setValue: PropTypes.any.isRequired
+}
 
 export default SelectOneWithText;

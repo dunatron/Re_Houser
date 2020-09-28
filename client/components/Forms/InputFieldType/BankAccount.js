@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MaskedInput from 'react-text-mask';
+import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -47,8 +48,16 @@ function TextMaskCustom(props) {
 }
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
+  inputRef: PropTypes.func.isRequired
 };
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 const PhoneInput = props => {
   const {
@@ -118,7 +127,7 @@ PhoneInput.propTypes = {
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+  updateCacheOnRemovedFile: PropTypes.any.isRequired
 };
 
 export default PhoneInput;
