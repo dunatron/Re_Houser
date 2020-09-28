@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -60,13 +60,15 @@ const Location = props => {
 
   return (
     <>
-      {fieldError ? <Typography color="error">{fieldError}</Typography> : null}
       <FieldError errors={errors} name={config.fieldProps.name} />
-      {config.fieldProps.label && (
-        <Typography variant="body1">{config.fieldProps.label}</Typography>
-      )}
       <LocationPicker
+        id={fieldProps.name}
+        label={
+          <Typography variant="body1">{config.fieldProps.label}</Typography>
+        }
         defaultLocation={defaultLocation}
+        inputRef={register(config.refConf)}
+        error={fieldError}
         selection={data => {
           setPlaceId(data.placeId);
           for (const [key, value] of Object.entries(
@@ -107,9 +109,9 @@ Location.propTypes = {
     fieldProps: PropTypes.shape({
       fieldMaps: PropTypes.any,
       label: PropTypes.any,
-      name: PropTypes.any
+      name: PropTypes.any,
     }),
-    refConf: PropTypes.any
+    refConf: PropTypes.any,
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -117,7 +119,7 @@ Location.propTypes = {
   rawData: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
-  setValue: PropTypes.func.isRequired
-}
+  setValue: PropTypes.func.isRequired,
+};
 
 export default Location;

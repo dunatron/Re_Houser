@@ -12,7 +12,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
  * This is not ok,
  * https://github.com/facebook/react/issues/14994
  */
-const LocationPicker = ({ selection, defaultLocation }) => {
+const LocationPicker = ({ selection, defaultLocation, id, label }) => {
   const geosuggestEl = useRef(null);
   const defaultState = {
     placeId: null,
@@ -79,6 +79,8 @@ const LocationPicker = ({ selection, defaultLocation }) => {
   return (
     <div>
       <StyledGeoSuggest
+        label={label}
+        id={id}
         ref={geosuggestEl}
         placeholder={
           defaultLocation.desc ? defaultLocation.desc : 'Start Typing'
@@ -126,9 +128,9 @@ LocationPicker.propTypes = {
   defaultLocation: PropTypes.shape({
     desc: PropTypes.any,
     lat: PropTypes.any,
-    lng: PropTypes.any
+    lng: PropTypes.any,
   }).isRequired,
-  selection: PropTypes.func.isRequired
+  selection: PropTypes.func.isRequired,
 };
 
 export default LocationPicker;

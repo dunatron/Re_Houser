@@ -95,6 +95,7 @@ const MoneyField = props => {
       style={{ marginTop: 0 }}
       {...fieldProps}
       error={fieldError ? true : false}
+      helperText={fieldError}
       InputProps={{
         inputComponent: NumberFormatCustom,
       }}
