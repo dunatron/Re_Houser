@@ -24,6 +24,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 // account menu
 import AccountMenu from './AccountMenu';
+import ThemePicker from './ThemePicker';
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -166,7 +167,7 @@ const AppMenuBar = props => {
                 <SearchIcon />
               </IconButton>
             </Tooltip>
-
+            <ThemePicker setTheme={props.setTheme} />
             <AccountMenu me={me} />
           </div>
         </Toolbar>

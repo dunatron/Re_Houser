@@ -21,6 +21,9 @@ import {
   common,
 } from '@material-ui/core/colors';
 
+// How to actually go about themes
+//https://github.com/infonomic/material-ui-theme-switcher/blob/master/src/App.js
+
 const THEME_PICKER_CONFIG = [
   {
     name: 'Dark Yellow',
@@ -261,6 +264,78 @@ const THEME_PICKER_CONFIG = [
       //     disabled: 'rgba(0, 0, 0, 0.38)',
       //     hint: 'rgba(0, 0, 0, 0.38)',
       //   },
+    },
+  },
+  {
+    name: 'Gold 1',
+    palette: {
+      type: 'light',
+      primary: {
+        light: '#ffd98b',
+        main: '#d0a85c',
+        dark: '#9c792f',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#405264',
+        main: '#172a3a',
+        dark: '#000015',
+        contrastText: '#fff',
+      },
+    },
+  },
+  {
+    name: 'Gold 2',
+    palette: {
+      type: 'light',
+      primary: {
+        light: '#ffe166',
+        main: '#d4af34',
+        dark: '#9f8000',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#405264',
+        main: '#172a3a',
+        dark: '#000015',
+        contrastText: '#fff',
+      },
+    },
+  },
+  {
+    name: 'Gold 3',
+    palette: {
+      type: 'light',
+      primary: {
+        light: '#ffe166',
+        main: '#d4af34',
+        dark: '#9f8000',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#405264',
+        main: '#172a3a',
+        dark: '#000015',
+        contrastText: '#fff',
+      },
+    },
+  },
+  {
+    name: 'Gql Pink',
+    palette: {
+      type: 'light',
+      primary: {
+        light: '#ff57b1',
+        main: '#e00082',
+        dark: '#a90056',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#405264',
+        main: '#172a3a',
+        dark: '#000015',
+        contrastText: '#fff',
+      },
     },
   },
 ];

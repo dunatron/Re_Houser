@@ -69,6 +69,7 @@ function MaterialPage(props) {
               },
             });
           }}
+          setTheme={props.setTheme}
         />
         <AppDrawer me={me} />
 

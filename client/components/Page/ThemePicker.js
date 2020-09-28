@@ -102,6 +102,6 @@ const ThemePicker = ({ setTheme }) => {
 };
 
 ThemePicker.propTypes = {
-  setTheme: PropTypes.func.isRequired
+  setTheme: PropTypes.func.isRequired,
 };
 export default ThemePicker;

@@ -14,7 +14,10 @@ import { RecoilRoot } from 'recoil';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
 // Material UI
-import theme from './theme';
+// import theme from './theme';
+
+import themeTypography from '@/Styles/_themeTypography';
+import muiTheme from '@/Styles/_muiTheme';
 
 // Admin Area Addisions
 import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
@@ -33,6 +36,8 @@ import WithUser from '@/Components/WithUser';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
+import { createMuiTheme } from '@material-ui/core/styles';
+
 Router.onRouteChangeStart = () => {
   NProgress.start();
 };
@@ -50,6 +55,7 @@ Router.onRouteChangeError = () => {
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
+  const [themeObj, setThemeObj] = useState({});
   useEffect(() => {
     if (window.Stripe) {
       console.log('Window Stripe => ', window.Stripe);
@@ -78,6 +84,15 @@ const Page = props => {
     };
   }, []);
 
+  const theme = createMuiTheme({
+    ...muiTheme,
+    ...themeObj,
+    // palette: {
+    //   ...muiTheme.palette,
+    // },
+    ...themeTypography,
+  });
+
   return (
     <RecoilRoot>
       <MuiThemeProvider theme={theme}>
@@ -90,7 +105,11 @@ const Page = props => {
               <StateProvider>
                 <Elements stripe={stripe}>
                   <WithUser>
-                    <MaterialPage children={props.children} {...props} />
+                    <MaterialPage
+                      children={props.children}
+                      {...props}
+                      setTheme={obj => setThemeObj(obj)}
+                    />
                     <AdminAlertsContainer />
                     <GeneralSubsContainer />
                   </WithUser>
