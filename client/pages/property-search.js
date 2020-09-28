@@ -3,7 +3,8 @@ import NoSSR from 'react-no-ssr';
 import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
-const PropertySearchPage = () => {
+const PropertySearchPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -24,7 +25,7 @@ const PropertySearchPage = () => {
         ]}
       />
       <NoSSR>
-        <PropertySearch />
+        <PropertySearch me={me} />
       </NoSSR>
     </>
   );

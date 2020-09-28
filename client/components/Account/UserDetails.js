@@ -11,6 +11,7 @@ import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
 
 import DynamicCompletionIcon from './CompletionIcon';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
+import Referees from '@/Components/Referees/index';
 
 const useStyles = makeStyles(theme => ({
   inputGrid: {
@@ -88,6 +89,7 @@ const UserDetails = ({ me }) => {
                 defaultValue={me[fieldProps.name]}
                 onChange={v => saveToUpdates(fieldProps.name, v)}
               />
+              <Referees />
             </div>
           );
         })}
@@ -97,7 +99,7 @@ const UserDetails = ({ me }) => {
 };
 
 UserDetails.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any.isRequired,
 };
 
 export default UserDetails;

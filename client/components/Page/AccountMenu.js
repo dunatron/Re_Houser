@@ -7,9 +7,10 @@ import { Avatar, Button, Menu, MenuItem, Fade } from '@material-ui/core';
 import Error from '../ErrorMessage';
 import gql from 'graphql-tag';
 import { toast } from 'react-toastify';
-// import { store } from '../../store';
-import { store } from '@/Store/index';
 import RToolTip from '@/Styles/RToolTip';
+//recoil
+import { useRecoilState } from 'recoil';
+import { loginModalState } from '@/Recoil/loginModalState';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -45,8 +46,7 @@ const handleLink = (route = '/', query = {}) => {
 };
 
 const AccountMenu = ({ me = null }) => {
-  const globalStore = useContext(store);
-  const { dispatch, state } = globalStore;
+  const [loginModal, setLoginModal] = useRecoilState(loginModalState);
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -58,6 +58,14 @@ const AccountMenu = ({ me = null }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleOpenLoginModal = e => {
+    handleClose(e);
+    setLoginModal({
+      ...loginModal,
+      open: true,
+    });
   };
 
   const _profilePhotoUrl = () => {
@@ -119,14 +127,7 @@ const AccountMenu = ({ me = null }) => {
               </MenuItem>,
             ]
           : [
-              <MenuItem
-                key="account-menu-login"
-                onClick={e => {
-                  handleClose(e);
-                  dispatch({
-                    type: 'openLoginModal',
-                  });
-                }}>
+              <MenuItem key="account-menu-login" onClick={handleOpenLoginModal}>
                 Login
               </MenuItem>,
             ]}

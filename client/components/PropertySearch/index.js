@@ -57,9 +57,9 @@ var apiKey = process.env.ALGOLIA_API_KEY;
 const searchClient = algoliasearch(applicationId, apiKey);
 const indexPrefix = process.env.NODE_ENV === 'development' ? 'dev' : 'prod';
 
-const Hit = ({ hit }) => (
+const Hit = ({ hit, me }) => (
   <div className="si-hit">
-    <PropertyResultHit hit={hit} />
+    <PropertyResultHit hit={hit} me={me} />
   </div>
 );
 
@@ -67,13 +67,13 @@ Hit.propTypes = {
   hit: PropTypes.any.isRequired,
 };
 
-const Content = () => (
+const Content = ({ me }) => (
   <div className="si-content">
     <div className="si-info">
       <Stats />
     </div>
 
-    <HorizonScrollHits hitComponent={Hit} />
+    <HorizonScrollHits hitComponent={<Hit me={me} />} me={me} />
     <div className="pagination">
       {/* <ConnectedMaterialPagination /> */}
       <Pagination />
@@ -83,7 +83,7 @@ const Content = () => (
 
 const PropertySearch = props => {
   const [open, setOpen] = useState(false);
-  const { google } = props;
+  const { google, me } = props;
   const classes = useStyles();
 
   return (
@@ -104,7 +104,7 @@ const PropertySearch = props => {
             </Box>
             <CurrentRefinements />
           </Paper>
-          <Content />
+          <Content me={me} />
         </div>
       </SearchInterface>
     </InstantSearch>

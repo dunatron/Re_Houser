@@ -22,6 +22,9 @@ import Error from '@/Components/ErrorMessage';
 
 import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
+import { useRecoilState } from 'recoil';
+import { loginModalState } from '@/Recoil/loginModalState';
+
 const TabContainer = ({ children, dir }) => {
   return (
     <Typography component="div" dir={dir} style={{ padding: `16px 0` }}>
@@ -32,7 +35,7 @@ const TabContainer = ({ children, dir }) => {
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired
+  dir: PropTypes.string.isRequired,
 };
 
 const styles = theme => ({
@@ -40,7 +43,7 @@ const styles = theme => ({
 });
 
 const LoginPage = props => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const [loginModal, setLoginModal] = useRecoilState(loginModalState);
   const [state, setState] = useState({
     email: '',
     password: '',
@@ -63,11 +66,19 @@ const LoginPage = props => {
   }
 
   const handleChange = (event, value) => {
-    setTabIndex(value);
+    // setTabIndex(value);
+    setLoginModal({
+      ...loginModal,
+      tabIndex: value,
+    });
   };
 
   const handleChangeIndex = index => {
-    setTabIndex(index);
+    // setTabIndex(index);
+    setLoginModal({
+      ...loginModal,
+      tabIndex: index,
+    });
   };
 
   const handleSignedInOrUp = data => {
@@ -80,7 +91,7 @@ const LoginPage = props => {
     <div className={classes.root}>
       <AppBar position="static" color="default" dense>
         <Tabs
-          value={tabIndex}
+          value={loginModal.tabIndex}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
@@ -101,7 +112,7 @@ const LoginPage = props => {
       </AppBar>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={tabIndex}
+        index={loginModal.tabIndex}
         onChangeIndex={(index, indexLatest, meta) => {
           handleChangeIndex(index);
         }}>
@@ -134,7 +145,7 @@ const LoginPage = props => {
 LoginPage.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSignedIn: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(LoginPage);

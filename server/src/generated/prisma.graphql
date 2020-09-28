@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Sep 24 2020 10:57:07 GMT+1200 (New Zealand Standard Time)
+# timestamp: Mon Sep 28 2020 19:12:47 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1794,6 +1794,10 @@ type AggregatePropertyFiles {
 }
 
 type AggregatePropertyLease {
+  count: Int!
+}
+
+type AggregateReferee {
   count: Int!
 }
 
@@ -5402,6 +5406,7 @@ type File implements Node {
   inspectionFiles: Inspection
   codeComplianceCert: PropertyFiles
   certOfAcceptance: PropertyFiles
+  insurancePolicy: PropertyFiles
 }
 
 """A connection to a list of items."""
@@ -5451,6 +5456,7 @@ input FileCreateInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateManyWithoutInspectionFilesInput {
@@ -5470,6 +5476,11 @@ input FileCreateOneWithoutCertOfAcceptanceInput {
 
 input FileCreateOneWithoutCodeComplianceCertInput {
   create: FileCreateWithoutCodeComplianceCertInput
+  connect: FileWhereUniqueInput
+}
+
+input FileCreateOneWithoutInsurancePolicyInput {
+  create: FileCreateWithoutInsurancePolicyInput
   connect: FileWhereUniqueInput
 }
 
@@ -5544,6 +5555,7 @@ input FileCreateWithoutCertOfAcceptanceInput {
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutCodeComplianceCertInput {
@@ -5582,6 +5594,7 @@ input FileCreateWithoutCodeComplianceCertInput {
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutInspectionFilesInput {
@@ -5618,6 +5631,46 @@ input FileCreateWithoutInspectionFilesInput {
   propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyCreateOneWithoutImagesInput
   propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
+}
+
+input FileCreateWithoutInsurancePolicyInput {
+  id: ID
+  uploaderId: String
+  filename: String
+  mimetype: String
+  encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserCreateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserCreateOneWithoutProfilePhotoInput
+  userSignature: UserCreateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormCreateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserCreateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyCreateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyCreateOneWithoutImagesInput
+  propertyInsulationFile: PropertyCreateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
 }
@@ -5658,6 +5711,7 @@ input FileCreateWithoutPreTenancyProofOfAddressInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutPropertyImagesInput {
@@ -5696,6 +5750,7 @@ input FileCreateWithoutPropertyImagesInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutPropertyInsulationFileInput {
@@ -5734,6 +5789,7 @@ input FileCreateWithoutPropertyInsulationFileInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutPropertyOwnershipProofInput {
@@ -5772,6 +5828,7 @@ input FileCreateWithoutPropertyOwnershipProofInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutUserPhotoIdInput {
@@ -5810,6 +5867,7 @@ input FileCreateWithoutUserPhotoIdInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutUserProfilePhotoInput {
@@ -5848,6 +5906,7 @@ input FileCreateWithoutUserProfilePhotoInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutUserProofOfAddressInput {
@@ -5886,6 +5945,7 @@ input FileCreateWithoutUserProofOfAddressInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 input FileCreateWithoutUserSignatureInput {
@@ -5924,6 +5984,7 @@ input FileCreateWithoutUserSignatureInput {
   inspectionFiles: InspectionCreateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesCreateOneWithoutInsurancePolicyInput
 }
 
 """An edge in a connection."""
@@ -6966,6 +7027,7 @@ input FileUpdateInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateManyDataInput {
@@ -7069,6 +7131,15 @@ input FileUpdateOneWithoutCodeComplianceCertInput {
   upsert: FileUpsertWithoutCodeComplianceCertInput
 }
 
+input FileUpdateOneWithoutInsurancePolicyInput {
+  create: FileCreateWithoutInsurancePolicyInput
+  connect: FileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FileUpdateWithoutInsurancePolicyDataInput
+  upsert: FileUpsertWithoutInsurancePolicyInput
+}
+
 input FileUpdateOneWithoutPreTenancyProofOfAddressInput {
   create: FileCreateWithoutPreTenancyProofOfAddressInput
   connect: FileWhereUniqueInput
@@ -7167,6 +7238,7 @@ input FileUpdateWithoutCertOfAcceptanceDataInput {
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutCodeComplianceCertDataInput {
@@ -7204,6 +7276,7 @@ input FileUpdateWithoutCodeComplianceCertDataInput {
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutInspectionFilesDataInput {
@@ -7239,6 +7312,45 @@ input FileUpdateWithoutInspectionFilesDataInput {
   propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
   propertyImages: PropertyUpdateOneWithoutImagesInput
   propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
+  certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
+}
+
+input FileUpdateWithoutInsurancePolicyDataInput {
+  uploaderId: String
+  filename: String
+  mimetype: String
+  encoding: String
+  asset_id: String
+  public_id: String
+  version: Int
+  version_id: String
+  signature: String
+  width: Int
+  height: Int
+  format: String
+  resource_type: String
+  created_at: DateTime
+  tags: Json
+  pages: Int
+  bytes: Int
+  type: String
+  etag: String
+  placeholder: Boolean
+  url: String
+  secure_url: String
+  access_mode: String
+  original_filename: String
+  userPhotoId: UserUpdateOneWithoutPhotoIdentificationInput
+  userProfilePhoto: UserUpdateOneWithoutProfilePhotoInput
+  userSignature: UserUpdateOneWithoutSignatureInput
+  preTenancyProofOfAddress: PreTenancyFormUpdateOneWithoutProofOfAddressInput
+  userProofOfAddress: UserUpdateOneWithoutProofOfAddressInput
+  propertyOwnershipProof: PropertyUpdateOneWithoutProofOfOwnershipInput
+  propertyImages: PropertyUpdateOneWithoutImagesInput
+  propertyInsulationFile: PropertyUpdateOneWithoutInsulationStatementFileInput
+  inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
 }
@@ -7278,6 +7390,7 @@ input FileUpdateWithoutPreTenancyProofOfAddressDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutPropertyImagesDataInput {
@@ -7315,6 +7428,7 @@ input FileUpdateWithoutPropertyImagesDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutPropertyInsulationFileDataInput {
@@ -7352,6 +7466,7 @@ input FileUpdateWithoutPropertyInsulationFileDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutPropertyOwnershipProofDataInput {
@@ -7389,6 +7504,7 @@ input FileUpdateWithoutPropertyOwnershipProofDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutUserPhotoIdDataInput {
@@ -7426,6 +7542,7 @@ input FileUpdateWithoutUserPhotoIdDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutUserProfilePhotoDataInput {
@@ -7463,6 +7580,7 @@ input FileUpdateWithoutUserProfilePhotoDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutUserProofOfAddressDataInput {
@@ -7500,6 +7618,7 @@ input FileUpdateWithoutUserProofOfAddressDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithoutUserSignatureDataInput {
@@ -7537,6 +7656,7 @@ input FileUpdateWithoutUserSignatureDataInput {
   inspectionFiles: InspectionUpdateOneWithoutFilesInput
   codeComplianceCert: PropertyFilesUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: PropertyFilesUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: PropertyFilesUpdateOneWithoutInsurancePolicyInput
 }
 
 input FileUpdateWithWhereUniqueWithoutInspectionFilesInput {
@@ -7557,6 +7677,11 @@ input FileUpsertWithoutCertOfAcceptanceInput {
 input FileUpsertWithoutCodeComplianceCertInput {
   update: FileUpdateWithoutCodeComplianceCertDataInput!
   create: FileCreateWithoutCodeComplianceCertInput!
+}
+
+input FileUpsertWithoutInsurancePolicyInput {
+  update: FileUpdateWithoutInsurancePolicyDataInput!
+  create: FileCreateWithoutInsurancePolicyInput!
 }
 
 input FileUpsertWithoutPreTenancyProofOfAddressInput {
@@ -8486,6 +8611,7 @@ input FileWhereInput {
   inspectionFiles: InspectionWhereInput
   codeComplianceCert: PropertyFilesWhereInput
   certOfAcceptance: PropertyFilesWhereInput
+  insurancePolicy: PropertyFilesWhereInput
 }
 
 input FileWhereUniqueInput {
@@ -12066,6 +12192,7 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createReferee(data: RefereeCreateInput!): Referee!
   createAddress(data: AddressCreateInput!): Address!
   createAdminSetting(data: AdminSettingCreateInput!): AdminSetting!
   createBankDetail(data: BankDetailCreateInput!): BankDetail!
@@ -12096,6 +12223,7 @@ type Mutation {
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  updateReferee(data: RefereeUpdateInput!, where: RefereeWhereUniqueInput!): Referee
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateAdminSetting(data: AdminSettingUpdateInput!, where: AdminSettingWhereUniqueInput!): AdminSetting
   updateBankDetail(data: BankDetailUpdateInput!, where: BankDetailWhereUniqueInput!): BankDetail
@@ -12125,6 +12253,7 @@ type Mutation {
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  deleteReferee(where: RefereeWhereUniqueInput!): Referee
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteAdminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
   deleteBankDetail(where: BankDetailWhereUniqueInput!): BankDetail
@@ -12155,6 +12284,7 @@ type Mutation {
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  upsertReferee(where: RefereeWhereUniqueInput!, create: RefereeCreateInput!, update: RefereeUpdateInput!): Referee!
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   upsertAdminSetting(where: AdminSettingWhereUniqueInput!, create: AdminSettingCreateInput!, update: AdminSettingUpdateInput!): AdminSetting!
   upsertBankDetail(where: BankDetailWhereUniqueInput!, create: BankDetailCreateInput!, update: BankDetailUpdateInput!): BankDetail!
@@ -12184,6 +12314,7 @@ type Mutation {
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  updateManyReferees(data: RefereeUpdateManyMutationInput!, where: RefereeWhereInput): BatchPayload!
   updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyAdminSettings(data: AdminSettingUpdateManyMutationInput!, where: AdminSettingWhereInput): BatchPayload!
   updateManyBankDetails(data: BankDetailUpdateManyMutationInput!, where: BankDetailWhereInput): BatchPayload!
@@ -12211,6 +12342,7 @@ type Mutation {
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  deleteManyReferees(where: RefereeWhereInput): BatchPayload!
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   deleteManyAdminSettings(where: AdminSettingWhereInput): BatchPayload!
   deleteManyBankDetails(where: BankDetailWhereInput): BatchPayload!
@@ -13597,9 +13729,11 @@ type PreTenancyForm implements Node {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13636,9 +13770,11 @@ input PreTenancyFormCreateInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13677,9 +13813,11 @@ input PreTenancyFormCreateWithoutProofOfAddressInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13707,9 +13845,11 @@ input PreTenancyFormCreateWithoutRentalApplicantInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13765,12 +13905,16 @@ enum PreTenancyFormOrderByInput {
   currentLandlordEmail_DESC
   consentToLandlordContact_ASC
   consentToLandlordContact_DESC
+  referee1Relationhip_ASC
+  referee1Relationhip_DESC
   referrence1Name_ASC
   referrence1Name_DESC
   referrence1Phone_ASC
   referrence1Phone_DESC
   referrence1Email_ASC
   referrence1Email_DESC
+  referee2Relationhip_ASC
+  referee2Relationhip_DESC
   referrence2Name_ASC
   referrence2Name_DESC
   referrence2Phone_ASC
@@ -13801,9 +13945,11 @@ type PreTenancyFormPreviousValues {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13866,9 +14012,11 @@ input PreTenancyFormUpdateInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13896,9 +14044,11 @@ input PreTenancyFormUpdateManyMutationInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13942,9 +14092,11 @@ input PreTenancyFormUpdateWithoutProofOfAddressDataInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -13971,9 +14123,11 @@ input PreTenancyFormUpdateWithoutRentalApplicantDataInput {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String
@@ -14544,6 +14698,46 @@ input PreTenancyFormWhereInput {
 
   """All values that are not equal to given value."""
   consentToLandlordContact_not: Boolean
+  referee1Relationhip: String
+
+  """All values that are not equal to given value."""
+  referee1Relationhip_not: String
+
+  """All values that are contained in given list."""
+  referee1Relationhip_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Relationhip_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Relationhip_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Relationhip_lte: String
+
+  """All values greater than the given value."""
+  referee1Relationhip_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Relationhip_gte: String
+
+  """All values containing the given string."""
+  referee1Relationhip_contains: String
+
+  """All values not containing the given string."""
+  referee1Relationhip_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Relationhip_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Relationhip_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Relationhip_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Relationhip_not_ends_with: String
   referrence1Name: String
 
   """All values that are not equal to given value."""
@@ -14664,6 +14858,46 @@ input PreTenancyFormWhereInput {
 
   """All values not ending with the given string."""
   referrence1Email_not_ends_with: String
+  referee2Relationhip: String
+
+  """All values that are not equal to given value."""
+  referee2Relationhip_not: String
+
+  """All values that are contained in given list."""
+  referee2Relationhip_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Relationhip_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Relationhip_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Relationhip_lte: String
+
+  """All values greater than the given value."""
+  referee2Relationhip_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Relationhip_gte: String
+
+  """All values containing the given string."""
+  referee2Relationhip_contains: String
+
+  """All values not containing the given string."""
+  referee2Relationhip_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Relationhip_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Relationhip_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Relationhip_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Relationhip_not_ends_with: String
   referrence2Name: String
 
   """All values that are not equal to given value."""
@@ -16458,6 +16692,7 @@ type PropertyFiles implements Node {
   property: Property
   codeComplianceCert: File
   certOfAcceptance: File
+  insurancePolicy: File
 }
 
 """A connection to a list of items."""
@@ -16475,6 +16710,7 @@ input PropertyFilesCreateInput {
   property: PropertyCreateOneWithoutFilesInput
   codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: FileCreateOneWithoutInsurancePolicyInput
 }
 
 input PropertyFilesCreateOneWithoutCertOfAcceptanceInput {
@@ -16487,6 +16723,11 @@ input PropertyFilesCreateOneWithoutCodeComplianceCertInput {
   connect: PropertyFilesWhereUniqueInput
 }
 
+input PropertyFilesCreateOneWithoutInsurancePolicyInput {
+  create: PropertyFilesCreateWithoutInsurancePolicyInput
+  connect: PropertyFilesWhereUniqueInput
+}
+
 input PropertyFilesCreateOneWithoutPropertyInput {
   create: PropertyFilesCreateWithoutPropertyInput
   connect: PropertyFilesWhereUniqueInput
@@ -16496,11 +16737,20 @@ input PropertyFilesCreateWithoutCertOfAcceptanceInput {
   id: ID
   property: PropertyCreateOneWithoutFilesInput
   codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
+  insurancePolicy: FileCreateOneWithoutInsurancePolicyInput
 }
 
 input PropertyFilesCreateWithoutCodeComplianceCertInput {
   id: ID
   property: PropertyCreateOneWithoutFilesInput
+  certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: FileCreateOneWithoutInsurancePolicyInput
+}
+
+input PropertyFilesCreateWithoutInsurancePolicyInput {
+  id: ID
+  property: PropertyCreateOneWithoutFilesInput
+  codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
 }
 
@@ -16508,6 +16758,7 @@ input PropertyFilesCreateWithoutPropertyInput {
   id: ID
   codeComplianceCert: FileCreateOneWithoutCodeComplianceCertInput
   certOfAcceptance: FileCreateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: FileCreateOneWithoutInsurancePolicyInput
 }
 
 """An edge in a connection."""
@@ -16569,6 +16820,7 @@ input PropertyFilesUpdateInput {
   property: PropertyUpdateOneWithoutFilesInput
   codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: FileUpdateOneWithoutInsurancePolicyInput
 }
 
 input PropertyFilesUpdateOneWithoutCertOfAcceptanceInput {
@@ -16589,6 +16841,15 @@ input PropertyFilesUpdateOneWithoutCodeComplianceCertInput {
   upsert: PropertyFilesUpsertWithoutCodeComplianceCertInput
 }
 
+input PropertyFilesUpdateOneWithoutInsurancePolicyInput {
+  create: PropertyFilesCreateWithoutInsurancePolicyInput
+  connect: PropertyFilesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyFilesUpdateWithoutInsurancePolicyDataInput
+  upsert: PropertyFilesUpsertWithoutInsurancePolicyInput
+}
+
 input PropertyFilesUpdateOneWithoutPropertyInput {
   create: PropertyFilesCreateWithoutPropertyInput
   connect: PropertyFilesWhereUniqueInput
@@ -16601,16 +16862,25 @@ input PropertyFilesUpdateOneWithoutPropertyInput {
 input PropertyFilesUpdateWithoutCertOfAcceptanceDataInput {
   property: PropertyUpdateOneWithoutFilesInput
   codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
+  insurancePolicy: FileUpdateOneWithoutInsurancePolicyInput
 }
 
 input PropertyFilesUpdateWithoutCodeComplianceCertDataInput {
   property: PropertyUpdateOneWithoutFilesInput
+  certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: FileUpdateOneWithoutInsurancePolicyInput
+}
+
+input PropertyFilesUpdateWithoutInsurancePolicyDataInput {
+  property: PropertyUpdateOneWithoutFilesInput
+  codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
 }
 
 input PropertyFilesUpdateWithoutPropertyDataInput {
   codeComplianceCert: FileUpdateOneWithoutCodeComplianceCertInput
   certOfAcceptance: FileUpdateOneWithoutCertOfAcceptanceInput
+  insurancePolicy: FileUpdateOneWithoutInsurancePolicyInput
 }
 
 input PropertyFilesUpsertWithoutCertOfAcceptanceInput {
@@ -16621,6 +16891,11 @@ input PropertyFilesUpsertWithoutCertOfAcceptanceInput {
 input PropertyFilesUpsertWithoutCodeComplianceCertInput {
   update: PropertyFilesUpdateWithoutCodeComplianceCertDataInput!
   create: PropertyFilesCreateWithoutCodeComplianceCertInput!
+}
+
+input PropertyFilesUpsertWithoutInsurancePolicyInput {
+  update: PropertyFilesUpdateWithoutInsurancePolicyDataInput!
+  create: PropertyFilesCreateWithoutInsurancePolicyInput!
 }
 
 input PropertyFilesUpsertWithoutPropertyInput {
@@ -16680,6 +16955,7 @@ input PropertyFilesWhereInput {
   property: PropertyWhereInput
   codeComplianceCert: FileWhereInput
   certOfAcceptance: FileWhereInput
+  insurancePolicy: FileWhereInput
 }
 
 input PropertyFilesWhereUniqueInput {
@@ -21841,6 +22117,7 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  referees(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Referee]!
   addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
   adminSettings(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminSetting]!
   bankDetails(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BankDetail]!
@@ -21871,6 +22148,7 @@ type Query {
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  referee(where: RefereeWhereUniqueInput!): Referee
   address(where: AddressWhereUniqueInput!): Address
   adminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
   bankDetail(where: BankDetailWhereUniqueInput!): BankDetail
@@ -21901,6 +22179,7 @@ type Query {
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  refereesConnection(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RefereeConnection!
   addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
   adminSettingsConnection(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminSettingConnection!
   bankDetailsConnection(where: BankDetailWhereInput, orderBy: BankDetailOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BankDetailConnection!
@@ -21943,6 +22222,545 @@ enum RecurringType {
   ONCE
   DAILY
   WEEKLY
+}
+
+type Referee implements Node {
+  id: ID!
+  user: User
+  name: String!
+  email: String!
+  phone: String!
+  relationship: RefereeRelationship
+}
+
+"""A connection to a list of items."""
+type RefereeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RefereeEdge]!
+  aggregate: AggregateReferee!
+}
+
+input RefereeCreateInput {
+  id: ID
+  name: String!
+  email: String!
+  phone: String!
+  relationship: RefereeRelationship
+  user: UserCreateOneWithoutRefereesInput
+}
+
+input RefereeCreateManyWithoutUserInput {
+  create: [RefereeCreateWithoutUserInput!]
+  connect: [RefereeWhereUniqueInput!]
+}
+
+input RefereeCreateWithoutUserInput {
+  id: ID
+  name: String!
+  email: String!
+  phone: String!
+  relationship: RefereeRelationship
+}
+
+"""An edge in a connection."""
+type RefereeEdge {
+  """The item at the end of the edge."""
+  node: Referee!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum RefereeOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  phone_ASC
+  phone_DESC
+  relationship_ASC
+  relationship_DESC
+}
+
+type RefereePreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String!
+  relationship: RefereeRelationship
+}
+
+enum RefereeRelationship {
+  FATHER
+  MOTHER
+  LANDLORD
+  OTHER
+}
+
+input RefereeScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RefereeScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RefereeScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RefereeScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  relationship: RefereeRelationship
+
+  """All values that are not equal to given value."""
+  relationship_not: RefereeRelationship
+
+  """All values that are contained in given list."""
+  relationship_in: [RefereeRelationship!]
+
+  """All values that are not contained in given list."""
+  relationship_not_in: [RefereeRelationship!]
+}
+
+type RefereeSubscriptionPayload {
+  mutation: MutationType!
+  node: Referee
+  updatedFields: [String!]
+  previousValues: RefereePreviousValues
+}
+
+input RefereeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RefereeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RefereeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RefereeSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: RefereeWhereInput
+}
+
+input RefereeUpdateInput {
+  name: String
+  email: String
+  phone: String
+  relationship: RefereeRelationship
+  user: UserUpdateOneWithoutRefereesInput
+}
+
+input RefereeUpdateManyDataInput {
+  name: String
+  email: String
+  phone: String
+  relationship: RefereeRelationship
+}
+
+input RefereeUpdateManyMutationInput {
+  name: String
+  email: String
+  phone: String
+  relationship: RefereeRelationship
+}
+
+input RefereeUpdateManyWithoutUserInput {
+  create: [RefereeCreateWithoutUserInput!]
+  connect: [RefereeWhereUniqueInput!]
+  set: [RefereeWhereUniqueInput!]
+  disconnect: [RefereeWhereUniqueInput!]
+  delete: [RefereeWhereUniqueInput!]
+  update: [RefereeUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [RefereeUpdateManyWithWhereNestedInput!]
+  deleteMany: [RefereeScalarWhereInput!]
+  upsert: [RefereeUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input RefereeUpdateManyWithWhereNestedInput {
+  where: RefereeScalarWhereInput!
+  data: RefereeUpdateManyDataInput!
+}
+
+input RefereeUpdateWithoutUserDataInput {
+  name: String
+  email: String
+  phone: String
+  relationship: RefereeRelationship
+}
+
+input RefereeUpdateWithWhereUniqueWithoutUserInput {
+  where: RefereeWhereUniqueInput!
+  data: RefereeUpdateWithoutUserDataInput!
+}
+
+input RefereeUpsertWithWhereUniqueWithoutUserInput {
+  where: RefereeWhereUniqueInput!
+  update: RefereeUpdateWithoutUserDataInput!
+  create: RefereeCreateWithoutUserInput!
+}
+
+input RefereeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RefereeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RefereeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RefereeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  relationship: RefereeRelationship
+
+  """All values that are not equal to given value."""
+  relationship_not: RefereeRelationship
+
+  """All values that are contained in given list."""
+  relationship_in: [RefereeRelationship!]
+
+  """All values that are not contained in given list."""
+  relationship_not_in: [RefereeRelationship!]
+  user: UserWhereInput
+}
+
+input RefereeWhereUniqueInput {
+  id: ID
 }
 
 type RentalApplication implements Node {
@@ -24784,6 +25602,7 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  referee(where: RefereeSubscriptionWhereInput): RefereeSubscriptionPayload
   address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
   adminSetting(where: AdminSettingSubscriptionWhereInput): AdminSettingSubscriptionPayload
   bankDetail(where: BankDetailSubscriptionWhereInput): BankDetailSubscriptionPayload
@@ -24866,9 +25685,12 @@ type User implements Node {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referees(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Referee!]
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -24920,9 +25742,11 @@ input UserCreateInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -24940,6 +25764,7 @@ input UserCreateInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25062,6 +25887,11 @@ input UserCreateOneWithoutRecievedMessagesInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutRefereesInput {
+  create: UserCreateWithoutRefereesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutRentalAppraisalsInput {
   create: UserCreateWithoutRentalAppraisalsInput
   connect: UserWhereUniqueInput
@@ -25098,9 +25928,11 @@ input UserCreateWithoutActivityInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25118,6 +25950,7 @@ input UserCreateWithoutActivityInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25151,9 +25984,11 @@ input UserCreateWithoutAdminSettingsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25171,6 +26006,7 @@ input UserCreateWithoutAdminSettingsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25204,9 +26040,11 @@ input UserCreateWithoutAwaitingFriendsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25223,6 +26061,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25257,9 +26096,11 @@ input UserCreateWithoutBankDetailsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25277,6 +26118,7 @@ input UserCreateWithoutBankDetailsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25310,9 +26152,11 @@ input UserCreateWithoutChatsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25330,6 +26174,7 @@ input UserCreateWithoutChatsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   sentMessages: MessageCreateManyWithoutSenderInput
@@ -25363,9 +26208,11 @@ input UserCreateWithoutCreatedPropertiesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25382,6 +26229,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   lessorLeases: LessorCreateManyWithoutUserInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25416,9 +26264,11 @@ input UserCreateWithoutCreditCardsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25436,6 +26286,7 @@ input UserCreateWithoutCreditCardsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
@@ -25469,9 +26320,11 @@ input UserCreateWithoutCurrentAddressInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25489,6 +26342,7 @@ input UserCreateWithoutCurrentAddressInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25522,9 +26376,11 @@ input UserCreateWithoutFriendRequestsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25541,6 +26397,7 @@ input UserCreateWithoutFriendRequestsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25575,9 +26432,11 @@ input UserCreateWithoutInspectionsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25595,6 +26454,7 @@ input UserCreateWithoutInspectionsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25628,9 +26488,11 @@ input UserCreateWithoutInvolvedActivityInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25648,6 +26510,7 @@ input UserCreateWithoutInvolvedActivityInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25681,9 +26544,11 @@ input UserCreateWithoutLesseeLeasesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25700,6 +26565,7 @@ input UserCreateWithoutLesseeLeasesInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25734,9 +26600,11 @@ input UserCreateWithoutLessorLeasesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25753,6 +26621,7 @@ input UserCreateWithoutLessorLeasesInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25787,9 +26656,11 @@ input UserCreateWithoutPhotoIdentificationInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25806,6 +26677,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25840,9 +26712,11 @@ input UserCreateWithoutProfilePhotoInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25859,6 +26733,7 @@ input UserCreateWithoutProfilePhotoInput {
   lessorLeases: LessorCreateManyWithoutUserInput
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25893,9 +26768,11 @@ input UserCreateWithoutProofOfAddressInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25913,6 +26790,7 @@ input UserCreateWithoutProofOfAddressInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25946,9 +26824,11 @@ input UserCreateWithoutPropertiesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -25965,6 +26845,7 @@ input UserCreateWithoutPropertiesInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -25999,9 +26880,67 @@ input UserCreateWithoutRecievedMessagesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean!
+  acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
+}
+
+input UserCreateWithoutRefereesInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  emailValidated: Boolean
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Relationhip: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -26023,6 +26962,7 @@ input UserCreateWithoutRecievedMessagesInput {
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
   sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
@@ -26052,9 +26992,11 @@ input UserCreateWithoutRentalAppraisalsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -26072,6 +27014,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -26105,9 +27048,11 @@ input UserCreateWithoutSentMessagesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -26125,6 +27070,7 @@ input UserCreateWithoutSentMessagesInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -26158,9 +27104,11 @@ input UserCreateWithoutSignatureInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -26178,6 +27126,7 @@ input UserCreateWithoutSignatureInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -26211,9 +27160,11 @@ input UserCreateWithoutViewingsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -26231,6 +27182,7 @@ input UserCreateWithoutViewingsInput {
   createdProperties: PropertyCreateManyWithoutCreatorInput
   photoIdentification: FileCreateOneWithoutUserPhotoIdInput
   profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
   creditCards: CreditCardCreateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardCreateOneInput
   chats: ChatCreateManyWithoutParticipantsInput
@@ -26293,12 +27245,16 @@ enum UserOrderByInput {
   emergencyContactNumber_DESC
   emergencyContactEmail_ASC
   emergencyContactEmail_DESC
+  referee1Relationhip_ASC
+  referee1Relationhip_DESC
   referee1Name_ASC
   referee1Name_DESC
   referee1Phone_ASC
   referee1Phone_DESC
   referee1Email_ASC
   referee1Email_DESC
+  referee2Relationhip_ASC
+  referee2Relationhip_DESC
   referee2Name_ASC
   referee2Name_DESC
   referee2Phone_ASC
@@ -26335,9 +27291,11 @@ type UserPreviousValues {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -26950,6 +27908,46 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   emergencyContactEmail_not_ends_with: String
+  referee1Relationhip: String
+
+  """All values that are not equal to given value."""
+  referee1Relationhip_not: String
+
+  """All values that are contained in given list."""
+  referee1Relationhip_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Relationhip_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Relationhip_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Relationhip_lte: String
+
+  """All values greater than the given value."""
+  referee1Relationhip_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Relationhip_gte: String
+
+  """All values containing the given string."""
+  referee1Relationhip_contains: String
+
+  """All values not containing the given string."""
+  referee1Relationhip_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Relationhip_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Relationhip_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Relationhip_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Relationhip_not_ends_with: String
   referee1Name: String
 
   """All values that are not equal to given value."""
@@ -27070,6 +28068,46 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   referee1Email_not_ends_with: String
+  referee2Relationhip: String
+
+  """All values that are not equal to given value."""
+  referee2Relationhip_not: String
+
+  """All values that are contained in given list."""
+  referee2Relationhip_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Relationhip_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Relationhip_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Relationhip_lte: String
+
+  """All values greater than the given value."""
+  referee2Relationhip_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Relationhip_gte: String
+
+  """All values containing the given string."""
+  referee2Relationhip_contains: String
+
+  """All values not containing the given string."""
+  referee2Relationhip_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Relationhip_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Relationhip_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Relationhip_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Relationhip_not_ends_with: String
   referee2Name: String
 
   """All values that are not equal to given value."""
@@ -27297,9 +28335,11 @@ input UserUpdateDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27317,6 +28357,7 @@ input UserUpdateDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -27350,9 +28391,11 @@ input UserUpdateInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27370,6 +28413,7 @@ input UserUpdateInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -27403,9 +28447,11 @@ input UserUpdateManyDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27444,9 +28490,11 @@ input UserUpdateManyMutationInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27651,6 +28699,15 @@ input UserUpdateOneWithoutRecievedMessagesInput {
   upsert: UserUpsertWithoutRecievedMessagesInput
 }
 
+input UserUpdateOneWithoutRefereesInput {
+  create: UserCreateWithoutRefereesInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutRefereesDataInput
+  upsert: UserUpsertWithoutRefereesInput
+}
+
 input UserUpdateOneWithoutSentMessagesInput {
   create: UserCreateWithoutSentMessagesInput
   connect: UserWhereUniqueInput
@@ -27689,9 +28746,11 @@ input UserUpdateWithoutActivityDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27709,6 +28768,7 @@ input UserUpdateWithoutActivityDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -27741,9 +28801,11 @@ input UserUpdateWithoutAdminSettingsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27761,6 +28823,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -27793,9 +28856,11 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27812,6 +28877,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -27845,9 +28911,11 @@ input UserUpdateWithoutBankDetailsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27865,6 +28933,7 @@ input UserUpdateWithoutBankDetailsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -27897,9 +28966,11 @@ input UserUpdateWithoutChatsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27917,6 +28988,7 @@ input UserUpdateWithoutChatsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   sentMessages: MessageUpdateManyWithoutSenderInput
@@ -27949,9 +29021,11 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -27968,6 +29042,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   lessorLeases: LessorUpdateManyWithoutUserInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28001,9 +29076,11 @@ input UserUpdateWithoutCreditCardsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28021,6 +29098,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
@@ -28053,9 +29131,11 @@ input UserUpdateWithoutCurrentAddressDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28073,6 +29153,7 @@ input UserUpdateWithoutCurrentAddressDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28105,9 +29186,11 @@ input UserUpdateWithoutFriendRequestsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28124,6 +29207,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28157,9 +29241,11 @@ input UserUpdateWithoutInspectionsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28177,6 +29263,7 @@ input UserUpdateWithoutInspectionsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28209,9 +29296,11 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28229,6 +29318,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28261,9 +29351,11 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28280,6 +29372,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28313,9 +29406,11 @@ input UserUpdateWithoutLessorLeasesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28332,6 +29427,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28365,9 +29461,11 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28384,6 +29482,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28417,9 +29516,11 @@ input UserUpdateWithoutProfilePhotoDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28436,6 +29537,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   lessorLeases: LessorUpdateManyWithoutUserInput
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28469,9 +29571,11 @@ input UserUpdateWithoutProofOfAddressDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28489,6 +29593,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28521,9 +29626,11 @@ input UserUpdateWithoutPropertiesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28540,6 +29647,7 @@ input UserUpdateWithoutPropertiesDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28573,9 +29681,66 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean
+  acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
+}
+
+input UserUpdateWithoutRefereesDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  emailValidated: Boolean
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Relationhip: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28597,6 +29762,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
   sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
@@ -28625,9 +29791,11 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28645,6 +29813,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28677,9 +29846,11 @@ input UserUpdateWithoutSentMessagesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28697,6 +29868,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28729,9 +29901,11 @@ input UserUpdateWithoutSignatureDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28749,6 +29923,7 @@ input UserUpdateWithoutSignatureDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28781,9 +29956,11 @@ input UserUpdateWithoutViewingsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -28801,6 +29978,7 @@ input UserUpdateWithoutViewingsDataInput {
   createdProperties: PropertyUpdateManyWithoutCreatorInput
   photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
   profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
   creditCards: CreditCardUpdateManyWithoutCardOwnerInput
   primaryCreditCard: CreditCardUpdateOneInput
   chats: ChatUpdateManyWithoutParticipantsInput
@@ -28920,6 +30098,11 @@ input UserUpsertWithoutProofOfAddressInput {
 input UserUpsertWithoutRecievedMessagesInput {
   update: UserUpdateWithoutRecievedMessagesDataInput!
   create: UserCreateWithoutRecievedMessagesInput!
+}
+
+input UserUpsertWithoutRefereesInput {
+  update: UserUpdateWithoutRefereesDataInput!
+  create: UserCreateWithoutRefereesInput!
 }
 
 input UserUpsertWithoutRentalAppraisalsInput {
@@ -29570,6 +30753,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   emergencyContactEmail_not_ends_with: String
+  referee1Relationhip: String
+
+  """All values that are not equal to given value."""
+  referee1Relationhip_not: String
+
+  """All values that are contained in given list."""
+  referee1Relationhip_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee1Relationhip_not_in: [String!]
+
+  """All values less than the given value."""
+  referee1Relationhip_lt: String
+
+  """All values less than or equal the given value."""
+  referee1Relationhip_lte: String
+
+  """All values greater than the given value."""
+  referee1Relationhip_gt: String
+
+  """All values greater than or equal the given value."""
+  referee1Relationhip_gte: String
+
+  """All values containing the given string."""
+  referee1Relationhip_contains: String
+
+  """All values not containing the given string."""
+  referee1Relationhip_not_contains: String
+
+  """All values starting with the given string."""
+  referee1Relationhip_starts_with: String
+
+  """All values not starting with the given string."""
+  referee1Relationhip_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee1Relationhip_ends_with: String
+
+  """All values not ending with the given string."""
+  referee1Relationhip_not_ends_with: String
   referee1Name: String
 
   """All values that are not equal to given value."""
@@ -29690,6 +30913,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   referee1Email_not_ends_with: String
+  referee2Relationhip: String
+
+  """All values that are not equal to given value."""
+  referee2Relationhip_not: String
+
+  """All values that are contained in given list."""
+  referee2Relationhip_in: [String!]
+
+  """All values that are not contained in given list."""
+  referee2Relationhip_not_in: [String!]
+
+  """All values less than the given value."""
+  referee2Relationhip_lt: String
+
+  """All values less than or equal the given value."""
+  referee2Relationhip_lte: String
+
+  """All values greater than the given value."""
+  referee2Relationhip_gt: String
+
+  """All values greater than or equal the given value."""
+  referee2Relationhip_gte: String
+
+  """All values containing the given string."""
+  referee2Relationhip_contains: String
+
+  """All values not containing the given string."""
+  referee2Relationhip_not_contains: String
+
+  """All values starting with the given string."""
+  referee2Relationhip_starts_with: String
+
+  """All values not starting with the given string."""
+  referee2Relationhip_not_starts_with: String
+
+  """All values ending with the given string."""
+  referee2Relationhip_ends_with: String
+
+  """All values not ending with the given string."""
+  referee2Relationhip_not_ends_with: String
   referee2Name: String
 
   """All values that are not equal to given value."""
@@ -29885,6 +31148,9 @@ input UserWhereInput {
   createdProperties_none: PropertyWhereInput
   photoIdentification: FileWhereInput
   profilePhoto: FileWhereInput
+  referees_every: RefereeWhereInput
+  referees_some: RefereeWhereInput
+  referees_none: RefereeWhereInput
   creditCards_every: CreditCardWhereInput
   creditCards_some: CreditCardWhereInput
   creditCards_none: CreditCardWhereInput

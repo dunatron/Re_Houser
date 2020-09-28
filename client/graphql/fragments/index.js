@@ -9,3 +9,4 @@ export { default as AccommodationInfoFragment } from './accommodationInfo';
 export { default as InsulationFormInfoFragment } from './insulationFormInfo';
 export { default as ViewingInfoFragment } from './viewingInfo';
 export { default as RentalAppraisalInfoFragment } from './rentalAppraisalInfo';
+export { default as RefereeInfoFragment } from './refereeInfo';

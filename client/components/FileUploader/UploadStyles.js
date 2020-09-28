@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   upload: {
     display: 'flex',
@@ -63,6 +64,9 @@ const useStyles = makeStyles(theme => ({
       alignItems: 'center',
       marginTop: '5px',
     },
+  },
+  hasServerIcon: {
+    marginRight: theme.spacing(1),
   },
   checkIcon: {
     opacity: 0.5,

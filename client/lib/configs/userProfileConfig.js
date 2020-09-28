@@ -156,6 +156,17 @@ export const USER_PROFILE_CONF = [
     editableInRentalApplication: true,
   },
   {
+    type: 'String',
+    key: 'referee1Name',
+    fieldProps: {
+      name: 'referee1Name',
+      label: 'Referee 1 Name',
+    },
+    ratingVal: 10,
+    includeInRentalApplication: true,
+    editableInRentalApplication: true,
+  },
+  {
     type: 'Phone',
     key: 'referee1Phone',
     fieldProps: {

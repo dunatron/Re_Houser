@@ -9,7 +9,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_CONTACT_FORM_MUTATION } from '@/Gql/mutations';
 import { toast } from 'react-toastify';
 
-const ContactForm = () => {
+const ContactForm = ({ createText }) => {
   const [sent, setSent] = useState(false);
   const [createContactForm, { data, loading, error }] = useMutation(
     CREATE_CONTACT_FORM_MUTATION,
@@ -72,7 +72,7 @@ const ContactForm = () => {
       </div>
       <FormCreator
         title="Contact form"
-        createText="Submit contact form"
+        createText={createText ? createText : 'Submit contact form'}
         error={error}
         posting={loading}
         config={CONTACT_FORM_CONF}

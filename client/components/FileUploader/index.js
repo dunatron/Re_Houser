@@ -10,7 +10,13 @@ import React, {
 } from 'react';
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import clsx from 'clsx';
-import { Paper, Button, IconButton, Typography } from '@material-ui/core';
+import {
+  Paper,
+  ButtonGroup,
+  Button,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
 
 import { toast } from 'react-toastify';
 
@@ -23,12 +29,16 @@ import errorAlert from '@/Lib/errorAlert';
 
 import useUploadStyles from './UploadStyles';
 
+import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
+
+//icons
 import FlipToBackIcon from '@material-ui/icons/FlipToBackOutlined';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import FlipToFrontIcon from '@material-ui/icons/FlipToFrontOutlined';
 import AddIcon from '@material-ui/icons/Add';
+import DoneIcon from '@material-ui/icons/Done';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 
 // https://www.apollographql.com/blog/graphql-file-uploads-with-react-hooks-typescript-amazon-s3-tutorial-ef39d21066a2
 // maybe try for progress https://github.com/jaydenseric/apollo-upload-client/issues/88
@@ -456,17 +466,34 @@ UploadFile.propTypes = {
   store: PropTypes.any.isRequired,
 };
 
-const FlipCardHeader = ({ title, isFlipped, flip, expanded, expand }) => {
+const FlipCardHeader = ({
+  title,
+  isFlipped,
+  flip,
+  expanded,
+  expand,
+  hasServerFile,
+}) => {
   const classes = useUploadStyles();
   return (
     <div className={classes.flipHeader}>
-      <IconButton onClick={flip}>
-        {isFlipped ? <FlipToBackIcon /> : <FlipToFrontIcon />}
-      </IconButton>
-      <IconButton onClick={expand}>
-        {expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />}
-      </IconButton>
-      <Typography>{title}</Typography>
+      {hasServerFile && (
+        <DoneIcon color="primary" className={classes.hasServerIcon} />
+      )}
+      <ButtonGroup size="small" aria-label="small outlined button group">
+        <Button
+          startIcon={isFlipped ? <FlipToBackIcon /> : <FlipToFrontIcon />}
+          onClick={flip}>
+          Flip
+        </Button>
+        <Button
+          startIcon={
+            expanded ? <RemoveCircleOutlineIcon /> : <AddCircleOutlineIcon />
+          }
+          onClick={expand}>
+          {expanded ? 'Close' : 'Add'}
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };
@@ -528,6 +555,12 @@ const FileManager = props => {
     initialFiles: files,
     expanded: props.expanded ? true : false,
   });
+
+  const hasServerFile = () => {
+    if (state.initialFiles.length >= 1) return true;
+    if (files.length >= 1) return true;
+    return false;
+  };
 
   useEffect(() => {
     setState({
@@ -610,6 +643,7 @@ const FileManager = props => {
       <FlipCardHeader
         title={title}
         isFlipped={state.isFlipped}
+        hasServerFile={hasServerFile}
         flip={handleFlip}
         expand={handleExpand}
         expanded={state.expanded}

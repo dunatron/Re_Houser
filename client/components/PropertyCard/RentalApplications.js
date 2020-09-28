@@ -6,9 +6,10 @@ import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { RENTAL_APPLICATION_CREATED_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationCreatedSub';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
+import { useCurrentUser } from '@/Components/User';
 
-const RentalApplications = props => {
-  const { propertyId, property, me } = props;
+const RentalApplications = ({ openRentalAppModal, property }) => {
+  const me = useCurrentUser();
   const variables = {
     where: {
       OR: [
@@ -23,7 +24,7 @@ const RentalApplications = props => {
       ],
       AND: {
         property: {
-          id: propertyId,
+          id: property.id,
         },
       },
     },
@@ -65,9 +66,7 @@ const RentalApplications = props => {
               application={application}
               index={idx}
               property={property}
-              openRentalAppModal={rentalData =>
-                props.openRentalAppModal(rentalData)
-              }
+              openRentalAppModal={rentalData => openRentalAppModal(rentalData)}
             />
           );
         })}
@@ -76,12 +75,8 @@ const RentalApplications = props => {
 };
 
 RentalApplications.propTypes = {
-  me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired,
   openRentalAppModal: PropTypes.func.isRequired,
   property: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired
 };
 
 export default RentalApplications;

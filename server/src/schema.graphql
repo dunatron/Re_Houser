@@ -30,9 +30,12 @@ type User {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referees: [Referee]
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String

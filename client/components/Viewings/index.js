@@ -11,9 +11,11 @@ import RenderViewingByRecurringType from './RenderViewingByRecurringType';
 
 import CreateViewing from './CreateViewing';
 import Actions from './Actions';
+import RequestViewing from './RequestViewing';
 
 // proptypes
 import mePropTypes from '../../propTypes/mePropTypes';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -21,7 +23,7 @@ const styles = theme => ({
   },
 });
 
-const Viewings = ({ where, me, propertyId, classes }) => {
+const Viewings = ({ where, me, propertyId, classes, disableCreate }) => {
   const { loading, error, data } = useQuery(VIEWINGS_QUERY, {
     variables: {
       where: { ...where },
@@ -40,7 +42,15 @@ const Viewings = ({ where, me, propertyId, classes }) => {
 
   return (
     <div className={classes.root}>
-      <CreateViewing propertyId={propertyId} me={me} where={where} />
+      {!disableCreate && (
+        <CreateViewing propertyId={propertyId} me={me} where={where} />
+      )}
+      {data.viewings.length === 0 && (
+        <div>
+          <Typography>There are no viewings currently</Typography>
+          <RequestViewing />
+        </div>
+      )}
       {data.viewings &&
         data.viewings.map(viewing => (
           <div key={viewing.id}>

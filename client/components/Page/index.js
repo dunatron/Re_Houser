@@ -8,6 +8,9 @@ import MaterialPage from './MaterialPage';
 import { FacebookProvider, Like } from 'react-facebook';
 import CustomToastContainer from '@/Containers/CustomToastContainer';
 
+// recoil/state management
+import { RecoilRoot } from 'recoil';
+
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
 // Material UI
@@ -76,26 +79,28 @@ const Page = props => {
   }, []);
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <Meta />
-      <GlobalStyle />
-      <CustomToastContainer />
-      <ThemeProvider theme={theme}>
-        <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <StateProvider>
-              <Elements stripe={stripe}>
-                <WithUser>
-                  <MaterialPage children={props.children} {...props} />
-                  <AdminAlertsContainer />
-                  <GeneralSubsContainer />
-                </WithUser>
-              </Elements>
-            </StateProvider>
-          </MuiPickersUtilsProvider>
-        </FacebookProvider>
-      </ThemeProvider>
-    </MuiThemeProvider>
+    <RecoilRoot>
+      <MuiThemeProvider theme={theme}>
+        <Meta />
+        <GlobalStyle />
+        <CustomToastContainer />
+        <ThemeProvider theme={theme}>
+          <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+              <StateProvider>
+                <Elements stripe={stripe}>
+                  <WithUser>
+                    <MaterialPage children={props.children} {...props} />
+                    <AdminAlertsContainer />
+                    <GeneralSubsContainer />
+                  </WithUser>
+                </Elements>
+              </StateProvider>
+            </MuiPickersUtilsProvider>
+          </FacebookProvider>
+        </ThemeProvider>
+      </MuiThemeProvider>
+    </RecoilRoot>
   );
 };
 

@@ -31,6 +31,7 @@ import Map from '@/Components/Map';
 import PublicProperty from '@/Components/PublicProperty';
 
 import RentalApplications from '@/Components/PropertyCard/RentalApplications';
+import Viewings from '@/Components/Viewings/index';
 
 const StyledBadge = withStyles(theme => ({
   badge: {
@@ -141,7 +142,7 @@ const DetailItemsArr = [
   },
 ];
 
-const PropertyResultHit = ({ hit }) => {
+const PropertyResultHit = ({ hit, me }) => {
   const classes = useStyles();
   const [modalIdx, setModalIdx] = useState();
   return (
@@ -181,43 +182,53 @@ const PropertyResultHit = ({ hit }) => {
         <Button
           color="secondary"
           size="small"
-          onClick={() => setModalIdx('details')}>
+          onClick={() => setModalIdx('Details')}>
           More details
         </Button>
         <Button
           color="secondary"
           size="small"
-          onClick={() => setModalIdx('share')}>
+          onClick={() => setModalIdx('Share')}>
           Share to social
         </Button>
         <Button
           color="secondary"
           size="small"
-          onClick={() => setModalIdx('viewings')}>
+          onClick={() => setModalIdx('Viewings')}>
           Viewings
         </Button>
         <Button
           color="secondary"
           size="small"
-          onClick={() => setModalIdx('map')}>
+          onClick={() => setModalIdx('Map')}>
           Show Map
         </Button>
         <Button
           color="secondary"
           size="small"
-          onClick={() => setModalIdx('applications')}>
+          onClick={() => setModalIdx('Applications')}>
           Applications
         </Button>
-        <Apply property={hit} />
       </RehouserPaper>
       <Modal
+        disableBackdrop={true}
         open={modalIdx ? true : false}
         close={() => setModalIdx(null)}
-        title={modalIdx}>
-        {modalIdx === 'details' && <PublicProperty propertyId={hit.id} />}
-        {modalIdx === 'share' && <div>share Modal content</div>}
-        {modalIdx === 'viewings' && <div>viewings Modal content</div>}
-        {modalIdx === 'map' && (
+        title={`${modalIdx} for ${hit.location}`}>
+        {modalIdx === 'Details' && <PublicProperty propertyId={hit.id} />}
+        {modalIdx === 'Share' && <div>share Modal content</div>}
+        {modalIdx === 'Viewings' && (
+          <Viewings
+            propertyId={hit.id}
+            disableCreate={true}
+            where={{
+              property: {
+                id: hit.id,
+              },
+            }}
+          />
+        )}
+        {modalIdx === 'Map' && (
           <Map
             center={{
               lat: hit._geoloc.lat,
@@ -226,16 +237,21 @@ const PropertyResultHit = ({ hit }) => {
             height={'900px'}
           />
         )}
-        {modalIdx === 'applications' && (
-          <RentalApplications
-            propertyId={hit.id}
-            // property={props.property}
-            // me={me}
-            openRentalAppModal={rentalData => {
-              // setModalIsOpen(true);
-              // setApplicationData(rentalData);
-            }}
-          />
+        {modalIdx === 'Applications' && (
+          <>
+            <Apply property={hit} />
+            <Typography variant="h6">Other Applications</Typography>
+            <RentalApplications
+              property={hit}
+              // property={props.property}
+              propertyId={hit.id}
+              me={me}
+              openRentalAppModal={rentalData => {
+                // setModalIsOpen(true);
+                // setApplicationData(rentalData);
+              }}
+            />
+          </>
         )}
       </Modal>
     </Paper>

@@ -21,9 +21,11 @@ type PreTenancyForm {
   currentLandlordNumber: String
   currentLandlordEmail: String
   consentToLandlordContact: Boolean
+  referee1Relationhip: String
   referrence1Name: String
   referrence1Phone: String
   referrence1Email: String
+  referee2Relationhip: String
   referrence2Name: String
   referrence2Phone: String
   referrence2Email: String

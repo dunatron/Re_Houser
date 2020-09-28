@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import clsx from 'clsx';
 import dropZoneStyles from './DropZoneStyles';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
+import { Typography } from '@material-ui/core';
 
 const Dropzone = props => {
   const classes = dropZoneStyles();
@@ -77,7 +78,7 @@ const Dropzone = props => {
         onChange={onFilesAdded}
       />
       <CloudUploadIcon fontSize="large" />
-      <span>Drop Files</span>
+      <Typography className={classes.dropzoneText}>Upload Files</Typography>
     </div>
   );
 };
@@ -86,7 +87,7 @@ Dropzone.propTypes = {
   disabed: PropTypes.any.isRequired,
   disabled: PropTypes.any.isRequired,
   multiple: PropTypes.any.isRequired,
-  onFilesAdded: PropTypes.func.isRequired
+  onFilesAdded: PropTypes.func.isRequired,
 };
 
 export default Dropzone;

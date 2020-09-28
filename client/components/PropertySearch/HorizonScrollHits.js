@@ -120,7 +120,7 @@ function rowRenderer({ key, index, style, hits }) {
   );
 }
 
-const Hits = ({ hits }) => {
+const Hits = ({ hits, me }) => {
   const scrollNode = useRef();
   const classes = useStyles();
 

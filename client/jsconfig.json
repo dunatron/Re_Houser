@@ -8,7 +8,8 @@
       "@/Styles/*": ["./styles/*"],
       "@/Lib/*": ["./lib/*"],
       "@/Gql/*": ["./graphql/*"],
-      "@/Store/*": ["./store/*"]
+      "@/Store/*": ["./store/*"],
+      "@/Recoil/*": ["./recoil/*"]
     }
   },
   "exclude": ["node_modules", "build", ".next", ".docz", "cypress-tests"]

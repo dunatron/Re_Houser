@@ -27,9 +27,12 @@ type User {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
+  referees: [Referee] @relation(name: "UserReferees", link: TABLE)
+  referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
   referee1Email: String
+  referee2Relationhip: String
   referee2Name: String
   referee2Phone: String
   referee2Email: String
@@ -52,6 +55,15 @@ type User {
   bankDetails: BankDetail @relation(name: "UserBankDetails", link: TABLE)
   inspections: [Inspection] @relation(name: "InspectionInspector", link: TABLE)
   bondLodgementNumber: String
+}
+
+type Referee {
+  id: ID! @unique @id
+  user: User @relation(name: "UserReferees")
+  name: String!
+  email: String!
+  phone: String!
+  relationship: RefereeRelationship
 }
 
 type Address {
@@ -200,6 +212,7 @@ type File {
     @relation(name: "PropertyCodeComplianceFile")
   certOfAcceptance: PropertyFiles
     @relation(name: "PropertyCertOfAcceptanceFile")
+  insurancePolicy: PropertyFiles @relation(name: "PropertyInsurancePolicyFile")
 }
 
 type Property implements PropertyInfo {
@@ -282,6 +295,8 @@ type PropertyFiles {
     @relation(name: "PropertyCodeComplianceFile", link: INLINE)
   certOfAcceptance: File
     @relation(name: "PropertyCertOfAcceptanceFile", link: INLINE)
+  insurancePolicy: File
+    @relation(name: "PropertyInsurancePolicyFile", link: INLINE)
 }
 
 type PropertyAssist {

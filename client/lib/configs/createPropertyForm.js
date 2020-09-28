@@ -1396,6 +1396,28 @@ const CREATE_PROPERTY_FORM_CONF = [
             },
             refConf: {},
           },
+          {
+            type: 'File',
+            key: 'files.insurancePolicy',
+            fieldProps: {
+              isMultiple: false,
+              maxFilesAllowed: 1,
+              name: 'files.insurancePolicy',
+              label: 'Insurance Policy',
+              description:
+                'Please upload a copy of yur properties insurance policy',
+              fileParams: {
+                type: 'private',
+              },
+            },
+            refConf: {
+              required: {
+                value: true,
+                message:
+                  'You need to supply an available from. Indicating the earliest a potential tenant can move in',
+              },
+            },
+          },
         ],
       },
       {

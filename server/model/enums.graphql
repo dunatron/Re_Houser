@@ -158,3 +158,10 @@ enum BondType {
   WEEKS_RENT_3
   WEEKS_RENT_4
 }
+
+enum RefereeRelationship {
+  FATHER
+  MOTHER
+  LANDLORD
+  OTHER
+}

@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { FileInfoFragment } from './fileInfo';
+import { RefereeInfoFragment } from './refereeInfo';
 
 //should probably move awaitingFriends and friend request from here
 const UserInfoFragment = gql`
@@ -26,9 +27,14 @@ const UserInfoFragment = gql`
     emergencyContactName
     emergencyContactNumber
     emergencyContactEmail
+    referees {
+      ...refereeInfo
+    }
+    referee1Relationhip
     referee1Name
     referee1Phone
     referee1Email
+    referee2Relationhip
     referee2Name
     referee2Phone
     referee2Email
@@ -75,6 +81,7 @@ const UserInfoFragment = gql`
     bondLodgementNumber
   }
   ${FileInfoFragment}
+  ${RefereeInfoFragment}
 `;
 
 export { UserInfoFragment };
