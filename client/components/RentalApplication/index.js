@@ -7,6 +7,8 @@ import { Paper, Typography } from '@material-ui/core';
 import OwnerView from './views/OwnerView';
 import ApplicantView from './views/ApplicantView';
 import PageHeader from '@/Components/PageHeader';
+import RentalApplicationStepper from '@/Components/RentalApplicationStepper';
+import RehouserPaper from '@/Styles/RehouserPaper';
 
 /**
  * page is wrapped in a must be loggedIn
@@ -49,11 +51,27 @@ const RentalApplication = ({ id, me }) => {
           </Typography>,
         ]}
       />
-      {isOwner ? (
-        <OwnerView rentalApplication={data.rentalApplication} me={me} />
-      ) : (
-        <ApplicantView rentalApplication={data.rentalApplication} me={me} />
-      )}
+      <RehouserPaper>
+        {isOwner ? (
+          <>
+            <OwnerView rentalApplication={data.rentalApplication} me={me} />
+            <RentalApplicationStepper
+              application={data.rentalApplication}
+              me={me}
+              property={data.rentalApplication.property}
+            />
+          </>
+        ) : (
+          <>
+            <ApplicantView rentalApplication={data.rentalApplication} me={me} />
+            <RentalApplicationStepper
+              application={data.rentalApplication}
+              me={me}
+              property={data.rentalApplication.property}
+            />
+          </>
+        )}
+      </RehouserPaper>
     </>
   );
 };
@@ -61,8 +79,8 @@ const RentalApplication = ({ id, me }) => {
 RentalApplication.propTypes = {
   id: PropTypes.any.isRequired,
   me: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
+    id: PropTypes.any,
+  }).isRequired,
 };
 
 export default RentalApplication;

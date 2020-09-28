@@ -8,6 +8,8 @@ import UserDetails from '../UserDetails';
 import LandLordDetails from '../LandLordDetails';
 import Signature from '@/Components/Signature';
 
+import Referees from '@/Components/Referees/index';
+
 import RehouserPaper from '@/Styles/RehouserPaper';
 
 const DetailsTab = ({ me }) => {
@@ -39,6 +41,14 @@ const DetailsTab = ({ me }) => {
         <UserDetails me={me} />
       </RehouserPaper>
       <RehouserPaper>
+        <Typography variant="h5">Your Referees</Typography>
+        <Typography variant="subtitle1">
+          These referee details are used across the system to prefill
+          information where needed
+        </Typography>
+        <Referees me={me} />
+      </RehouserPaper>
+      <RehouserPaper>
         <Typography variant="h5">Landlord specific details</Typography>
         <Typography variant="subtitle1">
           These details are used across the system to make the experience as
@@ -51,7 +61,7 @@ const DetailsTab = ({ me }) => {
 };
 
 DetailsTab.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any.isRequired,
 };
 
 export default DetailsTab;

@@ -556,7 +556,7 @@ const FileManager = props => {
     expanded: props.expanded ? true : false,
   });
 
-  const hasServerFile = () => {
+  const _hasServerFile = () => {
     if (state.initialFiles.length >= 1) return true;
     if (files.length >= 1) return true;
     return false;
@@ -637,6 +637,8 @@ const FileManager = props => {
       update: updateCacheOnRemovedFile,
     });
   };
+
+  const hasServerFile = _hasServerFile();
 
   return (
     <>

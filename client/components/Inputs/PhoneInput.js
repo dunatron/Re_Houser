@@ -23,7 +23,7 @@ PhoneInput.propTypes = {
   id: PropTypes.any.isRequired,
   label: PropTypes.any.isRequired,
   name: PropTypes.any.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PhoneInput;

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { isEmpty, is } from 'ramda';
 import Errors from '@/Components/ErrorMessage';
 import InputFieldType from './InputFieldType/index';
-import { Typography, Button } from '@material-ui/core';
+import { Typography, Button, ButtonGroup } from '@material-ui/core';
 import FormErrors from './FormErrors';
 import formatData from './formatters/formatData';
 import { useCurrentUser } from '../User';
@@ -51,6 +51,8 @@ const FormCreator = props => {
     folder,
     watchFields = [],
     handleWatchChanges,
+    hasCancel,
+    cancel,
   } = props;
 
   const currentUser = useCurrentUser();
@@ -77,6 +79,13 @@ const FormCreator = props => {
   if (handleWatchChanges) {
     handleWatchChanges(watch(watchFields));
   }
+
+  const handleClearError = name => {
+    console.log('nothing');
+    if (errors[name]) {
+      clearError(name);
+    }
+  };
 
   const canSubmit = () => {
     var can = true;
@@ -154,7 +163,7 @@ const FormCreator = props => {
                   errors={errors}
                   setValue={setValue}
                   getValues={getValues}
-                  clearError={clearError}
+                  clearError={handleClearError}
                   rawData={data}
                   folder={folder}
                   defaultValues={preFormattedFormData}
@@ -174,14 +183,22 @@ const FormCreator = props => {
           })}
         <FormErrors errors={errors} />
         <Errors error={error} />
-        <Button
-          variant="contained"
-          disabled={posting}
-          onClick={handleSubmit(onSubmit)}
-          color="primary">
-          {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
-          {isNew ? _createText() : _updateText()}
-        </Button>
+
+        <ButtonGroup
+          color="primary"
+          square
+          aria-label="outlined primary button group square">
+          <Button disabled={posting} onClick={handleSubmit(onSubmit)}>
+            {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
+            {isNew ? _createText() : _updateText()}
+          </Button>
+          {hasCancel && (
+            <Button disabled={posting} onClick={cancel} square>
+              {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
+              Cancel
+            </Button>
+          )}
+        </ButtonGroup>
       </div>
     </>
   );
@@ -190,7 +207,7 @@ const FormCreator = props => {
 FormCreator.propTypes = {
   config: PropTypes.shape({
     forEach: PropTypes.func,
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   createText: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
@@ -205,7 +222,7 @@ FormCreator.propTypes = {
   title: PropTypes.any.isRequired,
   updateCacheOnRemovedFile: PropTypes.any.isRequired,
   updateText: PropTypes.any.isRequired,
-  watchFields: PropTypes.array.isRequired
+  watchFields: PropTypes.array.isRequired,
 };
 
 export { FormCreator };

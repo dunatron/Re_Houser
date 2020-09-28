@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -15,30 +15,7 @@ import Error from '../../ErrorMessage';
 import Loader from '../../Loader';
 import FieldError from './FieldError';
 import { is } from 'ramda';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: '100%',
-    minWidth: 220,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 220,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
-  },
-}));
+import useStyles from '@/Components/Forms/useStyles';
 
 const SelectMultipleEnum = props => {
   const classes = useStyles();
@@ -52,6 +29,7 @@ const SelectMultipleEnum = props => {
     setValue, // is from useForm
     errors,
     helperText,
+    fieldError,
   } = props;
 
   const { fieldProps, refConf } = config;
@@ -83,7 +61,7 @@ const SelectMultipleEnum = props => {
     : [];
 
   return (
-    <FormControl className={classes.root}>
+    <FormControl className={classes.formControl}>
       <InputLabel id={`${selectID}-label`} variant="outlined">
         {label}
       </InputLabel>
@@ -95,6 +73,7 @@ const SelectMultipleEnum = props => {
         multiple={true} // this needs to be ture but will fail compnet
         id={selectID}
         label={label}
+        error={fieldError ? true : false}
         onChange={e => setValue(fieldProps.name, e.target.value)}
         defaultValue={is(Array, defaultValue) ? defaultValue : []} // use ramda and mke sre isArr(defualtValue). cmp expcts it 2 b so rtn[] if not
         renderValue={selected => (
@@ -126,7 +105,7 @@ const SelectMultipleEnum = props => {
             );
           })}
       </Select>
-      <FormHelperText>{helperText}</FormHelperText>
+      {fieldError && <FormHelperText error>{fieldError}</FormHelperText>}
     </FormControl>
   );
 };
@@ -140,7 +119,7 @@ SelectMultipleEnum.propTypes = {
   label: PropTypes.any.isRequired,
   register: PropTypes.func.isRequired,
   selectID: PropTypes.any.isRequired,
-  setValue: PropTypes.func.isRequired
-}
+  setValue: PropTypes.func.isRequired,
+};
 
 export default SelectMultipleEnum;

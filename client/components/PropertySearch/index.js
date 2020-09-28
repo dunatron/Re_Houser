@@ -23,7 +23,7 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import PropertyResultHit from './PropertyResultHit';
 
 // connected refinements
-import CurrentRefinements from './refinements/CurrentRefinements';
+import ConnectedCurrentRefinements from './refinements/CurrentRefinements';
 import {
   GoogleMapsLoader,
   Marker,
@@ -41,6 +41,8 @@ import {
   SortBy,
   Configure,
   connectCurrentRefinements,
+  CurrentRefinements,
+  RefinementList,
 } from 'react-instantsearch-dom';
 
 import HorizonScrollHits from './HorizonScrollHits';
@@ -102,7 +104,9 @@ const PropertySearch = props => {
                 <GeoSearch />
               </Box>
             </Box>
-            <CurrentRefinements />
+            {/* <RefinementList attribute="highestRoomPrice" />
+            <RefinementList attribute="lowestRoomPrice" /> */}
+            <ConnectedCurrentRefinements />
           </Paper>
           <Content me={me} />
         </div>

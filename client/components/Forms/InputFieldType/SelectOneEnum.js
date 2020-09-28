@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Select,
   InputLabel,
@@ -15,18 +14,7 @@ import Loader from '../../Loader';
 import FieldError from './FieldError';
 import { is } from 'ramda';
 import InputFieldType from './index';
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    marginBottom: theme.spacing(1),
-    minWidth: 160,
-    // width: '100%',
-    width: '100%',
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import useStyles from '@/Components/Forms/useStyles';
 
 export default function SimpleSelect(props) {
   const classes = useStyles();
@@ -102,7 +90,7 @@ export default function SimpleSelect(props) {
   return (
     <>
       <FormControl
-        variant="outlined"
+        variant={fieldProps.variant ? fieldProps.variant : 'contained'}
         className={classes.formControl}
         error={yuckErr}>
         <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
@@ -111,8 +99,7 @@ export default function SimpleSelect(props) {
           defaultValue={defaultValue}
           onChange={e => handleOnValueChange(e)}
           label={label}
-          error={yuckErr}
-          helperText={fieldError}
+          error={fieldError ? true : false}
           inputProps={{
             name: fieldProps.name,
             id: fieldProps.name,
@@ -134,7 +121,7 @@ export default function SimpleSelect(props) {
               );
             })}
         </Select>
-        <FieldError errors={errors} name={config.key} />
+        {fieldError && <FormHelperText error>{fieldError}</FormHelperText>}
       </FormControl>
       {inners &&
         inners.map((inner, idx) => {
@@ -162,7 +149,7 @@ SimpleSelect.propTypes = {
   __type: PropTypes.any.isRequired,
   clearError: PropTypes.func.isRequired,
   config: PropTypes.shape({
-    key: PropTypes.any
+    key: PropTypes.any,
   }).isRequired,
   defaultValues: PropTypes.any.isRequired,
   errors: PropTypes.any.isRequired,
@@ -176,5 +163,5 @@ SimpleSelect.propTypes = {
   reset: PropTypes.any.isRequired,
   selectID: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  values: PropTypes.any.isRequired
+  values: PropTypes.any.isRequired,
 };

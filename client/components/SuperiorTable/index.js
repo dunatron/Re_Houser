@@ -54,6 +54,7 @@ const SuperiorTable = props => {
   const { title, columns, data } = props;
   return (
     <MaterialTable
+      style={{ marginBottom: '16px' }}
       icons={tableIcons}
       columns={columns}
       data={data}
@@ -69,8 +70,8 @@ const SuperiorTable = props => {
 SuperiorTable.propTypes = {
   columns: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired
-}
+  title: PropTypes.any.isRequired,
+};
 
 SuperiorTable.propTypes = PropTypes.instanceOf(MaterialTable);
 

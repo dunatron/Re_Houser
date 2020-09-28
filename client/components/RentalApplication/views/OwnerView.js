@@ -17,24 +17,17 @@ import RentalApplicationStepper from '@/Components/RentalApplicationStepper';
  */
 const RentalApplicationOwnerView = ({ me, rentalApplication }) => {
   return (
-    <Paper>
-      <Typography gutterBottom color="secondary">
-        You are the creator of the application
-      </Typography>
-      <RentalApplicationStepper
-        application={rentalApplication}
-        me={me}
-        property={rentalApplication.property}
-      />
-    </Paper>
+    <Typography gutterBottom color="secondary">
+      You are the creator of the application
+    </Typography>
   );
 };
 
 RentalApplicationOwnerView.propTypes = {
   me: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    property: PropTypes.any
-  }).isRequired
+    property: PropTypes.any,
+  }).isRequired,
 };
 
 export default RentalApplicationOwnerView;

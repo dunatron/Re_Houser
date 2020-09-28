@@ -16,6 +16,7 @@ import {
 import { useQuery, useMutation } from '@apollo/client';
 import {
   Typography,
+  Box,
   TextField,
   FormControlLabel,
   Switch,
@@ -130,10 +131,14 @@ const ApplicationDetailsStep = ({
 
   return (
     <div>
-      <Typography>
+      <Typography gutterBottom variant="body2">
         As the owner of the application you can approve applicants as part of
-        your application and they will be part of the lease with you if
-        successful{' '}
+        your application. Approved applicants will be part of your application.
+        You can approve a{' '}
+        <Typography variant="body1" component="span" color="primary">
+          maximum of {property.maximumOccupants} applicants.
+        </Typography>{' '}
+        Please make sure to submit the changed data at the bottom
       </Typography>
       <Error error={error} />
       <SuperiorTable
@@ -168,7 +173,7 @@ const ApplicationDetailsStep = ({
         //   ,
         // ]}
       />
-      <CustomChat
+      {/* <CustomChat
         // pageId="123456789"
         minimized={false}
         href={`http://www.facebook.com/rehousernz/${rentalApplication.id}`}
@@ -179,8 +184,13 @@ const ApplicationDetailsStep = ({
           width: '100%',
         }}
         href={`http://www.facebook.com/rehousernz/${rentalApplication.id}`}
-      />
-      <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+      /> */}
+      <Button
+        onClick={handleSubmit(onSubmit)}
+        variant="outlined"
+        color="primary">
+        Update Applicants
+      </Button>
     </div>
   );
 };
@@ -190,8 +200,8 @@ ApplicationDetailsStep.propTypes = {
   me: PropTypes.any.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
+    id: PropTypes.any,
+  }).isRequired,
 };
 
 export default ApplicationDetailsStep;

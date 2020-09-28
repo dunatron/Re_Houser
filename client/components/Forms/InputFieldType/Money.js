@@ -2,20 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
-import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import TextInput from '../../Inputs/TextInput';
 import FormControl from '@material-ui/core/FormControl';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -49,7 +40,7 @@ function TextMaskCustom(props) {
 }
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
+  inputRef: PropTypes.func.isRequired,
 };
 
 function NumberFormatCustom(props) {
@@ -77,12 +68,10 @@ function NumberFormatCustom(props) {
 NumberFormatCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 const MoneyField = props => {
-  const classes = useStyles();
-
   const {
     config,
     onChange,
@@ -124,7 +113,7 @@ MoneyField.propTypes = {
   register: PropTypes.func.isRequired,
   reset: PropTypes.any.isRequired,
   setValue: PropTypes.any.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired
-}
+  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+};
 
 export default MoneyField;

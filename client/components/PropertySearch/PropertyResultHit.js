@@ -8,6 +8,7 @@ import {
   IconButton,
   Icon,
   Tooltip,
+  ButtonGroup,
   Button,
 } from '@material-ui/core';
 
@@ -179,36 +180,20 @@ const PropertyResultHit = ({ hit, me }) => {
       </RehouserPaper>
       {/* Actions Container */}
       <RehouserPaper className={classes.actionsContainer} elevation={0}>
-        <Button
-          color="secondary"
+        <ButtonGroup
+          orientation="vertical"
+          color="primary"
           size="small"
-          onClick={() => setModalIdx('Details')}>
-          More details
-        </Button>
-        <Button
-          color="secondary"
-          size="small"
-          onClick={() => setModalIdx('Share')}>
-          Share to social
-        </Button>
-        <Button
-          color="secondary"
-          size="small"
-          onClick={() => setModalIdx('Viewings')}>
-          Viewings
-        </Button>
-        <Button
-          color="secondary"
-          size="small"
-          onClick={() => setModalIdx('Map')}>
-          Show Map
-        </Button>
-        <Button
-          color="secondary"
-          size="small"
-          onClick={() => setModalIdx('Applications')}>
-          Applications
-        </Button>
+          variant="text"
+          aria-label="property actions">
+          <Button onClick={() => setModalIdx('Details')}>More details</Button>
+          <Button onClick={() => setModalIdx('Share')}>Share to social</Button>
+          <Button onClick={() => setModalIdx('Viewings')}>Viewings</Button>
+          <Button onClick={() => setModalIdx('Map')}>Show Map</Button>
+          <Button onClick={() => setModalIdx('Applications')}>
+            Applications
+          </Button>
+        </ButtonGroup>
       </RehouserPaper>
       <Modal
         disableBackdrop={true}

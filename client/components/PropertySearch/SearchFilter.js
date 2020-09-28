@@ -86,8 +86,7 @@ const SearchFilter = () => {
 
   // must be a all on one line
   // const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent: ${bottomPrice} TO ${topPrice}`
-  const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND lowestRoomPrice >= ${bottomPrice *
-    100} AND highestRoomPrice <= ${topPrice * 100}`;
+  const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND lowestRoomPrice >= ${bottomPrice} AND highestRoomPrice <= ${topPrice}`;
   // 1. ahhh where to start. date search on algolia i stimetsamp, and needs to be numeric
   return (
     <div>
@@ -110,15 +109,18 @@ const SearchFilter = () => {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.expansionPanelDetails}>
           <ConnectedRefinements childrenBefore={true}>
-            <ExpansionRefinement title="Price">
+            <ExpansionRefinement title="Price per room">
               <PriceFilter setPrice={handleSetPriceFilter} />
             </ExpansionRefinement>
-            <ExpansionRefinement title={'Available date'}>
+            <ExpansionRefinement title={'Available before date'}>
               <div
                 style={{
                   padding: '16px',
                 }}>
-                <DatePicker />
+                <DatePicker
+                  value={moveInDate}
+                  onChange={setAndFormatMoveInDate}
+                />
               </div>
             </ExpansionRefinement>
           </ConnectedRefinements>

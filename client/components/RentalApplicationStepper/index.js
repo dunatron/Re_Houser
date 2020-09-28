@@ -3,11 +3,17 @@ import { useQuery, useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepButton from '@material-ui/core/StepButton';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+
+import {
+  ButtonGroup,
+  Button,
+  Paper,
+  StepButton,
+  StepContent,
+  StepLabel,
+  Step,
+  Stepper,
+} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Error from '@/Components/ErrorMessage/index';
 import Loader from '@/Components/Loader/index';
@@ -38,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
   },
   completed: {
-    display: 'inline-block',
+    // display: 'inline-block',
   },
   instructions: {
     marginTop: theme.spacing(1),
@@ -329,7 +335,11 @@ const RentalApplicationStepper = props => {
 
   return (
     <div className={classes.root}>
-      <Stepper nonLinear activeStep={activeStep}>
+      <Stepper
+        nonLinear
+        activeStep={activeStep}
+        style={{ padding: '32px 0' }}
+        orientation="vertical">
         {steps.map((label, index) => (
           <Step key={label}>
             <StepButton
@@ -337,6 +347,37 @@ const RentalApplicationStepper = props => {
               completed={completed[index]}>
               {label}
             </StepButton>
+            <StepContent>
+              {getStepContent(activeStep, me, property, rentalApplication)}
+              <div>
+                {activeStep !== steps.length && completed[activeStep] && (
+                  <div>
+                    <Typography variant="body1" className={classes.completed}>
+                      Step {activeStep + 1} already completed
+                    </Typography>
+                  </div>
+                )}
+                <ButtonGroup
+                  style={{
+                    margin: '16px 0',
+                  }}>
+                  <Button disabled={activeStep === 0} onClick={handleBack}>
+                    Back
+                  </Button>
+                  {activeStep !== steps.length && completed[activeStep] && (
+                    <Button
+                      onClick={() => {
+                        setCompleted({ ...completed, [activeStep]: false });
+                      }}>
+                      Redo Section
+                    </Button>
+                  )}
+                  <Button onClick={handleNext} disabled={isLastStep()}>
+                    Next
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </StepContent>
           </Step>
         ))}
       </Stepper>
@@ -350,42 +391,9 @@ const RentalApplicationStepper = props => {
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions} component="div">
+            {/* <Typography className={classes.instructions} component="div">
               {getStepContent(activeStep, me, property, rentalApplication)}
-            </Typography>
-            <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.button}>
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}>
-                Next
-              </Button>
-              {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <div>
-                    <Typography variant="caption" className={classes.completed}>
-                      Step {activeStep + 1} already completed
-                    </Typography>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => {
-                        setCompleted({ ...completed, [activeStep]: false });
-                      }}>
-                      Redo Section
-                    </Button>
-                  </div>
-                ) : (
-                  <div>{_renderNextButtons()}</div>
-                ))}
-            </div>
+            </Typography> */}
           </div>
         )}
       </div>

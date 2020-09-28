@@ -27,6 +27,7 @@ const PreTenancyStep = ({
         Your PreTenancy form has been updated and attached to your application
       </Typography>
     );
+    setIsEditing(false);
   };
 
   const [updateRentalGroupApplicant, { loading, error }] = useMutation(
@@ -56,43 +57,6 @@ const PreTenancyStep = ({
     referrence2Phone: me.referee2Phone,
     referrence2Email: me.referee2Email,
   };
-
-  emergencyContactName: String;
-  emergencyContactNumber: String;
-  emergencyContactEmail: String;
-  referee1Name: String;
-  referee1Phone: String;
-  referee1Email: String;
-  referee2Name: String;
-  referee2Phone: String;
-  referee2Email: String;
-
-  // firstTimeTenant: Boolean
-  // preferredMoveInDate: DateTime
-  // fullName: String
-  // dob: DateTime
-  // under18: Boolean
-  // phone: String
-  // email: String
-  // placeId: String!
-  // currentLocation: String!
-  // currentLocationLat: Float!
-  // currentLocationLng: Float!
-  // proofOfAddress: File @relation(name: "PreTenancyProofOfAddress", link: TABLE)
-  // yearsAtAddress: Int
-  // monthsAtAddress: Int
-  // reasonForLeaving: String
-  // currentLandlordName: String
-  // currentLandlordNumber: String
-  // currentLandlordEmail: String
-  // consentToLandlordContact: Boolean
-  // referrence1Name: String
-  // referrence1Phone: String
-  // referrence1Email: String
-  // referrence2Name: String
-  // referrence2Phone: String
-  // referrence2Email: String
-  // acceptedTerms: Boolean
 
   const TheForm = () => (
     <FormCreator
