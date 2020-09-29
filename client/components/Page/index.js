@@ -9,12 +9,13 @@ import { FacebookProvider, Like } from 'react-facebook';
 import CustomToastContainer from '@/Containers/CustomToastContainer';
 
 // recoil/state management
-import { RecoilRoot } from 'recoil';
+// import { RecoilRoot } from 'recoil';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
 // Material UI
-import theme from './theme';
+// import theme from './theme';
+import useTronTheme from './theme';
 
 // Admin Area Addisions
 import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
@@ -34,6 +35,9 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { useRecoilState } from 'recoil';
+import { themeState } from '@/Recoil/themeState';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -80,30 +84,38 @@ const Page = props => {
     };
   }, []);
 
+  // const theme = useTronTheme();
+
+  const [themeObj, setThemeObj] = useRecoilState(themeState);
+
+  const theme = createMuiTheme({
+    ...themeObj,
+  });
+
   return (
-    <RecoilRoot>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <Meta />
-        <GlobalStyle />
-        <CustomToastContainer />
-        <ThemeProvider theme={theme}>
-          <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <StateProvider>
-                <Elements stripe={stripe}>
-                  <WithUser>
-                    <MaterialPage children={props.children} {...props} />
-                    <AdminAlertsContainer />
-                    <GeneralSubsContainer />
-                  </WithUser>
-                </Elements>
-              </StateProvider>
-            </MuiPickersUtilsProvider>
-          </FacebookProvider>
-        </ThemeProvider>
-      </MuiThemeProvider>
-    </RecoilRoot>
+    // <RecoilRoot>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Meta />
+      <GlobalStyle />
+      <CustomToastContainer />
+      <ThemeProvider theme={theme}>
+        <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <StateProvider>
+              <Elements stripe={stripe}>
+                <WithUser>
+                  <MaterialPage children={props.children} {...props} />
+                  <AdminAlertsContainer />
+                  <GeneralSubsContainer />
+                </WithUser>
+              </Elements>
+            </StateProvider>
+          </MuiPickersUtilsProvider>
+        </FacebookProvider>
+      </ThemeProvider>
+    </MuiThemeProvider>
+    // </RecoilRoot>
   );
 };
 
