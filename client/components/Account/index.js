@@ -34,7 +34,6 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: '800px',
-
     // color: theme.palette.primary.main
     // flexGrow: 1,
     // backgroundColor: theme.palette.background.paper,
@@ -77,11 +76,13 @@ export default function TabsWrappedLabel() {
           value={value}
           indicatorColor="primary"
           textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
           onChange={handleChange}
           aria-label="wrapped label tabs example">
           <Tab
             wrapped
-            label="Personal Details"
+            label="Your Details"
             icon={<DetailsIcon />}
             value={tabOneVal}
             {...a11yProps(tabOneVal)}
@@ -96,20 +97,30 @@ export default function TabsWrappedLabel() {
           <Tab
             wrapped
             value={tabThreeVal}
-            label="Photo Identification"
+            label="Photo ID"
             icon={<PhotoCameraOutlinedIcon />}
             {...a11yProps(tabThreeVal)}
           />
           <Tab
             wrapped
+            label="Settings"
+            icon={<DetailsIcon />}
+            value={tabFourVal}
+            {...a11yProps(tabFourVal)}
+          />
+          {/* <Tab
+            wrapped
             value={tabFourVal}
             label="Settings"
             icon={<PaymentIcon />}
             {...a11yProps(tabFourVal)}
-          />
+          /> */}
         </Tabs>
       </AppBar>
       {/* TAB CONTAINERS */}
+      <TabContainer value={value} index={tabFourVal}>
+        <SettingsTab me={data.me} />
+      </TabContainer>
       <TabContainer value={value} index={tabOneVal}>
         <DetailsTab me={data.me} />
       </TabContainer>
@@ -118,9 +129,6 @@ export default function TabsWrappedLabel() {
       </TabContainer>
       <TabContainer value={value} index={tabThreeVal}>
         <PhotoIdTab me={data.me} />
-      </TabContainer>
-      <TabContainer value={value} index={tabFourVal}>
-        <SettingsTab me={data.me} />
       </TabContainer>
     </div>
   );

@@ -9,7 +9,8 @@
       "@/Lib/*": ["./lib/*"],
       "@/Gql/*": ["./graphql/*"],
       "@/Store/*": ["./store/*"],
-      "@/Recoil/*": ["./recoil/*"]
+      "@/Recoil/*": ["./recoil/*"],
+      "@/Themes/*": ["./themes/*"]
     }
   },
   "exclude": ["node_modules", "build", ".next", ".docz", "cypress-tests"]

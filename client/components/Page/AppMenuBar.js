@@ -91,6 +91,7 @@ const AppMenuBar = props => {
   return (
     <HideOnScroll {...props}>
       <AppBar
+        color="default"
         position="fixed"
         className={barClasses}
         elevation={noTransparency ? 4 : 0}>

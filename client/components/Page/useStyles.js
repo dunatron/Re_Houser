@@ -50,8 +50,8 @@ const useStyles = makeStyles(theme => {
     },
     logoContainer: {
       borderBottom: `2px solid ${theme.palette.secondary.contrastText}`,
-      paddingBottom: '32px',
-      paddingTop: '32px',
+      paddingBottom: '16px',
+      paddingTop: '16px',
       '&:hover': {
         cursor: 'pointer',
       },
@@ -72,7 +72,8 @@ const useStyles = makeStyles(theme => {
     },
     drawerPaper: {
       width: theme.sideBarWidth,
-      backgroundColor: 'rgb(212,220,231)',
+      // backgroundColor: theme.palette.secondary.light,
+      // backgroundColor: 'rgb(212,220,231)',
       // backgroundColor: lighten(theme.palette.secondary.light, 0.7), // lighten by 50%. 1.0 is white
       // backgroundColor: theme.palette.secondary.light,
       // backgroundColor: theme.palette.secondary.light,

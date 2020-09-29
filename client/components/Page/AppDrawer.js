@@ -33,7 +33,12 @@ const AppDrawer = ({ me }) => {
               justifyContent: 'center',
             }}>
             <Link href="/">
-              <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" />
+              <div
+                style={{
+                  width: '133px',
+                }}>
+                <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" />
+              </div>
             </Link>
           </ListItem>
         </div>
@@ -73,7 +78,7 @@ const AppDrawer = ({ me }) => {
 };
 
 AppDrawer.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any.isRequired,
 };
 
 export default AppDrawer;

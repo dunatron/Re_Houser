@@ -33,6 +33,7 @@ module.exports = withTM({
           '@/Gql': path.resolve(__dirname, 'graphql/'),
           '@/Store': path.resolve(__dirname, 'store/'),
           '@/Recoil': path.resolve(__dirname, 'recoil/'),
+          '@/Themes': path.resolve(__dirname, 'themes/'),
         };
 
     config.resolve.alias = {

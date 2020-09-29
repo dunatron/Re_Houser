@@ -81,7 +81,7 @@ const SendConfirmEmailButton = () => {
           <CircularProgress size={24} className={classes.buttonProgress} />
         )}
       </Button>
-      <Typography>
+      <Typography gutterBottom variant="body1">
         To get another token emailed to you click the below button
       </Typography>
       <ResendConfirmEmail />

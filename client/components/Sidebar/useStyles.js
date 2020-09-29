@@ -20,14 +20,14 @@ const useStyles = makeStyles(theme => ({
   },
   listItemText: {
     // color: theme.palette.secondary.main,
-    fontFamily: 'GustanMedium',
+    // fontFamily: 'GustanMedium',
     color: 'inherit',
   },
   listItemTextCurrent: {
     color: theme.palette.primary.contrastText,
   },
   listItemDivider: {
-    borderBottom: `2px solid ${theme.palette.secondary.contrastText}`,
+    // borderBottom: `2px solid ${theme.palette.secondary.contrastText}`,
   },
 }));
 

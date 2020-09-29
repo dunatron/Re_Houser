@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
       gridTemplateColumns: '1fr 1fr 1fr ',
     },
     [theme.breakpoints.up('lg')]: {
-      gridTemplateColumns: '1fr 1fr 1fr 1fr',
+      // gridTemplateColumns: '1fr 1fr 1fr 1fr',
     },
   },
   textField: {

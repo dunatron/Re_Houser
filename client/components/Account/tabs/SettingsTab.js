@@ -1,17 +1,11 @@
-import { useRecoilState } from 'recoil';
-import { themeState } from '@/Recoil/themeState';
-
-import { Button } from '@material-ui/core';
+import RehouserPaper from '@/Styles/RehouserPaper';
+import ThemeSettings from '@/Components/ThemeSettings';
 
 const SettingsTab = () => {
-  const [themeObj, setThemeObj] = useRecoilState(themeState);
   return (
-    <div>
-      <div>WHats Harder, Life or Mr Tron. Mr Tron huh</div>
-      <div>
-        <Button onClick={() => setThemeObj({})}>SET THEME</Button>
-      </div>
-    </div>
+    <RehouserPaper>
+      <ThemeSettings />
+    </RehouserPaper>
   );
 };
 

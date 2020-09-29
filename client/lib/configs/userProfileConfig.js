@@ -4,7 +4,7 @@ export const USER_PROFILE_CONF = [
     key: 'email',
     fieldProps: {
       name: 'email',
-      label: 'My email',
+      label: 'Email',
     },
     ratingVal: 10,
     includeInRentalApplication: true,
@@ -26,7 +26,7 @@ export const USER_PROFILE_CONF = [
     key: 'firstName',
     fieldProps: {
       name: 'firstName',
-      label: 'First Name',
+      label: 'Firstname',
     },
     ratingVal: 10,
     includeInRentalApplication: true,
@@ -44,7 +44,7 @@ export const USER_PROFILE_CONF = [
     key: 'lastName',
     fieldProps: {
       name: 'lastName',
-      label: 'Last Name',
+      label: 'Lastname',
     },
     ratingVal: 10,
     includeInRentalApplication: true,
@@ -80,7 +80,7 @@ export const USER_PROFILE_CONF = [
     key: 'phone',
     fieldProps: {
       name: 'phone',
-      label: 'My Phone',
+      label: 'Phone',
     },
     ratingVal: 10,
     includeInRentalApplication: true,
