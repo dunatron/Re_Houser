@@ -167,7 +167,6 @@ const AppMenuBar = props => {
                 <SearchIcon />
               </IconButton>
             </Tooltip>
-            <ThemePicker setTheme={props.setTheme} />
             <AccountMenu me={me} />
           </div>
         </Toolbar>

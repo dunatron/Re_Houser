@@ -23,7 +23,7 @@ import {
 
 // How to actually go about themes
 //https://github.com/infonomic/material-ui-theme-switcher/blob/master/src/App.js
-
+// https://egghead.io/lessons/react-create-a-react-hook-to-toggle-between-light-and-dark-mode-inside-of-material-ui-themes
 const THEME_PICKER_CONFIG = [
   {
     name: 'Dark Yellow',
@@ -277,9 +277,9 @@ const THEME_PICKER_CONFIG = [
         contrastText: '#fff',
       },
       secondary: {
-        light: '#405264',
-        main: '#172a3a',
-        dark: '#000015',
+        light: '#334b6e',
+        main: '#002443',
+        dark: '#00001d',
         contrastText: '#fff',
       },
     },

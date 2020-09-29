@@ -28,3 +28,113 @@
   font-style: normal;
   font-weight: 200;
 }
+
+/* @font-face {
+  font-family: 'ODRegular';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 200;
+  color: 'red';
+}
+
+@font-face {
+  font-family: 'ODItalic';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Italic.woff') format('woff');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'ODBold';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Bold.woff') format('woff');
+  font-style: normal;
+  font-weight: 200;
+} */
+
+/* @font-face {
+  font-family: 'ODRegular';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Regular.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+  color: 'red';
+}
+
+@font-face {
+  font-family: 'ODItalic';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Italic.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'ODBold';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Bold.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+} */
+
+/* @font-face {
+  font-family: 'ODRegular';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Regular.otf') format('otf');
+  font-style: normal;
+  font-weight: 200;
+  color: 'red';
+}
+
+@font-face {
+  font-family: 'ODItalic';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Italic.otf') format('otf');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'ODBold';
+  src: url('/static/fonts/dyslexic/OpenDyslexic-Bold.otf') format('otf');
+  font-style: normal;
+  font-weight: 200;
+} */
+
+/* @font-face {
+  font-family: 'ODRegular';
+  src: url('/static/fonts/dyslexic2/OpenDyslexic-Regular.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+  color: 'red';
+}
+
+@font-face {
+  font-family: 'ODItalic';
+  src: url('/static/fonts/dyslexic2/OpenDyslexic-Italic.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'ODBold';
+  src: url('/static/fonts/dyslexic2/OpenDyslexic-Bold.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+} */
+
+@font-face {
+  font-family: 'ODRegular';
+  src: url('/static/fonts/dyslexic2/OpenDyslexic-Regular.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+  color: 'red';
+}
+
+@font-face {
+  font-family: 'ODItalic';
+  src: url('/static/fonts/dyslexic2/OpenDyslexic-Italic.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'ODBold';
+  src: url('/static/fonts/dyslexic2/OpenDyslexic-Bold.otf') format('woff');
+  font-style: normal;
+  font-weight: 200;
+}
