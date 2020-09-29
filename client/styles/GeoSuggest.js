@@ -16,10 +16,13 @@ const StyledGeoSuggest = styled(Geosuggest)`
     border: 2px solid ${p => p.theme.palette.background.paper};
     background: ${p => p.theme.palette.background.paper};
     box-shadow: 0 0 1px ${p => p.theme.palette.primary.main};
-    color: ${p => p.theme.palette.text.primary};
+    /* color: ${p => p.theme.palette.text.primary}; */
     padding: ${p => p.theme.spacing(2)}px;
     -webkit-transition: border 0.2s, box-shadow 0.2s;
     transition: border 0.2s, box-shadow 0.2s;
+    /* font-family: 'ODBold'; */
+    font-family: ${p => p.theme.typography.h1.fontFamily};
+    color: 'red';
   }
   .geosuggest__input:focus {
     border-color: ${p => p.theme.palette.primary.main};

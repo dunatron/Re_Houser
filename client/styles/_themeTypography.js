@@ -185,7 +185,7 @@ const themeTypography = {
       color: black70,
     },
     h5: {
-      fontFamily: 'Slick',
+      fontFamily: 'ODBold',
       fontWeight: 400,
       fontSize: '1.5rem',
       lineHeight: 1.334,

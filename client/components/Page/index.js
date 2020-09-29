@@ -33,6 +33,8 @@ import WithUser from '@/Components/WithUser';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 Router.onRouteChangeStart = () => {
   NProgress.start();
 };
@@ -81,6 +83,7 @@ const Page = props => {
   return (
     <RecoilRoot>
       <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <Meta />
         <GlobalStyle />
         <CustomToastContainer />
