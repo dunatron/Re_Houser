@@ -14,6 +14,10 @@ import mainOverrides from '@/Themes/overrides/mainOverride';
 import mainTypography from '@/Themes/typographys/mainTypography';
 import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
 
+/**
+ * God Bless the Zuck. Preidnet material, of the finest quality
+ */
+
 const ThemeSettings = () => {
   const [themeObj, setThemeObj] = useRecoilState(themeState);
 
