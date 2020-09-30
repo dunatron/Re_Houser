@@ -149,7 +149,11 @@ const SignatureComponent = () => {
 
   if (!isEditing) {
     return (
-      <div>
+      <div
+        style={{
+          maxWidth: '100%',
+          overflowX: 'auto',
+        }}>
         {me.signature && (
           <Image
             style={{

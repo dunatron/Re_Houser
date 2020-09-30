@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 const Message = ({ message, alert }) => {
   // only fire alerts once per mount
   useEffect(() => {
-    if (alert) toast.info(alert);
+    if (alert) toast.info(alert, 9000000);
   }, []);
 
   if (message) return <Typography variant="h5">{message}</Typography>;
@@ -18,7 +18,7 @@ const Message = ({ message, alert }) => {
 
 Message.propTypes = {
   alert: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired
+  message: PropTypes.any.isRequired,
 };
 
 /**
@@ -56,7 +56,7 @@ PleaseSignIn.propTypes = {
   alert: PropTypes.any.isRequired,
   children: PropTypes.any.isRequired,
   currentUser: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired
+  message: PropTypes.any.isRequired,
 };
 
 export default PleaseSignIn;

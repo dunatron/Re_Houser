@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types';
-import React, { Component, useState, useEffect } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { Elements } from '@stripe/react-stripe-js';
 import { StateProvider } from '@/Store/index';
 
 import MaterialPage from './MaterialPage';
 import { FacebookProvider, Like } from 'react-facebook';
-import CustomToastContainer from '@/Containers/CustomToastContainer';
 
-// recoil/state management
-// import { RecoilRoot } from 'recoil';
+import CustomToastContainer from '@/Containers/CustomToastContainer';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
@@ -21,7 +19,7 @@ import GeneralSubsContainer from '@/Containers/GeneralSubsContainer';
 import GlobalStyle from './GlobalStyle';
 
 // Google
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { GoogleApiWrapper } from 'google-maps-react';
 
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
@@ -55,7 +53,6 @@ const Page = props => {
   const [stripe, setStripe] = useState(null);
   useEffect(() => {
     if (window.Stripe) {
-      console.log('Window Stripe => ', window.Stripe);
       setStripe(window.Stripe(process.env.STRIPE_KEY));
     }
   }, [window.Stripe]);
@@ -88,7 +85,6 @@ const Page = props => {
   });
 
   return (
-    // <RecoilRoot>
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Meta />
@@ -110,7 +106,6 @@ const Page = props => {
         </FacebookProvider>
       </ThemeProvider>
     </MuiThemeProvider>
-    // </RecoilRoot>
   );
 };
 

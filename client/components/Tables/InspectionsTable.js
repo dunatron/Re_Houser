@@ -99,6 +99,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   if (error) return <Error error={error} />;
 
   const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
+  
 
   const remoteData = query => {
     return client

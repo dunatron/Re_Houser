@@ -28,6 +28,12 @@ class MyDocument extends Document {
           />
           {/* <link
             rel="stylesheet"
+            type="text/css"
+            href="/static/customToast.css"
+          /> */}
+
+          {/* <link
+            rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           /> */}
           <script
@@ -86,6 +92,16 @@ MyDocument.getInitialProps = async ctx => {
 
   const initialProps = await Document.getInitialProps(ctx);
 
+  // return {
+  //   ...initialProps,
+  //   // Styles fragment is rendered after the app and page rendering finish.
+  //   styles: [
+  //     ...React.Children.toArray(initialProps.styles),
+  //     sheets.getStyleElement(),
+  //   ],
+  // };
+
+  // What I hade before is below
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.

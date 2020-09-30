@@ -4,6 +4,7 @@ import { ApolloProvider } from '@apollo/client';
 import withData from '@/Lib/withData';
 import Head from 'next/head';
 import 'react-virtualized/styles.css'; // only needs to be imported once
+import 'react-toastify/dist/ReactToastify.css'; // not using custom link css. check GlobalStyle in Page component
 import { RecoilRoot } from 'recoil';
 
 class AppEntryPointExtension extends App {
@@ -21,6 +22,7 @@ class AppEntryPointExtension extends App {
     const { Component, apollo, pageProps } = this.props;
     return (
       <RecoilRoot>
+        {/* <CustomToastContainer /> */}
         <ApolloProvider client={apollo}>
           <Head>
             {/* <script src="https://js.stripe.com/v3/" /> */}

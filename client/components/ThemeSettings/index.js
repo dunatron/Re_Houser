@@ -4,6 +4,7 @@ import { Typography, ButtonGroup, Button } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
 // mui theme base + custom root variables shared with all
 import themeBase from '@/Themes/main';
+import originalMuiTheme from '@/Themes/originalMui';
 // palettes
 import mainPalette from '@/Themes/palettes/mainPalette';
 import darkPalette from '@/Themes/palettes/darkPalette';
@@ -21,7 +22,8 @@ const ThemeSettings = () => {
       <Typography variant="h4" gutterBottom>
         Theme Overview
       </Typography>
-      <Button onClick={() => setThemeObj({ ...themeBase })}>
+      <Button
+        onClick={() => setThemeObj({ ...themeBase, ...originalMuiTheme })}>
         Reset to MUI Base
       </Button>
       <RehouserPaper>

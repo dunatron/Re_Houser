@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import PleaseSignIn from '@/Components/PleaseSignIn';
-import LeasesList from '@/Components/LeasesList';
+import LeasesTable from '@/Components/LeasesList';
 
 const TenantLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
   return (
@@ -9,7 +9,7 @@ const TenantLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
       <PleaseSignIn
         currentUser={currentUser}
         message="You must be signed in to view your leases">
-        <LeasesList />
+        <LeasesTable where={{}} />
       </PleaseSignIn>
     </>
   );

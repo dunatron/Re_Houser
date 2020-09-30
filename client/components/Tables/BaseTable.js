@@ -51,6 +51,7 @@ const APPRAISALS_COUNT_QUERY = gql`
 
 const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   const connectionKey = 'rentalAppraisalsConnection'; // e.g inspectionsConnection
+  const connectionQuery = RENTAL_APPRAISALS_CONNECTION_QUERY;
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
@@ -96,14 +97,14 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   const remoteData = query => {
     return client
       .query({
-        query: RENTAL_APPRAISALS_CONNECTION_QUERY,
+        query: connectionQuery,
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
           where: {
             ...where,
             ...sharedWhere,
           },
-          orderBy: 'createdAt_DESC',
+          orderBy: orderBy,
           skip: query.page * query.pageSize,
           first: query.pageSize,
           limit: query.pageSize,

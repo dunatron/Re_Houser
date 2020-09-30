@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
-const APPRAISALS_COUNT_QUERY = gql`
+const PROPERTY_LEASES_COUNT_QUERY = gql`
   query APPRAISALS_COUNT_QUERY(
     $where: RentalAppraisalWhereInput
     $orderBy: RentalAppraisalOrderByInput
@@ -49,8 +49,9 @@ const APPRAISALS_COUNT_QUERY = gql`
   }
 `;
 
-const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
+const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   const connectionKey = 'propertyLeasesConnection'; // e.g inspectionsConnection
+  const connectionQuery = RENTAL_APPRAISALS_CONNECTION_QUERY;
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
@@ -77,14 +78,17 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
     ...where,
   };
 
-  const { data, loading, error, refetch } = useQuery(APPRAISALS_COUNT_QUERY, {
-    variables: {
-      where: {
-        ...where,
+  const { data, loading, error, refetch } = useQuery(
+    PROPERTY_LEASES_COUNT_QUERY,
+    {
+      variables: {
+        where: {
+          ...where,
+        },
+        orderBy: orderBy,
       },
-      orderBy: orderBy,
-    },
-  });
+    }
+  );
 
   if (loading)
     return <Loader loading={loading} text="Getting total appraisal count" />;
@@ -96,14 +100,14 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   const remoteData = query => {
     return client
       .query({
-        query: RENTAL_APPRAISALS_CONNECTION_QUERY,
+        query: connectionQuery,
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
           where: {
             ...where,
             ...sharedWhere,
           },
-          orderBy: 'createdAt_DESC',
+          orderBy: orderBy,
           skip: query.page * query.pageSize,
           first: query.pageSize,
           limit: query.pageSize,
@@ -158,10 +162,10 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   );
 };
 
-BaseTable.propTypes = {
+LeasesTable.propTypes = {
   me: mePropTypes,
   where: PropTypes.object,
   orderBy: PropTypes.object,
 };
 
-export default BaseTable;
+export default LeasesTable;
