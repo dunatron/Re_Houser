@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { themeState } from '@/Recoil/themeState';
+import { themeState, mainTheme } from '@/Recoil/themeState';
 import { Typography, ButtonGroup, Button } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
 // mui theme base + custom root variables shared with all
@@ -13,13 +13,13 @@ import mainOverrides from '@/Themes/overrides/mainOverride';
 import mainTypography from '@/Themes/typographys/mainTypography';
 import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
 
-export const mainTheme = {
-  ...themeBase,
-  ...mainPalette,
-  ...mainOverrides,
-  //   ...mainTypography,
-  ...dyslexiaTypography,
-};
+// const mainTheme = {
+//   ...themeBase,
+//   ...mainPalette,
+//   ...mainOverrides,
+//   //   ...mainTypography,
+//   ...dyslexiaTypography,
+// };
 
 const ThemeSettings = () => {
   const [themeObj, setThemeObj] = useRecoilState(themeState);
@@ -75,12 +75,13 @@ const ThemeSettings = () => {
         <Typography variant="h6" gutterBottom>
           Set Full Themes
         </Typography>
-        <ButtonGroup size="small" orientation="vertical">
+        {/* <ButtonGroup size="small" orientation="vertical">
           <Button onClick={() => setThemeObj(mainTheme)}>set main theme</Button>
-        </ButtonGroup>
+        </ButtonGroup> */}
       </RehouserPaper>
     </>
   );
 };
 
+export { mainTheme };
 export default ThemeSettings;

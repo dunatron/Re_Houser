@@ -1,19 +1,24 @@
 import { atom } from 'recoil';
-import theme from '@/Styles/_muiTheme';
-import themeTypography from '@/Styles/_themeTypography';
+import themeBase from '@/Themes/main';
+// palettes
+import mainPalette from '@/Themes/palettes/mainPalette';
+// overrides
+import mainOverrides from '@/Themes/overrides/mainOverride';
+// typographys
+import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
 
-import { mainTheme } from '@/Components/ThemeSettings';
+const mainTheme = {
+  ...themeBase,
+  ...mainPalette,
+  ...mainOverrides,
+  ...dyslexiaTypography,
+};
 
 const themeState = atom({
   key: 'themeState',
   default: {
     ...mainTheme,
-    // ...theme,
-    // palette: {
-    //   ...theme.palette,
-    // },
-    // ...themeTypography,
   },
 });
 
-export { themeState };
+export { themeState, mainTheme };
