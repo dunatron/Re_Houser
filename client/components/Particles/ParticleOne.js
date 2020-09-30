@@ -1,101 +1,102 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import Particles from 'react-particles-js';
-
+import { useTheme } from '@material-ui/core';
 import debounce from '@/Lib/debounce';
 
-import { mainPrimaryColor, darkPrimaryColor } from '@/Styles/_muiTheme';
-
-const lineColor = mainPrimaryColor;
-const dotColor = darkPrimaryColor;
-
-const particlesObj = {
-  number: {
-    value: 50,
-    // value: 300,
-    density: {
+const _createParticlesObj = theme => {
+  // const lineColor = mainPrimaryColor;
+  // const dotColor = darkPrimaryColor;
+  const lineColor = theme.palette.primary.main;
+  const dotColor = theme.palette.primary.dark;
+  return {
+    number: {
+      value: 50,
+      // value: 300,
+      density: {
+        enable: true,
+        // value_area: 800,
+        // value_area: 1000,
+        value_area: 800,
+      },
+    },
+    color: {
+      // value: '#ff5baf',
+      // value: '#000',
+      // value: darkPrimaryColor,
+      value: dotColor,
+    },
+    shape: {
+      type: 'circle',
+      stroke: {
+        width: 0,
+        color: '#ff5baf',
+      },
+      polygon: {
+        // nb_sides: 5,
+        nb_sides: 5,
+      },
+      image: {
+        src: 'images/svg/ReHouse_main_logo.svg',
+        // width: 100,
+        // height: 100,
+        width: 200,
+        height: 200,
+      },
+    },
+    opacity: {
+      // value: 0.3,
+      value: 0.8,
+      // value: 1,
+      // value: 0.7,
+      // random: false,
+      random: true,
+      anim: {
+        // enable: false,
+        enable: true,
+        // speed: 1,
+        speed: 0.8,
+        opacity_min: 0.1,
+        sync: false,
+      },
+    },
+    size: {
+      // value: 3,
+      // value: 2,
+      // value: 20,
+      value: 3,
+      random: true,
+      anim: {
+        enable: false,
+        speed: 40,
+        size_min: 0.1,
+        sync: false,
+      },
+    },
+    line_linked: {
       enable: true,
-      // value_area: 800,
-      // value_area: 1000,
-      value_area: 800,
+      distance: 150,
+      color: lineColor,
+      opacity: 0.4,
+      width: 1,
     },
-  },
-  color: {
-    // value: '#ff5baf',
-    // value: '#000',
-    // value: darkPrimaryColor,
-    value: dotColor,
-  },
-  shape: {
-    type: 'circle',
-    stroke: {
-      width: 0,
-      color: '#ff5baf',
-    },
-    polygon: {
-      // nb_sides: 5,
-      nb_sides: 5,
-    },
-    image: {
-      src: 'images/svg/ReHouse_main_logo.svg',
-      // width: 100,
-      // height: 100,
-      width: 200,
-      height: 200,
-    },
-  },
-  opacity: {
-    // value: 0.3,
-    value: 0.8,
-    // value: 1,
-    // value: 0.7,
-    // random: false,
-    random: true,
-    anim: {
-      // enable: false,
+    move: {
       enable: true,
-      // speed: 1,
-      speed: 0.8,
-      opacity_min: 0.1,
-      sync: false,
+      // speed: 3,
+      // speed: 1.5,
+      speed: 2,
+      direction: 'none',
+      random: false,
+      straight: false,
+      out_mode: 'out',
+      bounce: false,
+      attract: {
+        enable: false,
+        rotateX: 600,
+        rotateY: 1200,
+      },
     },
-  },
-  size: {
-    // value: 3,
-    // value: 2,
-    // value: 20,
-    value: 3,
-    random: true,
-    anim: {
-      enable: false,
-      speed: 40,
-      size_min: 0.1,
-      sync: false,
-    },
-  },
-  line_linked: {
-    enable: true,
-    distance: 150,
-    color: lineColor,
-    opacity: 0.4,
-    width: 1,
-  },
-  move: {
-    enable: true,
-    // speed: 3,
-    // speed: 1.5,
-    speed: 2,
-    direction: 'none',
-    random: false,
-    straight: false,
-    out_mode: 'out',
-    bounce: false,
-    attract: {
-      enable: false,
-      rotateX: 600,
-      rotateY: 1200,
-    },
-  },
+  };
 };
 
 const interactivityObj = {
@@ -140,10 +141,13 @@ const interactivityObj = {
 };
 
 const ParticleOne = () => {
+  const theme = useTheme();
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
   });
+
+  const particlesObj = _createParticlesObj(theme);
 
   useEffect(() => {
     const debouncedHandleResize = debounce(function handleResize() {
@@ -159,12 +163,6 @@ const ParticleOne = () => {
       window.removeEventListener('resize', debouncedHandleResize);
     };
   }, []);
-
-  // return <ImageParticle dimensions={dimensions} />;
-
-  // return <OriginalParticle dimensions={dimensions} />;
-
-  console.log('render: PerticleOne');
 
   return (
     <Particles

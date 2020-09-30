@@ -13,9 +13,6 @@ import CustomToastContainer from '@/Containers/CustomToastContainer';
 
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
-// Material UI
-// import theme from './theme';
-import useTronTheme from './theme';
 
 // Admin Area Addisions
 import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
@@ -84,8 +81,6 @@ const Page = props => {
     };
   }, []);
 
-  // const theme = useTronTheme();
-
   const [themeObj, setThemeObj] = useRecoilState(themeState);
 
   const theme = createMuiTheme({
@@ -97,7 +92,7 @@ const Page = props => {
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
       <Meta />
-      <GlobalStyle />
+      <GlobalStyle theme={theme} />
       <CustomToastContainer />
       <ThemeProvider theme={theme}>
         <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>

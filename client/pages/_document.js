@@ -1,7 +1,8 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/styles';
-import theme from '@/Styles/_muiTheme';
+// import theme from '@/Styles/_muiTheme';
+import mainPalette from '@/Themes/palettes/mainPalette'; // hmm kinda sdtatic but owel
 
 class MyDocument extends Document {
   render() {
@@ -16,7 +17,10 @@ class MyDocument extends Document {
 
           {/* PWA primary color */}
           {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
-          <meta name="theme-color" content={theme.palette.secondary.main} />
+          <meta
+            name="theme-color"
+            content={mainPalette.palette.secondary.main}
+          />
           <link
             rel="stylesheet"
             type="text/css"

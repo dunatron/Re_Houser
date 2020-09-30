@@ -10,7 +10,7 @@ export const lightSecondaryColor = '#334b6e';
 export const darkSecondaryColor = '#00001d';
 export const secondaryContrastText = '#fff';
 
-const theme = {
+const mainPalette = {
   palette: {
     nProgress: {
       main: mainPrimaryColor,
@@ -41,4 +41,4 @@ const theme = {
     },
   },
 };
-export default theme;
+export default mainPalette;
