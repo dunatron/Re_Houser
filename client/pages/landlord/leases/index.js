@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import PropertyDetails from '@/Components/PropertyDetails';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 
-import LeasesList from '@/Components/LeasesList';
+import LeasesTable from '@/Components/Tables/LeasesTable';
 
 const LandLordLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
   return (
@@ -10,7 +10,7 @@ const LandLordLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
       currentUser={currentUser}
       message="Please Sign in to view: Landord Properties Page">
       <h2>Landlord Lease Base LandLordLeasesPage</h2>
-      <LeasesList />
+      <LeasesTable where={{}} />
     </PleaseSignIn>
   );
 };
