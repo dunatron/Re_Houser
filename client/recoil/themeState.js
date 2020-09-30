@@ -6,12 +6,14 @@ import mainPalette from '@/Themes/palettes/mainPalette';
 import mainOverrides from '@/Themes/overrides/mainOverride';
 // typographys
 import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
+import nexaTypography from '@/Themes/typographys/nexaTypography';
 
 const mainTheme = {
   ...themeBase,
   ...mainPalette,
   ...mainOverrides,
-  ...dyslexiaTypography,
+  ...nexaTypography,
+  // ...dyslexiaTypography,
 };
 
 const themeState = atom({

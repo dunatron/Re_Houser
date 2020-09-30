@@ -29,7 +29,7 @@
   font-weight: 200;
 }
 
-/* @font-face {
+@font-face {
   font-family: 'ODRegular';
   src: url('/static/fonts/dyslexic/OpenDyslexic-Regular.woff') format('woff');
   font-style: normal;
@@ -49,9 +49,9 @@
   src: url('/static/fonts/dyslexic/OpenDyslexic-Bold.woff') format('woff');
   font-style: normal;
   font-weight: 200;
-} */
+}
 
-/* @font-face {
+@font-face {
   font-family: 'ODRegular';
   src: url('/static/fonts/dyslexic/OpenDyslexic-Regular.otf') format('woff');
   font-style: normal;
@@ -71,9 +71,9 @@
   src: url('/static/fonts/dyslexic/OpenDyslexic-Bold.otf') format('woff');
   font-style: normal;
   font-weight: 200;
-} */
+}
 
-/* @font-face {
+@font-face {
   font-family: 'ODRegular';
   src: url('/static/fonts/dyslexic/OpenDyslexic-Regular.otf') format('otf');
   font-style: normal;
@@ -93,9 +93,9 @@
   src: url('/static/fonts/dyslexic/OpenDyslexic-Bold.otf') format('otf');
   font-style: normal;
   font-weight: 200;
-} */
+}
 
-/* @font-face {
+@font-face {
   font-family: 'ODRegular';
   src: url('/static/fonts/dyslexic2/OpenDyslexic-Regular.otf') format('woff');
   font-style: normal;
@@ -115,7 +115,7 @@
   src: url('/static/fonts/dyslexic2/OpenDyslexic-Bold.otf') format('woff');
   font-style: normal;
   font-weight: 200;
-} */
+}
 
 @font-face {
   font-family: 'NexaDemo-Bold';
