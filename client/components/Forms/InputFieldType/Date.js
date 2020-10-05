@@ -48,7 +48,9 @@ const DateField = props => {
     <DatePicker
       inputVariant={fieldProps.variant ? fieldProps.variant : 'outlined'}
       label={fieldProps.label}
-      format="MMMM Do YYYY"
+      // format="MMMM Do YYYY"
+      // format="dddd, MMMM Do YYYY, h:mm:ss a"
+      format="YYYY-MM-DDTkk:mm" // Umm you need to have it output unfortuanetely. The format matters. Look into a display vs val format
       minDate={fieldProps.minDate}
       maxDate={fieldProps.maxDate}
       inputProps={{

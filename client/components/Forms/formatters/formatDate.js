@@ -3,12 +3,17 @@ import moment from 'moment';
 //2020-04-05
 
 const _preFormatDate = val => {
-  return moment(val).format('YYYY-MM-DD');
+  const formattedVal = moment(val).format();
+  console.log('date bug _preFormatDate => ', formattedVal);
+  return formattedVal;
 };
 
 const _postFormatDate = val => {
+  console.log('date bug _postFormatDate => ', val);
   if (val == '') return null;
-  return val;
+  const formattedVal = moment(val).format();
+  console.log('date bug _postFormatDate => ', formattedVal);
+  return formattedVal;
 };
 
 export { _preFormatDate, _postFormatDate };

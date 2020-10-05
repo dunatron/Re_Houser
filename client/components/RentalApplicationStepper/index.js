@@ -108,6 +108,8 @@ const RentalApplicationStepper = props => {
 
   const applicantData = extractApplicantUserData(rentalApplication, me);
 
+  console.log('applicantData => ', applicantData);
+
   const userRentalApplicantData = rentalApplication.applicants.find(
     applicant => applicant.user.id === me.id
   );
@@ -425,6 +427,8 @@ const ConnectedRentalApplicationStepper = ({
       where: { id: application ? application.id : applicationId },
     },
   });
+
+  console.log('rental application => ', rentalApplication);
 
   const { data, loading, error } = rentalApplication;
 

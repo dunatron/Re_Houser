@@ -111,6 +111,7 @@ const FormCreator = props => {
   const onSubmit = data => {
     if (!canSubmit()) return;
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
+    console.log('date bug postFormattedFormData => ', postFormattedFormData);
     props.onSubmit(postFormattedFormData);
   };
 

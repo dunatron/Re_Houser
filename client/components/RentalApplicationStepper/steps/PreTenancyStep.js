@@ -43,6 +43,13 @@ const PreTenancyStep = ({
 
   const { preTenancyApplicationForm } = currentApplicant;
 
+  console.log(
+    'preTenancyApplicationForm currentApplicant => ',
+    currentApplicant
+  );
+
+  console.log('preTenancyApplicationForm form => ', preTenancyApplicationForm);
+
   const hasForm = preTenancyApplicationForm ? true : false;
 
   const formData = {
@@ -95,6 +102,13 @@ const PreTenancyStep = ({
         }
         updateRentalGroupApplicant({
           variables: {
+            // data: {
+            //   preTenancyApplicationForm: {
+            //     create: {
+            //       ...data,
+            //     },
+            //   },
+            // },
             data: {
               preTenancyApplicationForm: hasForm
                 ? {
