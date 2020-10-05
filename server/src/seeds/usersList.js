@@ -57,6 +57,14 @@ const userFrag = {
   permissions: setUserPermissions
 };
 
+const adminFrag = {
+  ...userFrag,
+  adminSettings: {
+    ...createAdminSettings
+  },
+  permissions: setAdminPermissions
+};
+
 const wizardFrag = {
   ...userFrag,
   adminSettings: {
@@ -176,10 +184,17 @@ const prodSeedList = [
     permissions: setWizardPermissions
   },
   {
-    ...wizardFrag,
+    ...adminFrag,
     email: "siaujiun@gmail.com",
     firstName: "Siau Jiun",
     lastName: "Lim",
+    permissions: setAdminPermissions
+  },
+  {
+    ...adminFrag,
+    email: "anelsonmisa@gmail.com",
+    firstName: "Adam",
+    lastName: "Nelson-Misa",
     permissions: setAdminPermissions
   }
 ];

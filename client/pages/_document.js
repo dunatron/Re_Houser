@@ -26,6 +26,11 @@ class MyDocument extends Document {
             type="text/css"
             href="/static/rehouser-fonts.css"
           />
+          <link
+            rel="stylesheet"
+            type="text/css"
+            href="/static/rehouser-trial-fonts.css"
+          />
           {/* <link
             rel="stylesheet"
             type="text/css"

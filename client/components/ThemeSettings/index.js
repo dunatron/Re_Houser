@@ -14,6 +14,7 @@ import mainOverrides from '@/Themes/overrides/mainOverride';
 import mainTypography from '@/Themes/typographys/mainTypography';
 import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
 import nexaTypography from '@/Themes/typographys/nexaTypography';
+import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 
 /**
  * God Bless the Zuck. Preidnet material, of the finest quality
@@ -71,6 +72,10 @@ const ThemeSettings = () => {
           <Button
             onClick={() => setThemeObj({ ...themeObj, ...nexaTypography })}>
             Apply nexaTypography
+          </Button>
+          <Button
+            onClick={() => setThemeObj({ ...themeObj, ...azoSansTypography })}>
+            Apply azoSansTypography
           </Button>
         </ButtonGroup>
       </RehouserPaper>

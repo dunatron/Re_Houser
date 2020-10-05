@@ -13,6 +13,7 @@
     "deploy:prod": "prisma deploy --env-file variables-prod.env",
     "deploy-prod": "prisma deploy --env-file variables-prod.env",
     "reset": "prisma reset --env-file variables.env",
+    "copydb:prod": "prisma export --env-file variables-prod.env",
     "reset:uat": "prisma reset --env-file variables-uat.env",
     "reset:prod": "prisma reset --env-file variables-prod.env",
     "seed": "prisma seed --reset --env-file variables.env ./seed.js",

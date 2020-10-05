@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'AzoSansRegular';
+  src: url('/static/fonts/azo-sans/AzoSans-Regular.woff') format('woff'); /* IE9 Compat Modes */
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: 'AzoSansBold';
+  src: url('/static/fonts/azo-sans/AzoSans-Bold.woff') format('woff'); /* IE9 Compat Modes */
+  font-style: normal;
+  font-weight: 200;
+}
