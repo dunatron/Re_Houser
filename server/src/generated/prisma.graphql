@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Sep 28 2020 19:12:47 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Wed Oct 07 2020 16:50:51 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -8911,6 +8911,7 @@ type Inspection implements Node {
   completed: Boolean
   notes: String
   inspectionForm: InspectionForm
+  submittedForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm!]
   files(where: FileWhereInput, orderBy: FileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [File!]
 }
 
@@ -8934,6 +8935,7 @@ input InspectionCreateInput {
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
   inspectionForm: InspectionFormCreateOneInput
+  submittedForms: InspectionFormCreateManyInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8967,6 +8969,7 @@ input InspectionCreateWithoutFilesInput {
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
   inspectionForm: InspectionFormCreateOneInput
+  submittedForms: InspectionFormCreateManyInput
 }
 
 input InspectionCreateWithoutInspectorInput {
@@ -8978,6 +8981,7 @@ input InspectionCreateWithoutInspectorInput {
   property: PropertyCreateOneWithoutInspectionsInput
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspectionForm: InspectionFormCreateOneInput
+  submittedForms: InspectionFormCreateManyInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -8990,6 +8994,7 @@ input InspectionCreateWithoutLeaseInput {
   property: PropertyCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
   inspectionForm: InspectionFormCreateOneInput
+  submittedForms: InspectionFormCreateManyInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -9002,6 +9007,7 @@ input InspectionCreateWithoutPropertyInput {
   lease: PropertyLeaseCreateOneWithoutInspectionsInput
   inspector: UserCreateOneWithoutInspectionsInput
   inspectionForm: InspectionFormCreateOneInput
+  submittedForms: InspectionFormCreateManyInput
   files: FileCreateManyWithoutInspectionFilesInput
 }
 
@@ -9035,6 +9041,11 @@ input InspectionFormCreateInput {
   json: Json
 }
 
+input InspectionFormCreateManyInput {
+  create: [InspectionFormCreateInput!]
+  connect: [InspectionFormWhereUniqueInput!]
+}
+
 input InspectionFormCreateOneInput {
   create: InspectionFormCreateInput
   connect: InspectionFormWhereUniqueInput
@@ -9062,6 +9073,79 @@ type InspectionFormPreviousValues {
   id: ID!
   createdAt: DateTime
   json: Json
+}
+
+input InspectionFormScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InspectionFormScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InspectionFormScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InspectionFormScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
 }
 
 type InspectionFormSubscriptionPayload {
@@ -9109,8 +9193,29 @@ input InspectionFormUpdateInput {
   json: Json
 }
 
+input InspectionFormUpdateManyDataInput {
+  json: Json
+}
+
+input InspectionFormUpdateManyInput {
+  create: [InspectionFormCreateInput!]
+  connect: [InspectionFormWhereUniqueInput!]
+  set: [InspectionFormWhereUniqueInput!]
+  disconnect: [InspectionFormWhereUniqueInput!]
+  delete: [InspectionFormWhereUniqueInput!]
+  update: [InspectionFormUpdateWithWhereUniqueNestedInput!]
+  updateMany: [InspectionFormUpdateManyWithWhereNestedInput!]
+  deleteMany: [InspectionFormScalarWhereInput!]
+  upsert: [InspectionFormUpsertWithWhereUniqueNestedInput!]
+}
+
 input InspectionFormUpdateManyMutationInput {
   json: Json
+}
+
+input InspectionFormUpdateManyWithWhereNestedInput {
+  where: InspectionFormScalarWhereInput!
+  data: InspectionFormUpdateManyDataInput!
 }
 
 input InspectionFormUpdateOneInput {
@@ -9122,7 +9227,18 @@ input InspectionFormUpdateOneInput {
   upsert: InspectionFormUpsertNestedInput
 }
 
+input InspectionFormUpdateWithWhereUniqueNestedInput {
+  where: InspectionFormWhereUniqueInput!
+  data: InspectionFormUpdateDataInput!
+}
+
 input InspectionFormUpsertNestedInput {
+  update: InspectionFormUpdateDataInput!
+  create: InspectionFormCreateInput!
+}
+
+input InspectionFormUpsertWithWhereUniqueNestedInput {
+  where: InspectionFormWhereUniqueInput!
   update: InspectionFormUpdateDataInput!
   create: InspectionFormCreateInput!
 }
@@ -9466,6 +9582,7 @@ input InspectionUpdateInput {
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
   inspectionForm: InspectionFormUpdateOneInput
+  submittedForms: InspectionFormUpdateManyInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9542,6 +9659,7 @@ input InspectionUpdateWithoutFilesDataInput {
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
   inspectionForm: InspectionFormUpdateOneInput
+  submittedForms: InspectionFormUpdateManyInput
 }
 
 input InspectionUpdateWithoutInspectorDataInput {
@@ -9552,6 +9670,7 @@ input InspectionUpdateWithoutInspectorDataInput {
   property: PropertyUpdateOneWithoutInspectionsInput
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspectionForm: InspectionFormUpdateOneInput
+  submittedForms: InspectionFormUpdateManyInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9563,6 +9682,7 @@ input InspectionUpdateWithoutLeaseDataInput {
   property: PropertyUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
   inspectionForm: InspectionFormUpdateOneInput
+  submittedForms: InspectionFormUpdateManyInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9574,6 +9694,7 @@ input InspectionUpdateWithoutPropertyDataInput {
   lease: PropertyLeaseUpdateOneWithoutInspectionsInput
   inspector: UserUpdateOneWithoutInspectionsInput
   inspectionForm: InspectionFormUpdateOneInput
+  submittedForms: InspectionFormUpdateManyInput
   files: FileUpdateManyWithoutInspectionFilesInput
 }
 
@@ -9800,6 +9921,9 @@ input InspectionWhereInput {
   lease: PropertyLeaseWhereInput
   inspector: UserWhereInput
   inspectionForm: InspectionFormWhereInput
+  submittedForms_every: InspectionFormWhereInput
+  submittedForms_some: InspectionFormWhereInput
+  submittedForms_none: InspectionFormWhereInput
   files_every: FileWhereInput
   files_some: FileWhereInput
   files_none: FileWhereInput
@@ -12219,10 +12343,10 @@ type Mutation {
   createCharge(data: ChargeCreateInput!): Charge!
   createPayment(data: PaymentCreateInput!): Payment!
   createPreTenancyForm(data: PreTenancyFormCreateInput!): PreTenancyForm!
-  createInspectionForm(data: InspectionFormCreateInput!): InspectionForm!
   createInsulationForm(data: InsulationFormCreateInput!): InsulationForm!
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
+  createInspectionForm(data: InspectionFormCreateInput!): InspectionForm!
   updateReferee(data: RefereeUpdateInput!, where: RefereeWhereUniqueInput!): Referee
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateAdminSetting(data: AdminSettingUpdateInput!, where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -12249,10 +12373,10 @@ type Mutation {
   updateCharge(data: ChargeUpdateInput!, where: ChargeWhereUniqueInput!): Charge
   updatePayment(data: PaymentUpdateInput!, where: PaymentWhereUniqueInput!): Payment
   updatePreTenancyForm(data: PreTenancyFormUpdateInput!, where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
-  updateInspectionForm(data: InspectionFormUpdateInput!, where: InspectionFormWhereUniqueInput!): InspectionForm
   updateInsulationForm(data: InsulationFormUpdateInput!, where: InsulationFormWhereUniqueInput!): InsulationForm
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
+  updateInspectionForm(data: InspectionFormUpdateInput!, where: InspectionFormWhereUniqueInput!): InspectionForm
   deleteReferee(where: RefereeWhereUniqueInput!): Referee
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteAdminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -12280,10 +12404,10 @@ type Mutation {
   deleteCharge(where: ChargeWhereUniqueInput!): Charge
   deletePayment(where: PaymentWhereUniqueInput!): Payment
   deletePreTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
-  deleteInspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
   deleteInsulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  deleteInspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
   upsertReferee(where: RefereeWhereUniqueInput!, create: RefereeCreateInput!, update: RefereeUpdateInput!): Referee!
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   upsertAdminSetting(where: AdminSettingWhereUniqueInput!, create: AdminSettingCreateInput!, update: AdminSettingUpdateInput!): AdminSetting!
@@ -12310,10 +12434,10 @@ type Mutation {
   upsertCharge(where: ChargeWhereUniqueInput!, create: ChargeCreateInput!, update: ChargeUpdateInput!): Charge!
   upsertPayment(where: PaymentWhereUniqueInput!, create: PaymentCreateInput!, update: PaymentUpdateInput!): Payment!
   upsertPreTenancyForm(where: PreTenancyFormWhereUniqueInput!, create: PreTenancyFormCreateInput!, update: PreTenancyFormUpdateInput!): PreTenancyForm!
-  upsertInspectionForm(where: InspectionFormWhereUniqueInput!, create: InspectionFormCreateInput!, update: InspectionFormUpdateInput!): InspectionForm!
   upsertInsulationForm(where: InsulationFormWhereUniqueInput!, create: InsulationFormCreateInput!, update: InsulationFormUpdateInput!): InsulationForm!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
+  upsertInspectionForm(where: InspectionFormWhereUniqueInput!, create: InspectionFormCreateInput!, update: InspectionFormUpdateInput!): InspectionForm!
   updateManyReferees(data: RefereeUpdateManyMutationInput!, where: RefereeWhereInput): BatchPayload!
   updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyAdminSettings(data: AdminSettingUpdateManyMutationInput!, where: AdminSettingWhereInput): BatchPayload!
@@ -12338,10 +12462,10 @@ type Mutation {
   updateManyCharges(data: ChargeUpdateManyMutationInput!, where: ChargeWhereInput): BatchPayload!
   updateManyPayments(data: PaymentUpdateManyMutationInput!, where: PaymentWhereInput): BatchPayload!
   updateManyPreTenancyForms(data: PreTenancyFormUpdateManyMutationInput!, where: PreTenancyFormWhereInput): BatchPayload!
-  updateManyInspectionForms(data: InspectionFormUpdateManyMutationInput!, where: InspectionFormWhereInput): BatchPayload!
   updateManyInsulationForms(data: InsulationFormUpdateManyMutationInput!, where: InsulationFormWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
+  updateManyInspectionForms(data: InspectionFormUpdateManyMutationInput!, where: InspectionFormWhereInput): BatchPayload!
   deleteManyReferees(where: RefereeWhereInput): BatchPayload!
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   deleteManyAdminSettings(where: AdminSettingWhereInput): BatchPayload!
@@ -12369,10 +12493,10 @@ type Mutation {
   deleteManyCharges(where: ChargeWhereInput): BatchPayload!
   deleteManyPayments(where: PaymentWhereInput): BatchPayload!
   deleteManyPreTenancyForms(where: PreTenancyFormWhereInput): BatchPayload!
-  deleteManyInspectionForms(where: InspectionFormWhereInput): BatchPayload!
   deleteManyInsulationForms(where: InsulationFormWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCreditCards(where: CreditCardWhereInput): BatchPayload!
+  deleteManyInspectionForms(where: InspectionFormWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -22144,10 +22268,10 @@ type Query {
   charges(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Charge]!
   payments(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Payment]!
   preTenancyForms(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [PreTenancyForm]!
-  inspectionForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm]!
   insulationForms(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InsulationForm]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
+  inspectionForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm]!
   referee(where: RefereeWhereUniqueInput!): Referee
   address(where: AddressWhereUniqueInput!): Address
   adminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -22175,10 +22299,10 @@ type Query {
   charge(where: ChargeWhereUniqueInput!): Charge
   payment(where: PaymentWhereUniqueInput!): Payment
   preTenancyForm(where: PreTenancyFormWhereUniqueInput!): PreTenancyForm
-  inspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
   insulationForm(where: InsulationFormWhereUniqueInput!): InsulationForm
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
+  inspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
   refereesConnection(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RefereeConnection!
   addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
   adminSettingsConnection(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminSettingConnection!
@@ -22206,10 +22330,10 @@ type Query {
   chargesConnection(where: ChargeWhereInput, orderBy: ChargeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChargeConnection!
   paymentsConnection(where: PaymentWhereInput, orderBy: PaymentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PaymentConnection!
   preTenancyFormsConnection(where: PreTenancyFormWhereInput, orderBy: PreTenancyFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PreTenancyFormConnection!
-  inspectionFormsConnection(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InspectionFormConnection!
   insulationFormsConnection(where: InsulationFormWhereInput, orderBy: InsulationFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InsulationFormConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   creditCardsConnection(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CreditCardConnection!
+  inspectionFormsConnection(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InspectionFormConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -25629,10 +25753,10 @@ type Subscription {
   charge(where: ChargeSubscriptionWhereInput): ChargeSubscriptionPayload
   payment(where: PaymentSubscriptionWhereInput): PaymentSubscriptionPayload
   preTenancyForm(where: PreTenancyFormSubscriptionWhereInput): PreTenancyFormSubscriptionPayload
-  inspectionForm(where: InspectionFormSubscriptionWhereInput): InspectionFormSubscriptionPayload
   insulationForm(where: InsulationFormSubscriptionWhereInput): InsulationFormSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   creditCard(where: CreditCardSubscriptionWhereInput): CreditCardSubscriptionPayload
+  inspectionForm(where: InspectionFormSubscriptionWhereInput): InspectionFormSubscriptionPayload
 }
 
 enum TenancyFixedLength {

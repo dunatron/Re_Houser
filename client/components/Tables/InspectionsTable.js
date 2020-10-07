@@ -12,6 +12,7 @@ import { UPDATE_INSPECTION_MUTATION } from '@/Gql/mutations';
 
 import PropTypes from 'prop-types';
 import { mePropTypes, propertyPropTypes } from '../../propTypes';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -60,6 +61,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   const [searchText, setSearchText] = useState('');
   const [networkOnly, setNetworkOnly] = useState(false);
   const [tableErr, setTableErr] = useState(null);
+  const router = useRouter();
 
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: true },
@@ -99,7 +101,6 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   if (error) return <Error error={error} />;
 
   const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
-  
 
   const remoteData = query => {
     return client
@@ -141,8 +142,13 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
       });
   };
 
-  const manageInspection = () => {
-    alert('ToDo: implement whatever managing an inspectrion looks like');
+  const manageInspection = (e, rowData) => {
+    router.push({
+      pathname: '/inspection',
+      query: {
+        id: rowData.id,
+      },
+    });
   };
 
   const isCompleted = v => {

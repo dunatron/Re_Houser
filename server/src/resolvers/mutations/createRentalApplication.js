@@ -3,7 +3,11 @@ const mustBeAuthed = require("../../lib/mustBeAuthed");
 const createChat = require("./createChat");
 
 async function createRentalApplication(parent, { data, files }, ctx, info) {
-  console.log("WHAT DATA DO I HAVE => ", data);
+  const loggedInUserId = ctx.request.userId;
+
+  if (!loggedInUserId) {
+    throw new Error("You must be logged in to create a property!");
+  }
   // await mustBeAuthed({ ctx: ctx });
   const currentApplications = await ctx.db.query.rentalApplications(
     {
@@ -59,6 +63,11 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
     {
       data: {
         ...data,
+        owner: {
+          connect: {
+            id: loggedInUserId
+          }
+        },
         chatId: applicationChat.id
       }
     },

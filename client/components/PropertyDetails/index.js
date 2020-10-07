@@ -27,6 +27,7 @@ import Loader from '@/Components/Loader/index';
 import PageHeader from '@/Components/PageHeader';
 import TabContainer from '@/Components/Account/TabContainer';
 import InspectionsTable from '@/Components/Tables/InspectionsTable';
+import { isAdmin } from '@/Lib/isAdmin';
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -127,6 +128,8 @@ const PropertyDetails = ({ id, location, me }) => {
     return 'No Property passed in to component';
   }
 
+  const isUserAdmin = isAdmin(me);
+
   console.log('Single Property data => ', data);
 
   return (
@@ -164,17 +167,17 @@ const PropertyDetails = ({ id, location, me }) => {
 
         {tabIndex === 0 && (
           <TabContainer>
-            <Details property={property} />
+            <Details property={property} me={me} isAdmin={isUserAdmin} />
           </TabContainer>
         )}
         {tabIndex === 1 && (
           <TabContainer>
-            <Applications property={property} me={me} />
+            <Applications property={property} me={me} isAdmin={isUserAdmin} />
           </TabContainer>
         )}
         {tabIndex === 2 && (
           <TabContainer>
-            <Leases property={property} />
+            <Leases property={property} isAdmin={isUserAdmin} />
           </TabContainer>
         )}
         {tabIndex === 3 && (
@@ -193,12 +196,16 @@ const PropertyDetails = ({ id, location, me }) => {
 
         {tabIndex === 4 && (
           <TabContainer>
-            <PropertyViewings propertyId={property.id} me={me} />
+            <PropertyViewings
+              propertyId={property.id}
+              me={me}
+              isAdmin={isUserAdmin}
+            />
           </TabContainer>
         )}
         {tabIndex === 5 && (
           <TabContainer>
-            <Inspections property={property} me={me} />
+            <Inspections property={property} me={me} isAdmin={isUserAdmin} />
           </TabContainer>
         )}
         {tabIndex === 6 && (
@@ -213,7 +220,7 @@ const PropertyDetails = ({ id, location, me }) => {
         )}
         {tabIndex === 7 && (
           <TabContainer>
-            <ShareProperty property={property} me={me} />
+            <ShareProperty property={property} me={me} isAdmin={isUserAdmin} />
           </TabContainer>
         )}
       </PropertyCard>

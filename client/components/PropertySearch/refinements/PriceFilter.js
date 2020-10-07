@@ -12,6 +12,7 @@ import SendIcon from '@material-ui/icons/Send';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import dollarsToCents from '@/Lib/dollarsToCents';
 
 const useStyles = makeStyles(theme => ({
   listRoot: {
@@ -40,38 +41,39 @@ const PRCE_ITEMS = [
   {
     label: 'ALL',
     bottomPrice: 0,
-    topPrice: 99999999,
+    topPrice: dollarsToCents(9999999),
   },
   {
     label: '$200 - $400',
-    bottomPrice: 200,
-    topPrice: 400,
+    bottomPrice: dollarsToCents(200),
+    topPrice: dollarsToCents(400),
   },
   {
     label: '$400 - $600',
-    bottomPrice: 400,
-    topPrice: 600,
+    bottomPrice: dollarsToCents(400),
+    topPrice: dollarsToCents(600),
   },
   {
     label: '$600 - $800',
-    bottomPrice: 600,
-    topPrice: 800,
+    bottomPrice: dollarsToCents(600),
+    topPrice: dollarsToCents(800),
   },
   {
     label: '$800 - $1000',
-    bottomPrice: 800,
-    topPrice: 1000,
+    bottomPrice: dollarsToCents(800),
+    topPrice: dollarsToCents(1000),
   },
   {
     label: '$1000 - $2000',
-    bottomPrice: 1000,
-    topPrice: 2000,
+    bottomPrice: dollarsToCents(1000),
+    topPrice: dollarsToCents(2000),
   },
 ];
 
-const PriceFilter = ({ setPrice }) => {
+const PriceFilter = ({ setPrice, items }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
   const classes = useStyles();
+  const selectionItems = items ? items : PRCE_ITEMS;
 
   const RenderListItem = ({ item, selected, onClick }) => {
     return (
@@ -111,7 +113,7 @@ const PriceFilter = ({ setPrice }) => {
       classes={{
         root: classes.listRoot,
       }}>
-      {PRCE_ITEMS.map((item, idx) => {
+      {selectionItems.map((item, idx) => {
         return (
           <RenderListItem
             item={item}

@@ -134,13 +134,6 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
         type: 'Signature',
         fieldProps: {},
       },
-      {
-        type: 'RTypography',
-        content: 'Rehouser Property Management signed',
-        fieldProps: {
-          variant: 'body1',
-        },
-      },
     ],
   },
   {
@@ -160,6 +153,20 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
     },
   },
   {
+    type: 'RTypography',
+    content: 'Rehouser Property Management signed',
+    fieldProps: {
+      variant: 'body1',
+    },
+  },
+  {
+    type: 'RTypography',
+    content: `Date: ${moment().format('DD / MM / YYYY')}`,
+    fieldProps: {
+      variant: 'body1',
+    },
+  },
+  {
     type: 'Image',
     fieldProps: {
       style: {
@@ -169,13 +176,6 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
         height: '120px',
       },
       src: '/images/signatures/rehouser_admin_signature.png',
-    },
-  },
-  {
-    type: 'RTypography',
-    content: `Date: ${moment().format('DD / MM / YYYY')}`,
-    fieldProps: {
-      variant: 'body1',
     },
   },
 ];

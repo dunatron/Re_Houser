@@ -93,6 +93,7 @@ const File = props => {
           ...fileParams,
           folder: createFolder(),
         }}
+        expanded={true}
         description={fieldProps.description}
         isMultiple={config.fieldProps.isMultiple}
         files={is(Array, filesData) ? [...filesData] : []}

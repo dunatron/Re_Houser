@@ -222,7 +222,7 @@ const PRE_TENANCY_FORM_CONF = [
         key: 'consentToLandlordContact',
         fieldProps: {
           name: 'consentToLandlordContact',
-          label: 'Do you consent to use contacting your current landlord',
+          label: 'Do you consent to us contacting your current landlord',
         },
         refConf: {
           required: {

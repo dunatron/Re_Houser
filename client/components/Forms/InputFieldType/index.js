@@ -248,7 +248,9 @@ const InputFieldType = props => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        // marginBottom: '16px',
+        // marginBottom: '8px',
+        marginBottom: '16px',
+        // borderBottom: '1px solid green',
       }}>
       {TypeToRender()}
     </div>

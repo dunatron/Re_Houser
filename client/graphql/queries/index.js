@@ -16,6 +16,7 @@ import { INSULATION_FORM_QUERY } from './insulationForm';
 import { RENTAL_APPRAISALS_QUERY } from './rentalAppraisals';
 import { SINGLE_RENTAL_APPRAISAL_QUERY } from './singleRentalAppraisal';
 import { VIEWINGS_QUERY } from './viewings';
+import { SINGLE_INSPECTION_QUERY } from './singleInspection';
 
 import { MESSAGES_QUERY } from './messages';
 import { MESSAGES_CONNECTION_QUERY } from './messagesConnection';
@@ -42,5 +43,6 @@ export {
   RENTAL_APPRAISALS_QUERY,
   VIEWINGS_QUERY,
   SINGLE_RENTAL_APPRAISAL_QUERY,
+  SINGLE_INSPECTION_QUERY,
   chats,
 };

@@ -32,6 +32,7 @@ import TextInput from '@/Styles/TextInput';
 import DateInput from '@/Components/Inputs/DateInput';
 import Error from '@/Components/ErrorMessage/index';
 import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
+import UpdatePropertyVariable from './UpdatePropertyVariable';
 
 import { UPDATE_PROPERTY_MUTATION } from '@/Gql/mutations/index';
 import { OWNER_PROPERTIES_QUERY } from '@/Gql/queries/index';
@@ -47,201 +48,10 @@ import {
 import FileUploader from '@/Components/FileUploader';
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
-
-const sanitizeInput = (type, value) => {
-  if (type === 'number') {
-    return parseFloat(value);
-  }
-  return value;
-};
-
-const UpdatePropertyVariableModal = ({
-  propertyId,
-  name,
-  label,
-  type = 'text', // [color, date, datetime-local, email, month, number, range, search, text, time, url, checkbox, file, password]
-  value = '',
-  cy,
-}) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
-  const [originalValue, setOriginalVal] = useState(value);
-  const [propertyValue, setPropertyValue] = useState(value);
-  const [hasValChange, setHasValChange] = useState(false);
-
-  const handleSetPropertyValue = val => {
-    setPropertyValue(val);
-    setHasValChange(true);
-  };
-
-  const canUpdate = () => {
-    if (propertyValue == originalValue) return false;
-    return true;
-  };
-
-  function downHandler({ key }) {
-    if (key === 'Escape') {
-      setModalIsOpen(false);
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener('keydown', downHandler);
-    // Remove event listeners on cleanup
-    return () => {
-      window.removeEventListener('keydown', downHandler);
-    };
-  }, []); // Empty array ensures that effect is only run on mount and unmount
-
-  const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
-    mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
-      updateProperty(id: $id, data: $data) {
-        id
-        ${name}
-      }
-    }
-  `;
-  const handleMutationComplete = data => {
-    setModalIsOpen(false);
-    setHasValChange(false);
-    setOriginalVal(data.updateProperty[name]);
-  };
-  // ToDo: Mutation Props
-  const [updateProperty, updatePropertyPayload] = useMutation(
-    PROPERTY_SINGLE_PROPERTY_MUTATION,
-    {
-      variables: {
-        id: propertyId,
-        data: {
-          [name]: sanitizeInput(type, propertyValue),
-          // sff: "dfsfd", // test error. Need to get error out of network
-        },
-      },
-      onCompleted: handleMutationComplete,
-      // lets try apollo 3.0 from cache
-      // update: (proxy, payload) => {
-      // },
-      // errorPolicy: 'all',
-      // That update needs to come back
-      // update: (proxy, payload) => {},
-      optimisticResponse: {
-        __typename: 'Mutation',
-        updateProperty: {
-          __typename: 'Property',
-          id: propertyId,
-          [name]: sanitizeInput(type, propertyValue),
-        },
-      },
-    }
-  );
-  return (
-    <div>
-      <InputModal
-        title={`Update ${label}`}
-        open={modalIsOpen}
-        close={() => setModalIsOpen(false)}>
-        <form
-          onSubmit={async e => {
-            e.preventDefault();
-            updateProperty();
-            setModalIsOpen(false);
-          }}>
-          {loading && <p>confirming on the server...</p>}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Error error={error} />
-            <Error error={updatePropertyPayload.error} />
-            {type === 'checkbox' && (
-              <Switch
-                checked={propertyValue}
-                inputProps={{
-                  'data-cy': `${cy}-variable-modal-val`,
-                }}
-                disabled={updatePropertyPayload.loading}
-                // onChange={this.handleChange}
-                // onChange={e => {
-                //   setPropertyValue(e.target.checked);
-                // }}
-                onChange={e => handleSetPropertyValue(e.target.checked)}
-                aria-label="LoginSwitch"
-              />
-            )}
-            {type === 'text' && (
-              <TextInput
-                inputProps={{
-                  'data-cy': `${cy}-variable-modal-val`,
-                }}
-                autoFocus="true"
-                style={{ margin: 0, paddingRight: '16px' }}
-                type={type}
-                // disabled={loading}
-                disabled={updatePropertyPayload.loading}
-                label={label}
-                value={propertyValue}
-                // onChange={e => setPropertyValue(e.target.value)}
-                onChange={e => handleSetPropertyValue(e.target.value)}
-              />
-            )}
-            {type === 'number' && (
-              <TextInput
-                inputProps={{
-                  'data-cy': `${cy}-variable-modal-val`,
-                }}
-                autoFocus="true"
-                style={{ margin: 0, paddingRight: '16px' }}
-                type={type}
-                // disabled={loading}
-                disabled={updatePropertyPayload.loading}
-                label={label}
-                value={propertyValue}
-                // onChange={e => setPropertyValue(e.target.value)}
-                onChange={e => handleSetPropertyValue(e.target.value)}
-              />
-            )}
-            {type === 'date' && (
-              <div style={{ padding: '16px' }}>
-                <DateInput
-                  // value={"2015-03-25T12:00:00-06:30"}
-                  inputProps={{
-                    'data-cy': `${cy}-variable-modal-val`,
-                  }}
-                  disabled={updatePropertyPayload.loading}
-                  id="moveInDate"
-                  label="Move In Date"
-                  value={propertyValue}
-                  // onChange={date => setPropertyValue(date)}
-                  onChange={date => handleSetPropertyValue(date)}
-                />
-              </div>
-            )}
-
-            {/* loading, success, onClick, text, successText */}
-            <SaveButtonLoader
-              disabled={!canUpdate()}
-              loading={updatePropertyPayload.loading}
-              onClick={() => updateProperty()}
-            />
-          </div>
-        </form>
-      </InputModal>
-      <IconButton
-        data-cy={`${cy}-variable-modal-btn`}
-        aria-label="Delete"
-        onClick={() => setModalIsOpen(true)}>
-        <EditIcon color="default" />
-      </IconButton>
-    </div>
-  );
-};
-
-UpdatePropertyVariableModal.propTypes = {
-  cy: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
-};
+import AdminDetails from './AdminDetails';
+import DetailItems from './DetailItems';
+import ImportantDetails from './ImportantDetails';
+import PropertyImages from './Images';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -266,7 +76,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Details = props => {
-  const { property } = props;
+  const { property, isAdmin } = props;
   const classes = useStyles();
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
@@ -292,6 +102,31 @@ const Details = props => {
         className={classes.variablesHeader}>
         Manage
       </Typography>
+      {isAdmin && (
+        <ChangeRouteButton
+          title="Edit with Original Form"
+          route="/landlord/properties/property/edit"
+          query={{ id: property.id }}
+        />
+      )}
+      <ImportantDetails property={property} />
+      <DetailItems
+        title={isAdmin ? 'Admin Section' : 'Admins Only'}
+        property={property}
+        items={
+          isAdmin
+            ? [
+                {
+                  name: 'onTheMarket',
+                  label: 'On The Market',
+                  type: 'boolean',
+                  icon: <CameraIcon color="default" />,
+                  disabled: true,
+                },
+              ]
+            : []
+        }
+      />
       <RehouserPaper
         square
         style={{
@@ -307,222 +142,66 @@ const Details = props => {
             property.insulationForm ? property.insulationForm.id : null
           }
           onSubmit={data => {}}
+          recieveFile={file => {
+            updateProperty({
+              variables: {
+                id: property.id,
+                data: {
+                  insulationStatementFile: {
+                    connect: {
+                      id: file.id,
+                    },
+                  },
+                },
+              },
+            });
+          }}
         />
-        <ChangeRouteButton
-          title="Edit with Original Form"
-          route="/landlord/properties/property/edit"
-          query={{ id: property.id }}
-        />
       </RehouserPaper>
-      <Typography
-        variant="h5"
-        // color="primary"
-        gutterBottom={true}
-        className={classes.variablesHeader}>
-        Important Info
-      </Typography>
-      <RehouserPaper
-        square
-        style={{
-          padding: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginRight: '16px',
-          }}>
-          {property.isLeased ? (
-            <CheckIcon fontSize="small" color="primary" />
-          ) : (
-            <CloseIcon fontSize="small" color="secondary" />
-          )}
-          <Typography>Leased</Typography>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginRight: '16px',
-          }}>
-          {property.onTheMarket ? (
-            <CheckIcon fontSize="small" color="primary" />
-          ) : (
-            <CloseIcon fontSize="small" color="secondary" />
-          )}
-          <Typography>onTheMarket</Typography>
-        </div>
-        {property.leaseId && (
-          <Typography>current lease id: {property.leaseId}</Typography>
-        )}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginRight: '16px',
-          }}>
-          <CloseIcon fontSize="small" />
-          <Typography>lease expires in</Typography>
-        </div>
-        {property.leaseId && (
-          <Typography>current lease id: {property.leaseId}</Typography>
-        )}
-      </RehouserPaper>
-      <Typography
-        variant="h5"
-        // color="primary"
-        gutterBottom={true}
-        className={classes.variablesHeader}>
-        Property variables
-      </Typography>
-      {/* <div className={classes.variablesHeader}>Property variables</div> */}
-      <RehouserPaper className={classes.detailsWrapper} square>
-        <div className={classes.detailItem}>
-          <DetailItem
-            icon={<CameraIcon color="default" />}
-            label="Rent"
-            value={property.rent}
-          />
-          <UpdatePropertyVariableModal
-            propertyId={property.id}
-            name="rent"
-            label="Rent"
-            type="number"
-            cy="rent"
-            value={property.rent}
-          />
-        </div>
-        <div className={classes.detailItem}>
-          <DetailItem
-            icon={<CameraIcon color="default" />}
-            type={'boolean'}
-            label="On The Market"
-            value={property.onTheMarket}
-          />
-          <UpdatePropertyVariableModal
-            propertyId={property.id}
-            name="onTheMarket"
-            label="onTheMarket"
-            type="checkbox"
-            cy="on-the-market"
-            value={property.onTheMarket}
-          />
-        </div>
-        <div className={classes.detailItem}>
-          <DetailItem
-            icon={<CameraIcon color="default" />}
-            type={'date'}
-            label="Move in Date"
-            value={<LongDatePretty date={property.expiryDate} />}
-          />
-          <UpdatePropertyVariableModal
-            propertyId={property.id}
-            name="moveInDate"
-            label="moveInDate"
-            type="date"
-            cy="move-in-date"
-            value={property.moveInDate}
-          />
-        </div>
-        <div className={classes.detailItem}>
-          <DetailItem
-            icon={<CameraIcon color="default" />}
-            type={'date'}
-            label="Expiry Date"
-            value={<LongDatePretty date={property.moveInDate} />}
-          />
-          <UpdatePropertyVariableModal
-            propertyId={property.id}
-            name="expiryDate"
-            label="expiryDate"
-            type="date"
-            cy="expiry-date"
-            value={property.expiryDate}
-          />
-        </div>
-        <div className={classes.detailItem}>
-          <DetailItem
-            icon={<CameraIcon color="default" />}
-            label="Rooms"
-            value={property.rooms}
-          />
-          <UpdatePropertyVariableModal
-            propertyId={property.id}
-            name="rooms"
-            label="Rooms"
-            type="number"
-            value={property.rooms}
-          />
-        </div>
-      </RehouserPaper>
-
-      <div>
+      <DetailItems
+        title="Property Variables"
+        property={property}
+        items={[
+          {
+            name: 'rent',
+            label: 'Rent',
+            type: 'number',
+            icon: <CameraIcon color="default" />,
+          },
+          {
+            name: 'onTheMarket',
+            label: 'On The Market',
+            type: 'boolean',
+            icon: <CameraIcon color="default" />,
+          },
+          {
+            name: 'moveInDate',
+            label: 'Move in Date',
+            type: 'date',
+            icon: <CameraIcon color="default" />,
+          },
+          {
+            name: 'expiryDate',
+            label: 'Expiry date',
+            type: 'date',
+            icon: <CameraIcon color="default" />,
+          },
+          {
+            name: 'rooms',
+            label: 'Rooms',
+            type: 'int',
+            icon: <CameraIcon color="default" />,
+          },
+        ]}
+      />
+      <RehouserPaper>
         <LeaseLength
           title="Lease will be for"
           moveInDate={property.moveInDate}
           expiryDate={property.expiryDate}
         />
-      </div>
-      <FileUploader
-        title="Property Images"
-        files={property.images ? property.images : []}
-        refetchQueries={[
-          {
-            query: SINGLE_OWNER_PROPERTY_QUERY,
-            variables: {
-              id: property.id,
-            },
-          },
-        ]}
-        fileParams={{
-          type: 'upload',
-          folder: `properties/${property.placeId}/images`, // reasons for id and placeId. hmm.....
-        }}
-        updateCacheOnRemovedFile={(cache, result) => {
-          updateProperty({
-            variables: {
-              id: property.id,
-              data: {
-                images: {
-                  disconnect: [
-                    {
-                      id: result.data.deleteFile.id,
-                    },
-                  ],
-                },
-              },
-            },
-          });
-        }}
-        recieveFile={file => {
-          updateProperty({
-            variables: {
-              id: property.id,
-              data: {
-                images: {
-                  connect: [
-                    {
-                      id: file.id,
-                    },
-                  ],
-                },
-              },
-            },
-          });
-        }}
-      />
-      <CarouselSlider
-        slides={property.images.map(imgObj => ({ ...imgObj, img: imgObj.url }))}
-      />
+      </RehouserPaper>
+      <PropertyImages property={property} updateProperty={updateProperty} />
       <Map
         center={{
           lat: property.locationLat,
@@ -538,10 +217,10 @@ Details.propTypes = {
     expiryDate: PropTypes.any,
     id: PropTypes.any,
     images: PropTypes.shape({
-      map: PropTypes.func
+      map: PropTypes.func,
     }),
     insulationForm: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
     isLeased: PropTypes.any,
     leaseId: PropTypes.any,
@@ -551,8 +230,8 @@ Details.propTypes = {
     onTheMarket: PropTypes.any,
     placeId: PropTypes.any,
     rent: PropTypes.any,
-    rooms: PropTypes.any
-  }).isRequired
+    rooms: PropTypes.any,
+  }).isRequired,
 };
 
 export default Details;

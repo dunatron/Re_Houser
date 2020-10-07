@@ -63,6 +63,7 @@ const InsulationStatementForm = ({
   propertyId,
   placeId,
   property,
+  recieveFile,
 }) => {
   const classes = useStyles();
   const [open, setIsOpen] = useState(false);
@@ -265,9 +266,7 @@ const InsulationStatementForm = ({
           folder: `properties/${placeId}/insulationStatementFile`,
           type: 'private',
         }}
-        recieveFile={() => {
-          alert('ToDo: associated this file with property');
-        }}
+        recieveFile={recieveFile}
       />
     </div>
   );
@@ -277,9 +276,9 @@ InsulationStatementForm.propTypes = {
   insulationFormId: PropTypes.any.isRequired,
   placeId: PropTypes.any.isRequired,
   property: PropTypes.shape({
-    insulationStatementFile: PropTypes.any
+    insulationStatementFile: PropTypes.any,
   }).isRequired,
-  propertyId: PropTypes.any.isRequired
+  propertyId: PropTypes.any.isRequired,
 };
 
 export { InsulationStatementForm };
