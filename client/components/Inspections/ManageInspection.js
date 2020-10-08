@@ -7,8 +7,6 @@ import Error from '@/Components/ErrorMessage';
 import DisplayJson from '@/Components/DisplayJson';
 import FormCreator from '@/Components/Forms/FormCreator';
 
-import RehouserPaper from '@/Styles/RehouserPaper';
-
 const ManageInspection = ({ id }) => {
   const { data, loading, error } = useQuery(SINGLE_INSPECTION_QUERY, {
     variables: {
@@ -32,16 +30,14 @@ const ManageInspection = ({ id }) => {
   return (
     <div>
       <DisplayJson title="Inspection Data" json={data} />
-      <RehouserPaper>
-        <FormCreator
-          title="inspection"
-          config={inspection.inspectionForm.json}
-          onSubmit={data => {
-            console.log('inspection inspectionForm Data => ', data);
-            alert('ToDo: handle inspection inspectionForm');
-          }}
-        />
-      </RehouserPaper>
+      <FormCreator
+        title="inspection"
+        config={inspection.inspectionForm.json}
+        onSubmit={data => {
+          console.log('inspection inspectionForm Data => ', data);
+          alert('ToDo: handle inspection inspectionForm');
+        }}
+      />
     </div>
   );
 };

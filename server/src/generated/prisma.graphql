@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Oct 07 2020 16:50:51 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Thu Oct 08 2020 12:09:30 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -9020,10 +9020,18 @@ type InspectionEdge {
   cursor: String!
 }
 
+enum InspectionFieldStatus {
+  MISSING
+  POOR
+  AVERAGE
+  VERY_GOOD
+}
+
 type InspectionForm implements Node {
   id: ID!
   createdAt: DateTime
   json: Json
+  status: InspectionFieldStatus
 }
 
 """A connection to a list of items."""
@@ -9039,6 +9047,7 @@ type InspectionFormConnection {
 input InspectionFormCreateInput {
   id: ID
   json: Json
+  status: InspectionFieldStatus
 }
 
 input InspectionFormCreateManyInput {
@@ -9067,12 +9076,15 @@ enum InspectionFormOrderByInput {
   createdAt_DESC
   json_ASC
   json_DESC
+  status_ASC
+  status_DESC
 }
 
 type InspectionFormPreviousValues {
   id: ID!
   createdAt: DateTime
   json: Json
+  status: InspectionFieldStatus
 }
 
 input InspectionFormScalarWhereInput {
@@ -9146,6 +9158,16 @@ input InspectionFormScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  status: InspectionFieldStatus
+
+  """All values that are not equal to given value."""
+  status_not: InspectionFieldStatus
+
+  """All values that are contained in given list."""
+  status_in: [InspectionFieldStatus!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [InspectionFieldStatus!]
 }
 
 type InspectionFormSubscriptionPayload {
@@ -9187,14 +9209,17 @@ input InspectionFormSubscriptionWhereInput {
 
 input InspectionFormUpdateDataInput {
   json: Json
+  status: InspectionFieldStatus
 }
 
 input InspectionFormUpdateInput {
   json: Json
+  status: InspectionFieldStatus
 }
 
 input InspectionFormUpdateManyDataInput {
   json: Json
+  status: InspectionFieldStatus
 }
 
 input InspectionFormUpdateManyInput {
@@ -9211,6 +9236,7 @@ input InspectionFormUpdateManyInput {
 
 input InspectionFormUpdateManyMutationInput {
   json: Json
+  status: InspectionFieldStatus
 }
 
 input InspectionFormUpdateManyWithWhereNestedInput {
@@ -9314,6 +9340,16 @@ input InspectionFormWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  status: InspectionFieldStatus
+
+  """All values that are not equal to given value."""
+  status_not: InspectionFieldStatus
+
+  """All values that are contained in given list."""
+  status_in: [InspectionFieldStatus!]
+
+  """All values that are not contained in given list."""
+  status_not_in: [InspectionFieldStatus!]
 }
 
 input InspectionFormWhereUniqueInput {

@@ -7,4 +7,5 @@ type InspectionForm {
   # so we almost have a key/val structure. or rather an array of items that are objects. These objects will have things like.
   # status(poor, average, very good) and comments and a key for the name? and perhaps a type
   json: Json
+  status: InspectionFieldStatus # anoying, but if not actually in schema its values are missing
 }

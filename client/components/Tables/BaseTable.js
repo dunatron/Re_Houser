@@ -6,11 +6,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
+import { Button, IconButton } from '@material-ui/core';
 
 import { RENTAL_APPRAISALS_CONNECTION_QUERY } from '@/Gql/connections';
 import PropTypes from 'prop-types';
 import { mePropTypes, propertyPropTypes } from '../../propTypes';
 import moment from 'moment';
+
+import CachedIcon from '@material-ui/icons/Cached';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -134,9 +137,34 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
       });
   };
 
+  const refetchTable = async () => {
+    client.cache.modify({
+      fields: {
+        [connectionKey](existingRef, { readField }) {
+          // console.log('existingRefs  item => ', existingRef);
+          // console.log('existingRefs edges => ', existingRef.edges);
+          return existingRef.edges ? {} : existingRef;
+        },
+      },
+    });
+    refetch({
+      variables: {
+        where: {
+          ...where,
+        },
+        orderBy: orderBy,
+      },
+    });
+    await tableRef.current.onQueryChange();
+  };
+
   return (
     <div className={classes.root}>
-      <div className={classes.tableHeader}></div>
+      <div className={classes.tableHeader}>
+        <IconButton onClick={refetchTable}>
+          <CachedIcon />
+        </IconButton>
+      </div>
       <Error error={tableErr} />
       <MaterialTable
         style={{

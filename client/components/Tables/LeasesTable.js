@@ -91,7 +91,7 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   );
 
   if (loading)
-    return <Loader loading={loading} text="Getting total appraisal count" />;
+    return <Loader loading={loading} text="Getting total leases count" />;
 
   if (error) return <Error error={error} />;
 
