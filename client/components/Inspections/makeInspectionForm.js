@@ -5,7 +5,7 @@ const makeRoomField = (roomIdx, item, type) => {
     __type: 'InspectionFieldStatus',
 
     fieldProps: {
-      label: `${item.name}`,
+      label: `${item.label}`,
       name: `${type}-${roomIdx}-${item.name}`,
       variant: 'standard',
     },
@@ -38,18 +38,81 @@ const makeRoomField = (roomIdx, item, type) => {
   };
 };
 
+const makeFieldsFromLoop = (conf, loopTimes, label, type) => {
+  let section = [];
+  let itemIdx = 0;
+  do {
+    itemIdx++;
+    section.push({
+      type: 'Section',
+      fieldProps: {
+        label: `${label} ${itemIdx}`,
+      },
+      inners: conf.map(item => makeRoomField(itemIdx, item, type)),
+    });
+  } while (itemIdx < loopTimes);
+  return section;
+};
+
 const makeInspectionForm = property => {
   let roomsSection = [];
   let roomIdx = 0;
 
-  const roomFieldsConf = [
+  const genericFields = [
     { name: 'walls', label: 'Walls' },
     { name: 'doors', label: 'Doors' },
     { name: 'windows-and-latches', label: 'Windows and Latches' },
-    { name: 'qindow-dressings', label: 'Window dressings' },
-    { name: 'ceilings', label: 'Celings' },
+    { name: 'window-dressings', label: 'Window dressings' },
+    { name: 'ceilings', label: 'Ceilings' },
     { name: 'lights-powerpoints', label: 'Lights / Power points' },
     { name: 'floors', label: 'Floors' },
+  ];
+
+  const propertyInfoFieldsConf = [
+    { name: 'smoke-detectors', label: 'Smoke Detectors' },
+    { name: 'power-icp-num', label: 'Power ICP Number' },
+    { name: 'water-main-tap-location', label: 'Water main tap location' },
+    { name: 'rubbish-bins-supplied', label: 'Rubbish bins supplied' },
+  ];
+
+  const loungeFieldsConf = [...genericFields];
+
+  const kitchenFieldsConf = [
+    ...genericFields.filter(item => item.name !== 'doors'),
+    { name: 'stove-hobs-rangehood', label: 'Stove / Hobs / Range hood' },
+    { name: 'cupboards-drawers', label: 'Cupboards / Drawers' },
+    { name: 'sink-taps', label: 'Sink / Taps' },
+    { name: 'benches', label: 'Benches' },
+  ];
+
+  const laundryFieldsConf = [
+    ...genericFields,
+    { name: 'cupboards', label: 'Cupboards' },
+    { name: 'washtub-taps', label: 'Wash Tub / Taps' },
+    {
+      name: 'washing-machine-connections',
+      label: 'Washing machine connections',
+    },
+  ];
+
+  const bathroomConf = [
+    ...genericFields,
+    { name: 'mirror-cabinet', label: 'Mirror / Cabinet' },
+    { name: 'shower', label: 'Shower' },
+    { name: 'bath', label: 'Bath' },
+    { name: 'basin', label: 'Basin' },
+    { name: 'tapware', label: 'Tapware' },
+  ];
+
+  const bathroomsSection = makeFieldsFromLoop(
+    bathroomConf,
+    property.bathrooms,
+    'Bathrooms',
+    'bathroom'
+  );
+
+  const roomFieldsConf = [
+    ...genericFields,
     { name: 'wardrobe', label: 'Wardrobe' },
     { name: 'other', label: 'Other' },
   ];
@@ -66,31 +129,60 @@ const makeInspectionForm = property => {
   } while (roomIdx < property.rooms);
 
   return [
-    // make sure chattels are good
+    {
+      type: 'Section',
+      fieldProps: {
+        label: 'Property Information',
+      },
+      inners: [
+        ...propertyInfoFieldsConf.map((item, idx) =>
+          makeRoomField(idx, item, 'property-info')
+        ),
+      ],
+    },
     {
       type: 'Section',
       fieldProps: {
         label: 'Chattel conditions',
       },
-      //   inners: property.chattels.map((chattel, idx) => ({
-      //     type: 'String',
-      //     key: `chattel.${chattel}`,
-      //     fieldProps: {
-      //       label: `${chattel}`,
-      //       name: `chattel.${chattel}`,
-      //       variant: 'standard',
-      //     },
-      //     refConf: {
-      //       required: {
-      //         value: true,
-      //         message: `Please supply the condition of the chattel`,
-      //       },
-      //     },
-      //   })),
       inners: property.chattels.map((chattel, idx) =>
         makeRoomField(idx, { name: chattel, label: chattel }, 'chattel')
       ),
     },
+    {
+      type: 'Section',
+      fieldProps: {
+        label: 'Lounge',
+      },
+      inners: [
+        ...loungeFieldsConf.map((item, idx) =>
+          makeRoomField(idx, item, 'lounge')
+        ),
+      ],
+    },
+    {
+      type: 'Section',
+      fieldProps: {
+        label: 'Kitchen',
+      },
+      inners: [
+        ...kitchenFieldsConf.map((item, idx) =>
+          makeRoomField(idx, item, 'kitchen')
+        ),
+      ],
+    },
+    {
+      type: 'Section',
+      fieldProps: {
+        label: 'Laundry',
+      },
+      inners: [
+        ...laundryFieldsConf.map((item, idx) =>
+          makeRoomField(idx, item, 'laundry')
+        ),
+      ],
+    },
+    ...bathroomsSection,
     ...roomsSection, // spread in the array of room section objects
     {
       type: 'Section',

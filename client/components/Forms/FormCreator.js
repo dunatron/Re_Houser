@@ -10,6 +10,9 @@ import formatData from './formatters/formatData';
 import { useCurrentUser } from '../User';
 import { toast } from 'react-toastify';
 
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+
 const configIsValid = config => {
   if (isEmpty(config)) return false;
   if (!is(Array, config)) return false;
@@ -193,13 +196,18 @@ const FormCreator = props => {
           color="primary"
           square
           aria-label="outlined primary button group square">
-          <Button disabled={posting} onClick={handleSubmit(onSubmit)}>
+          <Button
+            disabled={posting}
+            onClick={handleSubmit(onSubmit)}
+            startIcon={isNew ? <AddIcon /> : <EditIcon />}>
             {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
+
             {isNew ? _createText() : _updateText()}
           </Button>
           {hasCancel && (
             <Button disabled={posting} onClick={cancel} square>
               {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
+              <AddIcon />
               Cancel
             </Button>
           )}

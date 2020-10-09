@@ -170,6 +170,10 @@ type Mutation {
     data: PropertyFilesUpdateInput!
     where: PropertyFilesWhereUniqueInput!
   ): PropertyFiles
+  completeInspection(
+    data: InspectionUpdateInput!
+    where: InspectionWhereUniqueInput!
+  ): Inspection
 }
 
 type Subscription {

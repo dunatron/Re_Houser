@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Oct 08 2020 12:09:30 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Fri Oct 09 2020 15:08:33 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -9030,7 +9030,10 @@ enum InspectionFieldStatus {
 type InspectionForm implements Node {
   id: ID!
   createdAt: DateTime
+  updatedAt: DateTime!
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
@@ -9046,7 +9049,9 @@ type InspectionFormConnection {
 
 input InspectionFormCreateInput {
   id: ID
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
@@ -9074,8 +9079,14 @@ enum InspectionFormOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  completedAt_ASC
+  completedAt_DESC
   json_ASC
   json_DESC
+  vals_ASC
+  vals_DESC
   status_ASC
   status_DESC
 }
@@ -9083,7 +9094,10 @@ enum InspectionFormOrderByInput {
 type InspectionFormPreviousValues {
   id: ID!
   createdAt: DateTime
+  updatedAt: DateTime!
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
@@ -9158,6 +9172,50 @@ input InspectionFormScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  completedAt: DateTime
+
+  """All values that are not equal to given value."""
+  completedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  completedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  completedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  completedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  completedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  completedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  completedAt_gte: DateTime
   status: InspectionFieldStatus
 
   """All values that are not equal to given value."""
@@ -9208,17 +9266,23 @@ input InspectionFormSubscriptionWhereInput {
 }
 
 input InspectionFormUpdateDataInput {
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
 input InspectionFormUpdateInput {
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
 input InspectionFormUpdateManyDataInput {
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
@@ -9235,7 +9299,9 @@ input InspectionFormUpdateManyInput {
 }
 
 input InspectionFormUpdateManyMutationInput {
+  completedAt: DateTime
   json: Json
+  vals: Json
   status: InspectionFieldStatus
 }
 
@@ -9340,6 +9406,50 @@ input InspectionFormWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  completedAt: DateTime
+
+  """All values that are not equal to given value."""
+  completedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  completedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  completedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  completedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  completedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  completedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  completedAt_gte: DateTime
   status: InspectionFieldStatus
 
   """All values that are not equal to given value."""

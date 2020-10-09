@@ -22,12 +22,16 @@ const InspectionInfoFragment = gql`
     inspectionForm {
       id
       createdAt
+      completedAt
       json
+      vals
     }
     submittedForms {
       id
       createdAt
+      completedAt
       json
+      vals
     }
     files {
       id

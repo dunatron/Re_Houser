@@ -13,5 +13,12 @@
       "@/Themes/*": ["./themes/*"]
     }
   },
-  "exclude": ["node_modules", "build", ".next", ".docz", "cypress-tests"]
+  "exclude": [
+    ".docz",
+    ".next",
+    ".vscode",
+    "cypress-tests",
+    "node_modules",
+    "build"
+  ]
 }

@@ -12,11 +12,10 @@ const InspectionPage = ({ appData: { currentUser }, query: { id } }) => {
     <div>
       <PageHeader
         title="Inspection"
-        intro="The following will contain full details about this inspection including instructions on how to complete the in spection if you are a tenant"
+        intro="Manage your inspection from here"
         metaData={{
           title: 'Inspection',
-          content:
-            'The following will contain full details about this inspection including instructions on how to complete the in spection if you are a tenant',
+          content: 'Manage your inspection from here',
         }}></PageHeader>
       <PleaseSignIn
         currentUser={currentUser}

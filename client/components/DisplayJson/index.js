@@ -5,11 +5,13 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import RehouserPaper from '@/Styles/RehouserPaper';
 
+
 const DisplayJson = ({ json, title }) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => setOpen(!open);
 
+  // Todo: look for me. must be an admin or just return null
   return (
     <RehouserPaper>
       <Box
