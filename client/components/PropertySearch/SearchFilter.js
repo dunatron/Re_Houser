@@ -100,7 +100,8 @@ const SearchFilter = () => {
   // const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent: ${bottomPrice} TO ${topPrice}`
   // const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND lowestRoomPrice >= ${bottomRoomPrice} AND highestRoomPrice <= ${topRoomPrice} AND rent >= ${bottomPrice} AND rent <= ${topPrice}`;
   // 1. ahhh where to start. date search on algolia i stimetsamp, and needs to be numeric
-  const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent >= ${bottomPrice} AND rent <= ${topPrice}`;
+  // const filterLogic = `move_in_date_timestamp:0000000000 TO ${moveInDateStamp} AND onTheMarket: true AND rent >= ${bottomPrice} AND rent <= ${topPrice}`;
+  const filterLogic = `onTheMarket: true AND rent >= ${bottomPrice} AND rent <= ${topPrice}`;
   return (
     <div>
       <Configure filters={filterLogic} />
@@ -121,12 +122,12 @@ const SearchFilter = () => {
           <div>
             {/* <Typography variant="button">SET FILTER</Typography> */}
             {/* <Typography>{filterLogic}</Typography> */}
-            <Typography>
+            {/* <Typography>
               <Typography component="span" variant="h6">
                 available:
               </Typography>{' '}
               {moment(moveInDate).format('ll')}
-            </Typography>
+            </Typography> */}
             <Typography>
               <Typography component="span" variant="h6">
                 rent:

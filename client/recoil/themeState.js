@@ -7,12 +7,14 @@ import mainOverrides from '@/Themes/overrides/mainOverride';
 // typographys
 import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
 import nexaTypography from '@/Themes/typographys/nexaTypography';
+import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 
 const mainTheme = {
   ...themeBase,
   ...mainPalette,
   ...mainOverrides,
-  ...nexaTypography,
+  ...azoSansTypography,
+  // ...nexaTypography,
   // ...dyslexiaTypography,
 };
 

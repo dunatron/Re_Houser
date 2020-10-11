@@ -34,29 +34,6 @@ const CREATE_PROPERTY_FORM_CONF = [
       {
         type: 'Section',
         fieldProps: {
-          label: 'Location',
-        },
-        inners: [
-          {
-            type: 'SelectOneEnum',
-            __type: 'PropertyTitleType',
-            key: 'titleType',
-            fieldProps: {
-              name: 'titleType',
-              label: 'Property Type',
-            },
-            refConf: {
-              required: {
-                value: true,
-                message: 'You need to supply a "Title Type" for a property',
-              },
-            },
-          },
-        ],
-      },
-      {
-        type: 'Section',
-        fieldProps: {
           label: 'Insulation statement',
         },
         inners: [
@@ -162,6 +139,21 @@ const CREATE_PROPERTY_FORM_CONF = [
               required: {
                 value: true,
                 message: 'You need to supply a Type for a property',
+              },
+            },
+          },
+          {
+            type: 'SelectOneEnum',
+            __type: 'PropertyTitleType',
+            key: 'titleType',
+            fieldProps: {
+              name: 'titleType',
+              label: 'Title Type',
+            },
+            refConf: {
+              required: {
+                value: true,
+                message: 'You need to supply a "Title Type" for a property',
               },
             },
           },

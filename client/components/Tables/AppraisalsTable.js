@@ -72,7 +72,7 @@ const AppraisalsTable = ({ where, me, orderBy = 'createdAt_DESC' }) => {
       title: 'createdAt',
       field: 'createdAt',
       render: rowData => {
-        return moment(rowData.createdAt).format('Mo MMM YYYY');
+        return moment(rowData.createdAt).format('Do MMM YYYY');
       },
     },
     { title: 'rent', field: 'rent', editable: false },

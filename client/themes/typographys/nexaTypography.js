@@ -10,7 +10,7 @@ const nexaTypography = {
   typography: {
     htmlFontSize: 16,
     fontSize: 14,
-    fontFamily: 'ODRegular',
+    fontFamily: 'NexaDemo-Light',
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,

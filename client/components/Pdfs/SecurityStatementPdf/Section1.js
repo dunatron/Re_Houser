@@ -14,15 +14,15 @@ import styles from '../styles';
 import moment from 'moment';
 
 const Section1 = () => {
+  const todaysDate = moment().format('Do MMMM YYYY');
+
   return (
     <View style={styles.section}>
       <View style={styles.column}>
         <Text style={{ ...styles.h1, ...styles.center }}>
           Rehouser Security Statement
         </Text>
-        <Text style={{ ...styles.h3, ...styles.center }}>
-          {moment().format('Mo MMMM YYYY')}
-        </Text>
+        <Text style={{ ...styles.h3, ...styles.center }}>{todaysDate}</Text>
       </View>
     </View>
   );

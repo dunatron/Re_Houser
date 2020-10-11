@@ -9,15 +9,22 @@ const CTO_DETAILS = {
   phone: "021 243 9998"
 };
 
-const CEO_DETAILS =
-  process.env.APP_SECRET === "dev"
-    ? {
-        firstname: "Heath",
-        lastname: "McDonough",
-        email: "admin@rehouser.co.nz",
-        phone: "022 302 5510"
-      }
-    : { ...CTO_DETAILS };
+const CEO_DETAILS = {
+  firstname: "Heath",
+  lastname: "McDonough",
+  email: "admin@rehouser.co.nz",
+  phone: "022 302 5510"
+};
+
+// const CEO_DETAILS =
+//   process.env.APP_SECRET === "dev"
+//     ? {
+//         firstname: "Heath",
+//         lastname: "McDonough",
+//         email: "admin@rehouser.co.nz",
+//         phone: "022 302 5510"
+//       }
+//     : { ...CTO_DETAILS };
 
 // maxAge: 1000 * 60 * 60 * 24 * 365
 // https://medium.com/@ryanchenkie_40935/react-authentication-how-to-store-jwt-in-a-cookie-346519310e81

@@ -39,6 +39,13 @@ const INFO_DASHBOARD_CONFIG = [
     color: 'secondary',
     icon: <AssignmentIcon />,
   },
+  {
+    label: 'Security Statement',
+    route: '/security-statement',
+    description: 'Our Security Statement',
+    color: 'secondary',
+    icon: <AssignmentIcon />,
+  },
 ];
 
 export default INFO_DASHBOARD_CONFIG;
