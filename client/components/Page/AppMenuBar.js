@@ -86,7 +86,7 @@ const AppMenuBar = props => {
     router.back();
   };
 
-  console.log('render: AppMenuBar');
+  // console.log('render: AppMenuBar');
 
   return (
     <HideOnScroll {...props}>
