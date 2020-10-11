@@ -45,14 +45,20 @@ const AnnouncementItem = ({
       <Box className={classes.content} onClick={handleUrlClick}>
         <Typography variant="body1" color="inherit" className={classes.text}>
           {text}
-          <Typography variant="body2" color="inherit" className={classes.type}>
+          {/* <Box
+            variant="body2"
+            component="span"
+            color="inherit"
+            className={classes.type}>
             {type}
-          </Typography>
+          </Box> */}
         </Typography>
         {actions && (
           <Box className={classes.actions}>
             {actions.map((a, i) => (
-              <Box className={classes.action}>{a}</Box>
+              <Box key={i} className={classes.action}>
+                {a}
+              </Box>
             ))}
           </Box>
         )}

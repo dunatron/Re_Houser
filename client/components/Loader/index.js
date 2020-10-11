@@ -69,10 +69,10 @@ const Loader = props => {
 };
 
 Loader.propTypes = {
-  color: PropTypes.string.isRequired,
-  fullScreen: PropTypes.any.isRequired,
+  color: PropTypes.string,
+  fullScreen: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };
 
 export default Loader;

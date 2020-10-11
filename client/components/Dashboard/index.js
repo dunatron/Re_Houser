@@ -62,13 +62,20 @@ const Dashboard = ({ heading, intro, config, elevation, me }) => {
 };
 
 Dashboard.propTypes = {
-  config: PropTypes.shape({
-    map: PropTypes.func
-  }).isRequired,
+  config: PropTypes.arrayOf(
+    PropTypes.shape({
+      color: PropTypes.string,
+      requiresLogin: PropTypes.bool,
+      icon: PropTypes.any,
+      route: PropTypes.string,
+      label: PropTypes.string,
+      description: PropTypes.string,
+    })
+  ).isRequired,
   elevation: PropTypes.any.isRequired,
   heading: PropTypes.any.isRequired,
   intro: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
+  me: PropTypes.any,
 };
 
 export default Dashboard;

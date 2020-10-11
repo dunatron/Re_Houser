@@ -71,9 +71,7 @@ const OpenChatBubbles = ({ chats, me }) => {
 };
 
 OpenChatBubbles.propTypes = {
-  chats: PropTypes.shape({
-    filter: PropTypes.func
-  }).isRequired,
-  me: PropTypes.any.isRequired
+  chats: PropTypes.arrayOf(PropTypes.object),
+  me: PropTypes.any.isRequired,
 };
 export default OpenChatBubbles;

@@ -33,6 +33,8 @@ const ResendConfirmEmailButton = ({ email, ...rest }) => {
 
   const user = useCurrentUser();
 
+  console.log('current user to get email => ', user);
+
   const handleCompleted = data => {
     toast.info(
       <Box>
@@ -51,7 +53,8 @@ const ResendConfirmEmailButton = ({ email, ...rest }) => {
     RESEND_CONFIRM_EMAIL_MUTATION,
     {
       variables: {
-        email: 'doesntmatter', // usingLoggedInUser and would need configured on backend
+        // email: user.data.me.email, // usingLoggedInUser and would need configured on backend
+        email: 'eanything',
       },
       onCompleted: handleCompleted,
     }
@@ -83,7 +86,7 @@ const ResendConfirmEmailButton = ({ email, ...rest }) => {
 };
 
 ResendConfirmEmailButton.propTypes = {
-  email: PropTypes.any.isRequired,
+  email: PropTypes.any,
 };
 
 export default ResendConfirmEmailButton;

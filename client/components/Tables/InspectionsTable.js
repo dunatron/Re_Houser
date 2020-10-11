@@ -118,58 +118,12 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
     if (networkStatus === NetworkStatus.refetch) return true;
   };
 
-  console.log('networkStatus  from total count => ', networkStatus);
-  console.log('networkStatus  from apollo => ', NetworkStatus);
-  // if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
-
-  // if (_isCountCalculating()) return 'BOOOOO';
-
   if (loading && networkStatus === NetworkStatus.loading)
     return <Loader loading={loading} text="Getting total inspections count" />;
 
   if (error) return <Error error={error} />;
 
   const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
-
-  // const remoteData = async query => {
-  //   return client
-  //     .query({
-  //       query: INSPECTIONS_CONNECTION_QUERY,
-  //       fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
-  //       variables: {
-  //         where: {
-  //           ...where,
-  //           ...sharedWhere,
-  //         },
-  //         orderBy: orderBy,
-  //         skip: query.page * query.pageSize,
-  //         first: query.pageSize,
-  //         limit: query.pageSize,
-  //       },
-  //     })
-  //     .then(res => {
-  //       const {
-  //         data: {
-  //           [connectionKey]: { pageInfo, aggregate, edges },
-  //         },
-  //       } = res;
-  //       // immutatble/freezeObject
-  //       const formattedData = edges.map(edge => ({
-  //         ...edge.node,
-  //       }));
-  //       return {
-  //         data: formattedData,
-  //         page: query.page,
-  //         totalCount: totalItemCount,
-  //       };
-  //     })
-  //     .catch(e => {
-  //       setTableErr(e);
-  //     })
-  //     .finally(() => {
-  //       setNetworkOnly(false);
-  //     });
-  // };
 
   const remoteData = async query => {
     let data = {
@@ -188,20 +142,6 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
         orderBy: orderBy,
       },
     });
-
-    console.log('THIS IS THE FINAL COUNT => ', finalCount);
-
-    // INSPECTIONS_COUNT_QUERY,
-    // {
-    //   notifyOnNetworkStatusChange: true,
-    //   // pollInterval: 500,
-    // variables: {
-    //   where: {
-    //     ...where,
-    //   },
-    //   orderBy: orderBy,
-    //   },
-    // }
 
     await client
       .query({
@@ -288,8 +228,6 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
     client.cache.modify({
       fields: {
         [connectionKey](existingRef, { readField }) {
-          // console.log('existingRefs  item => ', existingRef);
-          // console.log('existingRefs edges => ', existingRef.edges);
           return existingRef.edges ? {} : existingRef;
         },
       },
@@ -319,7 +257,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
         actions={[
           {
             icon: 'settings',
-            tooltip: 'Manage property',
+            tooltip: 'Manage Inspection',
             onClick: manageInspection,
           },
         ]}

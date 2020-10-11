@@ -184,8 +184,8 @@ const SignOutMenuItem = props => {
 };
 
 SignOutMenuItem.propTypes = {
-  me: PropTypes.any.isRequired,
-  onClick: PropTypes.func.isRequired,
+  me: PropTypes.any,
+  onClick: PropTypes.func,
 };
 
 export default AccountMenu;

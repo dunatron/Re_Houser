@@ -163,15 +163,15 @@ const Modal = props => {
 
 Modal.propTypes = {
   children: PropTypes.any.isRequired,
-  classes: PropTypes.any.isRequired,
+  classes: PropTypes.any,
   close: PropTypes.func.isRequired,
-  disableBackdrop: PropTypes.any.isRequired,
-  fullScreen: PropTypes.any.isRequired,
-  height: PropTypes.any.isRequired,
-  id: PropTypes.string.isRequired,
+  disableBackdrop: PropTypes.any,
+  fullScreen: PropTypes.any,
+  height: PropTypes.any,
+  id: PropTypes.string,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  width: PropTypes.any.isRequired
+  width: PropTypes.any,
 };
 
 export default Modal;

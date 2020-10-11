@@ -9,18 +9,12 @@ const AdminApplicationsPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
-        title="Admin Appraisals"
-        intro="This is where our admins will view appraisals that need to be appraised then fill in the details"
-        children={[
-          <Typography key={1} gutterBottom>
-            Perhaps some instructions on how to use it. FUck i guess thats my
-            job for bits like this
-          </Typography>,
-        ]}
+        title="Admin Rental Applications"
+        intro="This is where admins can view rental applications in the system."
         metaData={{
-          title: 'Admin portal',
+          title: 'Admin Rental Applications',
           content:
-            'Admin portal to manage rehouser clients and day to day activities',
+            'This is where admins can view rental applications in the system.',
         }}
       />
       <AdminOnly me={me}>

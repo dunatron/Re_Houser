@@ -3,12 +3,15 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries';
 import Error from '@/Components/ErrorMessage';
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Box, Typography } from '@material-ui/core';
 import OwnerView from './views/OwnerView';
 import ApplicantView from './views/ApplicantView';
 import PageHeader from '@/Components/PageHeader';
 import RentalApplicationStepper from '@/Components/RentalApplicationStepper';
 import RehouserPaper from '@/Styles/RehouserPaper';
+import isAdmin from '@/Lib/isAdmin';
+import DisplayJson from '@/Components/DisplayJson';
+import PropertyRentalApplications from '@/Components/PropertyDetails/Applications';
 
 /**
  * page is wrapped in a must be loggedIn
@@ -36,6 +39,14 @@ const RentalApplication = ({ id, me }) => {
 
   const isOwner = me.id === owner.id;
 
+  const isAnAdmin = isAdmin(me);
+
+  const isAnApplicant = data.rentalApplication.applicants
+    ? data.rentalApplication.applicants.includes(me.id)
+    : false;
+
+  console.log('isAnApplicant => ', isAnApplicant);
+
   return (
     <>
       <PageHeader
@@ -51,8 +62,30 @@ const RentalApplication = ({ id, me }) => {
           </Typography>,
         ]}
       />
+      {isAnAdmin && (
+        <RehouserPaper>
+          <Typography gutterBottom>
+            You are an admin and can therefore accept rental applications on
+            behalf of the landlord
+          </Typography>
+          <DisplayJson
+            title="Rental Application data"
+            json={data.rentalApplication}
+          />
+        </RehouserPaper>
+      )}
       <RehouserPaper>
-        {isOwner ? (
+        {isAnAdmin && (
+          <Box>
+            <Typography gutterBottom>
+              Admin: Please be careful when accepting rental applications. They will then create a lease that needs to be signed by the landlord and the tenants
+            </Typography>
+            <PropertyRentalApplications
+              property={data.rentalApplication.property}
+            />
+          </Box>
+        )}
+        {isOwner && (
           <>
             <OwnerView rentalApplication={data.rentalApplication} me={me} />
             <RentalApplicationStepper
@@ -61,7 +94,8 @@ const RentalApplication = ({ id, me }) => {
               property={data.rentalApplication.property}
             />
           </>
-        ) : (
+        )}
+        {!isOwner && isAnApplicant && (
           <>
             <ApplicantView rentalApplication={data.rentalApplication} me={me} />
             <RentalApplicationStepper

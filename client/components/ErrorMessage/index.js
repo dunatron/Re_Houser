@@ -67,7 +67,7 @@ DisplayError.defaultProps = {
 
 DisplayError.propTypes = {
   error: PropTypes.object.isRequired,
-  tronM: PropTypes.any.isRequired
+  tronM: PropTypes.any,
 };
 
 export default DisplayError;

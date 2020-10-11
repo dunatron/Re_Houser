@@ -19,7 +19,7 @@ const Announcements = ({ me, bannerRoutes }) => {
           payload: {
             key: 'validate-email',
             text: `Email validation has not been completed. Please check your email for an account confirmation email`,
-            type: 'todo',   
+            type: 'todo',
             actions: [
               <ResendConfrimEmail color="inherit" variant="outlined">
                 Resend Email
@@ -57,7 +57,12 @@ const Announcements = ({ me, bannerRoutes }) => {
             }
       }>
       {state.map((a, i) => (
-        <AnnouncementItem item={a} index={i} remove={() => removeItem(i)} />
+        <AnnouncementItem
+          key={i}
+          item={a}
+          index={i}
+          remove={() => removeItem(i)}
+        />
       ))}
     </List>
   );

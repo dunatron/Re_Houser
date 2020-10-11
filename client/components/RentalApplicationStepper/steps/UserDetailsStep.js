@@ -60,6 +60,8 @@ const UserDetailsStep = ({
 
       <FileUploader
         me={me}
+        title="Your Photo ID"
+        description="We require a valid photo id of you. We accept the following. Passport, drivers license"
         files={
           userRentalApplicantData.user.photoIdentification
             ? [userRentalApplicantData.user.photoIdentification]
@@ -101,17 +103,17 @@ UserDetailsStep.propTypes = {
   errorsBag: PropTypes.any.isRequired,
   me: PropTypes.shape({
     id: PropTypes.any,
-    identificationNumber: PropTypes.any
+    identificationNumber: PropTypes.any,
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   property: PropTypes.any.isRequired,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
-      find: PropTypes.func
-    })
+      find: PropTypes.func,
+    }),
   }).isRequired,
   updateRentalGroupApplicant: PropTypes.func.isRequired,
-  userInfo: PropTypes.any.isRequired
+  userInfo: PropTypes.any.isRequired,
 };
 
 export default UserDetailsStep;

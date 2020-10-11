@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
+import Router from 'next/router';
 import { store } from '../../store';
 import gql from 'graphql-tag';
 import {
@@ -6,6 +7,7 @@ import {
   useQuery,
   useSubscription,
   useMutation,
+  NetworkStatus,
 } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
@@ -25,7 +27,8 @@ import SubscriberBell from '../SubscriberBell';
 
 //components
 import Modal from '../../components/Modal/index';
-import Error from '../../components/ErrorMessage';
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 import UserDetails from '../../components/UserDetails';
 import List from '@material-ui/core/List';
 
@@ -39,6 +42,7 @@ import { OFFER_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import CachedIcon from '@material-ui/icons/Cached';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -77,7 +81,12 @@ const PROPERTIES_COUNT_QUERY = gql`
   }
 `;
 
-const AdminRentalApplicationsTable = ({ where, me }) => {
+const AdminRentalApplicationsTable = ({
+  where,
+  me,
+  orderBy = 'createdAt_DESC',
+}) => {
+  const connectionKey = 'propertiesConnection'; // e.g inspectionsConnection
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
@@ -110,17 +119,20 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
     ...where,
   };
 
-  const { data, loading, error, refetch } = useQuery(PROPERTIES_COUNT_QUERY, {
-    variables: {
-      where: {
-        ...where,
+  const { data, loading, error, refetch, networkStatus } = useQuery(
+    PROPERTIES_COUNT_QUERY,
+    {
+      variables: {
+        where: {
+          ...where,
+        },
       },
-    },
-  });
+    }
+  );
 
   if (error) return <Error error={error} />;
 
-  const totalItemCount = data ? data.propertiesConnection.aggregate.count : 0;
+  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
 
   const handleSearchTextChange = e => {
     setSearchText(e.target.value);
@@ -142,11 +154,33 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
     tableRef.current.onQueryChange(); // informs table that we need to refetch remoteData
   };
 
-  // useEffect(() => {
-  //   if (state.newPropertiesCount > 0) {
-  //     handleGetSubscriptionItems();
-  //   }
-  // }, [state.newPropertiesCount]);
+  const refetchTable = async () => {
+    setNetworkOnly(true);
+    refetch({
+      variables: {
+        where: {
+          ...where,
+        },
+        orderBy: orderBy,
+      },
+    });
+    client.cache.modify({
+      fields: {
+        [connectionKey](existingRef, { readField }) {
+          return existingRef.edges ? {} : existingRef;
+        },
+      },
+    });
+    await tableRef.current.onQueryChange();
+  };
+
+  const manageProperty = (e, rowData) =>
+    Router.push({
+      pathname: '/landlord/properties/property',
+      query: {
+        id: rowData.id,
+      },
+    });
 
   const remoteData = query => {
     return client
@@ -158,7 +192,7 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
             ...where,
             ...sharedWhere,
           },
-          orderBy: 'createdAt_DESC',
+          orderBy: orderBy,
           skip: query.page * query.pageSize,
           first: query.pageSize,
           limit: query.pageSize,
@@ -167,7 +201,7 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
       .then(res => {
         const {
           data: {
-            propertiesConnection: { pageInfo, aggregate, edges },
+            [connectionKey]: { pageInfo, aggregate, edges },
           },
         } = res;
         // immutatble/freezeObject
@@ -188,6 +222,11 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
       });
   };
 
+  if (loading && networkStatus === NetworkStatus.loading)
+    return <Loader loading={loading} text="Getting total properties count" />;
+
+  if (error) return <Error error={error} />;
+
   return (
     <div className={classes.root}>
       <div className={classes.tableHeader}>
@@ -197,6 +236,9 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
             alignItems: 'center',
           }}>
           <Typography variant="h5">Rental Applications</Typography>
+          <IconButton onClick={refetchTable}>
+            <CachedIcon />
+          </IconButton>
           <SubscriberBell
             me={me}
             variable="propertyCreatedSub"
@@ -232,6 +274,13 @@ const AdminRentalApplicationsTable = ({ where, me }) => {
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
         }}
+        actions={[
+          {
+            icon: 'settings',
+            tooltip: 'Manage property',
+            onClick: manageProperty,
+          },
+        ]}
       />
     </div>
   );
