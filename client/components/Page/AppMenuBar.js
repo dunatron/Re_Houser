@@ -128,25 +128,37 @@ const AppMenuBar = props => {
             </IconButton>
           )}
           {formattedPathParts.length > 0 && (
-            <>
-              {formattedPathParts.map((urlPart, idx) => {
-                const isLastPart =
-                  idx + 1 === formattedPathParts.length ? true : false;
-                return (
-                  <Typography
-                    key={idx}
-                    variant="h6"
-                    className={!isLastPart ? classes.routeablePart : null}
-                    noWrap
-                    onClick={() => {
-                      !isLastPart ? routeToClickedPart(idx) : null;
-                    }}>
-                    {urlPart}
-                    {!isLastPart && '/'}
-                  </Typography>
-                );
-              })}
-            </>
+            <div
+              style={{
+                marginRight: '112px',
+                display: 'flex',
+                overflow: 'auto',
+                direction: 'rtl',
+              }}>
+              <div
+                style={{
+                  display: 'flex',
+                  direction: 'ltr',
+                }}>
+                {formattedPathParts.map((urlPart, idx) => {
+                  const isLastPart =
+                    idx + 1 === formattedPathParts.length ? true : false;
+                  return (
+                    <Typography
+                      key={idx}
+                      variant="h6"
+                      className={!isLastPart ? classes.routeablePart : null}
+                      noWrap
+                      onClick={() => {
+                        !isLastPart ? routeToClickedPart(idx) : null;
+                      }}>
+                      {urlPart}
+                      {!isLastPart && '/'}
+                    </Typography>
+                  );
+                })}
+              </div>
+            </div>
           )}
           <div
             style={{

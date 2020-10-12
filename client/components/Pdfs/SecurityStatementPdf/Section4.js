@@ -15,7 +15,7 @@ import moment from 'moment';
 
 const Section4 = () => {
   return (
-    <View style={styles.section}>
+    <View style={styles.section} wrap={false}>
       <View style={styles.column}>
         <Text style={{ ...styles.h2 }}>Risks</Text>
         <Text style={{ ...styles.body1 }}>

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { Typography } from '@material-ui/core';
 import {
+  PDFDownloadLink,
   PDFViewer,
   Page,
   Text,
@@ -10,12 +12,9 @@ import {
   Image,
   Font,
 } from '@react-pdf/renderer';
-import moment from 'moment';
 
 import styles from '../styles';
-
 import PageWithFooter from '../PageWithFooter';
-import Loader from '@/Components/Loader';
 
 // Sections
 import Section1 from './Section1'; // header
@@ -27,35 +26,43 @@ const ExamplePdf = ({ me, lease }) => {
   const [loading, setLoading] = useState(true);
   return (
     <>
-      {loading && <Loader loading={loading} text="Generating Pdf" />}
-      <PDFViewer width="100%" height="500px">
-        <Document
-          title="Rehouser Security Statement"
-          author="Dunatron"
-          subject="Rehouser security statement to our users"
-          keywords="Security statemenet, security, files, pdf"
-          creator="Heath Dunlop"
-          producer="Heath McDonough"
+      {loading && <Typography gutterBottom>Generating Pdf...</Typography>}
+      <PDFViewer width="100%" height={loading ? '0' : '500px'}>
+        <SecurityStatementDocument
           onRender={() => {
-            // alert('Rendered');
             setLoading(false);
-          }}>
-          <PageWithFooter size="A4" style={styles.page}>
-            <Section1 />
-            <Section2 />
-            <Section3 />
-            <Section4 />
-            <Image
-              src="/static/images/signatures/rehouser_admin_signature.png"
-              // src={{
-              //   uri: '/static/images/signatures/rehouser_admin_signature.png',
-              //   method: 'GET',
-              // }}
-            />
-          </PageWithFooter>
-        </Document>
+          }}
+        />
       </PDFViewer>
     </>
+  );
+};
+
+const SecurityStatementDocument = ({ onRender }) => {
+  return (
+    <Document
+      title="Rehouser Security Statement"
+      author="Dunatron"
+      subject="Rehouser security statement to our users"
+      keywords="Security statemenet, security, files, pdf"
+      creator="Heath Dunlop"
+      producer="Heath McDonough"
+      onRender={onRender}>
+      <PageWithFooter size="A4" style={styles.page}>
+        <Section1 />
+        <Section2 />
+        <Section3 />
+        <Section4 />
+        <Image
+          style={{
+            width: '50%',
+            padding: 20,
+            border: '1px solid grey',
+          }}
+          src="/images/signatures/rehouser_admin_signature.png"
+        />
+      </PageWithFooter>
+    </Document>
   );
 };
 

@@ -17,7 +17,7 @@ const Section1 = () => {
   const todaysDate = moment().format('Do MMMM YYYY');
 
   return (
-    <View style={styles.section}>
+    <View style={styles.section} wrap={false}>
       <View style={styles.column}>
         <Text style={{ ...styles.h1, ...styles.center }}>
           Rehouser Security Statement
