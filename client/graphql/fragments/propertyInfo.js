@@ -78,6 +78,7 @@ const PropertyInfoFragment = gql`
       accountNumber
       suffix
     }
+    rehouserManaged
   }
   ${FileInfoFragment}
   ${PublicUserInfoFragment}

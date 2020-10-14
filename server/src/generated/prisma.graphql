@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Oct 09 2020 15:08:33 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Wed Oct 14 2020 17:22:38 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -8908,7 +8908,7 @@ type Inspection implements Node {
   inspector: User
   date: DateTime
   completedTime: DateTime
-  completed: Boolean
+  completed: Boolean!
   notes: String
   inspectionForm: InspectionForm
   submittedForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm!]
@@ -9495,7 +9495,7 @@ type InspectionPreviousValues {
   createdAt: DateTime!
   date: DateTime
   completedTime: DateTime
-  completed: Boolean
+  completed: Boolean!
   notes: String
 }
 
@@ -15368,6 +15368,7 @@ type Property implements Node {
   files: PropertyFiles
   inspectionFrequency: InspectionFrequency
   inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
+  rehouserManaged: Boolean
 }
 
 type PropertyAdvertisement implements Node {
@@ -15837,6 +15838,7 @@ input PropertyCreateInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -15988,6 +15990,7 @@ input PropertyCreateWithoutAccommodationInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16055,6 +16058,7 @@ input PropertyCreateWithoutActivityInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16122,6 +16126,7 @@ input PropertyCreateWithoutAppraisalsInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16189,6 +16194,7 @@ input PropertyCreateWithoutBankDetailsInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16256,6 +16262,7 @@ input PropertyCreateWithoutCreatorInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16323,6 +16330,7 @@ input PropertyCreateWithoutFilesInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16390,6 +16398,7 @@ input PropertyCreateWithoutImagesInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16457,6 +16466,7 @@ input PropertyCreateWithoutInspectionsInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16524,6 +16534,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16591,6 +16602,7 @@ input PropertyCreateWithoutLeasesInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16658,6 +16670,7 @@ input PropertyCreateWithoutOwnersInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16725,6 +16738,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16792,6 +16806,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16859,6 +16874,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -16926,6 +16942,7 @@ input PropertyCreateWithoutViewingsInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
   heatSources: PropertyCreateheatSourcesInput
@@ -19192,7 +19209,6 @@ input PropertyLeaseWhereInput {
 
 input PropertyLeaseWhereUniqueInput {
   id: ID
-  placeId: String
 }
 
 enum PropertyOrderByInput {
@@ -19288,6 +19304,8 @@ enum PropertyOrderByInput {
   rehouserHandlesBills_DESC
   inspectionFrequency_ASC
   inspectionFrequency_DESC
+  rehouserManaged_ASC
+  rehouserManaged_DESC
 }
 
 type PropertyPreviousValues {
@@ -19342,6 +19360,7 @@ type PropertyPreviousValues {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
 }
 
 input PropertyScalarWhereInput {
@@ -20113,6 +20132,10 @@ input PropertyScalarWhereInput {
 
   """All values that are not contained in given list."""
   inspectionFrequency_not_in: [InspectionFrequency!]
+  rehouserManaged: Boolean
+
+  """All values that are not equal to given value."""
+  rehouserManaged_not: Boolean
 }
 
 type PropertySubscriptionPayload {
@@ -20228,6 +20251,7 @@ input PropertyUpdateInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20295,6 +20319,7 @@ input PropertyUpdateManyDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20346,6 +20371,7 @@ input PropertyUpdateManyMutationInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20543,6 +20569,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20609,6 +20636,7 @@ input PropertyUpdateWithoutActivityDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20675,6 +20703,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20741,6 +20770,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20807,6 +20837,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20873,6 +20904,7 @@ input PropertyUpdateWithoutFilesDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -20939,6 +20971,7 @@ input PropertyUpdateWithoutImagesDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21005,6 +21038,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21071,6 +21105,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21137,6 +21172,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21203,6 +21239,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21269,6 +21306,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21335,6 +21373,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21401,6 +21440,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -21467,6 +21507,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   alarmsEachLevel: Boolean
   rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
   heatSources: PropertyUpdateheatSourcesInput
@@ -22345,6 +22386,10 @@ input PropertyWhereInput {
 
   """All values that are not contained in given list."""
   inspectionFrequency_not_in: [InspectionFrequency!]
+  rehouserManaged: Boolean
+
+  """All values that are not equal to given value."""
+  rehouserManaged_not: Boolean
   bankDetails: BankDetailWhereInput
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput

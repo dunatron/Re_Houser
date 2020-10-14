@@ -9,7 +9,7 @@ import PropertyPendingRentalApplicationsSub from '@/Components/SubscriptionCompo
 import Loader from '@/Components/Loader';
 import Error from '@/Components/ErrorMessage';
 import ApplicationCard from './ApplicationCard';
-import { Paper, Typography } from '@material-ui/core';
+import { Box, Paper, Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
 
 const RentalApplications = props => {
@@ -58,26 +58,18 @@ const RentalApplications = props => {
         style={{
           padding: '16px',
         }}>
-        <Typography>
-          You can handle applications for your property here
+        <Typography gutterBottom>
+          You can handle applications for your property here.
         </Typography>
-        <Typography>
+        <Typography gutterBottom>
           Once you have accepted an application, it will create an un-signed
-          lease where all lessors and lessess must sign the lease before it can
+          lease where all lessors and lessees must sign the lease before it can
           be finalised. A lessor must finalise the lease once all parties have
-          signed
+          signed.
         </Typography>
-        <Typography>
-          Heath do we need a little more control on this? like I just want this
-          airtight
+        <Typography gutterBottom>
+          If the property is rehouserManaged then admins must sign the lease instead.
         </Typography>
-        INITIALIZING PAID SIGNED
-        <ul>
-          <li>INITIALIZING</li>
-          <li>All parties sign - can finalise button appears</li>
-          <li>Lessor finalises - SIGNED</li>
-          <li>lesses pay - PAID</li>
-        </ul>
       </Paper>
 
       {data.rentalApplications.map((application, i) => {

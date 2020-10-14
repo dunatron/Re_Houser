@@ -29,6 +29,18 @@ import TabContainer from '@/Components/Account/TabContainer';
 import InspectionsTable from '@/Components/Tables/InspectionsTable';
 import { isAdmin } from '@/Lib/isAdmin';
 
+import DetailsIcon from '@material-ui/icons/Details';
+import DescriptionIcon from '@material-ui/icons/Description';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import StreetviewIcon from '@material-ui/icons/Streetview';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import ShareIcon from '@material-ui/icons/Share';
+
+//counts 
+import {useLeasesCount, useRentalApplicationCount, useInspectionsCount} from '@/Lib/hooks/counts'
+
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -77,6 +89,7 @@ const PropertyApplicationsBadgeCount = ({ property }) => {
       },
     },
   });
+
   return (
     <Badge
       color="secondary"
@@ -113,6 +126,22 @@ const PropertyCard = styled.div`
 const PropertyDetails = ({ id, location, me }) => {
   const [tabIndex, setTabIndex] = useState(0);
 
+  const countVariables = {
+    where: {
+      property: {
+        id: id,
+      },
+    },
+  }
+  const rentalApplicationsCount = useRentalApplicationCount(countVariables)
+  const leasesCount = useLeasesCount(countVariables)
+  const inspectionsCount = useInspectionsCount({
+    where: {
+      ...countVariables.where,
+      completed: false
+    }
+  })
+
   const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
     variables: {
       id: id,
@@ -127,6 +156,11 @@ const PropertyDetails = ({ id, location, me }) => {
     toast('No Property passed in to component');
     return 'No Property passed in to component';
   }
+
+
+ 
+
+  console.log("rentalApplicationsCount => ", rentalApplicationsCount)
 
   const isUserAdmin = isAdmin(me);
 
@@ -153,16 +187,17 @@ const PropertyDetails = ({ id, location, me }) => {
           onChange={(e, v) => setTabIndex(v)}
           indicatorColor="secondary"
           textColor="secondary"
-          wrapped={true}
+          wrapped={false}
           variant="scrollable">
-          <Tab label="Details" />
-          <Tab label={<PropertyApplicationsBadgeCount property={property} />} />
-          <Tab label="Leases" />
-          <Tab label="Activity" />
-          <Tab label="Viewings" />
-          <Tab label="Inspections" />
-          <Tab label="Files" />
-          <Tab label="Share" />
+          <Tab label="Details" icon={<DetailsIcon />} />
+          <Tab label={<Badge color="secondary" badgeContent={rentalApplicationsCount.count}>Applications</Badge>} icon={<DescriptionIcon />} />
+          <Tab label={<Badge color="secondary" badgeContent={leasesCount.count}>Leases</Badge>} icon={<AssignmentIcon />} />
+          <Tab label="Activity" icon={<EventNoteIcon />} />
+          <Tab label="Viewings" icon={<StreetviewIcon />}/>
+          <Tab label={<Badge color="secondary" badgeContent={inspectionsCount.count}>Inspections</Badge>} icon={<EventAvailableIcon />}/>
+          <Tab label="Files"icon={<FileCopyIcon />} />
+          <Tab label="Share" icon={<ShareIcon />}/>
+          
         </Tabs>
 
         {tabIndex === 0 && (

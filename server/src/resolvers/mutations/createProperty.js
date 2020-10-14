@@ -38,6 +38,7 @@ async function createProperty(parent, { data }, ctx, info) {
           highestRoomPrice,
           rent: data.rent,
           rooms: numberOfRooms,
+          rehouserManaged: true
         },
       },
       info

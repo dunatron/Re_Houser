@@ -45,6 +45,8 @@ import {
   LeaseLength,
 } from '@/Components/LeaseManager/LeaseLengthInfo';
 
+import UserDetails from '@/Components/UserDetails'
+
 import FileUploader from '@/Components/FileUploader';
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
@@ -76,7 +78,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Details = props => {
-  const { property, isAdmin } = props;
+  const { property, isAdmin, me } = props;
   const classes = useStyles();
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
@@ -119,6 +121,13 @@ const Details = props => {
                 {
                   name: 'onTheMarket',
                   label: 'On The Market',
+                  type: 'boolean',
+                  icon: <CameraIcon color="default" />,
+                  disabled: true,
+                },
+                {
+                  name: 'rehouserManaged',
+                  label: 'Managed by Rehouser',
                   type: 'boolean',
                   icon: <CameraIcon color="default" />,
                   disabled: true,
@@ -169,12 +178,6 @@ const Details = props => {
             icon: <CameraIcon color="default" />,
           },
           {
-            name: 'onTheMarket',
-            label: 'On The Market',
-            type: 'boolean',
-            icon: <CameraIcon color="default" />,
-          },
-          {
             name: 'moveInDate',
             label: 'Move in Date',
             type: 'date',
@@ -201,7 +204,14 @@ const Details = props => {
           expiryDate={property.expiryDate}
         />
       </RehouserPaper>
+      <RehouserPaper>
+        <Typography>Owners</Typography>
+        {property.owners.length > 0 && property.owners.map((owner, idx) => {
+          return <UserDetails me={me} user={owner} />
+        })}
+      </RehouserPaper>
       <PropertyImages property={property} updateProperty={updateProperty} />
+      
       <Map
         center={{
           lat: property.locationLat,

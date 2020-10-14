@@ -6,7 +6,8 @@ import ExpansionPanelSummary from '@/Styles/ExpansionPanelSummary';
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 // import Typography from "@material-ui/core/Typography"
-import Typography from '@/Styles/Typography';
+import {Box, Typography} from '@material-ui/core/'
+
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 //icons
 import PersonIcon from '@material-ui/icons/Person';
@@ -16,6 +17,7 @@ import AdminApplicantDetails from '@/Components/ApplicantDetails/AdminApplicantD
 import AcceptApplicationButton from '@/Components/MutationButtons/AcceptApplicationButton';
 import DenyApplicationButton from '@/Components/MutationButtons/DenyApplicationButton';
 import { makeStyles } from '@material-ui/core/styles';
+import ChangeRouteBtn from '@/Components/Routes/ChangeRouteButton'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -73,17 +75,31 @@ const ApplicationCard = ({ application, property, me }) => {
       </div>
 
       {application.leaseId && (
-        <Typography>LeaseId: {application.leaseId}</Typography>
+        <Box>
+          <Typography gutterBottom>Application has been accepted as it has a leaseId associated with it</Typography>
+          
+          <ChangeRouteBtn 
+            title="Go to lease"
+            route="/landlord/leases/lease"
+            query={{
+              id: application.leaseId
+            }}
+            variant="contained"
+            color="secondary"
+          />
+          <Typography gutterBottom>LeaseId: {application.leaseId}</Typography>
+        </Box>
       )}
 
       {/* <AcceptApplication application={application} property={property} /> */}
-      <div className={classes.actions}>
+      {!application.leaseId && <div className={classes.actions}>
         <AcceptApplicationButton
           application={application}
           property={property}
         />
         <DenyApplicationButton application={application} property={property} />
-      </div>
+      </div>}
+      
       <ExpansionPanel highlight={false}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <PersonIcon color={'secondary'} />

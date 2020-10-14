@@ -286,6 +286,7 @@ type Property implements PropertyInfo {
   files: PropertyFiles @relation(name: "PropertyFiles", link: TABLE)
   inspectionFrequency: InspectionFrequency
   inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
+  rehouserManaged: Boolean
 }
 
 type PropertyFiles {
@@ -324,8 +325,7 @@ type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
   stage: LeaseStage!
   property: Property! @relation(name: "PropertyLeases")
-
-  placeId: String! @unique
+  placeId: String!
   location: String!
   locationLat: Float!
   locationLng: Float!
@@ -372,7 +372,7 @@ type Inspection {
   inspector: User @relation(name: "InspectionInspector")
   date: DateTime
   completedTime: DateTime
-  completed: Boolean
+  completed: Boolean! @default(value: false)
   notes: String
   inspectionForm: InspectionForm @relation(name: "InspectionForm")
   submittedForms: [InspectionForm] @relation(name: "SubmittedInspectionForms")

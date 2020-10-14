@@ -23,6 +23,20 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     throw new Error("You must be logged in!");
   }
 
+
+  const loggedUserWithData = await ctx.db.query.user({
+    where: {
+      id: loggedInUser
+    }
+  }, 
+  `{
+    id
+    permissions
+  }`
+  );
+
+  const isAdmin = loggedUserWithData.permissions.includes("ADMIN")
+
   // get application
   const application = await ctx.db.query.rentalApplication(
     {
@@ -94,10 +108,11 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const lesseeUsers = applicants.map((applicant) => applicant.user);
 
   // check that loggedInUser is one of the owners for the property
-  if (!ownerIds.includes(loggedInUser)) {
+  if (!ownerIds.includes(loggedInUser) && !isAdmin) {
     throw new Error("You are not one of the owners!");
   }
 
+  // throw new Error("TESTING");
   // create the new lease and await for the PropertyLease entity to return
   const lease = await createPropertyLease(
     parent,
@@ -164,7 +179,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   // set the stage to complete by making a mutation
   // also connect the loose prop of leaseId so we can direct people to the lease to sign
-  ctx.db.mutation.updateRentalApplication(
+  const updatedRentalApplication = await  ctx.db.mutation.updateRentalApplication(
     {
       where: {
         id: applicationId,
@@ -177,8 +192,6 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     info
   );
 
-  const leaseLink = `<a href="${process.env.FRONTEND_URL}/my/lease?id=${lease.id}">To the Lease</a>`;
-
   // send emails to the potential tenants about the accepted application and the new lease to sign
   lesseeUsers.forEach((user, i) => {
     newLeaseLesseeEmail({ ctx: ctx, toEmail: user.email, lease: lease });
@@ -187,6 +200,8 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   owners.forEach((user, i) => {
     newLeaseLessorEmail({ ctx: ctx, toEmail: user.email, lease: lease });
   });
+
+  return updatedRentalApplication
 
   return lease;
 }

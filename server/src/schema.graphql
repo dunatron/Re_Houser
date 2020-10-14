@@ -196,6 +196,9 @@ type Subscription {
     where: PropertySubscriptionWhereInput
   ): PropertySubscriptionPayload
   userSub(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  inspectionSub(
+    where: InspectionSubscriptionWhereInput
+  ): InspectionSubscriptionPayload
 }
 
 type Query {
@@ -268,7 +271,7 @@ type Query {
     before: String
     first: Int
     last: Int
-  ): [PropertyLease]!
+  ): PropertyLeaseConnection!
   properties: [Property!]!
   property(where: PropertyWhereUniqueInput!): Property!
   ownerProperties: [Property!]!
