@@ -102,7 +102,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet");
   }
 
-  //probably add the loggedInUser as a lessor if it is rehouser managed
+  // probably add the loggedInUser as a lessor if it is rehouser managed
   // stage needs to be updated
   const acceptedLease = await ctx.db.mutation.updatePropertyLease(
     {
@@ -150,7 +150,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   // success emails to lessors
   lessorUsers.map((usr, indx) => {
     finalisePropertyLeaseEmail({
-      baseLink: "tenant",
+      baseLink: "landlord",
       ctx: ctx,
       lease: combinedLease,
       // payment: payment,
@@ -163,7 +163,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
   // success emails to lessees
   lesseeUsers.map((usr, indx) => {
     finalisePropertyLeaseEmail({
-      baseLink: "landlord",
+      baseLink: "tenant",
       ctx: ctx,
       lease: combinedLease,
       // payment: payment,
@@ -201,7 +201,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     }
   });
 
-  return acceptedLease;
+  return acceptedLease; // acccepted lease will return exactly what they ask for satisfy gql
 }
 
 module.exports = finalisePropertyLease;

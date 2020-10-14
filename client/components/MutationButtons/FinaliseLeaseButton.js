@@ -6,14 +6,15 @@ import Error from '@/Components/ErrorMessage';
 import Button from '@material-ui/core/Button';
 import { toast } from 'react-toastify';
 import { SINGLE_LEASE_QUERY } from '@/Gql/queries';
+import {PropertyLeaseInfoFragment} from '@/Gql/fragments/propertyLeaseInfo'
 
 const FINALISE_PROPERTY_LEASE_MUTATION = gql`
   mutation FINALISE_PROPERTY_LEASE_MUTATION($leaseId: ID!) {
     finalisePropertyLease(leaseId: $leaseId) {
-      id
-      stage
+      ...propertyLeaseInfo
     }
   }
+  ${PropertyLeaseInfoFragment}
 `;
 
 const FinaliseLeaseBtn = ({ leaseId, stage, disabled }) => {

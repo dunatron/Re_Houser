@@ -22,7 +22,7 @@ We may need to visit the property to increase the accuracy of this. I will be in
 
 <div style="line-height: 18px;">
 We will contact you via email when this appraisal has been completed. It can also be found on the system here \n
-<a href="${process.env.EMAIL_PREFIX}/landlord/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
+<a href="${process.env.FRONTEND_URL}/landlord/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
 </div>
 
     \n\n`,

@@ -36,17 +36,17 @@ const offerRentalAppraisalEmail = async function({
   After considering your property and the current rental market conditions we would be able to secure a weekly
   rent of $${rent}. This amount has been based on similar properties within the vicinity of your property. \n
   You can begin adding this property to the platform by clicking the below link 
-  <a href="${process.env.EMAIL_PREFIX}/landlord/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
+  <a href="${process.env.FRONTEND_URL}/landlord/properties/add?appraisalId=${appraisal.id}">add Property</a> \n
 </div>
 
 <div style="line-height: 18px; margin-top: 16px;">
-  We would be grateful for the opportunity to Let and Manage your property with support of our platform <a href="${process.env.EMAIL_PREFIX}">Rehouser</a>
+  We would be grateful for the opportunity to Let and Manage your property with support of our platform <a href="${process.env.FRONTEND_URL}">Rehouser</a>
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
-  You can review our terms and conditions here at the landlord portal.<a href="${process.env.EMAIL_PREFIX}/landlord/terms-of-engagement">Landlord Portal Terms of engagement</a>
+  You can review our terms and conditions here at the landlord portal.<a href="${process.env.FRONTEND_URL}/landlord/terms-of-engagement">Landlord Portal Terms of engagement</a>
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
-  <a href="${process.env.EMAIL_PREFIX}/landlord/properties/add?appraisalId=${appraisal.id}">Begin adding property based on appraisal</a> \n
+  <a href="${process.env.FRONTEND_URL}/landlord/properties/add?appraisalId=${appraisal.id}">Begin adding property based on appraisal</a> \n
 </div>
 <div style="line-height: 18px; margin-top: 16px;">
   If you have any questions do not hesitate to give me a call.

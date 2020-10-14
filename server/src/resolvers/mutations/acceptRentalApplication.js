@@ -112,6 +112,8 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     throw new Error("You are not one of the owners!");
   }
 
+  // work out the expiry date
+
   // throw new Error("TESTING");
   // create the new lease and await for the PropertyLease entity to return
   const lease = await createPropertyLease(

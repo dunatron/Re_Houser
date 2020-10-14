@@ -23,7 +23,7 @@ const newRentalApplicationEmail = async function({
     subject: `New Applicant: ${applicantId} for RentalApplication`,
     html: makeANiceEmail(
       `A new Applicant has applied against your RentalApplication for Property: ${property.location} \n
-      You can approve them for your application at ${process.env.EMAIL_PREFIX}/tenant/applications/application?id=${id} \n
+      You can approve them for your application at ${process.env.FRONTEND_URL}/tenant/applications/application?id=${id} \n
       The applictaion visibility is currently set to ${visibility} \n
       Good luck with your application
     \n\n`,

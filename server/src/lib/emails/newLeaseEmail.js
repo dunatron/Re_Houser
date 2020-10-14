@@ -1,7 +1,7 @@
 const { transport, makeANiceEmail } = require("../mail");
 
 const _leaseLink = (leaseId, baseLink) =>
-  `<a href="${process.env.EMAIL_PREFIX}/${baseLink}/leases/lease?id=${leaseId}">To the Lease</a>`;
+  `<a href="${process.env.FRONTEND_URL}/${baseLink}/leases/lease?id=${leaseId}">To the Lease</a>`;
 
 const newLeaseLesseeEmail = async function({
   toEmail,
