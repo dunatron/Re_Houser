@@ -10,8 +10,7 @@ const LandLordSingleLeasePage = ({
     <PleaseSignIn
       currentUser={currentUser}
       message="Please Sign in to view: Landord Properties Page">
-      <h2>Landlord Single Lease</h2>
-      <LeaseManager leaseId={id} />;
+      <LeaseManager leaseId={id} />
     </PleaseSignIn>
   );
 };

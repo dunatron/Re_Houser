@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import PROPERTY_LEASE_SUBSCRIPTION from "@/Gql/subscriptions/PropertyLeaseSub"
 
 const aggregateFields = gql`
   fragment aggregateFields on PropertyLeaseConnection {
@@ -35,9 +36,21 @@ const PROPERTY_LEASES_CONNECTION_COUNT = gql`
 `;
 
 const useLeasesCount = (variables) => {
-  const { data, loading, error } = useQuery(PROPERTY_LEASES_CONNECTION_COUNT, {
+  const { data, loading, error, refetch, subscribeToMore } = useQuery(PROPERTY_LEASES_CONNECTION_COUNT, {
     variables,
+    
   });
+
+  subscribeToMore({
+    document: PROPERTY_LEASE_SUBSCRIPTION,
+    // variables: { postID: params.postID },
+    updateQuery: (prev, { subscriptionData }) => {
+      if (!subscriptionData.data) return prev;
+      // toast("WOW") // seems to fire heaps of times...
+      refetch()
+      return prev 
+    }
+  })
   return {
     count: data ? data.propertyLeasesConnection.aggregate.count: undefined,
     data,

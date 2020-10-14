@@ -40,6 +40,7 @@ import ShareIcon from '@material-ui/icons/Share';
 
 //counts 
 import {useLeasesCount, useRentalApplicationCount, useInspectionsCount} from '@/Lib/hooks/counts'
+import moment from 'moment'
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -124,6 +125,8 @@ const PropertyCard = styled.div`
 `;
 
 const PropertyDetails = ({ id, location, me }) => {
+  const [todaysDate, setTodaysDate] = useState(moment().format())
+  const [oneMonthFromNow, setOneMonthFromNow] = useState(moment().add(1, "months").format())
   const [tabIndex, setTabIndex] = useState(0);
 
   const countVariables = {
@@ -133,8 +136,24 @@ const PropertyDetails = ({ id, location, me }) => {
       },
     },
   }
-  const rentalApplicationsCount = useRentalApplicationCount(countVariables)
-  const leasesCount = useLeasesCount(countVariables)
+
+  // INITIALIZING, PENDING, SHORTLISTED, DENIED, ACCEPTED
+  const rentalApplicationsCount = useRentalApplicationCount({
+    where: {
+      ...countVariables.where,
+      stage_in: ["INITIALIZING", "SHORTLISTED", "PENDING"]
+    }
+  })
+  // INITIALIZING, SIGNED, PAID, COMPLETED
+  const leasesCount = useLeasesCount({
+    where: {
+      ...countVariables.where,
+      // OR: [
+      //   {stage_in: ["INITIALIZING", "SIGNED"]},
+      //   {expiryDate_lte: oneMonthFromNow}
+      // ]
+    }
+  })
   const inspectionsCount = useInspectionsCount({
     where: {
       ...countVariables.where,

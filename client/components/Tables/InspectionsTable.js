@@ -1,6 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { store } from '@/Store/index';
 import gql from 'graphql-tag';
+import moment from 'moment'
 import {
   useApolloClient,
   useQuery,
@@ -24,6 +25,9 @@ import { useRouter } from 'next/router';
 
 import CachedIcon from '@material-ui/icons/Cached';
 
+//counts 
+import {useInspectionsCount} from '@/Lib/hooks/counts/useInspectionsCount'
+
 const useStyles = makeStyles(theme => ({
   root: {},
   tableHeader: {
@@ -35,32 +39,6 @@ const useStyles = makeStyles(theme => ({
 }));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
-const INSPECTIONS_COUNT_QUERY = gql`
-  query INSPECTIONS_COUNT_QUERY(
-    $where: InspectionWhereInput
-    $orderBy: InspectionOrderByInput
-    $skip: Int
-    $after: String
-    $before: String
-    $first: Int
-    $last: Int
-  ) {
-    inspectionsConnection(
-      where: $where
-      orderBy: $orderBy
-      skip: $skip
-      after: $after
-      before: $before
-      first: $first
-      last: $last
-    ) {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
-
 const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   const connectionKey = 'inspectionsConnection'; // e.g inspectionsConnection
   const globalStore = useContext(store);
@@ -73,13 +51,23 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   const [tableErr, setTableErr] = useState(null);
   const router = useRouter();
 
+  const totalCount = useInspectionsCount({where: where})
+
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: true },
     { title: 'property', field: 'property.location', editable: true },
     { title: 'date', field: 'date', editable: true },
     {
+      title: 'date',
+      field: 'date',
+      render: rowData => {
+        return moment(rowData.date).format('llll');
+      },
+    },
+    {
       field: 'completed',
       title: 'completed',
+      editable: false,
       render: rowData => {
         return rowData.completed ? 'Yes' : 'No';
       },
@@ -91,20 +79,6 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
     ...where,
   };
 
-  const { data, loading, error, refetch, networkStatus, called } = useQuery(
-    INSPECTIONS_COUNT_QUERY,
-    {
-      notifyOnNetworkStatusChange: true,
-      // pollInterval: 500,
-      variables: {
-        where: {
-          ...where,
-        },
-        orderBy: orderBy,
-      },
-    }
-  );
-
   const [updateInspection, updateInspectionProps] = useMutation(
     UPDATE_INSPECTION_MUTATION,
     {
@@ -112,38 +86,9 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
       onCompleted: data => {},
     }
   );
-
-  const _isCountCalculating = () => {
-    if (loading) return true;
-    if (networkStatus === NetworkStatus.refetch) return true;
-  };
-
-  if (loading && networkStatus === NetworkStatus.loading)
-    return <Loader loading={loading} text="Getting total inspections count" />;
-
-  if (error) return <Error error={error} />;
-
-  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
-
+  
   const remoteData = async query => {
-    let data = {
-      data: [],
-      page: 1,
-      totalCount: 0,
-    };
-
-    const finalCount = await client.query({
-      query: INSPECTIONS_COUNT_QUERY,
-      fetchPolicy: networkOnly ? 'network-only' : 'cache-first',
-      variables: {
-        where: {
-          ...where,
-        },
-        orderBy: orderBy,
-      },
-    });
-
-    await client
+    return client
       .query({
         query: INSPECTIONS_CONNECTION_QUERY,
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
@@ -169,17 +114,11 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
           ...edge.node,
         }));
 
-        data = {
+        return {
           data: formattedData,
           page: query.page,
-          // totalCount: totalItemCount,
-          totalCount: finalCount.data[connectionKey].aggregate.count,
-        };
-        // return {
-        //   data: formattedData,
-        //   page: query.page,
-        //   totalCount: totalItemCount,
-        // };
+          totalCount: totalCount.count,
+        }; 
       })
       .catch(e => {
         setTableErr(e);
@@ -187,15 +126,6 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
       .finally(() => {
         setNetworkOnly(false);
       });
-
-    return new Promise(function(resolve, reject) {
-      (function waitForCount() {
-        if (!_isCountCalculating()) return resolve(data);
-        setTimeout(waitForCount, 30);
-      })();
-    });
-
-    return data;
   };
 
   const manageInspection = (e, rowData) => {
@@ -217,14 +147,6 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
 
   const refetchTable = async () => {
     setNetworkOnly(true);
-    refetch({
-      variables: {
-        where: {
-          ...where,
-        },
-        orderBy: orderBy,
-      },
-    });
     client.cache.modify({
       fields: {
         [connectionKey](existingRef, { readField }) {
@@ -235,6 +157,14 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
     await tableRef.current.onQueryChange();
   };
 
+  useEffect(() => {
+    if(tableRef.current) {
+      refetchTable()
+    }
+  }, [totalCount.count])
+
+  if(totalCount.loading) return "Loading count"
+
   return (
     <div className={classes.root}>
       <div className={classes.tableHeader}>
@@ -244,7 +174,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
       </div>
       <Error error={tableErr} />
       <MaterialTable
-        isLoading={_isCountCalculating()}
+        isLoading={totalCount.loading}
         style={{
           marginBottom: '16px',
         }}
@@ -253,6 +183,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
         data={remoteData}
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
+          filtering: true
         }}
         actions={[
           {

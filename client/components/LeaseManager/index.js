@@ -107,7 +107,7 @@ const LeaseManager = ({ leaseId }) => {
       {stage !== 'PAID' && (
         <>
           <Typography variant="h5" gutterBottom>
-            Lease for {data.myLease.property.location}
+            Draft Lease for {data.myLease.property.location}
           </Typography>
           <Typography variant="h6" gutterBottom>
             stage: {stage}
@@ -115,7 +115,7 @@ const LeaseManager = ({ leaseId }) => {
         </>
       )}
       {componentstage}
-      <LeaseChat leaseId={leaseId} />
+      {/* <LeaseChat leaseId={leaseId} /> */}
     </div>
   );
 };

@@ -37,14 +37,11 @@ const INSPECTIONS_CONNECTION_COUNT = gql`
 `;
 
 const useInspectionsCount = (variables) => {
-
-  console.log("updateQuery BEGIN")
   const { data, loading, error, refetch, subscribeToMore } = useQuery(INSPECTIONS_CONNECTION_COUNT, {
     // pollInterval: 10000,
     variables: {
       ...variables
     }, 
-  
   });
 
   subscribeToMore({
@@ -52,17 +49,9 @@ const useInspectionsCount = (variables) => {
     // variables: { postID: params.postID },
     updateQuery: (prev, { subscriptionData }) => {
       if (!subscriptionData.data) return prev;
-      console.log("updateQuery subscriptionData prev => ", prev )
-      console.log("updateQuery subscriptionData => ", subscriptionData)
-      toast("WOW")
+      // toast("WOW") // seems to fire heaps of times...
       refetch()
       return prev 
-      // const newFeedItem = subscriptionData.data.commentAdded;
-      // return Object.assign({}, prev, {
-      //   post: {
-      //     comments: [newFeedItem, ...prev.post.comments]
-      //   }
-      // });
     }
   })
 

@@ -15,6 +15,21 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     ctx: ctx,
     errorMessage: "You must be logged in to finalise a lease"
   });
+
+  const loggedUserWithData = await ctx.db.query.user({
+    where: {
+      id: reqUserId
+    }
+  }, 
+  `{
+    id
+    permissions
+  }`
+  );
+
+  const isAdmin = loggedUserWithData.permissions.includes("ADMIN")
+
+
   const leaseId = args.leaseId;
   // 1. get the property lease via the id and all of the data we will need
   const lease = await ctx.db.query.propertyLease(
@@ -50,6 +65,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       property {
         id
         location
+        rehouserManaged
       }
       wallet {
         id
@@ -57,6 +73,8 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       }
     }`
   );
+
+  const isRehouserManaged = lease.property.rehouserManaged
 
   // easy accessors
   const lessorUsers = lease.lessors.map(lessor => lessor.user);
@@ -68,13 +86,13 @@ async function finalisePropertyLease(parent, args, ctx, info) {
 
   // must be a lessor to finalise lease
   const isALessor = lessorIds.includes(reqUserId);
-  if (!isALessor) {
+  if (!isALessor && !isAdmin) {
     throw new Error("You must be a lessor to finalise this lease");
   }
 
   // all lessors must have signed the lease(usually just one)
   const allLessorsSigned = !lessorSignatures.includes(false);
-  if (!allLessorsSigned) {
+  if (!allLessorsSigned && !isRehouserManaged) {
     throw new Error("Not all lessors have signed this lease yet");
   }
 
@@ -84,6 +102,7 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet");
   }
 
+  //probably add the loggedInUser as a lessor if it is rehouser managed
   // stage needs to be updated
   const acceptedLease = await ctx.db.mutation.updatePropertyLease(
     {

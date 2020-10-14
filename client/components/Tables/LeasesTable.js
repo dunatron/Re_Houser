@@ -6,11 +6,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
-
-import { RENTAL_APPRAISALS_CONNECTION_QUERY } from '@/Gql/connections';
+import { Button, IconButton } from '@material-ui/core';
+import { PROPERTY_LEASES_CONNECTION_QUERY } from '@/Gql/connections';
 import PropTypes from 'prop-types';
 import { mePropTypes, propertyPropTypes } from '../../propTypes';
 import moment from 'moment';
+import { useRouter } from 'next/router';
+
+
+import CachedIcon from '@material-ui/icons/Cached';
+
+//counts 
+import {useLeasesCount} from '@/Lib/hooks/counts/useLeasesCount'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -23,35 +30,10 @@ const useStyles = makeStyles(theme => ({
 }));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
-const PROPERTY_LEASES_COUNT_QUERY = gql`
-  query APPRAISALS_COUNT_QUERY(
-    $where: RentalAppraisalWhereInput
-    $orderBy: RentalAppraisalOrderByInput
-    $skip: Int
-    $after: String
-    $before: String
-    $first: Int
-    $last: Int
-  ) {
-    rentalAppraisalsConnection(
-      where: $where
-      orderBy: $orderBy
-      skip: $skip
-      after: $after
-      before: $before
-      first: $first
-      last: $last
-    ) {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
 
-const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
+const LeasesTable = ({ where, me, orderBy = 'createdAt_DESC' }) => {
   const connectionKey = 'propertyLeasesConnection'; // e.g inspectionsConnection
-  const connectionQuery = RENTAL_APPRAISALS_CONNECTION_QUERY;
+  const connectionQuery = PROPERTY_LEASES_CONNECTION_QUERY;
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
@@ -60,9 +42,13 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   const [searchText, setSearchText] = useState('');
   const [networkOnly, setNetworkOnly] = useState(false);
   const [tableErr, setTableErr] = useState(null);
+  const router = useRouter();
+
+  const totalCount = useLeasesCount({where: where})
 
   const tableColumnConfig = [
     { title: 'location', field: 'location', editable: false },
+    { title: 'stage', field: 'stage', editable: false },
     {
       title: 'createdAt',
       field: 'createdAt',
@@ -70,32 +56,27 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
         return moment(rowData.createdAt).format('Do MMM YYYY');
       },
     },
+   
+    {
+      title: 'expiryDate',
+      field: 'expiryDate',
+      render: rowData => {
+        return moment(rowData.expiryDate).format('Do MMM YYYY');
+      },
+    },
+    {
+      title: 'wallet',
+      field: 'wallet',
+      render: rowData => {
+        return `${rowData.wallet.amount}`;
+      },
+    },
     { title: 'rent', field: 'rent', editable: false },
-    { title: 'hasBeenUsed', field: 'hasBeenUsed', editable: false },
   ];
 
   const sharedWhere = {
     ...where,
   };
-
-  const { data, loading, error, refetch } = useQuery(
-    PROPERTY_LEASES_COUNT_QUERY,
-    {
-      variables: {
-        where: {
-          ...where,
-        },
-        orderBy: orderBy,
-      },
-    }
-  );
-
-  if (loading)
-    return <Loader loading={loading} text="Getting total leases count" />;
-
-  if (error) return <Error error={error} />;
-
-  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
 
   const remoteData = query => {
     return client
@@ -126,7 +107,7 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
         return {
           data: formattedData,
           page: query.page,
-          totalCount: totalItemCount,
+          totalCount: totalCount.count,
         };
       })
       .catch(e => {
@@ -137,11 +118,45 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
       });
   };
 
+  const manageLease = (e, rowData) => {
+    router.push({
+      pathname: '/landlord/leases/lease',
+      query: {
+        id: rowData.id,
+      },
+    });
+  }
+
+  const refetchTable = async () => {
+    setNetworkOnly(true);
+    client.cache.modify({
+      fields: {
+        [connectionKey](existingRef, { readField }) {
+          return existingRef.edges ? {} : existingRef;
+        },
+      },
+    });
+    await tableRef.current.onQueryChange();
+  };
+
+  useEffect(() => {
+    if(tableRef.current) {
+      refetchTable()
+    }
+  }, [totalCount.count])
+
+  if(totalCount.loading) return "Loading COunt"
+
   return (
     <div className={classes.root}>
-      <div className={classes.tableHeader}></div>
+      <div className={classes.tableHeader}>
+      <IconButton onClick={refetchTable}>
+          <CachedIcon />
+        </IconButton>
+      </div>
       <Error error={tableErr} />
       <MaterialTable
+      isLoading={totalCount.loading}
         style={{
           marginBottom: '16px',
         }}
@@ -155,6 +170,7 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
           {
             icon: 'pageview',
             tooltip: 'View appraisal details',
+            onClick: manageLease,
           },
         ]}
       />

@@ -32,11 +32,14 @@ const SignLease = ({ lease, me, userIsLessor, userIsLessee }) => {
         userIsLessor={userIsLessor}
         userIsLessee={userIsLessee}
       />
-      <Typography variant="h5" gutterBottom>
+      
+      {!lease.property.rehouserManaged && <>
+        <Typography variant="h5" gutterBottom>
         Lessors
       </Typography>
       <SignDetailsBlock items={lessors} me={me} lease={lease} type="LESSOR" />
-
+      </>}
+      
       <Typography variant="h5" gutterBottom>
         Lessees
       </Typography>
@@ -58,44 +61,51 @@ const groupHasSigned = group => {
   return true;
 };
 
-const LeaseDetailsBlock = ({ lease, userIsLessor, userIsLessee }) => {
+const LeaseDetailsBlock = ({ lease, userIsLessor, userIsLessee, me }) => {
   const { id, stage, rent, location, lessors, lessees } = lease;
+  const userIsAdmin = true
   const lessesHaveSigned = groupHasSigned(lessees);
   const lessorsHaveSigned = groupHasSigned(lessors);
 
   const _allSigned = () => {
     if (lessesHaveSigned && lessorsHaveSigned) return true;
+    if (lessesHaveSigned && userIsAdmin) return true;
+    if (lessesHaveSigned && lease.property.rehouserManaged) return true;
     return false;
   };
   const allSigned = _allSigned();
   return (
     <>
+      <Typography gutterBottom>
+         Signed: {allSigned ? "YES" : "NO"}
+      </Typography>
+    {lease.property.rehouserManaged && <>
+        <Typography gutterBottom>This property is managed by rehouser. Once all potential tenants have clicked the sign button rehouser 
+        will then review the draft lease. Upon success the tenants then have to supply a weeks worth or rent to secure 
+        </Typography>
+      </>}
       {allSigned && (
         <Typography gutterBottom>
-          All participants have signed and the lease can now be finalised by a
-          lessor
+          All participants have signed and the lease can now be finalised by a {" "}
+          {lease.property.rehouserManaged ? "Rehouser property agent" : 'Landlord'}
         </Typography>
       )}
       {userIsLessor && !allSigned && (
         <Typography gutterBottom>
-          Everyone has signed the lease. As a lessor you will need to press the
-          finalise lease button
+           Not everyone has signed the lease. As a lessor you will need to finalise the lease once everyone has signed
         </Typography>
       )}
-      {userIsLessee && !allSigned && (
+       {userIsLessee && !allSigned && (
         <Typography gutterBottom>
-          Everyone has signed the lease. You need to wait for the landlord to
-          finalise the lease. Once they have done that you will need to provide
-          1 weeks worth of rent to make evertything official
+          Not everyone has signed the lease
         </Typography>
       )}
-      <>
-        <Typography variant="body1" gutterBottom>
-          All Lessees and Lessors must first sign the lease. Please review the
-          lease details below. If any of the details change before everyone has
-          signed, everyone will need to resign
+       {userIsLessee && !allSigned && (
+        <Typography gutterBottom>
+          Please review the draft lease details and when you are happy you will find a table at the bottom where you will need to sign
         </Typography>
-      </>
+      )}
+
       {stage !== 'SIGNED' && (
         <FinaliseLeaseBtn leaseId={id} stage={stage} disabled={!allSigned} />
       )}

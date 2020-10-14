@@ -134,7 +134,7 @@ type Mutation {
     data: RentalGroupApplicantUpdateInput!
     where: RentalGroupApplicantWhereUniqueInput!
   ): RentalGroupApplicant
-  acceptRentalApplication(applicationId: ID!): PropertyLease
+  acceptRentalApplication(applicationId: ID!): RentalApplication
   declineRentalApplication(applicationId: ID!): SuccessMessage!
   createCreditCard(token: String!): CreditCard!
   createPropertyLease(data: PropertyLeaseCreateInput!): PropertyLease!
