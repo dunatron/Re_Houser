@@ -13,13 +13,18 @@ const indexName = `${indexPrefix}_UserSearch`;
 const searchClient = algoliasearch(applicationId, apiKey);
 const index = searchClient.initIndex(indexName);
 
-const SearchUsers = ({ setHits }) => {
+const SearchUsers = ({ setHits, filters }) => {
   const [searchText, setSearchText] = useState('');
 
-  const handleSearch = () => {
-    index.search(searchText).then(({ hits }) => {
-      setHits(hits);
-    });
+  const handleSearch = e => {
+    e.preventDefault();
+    index
+      .search(searchText, {
+        filters: filters,
+      })
+      .then(({ hits }) => {
+        setHits(hits);
+      });
   };
 
   //   useEffect(() => {
@@ -27,20 +32,23 @@ const SearchUsers = ({ setHits }) => {
   //   }, []);
 
   return (
-    <div
+    <form
+      onSubmit={handleSearch}
       style={{
         width: '100%',
+        display: 'flex',
       }}>
       <InputBase
+        fullWidth={true}
         placeholder="Search Users"
         inputProps={{ 'aria-label': 'search users' }}
         value={searchText}
         onChange={e => setSearchText(e.target.value)}
       />
-      <IconButton onClick={handleSearch} aria-label="search">
+      <IconButton type="submit" onClick={handleSearch} aria-label="search">
         <SearchIcon />
       </IconButton>
-    </div>
+    </form>
   );
 };
 

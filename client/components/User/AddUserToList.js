@@ -58,10 +58,21 @@ const getListStyle = (isDraggingOver, theme) => ({
   background: isDraggingOver ? theme.palette.secondary.main : 'lightgrey',
   color: isDraggingOver ? theme.palette.secondary.contrastText : 'black',
   padding: grid,
-  width: 250,
+  // width: 250,
+  width: '50%',
+  maxHeight: '500px',
+  overflow: 'auto',
 });
 
-const AddUserToList = ({ selected, add, remove, me, loading }) => {
+const AddUserToList = ({
+  selected,
+  add,
+  remove,
+  me,
+  loading,
+  filters,
+  selectedListLabel,
+}) => {
   const theme = useTheme();
   const [seconds, setSeconds] = useState(0);
 
@@ -69,6 +80,14 @@ const AddUserToList = ({ selected, add, remove, me, loading }) => {
     items: [],
     selected: selected,
   });
+
+  const mainDiv = document.documentElement;
+  const setScrollToSmooth = () => {
+    mainDiv.style['scroll-behavior'] = 'smooth';
+  };
+  const setScrollToAuto = () => {
+    mainDiv.style['scroll-behavior'] = 'auto';
+  };
 
   const handleSetHits = hits => {
     // filter out hits that have our selected users durrr
@@ -144,7 +163,12 @@ const AddUserToList = ({ selected, add, remove, me, loading }) => {
   //     }
   //   };
 
+  const onDragStart = () => {
+    setScrollToAuto();
+  };
+
   const onDragEnd = result => {
+    setScrollToSmooth();
     const { source, destination, draggableId } = result;
 
     // dropped outside the list
@@ -176,36 +200,6 @@ const AddUserToList = ({ selected, add, remove, me, loading }) => {
       add(itemFromList);
       return;
     }
-
-    // if (source.droppableId === destination.droppableId) {
-    //   const items = reorder(
-    //     getList(source.droppableId),
-    //     source.index,
-    //     destination.index
-    //   );
-
-    //   alert('Same Place');
-
-    //   //   let state = { items };
-
-    //   //   if (source.droppableId === 'droppable2') {
-    //   //     state = { selected: items };
-    //   //   }
-
-    //   //   setState(state);
-    // } else {
-    //   alert('SO MOVE');
-    //   //   const result = move(
-    //   //     getList(source.droppableId),
-    //   //     getList(destination.droppableId),
-    //   //     source,
-    //   //     destination
-    //   //   );
-    //   //   setState({
-    //   //     items: result.droppable,
-    //   //     selected: result.droppable2,
-    //   //   });
-    // }
   };
 
   useEffect(() => {
@@ -219,21 +213,55 @@ const AddUserToList = ({ selected, add, remove, me, loading }) => {
       style={{
         display: 'flex',
         flexWrap: 'wrap',
+        // maxHeight: '500px',
+        // overflow: 'auto',
       }}>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div
-          style={{
-            width: '100%',
-          }}>
-          <SearchUsers me={me} setHits={handleSetHits} />
-          {loading && <div>Loading...</div>}
-        </div>
+      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+        <Droppable droppableId="droppable2" isDropDisabled={loading}>
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver, theme)}>
+              <Typography gutterBottom>
+                {selectedListLabel ? selectedListLabel : 'Selected List'}{' '}
+              </Typography>
+              {state.selected.map((item, index) => (
+                <Draggable
+                  key={item.id}
+                  draggableId={item.id}
+                  index={index}
+                  isDragDisabled={loading}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style,
+                        theme
+                      )}>
+                      <div>
+                        <Typography variant="body1">
+                          {item.firstName} {item.lastName}
+                        </Typography>
+                        <Typography variant="caption">Agent</Typography>
+                      </div>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
         <Droppable droppableId="droppable" isDropDisabled={loading}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver, theme)}>
               <Typography gutterBottom>User List</Typography>
+              <SearchUsers me={me} setHits={handleSetHits} filters={filters} />
               {state.items.length === 0 && (
                 <Typography gutterBottom>No items. Use the search</Typography>
               )}
@@ -266,42 +294,6 @@ const AddUserToList = ({ selected, add, remove, me, loading }) => {
                             );
                           })}
                         <Button onClick={() => viewItem(item)}>View</Button>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-        <Droppable droppableId="droppable2" isDropDisabled={loading}>
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver, theme)}>
-              <Typography gutterBottom>Selected List</Typography>
-              {state.selected.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={item.id}
-                  index={index}
-                  isDragDisabled={loading}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style,
-                        theme
-                      )}>
-                      <div>
-                        <Typography variant="body1">
-                          {item.firstName} {item.lastName}
-                        </Typography>
-                        <Typography variant="caption">Agent</Typography>
                       </div>
                     </div>
                   )}

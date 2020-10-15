@@ -288,17 +288,19 @@ const Details = props => {
         <Typography>
           Ability for admin to add users as agent?? probably a wizard thing
         </Typography>
-        <AddUserToList
-          selected={property.agents}
-          me={me}
-          add={handleAddAgent}
-          remove={handleRemoveAgent}
-          // loading={updatePropertyPayload.loading}
-        />
         {property.agents.length > 0 &&
           property.agents.map((agent, idx) => {
             return <UserDetails me={me} user={agent} />;
           })}
+        <AddUserToList
+          filters="(permissions:ADMIN OR permissions:WIZARD)"
+          selected={property.agents}
+          me={me}
+          add={handleAddAgent}
+          remove={handleRemoveAgent}
+          selectedListLabel="Properties Agents"
+          // loading={updatePropertyPayload.loading}
+        />
       </RehouserPaper>
       <PropertyImages property={property} updateProperty={updateProperty} />
       <Map
