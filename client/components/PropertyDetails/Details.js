@@ -45,15 +45,18 @@ import {
   LeaseLength,
 } from '@/Components/LeaseManager/LeaseLengthInfo';
 
-import UserDetails from '@/Components/UserDetails'
+import UserDetails from '@/Components/UserDetails';
 
 import FileUploader from '@/Components/FileUploader';
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
+import { PropertyInfoFragment } from '@/Gql/fragments/propertyInfo';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
 import AdminDetails from './AdminDetails';
 import DetailItems from './DetailItems';
 import ImportantDetails from './ImportantDetails';
 import PropertyImages from './Images';
+
+import AddUserToList from '@/Components/User/AddUserToList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -88,13 +91,82 @@ const Details = props => {
         images {
           ...fileInfo
         }
+        ...propertyInfo
       }
     }
+    ${PropertyInfoFragment}
     ${FileInfoFragment}
   `;
   const [updateProperty, updatePropertyPayload] = useMutation(
     PROPERTY_SINGLE_PROPERTY_MUTATION
   );
+
+  const handleAddAgent = result => {
+    console.log('Agent: add => ', result);
+    console.log('Agent: add => ', result.draggableId);
+    //draggableId
+    updateProperty({
+      variables: {
+        id: property.id,
+        data: {
+          agents: {
+            connect: {
+              id: result.id,
+            },
+          },
+        },
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updateProperty: {
+          __typename: 'Property',
+          ...property,
+          agents: [
+            ...property.agents,
+            {
+              ...result,
+              id: result.id,
+              firstName: result.firstName,
+              email: 'heath.dunlop.hd@gmail.com',
+              lastName: 'Dunlop',
+              phone: '+64 212-439-998',
+              profilePhoto: null,
+              rehouserStamp: null,
+              __typename: 'User',
+              //
+            },
+          ],
+        },
+      },
+    });
+  };
+
+  const handleRemoveAgent = result => {
+    updateProperty({
+      variables: {
+        id: property.id,
+        data: {
+          agents: {
+            disconnect: {
+              // id: result.draggableId,
+              id: result.id,
+            },
+          },
+        },
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updateProperty: {
+          __typename: 'Property',
+          ...property,
+          agents: property.agents.filter(a => a.id !== result.id),
+        },
+      },
+    });
+  };
+
+  console.log('property details for property => ', property);
+
   return (
     <div>
       <Typography
@@ -206,12 +278,29 @@ const Details = props => {
       </RehouserPaper>
       <RehouserPaper>
         <Typography>Owners</Typography>
-        {property.owners.length > 0 && property.owners.map((owner, idx) => {
-          return <UserDetails me={me} user={owner} />
-        })}
+        {property.owners.length > 0 &&
+          property.owners.map((owner, idx) => {
+            return <UserDetails me={me} user={owner} />;
+          })}
+      </RehouserPaper>
+      <RehouserPaper>
+        <Typography>Agents</Typography>
+        <Typography>
+          Ability for admin to add users as agent?? probably a wizard thing
+        </Typography>
+        <AddUserToList
+          selected={property.agents}
+          me={me}
+          add={handleAddAgent}
+          remove={handleRemoveAgent}
+          // loading={updatePropertyPayload.loading}
+        />
+        {property.agents.length > 0 &&
+          property.agents.map((agent, idx) => {
+            return <UserDetails me={me} user={agent} />;
+          })}
       </RehouserPaper>
       <PropertyImages property={property} updateProperty={updateProperty} />
-      
       <Map
         center={{
           lat: property.locationLat,

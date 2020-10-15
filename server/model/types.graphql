@@ -18,6 +18,7 @@ type User {
   confirmEmailTokenExpiry: Float
   permissions: [Permission] @scalarList(strategy: RELATION)
   properties: [Property!]! @relation(name: "PropertyOwner")
+  managedProperties: [Property!]! @relation(name: "PropertyAgents")
   lesseeLeases: [Lessee!]! @relation(name: "UserLesseeLeases")
   lessorLeases: [Lessor!]! @relation(name: "UserLessorLeases")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
@@ -253,6 +254,7 @@ type Property implements PropertyInfo {
   leaseLengthInMonths: Int
   onTheMarket: Boolean!
   owners: [User!]! @relation(name: "PropertyOwner")
+  agents: [User!]! @relation(name: "PropertyAgents")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]! @relation(name: "PropertyImages", link: TABLE)
   proofOfOwnership: File @relation(name: "ProofOfOwnership", link: TABLE)

@@ -47,6 +47,9 @@ const PropertyInfoFragment = gql`
     creator {
       ...publicUserInfo
     }
+    agents {
+      ...publicUserInfo
+    }
     images {
       ...fileInfo
     }

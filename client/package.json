@@ -85,6 +85,7 @@
     "react": "^16.13.1",
     "react-adopt": "^0.6.0",
     "react-apollo": "4.0.0-beta.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-card-flip": "^1.0.10",
     "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",

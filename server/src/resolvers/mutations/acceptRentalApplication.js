@@ -4,7 +4,7 @@ const { transport, makeANiceEmail } = require("../../lib/mail");
 const createPropertyLease = require("./createPropertyLease");
 const {
   newLeaseLesseeEmail,
-  newLeaseLessorEmail,
+  newLeaseLessorEmail
 } = require("../../lib/emails/newLeaseEmail");
 
 /**
@@ -18,31 +18,32 @@ const {
  */
 async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const loggedInUser = ctx.request.userId;
+  let isRehouserManaged = false;
   // need to be logged in
   if (!loggedInUser) {
     throw new Error("You must be logged in!");
   }
 
-
-  const loggedUserWithData = await ctx.db.query.user({
-    where: {
-      id: loggedInUser
-    }
-  }, 
-  `{
+  const loggedUserWithData = await ctx.db.query.user(
+    {
+      where: {
+        id: loggedInUser
+      }
+    },
+    `{
     id
     permissions
   }`
   );
 
-  const isAdmin = loggedUserWithData.permissions.includes("ADMIN")
+  const isAdmin = loggedUserWithData.permissions.includes("ADMIN");
 
   // get application
   const application = await ctx.db.query.rentalApplication(
     {
       where: {
-        id: applicationId,
-      },
+        id: applicationId
+      }
     },
     `{
       owner {
@@ -86,16 +87,23 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         owners {
           id
           email
-        } 
+        }
+        agents {
+          id
+          email
+        }
         landlordProtectionCover
         freeGlassCover
         workingAlarms
         inHallway3mOfEachBedroom
         tenYearPhotoelectricAlarms
         alarmsEachLevel
+        rehouserManaged
       }
     }`
   );
+
+  isRehouserManaged = application.property.rehouserManaged;
 
   if (application.leaseId)
     throw new Error(
@@ -104,13 +112,21 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   const { applicants, property } = application;
   const { owners } = property;
-  const ownerIds = property.owners.map((owner) => owner.id);
-  const lesseeUsers = applicants.map((applicant) => applicant.user);
+  const ownerIds = property.owners.map(owner => owner.id);
+  const lesseeUsers = applicants.map(applicant => applicant.user);
 
   // check that loggedInUser is one of the owners for the property
   if (!ownerIds.includes(loggedInUser) && !isAdmin) {
     throw new Error("You are not one of the owners!");
   }
+
+  if (isRehouserManaged && !isAdmin) {
+    throw new Error(
+      "This property is managed by rehouser and therefore only rehouser admins can accept rental applications"
+    );
+  }
+
+  // const lessorsConnection =
 
   // work out the expiry date
 
@@ -123,24 +139,24 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         stage: "INITIALIZING",
         property: {
           connect: {
-            id: property.id,
-          },
+            id: property.id
+          }
         },
         placeId: property.placeId,
         location: property.location,
         locationLat: property.locationLat,
         locationLng: property.locationLng,
         lessors: {
-          create: owners.map((owner) => ({
+          create: owners.map(owner => ({
             signed: false,
-            user: { connect: { id: owner.id } },
-          })),
+            user: { connect: { id: owner.id } }
+          }))
         },
         lessees: {
-          create: lesseeUsers.map((user) => ({
+          create: lesseeUsers.map(user => ({
             signed: false,
-            user: { connect: { id: user.id } },
-          })),
+            user: { connect: { id: user.id } }
+          }))
         },
         rent: property.rent,
         bondType: property.bondType,
@@ -152,28 +168,28 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         carportSpaces: property.carportSpaces,
         offStreetSpaces: property.offStreetSpaces,
         indoorFeatures: {
-          set: property.indoorFeatures,
+          set: property.indoorFeatures
         },
         outdoorFeatures: {
-          set: property.outdoorFeatures,
+          set: property.outdoorFeatures
         },
         moveInDate: property.moveInDate,
         expiryDate: property.expiryDate,
         leaseLengthInMonths: 12, // ToDo initially should maybe have a server function. let FE calc
         petsAllowed: property.petsAllowed,
         pets: {
-          set: property.pets,
+          set: property.pets
         },
         chattels: {
-          set: property.chattels,
+          set: property.chattels
         },
         workingAlarms: property.workingAlarms,
         inHallway3mOfEachBedroom: property.inHallway3mOfEachBedroom,
         tenYearPhotoelectricAlarms: property.tenYearPhotoelectricAlarms,
         alarmsEachLevel: property.alarmsEachLevel,
         landlordProtectionCover: property.landlordProtectionCover,
-        freeGlassCover: property.freeGlassCover,
-      },
+        freeGlassCover: property.freeGlassCover
+      }
     },
     ctx,
     info
@@ -181,15 +197,15 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   // set the stage to complete by making a mutation
   // also connect the loose prop of leaseId so we can direct people to the lease to sign
-  const updatedRentalApplication = await  ctx.db.mutation.updateRentalApplication(
+  const updatedRentalApplication = await ctx.db.mutation.updateRentalApplication(
     {
       where: {
-        id: applicationId,
+        id: applicationId
       },
       data: {
         stage: "ACCEPTED",
-        leaseId: lease.id,
-      },
+        leaseId: lease.id
+      }
     },
     info
   );
@@ -203,7 +219,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
     newLeaseLessorEmail({ ctx: ctx, toEmail: user.email, lease: lease });
   });
 
-  return updatedRentalApplication
+  return updatedRentalApplication;
 
   return lease;
 }
