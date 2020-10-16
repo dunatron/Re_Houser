@@ -169,7 +169,14 @@ const PropertyDetails = ({ id, location, me }) => {
   if (loading)
     return <Loader loading={loading} text={`Loading ${location} details`} />;
   if (error) return 'error';
-  const property = data.ownerProperty;
+
+  if (!data) {
+    toast('No DATA');
+    return 'No DATA returned for property';
+  }
+
+   const property = data.ownerProperty;
+ 
 
   if (!property) {
     toast('No Property passed in to component');

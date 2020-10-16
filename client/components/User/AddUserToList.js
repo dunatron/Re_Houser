@@ -7,35 +7,6 @@ import { Typography, Button, IconButton } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
 
-// icons
-import VisibilityIcon from '@material-ui/icons/Visibility';
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
-/**
- * Moves an item from one list to another list.
- */
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
-  return result;
-};
-
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle, theme) => ({
@@ -43,9 +14,6 @@ const getItemStyle = (isDragging, draggableStyle, theme) => ({
   userSelect: 'none',
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  //   background: isDragging ? 'lightgreen' : 'grey',
   background: isDragging ? theme.palette.primary.main : 'grey',
   color: isDragging ? theme.palette.primary.contrastText : 'black',
   // styles we need to apply on draggables
@@ -53,12 +21,9 @@ const getItemStyle = (isDragging, draggableStyle, theme) => ({
 });
 
 const getListStyle = (isDraggingOver, theme) => ({
-  //   background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  //   background: isDraggingOver ? theme.palette.primary.main : 'lightgrey',
   background: isDraggingOver ? theme.palette.secondary.main : 'lightgrey',
   color: isDraggingOver ? theme.palette.secondary.contrastText : 'black',
   padding: grid,
-  // width: 250,
   width: '50%',
   maxHeight: '500px',
   overflow: 'auto',
@@ -117,55 +82,6 @@ const AddUserToList = ({
     alert('ToDo: view user item');
   };
 
-  /**
-   * A semi-generic way to handle multiple lists. Matches
-   * the IDs of the droppable container to the names of the
-   * source arrays stored in the state.
-   */
-  const id2List = {
-    droppable: 'items',
-    droppable2: 'selected',
-  };
-
-  const getList = id => state[id2List[id]];
-
-  //   const onDragEnd = result => {
-  //     const { source, destination } = result;
-
-  //     // dropped outside the list
-  //     if (!destination) {
-  //       return;
-  //     }
-
-  //     if (source.droppableId === destination.droppableId) {
-  //       const items = reorder(
-  //         getList(source.droppableId),
-  //         source.index,
-  //         destination.index
-  //       );
-
-  //       //   let state = { items };
-
-  //       //   if (source.droppableId === 'droppable2') {
-  //       //     state = { selected: items };
-  //       //   }
-
-  //       //   setState(state);
-  //     } else {
-  //       const result = move(
-  //         getList(source.droppableId),
-  //         getList(destination.droppableId),
-  //         source,
-  //         destination
-  //       );
-
-  //       setState({
-  //         items: result.droppable,
-  //         selected: result.droppable2,
-  //       });
-  //     }
-  //   };
-
   const onDragStart = () => {
     setScrollToAuto();
   };
@@ -188,6 +104,14 @@ const AddUserToList = ({
         slcted => slcted.id === draggableId
       );
       remove(itemFromSelected);
+      // assume this item will be reomved and add to top of items list?
+      setState({
+        ...state, 
+        items: [
+          itemFromSelected,
+          ...state.items
+        ]
+      })
       // remove(result);
       return;
     }
@@ -207,7 +131,7 @@ const AddUserToList = ({
 
   useEffect(() => {
     handleSetSelected();
-  }, [selected.length]);
+  }, [selected]); // watch for objects in the list changed incase optimistic response gets it wrong
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
@@ -216,8 +140,6 @@ const AddUserToList = ({
       style={{
         display: 'flex',
         flexWrap: 'wrap',
-        // maxHeight: '500px',
-        // overflow: 'auto',
       }}>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Droppable droppableId={droppableId2} isDropDisabled={loading}>

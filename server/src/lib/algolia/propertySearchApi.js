@@ -10,7 +10,7 @@ const client = algoliasearch(
   }
 );
 
-const index = client.initIndex(`${process.env.STAGE}_PropertySearch`);
+const index = client.initIndex(`${process.env.SEARCH_STAGE}_PropertySearch`);
 
 const addPropertySearchNode = async function({ propertyId, db }) {
   console.log("ADDING PROPERTY SEARCH NODE");

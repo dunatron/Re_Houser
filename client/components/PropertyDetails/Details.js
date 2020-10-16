@@ -169,9 +169,15 @@ const Details = props => {
           __typename: 'Property',
           ...property,
           agents: [
-            ...property.agents,
+            ...property.agents,// there may not be agents already?
             {
-              ...result,
+              email: result.email ? result.email : '',
+              firstName: result.firstName ? `Adding agent ${result.firstName}` : 'Adding Agent',
+              id: result.id ? result.id : '',
+              lastName: result.lastName ? result.lastName : '',
+              phone: result.phone ? result.phone : '',
+              profilePhoto: result.profilePhoto ? result.profilePhoto : '',
+              rehouserStamp: result.rehouserStamp ? result.rehouserStamp : '',
               __typename: 'User',
             },
           ],

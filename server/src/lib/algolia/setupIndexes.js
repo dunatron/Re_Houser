@@ -14,7 +14,7 @@ const client = algoliasearch(
 
 const setupIndexes = async () => {
   for (i of ALL_INDEXES) {
-    const index = client.initIndex(`${process.env.STAGE}_${i.name}`);
+    const index = client.initIndex(`${process.env.SEARCH_STAGE}_${i.name}`);
     await index.setSettings(i.attributes);
   }
 };

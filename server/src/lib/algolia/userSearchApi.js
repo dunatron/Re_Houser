@@ -10,7 +10,7 @@ const client = algoliasearch(
   }
 );
 
-const index = client.initIndex(`${process.env.STAGE}_UserSearch`);
+const index = client.initIndex(`${process.env.SEARCH_STAGE}_UserSearch`);
 
 const addUserSearchNode = async function({ userId, db }) {
   const user = await db.query.user(

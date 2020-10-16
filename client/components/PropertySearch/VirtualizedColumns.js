@@ -166,7 +166,7 @@ const ColumnSizerExample = props => {
                       ref={registerChild}
                       columnWidth={colWidth}
                       columnCount={columnCount}
-                      height={colHeight + 16} // I think its the scrollX which blows it out
+                      height={colHeight + 20} // I think its the scrollX which blows it out
                       noContentRenderer={_noContentRenderer}
                       cellRenderer={_cellRenderer}
                       rowHeight={colHeight}
