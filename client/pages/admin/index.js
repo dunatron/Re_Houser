@@ -98,7 +98,7 @@ const AdminDashboardPage = ({ appData: { currentUser } }) => {
         }}
       />
       <AdminOnly me={me}>
-        <Dashboard config={ADMIN_DASHBOARD_CONFIG} />
+        <Dashboard config={ADMIN_DASHBOARD_CONFIG} elevation={20} />
         <FriendManager />
       </AdminOnly>
     </div>

@@ -156,8 +156,13 @@ const AdminRentalApplicationsTable = ({
         // fetchPolicy: 'network-only', // simply for subscriptions...
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
-          //   orderBy: 'created_ASC',
           where: {
+            OR: [
+{id_contains: searchText,},
+{        property: {
+  location_contains: searchText
+},}
+            ],
             ...where,
             ...sharedWhere,
             // OR: [

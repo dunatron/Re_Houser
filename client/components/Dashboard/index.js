@@ -29,7 +29,7 @@ const Dashboard = ({ heading, intro, config, elevation, me }) => {
         {config.map((dashboardItem, i) => (
           <Reveal key={i} repeat>
             <Tween from={{ opacity: 0 }} duration={2}>
-              <BoardItemStyles key={i} elevation={8}>
+              <BoardItemStyles key={i} elevation={1}>
                 <NavButton
                   className="item-btn"
                   color={dashboardItem.color}

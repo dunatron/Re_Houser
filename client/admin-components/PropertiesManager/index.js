@@ -189,6 +189,7 @@ const AdminRentalApplicationsTable = ({
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
           where: {
+            location_contains: searchText,
             ...where,
             ...sharedWhere,
           },
