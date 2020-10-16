@@ -65,6 +65,7 @@ const getListStyle = (isDraggingOver, theme) => ({
 });
 
 const AddUserToList = ({
+  id,
   selected,
   add,
   remove,
@@ -73,6 +74,8 @@ const AddUserToList = ({
   filters,
   selectedListLabel,
 }) => {
+  const droppableId1 = `${id}-droppable`;
+  const droppableId2 = `${id}-droppable2`;
   const theme = useTheme();
   const [seconds, setSeconds] = useState(0);
 
@@ -178,8 +181,8 @@ const AddUserToList = ({
 
     // from selected to items
     if (
-      destination.droppableId === 'droppable' &&
-      source.droppableId === 'droppable2'
+      destination.droppableId === droppableId1 &&
+      source.droppableId === droppableId2
     ) {
       const itemFromSelected = state.selected.find(
         slcted => slcted.id === draggableId
@@ -191,8 +194,8 @@ const AddUserToList = ({
 
     // from items to selected
     if (
-      destination.droppableId === 'droppable2' &&
-      source.droppableId === 'droppable'
+      destination.droppableId === droppableId2 &&
+      source.droppableId === droppableId1
     ) {
       const itemFromList = state.items.find(
         slcted => slcted.id === draggableId
@@ -217,7 +220,7 @@ const AddUserToList = ({
         // overflow: 'auto',
       }}>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
-        <Droppable droppableId="droppable2" isDropDisabled={loading}>
+        <Droppable droppableId={droppableId2} isDropDisabled={loading}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
@@ -255,7 +258,7 @@ const AddUserToList = ({
             </div>
           )}
         </Droppable>
-        <Droppable droppableId="droppable" isDropDisabled={loading}>
+        <Droppable droppableId={droppableId1} isDropDisabled={loading}>
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}

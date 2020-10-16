@@ -10,18 +10,21 @@ import {
 import PropertyResultHit from './PropertyResultHit';
 
 //material
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
 // icons
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import useCurrentWidth from '@/Lib/hooks/useCurrentWidth';
 
-const Controls = ({ moveLeft, moveRight }) => {
+const Controls = ({ currPos, count, moveLeft, moveRight }) => {
   return (
     <div>
       <Button onClick={moveLeft}>
         <ArrowBackIosIcon />
       </Button>
+      {currPos + 1} / {count}
       <Button onClick={moveRight}>
         <ArrowForwardIosIcon />
       </Button>
@@ -30,12 +33,12 @@ const Controls = ({ moveLeft, moveRight }) => {
 };
 
 const ColumnSizerExample = props => {
-  const columnHeight = 335;
-  const columnWidth = 830;
+  const [colHeight, setColHeight] = useState(335);
+  const [colWidth, setColWidth] = useState(830);
 
   const [state, setState] = useState({
-    columnMaxWidth: columnWidth,
-    columnMinWidth: columnWidth,
+    columnMaxWidth: colWidth,
+    columnMinWidth: colWidth,
     columnCount: props.columnCount,
     mode: 'edges',
     isClickable: true,
@@ -43,10 +46,35 @@ const ColumnSizerExample = props => {
     scrollToRow: 0,
   });
 
+  const windowWidth = useCurrentWidth();
+  const theme = useTheme();
+
+  const setMobile = () => {
+    setColHeight(672);
+    setColWidth(windowWidth - windowWidth * 0.15);
+  };
+
+  const setTablet = () => {
+    setColHeight(436);
+    setColWidth(500);
+  };
+
+  const setDesktop = () => {
+    setColHeight(436);
+    setColWidth(500);
+  };
+
+  useEffect(() => {
+    if (windowWidth < 600) setMobile(); // mobile
+    if (windowWidth >= 600 && windowWidth < 920) setTablet(); // tablet
+    if (windowWidth >= 920) setDesktop(); // desktop
+  }, [windowWidth]);
+
   useEffect(() => {
     setState({
       ...state,
       columnCount: props.columnCount,
+      scrollToColumn: 0,
     });
     return () => {};
   }, [props.columnCount]);
@@ -60,7 +88,16 @@ const ColumnSizerExample = props => {
     // const className = columnIndex === 0 ? styles.firstCell : styles.cell;
     const cellHit = props.hits[columnIndex];
     return (
-      <div key={key} style={style}>
+      <div
+        key={key}
+        style={{
+          ...style,
+          padding: theme.spacing(1),
+          backgroundColor:
+            columnIndex === state.scrollToColumn
+              ? theme.palette.primary.dark
+              : theme.palette.secondary.main,
+        }}>
         <div>{cellHit && <PropertyResultHit hit={cellHit} />}</div>
       </div>
     );
@@ -102,7 +139,12 @@ const ColumnSizerExample = props => {
       scrollToRow={scrollToRow}>
       {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
         <div>
-          <Controls moveLeft={handleMoveLeft} moveRight={handleMoveRight} />
+          <Controls
+            moveLeft={handleMoveLeft}
+            moveRight={handleMoveRight}
+            currPos={state.scrollToColumn}
+            count={state.columnCount}
+          />
           <AutoSizer disableHeight>
             {({ width }) => (
               <ColumnSizer
@@ -114,17 +156,20 @@ const ColumnSizerExample = props => {
                 {({ adjustedWidth, columnWidth, registerChild }) => (
                   <div
                     style={{
-                      height: columnHeight,
+                      height: colHeight,
                       width: adjustedWidth,
                     }}>
                     <Grid
+                      // style={{
+                      //   overflowY: 'hidden',
+                      // }}
                       ref={registerChild}
-                      columnWidth={columnWidth}
+                      columnWidth={colWidth}
                       columnCount={columnCount}
-                      height={columnHeight}
+                      height={colHeight + 16} // I think its the scrollX which blows it out
                       noContentRenderer={_noContentRenderer}
                       cellRenderer={_cellRenderer}
-                      rowHeight={columnHeight}
+                      rowHeight={colHeight}
                       rowCount={1}
                       width={adjustedWidth}
                       scrollToColumn={scrollToColumn}

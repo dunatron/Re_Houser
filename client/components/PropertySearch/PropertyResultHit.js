@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
       flexWrap: 'wrap',
     },
     [theme.breakpoints.up(720)]: {
-      flexWrap: 'noWrap',
+      flexWrap: 'wrap',
     },
   },
   imageContainer: {
@@ -66,13 +66,20 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       height: 'auto',
-      width: '220px',
-      minWidth: '220px',
+      // width: '220px',
+      // minWidth: '220px',
     },
     [theme.breakpoints.up('md')]: {
       height: 'auto',
-      width: '350px',
-      minWidth: '350px',
+      // width: '350px',
+      // minWidth: '350px',
+    },
+  },
+  rightPanel: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'nowrap',
     },
   },
   detailsContainer: {
@@ -157,44 +164,52 @@ const PropertyResultHit = ({ hit, me }) => {
           />
         )}
       </div>
-      {/* Details Container */}
-      <RehouserPaper className={classes.detailsContainer} elevation={0}>
-        <Typography variant="h6" color="textPrimary" gutterBottom>
-          {hit.location}
-        </Typography>
-        <Typography variant="h6" color="primary" gutterBottom>
-          ${hit.rent}{' '}
-          <Typography component="span" color="textSecondary">
-            with an average of
-          </Typography>{' '}
-          ${hit.rent / hit.rooms}
-        </Typography>
-        <Typography gutterBottom color="textSecondary">
-          {hit.type}
-        </Typography>
-        <div className={classes.detailItems}>
-          {DetailItemsArr.map((conf, i) => {
-            return <DetailItem key={i} hit={hit} conf={conf} />;
-          })}
-        </div>
-      </RehouserPaper>
-      {/* Actions Container */}
-      <RehouserPaper className={classes.actionsContainer} elevation={0}>
-        <ButtonGroup
-          orientation="vertical"
-          color="primary"
-          size="small"
-          variant="text"
-          aria-label="property actions">
-          <Button onClick={() => setModalIdx('Details')}>More details</Button>
-          <Button onClick={() => setModalIdx('Share')}>Share to social</Button>
-          <Button onClick={() => setModalIdx('Viewings')}>Viewings</Button>
-          <Button onClick={() => setModalIdx('Map')}>Show Map</Button>
-          <Button onClick={() => setModalIdx('Applications')}>
-            Applications
-          </Button>
-        </ButtonGroup>
-      </RehouserPaper>
+      <div
+        className={classes.rightPanel}
+        style={{
+          display: 'flex',
+        }}>
+        {/* Details Container */}
+        <RehouserPaper className={classes.detailsContainer} elevation={0}>
+          <Typography variant="h6" color="textPrimary" gutterBottom>
+            {hit.location}
+          </Typography>
+          <Typography variant="h6" color="primary" gutterBottom>
+            ${hit.rent}{' '}
+            <Typography component="span" color="textSecondary">
+              with an average of
+            </Typography>{' '}
+            ${hit.rent / hit.rooms}
+          </Typography>
+          <Typography gutterBottom color="textSecondary">
+            {hit.type}
+          </Typography>
+          <div className={classes.detailItems}>
+            {DetailItemsArr.map((conf, i) => {
+              return <DetailItem key={i} hit={hit} conf={conf} />;
+            })}
+          </div>
+        </RehouserPaper>
+        {/* Actions Container */}
+        <RehouserPaper className={classes.actionsContainer} elevation={0}>
+          <ButtonGroup
+            orientation="vertical"
+            color="primary"
+            size="small"
+            variant="text"
+            aria-label="property actions">
+            <Button onClick={() => setModalIdx('Details')}>More details</Button>
+            <Button onClick={() => setModalIdx('Share')}>
+              Share to social
+            </Button>
+            <Button onClick={() => setModalIdx('Viewings')}>Viewings</Button>
+            <Button onClick={() => setModalIdx('Map')}>Show Map</Button>
+            <Button onClick={() => setModalIdx('Applications')}>
+              Applications
+            </Button>
+          </ButtonGroup>
+        </RehouserPaper>
+      </div>
       <Modal
         disableBackdrop={true}
         open={modalIdx ? true : false}

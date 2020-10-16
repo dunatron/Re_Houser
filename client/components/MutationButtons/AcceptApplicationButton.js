@@ -89,7 +89,7 @@ const AcceptApplicationButton = ({ application }) => {
   });
   return (
     <>
-      <ErrorSupplier errors={[error]} tronM="Acccepting applicatiion failed" />
+      <ErrorSupplier errors={[error]} tronM="Acccepting application failed" />
       {/* <Example /> */}
       <Button
         className={buttonClassname}

@@ -130,7 +130,6 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   // work out the expiry date
 
-  // throw new Error("TESTING");
   // create the new lease and await for the PropertyLease entity to return
   const lease = await createPropertyLease(
     parent,
@@ -191,8 +190,7 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         freeGlassCover: property.freeGlassCover
       }
     },
-    ctx,
-    info
+    ctx
   );
 
   // set the stage to complete by making a mutation

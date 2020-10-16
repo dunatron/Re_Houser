@@ -27,10 +27,6 @@ const SearchUsers = ({ setHits, filters }) => {
       });
   };
 
-  //   useEffect(() => {
-  //     handleSearch();
-  //   }, []);
-
   return (
     <form
       onSubmit={handleSearch}

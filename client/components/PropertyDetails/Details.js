@@ -101,10 +101,57 @@ const Details = props => {
     PROPERTY_SINGLE_PROPERTY_MUTATION
   );
 
-  const handleAddAgent = result => {
-    console.log('Agent: add => ', result);
-    console.log('Agent: add => ', result.draggableId);
-    //draggableId
+  const handleAddOwner = result =>
+    updateProperty({
+      variables: {
+        id: property.id,
+        data: {
+          owners: {
+            connect: {
+              id: result.id,
+            },
+          },
+        },
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updateProperty: {
+          __typename: 'Property',
+          ...property,
+          owners: [
+            ...property.owners,
+            {
+              ...result,
+              __typename: 'User',
+            },
+          ],
+        },
+      },
+    });
+
+  const handleRemoveOwner = result =>
+    updateProperty({
+      variables: {
+        id: property.id,
+        data: {
+          owners: {
+            disconnect: {
+              id: result.id,
+            },
+          },
+        },
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updateProperty: {
+          __typename: 'Property',
+          ...property,
+          owners: property.owners.filter(a => a.id !== result.id),
+        },
+      },
+    });
+
+  const handleAddAgent = result =>
     updateProperty({
       variables: {
         id: property.id,
@@ -125,30 +172,20 @@ const Details = props => {
             ...property.agents,
             {
               ...result,
-              id: result.id,
-              firstName: result.firstName,
-              email: 'heath.dunlop.hd@gmail.com',
-              lastName: 'Dunlop',
-              phone: '+64 212-439-998',
-              profilePhoto: null,
-              rehouserStamp: null,
               __typename: 'User',
-              //
             },
           ],
         },
       },
     });
-  };
 
-  const handleRemoveAgent = result => {
+  const handleRemoveAgent = result =>
     updateProperty({
       variables: {
         id: property.id,
         data: {
           agents: {
             disconnect: {
-              // id: result.draggableId,
               id: result.id,
             },
           },
@@ -163,15 +200,11 @@ const Details = props => {
         },
       },
     });
-  };
-
-  console.log('property details for property => ', property);
 
   return (
     <div>
       <Typography
         variant="h5"
-        // color="primary"
         gutterBottom={true}
         className={classes.variablesHeader}>
         Manage
@@ -277,11 +310,24 @@ const Details = props => {
         />
       </RehouserPaper>
       <RehouserPaper>
+        <Typography>Property creator</Typography>
+        <UserDetails me={me} user={property.creator} />
+      </RehouserPaper>
+      <RehouserPaper>
         <Typography>Owners</Typography>
         {property.owners.length > 0 &&
           property.owners.map((owner, idx) => {
             return <UserDetails me={me} user={owner} />;
           })}
+        <AddUserToList
+          id="properties-owners"
+          filters=""
+          selected={property.owners}
+          me={me}
+          add={handleAddOwner}
+          remove={handleRemoveOwner}
+          selectedListLabel="Properties Owners"
+        />
       </RehouserPaper>
       <RehouserPaper>
         <Typography>Agents</Typography>
@@ -293,13 +339,13 @@ const Details = props => {
             return <UserDetails me={me} user={agent} />;
           })}
         <AddUserToList
+          id="properties-agents"
           filters="(permissions:ADMIN OR permissions:WIZARD)"
           selected={property.agents}
           me={me}
           add={handleAddAgent}
           remove={handleRemoveAgent}
           selectedListLabel="Properties Agents"
-          // loading={updatePropertyPayload.loading}
         />
       </RehouserPaper>
       <PropertyImages property={property} updateProperty={updateProperty} />

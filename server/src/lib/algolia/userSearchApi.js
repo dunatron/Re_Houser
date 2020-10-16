@@ -26,6 +26,7 @@ const addUserSearchNode = async function({ userId, db }) {
   const userObject = {
     objectID: user.id,
     id: user.id,
+    email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
     profilePhoto: user.profilePhoto ? { url: user.profilePhoto.url } : null,
