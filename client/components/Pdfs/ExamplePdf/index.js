@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   PDFViewer,
@@ -46,8 +46,8 @@ const ExamplePdf = ({ me, lease }) => {
 };
 
 ExamplePdf.propTypes = {
-  lease: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
-}
+  lease: PropTypes.any,
+  me: PropTypes.any,
+};
 
 export default ExamplePdf;

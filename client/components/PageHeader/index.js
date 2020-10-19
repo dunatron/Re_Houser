@@ -23,7 +23,7 @@ const PageHeader = ({
       {titleOverride && titleOverride}
       {title && (
         <Typography
-          display="none"
+          display="block" // initial, block, inline
           hidden={hidden}
           variant={titleVariant ? titleVariant : 'h1'}
           // color="primary"
@@ -44,17 +44,17 @@ const PageHeader = ({
 };
 
 PageHeader.propTypes = {
-  children: PropTypes.any.isRequired,
-  id: PropTypes.any.isRequired,
+  children: PropTypes.any,
+  id: PropTypes.any,
   hidden: PropTypes.bool,
-  intro: PropTypes.any.isRequired,
+  intro: PropTypes.any,
   metaData: PropTypes.shape({
     content: PropTypes.any,
     title: PropTypes.any,
   }).isRequired,
   title: PropTypes.any.isRequired,
-  titleOverride: PropTypes.any.isRequired,
-  titleVariant: PropTypes.any.isRequired,
+  titleOverride: PropTypes.any,
+  titleVariant: PropTypes.any,
 };
 
 export default PageHeader;

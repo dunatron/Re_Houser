@@ -22,7 +22,7 @@ import Section2 from './Section2'; // objective
 import Section3 from './Section3'; // policy
 import Section4 from './Section4'; // risks
 
-const ExamplePdf = ({ me, lease }) => {
+const SecurityStatementPdf = ({ me, lease }) => {
   const [loading, setLoading] = useState(true);
   return (
     <>
@@ -66,9 +66,9 @@ const SecurityStatementDocument = ({ onRender }) => {
   );
 };
 
-ExamplePdf.propTypes = {
-  lease: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+SecurityStatementPdf.propTypes = {
+  lease: PropTypes.any,
+  me: PropTypes.any,
 };
 
-export default ExamplePdf;
+export default SecurityStatementPdf;

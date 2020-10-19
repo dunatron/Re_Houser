@@ -11,27 +11,36 @@ import {
 } from '@react-pdf/renderer';
 //https://github.com/diegomura/react-pdf/blob/master/examples/pageWrap/index.js
 
-Font.register({
-  family: 'GustanLight',
-  //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-  src: `${__dirname}../../static/fonts/Gustan-Light.woff`,
-});
-Font.register({
-  family: 'GustanMedium',
-  //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-  src: `${__dirname}../../static/fonts/Gustan-Medium.woff`,
-});
+// Font.register({
+//   family: 'GustanLight',
+//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
+//   src: `${__dirname}../../static/fonts/Gustan-Light.woff`,
+// });
+// Font.register({
+//   family: 'GustanMedium',
+//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
+//   src: `${__dirname}../../static/fonts/Gustan-Medium.woff`,
+// });
+
+// Font.register({
+//   family: 'GustanBold',
+//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
+//   src: `${__dirname}../../static/fonts/Gustan-Bold.woff`,
+// });
+
+// Font.register({
+//   family: 'GustanExtraBlack',
+//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
+//   src: `${__dirname}../../static/fonts/Gustan-Extrablack.woff`,
+// });
 
 Font.register({
-  family: 'GustanBold',
-  //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-  src: `${__dirname}../../static/fonts/Gustan-Bold.woff`,
+  family: 'AzoSansRegular',
+  src: `${__dirname}../../static/fonts/azo-sans/AzoSans-Regular.woff`,
 });
-
 Font.register({
-  family: 'GustanExtraBlack',
-  //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-  src: `${__dirname}../../static/fonts/Gustan-Extrablack.woff`,
+  family: 'AzoSansBold',
+  src: `${__dirname}../../static/fonts/azo-sans/AzoSans-Bold.woff`,
 });
 
 const styles = StyleSheet.create({
@@ -39,24 +48,22 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
+    fontFamily: 'AzoSansRegular',
+    color: 'grey',
+    paddingTop: 35,
+    paddingBottom: 65,
+    paddingHorizontal: 16,
   },
   section: {
     display: 'flex',
-    margin: 10,
-    marginBottom: 0,
-    padding: 10,
-    paddingBottom: 0,
-
-    // flexGrow: 1,
+    marginBottom: 10,
     flexWrap: 'wrap',
-    // border: '2pt solid grey',
   },
   row: {
     display: 'flex',
     flexBasis: '100%',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    // border: '1pt solid grey',
     borderColor: 'red',
   },
   ul: {
@@ -64,35 +71,64 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
+
+  li_wrapper: {
+    position: 'relative',
+  },
+
+  li_bullet: {
+    position: 'absolute',
+    top: '6pt',
+    height: '6pt',
+    width: '6pt',
+    borderRadius: '6pt',
+    backgroundColor: 'grey',
+  },
+  li_number: {
+    position: 'absolute',
+    fontSize: '13pt',
+    fontFamily: 'AzoSansBold',
+  },
+  li_title: {
+    fontFamily: 'AzoSansBold',
+    fontSize: '13pt',
+    fontWeight: 900,
+    paddingLeft: '16pt',
+    marginLeft: '8pt',
+  },
+  li: {
+    position: 'relative',
+    paddingLeft: '16pt',
+    marginLeft: '8pt',
+  },
   column: {
     display: 'flex',
     flexBasis: '100%',
     flexWrap: 'wrap',
     flexDirection: 'column',
-    // border: '1pt solid grey',
   },
   center: {
     textAlign: 'center',
   },
   h1: {
     fontSize: '18pt',
-    fontFamily: 'GustanExtraBlack',
-    marginBottom: '4pt',
+    fontFamily: 'AzoSansBold',
+    marginBottom: '18pt',
   },
   h2: {
     fontSize: '16pt',
-    fontFamily: 'GustanBold',
-    marginBottom: '4pt',
+    fontFamily: 'AzoSansBold',
+    marginBottom: '16pt',
   },
   h3: {
     fontSize: '14pt',
-    fontFamily: 'GustanMedium',
-    marginBottom: '4pt',
+    fontFamily: 'AzoSansBold',
+    marginBottom: '14pt',
   },
   body1: {
-    fontSize: '11pt',
-    fontFamily: 'GustanLight',
-    marginBottom: '4pt',
+    fontSize: '13pt',
+    fontFamily: 'AzoSansRegular',
+    marginBottom: '13pt',
   },
   footer: {
     position: 'absolute',
@@ -102,7 +138,7 @@ const styles = StyleSheet.create({
     right: 0,
     textAlign: 'center',
     color: 'grey',
-    fontFamily: 'GustanLight',
+    fontFamily: 'AzoSansRegular',
   },
 });
 

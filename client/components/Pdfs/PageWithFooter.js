@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import {
   PDFViewer,
   Page,
@@ -32,7 +32,7 @@ const PageWithFooter = props => {
 };
 
 PageWithFooter.propTypes = {
-  children: PropTypes.any.isRequired
-}
+  children: PropTypes.any,
+};
 
 export default PageWithFooter;

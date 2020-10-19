@@ -144,7 +144,7 @@ AccountMenu.propTypes = {
     profilePhoto: PropTypes.shape({
       url: PropTypes.any,
     }),
-  }).isRequired,
+  }),
 };
 
 const SignOutMenuItem = props => {
