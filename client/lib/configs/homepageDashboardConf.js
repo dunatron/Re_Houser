@@ -40,9 +40,9 @@ const HOME_PAGE_DASHBOARD_CONFIG = [
     icon: <AssignmentIcon />,
   },
   {
-    label: 'Security Statement',
-    route: '/security-statement',
-    description: 'Our Security Statement',
+    label: 'Legal Statements',
+    route: '/legal',
+    description: 'Our Legal Statments such as our Privacy Policy',
     color: 'secondary',
     icon: <AssignmentIcon />,
   },

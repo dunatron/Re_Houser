@@ -40,9 +40,9 @@ const INFO_DASHBOARD_CONFIG = [
     icon: <AssignmentIcon />,
   },
   {
-    label: 'Security Statement',
-    route: '/security-statement',
-    description: 'Our Security Statement',
+    label: 'Privacy Policy',
+    route: '/privacy-policy',
+    description: 'Our Privacy Policy',
     color: 'secondary',
     icon: <AssignmentIcon />,
   },

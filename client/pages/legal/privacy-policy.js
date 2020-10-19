@@ -12,7 +12,7 @@ import PdfGenerator from '@/Components/Pdfs/PdfGenerator';
 import PdfTextGenerator from '@/Components/Pdfs/TextGenerator';
 import securityStatementPdfConf from '@/Lib/configs/pdfs/securityStatement';
 
-const SecurityStatementPage = ({ appData: { currentUser } }) => {
+const PrivacyPolicyPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
@@ -40,10 +40,10 @@ const SecurityStatementPage = ({ appData: { currentUser } }) => {
   );
 };
 
-SecurityStatementPage.propTypes = {
+PrivacyPolicyPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object,
   }),
 };
 
-export default SecurityStatementPage;
+export default PrivacyPolicyPage;

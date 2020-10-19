@@ -80,9 +80,10 @@ const AdminDashboardPage = ({ appData: { currentUser } }) => {
       icon: <SettingsIcon />,
     },
     {
-      label: 'Security statement',
-      route: '/admin/security-statement',
-      description: 'View our security statement',
+      label: 'Legal Statements',
+      route: '/legal',
+      description:
+        'View our Legal Statements such as our Privacy Policy and Terms of Engagement',
       color: 'secondary',
       icon: <SettingsIcon />,
     },
