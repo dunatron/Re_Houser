@@ -21,7 +21,7 @@ const ConfinedHeight = props => {
 };
 
 ConfinedHeight.propTypes = {
-  children: PropTypes.any.isRequired
+  children: PropTypes.any
 }
 
 export default ConfinedHeight;

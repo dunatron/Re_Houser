@@ -97,8 +97,8 @@ const Nav = props => {
 };
 
 Nav.propTypes = {
-  loadingUser: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+  loadingUser: PropTypes.any,
+  me: PropTypes.any,
 };
 
 const SideBarItemWithRouter = ({ item, pathname }) => {

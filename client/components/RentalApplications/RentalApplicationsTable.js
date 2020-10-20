@@ -161,7 +161,7 @@ const RentalApplicationsTable = props => {
 
 // PropTypes
 RentalApplicationsTable.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any,
   myRentalApplications: PropTypes.arrayOf(PropTypes.shape({
     applicants: PropTypes.arrayOf(PropTypes.shape({
       approved: PropTypes.string,

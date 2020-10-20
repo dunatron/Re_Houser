@@ -82,15 +82,15 @@ SelectOption.propTypes = {
     formControl: PropTypes.any,
     selectEmpty: PropTypes.any
   }).isRequired,
-  handleChange: PropTypes.any.isRequired,
-  helperText: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
+  handleChange: PropTypes.any,
+  helperText: PropTypes.any,
+  label: PropTypes.any,
+  name: PropTypes.any,
   options: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  selectID: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  selectID: PropTypes.any,
+  value: PropTypes.any
 };
 
 export default withStyles(styles)(SelectOption);

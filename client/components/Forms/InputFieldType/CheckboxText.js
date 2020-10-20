@@ -77,8 +77,8 @@ CheckboxText.propTypes = {
   inners: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
+  label: PropTypes.any,
+  name: PropTypes.any,
   register: PropTypes.func.isRequired
 };
 

@@ -117,7 +117,7 @@ ActiveChat.propTypes = {
   chat: PropTypes.shape({
     id: PropTypes.any
   }).isRequired,
-  id: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
+  id: PropTypes.any,
+  me: PropTypes.any
 };
 export default ActiveChat;

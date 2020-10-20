@@ -61,18 +61,18 @@ const EnumSelectOption = props => {
 };
 
 EnumSelectOption.propTypes = {
-  __type: PropTypes.any.isRequired,
+  __type: PropTypes.any,
   classes: PropTypes.shape({
     formControl: PropTypes.any,
     selectEmpty: PropTypes.any
   }).isRequired,
-  defaultValue: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
   handleChange: PropTypes.func.isRequired,
-  helperText: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
-  selectID: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  helperText: PropTypes.any,
+  label: PropTypes.any,
+  name: PropTypes.any,
+  selectID: PropTypes.any,
+  value: PropTypes.any
 };
 
 export default withStyles(styles)(EnumSelectOption);

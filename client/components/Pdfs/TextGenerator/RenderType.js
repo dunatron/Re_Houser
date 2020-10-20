@@ -1,4 +1,14 @@
+import { Typography } from '@material-ui/core';
+
+import HandleInners from './HandleInners';
+import useStyles from '../useStyles';
+
+import List from './List';
+import Li from './Li';
+import LinkItem from './Link';
+
 const RenderType = ({ item }) => {
+  const classes = useStyles();
   const {
     type,
     value,
@@ -14,42 +24,33 @@ const RenderType = ({ item }) => {
     case 'Section':
       // return <HandleInners inners={inners} />;
       return (
-        <div>
-          Section
+        <div className={classes.section}>
           <HandleInners inners={inners} />
         </div>
       );
     case 'List':
-      return (
-        <div>
-          LIST
-          <HandleInners inners={inners} />
-        </div>
-      );
+      return <List item={item} />;
     case 'Li':
-      return (
-        <div>
-          List Item: {value}
-          <HandleInners inners={inners} />
-        </div>
-      );
+      return <Li item={item} />;
     case 'Text':
-      return <div>Text {value}</div>;
+      return (
+        <Typography
+          className={classes.paragraph}
+          gutterBottom
+          variant={fieldProps.variant}
+          {...fieldProps}>
+          {value}
+        </Typography>
+      );
+    case 'Link':
+      return <LinkItem item={item} />;
     default:
       return (
-        <Text style={{ ...styles.h1, ...styles.center }}>
+        <Text className={classes.paragraph}>
           IMPORTANT: No Type was specified or is not a valid type: {type}
         </Text>
       );
   }
-};
-
-const HandleInners = ({ inners }) => {
-  if (!inners) return null;
-  if (inners.length === 0) return null;
-  return inners.map((inner, idx) => {
-    return <RenderType key={idx} item={inner} />;
-  });
 };
 
 export default RenderType;

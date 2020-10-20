@@ -41,13 +41,13 @@ const RChat = props => {
 };
 
 RChat.propTypes = {
-  chat: PropTypes.any.isRequired,
+  chat: PropTypes.any,
   me: PropTypes.shape({
     firstName: PropTypes.any,
     id: PropTypes.any,
     lastNaem: PropTypes.any
   }).isRequired,
-  messages: PropTypes.any.isRequired,
+  messages: PropTypes.any,
   onSendMessage: PropTypes.func.isRequired
 };
 

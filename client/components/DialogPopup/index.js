@@ -45,7 +45,7 @@ const DialogPopup = ({ isOpen }) => {
 };
 
 DialogPopup.propTypes = {
-  isOpen: PropTypes.any.isRequired
+  isOpen: PropTypes.any
 }
 
 export default DialogPopup;

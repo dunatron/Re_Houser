@@ -43,8 +43,8 @@ const FinaliseLeaseBtn = ({ leaseId, stage, disabled }) => {
 };
 
 FinaliseLeaseBtn.propTypes = {
-  disabled: PropTypes.any.isRequired,
-  leaseId: PropTypes.any.isRequired,
+  disabled: PropTypes.any,
+  leaseId: PropTypes.any,
   stage: PropTypes.string.isRequired
 };
 

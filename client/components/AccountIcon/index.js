@@ -45,7 +45,7 @@ const AccountIcon = ({ me, sendRoute }) => {
 };
 
 AccountIcon.propTypes = {
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any,
   sendRoute: PropTypes.func.isRequired
 };
 

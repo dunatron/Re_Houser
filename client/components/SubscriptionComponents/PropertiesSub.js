@@ -41,7 +41,7 @@ const PropertiesSub = ({ where }) => {
 };
 
 PropertiesSub.propTypes = {
-  where: PropTypes.any.isRequired
+  where: PropTypes.any
 };
 
 export default PropertiesSub;

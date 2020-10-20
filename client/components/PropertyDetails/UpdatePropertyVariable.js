@@ -236,10 +236,10 @@ const UpdatePropertyVariable = ({
 };
 
 UpdatePropertyVariable.propTypes = {
-  cy: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired,
+  cy: PropTypes.any,
+  label: PropTypes.any,
+  name: PropTypes.any,
+  propertyId: PropTypes.any,
   type: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 };

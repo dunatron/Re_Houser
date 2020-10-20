@@ -160,9 +160,9 @@ const Signin = props => {
 };
 
 Signin.propTypes = {
-  email: PropTypes.any.isRequired,
+  email: PropTypes.any,
   handleCompleted: PropTypes.func.isRequired,
-  password: PropTypes.any.isRequired,
+  password: PropTypes.any,
   update: PropTypes.func.isRequired
 };
 

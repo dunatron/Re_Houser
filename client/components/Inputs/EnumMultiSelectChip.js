@@ -99,7 +99,7 @@ const EnumMultiSelectChip = ({
 };
 
 EnumMultiSelectChip.propTypes = {
-  __type: PropTypes.any.isRequired,
+  __type: PropTypes.any,
   classes: PropTypes.shape({
     chip: PropTypes.any,
     chips: PropTypes.any,
@@ -110,8 +110,8 @@ EnumMultiSelectChip.propTypes = {
     name: PropTypes.any
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
-  selectID: PropTypes.any.isRequired,
-  values: PropTypes.any.isRequired
+  selectID: PropTypes.any,
+  values: PropTypes.any
 };
 
 export default withStyles(styles)(EnumMultiSelectChip);

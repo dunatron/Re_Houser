@@ -52,8 +52,8 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
 };
 
 SetPrimaryCreditCardButton.propTypes = {
-  cardId: PropTypes.any.isRequired,
-  isPrimary: PropTypes.any.isRequired
+  cardId: PropTypes.any,
+  isPrimary: PropTypes.any
 };
 
 export default SetPrimaryCreditCardButton;

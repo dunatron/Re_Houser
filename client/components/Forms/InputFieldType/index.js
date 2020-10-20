@@ -259,21 +259,21 @@ const InputFieldType = props => {
 
 // };
 InputFieldType.propTypes = {
-  clearErrors: PropTypes.any.isRequired,
+  clearErrors: PropTypes.any,
   config: PropTypes.shape({
     __type: PropTypes.any,
     content: PropTypes.any,
     fieldProps: PropTypes.any,
-  }).isRequired,
-  defaultValues: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  getValues: PropTypes.any.isRequired,
-  inners: PropTypes.arrayOf(PropTypes.any).isRequired,
-  onChange: PropTypes.any.isRequired,
-  rawData: PropTypes.any.isRequired,
-  register: PropTypes.any.isRequired,
-  reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired,
+  }),
+  defaultValues: PropTypes.any,
+  errors: PropTypes.any,
+  getValues: PropTypes.any,
+  inners: PropTypes.arrayOf(PropTypes.any),
+  onChange: PropTypes.any,
+  rawData: PropTypes.any,
+  register: PropTypes.any,
+  reset: PropTypes.any,
+  setValue: PropTypes.any,
   type: PropTypes.oneOf([
     'Header',
     'Subheader',
@@ -289,9 +289,9 @@ InputFieldType.propTypes = {
     'Date',
     'DateTime',
     'AcceptTerms',
-  ]).isRequired,
-  unregister: PropTypes.any.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+  ]),
+  unregister: PropTypes.any,
+  updateCacheOnRemovedFile: PropTypes.any,
 };
 
 export { InputFieldType };

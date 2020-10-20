@@ -451,19 +451,15 @@ const UploadFile = forwardRef((props, ref) => {
 });
 
 UploadFile.propTypes = {
-  description: PropTypes.any.isRequired,
+  description: PropTypes.any,
   dispatch: PropTypes.func.isRequired,
-  fileParams: PropTypes.any.isRequired,
-  isRemoving: PropTypes.any.isRequired,
-  maxFilesAllowed: PropTypes.any.isRequired,
+  fileParams: PropTypes.any,
+  isRemoving: PropTypes.any,
+  maxFilesAllowed: PropTypes.any,
   recieveFile: PropTypes.func.isRequired,
-  remove: PropTypes.any.isRequired,
-  serverFiles: PropTypes.shape({
-    forEach: PropTypes.func,
-    length: PropTypes.number,
-    map: PropTypes.func,
-  }).isRequired,
-  store: PropTypes.any.isRequired,
+  remove: PropTypes.any,
+  serverFiles: PropTypes.array.isRequired,
+  store: PropTypes.any,
 };
 
 const FlipCardHeader = ({
@@ -500,9 +496,9 @@ const FlipCardHeader = ({
 };
 
 FlipCardHeader.propTypes = {
-  flip: PropTypes.any.isRequired,
-  isFlipped: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired,
+  flip: PropTypes.any,
+  isFlipped: PropTypes.any,
+  title: PropTypes.any,
 };
 
 const UploadedServerFiles = ({
@@ -532,10 +528,10 @@ const UploadedServerFiles = ({
 };
 
 UploadedServerFiles.propTypes = {
-  isRemoving: PropTypes.any.isRequired,
-  remove: PropTypes.any.isRequired,
-  serverFiles: PropTypes.any.isRequired,
-  store: PropTypes.any.isRequired,
+  isRemoving: PropTypes.any,
+  remove: PropTypes.any,
+  serverFiles: PropTypes.any,
+  store: PropTypes.any,
 };
 
 //remove gets fed into here
@@ -713,7 +709,7 @@ FileManager.propTypes = {
   ).isRequired,
   maxFilesAllowed: PropTypes.number.isRequired,
   recieveFile: PropTypes.func.isRequired,
-  refetchQueries: PropTypes.any.isRequired,
+  refetchQueries: PropTypes.any,
   title: PropTypes.string.isRequired,
   updateCacheOnRemovedFile: PropTypes.func.isRequired,
 };

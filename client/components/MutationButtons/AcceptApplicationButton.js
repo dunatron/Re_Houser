@@ -35,7 +35,7 @@ ErrorSupplier.propTypes = {
   errors: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  tronM: PropTypes.any.isRequired
+  tronM: PropTypes.any
 };
 
 const AcceptApplicationButton = ({ application }) => {

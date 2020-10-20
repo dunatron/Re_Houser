@@ -59,8 +59,8 @@ MapContainer.propTypes = {
     lat: PropTypes.any,
     lng: PropTypes.any
   }).isRequired,
-  google: PropTypes.any.isRequired,
-  height: PropTypes.any.isRequired
+  google: PropTypes.any,
+  height: PropTypes.any
 }
 
 export default GoogleApiWrapper({

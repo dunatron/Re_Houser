@@ -20,8 +20,8 @@ const Float = props => {
 };
 
 Float.propTypes = {
-  config: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  errors: PropTypes.any,
   extractErrorFromErrors: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired
 }

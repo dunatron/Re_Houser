@@ -254,12 +254,12 @@ const Signup = props => {
 };
 
 Signup.propTypes = {
-  email: PropTypes.any.isRequired,
-  firstName: PropTypes.any.isRequired,
+  email: PropTypes.any,
+  firstName: PropTypes.any,
   handleCompleted: PropTypes.func.isRequired,
-  lastName: PropTypes.any.isRequired,
-  password: PropTypes.any.isRequired,
-  phone: PropTypes.any.isRequired,
+  lastName: PropTypes.any,
+  password: PropTypes.any,
+  phone: PropTypes.any,
   update: PropTypes.func.isRequired
 };
 

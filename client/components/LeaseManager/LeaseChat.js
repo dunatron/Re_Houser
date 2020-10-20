@@ -27,7 +27,7 @@ const LeaseChat = ({ leaseId }) => {
 };
 
 LeaseChat.propTypes = {
-  leaseId: PropTypes.any.isRequired
+  leaseId: PropTypes.any
 }
 
 export default LeaseChat;

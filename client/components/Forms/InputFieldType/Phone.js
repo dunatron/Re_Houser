@@ -64,18 +64,18 @@ const Phone = ({
 };
 
 Phone.propTypes = {
-  config: PropTypes.any.isRequired,
-  defaultValue: PropTypes.any.isRequired,
-  defaultValues: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  extractErrorFromErrors: PropTypes.any.isRequired,
-  fieldError: PropTypes.any.isRequired,
-  getValues: PropTypes.any.isRequired,
-  onChange: PropTypes.any.isRequired,
-  register: PropTypes.any.isRequired,
-  reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  defaultValue: PropTypes.any,
+  defaultValues: PropTypes.any,
+  errors: PropTypes.any,
+  extractErrorFromErrors: PropTypes.any,
+  fieldError: PropTypes.any,
+  getValues: PropTypes.any,
+  onChange: PropTypes.any,
+  register: PropTypes.any,
+  reset: PropTypes.any,
+  setValue: PropTypes.any,
+  updateCacheOnRemovedFile: PropTypes.any,
 };
 
 export default Phone;

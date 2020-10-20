@@ -45,8 +45,8 @@ const SearchBox = ({ currentRefinement, isSearchStalled, refine }) => {
 };
 
 SearchBox.propTypes = {
-  currentRefinement: PropTypes.any.isRequired,
-  isSearchStalled: PropTypes.any.isRequired,
+  currentRefinement: PropTypes.any,
+  isSearchStalled: PropTypes.any,
   refine: PropTypes.func.isRequired,
 };
 

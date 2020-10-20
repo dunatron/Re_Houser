@@ -47,7 +47,7 @@ const CardField = ({ onChange }) => {
 };
 
 CardField.propTypes = {
-  onChange: PropTypes.any.isRequired
+  onChange: PropTypes.any
 }
 
 const Field = ({
@@ -78,14 +78,14 @@ const Field = ({
 );
 
 Field.propTypes = {
-  autoComplete: PropTypes.any.isRequired,
-  id: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  onChange: PropTypes.any.isRequired,
-  placeholder: PropTypes.any.isRequired,
-  required: PropTypes.any.isRequired,
-  type: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  autoComplete: PropTypes.any,
+  id: PropTypes.any,
+  label: PropTypes.any,
+  onChange: PropTypes.any,
+  placeholder: PropTypes.any,
+  required: PropTypes.any,
+  type: PropTypes.any,
+  value: PropTypes.any
 }
 
 const SubmitButton = ({
@@ -114,11 +114,11 @@ const SubmitButton = ({
 };
 
 SubmitButton.propTypes = {
-  cardComplete: PropTypes.any.isRequired,
-  children: PropTypes.any.isRequired,
-  disabled: PropTypes.any.isRequired,
-  error: PropTypes.any.isRequired,
-  processing: PropTypes.any.isRequired
+  cardComplete: PropTypes.any,
+  children: PropTypes.any,
+  disabled: PropTypes.any,
+  error: PropTypes.any,
+  processing: PropTypes.any
 }
 
 const ErrorMessage = ({ children }) => (
@@ -129,7 +129,7 @@ const ErrorMessage = ({ children }) => (
 );
 
 ErrorMessage.propTypes = {
-  children: PropTypes.any.isRequired
+  children: PropTypes.any
 }
 
 const ResetButton = ({ onClick }) => (
@@ -144,7 +144,7 @@ const ResetButton = ({ onClick }) => (
 );
 
 ResetButton.propTypes = {
-  onClick: PropTypes.any.isRequired
+  onClick: PropTypes.any
 }
 
 const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
@@ -285,8 +285,8 @@ const CardPaymentForm = ({ intentSecret, amount, me, onPaySuccess }) => {
 };
 
 CardPaymentForm.propTypes = {
-  amount: PropTypes.any.isRequired,
-  intentSecret: PropTypes.any.isRequired,
+  amount: PropTypes.any,
+  intentSecret: PropTypes.any,
   me: PropTypes.shape({
     email: PropTypes.any,
     firstName: PropTypes.any,

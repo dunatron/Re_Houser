@@ -84,9 +84,9 @@ const Dropzone = props => {
 };
 
 Dropzone.propTypes = {
-  disabed: PropTypes.any.isRequired,
-  disabled: PropTypes.any.isRequired,
-  multiple: PropTypes.any.isRequired,
+  disabed: PropTypes.any,
+  disabled: PropTypes.any,
+  multiple: PropTypes.any,
   onFilesAdded: PropTypes.func.isRequired,
 };
 

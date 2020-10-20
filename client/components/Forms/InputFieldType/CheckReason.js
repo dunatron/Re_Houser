@@ -103,13 +103,13 @@ const CheckReason = props => {
 };
 
 CheckReason.propTypes = {
-  config: PropTypes.any.isRequired,
-  defaultValues: PropTypes.any.isRequired,
-  errorMessage: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  defaultValues: PropTypes.any,
+  errorMessage: PropTypes.any,
+  errors: PropTypes.any,
   register: PropTypes.func.isRequired,
-  reset: PropTypes.any.isRequired,
-  setValue: PropTypes.any.isRequired
+  reset: PropTypes.any,
+  setValue: PropTypes.any
 };
 
 export default CheckReason;

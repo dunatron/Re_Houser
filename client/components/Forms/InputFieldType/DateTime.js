@@ -23,9 +23,9 @@ const DateTimeInput = props => {
 };
 
 DateTimeInput.propTypes = {
-  config: PropTypes.any.isRequired,
-  defaultValue: PropTypes.any.isRequired,
-  fieldError: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  defaultValue: PropTypes.any,
+  fieldError: PropTypes.any,
   register: PropTypes.func.isRequired
 }
 

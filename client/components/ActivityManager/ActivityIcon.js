@@ -117,7 +117,7 @@ const ActivityIcon = ({ type }) => {
 };
 
 ActivityIcon.propTypes = {
-  type: PropTypes.any.isRequired
+  type: PropTypes.any
 };
 
 export default ActivityIcon;

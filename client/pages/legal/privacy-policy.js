@@ -8,25 +8,37 @@ import Head from 'next/head';
 import { SITE_NAME } from '@/Lib/const';
 import PageHeader from '@/Components/PageHeader';
 import SecurityStatementPdf from '@/Components/Pdfs/SecurityStatementPdf';
+import TextPdfGeneratorCombo from '@/Components/Pdfs/TextPdfGeneratorCombo';
 import PdfGenerator from '@/Components/Pdfs/PdfGenerator';
 import PdfTextGenerator from '@/Components/Pdfs/TextGenerator';
-import securityStatementPdfConf from '@/Lib/configs/pdfs/securityStatement';
+import privacyPolicyPdfConf from '@/Lib/configs/pdfs/privacyPolicy';
 
 const PrivacyPolicyPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
-        title="Rehouser Security Statement"
-        intro="Our Security statement to our users"
+        // title="Rehouser Security Statement"
+        // intro="Our Security statement to our users"
         metaData={{
-          title: 'Rehouser Security Statement',
-          content: 'Our Security statement to our users',
+          title: 'Rehouser Privacy Policy',
+          content: 'Our Privacy Policy to our users',
         }}
       />
       {/* <SecurityStatementPdf /> */}
-      <PdfTextGenerator config={securityStatementPdfConf} />
+      <TextPdfGeneratorCombo
+        config={privacyPolicyPdfConf}
+        docConf={{
+          title: 'Rehouser Privacy Policy',
+          author: 'Dunatron',
+          subject: 'Rehouser privacy policy to our users',
+          keywords: 'Privacy Policy, security, files, pdf',
+          creator: 'Heath Dunlop',
+          producer: 'Heath Dunlop',
+        }}
+      />
+      {/* <PdfTextGenerator config={privacyPolicyPdfConf} />
       <PdfGenerator
-        config={securityStatementPdfConf}
+        config={privacyPolicyPdfConf}
         docConf={{
           title: 'Rehouser Security Statement',
           author: 'Dunatron',
@@ -35,7 +47,7 @@ const PrivacyPolicyPage = ({ appData: { currentUser } }) => {
           creator: 'Heath Dunlop',
           producer: 'Heath McDonough',
         }}
-      />
+      /> */}
     </>
   );
 };

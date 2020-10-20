@@ -281,9 +281,9 @@ ApplicationItem.propTypes = {
     stage: PropTypes.any,
     visibility: PropTypes.string,
   }).isRequired,
-  index: PropTypes.any.isRequired,
+  index: PropTypes.any,
   openRentalAppModal: PropTypes.func.isRequired,
-  property: PropTypes.any.isRequired,
+  property: PropTypes.any,
 };
 
 export default ApplicationItem;

@@ -99,7 +99,7 @@ MaterialUiCheckBoxRefinementList.propTypes = {
   attribute: PropTypes.shape({
     toUpperCase: PropTypes.func,
   }).isRequired,
-  createURL: PropTypes.any.isRequired,
+  createURL: PropTypes.any,
   items: PropTypes.shape({
     map: PropTypes.func,
   }).isRequired,

@@ -80,9 +80,9 @@ const UploadFileButton = props => {
 };
 
 UploadFileButton.propTypes = {
-  error: PropTypes.any.isRequired,
-  handleClick: PropTypes.any.isRequired,
-  loading: PropTypes.any.isRequired,
+  error: PropTypes.any,
+  handleClick: PropTypes.any,
+  loading: PropTypes.any,
   uploadCompleted: PropTypes.bool.isRequired
 }
 

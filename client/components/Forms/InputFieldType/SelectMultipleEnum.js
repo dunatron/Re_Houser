@@ -118,14 +118,14 @@ const SelectMultipleEnum = props => {
 };
 
 SelectMultipleEnum.propTypes = {
-  __type: PropTypes.any.isRequired,
-  config: PropTypes.any.isRequired,
-  defaultValues: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  helperText: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
+  __type: PropTypes.any,
+  config: PropTypes.any,
+  defaultValues: PropTypes.any,
+  errors: PropTypes.any,
+  helperText: PropTypes.any,
+  label: PropTypes.any,
   register: PropTypes.func.isRequired,
-  selectID: PropTypes.any.isRequired,
+  selectID: PropTypes.any,
   setValue: PropTypes.func.isRequired,
 };
 

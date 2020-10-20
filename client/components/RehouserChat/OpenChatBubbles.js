@@ -72,6 +72,6 @@ const OpenChatBubbles = ({ chats, me }) => {
 
 OpenChatBubbles.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.object),
-  me: PropTypes.any.isRequired,
+  me: PropTypes.any,
 };
 export default OpenChatBubbles;

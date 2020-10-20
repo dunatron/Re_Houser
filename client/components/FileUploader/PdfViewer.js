@@ -24,7 +24,7 @@ function RenderPdfDocument({ fileUrl }) {
 }
 
 RenderPdfDocument.propTypes = {
-  fileUrl: PropTypes.any.isRequired
+  fileUrl: PropTypes.any
 };
 
 export default RenderPdfDocument;

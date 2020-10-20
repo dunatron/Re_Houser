@@ -68,9 +68,9 @@ const SuperiorTable = props => {
 };
 
 SuperiorTable.propTypes = {
-  columns: PropTypes.any.isRequired,
-  data: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired,
+  columns: PropTypes.any,
+  data: PropTypes.any,
+  title: PropTypes.any,
 };
 
 SuperiorTable.propTypes = PropTypes.instanceOf(MaterialTable);

@@ -48,12 +48,10 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds, flip }) => {
 };
 
 FilePreviewer.propTypes = {
-  files: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
-  isRemoving: PropTypes.any.isRequired,
+  files: PropTypes.array.isRequired,
+  isRemoving: PropTypes.any,
   remove: PropTypes.func.isRequired,
-  removingIds: PropTypes.any.isRequired,
+  removingIds: PropTypes.any,
 };
 
 const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
@@ -108,11 +106,9 @@ RenderFileType.propTypes = {
   file: PropTypes.shape({
     id: PropTypes.any,
   }).isRequired,
-  isRemoving: PropTypes.any.isRequired,
-  remove: PropTypes.any.isRequired,
-  removingIds: PropTypes.shape({
-    includes: PropTypes.func,
-  }).isRequired,
+  isRemoving: PropTypes.any,
+  remove: PropTypes.any,
+  removingIds: PropTypes.array.isRequired,
 };
 
 const RenderGenericImage = ({ file }) => {

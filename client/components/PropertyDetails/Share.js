@@ -68,7 +68,7 @@ const ShareProperty = ({ property }) => {
 };
 
 ShareProperty.propTypes = {
-  property: PropTypes.any.isRequired
+  property: PropTypes.any
 }
 
 const LoggedInComponents = ({ api, property }) => {

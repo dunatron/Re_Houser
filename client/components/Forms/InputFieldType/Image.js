@@ -9,7 +9,7 @@ const ImageField = props => {
 };
 
 ImageField.propTypes = {
-  config: PropTypes.any.isRequired
+  config: PropTypes.any
 }
 
 export default ImageField;

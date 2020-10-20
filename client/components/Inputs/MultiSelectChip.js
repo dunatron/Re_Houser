@@ -97,8 +97,8 @@ MultiSelectChip.propTypes = {
     map: PropTypes.func
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
-  selectID: PropTypes.any.isRequired,
-  values: PropTypes.any.isRequired
+  selectID: PropTypes.any,
+  values: PropTypes.any
 }
 
 export default withStyles(styles)(MultiSelectChip);

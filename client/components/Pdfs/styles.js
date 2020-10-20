@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     fontFamily: 'AzoSansRegular',
-    color: 'grey',
+    color: '#30302f',
     paddingTop: 35,
     paddingBottom: 65,
     paddingHorizontal: 16,
@@ -111,24 +111,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   h1: {
+    fontSize: '22pt',
+    fontFamily: 'AzoSansBold',
+    marginBottom: '22pt',
+  },
+  h2: {
+    fontSize: '20pt',
+    fontFamily: 'AzoSansBold',
+    marginBottom: '20pt',
+  },
+  h3: {
     fontSize: '18pt',
     fontFamily: 'AzoSansBold',
     marginBottom: '18pt',
-  },
-  h2: {
-    fontSize: '16pt',
-    fontFamily: 'AzoSansBold',
-    marginBottom: '16pt',
-  },
-  h3: {
-    fontSize: '14pt',
-    fontFamily: 'AzoSansBold',
-    marginBottom: '14pt',
   },
   body1: {
     fontSize: '13pt',
     fontFamily: 'AzoSansRegular',
     marginBottom: '13pt',
+  },
+  body2: {
+    fontSize: '11pt',
+    fontFamily: 'AzoSansRegular',
+    marginBottom: '11pt',
   },
   footer: {
     position: 'absolute',

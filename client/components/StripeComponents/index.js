@@ -19,8 +19,8 @@ const WithElements = props => {
 };
 
 WithElements.propTypes = {
-  children: PropTypes.any.isRequired,
-  clear: PropTypes.any.isRequired
+  children: PropTypes.any,
+  clear: PropTypes.any
 }
 
 export default WithElements;

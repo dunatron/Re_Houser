@@ -88,10 +88,10 @@ const RenderInput = ({ type, fieldProps, defaultValue, onChange }) => {
 };
 
 RenderInput.propTypes = {
-  defaultValue: PropTypes.any.isRequired,
-  fieldProps: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
+  fieldProps: PropTypes.any,
   onChange: PropTypes.func.isRequired,
-  type: PropTypes.any.isRequired
+  type: PropTypes.any
 }
 
 export default RenderInput;

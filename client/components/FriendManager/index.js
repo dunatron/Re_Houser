@@ -20,7 +20,7 @@ const FriendManager = props => {
 };
 
 FriendManager.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 const FriendManagerWithSuspense = () => {

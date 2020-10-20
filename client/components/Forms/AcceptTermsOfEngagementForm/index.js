@@ -9,6 +9,9 @@ import { Typography } from '@material-ui/core';
 import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
+import TextPdfGeneratorCombo from '@/Components/Pdfs/TextPdfGeneratorCombo';
+import termsOfEngagementPdfConf from '@/Lib/configs/pdfs/termsOfEngagement';
+
 const AcceptTermsOfEngagementForm = ({ me }) => {
   const handleCompleted = data => {
     window.scrollTo(0, 0);
@@ -43,13 +46,33 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
             startIcon: <CloudUploadIcon />,
           }}
         />
-        <TermsOfEngagement />
+        <TextPdfGeneratorCombo
+          config={termsOfEngagementPdfConf}
+          docConf={{
+            title: 'Terms of Engagement',
+            author: 'Dunatron',
+            subject: 'Rehouser Terms of Engagement for Landlords',
+            keywords: 'Terms of engagement, security, files, pdf',
+            creator: 'Heath Dunlop',
+            producer: 'Heath Dunlop',
+          }}
+        />
       </div>
     );
 
   return (
     <>
-      <TermsOfEngagement />
+      <TextPdfGeneratorCombo
+        config={termsOfEngagementPdfConf}
+        docConf={{
+          title: 'Terms of Engagement',
+          author: 'Dunatron',
+          subject: 'Rehouser Terms of Engagement for Landlords',
+          keywords: 'Terms of engagement, security, files, pdf',
+          creator: 'Heath Dunlop',
+          producer: 'Heath Dunlop',
+        }}
+      />
       <br />
       <FormCreator
         folder={`users/${me.id}`}
@@ -93,8 +116,8 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
 AcceptTermsOfEngagementForm.propTypes = {
   me: PropTypes.shape({
     acceptedTermsOfEngagement: PropTypes.any,
-    id: PropTypes.any
-  }).isRequired
+    id: PropTypes.any,
+  }).isRequired,
 };
 
 export default AcceptTermsOfEngagementForm;

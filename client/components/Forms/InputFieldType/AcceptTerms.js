@@ -43,8 +43,8 @@ AcceptTerms.propTypes = {
     refConf: PropTypes.object.isRequired,
     terms: PropTypes.any
   }).isRequired,
-  defaultValue: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
+  errors: PropTypes.any,
   register: PropTypes.func.isRequired
 };
 

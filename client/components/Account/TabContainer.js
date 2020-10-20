@@ -25,8 +25,8 @@ function TabContainer(props) {
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  index: PropTypes.any,
+  value: PropTypes.any
 };
 
 export default TabContainer;

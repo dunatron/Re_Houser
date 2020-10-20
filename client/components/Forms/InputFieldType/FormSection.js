@@ -31,9 +31,9 @@ const FormSection = props => {
 };
 
 FormSection.propTypes = {
-  config: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  register: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  errors: PropTypes.any,
+  register: PropTypes.any,
 };
 
 export default FormSection;

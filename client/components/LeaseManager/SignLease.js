@@ -49,10 +49,10 @@ const SignLease = ({ lease, me, userIsLessor, userIsLessee }) => {
 };
 
 SignLease.propTypes = {
-  lease: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
-  userIsLessee: PropTypes.any.isRequired,
-  userIsLessor: PropTypes.any.isRequired
+  lease: PropTypes.any,
+  me: PropTypes.any,
+  userIsLessee: PropTypes.any,
+  userIsLessor: PropTypes.any
 };
 
 const groupHasSigned = group => {
@@ -116,9 +116,9 @@ const LeaseDetailsBlock = ({ lease, userIsLessor, userIsLessee, me }) => {
 };
 
 LeaseDetailsBlock.propTypes = {
-  lease: PropTypes.any.isRequired,
-  userIsLessee: PropTypes.any.isRequired,
-  userIsLessor: PropTypes.any.isRequired
+  lease: PropTypes.any,
+  userIsLessee: PropTypes.any,
+  userIsLessor: PropTypes.any
 };
 
 const SignDetailsBlock = ({ items, me, type, lease }) => {
@@ -160,8 +160,8 @@ SignDetailsBlock.propTypes = {
   items: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  lease: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+  lease: PropTypes.any,
+  me: PropTypes.any,
   type: PropTypes.string.isRequired
 };
 
@@ -191,7 +191,7 @@ const SignDetails = ({ item, me, type, lease }) => {
 };
 
 SignDetails.propTypes = {
-  item: PropTypes.any.isRequired,
+  item: PropTypes.any,
   lease: PropTypes.shape({
     id: PropTypes.any
   }).isRequired,

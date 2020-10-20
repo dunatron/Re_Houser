@@ -273,12 +273,12 @@ const InsulationStatementForm = ({
 };
 
 InsulationStatementForm.propTypes = {
-  insulationFormId: PropTypes.any.isRequired,
-  placeId: PropTypes.any.isRequired,
+  insulationFormId: PropTypes.any,
+  placeId: PropTypes.any,
   property: PropTypes.shape({
     insulationStatementFile: PropTypes.any,
   }).isRequired,
-  propertyId: PropTypes.any.isRequired,
+  propertyId: PropTypes.any,
 };
 
 export { InsulationStatementForm };

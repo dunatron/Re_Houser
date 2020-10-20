@@ -162,7 +162,7 @@ const Modal = props => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
   classes: PropTypes.any,
   close: PropTypes.func.isRequired,
   disableBackdrop: PropTypes.any,

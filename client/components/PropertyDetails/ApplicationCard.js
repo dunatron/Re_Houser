@@ -135,7 +135,7 @@ ApplicationCard.propTypes = {
     stage: PropTypes.any,
     visibility: PropTypes.any,
   }).isRequired,
-  property: PropTypes.any.isRequired,
+  property: PropTypes.any,
 };
 
 export default ApplicationCard;

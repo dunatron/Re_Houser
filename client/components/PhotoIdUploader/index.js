@@ -174,8 +174,8 @@ function TabContainer({ children, dir }) {
 }
 
 TabContainer.propTypes = {
-  children: PropTypes.any.isRequired,
-  dir: PropTypes.any.isRequired
+  children: PropTypes.any,
+  dir: PropTypes.any
 };
 
 const contentAsSrc = content => {

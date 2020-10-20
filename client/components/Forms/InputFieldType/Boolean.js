@@ -44,11 +44,11 @@ BooleanField.propTypes = {
       map: PropTypes.func
     })
   }).isRequired,
-  defaultValue: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
+  errors: PropTypes.any,
+  label: PropTypes.any,
   register: PropTypes.func.isRequired,
-  setValue: PropTypes.any.isRequired
+  setValue: PropTypes.any
 };
 
 export default BooleanField;

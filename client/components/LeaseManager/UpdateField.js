@@ -51,8 +51,8 @@ const UpdateField = ({ fieldConf, defaultValue, update }) => {
 };
 
 UpdateField.propTypes = {
-  defaultValue: PropTypes.any.isRequired,
-  fieldConf: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
+  fieldConf: PropTypes.any,
   update: PropTypes.func.isRequired
 };
 

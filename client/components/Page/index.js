@@ -110,7 +110,7 @@ const Page = props => {
 };
 
 Page.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
 };
 
 export default GoogleApiWrapper({

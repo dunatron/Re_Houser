@@ -224,14 +224,14 @@ const DragDropUploader = ({
 DragDropUploader.propTypes = {
   addBtnText: PropTypes.string.isRequired,
   addText: PropTypes.string.isRequired,
-  classes: PropTypes.any.isRequired,
+  classes: PropTypes.any,
   disabled: PropTypes.bool.isRequired,
   dropStyles: PropTypes.object.isRequired,
   extensions: PropTypes.array.isRequired,
   externalLoading: PropTypes.bool.isRequired,
-  multiple: PropTypes.any.isRequired,
+  multiple: PropTypes.any,
   receiveFile: PropTypes.func.isRequired,
-  title: PropTypes.any.isRequired,
+  title: PropTypes.any,
   types: PropTypes.array.isRequired
 };
 

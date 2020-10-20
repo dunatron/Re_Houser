@@ -33,7 +33,7 @@ const DateInput = ({ fieldProps, defaultValue, onChange }) => {
 };
 
 DateInput.propTypes = {
-  defaultValue: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
   fieldProps: PropTypes.shape({
     helperText: PropTypes.any,
     label: PropTypes.any,

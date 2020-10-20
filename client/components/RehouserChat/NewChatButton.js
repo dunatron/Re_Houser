@@ -39,7 +39,7 @@ const NewChatButton = ({ me }) => {
 };
 
 NewChatButton.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 export default NewChatButton;

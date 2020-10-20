@@ -15,10 +15,10 @@ const StageInitializing = ({ lease, me, userIsLessor, userIsLessee }) => {
 };
 
 StageInitializing.propTypes = {
-  lease: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
-  userIsLessee: PropTypes.any.isRequired,
-  userIsLessor: PropTypes.any.isRequired
+  lease: PropTypes.any,
+  me: PropTypes.any,
+  userIsLessee: PropTypes.any,
+  userIsLessor: PropTypes.any
 }
 
 export default StageInitializing;

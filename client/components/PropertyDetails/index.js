@@ -290,9 +290,9 @@ const PropertyDetails = ({ id, location, me }) => {
 };
 
 PropertyDetails.propTypes = {
-  id: PropTypes.any.isRequired,
-  location: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
+  id: PropTypes.any,
+  location: PropTypes.any,
+  me: PropTypes.any,
 };
 
 export default PropertyDetails;

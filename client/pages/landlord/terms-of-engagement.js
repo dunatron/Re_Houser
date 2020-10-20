@@ -12,8 +12,8 @@ const TermsOfEngagementPage = props => {
   return (
     <>
       <PageHeader
-        title="Terms of engagement"
-        intro="These are the terms of engagement a landlord will need to agree to so Rehouser Property Management Ltd can act on their behalf."
+        // title="Terms of engagement"
+        // intro="These are the terms of engagement a landlord will need to agree to so Rehouser Property Management Ltd can act on their behalf."
         metaData={{
           title: 'Rehouser | Terms of engagement',
           content:

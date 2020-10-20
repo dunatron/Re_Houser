@@ -154,13 +154,13 @@ File.propTypes = {
     key: PropTypes.any,
     refConf: PropTypes.any,
   }).isRequired,
-  defaultValues: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  folder: PropTypes.any.isRequired,
+  defaultValues: PropTypes.any,
+  errors: PropTypes.any,
+  folder: PropTypes.any,
   getValues: PropTypes.func.isRequired,
-  refetchQueries: PropTypes.any.isRequired,
+  refetchQueries: PropTypes.any,
   register: PropTypes.func.isRequired,
-  reset: PropTypes.any.isRequired,
+  reset: PropTypes.any,
   setValue: PropTypes.func.isRequired,
 };
 

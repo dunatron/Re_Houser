@@ -42,8 +42,8 @@ const StagePaid = ({ lease, me }) => {
 };
 
 StagePaid.propTypes = {
-  lease: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
+  lease: PropTypes.any,
+  me: PropTypes.any
 }
 
 export default StagePaid;

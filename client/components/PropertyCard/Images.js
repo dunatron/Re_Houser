@@ -91,7 +91,7 @@ const Details = props => {
 };
 
 Details.propTypes = {
-  property: PropTypes.any.isRequired
+  property: PropTypes.any
 };
 
 export default Details;

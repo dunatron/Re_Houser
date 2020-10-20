@@ -53,9 +53,9 @@ NumberInput.propTypes = {
     formControl: PropTypes.any
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
-  helperText: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired
+  helperText: PropTypes.any,
+  label: PropTypes.any,
+  name: PropTypes.any
 };
 
 export default withStyles(styles)(NumberInput);

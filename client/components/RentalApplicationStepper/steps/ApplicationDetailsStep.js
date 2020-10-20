@@ -196,9 +196,9 @@ const ApplicationDetailsStep = ({
 };
 
 ApplicationDetailsStep.propTypes = {
-  completed: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
-  property: PropTypes.any.isRequired,
+  completed: PropTypes.any,
+  me: PropTypes.any,
+  property: PropTypes.any,
   rentalApplication: PropTypes.shape({
     id: PropTypes.any,
   }).isRequired,

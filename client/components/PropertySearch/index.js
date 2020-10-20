@@ -66,7 +66,7 @@ const Hit = ({ hit, me }) => (
 );
 
 Hit.propTypes = {
-  hit: PropTypes.any.isRequired,
+  hit: PropTypes.any,
 };
 
 const Content = ({ me }) => (
@@ -116,7 +116,7 @@ const PropertySearch = props => {
 };
 
 PropertySearch.propTypes = {
-  google: PropTypes.any.isRequired,
+  google: PropTypes.any,
 };
 
 export default GoogleApiWrapper({

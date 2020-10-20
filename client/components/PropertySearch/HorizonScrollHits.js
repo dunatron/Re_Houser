@@ -84,7 +84,7 @@ const ScrollRightBox = ({ onClick }) => {
 };
 
 ScrollRightBox.propTypes = {
-  onClick: PropTypes.any.isRequired,
+  onClick: PropTypes.any,
 };
 
 const ScrollLeftBox = ({ onClick }) => {
@@ -104,7 +104,7 @@ const ScrollLeftBox = ({ onClick }) => {
 };
 
 ScrollLeftBox.propTypes = {
-  onClick: PropTypes.any.isRequired,
+  onClick: PropTypes.any,
 };
 
 const list = [

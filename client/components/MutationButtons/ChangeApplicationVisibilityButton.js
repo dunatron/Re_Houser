@@ -91,8 +91,8 @@ const ChangeApplicationVisibilityBtn = ({ applicationId, visibility }) => {
 };
 
 ChangeApplicationVisibilityBtn.propTypes = {
-  applicationId: PropTypes.any.isRequired,
-  visibility: PropTypes.any.isRequired
+  applicationId: PropTypes.any,
+  visibility: PropTypes.any
 };
 
 export default ChangeApplicationVisibilityBtn;

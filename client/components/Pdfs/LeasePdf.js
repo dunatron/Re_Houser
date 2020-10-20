@@ -96,7 +96,7 @@ const PageWithFooter = props => {
 };
 
 PageWithFooter.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
 };
 
 const LeasePdf = ({ me, lease }) => {

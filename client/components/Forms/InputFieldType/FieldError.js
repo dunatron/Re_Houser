@@ -13,8 +13,8 @@ const FieldError = ({ errors, name }) => {
 };
 
 FieldError.propTypes = {
-  errors: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired
+  errors: PropTypes.any,
+  name: PropTypes.any
 }
 
 export default FieldError;

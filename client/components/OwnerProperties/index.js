@@ -83,7 +83,7 @@ const OwnerProperties = ({ me }) => {
 };
 
 OwnerProperties.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 export default OwnerProperties;

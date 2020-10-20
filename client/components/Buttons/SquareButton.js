@@ -22,7 +22,7 @@ export default function CustomizedButtons({ btnProps, children, onClick }) {
 }
 
 CustomizedButtons.propTypes = {
-  btnProps: PropTypes.any.isRequired,
-  children: PropTypes.any.isRequired,
-  onClick: PropTypes.any.isRequired
+  btnProps: PropTypes.any,
+  children: PropTypes.any,
+  onClick: PropTypes.any
 };

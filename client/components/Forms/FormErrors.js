@@ -78,7 +78,7 @@
 // };
 
 // FormErrors.propTypes = {
-//   errors: PropTypes.any.isRequired,
+//   errors: PropTypes.any,
 // };
 
 // export default FormErrors;
@@ -161,7 +161,7 @@ const RenderError = ({ err }) => {
 };
 
 FormErrors.propTypes = {
-  errors: PropTypes.any.isRequired,
+  errors: PropTypes.any,
 };
 
 export default FormErrors;

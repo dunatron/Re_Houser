@@ -408,7 +408,7 @@ RentalApplicationStepper.propTypes = {
     id: PropTypes.any,
     photoIdentification: PropTypes.any,
   }).isRequired,
-  property: PropTypes.any.isRequired,
+  property: PropTypes.any,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
       find: PropTypes.func,

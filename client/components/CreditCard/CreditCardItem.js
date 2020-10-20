@@ -63,7 +63,7 @@ CreditCardItem.propTypes = {
     name: PropTypes.any,
     type: PropTypes.any
   }).isRequired,
-  isPrimary: PropTypes.any.isRequired
+  isPrimary: PropTypes.any
 };
 
 export default CreditCardItem;

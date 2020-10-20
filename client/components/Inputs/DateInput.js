@@ -61,10 +61,10 @@ DateInput.propTypes = {
   classes: PropTypes.shape({
     root: PropTypes.any,
   }).isRequired,
-  id: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
+  id: PropTypes.any,
+  label: PropTypes.any,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any,
 };
 
 export default withStyles(styles)(DateInput);

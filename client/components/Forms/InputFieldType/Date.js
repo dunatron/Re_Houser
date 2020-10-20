@@ -22,8 +22,8 @@
 // };
 
 // DateField.propTypes = {
-//   config: PropTypes.any.isRequired,
-//   fieldError: PropTypes.any.isRequired,
+//   config: PropTypes.any,
+//   fieldError: PropTypes.any,
 //   register: PropTypes.func.isRequired,
 // };
 
@@ -66,8 +66,8 @@ const DateField = props => {
 };
 
 DateField.propTypes = {
-  config: PropTypes.any.isRequired,
-  fieldError: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  fieldError: PropTypes.any,
   register: PropTypes.func.isRequired,
 };
 

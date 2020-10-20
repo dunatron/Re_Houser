@@ -26,9 +26,9 @@ const TextInput = props => {
 };
 
 TextInput.propTypes = {
-  classes: PropTypes.any.isRequired,
-  onChange: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  classes: PropTypes.any,
+  onChange: PropTypes.any,
+  value: PropTypes.any
 }
 
 export default withStyles(styles)(TextInput);

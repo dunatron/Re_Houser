@@ -51,7 +51,7 @@ const GeoSearchWidget = props => {
 };
 
 GeoSearchWidget.propTypes = {
-  google: PropTypes.any.isRequired,
+  google: PropTypes.any,
 };
 
 export default GoogleApiWrapper({

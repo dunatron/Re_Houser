@@ -17,8 +17,8 @@ const Message = ({ message, alert }) => {
 };
 
 Message.propTypes = {
-  alert: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired,
+  alert: PropTypes.any,
+  message: PropTypes.any,
 };
 
 /**
@@ -53,10 +53,10 @@ const PleaseSignIn = props => {
 };
 
 PleaseSignIn.propTypes = {
-  alert: PropTypes.any.isRequired,
-  children: PropTypes.any.isRequired,
-  currentUser: PropTypes.any.isRequired,
-  message: PropTypes.any.isRequired,
+  alert: PropTypes.any,
+  children: PropTypes.any,
+  currentUser: PropTypes.any,
+  message: PropTypes.any,
 };
 
 export default PleaseSignIn;

@@ -69,11 +69,11 @@ const FinaliseApplicationStep = ({
 };
 
 FinaliseApplicationStep.propTypes = {
-  applicantData: PropTypes.any.isRequired,
-  applicationInfo: PropTypes.any.isRequired,
-  completed: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
-  property: PropTypes.any.isRequired,
+  applicantData: PropTypes.any,
+  applicationInfo: PropTypes.any,
+  completed: PropTypes.any,
+  me: PropTypes.any,
+  property: PropTypes.any,
   rentalApplication: PropTypes.shape({
     id: PropTypes.any
   }).isRequired,

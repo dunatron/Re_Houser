@@ -92,8 +92,8 @@ const FriendRequestButton = ({ requestFriendId, me }) => {
 };
 
 FriendRequestButton.propTypes = {
-  me: PropTypes.any.isRequired,
-  requestFriendId: PropTypes.any.isRequired
+  me: PropTypes.any,
+  requestFriendId: PropTypes.any
 };
 
 export default FriendRequestButton;

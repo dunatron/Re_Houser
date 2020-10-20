@@ -60,11 +60,11 @@ const CheckReason = props => {
 };
 
 CheckReason.propTypes = {
-  errors: PropTypes.any.isRequired,
+  errors: PropTypes.any,
   inners: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  label: PropTypes.any.isRequired,
+  label: PropTypes.any,
   register: PropTypes.func.isRequired
 }
 
@@ -120,8 +120,8 @@ CheckboxText.propTypes = {
   inners: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
+  label: PropTypes.any,
+  name: PropTypes.any,
   register: PropTypes.func.isRequired
 }
 
@@ -194,11 +194,11 @@ const InputFieldType = props => {
 };
 
 InputFieldType.propTypes = {
-  config: PropTypes.any.isRequired,
-  errorMessage: PropTypes.any.isRequired,
-  errors: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  name: PropTypes.any.isRequired,
+  config: PropTypes.any,
+  errorMessage: PropTypes.any,
+  errors: PropTypes.any,
+  label: PropTypes.any,
+  name: PropTypes.any,
   onChange: PropTypes.func.isRequired
 }
 export default InputFieldType;

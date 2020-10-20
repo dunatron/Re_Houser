@@ -43,7 +43,7 @@ const AdminOnly = ({ me, children }) => {
 };
 
 AdminOnly.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
   me: PropTypes.shape({
     permissions: PropTypes.any
   }).isRequired

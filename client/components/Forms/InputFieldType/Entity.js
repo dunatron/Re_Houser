@@ -59,7 +59,7 @@ const EntityFormType = props => {
 };
 
 EntityFormType.propTypes = {
-  config: PropTypes.any.isRequired,
+  config: PropTypes.any,
   register: PropTypes.func.isRequired,
   setValue: PropTypes.func.isRequired
 }

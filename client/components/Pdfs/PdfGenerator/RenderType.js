@@ -4,6 +4,7 @@ import {
   Page,
   Text,
   View,
+  Link,
   Document,
   StyleSheet,
   Image,
@@ -15,8 +16,8 @@ const RenderType = ({ item }) => {
   const {
     type,
     value,
-    fieldProps,
-    layoutProps,
+    fieldProps = {},
+    layoutProps = {},
     inners,
     listStyle,
     listNum,
@@ -55,6 +56,7 @@ const RenderType = ({ item }) => {
             }}>
             {value}
           </Text>
+          <HandleInners inners={inners} />
         </View>
       );
     case 'Text':
@@ -66,6 +68,12 @@ const RenderType = ({ item }) => {
           }}>
           {value}
         </Text>
+      );
+    case 'Link':
+      return (
+        <Link target={item.target} href={window.location.origin + item.href}>
+          {item.value}
+        </Link>
       );
     default:
       return (

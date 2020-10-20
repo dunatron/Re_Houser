@@ -99,8 +99,8 @@ const FilterDrawer = ({ open, handleClose }) => {
 };
 
 FilterDrawer.propTypes = {
-  handleClose: PropTypes.any.isRequired,
-  open: PropTypes.any.isRequired,
+  handleClose: PropTypes.any,
+  open: PropTypes.any,
 };
 
 const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
@@ -133,9 +133,9 @@ const DrawHeader = ({ close, setFullScreen, isFullScreen }) => {
 };
 
 DrawHeader.propTypes = {
-  close: PropTypes.any.isRequired,
-  isFullScreen: PropTypes.any.isRequired,
-  setFullScreen: PropTypes.any.isRequired,
+  close: PropTypes.any,
+  isFullScreen: PropTypes.any,
+  setFullScreen: PropTypes.any,
 };
 
 const Sidebar = () => (

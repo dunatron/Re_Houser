@@ -112,7 +112,7 @@ const UserDetails = ({ me }) => {
 };
 
 UserDetails.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 export default UserDetails;

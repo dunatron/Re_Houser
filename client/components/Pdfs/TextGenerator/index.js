@@ -1,10 +1,10 @@
 import RenderType from './RenderType';
+import useStyles from '../useStyles';
 
 const TextGenerator = ({ config }) => {
+  const classes = useStyles();
   return (
-    <div>
-      I will recieve a pdf config and know how to render plain html text based
-      on that config
+    <div className={classes.webPdfDoc}>
       {config.map((item, idx) => {
         return <RenderType key={idx} item={item} />;
       })}

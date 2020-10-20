@@ -77,7 +77,7 @@ const ChatsListSelector = ({ me }) => {
 };
 
 ChatsListSelector.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 export default ChatsListSelector;

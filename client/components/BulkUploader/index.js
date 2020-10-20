@@ -23,7 +23,7 @@ const MyList = ({ virtual, itemHeight }) => (
 );
 
 MyList.propTypes = {
-  itemHeight: PropTypes.any.isRequired,
+  itemHeight: PropTypes.any,
   virtual: PropTypes.shape({
     items: PropTypes.shape({
       map: PropTypes.func

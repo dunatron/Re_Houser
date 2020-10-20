@@ -194,7 +194,6 @@ const FormCreator = props => {
             marginTop: '16px',
           }}
           color="primary"
-          square
           aria-label="outlined primary button group square">
           <Button
             disabled={posting}
@@ -205,7 +204,7 @@ const FormCreator = props => {
             {isNew ? _createText() : _updateText()}
           </Button>
           {hasCancel && (
-            <Button disabled={posting} onClick={cancel} square>
+            <Button disabled={posting} onClick={cancel}>
               {/* {`${isNew ? 'create' : 'update'}: ${title ? title : 'Form'}`} */}
               <AddIcon />
               Cancel
@@ -218,24 +217,21 @@ const FormCreator = props => {
 };
 
 FormCreator.propTypes = {
-  config: PropTypes.shape({
-    forEach: PropTypes.func,
-    map: PropTypes.func,
-  }).isRequired,
-  createText: PropTypes.any.isRequired,
-  data: PropTypes.any.isRequired,
-  error: PropTypes.any.isRequired,
-  folder: PropTypes.any.isRequired,
-  handleWatchChanges: PropTypes.func.isRequired,
-  isNew: PropTypes.any.isRequired,
-  name: PropTypes.string.isRequired,
+  config: PropTypes.array.isRequired,
+  createText: PropTypes.any,
+  data: PropTypes.any,
+  error: PropTypes.any,
+  folder: PropTypes.any,
+  handleWatchChanges: PropTypes.func,
+  isNew: PropTypes.any,
+  name: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
-  posting: PropTypes.any.isRequired,
-  refetchQueries: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired,
-  updateCacheOnRemovedFile: PropTypes.any.isRequired,
-  updateText: PropTypes.any.isRequired,
-  watchFields: PropTypes.array.isRequired,
+  posting: PropTypes.any,
+  refetchQueries: PropTypes.any,
+  title: PropTypes.any,
+  updateCacheOnRemovedFile: PropTypes.any,
+  updateText: PropTypes.any,
+  watchFields: PropTypes.array,
 };
 
 export { FormCreator };

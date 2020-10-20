@@ -166,7 +166,7 @@ PaymentsTable.propTypes = {
   payments: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  title: PropTypes.any.isRequired
+  title: PropTypes.any
 };
 
 export default PaymentsTable;

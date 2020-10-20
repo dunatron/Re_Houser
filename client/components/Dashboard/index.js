@@ -72,9 +72,9 @@ Dashboard.propTypes = {
       description: PropTypes.string,
     })
   ).isRequired,
-  elevation: PropTypes.any.isRequired,
-  heading: PropTypes.any.isRequired,
-  intro: PropTypes.any.isRequired,
+  elevation: PropTypes.any,
+  heading: PropTypes.any,
+  intro: PropTypes.any,
   me: PropTypes.any,
 };
 

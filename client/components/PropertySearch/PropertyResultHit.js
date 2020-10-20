@@ -124,7 +124,7 @@ DetailItem.propTypes = {
     name: PropTypes.any,
     title: PropTypes.any,
   }).isRequired,
-  hit: PropTypes.any.isRequired,
+  hit: PropTypes.any,
 };
 
 const DetailItemsArr = [

@@ -168,8 +168,8 @@ Banner.propTypes = {
   footer: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,
-  imageSrc: PropTypes.any.isRequired,
-  text: PropTypes.any.isRequired
+  imageSrc: PropTypes.any,
+  text: PropTypes.any
 };
 
 export default Banner;

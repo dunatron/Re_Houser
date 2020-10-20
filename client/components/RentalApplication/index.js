@@ -111,7 +111,7 @@ const RentalApplication = ({ id, me }) => {
 };
 
 RentalApplication.propTypes = {
-  id: PropTypes.any.isRequired,
+  id: PropTypes.any,
   me: PropTypes.shape({
     id: PropTypes.any,
   }).isRequired,

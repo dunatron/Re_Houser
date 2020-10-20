@@ -51,8 +51,8 @@ PageHeader.propTypes = {
   metaData: PropTypes.shape({
     content: PropTypes.any,
     title: PropTypes.any,
-  }).isRequired,
-  title: PropTypes.any.isRequired,
+  }),
+  title: PropTypes.any,
   titleOverride: PropTypes.any,
   titleVariant: PropTypes.any,
 };

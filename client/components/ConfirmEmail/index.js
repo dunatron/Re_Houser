@@ -29,7 +29,7 @@ const ConfirmEmail = ({ me, children }) => {
 };
 
 ConfirmEmail.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
   me: PropTypes.shape({
     emailValidated: PropTypes.any,
   }).isRequired,

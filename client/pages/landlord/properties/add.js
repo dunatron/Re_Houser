@@ -17,6 +17,8 @@ const AddPropertyPage = ({ appData: { currentUser } }) => {
     rooms: 6,
     bathrooms: 2,
   };
+
+  const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>
       <PageHeader
@@ -35,7 +37,7 @@ const AddPropertyPage = ({ appData: { currentUser } }) => {
             <strong>{pleaseSignInMessage}</strong>
           </Typography>
         }>
-        <CreateProperty prefilledData={formattedData} />
+        <CreateProperty prefilledData={formattedData} me={me} />
       </PleaseSignIn>
     </>
   );

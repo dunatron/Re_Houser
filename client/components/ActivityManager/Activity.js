@@ -219,7 +219,7 @@ const Activity = ({ args }) => {
 };
 
 Activity.propTypes = {
-  args: PropTypes.any.isRequired
+  args: PropTypes.any
 };
 
 const ActivityItem = ({ activity }) => {

@@ -20,9 +20,9 @@ const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
 });
 
 CustomHighlight.propTypes = {
-  attribute: PropTypes.any.isRequired,
+  attribute: PropTypes.any,
   highlight: PropTypes.func.isRequired,
-  hit: PropTypes.any.isRequired
+  hit: PropTypes.any
 }
 
 export default CustomHighlight;

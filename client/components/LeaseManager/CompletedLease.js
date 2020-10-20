@@ -19,9 +19,9 @@ const CompletedLease = ({ leaseId, lease, me }) => {
 };
 
 CompletedLease.propTypes = {
-  lease: PropTypes.any.isRequired,
-  leaseId: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired
+  lease: PropTypes.any,
+  leaseId: PropTypes.any,
+  me: PropTypes.any
 }
 
 export default CompletedLease;

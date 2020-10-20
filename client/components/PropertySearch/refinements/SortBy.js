@@ -18,7 +18,7 @@ const MaterialUiSortBy = props => (
 );
 
 MaterialUiSortBy.propTypes = {
-  currentRefinement: PropTypes.any.isRequired,
+  currentRefinement: PropTypes.any,
   items: PropTypes.shape({
     map: PropTypes.func
   }).isRequired,

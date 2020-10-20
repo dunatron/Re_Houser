@@ -44,7 +44,7 @@ const ChatsBar = ({ me }) => {
 };
 
 ChatsBar.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 export default ChatsBar;

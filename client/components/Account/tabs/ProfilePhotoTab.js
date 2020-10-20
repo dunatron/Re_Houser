@@ -17,7 +17,7 @@ const ProfilePhotoTab = ({ me }) => {
 };
 
 ProfilePhotoTab.propTypes = {
-  me: PropTypes.any.isRequired
+  me: PropTypes.any
 };
 
 export default ProfilePhotoTab;

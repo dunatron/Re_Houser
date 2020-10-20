@@ -94,7 +94,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
   classes: PropTypes.shape({
     backdrop: PropTypes.any,
     closeBtn: PropTypes.any,
@@ -105,10 +105,10 @@ Modal.propTypes = {
     root: PropTypes.any
   }).isRequired,
   close: PropTypes.func.isRequired,
-  height: PropTypes.any.isRequired,
-  open: PropTypes.any.isRequired,
-  title: PropTypes.any.isRequired,
-  width: PropTypes.any.isRequired
+  height: PropTypes.any,
+  open: PropTypes.any,
+  title: PropTypes.any,
+  width: PropTypes.any
 };
 
 export default withStyles(styles)(Modal);

@@ -112,7 +112,7 @@ const LabelArrayVal = ({ label, val }) => {
 };
 
 LabelArrayVal.propTypes = {
-  label: PropTypes.any.isRequired,
+  label: PropTypes.any,
   val: PropTypes.shape({
     map: PropTypes.func,
   }).isRequired,
@@ -132,8 +132,8 @@ const LabelKeyVal = ({ label, val }) => {
 };
 
 LabelKeyVal.propTypes = {
-  label: PropTypes.any.isRequired,
-  val: PropTypes.any.isRequired,
+  label: PropTypes.any,
+  val: PropTypes.any,
 };
 
 export default RentalAppraisalView;

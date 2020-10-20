@@ -51,10 +51,10 @@ const RenderBtnText = ({ success, text, successText }) => {
 };
 
 RenderBtnText.propTypes = {
-  success: PropTypes.any.isRequired,
-  successText: PropTypes.any.isRequired,
-  text: PropTypes.any.isRequired
-}
+  success: PropTypes.any,
+  successText: PropTypes.any,
+  text: PropTypes.any,
+};
 
 const ButtonLoader = props => {
   const {
@@ -81,7 +81,6 @@ const ButtonLoader = props => {
       className={buttonClassname}
       disabled={loading}
       {...btnProps}
-      {...props}
       onClick={onClick}>
       {children}
       <RenderBtnText success={success} text={text} successText={successText} />
@@ -93,14 +92,14 @@ const ButtonLoader = props => {
 };
 
 ButtonLoader.propTypes = {
-  btnProps: PropTypes.any.isRequired,
-  children: PropTypes.any.isRequired,
-  cy: PropTypes.any.isRequired,
+  btnProps: PropTypes.any,
+  children: PropTypes.any,
+  cy: PropTypes.any,
   loading: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
   successText: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };
 
 export { StyledButton, ButtonLoader };

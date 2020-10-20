@@ -18,8 +18,8 @@ const PropertyViewings = ({ propertyId, me }) => {
 };
 
 PropertyViewings.propTypes = {
-  me: PropTypes.any.isRequired,
-  propertyId: PropTypes.any.isRequired
+  me: PropTypes.any,
+  propertyId: PropTypes.any
 };
 
 export default PropertyViewings;

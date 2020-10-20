@@ -27,7 +27,7 @@ const StringInput = ({ fieldProps, defaultValue, onChange }) => {
 };
 
 StringInput.propTypes = {
-  defaultValue: PropTypes.any.isRequired,
+  defaultValue: PropTypes.any,
   fieldProps: PropTypes.shape({
     helperText: PropTypes.any,
     label: PropTypes.any,

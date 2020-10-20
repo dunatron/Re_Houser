@@ -28,9 +28,9 @@ SearchFilter.propTypes = {
   classes: PropTypes.shape({
     searchField: PropTypes.any
   }).isRequired,
-  fullWidth: PropTypes.any.isRequired,
+  fullWidth: PropTypes.any,
   handleChange: PropTypes.func.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any
 }
 
 export default withStyles(styles)(SearchFilter);

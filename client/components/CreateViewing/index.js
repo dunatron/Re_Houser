@@ -105,7 +105,7 @@ CreateViewing.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any
   }).isRequired,
-  propertyId: PropTypes.any.isRequired
+  propertyId: PropTypes.any
 };
 
 export default CreateViewing;

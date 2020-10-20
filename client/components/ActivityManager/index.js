@@ -63,8 +63,8 @@ const ActivityManager = props => {
 };
 
 ActivityManager.propTypes = {
-  args: PropTypes.any.isRequired,
-  collapsed: PropTypes.any.isRequired,
+  args: PropTypes.any,
+  collapsed: PropTypes.any,
   me: PropTypes.shape({
     id: PropTypes.any
   }).isRequired

@@ -55,10 +55,10 @@ const Signout = ({ label, fullWidth, me, color, variant }) => {
 };
 
 Signout.propTypes = {
-  color: PropTypes.any.isRequired,
-  fullWidth: PropTypes.any.isRequired,
-  label: PropTypes.any.isRequired,
-  me: PropTypes.any.isRequired,
-  variant: PropTypes.any.isRequired
+  color: PropTypes.any,
+  fullWidth: PropTypes.any,
+  label: PropTypes.any,
+  me: PropTypes.any,
+  variant: PropTypes.any
 };
 export default Signout;

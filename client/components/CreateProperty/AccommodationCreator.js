@@ -41,9 +41,9 @@ AccommodationCreator.propTypes = {
     length: PropTypes.any
   }).isRequired,
   add: PropTypes.func.isRequired,
-  duplicate: PropTypes.any.isRequired,
-  remove: PropTypes.any.isRequired,
-  update: PropTypes.any.isRequired
+  duplicate: PropTypes.any,
+  remove: PropTypes.any,
+  update: PropTypes.any
 };
 
 const CreateAccommodation = ({ accommodation, add, type }) => {
@@ -225,8 +225,8 @@ const EditAccommodation = ({ index, accommodation, update }) => {
 };
 
 EditAccommodation.propTypes = {
-  accommodation: PropTypes.any.isRequired,
-  index: PropTypes.any.isRequired,
+  accommodation: PropTypes.any,
+  index: PropTypes.any,
   update: PropTypes.func.isRequired
 };
 

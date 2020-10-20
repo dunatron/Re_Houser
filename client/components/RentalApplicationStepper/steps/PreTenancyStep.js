@@ -152,7 +152,7 @@ const PreTenancyStep = ({
 };
 
 PreTenancyStep.propTypes = {
-  completed: PropTypes.any.isRequired,
+  completed: PropTypes.any,
   me: PropTypes.shape({
     dob: PropTypes.any,
     email: PropTypes.any,
@@ -161,13 +161,13 @@ PreTenancyStep.propTypes = {
     lastName: PropTypes.any,
     phone: PropTypes.any,
   }).isRequired,
-  property: PropTypes.any.isRequired,
+  property: PropTypes.any,
   rentalApplication: PropTypes.shape({
     applicants: PropTypes.shape({
       find: PropTypes.func,
     }),
   }).isRequired,
-  update: PropTypes.any.isRequired,
+  update: PropTypes.any,
   updateUser: PropTypes.func.isRequired,
 };
 

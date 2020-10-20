@@ -38,7 +38,7 @@ function HideOnScroll(props) {
 }
 
 HideOnScroll.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.any,
   window: PropTypes.func,
 };
 
