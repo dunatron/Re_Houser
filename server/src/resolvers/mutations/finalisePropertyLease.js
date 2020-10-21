@@ -108,7 +108,8 @@ async function finalisePropertyLease(parent, args, ctx, info) {
 
   // all lessors must have signed the lease(usually just one)
   const allLessorsSigned = !lessorSignatures.includes(false);
-  if (!allLessorsSigned && !isRehouserManaged) {
+
+  if (!allLessorsSigned) {
     throw new Error("Not all lessors have signed this lease yet");
   }
 
@@ -118,7 +119,6 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     throw new Error("Not all lessees have signed this lease yet");
   }
 
-  // probably add the loggedInUser as a lessor if it is rehouser managed
   // stage needs to be updated
   const acceptedLease = await ctx.db.mutation.updatePropertyLease(
     {

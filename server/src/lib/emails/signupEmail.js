@@ -1,8 +1,6 @@
 const { transport, makeANiceEmail } = require("../mail");
 
 const signupEmail = async function({ toEmail, ctx, user, confirmEmailToken }) {
-  console.log("DO WE HAVE PROCESS.env", process.env.MAIL_USER);
-
   return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,

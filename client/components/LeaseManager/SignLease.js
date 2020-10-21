@@ -32,13 +32,11 @@ const SignLease = ({ lease, me, userIsLessor, userIsLessee }) => {
         userIsLessor={userIsLessor}
         userIsLessee={userIsLessee}
       />
-      
-      {!lease.property.rehouserManaged && <>
-        <Typography variant="h5" gutterBottom>
+
+      <Typography variant="h5" gutterBottom>
         Lessors
       </Typography>
       <SignDetailsBlock items={lessors} me={me} lease={lease} type="LESSOR" />
-      </>}
       
       <Typography variant="h5" gutterBottom>
         Lessees

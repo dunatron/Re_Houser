@@ -123,7 +123,12 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const agentIds = property.agents.map(agent => agent.id);
   const lesseeUsers = applicants.map(applicant => applicant.user);
 
-  // const lessorsConnection =
+
+  if(!agentIds.includes(loggedInUser)) {
+    throw new Error(
+      `You must be an agent to accept rental applications as it will make you a lessor`
+    );
+  }
 
   // work out the expiry date
 
@@ -142,12 +147,6 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         location: property.location,
         locationLat: property.locationLat,
         locationLng: property.locationLng,
-        // lessors: {
-        //   create: owners.map(owner => ({
-        //     signed: false,
-        //     user: { connect: { id: owner.id } }
-        //   }))
-        // },
         lessors: isRehouserManaged ? {
           create: agents.map(owner => ({
             signed: false,
