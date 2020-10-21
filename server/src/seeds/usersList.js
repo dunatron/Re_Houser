@@ -1,6 +1,5 @@
 const { CEO_DETAILS, CTO_DETAILS } = require("../const");
 
-
 const userPassword = "test";
 
 const userEmail3 = "bob@test.com";
@@ -14,7 +13,7 @@ const userEmail10 = "ida@test.com";
 const userEmail11 = "lee@test.com";
 
 const setWizardPermissions = {
-  set: ["ADMIN", "USER", "PERMISSIONUPDATE"]
+  set: ["ADMIN", "USER", "PERMISSIONUPDATE", "WIZARD"]
 };
 
 const setAdminPermissions = {

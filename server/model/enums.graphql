@@ -4,6 +4,7 @@ enum Permission {
   ADMIN
   USER
   PERMISSIONUPDATE
+  WIZARD
 }
 
 enum ApplicationStage {
