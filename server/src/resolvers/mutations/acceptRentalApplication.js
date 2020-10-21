@@ -7,6 +7,8 @@ const {
   newLeaseLessorEmail
 } = require("../../lib/emails/newLeaseEmail");
 
+const {_assertCanManageProperty} = require("../../lib/_assertCanManageProperty")
+
 /**
  * This will accept a rental application changing it's status to ACCEPTED if the user performing the action
  * is an owner of the property.
@@ -105,26 +107,21 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   isRehouserManaged = application.property.rehouserManaged;
 
+  await _assertCanManageProperty({
+    property: application.property, 
+    ctx: ctx
+  })
+
   if (application.leaseId)
     throw new Error(
       `rental application already has a lease associated with it ${application.leaseId}`
     );
 
   const { applicants, property } = application;
-  const { owners } = property;
+  const { owners, agents } = property;
   const ownerIds = property.owners.map(owner => owner.id);
+  const agentIds = property.agents.map(agent => agent.id);
   const lesseeUsers = applicants.map(applicant => applicant.user);
-
-  // check that loggedInUser is one of the owners for the property
-  if (!ownerIds.includes(loggedInUser) && !isAdmin) {
-    throw new Error("You are not one of the owners!");
-  }
-
-  if (isRehouserManaged && !isAdmin) {
-    throw new Error(
-      "This property is managed by rehouser and therefore only rehouser admins can accept rental applications"
-    );
-  }
 
   // const lessorsConnection =
 
@@ -145,7 +142,18 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         location: property.location,
         locationLat: property.locationLat,
         locationLng: property.locationLng,
-        lessors: {
+        // lessors: {
+        //   create: owners.map(owner => ({
+        //     signed: false,
+        //     user: { connect: { id: owner.id } }
+        //   }))
+        // },
+        lessors: isRehouserManaged ? {
+          create: agents.map(owner => ({
+            signed: false,
+            user: { connect: { id: owner.id } }
+          }))
+        } : {
           create: owners.map(owner => ({
             signed: false,
             user: { connect: { id: owner.id } }

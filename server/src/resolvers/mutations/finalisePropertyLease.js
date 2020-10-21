@@ -4,6 +4,8 @@ const mustBeAuthed = require("../../lib/mustBeAuthed");
 const { createActivity } = require("../../lib/createActivity");
 const getBondAmount = require("../../lib/payments/getBondAmount");
 
+const {_assertCanManageProperty} = require("../../lib/_assertCanManageProperty")
+
 // cleanup
 const finaliseLeaseCleanup = require("../../lib/cleanup/finaliseLeaseCleanup");
 
@@ -66,6 +68,14 @@ async function finalisePropertyLease(parent, args, ctx, info) {
         id
         location
         rehouserManaged
+        owners {
+          id
+          email
+        }
+        agents {
+          id
+          email
+        }
       }
       wallet {
         id
@@ -73,6 +83,12 @@ async function finalisePropertyLease(parent, args, ctx, info) {
       }
     }`
   );
+
+
+  await _assertCanManageProperty({
+    property: lease.property, 
+    ctx: ctx
+  })
 
   const isRehouserManaged = lease.property.rehouserManaged
 
