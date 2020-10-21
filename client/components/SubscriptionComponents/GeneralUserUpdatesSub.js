@@ -60,6 +60,8 @@ const GeneralUserUpdatesSub = ({ me }) => {
   if (error) {
     console.log('GeneralUserUpdatesSub: error => ', error);
   }
+  return <div>Not SUbScribed To: USER_SUBSCRIPTION</div>
+  return "NOT SUBSCRIBED TO USER_SUBSCRIPTION";
   return null;
 };
 

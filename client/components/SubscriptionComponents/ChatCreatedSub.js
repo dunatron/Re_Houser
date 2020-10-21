@@ -47,6 +47,7 @@ const ChatCreatedSub = ({ me }) => {
       // }
     },
   });
+  return <div>Not SUbScribed To: CHAT_SUBSCRIPTION</div>
   return null;
 };
 

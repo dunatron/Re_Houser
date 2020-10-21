@@ -33,10 +33,11 @@ const PropertiesSub = ({ where }) => {
   if (error)
     return (
       <div>
-        No Websocket connection. You will need to manually refresh for updates
+        No Websocket connection. You will need to manually refresh for PROPERTY_SUBSCRIPTION updates
       </div>
     );
   console.log('subscription: Properties 3');
+  return <div>Not SUbScribed To: PROPERTY_SUBSCRIPTION</div>
   return null;
 };
 

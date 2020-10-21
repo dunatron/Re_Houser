@@ -62,6 +62,8 @@ const MessageCreatedSub = ({ me }) => {
     },
   });
   console.log('subscription: Message Created 1');
+  return <div>Not SUbScribed To: MESSAGE_CREATED_SUBSCRIPTION</div>
+  return <div>Not SUbScribed To: MESSAGE_CREATED_SUBSCRIPTION</div>
   return null;
 };
 

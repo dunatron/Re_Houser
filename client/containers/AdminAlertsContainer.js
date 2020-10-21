@@ -33,13 +33,9 @@ const AdminAlertsContainer = props => {
       <User>
         {({ data }) => {
           const me = data ? data.me : null;
-          console.log('me in al admin sub => ', me);
           if (!me) return null;
           const { permissions, adminSettings } = me;
-          console.log('This users permissions => ', permissions);
-          console.log('adminSettings => ', adminSettings);
           const canSubscribe = permissions.includes('ADMIN');
-          console.log('Can subscribe to admin => ', canSubscribe);
           if (!canSubscribe) return null;
           return (
             <>

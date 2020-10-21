@@ -47,7 +47,7 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
     toast(
       <div>
         <p>
-          No Websocket connection. You will need to manually refresh for updates
+          No Websocket connection error in fact. You will need to manually refresh for RENTAL_APPLICATION_UPDATED_SUBSCRIPTION  updates
         </p>
       </div>
     );
@@ -57,9 +57,10 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
         <p>Subbed to {property.location}</p>
       </div>
     );
+    return <div>Not SUbScribed To: RENTAL_APPLICATION_UPDATED_SUBSCRIPTION</div>
   return (
     <div>
-      No Websocket connection. You will need to manually refresh for updates
+      No Websocket connection. You will need to manually refresh for RENTAL_APPLICATION_UPDATED_SUBSCRIPTION updates
     </div>
   );
 };

@@ -46,10 +46,11 @@ const AdminNewRentalAppraisalSub = () => {
   if (error)
     return (
       <div>
-        No Websocket connection. You will need to manually refresh for updates
+        No Websocket connection. You will need to manually refresh for PROPERTY_APPRAISAL_SUBSCRIPTION updates
       </div>
     );
   console.log('subscription: RentalAppraisal 3');
+  return <div>Not SUbScribed To: PROPERTY_APPRAISAL_SUBSCRIPTION</div>
   return null;
 };
 

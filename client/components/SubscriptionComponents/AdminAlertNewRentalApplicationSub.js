@@ -38,10 +38,11 @@ const AdminAlertNewRentalApplicationSub = () => {
   if (error)
     return (
       <div>
-        No Websocket connection. You will need to manually refresh for updates
+        No Websocket connection. You will need to manually refresh for AdminAlertNewRentalApplicationSub updates
       </div>
     );
   // they are just aledrts find the best way to return nothing
+  return <div>Not SUbScribed To: RENTAL_APPLICATION_SUBSCRIPTION</div>
   return null;
 };
 
