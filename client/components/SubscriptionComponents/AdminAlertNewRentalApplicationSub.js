@@ -3,6 +3,8 @@ import { useQuery, useMutation, useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { RENTAL_APPLICATION_SUBSCRIPTION } from '@/Gql/subscriptions/RentalApplicationSub';
 import { store } from '@/Store/index';
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
 
 const AdminAlertNewRentalApplicationSub = () => {
   const globalStore = useContext(store);
@@ -34,15 +36,16 @@ const AdminAlertNewRentalApplicationSub = () => {
       },
     }
   );
+ 
   if (loading) return null;
-  if (error)
-    return (
-      <div>
-        No Websocket connection. You will need to manually refresh for AdminAlertNewRentalApplicationSub updates
-      </div>
-    );
+  if (error) {
+    return <div>Not SUbScribed To: RENTAL_APPLICATION_SUBSCRIPTION mutation created
+      <Error  error={error}/>
+    </div>
+  }
+    
   // they are just aledrts find the best way to return nothing
-  return <div>Not SUbScribed To: RENTAL_APPLICATION_SUBSCRIPTION</div>
+ 
   return null;
 };
 

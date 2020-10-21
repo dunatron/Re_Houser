@@ -6,10 +6,12 @@ import { writeMessage } from '../../services/cache.service';
 import { toast } from 'react-toastify';
 import gql from 'graphql-tag';
 import { store } from '@/Store/index';
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
 
 const MessageCreatedSub = ({ me }) => {
   const { state, dispatch } = useContext(store);
-  useSubscription(MESSAGE_CREATED_SUBSCRIPTION, {
+  const { loading, data, error } = useSubscription(MESSAGE_CREATED_SUBSCRIPTION, {
     variables: {
       where: {
         node: {
@@ -61,9 +63,13 @@ const MessageCreatedSub = ({ me }) => {
       // );
     },
   });
-  console.log('subscription: Message Created 1');
-  return <div>Not SUbScribed To: MESSAGE_CREATED_SUBSCRIPTION</div>
-  return <div>Not SUbScribed To: MESSAGE_CREATED_SUBSCRIPTION</div>
+  if (loading) return null;
+  if (error) {
+    return <div>Not SUbScribed To: MESSAGE_CREATED_SUBSCRIPTION
+      <Error  error={error}/>
+    </div>
+  }
+  
   return null;
 };
 

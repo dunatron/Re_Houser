@@ -4,18 +4,19 @@ import { useSubscription } from '@apollo/client';
 import { CHAT_SUBSCRIPTION } from '@/Gql/subscriptions/ChatSub';
 import { store } from '@/Store/index';
 import { toast } from 'react-toastify';
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
 
 const ChatCreatedSub = ({ me }) => {
   const { state, dispatch } = useContext(store);
-  useSubscription(CHAT_SUBSCRIPTION, {
+  const { loading, data, error } =useSubscription(CHAT_SUBSCRIPTION, {
     variables: {
       where: {
         node: {
-          participants_some: [
+          participants_some: 
             {
               id: me.id,
             },
-          ],
         },
       },
     },
@@ -47,7 +48,17 @@ const ChatCreatedSub = ({ me }) => {
       // }
     },
   });
-  return <div>Not SUbScribed To: CHAT_SUBSCRIPTION</div>
+
+  if (loading) return null;
+  if (error) {
+    return <div>Not SUbScribed To: CHAT_SUBSCRIPTION
+      <Error  error={error}/>
+    </div>
+  }
+ 
+
+  // they are just aledrts find the best way to return nothing
+  
   return null;
 };
 

@@ -199,6 +199,9 @@ type Subscription {
   inspectionSub(
     where: InspectionSubscriptionWhereInput
   ): InspectionSubscriptionPayload
+  rentalApplicationSub(
+    where: RentalApplicationSubscriptionWhereInput
+  ): RentalApplicationSubscriptionPayload
 }
 
 type Query {

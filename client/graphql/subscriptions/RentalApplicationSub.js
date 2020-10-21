@@ -14,4 +14,5 @@ const RENTAL_APPLICATION_SUBSCRIPTION = gql`
   ${RentalApplicationInfoFragment}
 `;
 
+
 export { RENTAL_APPLICATION_SUBSCRIPTION };

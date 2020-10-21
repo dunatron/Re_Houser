@@ -5,6 +5,9 @@ import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '@/Gql/subscriptions/Ren
 import ApplicationCard from '@/Components/PropertyDetails/ApplicationCard';
 import { ToastContainer, toast } from 'react-toastify';
 
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
+
 const PropertyPendingRentalApplicationsSub = ({ property }) => {
   const [newObjects, setNewObjects] = useState([]);
   const [updateCount, setUpdateCount] = useState(0);
@@ -42,27 +45,14 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
       },
     }
   );
+
   if (loading) return null;
-  if (error)
-    toast(
-      <div>
-        <p>
-          No Websocket connection error in fact. You will need to manually refresh for RENTAL_APPLICATION_UPDATED_SUBSCRIPTION  updates
-        </p>
-      </div>
-    );
-  if (!error)
-    toast(
-      <div>
-        <p>Subbed to {property.location}</p>
-      </div>
-    );
-    return <div>Not SUbScribed To: RENTAL_APPLICATION_UPDATED_SUBSCRIPTION</div>
-  return (
-    <div>
-      No Websocket connection. You will need to manually refresh for RENTAL_APPLICATION_UPDATED_SUBSCRIPTION updates
+  if (error) {
+    return <div>Not SUbScribed To: RENTAL_APPLICATION_UPDATED_SUBSCRIPTION
+      <Error  error={error}/>
     </div>
-  );
+  }
+  return null
 };
 
 PropertyPendingRentalApplicationsSub.propTypes = {

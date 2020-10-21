@@ -3,6 +3,9 @@ import { useSubscription } from '@apollo/client';
 import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
 import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
+
 const GeneralUserUpdatesSub = ({ me }) => {
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
     suspend: false,
@@ -52,16 +55,12 @@ const GeneralUserUpdatesSub = ({ me }) => {
       // });
     },
   });
-  // if (loading) return null;
-  if (loading) {
-    console.log('GeneralUserUpdatesSub: Loading sub');
-    return null;
-  }
+  if (loading) return null;
   if (error) {
-    console.log('GeneralUserUpdatesSub: error => ', error);
+    return <div>Not SUbScribed To: USER_SUBSCRIPTION
+      <Error  error={error}/>
+    </div>
   }
-  return <div>Not SUbScribed To: USER_SUBSCRIPTION</div>
-  return "NOT SUBSCRIBED TO USER_SUBSCRIPTION";
   return null;
 };
 

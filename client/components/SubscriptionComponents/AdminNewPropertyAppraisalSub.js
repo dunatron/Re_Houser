@@ -3,6 +3,8 @@ import { useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '@/Gql/subscriptions/PropertyAppraisalSub';
 import { store } from '@/Store/index';
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
 
 const AdminNewRentalAppraisalSub = () => {
   const globalStore = useContext(store);
@@ -38,19 +40,13 @@ const AdminNewRentalAppraisalSub = () => {
       },
     }
   );
-  console.log('subscription: RentalAppraisal 1');
-  if (loading) {
-    return null;
+
+  if (loading) return null;
+  if (error) {
+    return <div>Not SUbScribed To: PROPERTY_APPRAISAL_SUBSCRIPTION
+      <Error  error={error}/>
+    </div>
   }
-  console.log('subscription: RentalAppraisal 2');
-  if (error)
-    return (
-      <div>
-        No Websocket connection. You will need to manually refresh for PROPERTY_APPRAISAL_SUBSCRIPTION updates
-      </div>
-    );
-  console.log('subscription: RentalAppraisal 3');
-  return <div>Not SUbScribed To: PROPERTY_APPRAISAL_SUBSCRIPTION</div>
   return null;
 };
 

@@ -1,6 +1,7 @@
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../../lib/mail");
+const congratulateEmailConfirmEmail = require("../../lib/emails/congratulateEmailConfirmEmail");
 
 /**
  *
@@ -58,7 +59,7 @@ async function confirmEmail(parent, args, ctx, info) {
 
   // confirm the token is leget
   // make mutation to say
-  const res = await ctx.db.mutation.updateUser(
+  const updatedUserRes = await ctx.db.mutation.updateUser(
     {
       where: { email: user.email },
       data: {
@@ -69,20 +70,14 @@ async function confirmEmail(parent, args, ctx, info) {
     },
     info
   );
-  // 3. Email them that reset token
-  const mailRes = await transport.sendMail({
-    from: "heath.dunlop.hd@gmail.com",
-    to: user.email,
-    subject: "Rehouser account validated",
-    html: makeANiceEmail(
-      `Congratulations on validating your email!
-      \n\n`,
-      user
-    ),
+  // 3. Email them congratulations on confirming email
+
+  congratulateEmailConfirmEmail({
+   email: user.email
   });
 
   // 4. Return the message
-  return res;
+  return updatedUserRes;
 }
 
 module.exports = confirmEmail;

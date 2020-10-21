@@ -127,6 +127,17 @@ const inspectionSub = {
   subscribe: inspection
 };
 
+async function rentalApplication(parent, args, context, info) {
+  return context.db.subscription.rentalApplication({ ...args }, info);
+}
+
+const rentalApplicationSub = {
+  subscribe: rentalApplication
+};
+
+
+
+
 module.exports = {
   rentalApplicationCreatedSub,
   rentalApplicationUpdateSub,
@@ -139,5 +150,6 @@ module.exports = {
   rentalAppraisalSub,
   propertySub,
   userSub,
-  inspectionSub
+  inspectionSub,
+  rentalApplicationSub
 };

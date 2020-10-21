@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { PROPERTY_SUBSCRIPTION } from '@/Gql/subscriptions/PropertySubscription';
 import ApplicationCard from '@/Components/PropertyDetails/ApplicationCard';
 import { store } from '@/Store/index';
+import Error from '@/Components/ErrorMessage'
+import Loader from '@/Components/Loader'
 
 const PropertiesSub = ({ where }) => {
   const globalStore = useContext(store);
@@ -27,18 +29,13 @@ const PropertiesSub = ({ where }) => {
       toast.success(<p>New Rental APpraisal has been requested</p>);
     },
   });
-  console.log('subscription: Properties 1');
   if (loading) return null;
-  console.log('subscription: Properties 2');
-  if (error)
-    return (
-      <div>
-        No Websocket connection. You will need to manually refresh for PROPERTY_SUBSCRIPTION updates
-      </div>
-    );
-  console.log('subscription: Properties 3');
-  return <div>Not SUbScribed To: PROPERTY_SUBSCRIPTION</div>
-  return null;
+  if (error) {
+    return <div>Not SUbScribed To: PROPERTY_SUBSCRIPTION
+      <Error  error={error}/>
+    </div>
+  }
+ return null
 };
 
 PropertiesSub.propTypes = {
