@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Oct 15 2020 09:59:11 GMT+1300 (New Zealand Daylight Time)
+# source: https://rehouser-db-prod-925c297bf3.herokuapp.com/rehouser-prisma/prod
+# timestamp: Wed Oct 21 2020 18:48:24 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -13968,6 +13968,7 @@ enum Permission {
   ADMIN
   USER
   PERMISSIONUPDATE
+  WIZARD
 }
 
 enum Pet {
