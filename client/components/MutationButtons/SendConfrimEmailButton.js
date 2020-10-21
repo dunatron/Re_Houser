@@ -49,6 +49,7 @@ const SendConfirmEmailButton = () => {
   // if token is set in the url then confirm email once logged in
   useEffect(() => {
     if (router.query.token) {
+      console.log("running confirm email with token => ", token)
       confirmEmailWithToken();
     }
   }, [router.query.token]);
