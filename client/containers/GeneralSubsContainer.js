@@ -6,14 +6,12 @@ import MessageCreatedSub from '../components/SubscriptionComponents/MessageCreat
 import User from '../components/User/index';
 
 const GeneralSubsContainer = props => {
-  console.log('GeneralUserUpdatesSub: Container');
   return (
     <>
       <User>
         {({ data }) => {
           const me = data ? data.me : null;
           if (!me) return null;
-          console.log('General Subs container has user => ', me);
           return (
             <>
               <GeneralUserUpdatesSub me={me} />

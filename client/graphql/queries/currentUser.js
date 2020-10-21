@@ -11,3 +11,4 @@ const CURRENT_USER_QUERY = gql`
 `;
 
 export { CURRENT_USER_QUERY };
+export default CURRENT_USER_QUERY;

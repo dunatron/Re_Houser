@@ -25,7 +25,10 @@ const AnnouncementProvider = ({ children }) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'addAnnouncement':
-        return [...state, action.payload];
+        const filteredAddState = state.filter(
+          s => s.key !== action.payload.key
+        );
+        return [...filteredAddState, action.payload];
       case 'rmAnnouncement':
         return [...state.filter((item, i) => action.payload !== i)];
       case 'rmAnnouncementByKey':

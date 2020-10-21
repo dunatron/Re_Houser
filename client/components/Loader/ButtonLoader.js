@@ -66,6 +66,7 @@ const ButtonLoader = props => {
     cy,
     btnProps,
     children,
+    type,
   } = props;
   const classes = useStyles();
   const buttonClassname = clsx({
@@ -75,6 +76,7 @@ const ButtonLoader = props => {
 
   return (
     <StyledButton
+      type={type}
       data-cy={cy}
       variant="contained"
       color="primary"

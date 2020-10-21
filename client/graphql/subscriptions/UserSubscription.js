@@ -1,34 +1,29 @@
 import gql from 'graphql-tag';
 
+import * as fragments from '../fragments';
+
 const USER_SUBSCRIPTION = gql`
-  subscription($where: UserSubscriptionWhereInput) {
+  subscription userSub($where: UserSubscriptionWhereInput) {
     userSub(where: $where) {
       node {
-        id
-        firstName
-        lastName
-        phone
-        email
-        emailValidated
-        dob
-        identificationNumber
-        emergencyContactName
-        emergencyContactNumber
-        emergencyContactEmail
-        referee1Name
-        referee1Phone
-        referee1Email
-        referee2Name
-        referee2Phone
-        referee2Email
-        permissions
-        token
-        rehouserStamp
-        acceptedSignupTerms
-        acceptedTermsOfEngagement
+        ...userInfo
       }
     }
   }
+  ${fragments.UserInfoFragment}
 `;
 
 export { USER_SUBSCRIPTION };
+
+// const USER_SUBSCRIPTION = gql`
+//   subscription($where: UserSubscriptionWhereInput) {
+//     userSub(where: $where) {
+//       node {
+//         id
+//         firstName
+//       }
+//     }
+//   }
+// `;
+
+// export { USER_SUBSCRIPTION };

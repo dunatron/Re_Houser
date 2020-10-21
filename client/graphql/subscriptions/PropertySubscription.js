@@ -1,16 +1,16 @@
-//propertySub
-
 import gql from 'graphql-tag';
+import * as fragments from '../fragments';
 
 const PROPERTY_SUBSCRIPTION = gql`
-  subscription($where: PropertySubscriptionWhereInput) {
+  subscription propertySub($where: PropertySubscriptionWhereInput) {
     propertySub(where: $where) {
       node {
-        id
+        ...propertyInfo
       }
       updatedFields
     }
   }
+  ${fragments.PropertyInfoFragment}
 `;
 
 export { PROPERTY_SUBSCRIPTION };

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 const WALLET_SUBSCRIPTION = gql`
-  subscription($where: WalletSubscriptionWhereInput) {
+  subscription walletSub($where: WalletSubscriptionWhereInput) {
     walletSub(where: $where) {
       node {
         id

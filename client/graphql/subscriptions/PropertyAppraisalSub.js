@@ -1,29 +1,14 @@
 import gql from 'graphql-tag';
+import * as fragments from '../fragments';
 
 const PROPERTY_APPRAISAL_SUBSCRIPTION = gql`
-  subscription($where: RentalAppraisalSubscriptionWhereInput) {
+  subscription rentalAppraisalSub(
+    $where: RentalAppraisalSubscriptionWhereInput
+  ) {
     rentalAppraisalSub(where: $where) {
       mutation
       node {
-        id
-        requestedBy {
-          id
-          firstName
-          lastName
-        }
-        location
-        locationLat
-        locationLng
-        rooms
-        bathrooms
-        garageSpaces
-        heatSources
-        rent
-        rentValueAccepted
-        acceptTerms
-        property {
-          id
-        }
+        ...rentalAppraisalInfo
       }
       updatedFields
       previousValues {
@@ -32,6 +17,7 @@ const PROPERTY_APPRAISAL_SUBSCRIPTION = gql`
       }
     }
   }
+  ${fragments.RentalAppraisalInfoFragment}
 `;
 
 export { PROPERTY_APPRAISAL_SUBSCRIPTION };

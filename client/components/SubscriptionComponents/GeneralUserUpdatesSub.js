@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useSubscription } from '@apollo/client';
 import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
+import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
 const GeneralUserUpdatesSub = ({ me }) => {
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
@@ -21,7 +22,34 @@ const GeneralUserUpdatesSub = ({ me }) => {
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
-      console.log('GeneralUserUpdatesSub: data => ', subscriptionData);
+      console.log(
+        'GeneralUserUpdatesSub: onSubscriptionData => ',
+        subscriptionData
+      );
+      client.writeQuery({
+        query: CURRENT_USER_QUERY,
+        data: {
+          me: {
+            ...subscriptionData.data.userSub.node,
+          },
+        },
+      });
+
+      // User:ckgiqg63gf28o0999py6ashcb
+      // client.cache.modify({
+      //   fields: {
+      //     me(existingMeRef, { readField }) {
+      //       console.log(
+      //         'GeneralUserUpdatesSub: existing me ref => ',
+      //         existingMeRef
+      //       );
+      //       const meData = readField('id', existingMeRef);
+      //       console.log('GeneralUserUpdatesSub: meData => ', meData);
+      //       // return 'zzzzz';
+      //       return existingMeRef;
+      //     },
+      //   },
+      // });
     },
   });
   // if (loading) return null;

@@ -68,6 +68,7 @@ const Signin = props => {
     <Form
       method="post"
       onSubmit={e => {
+        console.log('HANDLE SIGNIN PLEASE');
         e.preventDefault();
         signIn({
           variables: state,
@@ -142,7 +143,6 @@ const Signin = props => {
         <ButtonLoader
           type="submit"
           data-cy="submit-login"
-          // variant="filled"
           loading={loading}
           text="Sign in"
           successText="Logged In"
@@ -163,7 +163,7 @@ Signin.propTypes = {
   email: PropTypes.any,
   handleCompleted: PropTypes.func.isRequired,
   password: PropTypes.any,
-  update: PropTypes.func.isRequired
+  update: PropTypes.func.isRequired,
 };
 
 export default Signin;
