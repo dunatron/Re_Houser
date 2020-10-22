@@ -3,6 +3,7 @@ const { hasPermission } = require("../lib/utils");
 // Business logic Querys
 const me = require("./querys/me");
 const users = require("./querys/users");
+const user = require("./querys/user");
 const file = require("./querys/file");
 const files = require("./querys/files");
 const myLeases = require("./querys/myLeases.js");
@@ -33,6 +34,7 @@ const propertyFiles = require("./querys/propertyFiles");
 const Query = {
   me,
   users,
+  user,
   file,
   files,
   properties,

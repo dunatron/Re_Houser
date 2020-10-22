@@ -3,14 +3,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import GroupIcon from '@material-ui/icons/Group';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 
-const INFO_DASHBOARD_CONFIG = [
-  {
-    label: 'Fees',
-    route: '/info/fees',
-    description: 'Details about our fees',
-    color: 'secondary',
-    icon: <MoneyIcon />,
-  },
+const HOME_PAGE_DASHBOARD_CONFIG = [
   {
     label: 'About Us',
     route: '/about-us',
@@ -20,32 +13,32 @@ const INFO_DASHBOARD_CONFIG = [
   },
   {
     label: 'Contact',
-    route: '/info/contact',
+    route: '/contact',
     description: 'All info about anyway you could want to contact us',
     color: 'secondary',
     icon: <ContactPhoneIcon />,
   },
   {
     label: 'Landlorld',
-    route: '/info/landlord',
+    route: '/landlord',
     description: 'Information concerning landlords',
     color: 'secondary',
     icon: <AssignmentIcon />,
   },
   {
     label: 'Tenant',
-    route: '/info/tenant',
+    route: '/tenant',
     description: 'Information concerning tenants',
     color: 'secondary',
     icon: <AssignmentIcon />,
   },
   {
-    label: 'Privacy Policy',
-    route: '/privacy-policy',
-    description: 'Our Privacy Policy',
+    label: 'Legal Statements',
+    route: '/legal',
+    description: 'Our Legal Statments such as our Privacy Policy',
     color: 'secondary',
     icon: <AssignmentIcon />,
   },
 ];
 
-export default INFO_DASHBOARD_CONFIG;
+export default HOME_PAGE_DASHBOARD_CONFIG;

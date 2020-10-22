@@ -14,7 +14,7 @@ import Fees from '@/Components/Fees';
 import TeamInfoText from '@/Components/Team/TeamInfoText';
 import Team from '@/Components/Team/index';
 
-import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/homepageDashboardConf';
+import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/homepageDashConf';
 
 import Particles from 'react-particles-js';
 import Particles2 from 'react-tsparticles';

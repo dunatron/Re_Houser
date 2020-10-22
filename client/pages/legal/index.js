@@ -5,7 +5,7 @@ import ConfirmEmail from '@/Components/ConfirmEmail';
 import PageHeader from '@/Components/PageHeader';
 import { Box, Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
-import LEGAL_STATMENTS_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/legalStatementsDash';
+import LEGAL_STATMENTS_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/legalStatementsDashConf';
 
 const LegalPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;

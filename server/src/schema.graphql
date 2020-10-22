@@ -16,6 +16,8 @@ input CloudinaryParams {
 
 type User {
   id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
   firstName: String!
   lastName: String!
   phone: String!
@@ -207,6 +209,7 @@ type Subscription {
 type Query {
   me: User
   users(where: UserWhereUniqueInput): [User]!
+  user(where: UserWhereUniqueInput!): User
   file(id: ID!): File
   files: [File!]!
   activities(

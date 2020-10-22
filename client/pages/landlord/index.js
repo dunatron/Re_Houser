@@ -5,7 +5,7 @@ import ConfirmEmail from '@/Components/ConfirmEmail';
 import PageHeader from '@/Components/PageHeader';
 import { Box, Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
-import LANDLORD_DASHBOARD_CONFIG from '@/Lib/configs/landlordDashboardConfig';
+import LANDLORD_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/landlordDashConf';
 
 const LandlordPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =

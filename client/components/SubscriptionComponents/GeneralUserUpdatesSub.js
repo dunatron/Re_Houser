@@ -3,8 +3,8 @@ import { useSubscription } from '@apollo/client';
 import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
 import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 
-import Error from '@/Components/ErrorMessage'
-import Loader from '@/Components/Loader'
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 
 const GeneralUserUpdatesSub = ({ me }) => {
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
@@ -14,14 +14,6 @@ const GeneralUserUpdatesSub = ({ me }) => {
         node: {
           id: me.id,
         },
-        // mutation_in: 'CREATED',
-        // node: {
-        //   stage_in: ["PENDING", "INITIALIZING", "DENIED", "ACCEPTED"],
-        //   // id_in: applicationIds,
-        //   property: {
-        //     id: property.id,
-        //   },
-        // },
       },
     },
     onSubscriptionData: ({ client, subscriptionData }) => {
@@ -57,9 +49,12 @@ const GeneralUserUpdatesSub = ({ me }) => {
   });
   if (loading) return null;
   if (error) {
-    return <div>Not SUbScribed To: USER_SUBSCRIPTION
-      <Error  error={error}/>
-    </div>
+    return (
+      <div>
+        Not SUbScribed To: USER_SUBSCRIPTION
+        <Error error={error} />
+      </div>
+    );
   }
   return null;
 };

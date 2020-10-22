@@ -4,8 +4,7 @@ import PageHeader from '@/Components/PageHeader';
 import ConfirmEmail from '@/Components/ConfirmEmail';
 import { Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard/index';
-import DASHBOARD_CONFIG from '@/Lib/configs/dashboardConfig';
-import INFO_DASHBOARD_CONFIG from '@/Lib/configs/infoDashboardConfig';
+import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/homepageDashConf';
 
 /**
  *
@@ -29,16 +28,10 @@ const ConfirmAccountPage = ({ appData: { currentUser } }) => {
           validated
         </Typography>
         <Dashboard
-          config={DASHBOARD_CONFIG}
+          config={HOME_PAGE_DASHBOARD_CONFIG}
           elevation={1}
           heading=""
           intro={''}
-        />
-        <Dashboard
-          config={INFO_DASHBOARD_CONFIG}
-          elevation={1}
-          heading="Rehouser Info"
-          intro="You can find sections with different information about rehouser and how things work including our policies"
         />
       </ConfirmEmail>
       {/* <SendConfirmEmailButton /> */}

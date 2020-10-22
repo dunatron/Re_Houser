@@ -14,6 +14,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import FriendManager from '@/Components/FriendManager';
 import AdminOnly from '@/Components/AdminOnly';
 
+import ADMIN_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/adminDashConf';
+
 /**
  *
  * I have a dream, to put all my updates here for admins.
@@ -24,70 +26,6 @@ const AdminDashboardPage = ({ appData: { currentUser } }) => {
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
 
-  const ADMIN_DASHBOARD_CONFIG = [
-    {
-      label: 'Appraisals',
-      route: '/admin/appraisals',
-      description: 'Review system appraisals',
-      color: 'secondary',
-      icon: (
-        <Badge badgeContent={state.newRentalAppraisalCount} color="primary">
-          <HomeWorkIcon />
-        </Badge>
-      ),
-    },
-    {
-      label: 'Rental Applications',
-      route: '/admin/applications',
-      description: 'View all rental applications currently in the system',
-      color: 'secondary',
-      icon: (
-        <Badge badgeContent={state.newRentalApplicationsCount} color="primary">
-          <HomeWorkIcon />
-        </Badge>
-      ),
-    },
-    {
-      label: 'Properties',
-      route: '/admin/properties',
-      description: 'View all properties on the system',
-      color: 'secondary',
-      icon: (
-        <Badge badgeContent={state.newPropertiesCount} color="primary">
-          <HomeWorkIcon />
-        </Badge>
-      ),
-    },
-    {
-      label: 'Inspections',
-      route: '/admin/inspections',
-      description: 'View allinspections on the system',
-      color: 'secondary',
-      icon: <HomeWorkIcon />,
-    },
-    {
-      label: 'Typography',
-      route: '/admin/typography',
-      description: 'Review system typography',
-      color: 'secondary',
-      icon: <TextFieldsIcon />,
-    },
-    {
-      label: 'Admin Settings',
-      route: '/admin/settings',
-      description: 'Subscribe to system events',
-      color: 'secondary',
-      icon: <SettingsIcon />,
-    },
-    {
-      label: 'Legal Statements',
-      route: '/legal',
-      description:
-        'View our Legal Statements such as our Privacy Policy and Terms of Engagement',
-      color: 'secondary',
-      icon: <SettingsIcon />,
-    },
-  ];
   return (
     <div>
       <PageHeader
@@ -99,7 +37,11 @@ const AdminDashboardPage = ({ appData: { currentUser } }) => {
         }}
       />
       <AdminOnly me={me}>
-        <Dashboard config={ADMIN_DASHBOARD_CONFIG} elevation={20} />
+        <Dashboard
+          config={ADMIN_DASHBOARD_CONFIG({ state: state })}
+          // elevation={20}
+          elevation={0}
+        />
         <FriendManager />
       </AdminOnly>
     </div>

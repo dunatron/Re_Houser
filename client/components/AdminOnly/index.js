@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import _isAdmin from '@/Lib/isAdmin';
+import _isWizard from '@/Lib/_isWizard';
 import { Typography } from '@material-ui/core';
 import OpenSuperLoginButton from '@/Components/SuperLogin/OpenSuperLoginButton';
 import ContactForm from '@/Components/Contact/ContactForm';
@@ -8,8 +9,9 @@ import ContactForm from '@/Components/Contact/ContactForm';
  * Maybe we make this a direct query for the user and use network only.
  * Making all admin sections check for user data
  */
-const AdminOnly = ({ me, children }) => {
+const AdminOnly = ({ me, children, mustBeWizard }) => {
   const isAdmin = _isAdmin(me);
+  const isWizard = _isWizard(me);
 
   if (!me)
     return (
@@ -39,14 +41,18 @@ const AdminOnly = ({ me, children }) => {
       </Typography>
     );
 
+  if (mustBeWizard && !isWizard) {
+    return <Typography variant="h5">This is an Wizard only section</Typography>;
+  }
+
   return children ? children : null;
 };
 
 AdminOnly.propTypes = {
   children: PropTypes.any,
   me: PropTypes.shape({
-    permissions: PropTypes.any
-  }).isRequired
+    permissions: PropTypes.any,
+  }).isRequired,
 };
 
 export default AdminOnly;

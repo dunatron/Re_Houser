@@ -61,6 +61,7 @@ const LANDLORD_DASHBOARD_CONFIG = [
     description: 'Review the terms of engagement for using our system',
     color: 'secondary',
   },
+  
   // {
   //   icon: <ApartmentIcon />,
   //   label: 'Leases',
