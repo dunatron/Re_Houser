@@ -1,5 +1,5 @@
 import Avatar from '@material-ui/core/Avatar';
-import PersonIcon from '../styles/icons/PersonIcon';
+
 const getChatImage = (chat, me) => {
   if (!chat) return null;
   if (!me) return null;

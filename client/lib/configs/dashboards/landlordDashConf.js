@@ -1,14 +1,6 @@
 // icons
-import PersonIcon from '../../styles/icons/PersonIcon';
-import DashboardIcon from '../../styles/icons/DashboardIcon';
-import LocationSearchingIcon from '../../styles/icons/LocationSearchingIcon';
-import AccountCircleIcon from '../../styles/icons/AccountCircleIcon';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import HouseIcon from '@material-ui/icons/House';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import ApartmentIcon from '@material-ui/icons/Apartment';
-import DonutSmallIcon from '@material-ui/icons/DonutSmall';
-import InfoIcon from '@material-ui/icons/InfoOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import MoneyIcon from '@material-ui/icons/Money';
 
