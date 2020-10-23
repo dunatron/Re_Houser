@@ -4,10 +4,13 @@ import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
 import ButtonLoader from '@/Components/Loader/ButtonLoader';
 
-const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
+const SetPrimaryCreditCardButton = ({ cardId, isPrimary, me }) => {
   // ToDo: Mutation Props
-  const [setAsPrimary, setAsPrimaryProps] = useMutation(UPDATE_USER_MUTATION, {
+  const [updateUser, updateUserProps] = useMutation(UPDATE_USER_MUTATION, {
     variables: {
+      where: {
+        id: me.id,
+      },
       data: {
         primaryCreditCard: {
           connect: {
@@ -39,8 +42,8 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
       {!isPrimary ? (
         <ButtonLoader
           cy="make-primary-card-btn"
-          onClick={setAsPrimary}
-          loading={setAsPrimaryProps.loading}
+          onClick={updateUser}
+          loading={updateUserProps.loading}
           successText="Reorganising cache"
           text="Make Primary Card"
         />
@@ -53,7 +56,7 @@ const SetPrimaryCreditCardButton = ({ cardId, isPrimary }) => {
 
 SetPrimaryCreditCardButton.propTypes = {
   cardId: PropTypes.any,
-  isPrimary: PropTypes.any
+  isPrimary: PropTypes.any,
 };
 
 export default SetPrimaryCreditCardButton;

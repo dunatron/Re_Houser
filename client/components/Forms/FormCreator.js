@@ -120,12 +120,12 @@ const FormCreator = props => {
 
   const _createText = () => {
     if (createText) return createText;
-    return 'Create ' + title + ' Form';
+    return 'Create ' + title;
   };
 
   const _updateText = () => {
     if (updateText) return updateText;
-    return 'Update ' + title + ' Form';
+    return 'Update ' + title;
   };
 
   useEffect(() => {

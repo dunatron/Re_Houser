@@ -106,6 +106,9 @@ const PhotoIdentification = props => {
               data: {
                 ...data,
               },
+              where: {
+                id: me.id,
+              },
             },
             refetchQueries: refetchQueries,
           })
@@ -121,8 +124,8 @@ PhotoIdentification.propTypes = {
   me: PropTypes.shape({
     id: PropTypes.any,
     identificationNumber: PropTypes.any,
-    photoIdentification: PropTypes.object
-  }).isRequired
+    photoIdentification: PropTypes.object,
+  }).isRequired,
 };
 
 export default PhotoIdentification;

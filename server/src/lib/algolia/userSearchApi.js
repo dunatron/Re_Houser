@@ -41,41 +41,33 @@ const addUserSearchNode = async function({ userId, db }) {
   return "ALL DONE HERE BRO";
 };
 
-const updateUserSearchNode = async function({ updates, propertyId, ctx }) {
-  var imageUrls;
-  // var imagesAltered = updates.data.images ? true : false;
-  var imagesAltered = false;
-  if (updates.data.images) {
-    if (updates.data.images.disconnect) {
-      imagesAltered = true;
-    }
-    if (updates.data.images.connect) {
-      imagesAltered = true;
-    }
-    if (updates.data.images.connect) {
-      imagesAltered = true;
-    }
-  }
+const updateUserSearchNode = async function({ updates, userId, ctx }) {
+  var profilePhotoUpdate = false;
 
-  // db update runs before this so we just get the images and update the urls for algolia
-  if (imagesAltered) {
-    delete updates.data.images;
-    const propertyImages = await ctx.db.query.property(
-      {
-        where: {
-          id: propertyId
-        }
-      },
-      `{ id images {id url}}`
-    );
-    imageUrls = propertyImages.images.map(img => img.url);
+  const user = await ctx.db.query.user(
+    {
+      where: {
+        id: userId
+      }
+    },
+    `{ id profilePhoto {id url}}`
+  );
+
+  // This is just for files changes. If any file gets updated. get all the files and update them
+  if (updates.data.profilePhoto) {
+    profilePhotoUpdate = true;
+    delete updates.data.profilePhoto;
   }
 
   const objects = [
     {
       ...updates.data,
-      objectID: propertyId,
-      ...(imagesAltered && { imageUrls: imageUrls })
+      objectID: userId,
+      ...(profilePhotoUpdate && {
+        profilePhoto: {
+          url: user.profilePhoto.url
+        }
+      })
     }
   ];
 

@@ -57,7 +57,15 @@ RenderBtnText.propTypes = {
 };
 
 const IconButtonLoader = props => {
-  const { loading, success, onClick, cy, btnProps, children } = props;
+  const {
+    loading,
+    success,
+    onClick,
+    cy,
+    btnProps,
+    children,
+    style = {},
+  } = props;
   const classes = useStyles();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
@@ -72,6 +80,7 @@ const IconButtonLoader = props => {
       className={buttonClassname}
       disabled={loading}
       {...btnProps}
+      style={style}
       // {...props}
       onClick={onClick}>
       {children}

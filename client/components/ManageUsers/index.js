@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SearchUsers from '@/Components/User/SearchUsers';
 import UserItem from './UserItem';
 
-const ManageUsers = () => {
+const ManageUsers = ({ me }) => {
   const [users, setUsers] = useState([]);
 
   const handleSetHits = hits => setUsers(hits);
@@ -15,7 +15,7 @@ const ManageUsers = () => {
       <SearchUsers setHits={handleSetHits} filters="" />
       {users.length === 0 && 'NO USERS FOUND'}
       {users.map((usr, idx) => (
-        <UserItem key={usr.id} user={usr} />
+        <UserItem key={usr.id} user={usr} me={me} />
       ))}
     </div>
   );

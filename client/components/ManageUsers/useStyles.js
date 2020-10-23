@@ -17,7 +17,10 @@ const useStyles = makeStyles(theme => ({
   },
   detailItem: {
     flex: '1 1 auto',
-    padding: theme.spacing(2),
+    // paddingRight: theme.spacing(1),
+    // paddingBottom: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     flexBasis: '220px',
     // overflow: 'auto',
     // maxWidth: '200px',

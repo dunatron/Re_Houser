@@ -17,7 +17,7 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
     window.scrollTo(0, 0);
   };
 
-  const [acceptedTermsOfEngagement, { loading, error, data }] = useMutation(
+  const [updateUser, { loading, error, data }] = useMutation(
     UPDATE_USER_MUTATION,
     {
       onCompleted: handleCompleted,
@@ -86,8 +86,11 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
         createText="Submit terms of engagement"
         config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
         onSubmit={data => {
-          acceptedTermsOfEngagement({
+          updateUser({
             variables: {
+              where: {
+                id: me.id,
+              },
               data: {
                 ...data,
                 currentAddress: data.currentAddress

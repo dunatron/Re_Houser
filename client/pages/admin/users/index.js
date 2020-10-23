@@ -20,7 +20,7 @@ const AdminUsersPage = ({ appData: { currentUser } }) => {
         }}
       />
       <AdminOnly me={me} mustBeWizard>
-        <ManageUsers />
+        <ManageUsers me={me} />
       </AdminOnly>
     </>
   );

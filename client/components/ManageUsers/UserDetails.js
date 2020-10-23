@@ -7,6 +7,7 @@ import {
   AccordionSummary,
   Typography,
 } from '@material-ui/core';
+import Image from 'material-ui-image';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -19,17 +20,18 @@ import Error from '@/Components/ErrorMessage';
 import useStyles from './useStyles';
 import moment from 'moment';
 
-export default function UserDetails({ userId }) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
+import UpdateUser from './UpdateUser';
 
-  const accordionId = `user-details-accordion-${userId}`;
+export default function UserDetails({ userId, me }) {
+  const classes = useStyles();
+  const accordionDetailsId = `user-details-accordion-${userId}`;
+  const accordionFormId = `user-update-form-accordion-${userId}`;
 
   const [fetchUser, { called, loading, data, error }] = useLazyQuery(
     SINGLE_USER_QUERY
   );
 
-  const handleToggleExpanded = (e, nativeExpanded) => {
+  const handleFetchUser = (e, nativeExpanded) => {
     if (!called)
       fetchUser({
         variables: {
@@ -38,19 +40,18 @@ export default function UserDetails({ userId }) {
           },
         },
       });
-    setExpanded(nativeExpanded);
   };
 
   return (
-    <Accordion expanded={expanded} onChange={handleToggleExpanded} square>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls={accordionId}
-        id={accordionId}>
-        <Typography variant="body2">User Details</Typography>
-      </AccordionSummary>
-      <AccordionDetails className={classes.accordionDetails}>
-        {expanded && (
+    <Fragment>
+      <Accordion onChange={handleFetchUser} square>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={accordionDetailsId}
+          id={accordionDetailsId}>
+          <Typography variant="body2">User Details</Typography>
+        </AccordionSummary>
+        <AccordionDetails className={classes.accordionDetails}>
           <Fragment>
             {called && loading && (
               <Loader loading={loading} text="Fetching users details" />
@@ -62,13 +63,48 @@ export default function UserDetails({ userId }) {
               </Fragment>
             )}
           </Fragment>
-        )}
-      </AccordionDetails>
-    </Accordion>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion onChange={handleFetchUser} square>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={accordionFormId}
+          id={accordionFormId}>
+          <Typography variant="body2">Update User Form</Typography>
+        </AccordionSummary>
+        <AccordionDetails className={classes.accordionDetails}>
+          <Fragment>
+            {called && loading && (
+              <Loader loading={loading} text="Fetching users details" />
+            )}
+            <Error error={error} />
+            {data && (
+              <Fragment>
+                <UpdateUser user={data.user} me={me} />
+              </Fragment>
+            )}
+          </Fragment>
+        </AccordionDetails>
+      </Accordion>
+    </Fragment>
   );
 }
 
 const StringDetailItem = ({ label, value }) => {
+  const classes = useStyles();
+  return (
+    <Box className={classes.detailItem}>
+      <Typography className={classes.detailLabel} variant="caption">
+        {label}
+      </Typography>
+      <Typography className={classes.detailValue} variant="body2">
+        {value}
+      </Typography>
+    </Box>
+  );
+};
+
+const ImageDetailItem = ({ label, value }) => {
   const classes = useStyles();
   return (
     <Box className={classes.detailItem}>
@@ -181,62 +217,37 @@ const RenderFetchedDetails = ({
               adminSettings.rentalApplicationCreatedSub === true ? 'YES' : 'NO'
             }
           />
-          <StringDetailItem
-            label="leaseCreatedSub"
-            value={adminSettings.leaseCreatedSub === true ? 'YES' : 'NO'}
-          />
         </Box>
       )}
       {/* Referees */}
       <Box className={classes.details}>
         {referees.length === 0 && (
           <Box className={classes.detailItem}>
-            <Typography className={classes.detailLabel}>NO REFEREES</Typography>
+            <Typography className={classes.detailLabel} variant="body1">
+              NO REFEREES
+            </Typography>
           </Box>
         )}
         {referees.map((referee, idx) => {
           return (
             <Box className={classes.details}>
-              <Box className={classes.detailItem}>
-                <Typography className={classes.detailLabel}>Name</Typography>
-                <Typography className={classes.detailValue}>
-                  {referee.name}
-                </Typography>
-              </Box>
-              <Box className={classes.detailItem}>
-                <Typography className={classes.detailLabel}>Email</Typography>
-                <Typography className={classes.detailValue}>
-                  {referee.email}
-                </Typography>
-              </Box>
-              <Box className={classes.detailItem}>
-                <Typography className={classes.detailLabel}>Phone</Typography>
-                <Typography className={classes.detailValue}>
-                  {referee.phone}
-                </Typography>
-              </Box>
-              <Box className={classes.detailItem}>
-                <Typography className={classes.detailLabel}>
-                  Relationship
-                </Typography>
-                <Typography className={classes.detailValue}>
-                  {referee.relationship}
-                </Typography>
-              </Box>
+              <StringDetailItem label="Name" value={referee.name} />
+              <StringDetailItem label="Email" value={referee.email} />
+              <StringDetailItem label="Phone" value={referee.phone} />
+              <StringDetailItem
+                label="Relationship"
+                value={referee.relationship}
+              />
             </Box>
           );
         })}
       </Box>
       {/* Current Address */}
       <Box className={classes.details}>
-        <Box className={classes.detailItem}>
-          <Typography className={classes.detailLabel}>
-            currentAddress
-          </Typography>
-          <Typography className={classes.detailValue}>
-            {currentAddress && currentAddress.desc}
-          </Typography>
-        </Box>
+        <StringDetailItem
+          label="currentAddress"
+          value={currentAddress && currentAddress.desc}
+        />
       </Box>
       {/* FILES */}
       <Box className={classes.details}>
@@ -248,20 +259,15 @@ const RenderFetchedDetails = ({
             {proofOfAddress ? proofOfAddress.url : 'NO PROOF OF ADDRESS'}
           </Typography>
         </Box>
-        <Box className={classes.detailItem}>
-          <Typography className={classes.detailLabel}>
-            photoIdentification
-          </Typography>
-          <Typography className={classes.detailValue}>
-            {photoIdentification ? photoIdentification.url : 'NO PHOTO ID'}
-          </Typography>
-        </Box>
-        <Box className={classes.detailItem}>
-          <Typography className={classes.detailLabel}>profilePhoto</Typography>
-          <Typography className={classes.detailValue}>
-            {profilePhoto ? profilePhoto.url : 'NO PROFILE PHOTO'}
-          </Typography>
-        </Box>
+        <ImageDetailItem
+          label="photoIdentification"
+          value={photoIdentification && <Image src={photoIdentification.url} />}
+        />
+        <ImageDetailItem
+          label="profilePhoto"
+          value={profilePhoto && <Image src={profilePhoto.url} />}
+        />
+
         <Box className={classes.detailItem}>
           <Typography className={classes.detailLabel}>signature</Typography>
           <Typography className={classes.detailValue}>

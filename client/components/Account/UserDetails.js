@@ -59,6 +59,9 @@ const UserDetails = ({ me }) => {
         data: {
           ...updates,
         },
+        where: {
+          id: me.id,
+        },
       },
     });
   };

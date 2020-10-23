@@ -94,6 +94,9 @@ const PreTenancyStep = ({
         if (!me.dob && data.dob) {
           updateUser({
             variables: {
+              where: {
+                id: me.id,
+              },
               data: {
                 dob: data.dob,
               },
