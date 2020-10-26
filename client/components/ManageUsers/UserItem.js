@@ -33,7 +33,7 @@ const UserItem = ({ user, me, isWizard }) => {
         <Box className={classes.detailItem}>{user.email}</Box>
         <Typography className={classes.detailItem} variant="body2">
           Permissions:{' '}
-          {user.permissions.map((perm, idx) => {
+          {user.permissions && user.permissions.map((perm, idx) => {
             return (
               <Box key={idx} component="span">
                 {perm},{' '}

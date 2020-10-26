@@ -183,13 +183,13 @@ const prodSeedList = [
     phone: CTO_DETAILS.phone,
     permissions: setWizardPermissions
   },
-  {
-    ...adminFrag,
-    email: "siaujiun@gmail.com",
-    firstName: "Siau Jiun",
-    lastName: "Lim",
-    permissions: setAdminPermissions
-  },
+  // {
+  //   ...adminFrag,
+  //   email: "siaujiun@gmail.com",
+  //   firstName: "Siau Jiun",
+  //   lastName: "Lim",
+  //   permissions: setAdminPermissions
+  // },
   {
     ...adminFrag,
     email: "anelsonmisa@gmail.com",

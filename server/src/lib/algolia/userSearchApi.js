@@ -6,20 +6,22 @@ const client = algoliasearch(
   process.env.ALGOLIA_APPLICATION_ID,
   process.env.ALGOLIA_API_KEY,
   {
-    timeout: 4000
+    timeout: 4000,
   }
 );
 
 const index = client.initIndex(`${process.env.SEARCH_STAGE}_UserSearch`);
 
+const userQueryString = `{id, email, firstName, lastName, phone, profilePhoto{url} permissions }`;
+
 const addUserSearchNode = async function({ userId, db }) {
   const user = await db.query.user(
     {
       where: {
-        id: userId
-      }
+        id: userId,
+      },
     },
-    `{id, email, firstName, lastName, profilePhoto{url} permissions }`
+    userQueryString
   );
   const usersObjectArr = [];
 
@@ -27,14 +29,15 @@ const addUserSearchNode = async function({ userId, db }) {
     objectID: user.id,
     id: user.id,
     email: user.email,
+    phone: user.phone,
     firstName: user.firstName,
     lastName: user.lastName,
     profilePhoto: user.profilePhoto ? { url: user.profilePhoto.url } : null,
-    permissions: user.permissions
+    permissions: user.permissions,
   };
 
   usersObjectArr.push(userObject);
-  index.addObjects(usersObjectArr).catch(e => {
+  index.addObjects(usersObjectArr).catch((e) => {
     console.log("Error adding property to algolia: ", e);
   });
 
@@ -47,10 +50,10 @@ const updateUserSearchNode = async function({ updates, userId, ctx }) {
   const user = await ctx.db.query.user(
     {
       where: {
-        id: userId
-      }
+        id: userId,
+      },
     },
-    `{ id profilePhoto {id url}}`
+    userQueryString
   );
 
   // This is just for files changes. If any file gets updated. get all the files and update them
@@ -58,17 +61,11 @@ const updateUserSearchNode = async function({ updates, userId, ctx }) {
     profilePhotoUpdate = true;
     delete updates.data.profilePhoto;
   }
-
   const objects = [
     {
-      ...updates.data,
       objectID: userId,
-      ...(profilePhotoUpdate && {
-        profilePhoto: {
-          url: user.profilePhoto.url
-        }
-      })
-    }
+      ...user,
+    },
   ];
 
   index.partialUpdateObjects(objects, (err, content) => {
@@ -79,5 +76,5 @@ const updateUserSearchNode = async function({ updates, userId, ctx }) {
 
 module.exports = {
   addUserSearchNode,
-  updateUserSearchNode
+  updateUserSearchNode,
 };

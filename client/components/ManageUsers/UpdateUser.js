@@ -12,6 +12,9 @@ const UpdateUser = ({ user, me }) => {
     console.log('Form data => ', data);
     console.table(data);
 
+    // delete email as cant change it
+    delete data.email;
+
     // admin settings and bank account need mapped?
     // what about handling referees?
     updateUser({
@@ -25,7 +28,7 @@ const UpdateUser = ({ user, me }) => {
           },
         },
         where: {
-          id: me.id,
+          id: user.id,
         },
       },
     });
