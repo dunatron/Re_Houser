@@ -8,8 +8,14 @@ const addUser = async (req, res, next) => {
     return next();
   }
   try {
-    const { userId } = jwt.verify(token, process.env.APP_SECRET);
+    // decode the id and permissions from the token request
+    const { userId, userPermissions } = jwt.verify(
+      token,
+      process.env.APP_SECRET
+    );
+    // attach the id and permissions to the request
     req.userId = userId;
+    req.userPermissions = userPermissions;
   } catch (err) {
     const refreshToken = req.cookies["refresh-token"];
     if (!refreshToken) {
@@ -27,6 +33,7 @@ const addUser = async (req, res, next) => {
       });
     }
     req.userId = newTokens.user.id;
+    req.userPermissions = newTokens.user.permissions;
   }
   return next();
 };

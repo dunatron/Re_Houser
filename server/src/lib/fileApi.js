@@ -1,5 +1,6 @@
 const cloudinary = require("cloudinary").v2;
 const { extractFileKey } = require("./extractFileKey");
+const { _isAdmin } = require("./permissionsCheck");
 
 //https://cloudinary.com/documentation/image_upload_api_reference#required_parameters
 
@@ -7,6 +8,17 @@ const cloudinaryConfObj = {
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
+};
+
+exports._isUploader = ({ file, ctx }) => {
+  return file.uploaderId === ctx.request.userId;
+};
+
+exports._isUploaderOrAdmin = ({ file, ctx }) => {
+  if (file.uploaderId === ctx.request.userId || _isAdmin(ctx)) {
+    return true;
+  }
+  return false;
 };
 
 exports.processUpload = async ({ upload, ctx, info, data = {} }) => {

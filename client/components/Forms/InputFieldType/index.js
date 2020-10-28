@@ -37,10 +37,20 @@ import Signature from './Signature';
 import Image from './Image';
 import CaptchaField from './Captcha';
 import Email from './Email';
+import { path } from 'ramda';
 
 const extractErrorFromErrors = (errors, name) => {
   if (!errors || !name) return null;
   return errors[name] ? errors[name].message : null;
+};
+
+const extractDefaultValue = (defaultValues, name, type) => {
+  if (!defaultValues || !name) {
+    return null; // may need to do extra for different types
+  }
+  const dV = path(name.split('.'), defaultValues);
+  // we should have the field values at this point. if we need to do more based on type we do it here
+  return dV;
 };
 
 const InputFieldType = props => {
@@ -64,7 +74,7 @@ const InputFieldType = props => {
   const label = fieldProps ? fieldProps.label : null;
 
   const fieldError = extractErrorFromErrors(errors, name);
-  const defaultValue = defaultValues ? defaultValues[name] : null;
+  const defaultValue = extractDefaultValue(defaultValues, name, type);
 
   const TypeToRender = () => {
     switch (type) {

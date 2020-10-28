@@ -17,6 +17,9 @@ const {
   JSONResolver
 } = require("graphql-scalars");
 
+const { _isAdmin } = require("./lib/permissionsCheck");
+const { _isUploader, _isUploaderOrAdmin } = require("./lib/fileApi");
+
 /**
  * Four arguments to potentially resolve a type and its fields
  * parent => The return value of the resolver for this field's parent (i.e., the previous resolver in the resolver chain)
@@ -25,18 +28,23 @@ const {
  * info => Contains information about the operation's execution state, including the field name, the path to the field from the root, and more.
  */
 
+const stockImageUrl = `${process.env.FRONTEND_URL}/images/private_stock.jpg`;
+
 const resolvers = {
   User: {
     photoIdentification: (parent, args, ctx, info) => {
-      // if (!ctx.request.userId)
-      //   throw new Error("Must be logged in to view PhotoID");
-      if (parent.photoIdentification === null) return null;
-      return {
+      const publicObj = {
         ...parent.photoIdentification,
-        url:
-          "https://www.swtor.com/sites/all/files/en/coruscant/main/swtor_logo.png"
+        url: stockImageUrl,
+        secure_url: stockImageUrl
       };
+      if (parent.photoIdentification === null) return null;
+      if (!_isUploaderOrAdmin({ file: parent.photoIdentification, ctx: ctx })) {
+        return publicObj;
+      }
+      return parent.photoIdentification;
     }
+
     // signature: (parent, args, ctx, info) => {
     //   if (parent.signature === null) return null;
     //   return {
@@ -72,12 +80,20 @@ const resolvers = {
     url: (file, args, ctx, info) => {
       // I guess all admins can see private files. apart from that you must be uploader of the file!
       if (file.type === "private") {
-        if (file.uploaderId === ctx.request.userId) {
-          return file.url;
+        if (!_isUploaderOrAdmin({ file: file, ctx })) {
+          return stockImageUrl;
         }
-        return `${process.env.FRONTEND_URL}/images/private_stock.jpg`;
       }
       return file.url;
+    },
+    secure_url: (file, args, ctx, info) => {
+      // I guess all admins can see private files. apart from that you must be uploader of the file!
+      if (file.type === "private") {
+        if (!_isUploaderOrAdmin({ file: file, ctx })) {
+          return stockImageUrl;
+        }
+      }
+      return file.secure_url;
     }
   },
   Property: {

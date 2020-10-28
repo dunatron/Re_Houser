@@ -4,6 +4,9 @@ export const schema = gql`
   extend type Chat {
     isOpen: Boolean!
   }
+  extend type User {
+    firstAndLastName: String
+  }
 `;
 
 export const GET_OPEN_CHATS = gql`
@@ -55,7 +58,6 @@ const resolvers = () => {
           // alert("its cool already in bar, return  early")
           return;
         }
-        console.log('Tell me of these open chats again => ', variables.chat);
         const data = {
           data: {
             openChats: [

@@ -3,20 +3,15 @@ import { useMutation } from '@apollo/client';
 import FormCreator from '@/Components/Forms/FormCreator';
 import USER_FORM_CONF from '@/Lib/configs/forms/userForm';
 import { UPDATE_USER_MUTATION } from '@/Gql/mutations/index';
+// import {_isWizard} from '@'
 
 const UpdateUser = ({ user, me }) => {
   const [updateUser, { error, loading }] = useMutation(UPDATE_USER_MUTATION);
 
   const handleFormSubmit = data => {
-    console.log('SUBMITTED USER FORM DATA');
-    console.log('Form data => ', data);
-    console.table(data);
-
     // delete email as cant change it
     delete data.email;
-
-    // admin settings and bank account need mapped?
-    // what about handling referees?
+    const bankCreateKey = user.bankDetails ? 'update' : 'create';
     updateUser({
       variables: {
         data: {
@@ -26,6 +21,13 @@ const UpdateUser = ({ user, me }) => {
               ...data.adminSettings,
             },
           },
+          ...(data.bankDetails && {
+            bankDetails: {
+              [bankCreateKey]: {
+                ...data.bankDetails,
+              },
+            },
+          }),
         },
         where: {
           id: user.id,

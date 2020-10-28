@@ -7,6 +7,8 @@ import ManageUsers from '@/Components/ManageUsers';
 const AdminUsersPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
 
+  console.log('ADMIN ME => ', me);
+
   return (
     <>
       <PageHeader

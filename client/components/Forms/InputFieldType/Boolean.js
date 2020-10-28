@@ -5,9 +5,22 @@ import { FormControlLabel, Switch } from '@material-ui/core';
 import { InputFieldType } from './index';
 
 const BooleanField = props => {
-  const { config, register, errors, setValue, defaultValue, label } = props;
+  const {
+    config,
+    register,
+    errors,
+    setValue,
+    defaultValue,
+    defaultValues,
+    label,
+  } = props;
   const { fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
+
+  console.group('BOOLEAN FORM');
+  console.log('props => ', props);
+  console.log('Better defaultValue => ', defaultValues[name]);
+  console.groupEnd();
 
   return (
     <>
@@ -41,14 +54,14 @@ const BooleanField = props => {
 BooleanField.propTypes = {
   config: PropTypes.shape({
     inners: PropTypes.shape({
-      map: PropTypes.func
-    })
+      map: PropTypes.func,
+    }),
   }).isRequired,
   defaultValue: PropTypes.any,
   errors: PropTypes.any,
   label: PropTypes.any,
   register: PropTypes.func.isRequired,
-  setValue: PropTypes.any
+  setValue: PropTypes.any,
 };
 
 export default BooleanField;

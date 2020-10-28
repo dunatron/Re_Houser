@@ -4,6 +4,32 @@ const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createTokens } = require("../../auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 
+const userQueryString = `{
+  id,
+  permissions,
+  updatedAt,
+  createdAt,
+  dob,
+  firstName,
+  lastName,
+  phone,
+  email,
+  emailValidated,
+  password,
+  resetToken,
+  resetTokenExpiry,
+  confirmEmailToken,
+  confirmEmailTokenExpiry,
+  identificationNumber,
+  emergencyContactName,
+  emergencyContactNumber,
+  emergencyContactEmail,
+  rehouserStamp,
+  acceptedSignupTerms,
+  acceptedTermsOfEngagement,
+  bondLodgementNumber
+}`;
+
 async function signin(parent, { email, password, captchaToken }, ctx, info) {
   // validate recaptcha. will throw an error if it does not
   const recaptchaIsValid = await validateRecaptcha({
@@ -13,7 +39,7 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   if (recaptchaIsValid !== true) {
     throw new Error(`recaptcha failed but it should not have made it here`);
   }
-  const user = await ctx.db.query.user({ where: { email } });
+  const user = await ctx.db.query.user({ where: { email } }, userQueryString);
   if (!user) {
     throw new Error(`No such user found for email ${email}`);
   }

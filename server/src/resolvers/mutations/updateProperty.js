@@ -1,11 +1,17 @@
 const {
-  updatePropertySearchNode,
+  updatePropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 const { createActivity } = require("../../lib/createActivity");
 
 async function updateProperty(parent, args, ctx, info) {
   // first take a copy of the updates
   const loggedInUserId = ctx.request.userId;
+
+  if (!ctx.request.userPermissions) {
+    throw new Error("trying to attach permissions to the request");
+  }
+  throw new Error("Permissions are on the request header");
+
   // need to be logged in
   if (!loggedInUserId) {
     throw new Error("You must be logged in!");
@@ -20,9 +26,6 @@ async function updateProperty(parent, args, ctx, info) {
     { where },
     `{ id location images {id url} insulationForm {id} insulationStatementFile {id} }`
   );
-
-  if (updates.files) {
-  }
 
   if (!item.insulationForm && updates.data.onTheMarket) {
     if (!item.insulationStatementFile) {
@@ -41,15 +44,15 @@ async function updateProperty(parent, args, ctx, info) {
       type: "UPDATED_PROPERTY",
       user: {
         connect: {
-          id: loggedInUserId,
-        },
+          id: loggedInUserId
+        }
       },
       property: {
         connect: {
-          id: args.id,
-        },
-      },
-    },
+          id: args.id
+        }
+      }
+    }
   });
   if (args.data.onTheMarket) {
     const live = args.data.onTheMarket;
@@ -66,15 +69,15 @@ async function updateProperty(parent, args, ctx, info) {
         type: live ? "PROPERTY_LIVE" : "PROPERTY_DRAFT",
         user: {
           connect: {
-            id: loggedInUserId,
-          },
+            id: loggedInUserId
+          }
         },
         property: {
           connect: {
-            id: args.id,
-          },
-        },
-      },
+            id: args.id
+          }
+        }
+      }
     });
   }
 
@@ -83,19 +86,17 @@ async function updateProperty(parent, args, ctx, info) {
     {
       updates,
       where: {
-        id: args.id,
-      },
+        id: args.id
+      }
     },
     info
   );
 
-  /**
-   * activate the ciode highligting below is not used sao just do the func and dont put it into a variable
-   */
-  const propertySearchNode = updatePropertySearchNode({
-    updates: updates,
+  // update the property in algolia
+  await updatePropertySearchNode({
+    // property: updatedProperty,
     propertyId: args.id,
-    ctx,
+    ctx
   });
 
   return updatedProperty;

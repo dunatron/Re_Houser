@@ -149,7 +149,8 @@ const RenderFetchedDetails = ({
     <>
       <Box className={classes.details}>
         <StringDetailItem label="Phone" value={phone} />
-        <StringDetailItem label="BankDetails" value={bankDetails} />
+        {/* Below is actually its own entity with properties */}
+        {/* <StringDetailItem label="BankDetails" value={bankDetails} /> */}
         <StringDetailItem
           label="Email Validated"
           value={emailValidated === true ? 'YES' : 'NO'}
