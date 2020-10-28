@@ -1,4 +1,5 @@
-import gql from 'graphql-tag';
+// import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { FileInfoFragment } from './fileInfo';
 import { PublicUserInfoFragment } from './publicUserInfo';
 import { AccommodationInfoFragment } from './accommodationInfo';

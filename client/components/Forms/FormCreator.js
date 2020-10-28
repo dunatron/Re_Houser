@@ -58,6 +58,14 @@ const FormCreator = props => {
     cancel,
   } = props;
 
+  // awesome we have {me} which now has isAdmin and isWizard
+  // we can on the form creator if it has something like requiredPermissions
+  // or adminOnly and wizardOnly then disable the fields? or do we ommit them from the config entirely
+  // easiset right now is to ommit the config object entirely if they cannot edit it
+  // requiredPermissions : ["ADMIN", "WIZARD", "PERMISSIONUPDATE"]
+  // while isAdmin and isWizard @client is cool. We should use me.permissions
+  // we would check that on the requiredPermissions for each item we must find it in me.permissions
+  // if we dont it will remove the config object
   const currentUser = useCurrentUser();
   const me = currentUser.data ? currentUser.data.me : null;
   const keysWithTypes = getKeyTypes(config);

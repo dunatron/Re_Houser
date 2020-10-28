@@ -65,6 +65,7 @@ export default function UserDetails({ userId, me }) {
           </Fragment>
         </AccordionDetails>
       </Accordion>
+
       <Accordion onChange={handleFetchUser} square>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

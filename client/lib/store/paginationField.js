@@ -12,6 +12,7 @@ export default function paginationField() {
 
     // 2. When we fire off a query, Apollo will check the cache first. Normally Apollo handles this, but we now control that with a read method
     read(existing = [], { args, readField }) {
+      console.log('HELP: paginationFields');
       const { skip, first } = args;
       const { count } = readField('_allItemsMeta');
       const page = skip / first + 1;

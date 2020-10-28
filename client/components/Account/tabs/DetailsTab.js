@@ -11,10 +11,12 @@ import Signature from '@/Components/Signature';
 import Referees from '@/Components/Referees/index';
 
 import RehouserPaper from '@/Styles/RehouserPaper';
+import UserDetailsFromManger from '@/Components/ManageUsers/UserDetails';
 
 const DetailsTab = ({ me }) => {
   return (
     <>
+      <UserDetailsFromManger me={me} userId={me.id} />
       <RehouserPaper>
         <CompletionRating me={me} />
       </RehouserPaper>

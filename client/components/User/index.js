@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from '@apollo/react-components';
-import { useQuery } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 

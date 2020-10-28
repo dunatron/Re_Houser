@@ -4,6 +4,8 @@ import { FileInfoFragment } from './fileInfo';
 const PublicUserInfoFragment = gql`
   fragment publicUserInfo on User {
     id
+    isAdmin @client
+    isWizard @client
     firstName
     lastName
     phone
