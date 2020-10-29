@@ -21,8 +21,8 @@ const UserDetailsStep = ({
   me,
   userInfo,
   property,
-  onChange,
-  errorsBag,
+  handleDetailsChange,
+  userErrorsBag,
   applicantData,
   completed,
   rentalApplication,
@@ -49,11 +49,13 @@ const UserDetailsStep = ({
               disabled={!userInfo[userVar].editable}
               label={userInfo[userVar].label}
               value={userInfo[userVar].value}
-              onChange={e => onChange(e)}
+              onChange={e => handleDetailsChange(e)}
             />
-            {errorsBag[userVar] && (
+            {userErrorsBag[userVar] && (
               <InputErrors
-                errors={errorsBag[userVar] ? errorsBag[userVar].errors : null}
+                errors={
+                  userErrorsBag[userVar] ? userErrorsBag[userVar].errors : null
+                }
               />
             )}
           </div>
@@ -71,9 +73,6 @@ const UserDetailsStep = ({
         }
         maxFilesAllowed={1}
         removeFile={file => {}}
-        refetchQueries={[
-          { query: CURRENT_USER_QUERY, fetchPolicy: 'network-only' },
-        ]}
         recieveFile={file => {
           updateRentalGroupApplicant({
             variables: {

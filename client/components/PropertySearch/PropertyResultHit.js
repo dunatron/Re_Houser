@@ -77,6 +77,7 @@ const useStyles = makeStyles(theme => ({
   },
   rightPanel: {
     display: 'flex',
+    flexGrow: 1,
     flexWrap: 'wrap',
     [theme.breakpoints.up('sm')]: {
       flexWrap: 'nowrap',
@@ -94,9 +95,16 @@ const useStyles = makeStyles(theme => ({
   actionsContainer: {
     marginLeft: 'auto',
     display: 'flex',
+    flexGrow: 1,
     flexDirection: 'column',
     alignItems: 'flex-end',
     maxWidth: '320px',
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: '110px',
+    },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '110px',
+    },
   },
   detailItems: {
     display: 'flex',
@@ -205,7 +213,7 @@ const PropertyResultHit = ({ hit, me }) => {
             <Button onClick={() => setModalIdx('Viewings')}>Viewings</Button>
             <Button onClick={() => setModalIdx('Map')}>Show Map</Button>
             <Button onClick={() => setModalIdx('Applications')}>
-              Applications
+              Apply for Property
             </Button>
           </ButtonGroup>
         </RehouserPaper>

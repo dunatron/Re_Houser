@@ -154,7 +154,16 @@ const FormCreator = props => {
     };
   });
 
-  // clearError('test');
+  const filteredConf = config.filter((item, idx) => {
+    if (!item.permissions) return item;
+    if (item.permissions.includes('ADMIN')) {
+      if (!me.isAdmin) return;
+    }
+    if (item.permissions.includes('WIZARD')) {
+      if (!me.isWizard) return;
+    }
+    return item;
+  });
 
   return (
     <>
@@ -163,7 +172,7 @@ const FormCreator = props => {
           marginBottom: '16px',
         }}>
         {configIsValid(config) &&
-          config.map((item, idx) => {
+          filteredConf.map((item, idx) => {
             return (
               <div key={idx}>
                 <InputFieldType

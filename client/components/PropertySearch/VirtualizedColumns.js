@@ -55,12 +55,14 @@ const ColumnSizerExample = props => {
   };
 
   const setTablet = () => {
-    setColHeight(436);
+    // setColHeight(436);
+    setColHeight(460);
     setColWidth(500);
   };
 
   const setDesktop = () => {
-    setColHeight(436);
+    // setColHeight(436);
+    setColHeight(460);
     setColWidth(500);
   };
 
@@ -96,7 +98,7 @@ const ColumnSizerExample = props => {
           backgroundColor:
             columnIndex === state.scrollToColumn
               ? theme.palette.primary.dark
-              : theme.palette.secondary.main,
+              : theme.palette.background.paper,
         }}>
         <div>{cellHit && <PropertyResultHit hit={cellHit} />}</div>
       </div>

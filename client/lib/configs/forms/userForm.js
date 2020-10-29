@@ -10,22 +10,22 @@ const USER_FORM_CONF = [
     refConf: {
       required: {
         value: true,
-        message: 'You must have a firstName',
+        message: 'You must have a firstname',
       },
     },
   },
   {
-    type: 'Email',
-    key: 'email',
+    type: 'String',
+    key: 'lastName',
     fieldProps: {
-      label: 'Email ',
-      name: 'email',
+      label: 'Last Name',
+      name: 'lastName',
       variant: 'standard',
     },
     refConf: {
       required: {
         value: true,
-        message: 'You must have an email',
+        message: 'You must have a lastname',
       },
     },
   },
@@ -37,7 +37,12 @@ const USER_FORM_CONF = [
       name: 'phone',
       variant: 'standard',
     },
-    refConf: {},
+    refConf: {
+      required: {
+        value: true,
+        message: 'You must have a phone to contact you',
+      },
+    },
   },
   {
     type: 'BankAccount',
@@ -53,6 +58,7 @@ const USER_FORM_CONF = [
   {
     type: 'Boolean',
     key: 'emailValidated',
+    permissions: ['WIZARD'],
     fieldProps: {
       label: 'Email Validated',
       name: 'emailValidated',
@@ -63,6 +69,7 @@ const USER_FORM_CONF = [
   {
     type: 'Boolean',
     key: 'acceptedSignupTerms',
+    permissions: ['WIZARD'],
     fieldProps: {
       label: 'Accepted Signup Terms',
       name: 'acceptedSignupTerms',
@@ -73,6 +80,7 @@ const USER_FORM_CONF = [
   {
     type: 'Boolean',
     key: 'acceptedTermsOfEngagement',
+    permissions: ['WIZARD'],
     fieldProps: {
       label: 'Accepted Terms of Engagement',
       name: 'acceptedTermsOfEngagement',
@@ -132,6 +140,7 @@ const USER_FORM_CONF = [
   },
   {
     type: 'Section',
+    permissions: ['ADMIN'],
     fieldProps: {
       label: 'Admin Settings',
     },
@@ -208,6 +217,7 @@ const USER_FORM_CONF = [
   },
   {
     type: 'SelectMultipleEnum',
+    permissions: ['ADMIN', 'WIZARD'],
     key: 'permissions',
     __type: 'Permission',
     fieldProps: {
@@ -224,14 +234,5 @@ const USER_FORM_CONF = [
   },
 ];
 
-// user: {
-//     referees,
-//     rehouserStamp,
-//     adminSettings,
-//     identificationNumber,
-//     currentAddress,
-//     signature,
-//     permissions,
-//   },
 export { USER_FORM_CONF };
 export default USER_FORM_CONF;

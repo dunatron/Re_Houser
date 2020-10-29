@@ -44,26 +44,6 @@ const resolvers = {
       }
       return parent.photoIdentification;
     }
-
-    // signature: (parent, args, ctx, info) => {
-    //   if (parent.signature === null) return null;
-    //   return {
-    //     ...parent.signature,
-    //     url:
-    //       "https://www.swtor.com/sites/all/files/en/coruscant/main/swtor_logo.png"
-    //   };
-    // }
-    // __resolveType(obj, context, info) {
-    //   // if (obj.wingspan) {
-    //   //   return "Airplane";
-    //   // }
-
-    //   // if (obj.licensePlate) {
-    //   //   return "Car";
-    //   // }
-
-    //   return null;
-    // }
   },
   Chat: {
     // messages(chat) {

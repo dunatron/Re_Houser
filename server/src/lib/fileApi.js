@@ -15,6 +15,7 @@ exports._isUploader = ({ file, ctx }) => {
 };
 
 exports._isUploaderOrAdmin = ({ file, ctx }) => {
+  if (!ctx.request) return false; // this is for subs...
   if (file.uploaderId === ctx.request.userId || _isAdmin(ctx)) {
     return true;
   }
