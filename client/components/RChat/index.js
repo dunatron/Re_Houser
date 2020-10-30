@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { GiftedChat, IMessage, User } from 'react-native-gifted-chat';
+import { GiftedChat, IMessage, User, Bubble } from 'react-native-gifted-chat';
 import { View, Dimensions } from 'react-native';
+import { Typography } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 const getChatImageUrl = (chat, user) => {
   const member = chat.participants.find(p => p.id === user.id);
@@ -10,6 +12,7 @@ const getChatImageUrl = (chat, user) => {
 };
 
 const RChat = props => {
+  const theme = useTheme();
   const { chat, me, onSendMessage } = props;
 
   const messageSet = Array.from(new Set(props.messages)); // removes duplicates
@@ -32,10 +35,59 @@ const RChat = props => {
   const user = { _id: me.id, name: `${me.firstName} ${me.lastNaem}` };
   const inverted = true;
   const width = '280px';
-  const height = '390px';
+  // const height = '390px';
+  const height = '320px';
+  const bottomOffset = 80;
+
+  const renderBubble = props => (
+    <Bubble
+      {...props}
+      wrapperStyle={{
+        left: {
+          backgroundColor: theme.palette.secondary.main,
+          maxWidth: '212px',
+        },
+        right: {
+          backgroundColor: theme.palette.primary.main,
+          maxWidth: '212px',
+        },
+      }}
+      // textProps={{
+      //   style: {
+      //     // color: props.position === 'left' ? '#fff' : '#000',
+      //     color: theme.palette.text.primary,
+      //   },
+      // }}
+      textStyle={{
+        left: {
+          color: theme.palette.secondary.contrastText,
+        },
+        right: {
+          color: theme.palette.primary.contrastText,
+        },
+      }}
+      // style={styles.container}
+    />
+  );
+  // const height = '190px';
   return (
-    <View style={{ width, height }}>
-      <GiftedChat {...{ messages, onSend, user, inverted }} />
+    <View
+      style={{
+        width,
+        height,
+        backgroundColor: theme.palette.background.paper,
+      }}>
+      <GiftedChat
+        renderBubble={renderBubble}
+        style={{
+          backgroundColor: theme.palette.background.paper,
+        }}
+        textInputStyle={{
+          color: theme.palette.primary.main,
+          backgroundColor: theme.palette.background.paper,
+        }}
+        {...{ messages, onSend, user, inverted, bottomOffset }}
+      />
     </View>
   );
 };
@@ -45,10 +97,10 @@ RChat.propTypes = {
   me: PropTypes.shape({
     firstName: PropTypes.any,
     id: PropTypes.any,
-    lastNaem: PropTypes.any
+    lastNaem: PropTypes.any,
   }).isRequired,
   messages: PropTypes.any,
-  onSendMessage: PropTypes.func.isRequired
+  onSendMessage: PropTypes.func.isRequired,
 };
 
 export default RChat;

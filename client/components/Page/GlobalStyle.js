@@ -75,6 +75,33 @@ const GlobalStyle = createGlobalStyle`
   .Toastify__toast--error {
     background: #e74c3c;
   }
+  /* Scrollbar style */
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+    /* display: none;  */
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${p => p.theme.palette.background.paper};
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${p =>
+      p.theme.palette.type === 'dark'
+        ? p.theme.palette.secondary.dark
+        : p.theme.palette.secondary.main};
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${p =>
+      p.theme.palette.type === 'dark'
+        ? p.theme.palette.secondary.main
+        : p.theme.palette.secondary.dark};
+  }
 `;
 
 export default GlobalStyle;

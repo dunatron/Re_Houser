@@ -28,14 +28,15 @@ const useStyles = makeStyles(theme => ({
     background: 'transparent',
   },
   barItem: {
-    background: '#fff',
+    background: theme.palette.background.paper,
     pointerEvents: 'auto', // re-enable pointer events
     width: '280px',
     marginRight: '8px',
   },
   barItemIn: {
     // height: '5000px',
-    height: '460px',
+    // height: '460px',
+    // height: '460px', // dont use this
     maxHeight: 'calc(100vh - 64px)',
     borderBottomLeftRadius: '0',
     borderBottomRightRadius: '0',
@@ -53,6 +54,9 @@ const useStyles = makeStyles(theme => ({
   },
   chatName: {
     marginLeft: '6px',
+    maxHeight: '64px',
+    margin: '0 0 0 8px',
+    overflow: 'auto',
   },
   close: {
     display: 'flex',
@@ -115,9 +119,9 @@ const ActiveChat = ({ id, chat, me }) => {
 
 ActiveChat.propTypes = {
   chat: PropTypes.shape({
-    id: PropTypes.any
+    id: PropTypes.any,
   }).isRequired,
   id: PropTypes.any,
-  me: PropTypes.any
+  me: PropTypes.any,
 };
 export default ActiveChat;

@@ -2,6 +2,7 @@ import { atom } from 'recoil';
 import themeBase from '@/Themes/main';
 // palettes
 import mainPalette from '@/Themes/palettes/mainPalette';
+import darkPalette from '@/Themes/palettes/darkPalette';
 // overrides
 import mainOverrides from '@/Themes/overrides/mainOverride';
 // typographys
@@ -12,6 +13,7 @@ import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 const mainTheme = {
   ...themeBase,
   ...mainPalette,
+  // ...darkPalette,
   ...mainOverrides,
   ...azoSansTypography,
   // ...nexaTypography,
