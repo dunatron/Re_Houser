@@ -18,36 +18,22 @@ const GeneralUserUpdatesSub = ({ me }) => {
     },
 
     onSubscriptionData: ({ client, subscriptionData }) => {
-      console.log(
-        'GeneralUserUpdatesSub: onSubscriptionData => ',
-        subscriptionData
-      );
+      const subDta = subscriptionData.data.userSub.node;
+      // Subs shouldnt handle our private files in the cache
+      if (subDta.photoIdentification) delete subDta.photoIdentification;
+      if (subDta.proofOfAddress) delete subDta.proofOfAddress;
+      if (subDta.signature) delete subDta.signature;
 
-      // client.writeQuery({
-      //   query: CURRENT_USER_QUERY,
-      //   data: {
-      //     me: {
-      //       ...subscriptionData.data.userSub.node,
-      //       emergencyContactName: 'THE METATRON',
-      //     },
-      //   },
-      // });
-
-      // User:ckgiqg63gf28o0999py6ashcb
-      // client.cache.modify({
-      //   fields: {
-      //     me(existingMeRef, { readField }) {
-      //       console.log(
-      //         'GeneralUserUpdatesSub: existing me ref => ',
-      //         existingMeRef
-      //       );
-      //       const meData = readField('id', existingMeRef);
-      //       console.log('GeneralUserUpdatesSub: meData => ', meData);
-      //       // return 'zzzzz';
-      //       return existingMeRef;
-      //     },
-      //   },
-      // });
+      // We will get subs back about Files that we may be able to see but the pushNotifications dont know that and send stock image
+      client.writeQuery({
+        query: CURRENT_USER_QUERY,
+        data: {
+          me: {
+            ...me,
+            ...subDta,
+          },
+        },
+      });
     },
   });
   if (loading) return null;

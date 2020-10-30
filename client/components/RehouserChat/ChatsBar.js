@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     display: 'flex',
     bottom: 0,
-
+    zIndex: theme.zIndex.chatBar,
     pointerEvents: 'none', // allows click through to elements behind
     background: 'transparent',
   },
@@ -44,7 +44,7 @@ const ChatsBar = ({ me }) => {
 };
 
 ChatsBar.propTypes = {
-  me: PropTypes.any
+  me: PropTypes.any,
 };
 
 export default ChatsBar;

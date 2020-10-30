@@ -108,7 +108,6 @@ const updatePropertySearchNode = async function({ property, propertyId, ctx }) {
   index.partialUpdateObjects(objects, (err, content) => {
     if (err) throw err;
   });
-  throw new Error("TESTING updatePropertySearchNode");
   return "All done with search node updates";
 };
 

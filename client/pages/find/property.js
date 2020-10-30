@@ -12,7 +12,7 @@ const FindPropertyPage = ({ appData: { currentUser } }) => {
     <>
       <PageHeader
         title="Find Property"
-        intro="You must be signed in to find"
+        intro="Find Properties"
         metaData={{
           title: 'Find Property',
           content: 'Find Property in the system',
@@ -26,7 +26,7 @@ const FindPropertyPage = ({ appData: { currentUser } }) => {
             <Typography component="strong">{pleaseSignInMessage}</Typography>
           </Typography>
         }>
-        <ConfirmEmail me={me} />
+        <div>To Come. Property</div>
       </PleaseSignIn>
     </>
   );

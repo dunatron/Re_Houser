@@ -11,6 +11,8 @@ const FileInfoFragment = gql`
     url
     secure_url
     access_mode
+    bytes
+    type
   }
 `;
 

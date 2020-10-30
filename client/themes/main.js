@@ -11,5 +11,16 @@ const mainThemeSetup = {
     keys: ['xs', 'sm', 'md', 'lg', 'xl'],
     values: { xs: 0, lg: 1280, sm: 600, xl: 1920, md: 960 },
   },
+  zIndex: {
+    flipCard: 1000,
+    mobileStepper: 1000,
+    speedDial: 1050,
+    chatBar: 1060,
+    appBar: 1100,
+    drawer: 1200,
+    modal: 1300,
+    snackbar: 1400,
+    tooltip: 1500,
+  },
 };
 export default mainThemeSetup;

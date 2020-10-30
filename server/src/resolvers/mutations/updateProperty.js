@@ -2,6 +2,9 @@ const {
   updatePropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 const { createActivity } = require("../../lib/createActivity");
+const { _isOwnerOrAgent } = require("../../lib/_isOwnerOrAgent");
+
+const propertyQueryString = `{ id location images {id url} insulationForm {id} insulationStatementFile {id} agents {id} owners {id} }`;
 
 async function updateProperty(parent, args, ctx, info) {
   // first take a copy of the updates
@@ -10,7 +13,6 @@ async function updateProperty(parent, args, ctx, info) {
   if (!ctx.request.userPermissions) {
     throw new Error("trying to attach permissions to the request");
   }
-  throw new Error("Permissions are on the request header");
 
   // need to be logged in
   if (!loggedInUserId) {
@@ -22,10 +24,15 @@ async function updateProperty(parent, args, ctx, info) {
   // remove the ID from the updates
   delete updates.id;
 
-  const item = await ctx.db.query.property(
-    { where },
-    `{ id location images {id url} insulationForm {id} insulationStatementFile {id} }`
-  );
+  const item = await ctx.db.query.property({ where }, propertyQueryString);
+
+  const isOwnerOrAgent = _isOwnerOrAgent({ property: item, ctx });
+
+  if (!isOwnerOrAgent) {
+    throw new Error(
+      `You must be an owner, Agent or Wizard to update this property: ${item.location} `
+    );
+  }
 
   if (!item.insulationForm && updates.data.onTheMarket) {
     if (!item.insulationStatementFile) {

@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { useMutation, gql, useApolloClient } from '@apollo/client';
 import clsx from 'clsx';
+import { useTheme } from '@material-ui/core/styles';
 import {
   Paper,
   ButtonGroup,
@@ -536,6 +537,7 @@ UploadedServerFiles.propTypes = {
 
 //remove gets fed into here
 const FileManager = props => {
+  const theme = useTheme();
   const {
     title,
     description,
@@ -652,7 +654,7 @@ const FileManager = props => {
       <Error error={error} />
       {state.expanded && (
         <ReactCardFlip
-          cardZIndex="900"
+          cardZIndex={theme.zIndex.flipCard}
           containerStyle={{
             position: 'relative',
           }}
