@@ -53,23 +53,22 @@ const TeamMember = ({ member }) => {
   const classes = useStyles();
   return (
     <div className={classes.root} elevation={1} variant="elevation">
-      <Card>
-        <PageHeader
-          titleOverride={
-            <Typography align="center" variant="h1" component="h1">
-              {member.name}
-            </Typography>
-          }
-          metaData={{
-            title: `${member.name} - ${member.name}`,
-            content: `${member.name} - ${member.name}`,
-          }}
-        />
-        <Typography align="center" variant="h2" component="h2">
-          {member.role}
-        </Typography>
-      </Card>
-
+      <PageHeader
+        titleOverride={
+          <Typography align="center" variant="h1" component="h1">
+            {member.name}
+          </Typography>
+        }
+        intro={
+          <Typography align="center" variant="h2" component="h2">
+            {member.role}
+          </Typography>
+        }
+        metaData={{
+          title: `${member.name} - ${member.name}`,
+          content: `${member.name} - ${member.name}`,
+        }}
+      />
       <FlexLayout className={classes.descPanel}>
         <Card className={classes.imageWrapper} disablePadding>
           <Image

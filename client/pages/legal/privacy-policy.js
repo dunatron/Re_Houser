@@ -8,8 +8,9 @@ const PrivacyPolicyPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
-        // title="Rehouser Security Statement"
-        // intro="Our Security statement to our users"
+        title="Rehouser Privacy Policy"
+        intro="Our Privacy Policy to our users"
+        hidden={true}
         metaData={{
           title: 'Rehouser Privacy Policy',
           content: 'Our Privacy Policy to our users',

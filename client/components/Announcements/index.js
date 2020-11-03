@@ -48,15 +48,13 @@ const Announcements = ({ me, bannerRoutes }) => {
     <List
       component="nav"
       aria-label="main mailbox folders"
-      style={
-        beDisabled
-          ? {
-              marginTop: '64px',
-            }
-          : {
-              zIndex: '0',
-            }
-      }>
+      style={{
+        marginLeft: '-8px',
+        marginRight: '-8px',
+        paddingTop: 0,
+        paddingBottom: 0,
+        ...(beDisabled && { marginTop: '64px' }),
+      }}>
       {state.map((a, i) => (
         <AnnouncementItem
           key={i}

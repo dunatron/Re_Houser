@@ -9,7 +9,7 @@ import NumberInput from '@/Components/Inputs/NumberInput';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 // material
-import { Button, InputAdornment } from '@material-ui/core';
+import { ButtonGroup, Button, InputAdornment } from '@material-ui/core';
 import moment from 'moment';
 
 // proptypes
@@ -90,10 +90,14 @@ const ViewingForm = ({
         handleChange={v => setState({ ...state, recurringType: v })}
       />
       <Error error={error} />
-      <Button onClick={handleSave} disabled={loading}>
-        Save Viewing
-      </Button>
-      <Button onClick={cancel}>CANCEL</Button>
+      <ButtonGroup>
+        <Button onClick={handleSave} disabled={loading} variant="outlined">
+          Create Viewing
+        </Button>
+        <Button onClick={cancel} variant="outlined">
+          CANCEL
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };

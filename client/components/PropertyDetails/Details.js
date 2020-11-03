@@ -212,7 +212,7 @@ const Details = props => {
 
   return (
     <div>
-      <RehouserPaper square>
+      <RehouserPaper>
         {me.isWizard && (
           <>
             <Typography gutterBottom variant="h6">
@@ -253,11 +253,13 @@ const Details = props => {
         )}
       </RehouserPaper>
       {isAdmin && (
-        <ChangeRouteButton
-          title="Edit with Original Form"
-          route="/landlord/properties/property/edit"
-          query={{ id: property.id }}
-        />
+        <Card>
+          <ChangeRouteButton
+            title="Edit with Original Form"
+            route="/landlord/properties/property/edit"
+            query={{ id: property.id }}
+          />
+        </Card>
       )}
 
       <ImportantDetails property={property} />

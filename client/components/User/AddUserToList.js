@@ -16,20 +16,32 @@ const getItemStyle = (isDragging, draggableStyle, theme) => ({
   userSelect: 'none',
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
+  // background: isDragging
+  //   ? theme.palette.primary.main
+  //   : theme.palette.background.paper,
+  // color: isDragging
+  //   ? theme.palette.primary.contrastText
+  //   : theme.palette.text.primary,
+  // styles we need to apply on draggables
   background: isDragging
     ? theme.palette.primary.main
-    : theme.palette.background.paper,
+    : theme.palette.background.default,
   color: isDragging
     ? theme.palette.primary.contrastText
     : theme.palette.text.primary,
-  // styles we need to apply on draggables
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver, theme) => ({
+  // background: isDraggingOver
+  //   ? theme.palette.secondary.main
+  //   : theme.palette.background.default,
+  // color: isDraggingOver
+  //   ? theme.palette.secondary.contrastText
+  //   : theme.palette.text.primary,
   background: isDraggingOver
     ? theme.palette.secondary.main
-    : theme.palette.background.default,
+    : theme.palette.background.paper,
   color: isDraggingOver
     ? theme.palette.secondary.contrastText
     : theme.palette.text.primary,
@@ -181,10 +193,11 @@ const AddUserToList = ({
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   return (
-    <Card
+    <div
       style={{
         display: 'flex',
         flexWrap: 'wrap',
+        marginTop: '16px',
       }}>
       <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
         <Droppable droppableId={droppableId2} isDropDisabled={loading}>
@@ -252,7 +265,7 @@ const AddUserToList = ({
           )}
         </Droppable>
       </DragDropContext>
-    </Card>
+    </div>
   );
 };
 

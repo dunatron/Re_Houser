@@ -38,7 +38,7 @@ async function createProperty(parent, { data }, ctx, info) {
           highestRoomPrice,
           rent: data.rent,
           rooms: numberOfRooms,
-          rehouserManaged: true
+          rehouserManaged: true,
         },
       },
       info
@@ -50,6 +50,7 @@ async function createProperty(parent, { data }, ctx, info) {
         title: "Property Created",
         content: "You have created a new property, nice",
         type: "CREATED_PROPERTY",
+        jsonObj: property,
         property: {
           connect: {
             id: property.id,

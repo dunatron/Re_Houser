@@ -17,6 +17,7 @@ import List from '@material-ui/core/List';
 import CloseIcon from '@material-ui/icons/Close';
 import ResendConfrimEmail from '@/Components/MutationButtons/ResendConfirmEmail';
 import useStyles from './useStyles';
+import Card from '@/Styles/Card';
 
 const AnnouncementItem = ({
   index,
@@ -41,7 +42,7 @@ const AnnouncementItem = ({
   };
 
   return (
-    <Box className={classes.announcement}>
+    <Card className={classes.announcement} square>
       <Box className={classes.content} onClick={handleUrlClick}>
         <Typography variant="body1" color="inherit" className={classes.text}>
           {text}
@@ -73,7 +74,7 @@ const AnnouncementItem = ({
           <CloseIcon />
         </IconButton>
       </Box>
-    </Box>
+    </Card>
   );
 };
 

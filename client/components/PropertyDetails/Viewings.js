@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Viewings from '@/Components/Viewings';
+import Card from '@/Styles/Card';
 
 const PropertyViewings = ({ propertyId, me }) => {
   return (
@@ -19,7 +20,7 @@ const PropertyViewings = ({ propertyId, me }) => {
 
 PropertyViewings.propTypes = {
   me: PropTypes.any,
-  propertyId: PropTypes.any
+  propertyId: PropTypes.any,
 };
 
 export default PropertyViewings;

@@ -4,6 +4,13 @@ import NumberFormat from 'react-number-format';
 
 const CONTACT_FORM_CONF = [
   {
+    type: 'Header',
+    fieldProps: {
+      label: 'Contact Form',
+    },
+    refConf: {},
+  },
+  {
     type: 'String',
     key: 'firstName',
     fieldProps: {

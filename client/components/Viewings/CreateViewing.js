@@ -7,7 +7,8 @@ import { useMutation } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { CREATE_VIEWING_MUTATION } from '@/Gql/mutations';
 import ViewingForm from './ViewingForm';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
+import Card from '@/Styles/Card';
 
 const styles = theme => ({
   root: {},
@@ -81,7 +82,7 @@ const CreateViewing = ({ propertyId, me, classes }) => {
     });
   };
   return (
-    <div className={classes.root}>
+    <Card className={classes.root}>
       {!isCreating && (
         <Button
           className={classes.createBtn}
@@ -90,6 +91,7 @@ const CreateViewing = ({ propertyId, me, classes }) => {
           Add Viewing
         </Button>
       )}
+      {isCreating && <Typography color="primary">CREATING Viewing</Typography>}
 
       {isCreating && (
         <ViewingForm
@@ -99,7 +101,7 @@ const CreateViewing = ({ propertyId, me, classes }) => {
           onSave={handleCreateViewing}
         />
       )}
-    </div>
+    </Card>
   );
 };
 

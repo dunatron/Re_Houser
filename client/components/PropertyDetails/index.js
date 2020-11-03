@@ -224,10 +224,13 @@ const PropertyDetails = ({ id, location, me }) => {
         <Tabs
           value={tabIndex}
           onChange={(e, v) => setTabIndex(v)}
-          indicatorColor="secondary"
-          textColor="secondary"
-          wrapped={false}
-          variant="scrollable">
+          // indicatorColor="secondary"
+          // textColor="secondary"
+          // wrapped={false}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto">
           <Tab label="Details" icon={<DetailsIcon />} />
           <Tab
             label={

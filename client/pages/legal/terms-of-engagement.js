@@ -10,6 +10,7 @@ const TermsOfEngagementPage = ({ appData: { currentUser } }) => {
       <PageHeader
         // title="Terms of Engagement"
         // intro="Our Terms of Engagement"
+        hidden={true}
         metaData={{
           title: 'Terms of Engagement',
           content: 'Our Terms of Engagement',
