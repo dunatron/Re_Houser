@@ -16,6 +16,7 @@ import {
   ButtonGroup,
   Button,
   IconButton,
+  Box,
   Typography,
 } from '@material-ui/core';
 
@@ -400,26 +401,32 @@ const UploadFile = forwardRef((props, ref) => {
           style={{
             width: '100%',
           }}>
-          <Typography variant="subtitle1">Recently Uploaded</Typography>
-          <Typography variant="body2">
+          <Typography variant="h6">Recently Uploaded</Typography>
+          <Typography variant="subtitle1" gutterBottom>
             These files will be connected when you upload the form
           </Typography>
           {/* Recently Added */}
-          {files
-            .filter(f => f.uploadCompleted)
-            .map((f, i) => {
-              const { serverFile } = f;
-              if (!serverFile) return null;
-              return (
-                <div
-                  key={f.id}
-                  style={{
-                    width: '100%',
-                  }}>
-                  Uploaded: {serverFile.filename}
-                </div>
-              );
-            })}
+          <ul>
+            {files
+              .filter(f => f.uploadCompleted)
+              .map((f, i) => {
+                const { serverFile } = f;
+                if (!serverFile) return null;
+                return (
+                  <Box component="li">
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      key={f.id}
+                      style={{
+                        width: '100%',
+                      }}>
+                      {serverFile.filename}
+                    </Typography>
+                  </Box>
+                );
+              })}
+          </ul>
           <FilePreviewer
             files={recentlyUploadedWithoutAttached}
             remove={remove}

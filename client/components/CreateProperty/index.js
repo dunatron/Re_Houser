@@ -135,18 +135,18 @@ const CreatePropertyComponent = props => {
   const submitFormWithData = data => {
     setSubmittedData({
       ...data,
-      bankDetails: data.bankDetails
-        ? {
-            create: {
-              ...data.bankDetails,
-            },
-          }
-        : {},
-      rehouserAssist: {
-        create: {
-          ...data.rehouserAssist,
-        },
-      },
+      // bankDetails: data.bankDetails
+      //   ? {
+      //       create: {
+      //         ...data.bankDetails,
+      //       },
+      //     }
+      //   : {},
+      // rehouserAssist: {
+      //   create: {
+      //     ...data.rehouserAssist,
+      //   },
+      // },
     });
     setIsChecking(true);
   };

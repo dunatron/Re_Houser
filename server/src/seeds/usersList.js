@@ -36,23 +36,14 @@ const createAdminSettings = {
 const userFrag = {
   email: userEmail3, // @unique String
   password: userPassword,
-  firstName: "Bob",
-  lastName: "Doe",
-  phone: "0212439998",
-  // profilePhoto: File
-  identificationNumber: "DH812768",
-  emergencyContactName: "Jon Doe",
-  emergencyContactNumber: "55555555",
-  emergencyContactEmail: "jondoe@test.com",
-  referee1Name: "Swain",
-  referee1Phone: "1233333",
-  referee1Email: "swain@test.com",
-  referee2Name: "Garen",
-  referee2Phone: "6799000",
-  referee2Email: "garen@test.com",
   acceptedSignupTerms: true,
   adminSettings: {
-    create: {}
+    create: {
+      appraisalCreatedSub: false,
+      propertyCreatedSub: false,
+      rentalApplicationCreatedSub: false,
+      leaseCreatedSub: false
+    }
   },
   permissions: setUserPermissions
 };

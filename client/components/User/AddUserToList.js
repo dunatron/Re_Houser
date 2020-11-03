@@ -6,6 +6,8 @@ import SearchUsers from './SearchUsers';
 import { Typography, Button, IconButton } from '@material-ui/core';
 
 import { useTheme } from '@material-ui/core/styles';
+import { Paper, Card } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
 const grid = 8;
 
@@ -14,20 +16,66 @@ const getItemStyle = (isDragging, draggableStyle, theme) => ({
   userSelect: 'none',
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-  background: isDragging ? theme.palette.primary.main : 'grey',
-  color: isDragging ? theme.palette.primary.contrastText : 'black',
+  background: isDragging
+    ? theme.palette.primary.main
+    : theme.palette.background.paper,
+  color: isDragging
+    ? theme.palette.primary.contrastText
+    : theme.palette.text.primary,
   // styles we need to apply on draggables
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver, theme) => ({
-  background: isDraggingOver ? theme.palette.secondary.main : 'lightgrey',
-  color: isDraggingOver ? theme.palette.secondary.contrastText : 'black',
+  background: isDraggingOver
+    ? theme.palette.secondary.main
+    : theme.palette.background.default,
+  color: isDraggingOver
+    ? theme.palette.secondary.contrastText
+    : theme.palette.text.primary,
   padding: grid,
   width: '50%',
-  maxHeight: '500px',
-  overflow: 'auto',
+  // maxHeight: '500px',
+  // overflow: 'auto',
 });
+
+const ListInner = props => {
+  return (
+    <div
+      style={{
+        maxHeight: '500px',
+        overflow: 'auto',
+        paddingRight: grid,
+      }}>
+      {props.children}
+    </div>
+  );
+};
+
+const UserCardItem = ({ provided, snapshot, user, theme, viewItem }) => {
+  return (
+    <Card
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      style={getItemStyle(
+        snapshot.isDragging,
+        provided.draggableProps.style,
+        theme
+      )}>
+      <div>
+        <Typography variant="body1">
+          {user.firstName} {user.lastName}
+        </Typography>
+        {user.permissions &&
+          user.permissions.map((perm, idx) => {
+            return <Typography variant="caption">{perm}, </Typography>;
+          })}
+        <Button onClick={() => viewItem(user)}>View</Button>
+      </div>
+    </Card>
+  );
+};
 
 const AddUserToList = ({
   id,
@@ -79,7 +127,7 @@ const AddUserToList = ({
   };
 
   const viewItem = item => {
-    alert('ToDo: view user item');
+    toast.info('ToDo: view user item');
   };
 
   const onDragStart = () => {
@@ -106,12 +154,9 @@ const AddUserToList = ({
       remove(itemFromSelected);
       // assume this item will be reomved and add to top of items list?
       setState({
-        ...state, 
-        items: [
-          itemFromSelected,
-          ...state.items
-        ]
-      })
+        ...state,
+        items: [itemFromSelected, ...state.items],
+      });
       // remove(result);
       return;
     }
@@ -136,7 +181,7 @@ const AddUserToList = ({
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   return (
-    <div
+    <Card
       style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -150,33 +195,26 @@ const AddUserToList = ({
               <Typography gutterBottom>
                 {selectedListLabel ? selectedListLabel : 'Selected List'}{' '}
               </Typography>
-              {state.selected.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={item.id}
-                  index={index}
-                  isDragDisabled={loading}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style,
-                        theme
-                      )}>
-                      <div>
-                        <Typography variant="body1">
-                          {item.firstName} {item.lastName}
-                        </Typography>
-                        <Typography variant="caption">Agent</Typography>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
+              <ListInner>
+                {state.selected.map((item, index) => (
+                  <Draggable
+                    key={item.id}
+                    draggableId={item.id}
+                    index={index}
+                    isDragDisabled={loading}>
+                    {(provided, snapshot) => (
+                      <UserCardItem
+                        provided={provided}
+                        snapshot={snapshot}
+                        user={item}
+                        theme={theme}
+                        viewItem={viewItem}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ListInner>
             </div>
           )}
         </Droppable>
@@ -190,46 +228,31 @@ const AddUserToList = ({
               {state.items.length === 0 && (
                 <Typography gutterBottom>No items. Use the search</Typography>
               )}
-              {state.items.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={item.id}
-                  index={index}
-                  isDragDisabled={loading}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style,
-                        theme
-                      )}>
-                      <div>
-                        <Typography variant="body1">
-                          {item.firstName} {item.lastName}
-                        </Typography>
-                        {item.permissions &&
-                          item.permissions.map((perm, idx) => {
-                            return (
-                              <Typography variant="caption">
-                                {perm},{' '}
-                              </Typography>
-                            );
-                          })}
-                        <Button onClick={() => viewItem(item)}>View</Button>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
+              <ListInner>
+                {state.items.map((item, index) => (
+                  <Draggable
+                    key={item.id}
+                    draggableId={item.id}
+                    index={index}
+                    isDragDisabled={loading}>
+                    {(provided, snapshot) => (
+                      <UserCardItem
+                        provided={provided}
+                        snapshot={snapshot}
+                        user={item}
+                        theme={theme}
+                        viewItem={viewItem}
+                      />
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ListInner>
             </div>
           )}
         </Droppable>
       </DragDropContext>
-    </div>
+    </Card>
   );
 };
 

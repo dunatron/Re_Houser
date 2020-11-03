@@ -163,7 +163,7 @@ const CREATE_PROPERTY_FORM_CONF = [
             key: 'tenancyType',
             fieldProps: {
               name: 'tenancyType',
-              label: 'Tenancy Type',
+              label: 'Tenancy Type 1',
             },
             refConf: {
               required: {
@@ -193,7 +193,7 @@ const CREATE_PROPERTY_FORM_CONF = [
                 parentShowVals: ['FIXED'],
                 fieldProps: {
                   name: 'fixedLength',
-                  label: 'Fixed Length',
+                  label: 'Tenancy Duration',
                 },
                 refConf: {
                   required: {

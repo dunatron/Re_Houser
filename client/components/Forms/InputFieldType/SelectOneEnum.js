@@ -99,12 +99,12 @@ export default function SimpleSelect(props) {
         variant={fieldProps.variant ? fieldProps.variant : 'outlined'}
         className={classes.formControl}
         error={yuckErr}>
-        <InputLabel htmlFor={fieldProps.name}>{label}</InputLabel>
+        <InputLabel htmlFor={fieldProps.name}>{fieldProps.label}</InputLabel>
 
         <Select
           defaultValue={defaultValue}
           onChange={e => handleOnValueChange(e)}
-          label={label}
+          label={fieldProps.label}
           error={fieldError ? true : false}
           inputProps={{
             name: fieldProps.name,

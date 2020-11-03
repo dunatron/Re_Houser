@@ -20,7 +20,7 @@ const mainPalette = {
       white: '#fff',
     },
     type: 'light',
-    background: { paper: '#fff', default: '#fff' },
+    background: { paper: '#fff', default: '#fafafa' },
     primary: {
       light: lightPrimaryColor,
       main: mainPrimaryColor,

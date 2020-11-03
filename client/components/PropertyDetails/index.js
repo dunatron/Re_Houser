@@ -28,6 +28,8 @@ import PageHeader from '@/Components/PageHeader';
 import TabContainer from '@/Components/Account/TabContainer';
 import InspectionsTable from '@/Components/Tables/InspectionsTable';
 import { isAdmin } from '@/Lib/isAdmin';
+import { _isWizard } from '@/Lib/_isWizard';
+import { _isInList } from '@/Lib/_isInList';
 
 import DetailsIcon from '@material-ui/icons/Details';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -38,9 +40,13 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ShareIcon from '@material-ui/icons/Share';
 
-//counts 
-import {useLeasesCount, useRentalApplicationCount, useInspectionsCount} from '@/Lib/hooks/counts'
-import moment from 'moment'
+//counts
+import {
+  useLeasesCount,
+  useRentalApplicationCount,
+  useInspectionsCount,
+} from '@/Lib/hooks/counts';
+import moment from 'moment';
 
 TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
@@ -125,8 +131,12 @@ const PropertyCard = styled.div`
 `;
 
 const PropertyDetails = ({ id, location, me }) => {
-  const [todaysDate, setTodaysDate] = useState(moment().format())
-  const [oneMonthFromNow, setOneMonthFromNow] = useState(moment().add(1, "months").format())
+  const [todaysDate, setTodaysDate] = useState(moment().format());
+  const [oneMonthFromNow, setOneMonthFromNow] = useState(
+    moment()
+      .add(1, 'months')
+      .format()
+  );
   const [tabIndex, setTabIndex] = useState(0);
 
   const countVariables = {
@@ -135,15 +145,15 @@ const PropertyDetails = ({ id, location, me }) => {
         id: id,
       },
     },
-  }
+  };
 
   // INITIALIZING, PENDING, SHORTLISTED, DENIED, ACCEPTED
   const rentalApplicationsCount = useRentalApplicationCount({
     where: {
       ...countVariables.where,
-      stage_in: ["INITIALIZING", "SHORTLISTED", "PENDING"]
-    }
-  })
+      stage_in: ['INITIALIZING', 'SHORTLISTED', 'PENDING'],
+    },
+  });
   // INITIALIZING, SIGNED, PAID, COMPLETED
   const leasesCount = useLeasesCount({
     where: {
@@ -152,14 +162,14 @@ const PropertyDetails = ({ id, location, me }) => {
       //   {stage_in: ["INITIALIZING", "SIGNED"]},
       //   {expiryDate_lte: oneMonthFromNow}
       // ]
-    }
-  })
+    },
+  });
   const inspectionsCount = useInspectionsCount({
     where: {
       ...countVariables.where,
-      completed: false
-    }
-  })
+      completed: false,
+    },
+  });
 
   const { data, loading, error } = useQuery(SINGLE_OWNER_PROPERTY_QUERY, {
     variables: {
@@ -175,22 +185,25 @@ const PropertyDetails = ({ id, location, me }) => {
     return 'No DATA returned for property';
   }
 
-   const property = data.ownerProperty;
- 
+  const property = data.ownerProperty;
 
   if (!property) {
     toast('No Property passed in to component');
     return 'No Property passed in to component';
   }
 
+  const isOwner = _isInList(me.id, property.owners, 'id');
+  const isAgent = _isInList(me.id, property.agents, 'id');
 
- 
+  console.log;
 
-  console.log("rentalApplicationsCount => ", rentalApplicationsCount)
-
-  const isUserAdmin = isAdmin(me);
-
-  console.log('Single Property data => ', data);
+  const tabProps = {
+    me: me,
+    property: property,
+    isAgent: isAgent,
+    isOwner: isOwner,
+    isAdmin: me.isAdmin,
+  };
 
   return (
     <>
@@ -205,7 +218,7 @@ const PropertyDetails = ({ id, location, me }) => {
           content: 'The properties for the current logged in user',
         }}
       />
-      <PropertyCard>
+      <div>
         {/* <h1 className="location__name"> {property ? property.location : null}</h1> */}
 
         <Tabs
@@ -216,29 +229,51 @@ const PropertyDetails = ({ id, location, me }) => {
           wrapped={false}
           variant="scrollable">
           <Tab label="Details" icon={<DetailsIcon />} />
-          <Tab label={<Badge color="secondary" badgeContent={rentalApplicationsCount.count}>Applications</Badge>} icon={<DescriptionIcon />} />
-          <Tab label={<Badge color="secondary" badgeContent={leasesCount.count}>Leases</Badge>} icon={<AssignmentIcon />} />
+          <Tab
+            label={
+              <Badge
+                color="secondary"
+                badgeContent={rentalApplicationsCount.count}>
+                Applications
+              </Badge>
+            }
+            icon={<DescriptionIcon />}
+          />
+          <Tab
+            label={
+              <Badge color="secondary" badgeContent={leasesCount.count}>
+                Leases
+              </Badge>
+            }
+            icon={<AssignmentIcon />}
+          />
           <Tab label="Activity" icon={<EventNoteIcon />} />
-          <Tab label="Viewings" icon={<StreetviewIcon />}/>
-          <Tab label={<Badge color="secondary" badgeContent={inspectionsCount.count}>Inspections</Badge>} icon={<EventAvailableIcon />}/>
-          <Tab label="Files"icon={<FileCopyIcon />} />
-          <Tab label="Share" icon={<ShareIcon />}/>
-          
+          <Tab label="Viewings" icon={<StreetviewIcon />} />
+          <Tab
+            label={
+              <Badge color="secondary" badgeContent={inspectionsCount.count}>
+                Inspections
+              </Badge>
+            }
+            icon={<EventAvailableIcon />}
+          />
+          <Tab label="Files" icon={<FileCopyIcon />} />
+          <Tab label="Share" icon={<ShareIcon />} />
         </Tabs>
 
         {tabIndex === 0 && (
           <TabContainer>
-            <Details property={property} me={me} isAdmin={isUserAdmin} />
+            <Details {...tabProps} />
           </TabContainer>
         )}
         {tabIndex === 1 && (
           <TabContainer>
-            <Applications property={property} me={me} isAdmin={isUserAdmin} />
+            <Applications {...tabProps} />
           </TabContainer>
         )}
         {tabIndex === 2 && (
           <TabContainer>
-            <Leases property={property} isAdmin={isUserAdmin} />
+            <Leases {...tabProps} />
           </TabContainer>
         )}
         {tabIndex === 3 && (
@@ -257,16 +292,12 @@ const PropertyDetails = ({ id, location, me }) => {
 
         {tabIndex === 4 && (
           <TabContainer>
-            <PropertyViewings
-              propertyId={property.id}
-              me={me}
-              isAdmin={isUserAdmin}
-            />
+            <PropertyViewings propertyId={property.id} {...tabProps} />
           </TabContainer>
         )}
         {tabIndex === 5 && (
           <TabContainer>
-            <Inspections property={property} me={me} isAdmin={isUserAdmin} />
+            <Inspections {...tabProps} />
           </TabContainer>
         )}
         {tabIndex === 6 && (
@@ -281,10 +312,10 @@ const PropertyDetails = ({ id, location, me }) => {
         )}
         {tabIndex === 7 && (
           <TabContainer>
-            <ShareProperty property={property} me={me} isAdmin={isUserAdmin} />
+            <ShareProperty {...tabProps} />
           </TabContainer>
         )}
-      </PropertyCard>
+      </div>
     </>
   );
 };

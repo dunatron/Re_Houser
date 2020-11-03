@@ -17,6 +17,7 @@ import {
   Paper,
 } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
+import Card from '@/Styles/Card';
 //icons
 import EditIcon from '@/Styles/icons/EditIcon';
 import MoreIcon from '@/Styles/icons/MoreIcon';
@@ -81,7 +82,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Details = props => {
-  const { property, isAdmin, me } = props;
+  const { property, isAdmin, me, isOwner, isAgent } = props;
   const classes = useStyles();
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
@@ -169,10 +170,12 @@ const Details = props => {
           __typename: 'Property',
           ...property,
           agents: [
-            ...property.agents,// there may not be agents already?
+            ...property.agents, // there may not be agents already?
             {
               email: result.email ? result.email : '',
-              firstName: result.firstName ? `Adding agent ${result.firstName}` : 'Adding Agent',
+              firstName: result.firstName
+                ? `Adding agent ${result.firstName}`
+                : 'Adding Agent',
               id: result.id ? result.id : '',
               lastName: result.lastName ? result.lastName : '',
               phone: result.phone ? result.phone : '',
@@ -209,12 +212,46 @@ const Details = props => {
 
   return (
     <div>
-      <Typography
-        variant="h5"
-        gutterBottom={true}
-        className={classes.variablesHeader}>
-        Manage
-      </Typography>
+      <RehouserPaper square>
+        {me.isWizard && (
+          <>
+            <Typography gutterBottom variant="h6">
+              You are A Wizard
+            </Typography>
+            <Typography gutterBottom variant="body2">
+              As A Wizard you will need to add Agents against this property for
+              it to be managed property. An Agent Acts for rehouser on behalf of
+              the property owner
+            </Typography>
+          </>
+        )}
+
+        {isOwner && (
+          <>
+            <Typography gutterBottom variant="h6">
+              You are an owner of the Property
+            </Typography>
+            {property.rehouserManaged && (
+              <Typography gutterBottom variant="body2">
+                The Property is now managed by Rehouser at this point. You will
+                recieve updates from us along the way allowing you to see the
+                progress of your property
+              </Typography>
+            )}
+          </>
+        )}
+        {isAgent && (
+          <>
+            <Typography gutterBottom variant="h6">
+              You are an Agent for this property
+            </Typography>
+            <Typography gutterBottom variant="body2">
+              As an Agent you will be in charge of advertising the property and
+              getting a lease signed as soon as possible
+            </Typography>
+          </>
+        )}
+      </RehouserPaper>
       {isAdmin && (
         <ChangeRouteButton
           title="Edit with Original Form"
@@ -222,6 +259,7 @@ const Details = props => {
           query={{ id: property.id }}
         />
       )}
+
       <ImportantDetails property={property} />
       <DetailItems
         title={isAdmin ? 'Admin Section' : 'Admins Only'}
@@ -325,42 +363,52 @@ const Details = props => {
           property.owners.map((owner, idx) => {
             return <UserDetails me={me} user={owner} />;
           })}
-        <AddUserToList
-          id="properties-owners"
-          filters=""
-          selected={property.owners}
-          me={me}
-          add={handleAddOwner}
-          remove={handleRemoveOwner}
-          selectedListLabel="Properties Owners"
-        />
+        {me.isWizard && (
+          <AddUserToList
+            id="properties-owners"
+            filters=""
+            selected={property.owners}
+            me={me}
+            add={handleAddOwner}
+            remove={handleRemoveOwner}
+            selectedListLabel="Properties Owners"
+          />
+        )}
       </RehouserPaper>
       <RehouserPaper>
         <Typography>Agents</Typography>
-        <Typography>
-          Ability for admin to add users as agent?? probably a wizard thing
-        </Typography>
+        {!me.isWizard && (
+          <Typography>
+            Ability for admin to add users as agent?? probably a wizard thing
+          </Typography>
+        )}
         {property.agents.length > 0 &&
           property.agents.map((agent, idx) => {
             return <UserDetails me={me} user={agent} />;
           })}
-        <AddUserToList
-          id="properties-agents"
-          filters="(permissions:ADMIN OR permissions:WIZARD)"
-          selected={property.agents}
-          me={me}
-          add={handleAddAgent}
-          remove={handleRemoveAgent}
-          selectedListLabel="Properties Agents"
-        />
+        {me.isWizard && (
+          <AddUserToList
+            id="properties-agents"
+            filters="(permissions:ADMIN OR permissions:WIZARD)"
+            selected={property.agents}
+            me={me}
+            add={handleAddAgent}
+            remove={handleRemoveAgent}
+            selectedListLabel="Properties Agents"
+          />
+        )}
       </RehouserPaper>
-      <PropertyImages property={property} updateProperty={updateProperty} />
-      <Map
-        center={{
-          lat: property.locationLat,
-          lng: property.locationLng,
-        }}
-      />
+      <Card disablePadding>
+        <PropertyImages property={property} updateProperty={updateProperty} />
+      </Card>
+      <Card disablePadding>
+        <Map
+          center={{
+            lat: property.locationLat,
+            lng: property.locationLng,
+          }}
+        />
+      </Card>
     </div>
   );
 };

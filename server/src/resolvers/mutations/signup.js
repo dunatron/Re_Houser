@@ -113,40 +113,6 @@ async function signup(parent, args, ctx, info) {
     body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`
   });
 
-  // create a chat between the new user and our admin
-  createChat(
-    parent,
-    {
-      data: {
-        type: "GROUP",
-        name: "Chat-to-Admin",
-        participants: {
-          connect: [
-            {
-              id: user.id
-            },
-            {
-              email: "admin@rehouser.co.nz"
-            }
-          ]
-        },
-        messages: {
-          create: {
-            isMine: false,
-            content: "Welcome to rehouser",
-            sender: {
-              connect: {
-                email: "admin@rehouser.co.nz"
-              }
-            }
-          }
-        }
-      }
-    },
-    ctx,
-    info
-  );
-
   const userInfoWithToken = {
     ...user,
     token: token,

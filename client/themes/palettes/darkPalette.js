@@ -8,7 +8,7 @@ const theme = {
     },
     type: 'dark',
     common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
-    background: { paper: '#212121', default: '#212121' },
+    background: { paper: '#424242', default: '#303030' },
     primary: yellow,
     // secondary: {
     //   light: '#ff4081',

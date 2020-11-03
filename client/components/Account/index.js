@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     // backgroundColor: theme.palette.background.paper,
   },
   appBarRoot: {
-    marginBottom: theme.spacing(1),
+    // marginBottom: theme.spacing(1),
   },
   tabsRoot: {},
 }));

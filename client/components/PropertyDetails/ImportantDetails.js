@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 const ImportantDetails = ({ property }) => {
   const classes = useStyles();
   return (
-    <div>
+    <RehouserPaper>
       <Typography
         variant="h5"
         // color="primary"
@@ -24,7 +24,7 @@ const ImportantDetails = ({ property }) => {
         className={classes.variablesHeader}>
         Important Info
       </Typography>
-      <RehouserPaper
+      <div
         square
         style={{
           padding: '16px',
@@ -79,8 +79,8 @@ const ImportantDetails = ({ property }) => {
         {property.leaseId && (
           <Typography>current lease id: {property.leaseId}</Typography>
         )}
-      </RehouserPaper>
-    </div>
+      </div>
+    </RehouserPaper>
   );
 };
 

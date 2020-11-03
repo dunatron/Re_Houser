@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 const DetailItems = ({ title, property, items }) => {
   const classes = useStyles();
   return (
-    <>
+    <RehouserPaper>
       {title && (
         <Typography
           variant="h5"
@@ -40,7 +40,7 @@ const DetailItems = ({ title, property, items }) => {
           {title}
         </Typography>
       )}
-      <RehouserPaper className={classes.detailsWrapper} square>
+      <div className={classes.detailsWrapper} square>
         {items &&
           items.map((item, idx) => {
             const itemVal = property[item.name];
@@ -63,8 +63,8 @@ const DetailItems = ({ title, property, items }) => {
               </Box>
             );
           })}
-      </RehouserPaper>
-    </>
+      </div>
+    </RehouserPaper>
   );
 };
 

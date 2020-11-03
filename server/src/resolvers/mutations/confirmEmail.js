@@ -2,6 +2,7 @@ const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../../lib/mail");
 const congratulateEmailConfirmEmail = require("../../lib/emails/congratulateEmailConfirmEmail");
+const createChat = require("./createChat");
 
 /**
  *
@@ -26,8 +27,8 @@ async function confirmEmail(parent, args, ctx, info) {
   const loggedInUser = await ctx.db.query.user(
     {
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     },
     info
   );
@@ -43,8 +44,8 @@ async function confirmEmail(parent, args, ctx, info) {
       where: {
         email: loggedInUser.email,
         confirmEmailToken: args.token,
-        confirmEmailTokenExpiry_gte: Date.now() - 3600000,
-      },
+        confirmEmailTokenExpiry_gte: Date.now() - 3600000
+      }
     },
     info
   );
@@ -65,16 +66,50 @@ async function confirmEmail(parent, args, ctx, info) {
       data: {
         emailValidated: true,
         confirmEmailToken: null,
-        confirmEmailTokenExpiry: null,
-      },
+        confirmEmailTokenExpiry: null
+      }
     },
     info
   );
   // 3. Email them congratulations on confirming email
 
   congratulateEmailConfirmEmail({
-   email: user.email
+    email: user.email
   });
+
+  //create a chat betwen user and admin
+  createChat(
+    parent,
+    {
+      data: {
+        type: "GROUP",
+        name: "Chat-to-Admin",
+        participants: {
+          connect: [
+            {
+              id: user.id
+            },
+            {
+              email: "admin@rehouser.co.nz"
+            }
+          ]
+        },
+        messages: {
+          create: {
+            isMine: false,
+            content: "Welcome to rehouser",
+            sender: {
+              connect: {
+                email: "admin@rehouser.co.nz"
+              }
+            }
+          }
+        }
+      }
+    },
+    ctx,
+    info
+  );
 
   // 4. Return the message
   return updatedUserRes;

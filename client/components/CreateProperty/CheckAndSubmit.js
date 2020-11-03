@@ -50,36 +50,49 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
   );
 
   const handleCreate = () => {
-    const connectedFiles = connectFiles(formData.files);
-    createProperty({
-      variables: {
-        data: {
-          ...formData,
-          rent: rentVal,
-          onTheMarket: false,
-          useAdvancedRent: false,
-          owners: {
-            connect: {
-              id: me.id,
-            },
+    const variables = {
+      data: {
+        ...formData,
+        rent: rentVal,
+        onTheMarket: false,
+        useAdvancedRent: false,
+        bankDetails: formData.bankDetails
+          ? {
+              create: {
+                ...formData.bankDetails,
+              },
+            }
+          : {},
+        owners: {
+          connect: {
+            id: me.id,
           },
-          creator: {
-            connect: {
-              id: me.id,
-            },
+        },
+        creator: {
+          connect: {
+            id: me.id,
           },
-          files: {
-            create: connectFiles(formData.files),
+        },
+        files: {
+          create: connectFiles(formData.files),
+        },
+        insulationForm: formData.insulationForm
+          ? {
+              create: {
+                ...formData.insulationForm,
+              },
+            }
+          : {},
+        rehouserAssist: {
+          create: {
+            ...formData.rehouserAssist,
           },
-          insulationForm: formData.insulationForm
-            ? {
-                create: {
-                  ...formData.insulationForm,
-                },
-              }
-            : {},
         },
       },
+    };
+    console.log('Create property Variables => ', variables);
+    createProperty({
+      variables: variables,
     });
   };
 
@@ -270,8 +283,8 @@ CheckAndSubmit.propTypes = {
     carportSpaces: PropTypes.any,
     chattels: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     expiryDate: PropTypes.any,
     files: PropTypes.any,
@@ -280,14 +293,14 @@ CheckAndSubmit.propTypes = {
     headline: PropTypes.any,
     heatSources: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     inHallway3mOfEachBedroom: PropTypes.any,
     indoorFeatures: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     insulationForm: PropTypes.any,
     landlordProtectionCover: PropTypes.any,
@@ -300,29 +313,29 @@ CheckAndSubmit.propTypes = {
     offStreetSpaces: PropTypes.any,
     outdoorFeatures: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     pets: PropTypes.shape({
       set: PropTypes.shape({
-        map: PropTypes.func
-      })
+        map: PropTypes.func,
+      }),
     }),
     petsAllowed: PropTypes.any,
     rent: PropTypes.shape({
-      replace: PropTypes.func
+      replace: PropTypes.func,
     }),
     rooms: PropTypes.any,
     tenYearPhotoelectricAlarms: PropTypes.any,
     type: PropTypes.any,
-    workingAlarms: PropTypes.any
+    workingAlarms: PropTypes.any,
   }).isRequired,
   handlePropertyCreated: PropTypes.func.isRequired,
   me: PropTypes.shape({
     firstName: PropTypes.any,
     id: PropTypes.any,
-    lastName: PropTypes.any
-  }).isRequired
+    lastName: PropTypes.any,
+  }).isRequired,
 };
 
 export default CheckAndSubmit;
