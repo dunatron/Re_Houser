@@ -37,6 +37,7 @@ const userFrag = {
   email: userEmail3, // @unique String
   password: userPassword,
   acceptedSignupTerms: true,
+  phone: "5555555",
   adminSettings: {
     create: {
       appraisalCreatedSub: false,
