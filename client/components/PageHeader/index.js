@@ -13,7 +13,7 @@ const PageHeader = ({
   hidden,
 }) => {
   return (
-    <div style={{ maxWidth: '800px' }} id={id}>
+    <div id={id}>
       {metaData && (
         <Head>
           <meta name="description" content={metaData.content} />

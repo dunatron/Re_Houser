@@ -11,7 +11,7 @@ import PropertyResultHit from './PropertyResultHit';
 
 //material
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, Card } from '@material-ui/core';
 
 // icons
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -20,7 +20,10 @@ import useCurrentWidth from '@/Lib/hooks/useCurrentWidth';
 
 const Controls = ({ currPos, count, moveLeft, moveRight }) => {
   return (
-    <div>
+    <div
+      style={{
+        margin: '8px 0',
+      }}>
       <Button onClick={moveLeft}>
         <ArrowBackIosIcon />
       </Button>
@@ -95,10 +98,15 @@ const ColumnSizerExample = props => {
         style={{
           ...style,
           padding: theme.spacing(1),
+          // borderRadius: '4px',
           backgroundColor:
             columnIndex === state.scrollToColumn
-              ? theme.palette.primary.dark
-              : theme.palette.background.paper,
+              ? theme.palette.primary.main
+              : theme.palette.background.default,
+          // border:
+          //   columnIndex === state.scrollToColumn
+          //     ? `3px solid ${theme.palette.primary.dark}`
+          //     : `3px solid ${theme.palette.background.default}`,
         }}>
         <div>{cellHit && <PropertyResultHit hit={cellHit} />}</div>
       </div>
@@ -140,7 +148,10 @@ const ColumnSizerExample = props => {
       scrollToColumn={scrollToColumn}
       scrollToRow={scrollToRow}>
       {({ onSectionRendered, scrollToColumn, scrollToRow }) => (
-        <div>
+        <div
+          style={{
+            marginBottom: '32px',
+          }}>
           <Controls
             moveLeft={handleMoveLeft}
             moveRight={handleMoveRight}
@@ -158,17 +169,14 @@ const ColumnSizerExample = props => {
                 {({ adjustedWidth, columnWidth, registerChild }) => (
                   <div
                     style={{
-                      height: colHeight,
+                      height: colHeight + 16,
                       width: adjustedWidth,
                     }}>
                     <Grid
-                      // style={{
-                      //   overflowY: 'hidden',
-                      // }}
                       ref={registerChild}
                       columnWidth={colWidth}
                       columnCount={columnCount}
-                      height={colHeight + 20} // I think its the scrollX which blows it out
+                      height={colHeight + 32} // I think its the scrollX which blows it out
                       noContentRenderer={_noContentRenderer}
                       cellRenderer={_cellRenderer}
                       rowHeight={colHeight}

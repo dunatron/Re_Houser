@@ -85,7 +85,7 @@ const TeamComponent = () => {
                 xl={2}
                 spacing={0}
                 container>
-                <Card className={classes.cardRoot} square>
+                <Card className={classes.cardRoot}>
                   <CardActionArea
                     onClick={() => handleMemberClick({ member: member })}>
                     <div

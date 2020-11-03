@@ -7,7 +7,7 @@ const ItemWrapper = ({ children }) => (
 );
 
 ItemWrapper.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 // will need to take into account the layout when snapped
@@ -15,7 +15,7 @@ const Footer = () => {
   // return <div></div>;
   return (
     <Paper
-      square
+      square={false}
       style={{
         height: '150px',
         width: '100%',

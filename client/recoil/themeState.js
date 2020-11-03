@@ -12,8 +12,8 @@ import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 
 const mainTheme = {
   ...themeBase,
-  ...mainPalette,
-  // ...darkPalette,
+  // ...mainPalette,
+  ...darkPalette,
   ...mainOverrides,
   ...azoSansTypography,
   // ...nexaTypography,

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import Paper from '@material-ui/core/Paper';
+import FlexLayout from '@/Styles/layouts/FlexLayout';
+
 const BoardItemStyles = styled(Paper)`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
   border-radius: 3px;
@@ -36,7 +38,7 @@ const BoardItemStyles = styled(Paper)`
   }
 `;
 
-const DashBoardStyles = styled(Paper)`
+const DashBoardStyles = styled('div')`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
   border-radius: 3px;
   border: 0;
@@ -51,20 +53,28 @@ const DashBoardStyles = styled(Paper)`
   }
   .heading {
     // text-align: center;
-    padding: 16px;
+    // padding: 16px;
+    margin-top: 32px;
   }
   .intro {
     max-width: 800px;
     // margin: auto;
-    padding: 0 16px;
+    // padding: 0 16px;
   }
   .items {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    @media only screen and (max-width: 892px) {
-      justify-content: center;
-    }    
+    justify-content: center;
+    margin-left: -${props => props.theme.spacing(1)}px;
+    margin-right: -${props => props.theme.spacing(1)}px;
+    @media (min-width: 920px) {
+      justify-content: left;
+    }
+    > div {
+      margin-left: ${props => props.theme.spacing(1)}px;
+      margin-right: ${props => props.theme.spacing(1)}px;
+    }
   }
 `;
 

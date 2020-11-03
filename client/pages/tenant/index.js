@@ -30,7 +30,7 @@ const TenantPage = ({ appData: { currentUser } }) => {
         <Dashboard
           config={TENANT_DASHBOARD_CONFIG}
           elevation={10}
-          heading="Tenant Portal"
+          heading="Tenant Dashboard"
           intro="Here is the tenant portal dashboard"
         />
       </PleaseSignIn>

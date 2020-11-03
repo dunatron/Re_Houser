@@ -13,7 +13,7 @@ export const secondaryContrastText = '#fff';
 const mainPalette = {
   palette: {
     nProgress: {
-      main: mainPrimaryColor,
+      main: mainSecondaryColor,
     },
     common: {
       black: '#000',

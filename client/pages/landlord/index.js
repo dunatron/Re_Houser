@@ -75,7 +75,7 @@ const LandlordPage = ({ appData: { currentUser } }) => {
         config={LANDLORD_DASHBOARD_CONFIG}
         me={me}
         elevation={10}
-        heading="Landlord Portal"
+        heading="Landlord Dashboard"
         intro="Landlord portal dashboard"
       />
     </>

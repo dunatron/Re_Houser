@@ -12,6 +12,9 @@ import {
   Button,
 } from '@material-ui/core';
 
+import FlexLayout from '@/Styles/layouts/FlexLayout';
+import Card from '@/Styles/Card';
+
 import RToolTip from '@/Styles/RToolTip';
 import Apply from '@/Components/PropertyCard/Apply';
 
@@ -85,8 +88,11 @@ const useStyles = makeStyles(theme => ({
   },
   detailsContainer: {
     padding: theme.spacing(2),
+    flex: '1 1 auto',
+
     [theme.breakpoints.up('sm')]: {
       //   maxWidth: '220px',
+      marginRight: '16px',
     },
     [theme.breakpoints.up('md')]: {
       maxWidth: 'none',
@@ -98,7 +104,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     flexDirection: 'column',
     alignItems: 'flex-end',
-    maxWidth: '320px',
+    // maxWidth: '320px',
     [theme.breakpoints.up('sm')]: {
       maxWidth: '110px',
     },
@@ -118,7 +124,7 @@ const DetailItem = ({ hit, conf }) => {
       <RToolTip
         title={`${conf.title}: ${hit[conf.name]}`}
         style={{ fontSize: '16px' }}>
-        <StyledBadge badgeContent={hit[conf.name]} color="secondary">
+        <StyledBadge badgeContent={hit[conf.name]} color="primary">
           {conf.icon}
         </StyledBadge>
       </RToolTip>
@@ -139,22 +145,22 @@ const DetailItemsArr = [
   {
     title: 'rooms',
     name: 'rooms',
-    icon: <ApartmentIcon fontSize="large" color="primary" />,
+    icon: <ApartmentIcon fontSize="large" color="default" />,
   },
   {
     title: 'bathrooms',
     name: 'bathrooms',
-    icon: <BathtubIcon fontSize="large" color="primary" />,
+    icon: <BathtubIcon fontSize="large" color="default" />,
   },
   {
     title: 'carportSpaces',
     name: 'carportSpaces',
-    icon: <EmojiTransportationIcon fontSize="large" color="primary" />,
+    icon: <EmojiTransportationIcon fontSize="large" color="default" />,
   },
   {
     title: 'garageSpaces',
     name: 'garageSpaces',
-    icon: <DriveEtaIcon fontSize="large" color="primary" />,
+    icon: <DriveEtaIcon fontSize="large" color="default" />,
   },
 ];
 
@@ -162,7 +168,7 @@ const PropertyResultHit = ({ hit, me }) => {
   const classes = useStyles();
   const [modalIdx, setModalIdx] = useState();
   return (
-    <Paper square className={classes.root}>
+    <Card className={classes.root} disablePadding>
       {/* Images Container */}
       <div className={classes.imageContainer}>
         {hit.imageUrls.length > 0 && (
@@ -202,7 +208,7 @@ const PropertyResultHit = ({ hit, me }) => {
         <RehouserPaper className={classes.actionsContainer} elevation={0}>
           <ButtonGroup
             orientation="vertical"
-            color="primary"
+            color="default"
             size="small"
             variant="text"
             aria-label="property actions">
@@ -262,7 +268,7 @@ const PropertyResultHit = ({ hit, me }) => {
           </>
         )}
       </Modal>
-    </Paper>
+    </Card>
   );
 };
 
