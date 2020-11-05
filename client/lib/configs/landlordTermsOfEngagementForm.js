@@ -63,22 +63,20 @@ const LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF = [
           'You need a file attached for identification such as a passport or drivers NZ drivers license',
       },
     },
-    inners: [
-      {
-        type: 'String',
-        key: 'identificationNumber',
-        fieldProps: {
-          name: 'identificationNumber',
-          label: 'Identification number',
-        },
-        refConf: {
-          required: {
-            value: true,
-            message: 'You need the identifications id number',
-          },
-        },
+  },
+  {
+    type: 'String',
+    key: 'identificationNumber',
+    fieldProps: {
+      name: 'identificationNumber',
+      label: 'Identification number',
+    },
+    refConf: {
+      required: {
+        value: true,
+        message: 'You need the identifications id number',
       },
-    ],
+    },
   },
   {
     type: 'BankAccount',

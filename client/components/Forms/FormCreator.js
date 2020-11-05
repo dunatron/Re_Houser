@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
+import Card from '@/Styles/Card';
 
 const configIsValid = config => {
   if (isEmpty(config)) return false;
@@ -167,7 +168,7 @@ const FormCreator = props => {
 
   return (
     <>
-      <div
+      <Card
         style={{
           marginBottom: '16px',
         }}>
@@ -228,7 +229,7 @@ const FormCreator = props => {
             </Button>
           )}
         </ButtonGroup>
-      </div>
+      </Card>
     </>
   );
 };
