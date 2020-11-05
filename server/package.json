@@ -43,6 +43,7 @@
     "graphql-cli": "^3.0.9",
     "graphql-scalars": "^1.0.1",
     "graphql-yoga": "^1.18.3",
+    "heroku-logger": "^0.3.3",
     "jsonwebtoken": "8.5.1",
     "jszip": "2",
     "lodash": "^4.17.19",

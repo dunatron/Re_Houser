@@ -22,18 +22,18 @@ const theme = {
     MuiTooltipTooltip: {},
     MuiButton: {
       root: {
-        fontSize: '1rem',
-        backgroundColor: 'inherit',
+        // fontSize: '1rem',
+        // backgroundColor: 'inherit',
       },
       contained: {
         // color: mainPrimaryColor,
         // backgroundColor: '#fff',
       },
       containedPrimary: {
-        color: '#fff',
+        // color: '#fff',
       },
       containedSecondary: {
-        color: '#fff',
+        // color: '#fff',
       },
     },
     MuiButtonBase: {

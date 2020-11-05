@@ -74,7 +74,8 @@ async function confirmEmail(parent, args, ctx, info) {
   // 3. Email them congratulations on confirming email
 
   congratulateEmailConfirmEmail({
-    email: user.email
+    email: user.email,
+    user: user
   });
 
   //create a chat betwen user and admin

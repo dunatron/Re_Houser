@@ -10,6 +10,8 @@ const stripeMiddleWare = require("./middleware/stripe/index");
 const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
 
+const logger = require("heroku-logger");
+
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);
 
@@ -21,7 +23,16 @@ server.use(expressLogger);
 server.express.use(cookieParser());
 userMiddleware(server);
 
-// server.express.use(addUser);
+/**
+ * I dont think this is working tbh
+ */
+function logErrors(err, req, res, next) {
+  logger.error("err", err);
+  next(err);
+}
+
+server.express.use(logErrors);
+
 routes(server);
 
 // setup cron jobs
@@ -53,10 +64,7 @@ const app = server.start(
     }
   },
   details => {
-    console.log(`Server DETAILS:${JSON.stringify(details)}`);
-    console.log(
-      `Server is now running on port http:/localhost:${details.port}`
-    );
+    logger.info("Server is now running", { port: details.port });
   }
 );
 
