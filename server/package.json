@@ -56,7 +56,8 @@
     "path": "^0.12.7",
     "prisma": "^1.34.10",
     "prisma-binding": "2.3.16",
-    "stripe": "^8.53.0"
+    "stripe": "^8.53.0",
+    "winston": "^3.3.3"
   },
   "repository": {
     "url": "dunatron.nz"

@@ -1,6 +1,7 @@
 async function me(parent, args, ctx, info) {
   if (!ctx.request.userId) {
     return null;
+    // return null;
   }
   const currentUser = await ctx.db.query.user(
     {
@@ -8,6 +9,7 @@ async function me(parent, args, ctx, info) {
     },
     info
   );
+
   return currentUser;
 }
 

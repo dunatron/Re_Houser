@@ -8,6 +8,7 @@ const Query = require("./resolvers/Query");
 const Connection = require("./resolvers/Connection");
 const Subscription = require("./resolvers/Subscription");
 const db = require("./db");
+const gqlLogger = require("./middleware/loggers/gqlLogger");
 
 // https://www.robinwieruch.de/graphql-apollo-server-tutorial
 
@@ -101,11 +102,34 @@ const resolvers = {
   Subscription
 };
 const pubsub = new PubSub();
+
+/**
+ * Gql Middlewares
+ * https://github.com/prisma-labs/graphql-middleware
+ */
+const logInput = async (resolve, root, args, context, info) => {
+  // try catch and log errors?
+  const result = await resolve(root, args, context, info);
+  gqlLogger.info("gql-input", {
+    result: result
+  });
+  return result;
+};
+
+const logResult = async (resolve, root, args, context, info) => {
+  const result = await resolve(root, args, context, info);
+  gqlLogger.info("gql-result", {
+    result: result
+  });
+  return result;
+};
+
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
+    middlewares: [logInput, logResult],
     resolverValidationOptions: {
       requireResolversForResolveType: false
     },
