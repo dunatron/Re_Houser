@@ -24,17 +24,16 @@ const logger = winston.createLogger({
 
 const options = {
   key: process.env.LOG_DNA_INGESTION_KEY,
+  level: "debug", // Default to debug, maximum level of log, doc: https://github.com/winstonjs/winston#logging-levels
   // hostname: myHostname,
   // ip: ipAddress,
   // mac: macAddress,
   // app: appName,
   // env: envName,
-  // level: level, // Default to debug, maximum level of log, doc: https://github.com/winstonjs/winston#logging-levels
+  // level: level,
   indexMeta: true, // Defaults to false, when true ensures meta object will be searchable
+  handleExceptions: true,
 };
-
-// Only add this line in order to track exceptions
-options.handleExceptions = true;
 
 logger.add(new logdnaWinston(options));
 

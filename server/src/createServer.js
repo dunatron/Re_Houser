@@ -8,7 +8,6 @@ const Query = require("./resolvers/Query");
 const Connection = require("./resolvers/Connection");
 const Subscription = require("./resolvers/Subscription");
 const db = require("./db");
-const gqlLogger = require("./middleware/loggers/gqlLogger");
 
 // https://www.robinwieruch.de/graphql-apollo-server-tutorial
 
@@ -107,46 +106,13 @@ const pubsub = new PubSub();
  * Gql Middlewares
  * https://github.com/prisma-labs/graphql-middleware
  */
-const logInput = async (resolve, root, args, context, info) => {
-  // try catch and log errors?
-  const result = await resolve(root, args, context, info);
-  // gqlLogger.info("gql-input", {
-  //   result: result,
-  // });
-  gqlLogger.info("gql-input", {
-    level: "info",
-    message: "Gql input",
-    indexMeta: true, // Optional.  If not provided, it will use the default.
-    data: JSON.stringify(result), //  Properties besides level, message and indexMeta are considered as "meta"
-    // error: new Error("It's a trap."), // Transport will parse the error object under property 'error'
-  });
-
-  return result;
-};
-
-const logResult = async (resolve, root, args, context, info) => {
-  const result = await resolve(root, args, context, info);
-  // gqlLogger.info("gql-result", {
-  //   result: result,
-  // });
-  // gqlLogger.info("gql-result", result);
-  gqlLogger.info("gql-input", {
-    level: "info",
-    message: "Gql result",
-    indexMeta: true, // Optional.  If not provided, it will use the default.
-    data: JSON.stringify(result), //  Properties besides level, message and indexMeta are considered as "meta"
-    // error: new Error("It's a trap."), // Transport will parse the error object under property 'error'
-  });
-
-  return result;
-};
 
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
-    // middlewares: [logInput, logResult],
+    // middlewares: [logInput, logResult], // removed
     resolverValidationOptions: {
       requireResolversForResolveType: false,
     },

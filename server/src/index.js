@@ -11,34 +11,16 @@ const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
-process.on("uncaughtException", function(error) {
-  console.log("error FUCK YES"); // doesn't log this,
-});
-
-process.on("referenceError", function(error) {
-  console.log("error FUCK YES"); // doesn't log this,
-});
-
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);
 
 const expressLogger = function(req, res, next) {
-  // logger.info("test");
-  if (req.url.startsWith("/graphql")) {
-    logger.info("Gql fired");
-  }
   next();
 };
 
 server.use(expressLogger);
 server.express.use(cookieParser());
 userMiddleware(server);
-
-// I dont know if this works. its like an express thing getting err?
-server.express.use(function(err, req, res, next) {
-  logger.error("error: ");
-  next(err);
-});
 
 routes(server);
 
