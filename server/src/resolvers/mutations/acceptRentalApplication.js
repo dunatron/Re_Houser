@@ -4,10 +4,12 @@ const { transport, makeANiceEmail } = require("../../lib/mail");
 const createPropertyLease = require("./createPropertyLease");
 const {
   newLeaseLesseeEmail,
-  newLeaseLessorEmail
+  newLeaseLessorEmail,
 } = require("../../lib/emails/newLeaseEmail");
 
-const {_assertCanManageProperty} = require("../../lib/_assertCanManageProperty")
+const {
+  _assertCanManageProperty,
+} = require("../../lib/_assertCanManageProperty");
 
 /**
  * This will accept a rental application changing it's status to ACCEPTED if the user performing the action
@@ -29,8 +31,8 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const loggedUserWithData = await ctx.db.query.user(
     {
       where: {
-        id: loggedInUser
-      }
+        id: loggedInUser,
+      },
     },
     `{
     id
@@ -44,8 +46,8 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const application = await ctx.db.query.rentalApplication(
     {
       where: {
-        id: applicationId
-      }
+        id: applicationId,
+      },
     },
     `{
       owner {
@@ -108,9 +110,9 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   isRehouserManaged = application.property.rehouserManaged;
 
   await _assertCanManageProperty({
-    property: application.property, 
-    ctx: ctx
-  })
+    property: application.property,
+    ctx: ctx,
+  });
 
   if (application.leaseId)
     throw new Error(
@@ -119,12 +121,11 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
 
   const { applicants, property } = application;
   const { owners, agents } = property;
-  const ownerIds = property.owners.map(owner => owner.id);
-  const agentIds = property.agents.map(agent => agent.id);
-  const lesseeUsers = applicants.map(applicant => applicant.user);
+  const ownerIds = property.owners.map((owner) => owner.id);
+  const agentIds = property.agents.map((agent) => agent.id);
+  const lesseeUsers = applicants.map((applicant) => applicant.user);
 
-
-  if(!agentIds.includes(loggedInUser)) {
+  if (!agentIds.includes(loggedInUser)) {
     throw new Error(
       `You must be an agent to accept rental applications as it will make you a lessor`
     );
@@ -140,29 +141,31 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         stage: "INITIALIZING",
         property: {
           connect: {
-            id: property.id
-          }
+            id: property.id,
+          },
         },
         placeId: property.placeId,
         location: property.location,
         locationLat: property.locationLat,
         locationLng: property.locationLng,
-        lessors: isRehouserManaged ? {
-          create: agents.map(owner => ({
-            signed: false,
-            user: { connect: { id: owner.id } }
-          }))
-        } : {
-          create: owners.map(owner => ({
-            signed: false,
-            user: { connect: { id: owner.id } }
-          }))
-        },
+        lessors: isRehouserManaged
+          ? {
+              create: agents.map((owner) => ({
+                signed: false,
+                user: { connect: { id: owner.id } },
+              })),
+            }
+          : {
+              create: owners.map((owner) => ({
+                signed: false,
+                user: { connect: { id: owner.id } },
+              })),
+            },
         lessees: {
-          create: lesseeUsers.map(user => ({
+          create: lesseeUsers.map((user) => ({
             signed: false,
-            user: { connect: { id: user.id } }
-          }))
+            user: { connect: { id: user.id } },
+          })),
         },
         rent: property.rent,
         bondType: property.bondType,
@@ -174,28 +177,28 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
         carportSpaces: property.carportSpaces,
         offStreetSpaces: property.offStreetSpaces,
         indoorFeatures: {
-          set: property.indoorFeatures
+          set: property.indoorFeatures,
         },
         outdoorFeatures: {
-          set: property.outdoorFeatures
+          set: property.outdoorFeatures,
         },
         moveInDate: property.moveInDate,
         expiryDate: property.expiryDate,
         leaseLengthInMonths: 12, // ToDo initially should maybe have a server function. let FE calc
         petsAllowed: property.petsAllowed,
         pets: {
-          set: property.pets
+          set: property.pets,
         },
         chattels: {
-          set: property.chattels
+          set: property.chattels,
         },
         workingAlarms: property.workingAlarms,
         inHallway3mOfEachBedroom: property.inHallway3mOfEachBedroom,
         tenYearPhotoelectricAlarms: property.tenYearPhotoelectricAlarms,
         alarmsEachLevel: property.alarmsEachLevel,
         landlordProtectionCover: property.landlordProtectionCover,
-        freeGlassCover: property.freeGlassCover
-      }
+        freeGlassCover: property.freeGlassCover,
+      },
     },
     ctx
   );
@@ -205,23 +208,33 @@ async function acceptRentalApplication(parent, { applicationId }, ctx, info) {
   const updatedRentalApplication = await ctx.db.mutation.updateRentalApplication(
     {
       where: {
-        id: applicationId
+        id: applicationId,
       },
       data: {
         stage: "ACCEPTED",
-        leaseId: lease.id
-      }
+        leaseId: lease.id,
+      },
     },
     info
   );
 
   // send emails to the potential tenants about the accepted application and the new lease to sign
   lesseeUsers.forEach((user, i) => {
-    newLeaseLesseeEmail({ ctx: ctx, toEmail: user.email, lease: lease });
+    newLeaseLesseeEmail({
+      ctx: ctx,
+      toEmail: user.email,
+      lease: lease,
+      user: user,
+    });
   });
   // send emails to the owners about the new lease that needs to be signed!
   owners.forEach((user, i) => {
-    newLeaseLessorEmail({ ctx: ctx, toEmail: user.email, lease: lease });
+    newLeaseLessorEmail({
+      ctx: ctx,
+      toEmail: user.email,
+      lease: lease,
+      user: user,
+    });
   });
 
   return updatedRentalApplication;

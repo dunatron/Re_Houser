@@ -9,7 +9,7 @@ const newLeaseLesseeEmail = async function({
   payment,
   ctx,
   type,
-  user
+  user,
 }) {
   const leaseLink = _leaseLink(lease.id, "tenant");
   transport.sendMail({
@@ -22,7 +22,7 @@ const newLeaseLesseeEmail = async function({
       If something changes on the lease like the rent, everyone will become unsigned if the lease has not been finalised.
       \n\n`,
       user
-    )
+    ),
   });
 };
 const newLeaseLessorEmail = async function({
@@ -30,7 +30,8 @@ const newLeaseLessorEmail = async function({
   lease,
   payment,
   ctx,
-  type
+  type,
+  user,
 }) {
   const leaseLink = _leaseLink(lease.id, "landlord");
   return transport.sendMail({
@@ -43,11 +44,11 @@ const newLeaseLessorEmail = async function({
       Once all the Lessees and Lessors for the lease have signed the lease, A Lessor must click the "FINALISE" lease button found at the top of the Lease Signage area
       \n\n`,
       user
-    )
+    ),
   });
 };
 
 module.exports = {
   newLeaseLesseeEmail,
-  newLeaseLessorEmail
+  newLeaseLessorEmail,
 };
