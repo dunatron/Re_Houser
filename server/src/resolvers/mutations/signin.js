@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createTokens } = require("../../auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
-const logger = require("../../middleware/loggers/logger");
+const logUser = require("../../lib/logUser");
 
 const userQueryString = `{
   id,
@@ -69,9 +69,7 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   };
 
   // log the user who just logged in
-  logger.info(`User logged in: ${userInfoWithToken.email}`, {
-    ...userInfoWithToken,
-  });
+  logUser("User Logged in", userInfoWithToken);
   return userInfoWithToken;
 }
 

@@ -62,7 +62,6 @@ const app = server.start(
     },
   },
   (details) => {
-    console.log("Details => ", details);
     logger.info("gql yoga/express server is up", {
       ...details,
       port: details.port,

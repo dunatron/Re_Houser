@@ -3,7 +3,7 @@ const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../../lib/mail");
 const congratulateEmailConfirmEmail = require("../../lib/emails/congratulateEmailConfirmEmail");
 const createChat = require("./createChat");
-const logger = require("../../middleware/loggers/logger");
+const logUser = require("../../lib/logUser");
 
 /**
  *
@@ -113,9 +113,7 @@ async function confirmEmail(parent, args, ctx, info) {
     info
   );
 
-  logger.info(`User confirmed email: ${updatedUserRes.email}`, {
-    ...updatedUserRes,
-  });
+  logUser("User confirmed email", updatedUserRes);
 
   // 4. Return the message
   return updatedUserRes;

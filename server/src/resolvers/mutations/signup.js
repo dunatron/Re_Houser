@@ -7,13 +7,11 @@ const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 const signupEmail = require("../../lib/emails/signupEmail");
 const emailCEO = require("../../lib/emails/emailCEO");
 const signin = require("./signin");
-const resendConfirmEmail = require("./resendConfirmEmail");
 const { promisify } = require("util");
 const { randomBytes } = require("crypto");
 
 const { addUserSearchNode } = require("../../lib/algolia/userSearchApi");
-const createChat = require("./createChat");
-const logger = require("../../middleware/loggers/logger");
+const logUser = require("../../lib/logUser");
 
 async function signup(parent, args, ctx, info) {
   args.email = args.email.toLowerCase();
@@ -119,9 +117,8 @@ async function signup(parent, args, ctx, info) {
     token: token,
     refreshToken: refreshToken,
   };
-  logger.info(`User Signed up: ${userInfoWithToken.email}`, {
-    ...userInfoWithToken,
-  });
+  logUser("User Signed up", userInfoWithToken);
+
   return userInfoWithToken;
 }
 
