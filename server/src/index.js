@@ -11,13 +11,15 @@ const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
-// Turn on for extra error logging however setting handleExceptions to true on logdnaWinston options will be better
-// process.on("uncaughtException", function(error) {
-//   logger.error("error from custom uncaughtException function: ", {
-//     error: error,
-//     tronM: "TETSING",
-//   }); // doesn't log this,
-// });
+// need for promise rejections....
+process.on("unhandledRejection", (reason, promise) => {
+  console.log("YAY MAYBE THIS", reason);
+  // logger.error("Promise unhandledRejection error", {
+  //   reason: reason,
+  // });
+  logger.info("WTF LOG THE PROMISE ERROR"); // doesnt actual send it. guess it crashes befor ethat
+  // throw reason;
+});
 
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);

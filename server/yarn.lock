@@ -4724,6 +4724,11 @@ graphql-import@0.7.1, graphql-import@^0.7.0, graphql-import@^0.7.1:
     lodash "^4.17.4"
     resolve-from "^4.0.0"
 
+graphql-middleware-error-handler@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/graphql-middleware-error-handler/-/graphql-middleware-error-handler-0.4.1.tgz#0337eb7835b56c74d3fdd704cb7660233b8198ae"
+  integrity sha512-MfVHiA5wC7d/KJOJ9KTjhDypkvJWRNPZn4j8u+5Uy4AAMjJBLPJgKx8t/vJjwm9eLlwcRuPTe1IzVNlnYyyG4g==
+
 graphql-middleware@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/graphql-middleware/-/graphql-middleware-4.0.1.tgz#8c627b22cc046a47e9474a813cf9e0bd50fa0c4b"

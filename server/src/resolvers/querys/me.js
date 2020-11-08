@@ -14,7 +14,7 @@ async function me(parent, args, ctx, info) {
     info
   );
 
-  // testLol();
+  testLol();
 
   return currentUser;
 }

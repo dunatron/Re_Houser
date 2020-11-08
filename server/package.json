@@ -41,6 +41,7 @@
     "fs": "^0.0.1-security",
     "graphql": "^14.1.1",
     "graphql-cli": "^3.0.9",
+    "graphql-middleware-error-handler": "^0.4.1",
     "graphql-scalars": "^1.0.1",
     "graphql-yoga": "^1.18.3",
     "heroku-logger": "^0.3.3",

@@ -8,6 +8,8 @@ const Query = require("./resolvers/Query");
 const Connection = require("./resolvers/Connection");
 const Subscription = require("./resolvers/Subscription");
 const db = require("./db");
+const { errorHandler } = require("graphql-middleware-error-handler");
+const logger = require("./middleware/loggers/logger");
 
 // https://www.robinwieruch.de/graphql-apollo-server-tutorial
 
@@ -102,17 +104,48 @@ const resolvers = {
 };
 const pubsub = new PubSub();
 
-/**
- * Gql Middlewares
- * https://github.com/prisma-labs/graphql-middleware
- */
+const errorHandlerMiddleware = errorHandler({
+  onError: (error, context) => {
+    // send error anywhere
+    logger.error("resolver error", { error: error });
+  },
+  captureReturnedErrors: true,
+  forwardErrors: true, // should probably turn on for prod. or client wont get errors
+});
+
+// const onError = async (error, ctx, message) => {
+//   // logger.error("custom resolver error", error);
+//   console.log(message);
+//   // throw error;
+// };
+
+// const logInput = async (resolve, root, args, ctx, info) => {
+//   try {
+//     const res = await resolve(root, args, ctx, info);
+//     return res;
+//   } catch (err) {
+//     await onError(err, ctx, "LOGINPUT");
+//     throw err;
+//   }
+// };
+
+// const logResult = async (resolve, root, args, ctx, info) => {
+//   try {
+//     const res = await resolve(root, args, ctx, info);
+
+//     return res;
+//   } catch (err) {
+//     await onError(err, ctx, "LOGRESULT");
+//     throw err;
+//   }
+// };
 
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
-    // middlewares: [logInput, logResult], // removed
+    middlewares: [errorHandlerMiddleware],
     resolverValidationOptions: {
       requireResolversForResolveType: false,
     },
