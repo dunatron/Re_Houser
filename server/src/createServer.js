@@ -113,12 +113,27 @@ const errorHandlerMiddleware = errorHandler({
   forwardErrors: true, // should probably turn on for prod. or client wont get errors
 });
 
+// const logInput = async (resolve, root, args, context, info) => {
+//   console.log(`1. logInput: ${JSON.stringify(args)}`);
+//   const result = await resolve(root, args, context, info);
+//   console.log(`5. logInput`);
+//   return result;
+// };
+
+// const logResult = async (resolve, root, args, context, info) => {
+//   console.log(`2. logResult`);
+//   const result = await resolve(root, args, context, info);
+//   console.log(`4. logResult: ${JSON.stringify(result)}`);
+//   return result;
+// };
+
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
     middlewares: [errorHandlerMiddleware],
+    // middlewares: [logInput, logResult],
     resolverValidationOptions: {
       requireResolversForResolveType: false,
     },

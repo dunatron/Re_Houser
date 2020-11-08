@@ -62,7 +62,9 @@ const app = server.start(
     },
   },
   (details) => {
-    logger.info("Server is now running tetsing from local", {
+    console.log("Details => ", details);
+    logger.info("gql yoga/express server is up", {
+      ...details,
       port: details.port,
     });
   }

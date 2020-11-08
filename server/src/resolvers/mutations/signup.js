@@ -13,6 +13,7 @@ const { randomBytes } = require("crypto");
 
 const { addUserSearchNode } = require("../../lib/algolia/userSearchApi");
 const createChat = require("./createChat");
+const logger = require("../../middleware/loggers/logger");
 
 async function signup(parent, args, ctx, info) {
   args.email = args.email.toLowerCase();
@@ -20,8 +21,8 @@ async function signup(parent, args, ctx, info) {
   // little busines logic here. if they have this email and pass match just logem in
   const userMaybeFromDb = await ctx.db.query.user({
     where: {
-      email: args.email
-    }
+      email: args.email,
+    },
   });
 
   // NEEDS TO HAPPEN AFTER CHECK FOR SIGNIN AS IT POTENTIALLY HANDLES IT
@@ -29,7 +30,7 @@ async function signup(parent, args, ctx, info) {
   if (!userMaybeFromDb) {
     await validateRecaptcha({
       ctx,
-      captchaToken: args.captchaToken
+      captchaToken: args.captchaToken,
     });
   }
 
@@ -57,8 +58,8 @@ async function signup(parent, args, ctx, info) {
         permissions: { set: ["USER"] },
         adminSettings: { create: {} },
         confirmEmailToken: confirmEmailToken,
-        confirmEmailTokenExpiry: confirmEmailTokenExpiry
-      }
+        confirmEmailTokenExpiry: confirmEmailTokenExpiry,
+      },
     },
     info
   );
@@ -66,17 +67,17 @@ async function signup(parent, args, ctx, info) {
   // We should use Algolia for users too
   addUserSearchNode({
     userId: user.id,
-    db: ctx.db
+    db: ctx.db,
   });
 
   const { token, refreshToken } = await createTokens(user, password);
   const cookieOptions = rehouserCookieOpt();
 
   ctx.response.cookie("token", token, {
-    ...cookieOptions
+    ...cookieOptions,
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...cookieOptions
+    ...cookieOptions,
   });
   // Finalllllly we return the user to the browser
   createActivity({
@@ -88,36 +89,39 @@ async function signup(parent, args, ctx, info) {
       jsonObj: user,
       user: {
         connect: {
-          id: user.id
-        }
+          id: user.id,
+        },
       },
       involved: {
         connect: [
           {
-            email: user.email
-          }
-        ]
-      }
-    }
+            email: user.email,
+          },
+        ],
+      },
+    },
   });
   // send the new signupEmail
   signupEmail({
     toEmail: user.email,
     user: user,
-    confirmEmailToken: confirmEmailToken
+    confirmEmailToken: confirmEmailToken,
   });
 
   emailCEO({
     ctx: ctx,
     subject: `New signup ${user.email}`,
-    body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`
+    body: `a new user has signed up to our platform ${user.email} - firstName: ${user.firstName} - lastName: ${user.lastName} - Phone: ${user.phone}`,
   });
 
   const userInfoWithToken = {
     ...user,
     token: token,
-    refreshToken: refreshToken
+    refreshToken: refreshToken,
   };
+  logger.info(`User Signed up: ${userInfoWithToken.email}`, {
+    ...userInfoWithToken,
+  });
   return userInfoWithToken;
 }
 

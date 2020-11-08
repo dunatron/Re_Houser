@@ -3,6 +3,7 @@ const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../../lib/mail");
 const congratulateEmailConfirmEmail = require("../../lib/emails/congratulateEmailConfirmEmail");
 const createChat = require("./createChat");
+const logger = require("../../middleware/loggers/logger");
 
 /**
  *
@@ -27,8 +28,8 @@ async function confirmEmail(parent, args, ctx, info) {
   const loggedInUser = await ctx.db.query.user(
     {
       where: {
-        id: loggedInUserId
-      }
+        id: loggedInUserId,
+      },
     },
     info
   );
@@ -44,8 +45,8 @@ async function confirmEmail(parent, args, ctx, info) {
       where: {
         email: loggedInUser.email,
         confirmEmailToken: args.token,
-        confirmEmailTokenExpiry_gte: Date.now() - 3600000
-      }
+        confirmEmailTokenExpiry_gte: Date.now() - 3600000,
+      },
     },
     info
   );
@@ -66,8 +67,8 @@ async function confirmEmail(parent, args, ctx, info) {
       data: {
         emailValidated: true,
         confirmEmailToken: null,
-        confirmEmailTokenExpiry: null
-      }
+        confirmEmailTokenExpiry: null,
+      },
     },
     info
   );
@@ -75,7 +76,7 @@ async function confirmEmail(parent, args, ctx, info) {
 
   congratulateEmailConfirmEmail({
     email: user.email,
-    user: user
+    user: user,
   });
 
   //create a chat betwen user and admin
@@ -88,12 +89,12 @@ async function confirmEmail(parent, args, ctx, info) {
         participants: {
           connect: [
             {
-              id: user.id
+              id: user.id,
             },
             {
-              email: "admin@rehouser.co.nz"
-            }
-          ]
+              email: "admin@rehouser.co.nz",
+            },
+          ],
         },
         messages: {
           create: {
@@ -101,16 +102,20 @@ async function confirmEmail(parent, args, ctx, info) {
             content: "Welcome to rehouser",
             sender: {
               connect: {
-                email: "admin@rehouser.co.nz"
-              }
-            }
-          }
-        }
-      }
+                email: "admin@rehouser.co.nz",
+              },
+            },
+          },
+        },
+      },
     },
     ctx,
     info
   );
+
+  logger.info(`User confirmed email: ${updatedUserRes.email}`, {
+    ...updatedUserRes,
+  });
 
   // 4. Return the message
   return updatedUserRes;

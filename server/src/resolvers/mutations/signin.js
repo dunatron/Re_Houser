@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { validateRecaptcha } = require("../../lib/recaptchaApi");
 const { createTokens } = require("../../auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
+const logger = require("../../middleware/loggers/logger");
 
 const userQueryString = `{
   id,
@@ -34,7 +35,7 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   // validate recaptcha. will throw an error if it does not
   const recaptchaIsValid = await validateRecaptcha({
     ctx,
-    captchaToken
+    captchaToken,
   });
   if (recaptchaIsValid !== true) {
     throw new Error(`recaptcha failed but it should not have made it here`);
@@ -52,10 +53,10 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
 
   const cookieOptions = rehouserCookieOpt();
   ctx.response.cookie("token", token, {
-    ...cookieOptions
+    ...cookieOptions,
   });
   ctx.response.cookie("refresh-token", refreshToken, {
-    ...cookieOptions
+    ...cookieOptions,
   });
 
   // 5. get the user with details. cant get it earlier
@@ -64,8 +65,13 @@ async function signin(parent, { email, password, captchaToken }, ctx, info) {
   const userInfoWithToken = {
     ...userWithInfo,
     token: token,
-    refreshToken: refreshToken
+    refreshToken: refreshToken,
   };
+
+  // log the user who just logged in
+  logger.info(`User logged in: ${userInfoWithToken.email}`, {
+    ...userInfoWithToken,
+  });
   return userInfoWithToken;
 }
 
