@@ -1,7 +1,7 @@
 const {
   GraphQLServer,
   PubSub,
-  SchemaDirectiveVisitor
+  SchemaDirectiveVisitor,
 } = require("graphql-yoga");
 const Mutation = require("./resolvers/Mutation");
 const Query = require("./resolvers/Query");
@@ -15,7 +15,7 @@ const gqlLogger = require("./middleware/loggers/gqlLogger");
 const {
   DateTimeResolver,
   URLResolver,
-  JSONResolver
+  JSONResolver,
 } = require("graphql-scalars");
 
 const { _isAdmin } = require("./lib/permissionsCheck");
@@ -37,14 +37,14 @@ const resolvers = {
       const publicObj = {
         ...parent.photoIdentification,
         url: stockImageUrl,
-        secure_url: stockImageUrl
+        secure_url: stockImageUrl,
       };
       if (parent.photoIdentification === null) return null;
       if (!_isUploaderOrAdmin({ file: parent.photoIdentification, ctx: ctx })) {
         return publicObj;
       }
       return parent.photoIdentification;
-    }
+    },
   },
   Chat: {
     // messages(chat) {
@@ -75,7 +75,7 @@ const resolvers = {
         }
       }
       return file.secure_url;
-    }
+    },
   },
   Property: {
     files: (parent, args, ctx, field) => {
@@ -85,10 +85,10 @@ const resolvers = {
       //   "Purposely throwing an error when you try to get the files from a property"
       // );
       return {
-        ...parent.files
+        ...parent.files,
       };
     },
-    insulationStatementFile: {}
+    insulationStatementFile: {},
   },
   Date: DateTimeResolver,
   URL: URLResolver,
@@ -96,10 +96,10 @@ const resolvers = {
   // Query,
   Query: {
     ...Query,
-    ...Connection // simply relay versions e.g aggregate and edges
+    ...Connection, // simply relay versions e.g aggregate and edges
   },
   Mutation,
-  Subscription
+  Subscription,
 };
 const pubsub = new PubSub();
 
@@ -110,17 +110,34 @@ const pubsub = new PubSub();
 const logInput = async (resolve, root, args, context, info) => {
   // try catch and log errors?
   const result = await resolve(root, args, context, info);
+  // gqlLogger.info("gql-input", {
+  //   result: result,
+  // });
   gqlLogger.info("gql-input", {
-    result: result
+    level: "info",
+    message: "Gql input",
+    indexMeta: true, // Optional.  If not provided, it will use the default.
+    data: JSON.stringify(result), //  Properties besides level, message and indexMeta are considered as "meta"
+    // error: new Error("It's a trap."), // Transport will parse the error object under property 'error'
   });
+
   return result;
 };
 
 const logResult = async (resolve, root, args, context, info) => {
   const result = await resolve(root, args, context, info);
-  gqlLogger.info("gql-result", {
-    result: result
+  // gqlLogger.info("gql-result", {
+  //   result: result,
+  // });
+  // gqlLogger.info("gql-result", result);
+  gqlLogger.info("gql-input", {
+    level: "info",
+    message: "Gql result",
+    indexMeta: true, // Optional.  If not provided, it will use the default.
+    data: JSON.stringify(result), //  Properties besides level, message and indexMeta are considered as "meta"
+    // error: new Error("It's a trap."), // Transport will parse the error object under property 'error'
   });
+
   return result;
 };
 
@@ -129,12 +146,12 @@ function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
-    middlewares: [logInput, logResult],
+    // middlewares: [logInput, logResult],
     resolverValidationOptions: {
-      requireResolversForResolveType: false
+      requireResolversForResolveType: false,
     },
     // context: req => ({ ...req, db }) // probs just put this back
-    context: req => ({ ...req, db, pubsub }) // maybe this
+    context: (req) => ({ ...req, db, pubsub }), // maybe this
     // context: { pubsub }
   });
 }

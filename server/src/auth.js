@@ -26,7 +26,7 @@ exports.createTokens = async (user, password) => {
   // I will also send back the tokens as for react-native i cant seem to access the cookies =(
   return {
     token: token,
-    refreshToken: refreshToken
+    refreshToken: refreshToken,
   };
 };
 
@@ -53,6 +53,6 @@ exports.refreshTokens = async (refreshToken, db) => {
   return {
     token: newTokens.token,
     refreshToken: newTokens.refreshToken,
-    user: user
+    user: user,
   };
 };

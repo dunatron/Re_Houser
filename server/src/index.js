@@ -54,7 +54,7 @@ const allowedClientOrigins = [
   "https://rehouser.co.nz",
   "https://yoga.rehouser.co.nz",
   "http://app.uat.rehouser.co.nz",
-  process.env.FRONTEND_URL
+  process.env.FRONTEND_URL,
 ];
 
 // Start gql yoga/express server
@@ -62,16 +62,18 @@ const app = server.start(
   {
     cors: {
       credentials: true,
-      origin: allowedClientOrigins
+      origin: allowedClientOrigins,
     },
     port: process.env.PORT || 4444,
     // playground: ??
     subscriptions: {
-      keepAlive: true // blindly added this
-    }
+      keepAlive: true, // blindly added this
+    },
   },
-  details => {
-    logger.info("Server is now running", { port: details.port });
+  (details) => {
+    logger.info("Server is now running tetsing from local", {
+      port: details.port,
+    });
   }
 );
 
