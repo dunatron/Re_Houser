@@ -7,8 +7,8 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, ctx }) => {
     .property(
       {
         where: {
-          id: propertyId
-        }
+          id: propertyId,
+        },
       },
       `{ 
         id
@@ -61,28 +61,28 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, ctx }) => {
         }
       }`
     )
-    .then(property => {
+    .then((property) => {
       const { rentalApplications, leases } = property;
-      rentalApplications.forEach(application => {
-        application.applicants.forEach(applicant => {
+      rentalApplications.forEach((application) => {
+        application.applicants.forEach((applicant) => {
           // send emails
           unsuccessfulRentalApplicationEmail({
             toEmail: applicant.user.email,
             user: applicant.user,
-            property: property
+            property: property,
           });
         });
         // close rentalApplications
       });
 
-      leases.forEach(lease => {
+      leases.forEach((lease) => {
         const { lessees, lessors } = lease;
         // send emails
-        lessees.forEach(lessee => {
+        lessees.forEach((lessee) => {
           unsuccessfulLeaseEmail({
             toEmail: lessee.user.email,
             user: lessee.user,
-            property: property
+            property: property,
           });
         });
         // delete the unsuccessful leases
@@ -93,17 +93,17 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, ctx }) => {
         updates: {
           data: {
             onTheMarket: false,
-            isLeased: true
-          }
+            isLeased: true,
+          },
         },
         propertyId: property.id,
-        ctx
+        ctx,
       });
 
       // delete leases and rental applications
       ctx.db.mutation.updateProperty({
         where: {
-          id: propertyId
+          id: propertyId,
         },
         data: {
           onTheMarket: false,
@@ -112,25 +112,25 @@ const finaliseLeaseCleanup = async ({ leaseId, propertyId, ctx }) => {
           rentalApplications: {
             deleteMany: [
               {
-                id_not: "deleteThemAll"
-              }
-            ]
+                id_not: "deleteThemAll",
+              },
+            ],
           },
           leases: {
             deleteMany: [
               {
                 AND: [
                   {
-                    id_not: leaseId
+                    id_not: leaseId,
                   },
                   {
-                    stage_in: [INITIALIZING] // only delete leases that never made it
-                  }
-                ]
-              }
-            ]
-          }
-        }
+                    stage_in: ["INITIALIZING"], // only delete leases that never made it
+                  },
+                ],
+              },
+            ],
+          },
+        },
       });
     });
   return;
