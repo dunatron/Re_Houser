@@ -4,6 +4,7 @@ const seeds = require("./seeds/index");
 const { addPropertySearchNode } = require("./lib/algolia/propertySearchApi");
 const { addUserSearchNode } = require("./lib/algolia/userSearchApi");
 const bcrypt = require("bcryptjs");
+const logger = require("./middleware/loggers/logger");
 
 const { imagesList, userList, propertiesList } = seeds;
 
@@ -24,7 +25,7 @@ async function main() {
     await addUserSearchNode({
       userId: res.id,
       db: db,
-    }).catch((e) => console.log("AN promise err => ", e));
+    }).catch((e) => logger.error("user search seed error error", { error: e }));
   });
 
   // createProperties
@@ -33,12 +34,12 @@ async function main() {
       .createProperty({
         data: { ...property },
       })
-      .catch((e) => console.log("Create Property err => ", e));
+      .catch((e) => logger.error("create property seed error", { error: e }));
 
     await addPropertySearchNode({
       propertyId: res.id,
       db: db,
-    }).catch((e) => console.log("AN promise err => ", e));
+    }).catch((e) => logger.error("property search seed error", { error: e }));
   });
 }
 
