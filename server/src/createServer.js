@@ -113,33 +113,6 @@ const errorHandlerMiddleware = errorHandler({
   forwardErrors: true, // should probably turn on for prod. or client wont get errors
 });
 
-// const onError = async (error, ctx, message) => {
-//   // logger.error("custom resolver error", error);
-//   console.log(message);
-//   // throw error;
-// };
-
-// const logInput = async (resolve, root, args, ctx, info) => {
-//   try {
-//     const res = await resolve(root, args, ctx, info);
-//     return res;
-//   } catch (err) {
-//     await onError(err, ctx, "LOGINPUT");
-//     throw err;
-//   }
-// };
-
-// const logResult = async (resolve, root, args, ctx, info) => {
-//   try {
-//     const res = await resolve(root, args, ctx, info);
-
-//     return res;
-//   } catch (err) {
-//     await onError(err, ctx, "LOGRESULT");
-//     throw err;
-//   }
-// };
-
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({

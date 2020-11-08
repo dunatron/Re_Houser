@@ -11,15 +11,14 @@ const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
-// need for promise rejections....
-process.on("unhandledRejection", (reason, promise) => {
-  console.log("YAY MAYBE THIS", reason);
-  // logger.error("Promise unhandledRejection error", {
-  //   reason: reason,
-  // });
-  logger.info("WTF LOG THE PROMISE ERROR"); // doesnt actual send it. guess it crashes befor ethat
-  // throw reason;
-});
+// needed for promise rejections.... nope, console.log("Will han")
+// process.on("unhandledRejection", (reason, promise) => {
+//   // console.log("HMMM ERROR", reason);
+//   // logger.error("unhandled promise Rejection", {
+//   //   reason: reason,
+//   // });
+//   throw reason;
+// });
 
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);

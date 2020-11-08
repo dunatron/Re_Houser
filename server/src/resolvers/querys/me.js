@@ -1,7 +1,3 @@
-const testLol = async ({ lol }) => {
-  return lol.firstname;
-};
-
 async function me(parent, args, ctx, info) {
   if (!ctx.request.userId) {
     return null;
@@ -13,8 +9,6 @@ async function me(parent, args, ctx, info) {
     },
     info
   );
-
-  testLol();
 
   return currentUser;
 }
