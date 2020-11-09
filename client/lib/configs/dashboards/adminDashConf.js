@@ -74,6 +74,13 @@ const ADMIN_DASHBOARD_CONFIG = ({ state }) => [
     color: 'secondary',
     icon: <SettingsIcon />,
   },
+  {
+    label: 'Test Crashes',
+    route: '/admin/test/server-crashes',
+    description: 'Run server crashes',
+    color: 'secondary',
+    icon: <SettingsIcon />,
+  },
 ];
 
 export default ADMIN_DASHBOARD_CONFIG;

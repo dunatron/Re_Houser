@@ -1,4 +1,9 @@
-async function me(parent, args, ctx, info) {
+const testMe = async user => {
+  return user.firstname;
+};
+
+async function crashMe(parent, args, ctx, info) {
+  coooleao();
   if (!ctx.request.userId) {
     return null;
     // return null;
@@ -9,7 +14,8 @@ async function me(parent, args, ctx, info) {
     },
     info
   );
+  testMe();
   return currentUser;
 }
 
-module.exports = me;
+module.exports = crashMe;

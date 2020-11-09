@@ -207,6 +207,8 @@ type Subscription {
 }
 
 type Query {
+  crashMe: User
+  asyncCrashMe: User
   me: User
   users(where: UserWhereUniqueInput): [User]!
   user(where: UserWhereUniqueInput!): User

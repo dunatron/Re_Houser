@@ -11,39 +11,27 @@ const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
-// needed for promise rejections.... nope, console.log("Will han")
-process.on("beforeExit", code => {
-  // Can make asynchronous calls
-  setTimeout(() => {
-    console.log(`Process will exit with code: ${code}`);
-    process.exit(code);
-  }, 100);
-});
+// process.on("uncaughtException", err => {
+//   console.log(`Uncaught Exception: ${err.message}`);
+//   return err;
+// });
 
-process.on("exit", code => {
-  // Only synchronous calls
-  console.log(`Process exited with code: ${code}`);
-});
+// process.on("unhandledRejection", (reason, promise) => {
+//   console.log(
+//     "Custom Unhandled rejection at ",
+//     promise,
+//     `reason: ${reason.message}`
+//   );
+//   return reason;
+//   // throw reason;
+//   // return reason;
+//   // return reason; // return the errors to try not crash express
+// });
 
-process.on("SIGTERM", signal => {
-  console.log(`Process ${process.pid} received a SIGTERM signal`);
-  process.exit(0);
-});
-
-process.on("SIGINT", signal => {
-  console.log(`Process ${process.pid} has been interrupted`);
-  process.exit(0);
-});
-
-process.on("uncaughtException", err => {
-  console.log(`Uncaught Exception: ${err.message}`);
-  process.exit(1);
-});
-
-process.on("unhandledRejection", (reason, promise) => {
-  console.log("Unhandled rejection at ", promise, `reason: ${err.message}`);
-  process.exit(1);
-});
+// server.express.use(function(err, req, res, next) {
+//   console.error(err.stack);
+//   res.status(500).send("Something broke!");
+// });
 
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);
@@ -82,6 +70,7 @@ const expressLogger = function(req, res, next) {
 
 server.use(expressLogger);
 server.express.use(cookieParser());
+
 userMiddleware(server);
 
 routes(server);
@@ -121,7 +110,5 @@ const app = server.start(
     });
   }
 );
-
-boooo9();
 
 module.exports = app;
