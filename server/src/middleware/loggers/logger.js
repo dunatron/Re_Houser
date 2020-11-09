@@ -37,7 +37,7 @@ const options = {
   handleExceptions: true
 };
 
-process.env.STAGE === "prod" && logger.add(new logdnaWinston(options));
-// logger.add(new logdnaWinston(options));
+// process.env.STAGE === "prod" && logger.add(new logdnaWinston(options));
+logger.add(new logdnaWinston(options));
 
 module.exports = logger;
