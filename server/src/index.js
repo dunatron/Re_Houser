@@ -9,7 +9,7 @@ const server = createServer();
 const stripeMiddleWare = require("./middleware/stripe/index");
 const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
-const logger = require("./middleware/loggers/logger");
+// const logger = require("./middleware/loggers/logger");
 
 // needed for promise rejections.... nope, console.log("Will han")
 // process.on("unhandledRejection", (reason, promise) => {
@@ -36,21 +36,21 @@ const expressLogger = function(req, res, next) {
   } else {
     ipAddr = req.connection.remoteAddress;
   }
-  logger.log("info", `request to express server ${req.body.operationName}`, {
-    ip: ip,
-    ipAddr: ipAddr,
-    url: req.url,
-    user: {
-      id: req.userId,
-      permissions: req.userPermissions
-    },
-    method: req.method,
-    operationName: req.body.operationName,
-    variables: req.body.variables,
-    origin: req.headers.origin,
-    userAgent: req.headers["user-agent"],
-    query: req.body.query
-  });
+  // logger.log("info", `request to express server ${req.body.operationName}`, {
+  //   ip: ip,
+  //   ipAddr: ipAddr,
+  //   url: req.url,
+  //   user: {
+  //     id: req.userId,
+  //     permissions: req.userPermissions
+  //   },
+  //   method: req.method,
+  //   operationName: req.body.operationName,
+  //   variables: req.body.variables,
+  //   origin: req.headers.origin,
+  //   userAgent: req.headers["user-agent"],
+  //   query: req.body.query
+  // });
 
   next();
 };
@@ -90,10 +90,10 @@ const app = server.start(
     }
   },
   details => {
-    logger.info("gql yoga/express server is up", {
-      ...details,
-      port: details.port
-    });
+    // logger.info("gql yoga/express server is up", {
+    //   ...details,
+    //   port: details.port
+    // });
   }
 );
 
