@@ -1,7 +1,7 @@
 const {
   GraphQLServer,
   PubSub,
-  SchemaDirectiveVisitor,
+  SchemaDirectiveVisitor
 } = require("graphql-yoga");
 const Mutation = require("./resolvers/Mutation");
 const Query = require("./resolvers/Query");
@@ -16,7 +16,7 @@ const logger = require("./middleware/loggers/logger");
 const {
   DateTimeResolver,
   URLResolver,
-  JSONResolver,
+  JSONResolver
 } = require("graphql-scalars");
 
 const { _isAdmin } = require("./lib/permissionsCheck");
@@ -38,14 +38,14 @@ const resolvers = {
       const publicObj = {
         ...parent.photoIdentification,
         url: stockImageUrl,
-        secure_url: stockImageUrl,
+        secure_url: stockImageUrl
       };
       if (parent.photoIdentification === null) return null;
       if (!_isUploaderOrAdmin({ file: parent.photoIdentification, ctx: ctx })) {
         return publicObj;
       }
       return parent.photoIdentification;
-    },
+    }
   },
   Chat: {
     // messages(chat) {
@@ -76,7 +76,7 @@ const resolvers = {
         }
       }
       return file.secure_url;
-    },
+    }
   },
   Property: {
     files: (parent, args, ctx, field) => {
@@ -86,10 +86,10 @@ const resolvers = {
       //   "Purposely throwing an error when you try to get the files from a property"
       // );
       return {
-        ...parent.files,
+        ...parent.files
       };
     },
-    insulationStatementFile: {},
+    insulationStatementFile: {}
   },
   Date: DateTimeResolver,
   URL: URLResolver,
@@ -97,10 +97,10 @@ const resolvers = {
   // Query,
   Query: {
     ...Query,
-    ...Connection, // simply relay versions e.g aggregate and edges
+    ...Connection // simply relay versions e.g aggregate and edges
   },
   Mutation,
-  Subscription,
+  Subscription
 };
 const pubsub = new PubSub();
 
@@ -110,9 +110,10 @@ const errorHandlerMiddleware = errorHandler({
     logger.error("resolver error", { error: error });
   },
   captureReturnedErrors: true,
-  forwardErrors: true, // should probably turn on for prod. or client wont get errors
+  forwardErrors: true // should probably turn on for prod. or client wont get errors
 });
 
+// These like resolve per field. Too fucking heavy man
 // const logInput = async (resolve, root, args, context, info) => {
 //   console.log(`1. logInput: ${JSON.stringify(args)}`);
 //   const result = await resolve(root, args, context, info);
@@ -132,13 +133,14 @@ function createServer() {
   return new GraphQLServer({
     typeDefs: "src/schema.graphql",
     resolvers: resolvers,
+
     middlewares: [errorHandlerMiddleware],
     // middlewares: [logInput, logResult],
     resolverValidationOptions: {
-      requireResolversForResolveType: false,
+      requireResolversForResolveType: false
     },
     // context: req => ({ ...req, db }) // probs just put this back
-    context: (req) => ({ ...req, db, pubsub }), // maybe this
+    context: req => ({ ...req, db, pubsub }) // maybe this
     // context: { pubsub }
   });
 }

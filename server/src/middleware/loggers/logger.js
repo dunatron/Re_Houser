@@ -5,23 +5,23 @@ const logger = winston.createLogger({
   // level: "info",
   levels: winston.config.syslog.levels,
   format: winston.format.json(),
-  defaultMeta: { service: "main-service" },
+  defaultMeta: { service: "app-service" },
   transports: [
     //
     // - Write all logs with level `error` and below to `error.log`
     // - Write all logs with level `info` and below to `combined.log`
     //
     new winston.transports.File({ filename: "logs/error.log", level: "error" }),
-    new winston.transports.File({ filename: "logs/combined.log" }),
+    new winston.transports.File({ filename: "logs/combined.log" })
   ],
   exceptionHandlers: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: "logs/exceptions.log" }),
+    new winston.transports.File({ filename: "logs/exceptions.log" })
   ],
   rejectionHandlers: [
     new winston.transports.Console(),
-    new winston.transports.File({ filename: "logs/rejections.log" }),
-  ],
+    new winston.transports.File({ filename: "logs/rejections.log" })
+  ]
 });
 
 const options = {
@@ -34,9 +34,10 @@ const options = {
   // env: envName,
   // level: level,
   indexMeta: true, // Defaults to false, when true ensures meta object will be searchable
-  handleExceptions: true,
+  handleExceptions: true
 };
 
-logger.add(new logdnaWinston(options));
+process.env.STAGE === "prod" && logger.add(new logdnaWinston(options));
+// logger.add(new logdnaWinston(options));
 
 module.exports = logger;

@@ -24,6 +24,20 @@ const logger = require("./middleware/loggers/logger");
 stripeMiddleWare(server);
 
 const expressLogger = function(req, res, next) {
+  logger.log("info", `request to express server ${req.body.operationName}`, {
+    url: req.url,
+    user: {
+      id: req.userId,
+      permissions: req.userPermissions
+    },
+    method: req.method,
+    operationName: req.body.operationName,
+    variables: req.body.variables,
+    origin: req.headers.origin,
+    userAgent: req.headers["user-agent"],
+    query: req.body.query
+  });
+
   next();
 };
 
@@ -45,7 +59,7 @@ const allowedClientOrigins = [
   "https://rehouser.co.nz",
   "https://yoga.rehouser.co.nz",
   "http://app.uat.rehouser.co.nz",
-  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL
 ];
 
 // Start gql yoga/express server
@@ -53,18 +67,18 @@ const app = server.start(
   {
     cors: {
       credentials: true,
-      origin: allowedClientOrigins,
+      origin: allowedClientOrigins
     },
     port: process.env.PORT || 4444,
     // playground: ??
     subscriptions: {
-      keepAlive: true, // blindly added this
-    },
+      keepAlive: true // blindly added this. keep subs alive...
+    }
   },
-  (details) => {
+  details => {
     logger.info("gql yoga/express server is up", {
       ...details,
-      port: details.port,
+      port: details.port
     });
   }
 );
