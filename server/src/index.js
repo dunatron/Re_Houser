@@ -9,16 +9,41 @@ const server = createServer();
 const stripeMiddleWare = require("./middleware/stripe/index");
 const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
-// const logger = require("./middleware/loggers/logger");
+const logger = require("./middleware/loggers/logger");
 
 // needed for promise rejections.... nope, console.log("Will han")
-// process.on("unhandledRejection", (reason, promise) => {
-//   // console.log("HMMM ERROR", reason);
-//   // logger.error("unhandled promise Rejection", {
-//   //   reason: reason,
-//   // });
-//   throw reason;
-// });
+process.on("beforeExit", code => {
+  // Can make asynchronous calls
+  setTimeout(() => {
+    console.log(`Process will exit with code: ${code}`);
+    process.exit(code);
+  }, 100);
+});
+
+process.on("exit", code => {
+  // Only synchronous calls
+  console.log(`Process exited with code: ${code}`);
+});
+
+process.on("SIGTERM", signal => {
+  console.log(`Process ${process.pid} received a SIGTERM signal`);
+  process.exit(0);
+});
+
+process.on("SIGINT", signal => {
+  console.log(`Process ${process.pid} has been interrupted`);
+  process.exit(0);
+});
+
+process.on("uncaughtException", err => {
+  console.log(`Uncaught Exception: ${err.message}`);
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.log("Unhandled rejection at ", promise, `reason: ${err.message}`);
+  process.exit(1);
+});
 
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);
@@ -36,21 +61,21 @@ const expressLogger = function(req, res, next) {
   } else {
     ipAddr = req.connection.remoteAddress;
   }
-  // logger.log("info", `request to express server ${req.body.operationName}`, {
-  //   ip: ip,
-  //   ipAddr: ipAddr,
-  //   url: req.url,
-  //   user: {
-  //     id: req.userId,
-  //     permissions: req.userPermissions
-  //   },
-  //   method: req.method,
-  //   operationName: req.body.operationName,
-  //   variables: req.body.variables,
-  //   origin: req.headers.origin,
-  //   userAgent: req.headers["user-agent"],
-  //   query: req.body.query
-  // });
+  logger.log("info", `request to express server ${req.body.operationName}`, {
+    ip: ip,
+    ipAddr: ipAddr,
+    url: req.url,
+    user: {
+      id: req.userId,
+      permissions: req.userPermissions
+    },
+    method: req.method,
+    operationName: req.body.operationName,
+    variables: req.body.variables,
+    origin: req.headers.origin,
+    userAgent: req.headers["user-agent"],
+    query: req.body.query
+  });
 
   next();
 };
@@ -90,11 +115,13 @@ const app = server.start(
     }
   },
   details => {
-    // logger.info("gql yoga/express server is up", {
-    //   ...details,
-    //   port: details.port
-    // });
+    logger.info("gql yoga/express server is up", {
+      ...details,
+      port: details.port
+    });
   }
 );
+
+boooo9();
 
 module.exports = app;

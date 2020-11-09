@@ -21,7 +21,7 @@ const logger = winston.createLogger({
   rejectionHandlers: [
     new winston.transports.Console(),
     new winston.transports.File({ filename: "logs/rejections.log" })
-  ]
+  ] // This one makes promis errors
 });
 
 const options = {
