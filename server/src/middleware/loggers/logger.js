@@ -13,6 +13,8 @@ const consoleTransport = new winston.transports.Console({
   // format: defaultFormat()
 });
 
+const logToFiles = process.env.STAGE !== "prod" ? true : false;
+
 const logger = winston.createLogger({
   level: "info",
   levels: winston.config.syslog.levels,
@@ -47,6 +49,14 @@ const logger = winston.createLogger({
     })
   ]
 });
+// if(logToFiles) {
+
+// }
+// log uncaughtException events from your process
+// logger.exceptions.handle(new transports.File({ filename: "exceptions.log" }));
+
+// // log uncaughtRejection promise events from your process
+// logger.rejections.handle(new transports.File({ filename: "rejections.log" }));
 
 const options = {
   key: process.env.LOG_DNA_INGESTION_KEY,
