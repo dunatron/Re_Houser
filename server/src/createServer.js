@@ -107,7 +107,16 @@ const pubsub = new PubSub();
 const errorHandlerMiddleware = errorHandler({
   onError: (error, context) => {
     // send error anywhere
-    logger.error("resolver error", { error: error });
+    logger.log("error", `resolver error`, {
+      message: error.message,
+      stack: error.stack.message,
+      user: {
+        id: context.request.userId,
+        permissions: context.request.permissions
+      },
+      headers: context.request.headers,
+      body: context.request.body
+    });
   },
   captureReturnedErrors: true,
   forwardErrors: true // should probably turn on for prod. or client wont get errors
