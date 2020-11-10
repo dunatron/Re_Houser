@@ -10,7 +10,7 @@ const defaultFormat = () =>
   );
 
 const consoleTransport = new winston.transports.Console({
-  format: defaultFormat()
+  // format: defaultFormat()
 });
 
 const logger = winston.createLogger({
