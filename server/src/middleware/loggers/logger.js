@@ -14,6 +14,7 @@ const consoleTransport = new winston.transports.Console({
 });
 
 const logToFiles = process.env.STAGE !== "prod" ? true : false;
+// const logToFiles = false;
 
 const logger = winston.createLogger({
   level: "info",
@@ -22,8 +23,13 @@ const logger = winston.createLogger({
   defaultMeta: { service: "app-service" },
   exitOnError: false, // needs to be false to not crash app and forward errors
   silent: false,
-  transports: [
-    consoleTransport,
+  transports: [consoleTransport],
+  exceptionHandlers: [consoleTransport],
+  rejectionHandlers: [consoleTransport]
+});
+
+if (logToFiles) {
+  logger.add(
     new winston.transports.File({
       filename: "logs/combined.log",
       format: defaultFormat()
@@ -32,31 +38,17 @@ const logger = winston.createLogger({
       filename: "logs/error.log",
       level: "error",
       format: defaultFormat()
-    })
-  ],
-  exceptionHandlers: [
-    consoleTransport,
+    }),
     new winston.transports.File({
       filename: "logs/exceptions.log",
       format: defaultFormat()
-    })
-  ],
-  rejectionHandlers: [
-    consoleTransport,
+    }),
     new winston.transports.File({
       filename: "logs/rejections.log",
       format: defaultFormat()
     })
-  ]
-});
-// if(logToFiles) {
-
-// }
-// log uncaughtException events from your process
-// logger.exceptions.handle(new transports.File({ filename: "exceptions.log" }));
-
-// // log uncaughtRejection promise events from your process
-// logger.rejections.handle(new transports.File({ filename: "rejections.log" }));
+  );
+}
 
 const options = {
   key: process.env.LOG_DNA_INGESTION_KEY,

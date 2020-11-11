@@ -3,7 +3,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import Router from 'next/router';
 import { useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar, Button, Menu, MenuItem, Fade } from '@material-ui/core';
+import {
+  Avatar,
+  Button,
+  Menu,
+  MenuItem,
+  Fade,
+  ListItemIcon,
+} from '@material-ui/core';
 import Error from '../ErrorMessage';
 import gql from 'graphql-tag';
 import { toast } from 'react-toastify';
@@ -11,6 +18,20 @@ import RToolTip from '@/Styles/RToolTip';
 //recoil
 import { useRecoilState } from 'recoil';
 import { loginModalState } from '@/Recoil/loginModalState';
+import { themeState } from '@/Recoil/themeState';
+
+// palettes
+import mainPalette from '@/Themes/palettes/mainPalette';
+import darkPalette from '@/Themes/palettes/darkPalette';
+
+//icons
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MessageIcon from '@material-ui/icons/Message';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -47,7 +68,10 @@ const handleLink = (route = '/', query = {}) => {
 
 const AccountMenu = ({ me = null }) => {
   const [loginModal, setLoginModal] = useRecoilState(loginModalState);
+  const [themeObj, setThemeObj] = useRecoilState(themeState);
   const classes = useStyles();
+
+  const isDarkMode = themeObj.palette.type === 'dark' ? true : false;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -77,12 +101,17 @@ const AccountMenu = ({ me = null }) => {
     return null;
   };
 
+  const toggleTheme = e => {
+    e.preventDefault();
+    setThemeObj({
+      ...themeObj,
+      ...(themeObj.palette.type === 'dark' ? mainPalette : darkPalette),
+    });
+  };
+
   const photoUrl = _profilePhotoUrl();
 
-  console.log('render: AcountMenu');
-
   useEffect(() => {
-    console.log('render: AcountMenu useEffect');
     return () => {};
   }, []);
 
@@ -115,19 +144,38 @@ const AccountMenu = ({ me = null }) => {
                   handleLink('/account');
                   handleClose(e);
                 }}>
+                <ListItemIcon>
+                  <AccountCircleIcon />
+                </ListItemIcon>
                 Account
               </MenuItem>,
+              <ToggleThemeMenuItem
+                key="toggle-theme-menu-item"
+                isDarkMode={isDarkMode}
+                onClick={toggleTheme}
+              />,
               <MenuItem
                 key="account-menu-messages"
                 onClick={e => {
                   handleLink('/messages');
                   handleClose(e);
                 }}>
+                <ListItemIcon>
+                  <MessageIcon />
+                </ListItemIcon>
                 Messages
               </MenuItem>,
             ]
           : [
+              <ToggleThemeMenuItem
+                key="toggle-theme-menu-item"
+                isDarkMode={isDarkMode}
+                onClick={toggleTheme}
+              />,
               <MenuItem key="account-menu-login" onClick={handleOpenLoginModal}>
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
                 Login
               </MenuItem>,
             ]}
@@ -145,6 +193,17 @@ AccountMenu.propTypes = {
       url: PropTypes.any,
     }),
   }),
+};
+
+const ToggleThemeMenuItem = ({ isDarkMode, onClick }) => {
+  return (
+    <MenuItem key="toggle-theme-menu-item" onClick={onClick}>
+      <ListItemIcon>
+        {isDarkMode ? <Brightness4Icon /> : <Brightness7Icon />}
+      </ListItemIcon>
+      Toggle Theme
+    </MenuItem>
+  );
 };
 
 const SignOutMenuItem = props => {
@@ -178,6 +237,9 @@ const SignOutMenuItem = props => {
       key="account-menu-logout"
       onClick={handleBtnClick}
       disabled={loading}>
+      <ListItemIcon>
+        <ExitToAppIcon />
+      </ListItemIcon>
       Logout
     </MenuItem>
   ) : null;

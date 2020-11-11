@@ -89,13 +89,12 @@ const LoginPage = props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" dense>
+      <AppBar position="static" color="default">
         <Tabs
           value={loginModal.tabIndex}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
-          dense
           variant="fullWidth">
           <Tab
             label="Sign Up "
@@ -144,7 +143,7 @@ const LoginPage = props => {
 
 LoginPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleSignedIn: PropTypes.func.isRequired,
+  handleSignedIn: PropTypes.func,
   theme: PropTypes.object.isRequired,
 };
 

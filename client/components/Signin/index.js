@@ -7,7 +7,8 @@ import Error from '@/Components/ErrorMessage/index';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import TextInput from '@/Styles/TextInput';
 import { SIGNIN_MUTATION } from '@/Gql/mutations';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from '@/Components/Recaptcha';
 import ButtonLoader from '@/Components/Loader/ButtonLoader';
 
 const Signin = props => {
@@ -68,7 +69,6 @@ const Signin = props => {
     <Form
       method="post"
       onSubmit={e => {
-        console.log('HANDLE SIGNIN PLEASE');
         e.preventDefault();
         signIn({
           variables: state,
@@ -115,6 +115,7 @@ const Signin = props => {
           label="Password"
           inputProps={{
             'data-cy': 'password',
+            autoComplete: 'current-password',
           }}
           fullWidth={true}
           type="password"

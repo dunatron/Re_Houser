@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+<style type="text/css"></style>;
+
 const GlobalStyle = createGlobalStyle`
   html {
     box-sizing: border-box;
@@ -102,6 +104,7 @@ const GlobalStyle = createGlobalStyle`
         ? p.theme.palette.secondary.main
         : p.theme.palette.secondary.dark};
   }
+
 `;
 
 export default GlobalStyle;

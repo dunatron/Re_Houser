@@ -6,6 +6,7 @@ import { ListItem, Divider, Drawer, Hidden } from '@material-ui/core';
 import Link from 'next/link';
 import Sidebar from '@/Components/Sidebar';
 import { store } from '@/Store/index';
+import SVG from '@/Components/Svg';
 
 const AppDrawer = ({ me }) => {
   const globalStore = useContext(store);
@@ -37,7 +38,8 @@ const AppDrawer = ({ me }) => {
                 style={{
                   width: '133px',
                 }}>
-                <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" />
+                {/* <img src="/images/svg/ReHouse_main_logo.svg" alt="my image" /> */}
+                <SVG name="main_logo" />
               </div>
             </Link>
           </ListItem>
