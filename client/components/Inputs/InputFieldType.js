@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import TextInput from './TextInput';
 
@@ -62,11 +62,11 @@ const CheckReason = props => {
 CheckReason.propTypes = {
   errors: PropTypes.any,
   inners: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   label: PropTypes.any,
-  register: PropTypes.func.isRequired
-}
+  register: PropTypes.func.isRequired,
+};
 
 const CheckboxText = props => {
   const { label, inners, register } = props;
@@ -105,7 +105,7 @@ const CheckboxText = props => {
             fieldConf={inner.fieldConf}
             label={inner.label}
             defaultValue={inner.defaultValue}
-            onChange={val => console.log('onOnCnage...', val)}
+            onChange={val => {}}
             key={idx}
             name={inner.name}
             inners={inner.inners}
@@ -118,12 +118,12 @@ const CheckboxText = props => {
 
 CheckboxText.propTypes = {
   inners: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   label: PropTypes.any,
   name: PropTypes.any,
-  register: PropTypes.func.isRequired
-}
+  register: PropTypes.func.isRequired,
+};
 
 const InputFieldType = props => {
   const { config, onChange } = props;
@@ -199,6 +199,6 @@ InputFieldType.propTypes = {
   errors: PropTypes.any,
   label: PropTypes.any,
   name: PropTypes.any,
-  onChange: PropTypes.func.isRequired
-}
+  onChange: PropTypes.func.isRequired,
+};
 export default InputFieldType;

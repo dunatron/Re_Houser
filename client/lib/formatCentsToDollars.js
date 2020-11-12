@@ -1,8 +1,6 @@
 const formatCentsToDollars = (amount, type) => {
   const dollarAmount = amount / 100;
 
-  console.log('doloar amount => ', dollarAmount);
-
   const isPositive = dollarAmount > 0;
 
   const formattedMoney = new Intl.NumberFormat('en-US', {
@@ -28,8 +26,6 @@ const formatCentsToDollars = (amount, type) => {
 
 const formatCentsToDollarsVal = amount => {
   const dollarAmount = amount / 100;
-
-  console.log('doloar amount => ', dollarAmount);
 
   const isPositive = dollarAmount > 0;
 

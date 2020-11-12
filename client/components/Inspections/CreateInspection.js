@@ -24,7 +24,6 @@ const CreateInspection = ({ connectName, connectId, property }) => {
         posting={loading}
         error={error}
         onSubmit={d => {
-          console.log('Your data => ', d);
           createInspection({
             variables: {
               data: {

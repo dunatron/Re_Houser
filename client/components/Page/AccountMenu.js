@@ -226,8 +226,6 @@ const SignOutMenuItem = props => {
         // cache.gc();
         // cache.reset();
         client.resetStore();
-        console.log('Data for cache => ', cache);
-        console.log('Data for signout => ', data);
       },
     });
   };

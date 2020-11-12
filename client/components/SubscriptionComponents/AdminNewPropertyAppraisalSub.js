@@ -3,8 +3,8 @@ import { useSubscription } from '@apollo/client';
 import { toast } from 'react-toastify';
 import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '@/Gql/subscriptions/PropertyAppraisalSub';
 import { store } from '@/Store/index';
-import Error from '@/Components/ErrorMessage'
-import Loader from '@/Components/Loader'
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 
 const AdminNewRentalAppraisalSub = () => {
   const globalStore = useContext(store);
@@ -26,26 +26,25 @@ const AdminNewRentalAppraisalSub = () => {
         },
       },
       onSubscriptionData: ({ client, subscriptionData }) => {
-        console.log(
-          'recieved new appraisal data from subscription => ',
-          subscriptionData
-        );
         dispatch({
           type: 'updateState',
           payload: {
             newRentalAppraisalCount: state.newRentalAppraisalCount + 1,
           },
         });
-        toast.success(<p>New Rental APpraisal has been requested</p>);
+        toast.success(<p>New Rental Appraisal has been requested</p>);
       },
     }
   );
 
   if (loading) return null;
   if (error) {
-    return <div>Not SUbScribed To: PROPERTY_APPRAISAL_SUBSCRIPTION
-      <Error  error={error}/>
-    </div>
+    return (
+      <div>
+        Not SUbScribed To: PROPERTY_APPRAISAL_SUBSCRIPTION
+        <Error error={error} />
+      </div>
+    );
   }
   return null;
 };

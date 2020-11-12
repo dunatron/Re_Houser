@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 
@@ -7,8 +7,8 @@ const MyDropzone = ({ receiveFile }) => {
     acceptedFiles.forEach(file => {
       const reader = new FileReader();
 
-      reader.onabort = () => console.log('file reading was aborted');
-      reader.onerror = () => console.log('file reading has failed');
+      reader.onabort = () => {};
+      reader.onerror = () => {};
       reader.onload = () => {
         receiveFile({
           name: file.name,
@@ -36,7 +36,7 @@ const MyDropzone = ({ receiveFile }) => {
 };
 
 MyDropzone.propTypes = {
-  receiveFile: PropTypes.func.isRequired
-}
+  receiveFile: PropTypes.func.isRequired,
+};
 
 export default MyDropzone;

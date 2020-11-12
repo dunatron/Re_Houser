@@ -6,7 +6,7 @@ import ExpansionPanelSummary from '@/Styles/ExpansionPanelSummary';
 // import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 // import Typography from "@material-ui/core/Typography"
-import {Box, Typography} from '@material-ui/core/'
+import { Box, Typography } from '@material-ui/core/';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 //icons
@@ -17,7 +17,7 @@ import AdminApplicantDetails from '@/Components/ApplicantDetails/AdminApplicantD
 import AcceptApplicationButton from '@/Components/MutationButtons/AcceptApplicationButton';
 import DenyApplicationButton from '@/Components/MutationButtons/DenyApplicationButton';
 import { makeStyles } from '@material-ui/core/styles';
-import ChangeRouteBtn from '@/Components/Routes/ChangeRouteButton'
+import ChangeRouteBtn from '@/Components/Routes/ChangeRouteButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,7 +45,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ApplicationCard = ({ application, property, me }) => {
-  console.log('WHat do I have for this application => ', application);
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -76,13 +75,15 @@ const ApplicationCard = ({ application, property, me }) => {
 
       {application.leaseId && (
         <Box>
-          <Typography gutterBottom>Application has been accepted as it has a leaseId associated with it</Typography>
-          
-          <ChangeRouteBtn 
+          <Typography gutterBottom>
+            Application has been accepted as it has a leaseId associated with it
+          </Typography>
+
+          <ChangeRouteBtn
             title="Go to lease"
             route="/landlord/leases/lease"
             query={{
-              id: application.leaseId
+              id: application.leaseId,
             }}
             variant="contained"
             color="secondary"
@@ -92,14 +93,19 @@ const ApplicationCard = ({ application, property, me }) => {
       )}
 
       {/* <AcceptApplication application={application} property={property} /> */}
-      {!application.leaseId && <div className={classes.actions}>
-        <AcceptApplicationButton
-          application={application}
-          property={property}
-        />
-        <DenyApplicationButton application={application} property={property} />
-      </div>}
-      
+      {!application.leaseId && (
+        <div className={classes.actions}>
+          <AcceptApplicationButton
+            application={application}
+            property={property}
+          />
+          <DenyApplicationButton
+            application={application}
+            property={property}
+          />
+        </div>
+      )}
+
       <ExpansionPanel highlight={false}>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <PersonIcon color={'secondary'} />

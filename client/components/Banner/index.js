@@ -117,8 +117,6 @@ const Banner = props => {
     };
   }, [windowWidth, windowHeight]);
 
-  console.log('render: Banner');
-
   return (
     <div
       ref={bannerNode}
@@ -162,14 +160,14 @@ const Banner = props => {
 
 Banner.propTypes = {
   children: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   disablePointerEvents: PropTypes.bool.isRequired,
   footer: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   imageSrc: PropTypes.any,
-  text: PropTypes.any
+  text: PropTypes.any,
 };
 
 export default Banner;

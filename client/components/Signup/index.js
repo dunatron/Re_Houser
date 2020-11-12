@@ -185,7 +185,6 @@ const Signup = props => {
           fullWidth={true}
           placeholder="please enter your phone number"
           onChange={v => {
-            console.log('Mui phone change => ', v);
             setState({
               ...state,
               phone: v,

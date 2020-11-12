@@ -195,8 +195,6 @@ const PropertyDetails = ({ id, location, me }) => {
   const isOwner = _isInList(me.id, property.owners, 'id');
   const isAgent = _isInList(me.id, property.agents, 'id');
 
-  console.log;
-
   const tabProps = {
     me: me,
     property: property,

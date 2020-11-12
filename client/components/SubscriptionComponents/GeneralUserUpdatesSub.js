@@ -20,6 +20,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
     onSubscriptionData: ({ client, subscriptionData }) => {
       const subDta = subscriptionData.data.userSub.node;
       // Subs shouldnt handle our private files in the cache
+      console.log('Sub Data: user => ', subDta);
       if (subDta.photoIdentification) delete subDta.photoIdentification;
       if (subDta.proofOfAddress) delete subDta.proofOfAddress;
       if (subDta.signature) delete subDta.signature;

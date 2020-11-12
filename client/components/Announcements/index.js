@@ -12,7 +12,6 @@ const Announcements = ({ me, bannerRoutes }) => {
   const { dispatch, state } = store;
 
   useEffect(() => {
-    console.log('Announcements: useEffect me => ', me);
     if (me) {
       if (!me.emailValidated) {
         dispatch({

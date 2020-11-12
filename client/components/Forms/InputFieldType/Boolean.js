@@ -17,11 +17,6 @@ const BooleanField = props => {
   const { fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
 
-  console.group('BOOLEAN FORM');
-  console.log('props => ', props);
-  console.log('Better defaultValue => ', defaultValues[name]);
-  console.groupEnd();
-
   return (
     <>
       <FormControlLabel

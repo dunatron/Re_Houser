@@ -76,15 +76,6 @@ const Signin = props => {
             cache.modify({
               fields: {
                 me(existingMeRef = {}, { readField }) {
-                  console.log('The data for a signin => ', data.data);
-                  console.log(
-                    'WIll this even work => existingRefs ',
-                    existingMeRef
-                  );
-                  console.log(
-                    'WIll this even work => readField ',
-                    existingMeRef
-                  );
                   return { ...data.data.signin };
                 },
               },
@@ -101,6 +92,7 @@ const Signin = props => {
           id="email"
           inputProps={{
             'data-cy': 'email',
+            autoComplete: 'email',
           }}
           label="Email"
           fullWidth={true}

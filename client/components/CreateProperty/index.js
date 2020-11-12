@@ -88,9 +88,7 @@ const CreatePropertyComponent = props => {
       ...defaultFormData,
       bankDetails: me.bankDetails,
     });
-    return () => {
-      console.log('Create Property dismounted');
-    };
+    return () => {};
   }, [me.bankDetails]);
 
   const [updateAppraisal, updateAppraisalProps] = useMutation(

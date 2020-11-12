@@ -141,8 +141,6 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
     client.cache.modify({
       fields: {
         [connectionKey](existingRef, { readField }) {
-          // console.log('existingRefs  item => ', existingRef);
-          // console.log('existingRefs edges => ', existingRef.edges);
           return existingRef.edges ? {} : existingRef;
         },
       },

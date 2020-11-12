@@ -52,7 +52,7 @@ function TextMaskCustom(props) {
 }
 
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired
+  inputRef: PropTypes.func.isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -68,10 +68,6 @@ const PhoneInput = ({ defaultValue, fieldProps, onChange }) => {
   const label = fieldProps ? fieldProps.label : null;
 
   const handleOnChange = e => onChange(e.target.value);
-
-  //_preFormatBankAccount
-
-  console.log('Default Value for bank accoiunt => ', defaultValue);
 
   const formattedDefaultVal = defaultValue
     ? _preFormatBankAccount(defaultValue)
@@ -103,9 +99,9 @@ PhoneInput.propTypes = {
   fieldProps: PropTypes.shape({
     helperText: PropTypes.any,
     label: PropTypes.any,
-    name: PropTypes.any
+    name: PropTypes.any,
   }).isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
 };
 
 export default PhoneInput;

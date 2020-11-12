@@ -90,7 +90,7 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
         },
       },
     };
-    console.log('Create property Variables => ', variables);
+
     createProperty({
       variables: variables,
     });

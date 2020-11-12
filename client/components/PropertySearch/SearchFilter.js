@@ -80,7 +80,6 @@ const SearchFilter = () => {
   const [topRoomPrice, setTopRoomPrice] = useState(9999999999);
 
   const setAndFormatMoveInDate = date => {
-    console.log('Date to format => ', moment(date).unix());
     // setMoveInDate(date);
     setMoveInDateStamp(moment(date).unix());
   };

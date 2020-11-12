@@ -35,7 +35,6 @@ function MaterialPage(props) {
   // maybe memo the children. but into a function that depends on the children key changing ony...
   // I actually have no idea
   const children = React.Children.map(props.children, child => {
-    console.log('Mapping children pages inside MAterial Page');
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
         appData: {
@@ -46,7 +45,6 @@ function MaterialPage(props) {
     return child;
   });
 
-  console.log('render: Material Page props =>', props);
   useEffect(() => {
     console.log('render: Material Page useEffect');
     return () => {

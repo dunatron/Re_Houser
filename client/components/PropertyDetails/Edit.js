@@ -37,7 +37,6 @@ const EditPropertyForm = ({ propertyId }) => {
       config={CREATE_PROPERTY_FORM_CONF}
       // data={{ wallCoverage: null }}
       onSubmit={data => {
-        console.log('UPdate propert form data => ', data);
         alert('ToDo: allow update property trhough add property form ');
       }}
     />
@@ -45,7 +44,7 @@ const EditPropertyForm = ({ propertyId }) => {
 };
 
 EditPropertyForm.propTypes = {
-  propertyId: PropTypes.any
+  propertyId: PropTypes.any,
 };
 
 export default EditPropertyForm;

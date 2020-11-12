@@ -25,12 +25,13 @@ async function resendConfirmEmail(parent, args, ctx, info) {
     where: { email: user.email },
     data: {
       confirmEmailToken: confirmEmailToken,
-      confirmEmailTokenExpiry: confirmEmailTokenExpiry,
-    },
+      confirmEmailTokenExpiry: confirmEmailTokenExpiry
+    }
   });
 
   // 3. Email them that reset token
-  const mailRes = await transport.sendMail({
+  // const mailRes = await dont really need to wait
+  transport.sendMail({
     // from: "heath.dunlop.hd@gmail.com",
     // to: user.email,
     from: process.env.MAIL_USER,
@@ -45,7 +46,7 @@ async function resendConfirmEmail(parent, args, ctx, info) {
       </div>
       `,
       user
-    ),
+    )
   });
 
   // 4. Return the message

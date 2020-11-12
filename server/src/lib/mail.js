@@ -12,8 +12,8 @@ const transport = nodemailer.createTransport({
   },
   // debug: process.env.STAGE === "dev" ? true : false, // show debug output
   // logger: process.env.STAGE === "dev" ? true : false // log information in console
-  debug: false, // show debug output
-  logger: false // log information in console
+  debug: process.env.STAGE === "prod" ? false : true, // show debug output
+  logger: process.env.STAGE === "prod" ? false : true // log information in console
 });
 
 const makeANiceEmail = (text, user) => {

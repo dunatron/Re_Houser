@@ -62,7 +62,7 @@ const CheckboxText = props => {
             fieldConf={inner.fieldConf}
             label={inner.label}
             defaultValue={inner.defaultValue}
-            onChange={val => console.log('onOnCnage...', val)}
+            onChange={val => {}}
             key={idx}
             name={inner.name}
             inners={inner.inners}
@@ -75,11 +75,11 @@ const CheckboxText = props => {
 
 CheckboxText.propTypes = {
   inners: PropTypes.shape({
-    map: PropTypes.func
+    map: PropTypes.func,
   }).isRequired,
   label: PropTypes.any,
   name: PropTypes.any,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
 };
 
 export default CheckboxText;

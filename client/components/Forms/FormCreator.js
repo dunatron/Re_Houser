@@ -93,8 +93,6 @@ const FormCreator = props => {
   }
 
   const handleClearError = name => {
-    console.log('handleClearError name => ', name);
-    console.log('handleClearError errors => ', errors);
     if (errors[name]) {
       clearError(name);
     }
@@ -123,7 +121,6 @@ const FormCreator = props => {
   const onSubmit = data => {
     if (!canSubmit()) return;
     const postFormattedFormData = formatData(data, keysWithTypes, 'post');
-    console.log('date bug postFormattedFormData => ', postFormattedFormData);
     props.onSubmit(postFormattedFormData);
   };
 
@@ -147,7 +144,6 @@ const FormCreator = props => {
       // mmm not true. I think maybe we do want to postFormat and preFormat
       const formValsToSave = getValues();
       // alert('ToDo: CreateForm COntext which will handle all form values');
-      console.log('formValsToSave => ', formValsToSave);
       // Maybe a bit of a caveat here and will have to be robust
       // ie. saving the form type to redux. if persistState = true
       // Also perhaps a flag to say submitted? Would we have a clear? and a reset?
