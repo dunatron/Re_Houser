@@ -11,7 +11,7 @@ const { promisify } = require("util");
 const { randomBytes } = require("crypto");
 
 const { addUserSearchNode } = require("../../lib/algolia/userSearchApi");
-const logUser = require("../../lib/logUser");
+// const logUser = require("../../lib/logUser");
 
 async function signup(parent, args, ctx, info) {
   args.email = args.email.toLowerCase();
@@ -117,7 +117,7 @@ async function signup(parent, args, ctx, info) {
     token: token,
     refreshToken: refreshToken,
   };
-  logUser("User Signed up", userInfoWithToken);
+  // logUser("User Signed up", userInfoWithToken);
 
   return userInfoWithToken;
 }
