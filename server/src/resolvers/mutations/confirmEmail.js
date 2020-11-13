@@ -55,9 +55,13 @@ async function confirmEmail(parent, args, ctx, info) {
     throw new Error("This token is either invalid or expired!");
   }
 
-  if (user.emailValidated) {
-    throw new Error("You have already validated this emails account");
+  if (!user.email) {
+    throw new Error("LOL IT does not have an email!");
   }
+
+  // if (user.emailValidated) {
+  //   throw new Error("You have already validated this emails account");
+  // }
 
   // confirm the token is leget
   // make mutation to say
@@ -80,40 +84,42 @@ async function confirmEmail(parent, args, ctx, info) {
   });
 
   //create a chat betwen user and admin
-  // createChat(
-  //   parent,
-  //   {
-  //     data: {
-  //       type: "GROUP",
-  //       name: "Chat-to-Admin",
-  //       participants: {
-  //         connect: [
-  //           {
-  //             id: user.id,
-  //           },
-  //           {
-  //             // email: "admin@rehouser.co.nz",
-  //           },
-  //         ],
-  //       },
-  //       messages: {
-  //         create: {
-  //           isMine: false,
-  //           content: "Welcome to rehouser",
-  //           sender: {
-  //             connect: {
-  //               email: "admin@rehouser.co.nz",
-  //             },
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  //   ctx,
-  //   info
-  // );
+  if (user.email !== "admin@rehouser.co.nz") {
+    createChat(
+      parent,
+      {
+        data: {
+          type: "GROUP",
+          name: "Chat-to-Admin",
+          participants: {
+            connect: [
+              {
+                id: user.id,
+              },
+              {
+                email: "admin@rehouser.co.nz",
+              },
+            ],
+          },
+          messages: {
+            create: {
+              isMine: false,
+              content: "Welcome to rehouser",
+              sender: {
+                connect: {
+                  email: "admin@rehouser.co.nz",
+                },
+              },
+            },
+          },
+        },
+      },
+      ctx,
+      info
+    );
+  }
 
-  // logUser("User confirmed email", updatedUserRes);
+  logUser("User confirmed email", updatedUserRes);
 
   // 4. Return the message
   return updatedUserRes;
