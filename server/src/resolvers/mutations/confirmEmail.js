@@ -80,40 +80,40 @@ async function confirmEmail(parent, args, ctx, info) {
   });
 
   //create a chat betwen user and admin
-  createChat(
-    parent,
-    {
-      data: {
-        type: "GROUP",
-        name: "Chat-to-Admin",
-        participants: {
-          connect: [
-            {
-              id: user.id,
-            },
-            {
-              email: "admin@rehouser.co.nz",
-            },
-          ],
-        },
-        messages: {
-          create: {
-            isMine: false,
-            content: "Welcome to rehouser",
-            sender: {
-              connect: {
-                email: "admin@rehouser.co.nz",
-              },
-            },
-          },
-        },
-      },
-    },
-    ctx,
-    info
-  );
+  // createChat(
+  //   parent,
+  //   {
+  //     data: {
+  //       type: "GROUP",
+  //       name: "Chat-to-Admin",
+  //       participants: {
+  //         connect: [
+  //           {
+  //             id: user.id,
+  //           },
+  //           {
+  //             // email: "admin@rehouser.co.nz",
+  //           },
+  //         ],
+  //       },
+  //       messages: {
+  //         create: {
+  //           isMine: false,
+  //           content: "Welcome to rehouser",
+  //           sender: {
+  //             connect: {
+  //               email: "admin@rehouser.co.nz",
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  //   ctx,
+  //   info
+  // );
 
-  logUser("User confirmed email", updatedUserRes);
+  // logUser("User confirmed email", updatedUserRes);
 
   // 4. Return the message
   return updatedUserRes;
