@@ -8,10 +8,18 @@ import { getMainDefinition } from '@apollo/client/utilities';
 // pcage name for websockets have changed, currently no docs on how to integrate it, aloso package is in beta and not finished
 // including this 3.0 clien which is still beta. But this is pretty good setup for now
 // commenting out subscriptions for now
-import { WebSocketLink } from '@apollo/link-ws';
+// import { WebSocketLink } from '@apollo/link-ws';
+import { WebSocketLink } from '@apollo/client/link/ws';
 
 import CacheWrapper from './store/cache';
 // import { endpoint, prodEndpoint, wsEndpoint, wsProdEndpoint } from '../config';
+
+// const wsLink = new WebSocketLink({
+//   uri: `ws://localhost:5000/`,
+//   options: {
+//     reconnect: true,
+//   },
+// });
 
 function createClient({ headers, initialState }) {
   // const websocketEndpoint =
