@@ -36,7 +36,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
       });
     },
   });
-  if (loading) return <div>Loading SUB</div>;
+  if (loading) return <div>SUBSCRIBING TO: General User Updates</div>;
   if (error) {
     return (
       <div>
@@ -45,7 +45,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
       </div>
     );
   }
-  return <div>SUBSCRIBED TO: General User updates</div>;
+  return <div>SUBSCRIBED TO: General User Updates</div>;
   return null;
 };
 
