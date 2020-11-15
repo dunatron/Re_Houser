@@ -51,7 +51,7 @@ const AssociatedFiles = ({ filesId, placeId }) => {
 
 AssociatedFiles.propTypes = {
   filesId: PropTypes.any,
-  placeId: PropTypes.any
+  placeId: PropTypes.any,
 };
 
 const FileItem = ({ conf, val, propertyFilesId }) => {
@@ -101,6 +101,7 @@ const FileItem = ({ conf, val, propertyFilesId }) => {
       fileParams={{
         folder: conf.folder,
         type: 'private',
+        access_mode: 'authenticated',
       }}
       title={conf.title}
       description={conf.description}
@@ -123,10 +124,10 @@ FileItem.propTypes = {
     description: PropTypes.any,
     folder: PropTypes.any,
     key: PropTypes.any,
-    title: PropTypes.any
+    title: PropTypes.any,
   }).isRequired,
   propertyFilesId: PropTypes.any,
-  val: PropTypes.any
+  val: PropTypes.any,
 };
 
 const MappedFiles = ({ propertyFiles, placeId }) => {
@@ -168,8 +169,8 @@ const MappedFiles = ({ propertyFiles, placeId }) => {
 MappedFiles.propTypes = {
   placeId: PropTypes.any,
   propertyFiles: PropTypes.shape({
-    id: PropTypes.any
-  }).isRequired
+    id: PropTypes.any,
+  }).isRequired,
 };
 
 export default AssociatedFiles;

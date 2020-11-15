@@ -65,6 +65,11 @@ const UserDetailsStep = ({
       <FileUploader
         me={me}
         title="Your Photo ID"
+        fileParams={{
+          folder: `users/photoIdentification/${me.id}`,
+          type: 'authenticated',
+          access_mode: 'authenticated',
+        }}
         description="We require a valid photo id of you. We accept the following. Passport, drivers license"
         files={
           userRentalApplicantData.user.photoIdentification

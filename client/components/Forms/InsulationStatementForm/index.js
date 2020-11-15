@@ -264,7 +264,8 @@ const InsulationStatementForm = ({
         files={[property.insulationStatementFile]}
         fileParams={{
           folder: `properties/${placeId}/insulationStatementFile`,
-          type: 'private',
+          type: 'upload',
+          access_mode: 'public',
         }}
         recieveFile={recieveFile}
       />

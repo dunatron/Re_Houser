@@ -11,6 +11,7 @@ input CloudinaryParams {
   folder: String
   resource_type: String
   type: String
+  access_mode: String
   tags: Json
 }
 

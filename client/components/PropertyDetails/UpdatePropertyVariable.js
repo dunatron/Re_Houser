@@ -44,7 +44,6 @@ import {
   LeaseLength,
 } from '@/Components/LeaseManager/LeaseLengthInfo';
 
-import FileUploader from '@/Components/FileUploader';
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
 import AdminDetails from './AdminDetails';

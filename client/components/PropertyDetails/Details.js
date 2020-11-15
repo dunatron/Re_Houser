@@ -48,7 +48,6 @@ import {
 
 import UserDetails from '@/Components/UserDetails';
 
-import FileUploader from '@/Components/FileUploader';
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 import { PropertyInfoFragment } from '@/Gql/fragments/propertyInfo';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';

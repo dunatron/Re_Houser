@@ -282,6 +282,7 @@ const UploadFile = forwardRef((props, ref) => {
   };
 
   const handleFileUpload = file => {
+    console.log('YOUR FILE', file);
     client
       .mutate({
         mutation: SINGLE_UPLOAD,
@@ -289,9 +290,16 @@ const UploadFile = forwardRef((props, ref) => {
           file: file.raw,
           data: fileParams
             ? {
-                ...fileParams,
+                resource_type: fileParams.resource_type,
+                folder: fileParams.folder,
+                access_mode: fileParams.access_mode,
               }
             : {},
+          // data: fileParams
+          //   ? {
+          //       ...fileParams,
+          //     }
+          //   : {},
         },
       })
       .then(res => {
@@ -702,11 +710,13 @@ const FileManager = props => {
 FileManager.propTypes = {
   description: PropTypes.string.isRequired,
   fileParams: PropTypes.shape({
+    public_id: PropTypes.string,
     filename: PropTypes.string,
     folder: PropTypes.string,
     resource_type: PropTypes.oneOf(['image', 'raw', 'video', 'auto']),
     tags: PropTypes.arrayOf(PropTypes.string),
     type: PropTypes.oneOf(['upload', 'private', 'authenticated']),
+    access_mode: PropTypes.oneOf(['public', 'authenticated']),
   }).isRequired,
   fileRemovedFromServer: PropTypes.func.isRequired,
   files: PropTypes.arrayOf(

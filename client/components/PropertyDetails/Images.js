@@ -56,6 +56,8 @@ const PropertyImages = ({ property, updateProperty }) => {
         fileParams={{
           type: 'upload',
           folder: `properties/${property.placeId}/images`, // reasons for id and placeId. hmm.....
+          type: 'upload',
+          access_mode: 'public',
         }}
         updateCacheOnRemovedFile={(cache, result) => {
           updateProperty({

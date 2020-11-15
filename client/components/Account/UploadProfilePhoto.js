@@ -46,6 +46,7 @@ const UploadProfilePhoto = ({ me }) => {
           folder: `users/${me.id}/profile-photo`,
           type: 'upload',
           resource_type: 'image',
+          access_mode: 'public',
         }}
         title="Upload Profile photo"
         maxFilesAllowed={1}

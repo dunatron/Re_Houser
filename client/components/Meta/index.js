@@ -23,6 +23,9 @@ const Meta = () => (
       key="google-site-verification"
     />
     <title>Re-Houser</title>
+    <script
+      src="https://widget.Cloudinary.com/v2.0/global/all.js"
+      type="text/javascript"></script>
   </Head>
 );
 

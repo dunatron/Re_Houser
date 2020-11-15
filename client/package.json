@@ -54,6 +54,7 @@
     "apollo-upload-client": "^12.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-styled-components": "^1.7.1",
+    "cloudinary-react": "^1.6.7",
     "clsx": "^1.0.4",
     "css-loader": "^2.1.1",
     "docz": "^2.3.0",
