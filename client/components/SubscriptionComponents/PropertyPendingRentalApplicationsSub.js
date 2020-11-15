@@ -5,8 +5,8 @@ import { RENTAL_APPLICATION_UPDATED_SUBSCRIPTION } from '@/Gql/subscriptions/Ren
 import ApplicationCard from '@/Components/PropertyDetails/ApplicationCard';
 import { ToastContainer, toast } from 'react-toastify';
 
-import Error from '@/Components/ErrorMessage'
-import Loader from '@/Components/Loader'
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 
 const PropertyPendingRentalApplicationsSub = ({ property }) => {
   const [newObjects, setNewObjects] = useState([]);
@@ -14,7 +14,6 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
   const { loading, data, error } = useSubscription(
     RENTAL_APPLICATION_UPDATED_SUBSCRIPTION,
     {
-      suspend: false,
       variables: {
         where: {
           mutation_in: 'UPDATED',
@@ -48,18 +47,21 @@ const PropertyPendingRentalApplicationsSub = ({ property }) => {
 
   if (loading) return null;
   if (error) {
-    return <div>Not SUbScribed To: RENTAL_APPLICATION_UPDATED_SUBSCRIPTION
-      <Error  error={error}/>
-    </div>
+    return (
+      <div>
+        Not SUbScribed To: RENTAL_APPLICATION_UPDATED_SUBSCRIPTION
+        <Error error={error} />
+      </div>
+    );
   }
-  return null
+  return null;
 };
 
 PropertyPendingRentalApplicationsSub.propTypes = {
   property: PropTypes.shape({
     id: PropTypes.any,
-    location: PropTypes.any
-  }).isRequired
+    location: PropTypes.any,
+  }).isRequired,
 };
 
 export default PropertyPendingRentalApplicationsSub;

@@ -97,7 +97,7 @@ const Page = props => {
               <Elements stripe={stripe}>
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
-                  <AdminAlertsContainer />
+                  {/* <AdminAlertsContainer /> */}
                   <GeneralSubsContainer />
                 </WithUser>
               </Elements>

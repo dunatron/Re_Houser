@@ -24,7 +24,6 @@ const LeaseManager = ({ leaseId }) => {
         id: leaseId,
       },
     },
-    suspend: false,
   });
 
   // maybe list to a sub for this on the leaseManager?

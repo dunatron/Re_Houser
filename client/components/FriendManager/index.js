@@ -20,18 +20,12 @@ const FriendManager = props => {
 };
 
 FriendManager.propTypes = {
-  me: PropTypes.any
+  me: PropTypes.any,
 };
 
 const FriendManagerWithSuspense = () => {
-  const { data, error, loading } = useQuery(CURRENT_USER_QUERY, {
-    suspend: true,
-  });
+  const { data, error, loading } = useQuery(CURRENT_USER_QUERY, {});
   if (loading) return 'Loading user data';
-  return (
-    <Suspense fallback={<div>Suspense</div>}>
-      <FriendManager me={data.me} />
-    </Suspense>
-  );
+  return <FriendManager me={data.me} />;
 };
 export default FriendManagerWithSuspense;

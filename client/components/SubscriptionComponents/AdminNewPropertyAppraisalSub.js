@@ -12,7 +12,6 @@ const AdminNewRentalAppraisalSub = () => {
   const { loading, data, error } = useSubscription(
     PROPERTY_APPRAISAL_SUBSCRIPTION,
     {
-      // suspend: false,
       variables: {
         where: {
           mutation_in: 'CREATED',

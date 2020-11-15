@@ -8,7 +8,6 @@ import Loader from '@/Components/Loader';
 
 const GeneralUserUpdatesSub = ({ me }) => {
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
-    suspend: true,
     variables: {
       where: {
         node: {
@@ -37,7 +36,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
       });
     },
   });
-  if (loading) return null;
+  if (loading) return <div>Loading SUB</div>;
   if (error) {
     return (
       <div>
@@ -46,6 +45,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
       </div>
     );
   }
+  return <div>SUBSCRIBED TO: General User updates</div>;
   return null;
 };
 

@@ -56,7 +56,7 @@ const LoginPage = props => {
     });
   };
 
-  const { data, error } = useQuery(CURRENT_USER_QUERY, { suspend: true });
+  const { data, error } = useQuery(CURRENT_USER_QUERY);
   if (error) {
     return <Error error={error} />;
   }

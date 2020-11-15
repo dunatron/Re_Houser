@@ -15,8 +15,8 @@ const GeneralSubsContainer = props => {
           return (
             <>
               <GeneralUserUpdatesSub me={me} />
-              <ChatCreatedSub me={me} />
-              <MessageCreatedSub me={me} />
+              {/* <ChatCreatedSub me={me} />
+              <MessageCreatedSub me={me} /> */}
             </>
           );
         }}

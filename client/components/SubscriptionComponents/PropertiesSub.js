@@ -6,14 +6,13 @@ import { toast } from 'react-toastify';
 import { PROPERTY_SUBSCRIPTION } from '@/Gql/subscriptions/PropertySubscription';
 import ApplicationCard from '@/Components/PropertyDetails/ApplicationCard';
 import { store } from '@/Store/index';
-import Error from '@/Components/ErrorMessage'
-import Loader from '@/Components/Loader'
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
 
 const PropertiesSub = ({ where }) => {
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const { loading, data, error } = useSubscription(PROPERTY_SUBSCRIPTION, {
-    suspend: false,
     variables: {
       where: {
         ...where,
@@ -31,15 +30,18 @@ const PropertiesSub = ({ where }) => {
   });
   if (loading) return null;
   if (error) {
-    return <div>Not SUbScribed To: PROPERTY_SUBSCRIPTION
-      <Error  error={error}/>
-    </div>
+    return (
+      <div>
+        Not SUbScribed To: PROPERTY_SUBSCRIPTION
+        <Error error={error} />
+      </div>
+    );
   }
- return null
+  return null;
 };
 
 PropertiesSub.propTypes = {
-  where: PropTypes.any
+  where: PropTypes.any,
 };
 
 export default PropertiesSub;
