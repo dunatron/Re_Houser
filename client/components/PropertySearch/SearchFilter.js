@@ -12,9 +12,9 @@ import ConnectedRefinements from './refinements/ConnectedRefinements';
 import ExpansionRefinement from './refinements/ExpansionRefinement';
 import PriceFilter from './refinements/PriceFilter';
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Input,
   Box,
 } from '@material-ui/core';
@@ -31,15 +31,15 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-  expansionPanelRoot: {
+  AccordionRoot: {
     alignItems: 'center',
-    backgroundColor: 'rgb(212,220,231)',
-    color: theme.palette.secondary.main,
+    // backgroundColor: 'rgb(212,220,231)',
+    // color: theme.palette.secondary.main,
   },
-  expansionPanelDetails: {
+  AccordionDetails: {
     padding: 0,
   },
-  expansionPanelSummaryContent: {
+  AccordionSummaryContent: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -104,14 +104,14 @@ const SearchFilter = () => {
   return (
     <div>
       <Configure filters={filterLogic} />
-      <ExpansionPanel
+      <Accordion
         square={true}
-        className={classes.expansionPanelRoot}
+        className={classes.AccordionRoot}
         expanded={expanded}>
-        <ExpansionPanelSummary
+        <AccordionSummary
           classes={{
-            root: classes.expansionPanelRoot,
-            content: classes.expansionPanelSummaryContent,
+            root: classes.AccordionRoot,
+            content: classes.AccordionSummaryContent,
           }}
           expandIcon={<ExpandMoreIcon />}
           onClick={() => setExpanded(!expanded)}
@@ -136,8 +136,8 @@ const SearchFilter = () => {
             </Typography>
             <Stats />
           </div>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+        </AccordionSummary>
+        <AccordionDetails className={classes.AccordionDetails}>
           <ConnectedRefinements childrenBefore={true}>
             <ExpansionRefinement title="Property price per week">
               <PriceFilter
@@ -191,8 +191,8 @@ const SearchFilter = () => {
               </div>
             </ExpansionRefinement>
           </ConnectedRefinements>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </div>
   );
 };

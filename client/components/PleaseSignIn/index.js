@@ -9,7 +9,10 @@ import Typography from '@material-ui/core/Typography';
 const Message = ({ message, alert }) => {
   // only fire alerts once per mount
   useEffect(() => {
-    if (alert) toast.info(alert, 9000000);
+    if (alert)
+      toast.info(<div>{alert}</div>, {
+        autoClose: 5000,
+      });
   }, []);
 
   if (message) return <Typography variant="h5">{message}</Typography>;

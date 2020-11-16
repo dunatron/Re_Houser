@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import ExpansionPanelSummaryComponent from '@material-ui/core/ExpansionPanelSummary';
+import AccordionSummaryComponent from '@material-ui/core/AccordionSummary';
 
-const ExpansionPanelSummary = styled(ExpansionPanelSummaryComponent)`
+const AccordionSummary = styled(AccordionSummaryComponent)`
 
   && {
     align-items: center;
@@ -28,4 +28,4 @@ const ExpansionPanelSummary = styled(ExpansionPanelSummaryComponent)`
   }
 `;
 
-export default ExpansionPanelSummary;
+export default AccordionSummary;

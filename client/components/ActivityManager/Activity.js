@@ -4,9 +4,9 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Typography,
   Avatar,
 } from '@material-ui/core';
@@ -147,8 +147,8 @@ const ActivitySkeleton = () => {
         }}></ButtonLoader>
       {arr.map((activity, idx) => {
         return (
-          <ExpansionPanel key={activity.id}>
-            <ExpansionPanelSummary
+          <Accordion key={activity.id}>
+            <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header">
@@ -162,16 +162,16 @@ const ActivitySkeleton = () => {
                   created {moment(activity.createdAt).fromNow(true)} ago
                 </Typography>
               </Skeleton>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
               <Typography>
                 {activity.content}
                 {activity.jsonObj ? (
                   <pre>{JSON.stringify(activity.jsonObj.data, null, 2)}</pre>
                 ) : null}
               </Typography>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+            </AccordionDetails>
+          </Accordion>
         );
       })}
     </div>
@@ -219,14 +219,14 @@ const Activity = ({ args }) => {
 };
 
 Activity.propTypes = {
-  args: PropTypes.any
+  args: PropTypes.any,
 };
 
 const ActivityItem = ({ activity }) => {
   const classes = useStyles();
   return (
-    <ExpansionPanel>
-      <ExpansionPanelSummary
+    <Accordion>
+      <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header">
@@ -240,8 +240,8 @@ const ActivityItem = ({ activity }) => {
             created {moment(activity.createdAt).fromNow(true)} ago
           </span>
         </Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.details}>
+      </AccordionSummary>
+      <AccordionDetails className={classes.details}>
         <div className={classes.detailActions}>
           {activity.propertyLease && (
             <div className={classes.actionItem}>
@@ -295,8 +295,8 @@ const ActivityItem = ({ activity }) => {
             <pre>{JSON.stringify(activity.jsonObj, null, 2)}</pre>
           ) : null}
         </Typography>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
@@ -306,18 +306,18 @@ ActivityItem.propTypes = {
     createdAt: PropTypes.any,
     jsonObj: PropTypes.any,
     property: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
     propertyLease: PropTypes.shape({
-      id: PropTypes.any
+      id: PropTypes.any,
     }),
     type: PropTypes.any,
     user: PropTypes.shape({
       firstName: PropTypes.any,
       id: PropTypes.any,
-      lastName: PropTypes.any
-    })
-  }).isRequired
+      lastName: PropTypes.any,
+    }),
+  }).isRequired,
 };
 
 export default Activity;

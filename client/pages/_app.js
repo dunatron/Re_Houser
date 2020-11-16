@@ -6,6 +6,7 @@ import Head from 'next/head';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import 'react-toastify/dist/ReactToastify.css'; // not using custom link css. check GlobalStyle in Page component
 import { RecoilRoot } from 'recoil';
+// import CustomToastContainer from '@/Containers/CustomToastContainer';
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {

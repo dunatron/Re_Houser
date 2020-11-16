@@ -16,8 +16,10 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    color: theme.palette.secondary.main,
-    backgroundColor: theme.palette.secondary.contrastText,
+    color: theme.palette.secondary.contrastText,
+    // color: 'red',
+    // color: theme.palette.primary.main,
+    // backgroundColor: theme.palette.secondary.contrastText,
     fontSize: '26px',
     // border: '2px solid red',
     padding: theme.spacing(1),

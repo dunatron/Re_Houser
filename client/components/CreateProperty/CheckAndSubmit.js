@@ -6,9 +6,9 @@ import { PROPERTIES_QUERY, OWNER_PROPERTIES_QUERY } from '@/Gql/queries/index';
 import {
   Typography,
   Button,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Chip,
 } from '@material-ui/core';
 import Error from '@/Components/ErrorMessage';
@@ -98,14 +98,14 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
 
   return (
     <>
-      <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>Terms of Engagement</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <TermsOfEngagement me={me} />
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
       <Typography variant="h6" gutterBottom>
         Check your property details
       </Typography>

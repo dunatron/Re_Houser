@@ -384,10 +384,7 @@ const CarouselSlider = ({ slides, height, width }) => {
 
 CarouselSlider.propTypes = {
   height: PropTypes.any,
-  slides: PropTypes.shape({
-    length: PropTypes.number,
-    map: PropTypes.func,
-  }).isRequired,
+  slides: PropTypes.array.isRequired,
   width: PropTypes.any,
 };
 

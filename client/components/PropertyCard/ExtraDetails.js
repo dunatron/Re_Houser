@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionActions from '@material-ui/core/AccordionActions';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from '@material-ui/core/Chip';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     // padding: '8px 24px 24px',
   },
-  expansionPanel: {
+  Accordion: {
     borderRadius: 0,
   },
   headingItem: {
@@ -95,15 +95,15 @@ export default function ExtraDetails({ property }) {
 
   return (
     <div className={classes.root}>
-      <ExpansionPanel
+      <Accordion
         style={{ borderRadius: 0 }}
-        // classes={classes.expansionPanel}
-        className={classes.expansionPanel}
+        // classes={classes.Accordion}
+        className={classes.Accordion}
         expanded={expanded}
         onChange={() => setExpanded(!expanded)}
         defaultExpanded={false}
         TransitionProps={{ unmountOnExit: true }}>
-        <ExpansionPanelSummary
+        <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1c-content"
           id="panel1c-header">
@@ -128,9 +128,9 @@ export default function ExtraDetails({ property }) {
               {property.location}
             </Typography>
           </div>
-        </ExpansionPanelSummary>
+        </AccordionSummary>
         {expanded && <FullDetails algoliaProperty={property} />}
-      </ExpansionPanel>
+      </Accordion>
     </div>
   );
 }
@@ -169,7 +169,7 @@ const FullDetails = ({ algoliaProperty }) => {
   } = data;
   return (
     <>
-      <ExpansionPanelDetails className={classes.details}>
+      <AccordionDetails className={classes.details}>
         <div className={clsx(classes.column, classes.left)}>
           <div className={classes.detailItems}>
             <DetailItem
@@ -202,8 +202,8 @@ const FullDetails = ({ algoliaProperty }) => {
               );
             })}
         </div>
-      </ExpansionPanelDetails>
-      <ExpansionPanelDetails>
+      </AccordionDetails>
+      <AccordionDetails>
         {accommodation &&
           accommodation.map((a, i) => {
             return (
@@ -216,13 +216,13 @@ const FullDetails = ({ algoliaProperty }) => {
               </div>
             );
           })}
-      </ExpansionPanelDetails>
+      </AccordionDetails>
       <Divider />
-      <ExpansionPanelActions>
+      <AccordionActions>
         <Button variant="contained" color="primary">
           Apply
         </Button>
-      </ExpansionPanelActions>
+      </AccordionActions>
     </>
   );
 };

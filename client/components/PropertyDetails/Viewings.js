@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import Viewings from '@/Components/Viewings';
-import Card from '@/Styles/Card';
 
 const PropertyViewings = ({ propertyId, me }) => {
   return (

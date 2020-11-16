@@ -7,6 +7,7 @@ import { Box, IconButton } from '@material-ui/core';
 
 import { AutoSizer, List, ColumnSizer, Grid } from 'react-virtualized';
 import VirtualizedColumns from './VirtualizedColumns';
+import NoSSRVirtualizedColumns from './NoSSRVirtualizedColumns';
 // import 'react-virtualized/styles.css'; // only needs to be imported once
 
 // icons
@@ -121,27 +122,12 @@ function rowRenderer({ key, index, style, hits }) {
 }
 
 const Hits = ({ hits, me }) => {
-  const scrollNode = useRef();
-  const classes = useStyles();
-
-  const handleScrollLeft = () => {
-    alert('YES');
-  };
-
-  const handleScrollRight = () => {};
-
   useEffect(() => {
     return () => {};
   }, []);
 
-  // return hits.map(hit => (
-  //   <Box component="div" className={classes.item}>
-  //     <PropertyResultHit key={hit.objectID} hit={hit} />
-  //   </Box>
-  // ));
-
   return (
-    <VirtualizedColumns
+    <NoSSRVirtualizedColumns
       hits={hits}
       columnCount={hits.length ? hits.length : 0}
     />
@@ -149,9 +135,7 @@ const Hits = ({ hits, me }) => {
 };
 
 Hits.propTypes = {
-  hits: PropTypes.shape({
-    map: PropTypes.func,
-  }).isRequired,
+  hits: PropTypes.array.isRequired,
 };
 
 const CustomHits = connectHits(Hits);

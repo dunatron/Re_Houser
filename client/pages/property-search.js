@@ -8,7 +8,7 @@ const PropertySearchPage = ({ appData: { currentUser } }) => {
   return (
     <>
       <PageHeader
-        hidden={true}
+        hidden={false}
         title="Property search"
         id="property-search"
         intro="Browse our range of available rental properties from your at-home comforts. 

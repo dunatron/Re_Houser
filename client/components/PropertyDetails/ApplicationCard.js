@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { Card, IconButton, Tooltip } from '@material-ui/core';
-import ExpansionPanel from '@/Styles/ExpansionPanel';
-import ExpansionPanelSummary from '@/Styles/ExpansionPanelSummary';
+import Accordion from '@/Styles/Accordion';
+import AccordionSummary from '@/Styles/AccordionSummary';
 
-// import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+// import AccordionSummary from "@material-ui/core/AccordionSummary"
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 // import Typography from "@material-ui/core/Typography"
 import { Box, Typography } from '@material-ui/core/';
 
@@ -106,8 +106,8 @@ const ApplicationCard = ({ application, property, me }) => {
         </div>
       )}
 
-      <ExpansionPanel highlight={false}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <Accordion highlight={false}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <PersonIcon color={'secondary'} />
           <Typography
             // highlightReverse={isOwner}
@@ -115,16 +115,16 @@ const ApplicationCard = ({ application, property, me }) => {
             style={{ padding: '0 16px 0 4px' }}>
             {application.applicants.length} Applicants
           </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails
+        </AccordionSummary>
+        <AccordionDetails
           style={{
             display: 'block',
           }}>
           {application.applicants.map((applicant, i) => (
             <AdminApplicantDetails key={applicant.id} applicant={applicant} />
           ))}
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     </Card>
   );
 };

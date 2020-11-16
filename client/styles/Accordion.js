@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import ExpansionPanelComponent from '@material-ui/core/ExpansionPanel';
+import AccordionComponent from '@material-ui/core/Accordion';
 
-const ExpansionPanel = styled(ExpansionPanelComponent)`
+const Accordion = styled(AccordionComponent)`
 
   && {
     /* margin: ${props => props.theme.spacing.unit * 3}px 0 0 0; */
@@ -13,4 +13,4 @@ const ExpansionPanel = styled(ExpansionPanelComponent)`
   }
 `;
 
-export default ExpansionPanel;
+export default Accordion;

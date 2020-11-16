@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import ExpansionPanel from '@/Styles/ExpansionPanel';
-import ExpansionPanelSummary from '@/Styles/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Accordion from '@/Styles/Accordion';
+import AccordionSummary from '@/Styles/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@/Styles/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 //icons
@@ -204,8 +204,8 @@ const ApplicationItem = props => {
 
   if (!canShow) return null;
   return (
-    <ExpansionPanel highlight={isAnApplicant}>
-      <ExpansionPanelSummary
+    <Accordion highlight={isAnApplicant}>
+      <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         highlight={isAnApplicant}
         highlightReverse={isOwner}
@@ -231,8 +231,8 @@ const ApplicationItem = props => {
           style={{ padding: '0 16px 0 4px' }}>
           {applicationStage}
         </Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <Item>
           <Typography>Application ID: {application.id}</Typography>
           {creatingDoc && <div>Generating your application please wait</div>}
@@ -263,8 +263,8 @@ const ApplicationItem = props => {
               );
             })}
         </Item>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

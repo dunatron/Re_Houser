@@ -3,15 +3,6 @@ import React, { Component } from 'react';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {
-  IconButton,
-  Button,
-  Switch,
-  Typography,
-  Paper,
-} from '@material-ui/core';
-
-import Card from '@/Styles/Card';
 
 const useStyles = makeStyles(theme => ({
   mapWrapper: {

@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 import Loading from '@/Components/Loader';
 import Error from '@/Components/ErrorMessage';
-import Card from '@/Styles/Card';
 
 import RenderViewingByRecurringType from './RenderViewingByRecurringType';
 

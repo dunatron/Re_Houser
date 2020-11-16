@@ -170,7 +170,7 @@ const ColumnSizerExample = props => {
                   <div
                     style={{
                       height: colHeight + 16,
-                      width: adjustedWidth,
+                      // width: adjustedWidth,
                     }}>
                     <Grid
                       ref={registerChild}
@@ -181,7 +181,7 @@ const ColumnSizerExample = props => {
                       cellRenderer={_cellRenderer}
                       rowHeight={colHeight}
                       rowCount={1}
-                      width={adjustedWidth}
+                      width={adjustedWidth ? adjustedWidth : 220}
                       scrollToColumn={scrollToColumn}
                       scrollToRow={scrollToRow}
                     />

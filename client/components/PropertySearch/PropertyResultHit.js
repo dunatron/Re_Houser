@@ -145,22 +145,22 @@ const DetailItemsArr = [
   {
     title: 'rooms',
     name: 'rooms',
-    icon: <ApartmentIcon fontSize="large" color="default" />,
+    icon: <ApartmentIcon fontSize="large" color="inherit" />,
   },
   {
     title: 'bathrooms',
     name: 'bathrooms',
-    icon: <BathtubIcon fontSize="large" color="default" />,
+    icon: <BathtubIcon fontSize="large" color="inherit" />,
   },
   {
     title: 'carportSpaces',
     name: 'carportSpaces',
-    icon: <EmojiTransportationIcon fontSize="large" color="default" />,
+    icon: <EmojiTransportationIcon fontSize="large" color="inherit" />,
   },
   {
     title: 'garageSpaces',
     name: 'garageSpaces',
-    icon: <DriveEtaIcon fontSize="large" color="default" />,
+    icon: <DriveEtaIcon fontSize="large" color="inherit" />,
   },
 ];
 
@@ -168,7 +168,11 @@ const PropertyResultHit = ({ hit, me }) => {
   const classes = useStyles();
   const [modalIdx, setModalIdx] = useState();
   return (
-    <Card className={classes.root} disablePadding>
+    <Card
+      className={classes.root}
+      attrs={{
+        disablePadding: true,
+      }}>
       {/* Images Container */}
       <div className={classes.imageContainer}>
         {hit.imageUrls.length > 0 && (
@@ -279,10 +283,7 @@ PropertyResultHit.propTypes = {
       lng: PropTypes.any,
     }),
     id: PropTypes.any,
-    imageUrls: PropTypes.shape({
-      length: PropTypes.number,
-      map: PropTypes.func,
-    }),
+    imageUrls: PropTypes.array,
     location: PropTypes.any,
     rent: PropTypes.any,
     rooms: PropTypes.any,

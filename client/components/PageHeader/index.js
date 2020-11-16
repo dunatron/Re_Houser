@@ -21,63 +21,38 @@ const PageHeader = ({
   metaData,
   hidden,
 }) => {
-  if (!title) return null; // hidden dont work
-  // if (hidden) return null; // hidden dont work
   return (
-    <Card id={id} elevation={hidden ? 0 : 2}>
+    <>
       {metaData && (
         <Head>
           <meta name="description" content={metaData.content} />
           <title>{metaData.title}</title>
         </Head>
       )}
-      {titleOverride && !hidden && titleOverride}
-      {title && (
-        <Typography
-          display="block" // initial, block, inline
-          hidden={hidden}
-          variant={titleVariant ? titleVariant : 'h1'}
-          // color="primary"
-          component="h1"
-          gutterBottom={intro ? false : true}>
-          {title}
-        </Typography>
-      )}
+      {!hidden && (
+        <Card id={id} elevation={hidden ? 0 : 2}>
+          {titleOverride && !hidden && titleOverride}
+          {title && (
+            <Typography
+              display="block" // initial, block, inline
+              hidden={hidden}
+              variant={titleVariant ? titleVariant : 'h1'}
+              // color="primary"
+              component="h1"
+              gutterBottom={intro ? false : true}>
+              {title}
+            </Typography>
+          )}
 
-      {intro && (
-        <Typography gutterBottom={false} hidden={hidden}>
-          {intro}
-        </Typography>
+          {intro && (
+            <Typography gutterBottom={false} hidden={hidden}>
+              {intro}
+            </Typography>
+          )}
+          {!hidden && children}
+        </Card>
       )}
-      {!hidden && children}
-    </Card>
-    // <Card id={id}>
-    //   {metaData && (
-    //     <Head>
-    //       <meta name="description" content={metaData.content} />
-    //       <title>{metaData.title}</title>
-    //     </Head>
-    //   )}
-    //   {titleOverride && !hidden && titleOverride}
-    //   {title && (
-    //     <Typography
-    //       display="block" // initial, block, inline
-    //       hidden={hidden}
-    //       variant={titleVariant ? titleVariant : 'h1'}
-    //       // color="primary"
-    //       component="h1"
-    //       gutterBottom={intro ? false : true}>
-    //       {title}
-    //     </Typography>
-    //   )}
-
-    //   {intro && (
-    //     <Typography gutterBottom={false} hidden={hidden}>
-    //       {intro}
-    //     </Typography>
-    //   )}
-    //   {!hidden && children}
-    // </Card>
+    </>
   );
 };
 
