@@ -1,5 +1,3 @@
-import AdminAlertNewRentalApplicationSub from '../components/SubscriptionComponents/AdminAlertNewRentalApplicationSub';
-import AdminNewPropertyAppraisalSub from '../components/SubscriptionComponents/AdminNewPropertyAppraisalSub';
 import GeneralUserUpdatesSub from '../components/SubscriptionComponents/GeneralUserUpdatesSub';
 import ChatCreatedSub from '../components/SubscriptionComponents/ChatCreatedSub';
 import MessageCreatedSub from '../components/SubscriptionComponents/MessageCreatedSub';
@@ -12,6 +10,7 @@ const GeneralSubsContainer = props => {
         {({ data }) => {
           const me = data ? data.me : null;
           if (!me) return null;
+          console.log('Me in general Subs. SHould pass => ', me);
           return (
             <>
               <GeneralUserUpdatesSub me={me} />
