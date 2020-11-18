@@ -34,6 +34,7 @@ const SendConfirmEmailButton = () => {
   const classes = useStyles();
   const router = useRouter();
 
+  const [sent, setSent] = useState(false);
   const [token, setToken] = useState(router.query.token);
   const [success, setSuccess] = useState(false);
 
@@ -48,7 +49,10 @@ const SendConfirmEmailButton = () => {
 
   // if token is set in the url then confirm email once logged in
   useEffect(() => {
-    if (router.query.token) confirmEmailWithToken();
+    if (router.query.token && !sent) {
+      confirmEmailWithToken();
+      setSent(true);
+    }
   }, [router.query.token]);
 
   const buttonClassname = clsx({
