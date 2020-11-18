@@ -195,16 +195,14 @@ AccountMenu.propTypes = {
   }),
 };
 
-const ToggleThemeMenuItem = ({ isDarkMode, onClick }) => {
-  return (
-    <MenuItem key="toggle-theme-menu-item" onClick={onClick}>
-      <ListItemIcon>
-        {isDarkMode ? <Brightness4Icon /> : <Brightness7Icon />}
-      </ListItemIcon>
-      Toggle Theme
-    </MenuItem>
-  );
-};
+const ToggleThemeMenuItem = React.forwardRef(({ isDarkMode, onClick }, ref) => (
+  <MenuItem onClick={onClick} ref={ref}>
+    <ListItemIcon>
+      {isDarkMode ? <Brightness4Icon /> : <Brightness7Icon />}
+    </ListItemIcon>
+    Toggle Theme
+  </MenuItem>
+));
 
 const SignOutMenuItem = props => {
   const { me } = props;

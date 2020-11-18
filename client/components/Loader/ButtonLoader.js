@@ -74,6 +74,12 @@ const ButtonLoader = props => {
     button: true,
   });
 
+  const handleOnClick = () => {
+    if (onClick) {
+      return onClick();
+    }
+  };
+
   return (
     <StyledButton
       type={type}
@@ -82,8 +88,8 @@ const ButtonLoader = props => {
       color="primary"
       className={buttonClassname}
       disabled={loading}
-      {...btnProps}
-      onClick={onClick}>
+      onClick={handleOnClick}
+      {...btnProps}>
       {children}
       <RenderBtnText success={success} text={text} successText={successText} />
       {loading && (
@@ -98,7 +104,7 @@ ButtonLoader.propTypes = {
   children: PropTypes.any,
   cy: PropTypes.any,
   loading: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   success: PropTypes.bool.isRequired,
   successText: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,

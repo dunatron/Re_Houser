@@ -4,11 +4,25 @@ const createChat = require("./createChat");
 
 async function createRentalApplication(parent, { data, files }, ctx, info) {
   const loggedInUserId = ctx.request.userId;
+  // const loggedInUserId = "ckhlefwazex040a26wtnftnvi";
+
+  // const zzzzz = await ctx.db.mutation.createRentalApplication(
+  //   {
+  //     data: {
+  //       ...data
+
+  //       // chatId: applicationChat.id
+  //     }
+  //   },
+  //   info
+  // );
+
+  // return zzzzz;
 
   if (!loggedInUserId) {
     throw new Error("You must be logged in to create a property!");
   }
-  // await mustBeAuthed({ ctx: ctx });
+  await mustBeAuthed({ ctx: ctx });
   const currentApplications = await ctx.db.query.rentalApplications(
     {
       where: {
@@ -49,7 +63,7 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
         participants: {
           connect: [
             {
-              id: ctx.request.userId
+              id: loggedInUserId
             }
           ]
         }
@@ -68,49 +82,75 @@ async function createRentalApplication(parent, { data, files }, ctx, info) {
             id: loggedInUserId
           }
         },
-        chatId: applicationChat.id
+        chatId: applicationChat.id,
+        applicants: {
+          create: {
+            approved: true,
+            completed: false,
+            user: {
+              connect: {
+                id: loggedInUserId
+              }
+            }
+          }
+        }
       }
     },
     info
   );
 
   // not sure why i thought this would have needed the profilePhot. It was blowing up sometimes too
-  const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant(
-    {
-      data: {
-        user: {
-          connect: {
-            id: ctx.request.userId
-          }
-        },
-        approved: true,
-        application: {
-          connect: {
-            id: rentalApplication.id
-          }
-        }
-      }
-    },
-    `{ id, firstName, lastName, email, approved, completed,
-      user{
-        id, firstName, lastName, phone, email, rehouserStamp
-        photoIdentification {
-          id
-          url
-          createdAt
-        }
-      }
-    }`
-  );
+  // const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant(
+  //   {
+  //     data: {
+  //       user: {
+  //         connect: {
+  //           id: ctx.request.userId
+  //         }
+  //       },
+  //       approved: true,
+  //       application: {
+  //         connect: {
+  //           id: rentalApplication.id
+  //         }
+  //       }
+  //     }
+  //   },
+  //   `{ id, firstName, lastName, email, approved, completed,
+  //     user{
+  //       id, firstName, lastName, phone, email, rehouserStamp
+  //       photoIdentification {
+  //         id
+  //         url
+  //         createdAt
+  //       }
+  //     }
+  //   }`
+  // );
+  // const rentalGroupNode = await ctx.db.mutation.createRentalGroupApplicant({
+  //   data: {
+  //     user: {
+  //       connect: {
+  //         id: ctx.request.userId
+  //       }
+  //     },
+  //     approved: true,
+  //     application: {
+  //       connect: {
+  //         id: rentalApplication.id
+  //       }
+  //     }
+  //   }
+  // });
 
-  rentalApplication.applicants.push({ ...rentalGroupNode });
+  // rentalApplication.applicants.push({ ...rentalGroupNode });
 
   // send email
-  newRentalApplicationEmail({
-    toEmail: rentalApplication.owner.email,
-    rentalApplication: rentalApplication,
-    user: rentalGroupNode.user
-  });
+  // newRentalApplicationEmail({
+  //   toEmail: rentalApplication.owner.email,
+  //   rentalApplication: rentalApplication,
+  //   user: rentalGroupNode.user
+  // });
   return rentalApplication;
 }
 

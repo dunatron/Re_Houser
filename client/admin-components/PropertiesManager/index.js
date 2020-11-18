@@ -2,13 +2,7 @@ import React, { useRef, useState, useContext, useEffect } from 'react';
 import Router from 'next/router';
 import { store } from '../../store';
 import gql from 'graphql-tag';
-import {
-  useApolloClient,
-  useQuery,
-  useSubscription,
-  useMutation,
-  NetworkStatus,
-} from '@apollo/client';
+import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import {

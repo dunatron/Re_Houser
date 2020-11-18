@@ -7,6 +7,7 @@ import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 
 const GeneralUserUpdatesSub = ({ me }) => {
+  console.log('me in general user updates => ', me);
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
     variables: {
       where: {
@@ -17,9 +18,9 @@ const GeneralUserUpdatesSub = ({ me }) => {
     },
 
     onSubscriptionData: ({ client, subscriptionData }) => {
+      console.log('User subscriptionData => ', subscriptionData);
       const subDta = subscriptionData.data.userSub.node;
       // Subs shouldnt handle our private files in the cache
-      console.log('Sub Data: user => ', subDta);
       if (subDta.photoIdentification) delete subDta.photoIdentification;
       if (subDta.proofOfAddress) delete subDta.proofOfAddress;
       if (subDta.signature) delete subDta.signature;

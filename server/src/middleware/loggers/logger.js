@@ -1,16 +1,13 @@
 const winston = require("winston");
 const logdnaWinston = require("logdna-winston");
-const { combine, timestamp, simple, label, prettyPrint } = winston.format;
+const { combine, timestamp, simple, json, label, prettyPrint } = winston.format;
 
-const defaultFormat = () =>
-  combine(
-    simple(),
-    timestamp()
-    // prettyPrint()
-  );
+const defaultFormat = () => combine(simple(), timestamp(), json());
+
+const prettyFormat = () => combine(simple(), timestamp(), prettyPrint());
 
 const consoleTransport = new winston.transports.Console({
-  // format: defaultFormat()
+  format: process.env.STAGE === "dev" ? prettyFormat() : defaultFormat()
 });
 
 const logToFiles = process.env.STAGE !== "prod" ? true : false;
@@ -25,25 +22,26 @@ const logger = winston.createLogger({
   silent: false,
   transports: [consoleTransport],
   exceptionHandlers: [consoleTransport],
-  rejectionHandlers: [consoleTransport],
+  rejectionHandlers: [consoleTransport]
 });
 
 if (logToFiles) {
   logger.add(
     new winston.transports.File({
       filename: "logs/combined.log",
-      format: defaultFormat(),
+      format: defaultFormat()
     }),
     new winston.transports.File({
       filename: "logs/error.log",
       level: "error",
-      format: defaultFormat(),
-    })
+      format: defaultFormat()
+    }),
     // the below need to be added into exception and rejection handling
-    // new winston.transports.File({
-    //   filename: "logs/exceptions.log",
-    //   format: defaultFormat()
-    // }),
+    new winston.transports.File({
+      filename: "logs/exceptions.log",
+      format: defaultFormat(),
+      handleExceptions: true
+    })
     // new winston.transports.File({
     //   filename: "logs/rejections.log",
     //   format: defaultFormat()
@@ -61,7 +59,7 @@ const options = {
   // env: envName,
   // level: level,
   indexMeta: true, // Defaults to false, when true ensures meta object will be searchable
-  handleExceptions: true,
+  handleExceptions: true
 };
 
 process.env.STAGE === "prod" && logger.add(new logdnaWinston(options));

@@ -1,13 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { store } from '../../store';
 import gql from 'graphql-tag';
-import {
-  useApolloClient,
-  useQuery,
-  useSubscription,
-  useMutation,
-  NetworkStatus,
-} from '@apollo/client';
+import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import {
@@ -158,10 +152,12 @@ const AdminRentalApplicationsTable = ({
         variables: {
           where: {
             OR: [
-{id_contains: searchText,},
-{        property: {
-  location_contains: searchText
-},}
+              { id_contains: searchText },
+              {
+                property: {
+                  location_contains: searchText,
+                },
+              },
             ],
             ...where,
             ...sharedWhere,

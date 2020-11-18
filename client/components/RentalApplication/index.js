@@ -12,6 +12,7 @@ import RehouserPaper from '@/Styles/RehouserPaper';
 import isAdmin from '@/Lib/isAdmin';
 import DisplayJson from '@/Components/DisplayJson';
 import PropertyRentalApplications from '@/Components/PropertyDetails/Applications';
+import RentalApplicationSub from '@/Components/SubscriptionComponents/RentalApplicationSub';
 
 /**
  * page is wrapped in a must be loggedIn
@@ -24,6 +25,9 @@ const RentalApplication = ({ id, me }) => {
       },
     },
   });
+
+  // Maybe we could sub into changes for a rentalApplication?
+
   if (loading) return 'Loading';
   if (error) return <Error error={error} />;
   const {
@@ -47,6 +51,10 @@ const RentalApplication = ({ id, me }) => {
 
   console.log('isAnApplicant => ', isAnApplicant);
 
+  const handleSubData = ({ client, subscriptionData }) => {
+    console.log('Recieved Sub Data for APplication => ', subscriptionData);
+  };
+
   return (
     <>
       <PageHeader
@@ -62,6 +70,7 @@ const RentalApplication = ({ id, me }) => {
           </Typography>,
         ]}
       />
+      {/* <RentalApplicationSub variables={{}} onSubscriptionData={handleSubData} /> */}
       {isAnAdmin && (
         <RehouserPaper>
           <Typography gutterBottom>
@@ -78,7 +87,9 @@ const RentalApplication = ({ id, me }) => {
         {isAnAdmin && (
           <Box>
             <Typography gutterBottom>
-              Admin: Please be careful when accepting rental applications. They will then create a lease that needs to be signed by the landlord and the tenants
+              Admin: Please be careful when accepting rental applications. They
+              will then create a lease that needs to be signed by the landlord
+              and the tenants
             </Typography>
             <PropertyRentalApplications
               property={data.rentalApplication.property}

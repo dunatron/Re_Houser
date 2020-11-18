@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { toast } from 'react-toastify';
 import OpenSuperLoginButton from '@/Components/SuperLogin/OpenSuperLoginButton';
 import Router from 'next/router';
+import ButtonLoader from '@/Components/Loader/ButtonLoader';
 
 const handleLink = ({ route, query }) => {
   Router.push({
@@ -29,7 +30,22 @@ const Apply = props => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [applicationData, setApplicationData] = useState({});
 
-  const [createApplication, createApplicationProps] = useMutation(
+  const handleComplete = data => {
+    toast.success(
+      <Typography variant="body1">
+        New Rental Application has been created. Please complete it and send it
+        to the landlord, placing it into the PENDING stage
+      </Typography>
+    );
+    handleLink({
+      route: '/tenant/applications/application',
+      query: {
+        id: data.createRentalApplication.id,
+      },
+    });
+  };
+
+  const [createApplication, { error, loading }] = useMutation(
     CREATE_RENTAL_APPLICATION,
     {
       variables: {
@@ -52,72 +68,11 @@ const Apply = props => {
           },
         },
       },
-      update: async (cache, payload) => {
-        try {
-          const variables = {
-            where: {
-              OR: [
-                {
-                  visibility: 'PUBLIC',
-                },
-                {
-                  owner: {
-                    id: me.id,
-                  },
-                },
-              ],
-              AND: {
-                property: {
-                  id: props.property.id,
-                },
-              },
-            },
-          };
-          const data = await cache.readQuery({
-            query: RENTAL_APPLICATIONS_QUERY,
-            variables: variables,
-          });
-          const applicationId = payload.data.createRentalApplication.id;
-          const haveApplication = data.rentalApplications.find(
-            application => application.id === applicationId
-          );
-          // return early as to not add to cache subs are listening
-          if (haveApplication) {
-            return;
-          }
-          data.rentalApplications.push({
-            ...payload.data.createRentalApplication,
-          });
-          cache.writeQuery({
-            query: RENTAL_APPLICATIONS_QUERY,
-            data,
-            variables: variables,
-          });
-        } catch (e) {
-          toast.error(
-            <Typography variant="body1" color="error">
-              An error occurred
-            </Typography>
-          );
-        } finally {
-          toast.success(
-            <Typography variant="body1">
-              New Rental Application has been created. Please complete it and
-              send it to the landlord, placing it into the PENDING stage
-            </Typography>
-          );
-          handleLink({
-            route: '/tenant/applications/application',
-            query: {
-              id: payload.data.createRentalApplication.id,
-            },
-          });
-        }
-      },
+      onCompleted: handleComplete,
     }
   );
 
-  if (!me)
+  if (!me) {
     return (
       <div style={{ maxWidth: '100vw' }}>
         <Typography variant="body1" gutterBottom>
@@ -126,11 +81,12 @@ const Apply = props => {
         <OpenSuperLoginButton />
       </div>
     );
+  }
 
   return (
     <div>
       <div style={{ padding: '16px' }}>
-        <Error error={createApplicationProps.error} />
+        <Error error={error} />
         <Modal
           open={modalIsOpen}
           title={`Application for ${location}`}
@@ -141,17 +97,12 @@ const Apply = props => {
             application={applicationData}
           />
         </Modal>
-        <Button
-          disabled={createApplicationProps.loading}
-          color="primary"
-          variant="outlined"
-          size="small"
-          style={{ padding: '16px', margin: '0 0 16px 0' }}
-          onClick={() => createApplication()}>
-          {createApplicationProps.loading
-            ? 'Processing Rental Application...'
-            : 'Apply for property'}
-        </Button>
+        <ButtonLoader
+          text="Apply for property"
+          successText="Finished creating application"
+          loading={loading}
+          onClick={() => createApplication()}
+        />
       </div>
       {/* <RentalApplications
         propertyId={props.property.id}
