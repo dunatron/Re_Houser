@@ -25,14 +25,20 @@ const GeneralUserUpdatesSub = ({ me }) => {
       if (subDta.proofOfAddress) delete subDta.proofOfAddress;
       if (subDta.signature) delete subDta.signature;
 
+      const oldMe = me;
+      const newMe = {
+        ...me,
+        ...subDta,
+      };
+
+      console.log('OLD ME => ', oldMe);
+      console.log('NEW ME => ', newMe);
+
       // We will get subs back about Files that we may be able to see but the pushNotifications dont know that and send stock image
       client.writeQuery({
         query: CURRENT_USER_QUERY,
         data: {
-          me: {
-            ...me,
-            ...subDta,
-          },
+          me: newMe,
         },
       });
     },
