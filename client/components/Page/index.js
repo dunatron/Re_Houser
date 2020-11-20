@@ -15,7 +15,6 @@ import Meta from '../Meta/index';
 // Admin Area Addisions
 import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
 import GeneralSubsContainer from '@/Containers/GeneralSubsContainer';
-import NoSSRGeneralUserSubs from '@/Containers/NoSSRGeneralUserSubs';
 
 import GlobalStyle from './GlobalStyle';
 
@@ -99,7 +98,7 @@ const Page = props => {
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
                   {/* <AdminAlertsContainer /> */}
-                  <NoSSRGeneralUserSubs />
+                  <GeneralSubsContainer />
                 </WithUser>
               </Elements>
             </StateProvider>
