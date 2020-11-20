@@ -47,7 +47,7 @@ const WithUser = props => {
 };
 
 WithUser.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 export default WithUser;

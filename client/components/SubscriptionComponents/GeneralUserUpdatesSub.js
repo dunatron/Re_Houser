@@ -31,10 +31,20 @@ const GeneralUserUpdatesSub = ({ me }) => {
         ...subDta,
       };
 
-      console.log('OLD ME => ', oldMe);
-      console.log('NEW ME => ', newMe);
+      // cache.modify({
+      //   id: cache.identify(myObject),
+      //   fields: {
+      //     name(cachedName) {
+      //       return cachedName.toUpperCase();
+      //     },
+      //   },
+      //   /* broadcast: false // Include this to prevent automatic query refresh */
+      // });
 
-      // We will get subs back about Files that we may be able to see but the pushNotifications dont know that and send stock image
+      // console.log('OLD ME => ', oldMe);
+      // console.log('NEW ME => ', newMe);
+
+      // // We will get subs back about Files that we may be able to see but the pushNotifications dont know that and send stock image
       client.writeQuery({
         query: CURRENT_USER_QUERY,
         data: {
@@ -55,5 +65,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
   return <div>SUBSCRIBED TO: General User Updates</div>;
   return null;
 };
+
+const MemoizedGeneralUserUpdatesSub = React.memo(GeneralUserUpdatesSub);
 
 export default GeneralUserUpdatesSub;

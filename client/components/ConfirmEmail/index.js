@@ -32,7 +32,7 @@ ConfirmEmail.propTypes = {
   children: PropTypes.any,
   me: PropTypes.shape({
     emailValidated: PropTypes.any,
-  }).isRequired,
+  }),
 };
 
 export default ConfirmEmail;

@@ -4,22 +4,17 @@ import MessageCreatedSub from '../components/SubscriptionComponents/MessageCreat
 import User from '../components/User/index';
 
 const GeneralSubsContainer = props => {
+  const {
+    appData: { currentUser },
+  } = props;
+  const me = currentUser.data ? currentUser.data.me : null;
+  if (!me) return null;
+  if (!me.id) return null;
   return (
     <>
-      <User>
-        {({ data }) => {
-          const me = data ? data.me : null;
-          if (!me) return null;
-          console.log('Me in general Subs. SHould pass => ', me);
-          return (
-            <>
-              <GeneralUserUpdatesSub me={me} />
-              <ChatCreatedSub me={me} />
-              <MessageCreatedSub me={me} />
-            </>
-          );
-        }}
-      </User>
+      <GeneralUserUpdatesSub me={me} />
+      <ChatCreatedSub me={me} />
+      <MessageCreatedSub me={me} />
     </>
   );
 };
