@@ -13,6 +13,7 @@ import isAdmin from '@/Lib/isAdmin';
 import DisplayJson from '@/Components/DisplayJson';
 import PropertyRentalApplications from '@/Components/PropertyDetails/Applications';
 import RentalApplicationSub from '@/Components/SubscriptionComponents/RentalApplicationSub';
+import { toast } from 'react-toastify';
 
 /**
  * page is wrapped in a must be loggedIn
@@ -53,6 +54,7 @@ const RentalApplication = ({ id, me }) => {
 
   const handleSubData = ({ client, subscriptionData }) => {
     console.log('Recieved Sub Data for APplication => ', subscriptionData);
+    toast(<div>Rental APplication has been updated</div>);
   };
 
   return (
@@ -70,7 +72,7 @@ const RentalApplication = ({ id, me }) => {
           </Typography>,
         ]}
       />
-      {/* <RentalApplicationSub variables={{}} onSubscriptionData={handleSubData} /> */}
+      <RentalApplicationSub variables={{}} onSubscriptionData={handleSubData} />
       {isAnAdmin && (
         <RehouserPaper>
           <Typography gutterBottom>

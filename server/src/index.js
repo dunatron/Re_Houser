@@ -49,21 +49,21 @@ const expressLogger = function(req, res, next) {
   } else {
     ipAddr = req.connection.remoteAddress;
   }
-  logger.log("info", `request to express server ${req.body.operationName}`, {
-    ip: ip,
-    ipAddr: ipAddr,
-    url: req.url,
-    user: {
-      id: req.userId,
-      permissions: req.userPermissions,
-    },
-    method: req.method,
-    operationName: req.body.operationName,
-    variables: req.body.variables,
-    origin: req.headers.origin,
-    userAgent: req.headers["user-agent"],
-    query: req.body.query,
-  });
+  // logger.log("info", `request to express server ${req.body.operationName}`, {
+  //   ip: ip,
+  //   ipAddr: ipAddr,
+  //   url: req.url,
+  //   user: {
+  //     id: req.userId,
+  //     permissions: req.userPermissions,
+  //   },
+  //   method: req.method,
+  //   operationName: req.body.operationName,
+  //   variables: req.body.variables,
+  //   origin: req.headers.origin,
+  //   userAgent: req.headers["user-agent"],
+  //   query: req.body.query,
+  // });
 
   next();
 };
@@ -87,7 +87,7 @@ const allowedClientOrigins = [
   "https://rehouser.co.nz",
   "https://yoga.rehouser.co.nz",
   "http://app.uat.rehouser.co.nz",
-  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL
 ];
 
 // Start gql yoga/express server
@@ -95,18 +95,55 @@ const app = server.start(
   {
     cors: {
       credentials: true,
-      origin: allowedClientOrigins,
+      origin: allowedClientOrigins
     },
+    // logFunction: params => {
+    //   console.log("logFunction params => ", params);
+    // },
+    debug: true,
     port: process.env.PORT || 4444,
     // playground: ??
     subscriptions: {
-      keepAlive: true, // blindly added this. keep subs alive...
-    },
+      path: "/",
+      // keepAlive: false // blindly added this. keep subs alive...
+      keepAlive: 10000 // use 10000 like prisma or false
+      // keepAlive: false
+      // onConnect: (connectionParams, webSocket, context) => {
+      //   // console.log("HELLO I CONNECTED");
+      //   // console.log("connectionParams => ", connectionParams);
+      //   // // console.log("webSocket => ", webSocket);
+      //   // console.log("context => ", context);
+      //   // ...
+      //   console.log("On connect called");
+      // },
+      // onOperation: (message, params, webSocket) => {
+      //   console.log("On operation called");
+      //   // Manipulate and return the params, e.g.
+      //   // params.context.randomId = uuid.v4();
+      //   // console.log("Operation params => ", params);
+      //   // // Or specify a schema override
+      //   // // if (shouldOverrideSchema()) {
+      //   // //   params.schema = newSchema;
+      //   // // }
+      //   // return params;
+      // },
+      // onOperationComplete: webSocket => {
+      //   // ...
+      //   console.log("On operation complete called");
+      // },
+      // onDisconnect: (webSocket, context) => {
+      //   // ...
+      //   console.log("On disconnect called");
+      // },
+
+      // onConnect
+      // onDisconnect
+    }
   },
-  (details) => {
+  details => {
     logger.info("gql yoga/express server is up", {
       ...details,
-      port: details.port,
+      port: details.port
     });
   }
 );

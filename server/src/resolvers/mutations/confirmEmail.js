@@ -3,6 +3,7 @@ const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../../lib/mail");
 const congratulateEmailConfirmEmail = require("../../lib/emails/congratulateEmailConfirmEmail");
 const createChat = require("./createChat");
+const { CEO_DETAILS, CTO_DETAILS } = require("../../const");
 // const logUser = require("../../lib/logUser");
 
 /**
@@ -28,8 +29,8 @@ async function confirmEmail(parent, args, ctx, info) {
   const loggedInUser = await ctx.db.query.user(
     {
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     },
     info
   );
@@ -45,8 +46,8 @@ async function confirmEmail(parent, args, ctx, info) {
       where: {
         email: loggedInUser.email,
         confirmEmailToken: args.token,
-        confirmEmailTokenExpiry_gte: Date.now() - 3600000,
-      },
+        confirmEmailTokenExpiry_gte: Date.now() - 3600000
+      }
     },
     info
   );
@@ -71,8 +72,8 @@ async function confirmEmail(parent, args, ctx, info) {
       data: {
         emailValidated: true,
         confirmEmailToken: null,
-        confirmEmailTokenExpiry: null,
-      },
+        confirmEmailTokenExpiry: null
+      }
     },
     info
   );
@@ -80,26 +81,26 @@ async function confirmEmail(parent, args, ctx, info) {
 
   congratulateEmailConfirmEmail({
     email: user.email,
-    user: user,
+    user: user
   });
 
   //create a chat betwen user and admin
   if (user.email !== "admin@rehouser.co.nz") {
-    createChat(
+    const theChat = await createChat(
       parent,
       {
         data: {
-          type: "GROUP",
-          name: "Chat-to-Admin",
+          type: "PEER",
+          name: "Rehouser Admin",
           participants: {
             connect: [
               {
-                id: user.id,
+                id: user.id
               },
               {
-                email: "admin@rehouser.co.nz",
-              },
-            ],
+                id: CEO_DETAILS.id
+              }
+            ]
           },
           messages: {
             create: {
@@ -107,16 +108,17 @@ async function confirmEmail(parent, args, ctx, info) {
               content: "Welcome to rehouser",
               sender: {
                 connect: {
-                  email: "admin@rehouser.co.nz",
-                },
-              },
-            },
-          },
-        },
+                  id: CEO_DETAILS.id
+                }
+              }
+            }
+          }
+        }
       },
       ctx,
       info
     );
+    console.log("CHAT CREATED FORM CONFIRM EMAIL => ", theChat);
   }
 
   // logUser("User confirmed email", updatedUserRes);

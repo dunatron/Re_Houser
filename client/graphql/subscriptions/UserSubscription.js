@@ -362,17 +362,10 @@ const USER_SUBSCRIPTION = gql`
     userSub(where: $where) {
       node {
         id
-        createdAt
-        updatedAt
         email
         emailValidated
         firstName
         lastName
-        dob
-        phone
-        permissions
-        acceptedSignupTerms
-        identificationNumber
       }
     }
   }

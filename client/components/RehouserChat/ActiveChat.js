@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     display: 'flex',
     bottom: 0,
-
     pointerEvents: 'none', // allows click through to elements behind
     background: 'transparent',
   },
@@ -34,16 +33,13 @@ const useStyles = makeStyles(theme => ({
     marginRight: '8px',
   },
   barItemIn: {
-    // height: '5000px',
-    // height: '460px',
-    // height: '460px', // dont use this
     maxHeight: 'calc(100vh - 64px)',
     borderBottomLeftRadius: '0',
     borderBottomRightRadius: '0',
   },
   barItemHeader: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
     padding: theme.spacing(1),
   },
@@ -51,6 +47,9 @@ const useStyles = makeStyles(theme => ({
     padding: '4px',
     display: 'flex',
     alignItems: 'center',
+  },
+  actions: {
+    display: 'flex',
   },
   chatName: {
     marginLeft: '6px',
@@ -78,7 +77,7 @@ const ActiveChat = ({ id, chat, me }) => {
           {getChatImage(chat, me)}
           <div className={classes.chatName}>{getChatName(chat, me)}</div>
         </div>
-        <div>
+        <div className={classes.actions}>
           <IconButton
             size="small"
             onClick={e => {

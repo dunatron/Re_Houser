@@ -69,7 +69,7 @@ const userList = [
   {
     ...userFrag,
     ...wizardFrag,
-    id: "our-admins-id",
+    id: CEO_DETAILS.id,
     email: "admin@rehouser.co.nz",
     firstName: "Heath R",
     lastName: "McDounough",
@@ -79,7 +79,7 @@ const userList = [
   {
     ...userFrag,
     ...wizardFrag,
-    id: "our-cto-id",
+    id: CTO_DETAILS.id,
     email: "heathd@rehouser.co.nz",
     firstName: "Heath R",
     lastName: "Dunlop",
@@ -163,7 +163,7 @@ const userList = [
 const prodSeedList = [
   {
     ...wizardFrag,
-    id: "our-admins-id",
+    id: CEO_DETAILS.id,
     email: CEO_DETAILS.email,
     firstName: CEO_DETAILS.firstname,
     lastName: CEO_DETAILS.lastname,
@@ -172,7 +172,7 @@ const prodSeedList = [
   },
   {
     ...wizardFrag,
-    id: "our-cto-id",
+    id: CTO_DETAILS.id,
     email: CTO_DETAILS.email,
     firstName: CTO_DETAILS.firstname,
     lastName: CTO_DETAILS.lastname,

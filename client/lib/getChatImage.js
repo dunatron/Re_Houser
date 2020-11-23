@@ -1,4 +1,5 @@
 import Avatar from '@material-ui/core/Avatar';
+import PeopleIcon from '@material-ui/icons/People';
 
 const getChatImage = (chat, me) => {
   if (!chat) return null;
@@ -17,7 +18,8 @@ const getChatImage = (chat, me) => {
       return <Avatar alt={`${p.firstName} ${p.lastName}`} />;
     }, '');
   }
-  return 'grp chat image';
+  return <PeopleIcon />;
+  return <Avatar alt={chat.name} />;
 };
 
 const getChatImageUrl = (chat, me) => {
@@ -32,6 +34,7 @@ const getChatImageUrl = (chat, me) => {
       return '';
     }, '');
   }
+  return <PeopleIcon />;
   return 'grp chat imgUrl';
 };
 

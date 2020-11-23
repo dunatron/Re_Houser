@@ -3,6 +3,7 @@
 const JWT_TOKEN_MAX_AGE = 1000 * 60 * 60 * 24 * 365; // 1 year
 
 const CTO_DETAILS = {
+  id: "rehouser-cto-id",
   firstname: "Heath",
   lastname: "Dunlop",
   email: "heathd@rehouser.co.nz",
@@ -10,6 +11,7 @@ const CTO_DETAILS = {
 };
 
 const CEO_DETAILS = {
+  id: "rehouser-ceo-id",
   firstname: "Heath",
   lastname: "McDonough",
   email: "admin@rehouser.co.nz",

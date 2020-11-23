@@ -1,14 +1,14 @@
 import { ApolloClient, ApolloLink, InMemoryCache, split } from '@apollo/client';
-import { onError } from '@apollo/link-error';
+// import { onError } from '@apollo/link-error';
+import { onError } from '@apollo/client/link/error';
+
 import { getDataFromTree } from '@apollo/react-ssr';
 import { createUploadLink } from 'apollo-upload-client';
 import withApollo from 'next-with-apollo';
 import { getMainDefinition } from '@apollo/client/utilities';
-// import { WebSocketLink } from 'apollo-link-ws';
 // pcage name for websockets have changed, currently no docs on how to integrate it, aloso package is in beta and not finished
 // including this 3.0 clien which is still beta. But this is pretty good setup for now
 // commenting out subscriptions for now
-// import { WebSocketLink } from '@apollo/link-ws';
 import { WebSocketLink } from '@apollo/client/link/ws';
 
 import CacheWrapper from './store/cache';
@@ -63,8 +63,13 @@ function createClient({ headers, initialState }) {
         uri: websocketEndpoint,
         options: {
           reconnect: true,
+          timeout: 30000,
+          // timeout: 10000,
+          // reconnect: true,
           // connectionParams: {
-          //   authToken: user.authToken,
+          //   // authToken: user.authToken,
+          //   Authorization:
+          //     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDYxODI4MTIsIm5iZiI6MTYwNjA5NjQxMn0.MDbcbpuXBcfYElEO5EuqRboxDSjapkdopzVGi02urj0',
           // },
         },
       })
@@ -85,6 +90,7 @@ function createClient({ headers, initialState }) {
 
   // return the Apollo client to pass to nexts withApollo
   return new ApolloClient({
+    ssrMode: typeof window === 'undefined', // set to true for SSR
     link: link,
     cache: CacheWrapper({ initialState }),
   });

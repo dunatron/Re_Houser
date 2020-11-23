@@ -53,7 +53,7 @@ const GeneralUserUpdatesSub = ({ me }) => {
       });
     },
   });
-  if (loading) return <div>SUBSCRIBING TO: General User Updates</div>;
+  if (loading) return null;
   if (error) {
     return (
       <div>
@@ -62,7 +62,6 @@ const GeneralUserUpdatesSub = ({ me }) => {
       </div>
     );
   }
-  return <div>SUBSCRIBED TO: General User Updates</div>;
   return null;
 };
 

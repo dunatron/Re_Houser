@@ -33,6 +33,11 @@ const { _isUploader, _isUploaderOrAdmin } = require("./lib/fileApi");
 const stockImageUrl = `${process.env.FRONTEND_URL}/images/private_stock.jpg`;
 
 const resolvers = {
+  // Node: {
+  //   __resolveType() {
+  //     return null;
+  //   }
+  // },
   User: {
     photoIdentification: (parent, args, ctx, info) => {
       const publicObj = {
@@ -47,17 +52,17 @@ const resolvers = {
       return parent.photoIdentification;
     }
   },
-  Chat: {
-    // messages(chat) {
-    //   if (chat.messages === undefined) return null
-    //   return chat.messages.filter(m => chat.messages.includes(m.id))
-    // },
-    // lastMessage(chat) {
-    //   if (chat.messages === undefined) return null
-    //   const lastMessage = chat.messages[chat.messages.length - 1]
-    //   return messages.find(m => m.id === lastMessage)
-    // },
-  },
+  // Chat: {
+  //   // messages(chat) {
+  //   //   if (chat.messages === undefined) return null
+  //   //   return chat.messages.filter(m => chat.messages.includes(m.id))
+  //   // },
+  //   // lastMessage(chat) {
+  //   //   if (chat.messages === undefined) return null
+  //   //   const lastMessage = chat.messages[chat.messages.length - 1]
+  //   //   return messages.find(m => m.id === lastMessage)
+  //   // },
+  // },
   File: {
     url: (file, args, ctx, info) => {
       // I guess all admins can see private files. apart from that you must be uploader of the file!
