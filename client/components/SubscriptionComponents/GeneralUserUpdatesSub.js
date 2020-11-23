@@ -6,13 +6,13 @@ import { CURRENT_USER_QUERY } from '@/Gql/queries/index';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 
-const GeneralUserUpdatesSub = ({ me }) => {
-  console.log('me in general user updates => ', me);
+const GeneralUserUpdatesSub = ({ userId }) => {
+  console.log('userId in general user updates => ', userId);
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
     variables: {
       where: {
         node: {
-          id: me.id,
+          id: userId,
         },
       },
     },
@@ -25,24 +25,17 @@ const GeneralUserUpdatesSub = ({ me }) => {
       if (subDta.proofOfAddress) delete subDta.proofOfAddress;
       if (subDta.signature) delete subDta.signature;
 
-      const oldMe = me;
+      const { me } = client.readQuery({
+        query: CURRENT_USER_QUERY,
+      });
+
+      console.log('Me read from the clent cache after subData => ', me);
+
       const newMe = {
         ...me,
         ...subDta,
       };
-
-      // cache.modify({
-      //   id: cache.identify(myObject),
-      //   fields: {
-      //     name(cachedName) {
-      //       return cachedName.toUpperCase();
-      //     },
-      //   },
-      //   /* broadcast: false // Include this to prevent automatic query refresh */
-      // });
-
-      // console.log('OLD ME => ', oldMe);
-      // console.log('NEW ME => ', newMe);
+      console.log('Me newMe subData => ', newMe);
 
       // // We will get subs back about Files that we may be able to see but the pushNotifications dont know that and send stock image
       client.writeQuery({
@@ -53,6 +46,8 @@ const GeneralUserUpdatesSub = ({ me }) => {
       });
     },
   });
+
+  console.log('complete data for user sub => ', data);
   if (loading) return null;
   if (error) {
     return (
@@ -67,4 +62,4 @@ const GeneralUserUpdatesSub = ({ me }) => {
 
 const MemoizedGeneralUserUpdatesSub = React.memo(GeneralUserUpdatesSub);
 
-export default GeneralUserUpdatesSub;
+export default MemoizedGeneralUserUpdatesSub;

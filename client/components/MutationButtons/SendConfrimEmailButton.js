@@ -48,12 +48,12 @@ const SendConfirmEmailButton = () => {
   );
 
   // if token is set in the url then confirm email once logged in
-  useEffect(() => {
-    if (router.query.token && !sent) {
-      confirmEmailWithToken();
-      setSent(true);
-    }
-  }, [router.query.token]);
+  // useEffect(() => {
+  //   if (router.query.token && !sent) {
+  //     confirmEmailWithToken();
+  //     setSent(true);
+  //   }
+  // }, [router.query.token]);
 
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,

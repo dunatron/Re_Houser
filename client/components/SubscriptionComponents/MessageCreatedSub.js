@@ -9,7 +9,7 @@ import { store } from '@/Store/index';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 
-const MessageCreatedSub = ({ me }) => {
+const MessageCreatedSub = ({ userId }) => {
   const { state, dispatch } = useContext(store);
   const { loading, data, error } = useSubscription(
     MESSAGE_CREATED_SUBSCRIPTION,
@@ -19,7 +19,7 @@ const MessageCreatedSub = ({ me }) => {
           node: {
             chat: {
               participants_some: {
-                id: me.id,
+                id: userId,
               },
             },
           },
@@ -33,7 +33,7 @@ const MessageCreatedSub = ({ me }) => {
         } = subscriptionData;
 
         // we were the sender do nothing with this sub
-        if (me.id === node.sender.id) {
+        if (userId === node.sender.id) {
           return;
         }
         // write message to cache service
@@ -71,4 +71,6 @@ const MessageCreatedSub = ({ me }) => {
   return null;
 };
 
-export default MessageCreatedSub;
+const MemoizedMessageCreatedSub = React.memo(MessageCreatedSub);
+
+export default MemoizedMessageCreatedSub;

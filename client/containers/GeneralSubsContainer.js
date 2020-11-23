@@ -2,46 +2,30 @@ import GeneralUserUpdatesSub from '../components/SubscriptionComponents/GeneralU
 import ChatCreatedSub from '../components/SubscriptionComponents/ChatCreatedSub';
 import MessageCreatedSub from '../components/SubscriptionComponents/MessageCreatedSub';
 import User from '../components/User/index';
+import { useCurrentUser } from '@/Components/User';
 
 import { useSubscription } from '@apollo/client';
 import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
 
 const GeneralSubsContainer = props => {
-  const {
-    appData: { currentUser },
-  } = props;
-  const me = currentUser.data ? currentUser.data.me : null;
+  const { data, error, loading } = useCurrentUser();
+  const me = data.me;
+
+  console.log('Me in General Subs Container => ', me);
   if (!me) return null;
   if (!me.id) return null;
+
+  const userId = me.id;
+
   return (
     <>
-      <GeneralUserUpdatesSub me={me} />
-      <ChatCreatedSub me={me} />
-      <MessageCreatedSub me={me} />
+      <GeneralUserUpdatesSub userId={userId} />
+      <ChatCreatedSub userId={userId} />
+      <MessageCreatedSub userId={userId} />
     </>
   );
 };
 
-// const GeneralSubsContainer = props => {
-//   const {
-//     appData: { currentUser },
-//   } = props;
-//   const me = currentUser.data ? currentUser.data.me : null;
+const MemoizedGeneralSubsContainer = React.memo(GeneralSubsContainer);
 
-//   useSubscription(USER_SUBSCRIPTION, {
-//     variables: {
-//       where: {
-//         node: {
-//           id: 'our-cto-id',
-//         },
-//       },
-//     },
-//     onSubscriptionData: ({ client, subscriptionData }) => {
-//       console.log('User subscriptionData => ', subscriptionData);
-//     },
-//   });
-
-//   return null;
-// };
-
-export default GeneralSubsContainer;
+export default MemoizedGeneralSubsContainer;

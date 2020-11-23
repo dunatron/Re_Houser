@@ -33,11 +33,6 @@ const { _isUploader, _isUploaderOrAdmin } = require("./lib/fileApi");
 const stockImageUrl = `${process.env.FRONTEND_URL}/images/private_stock.jpg`;
 
 const resolvers = {
-  // Node: {
-  //   __resolveType() {
-  //     return null;
-  //   }
-  // },
   User: {
     photoIdentification: (parent, args, ctx, info) => {
       const publicObj = {
@@ -87,9 +82,6 @@ const resolvers = {
     files: (parent, args, ctx, field) => {
       // I actually anticipate files being already associated with the property.
       // So if this is null. create new PropertyFiles row and associate it with property
-      // throw new Error(
-      //   "Purposely throwing an error when you try to get the files from a property"
-      // );
       return {
         ...parent.files
       };
@@ -99,21 +91,17 @@ const resolvers = {
   Date: DateTimeResolver,
   URL: URLResolver,
   Json: JSONResolver,
-  // Query,
   Query: {
     ...Query,
-    ...Connection // simply relay versions e.g aggregate and edges
+    ...Connection
   },
   Mutation,
   Subscription
 };
-const pubsub = new PubSub();
+// const pubsub = new PubSub();
 
 const errorHandlerMiddleware = errorHandler({
   onError: (error, context) => {
-    // send error anywhere
-    // hmmmmm maybe the error we are trying to log doesnt have the request etc?
-    //
     logger.log("error", `resolver error`, {
       message: error.message,
       stack: error.stack ? error.stack.message : null,
@@ -131,21 +119,6 @@ const errorHandlerMiddleware = errorHandler({
   forwardErrors: true // should probably turn on for prod. or client wont get errors
 });
 
-// These like resolve per field. Too fucking heavy man
-// const logInput = async (resolve, root, args, context, info) => {
-//   console.log(`1. logInput: ${JSON.stringify(args)}`);
-//   const result = await resolve(root, args, context, info);
-//   console.log(`5. logInput`);
-//   return result;
-// };
-
-// const logResult = async (resolve, root, args, context, info) => {
-//   console.log(`2. logResult`);
-//   const result = await resolve(root, args, context, info);
-//   console.log(`4. logResult: ${JSON.stringify(result)}`);
-//   return result;
-// };
-
 // create the graphql yoga server
 function createServer() {
   return new GraphQLServer({
@@ -153,13 +126,11 @@ function createServer() {
     resolvers: resolvers,
 
     middlewares: [errorHandlerMiddleware],
-    // middlewares: [logInput, logResult],
     resolverValidationOptions: {
       requireResolversForResolveType: false
     },
-    // context: req => ({ ...req, db }) // probs just put this back
-    context: req => ({ ...req, db, pubsub }) // maybe this
-    // context: { pubsub }
+    context: req => ({ ...req, db }) // probs just put this back
+    // context: req => ({ ...req, db, pubsub }) // maybe this
   });
 }
 

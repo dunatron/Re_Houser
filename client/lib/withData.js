@@ -64,12 +64,13 @@ function createClient({ headers, initialState }) {
         options: {
           reconnect: true,
           timeout: 30000,
-          // timeout: 10000,
-          // reconnect: true,
+          connectionParams: {
+            headers,
+          },
           // connectionParams: {
-          //   // authToken: user.authToken,
-          //   Authorization:
-          //     'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MDYxODI4MTIsIm5iZiI6MTYwNjA5NjQxMn0.MDbcbpuXBcfYElEO5EuqRboxDSjapkdopzVGi02urj0',
+          //   headers: {
+          //     Authorization: "Bearer yourauthtoken",
+          //   },
           // },
         },
       })
@@ -87,6 +88,8 @@ function createClient({ headers, initialState }) {
         authLink
       )
     : authLink;
+
+  console.log('Our link is => ', link);
 
   // return the Apollo client to pass to nexts withApollo
   return new ApolloClient({

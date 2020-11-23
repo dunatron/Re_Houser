@@ -7,14 +7,14 @@ import { toast } from 'react-toastify';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 
-const ChatCreatedSub = ({ me }) => {
+const ChatCreatedSub = ({ userId }) => {
   const { state, dispatch } = useContext(store);
   const { loading, data, error } = useSubscription(CHAT_SUBSCRIPTION, {
     variables: {
       where: {
         node: {
           participants_some: {
-            id: me.id,
+            id: userId,
           },
         },
       },
@@ -55,9 +55,9 @@ const ChatCreatedSub = ({ me }) => {
 };
 
 ChatCreatedSub.propTypes = {
-  me: PropTypes.shape({
-    id: PropTypes.any,
-  }).isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
-export default ChatCreatedSub;
+const MemoizedChatCreatedSub = React.memo(ChatCreatedSub);
+
+export default MemoizedChatCreatedSub;

@@ -90,7 +90,7 @@ async function confirmEmail(parent, args, ctx, info) {
       parent,
       {
         data: {
-          type: "PEER",
+          type: "GROUP",
           name: "Rehouser Admin",
           participants: {
             connect: [

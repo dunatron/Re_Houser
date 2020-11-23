@@ -101,44 +101,44 @@ const app = server.start(
     //   console.log("logFunction params => ", params);
     // },
     debug: true,
-    port: process.env.PORT || 4444,
+    port: process.env.PORT || 4444
     // playground: ??
-    subscriptions: {
-      path: "/",
-      // keepAlive: false // blindly added this. keep subs alive...
-      keepAlive: 10000 // use 10000 like prisma or false
-      // keepAlive: false
-      // onConnect: (connectionParams, webSocket, context) => {
-      //   // console.log("HELLO I CONNECTED");
-      //   // console.log("connectionParams => ", connectionParams);
-      //   // // console.log("webSocket => ", webSocket);
-      //   // console.log("context => ", context);
-      //   // ...
-      //   console.log("On connect called");
-      // },
-      // onOperation: (message, params, webSocket) => {
-      //   console.log("On operation called");
-      //   // Manipulate and return the params, e.g.
-      //   // params.context.randomId = uuid.v4();
-      //   // console.log("Operation params => ", params);
-      //   // // Or specify a schema override
-      //   // // if (shouldOverrideSchema()) {
-      //   // //   params.schema = newSchema;
-      //   // // }
-      //   // return params;
-      // },
-      // onOperationComplete: webSocket => {
-      //   // ...
-      //   console.log("On operation complete called");
-      // },
-      // onDisconnect: (webSocket, context) => {
-      //   // ...
-      //   console.log("On disconnect called");
-      // },
+    // subscriptions: {
+    //   path: "/",
+    //   // keepAlive: false // blindly added this. keep subs alive...
+    //   // keepAlive: 10000 // use 10000 like prisma or false
+    //   // keepAlive: false
+    //   // onConnect: (connectionParams, webSocket, context) => {
+    //   //   // console.log("HELLO I CONNECTED");
+    //   //   // console.log("connectionParams => ", connectionParams);
+    //   //   // // console.log("webSocket => ", webSocket);
+    //   //   // console.log("context => ", context);
+    //   //   // ...
+    //   //   console.log("On connect called");
+    //   // },
+    //   // onOperation: (message, params, webSocket) => {
+    //   //   console.log("On operation called");
+    //   //   // Manipulate and return the params, e.g.
+    //   //   // params.context.randomId = uuid.v4();
+    //   //   // console.log("Operation params => ", params);
+    //   //   // // Or specify a schema override
+    //   //   // // if (shouldOverrideSchema()) {
+    //   //   // //   params.schema = newSchema;
+    //   //   // // }
+    //   //   // return params;
+    //   // },
+    //   // onOperationComplete: webSocket => {
+    //   //   // ...
+    //   //   console.log("On operation complete called");
+    //   // },
+    //   // onDisconnect: (webSocket, context) => {
+    //   //   // ...
+    //   //   console.log("On disconnect called");
+    //   // },
 
-      // onConnect
-      // onDisconnect
-    }
+    //   // onConnect
+    //   // onDisconnect
+    // }
   },
   details => {
     logger.info("gql yoga/express server is up", {
