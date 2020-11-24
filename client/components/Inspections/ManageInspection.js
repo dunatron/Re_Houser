@@ -9,7 +9,9 @@ import InspectionForm from './InspectionForm';
 import UpdateInspectionForm from './UpdateInspectionForm';
 
 import { Box, Typography } from '@material-ui/core';
+import RehouserCard from '@/Styles/Card';
 import moment from 'moment';
+import WidgetWithSaveToDb from '@/Components/UploadWidget/WidgetWithSaveToDb';
 
 const ManageInspection = ({ id }) => {
   const { data, loading, error } = useQuery(SINGLE_INSPECTION_QUERY, {
@@ -31,6 +33,44 @@ const ManageInspection = ({ id }) => {
   return (
     <div>
       <InspectionDetails inspection={inspection} />
+      <WidgetWithSaveToDb
+        title="Inspection Files"
+        defaultExpand={true}
+        files={inspection.files}
+        onCompleted={(client, newFile) => {
+          const cache = client.cache;
+          cache.modify({
+            id: cache.identify(inspection),
+            fields: {
+              files(existingFileRefs = [], { readField }) {
+                // can we identify the new file
+                const newFileRefId = cache.identify(newFile);
+
+                const newFileRef = {
+                  __ref: newFileRefId,
+                };
+
+                if (
+                  existingFileRefs.some(
+                    ref => readField('id', ref) === newFile.id
+                  )
+                ) {
+                  return existingFileRefs;
+                }
+
+                return [...existingFileRefs, newFileRef];
+              },
+            },
+          });
+        }}
+        withConnections={{
+          inspectionFiles: {
+            connect: {
+              id: id,
+            },
+          },
+        }}
+      />
       {inspection.completed ? (
         <CompletedView inspection={inspection} />
       ) : (
@@ -53,7 +93,7 @@ const InspectionDetails = ({ inspection }) => {
     : null;
 
   return (
-    <Box>
+    <RehouserCard>
       <Typography gutterBottom>
         Inspector: {inspection.inspector && inspection.inspector.firstName}
       </Typography>
@@ -64,7 +104,7 @@ const InspectionDetails = ({ inspection }) => {
       <Typography gutterBottom>UpdatedAt: {formUpdatedAt}</Typography>
 
       <Typography gutterBottom>Notes: {inspection.notes}</Typography>
-    </Box>
+    </RehouserCard>
   );
 };
 

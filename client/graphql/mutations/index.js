@@ -32,6 +32,7 @@ import { UPDATE_INSPECTION_MUTATION } from './updateInspection';
 import { CREATE_CONTACT_FORM_MUTATION } from './createContactForm';
 import { UPDATE_RENTAL_APPRAISAL_MUTATION } from './updateRentalAppraisal';
 import { COMPLETE_INSPECTION_MUTATION } from './completeInspection';
+import { CREATE_FILE_MUTATION } from './createFile';
 
 export {
   SIGNUP_MUTATION,
@@ -68,4 +69,5 @@ export {
   CREATE_CONTACT_FORM_MUTATION,
   UPDATE_RENTAL_APPRAISAL_MUTATION,
   COMPLETE_INSPECTION_MUTATION,
+  CREATE_FILE_MUTATION,
 };
