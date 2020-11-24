@@ -72,7 +72,11 @@ function MaterialPage(props) {
 
         <main className={classes.content} id="main-content">
           <div className={classes.toolbar} />
-          <div>
+          <div
+            style={{
+              maxWidth: '1080px',
+              margin: 'auto',
+            }}>
             <Announcements bannerRoutes={['/']} me={me} />
             {children}
           </div>

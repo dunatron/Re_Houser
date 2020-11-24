@@ -74,17 +74,15 @@ const ContactForm = ({ createText }) => {
           </div>
         </FlexLayout>
       </Card>
-      <Card>
-        <FormCreator
-          title="Contact form"
-          createText={createText ? createText : 'Submit contact form'}
-          error={error}
-          posting={loading}
-          config={CONTACT_FORM_CONF}
-          isNew={true}
-          onSubmit={handleSubmit}
-        />
-      </Card>
+      <FormCreator
+        title="Contact form"
+        createText={createText ? createText : 'Submit contact form'}
+        error={error}
+        posting={loading}
+        config={CONTACT_FORM_CONF}
+        isNew={true}
+        onSubmit={handleSubmit}
+      />
     </>
   );
 };

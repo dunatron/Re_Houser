@@ -167,6 +167,7 @@ const FormCreator = props => {
       <Card
         style={{
           marginBottom: '16px',
+          maxWidth: '800px',
         }}>
         {configIsValid(config) &&
           filteredConf.map((item, idx) => {

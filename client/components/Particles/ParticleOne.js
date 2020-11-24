@@ -149,20 +149,20 @@ const ParticleOne = () => {
 
   const particlesObj = _createParticlesObj(theme);
 
-  useEffect(() => {
-    const debouncedHandleResize = debounce(function handleResize() {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-    }, 1000);
+  // useEffect(() => {
+  //   const debouncedHandleResize = debounce(function handleResize() {
+  //     setDimensions({
+  //       height: window.innerHeight,
+  //       width: window.innerWidth,
+  //     });
+  //   }, 1000);
 
-    window.addEventListener('resize', debouncedHandleResize);
+  //   window.addEventListener('resize', debouncedHandleResize);
 
-    return () => {
-      window.removeEventListener('resize', debouncedHandleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('resize', debouncedHandleResize);
+  //   };
+  // }, []);
 
   return (
     <Particles
