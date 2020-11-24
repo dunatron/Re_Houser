@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import PageHeader from '@/Components/PageHeader';
 import ContactForm from '@/Components/Contact/ContactForm';
 
-const ContactPage = () => {
+const ContactPage = props => {
+  console.log('props on contact page => ', props);
   return (
     <>
       <PageHeader

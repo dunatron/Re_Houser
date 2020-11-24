@@ -4,7 +4,11 @@ import PleaseSignIn from '@/Components/PleaseSignIn';
 import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
-const PropertiesPage = ({ appData: { currentUser } }) => {
+const PropertiesPage = props => {
+  const {
+    appData: { currentUser },
+  } = props;
+  console.log('props on Properties Page page => ', props);
   const pleaseSignInMessage =
     'You must be signed in to manager your properties';
 

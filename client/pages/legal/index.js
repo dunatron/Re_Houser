@@ -7,7 +7,11 @@ import { Box, Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
 import LEGAL_STATMENTS_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/legalStatementsDashConf';
 
-const LegalPage = ({ appData: { currentUser } }) => {
+const LegalPage = props => {
+  const {
+    appData: { currentUser },
+  } = props;
+  console.log('props on legal page => ', props);
   const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>

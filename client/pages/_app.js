@@ -6,16 +6,55 @@ import Head from 'next/head';
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import 'react-toastify/dist/ReactToastify.css'; // not using custom link css. check GlobalStyle in Page component
 import { RecoilRoot } from 'recoil';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
 // import CustomToastContainer from '@/Containers/CustomToastContainer';
 
 class AppEntryPointExtension extends App {
   static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
+    // console.log('WHAT IS CTX => ', ctx);
+    const {
+      pathname,
+      query,
+      asPath,
+      req,
+      res,
+      err,
+      AppTree,
+      apolloClient,
+    } = ctx;
+
+    // get me you muppet
+    const {
+      data: { me },
+      loading,
+      networkStatus,
+    } = await apolloClient.query({
+      query: CURRENT_USER_QUERY,
+      fetchPolicy: 'cache-first',
+    });
+
+    // console.log('Store from initalProps => ', store);
+    // console.log('Store from isServer => ', isServer);
+    // console.log('Store from query => ', query);
+    // console.log('Store from req => ', req.cookies);
+    // let pageProps = {};
+    // if (Component.getInitialProps) {
+    //   pageProps = await Component.getInitialProps(ctx);
+    // }
+    let pageProps = {
+      me: me,
+      cookies: req?.cookies,
+    };
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
+      const pageToRenderinitialProps = await Component.getInitialProps(ctx);
+      pageProps = {
+        ...pageProps,
+        ...pageToRenderinitialProps,
+      };
     }
     // this exposes the query to the user
     pageProps.query = ctx.query;
+    pageProps.me = me;
     return { pageProps };
   }
 
