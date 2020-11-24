@@ -24,14 +24,14 @@ class AppEntryPointExtension extends App {
     } = ctx;
 
     // get me you muppet
-    const {
-      data: { me },
-      loading,
-      networkStatus,
-    } = await apolloClient.query({
-      query: CURRENT_USER_QUERY,
-      fetchPolicy: 'cache-first',
-    });
+    // const {
+    //   data: { me },
+    //   loading,
+    //   networkStatus,
+    // } = await apolloClient.query({
+    //   query: CURRENT_USER_QUERY,
+    //   fetchPolicy: 'cache-first',
+    // });
 
     // console.log('Store from initalProps => ', store);
     // console.log('Store from isServer => ', isServer);
@@ -42,7 +42,7 @@ class AppEntryPointExtension extends App {
     //   pageProps = await Component.getInitialProps(ctx);
     // }
     let pageProps = {
-      me: me,
+      // me: me,
       cookies: req?.cookies,
     };
     if (Component.getInitialProps) {
@@ -54,7 +54,6 @@ class AppEntryPointExtension extends App {
     }
     // this exposes the query to the user
     pageProps.query = ctx.query;
-    pageProps.me = me;
     return { pageProps };
   }
 
