@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader/index';
 import Typography from '@material-ui/core/Typography';
+import { useCurrentUser } from '@/Components/User';
 
 const Message = ({ message, alert }) => {
   // only fire alerts once per mount
@@ -29,8 +30,9 @@ Message.propTypes = {
  * use this
  */
 const PleaseSignIn = props => {
-  const { currentUser } = props;
-  const { error, loading, data } = currentUser;
+  // const { currentUser } = props;
+  // const { error, loading, data } = currentUser;
+  const { error, loading, data } = useCurrentUser();
 
   if (loading) return <Loader loading={loading} text="Loading user settings" />;
   if (error) return <Error error={error} />;
