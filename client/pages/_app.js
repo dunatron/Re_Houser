@@ -42,10 +42,9 @@ class AppEntryPointExtension extends App {
     //   pageProps = await Component.getInitialProps(ctx);
     // }
 
-    await apolloClient.query({
-      query: CURRENT_USER_QUERY,
-      fetchPolicy: 'cache-first',
-    });
+    // await apolloClient.query({
+    //   query: CURRENT_USER_QUERY,
+    // });
 
     let pageProps = {
       // me: me,
