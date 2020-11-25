@@ -15,29 +15,40 @@ import Loader from '@/Components/Loader';
  * to avoid Conflicts in local component props, wrap in appData: { me}
  */
 const WithUser = props => {
-  const { data, error, loading } = useCurrentUser();
-  const currentUserProps = useCurrentUser();
+  // const { data, error, loading } = useCurrentUser();
+  // const currentUserProps = useCurrentUser();
 
-  if (currentUserProps.loading)
-    return (
-      <div
-        style={{
-          marginLeft: 'auto',
-          marginRight: 'auto',
-        }}>
-        <Loader
-          fullScreen
-          loading={currentUserProps.loading}
-          text="Loading user data: ToDo: Check for token. If there is none we can skip this"
-        />
-      </div>
-    );
+  // if (currentUserProps.loading)
+  //   return (
+  //     <div
+  //       style={{
+  //         marginLeft: 'auto',
+  //         marginRight: 'auto',
+  //       }}>
+  //       <Loader
+  //         fullScreen
+  //         loading={currentUserProps.loading}
+  //         text="Loading user data: ToDo: Check for token. If there is none we can skip this"
+  //       />
+  //     </div>
+  //   );
 
+  // const children = React.Children.map(props.children, child => {
+  //   if (React.isValidElement(child)) {
+  //     return React.cloneElement(child, {
+  //       appData: {
+  //         currentUser: currentUserProps,
+  //       },
+  //     });
+  //   }
+  //   return child;
+  // });
+  // return children;
   const children = React.Children.map(props.children, child => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
         appData: {
-          currentUser: currentUserProps,
+          currentUser: { data: { me: null }, loading: false, error: null },
         },
       });
     }

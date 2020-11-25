@@ -21,11 +21,15 @@ import CacheWrapper from './store/cache';
 //   },
 // });
 
-function createClient({ headers, initialState }) {
+function createClient(props) {
+  const { headers, initialState } = props;
+  console.log('Create client props => ', props);
   // const websocketEndpoint =
   //   process.env.NODE_ENV === 'development' ? wsEndpoint : wsProdEndpoint;
   // const authUri =
   //   process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint;
+
+  console.log('__APOLLO__INITIAL_STATE__ => ', initialState);
 
   const websocketEndpoint = process.env.WS_ENDPOINT;
   const authUri = process.env.ENDPOINT;

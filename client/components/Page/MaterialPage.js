@@ -23,6 +23,7 @@ function MaterialPage(props) {
   const theme = useTheme();
   const classes = useStyles();
 
+  console.log('Props in Material Page => ', props);
   const { container, appData } = props;
   const { currentUser } = appData;
 

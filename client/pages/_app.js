@@ -41,17 +41,25 @@ class AppEntryPointExtension extends App {
     // if (Component.getInitialProps) {
     //   pageProps = await Component.getInitialProps(ctx);
     // }
+
+    await apolloClient.query({
+      query: CURRENT_USER_QUERY,
+      fetchPolicy: 'cache-first',
+    });
+
     let pageProps = {
       // me: me,
       cookies: req?.cookies,
     };
     if (Component.getInitialProps) {
       const pageToRenderinitialProps = await Component.getInitialProps(ctx);
+      console.log('pageToRenderinitialProps => ', pageToRenderinitialProps);
       pageProps = {
         ...pageProps,
         ...pageToRenderinitialProps,
       };
     }
+
     // this exposes the query to the user
     pageProps.query = ctx.query;
     return { pageProps };
@@ -59,6 +67,7 @@ class AppEntryPointExtension extends App {
 
   render() {
     const { Component, apollo, pageProps } = this.props;
+    console.log('WHat is this props => ', this.props);
     return (
       <RecoilRoot>
         {/* <CustomToastContainer /> */}
@@ -68,7 +77,7 @@ class AppEntryPointExtension extends App {
             <script src="https://cdn.rawgit.com/progers/pathseg/master/pathseg.js"></script>
           </Head>
           <Page>
-            <Component {...pageProps} />
+            <Component {...pageProps} apollo={apollo} />
           </Page>
         </ApolloProvider>
       </RecoilRoot>

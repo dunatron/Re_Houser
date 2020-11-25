@@ -34,18 +34,20 @@ const CacheWrapper = ({ initialState }) => {
         },
       },
     },
-  });
+  }).restore(initialState || {});
 
-  cache.writeQuery({
-    query: gql`
-      {
-        openChats
-      }
-    `,
-    data: {
-      openChats: [],
-    },
-  });
+  if (!initialState) {
+    cache.writeQuery({
+      query: gql`
+        {
+          openChats
+        }
+      `,
+      data: {
+        openChats: [],
+      },
+    });
+  }
 
   return cache;
 };

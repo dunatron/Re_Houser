@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import ParticleBanner from '@/Components/Banner/ParticleBanner';
-import Banner from '@/Components/Banner/index';
+import dynamic from 'next/dynamic';
+// import PropTypes from 'prop-types';
+// import ParticleBanner from '@/Components/Banner/ParticleBanner';
+// import Banner from '@/Components/Banner/index';
 
 import { Button, Typography, IconButton } from '@material-ui/core';
 import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
@@ -9,15 +10,12 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 import Dashboard from '@/Components/Dashboard';
 
-import ContactForm from '@/Components/Contact/ContactForm';
-import Fees from '@/Components/Fees';
-import TeamInfoText from '@/Components/Team/TeamInfoText';
-import Team from '@/Components/Team/index';
-
 import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/homepageDashConf';
 
-import Particles from 'react-particles-js';
-import Particles2 from 'react-tsparticles';
+const DynamicParticleBanner = dynamic(
+  () => import('@/Components/Banner/ParticleBanner'),
+  { ssr: false }
+);
 
 const HomePageBannerBody = () => {
   return (
@@ -88,7 +86,7 @@ const HomePageBannerBody = () => {
 const HomePage = () => {
   return (
     <div>
-      <ParticleBanner
+      <DynamicParticleBanner
         imageSrc="images/banners/home-page-banner.jpg"
         disablePointerEvents={true}
         footer={[
@@ -101,7 +99,7 @@ const HomePage = () => {
           </Typography>,
         ]}>
         <HomePageBannerBody />
-      </ParticleBanner>
+      </DynamicParticleBanner>
       <Dashboard
         config={HOME_PAGE_DASHBOARD_CONFIG}
         elevation={0}

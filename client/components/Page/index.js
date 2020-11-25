@@ -51,6 +51,7 @@ Router.onRouteChangeError = () => {
  * Do do this =>https://spectrum.chat/next-js/general/how-do-i-setup-a-global-toast-notification-system-using-next-js-i-am-using-next-alongside-apollo-client-and-graphql~211bf34c-56c2-4fee-bb04-c64f73a0cdfd
  */
 const Page = props => {
+  console.log('Props passed to base Page => ', props);
   const [stripe, setStripe] = useState(null);
   useEffect(() => {
     if (window.Stripe) {
@@ -99,7 +100,7 @@ const Page = props => {
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
                   {/* <AdminAlertsContainer /> */}
-                  <NoSSRGeneralSubs />
+                  {/* <NoSSRGeneralSubs /> */}
                 </WithUser>
               </Elements>
             </StateProvider>
