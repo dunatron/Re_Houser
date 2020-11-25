@@ -99,8 +99,8 @@ const Page = props => {
               <Elements stripe={stripe}>
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
-                  {/* <AdminAlertsContainer /> */}
-                  {/* <NoSSRGeneralSubs /> */}
+                  <AdminAlertsContainer />
+                  <NoSSRGeneralSubs />
                 </WithUser>
               </Elements>
             </StateProvider>
