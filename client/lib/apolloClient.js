@@ -24,12 +24,6 @@ const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
 function createApolloClient() {
-  // const logLink = new ApolloLink((operation, forward) => {
-  //   return forward(operation).map(data => {
-  //     console.log('logging', data);
-  //     return forward(operation);
-  //   });
-  // });
   const headersLink = new ApolloLink((operation, forward) => {
     operation.setContext(({ headers }) => ({
       headers: {
@@ -72,11 +66,6 @@ function createApolloClient() {
         options: {
           reconnect: true,
           timeout: 30000,
-          // connectionParams: {
-          //   headers: {
-          //     Authorization: "Bearer yourauthtoken",
-          //   },
-          // },
         },
       })
     : null;
@@ -94,10 +83,6 @@ function createApolloClient() {
     : authLink;
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
-    // link: new HttpLink({
-    //   uri: authUri, // Server URL (must be absolute)
-    //   credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
-    // }),
     link: link,
     // link: withHeaders.concat(authLink),
     cache: createInMemoryCache(),

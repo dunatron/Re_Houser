@@ -33,18 +33,32 @@ const ContactPage = props => {
   );
 };
 
-export async function getStaticProps() {
-  const apolloClient = initializeApollo();
+export async function getServerSideProps() {
+  // Call an external API endpoint to get posts
+  // const res = await fetch('https://.../posts');
+  // const posts = await res.json();
 
-  await apolloClient.query({
-    query: CURRENT_USER_QUERY,
-  });
-
-  return addApolloState(apolloClient, {
-    props: {},
-    revalidate: 1,
-  });
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      dunatron: 'A TRON TEST',
+    },
+  };
 }
+
+// export async function getStaticProps() {
+//   const apolloClient = initializeApollo();
+
+//   await apolloClient.query({
+//     query: CURRENT_USER_QUERY,
+//   });
+
+//   return addApolloState(apolloClient, {
+//     props: {},
+//     revalidate: 1,
+//   });
+// }
 
 // ContactPage.getInitialProps = async props => {
 //   const {
