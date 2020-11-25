@@ -92,8 +92,15 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
 
-export default function App({ Component, pageProps }) {
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
+
+import { initializeApollo, addApolloState } from '../lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
+function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
+
+  console.log('WHY NOT CHANGE THEM HERE?');
 
   return (
     <RecoilRoot>
@@ -109,17 +116,37 @@ export default function App({ Component, pageProps }) {
     </RecoilRoot>
   );
 }
+// Only uncomment this method if you have blocking data requirements for
+// every single page in your application. This disables the ability to
+// perform automatic static optimization, causing every page in your app to
+// be server-side rendered.
+//
 
-export async function getServerSideProps() {
-  // Call an external API endpoint to get posts
-  // const res = await fetch('https://.../posts');
-  // const posts = await res.json();
+App.getInitialProps = async ({ ctx }) => {
+  // // calls page's `getInitialProps` and fills `appProps.pageProps`
+  // // const appProps = await App.getInitialProps(appContext);
 
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      dunatron: 'A TRON TEST',
-    },
-  };
-}
+  // return {};
+  console.log('Tell me ctx => ', ctx.req.headers);
+  const cookies = parseCookies(ctx);
+
+  console.log('Give me a look at these paassed cookies => ', cookies);
+
+  setCookie(ctx, 'fromGetServerSideProps', 'value', {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  });
+
+  const apolloClient = initializeApollo(null, ctx.req.headers);
+
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+
+  return addApolloState(apolloClient, {
+    props: {},
+    // revalidate: 1,
+  });
+};
+
+export default App;

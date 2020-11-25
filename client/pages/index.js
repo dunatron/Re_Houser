@@ -12,6 +12,10 @@ import Dashboard from '@/Components/Dashboard';
 
 import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/homepageDashConf';
 
+import { initializeApollo, addApolloState } from '../lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
+
 const DynamicParticleBanner = dynamic(
   () => import('@/Components/Banner/ParticleBanner'),
   { ssr: false }
@@ -109,6 +113,29 @@ const HomePage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  console.log('Tell me ctx => ', ctx.req.headers);
+  const cookies = parseCookies(ctx);
+
+  console.log('Give me a look at these paassed cookies => ', cookies);
+
+  setCookie(ctx, 'fromGetServerSideProps', 'value', {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  });
+
+  const apolloClient = initializeApollo(null, ctx.req.headers);
+
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+
+  return addApolloState(apolloClient, {
+    props: {},
+    // revalidate: 1,
+  });
+}
 
 HomePage.propTypes = {};
 
