@@ -4,6 +4,8 @@ import ContactForm from '@/Components/Contact/ContactForm';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 import { useQuery } from '@apollo/client';
 
+import { initializeApollo, addApolloState } from '../lib/apolloClient';
+
 const ContactPage = props => {
   console.log('props on contact page => ', props);
 
@@ -31,29 +33,42 @@ const ContactPage = props => {
   );
 };
 
-ContactPage.getInitialProps = async props => {
-  const {
-    err,
-    req,
-    res,
-    pathname,
-    query,
-    asPath,
-    AppTree,
-    apolloClient,
-  } = props;
-  console.log('ahh props omn contatc page => ', props);
-  // const apolloClient = apollo;
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
 
   await apolloClient.query({
     query: CURRENT_USER_QUERY,
   });
-  return {
-    props: {
-      // initialApolloState: apolloClient.cache.extract(),
-      test: 'this is a test',
-    },
-  };
-};
+
+  return addApolloState(apolloClient, {
+    props: {},
+    revalidate: 1,
+  });
+}
+
+// ContactPage.getInitialProps = async props => {
+//   const {
+//     err,
+//     req,
+//     res,
+//     pathname,
+//     query,
+//     asPath,
+//     AppTree,
+//     apolloClient,
+//   } = props;
+//   console.log('ahh props omn contatc page => ', props);
+//   // const apolloClient = apollo;
+
+//   await apolloClient.query({
+//     query: CURRENT_USER_QUERY,
+//   });
+//   return {
+//     props: {
+//       // initialApolloState: apolloClient.cache.extract(),
+//       test: 'this is a test',
+//     },
+//   };
+// };
 
 export default ContactPage;
