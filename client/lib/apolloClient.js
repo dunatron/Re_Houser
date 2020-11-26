@@ -31,19 +31,17 @@ function createApolloClient(nextContext) {
   if (nextContext) {
     if (nextContext.req) {
       if (nextContext.req.headers) {
-        nextHeaders = {
-          ...nextHeaders,
-          ...nextContext.req.headers,
-        };
+        console.log('nextContext.req.headers => ', nextContext.req.headers);
+        if (nextContext.req.headers.cookie) {
+          nextHeaders = {
+            cookies: nextContext.req.headers.cookie,
+            ...nextHeaders,
+            ...nextContext.req.headers,
+          };
+        }
       }
     }
   }
-  // if (req.headers) {
-  //   nextHeaders = {
-  //     ...nextHeaders,
-  //     ...req.headers,
-  //   };
-  // }
 
   // console.log('nextHeaders => ', nextHeaders);
 
