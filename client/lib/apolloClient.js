@@ -58,20 +58,21 @@ function createApolloClient(ctx) {
   // let cookies
 
   const cookies = nookies.get(ctx);
-  // const cookies = nookies.get({});
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // return the headers to the context so httpLink can read them
+    console.log('Headers from setContext => ', headers);
     return {
       headers: {
         ...headers,
+        ...(cookies.token && { cookie: `token=${cookies.token};` }),
         // ...(ctx?.req?.headers && ctx.req.headers),
-        cookie: `token=${
-          cookies['token'] ? cookies['token'] : ''
-        }; refresh-token=${
-          cookies['refresh-token'] ? cookies['refresh-token'] : ''
-        };`,
+        // cookie: `token=${
+        //   cookies['token'] ? cookies['token'] : ''
+        // }; refresh-token=${
+        //   cookies['refresh-token'] ? cookies['refresh-token'] : ''
+        // };`,
         // Authorization: token ? `JWT ${token}` : '',
       },
     };

@@ -91,12 +91,17 @@ import { useApollo } from '../lib/apolloClient';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 /**
- * 
+ *
  * Umm see if you can get context from here too? pass nextJsCOntext to useApollo so it can initialize with headers
  */
-function App({ Component, pageProps }) {
+function App(props) {
+  const { Component, pageProps } = props;
+  const cookies = parseCookies();
+  console.log('Tell me all the entry props => ', props);
+  console.log({ cookies });
   const apolloClient = useApollo(pageProps);
 
   console.log('APP ROOT pageProps => ', pageProps);
