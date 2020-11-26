@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import nookies from 'nookies';
 import {
   ApolloClient,
   ApolloLink,
@@ -25,7 +26,7 @@ const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
 // can sometimes be empty entirely but will be an object from nextContext
-function createApolloClient({ req }) {
+function createApolloClient(ctx) {
   // ahh are these an array or object
 
   // console.log('nextHeaders => ', nextHeaders);
@@ -54,6 +55,12 @@ function createApolloClient({ req }) {
   //   return forward(operation);
   // });
 
+  // let cookies
+
+  const cookies = nookies.get(ctx);
+
+  console.log('the cookes fron nookies =>  ', cookies);
+
   const uploadHttpLink = createUploadLink({
     uri: authUri,
     fetchOptions: {
@@ -61,6 +68,7 @@ function createApolloClient({ req }) {
     },
     headers: {
       // ...(req?.headers && req.headers),
+      cookie: `token=${cookies['token']}; refresh-token=${cookies['refresh-token']};`,
     },
   });
 
