@@ -23,6 +23,9 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
 
+const testToken =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJyZWhvdXNlci1jdG8taWQiLCJ1c2VyUGVybWlzc2lvbnMiOlsiQURNSU4iLCJVU0VSIiwiUEVSTUlTU0lPTlVQREFURSIsIldJWkFSRCJdLCJpYXQiOjE2MDY0MjgzOTZ9.ecXh424z34Ej44n04n7qmmEltBeXtWZd049HGoZeikc';
+
 const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
@@ -67,6 +70,8 @@ function createApolloClient(ctx) {
     return {
       headers: {
         ...headers,
+        Authorization: 'Bearer ' + testToken,
+        cookie: `token=${testToken};`,
         // ...cookies,
         // ...(cookies.token && { cookie: `token=${cookies.token};` }),
         // ...(ctx?.req?.headers && ctx.req.headers),
@@ -76,7 +81,7 @@ function createApolloClient(ctx) {
         //   cookies['refresh-token'] ? cookies['refresh-token'] : ''
         // };`,
         // Authorization: cookies.token ? `Bearer ${cookies.token}` : '',
-        Authorization: 'Bearer ' + cookies.token,
+        // Authorization: 'Bearer ' + cookies.token,
       },
     };
   });
