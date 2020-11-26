@@ -25,9 +25,19 @@ const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
 // can sometimes be empty entirely but will be an object from nextContext
-function createApolloClient({ req = {} }) {
+function createApolloClient(nextContext) {
   // ahh are these an array or object
-  // let nextHeaders = {};
+  let nextHeaders = {};
+  if (nextContext) {
+    if (nextContext.req) {
+      if (nextContext.req.headers) {
+        nextHeaders = {
+          ...nextHeaders,
+          ...nextContext.req.headers,
+        };
+      }
+    }
+  }
   // if (req.headers) {
   //   nextHeaders = {
   //     ...nextHeaders,
@@ -44,7 +54,7 @@ function createApolloClient({ req = {} }) {
           //   ...headers,
           //   ...(req?.headers && req.headers),
           // ...(req.headers && req.headers),
-          // ...nextHeaders,
+          ...nextHeaders,
           tron: 'Populate Metatron in the headers',
         },
       };
