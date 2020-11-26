@@ -44,7 +44,7 @@ function createApolloClient({ req = {} }) {
           //   ...headers,
           //   ...(req?.headers && req.headers),
           // ...(req.headers && req.headers),
-          ...nextHeaders,
+          // ...nextHeaders,
           tron: 'Populate Metatron in the headers',
         },
       };
