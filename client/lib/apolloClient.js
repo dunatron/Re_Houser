@@ -23,6 +23,9 @@ import { setContext } from '@apollo/client/link/context';
 // https://github.com/apollographql/subscriptions-transport-ws
 // https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md
 
+// next js with apollo custom example
+// https://www.apollographql.com/blog/building-a-next-js-app-with-apollo-client-slash-graphql/
+
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;

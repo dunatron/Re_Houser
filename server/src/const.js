@@ -62,11 +62,16 @@ exports.rehouserCookieOpt = () => {
       httpOnly: true
       // sameSite: "lax"
     };
+  // return {
+  //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
+  //   httpOnly: true,
+  //   sameSite: "None",
+  //   secure: envStage == "dev" ? false : true // connection needs to be over HTTPS
+  // };
   return {
     maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
     httpOnly: true,
-    sameSite: "None",
-    secure: envStage == "dev" ? false : true // connection needs to be over HTTPS
+    sameSite: "Lax"
   };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
