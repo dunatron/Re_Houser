@@ -104,6 +104,11 @@ function App(props) {
   console.log({ cookies });
   const apolloClient = useApollo(pageProps);
 
+  // setCookie(null, 'fromClient', 'value', {
+  //   maxAge: 30 * 24 * 60 * 60,
+  //   path: '/',
+  // });
+
   console.log('APP ROOT pageProps => ', pageProps);
 
   return (

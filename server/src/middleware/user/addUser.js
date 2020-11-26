@@ -3,9 +3,16 @@ const { refreshTokens } = require("../../auth");
 const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 
 const addUser = async (req, res, next) => {
-  const token = req.cookies.token;
+  let token = req.cookies.token;
+
   if (!token) {
-    return next();
+    const header = req.headers["authorization"];
+    if (typeof header !== "undefined") {
+      const bearer = header.split(" ");
+      token = bearer[1];
+    } else {
+      return next();
+    }
   }
   try {
     // decode the id and permissions from the token request

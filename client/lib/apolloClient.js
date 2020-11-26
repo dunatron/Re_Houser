@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import nookies from 'nookies';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import {
   ApolloClient,
   ApolloLink,
@@ -66,14 +67,16 @@ function createApolloClient(ctx) {
     return {
       headers: {
         ...headers,
-        ...(cookies.token && { cookie: `token=${cookies.token};` }),
+        // ...cookies,
+        // ...(cookies.token && { cookie: `token=${cookies.token};` }),
         // ...(ctx?.req?.headers && ctx.req.headers),
         // cookie: `token=${
         //   cookies['token'] ? cookies['token'] : ''
         // }; refresh-token=${
         //   cookies['refresh-token'] ? cookies['refresh-token'] : ''
         // };`,
-        // Authorization: token ? `JWT ${token}` : '',
+        // Authorization: cookies.token ? `Bearer ${cookies.token}` : '',
+        Authorization: 'Bearer ' + cookies.token,
       },
     };
   });
