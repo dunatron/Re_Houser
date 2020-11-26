@@ -102,7 +102,7 @@ function App(props) {
   const cookies = parseCookies();
   console.log('Tell me all the entry props => ', props);
   console.log({ cookies });
-  const apolloClient = useApollo(pageProps);
+  const apolloClient = useApollo(pageProps, cookies.token);
 
   // setCookie(null, 'fromClient', 'value', {
   //   maxAge: 30 * 24 * 60 * 60,

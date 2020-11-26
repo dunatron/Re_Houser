@@ -19,10 +19,14 @@ import createInMemoryCache from './store/createInMemoryCache';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
 
+// subscription docs
+// https://github.com/apollographql/subscriptions-transport-ws
+// https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md
+
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
-let token;
+let authToken;
 
 const testToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJyZWhvdXNlci1jdG8taWQiLCJ1c2VyUGVybWlzc2lvbnMiOlsiQURNSU4iLCJVU0VSIiwiUEVSTUlTU0lPTlVQREFURSIsIldJWkFSRCJdLCJpYXQiOjE2MDY0MjgzOTZ9.ecXh424z34Ej44n04n7qmmEltBeXtWZd049HGoZeikc';
@@ -33,7 +37,7 @@ const authUri = process.env.ENDPOINT;
 const isServer = typeof window === 'undefined';
 
 // can sometimes be empty entirely but will be an object from nextContext
-function createApolloClient(ctx) {
+function createApolloClient({ ctx, token }) {
   // ahh are these an array or object
 
   // console.log('nextHeaders => ', nextHeaders);
@@ -66,8 +70,11 @@ function createApolloClient(ctx) {
 
   const cookies = nookies.get(ctx);
 
+  if (token) {
+    authToken = token;
+  }
   if (cookies.token) {
-    token = cookies.token;
+    authToken = cookies.token;
   }
 
   console.log('Cookies from apolloCLient => ', cookies);
@@ -79,7 +86,7 @@ function createApolloClient(ctx) {
     return {
       headers: {
         ...headers,
-        Authorization: 'Bearer ' + token,
+        Authorization: 'Bearer ' + authToken,
         // Authorization: 'Bearer ' + testToken,
         // cookie: `token=${testToken};`,
         // ...cookies,
@@ -165,9 +172,16 @@ function createApolloClient(ctx) {
   });
 }
 
-export function initializeApollo(initialState = null, nextJsContext) {
+export function initializeApollo(
+  initialState = null,
+  nextJsContext,
+  token = ''
+) {
   const _apolloClient =
-    apolloClient ?? createApolloClient(nextJsContext ? nextJsContext : {});
+    apolloClient ??
+    createApolloClient(
+      nextJsContext ? { ctx: nextJsContext, token: token } : { token: token }
+    );
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
@@ -198,8 +212,8 @@ export function addApolloState(client, pageProps) {
   return pageProps;
 }
 
-export function useApollo(pageProps) {
+export function useApollo(pageProps, token) {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
-  const store = useMemo(() => initializeApollo(state), [state]);
+  const store = useMemo(() => initializeApollo(state, null, token), [state]);
   return store;
 }
