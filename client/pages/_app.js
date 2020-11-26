@@ -92,11 +92,6 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
 
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
-
-import { initializeApollo, addApolloState } from '../lib/apolloClient';
-import { CURRENT_USER_QUERY } from '@/Gql/queries';
-
 function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
 
