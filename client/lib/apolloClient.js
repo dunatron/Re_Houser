@@ -58,6 +58,7 @@ function createApolloClient(ctx) {
   // let cookies
 
   const cookies = nookies.get(ctx);
+  // const cookies = nookies.get({});
 
   console.log('the cookes fron nookies =>  ', cookies);
 
@@ -68,7 +69,11 @@ function createApolloClient(ctx) {
     },
     headers: {
       // ...(req?.headers && req.headers),
-      cookie: `token=${cookies['token']}; refresh-token=${cookies['refresh-token']};`,
+      cookie: `token=${
+        cookies['token'] ? cookies['token'] : ''
+      }; refresh-token=${
+        cookies['refresh-token'] ? cookies['refresh-token'] : ''
+      };`,
     },
   });
 
