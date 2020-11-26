@@ -27,15 +27,15 @@ const authUri = process.env.ENDPOINT;
 // can sometimes be empty entirely but will be an object from nextContext
 function createApolloClient({ req = {} }) {
   // ahh are these an array or object
-  let nextHeaders = {};
-  if (req.headers) {
-    nextHeaders = {
-      ...nextHeaders,
-      ...req.headers,
-    };
-  }
+  // let nextHeaders = {};
+  // if (req.headers) {
+  //   nextHeaders = {
+  //     ...nextHeaders,
+  //     ...req.headers,
+  //   };
+  // }
 
-  console.log('nextHeaders => ', nextHeaders);
+  // console.log('nextHeaders => ', nextHeaders);
 
   const authMiddleware = new ApolloLink((operation, forward) => {
     operation.setContext((request, previousContext) => {
