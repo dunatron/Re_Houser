@@ -66,7 +66,7 @@ function createApolloClient(ctx) {
     return {
       headers: {
         ...headers,
-        ...(ctx?.req?.headers && ctx.req.headers),
+        // ...(ctx?.req?.headers && ctx.req.headers),
         cookie: `token=${
           cookies['token'] ? cookies['token'] : ''
         }; refresh-token=${

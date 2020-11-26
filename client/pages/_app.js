@@ -92,6 +92,10 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
 
+/**
+ * 
+ * Umm see if you can get context from here too? pass nextJsCOntext to useApollo so it can initialize with headers
+ */
 function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
 
