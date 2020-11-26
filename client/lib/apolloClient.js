@@ -22,12 +22,15 @@ import { setContext } from '@apollo/client/link/context';
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
+let token;
 
 const testToken =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJyZWhvdXNlci1jdG8taWQiLCJ1c2VyUGVybWlzc2lvbnMiOlsiQURNSU4iLCJVU0VSIiwiUEVSTUlTU0lPTlVQREFURSIsIldJWkFSRCJdLCJpYXQiOjE2MDY0MjgzOTZ9.ecXh424z34Ej44n04n7qmmEltBeXtWZd049HGoZeikc';
 
 const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
+
+const isServer = typeof window === 'undefined';
 
 // can sometimes be empty entirely but will be an object from nextContext
 function createApolloClient(ctx) {
@@ -63,6 +66,12 @@ function createApolloClient(ctx) {
 
   const cookies = nookies.get(ctx);
 
+  if (cookies.token) {
+    token = cookies.token;
+  }
+
+  console.log('Cookies from apolloCLient => ', cookies);
+
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // return the headers to the context so httpLink can read them
@@ -70,8 +79,9 @@ function createApolloClient(ctx) {
     return {
       headers: {
         ...headers,
-        Authorization: 'Bearer ' + testToken,
-        cookie: `token=${testToken};`,
+        Authorization: 'Bearer ' + token,
+        // Authorization: 'Bearer ' + testToken,
+        // cookie: `token=${testToken};`,
         // ...cookies,
         // ...(cookies.token && { cookie: `token=${cookies.token};` }),
         // ...(ctx?.req?.headers && ctx.req.headers),
