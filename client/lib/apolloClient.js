@@ -60,7 +60,7 @@ function createApolloClient({ req }) {
       credentials: 'include', // this makes sure we include things like cookies
     },
     headers: {
-      ...(req?.headers && req.headers),
+      // ...(req?.headers && req.headers),
     },
   });
 
