@@ -25,13 +25,14 @@ const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
 // can sometimes be empty entirely but will be an object from nextContext
-function createApolloClient({ req }) {
+function createApolloClient({ req = {} }) {
   const authMiddleware = new ApolloLink((operation, forward) => {
     operation.setContext((request, previousContext) => {
       return {
         headers: {
           //   ...headers,
-          ...(req?.headers && req.headers),
+          //   ...(req?.headers && req.headers),
+          ...(req.headers && req.headers),
           tron: 'Populate Metatron in the headers',
         },
       };
