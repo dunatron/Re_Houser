@@ -14,7 +14,7 @@ const AdminAppraisalsPage = ({ appData: { currentUser } }) => {
     <>
       <PageHeader
         title="Admin Appraisals"
-        intro="This is where our admins will view appraisals that need to be appraised then fill in the details"
+        intro="This is where our admins will view appraicdsals that need to be appraised then fill in the details"
         children={[
           <Typography key={1} gutterBottom>
             Perhaps some instructions on how to use it. FUck i guess thats my

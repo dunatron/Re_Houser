@@ -47,14 +47,12 @@ const PropertiesPage = props => {
 };
 
 export async function getServerSideProps(ctx) {
-  const apolloClient = initializeApollo(null, ctx.req.headers);
+  const apolloClient = initializeApollo(null, ctx);
   await apolloClient.query({
     query: CURRENT_USER_QUERY,
   });
   return addApolloState(apolloClient, {
-    props: {
-      // headers: ctx.req.headers,
-    },
+    props: {},
   });
 }
 

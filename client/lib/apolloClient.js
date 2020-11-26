@@ -24,19 +24,15 @@ let apolloClient;
 const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
-function createApolloClient({ headers }) {
+// can sometimes be empty entirely but will be an object from nextContext
+function createApolloClient({ req }) {
   const authMiddleware = new ApolloLink((operation, forward) => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sadnesss', 'all round');
-    }
-
     operation.setContext((request, previousContext) => {
-      console.log('setContext request => ', request);
-      console.log('setContext previousContext => ', previousContext);
       return {
         headers: {
-          ...headers,
-          tron: 'TRON PASSES A HEADER ON EVERY REQUEST',
+          //   ...headers,
+          ...(req?.headers && req.headers),
+          tron: 'Populate Metatron in the headers',
         },
       };
     });
@@ -64,10 +60,6 @@ function createApolloClient({ headers }) {
           `[Network error]: ${networkError}. Are you sure the server is running? We cannot hit the backend`
         );
     }),
-    // this uses apollo-link-http under the hood, so all the options here come from that package
-    // the server is meant to be attaching token and refresh-token to the headers as cookies on login
-    // the me query is meant to get the user data based on the header request having userId
-    // logLink,
     authMiddleware,
     uploadHttpLink,
   ]);
@@ -99,8 +91,9 @@ function createApolloClient({ headers }) {
   });
 }
 
-export function initializeApollo(initialState = null, headers) {
-  const _apolloClient = apolloClient ?? createApolloClient({ headers });
+export function initializeApollo(initialState = null, nextJsContext) {
+  const _apolloClient =
+    apolloClient ?? createApolloClient(nextJsContext ? nextJsContext : {});
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
@@ -132,7 +125,6 @@ export function addApolloState(client, pageProps) {
 }
 
 export function useApollo(pageProps) {
-  console.log('AHH THE PAGE props?? => ', pageProps);
   const state = pageProps[APOLLO_STATE_PROP_NAME];
   const store = useMemo(() => initializeApollo(state), [state]);
   return store;

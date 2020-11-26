@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import PageHeader from '@/Components/PageHeader';
 import ContactForm from '@/Components/Contact/ContactForm';
-import { CURRENT_USER_QUERY } from '@/Gql/queries';
 import { useQuery } from '@apollo/client';
 
 // server side props
@@ -34,5 +33,15 @@ const ContactPage = props => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 export default ContactPage;

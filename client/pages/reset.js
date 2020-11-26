@@ -4,7 +4,6 @@ import PageHeader from '@/Components/PageHeader';
 import { useMutation } from '@apollo/client';
 import FormCreator from '@/Components/Forms/FormCreator';
 import RESET_PASSWORD_FORM_CONF from '@/Lib/configs/resetPasswordForm';
-import { CURRENT_USER_QUERY } from '@/Gql/queries/currentUser';
 import SuperLogin from '@/Components/SuperLogin';
 import { Typography } from '@material-ui/core';
 
@@ -87,6 +86,16 @@ const ResetPage = ({ appData: { currentUser }, query }) => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 ResetPage.propTypes = {
   appData: PropTypes.shape({
