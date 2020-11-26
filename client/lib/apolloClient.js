@@ -25,48 +25,46 @@ const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
 // can sometimes be empty entirely but will be an object from nextContext
-function createApolloClient(nextContext) {
+function createApolloClient({ req }) {
   // ahh are these an array or object
-  let nextHeaders = {};
-  if (nextContext) {
-    if (nextContext.req) {
-      if (nextContext.req.headers) {
-        console.log('nextContext.req.headers => ', nextContext.req.headers);
-        if (nextContext.req.headers.cookie) {
-          nextHeaders = {
-            cookies: nextContext.req.headers.cookie,
-            ...nextHeaders,
-            ...nextContext.req.headers,
-          };
-        }
-      }
-    }
-  }
 
   // console.log('nextHeaders => ', nextHeaders);
 
-  const authMiddleware = new ApolloLink((operation, forward) => {
-    operation.setContext((request, previousContext) => {
-      return {
-        headers: {
-          //   ...headers,
-          //   ...(req?.headers && req.headers),
-          // ...(req.headers && req.headers),
-          ...nextHeaders,
-          tron: 'Populate Metatron in the headers',
-        },
-      };
-    });
+  // const headersLink = setContext((_, { headers }) => {
+  //   return {
+  //     headers: {
+  //       ...(headers && headers),
+  //       ...(req?.headers && req.headers),
+  //     },
+  //   };
+  // });
 
-    return forward(operation);
-  });
+  // const authMiddleware = new ApolloLink((operation, forward) => {
+  //   operation.setContext((request, previousContext) => {
+  //     return {
+  //       headers: {
+  //         //   ...headers,
+  //         //   ...(req?.headers && req.headers),
+  //         ...(req?.headers && req.headers),
+  //         tron: 'Populate Metatron in the headers',
+  //       },
+  //     };
+  //   });
+
+  //   return forward(operation);
+  // });
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
     },
+    headers: {
+      ...(req?.headers && req.headers),
+    },
   });
+
+  // const uploadWithHeaders = headersLink.concat(uploadHttpLink);
 
   const authLink = from([
     onError(({ graphQLErrors, networkError }) => {
@@ -81,8 +79,9 @@ function createApolloClient(nextContext) {
           `[Network error]: ${networkError}. Are you sure the server is running? We cannot hit the backend`
         );
     }),
-    authMiddleware,
+    // authMiddleware,
     uploadHttpLink,
+    // uploadWithHeaders,
   ]);
   const wsLink = process.browser
     ? new WebSocketLink({
