@@ -3,6 +3,10 @@ import PropertiesManager from '@/AdminComponents/PropertiesManager';
 import PageHeader from '@/Components/PageHeader';
 import AdminOnly from '@/Components/AdminOnly';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const AdminPropertiesPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
 

@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import PageHeader from '@/Components/PageHeader';
 import AcceptTermsOfEngagementForm from '@/Components/Forms/AcceptTermsOfEngagementForm';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const TermsOfEngagementPage = props => {
   const {
     appData: { currentUser },

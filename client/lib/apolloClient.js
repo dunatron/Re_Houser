@@ -24,10 +24,6 @@ let apolloClient;
 const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
 
-function getToken() {
-  return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJyZWhvdXNlci1jdG8taWQiLCJ1c2VyUGVybWlzc2lvbnMiOlsiQURNSU4iLCJVU0VSIiwiUEVSTUlTU0lPTlVQREFURSIsIldJWkFSRCJdLCJpYXQiOjE2MDYzMzgzODF9.IeVMBQ7XEMgZsWb4XgBnISyhcw-JtQV74MUTc2Hvv4E';
-}
-
 function createApolloClient({ headers }) {
   const authMiddleware = new ApolloLink((operation, forward) => {
     if (typeof window !== 'undefined') {
@@ -35,8 +31,8 @@ function createApolloClient({ headers }) {
     }
 
     operation.setContext((request, previousContext) => {
-      //   console.log('setContext request => ', request);
-      //   console.log('setContext previousContext => ', previousContext);
+      console.log('setContext request => ', request);
+      console.log('setContext previousContext => ', previousContext);
       return {
         headers: {
           ...headers,
@@ -51,8 +47,7 @@ function createApolloClient({ headers }) {
   const uploadHttpLink = createUploadLink({
     uri: authUri,
     fetchOptions: {
-      // credentials: 'include',
-      credentials: 'same-origin',
+      credentials: 'include', // this makes sure we include things like cookies
     },
   });
 
@@ -128,12 +123,7 @@ export function initializeApollo(initialState = null, headers) {
 }
 
 export function addApolloState(client, pageProps) {
-  //   if (pageProps?.props) {
-  //     // console.log('Log the extract => ', client.cache.extract());
-  //     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
-  //   }
-
-  if (pageProps.props) {
+  if (pageProps?.props) {
     // console.log('Log the extract => ', client.cache.extract());
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }

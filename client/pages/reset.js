@@ -8,6 +8,10 @@ import { CURRENT_USER_QUERY } from '@/Gql/queries/currentUser';
 import SuperLogin from '@/Components/SuperLogin';
 import { Typography } from '@material-ui/core';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const RESET_PASSWORD_MUTATION = gql`
   mutation resetPassword(
     $resetToken: String!

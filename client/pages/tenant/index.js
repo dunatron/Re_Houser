@@ -5,6 +5,10 @@ import { Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
 import TENANT_DASHBOARD_CONFIG from '@/Lib/configs/tenantDashboardConfig';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const TenantPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to the system to do tenant activities';

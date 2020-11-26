@@ -4,6 +4,10 @@ import PleaseSignIn from '@/Components/PleaseSignIn';
 
 import LeasesTable from '@/Components/Tables/LeasesTable';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const LandLordLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
   return (
     <PleaseSignIn

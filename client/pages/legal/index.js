@@ -7,6 +7,10 @@ import { Box, Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
 import LEGAL_STATMENTS_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/legalStatementsDashConf';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const LegalPage = props => {
   const {
     appData: { currentUser },

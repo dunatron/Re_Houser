@@ -18,6 +18,10 @@ import PleaseSignIn from '@/Components/PleaseSignIn';
 import Dashboard from '@/Components/Dashboard';
 import SOCIAL_DASHBOARD_CONFIG from '@/Lib/configs/socialDashboard';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const SocialPage = ({ appData: { currentUser } }) => {
   return (
     <div>

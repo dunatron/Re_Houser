@@ -5,6 +5,10 @@ import { ActivityManager, Activity } from '@/Components/ActivityManager';
 import PageHeader from '@/Components//PageHeader';
 import { Typography } from '@material-ui/core';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const ActivityPage = ({ appData: { currentUser } }) => {
   return (
     <Fragment>

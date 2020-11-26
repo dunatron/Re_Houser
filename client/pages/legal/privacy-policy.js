@@ -4,6 +4,10 @@ import PageHeader from '@/Components/PageHeader';
 import TextPdfGeneratorCombo from '@/Components/Pdfs/TextPdfGeneratorCombo';
 import privacyPolicyPdfConf from '@/Lib/configs/pdfs/privacyPolicy';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const PrivacyPolicyPage = ({ appData: { currentUser } }) => {
   return (
     <>

@@ -4,6 +4,10 @@ import ConfirmEmail from '@/Components/ConfirmEmail';
 import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const FindPropertyPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to manager your properties';

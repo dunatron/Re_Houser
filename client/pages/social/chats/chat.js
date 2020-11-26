@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import ChatRoomScreen from '../../../components/ChatRoomScreen';
 import PleaseSignIn from '../../../components/PleaseSignIn';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const SocialSingleChatPage = ({
   appData: { currentUser },
   query: { chatId },

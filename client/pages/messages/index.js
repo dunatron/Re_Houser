@@ -3,6 +3,10 @@ import PageHeader from '@/Components/PageHeader';
 import RChat from '@/Components/RChat';
 import ChatsListScreen from '@/Components/ChatsListScreen';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const MessagesPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
   return (

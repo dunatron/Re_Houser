@@ -7,6 +7,10 @@ import { Box, Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard';
 import LANDLORD_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/landlordDashConf';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const LandlordPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to manager your properties';
@@ -81,6 +85,16 @@ const LandlordPage = ({ appData: { currentUser } }) => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx.req.headers);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 LandlordPage.propTypes = {
   appData: PropTypes.shape({

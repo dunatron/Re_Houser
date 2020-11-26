@@ -6,6 +6,10 @@ import { Typography } from '@material-ui/core';
 import Dashboard from '@/Components/Dashboard/index';
 import HOME_PAGE_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/homepageDashConf';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 /**
  *
  * Doesnt actually require login, just needs a token in the url bar

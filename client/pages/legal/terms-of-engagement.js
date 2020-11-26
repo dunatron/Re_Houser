@@ -4,6 +4,10 @@ import PageHeader from '@/Components/PageHeader';
 import TextPdfGeneratorCombo from '@/Components/Pdfs/TextPdfGeneratorCombo';
 import termsOfEngagementPdfConf from '@/Lib/configs/pdfs/termsOfEngagement';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const TermsOfEngagementPage = ({ appData: { currentUser } }) => {
   return (
     <>

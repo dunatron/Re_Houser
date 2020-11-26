@@ -4,6 +4,9 @@ import RentalApplication from '@/Components/RentalApplication';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import { Typography } from '@material-ui/core';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
   return (

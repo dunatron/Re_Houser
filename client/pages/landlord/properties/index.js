@@ -4,6 +4,10 @@ import PleaseSignIn from '@/Components/PleaseSignIn';
 import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const PropertiesPage = props => {
   const {
     appData: { currentUser },
@@ -41,6 +45,18 @@ const PropertiesPage = props => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx.req.headers);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {
+      // headers: ctx.req.headers,
+    },
+  });
+}
 
 PropertiesPage.propTypes = {
   appData: PropTypes.shape({

@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import LeaseManager from '@/Components/LeaseManager';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const LandLordSingleLeasePage = ({
   appData: { currentUser },
   query: { id },

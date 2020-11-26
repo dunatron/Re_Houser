@@ -4,6 +4,10 @@ import PropertyAppraisal from '@/Components/PropertyAppraisal';
 
 import AssociatedAppraisal from '@/Components/CreateProperty/AssociatedAppraisal';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const LandlordViewAppraisalPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
   return (

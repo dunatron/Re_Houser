@@ -6,6 +6,10 @@ import { Typography } from '@material-ui/core';
 
 import PageHeader from '@/Components/PageHeader';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const InspectionPage = ({ appData: { currentUser }, query: { id } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
   return (

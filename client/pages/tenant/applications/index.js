@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import RentalApplications from '@/Components/RentalApplications/index';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const TenantApplicationsPage = ({
   appData: { currentUser },
   query: { id },

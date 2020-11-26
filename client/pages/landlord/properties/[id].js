@@ -7,6 +7,10 @@ import { useQuery } from '@apollo/client';
 
 import { OWNER_PROPERTIES_QUERY } from '@/Gql/queries';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const PropertiesPage = props => {
   console.log('props on the actual page => ', props);
   return (
