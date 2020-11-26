@@ -60,6 +60,23 @@ function createApolloClient(ctx) {
   const cookies = nookies.get(ctx);
   // const cookies = nookies.get({});
 
+  const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        ...(ctx?.req?.headers && ctx.req.headers),
+        cookie: `token=${
+          cookies['token'] ? cookies['token'] : ''
+        }; refresh-token=${
+          cookies['refresh-token'] ? cookies['refresh-token'] : ''
+        };`,
+        // Authorization: token ? `JWT ${token}` : '',
+      },
+    };
+  });
+
   console.log('the cookes fron nookies =>  ', cookies);
 
   const uploadHttpLink = createUploadLink({
@@ -67,35 +84,40 @@ function createApolloClient(ctx) {
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
     },
-    headers: {
-      // ...(req?.headers && req.headers),
-      cookie: `token=${
-        cookies['token'] ? cookies['token'] : ''
-      }; refresh-token=${
-        cookies['refresh-token'] ? cookies['refresh-token'] : ''
-      };`,
-    },
+    // headers: {
+    //   // ...(req?.headers && req.headers),
+    //   cookie: `token=${
+    //     cookies['token'] ? cookies['token'] : ''
+    //   }; refresh-token=${
+    //     cookies['refresh-token'] ? cookies['refresh-token'] : ''
+    //   };`,
+    // },
+    // headers: {
+    //   // ...(req?.headers && req.headers),
+    //   //   cookie: `${cookies['token'] && 'token='.cookies['token']};`,
+    //   //   cookie: `token="asdasd";`,
+    // },
   });
 
   // const uploadWithHeaders = headersLink.concat(uploadHttpLink);
 
-  const authLink = from([
-    onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors)
-        graphQLErrors.forEach(({ message, locations, path }) =>
-          console.log(
-            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-          )
-        );
-      if (networkError)
-        console.log(
-          `[Network error]: ${networkError}. Are you sure the server is running? We cannot hit the backend`
-        );
-    }),
-    // authMiddleware,
-    uploadHttpLink,
-    // uploadWithHeaders,
-  ]);
+  //   const authLink = from([
+  //     onError(({ graphQLErrors, networkError }) => {
+  //       if (graphQLErrors)
+  //         graphQLErrors.forEach(({ message, locations, path }) =>
+  //           console.log(
+  //             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+  //           )
+  //         );
+  //       if (networkError)
+  //         console.log(
+  //           `[Network error]: ${networkError}. Are you sure the server is running? We cannot hit the backend`
+  //         );
+  //     }),
+  //     // authMiddleware,
+  //     uploadHttpLink,
+  //     // uploadWithHeaders,
+  //   ]);
   const wsLink = process.browser
     ? new WebSocketLink({
         uri: websocketEndpoint,
@@ -114,9 +136,9 @@ function createApolloClient(ctx) {
           return kind === 'OperationDefinition' && operation === 'subscription';
         },
         wsLink,
-        authLink
+        authLink.concat(uploadHttpLink)
       )
-    : authLink;
+    : authLink.concat(uploadHttpLink);
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: link,
