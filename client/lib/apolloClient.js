@@ -95,6 +95,8 @@ function createApolloClient({ ctx, token }) {
 
   if (cookies.token) {
     authToken = cookies.token;
+  } else {
+    authToken = '';
   }
 
   const authLink = setContext((_, { headers }) => {
