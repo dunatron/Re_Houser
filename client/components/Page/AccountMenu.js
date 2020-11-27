@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useContext, useEffect } from 'react';
 import Router from 'next/router';
-import { useMutation } from '@apollo/client';
+import { useMutation, useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Avatar,
@@ -32,6 +32,8 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 const SIGN_OUT_MUTATION = gql`
   mutation SIGN_OUT_MUTATION {
@@ -211,6 +213,10 @@ const SignOutMenuItem = props => {
     {
       onError: error => toast.error(<Error error={error} />),
       onCompleted: data => {
+        destroyCookie(null, 'token');
+        destroyCookie(null, 'tron-token-copy');
+        client.cache.reset();
+        client.resetStore();
         toast.info(data.signout.message);
         props.onClick();
       },
@@ -222,8 +228,8 @@ const SignOutMenuItem = props => {
       update: (cache, data) => {
         // cache.evict({ id: 'User:ckdrorkme3ic60999guamh8x2' });
         // cache.gc();
-        // cache.reset();
-        client.resetStore();
+        cache.reset();
+        // client.resetStore();
       },
     });
   };
