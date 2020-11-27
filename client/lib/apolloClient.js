@@ -106,9 +106,9 @@ function createApolloClient({ ctx, token }) {
     return {
       headers: {
         ...headers,
-        Authorization: 'Bearer ' + authToken,
+        // Authorization: 'Bearer ' + authToken,
         // Authorization: 'Bearer ' + testToken,
-        // cookie: `token=${testToken};`,
+        cookie: `token=${authToken};`,
         // ...cookies,
         // ...(cookies.token && { cookie: `token=${cookies.token};` }),
         // ...(ctx?.req?.headers && ctx.req.headers),
