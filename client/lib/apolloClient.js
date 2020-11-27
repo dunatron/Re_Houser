@@ -75,22 +75,26 @@ function createApolloClient({ ctx, token }) {
 
   console.log('Cookies from apolloCLient => ', cookies);
 
-  if (ctx) {
-    setCookie(ctx, 'fromApolloSetupLevel', 'value', {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    });
-  }
+  // if (ctx) {
+  //   setCookie(ctx, 'fromApolloSetupLevel', 'value', {
+  //     maxAge: 30 * 24 * 60 * 60,
+  //     path: '/',
+  //   });
+  // }
 
-  if (token) {
-    authToken = token;
-  }
+  // if (token) {
+  //   authToken = token;
+  // }
+  // if (cookies.token) {
+  //   authToken = cookies.token;
+  //   setCookie(ctx, 'token', cookies.token, {
+  //     maxAge: 30 * 24 * 60 * 60,
+  //     path: '/',
+  //   });
+  // }
+
   if (cookies.token) {
     authToken = cookies.token;
-    setCookie(ctx, 'token', cookies.token, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    });
   }
 
   const authLink = setContext((_, { headers }) => {
@@ -116,8 +120,6 @@ function createApolloClient({ ctx, token }) {
       },
     };
   });
-
-  console.log('the cookes fron nookies =>  ', cookies);
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,

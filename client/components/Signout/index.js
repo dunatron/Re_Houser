@@ -23,6 +23,7 @@ const Signout = ({ label, fullWidth, me, color, variant }) => {
 
   const handleCompleted = data => {
     destroyCookie(null, 'token');
+    destroyCookie(null, 'tron-token-copy');
     client.resetStore();
     toast.success(
       <p>
