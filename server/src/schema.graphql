@@ -49,6 +49,7 @@ type User {
   chats: [Chat!]
   permissions: [Permission]
   token: String
+  refreshToken: String
   rehouserStamp: Boolean
   signature: File
   activity: [Activity!]!

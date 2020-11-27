@@ -10,6 +10,7 @@ import { SIGNIN_MUTATION } from '@/Gql/mutations';
 // import ReCAPTCHA from 'react-google-recaptcha';
 import ReCAPTCHA from '@/Components/Recaptcha';
 import ButtonLoader from '@/Components/Loader/ButtonLoader';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 const Signin = props => {
   const [state, setState] = useState({
@@ -24,6 +25,14 @@ const Signin = props => {
     recaptchaRef.current ? recaptchaRef.current.reset() : null;
 
   const handleCompleted = data => {
+    setCookie(null, 'token', data.signin.token, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+    setCookie(null, 'tron-token-copy', data.signin.token, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
     toast.success(
       <p>
         <strong>

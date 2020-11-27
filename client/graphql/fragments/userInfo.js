@@ -6,6 +6,8 @@ import { RefereeInfoFragment } from './refereeInfo';
 const UserInfoFragment = gql`
   fragment userInfo on User {
     id
+    token
+    refreshToken
     isAdmin @client
     isWizard @client
     createdAt
