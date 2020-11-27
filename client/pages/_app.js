@@ -101,13 +101,19 @@ function App(props) {
   const { Component, pageProps } = props;
   const cookies = parseCookies();
   console.log('Tell me all the entry props => ', props);
-  console.log({ cookies });
+  console.log('cookies from App => ', cookies);
   const apolloClient = useApollo(pageProps, cookies.token);
 
   // setCookie(null, 'fromClient', 'value', {
   //   maxAge: 30 * 24 * 60 * 60,
   //   path: '/',
   // });
+
+  // Set
+  setCookie(null, 'fromAppEntryLevel', 'value', {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  });
 
   console.log('APP ROOT pageProps => ', pageProps);
 

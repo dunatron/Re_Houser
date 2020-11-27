@@ -73,14 +73,25 @@ function createApolloClient({ ctx, token }) {
 
   const cookies = nookies.get(ctx);
 
+  console.log('Cookies from apolloCLient => ', cookies);
+
+  if (ctx) {
+    setCookie(ctx, 'fromApolloSetupLevel', 'value', {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+  }
+
   if (token) {
     authToken = token;
   }
   if (cookies.token) {
     authToken = cookies.token;
+    setCookie(ctx, 'token', cookies.token, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
   }
-
-  console.log('Cookies from apolloCLient => ', cookies);
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
