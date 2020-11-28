@@ -1,3 +1,4 @@
+// import DynamicWidget from './DynamicWidget';
 import Widget from './Widget';
 import { useApolloClient } from '@apollo/client';
 import { useMutation } from '@apollo/client';
@@ -21,6 +22,8 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import dynamic from 'next/dynamic';
+import { NoSsr } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -136,7 +139,9 @@ const WidgetWithSaveToDB = ({
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <RenderFiles files={files} />
         <CardActions disableSpacing>
-          <Widget onUploadCompleted={handleUploadCompleted} />
+          <NoSsr>
+            <Widget onUploadCompleted={handleUploadCompleted} />
+          </NoSsr>
         </CardActions>
       </Collapse>
     </RehouserCard>

@@ -37,10 +37,11 @@ export default function SimpleSelect(props) {
     fieldError,
     clearError,
   } = props;
-
-  const yuckErr = errors[name]; //thats why I labelled it yuck, shold work with architecture right.. .SO check this out wehen you have time
-
   const { type, inners, fieldProps, refConf } = config;
+  const name = fieldProps ? fieldProps.name : null;
+
+  const yuckErr = name ? errors[name] : null; //thats why I labelled it yuck, shold work with architecture right.. .SO check this out wehen you have time
+
   const defaultValue = defaultValues[fieldProps.name];
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
     variables: {

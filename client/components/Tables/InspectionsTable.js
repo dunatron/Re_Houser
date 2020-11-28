@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
 import { store } from '@/Store/index';
 import gql from 'graphql-tag';
-import moment from 'moment'
+import moment from 'moment';
 import {
   useApolloClient,
   useQuery,
@@ -25,8 +25,8 @@ import { useRouter } from 'next/router';
 
 import CachedIcon from '@material-ui/icons/Cached';
 
-//counts 
-import {useInspectionsCount} from '@/Lib/hooks/counts/useInspectionsCount'
+//counts
+import { useInspectionsCount } from '@/Lib/hooks/counts/useInspectionsCount';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -51,7 +51,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   const [tableErr, setTableErr] = useState(null);
   const router = useRouter();
 
-  const totalCount = useInspectionsCount({where: where})
+  const totalCount = useInspectionsCount({ where: where });
 
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: true },
@@ -86,7 +86,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
       onCompleted: data => {},
     }
   );
-  
+
   const remoteData = async query => {
     return client
       .query({
@@ -118,7 +118,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
           data: formattedData,
           page: query.page,
           totalCount: totalCount.count,
-        }; 
+        };
       })
       .catch(e => {
         setTableErr(e);
@@ -130,10 +130,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
 
   const manageInspection = (e, rowData) => {
     router.push({
-      pathname: '/inspection',
-      query: {
-        id: rowData.id,
-      },
+      pathname: `/inspection/${rowData.id}`,
     });
   };
 
@@ -158,12 +155,12 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
   };
 
   useEffect(() => {
-    if(tableRef.current) {
-      refetchTable()
+    if (tableRef.current) {
+      refetchTable();
     }
-  }, [totalCount.count])
+  }, [totalCount.count]);
 
-  if(totalCount.loading) return "Loading count"
+  if (totalCount.loading) return 'Loading count';
 
   return (
     <div className={classes.root}>
@@ -183,7 +180,7 @@ const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
         data={remoteData}
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
-          filtering: true
+          filtering: true,
         }}
         actions={[
           {

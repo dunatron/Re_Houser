@@ -7,15 +7,8 @@ const Meta = () => (
     {/* <link rel="stylesheet" type="text/css" href="/static/geosuggest.css" /> */}
     {/* <link rel="shortcut icon" href="/static/favicon.ico" /> */}
     <link rel="shortcut icon" href="/static/favicon_2.ico" />
-    <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
-    <link rel="stylesheet" type="text/css" href="/static/customToast.css" />
-
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-      key="toastify.min.css"
-    />
+    {/* <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+    <link rel="stylesheet" type="text/css" href="/static/customToast.css" /> */}
 
     <meta
       name="google-site-verification"

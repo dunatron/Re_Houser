@@ -29,10 +29,6 @@ import { setContext } from '@apollo/client/link/context';
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
-let authToken;
-
-const testToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJyZWhvdXNlci1jdG8taWQiLCJ1c2VyUGVybWlzc2lvbnMiOlsiQURNSU4iLCJVU0VSIiwiUEVSTUlTU0lPTlVQREFURSIsIldJWkFSRCJdLCJpYXQiOjE2MDY0MjgzOTZ9.ecXh424z34Ej44n04n7qmmEltBeXtWZd049HGoZeikc';
 
 const websocketEndpoint = process.env.WS_ENDPOINT;
 const authUri = process.env.ENDPOINT;
@@ -40,85 +36,22 @@ const authUri = process.env.ENDPOINT;
 const isServer = typeof window === 'undefined';
 
 // can sometimes be empty entirely but will be an object from nextContext
-function createApolloClient({ ctx, token }) {
-  // ahh are these an array or object
+function createApolloClient(ctx) {
+  // get cookies set by nextJs
+  const cookies = ctx ? nookies.get(ctx) : nookies.get();
 
-  // console.log('nextHeaders => ', nextHeaders);
+  // set these cookies from next into variables
+  const token = cookies.token ? cookies.token : '';
+  const refreshToken = cookies['refresh-token'] ? cookies['refresh-token'] : '';
 
-  // const headersLink = setContext((_, { headers }) => {
-  //   return {
-  //     headers: {
-  //       ...(headers && headers),
-  //       ...(req?.headers && req.headers),
-  //     },
-  //   };
-  // });
-
-  // const authMiddleware = new ApolloLink((operation, forward) => {
-  //   operation.setContext((request, previousContext) => {
-  //     return {
-  //       headers: {
-  //         //   ...headers,
-  //         //   ...(req?.headers && req.headers),
-  //         ...(req?.headers && req.headers),
-  //         tron: 'Populate Metatron in the headers',
-  //       },
-  //     };
-  //   });
-
-  //   return forward(operation);
-  // });
-
-  // let cookies
-
-  const cookies = nookies.get(ctx);
-
-  console.log('Cookies from apolloCLient => ', cookies);
-
-  // if (ctx) {
-  //   setCookie(ctx, 'fromApolloSetupLevel', 'value', {
-  //     maxAge: 30 * 24 * 60 * 60,
-  //     path: '/',
-  //   });
-  // }
-
-  // if (token) {
-  //   authToken = token;
-  // }
-  // if (cookies.token) {
-  //   authToken = cookies.token;
-  //   setCookie(ctx, 'token', cookies.token, {
-  //     maxAge: 30 * 24 * 60 * 60,
-  //     path: '/',
-  //   });
-  // }
-
-  if (cookies.token) {
-    authToken = cookies.token;
-  } else {
-    authToken = '';
-  }
-
+  // set the cookies from nextJs into our Apollo link via setContext
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // return the headers to the context so httpLink can read them
-    console.log('Headers from setContext => ', headers);
     return {
       headers: {
         ...headers,
-        // Authorization: 'Bearer ' + authToken,
-        // Authorization: 'Bearer ' + testToken,
-        cookie: `token=${authToken};`,
-        // ...cookies,
-        // ...(cookies.token && { cookie: `token=${cookies.token};` }),
-        // ...(ctx?.req?.headers && ctx.req.headers),
-        // cookie: `token=${
-        //   cookies['token'] ? cookies['token'] : ''
-        // }; refresh-token=${
-        //   cookies['refresh-token'] ? cookies['refresh-token'] : ''
-        // };`,
-        // Authorization: cookies.token ? `Bearer ${cookies.token}` : '',
-        // Authorization: 'Bearer ' + cookies.token,
+        cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
     };
   });
@@ -136,32 +69,28 @@ function createApolloClient({ ctx, token }) {
     //     cookies['refresh-token'] ? cookies['refresh-token'] : ''
     //   };`,
     // },
-    // headers: {
-    //   // ...(req?.headers && req.headers),
-    //   //   cookie: `${cookies['token'] && 'token='.cookies['token']};`,
-    //   //   cookie: `token="asdasd";`,
-    // },
   });
 
   // const uploadWithHeaders = headersLink.concat(uploadHttpLink);
 
-  //   const authLink = from([
-  //     onError(({ graphQLErrors, networkError }) => {
-  //       if (graphQLErrors)
-  //         graphQLErrors.forEach(({ message, locations, path }) =>
-  //           console.log(
-  //             `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-  //           )
-  //         );
-  //       if (networkError)
-  //         console.log(
-  //           `[Network error]: ${networkError}. Are you sure the server is running? We cannot hit the backend`
-  //         );
-  //     }),
-  //     // authMiddleware,
-  //     uploadHttpLink,
-  //     // uploadWithHeaders,
-  //   ]);
+  const linksToApollo = from([
+    onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors)
+        graphQLErrors.forEach(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        );
+      if (networkError)
+        console.log(
+          `[Network error]: ${networkError}. Are you sure the server is running? We cannot hit the backend`
+        );
+    }),
+    // authMiddleware,
+    authLink,
+    uploadHttpLink,
+    // uploadWithHeaders,
+  ]);
   const wsLink = process.browser
     ? new WebSocketLink({
         uri: websocketEndpoint,
@@ -180,9 +109,9 @@ function createApolloClient({ ctx, token }) {
           return kind === 'OperationDefinition' && operation === 'subscription';
         },
         wsLink,
-        authLink.concat(uploadHttpLink)
+        linksToApollo
       )
-    : authLink.concat(uploadHttpLink);
+    : linksToApollo;
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: link,
@@ -190,16 +119,9 @@ function createApolloClient({ ctx, token }) {
   });
 }
 
-export function initializeApollo(
-  initialState = null,
-  nextJsContext,
-  token = ''
-) {
+export function initializeApollo(initialState = null, nextJsContext) {
   const _apolloClient =
-    apolloClient ??
-    createApolloClient(
-      nextJsContext ? { ctx: nextJsContext, token: token } : { token: token }
-    );
+    apolloClient ?? createApolloClient(nextJsContext ? nextJsContext : {});
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here

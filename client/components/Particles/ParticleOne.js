@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Particles from 'react-particles-js';
 import { useTheme } from '@material-ui/core';
 import debounce from '@/Lib/debounce';
+import isBrowser from '@/Lib/isBrowser';
 
 const _createParticlesObj = theme => {
   // const lineColor = mainPrimaryColor;
@@ -143,26 +144,26 @@ const interactivityObj = {
 const ParticleOne = () => {
   const theme = useTheme();
   const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
+    height: isBrowser() ? window.innerHeight : '100vh',
+    width: isBrowser() ? window.innerWidth : '100vw',
   });
 
   const particlesObj = _createParticlesObj(theme);
 
-  // useEffect(() => {
-  //   const debouncedHandleResize = debounce(function handleResize() {
-  //     setDimensions({
-  //       height: window.innerHeight,
-  //       width: window.innerWidth,
-  //     });
-  //   }, 1000);
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }, 1000);
 
-  //   window.addEventListener('resize', debouncedHandleResize);
+    window.addEventListener('resize', debouncedHandleResize);
 
-  //   return () => {
-  //     window.removeEventListener('resize', debouncedHandleResize);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener('resize', debouncedHandleResize);
+    };
+  }, []);
 
   return (
     <Particles

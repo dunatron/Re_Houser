@@ -8,6 +8,7 @@ import { Typography, Button, IconButton } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { Paper, Card } from '@material-ui/core';
 import { toast } from 'react-toastify';
+import isBrowser from '@/Lib/isBrowser';
 
 const grid = 8;
 
@@ -109,7 +110,7 @@ const AddUserToList = ({
     selected: selected,
   });
 
-  const mainDiv = document.documentElement;
+  const mainDiv = isBrowser() ? document.documentElement : undefined;
   const setScrollToSmooth = () => {
     mainDiv.style['scroll-behavior'] = 'smooth';
   };

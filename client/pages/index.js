@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import dynamic from 'next/dynamic';
 // import PropTypes from 'prop-types';
-// import ParticleBanner from '@/Components/Banner/ParticleBanner';
+import ParticleBanner from '@/Components/Banner/ParticleBanner';
 // import Banner from '@/Components/Banner/index';
 
 import { Button, Typography, IconButton } from '@material-ui/core';
@@ -18,10 +18,10 @@ import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
-const DynamicParticleBanner = dynamic(
-  () => import('@/Components/Banner/ParticleBanner'),
-  { ssr: false }
-);
+// const DynamicParticleBanner = dynamic(
+//   () => import('@/Components/Banner/ParticleBanner'),
+//   { ssr: false }
+// );
 
 const HomePageBannerBody = () => {
   return (
@@ -92,7 +92,7 @@ const HomePageBannerBody = () => {
 const HomePage = () => {
   return (
     <div>
-      <DynamicParticleBanner
+      <ParticleBanner
         imageSrc="images/banners/home-page-banner.jpg"
         disablePointerEvents={true}
         footer={[
@@ -105,7 +105,7 @@ const HomePage = () => {
           </Typography>,
         ]}>
         <HomePageBannerBody />
-      </DynamicParticleBanner>
+      </ParticleBanner>
       <Dashboard
         config={HOME_PAGE_DASHBOARD_CONFIG}
         elevation={0}

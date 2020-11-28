@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import isBrowser from '@/Lib/isBrowser';
 
 const getWidth = () =>
   window.innerWidth ||
@@ -7,7 +8,7 @@ const getWidth = () =>
 
 function useCurrentWidth() {
   // save current window width in the state object
-  let [width, setWidth] = useState(getWidth());
+  let [width, setWidth] = useState(isBrowser() ? getWidth() : '100%');
 
   // in this case useEffect will execute only once because
   // it does not have any dependencies.

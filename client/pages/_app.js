@@ -93,6 +93,14 @@ import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
+// import css for SSR
+import '../public/static/rehouser-fonts.css';
+import '../public/static/rehouser-trial-fonts.css';
+import '../public/static/customToast.css';
+import '../public/static/geosuggest.css';
+import '../public/static/nprogress.css';
+// import '../public/static/fonts/azo-sans/AzoSans-Bold.woff';
+
 /**
  *
  * Umm see if you can get context from here too? pass nextJsCOntext to useApollo so it can initialize with headers
@@ -100,8 +108,7 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies';
 function App(props) {
   const { Component, pageProps } = props;
   const cookies = parseCookies();
-  console.log('Tell me all the entry props => ', props);
-  console.log('cookies from App => ', cookies);
+
   const apolloClient = useApollo(pageProps, cookies.token);
 
   // setCookie(null, 'fromClient', 'value', {

@@ -5,13 +5,17 @@ import ManageInspection from '@/Components/Inspections/ManageInspection';
 import { Typography } from '@material-ui/core';
 
 import PageHeader from '@/Components/PageHeader';
+import { useRouter } from 'next/router';
 
 // server side props
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
+import { SINGLE_INSPECTION_QUERY } from '@/Gql/queries';
 
-const InspectionPage = ({ appData: { currentUser }, query: { id } }) => {
+const InspectionPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
+  const router = useRouter();
+  const { id } = router.query;
   return (
     <div>
       <PageHeader
@@ -40,9 +44,18 @@ const InspectionPage = ({ appData: { currentUser }, query: { id } }) => {
 };
 
 export async function getServerSideProps(ctx) {
+  // console.log("WHat is on ctx ? => ", ctx)
   const apolloClient = initializeApollo(null, ctx);
   await apolloClient.query({
     query: CURRENT_USER_QUERY,
+  });
+  await apolloClient.query({
+    query: SINGLE_INSPECTION_QUERY,
+    variables: {
+      where: {
+        id: ctx.query.id,
+      },
+    },
   });
   return addApolloState(apolloClient, {
     props: {},

@@ -1,10 +1,13 @@
 import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/styles';
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+// import { ServerStyleSheets } from '@material-ui/styles';
 // import theme from '@/Styles/_muiTheme';
 import mainPalette from '@/Themes/palettes/mainPalette'; // hmm kinda sdtatic but owel
 
-class MyDocument extends Document {
+import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
+
+class MyDocument extends NextDocument {
   render() {
     return (
       <Html lang="en">
@@ -21,7 +24,29 @@ class MyDocument extends Document {
             name="theme-color"
             content={mainPalette.palette.secondary.main}
           />
+
           <link
+            rel="preload"
+            href="/static/fonts/azo-sans/AzoSans-Regular.woff"
+            as="font"
+            crossOrigin=""
+          />
+
+          <link
+            rel="preload"
+            href="/static/fonts/azo-sans/AzoSans-Bold.woff"
+            as="font"
+            crossOrigin=""
+          />
+
+          {/* <Link
+            rel="preload"
+            href="/static/rehouser-trial-fonts.css"
+            as="font"
+            crossOrigin=""
+          /> */}
+
+          {/* <link
             rel="stylesheet"
             type="text/css"
             href="/static/rehouser-fonts.css"
@@ -30,7 +55,7 @@ class MyDocument extends Document {
             rel="stylesheet"
             type="text/css"
             href="/static/rehouser-trial-fonts.css"
-          />
+          /> */}
           {/* <link
             rel="stylesheet"
             type="text/css"
@@ -86,37 +111,36 @@ MyDocument.getInitialProps = async ctx => {
   // 3. app.render
   // 4. page.render
 
-  // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets();
+  // // Render app and page and get the context of the page with collected side effects.
+  // const sheets = new ServerStyleSheets();
+  // const originalRenderPage = ctx.renderPage;
+
+  const styledComponentSheet = new StyledComponentSheets();
+  const materialUiSheets = new MaterialUiServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
-  ctx.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />),
-    });
-
-  const initialProps = await Document.getInitialProps(ctx);
-
-  // return {
-  //   ...initialProps,
-  //   // Styles fragment is rendered after the app and page rendering finish.
-  //   styles: [
-  //     ...React.Children.toArray(initialProps.styles),
-  //     sheets.getStyleElement(),
-  //   ],
-  // };
-
-  // What I hade before is below
-  return {
-    ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [
-      <React.Fragment key="styles">
-        {initialProps.styles}
-        {sheets.getStyleElement()}
-      </React.Fragment>,
-    ],
-  };
+  try {
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => props =>
+          styledComponentSheet.collectStyles(
+            materialUiSheets.collect(<App {...props} />)
+          ),
+      });
+    const initialProps = await NextDocument.getInitialProps(ctx);
+    return {
+      ...initialProps,
+      styles: [
+        <React.Fragment key="styles">
+          {initialProps.styles}
+          {materialUiSheets.getStyleElement()}
+          {styledComponentSheet.getStyleElement()}
+        </React.Fragment>,
+      ],
+    };
+  } finally {
+    styledComponentSheet.seal();
+  }
 };
 
 export default MyDocument;
