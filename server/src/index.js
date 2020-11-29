@@ -11,22 +11,22 @@ const userMiddleware = require("./middleware/user/index");
 const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
-// process.on("uncaughtException", err => {
-//   console.log(`Uncaught Exception: ${err.message}`);
-//   return err;
-// });
+process.on("uncaughtException", err => {
+  console.log(`Uncaught Exception: ${err.message}`);
+  return err;
+});
 
-// process.on("unhandledRejection", (reason, promise) => {
-//   console.log(
-//     "Custom Unhandled rejection at ",
-//     promise,
-//     `reason: ${reason.message}`
-//   );
-//   return reason;
-//   // throw reason;
-//   // return reason;
-//   // return reason; // return the errors to try not crash express
-// });
+process.on("unhandledRejection", (reason, promise) => {
+  console.log(
+    "Custom Unhandled rejection at ",
+    promise,
+    `reason: ${reason.message}`
+  );
+  return reason;
+  // throw reason;
+  // return reason;
+  // return reason; // return the errors to try not crash express
+});
 
 // server.express.use(function(err, req, res, next) {
 //   console.error(err.stack);
