@@ -4,27 +4,33 @@ import FlexLayout from '@/Styles/layouts/FlexLayout';
 
 const BoardItemStyles = styled(Paper)`
   /* background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border-radius: 3px;
+  
   border: 0;
   color: white;
   height: 48px;
-  padding: 0 30px;
+ 
   box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3); */
   /* height: 300px; */
-  width: 260px;
-  margin: 16px;
+  width: 258px;
+  margin: 8px;
 
   && {
     /* margin: ${props => props.theme.spacing(0)}px 0 0 0; */
+    border-radius: 0;
   }
   .item-btn-ico {
     display: flex;
     padding: 0 16px;
   }
   .item-btn {
+    border-radius: 0;
+    padding: 16px 8px;
     width: 100%;
-    font-size: 20px;
-    font-family: "GustanLight";
+    font-family: "Roboto";
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.01562em;
     justify-content: flex-start;
     align-items: center;
     border-bottom-right-radius: 0;
@@ -32,9 +38,10 @@ const BoardItemStyles = styled(Paper)`
   }
   .item-description {
     padding: 0 16px 16px 16px;
-    font-size: 18px;
-    line-height: 28px;
-    font-family: "GustanLight";
+    font-size: 1.2rem;
+    line-height: 1.167;
+    font-family: "Roboto";
+    font-weight: 300;
   }
 `;
 

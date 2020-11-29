@@ -14,10 +14,12 @@ export const CEO_DETAILS = {
   lastname: 'McDonough',
   email: 'admin@rehouser.co.nz',
   phone: '022 302 5510',
+  tel: '+64223025510',
 };
 export const CTO_DETAILS = {
   firstname: 'Heath',
   lastname: 'Dunlop',
   email: 'heathd@rehouser.co.nz',
   phone: '021 243 9998',
+  tel: '+64212439998',
 };

@@ -4,14 +4,6 @@ import { store } from '@/Store/index';
 
 import Dashboard from '@/Components/Dashboard';
 import PageHeader from '@/Components/PageHeader';
-
-//material
-import { Badge } from '@material-ui/core';
-
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import SettingsIcon from '@material-ui/icons/Settings';
-import FriendManager from '@/Components/FriendManager';
 import AdminOnly from '@/Components/AdminOnly';
 
 import ADMIN_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/adminDashConf';
@@ -30,6 +22,7 @@ const AdminDashboardPage = ({ appData: { currentUser } }) => {
     <div>
       <PageHeader
         title="Admin Portal"
+        intro="The admin portal is where staff can get an overview of the system"
         metaData={{
           title: 'Admin portal',
           content:
@@ -42,7 +35,6 @@ const AdminDashboardPage = ({ appData: { currentUser } }) => {
           // elevation={20}
           elevation={0}
         />
-        <FriendManager />
       </AdminOnly>
     </div>
   );

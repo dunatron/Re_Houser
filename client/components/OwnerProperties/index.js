@@ -8,7 +8,7 @@ import Loader from '@/Components/Loader/index';
 import PropertiesTable from '@/Components/Tables/PropertiesTable';
 import { OWNER_PROPERTIES_QUERY } from '@/Gql/queries';
 import AddIcon from '@material-ui/icons/Add';
-import { Button } from '@material-ui/core';
+import { ButtonGroup, Button } from '@material-ui/core';
 
 const handleLink = (route = '/', query = {}) => {
   Router.push({
@@ -68,14 +68,16 @@ const OwnerProperties = ({ me }) => {
         {renderModalDetails()}
       </Modal>
       <div style={{ marginBottom: '16px' }}>
-        <Button
-          onClick={goToAddPropertyPage}
-          color="primary"
-          startIcon={<AddIcon />}
-          variant="contained">
-          Property
-        </Button>
-        <Button onClick={goToAddBulkProperty}>Bulk Upload</Button>
+        <ButtonGroup
+          color="secondary"
+          aria-label="outlined secondary button group">
+          <Button onClick={goToAddPropertyPage} startIcon={<AddIcon />}>
+            Property
+          </Button>
+          <Button onClick={goToAddBulkProperty} startIcon={<AddIcon />}>
+            Bulk Upload
+          </Button>
+        </ButtonGroup>
       </div>
       <PropertiesTable properties={data ? data.ownerProperties : []} me={me} />
     </>
@@ -83,7 +85,7 @@ const OwnerProperties = ({ me }) => {
 };
 
 OwnerProperties.propTypes = {
-  me: PropTypes.any
+  me: PropTypes.any,
 };
 
 export default OwnerProperties;

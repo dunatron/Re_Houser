@@ -8,6 +8,7 @@ const TEAM_CONFIG = [
     imgPath: '/images/team/heath_dunlop.jpg',
     role: 'CEO',
     phone: CEO_DETAILS.phone,
+    tel: CEO_DETAILS.tel,
     email: CEO_DETAILS.email,
     description: (
       <div>
@@ -38,7 +39,8 @@ const TEAM_CONFIG = [
     subUrl: 'heath_dunlop',
     imgPath: '/images/team/heath_dunlop.jpg',
     role: 'CTO',
-    phone: CTO_DETAILS.Phone,
+    phone: CTO_DETAILS.phone,
+    tel: CTO_DETAILS.tel,
     email: CTO_DETAILS.email,
     description: (
       <div>

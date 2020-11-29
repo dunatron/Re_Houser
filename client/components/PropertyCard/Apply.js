@@ -38,10 +38,7 @@ const Apply = props => {
       </Typography>
     );
     handleLink({
-      route: '/tenant/applications/application',
-      query: {
-        id: data.createRentalApplication.id,
-      },
+      route: `/tenant/applications/${data.createRentalApplication.id}`,
     });
   };
 

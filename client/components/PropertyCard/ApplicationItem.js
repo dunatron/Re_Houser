@@ -166,10 +166,7 @@ const ApplicationItem = props => {
       <div>
         <ChangeRouteBtn
           title="Update Application"
-          route={`/tenant/applications/application`}
-          query={{
-            id: application.id,
-          }}
+          route={`/tenant/applications/${application.id}`}
         />
         <Button
           variant="outlined"

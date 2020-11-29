@@ -1,4 +1,10 @@
-import { Paper, Typography, Button, CardMedia } from '@material-ui/core';
+import {
+  Paper,
+  Typography,
+  ButtonGroup,
+  Button,
+  CardMedia,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Image from 'material-ui-image';
 import PageHeader from '@/Components/PageHeader';
@@ -25,6 +31,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '550px', // maybe we should have this
     minWidth: '320px',
 
+    padding: 0,
     // marginRight: 'auto',
     // marginLeft: 'auto',
     [theme.breakpoints.up('md')]: {
@@ -46,6 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
   contactDetails: {
     fontSize: '22px',
+    margin: '16px 0',
   },
 }));
 
@@ -70,7 +78,11 @@ const TeamMember = ({ member }) => {
         }}
       />
       <FlexLayout className={classes.descPanel}>
-        <Card className={classes.imageWrapper} disablePadding>
+        <Card
+          className={classes.imageWrapper}
+          attrs={{
+            disablePadding: true,
+          }}>
           <Image
             style={{ height: '100%' }}
             src={member.imgPath}
@@ -79,14 +91,23 @@ const TeamMember = ({ member }) => {
           />
         </Card>
         <Card className={classes.description}>
-          {member.description}
+          <Typography variant="body1" gutterBottom>
+            {member.description}
+          </Typography>
           <div className={classes.contactDetails}>
-            <Button color="secondary" startIcon={<PhoneIcon />}>
-              {member.phone}
-            </Button>
-            <Button color="secondary" startIcon={<MailOutlineIcon />}>
-              {member.email}
-            </Button>
+            <ButtonGroup
+              color="secondary"
+              variant="outlined"
+              aria-label="contact member actions group">
+              <Button href={`tel:${member.tel}`} startIcon={<PhoneIcon />}>
+                {member.phone}
+              </Button>
+              <Button
+                href={`mailto:${member.email}`}
+                startIcon={<MailOutlineIcon />}>
+                {member.email}
+              </Button>
+            </ButtonGroup>
           </div>
         </Card>
       </FlexLayout>

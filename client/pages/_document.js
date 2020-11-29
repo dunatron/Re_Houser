@@ -1,8 +1,6 @@
 import React from 'react';
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
-// import { ServerStyleSheets } from '@material-ui/styles';
-// import theme from '@/Styles/_muiTheme';
-import mainPalette from '@/Themes/palettes/mainPalette'; // hmm kinda sdtatic but owel
+import mainPalette from '@/Themes/palettes/mainPalette';
 
 import { ServerStyleSheet as StyledComponentSheets } from 'styled-components';
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/core/styles';
@@ -22,20 +20,15 @@ class MyDocument extends NextDocument {
             name="theme-color"
             content={mainPalette.palette.secondary.main}
           />
-          {/* preLoad our regular font */}
+          {/* load in google roboto font */}
           <link
-            rel="preload"
-            href="/fonts/azo-sans/AzoSans-Regular.woff"
-            as="font"
-            crossOrigin=""
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
-          {/* preLoad our bold font */}
+          {/* load in material icons */}
           <link
-            rel="preload"
-            href="/fonts/azo-sans/AzoSans-Bold.woff"
-            as="font"
-            crossOrigin=""
-          />
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
           {/* async load stripe js */}
           <script
             key="stripe-js"
@@ -43,10 +36,6 @@ class MyDocument extends NextDocument {
             src="https://js.stripe.com/v3/"
             async
           />
-          {/* load in material icons */}
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
         </Head>
         <body>
           <Main />

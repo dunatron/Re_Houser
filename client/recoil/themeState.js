@@ -9,13 +9,15 @@ import mainOverrides from '@/Themes/overrides/mainOverride';
 import dyslexiaTypography from '@/Themes/typographys/dyslexiaTypography';
 import nexaTypography from '@/Themes/typographys/nexaTypography';
 import azoSansTypography from '@/Themes/typographys/azoSansTypography';
+import robotoTypography from '@/Themes/typographys/robotoTypography';
 
 const mainTheme = {
   ...themeBase,
   ...mainPalette,
   // ...darkPalette,
   ...mainOverrides,
-  ...azoSansTypography,
+  ...robotoTypography,
+  // ...azoSansTypography,
   // ...nexaTypography,
   // ...dyslexiaTypography,
 };
