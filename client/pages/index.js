@@ -89,7 +89,8 @@ const HomePageBannerBody = () => {
   );
 };
 
-const HomePage = () => {
+const HomePage = props => {
+  console.log('Props passed into the home Page => ', props);
   return (
     <div>
       <ParticleBanner
@@ -117,15 +118,6 @@ const HomePage = () => {
 };
 
 export async function getServerSideProps(ctx) {
-  const cookies = parseCookies(ctx);
-
-  console.log('Cookies from getServerSideProps => ', cookies);
-  // Set
-  setCookie(ctx, 'fromGetServerSideProps', 'value', {
-    maxAge: 30 * 24 * 60 * 60,
-    path: '/',
-  });
-
   const apolloClient = initializeApollo(null, ctx);
   await apolloClient.query({
     query: CURRENT_USER_QUERY,

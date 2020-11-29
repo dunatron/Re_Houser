@@ -8,7 +8,7 @@ import LeasesTable from '@/Components/Tables/LeasesTable';
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
-const LandLordLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
+const LandLordLeasesPage = ({ appData: { currentUser } }) => {
   return (
     <PleaseSignIn
       currentUser={currentUser}
@@ -18,6 +18,16 @@ const LandLordLeasesPage = ({ appData: { currentUser }, query: { id } }) => {
     </PleaseSignIn>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 LandLordLeasesPage.propTypes = {
   appData: PropTypes.shape({

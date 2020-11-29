@@ -3,6 +3,10 @@ import PleaseSignIn from '@/Components/PleaseSignIn';
 import PageHeader from '@/Components/PageHeader';
 import BulkUploader from '@/Components/BulkUploader';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const BulkAddPropertyPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage = 'You must be signed in to bulk upload properties';
 
@@ -29,6 +33,17 @@ const BulkAddPropertyPage = ({ appData: { currentUser } }) => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 BulkAddPropertyPage.propTypes = {
   appData: PropTypes.shape({

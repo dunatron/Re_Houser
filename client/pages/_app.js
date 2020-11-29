@@ -107,21 +107,7 @@ import '../public/static/nprogress.css';
  */
 function App(props) {
   const { Component, pageProps } = props;
-  const cookies = parseCookies();
-
-  const apolloClient = useApollo(pageProps, cookies.token);
-
-  // setCookie(null, 'fromClient', 'value', {
-  //   maxAge: 30 * 24 * 60 * 60,
-  //   path: '/',
-  // });
-
-  // Set
-  setCookie(null, 'fromAppEntryLevel', 'value', {
-    maxAge: 30 * 24 * 60 * 60,
-    path: '/',
-  });
-
+  const apolloClient = useApollo(pageProps);
   console.log('APP ROOT pageProps => ', pageProps);
 
   return (

@@ -255,8 +255,7 @@ const Details = props => {
         <Card>
           <ChangeRouteButton
             title="Edit with Original Form"
-            route="/landlord/properties/property/edit"
-            query={{ id: property.id }}
+            route={`/landlord/properties/${property.id}/edit`}
           />
         </Card>
       )}

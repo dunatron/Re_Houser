@@ -22,8 +22,7 @@ const handleLink = (route = '/', query = {}) => {
 
 const manageApplicationForCurrentUser = (dataObj, me) => {
   const { applicants, owner, id, property, stage } = dataObj;
-  if (me.id === owner.id)
-    handleLink('/tenant/applications/application', { id: id });
+  if (me.id === owner.id) handleLink(`/tenant/applications/${id}`);
 };
 
 const RentalApplicationsTable = props => {
@@ -162,28 +161,32 @@ const RentalApplicationsTable = props => {
 // PropTypes
 RentalApplicationsTable.propTypes = {
   me: PropTypes.any,
-  myRentalApplications: PropTypes.arrayOf(PropTypes.shape({
-    applicants: PropTypes.arrayOf(PropTypes.shape({
-      approved: PropTypes.string,
-      completed: PropTypes.string,
-      id: PropTypes.sting,
-      __typename: PropTypes.string
-    })),
-    id: PropTypes.string,
-    owner: PropTypes.shape({
-      firsName: PropTypes.string,
-      id: PropTypes.string
-    }),
-    property: PropTypes.shape({
+  myRentalApplications: PropTypes.arrayOf(
+    PropTypes.shape({
+      applicants: PropTypes.arrayOf(
+        PropTypes.shape({
+          approved: PropTypes.string,
+          completed: PropTypes.string,
+          id: PropTypes.sting,
+          __typename: PropTypes.string,
+        })
+      ),
       id: PropTypes.string,
-      location: PropTypes.string,
-      rent: PropTypes.string,
-      rooms: PropTypes.string,
-      __typename: PropTypes.string
-    }),
-    stage: PropTypes.string,
-    __typename: PropTypes.string
-  })).isRequired
+      owner: PropTypes.shape({
+        firsName: PropTypes.string,
+        id: PropTypes.string,
+      }),
+      property: PropTypes.shape({
+        id: PropTypes.string,
+        location: PropTypes.string,
+        rent: PropTypes.string,
+        rooms: PropTypes.string,
+        __typename: PropTypes.string,
+      }),
+      stage: PropTypes.string,
+      __typename: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default RentalApplicationsTable;

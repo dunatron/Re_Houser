@@ -6,6 +6,10 @@ import { is } from 'ramda';
 import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const AddPropertyPage = ({ appData: { currentUser } }) => {
   const pleaseSignInMessage =
     'You must be signed in to add properties to the market';
@@ -42,6 +46,16 @@ const AddPropertyPage = ({ appData: { currentUser } }) => {
     </>
   );
 };
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 AddPropertyPage.propTypes = {
   appData: PropTypes.shape({

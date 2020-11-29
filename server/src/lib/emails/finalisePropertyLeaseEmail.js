@@ -7,7 +7,7 @@ const finalisePropertyLeaseEmail = async function({
   // payment,
   wallet,
   ctx,
-  user
+  user,
 }) {
   return transport.sendMail({
     from: process.env.MAIL_USER,
@@ -16,10 +16,10 @@ const finalisePropertyLeaseEmail = async function({
     html: makeANiceEmail(
       `Congratulations the lease for ${lease.property.location} has now been signed and is in full effect! \n
       The Lease wallet has ($${wallet.amount}) which includes a weekly rent charge and the bond charge. \n
-      Head on over to the lease to view and manage ${process.env.EMAIL_PREFIX}/${baseLink}/leases/lease?id=${lease.id} \n
+      Head on over to the lease to view and manage ${process.env.EMAIL_PREFIX}/${baseLink}/leases/${lease.id} \n
     \n\n`,
       user
-    )
+    ),
   });
 };
 

@@ -14,10 +14,20 @@ const LandlordViewAppraisalPage = ({ appData: { currentUser } }) => {
     <PleaseSignIn
       currentUser={currentUser}
       message="Please Sign in to view: Landord Appraisals Page">
-      <h2>View A SIngle Appraisal</h2>
+      <h2>TODO: View A SIngle Appraisal</h2>
     </PleaseSignIn>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 LandlordViewAppraisalPage.propTypes = {
   appData: PropTypes.shape({

@@ -6,10 +6,7 @@ import RentalApplications from '@/Components/RentalApplications/index';
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
-const TenantApplicationsPage = ({
-  appData: { currentUser },
-  query: { id },
-}) => {
+const TenantApplicationsPage = ({ appData: { currentUser } }) => {
   return (
     <>
       {/* PageHeader is on this component */}
@@ -21,6 +18,16 @@ const TenantApplicationsPage = ({
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 TenantApplicationsPage.propTypes = {
   appData: PropTypes.shape({

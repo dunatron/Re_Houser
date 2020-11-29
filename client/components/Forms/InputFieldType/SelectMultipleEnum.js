@@ -73,7 +73,7 @@ const SelectMultipleEnum = props => {
         variant={fieldProps.variant ? fieldProps.variant : 'outlined'}>
         {label}
       </InputLabel>
-      <FieldError errors={errors} name={name} />
+      <FieldError errors={errors} name={fieldProps.name} />
       <Select
         name={fieldProps.name}
         labelId={`${selectID}-label`}

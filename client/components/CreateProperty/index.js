@@ -37,9 +37,10 @@ const HasBeenUsedMessage = () => {
 
 const CreatePropertyComponent = props => {
   const router = useRouter();
-  const [waitForLazy, setWaitForLazy] = useState(
-    router.query.appraisalId ? true : false
-  );
+
+  const appraisal_id = router.query.appraisalId;
+
+  const [waitForLazy, setWaitForLazy] = useState(appraisal_id ? true : false);
   const { me } = props;
   const [createdPropertyId, setCreatedPropertyId] = useState(null);
   const [createdData, setCreatedData] = useState({});
@@ -115,11 +116,11 @@ const CreatePropertyComponent = props => {
       </Box>
     );
 
-    if (router.query.appraisalId) {
+    if (appraisal_id) {
       updateAppraisal({
         variables: {
           where: {
-            id: router.query.appraisalId,
+            id: appraisal_id,
           },
           data: {
             hasBeenUsed: true,
@@ -185,18 +186,18 @@ const CreatePropertyComponent = props => {
       </SuccessPaper>
     );
   }
-  if (!called && router.query.appraisalId) {
+  if (!called && appraisal_id) {
     loadAppraisal({
       variables: {
         where: {
-          id: router.query.appraisalId,
+          id: appraisal_id,
         },
       },
     });
     return <LoadingAppraisal />;
   }
 
-  if ((!called && router.query.appraisalId) || loading) {
+  if ((!called && appraisal_id) || loading) {
     return <LoadingAppraisal />;
   }
 
@@ -234,7 +235,7 @@ const CreatePropertyComponent = props => {
             <>
               <AssociatedAppraisal
                 rentalAppraisal={data.rentalAppraisal}
-                appraisalId={router.query.appraisalId}
+                appraisalId={appraisal_id}
               />
               {data.rentalAppraisal.hasBeenUsed && (
                 <Box

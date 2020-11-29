@@ -17,7 +17,7 @@ const sendInspectionsEmail = (subject, inspections) => {
   emailCEO({
     ctx: null,
     subject: subject,
-    body: body
+    body: body,
   });
 };
 

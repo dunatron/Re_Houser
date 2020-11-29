@@ -13,11 +13,10 @@ import { mePropTypes, propertyPropTypes } from '../../propTypes';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 
-
 import CachedIcon from '@material-ui/icons/Cached';
 
-//counts 
-import {useLeasesCount} from '@/Lib/hooks/counts/useLeasesCount'
+//counts
+import { useLeasesCount } from '@/Lib/hooks/counts/useLeasesCount';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -44,7 +43,7 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_DESC' }) => {
   const [tableErr, setTableErr] = useState(null);
   const router = useRouter();
 
-  const totalCount = useLeasesCount({where: where})
+  const totalCount = useLeasesCount({ where: where });
 
   const tableColumnConfig = [
     { title: 'location', field: 'location', editable: false },
@@ -56,7 +55,7 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_DESC' }) => {
         return moment(rowData.createdAt).format('Do MMM YYYY');
       },
     },
-   
+
     {
       title: 'expiryDate',
       field: 'expiryDate',
@@ -120,12 +119,9 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_DESC' }) => {
 
   const manageLease = (e, rowData) => {
     router.push({
-      pathname: '/landlord/leases/lease',
-      query: {
-        id: rowData.id,
-      },
+      pathname: `/landlord/leases/${rowData.id}`,
     });
-  }
+  };
 
   const refetchTable = async () => {
     setNetworkOnly(true);
@@ -140,23 +136,23 @@ const LeasesTable = ({ where, me, orderBy = 'createdAt_DESC' }) => {
   };
 
   useEffect(() => {
-    if(tableRef.current) {
-      refetchTable()
+    if (tableRef.current) {
+      refetchTable();
     }
-  }, [totalCount.count])
+  }, [totalCount.count]);
 
-  if(totalCount.loading) return "Loading COunt"
+  if (totalCount.loading) return 'Loading COunt';
 
   return (
     <div className={classes.root}>
       <div className={classes.tableHeader}>
-      <IconButton onClick={refetchTable}>
+        <IconButton onClick={refetchTable}>
           <CachedIcon />
         </IconButton>
       </div>
       <Error error={tableErr} />
       <MaterialTable
-      isLoading={totalCount.loading}
+        isLoading={totalCount.loading}
         style={{
           marginBottom: '16px',
         }}

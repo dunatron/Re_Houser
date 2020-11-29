@@ -17,68 +17,39 @@ class MyDocument extends NextDocument {
         />
         <Head>
           <meta charSet="utf-8" />
-
-          {/* PWA primary color */}
-          {/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
+          {/* Sets the browser color */}
           <meta
             name="theme-color"
             content={mainPalette.palette.secondary.main}
           />
-
+          {/* preLoad our regular font */}
           <link
             rel="preload"
-            href="/static/fonts/azo-sans/AzoSans-Regular.woff"
+            href="/fonts/azo-sans/AzoSans-Regular.woff"
             as="font"
             crossOrigin=""
           />
-
+          {/* preLoad our bold font */}
           <link
             rel="preload"
-            href="/static/fonts/azo-sans/AzoSans-Bold.woff"
+            href="/fonts/azo-sans/AzoSans-Bold.woff"
             as="font"
             crossOrigin=""
           />
-
-          {/* <Link
-            rel="preload"
-            href="/static/rehouser-trial-fonts.css"
-            as="font"
-            crossOrigin=""
-          /> */}
-
-          {/* <link
-            rel="stylesheet"
-            type="text/css"
-            href="/static/rehouser-fonts.css"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="/static/rehouser-trial-fonts.css"
-          /> */}
-          {/* <link
-            rel="stylesheet"
-            type="text/css"
-            href="/static/customToast.css"
-          /> */}
-
-          {/* <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          /> */}
+          {/* async load stripe js */}
           <script
             key="stripe-js"
             id="stripe-js"
             src="https://js.stripe.com/v3/"
             async
           />
+          {/* load in material icons */}
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
         </Head>
         <body>
           <Main />
-
           <div id="modal" />
           <div id="modal-root" />
           <NextScript />
@@ -111,10 +82,9 @@ MyDocument.getInitialProps = async ctx => {
   // 3. app.render
   // 4. page.render
 
-  // // Render app and page and get the context of the page with collected side effects.
-  // const sheets = new ServerStyleSheets();
-  // const originalRenderPage = ctx.renderPage;
+  const { pathname, query, asPath, req, res, err } = ctx;
 
+  // Render app and page and get the context of the page with collected side effects.
   const styledComponentSheet = new StyledComponentSheets();
   const materialUiSheets = new MaterialUiServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
