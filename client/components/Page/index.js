@@ -34,6 +34,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { useRecoilState } from 'recoil';
 import { themeState } from '@/Recoil/themeState';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { NoSsr } from '@material-ui/core';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -99,8 +100,10 @@ const Page = props => {
               <Elements stripe={stripe}>
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
-                  <AdminAlertsContainer />
-                  <NoSSRGeneralSubs />
+                  <NoSsr>
+                    <AdminAlertsContainer />
+                    <NoSSRGeneralSubs />
+                  </NoSsr>
                 </WithUser>
               </Elements>
             </StateProvider>
