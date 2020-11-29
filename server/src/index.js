@@ -121,7 +121,7 @@ const app = server.start(
     subscriptions: {
       path: "/",
       // keepAlive: false // blindly added this. keep subs alive...
-      keepAlive: 10000 // use 10000 like prisma or false. Will prevent idleConnection error?
+      keepAlive: 10000 // use 10000 like prisma or false
       // keepAlive: false
       // onConnect: (connectionParams, webSocket, context) => {
       //   // console.log("HELLO I CONNECTED");

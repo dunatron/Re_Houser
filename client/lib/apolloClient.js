@@ -16,6 +16,7 @@ import { concatPagination } from '@apollo/client/utilities';
 import { getMainDefinition } from '@apollo/client/utilities';
 import merge from 'deepmerge';
 import createInMemoryCache from './store/createInMemoryCache';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
 
@@ -25,6 +26,9 @@ import { setContext } from '@apollo/client/link/context';
 
 // next js with apollo custom example
 // https://www.apollographql.com/blog/building-a-next-js-app-with-apollo-client-slash-graphql/
+
+// modern sub errors
+// https://github.com/vercel/next.js/issues/10902
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -91,15 +95,29 @@ function createApolloClient(ctx) {
     uploadHttpLink,
     // uploadWithHeaders,
   ]);
-  const wsLink = process.browser
-    ? new WebSocketLink({
-        uri: websocketEndpoint,
-        options: {
-          reconnect: true,
-          timeout: 30000,
+
+  const client = process.browser
+    ? new SubscriptionClient(websocketEndpoint, {
+        reconnect: true,
+        connectionParams: {
+          // headers: {
+          Authorization: token ? `Bearer ${token}` : '',
+          // }
         },
       })
     : null;
+  const wsLink = process.browser ? new WebSocketLink(client) : null;
+
+  //   const wsLink = process.browser
+  //     ? new WebSocketLink({
+  //         lazy: true,
+  //         uri: websocketEndpoint,
+  //         options: {
+  //           reconnect: true,
+  //           timeout: 30000,
+  //         },
+  //       })
+  //     : null;
 
   const link = process.browser
     ? split(
