@@ -132,8 +132,9 @@ const app = server.start(
       path: "/",
       onConnect: (connectionParams, webSocket, context) => {
         webSocket.on("error", error => {
-          logger.log("error", `potential ws err onConnect`, {
-            test: "WHat to log"
+          logger.log("info", `potential ws err onConnect`, {
+            test: "WHat to log",
+            error: error
             // webSocket: webSocket,
             // context: context
             // query: req.body.query
