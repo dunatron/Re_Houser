@@ -63,6 +63,16 @@ const expressLogger = function(req, res, next) {
 server.use(expressLogger);
 server.express.use(cookieParser());
 
+const expressErrorMiddleware = async (err, req, res, next) => {
+  logger.log("error", `expressErrorMiddleware`, {
+    err: err,
+    req: req,
+    res: res
+  });
+  next();
+};
+
+server.express.use(expressErrorMiddleware);
 userMiddleware(server);
 
 routes(server);
