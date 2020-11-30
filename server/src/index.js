@@ -12,16 +12,24 @@ const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
 process.on("uncaughtException", err => {
-  console.log(`Uncaught Exception: ${err.message}`);
+  // console.log(`Uncaught Exception: ${err.message}`);
+  logger.log("error", `Uncaught Exception: ${err.message}`, {
+    message: err.message
+  });
+
   return err;
 });
 
 process.on("unhandledRejection", (reason, promise) => {
-  console.log(
-    "Custom Unhandled rejection at ",
-    promise,
-    `reason: ${reason.message}`
-  );
+  logger.log("error", `unhandledRejection`, {
+    reason: reason
+  });
+
+  // console.log(
+  //   "Custom Unhandled rejection at ",
+  //   promise,
+  //   `reason: ${reason.message}`
+  // );
   return reason;
   // throw reason;
   // return reason;
@@ -108,51 +116,45 @@ const allowedClientOrigins = [
 // Start gql yoga/express server
 const app = server.start(
   {
+    port: process.env.PORT || 4444,
     cors: {
       credentials: true,
       origin: allowedClientOrigins
     },
-    // logFunction: params => {
-    //   console.log("logFunction params => ", params);
+    // uploads: {
+    //   maxFieldSize: 1000,
+    //   maxFileSize: 500,
+    //   maxFiles: 3
     // },
     debug: true,
-    port: process.env.PORT || 4444,
-    // playground: ??
+    playground: "/playground",
     subscriptions: {
       path: "/",
-      // keepAlive: false // blindly added this. keep subs alive...
-      keepAlive: 10000, // use 10000 like prisma or false
-      // keepAlive: false
       onConnect: (connectionParams, webSocket, context) => {
-        // console.log("HELLO I CONNECTED");
-        // console.log("connectionParams => ", connectionParams);
-        // // console.log("webSocket => ", webSocket);
-        // console.log("context => ", context);
-        // ...
-        console.log("On connect called");
-      },
-      onOperation: (message, params, webSocket) => {
-        console.log("On operation called");
-        // Manipulate and return the params, e.g.
-        // params.context.randomId = uuid.v4();
-        // console.log("Operation params => ", params);
-        // // Or specify a schema override
-        // // if (shouldOverrideSchema()) {
-        // //   params.schema = newSchema;
-        // // }
-        // return params;
-      },
-      onOperationComplete: webSocket => {
-        // ...
-        console.log("On operation complete called");
+        webSocket.on("error", error => {
+          logger.log("error", `potential ws err onConnect`, {
+            connectionParams: connectionParams
+            // webSocket: webSocket,
+            // context: context
+            // query: req.body.query
+          });
+        });
+        logger.log("info", `subscriptions on connect`, {
+          connectionParams: connectionParams
+          // webSocket: webSocket,
+          // context: context
+          // query: req.body.query
+        });
       },
       onDisconnect: (webSocket, context) => {
-        // ...
-        console.log("On disconnect called");
-      }
-
-      // onConnect
-      // onDisconnect
+        logger.log("error", `potential ws err onDisconnect`, {
+          connectionParams: connectionParams
+          // webSocket: webSocket,
+          // context: context
+          // query: req.body.query
+        });
+      },
+      keepAlive: 10000 // use 10000 like prisma or false
     }
   },
   details => {

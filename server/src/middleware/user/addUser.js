@@ -4,7 +4,7 @@ const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 const db = require("../../db");
 
 const addUser = async (req, res, next) => {
-  console.log("WHAT IS ON THE REQUEST +> ", req);
+  // console.log("WHAT IS ON THE REQUEST +> ", req);
   let token = req.cookies.token;
 
   if (!token) {
@@ -35,10 +35,10 @@ const addUser = async (req, res, next) => {
     const cookieOptions = rehouserCookieOpt();
     if (newTokens.token && newTokens.refreshToken) {
       res.cookie("token", newTokens.token, {
-        ...cookieOptions,
+        ...cookieOptions
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
-        ...cookieOptions,
+        ...cookieOptions
       });
     }
     req.userId = newTokens.user.id;
