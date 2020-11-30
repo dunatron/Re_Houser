@@ -133,7 +133,7 @@ const app = server.start(
       onConnect: (connectionParams, webSocket, context) => {
         webSocket.on("error", error => {
           logger.log("error", `potential ws err onConnect`, {
-            connectionParams: connectionParams
+            test: "WHat to log"
             // webSocket: webSocket,
             // context: context
             // query: req.body.query
@@ -148,7 +148,7 @@ const app = server.start(
       },
       onDisconnect: (webSocket, context) => {
         logger.log("error", `potential ws err onDisconnect`, {
-          connectionParams: connectionParams
+          // connectionParams: connectionParams
           // webSocket: webSocket,
           // context: context
           // query: req.body.query
