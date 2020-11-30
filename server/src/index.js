@@ -115,7 +115,7 @@ const app = server.start(
         const { isLegacy, socket, request } = context;
         // console.log("context on connect context => ", context);
         webSocket.on("error", error => {
-          logger.log("info", `potential ws err onConnect`, {
+          logger.log("error", `potential ws err onConnect`, {
             error: error
             // webSocket: webSocket,
             // context: context
@@ -137,7 +137,7 @@ const app = server.start(
           context: context
         });
         webSocket.on("error", error => {
-          logger.log("info", `potential ws err onDisconnect`, {
+          logger.log("error", `potential ws err onDisconnect`, {
             error: error
           });
         });
