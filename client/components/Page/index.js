@@ -102,7 +102,7 @@ const Page = props => {
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
                   {/* <AdminAlertsContainer /> */}
-                  {/* <NoSSRAdminAlertsSub /> */}
+                  <NoSSRAdminAlertsSub />
                   <NoSSRGeneralSubs />
                   {/* <NoSsr>
                     <AdminAlertsContainer />
