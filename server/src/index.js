@@ -148,11 +148,20 @@ const app = server.start(
         });
       },
       onDisconnect: (webSocket, context) => {
-        logger.log("error", `potential ws err onDisconnect`, {
+        logger.log("info", `subscriptions on disconnect`, {
           // connectionParams: connectionParams
           // webSocket: webSocket,
           // context: context
           // query: req.body.query
+        });
+        webSocket.on("error", error => {
+          logger.log("info", `potential ws err onDisconnect`, {
+            test: "WHat to log",
+            error: error
+            // webSocket: webSocket,
+            // context: context
+            // query: req.body.query
+          });
         });
       },
       keepAlive: 10000 // use 10000 like prisma or false
