@@ -11,7 +11,6 @@ import darkPalette from '@/Themes/palettes/darkPalette';
 // overrides
 import mainOverrides from '@/Themes/overrides/mainOverride';
 // typographys
-import mainTypography from '@/Themes/typographys/mainTypography';
 import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 
 /**
@@ -59,10 +58,6 @@ const ThemeSettings = () => {
           Typography slices
         </Typography>
         <ButtonGroup size="small" orientation="vertical">
-          <Button
-            onClick={() => setThemeObj({ ...themeObj, ...mainTypography })}>
-            Apply main typography
-          </Button>
           <Button
             onClick={() => setThemeObj({ ...themeObj, ...azoSansTypography })}>
             Apply azoSansTypography
