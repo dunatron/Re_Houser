@@ -1,11 +1,12 @@
 {
     "theme_color": "#f69435",
     "background_color": "#f69435",
-    "display": "browser",
+    "orientation": "portrait",
+    "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "app_name": "reh",
-    "short_name": "rew",
+    "app_name": "Rehouser Web App",
+    "short_name": "Rehouser PWA",
     "icons": [
         {
             "src": "/icons/icon-192x192.png",

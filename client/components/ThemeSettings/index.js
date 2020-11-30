@@ -16,7 +16,6 @@ import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 /**
  * God Bless the Zuck. Preidnet material, of the finest quality
  */
-
 const ThemeSettings = () => {
   const [themeObj, setThemeObj] = useRecoilState(themeState);
 
