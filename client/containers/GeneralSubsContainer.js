@@ -7,11 +7,20 @@ import { useCurrentUser } from '@/Components/User';
 import { useSubscription } from '@apollo/client';
 import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
 
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
+
 const GeneralSubsContainer = props => {
   const { data, error, loading } = useCurrentUser();
+
+  if (loading)
+    return (
+      <Loader loading={loading} text="Loading your data for general subs" />
+    );
+
+  if (error) return <Error error={error} />;
   const me = data.me;
 
-  console.log('Me in General Subs Container => ', me);
   if (!me) return null;
   if (!me.id) return null;
 
