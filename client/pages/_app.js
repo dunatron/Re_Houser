@@ -88,6 +88,7 @@
 
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../lib/apolloClient';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
@@ -101,14 +102,28 @@ import '../public/static/geosuggest.css';
 import '../public/static/nprogress.css';
 // import '../public/static/fonts/azo-sans/AzoSans-Bold.woff';
 
-/**
- *
- * Umm see if you can get context from here too? pass nextJsCOntext to useApollo so it can initialize with headers
- */
 function App(props) {
   const { Component, pageProps } = props;
   const apolloClient = useApollo(pageProps);
   console.log('APP ROOT pageProps => ', pageProps);
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').then(
+          function(registration) {
+            console.log(
+              'Service Worker registration successful with scope: ',
+              registration.scope
+            );
+          },
+          function(err) {
+            console.log('Service Worker registration failed: ', err);
+          }
+        );
+      });
+    }
+  }, []);
 
   return (
     <RecoilRoot>
