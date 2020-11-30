@@ -11,7 +11,7 @@ import LoginModal from './LoginModal';
 import AppDrawer from './AppDrawer';
 import { store } from '@/Store/index';
 import Announcements from '@/Components/Announcements';
-
+import IsOnline from './IsOnline';
 /**
  *
  * This CUNT IS RERENDERING LIKE EVERYTHING WHEN WE OPEN THE FUCKEN SIDEBAR
@@ -81,6 +81,7 @@ function MaterialPage(props) {
             <Announcements bannerRoutes={['/']} me={me} />
             {children}
           </div>
+          <IsOnline />
           <Footer />
         </main>
         {me && <ChatsBar me={me} />}

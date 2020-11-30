@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Like, MessageUs } from 'react-facebook';
 import { Paper } from '@material-ui/core';
+import InstallPWAButton from '@/Components/InstallPWAButton';
 
 const ItemWrapper = ({ children }) => (
   <div style={{ padding: '16px' }}>{children}</div>
@@ -26,6 +27,9 @@ const Footer = () => {
         alignItems: 'center',
         // justifyContent: 'center',
       }}>
+      <ItemWrapper>
+        <InstallPWAButton />
+      </ItemWrapper>
       <ItemWrapper>
         <MessageUs
           href="http://www.facebook.com/rehousernz"

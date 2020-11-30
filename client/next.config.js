@@ -4,10 +4,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+// PWA(PROGRESS WEB APP DOCS)
+// the goaT https://github.com/vanderleisilva/next-pwa/tree/master/components
 // https://www.npmjs.com/package/next-pwa
 // https://github.com/shadowwalker/next-pwa/tree/master/examples/next-9
 // https://github.com/shadowwalker/next-pwa/blob/master/examples/lifecycle/pages/index.js
-//
+// https://itnext.io/pwa-with-next-js-create-next-app-in-2020-%EF%B8%8F-9ee0e1a6313d
+// https://medium.com/quick-code/progressive-web-app-heres-everything-you-need-to-know-about-pwa-cf2fefcbf24e
 
 // change start-url cache strategy, so that we can prompt user to reload when
 // new version available, instead of showing new version directly

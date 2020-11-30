@@ -7,6 +7,7 @@ import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/c
 // service worker https://itnext.io/pwa-with-next-js-create-next-app-in-2020-%EF%B8%8F-9ee0e1a6313d
 // next js service worker https://www.npmjs.com/package/next-pwa
 // push notification in js https://itnext.io/an-introduction-to-web-push-notifications-a701783917ce
+
 class MyDocument extends NextDocument {
   render() {
     return (

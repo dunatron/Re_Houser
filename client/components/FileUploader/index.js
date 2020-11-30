@@ -282,7 +282,6 @@ const UploadFile = forwardRef((props, ref) => {
   };
 
   const handleFileUpload = file => {
-    console.log('YOUR FILE', file);
     client
       .mutate({
         mutation: SINGLE_UPLOAD,

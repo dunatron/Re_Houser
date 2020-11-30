@@ -14,26 +14,6 @@ import '../public/css/nprogress.css';
 function App(props) {
   const { Component, pageProps } = props;
   const apolloClient = useApollo(pageProps);
-  console.log('APP ROOT pageProps => ', pageProps);
-
-  // using next-pwa
-  // useEffect(() => {
-  //   if ('serviceWorker' in navigator) {
-  //     window.addEventListener('load', function() {
-  //       navigator.serviceWorker.register('/sw.js').then(
-  //         function(registration) {
-  //           console.log(
-  //             'Service Worker registration successful with scope: ',
-  //             registration.scope
-  //           );
-  //         },
-  //         function(err) {
-  //           console.log('Service Worker registration failed: ', err);
-  //         }
-  //       );
-  //     });
-  //   }
-  // }, []);
 
   return (
     <RecoilRoot>
