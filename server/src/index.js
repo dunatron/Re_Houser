@@ -99,7 +99,8 @@ const app = server.start(
     playground: "/playground",
     // https://github.com/apollographql/subscriptions-transport-ws/issues/450
     subscriptions: {
-      path: "/subscriptions",
+      // path: "/subscriptions",
+      path: "/",
       onConnect: (connectionParams, webSocket, context) => {
         const { isLegacy, socket, request } = context;
         // console.log("context on connect context => ", context);
