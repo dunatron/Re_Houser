@@ -13,9 +13,10 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import Meta from '../Meta/index';
 
 // Admin Area Addisions
-import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
-import GeneralSubsContainer from '@/Containers/GeneralSubsContainer';
+// import AdminAlertsContainer from '@/Containers/AdminAlertsContainer';
+// import GeneralSubsContainer from '@/Containers/GeneralSubsContainer';
 import NoSSRGeneralSubs from '@/Containers/NoSSRGeneralSubs';
+import NoSSRAdminAlertsSub from '@/Containers/NoSSRAdminAlertsSub';
 
 import GlobalStyle from './GlobalStyle';
 
@@ -100,10 +101,13 @@ const Page = props => {
               <Elements stripe={stripe}>
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
-                  <NoSsr>
+                  {/* <AdminAlertsContainer /> */}
+                  {/* <NoSSRAdminAlertsSub /> */}
+                  <NoSSRGeneralSubs />
+                  {/* <NoSsr>
                     <AdminAlertsContainer />
                     <NoSSRGeneralSubs />
-                  </NoSsr>
+                  </NoSsr> */}
                 </WithUser>
               </Elements>
             </StateProvider>

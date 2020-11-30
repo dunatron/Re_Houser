@@ -99,11 +99,12 @@ function createApolloClient(ctx) {
   const client = process.browser
     ? new SubscriptionClient(websocketEndpoint, {
         reconnect: true,
-        connectionParams: {
-          // headers: {
-          Authorization: token ? `Bearer ${token}` : '',
-          // }
-        },
+        // dont add connextion params. we should generate JWT token with prisma on BE and connect with that
+        // connectionParams: {
+        //   // headers: {
+        //   Authorization: token ? `Bearer ${token}` : '',
+        //   // }
+        // },
       })
     : null;
   const wsLink = process.browser ? new WebSocketLink(client) : null;

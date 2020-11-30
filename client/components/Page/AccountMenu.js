@@ -223,7 +223,8 @@ const SignOutMenuItem = props => {
     }
   );
 
-  const handleBtnClick = () => {
+  const handleBtnClick = async () => {
+    await client.resetStore(); // make sure we reset the client as that is what we are doing
     signOut({
       update: (cache, data) => {
         // cache.evict({ id: 'User:ckdrorkme3ic60999guamh8x2' });

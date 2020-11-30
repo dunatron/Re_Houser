@@ -12,11 +12,9 @@ const routes = require("./routes/index");
 const logger = require("./middleware/loggers/logger");
 
 process.on("uncaughtException", err => {
-  // console.log(`Uncaught Exception: ${err.message}`);
   logger.log("error", `Uncaught Exception: ${err.message}`, {
     message: err.message
   });
-
   return err;
 });
 
@@ -24,22 +22,8 @@ process.on("unhandledRejection", (reason, promise) => {
   logger.log("error", `unhandledRejection`, {
     reason: reason
   });
-
-  // console.log(
-  //   "Custom Unhandled rejection at ",
-  //   promise,
-  //   `reason: ${reason.message}`
-  // );
-  return reason;
-  // throw reason;
-  // return reason;
-  // return reason; // return the errors to try not crash express
+  return reason; // return the errors to try not crash express
 });
-
-// server.express.use(function(err, req, res, next) {
-//   console.error(err.stack);
-//   res.status(500).send("Something broke!");
-// });
 
 // sets up pasrsing the body of the request
 stripeMiddleWare(server);
@@ -57,21 +41,6 @@ const expressLogger = function(req, res, next) {
   } else {
     ipAddr = req.connection.remoteAddress;
   }
-  // logger.log("info", `request to express server ${req.body.operationName}`, {
-  //   ip: ip,
-  //   ipAddr: ipAddr,
-  //   url: req.url,
-  //   user: {
-  //     id: req.userId,
-  //     permissions: req.userPermissions,
-  //   },
-  //   method: req.method,
-  //   operationName: req.body.operationName,
-  //   variables: req.body.variables,
-  //   origin: req.headers.origin,
-  //   userAgent: req.headers["user-agent"],
-  //   query: req.body.query,
-  // });
   logger.log("info", `request to express server ${req.body.operationName}`, {
     ip: ip,
     ipAddr: ipAddr,
@@ -128,12 +97,14 @@ const app = server.start(
     // },
     debug: true,
     playground: "/playground",
+    // https://github.com/apollographql/subscriptions-transport-ws/issues/450
     subscriptions: {
-      path: "/",
+      path: "/subscriptions",
       onConnect: (connectionParams, webSocket, context) => {
+        const { isLegacy, socket, request } = context;
+        // console.log("context on connect context => ", context);
         webSocket.on("error", error => {
           logger.log("info", `potential ws err onConnect`, {
-            test: "WHat to log",
             error: error
             // webSocket: webSocket,
             // context: context
@@ -141,26 +112,22 @@ const app = server.start(
           });
         });
         logger.log("info", `subscriptions on connect`, {
-          connectionParams: connectionParams
+          connectionParams: connectionParams,
+          headers: request.headers
           // webSocket: webSocket,
           // context: context
           // query: req.body.query
         });
       },
       onDisconnect: (webSocket, context) => {
+        // console.log("context on disconnect context => ", context);
+        // console.log("context on disconnect webSocket => ", webSocket);
         logger.log("info", `subscriptions on disconnect`, {
-          // connectionParams: connectionParams
-          // webSocket: webSocket,
-          // context: context
-          // query: req.body.query
+          context: context
         });
         webSocket.on("error", error => {
           logger.log("info", `potential ws err onDisconnect`, {
-            test: "WHat to log",
             error: error
-            // webSocket: webSocket,
-            // context: context
-            // query: req.body.query
           });
         });
       },
