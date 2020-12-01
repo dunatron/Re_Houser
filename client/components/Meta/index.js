@@ -8,6 +8,7 @@ const APP_DESCRIPTION =
 
 const Meta = () => (
   <Head>
+    <title>Re-Houser</title>
     <meta name="application-name" content={APP_NAME} />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -45,8 +46,6 @@ const Meta = () => (
       src="https://js.stripe.com/v3/"
       async
     />
-
-    <title>Re-Houser</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charSet="utf-8" />
     <meta
@@ -54,10 +53,15 @@ const Meta = () => (
       content="R82iamf9jm4UiOzDtCqePSfeP2wEN2lft1EEKE_cr2o"
       key="google-site-verification"
     />
-
-    <script
+    {/* <script
+      async
       src="https://widget.Cloudinary.com/v2.0/global/all.js"
-      type="text/javascript"></script>
+      type="text/javascript"></script> */}
+    <script
+      rel="preload"
+      src="https://widget.Cloudinary.com/v2.0/global/all.js"
+      type="text/javascript"
+      as="script"></script>
   </Head>
 );
 

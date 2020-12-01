@@ -5,6 +5,7 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import { Control, GeoSearch } from 'react-instantsearch-dom-maps';
 
 import MapMarker from './MapMarker';
+import MapLoadingContainer from '@/Components/Map/MapLoadingContainer';
 
 /**
  * DOCS
@@ -56,4 +57,5 @@ GeoSearchWidget.propTypes = {
 
 export default GoogleApiWrapper({
   apiKey: process.env.GOOGLE_API_KEY,
+  LoadingContainer: MapLoadingContainer,
 })(GeoSearchWidget);

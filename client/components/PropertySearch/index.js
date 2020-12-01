@@ -1,53 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
 import algoliasearch from 'algoliasearch/lite';
 import PropTypes from 'prop-types';
 
-// import Drawer from '@material-ui/core/Drawer';
-import {
-  IconButton,
-  Box,
-  Paper,
-  Grid,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
-// import Divider from "@material-ui/core/Divider";
-import CustomSearchBox from './CustomSearchBox';
-import SettingsInputIcon from '@/Styles/icons/SettingsInputIcon';
+import { Box, Paper } from '@material-ui/core';
 import { SearchInterface } from './styles';
-import PropertyCard from '@/Components/PropertyCard/index';
 import SearchFilter from './SearchFilter';
-import FilterDrawer from './FilterDrawer';
-import { GoogleApiWrapper } from 'google-maps-react';
 
 import PropertyResultHit from './PropertyResultHit';
-
 // connected refinements
 import ConnectedCurrentRefinements from './refinements/CurrentRefinements';
-import {
-  GoogleMapsLoader,
-  Marker,
-  Control,
-  CustomMarker,
-} from 'react-instantsearch-dom-maps';
 import GeoSearch from './GeoSearch';
 
-import {
-  InstantSearch,
-  Hits,
-  connectHighlight,
-  Pagination,
-  Stats,
-  SortBy,
-  Configure,
-  connectCurrentRefinements,
-  CurrentRefinements,
-  RefinementList,
-} from 'react-instantsearch-dom';
+import { InstantSearch, Pagination, Stats } from 'react-instantsearch-dom';
 
 import HorizonScrollHits from './HorizonScrollHits';
-
-import Modal from '@/Components/Modal/index';
 import SearchHeader from './SearchHeader';
 import useStyles from './useStyles';
 
@@ -84,8 +49,7 @@ const Content = ({ me }) => (
 );
 
 const PropertySearch = props => {
-  const [open, setOpen] = useState(false);
-  const { google, me } = props;
+  const { me } = props;
   const classes = useStyles();
 
   return (
@@ -104,8 +68,6 @@ const PropertySearch = props => {
                 <GeoSearch />
               </Box>
             </Box>
-            {/* <RefinementList attribute="highestRoomPrice" />
-            <RefinementList attribute="lowestRoomPrice" /> */}
             <ConnectedCurrentRefinements />
           </Paper>
           <Content me={me} />
@@ -115,10 +77,4 @@ const PropertySearch = props => {
   );
 };
 
-PropertySearch.propTypes = {
-  google: PropTypes.any,
-};
-
-export default GoogleApiWrapper({
-  apiKey: process.env.GOOGLE_API_KEY,
-})(PropertySearch);
+export default PropertySearch;

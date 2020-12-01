@@ -1,5 +1,5 @@
 import PropertySearch from '@/Components/PropertySearch/index';
-import NoSSR from 'react-no-ssr';
+
 import PageHeader from '@/Components/PageHeader';
 import { Typography } from '@material-ui/core';
 
@@ -28,9 +28,7 @@ const PropertySearchPage = ({ appData: { currentUser } }) => {
           </Typography>,
         ]}
       />
-      <NoSSR>
-        <PropertySearch me={me} />
-      </NoSSR>
+      <PropertySearch me={me} />
     </>
   );
 };
