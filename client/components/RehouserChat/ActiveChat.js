@@ -44,7 +44,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
   },
   barItemTitle: {
-    padding: '4px',
     display: 'flex',
     alignItems: 'center',
   },
@@ -56,6 +55,7 @@ const useStyles = makeStyles(theme => ({
     maxHeight: '64px',
     margin: '0 0 0 8px',
     overflow: 'auto',
+    lineHeight: 1.2,
   },
   close: {
     display: 'flex',
@@ -68,6 +68,28 @@ const ActiveChat = ({ id, chat, me }) => {
   const { state, dispatch } = useContext(store);
   const classes = useStyles();
   const [contentIn, setContentIn] = useState(true);
+
+  const toggleActiveChatOpen = e => {
+    setContentIn(!contentIn);
+    e.preventDefault();
+    dispatch({
+      type: 'setActiveChat',
+      payload: null,
+    });
+  };
+
+  const closeActiveChat = e => {
+    e.preventDefault();
+    dispatch({
+      type: 'closeChat',
+      payload: chat.id,
+    });
+    dispatch({
+      type: 'setActiveChat',
+      payload: null,
+    });
+  };
+
   return (
     <Paper
       className={`${classes.barItem} ${contentIn ? classes.barItemIn : ''}`}
@@ -78,31 +100,10 @@ const ActiveChat = ({ id, chat, me }) => {
           <div className={classes.chatName}>{getChatName(chat, me)}</div>
         </div>
         <div className={classes.actions}>
-          <IconButton
-            size="small"
-            onClick={e => {
-              setContentIn(!contentIn);
-              e.preventDefault();
-              dispatch({
-                type: 'setActiveChat',
-                payload: null,
-              });
-            }}>
+          <IconButton size="small" onClick={toggleActiveChatOpen}>
             <RemoveIcon />
           </IconButton>
-          <IconButton
-            size="small"
-            onClick={e => {
-              e.preventDefault();
-              dispatch({
-                type: 'closeChat',
-                payload: chat.id,
-              });
-              dispatch({
-                type: 'setActiveChat',
-                payload: null,
-              });
-            }}>
+          <IconButton size="small" onClick={closeActiveChat}>
             <CloseIcon />
           </IconButton>
         </div>

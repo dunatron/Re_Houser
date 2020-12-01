@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GiftedChat, IMessage, User, Bubble } from 'react-native-gifted-chat';
 import { View, Dimensions } from 'react-native';
 import { Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
+import useCurrentHeight from '@/Lib/hooks/useCurrentHeight';
+
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const getChatImageUrl = (chat, user) => {
   const member = chat.participants.find(p => p.id === user.id);
@@ -13,7 +16,8 @@ const getChatImageUrl = (chat, user) => {
 
 const RChat = props => {
   const theme = useTheme();
-  const { chat, me, onSendMessage } = props;
+  const { chat, me, onSendMessage, handleFetchMore } = props;
+  const height = useCurrentHeight();
 
   const messageSet = Array.from(new Set(props.messages)); // removes duplicates
 
@@ -36,7 +40,6 @@ const RChat = props => {
   const inverted = true;
   const width = '280px';
   // const height = '390px';
-  const height = '320px';
   const bottomOffset = 80;
 
   const renderBubble = props => (
@@ -74,7 +77,7 @@ const RChat = props => {
     <View
       style={{
         width,
-        height,
+        height: `${height - 120}px`,
         backgroundColor: theme.palette.background.paper,
       }}>
       <GiftedChat
@@ -86,6 +89,15 @@ const RChat = props => {
           color: theme.palette.primary.main,
           backgroundColor: theme.palette.background.paper,
         }}
+        infiniteScroll={true}
+        loadEarlier={true} // use this to as true if we have more messages
+        onLoadEarlier={handleFetchMore}
+        scrollToBottom={true}
+        scrollToBottomComponent={() => (
+          <View>
+            <ArrowDownwardIcon color="secondary" />
+          </View>
+        )}
         {...{ messages, onSend, user, inverted, bottomOffset }}
       />
     </View>

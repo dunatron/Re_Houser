@@ -37,14 +37,8 @@ module.exports = withPWA(
   withTM({
     pwa: {
       disable: process.env.NODE_ENV === 'development',
-      // disable: false,
-      // register: true,
-      // scope: '/app',
-      // dest: 'public',
-      // sw: 'service-worker.js',
-      //...
       dest: 'public',
-      register: false,
+      register: false, // we enable/register it in Page component
       skipWaiting: false,
       runtimeCaching,
     },
