@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 
 /**
  * Checks and keeps checking if our service worker is connected to the internet
  */
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const IsOnline = () => {
   const [connected, setConnected] = useState(true);
 

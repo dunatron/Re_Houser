@@ -30,4 +30,6 @@ const GeneralSubsContainer = props => {
   );
 };
 
-export default MemoizedGeneralSubsContainer = React.memo(GeneralSubsContainer);
+const MemoizedGeneralSubsContainer = React.memo(GeneralSubsContainer);
+
+export default MemoizedGeneralSubsContainer;

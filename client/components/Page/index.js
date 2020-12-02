@@ -86,7 +86,8 @@ const Page = props => {
               <Elements stripe={stripe}>
                 <WithUser>
                   <MaterialPage children={props.children} {...props} />
-                  <NoSSRAdminAlertsSub />
+                  {/* Admin Alerts straight up break general subs. general subs should be copied */}
+                  {/* <NoSSRAdminAlertsSub /> */}
                   <NoSSRGeneralSubs />
                 </WithUser>
               </Elements>

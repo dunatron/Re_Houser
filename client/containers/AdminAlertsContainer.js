@@ -7,7 +7,7 @@ import { useCurrentUser } from '@/Components/User';
  * // Maybe 1 small advancement we can make wth alerts is a simple where?
  * // We know what they are essentially, so just be smart with the where
  */
-export default AdminAlertsContainer = props => {
+const AdminAlertsContainer = props => {
   const { data, error, loading } = useCurrentUser();
 
   if (loading)
@@ -38,3 +38,5 @@ export default AdminAlertsContainer = props => {
     </>
   );
 };
+
+export default AdminAlertsContainer;
