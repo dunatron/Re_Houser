@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil';
 import Page from '@/Components/Page/index';
 
 // import css for SSR
-import '../public/css/rehouser-fonts.css';
+// import '../public/css/rehouser-fonts.css';
 import '../public/css/customToast.css';
 import '../public/css/geosuggest.css';
 import '../public/css/nprogress.css';

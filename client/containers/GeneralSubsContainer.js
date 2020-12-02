@@ -1,12 +1,7 @@
 import GeneralUserUpdatesSub from '../components/SubscriptionComponents/GeneralUserUpdatesSub';
 import ChatCreatedSub from '../components/SubscriptionComponents/ChatCreatedSub';
 import MessageCreatedSub from '../components/SubscriptionComponents/MessageCreatedSub';
-import User from '../components/User/index';
 import { useCurrentUser } from '@/Components/User';
-
-import { useSubscription } from '@apollo/client';
-import { USER_SUBSCRIPTION } from '@/Gql/subscriptions/UserSubscription';
-
 import Loader from '@/Components/Loader';
 import Error from '@/Components/ErrorMessage';
 
@@ -35,6 +30,4 @@ const GeneralSubsContainer = props => {
   );
 };
 
-const MemoizedGeneralSubsContainer = React.memo(GeneralSubsContainer);
-
-export default MemoizedGeneralSubsContainer;
+export default MemoizedGeneralSubsContainer = React.memo(GeneralSubsContainer);

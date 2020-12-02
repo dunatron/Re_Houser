@@ -1,7 +1,8 @@
 import dynamic from 'next/dynamic';
 
 const NoSSRAdminAlertsSub = dynamic(() => import('./AdminAlertsContainer'), {
-  ssr: false,
+  loading: () => <p>Loading admin alerts subscriptions module</p>,
+  ssr: false, // subs should only be in the browser
 });
 
 export default () => <NoSSRAdminAlertsSub />;

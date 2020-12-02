@@ -36,7 +36,8 @@ const withTM = require('next-transpile-modules')([
 module.exports = withPWA(
   withTM({
     pwa: {
-      disable: process.env.NODE_ENV === 'development',
+      // disable: process.env.NODE_ENV === 'development',
+      disable: false,
       dest: 'public',
       register: false, // we enable/register it in Page component
       skipWaiting: false,
@@ -44,7 +45,6 @@ module.exports = withPWA(
     },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
       config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-      console.log('Webpack environment => ', dev);
       const absolutePaths = dev
         ? {}
         : {
