@@ -1,7 +1,5 @@
 import Head from 'next/head';
 
-import mainPalette from '@/Themes/palettes/mainPalette';
-
 const APP_NAME = 'ReHouser PWA';
 const APP_DESCRIPTION =
   'Rehouser official progressive web app to manage your properties, applications and leases from anywhere';
@@ -38,7 +36,7 @@ const Meta = () => (
     <link
       key="material-font-stylesheet"
       rel="stylesheet"
-      crossorigin="anonymous"
+      crossOrigin="anonymous"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
     />
     {/* load in material icons */}

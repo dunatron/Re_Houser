@@ -195,6 +195,7 @@ const AddUserToList = ({
   // But in this example everything is just done in one place for simplicity
   return (
     <div
+      id={id}
       style={{
         display: 'flex',
         flexWrap: 'wrap',

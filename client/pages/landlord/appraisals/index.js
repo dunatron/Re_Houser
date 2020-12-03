@@ -6,10 +6,7 @@ import AppraisalsTable from '@/Components/Tables/AppraisalsTable';
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
-const LandLordAppraisalsPage = ({
-  appData: { currentUser },
-  query: { id },
-}) => {
+const LandLordAppraisalsPage = ({ appData: { currentUser } }) => {
   return (
     <PleaseSignIn
       currentUser={currentUser}

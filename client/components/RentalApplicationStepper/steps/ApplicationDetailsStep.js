@@ -30,6 +30,7 @@ import {
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
 } from '@/Gql/mutations/index';
 import Error from '@/Components/ErrorMessage';
+import InviteUser from '@/Components/User/Invite';
 
 const ApplicationDetailsStep = ({
   property,
@@ -140,6 +141,7 @@ const ApplicationDetailsStep = ({
         </Typography>{' '}
         Please make sure to submit the changed data at the bottom
       </Typography>
+      <InviteUser />
       <Error error={error} />
       <SuperiorTable
         title="Application applicants"

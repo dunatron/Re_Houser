@@ -1,5 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Alert from '@material-ui/lab/Alert';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -19,26 +20,11 @@ import {
 import RehouserPaper from '@/Styles/RehouserPaper';
 import Card from '@/Styles/Card';
 //icons
-import EditIcon from '@/Styles/icons/EditIcon';
-import MoreIcon from '@/Styles/icons/MoreIcon';
-import DetailsIcon from '@/Styles/icons/DetailsIcon';
 import CameraIcon from '@/Styles/icons/CameraIcon';
-import CloseIcon from '@/Styles/icons/CloseIcon';
-import CheckIcon from '@/Styles/icons/CheckIcon';
 // Update variable components ToDo: move to own file
 import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/client';
-import InputModal from '@/Components/Modal/InputModal';
-import TextInput from '@/Styles/TextInput';
-import DateInput from '@/Components/Inputs/DateInput';
-import Error from '@/Components/ErrorMessage/index';
+import { useMutation } from '@apollo/client';
 import ChangeRouteButton from '@/Components/Routes/ChangeRouteButton';
-import UpdatePropertyVariable from './UpdatePropertyVariable';
-
-import { UPDATE_PROPERTY_MUTATION } from '@/Gql/mutations/index';
-import { OWNER_PROPERTIES_QUERY } from '@/Gql/queries/index';
-import useKeyPress from '@/Lib/useKeyPress';
-import EditProperty from './Edit';
 
 import {
   NowToDate,
@@ -50,13 +36,12 @@ import UserDetails from '@/Components/UserDetails';
 
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 import { PropertyInfoFragment } from '@/Gql/fragments/propertyInfo';
-import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
-import AdminDetails from './AdminDetails';
 import DetailItems from './DetailItems';
 import ImportantDetails from './ImportantDetails';
 import PropertyImages from './Images';
 
 import AddUserToList from '@/Components/User/AddUserToList';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -211,22 +196,9 @@ const Details = props => {
 
   return (
     <div>
-      <RehouserPaper>
-        {me.isWizard && (
-          <>
-            <Typography gutterBottom variant="h6">
-              You are A Wizard
-            </Typography>
-            <Typography gutterBottom variant="body2">
-              As A Wizard you will need to add Agents against this property for
-              it to be managed property. An Agent Acts for rehouser on behalf of
-              the property owner
-            </Typography>
-          </>
-        )}
-
-        {isOwner && (
-          <>
+      {isOwner && (
+        <RehouserPaper attrs={{ disablePadding: true }}>
+          <Alert>
             <Typography gutterBottom variant="h6">
               You are an owner of the Property
             </Typography>
@@ -237,10 +209,38 @@ const Details = props => {
                 progress of your property
               </Typography>
             )}
-          </>
-        )}
-        {isAgent && (
-          <>
+          </Alert>
+        </RehouserPaper>
+      )}
+      {me.isWizard && (
+        <RehouserPaper attrs={{ disablePadding: true }}>
+          <Alert severity="info">
+            <Typography gutterBottom variant="h6">
+              You are A Wizard
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body2"
+              style={{ whiteSpace: 'pre-line' }}>
+              As A Wizard you will need to add an "Agent" against this property
+              for it to be managed. An agent acts for rehouser on behalf of the
+              property owner {'\n'}
+              {'\n'}
+              Agents on property: {property.agents.length}
+            </Typography>
+            <Button
+              aria-label="read-more"
+              href="#agent-section"
+              endIcon={<ArrowDownwardIcon fontSize="large" />}
+              color="secondary">
+              Add Agents
+            </Button>
+          </Alert>
+        </RehouserPaper>
+      )}
+      {isAgent && (
+        <RehouserPaper attrs={{ disablePadding: true }}>
+          <Alert severity="info">
             <Typography gutterBottom variant="h6">
               You are an Agent for this property
             </Typography>
@@ -248,9 +248,9 @@ const Details = props => {
               As an Agent you will be in charge of advertising the property and
               getting a lease signed as soon as possible
             </Typography>
-          </>
-        )}
-      </RehouserPaper>
+          </Alert>
+        </RehouserPaper>
+      )}
       {isAdmin && (
         <Card>
           <ChangeRouteButton
@@ -261,30 +261,32 @@ const Details = props => {
       )}
 
       <ImportantDetails property={property} />
-      <DetailItems
-        title={isAdmin ? 'Admin Section' : 'Admins Only'}
-        property={property}
-        items={
-          isAdmin
-            ? [
-                {
-                  name: 'onTheMarket',
-                  label: 'On The Market',
-                  type: 'boolean',
-                  icon: <CameraIcon color="default" />,
-                  disabled: true,
-                },
-                {
-                  name: 'rehouserManaged',
-                  label: 'Managed by Rehouser',
-                  type: 'boolean',
-                  icon: <CameraIcon color="default" />,
-                  disabled: true,
-                },
-              ]
-            : []
-        }
-      />
+      {isAdmin && (
+        <DetailItems
+          title={isAdmin ? 'Admin Section' : 'Admins Only'}
+          property={property}
+          items={
+            isAdmin
+              ? [
+                  {
+                    name: 'onTheMarket',
+                    label: 'On The Market',
+                    type: 'boolean',
+                    icon: <CameraIcon color="default" />,
+                    disabled: true,
+                  },
+                  {
+                    name: 'rehouserManaged',
+                    label: 'Managed by Rehouser',
+                    type: 'boolean',
+                    icon: <CameraIcon color="default" />,
+                    disabled: true,
+                  },
+                ]
+              : []
+          }
+        />
+      )}
       <RehouserPaper
         square
         style={{
@@ -375,12 +377,18 @@ const Details = props => {
           />
         )}
       </RehouserPaper>
-      <RehouserPaper>
-        <Typography>Agents</Typography>
-        {!me.isWizard && (
-          <Typography>
-            Ability for admin to add users as agent?? probably a wizard thing
+      <RehouserPaper id="agent-section">
+        <Typography gutterBottom>Agents</Typography>
+        {isOwner && (
+          <Typography gutterBottom>
+            Agents will act on your behalf and will be your property manager
           </Typography>
+        )}
+        {property.agents.length === 0 && (
+          <Alert severity="info">
+            There are no Agents for this property. rehouser will assign an Agent
+            as soon as possible
+          </Alert>
         )}
         {property.agents.length > 0 &&
           property.agents.map((agent, idx) => {
@@ -398,10 +406,10 @@ const Details = props => {
           />
         )}
       </RehouserPaper>
-      <Card disablePadding>
+      <Card attrs={{ disablePadding: true }}>
         <PropertyImages property={property} updateProperty={updateProperty} />
       </Card>
-      <Card disablePadding>
+      <Card attrs={{ disablePadding: true }}>
         <Map
           center={{
             lat: property.locationLat,

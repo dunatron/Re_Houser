@@ -34,7 +34,6 @@ const PropertiesPage = props => {
         }}
       />
       <PleaseSignIn
-        currentUser={currentUser}
         message={pleaseSignInMessage}
         alert={
           <Typography variant="body1" gutterBottom color="inherit">
@@ -50,12 +49,15 @@ const PropertiesPage = props => {
 export async function getServerSideProps(ctx) {
   const apolloClient = initializeApollo(null, ctx);
 
-  await apolloClient.query({
-    query: CURRENT_USER_QUERY,
-  });
-  await apolloClient.query({
-    query: OWNER_PROPERTIES_QUERY,
-  });
+  try {
+    await apolloClient.query({
+      query: CURRENT_USER_QUERY,
+    });
+    await apolloClient.query({
+      query: OWNER_PROPERTIES_QUERY,
+    });
+  } catch (e) {}
+
   return addApolloState(apolloClient, {
     props: {},
   });

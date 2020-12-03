@@ -170,10 +170,7 @@ const AdminRentalApplicationsTable = ({
 
   const manageProperty = (e, rowData) =>
     Router.push({
-      pathname: '/landlord/properties/property',
-      query: {
-        id: rowData.id,
-      },
+      pathname: `/landlord/properties/${rowData.id}`,
     });
 
   const remoteData = query => {

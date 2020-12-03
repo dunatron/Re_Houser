@@ -38,7 +38,7 @@ const HasBeenUsedMessage = () => {
 const CreatePropertyComponent = props => {
   const router = useRouter();
 
-  const appraisal_id = router.query.appraisalId;
+  const appraisal_id = router.query.appraisal_id;
 
   const [waitForLazy, setWaitForLazy] = useState(appraisal_id ? true : false);
   const { me } = props;
@@ -97,8 +97,9 @@ const CreatePropertyComponent = props => {
   );
 
   const handlePropertyCreated = data => {
+    const newPropertyId = data.createProperty.id;
     setCreatedData(data);
-    setCreatedPropertyId(data.createProperty.id);
+    setCreatedPropertyId(newPropertyId);
     setIsChecking(false);
     setDefaultFormData({
       ...defaultMeData,
@@ -110,8 +111,7 @@ const CreatePropertyComponent = props => {
         </Typography>
         <ChangeRouteButton
           title="Go to property"
-          route="/landlord/properties/property"
-          query={{ id: data.createProperty.id }}
+          route={`/landlord/properties/${newPropertyId}`}
         />
       </Box>
     );

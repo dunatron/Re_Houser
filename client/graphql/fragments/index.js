@@ -11,3 +11,4 @@ export { default as ViewingInfoFragment } from './viewingInfo';
 export { default as RentalAppraisalInfoFragment } from './rentalAppraisalInfo';
 export { default as RefereeInfoFragment } from './refereeInfo';
 export { default as InspectionInfoFragment } from './inspectionInfo';
+export { default as SuccessMessageFragment } from './successMessageInfo';

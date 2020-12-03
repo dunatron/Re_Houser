@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Typography, TextField } from '@material-ui/core';
 
@@ -31,9 +31,9 @@ EmailInput.propTypes = {
   fieldProps: PropTypes.shape({
     helperText: PropTypes.any,
     label: PropTypes.any,
-    name: PropTypes.any
+    name: PropTypes.any,
   }).isRequired,
-  onChange: PropTypes.func.isRequired
-}
+  onChange: PropTypes.func.isRequired,
+};
 
 export default EmailInput;

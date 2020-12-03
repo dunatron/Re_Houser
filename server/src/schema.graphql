@@ -15,6 +15,12 @@ input CloudinaryParams {
   tags: Json
 }
 
+input InviteUserParams {
+  email: String!
+  subUrl: String
+  message: String
+}
+
 type User {
   id: ID!
   createdAt: DateTime
@@ -179,6 +185,7 @@ type Mutation {
     data: InspectionUpdateInput!
     where: InspectionWhereUniqueInput!
   ): Inspection
+  inviteUser(data: InviteUserParams!): SuccessMessage!
 }
 
 type Subscription {

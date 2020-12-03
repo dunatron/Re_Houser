@@ -1,10 +1,12 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
+import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
 //icons
 import CloseIcon from '@/Styles/icons/CloseIcon';
 import CheckIcon from '@/Styles/icons/CheckIcon';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const useStyles = makeStyles(theme => ({
   variablesHeader: {
@@ -15,6 +17,13 @@ const useStyles = makeStyles(theme => ({
 
 const ImportantDetails = ({ property }) => {
   const classes = useStyles();
+  const isLeased = property.isLeased;
+  const leaseId = property.leaseId;
+  const onTheMarket = property.onTheMarket;
+
+  const successIcon = <CheckIcon />;
+  const badIcon = <CloseIcon />;
+  const warnIcon = <WarningIcon />;
   return (
     <RehouserPaper>
       <Typography
@@ -24,62 +33,40 @@ const ImportantDetails = ({ property }) => {
         className={classes.variablesHeader}>
         Important Info
       </Typography>
-      <div
-        square
-        style={{
-          padding: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginRight: '16px',
-          }}>
-          {property.isLeased ? (
-            <CheckIcon fontSize="small" color="primary" />
-          ) : (
-            <CloseIcon fontSize="small" color="secondary" />
-          )}
-          <Typography>Leased</Typography>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginRight: '16px',
-          }}>
-          {property.onTheMarket ? (
-            <CheckIcon fontSize="small" color="primary" />
-          ) : (
-            <CloseIcon fontSize="small" color="secondary" />
-          )}
-          <Typography>onTheMarket</Typography>
-        </div>
-        {property.leaseId && (
-          <Typography>current lease id: {property.leaseId}</Typography>
+      <Alert
+        severity={onTheMarket ? 'success' : 'info'}
+        icon={onTheMarket ? successIcon : badIcon}>
+        <Typography>onTheMarket</Typography>
+      </Alert>
+      <Alert
+        severity={isLeased ? 'success' : 'info'}
+        icon={isLeased ? successIcon : badIcon}>
+        <Typography>Leased</Typography>
+        {!isLeased && (
+          <Typography variant="body2">Not currently leased</Typography>
         )}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginRight: '16px',
-          }}>
-          <CloseIcon fontSize="small" />
-          <Typography>lease expires in</Typography>
-        </div>
-        {property.leaseId && (
-          <Typography>current lease id: {property.leaseId}</Typography>
+        {isLeased && (
+          <Typography variant="body2">Property is currently leased</Typography>
         )}
-      </div>
+      </Alert>
+      <Alert
+        severity={leaseId ? 'success' : 'info'}
+        icon={leaseId ? successIcon : badIcon}>
+        <Typography>current lease id: {leaseId}</Typography>
+        {!leaseId && (
+          <Typography variant="body2">
+            This property currently has no active lease assigned to it
+          </Typography>
+        )}
+        {leaseId && (
+          <>
+            <Typography variant="body2" gutterBottom>
+              Property has an active lease asigned to it.
+            </Typography>
+            <Button>To Do. Go to lease</Button>
+          </>
+        )}
+      </Alert>
     </RehouserPaper>
   );
 };

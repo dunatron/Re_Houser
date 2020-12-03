@@ -60,7 +60,6 @@ const PleaseSignIn = props => {
 PleaseSignIn.propTypes = {
   alert: PropTypes.any,
   children: PropTypes.any,
-  currentUser: PropTypes.any,
   message: PropTypes.any,
 };
 
