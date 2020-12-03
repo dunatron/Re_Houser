@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { SuccessMessageFragment } from '../fragments/rentalAppraisalInfo';
+import { SuccessMessageFragment } from '../fragments';
 
 const INVITE_USER_MUTATION = gql`
   mutation OFFER_RENTAL_APPRAISAL_MUTATION($data: InviteUserParams!) {
