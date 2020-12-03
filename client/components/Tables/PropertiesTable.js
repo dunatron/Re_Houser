@@ -27,6 +27,11 @@ const PropertiesTable = props => {
   }));
 
   const columns = [
+    // { title: 'id', field: 'id', filtering: false },
+    { title: 'location', field: 'location' },
+    { title: 'isLeased', field: 'isLeased' },
+    { title: 'advertising', field: 'onTheMarket' },
+    { title: 'rent', field: 'rent', export: true },
     {
       field: 'owners',
       title: 'Owners',
@@ -41,11 +46,6 @@ const PropertiesTable = props => {
         });
       },
     },
-    { title: 'id', field: 'id', filtering: false },
-    { title: 'location', field: 'location' },
-    { title: 'isLeased', field: 'isLeased' },
-    { title: 'advertising', field: 'onTheMarket' },
-    { title: 'rent', field: 'rent', export: true },
   ];
 
   const manageProperty = (event, rowData) => {

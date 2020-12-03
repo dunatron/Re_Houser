@@ -85,7 +85,7 @@ const ColumnSizerExample = props => {
   }, [props.columnCount]);
 
   const _noContentRenderer = () => {
-    return <div>No cells</div>;
+    return <div>No Property Results. Try adjusting the search settings</div>;
     // return <div className={styles.noCells}>No cells</div>;
   };
 
@@ -99,14 +99,14 @@ const ColumnSizerExample = props => {
           ...style,
           padding: theme.spacing(1),
           // borderRadius: '4px',
-          backgroundColor:
-            columnIndex === state.scrollToColumn
-              ? theme.palette.primary.main
-              : theme.palette.background.default,
-          // border:
+          // backgroundColor:
           //   columnIndex === state.scrollToColumn
-          //     ? `3px solid ${theme.palette.primary.dark}`
-          //     : `3px solid ${theme.palette.background.default}`,
+          //     ? theme.palette.primary.main
+          //     : theme.palette.background.default,
+          borderTop:
+            columnIndex === state.scrollToColumn
+              ? `3px solid ${theme.palette.primary.main}`
+              : `3px solid ${theme.palette.background.default}`,
         }}>
         <div>{cellHit && <PropertyResultHit hit={cellHit} />}</div>
       </div>

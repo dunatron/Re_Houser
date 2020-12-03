@@ -63,7 +63,7 @@ const AppMenuBar = props => {
     noTransparency ? classes.appBarSolid : classes.appBarTransparent
   );
 
-  const pathParts = router.pathname.split('/');
+  const pathParts = router.asPath.split('/');
   const formattedPathParts = pathParts.filter(part => part !== '');
 
   const routeToClickedPart = partIndex => {
@@ -77,7 +77,6 @@ const AppMenuBar = props => {
     }, '/');
     router.push({
       pathname: newRoute,
-      query: router.query,
     });
   };
 

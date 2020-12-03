@@ -168,6 +168,7 @@ const FormCreator = props => {
         style={{
           marginBottom: '16px',
           maxWidth: '800px',
+          overflow: 'initial',
         }}>
         {configIsValid(config) &&
           filteredConf.map((item, idx) => {

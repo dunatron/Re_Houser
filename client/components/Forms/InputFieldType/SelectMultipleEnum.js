@@ -8,6 +8,7 @@ import {
   FormControl,
   MenuItem,
   Chip,
+  TextField,
 } from '@material-ui/core';
 import { useQuery } from '@apollo/client';
 import { GET_ENUM_QUERY } from '../../../graphql/queries';
@@ -16,6 +17,9 @@ import Loader from '../../Loader';
 import FieldError from './FieldError';
 import { is } from 'ramda';
 import useStyles from '@/Components/Forms/useStyles';
+
+// experimental
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const SelectMultipleEnum = props => {
   const classes = useStyles();
@@ -53,6 +57,17 @@ const SelectMultipleEnum = props => {
     };
   }, [register]);
 
+  const handleOnValueChange = (event, valueArr, reason) => {
+    if (valueArr.length > 0) {
+      setValue(
+        fieldProps.name,
+        valueArr.map(val => val.value)
+      );
+    } else {
+      setValue(fieldProps.name, valueArr);
+    }
+  };
+
   // MD select is not a native input https://github.com/react-hook-form/react-hook-form/issues/497
 
   if (error) return <Error error={error} />;
@@ -63,6 +78,43 @@ const SelectMultipleEnum = props => {
         value: v.name,
       }))
     : [];
+
+  return (
+    <Autocomplete
+      multiple
+      disableCloseOnSelect={true}
+      variant={fieldProps.variant ? fieldProps.variant : 'outlined'}
+      style={{ marginBottom: '16px' }}
+      id={`${selectID}-multiselect`}
+      options={options}
+      defaultValue={is(Array, defaultValue) ? defaultValue : []} // probably wont work
+      getOptionLabel={option => option.name}
+      onChange={handleOnValueChange}
+      getOptionSelected={(option, value) => option.value === value.value}
+      renderTags={(tagValue, getTagProps) =>
+        tagValue.map((option, index) => (
+          <Chip
+            key={option.name}
+            label={option.name}
+            className={classes.chip}
+            color="secondary"
+            label={option.name}
+            {...getTagProps({ index })}
+          />
+        ))
+      }
+      renderInput={params => (
+        <TextField
+          {...params}
+          {...fieldProps}
+          error={fieldError ? true : false}
+          label={fieldProps.label}
+          variant="outlined"
+          helperText={fieldError}
+        />
+      )}
+    />
+  );
 
   return (
     <FormControl
