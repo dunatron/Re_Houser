@@ -30,6 +30,9 @@ import { setContext } from '@apollo/client/link/context';
 // modern sub errors
 // https://github.com/vercel/next.js/issues/10902
 
+// possible issue to caching dedupe
+// https://medium.com/@martinseanhunt/how-to-invalidate-cached-data-in-apollo-and-handle-updating-paginated-queries-379e4b9e4698
+
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;

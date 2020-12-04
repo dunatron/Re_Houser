@@ -60,7 +60,10 @@ const Loader = props => {
         />
       </div>
       {text && (
-        <Typography color={color ? color : 'secondary'} className={textClasses}>
+        <Typography
+          style={{ whiteSpace: 'pre-line' }}
+          color={color ? color : 'secondary'}
+          className={textClasses}>
           {text}
         </Typography>
       )}

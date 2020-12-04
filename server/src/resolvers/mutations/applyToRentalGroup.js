@@ -2,7 +2,7 @@ const mustBeAuthed = require("../../lib/mustBeAuthed");
 const newRentalGroupApplicantEmail = require("../../lib/emails/newRentalApplicationEmail");
 
 async function applyToRentalGroup(parent, { data }, ctx, info) {
-  await mustBeAuthed();
+  await mustBeAuthed({ ctx });
   // ToDo: send email to current group members
   const userId = data.user.connect.id;
   const applicationId = data.application.connect.id;

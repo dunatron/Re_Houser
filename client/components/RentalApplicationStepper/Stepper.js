@@ -32,6 +32,10 @@ import {
   UPDATE_USER_MUTATION,
 } from '@/Gql/mutations/index';
 
+import isAdmin from '@/Lib/isAdmin';
+import { _isRentalApplicant } from '@/Lib/_isRentalApplicant';
+import { _isRentalApplicationOwner } from '@/Lib/_isRentalApplicationOwner';
+
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries/index';
 
 import { isEmpty } from 'ramda';
@@ -127,7 +131,7 @@ const getStepContent = ({ stepIdx, completed, ...rest }) => {
 
 const RentalApplicationStepper = props => {
   const { me, property, rentalApplication } = props;
-  const { applicants } = rentalApplication;
+  const { owner, applicants } = rentalApplication;
   const classes = useStyles();
   const [updateApplication, updateApplicationProps] = useMutation(
     UPDATE_RENTAL_APPLICATION_MUTATION
@@ -136,6 +140,17 @@ const RentalApplicationStepper = props => {
   const [updateRentalGroupApplicant] = useMutation(
     UPDATE_RENTAL_GROUP_APPLICANT_MUTATION
   );
+
+  // some easy accessors
+  const isAnAdmin = isAdmin(me);
+  const isOwner = _isRentalApplicationOwner(me.id, owner);
+  const isAnApplicant = _isRentalApplicant(me.id, applicants);
+
+  const handyStepProps = {
+    isAnAdmin: isAnAdmin,
+    isOwner: isOwner,
+    isAnApplicant: isAnApplicant,
+  };
 
   // an update user Mutation
   const [updateUser] = useMutation(UPDATE_USER_MUTATION);
@@ -306,6 +321,7 @@ const RentalApplicationStepper = props => {
                     handleDetailsChange,
                     updateUser,
                     updateRentalGroupApplicant,
+                    ...handyStepProps,
                   })}
                 <div>
                   {activeStep !== steps.length && completed[activeStep] && (

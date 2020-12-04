@@ -22,6 +22,17 @@ const makeANiceEmail = (text, user) => {
   var today = moment().format("dddd, MMMM Do YYYY");
   var primaryColor = "#d0a85c";
   var secondaryColor = "#002443";
+
+  var hasName = user.firstName || user.lastName;
+
+  var dearUserSection = hasName
+    ? `(
+    <div style="margin-bottom: 16px;">
+      To ${user && user.firstName} ${user && user.lastName}
+    </div>
+  )`
+    : "";
+
   return `
   <div className="email" style="
     border: 2px solid ${primaryColor};
@@ -41,8 +52,7 @@ const makeANiceEmail = (text, user) => {
     <!-- date -->
     <div style="margin: 16px 0;">${today}</div>
     <!-- dear -->
-    <div style="margin-bottom: 16px;">To ${user && user.firstName} ${user &&
-    user.lastName}</div>
+    ${dearUserSection}
     <!-- content/text -->
     ${text}
     <!-- regards -->

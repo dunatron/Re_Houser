@@ -22,6 +22,7 @@ import {
   Switch,
   Button,
 } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import { useForm } from 'react-hook-form';
 import SuperiorTable from '@/Components/SuperiorTable';
 import UserProfile from '@/Components/UserProfile';
@@ -37,6 +38,9 @@ const ApplicationDetailsStep = ({
   rentalApplication,
   me,
   completed,
+  isAnAdmin,
+  isOwner,
+  isAnApplicant,
 }) => {
   const { applicants } = rentalApplication;
 
@@ -112,12 +116,24 @@ const ApplicationDetailsStep = ({
     { title: 'firstName', field: 'firstName', editable: false },
     { title: 'completed', field: 'completed', editable: false },
     {
+      title: 'hasPreTenancyForm',
+      field: 'preTenancyApplicationForm',
+      editable: false,
+      render: rowData => {
+        if (rowData.preTenancyApplicationForm) {
+          return 'YES';
+        } else {
+          return 'NO';
+        }
+      },
+    },
+    {
       field: 'approved',
       title: 'Approved',
       render: rowData => (
         <Switch
           aria-label="LoginSwitch"
-          disabled={false} // only allow applicationOwner
+          disabled={isOwner ? false : true} // only allow applicationOwner
           defaultChecked={rowData.approved}
           inputProps={{
             name: `approved[${rowData.id}]`,
@@ -132,16 +148,34 @@ const ApplicationDetailsStep = ({
 
   return (
     <div>
-      <Typography gutterBottom variant="body2">
-        As the owner of the application you can approve applicants as part of
-        your application. Approved applicants will be part of your application.
-        You can approve a{' '}
-        <Typography variant="body1" component="span" color="primary">
-          maximum of {property.maximumOccupants} applicants.
-        </Typography>{' '}
-        Please make sure to submit the changed data at the bottom
-      </Typography>
-      <InviteUser />
+      {isOwner && (
+        <>
+          <Typography gutterBottom variant="body2">
+            As the owner of the application you can approve applicants as part
+            of your application. Approved applicants will be part of your
+            application. You can approve a{' '}
+            <Typography variant="body1" component="span" color="primary">
+              maximum of {property.maximumOccupants} applicants.
+            </Typography>{' '}
+            Please make sure to submit the changed data at the bottom
+          </Typography>
+          <InviteUser
+            message={`Signup to the Rehouser platform and join me in my rental application for the property ${property.location}`}
+            subUrl={`/tenant/applications/${rentalApplication.id}`}
+          />
+        </>
+      )}
+      {isAnApplicant && (
+        <Alert severity="info">
+          <AlertTitle>You are an Applicant for this application.</AlertTitle>
+          <Typography gutterBottom variant="body2">
+            The application owner needs to edit this section to make you part of
+            the application. You will need to complete the next section as the
+            application owner cannot send an application whith approved
+            applicants that do not have a pre tenancy form
+          </Typography>
+        </Alert>
+      )}
       <Error error={error} />
       <SuperiorTable
         title="Application applicants"
@@ -190,6 +224,7 @@ const ApplicationDetailsStep = ({
       <Button
         onClick={handleSubmit(onSubmit)}
         variant="outlined"
+        disabled={isOwner ? false : true}
         color="primary">
         Update Applicants
       </Button>

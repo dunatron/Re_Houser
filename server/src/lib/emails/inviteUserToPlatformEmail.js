@@ -18,7 +18,7 @@ const inviteUserToPlatformEmail = async function({
         \n\n
         <a href="${
           process.env.FRONTEND_URL
-        }/${subUrl}">They have invited you to this section</a>
+        }${subUrl}">They have invited you to this section</a>
         <div style="line-height: 18px;">
             ${message}
         </div>

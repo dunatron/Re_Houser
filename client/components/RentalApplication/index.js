@@ -9,11 +9,16 @@ import ApplicantView from './views/ApplicantView';
 import PageHeader from '@/Components/PageHeader';
 import RentalApplicationStepper from '@/Components/RentalApplicationStepper';
 import RehouserPaper from '@/Styles/RehouserPaper';
-import isAdmin from '@/Lib/isAdmin';
 import DisplayJson from '@/Components/DisplayJson';
 import PropertyRentalApplications from '@/Components/PropertyDetails/Applications';
 import RentalApplicationSub from '@/Components/SubscriptionComponents/RentalApplicationSub';
 import { toast } from 'react-toastify';
+
+import ApplyToGroup from './ApplyToGroup';
+
+import isAdmin from '@/Lib/isAdmin';
+import { _isRentalApplicant } from '@/Lib/_isRentalApplicant';
+import { _isRentalApplicationOwner } from '@/Lib/_isRentalApplicationOwner';
 
 /**
  * page is wrapped in a must be loggedIn
@@ -42,15 +47,9 @@ const RentalApplication = ({ id, me }) => {
     },
   } = data;
 
-  const isOwner = me.id === owner.id;
-
   const isAnAdmin = isAdmin(me);
-
-  const isAnApplicant = data.rentalApplication.applicants
-    ? data.rentalApplication.applicants.includes(me.id)
-    : false;
-
-  console.log('isAnApplicant => ', isAnApplicant);
+  const isOwner = _isRentalApplicationOwner(me.id, owner);
+  const isAnApplicant = _isRentalApplicant(me.id, applicants);
 
   const handleSubData = ({ client, subscriptionData }) => {
     console.log('Recieved Sub Data for APplication => ', subscriptionData);
@@ -116,6 +115,12 @@ const RentalApplication = ({ id, me }) => {
               me={me}
               property={data.rentalApplication.property}
             />
+          </>
+        )}
+        {!isAnApplicant && (
+          <>
+            <div>Would you like to apply for this application</div>
+            <ApplyToGroup applicationId={data.rentalApplication.id} />
           </>
         )}
       </RehouserPaper>
