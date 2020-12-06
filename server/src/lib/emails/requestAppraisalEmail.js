@@ -1,7 +1,13 @@
 const { transport, makeANiceEmail } = require("../mail");
 const { CEO_DETAILS } = require("../../const");
 
-const requestAppraisalEmail = async function({ toEmail, ctx, user, location }) {
+const requestAppraisalEmail = async function({
+  toEmail,
+  ctx,
+  user,
+  location,
+  appraisal
+}) {
   return transport.sendMail({
     from: process.env.MAIL_USER,
     to: toEmail,
@@ -29,10 +35,9 @@ We will contact you via email when this appraisal has been completed. It can als
 A list of your Appraisals on the platform can be fround here \n
 <a href="${process.env.FRONTEND_URL}/landlord/appraisals">${process.env.FRONTEND_URL}/landlord/appraisals ${location}</a> \n
 </div>
-
     \n\n`,
       user
-    ),
+    )
   });
 };
 
