@@ -19,6 +19,10 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const EXAMPLES_CONF = [
   {
     label: 'Typography Examples',
@@ -99,5 +103,15 @@ ConnectedTypographyPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
   }),
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 export default ConnectedTypographyPage;

@@ -40,7 +40,7 @@ import DetailItems from './DetailItems';
 import ImportantDetails from './ImportantDetails';
 import PropertyImages from './Images';
 
-import AddUserToList from '@/Components/User/AddUserToList';
+import DynamicAddUserToList from '@/Components/User/DynamicAddUserToList';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const useStyles = makeStyles(theme => ({
@@ -366,7 +366,7 @@ const Details = props => {
             return <UserDetails me={me} user={owner} />;
           })}
         {me.isWizard && (
-          <AddUserToList
+          <DynamicAddUserToList
             id="properties-owners"
             filters=""
             selected={property.owners}
@@ -395,7 +395,7 @@ const Details = props => {
             return <UserDetails me={me} user={agent} />;
           })}
         {me.isWizard && (
-          <AddUserToList
+          <DynamicAddUserToList
             id="properties-agents"
             filters="(permissions:ADMIN OR permissions:WIZARD)"
             selected={property.agents}

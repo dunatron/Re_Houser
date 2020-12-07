@@ -34,4 +34,14 @@ AdminApplicationsPage.propTypes = {
   }),
 };
 
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
+
 export default AdminApplicationsPage;

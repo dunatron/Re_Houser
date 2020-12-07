@@ -8,6 +8,10 @@ import AdminOnly from '@/Components/AdminOnly';
 
 import ADMIN_DASHBOARD_CONFIG from '@/Lib/configs/dashboards/adminDashConf';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 /**
  *
  * I have a dream, to put all my updates here for admins.
@@ -45,5 +49,15 @@ AdminDashboardPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
   }),
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 export default AdminDashboardPage;

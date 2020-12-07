@@ -4,7 +4,8 @@ import { store } from '../../store';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
-import MaterialTable from 'material-table';
+// import MaterialTable from 'material-table';
+import SuperiorTable from '@/Components/SuperiorTable';
 import {
   Input,
   Typography,
@@ -49,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 }));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
-const PROPERTIES_COUNT_QUERY = gql`
+export const PROPERTIES_COUNT_QUERY = gql`
   query PROPERTIES_COUNT_QUERY(
     $where: PropertyWhereInput
     $orderBy: PropertyOrderByInput
@@ -89,6 +90,12 @@ const AdminRentalApplicationsTable = ({
   const [searchText, setSearchText] = useState('');
   const [networkOnly, setNetworkOnly] = useState(false);
   const [tableErr, setTableErr] = useState(null);
+
+  // router/table state
+  // orderBy: orderBy,
+  // skip: query.page * query.pageSize,
+  // first: query.pageSize,
+  // limit: query.pageSize,
 
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: false },
@@ -174,6 +181,18 @@ const AdminRentalApplicationsTable = ({
     });
 
   const remoteData = query => {
+    Router.push(
+      Router.pathname,
+      {
+        query: {
+          orderBy: orderBy,
+          skip: query.page * query.pageSize,
+          first: query.pageSize,
+          limit: query.pageSize,
+        },
+      },
+      { shallow: true }
+    );
     return client
       .query({
         query: PROPERTIES_CONNECTION_QUERY,
@@ -256,7 +275,7 @@ const AdminRentalApplicationsTable = ({
         </div>
       </div>
       <Error error={tableErr} />
-      <MaterialTable
+      <SuperiorTable
         style={{
           marginBottom: '16px',
         }}
@@ -266,6 +285,18 @@ const AdminRentalApplicationsTable = ({
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
         }}
+        // onChangePage={page => {
+        //   Router.push(
+        //     Router.pathname,
+        //     {
+        //       query: {
+        //         page: page,
+        //       },
+        //     },
+        //     { shallow: true }
+        //   );
+        //   console.log('Ummm ok');
+        // }}
         actions={[
           {
             icon: 'settings',

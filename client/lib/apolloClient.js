@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import nookies from 'nookies';
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
 import {
   ApolloClient,
   ApolloLink,
@@ -12,7 +11,6 @@ import {
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
-import { concatPagination } from '@apollo/client/utilities';
 import { getMainDefinition } from '@apollo/client/utilities';
 import createInMemoryCache from './store/createInMemoryCache';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
@@ -74,17 +72,7 @@ function createApolloClient(ctx) {
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
     },
-    // headers: {
-    //   // ...(req?.headers && req.headers),
-    //   cookie: `token=${
-    //     cookies['token'] ? cookies['token'] : ''
-    //   }; refresh-token=${
-    //     cookies['refresh-token'] ? cookies['refresh-token'] : ''
-    //   };`,
-    // },
   });
-
-  // const uploadWithHeaders = headersLink.concat(uploadHttpLink);
 
   const linksToApollo = from([
     onError(({ graphQLErrors, networkError }) => {
@@ -102,18 +90,12 @@ function createApolloClient(ctx) {
     // authMiddleware,
     authLink,
     uploadHttpLink,
-    // uploadWithHeaders,
   ]);
 
   const client = process.browser
     ? new SubscriptionClient(websocketEndpoint, {
         reconnect: true,
-        // dont add connextion params. we should generate JWT token with prisma on BE and connect with that
-        // connectionParams: {
-        //   // headers: {
-        //   Authorization: token ? `Bearer ${token}` : '',
-        //   // }
-        // },
+        timeout: 30000,
       })
     : null;
   const wsLink = process.browser ? new WebSocketLink(client) : null;
@@ -147,23 +129,35 @@ function createApolloClient(ctx) {
   });
 }
 
+const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
+
+const combineMerge = (target, source, options) => {
+  const destination = target.slice();
+
+  source.forEach((item, index) => {
+    if (typeof destination[index] === 'undefined') {
+      destination[index] = options.cloneUnlessOtherwiseSpecified(item, options);
+    } else if (options.isMergeableObject(item)) {
+      destination[index] = merge(target[index], item, options);
+    } else if (target.indexOf(item) === -1) {
+      destination.push(item);
+    }
+  });
+  return destination;
+};
+
 export function initializeApollo(initialState = null, nextJsContext) {
   const _apolloClient =
     apolloClient ?? createApolloClient(nextJsContext ? nextJsContext : {});
-
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
-    console.log('Apollo client debug: initialState => ', initialState);
     const existingCache = _apolloClient.extract();
-    console.log('Apollo client debug: existingCache => ', existingCache);
-
-    // using ramda merge seems to not use server
-    const data = merge(initialState, existingCache); // we want to merge from other places we have been
-    // deepMerge is just not working how I expect it to. the arrays objects are being duplicated
-    console.log('Apollo client debug: mergedData => ', data);
-
+    // merge initialState(from getServerSideProps) with existing clientSide cache
+    const data = merge(initialState, existingCache, {
+      arrayMerge: combineMerge, // default was concating list __refs
+    });
     // Restore the cache with the merged data
     _apolloClient.cache.restore(data);
   }
@@ -178,7 +172,6 @@ export function initializeApollo(initialState = null, nextJsContext) {
 
 export function addApolloState(client, pageProps) {
   if (pageProps?.props) {
-    // console.log('Log the extract => ', client.cache.extract());
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }
 

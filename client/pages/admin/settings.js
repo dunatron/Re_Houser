@@ -7,6 +7,10 @@ import PageHeader from '@/Components/PageHeader';
 import AdminSettings from '@/AdminComponents/AdminSettings';
 import AdminOnly from '@/Components/AdminOnly';
 
+// server side props
+import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
+import { CURRENT_USER_QUERY } from '@/Gql/queries';
+
 const AdminSettingsPage = ({ appData: { currentUser } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
   return (
@@ -31,5 +35,15 @@ AdminSettingsPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
   }),
 };
+
+export async function getServerSideProps(ctx) {
+  const apolloClient = initializeApollo(null, ctx);
+  await apolloClient.query({
+    query: CURRENT_USER_QUERY,
+  });
+  return addApolloState(apolloClient, {
+    props: {},
+  });
+}
 
 export default AdminSettingsPage;

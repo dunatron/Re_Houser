@@ -27,11 +27,6 @@ const CacheWrapper = () => {
           // ownerProperties: paginationField(),
           ownerProperties: {
             merge(existing = [], incoming) {
-              console.log('cache properties existing => ', existing);
-              console.log('cache properties incoming => ', incoming);
-              const mergedProperties = [...existing, ...incoming];
-              console.log('cache properties merged => ', mergedProperties);
-              // return [];
               return [...existing, ...incoming];
             },
           },
