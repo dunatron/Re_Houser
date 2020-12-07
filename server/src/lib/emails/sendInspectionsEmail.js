@@ -17,7 +17,11 @@ const sendInspectionsEmail = (subject, inspections) => {
   emailCEO({
     ctx: null,
     subject: subject,
-    body: body,
+    from: {
+      name: "Rehouser Inspections",
+      address: process.env.MAIL_USER
+    },
+    body: body
   });
 };
 

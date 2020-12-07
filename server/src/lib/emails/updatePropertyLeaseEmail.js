@@ -5,10 +5,14 @@ const updatePropertyLeaseEmail = async function({
   toEmail,
   lease,
   ctx,
-  user,
+  user
 }) {
   return transport.sendMail({
-    from: process.env.MAIL_USER,
+    // from: process.env.MAIL_USER,
+    from: {
+      name: "Rehouser Lease Change",
+      address: process.env.MAIL_USER
+    },
     to: toEmail,
     subject: `Lease updated and unsigned: ${lease.id}`,
     html: makeANiceEmail(
@@ -16,7 +20,7 @@ const updatePropertyLeaseEmail = async function({
       You can review the updated lease at ${process.env.FRONTEND_URL}/${baseLink}/leases/${lease.id} \n
     \n\n`,
       user
-    ),
+    )
   });
 };
 

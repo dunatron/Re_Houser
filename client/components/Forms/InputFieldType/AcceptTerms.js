@@ -30,7 +30,7 @@ const AcceptTerms = props => {
           label={config.fieldProps.label}
         />
       </Box>
-      <FieldError errors={errors} name={name} />
+      <FieldError errors={errors} name={fieldProps.name} />
     </>
   );
 };
@@ -38,14 +38,14 @@ const AcceptTerms = props => {
 AcceptTerms.propTypes = {
   config: PropTypes.shape({
     fieldProps: PropTypes.shape({
-      label: PropTypes.any
+      label: PropTypes.any,
     }),
     refConf: PropTypes.object.isRequired,
-    terms: PropTypes.any
+    terms: PropTypes.any,
   }).isRequired,
   defaultValue: PropTypes.any,
   errors: PropTypes.any,
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
 };
 
 export default AcceptTerms;

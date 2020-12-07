@@ -1,5 +1,10 @@
 // export default cache;
 import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client';
+import {
+  concatPagination,
+  offsetLimitPagination,
+  relayStylePagination,
+} from '@apollo/client/utilities';
 import paginationField from './paginationField';
 import gql from 'graphql-tag';
 
@@ -10,9 +15,26 @@ const CacheWrapper = () => {
   const cache = new InMemoryCache({
     freezeResults: true,
     typePolicies: {
+      // Query: {
+      //   fields: {
+      //     allItems: paginationField(),
+      //   },
+      // },
       Query: {
         fields: {
-          allItems: paginationField(),
+          // ownerProperties: relayStylePagination(),
+          // ownerProperties: offsetLimitPagination(),
+          // ownerProperties: paginationField(),
+          ownerProperties: {
+            merge(existing = [], incoming) {
+              console.log('cache properties existing => ', existing);
+              console.log('cache properties incoming => ', incoming);
+              const mergedProperties = [...existing, ...incoming];
+              console.log('cache properties merged => ', mergedProperties);
+              // return [];
+              return [...existing, ...incoming];
+            },
+          },
         },
       },
       User: {

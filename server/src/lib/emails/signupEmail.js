@@ -2,7 +2,11 @@ const { transport, makeANiceEmail } = require("../mail");
 
 const signupEmail = async function({ toEmail, ctx, user, confirmEmailToken }) {
   return transport.sendMail({
-    from: process.env.MAIL_USER,
+    // from: process.env.MAIL_USER,
+    from: {
+      name: "Rehouser User Signup",
+      address: process.env.MAIL_USER
+    },
     to: toEmail,
     subject: `Welcome to Rehouser`,
     html: makeANiceEmail(

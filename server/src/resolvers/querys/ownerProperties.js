@@ -7,9 +7,9 @@ async function ownerProperties(parent, args, ctx, info) {
     {
       where: {
         owners_some: {
-          id: ctx.request.userId,
-        },
-      },
+          id: ctx.request.userId
+        }
+      }
     },
     info
   );

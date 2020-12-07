@@ -178,8 +178,7 @@ const CreatePropertyComponent = props => {
         </Typography>
         <ChangeRouteButton
           title="Go to property"
-          route="/landlord/properties/property"
-          query={{ id: createdData.createProperty.id }}
+          route={`/landlord/properties/${createdData.createProperty.id}`}
           variant="contained"
           color="primary"
         />

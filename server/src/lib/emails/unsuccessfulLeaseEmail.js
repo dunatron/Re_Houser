@@ -2,7 +2,11 @@ const { transport, makeANiceEmail } = require("../mail");
 
 const unsuccessfulLeaseEmail = async function({ toEmail, user, property }) {
   return transport.sendMail({
-    from: process.env.MAIL_USER,
+    // from: process.env.MAIL_USER,
+    from: {
+      name: "Rehouser Unsuccessful Lease",
+      address: process.env.MAIL_USER
+    },
     to: toEmail,
     subject: `Usuccessful Lease for ${property.location}`,
     html: makeANiceEmail(

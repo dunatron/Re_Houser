@@ -7,10 +7,14 @@ const finalisePropertyLeaseEmail = async function({
   // payment,
   wallet,
   ctx,
-  user,
+  user
 }) {
   return transport.sendMail({
-    from: process.env.MAIL_USER,
+    // from: process.env.MAIL_USER,
+    from: {
+      name: "Rehouser Lease Finalised",
+      address: process.env.MAIL_USER
+    },
     to: toEmail,
     subject: `Lease Accepted and Signed: ${lease.id}`,
     html: makeANiceEmail(
@@ -19,7 +23,7 @@ const finalisePropertyLeaseEmail = async function({
       Head on over to the lease to view and manage ${process.env.EMAIL_PREFIX}/${baseLink}/leases/${lease.id} \n
     \n\n`,
       user
-    ),
+    )
   });
 };
 

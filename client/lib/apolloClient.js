@@ -14,11 +14,11 @@ import { onError } from '@apollo/client/link/error';
 import { createUploadLink } from 'apollo-upload-client';
 import { concatPagination } from '@apollo/client/utilities';
 import { getMainDefinition } from '@apollo/client/utilities';
-import merge from 'deepmerge';
 import createInMemoryCache from './store/createInMemoryCache';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
+import merge from 'deepMerge';
 
 // subscription docs
 // https://github.com/apollographql/subscriptions-transport-ws
@@ -32,6 +32,12 @@ import { setContext } from '@apollo/client/link/context';
 
 // possible issue to caching dedupe
 // https://medium.com/@martinseanhunt/how-to-invalidate-cached-data-in-apollo-and-handle-updating-paginated-queries-379e4b9e4698
+
+// some tips and tricks with apollo cahce
+// https://medium.com/rbi-tech/tips-and-tricks-for-working-with-apollo-cache-3b5a757f10a0
+
+// next js examples
+// https://github.com/vercel/next.js/tree/canary/examples
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
@@ -149,14 +155,19 @@ export function initializeApollo(initialState = null, nextJsContext) {
   // gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
+    console.log('Apollo client debug: initialState => ', initialState);
     const existingCache = _apolloClient.extract();
+    console.log('Apollo client debug: existingCache => ', existingCache);
 
-    // Merge the existing cache into data passed from getStaticProps/getServerSideProps
-    const data = merge(initialState, existingCache);
+    // using ramda merge seems to not use server
+    const data = merge(initialState, existingCache); // we want to merge from other places we have been
+    // deepMerge is just not working how I expect it to. the arrays objects are being duplicated
+    console.log('Apollo client debug: mergedData => ', data);
 
     // Restore the cache with the merged data
     _apolloClient.cache.restore(data);
   }
+
   // For SSG and SSR always create a new Apollo Client
   if (typeof window === 'undefined') return _apolloClient;
   // Create the Apollo Client once in the client
@@ -176,6 +187,6 @@ export function addApolloState(client, pageProps) {
 
 export function useApollo(pageProps) {
   const state = pageProps[APOLLO_STATE_PROP_NAME];
-  const store = useMemo(() => initializeApollo(state, null), [state]);
+  const store = useMemo(() => initializeApollo(state), [state]);
   return store;
 }

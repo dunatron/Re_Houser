@@ -72,6 +72,7 @@ const PhoneInput = props => {
   const label = fieldProps ? fieldProps.label : null;
 
   const handleChange = e => {
+    console.log('BAnk Account field change => ', e.target.value);
     setValue(fieldProps.name, e.target.value);
   };
 
@@ -80,6 +81,7 @@ const PhoneInput = props => {
   useEffect(() => {
     register({ name: fieldProps.name }, refConf);
     if (defaultValue) {
+      console.log('BAnk Account default Value => ', defaultValue);
       setValue(fieldProps.name, defaultValue);
     }
   }, []);

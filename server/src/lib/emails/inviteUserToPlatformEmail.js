@@ -11,7 +11,11 @@ const inviteUserToPlatformEmail = async function({
   return transport.sendMail({
     from: process.env.MAIL_USER,
     to: email,
-    subject: "Invitation to Rehouser",
+    // subject: "Invitation to Rehouser",
+    from: {
+      name: "Rehouser Platform Invite",
+      address: process.env.MAIL_USER
+    },
     html: makeANiceEmail(
       `${invitor &&
         invitor.firstName} has invited you to the rehouser property platform!
