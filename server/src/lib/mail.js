@@ -26,11 +26,9 @@ const makeANiceEmail = (text, user) => {
   var hasName = user.firstName || user.lastName;
 
   var dearUserSection = hasName
-    ? `(
-    <div style="margin-bottom: 16px;">
-      To ${user && user.firstName} ${user && user.lastName}
-    </div>
-  )`
+    ? `<div style="margin-bottom: 16px;">
+        To ${user && user.firstName} ${user && user.lastName}
+      </div>`
     : "";
 
   return `

@@ -41,6 +41,11 @@ Router.onRouteChangeStart = () => {
 
 Router.onRouteChangeComplete = () => {
   NProgress.done();
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: 'smooth',
+  });
 };
 
 Router.onRouteChangeError = () => {

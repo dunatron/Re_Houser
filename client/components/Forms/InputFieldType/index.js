@@ -37,6 +37,7 @@ import Signature from './Signature';
 import Image from './Image';
 import CaptchaField from './Captcha';
 import Email from './Email';
+import Password from './Password';
 import { path } from 'ramda';
 
 const extractErrorFromErrors = (errors, name) => {
@@ -86,6 +87,8 @@ const InputFieldType = props => {
         return <Typography {...config.fieldProps}>{config.content}</Typography>;
       case 'Section':
         return <FormSection {...props} />;
+      case 'Password':
+        return <Password {...props} fieldError={fieldError} />;
       case 'String':
         return (
           <String

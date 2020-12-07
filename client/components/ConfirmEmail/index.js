@@ -3,8 +3,13 @@ import SendConfrimEmailButton from '@/Components/MutationButtons/SendConfrimEmai
 import OpenSuperLoginButton from '@/Components/SuperLogin/OpenSuperLoginButton';
 import { Typography } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
+import { useRouter } from 'next/router';
 
-const ConfirmEmail = ({ me, children }) => {
+const ConfirmEmail = ({ me, children, token }) => {
+  const router = useRouter();
+
+  const confirmEmailToken = token ? token : router.query.token;
+
   if (!me) {
     return (
       <RehouserPaper>
@@ -22,7 +27,7 @@ const ConfirmEmail = ({ me, children }) => {
           PLease confirm your email address. You will be limited on the platform
           untill you do
         </Typography>
-        <SendConfrimEmailButton />
+        <SendConfrimEmailButton token={confirmEmailToken} />
       </RehouserPaper>
     );
   return children ? children : null;

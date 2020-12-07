@@ -5,6 +5,7 @@ import Router from 'next/router';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Link from 'next/link';
 
 // material
 import {
@@ -28,7 +29,7 @@ const handleLink = (route = '/', query = {}) => {
   Router.push({
     pathname: route,
     query: query,
-  }).then(() => window.scrollTo(0, 0));
+  });
 };
 
 const Nav = props => {
@@ -52,12 +53,7 @@ const Nav = props => {
 
         return (
           <Fragment key={conf.key}>
-            <List
-              disablePadding={true}
-              // style={{
-              //   backgroundColor: 'red',
-              // }}
-            >
+            <List disablePadding={true}>
               {conf.label && (
                 <ListItem>
                   <Typography variant="h6">{conf.label}</Typography>
@@ -97,35 +93,31 @@ const SideBarItemWithRouter = ({ item, pathname }) => {
   if (!item.canRender()) return null;
 
   return (
-    <ListItem
-      classes={{
-        root: classes.listItem,
-        selected: classes.listItemSelected,
-        divider: classes.listItemDivider,
-      }}
-      selected={containsPath}
-      button
-      divider
-      onClick={() => {
-        if (item.action) {
-          item.action();
-        } else {
-          handleLink(item.route);
-        }
-      }}>
-      {/* <ListItemIcon
-        style={item.style ? item.style : null}
-        className={classes.listItemIcon}>
-        {item.icon}
-      </ListItemIcon> */}
-      <ListItemText
-        primary={item.text}
+    <Link href={item.route} passHref>
+      <ListItem
         classes={{
-          root: classes.listItemText,
-          primary: classes.listItemText,
+          root: classes.listItem,
+          selected: classes.listItemSelected,
+          divider: classes.listItemDivider,
         }}
-      />
-    </ListItem>
+        selected={containsPath}
+        button
+        component="a"
+        divider
+        onClick={e => {
+          if (item.action) {
+            item.action();
+          }
+        }}>
+        <ListItemText
+          primary={item.text}
+          classes={{
+            root: classes.listItemText,
+            primary: classes.listItemText,
+          }}
+        />
+      </ListItem>
+    </Link>
   );
 };
 

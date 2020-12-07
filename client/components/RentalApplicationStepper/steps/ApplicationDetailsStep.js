@@ -112,7 +112,6 @@ const ApplicationDetailsStep = ({
       title: 'Avatar',
       render: rowData => <UserProfile user={rowData.user} me={me} />,
     },
-    // { title: 'id', field: 'id', editable: false },
     { title: 'firstName', field: 'firstName', editable: false },
     { title: 'completed', field: 'completed', editable: false },
     {

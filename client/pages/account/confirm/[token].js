@@ -14,7 +14,7 @@ import { CURRENT_USER_QUERY } from '@/Gql/queries';
  *
  * Doesnt actually require login, just needs a token in the url bar
  */
-const ConfirmAccountPage = ({ appData: { currentUser } }) => {
+const ConfirmAccountWithTokenPage = ({ appData: { currentUser }, query }) => {
   const me = currentUser.data ? currentUser.data.me : null;
 
   return (
@@ -26,7 +26,7 @@ const ConfirmAccountPage = ({ appData: { currentUser } }) => {
           content: 'rehouser platform login',
         }}
       />
-      <ConfirmEmail me={me}>
+      <ConfirmEmail me={me} token={query.token}>
         <Typography variant="h5" gutterBottom>
           Congratulations your {`account's`} email address has now been
           validated
@@ -49,14 +49,16 @@ export async function getServerSideProps(ctx) {
     query: CURRENT_USER_QUERY,
   });
   return addApolloState(apolloClient, {
-    props: {},
+    props: {
+      query: ctx.query,
+    },
   });
 }
 
-ConfirmAccountPage.propTypes = {
+ConfirmAccountWithTokenPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,
   }),
 };
 
-export default ConfirmAccountPage;
+export default ConfirmAccountWithTokenPage;

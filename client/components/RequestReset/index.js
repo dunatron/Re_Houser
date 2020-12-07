@@ -5,9 +5,11 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import Form from '@/Styles/Form';
 import Error from '@/Components/ErrorMessage/index';
+import Loader from '@/Components/Loader';
 import FabButton from '@/Styles/FabButton';
 import NavigationIcon from '@material-ui/icons/Navigation';
 import TextInput from '@/Styles/TextInput';
+import { Typography } from '@material-ui/core';
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -46,8 +48,11 @@ const RequestReset = props => {
         className="main-fieldset">
         <Error error={error} />
         {!error && !loading && called && (
-          <p>Success! Check your email for a reset link!</p>
+          <Typography gutterBottom color="secondary">
+            Success! Check your email for a reset link!
+          </Typography>
         )}
+        {loading && <Loader loading={loading} text="Sending reset token" />}
         <TextInput
           id="email-reset"
           className="input"
@@ -75,7 +80,7 @@ const RequestReset = props => {
 };
 
 RequestReset.propTypes = {
-  email: PropTypes.any
+  email: PropTypes.any,
 };
 
 export default RequestReset;

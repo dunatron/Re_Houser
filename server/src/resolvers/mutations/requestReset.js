@@ -18,13 +18,13 @@ async function requestReset(parent, args, ctx, info) {
   });
   // 3. Email them that reset token
   const mailRes = await transport.sendMail({
-    from: "heath.dunlop.hd@gmail.com",
+    from: process.env.MAIL_USER,
     to: user.email,
     subject: "Your Password Reset Token",
     html: makeANiceEmail(
       `Your Password Reset Token is here!
       \n\n
-      <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">Click Here to Reset</a>`,
+      <a href="${process.env.FRONTEND_URL}/reset/password/${resetToken}">Click Here to Reset</a>`,
       res
     )
   });

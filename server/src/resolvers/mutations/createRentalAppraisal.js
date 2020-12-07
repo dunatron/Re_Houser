@@ -4,6 +4,20 @@ const emailCEO = require("../../lib/emails/emailCEO");
 
 async function createRentalAppraisal(parent, args, ctx, info) {
   const loggedInUserId = ctx.request.userId;
+
+  // rooms: 2,
+  // bathrooms: 2,
+  // garageSpaces: 2,
+  // acceptTerms: true,
+  // placeId: 'Ei05OSBCbG9vZCBEb25vcnMsIEVwc29tLCBBdWNrbGFuZCwgTmV3IFplYWxhbmQiLiosChQKEgkJiUu3YkgNbRENLpQiZuE5vRIUChIJA88kxJ1IDW0RIMKiQ2HvAAU',
+  // location: '99 Blood Donors, Epsom, Auckland, New Zealand',
+  // locationLat: -36.8819512,
+  // locationLng: 174.7841836,
+  // heatSources: { set: [ 'ELECTRIC_HEATER', 'HEAT_PUMP' ] },
+  // requestedBy: { connect: { id: 'ckidscsn8kmxb0a2679sj9e2x' } },
+  // hasBeenUsed: false,
+  // property: null
+
   const { data } = args;
   const { property, requestedBy } = data;
 

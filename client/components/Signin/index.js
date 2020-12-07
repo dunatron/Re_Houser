@@ -11,6 +11,7 @@ import { SIGNIN_MUTATION } from '@/Gql/mutations';
 import ReCAPTCHA from '@/Components/Recaptcha';
 import ButtonLoader from '@/Components/Loader/ButtonLoader';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import PasswordInput from '@/Components/Inputs/Password';
 
 const Signin = props => {
   const [state, setState] = useState({
@@ -111,7 +112,7 @@ const Signin = props => {
           value={state.email}
           onChange={saveToState}
         />
-        <TextInput
+        <PasswordInput
           id="password"
           label="Password"
           inputProps={{

@@ -27,7 +27,7 @@ const RESET_PASSWORD_MUTATION = gql`
   }
 `;
 
-const ResetPage = ({ appData: { currentUser }, query }) => {
+const ResetPasswordPage = ({ appData: { currentUser }, query: { token } }) => {
   const me = currentUser.data ? currentUser.data.me : null;
 
   const handleOnCompleted = () => {};
@@ -48,7 +48,7 @@ const ResetPage = ({ appData: { currentUser }, query }) => {
     resetPassword({
       variables: {
         ...data,
-        resetToken: query.resetToken,
+        resetToken: token,
       },
     });
   };
@@ -57,7 +57,7 @@ const ResetPage = ({ appData: { currentUser }, query }) => {
   if (me) return <SuperLogin />;
 
   // cant reset password if we have no valid resetToken
-  if (!query.resetToken)
+  if (!token)
     return (
       <Typography variant="body1" color="error">
         There is no reset token attached, perhaps go to request reset..?
@@ -75,6 +75,9 @@ const ResetPage = ({ appData: { currentUser }, query }) => {
         }}
       />
       <FormCreator
+        data={{
+          token: token,
+        }}
         title="reset password form"
         error={error}
         posting={loading}
@@ -93,17 +96,16 @@ export async function getServerSideProps(ctx) {
     query: CURRENT_USER_QUERY,
   });
   return addApolloState(apolloClient, {
-    props: {},
+    props: {
+      query: ctx.query,
+    },
   });
 }
 
-ResetPage.propTypes = {
+ResetPasswordPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,
   }),
-  query: PropTypes.shape({
-    resetToken: PropTypes.string,
-  }),
 };
 
-export default ResetPage;
+export default ResetPasswordPage;

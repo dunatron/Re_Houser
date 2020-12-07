@@ -3,7 +3,6 @@ const { CEO_DETAILS } = require("../../const");
 
 const requestAppraisalEmail = async function({
   toEmail,
-  ctx,
   user,
   location,
   appraisal

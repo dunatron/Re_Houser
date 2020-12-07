@@ -69,6 +69,7 @@
     "make-dir": "^2.1.0",
     "material-table": "^1.51.0",
     "material-ui-image": "^3.2.3",
+    "material-ui-password-field": "^2.1.2",
     "material-ui-phone-number": "^2.2.6",
     "moment": "^2.24.0",
     "money": "^0.2.0",

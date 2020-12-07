@@ -30,12 +30,14 @@ const useStyles = makeStyles(theme => ({
 /**
  * ToDo make confirming local state, as to elegantly handle subs for thgis
  */
-const SendConfirmEmailButton = () => {
+const SendConfirmEmailButton = props => {
   const classes = useStyles();
   const router = useRouter();
 
   const [sent, setSent] = useState(false);
-  const [token, setToken] = useState(router.query.token);
+  const [token, setToken] = useState(
+    props.token ? props.token : router.query.token
+  );
   const [success, setSuccess] = useState(false);
 
   const [confirmEmailWithToken, { data, loading, error }] = useMutation(

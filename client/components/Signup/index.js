@@ -18,6 +18,7 @@ import ButtonLoader from '@/Components/Loader/ButtonLoader';
 import ConfinedHeight from '@/Components/ConfinedHeight';
 import SignupTerms from '@/Components/Terms/SignupTerms';
 import PhoneInput from '@/Components/Inputs/PhoneInput';
+import PasswordInput from '@/Components/Inputs/Password';
 
 const Signup = props => {
   const recaptchaRef = useRef();
@@ -191,7 +192,7 @@ const Signup = props => {
             });
           }}
         />
-        <TextInput
+        <PasswordInput
           id="signup-password"
           inputProps={{
             'data-cy': 'signup-password',

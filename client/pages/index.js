@@ -42,7 +42,7 @@ const HomePageBannerBody = () => {
           title="Free Appraisal"
           variant="contained"
           color="secondary"
-          route="/freeappraisal"
+          route="/landlord/appraisals/add"
           btnProps={{
             size: 'large',
             style: {

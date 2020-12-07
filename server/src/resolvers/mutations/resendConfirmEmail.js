@@ -1,6 +1,7 @@
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { transport, makeANiceEmail } = require("../../lib/mail");
+const moment = require("moment");
 
 async function resendConfirmEmail(parent, args, ctx, info) {
   // throw new Error("Sorry business logic and security, needs to be 100");
@@ -40,10 +41,15 @@ async function resendConfirmEmail(parent, args, ctx, info) {
     html: makeANiceEmail(
       `Rehouser confirm account!
       \n\n
-      <a href="${process.env.FRONTEND_URL}/confirm-account?token=${confirmEmailToken}">Click Here to confirm your rehouser account</a>
+      <a href="${
+        process.env.FRONTEND_URL
+      }/account/confirm/${confirmEmailToken}">Click Here to confirm your rehouser account</a>
       <div style="line-height: 18px;">
         Alternatively you can copy paste the token <span>${confirmEmailToken}</span>
       </div>
+      <div>The token will expire at ${moment(confirmEmailTokenExpiry).format(
+        "h:mm:ss a ddd, MMM Do YYYY, "
+      )}</div>
       `,
       user
     )
