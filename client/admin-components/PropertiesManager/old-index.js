@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 // import MaterialTable from 'material-table';
-import ConnectionTable from '@/Components/SuperiorTable/ConnectionTable';
+import SuperiorTable from '@/Components/SuperiorTable';
 import {
   Input,
   Typography,
@@ -91,6 +91,12 @@ const AdminRentalApplicationsTable = ({
   const [networkOnly, setNetworkOnly] = useState(false);
   const [tableErr, setTableErr] = useState(null);
 
+  // router/table state
+  // orderBy: orderBy,
+  // skip: query.page * query.pageSize,
+  // first: query.pageSize,
+  // limit: query.pageSize,
+
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: false },
     { title: 'property', field: 'location', editable: false, searchable: true },
@@ -128,6 +134,46 @@ const AdminRentalApplicationsTable = ({
   if (error) return <Error error={error} />;
 
   const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
+
+  const handleSearchTextChange = e => {
+    setSearchText(e.target.value);
+  };
+
+  const handleGetSubscriptionItems = async () => {
+    await setNetworkOnly(true);
+    dispatch({
+      type: 'updateState',
+      payload: {
+        newPropertiesCount: 0,
+      },
+    });
+    await tableRef.current.onQueryChange();
+    setNetworkOnly(false);
+  };
+
+  const handleSearch = () => {
+    tableRef.current.onQueryChange(); // informs table that we need to refetch remoteData
+  };
+
+  const refetchTable = async () => {
+    setNetworkOnly(true);
+    refetch({
+      variables: {
+        where: {
+          ...where,
+        },
+        orderBy: orderBy,
+      },
+    });
+    client.cache.modify({
+      fields: {
+        [connectionKey](existingRef, { readField }) {
+          return existingRef.edges ? {} : existingRef;
+        },
+      },
+    });
+    await tableRef.current.onQueryChange();
+  };
 
   const manageProperty = (e, rowData) =>
     Router.push({
@@ -190,8 +236,42 @@ const AdminRentalApplicationsTable = ({
 
   return (
     <div className={classes.root}>
+      <div className={classes.tableHeader}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+          <Typography variant="h5">Rental Applications</Typography>
+          <IconButton onClick={refetchTable}>
+            <CachedIcon />
+          </IconButton>
+          <SubscriberBell
+            me={me}
+            variable="propertyCreatedSub"
+            title="property created subscription"
+          />
+          <IconButton
+            onClick={handleGetSubscriptionItems}
+            disabled={state.newPropertiesCount > 0 ? false : true}>
+            <Badge badgeContent={state.newPropertiesCount} color="primary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </div>
+        <div>
+          <Input
+            value={searchText}
+            onChange={handleSearchTextChange}
+            placeholder="id or amount"
+          />
+          <IconButton onClick={handleSearch} aria-label="search-table">
+            <SearchIcon />
+          </IconButton>
+        </div>
+      </div>
       <Error error={tableErr} />
-      <ConnectionTable
+      <SuperiorTable
         style={{
           marginBottom: '16px',
         }}
@@ -199,6 +279,23 @@ const AdminRentalApplicationsTable = ({
         tableRef={tableRef}
         columns={tableColumnConfig}
         data={remoteData}
+        // page={2}
+        // options={{
+        //   toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
+        //   initialPage: 2,
+        // }}
+        // onChangePage={page => {
+        //   Router.push(
+        //     Router.pathname,
+        //     {
+        //       query: {
+        //         page: page,
+        //       },
+        //     },
+        //     { shallow: true }
+        //   );
+        //   console.log('Ummm ok');
+        // }}
         actions={[
           {
             icon: 'settings',

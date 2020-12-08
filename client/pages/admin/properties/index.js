@@ -58,12 +58,12 @@ export async function getServerSideProps(ctx) {
   // skip: query.page * query.pageSize,
   // first: query.pageSize,
   // limit: query.pageSize,
-  await apolloClient.query({
-    query: PROPERTIES_CONNECTION_QUERY,
-    variables: {
-      where: {},
-    },
-  });
+  // await apolloClient.query({
+  //   query: PROPERTIES_CONNECTION_QUERY,
+  //   variables: {
+  //     where: {},
+  //   },
+  // });
 
   return addApolloState(apolloClient, {
     props: {},
