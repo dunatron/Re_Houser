@@ -110,83 +110,10 @@ const AdminRentalApplicationsTable = ({
     },
   ];
 
-  const sharedWhere = {
-    ...where,
-  };
-
-  const { data, loading, error, refetch, networkStatus } = useQuery(
-    PROPERTIES_COUNT_QUERY,
-    {
-      variables: {
-        where: {
-          ...where,
-        },
-      },
-    }
-  );
-
-  if (error) return <Error error={error} />;
-
-  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
-
   const manageProperty = (e, rowData) =>
     Router.push({
       pathname: `/landlord/properties/${rowData.id}`,
     });
-
-  const remoteData = (query, urlParams) => {
-    console.log('MUI Table remote query => ', query);
-    console.log('MUI Table remote urlParams => ', urlParams);
-
-    const remotePage = urlParams.page;
-
-    return client
-      .query({
-        query: PROPERTIES_CONNECTION_QUERY,
-        fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
-        variables: {
-          where: {
-            // location_contains: searchText,
-            location_contains: query.search,
-            ...where,
-            ...sharedWhere,
-          },
-          orderBy: orderBy,
-          skip: remotePage * query.pageSize,
-          first: query.pageSize,
-          limit: query.pageSize,
-        },
-      })
-      .then(res => {
-        const {
-          data: {
-            [connectionKey]: { pageInfo, aggregate, edges },
-          },
-        } = res;
-        console.log('MUI Table remote result => ', res);
-        // immutatble/freezeObject
-        const formattedData = edges.map(edge => ({
-          ...edge.node,
-        }));
-        return {
-          data: formattedData,
-          // page: query.page,
-          page: remotePage,
-          totalCount: totalItemCount,
-        };
-      })
-      .catch(e => {
-        setTableErr(e);
-      })
-      .finally(() => {
-        setNetworkOnly(false);
-      });
-  };
-
-  if (loading && networkStatus === NetworkStatus.loading)
-    return <Loader loading={loading} text="Getting total properties count" />;
-
-  if (error) return <Error error={error} />;
 
   return (
     <div className={classes.root}>
@@ -200,7 +127,7 @@ const AdminRentalApplicationsTable = ({
         gqlQuery={PROPERTIES_CONNECTION_QUERY}
         tableRef={tableRef}
         columns={tableColumnConfig}
-        data={remoteData}
+        // data={remoteData}
         actions={[
           {
             icon: 'settings',

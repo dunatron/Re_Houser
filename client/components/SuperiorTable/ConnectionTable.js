@@ -25,6 +25,9 @@ import Router from 'next/router';
 import { useRouter } from 'next/router';
 import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 
+import Error from '@/Components/ErrorMessage';
+import Loader from '@/Components/Loader';
+
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -66,7 +69,18 @@ const setAddressParams = () => {
 };
 
 const SuperiorTable = props => {
-  const { title, columns, data, options, countQuery, where } = props;
+  const {
+    title,
+    columns,
+    options,
+    countQuery,
+    connectionKey,
+    gqlQuery,
+    where,
+    ...rest
+  } = props;
+  const client = useApolloClient();
+  const [remoteCalled, setRemoteCalled] = useState(false);
   const {
     // `String` of the actual path (including the query) shows in the browser
     asPath,
@@ -98,7 +112,9 @@ const SuperiorTable = props => {
     }
   );
 
-  const [remoteCalled, setRemoteCalled] = useState(false);
+  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
+
+  console.log('ConectionTable: countData ', data);
 
   const [addressParams, setAddressParams] = useState({
     page: parseInt(query.page ?? 0),
@@ -111,6 +127,64 @@ const SuperiorTable = props => {
 
   console.log('MUI Table addressParams => ', addressParams);
 
+  const remoteData = query => {
+    console.log('MUI Table remote query => ', query);
+    const page = remoteCalled ? query.page : addressParams.page;
+    const skip = remoteCalled
+      ? query.page * query.pageSize
+      : addressParams.page * query.pageSize;
+    const first = query.pageSize;
+    const limit = query.pageSize;
+    if (!remoteCalled) {
+      setRemoteCalled(true);
+    }
+    return client
+      .query({
+        query: gqlQuery,
+        // fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
+        variables: {
+          where: {
+            // location_contains: searchText,
+            location_contains: query.search,
+            ...where,
+          },
+          // orderBy: orderBy,
+          skip: skip,
+          first: first,
+          limit: limit,
+        },
+      })
+      .then(res => {
+        const {
+          data: {
+            [connectionKey]: { pageInfo, aggregate, edges },
+          },
+        } = res;
+        console.log('MUI Table remote result => ', res);
+        // immutatble/freezeObject
+        const formattedData = edges.map(edge => ({
+          ...edge.node,
+        }));
+        return {
+          data: formattedData,
+          // page: query.page,
+          page: page,
+          totalCount: totalItemCount ?? 0,
+        };
+      })
+      .catch(e => {
+        // setTableErr(e);
+      })
+      .finally(() => {
+        // setNetworkOnly(false);
+        // should then set the setAddressState then let the useEffect for the router pick the change up
+      });
+  };
+
+  /**
+   * This is probably too hard too, we dont want to keep adding state,
+   * rather we want to just set it in the url
+   */
   useEffect(() => {
     Router.push(
       Router.pathname,
@@ -129,21 +203,26 @@ const SuperiorTable = props => {
     return () => {};
   }, [addressParams]);
 
+  if (loading && networkStatus === NetworkStatus.loading)
+    return <Loader loading={loading} text="Getting total properties count" />;
+
+  if (error) return <Error error={error} />;
+
   return (
     <MaterialTable
-      {...props}
+      {...rest}
       style={{ marginBottom: '16px' }}
       icons={tableIcons}
       columns={columns}
-      // data={data}
       title={title}
-      data={query => {
-        setRemoteCalled(true);
-        return props.data(query, {
-          ...addressParams,
-          page: remoteCalled ? query.page : addressParams.page,
-        });
-      }}
+      data={remoteData}
+      // data={query => {
+      //   setRemoteCalled(true);
+      //   return props.data(query, {
+      //     ...addressParams,
+      //     page: remoteCalled ? query.page : addressParams.page,
+      //   });
+      // }}
       options={{
         draggable: false, // now we can have it SSR
         emptyRowsWhenPaging: false,
@@ -165,10 +244,10 @@ const SuperiorTable = props => {
       // onSearchChange={() => alert('Booo')}
       onSearchChange={e => console.log('search changed: ' + e)}
       onChangePage={page => setAddressParams({ ...addressParams, page: page })}
-      // onSearchChange={search => {
-      //   console.log('MUI Table remote onSearchChange => ', search);
-      //   setAddressParams({ ...addressParams, searchText: search });
-      // }}
+      onSearchChange={search => {
+        console.log('MUI Table remote onSearchChange => ', search);
+        setAddressParams({ ...addressParams, searchText: search }); // the prop isnt workng for material table
+      }}
     />
   );
 };
