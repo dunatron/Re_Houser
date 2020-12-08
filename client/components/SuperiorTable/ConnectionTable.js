@@ -23,6 +23,7 @@ import mePropTypes from '../../propTypes/mePropTypes';
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { useRouter } from 'next/router';
+import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -65,7 +66,7 @@ const setAddressParams = () => {
 };
 
 const SuperiorTable = props => {
-  const { title, columns, data, options } = props;
+  const { title, columns, data, options, countQuery, where } = props;
   const {
     // `String` of the actual path (including the query) shows in the browser
     asPath,
@@ -84,6 +85,18 @@ const SuperiorTable = props => {
     // `Function` Reload current page
     reload,
   } = useRouter();
+
+  // first query we need to make is for the count to get total count
+  const { data, loading, error, refetch, networkStatus } = useQuery(
+    countQuery,
+    {
+      variables: {
+        where: {
+          ...where,
+        },
+      },
+    }
+  );
 
   const [remoteCalled, setRemoteCalled] = useState(false);
 

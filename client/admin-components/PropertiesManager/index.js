@@ -195,7 +195,9 @@ const AdminRentalApplicationsTable = ({
         style={{
           marginBottom: '16px',
         }}
+        connectionKey={connectionKey}
         countQuery={PROPERTIES_COUNT_QUERY}
+        gqlQuery={PROPERTIES_CONNECTION_QUERY}
         tableRef={tableRef}
         columns={tableColumnConfig}
         data={remoteData}

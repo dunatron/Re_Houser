@@ -16,7 +16,7 @@ import createInMemoryCache from './store/createInMemoryCache';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { WebSocketLink } from '@apollo/client/link/ws';
 import { setContext } from '@apollo/client/link/context';
-import merge from 'deepMerge';
+import merge from 'deepmerge';
 
 // subscription docs
 // https://github.com/apollographql/subscriptions-transport-ws
@@ -36,6 +36,8 @@ import merge from 'deepMerge';
 
 // next js examples
 // https://github.com/vercel/next.js/tree/canary/examples
+// https://github.com/vercel/next.js/blob/canary/examples/with-apollo-and-redux/lib/apollo.js
+// https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
