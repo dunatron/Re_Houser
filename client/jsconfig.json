@@ -2,15 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/Components/*": ["./components/*"],
-      "@/AdminComponents/*": ["./admin-components/*"],
-      "@/Containers/*": ["./containers/*"],
-      "@/Styles/*": ["./styles/*"],
-      "@/Lib/*": ["./lib/*"],
-      "@/Gql/*": ["./graphql/*"],
-      "@/Store/*": ["./store/*"],
-      "@/Recoil/*": ["./recoil/*"],
-      "@/Themes/*": ["./themes/*"]
+      "@/Components/*": ["components/*"],
+      "@/AdminComponents/*": ["admin-components/*"],
+      "@/Containers/*": ["containers/*"],
+      "@/Styles/*": ["styles/*"],
+      "@/Lib/*": ["lib/*"],
+      "@/Gql/*": ["graphql/*"],
+      "@/Store/*": ["store/*"],
+      "@/Recoil/*": ["recoil/*"],
+      "@/Themes/*": ["themes/*"]
     }
   },
   "exclude": [
@@ -19,6 +19,7 @@
     ".vscode",
     "cypress-tests",
     "node_modules",
+    "**/node_modules/*",
     "build"
   ]
 }

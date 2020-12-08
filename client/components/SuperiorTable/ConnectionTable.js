@@ -1,24 +1,7 @@
-import { forwardRef } from 'react';
 import MaterialTable from 'material-table';
-
-import AddBox from '@material-ui/icons/AddBox';
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
+import tableIcons from './tableIcons';
 
 import PropTypes from 'prop-types';
-import mePropTypes from '../../propTypes/mePropTypes';
 
 import { useState, useEffect } from 'react';
 import Router from 'next/router';
@@ -27,46 +10,6 @@ import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
-
-const tableIcons = {
-  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
-  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
-  DetailPanel: forwardRef((props, ref) => (
-    <ChevronRight {...props} ref={ref} />
-  )),
-  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
-  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
-  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
-  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
-  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
-  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-  PreviousPage: forwardRef((props, ref) => (
-    <ChevronLeft {...props} ref={ref} />
-  )),
-  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
-  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
-  SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
-  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-};
-
-const setAddressParams = () => {
-  Router.push(
-    Router.pathname,
-    {
-      query: {
-        page: 0,
-        orderBy: orderBy,
-        skip: query.page * query.pageSize,
-        first: query.pageSize,
-        limit: query.pageSize,
-      },
-    },
-    { shallow: true }
-  );
-};
 
 const SuperiorTable = props => {
   const {
@@ -81,6 +24,7 @@ const SuperiorTable = props => {
   } = props;
   const client = useApolloClient();
   const [remoteCalled, setRemoteCalled] = useState(false);
+  const [sharedWhere, setSharedWhere] = useState({ ...where });
   const {
     // `String` of the actual path (including the query) shows in the browser
     asPath,
@@ -107,6 +51,7 @@ const SuperiorTable = props => {
       variables: {
         where: {
           ...where,
+          ...sharedWhere,
         },
       },
     }
@@ -114,27 +59,41 @@ const SuperiorTable = props => {
 
   const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
 
-  console.log('ConectionTable: countData ', data);
-
   const [addressParams, setAddressParams] = useState({
-    page: parseInt(query.page ?? 0),
-    orderBy: query.orderBy ?? 'createdAt_DESC',
+    page: parseInt(query.page ? query.page : 0),
+    orderBy: query.orderBy ? query.orderBy : 'createdAt_DESC',
     // skip: query.skip ?? 0, dont need skip in the url as we can use page * pageSize
-    first: parseInt(query.first ?? 5),
-    limit: parseInt(query.limit ?? 5),
-    searchText: query.search ?? '',
+    first: parseInt(query.first ? query.first : 5),
+    limit: parseInt(query.limit ? query.limit : 5),
+    searchText: query.search ? query.search : '',
   });
 
-  console.log('MUI Table addressParams => ', addressParams);
-
-  const remoteData = query => {
-    console.log('MUI Table remote query => ', query);
+  const remoteData = async query => {
     const page = remoteCalled ? query.page : addressParams.page;
     const skip = remoteCalled
       ? query.page * query.pageSize
       : addressParams.page * query.pageSize;
     const first = query.pageSize;
     const limit = query.pageSize;
+    const search = remoteCalled ? query.search : addressParams.searchText;
+
+    const localCount = await client.query({
+      query: countQuery,
+      variables: {
+        where: {
+          location_contains: search,
+          ...where,
+          ...sharedWhere,
+        },
+      },
+    });
+
+    const totalLocalCount = localCount.data
+      ? localCount.data[connectionKey].aggregate.count
+      : 0;
+
+    console.log('ConnectionTable Debug: query ', query);
+
     if (!remoteCalled) {
       setRemoteCalled(true);
     }
@@ -144,9 +103,10 @@ const SuperiorTable = props => {
         // fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
           where: {
-            // location_contains: searchText,
-            location_contains: query.search,
+            location_contains: search,
+            // location_contains: query.search,
             ...where,
+            ...sharedWhere,
           },
           // orderBy: orderBy,
           skip: skip,
@@ -160,16 +120,13 @@ const SuperiorTable = props => {
             [connectionKey]: { pageInfo, aggregate, edges },
           },
         } = res;
-        console.log('MUI Table remote result => ', res);
-        // immutatble/freezeObject
         const formattedData = edges.map(edge => ({
           ...edge.node,
         }));
         return {
           data: formattedData,
-          // page: query.page,
           page: page,
-          totalCount: totalItemCount ?? 0,
+          totalCount: totalLocalCount ? totalLocalCount : 0,
         };
       })
       .catch(e => {
@@ -204,7 +161,7 @@ const SuperiorTable = props => {
   }, [addressParams]);
 
   if (loading && networkStatus === NetworkStatus.loading)
-    return <Loader loading={loading} text="Getting total properties count" />;
+    return <Loader loading={loading} text={`Getting total ${title} count`} />;
 
   if (error) return <Error error={error} />;
 
@@ -216,21 +173,12 @@ const SuperiorTable = props => {
       columns={columns}
       title={title}
       data={remoteData}
-      // data={query => {
-      //   setRemoteCalled(true);
-      //   return props.data(query, {
-      //     ...addressParams,
-      //     page: remoteCalled ? query.page : addressParams.page,
-      //   });
-      // }}
       options={{
         draggable: false, // now we can have it SSR
         emptyRowsWhenPaging: false,
         search: true,
-        orderBy: 'createdAt_DESC',
+        orderBy: addressParams.orderBy,
         searchText: addressParams.search,
-        // initialPage: addressParams.page,
-        // page: addressParams.page,
         pageSize: addressParams.first,
         pageSizeOptions: [5, 10, 20, 40],
       }}
@@ -241,7 +189,6 @@ const SuperiorTable = props => {
           limit: pageSize,
         })
       }
-      // onSearchChange={() => alert('Booo')}
       onSearchChange={e => console.log('search changed: ' + e)}
       onChangePage={page => setAddressParams({ ...addressParams, page: page })}
       onSearchChange={search => {

@@ -119,15 +119,12 @@ const AdminRentalApplicationsTable = ({
     <div className={classes.root}>
       <Error error={tableErr} />
       <ConnectionTable
-        style={{
-          marginBottom: '16px',
-        }}
+        title="All Properties"
         connectionKey={connectionKey}
         countQuery={PROPERTIES_COUNT_QUERY}
         gqlQuery={PROPERTIES_CONNECTION_QUERY}
         tableRef={tableRef}
         columns={tableColumnConfig}
-        // data={remoteData}
         actions={[
           {
             icon: 'settings',
