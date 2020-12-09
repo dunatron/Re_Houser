@@ -68,7 +68,7 @@
     "gsap": "^3.5.0",
     "lodash.debounce": "^4.0.8",
     "make-dir": "^2.1.0",
-    "material-table": "^1.69.2",
+    "material-table": "1.60.0",
     "material-ui-image": "^3.2.3",
     "material-ui-password-field": "^2.1.2",
     "material-ui-phone-number": "^2.2.6",
