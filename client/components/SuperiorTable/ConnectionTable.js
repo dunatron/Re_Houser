@@ -10,8 +10,85 @@ import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
+import moment from 'moment';
+import { GET_ENUM_QUERY } from '@/Gql/queries';
 
-const SuperiorTable = props => {
+export const getEnumLookupList = __type => {
+  const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
+    variables: {
+      name: __type,
+    },
+  });
+
+  if (!data) return {};
+  const mappedVals = data.__type.enumValues.reduce((acc, enumObj) => {
+    return { ...acc, [enumObj.name]: enumObj.name };
+  }, {});
+
+  console.log('Mapped enum vals => ', mappedVals);
+
+  return mappedVals;
+
+  return data ? data.__type.enumValues.map(enumObj => enumObj.name) : [];
+};
+
+// all props
+// https://github.com/mbrn/material-table.com/tree/master/src/pages/docs/all-props
+// props for columns
+// https://github.com/mbrn/material-table.com/blob/master/src/pages/docs/all-props/columns.md
+const generateSearchWhereOR = (searchKeys, searchText) => {
+  if (searchText.length < 2) return;
+  return {
+    OR: [
+      ...(searchKeys.length > 0 &&
+        searchKeys.map((key, idx) => ({ [key]: searchText }))),
+    ],
+  };
+};
+
+// boolean, numeric, date, datetime, time, currency
+const makeFilterByType = filter => {
+  switch (filter.column.type) {
+    case 'boolean':
+      return {
+        [filter.column.field]: filter.value === 'checked' ? true : false,
+      };
+    case 'date':
+      const key = `${filter.column.field}_lte`;
+      return {
+        // [filter.column.field]: moment(filter.value).format(),
+        // the field is createdAt so we need the sortDirection down is createdAt_lte and up is createdAt_gte
+        [key]: moment(filter.value).format(),
+      };
+    case undefined: // this is assumed to be string
+      return {
+        [filter.column.field]: filter.value,
+      };
+      break;
+    default:
+    // code block
+  }
+  return {};
+};
+
+// we may need to pass in the filter key for the and?
+// possibly not. it would be AND {onTheMarket: true}
+const generateFilters = userFilters => {
+  if (userFilters.length === 0) return;
+  return {
+    AND: [
+      // map the filters to types for gql
+      ...(userFilters.length > 0 &&
+        userFilters.map(filter => makeFilterByType(filter))),
+      // ...(userFilters.length > 0 && userFilters.map(filter => ({}))),
+      // ...(userFilters.length > 0 &&
+      //   userFilters.map((key, idx) => ({ [key]: '' }))),
+    ],
+  };
+};
+
+// https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
+const MaterialConnectionTable = props => {
   const {
     title,
     columns,
@@ -20,6 +97,7 @@ const SuperiorTable = props => {
     connectionKey,
     gqlQuery,
     where,
+    searchKeysOR,
     ...rest
   } = props;
   const tableRef = useRef();
@@ -27,6 +105,8 @@ const SuperiorTable = props => {
   const client = useApolloClient();
   const [remoteCalled, setRemoteCalled] = useState(false);
   const [sharedWhere, setSharedWhere] = useState({ ...where });
+
+  const [remoteErrors, setRemoteErrors] = useState({});
   const router = useRouter();
 
   const [addressParams, setAddressParams] = useState({
@@ -36,7 +116,13 @@ const SuperiorTable = props => {
     searchText: router.query.search ? router.query.search : '',
   });
 
+  const handleRemoteDataError = e => {
+    console.log('An error occurred fetching remoteData: ', e);
+    setRemoteErrors(e);
+  };
+
   const remoteData = async query => {
+    console.log('ConnectionTable remote query: ', query);
     const page = remoteCalled ? query.page : addressParams.page;
     const skip = remoteCalled
       ? query.page * query.pageSize
@@ -44,11 +130,15 @@ const SuperiorTable = props => {
     const first = query.pageSize;
     const search = remoteCalled ? query.search : addressParams.searchText;
 
+    const searchWhereOR = generateSearchWhereOR(searchKeysOR, search);
+    const userFilters = generateFilters(query.filters);
+
     const localCount = await client.query({
       query: countQuery,
       variables: {
         where: {
-          location_contains: search,
+          ...searchWhereOR,
+          ...userFilters,
           ...where,
           ...sharedWhere,
         },
@@ -59,14 +149,15 @@ const SuperiorTable = props => {
       ? localCount.data[connectionKey].aggregate.count
       : 0;
 
+    // errors are not making it
     return client
       .query({
         query: gqlQuery,
         // fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
           where: {
-            location_contains: search,
-            // location_contains: query.search,
+            ...searchWhereOR,
+            ...userFilters,
             ...where,
             ...sharedWhere,
           },
@@ -76,6 +167,7 @@ const SuperiorTable = props => {
         },
       })
       .then(res => {
+        console.log('The res => ', res);
         const {
           data: {
             [connectionKey]: { pageInfo, aggregate, edges },
@@ -91,7 +183,8 @@ const SuperiorTable = props => {
         };
       })
       .catch(e => {
-        // setTableErr(e);
+        console.log('Error getting remote data: ', e);
+        handleRemoteDataError(e); // errors arent working as expected. Possily being caught in apollCLient errorHandling?
       })
       .finally(() => {
         if (remoteCalled && query.search !== addressParams.searchText) {
@@ -141,6 +234,7 @@ const SuperiorTable = props => {
 
   return (
     <div ref={wrapperDivRef}>
+      <Error error={remoteErrors} />
       <MaterialTable
         {...rest}
         tableRef={tableRef}
@@ -151,7 +245,8 @@ const SuperiorTable = props => {
         data={remoteData}
         options={{
           ...options,
-          draggable: false, // now we can have it SSR
+          // draggable: false, // now we can have it SSR
+          draggable: typeof window !== 'undefined' ? true : false, // now we can have it SSR
           emptyRowsWhenPaging: false,
           orderBy: addressParams.orderBy,
           searchText: addressParams.search,
@@ -162,6 +257,7 @@ const SuperiorTable = props => {
           debounceInterval: 500, // 0.5s wait to trigger query after stop typing in search
           searchAutoFocus: true,
           searchFieldVariant: 'standard',
+          filtering: true, // you must disable fields individually
         }}
         onChangeRowsPerPage={pageSize =>
           setAddressParams({
@@ -177,12 +273,12 @@ const SuperiorTable = props => {
   );
 };
 
-SuperiorTable.propTypes = {
+MaterialConnectionTable.propTypes = {
   columns: PropTypes.any,
   data: PropTypes.any,
   title: PropTypes.any,
 };
 
-SuperiorTable.propTypes = PropTypes.instanceOf(MaterialTable);
+MaterialConnectionTable.propTypes = PropTypes.instanceOf(MaterialTable);
 
-export default SuperiorTable;
+export default MaterialConnectionTable;

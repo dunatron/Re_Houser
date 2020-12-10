@@ -14,6 +14,7 @@ const PropertyInfoFragment = gql`
     updatedAt
     createdAt
     type
+    titleType
     headline
     rooms
     maximumOccupants

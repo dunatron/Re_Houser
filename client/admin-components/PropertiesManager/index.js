@@ -5,7 +5,9 @@ import gql from 'graphql-tag';
 import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 // import MaterialTable from 'material-table';
-import ConnectionTable from '@/Components/SuperiorTable/ConnectionTable';
+import ConnectionTable, {
+  getEnumLookupList,
+} from '@/Components/SuperiorTable/ConnectionTable';
 import {
   Input,
   Typography,
@@ -76,6 +78,15 @@ export const PROPERTIES_COUNT_QUERY = gql`
   }
 `;
 
+// const getEnumLookupList = __type => {
+//   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
+//     variables: {
+//       name: __type,
+//     },
+//   });
+//   return data ? data.__type.enumValues.map(enumObj => enumObj.name) : [];
+// };
+
 const AdminRentalApplicationsTable = ({
   where,
   me,
@@ -89,16 +100,100 @@ const AdminRentalApplicationsTable = ({
   const tableRef = useRef(null);
   const [searchText, setSearchText] = useState('');
   const [networkOnly, setNetworkOnly] = useState(false);
-  const [tableErr, setTableErr] = useState(null);
+  const [tableErr, setTableErr] = useState({});
+
+  const houseTypeLookup = getEnumLookupList('PropertyType');
+  const titleTypeLookup = getEnumLookupList('PropertyTitleType');
+  const heatSourceLookup = getEnumLookupList('HeatSource');
+  const tenancyTypeLookup = getEnumLookupList('TenancyType');
+
+  const columns = React.useMemo(
+    () => [
+      {
+        title: 'property',
+        field: 'location',
+        editable: false,
+        searchable: true,
+        filtering: false,
+      },
+      {
+        title: 'type',
+        field: 'type',
+        lookup: houseTypeLookup,
+        removable: true,
+      },
+
+      {
+        title: 'titleType',
+        field: 'titleType',
+        lookup: titleTypeLookup,
+        filtering: true,
+      },
+      {
+        title: 'tenancyType',
+        field: 'tenancyType',
+        lookup: tenancyTypeLookup,
+        filtering: true,
+      },
+      {
+        title: 'created',
+        field: 'createdAt',
+        editable: false,
+        type: 'date',
+        sorting: true,
+      },
+      {
+        title: 'onTheMarket',
+        field: 'onTheMarket',
+        type: 'boolean',
+        filtering: true,
+      },
+      // { title: 'owners', field: 'owners' },
+
+      {
+        title: 'isLeased',
+        field: 'isLeased',
+        type: 'boolean',
+        filtering: true,
+      },
+      {
+        field: 'creator',
+        title: 'creator',
+        filtering: false,
+        render: rowData => (
+          <List>
+            {rowData.creator && <UserDetails user={rowData.creator} me={me} />}
+          </List>
+        ),
+      },
+    ],
+    [houseTypeLookup, tenancyTypeLookup, titleTypeLookup]
+  );
 
   const tableColumnConfig = [
     // { title: 'id', field: 'id', editable: false },
     { title: 'property', field: 'location', editable: false, searchable: true },
-    // { title: 'created', field: 'createdAt', editable: false },
-    { title: 'onTheMarket', field: 'onTheMarket' },
+    {
+      title: 'type',
+      field: 'type',
+      editable: false,
+      searchable: false,
+      // lookup: ['HOUSE', 'TOWNHOUSE'],
+      lookup: { ['HOUSE']: 'HOUSE', ['TOWNHOUSE']: 'TOWNHOUSE' },
+      sorting: false,
+      filtering: true,
+    },
+    {
+      title: 'created',
+      field: 'createdAt',
+      editable: false,
+      type: 'date',
+      sorting: true,
+    },
+    { title: 'onTheMarket', field: 'onTheMarket', type: 'boolean' },
     // { title: 'owners', field: 'owners' },
 
-    { title: 'isLeased', field: 'isLeased' },
+    { title: 'isLeased', field: 'isLeased', type: 'boolean' },
     {
       field: 'creator',
       title: 'creator',
@@ -123,8 +218,10 @@ const AdminRentalApplicationsTable = ({
         connectionKey={connectionKey}
         countQuery={PROPERTIES_COUNT_QUERY}
         gqlQuery={PROPERTIES_CONNECTION_QUERY}
+        searchKeysOR={['location_contains', 'id_contains']}
         tableRef={tableRef}
-        columns={tableColumnConfig}
+        columns={columns}
+        // searchKeys={['location_contains']}
         actions={[
           {
             icon: 'settings',

@@ -1,6 +1,6 @@
 const { createActivity } = require("../../lib/createActivity");
 const {
-  addPropertySearchNode,
+  addPropertySearchNode
 } = require("../../lib/algolia/propertySearchApi");
 const propertyCreatedEmail = require("../../lib/emails/propertyCreatedEmail");
 
@@ -39,7 +39,9 @@ async function createProperty(parent, { data }, ctx, info) {
           rent: data.rent,
           rooms: numberOfRooms,
           rehouserManaged: true,
-        },
+          isLeased: false,
+          onTheMarket: false
+        }
       },
       info
     );
@@ -53,31 +55,31 @@ async function createProperty(parent, { data }, ctx, info) {
         jsonObj: property,
         property: {
           connect: {
-            id: property.id,
-          },
+            id: property.id
+          }
         },
         user: {
           connect: {
-            id: loggedInUserId,
-          },
-        },
-      },
+            id: loggedInUserId
+          }
+        }
+      }
     });
     addPropertySearchNode({
       propertyId: property.id,
-      db: ctx.db,
+      db: ctx.db
     });
 
     const user = ctx.db.query.user({
       where: {
-        id: loggedInUserId,
-      },
+        id: loggedInUserId
+      }
     });
 
     // let admin know new property has been created. Frodo loves his leads. Ohh a lead
     propertyCreatedEmail({
       toEmail: "admin@rehouser.co.nz",
-      user: user,
+      user: user
     });
 
     console.log("createProperty: info => ", property);
