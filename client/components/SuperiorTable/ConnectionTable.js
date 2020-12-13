@@ -25,11 +25,7 @@ export const getEnumLookupList = __type => {
     return { ...acc, [enumObj.name]: enumObj.name };
   }, {});
 
-  console.log('Mapped enum vals => ', mappedVals);
-
   return mappedVals;
-
-  return data ? data.__type.enumValues.map(enumObj => enumObj.name) : [];
 };
 
 // all props
@@ -44,6 +40,12 @@ const generateSearchWhereOR = (searchKeys, searchText) => {
         searchKeys.map((key, idx) => ({ [key]: searchText }))),
     ],
   };
+};
+
+const makeOrderBy = query => {
+  if (query.orderBy === '' || query.orderBy === undefined) return;
+  const isDesc = query.orderDirection === 'desc' ? true : false;
+  return `${query.orderBy.field}${isDesc ? '_DESC' : '_ASC'}`;
 };
 
 // boolean, numeric, date, datetime, time, currency
@@ -80,9 +82,6 @@ const generateFilters = userFilters => {
       // map the filters to types for gql
       ...(userFilters.length > 0 &&
         userFilters.map(filter => makeFilterByType(filter))),
-      // ...(userFilters.length > 0 && userFilters.map(filter => ({}))),
-      // ...(userFilters.length > 0 &&
-      //   userFilters.map((key, idx) => ({ [key]: '' }))),
     ],
   };
 };
@@ -104,7 +103,6 @@ const MaterialConnectionTable = props => {
   const wrapperDivRef = useRef();
   const client = useApolloClient();
   const [remoteCalled, setRemoteCalled] = useState(false);
-  const [sharedWhere, setSharedWhere] = useState({ ...where });
 
   const [remoteErrors, setRemoteErrors] = useState({});
   const router = useRouter();
@@ -114,6 +112,7 @@ const MaterialConnectionTable = props => {
     orderBy: router.query.orderBy ? router.query.orderBy : 'createdAt_DESC',
     first: parseInt(router.query.first ? router.query.first : 5),
     searchText: router.query.search ? router.query.search : '',
+    filters: router.query.filters ? router.query.filters : [],
   });
 
   const handleRemoteDataError = e => {
@@ -121,14 +120,24 @@ const MaterialConnectionTable = props => {
     setRemoteErrors(e);
   };
 
+  const refreshTableData = async () => {
+    await client.cache.evict({
+      id: 'ROOT_QUERY',
+      // fieldName: 'propertiesConnection',
+      fieldName: connectionKey,
+    });
+    tableRef.current && tableRef.current.onQueryChange();
+  };
+
   const remoteData = async query => {
-    console.log('ConnectionTable remote query: ', query);
+    console.log('Remote data query => ', query);
     const page = remoteCalled ? query.page : addressParams.page;
     const skip = remoteCalled
       ? query.page * query.pageSize
       : addressParams.page * query.pageSize;
     const first = query.pageSize;
     const search = remoteCalled ? query.search : addressParams.searchText;
+    const orderBy = makeOrderBy(query);
 
     const searchWhereOR = generateSearchWhereOR(searchKeysOR, search);
     const userFilters = generateFilters(query.filters);
@@ -140,7 +149,6 @@ const MaterialConnectionTable = props => {
           ...searchWhereOR,
           ...userFilters,
           ...where,
-          ...sharedWhere,
         },
       },
     });
@@ -153,15 +161,14 @@ const MaterialConnectionTable = props => {
     return client
       .query({
         query: gqlQuery,
-        // fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
+        // fetchPolicy: networkOnly ? 'network-only' : 'cache-first',
         variables: {
           where: {
             ...searchWhereOR,
             ...userFilters,
             ...where,
-            ...sharedWhere,
           },
-          // orderBy: orderBy,
+          orderBy: orderBy,
           skip: skip,
           first: first,
         },
@@ -183,14 +190,15 @@ const MaterialConnectionTable = props => {
         };
       })
       .catch(e => {
-        console.log('Error getting remote data: ', e);
         handleRemoteDataError(e); // errors arent working as expected. Possily being caught in apollCLient errorHandling?
       })
       .finally(() => {
-        if (remoteCalled && query.search !== addressParams.searchText) {
+        if (remoteCalled) {
           setAddressParams({
             ...addressParams,
             searchText: query.search,
+            orderBy: orderBy,
+            filters: query.filters,
           });
         }
         if (!remoteCalled) {
@@ -215,8 +223,27 @@ const MaterialConnectionTable = props => {
 
   // replaces the url/router state when addressParams/query changes
   // does a soft reload so will re-render page essentiall but not reload
+  // useEffect(() => {
+  //   router.push(
+  //     router.pathname,
+  //     {
+  //       query: {
+  //         page: addressParams.page,
+  //         orderBy: addressParams.orderBy,
+  //         skip: addressParams.skip,
+  //         first: addressParams.first,
+  //         search: addressParams.searchText,
+  //       },
+  //     },
+  //     { shallow: true }
+  //   );
+  //   return () => {};
+  // }, [addressParams]);
+
+  // admin/properties?page=0&orderBy=createdAt_DESC&skip=&first=5&search=
+
   useEffect(() => {
-    router.replace(
+    router.push(
       router.pathname,
       {
         query: {
@@ -225,6 +252,7 @@ const MaterialConnectionTable = props => {
           skip: addressParams.skip,
           first: addressParams.first,
           search: addressParams.searchText,
+          filters: addressParams.filters,
         },
       },
       { shallow: true }
@@ -245,7 +273,6 @@ const MaterialConnectionTable = props => {
         data={remoteData}
         options={{
           ...options,
-          // draggable: false, // now we can have it SSR
           draggable: typeof window !== 'undefined' ? true : false, // now we can have it SSR
           emptyRowsWhenPaging: false,
           orderBy: addressParams.orderBy,
@@ -255,7 +282,7 @@ const MaterialConnectionTable = props => {
           search: true,
           searchText: addressParams.searchText,
           debounceInterval: 500, // 0.5s wait to trigger query after stop typing in search
-          searchAutoFocus: true,
+          searchAutoFocus: false,
           searchFieldVariant: 'standard',
           filtering: true, // you must disable fields individually
         }}
@@ -268,6 +295,24 @@ const MaterialConnectionTable = props => {
         onChangePage={page =>
           setAddressParams({ ...addressParams, page: page })
         }
+        actions={[
+          {
+            icon: 'refresh',
+            tooltip: 'Refresh Data',
+            isFreeAction: true,
+            onClick: refreshTableData,
+          },
+          {
+            icon: 'bookmark',
+            tooltip: 'Copy URL',
+            isFreeAction: true,
+            onClick: () => {
+              navigator.clipboard.writeText(
+                `${router.basePath}${router.asPath}`
+              );
+            },
+          },
+        ]}
       />
     </div>
   );

@@ -39,6 +39,9 @@ import merge from 'deepmerge';
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo-and-redux/lib/apollo.js
 // https://github.com/vercel/next.js/blob/canary/examples/with-apollo/lib/apolloClient.js
 
+// apollo client cache 3
+// https://danreynolds.ca/tech/2020/05/04/Apollo-3-Client-Cache/
+
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__';
 
 let apolloClient;
