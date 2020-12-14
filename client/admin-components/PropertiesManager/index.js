@@ -35,12 +35,6 @@ import { PROPERTIES_CONNECTION_QUERY } from '../../graphql/connections';
 // mutations
 import { OFFER_RENTAL_APPRAISAL_MUTATION } from '../../graphql/mutations';
 
-//icons
-import SearchIcon from '@material-ui/icons/Search';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import CachedIcon from '@material-ui/icons/Cached';
-
 const useStyles = makeStyles(theme => ({
   root: {},
   tableHeader: {
@@ -170,41 +164,6 @@ const AdminRentalApplicationsTable = ({
     [houseTypeLookup, tenancyTypeLookup, titleTypeLookup]
   );
 
-  const tableColumnConfig = [
-    // { title: 'id', field: 'id', editable: false },
-    { title: 'property', field: 'location', editable: false, searchable: true },
-    {
-      title: 'type',
-      field: 'type',
-      editable: false,
-      searchable: false,
-      // lookup: ['HOUSE', 'TOWNHOUSE'],
-      lookup: { ['HOUSE']: 'HOUSE', ['TOWNHOUSE']: 'TOWNHOUSE' },
-      sorting: false,
-      filtering: true,
-    },
-    {
-      title: 'created',
-      field: 'createdAt',
-      editable: false,
-      type: 'date',
-      sorting: true,
-    },
-    { title: 'onTheMarket', field: 'onTheMarket', type: 'boolean' },
-    // { title: 'owners', field: 'owners' },
-
-    { title: 'isLeased', field: 'isLeased', type: 'boolean' },
-    {
-      field: 'creator',
-      title: 'creator',
-      render: rowData => (
-        <List>
-          {rowData.creator && <UserDetails user={rowData.creator} me={me} />}
-        </List>
-      ),
-    },
-  ];
-
   const manageProperty = (e, rowData) =>
     Router.push({
       pathname: `/landlord/properties/${rowData.id}`,
@@ -219,9 +178,9 @@ const AdminRentalApplicationsTable = ({
         countQuery={PROPERTIES_COUNT_QUERY}
         gqlQuery={PROPERTIES_CONNECTION_QUERY}
         searchKeysOR={['location_contains', 'id_contains']}
+        orderBy="createdAt_DESC"
         tableRef={tableRef}
         columns={columns}
-        // searchKeys={['location_contains']}
         actions={[
           {
             icon: 'settings',

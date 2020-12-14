@@ -12,6 +12,8 @@ import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 import moment from 'moment';
 import { GET_ENUM_QUERY } from '@/Gql/queries';
+import isBrowser from '@/Lib/isBrowser';
+import absoluteUrl from 'next-absolute-url';
 
 export const getEnumLookupList = __type => {
   const { data, error, loading } = useQuery(GET_ENUM_QUERY, {
@@ -34,6 +36,7 @@ export const getEnumLookupList = __type => {
 // https://github.com/mbrn/material-table.com/blob/master/src/pages/docs/all-props/columns.md
 const generateSearchWhereOR = (searchKeys, searchText) => {
   if (searchText.length < 2) return;
+  // we need to pass property.location as an example which will create object
   return {
     OR: [
       ...(searchKeys.length > 0 &&
@@ -48,19 +51,33 @@ const makeOrderBy = query => {
   return `${query.orderBy.field}${isDesc ? '_DESC' : '_ASC'}`;
 };
 
+const getOrigin = () => {
+  if (!isBrowser()) return;
+  const { origin } = absoluteUrl();
+  return origin;
+};
+
 // boolean, numeric, date, datetime, time, currency
-const makeFilterByType = filter => {
+const makeFilterByType = (filter, query) => {
+  const isDesc = query.orderDirection === 'desc' ? true : false;
+
   switch (filter.column.type) {
     case 'boolean':
       return {
         [filter.column.field]: filter.value === 'checked' ? true : false,
       };
     case 'date':
-      const key = `${filter.column.field}_lte`;
+      // const isDesc =
+      //   filter.column.tableData.groupSort === 'desc' ? true : false;
+      const key = `${filter.column.field}${isDesc ? '_lte' : '_gte'}`;
       return {
         // [filter.column.field]: moment(filter.value).format(),
         // the field is createdAt so we need the sortDirection down is createdAt_lte and up is createdAt_gte
         [key]: moment(filter.value).format(),
+      };
+    case 'numeric':
+      return {
+        [filter.column.field]: parseInt(filter.value),
       };
     case undefined: // this is assumed to be string
       return {
@@ -75,13 +92,13 @@ const makeFilterByType = filter => {
 
 // we may need to pass in the filter key for the and?
 // possibly not. it would be AND {onTheMarket: true}
-const generateFilters = userFilters => {
-  if (userFilters.length === 0) return;
+const generateFilters = query => {
+  if (query.filters.length === 0) return;
   return {
     AND: [
       // map the filters to types for gql
-      ...(userFilters.length > 0 &&
-        userFilters.map(filter => makeFilterByType(filter))),
+      ...(query.filters.length > 0 &&
+        query.filters.map(filter => makeFilterByType(filter, query))),
     ],
   };
 };
@@ -97,6 +114,7 @@ const MaterialConnectionTable = props => {
     gqlQuery,
     where,
     searchKeysOR,
+    actions = [],
     ...rest
   } = props;
   const tableRef = useRef();
@@ -109,38 +127,36 @@ const MaterialConnectionTable = props => {
 
   const [addressParams, setAddressParams] = useState({
     page: parseInt(router.query.page ? router.query.page : 0),
-    orderBy: router.query.orderBy ? router.query.orderBy : 'createdAt_DESC',
+    orderBy: router.query.orderBy ? router.query.orderBy : props.orderBy,
     first: parseInt(router.query.first ? router.query.first : 5),
     searchText: router.query.search ? router.query.search : '',
     filters: router.query.filters ? router.query.filters : [],
   });
 
   const handleRemoteDataError = e => {
-    console.log('An error occurred fetching remoteData: ', e);
     setRemoteErrors(e);
   };
 
   const refreshTableData = async () => {
     await client.cache.evict({
       id: 'ROOT_QUERY',
-      // fieldName: 'propertiesConnection',
       fieldName: connectionKey,
     });
     tableRef.current && tableRef.current.onQueryChange();
   };
 
   const remoteData = async query => {
-    console.log('Remote data query => ', query);
+    console.log('remote query => ', query);
     const page = remoteCalled ? query.page : addressParams.page;
     const skip = remoteCalled
       ? query.page * query.pageSize
       : addressParams.page * query.pageSize;
     const first = query.pageSize;
     const search = remoteCalled ? query.search : addressParams.searchText;
-    const orderBy = makeOrderBy(query);
+    const orderBy = remoteCalled ? makeOrderBy(query) : addressParams.orderBy;
 
     const searchWhereOR = generateSearchWhereOR(searchKeysOR, search);
-    const userFilters = generateFilters(query.filters);
+    const userFilters = generateFilters(query);
 
     const localCount = await client.query({
       query: countQuery,
@@ -174,7 +190,6 @@ const MaterialConnectionTable = props => {
         },
       })
       .then(res => {
-        console.log('The res => ', res);
         const {
           data: {
             [connectionKey]: { pageInfo, aggregate, edges },
@@ -193,7 +208,7 @@ const MaterialConnectionTable = props => {
         handleRemoteDataError(e); // errors arent working as expected. Possily being caught in apollCLient errorHandling?
       })
       .finally(() => {
-        if (remoteCalled) {
+        if (remoteCalled && query.search) {
           setAddressParams({
             ...addressParams,
             searchText: query.search,
@@ -205,6 +220,11 @@ const MaterialConnectionTable = props => {
           setRemoteCalled(true);
         }
       });
+  };
+
+  const copyRouteAndParamsToClipboard = () => {
+    isBrowser() &&
+      navigator.clipboard.writeText(`${getOrigin()}${router.asPath}`);
   };
 
   // kinda need this as component does a soft reload when the query params are changed
@@ -221,35 +241,13 @@ const MaterialConnectionTable = props => {
     };
   }, []);
 
-  // replaces the url/router state when addressParams/query changes
-  // does a soft reload so will re-render page essentiall but not reload
-  // useEffect(() => {
-  //   router.push(
-  //     router.pathname,
-  //     {
-  //       query: {
-  //         page: addressParams.page,
-  //         orderBy: addressParams.orderBy,
-  //         skip: addressParams.skip,
-  //         first: addressParams.first,
-  //         search: addressParams.searchText,
-  //       },
-  //     },
-  //     { shallow: true }
-  //   );
-  //   return () => {};
-  // }, [addressParams]);
-
-  // admin/properties?page=0&orderBy=createdAt_DESC&skip=&first=5&search=
-
   useEffect(() => {
-    router.push(
-      router.pathname,
+    Router.replace(
+      Router.pathname,
       {
         query: {
           page: addressParams.page,
           orderBy: addressParams.orderBy,
-          skip: addressParams.skip,
           first: addressParams.first,
           search: addressParams.searchText,
           filters: addressParams.filters,
@@ -296,6 +294,7 @@ const MaterialConnectionTable = props => {
           setAddressParams({ ...addressParams, page: page })
         }
         actions={[
+          ...actions,
           {
             icon: 'refresh',
             tooltip: 'Refresh Data',
@@ -306,11 +305,7 @@ const MaterialConnectionTable = props => {
             icon: 'bookmark',
             tooltip: 'Copy URL',
             isFreeAction: true,
-            onClick: () => {
-              navigator.clipboard.writeText(
-                `${router.basePath}${router.asPath}`
-              );
-            },
+            onClick: copyRouteAndParamsToClipboard(),
           },
         ]}
       />
@@ -325,5 +320,10 @@ MaterialConnectionTable.propTypes = {
 };
 
 MaterialConnectionTable.propTypes = PropTypes.instanceOf(MaterialTable);
+
+MaterialConnectionTable.getInitialProps = async ({ req, res }) => {
+  const { origin } = absoluteUrl(req, 'localhost:3000');
+  return { origin };
+};
 
 export default MaterialConnectionTable;

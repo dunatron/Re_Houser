@@ -9,6 +9,9 @@ import {
 } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
+import ConnectionTable, {
+  getEnumLookupList,
+} from '@/Components/SuperiorTable/ConnectionTable';
 import {
   Input,
   Typography,
@@ -73,173 +76,74 @@ const AdminRentalAppraisalsTable = ({ where }) => {
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
-  const client = useApolloClient();
   const tableRef = useRef(null);
-  const [searchText, setSearchText] = useState('');
-  const [networkOnly, setNetworkOnly] = useState(false);
-  const [tableErr, setTableErr] = useState(null);
 
-  const tableColumnConfig = [
-    // { title: 'id', field: 'id', editable: false },
-    { title: 'location', field: 'location', editable: false },
-    { title: 'created', field: 'createdAt', editable: false },
-    { title: 'locationLat', field: 'locationLat', editable: false },
-    { title: 'locationLng', field: 'locationLng', editable: false },
-    { title: 'rooms', field: 'rooms', editable: false },
-    { title: 'bathrooms', field: 'bathrooms', editable: false },
-    { title: 'rent', field: 'rent' },
-    { title: 'property', field: 'property.id', editable: false },
-  ];
+  const houseTypeLookup = getEnumLookupList('PropertyType');
 
-  const sharedWhere = {
-    ...where,
-    OR: [
+  const columns = React.useMemo(
+    () => [
       {
-        location_contains: searchText,
+        title: 'location',
+        field: 'location',
+        editable: false,
+        filtering: false,
       },
-      // {
-      //   amount: parseFloat(searchText),
-      // },
+      { title: 'created', field: 'createdAt', editable: false, type: 'date' },
+      {
+        title: 'locationLat',
+        field: 'locationLat',
+        editable: false,
+        filtering: false,
+      },
+      {
+        title: 'locationLng',
+        field: 'locationLng',
+        editable: false,
+        filtering: false,
+      },
+      { title: 'rooms', field: 'rooms', editable: false, type: 'numeric' },
+      {
+        title: 'bathrooms',
+        field: 'bathrooms',
+        editable: false,
+        type: 'numeric',
+      },
+      { title: 'rent', field: 'rent', type: 'numeric' },
+      {
+        title: 'property',
+        field: 'property.id',
+        editable: false,
+        filtering: false,
+        sorting: false,
+      },
+      { title: 'used', field: 'hasBeenUsed', editable: false, type: 'boolean' },
     ],
-  };
+    [houseTypeLookup]
+  );
 
-  const { data, loading, error, refetch } = useQuery(APPRAISALS_COUNT_QUERY, {
-    variables: {
-      where: {
-        ...where,
-        // ...sharedWhere, every letter change would retrigger this
-      },
-    },
-  });
-
-  const [offerAppraisal, offerAppraisalProps] = useMutation(
+  const [offerAppraisal, { error }] = useMutation(
     OFFER_RENTAL_APPRAISAL_MUTATION
   );
 
-  if (error) return <Error error={error} />;
-
-  const handleOnSubscriptionData = () => {
-    setNetworkOnly(true);
-  };
+  const handleOnSubscriptionData = () => {};
 
   useSubscription(PROPERTY_APPRAISAL_SUBSCRIPTION, {
     onSubscriptionData: handleOnSubscriptionData,
     variables: {},
   });
 
-  const totalItemCount = data
-    ? data.rentalAppraisalsConnection.aggregate.count
-    : 0;
-
-  const handleSearchTextChange = e => {
-    setSearchText(e.target.value);
-  };
-
-  const handleGetSubscriptionItems = async () => {
-    await setNetworkOnly(true);
-    dispatch({
-      type: 'setNewRentalAppraisalCount',
-      payload: 0,
-    });
-    await tableRef.current.onQueryChange();
-    setNetworkOnly(false);
-  };
-
-  const handleSearch = () => {
-    tableRef.current.onQueryChange(); // informs table that we need to refetch remoteData
-  };
-
-  const remoteData = query => {
-    return client
-      .query({
-        query: RENTAL_APPRAISALS_CONNECTION_QUERY,
-        // fetchPolicy: 'network-only', // simply for subscriptions...
-        fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
-        variables: {
-          //   orderBy: 'created_ASC',
-          where: {
-            ...where,
-            ...sharedWhere,
-            // OR: [
-            //   {
-            //     location_contains: searchText,
-            //   },
-            //   // {
-            //   //   amount: parseFloat(searchText),
-            //   // },
-            // ],
-          },
-          orderBy: 'createdAt_DESC',
-          // orderBy: 'rent_DESC',
-          skip: query.page * query.pageSize,
-          first: query.pageSize,
-          limit: query.pageSize,
-        },
-      })
-      .then(res => {
-        const {
-          data: {
-            rentalAppraisalsConnection: { pageInfo, aggregate, edges },
-          },
-        } = res;
-        // immutatble/freezeObject
-        const formattedData = edges.map(edge => ({
-          ...edge.node,
-        }));
-        return {
-          data: formattedData,
-          page: query.page,
-          totalCount: totalItemCount,
-        };
-      })
-      .catch(e => {
-        setTableErr(e);
-      })
-      .finally(() => {
-        setNetworkOnly(false);
-      });
-  };
-
   return (
     <div className={classes.root}>
-      <div className={classes.tableHeader}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}>
-          <Typography variant="h5">Appraisals</Typography>
-          <IconButton
-            onClick={handleGetSubscriptionItems}
-            disabled={state.newRentalAppraisalCount > 0 ? false : true}>
-            <Badge badgeContent={state.newRentalAppraisalCount} color="primary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </div>
-        <div>
-          <Input
-            value={searchText}
-            onChange={handleSearchTextChange}
-            placeholder="id or amount"
-          />
-          <IconButton onClick={handleSearch} aria-label="search-table">
-            <SearchIcon />
-          </IconButton>
-        </div>
-      </div>
-      <Error error={tableErr} />
-      <Error error={offerAppraisalProps.error} />
-      <MaterialTable
-        style={{
-          marginBottom: '16px',
-        }}
+      <Error error={error} />
+      <ConnectionTable
+        title="Appraisals"
+        connectionKey="rentalAppraisalsConnection"
+        countQuery={APPRAISALS_COUNT_QUERY}
+        gqlQuery={RENTAL_APPRAISALS_CONNECTION_QUERY}
+        searchKeysOR={['location_contains', 'id_contains']}
+        orderBy="createdAt_DESC"
         tableRef={tableRef}
-        columns={tableColumnConfig}
-        data={remoteData}
-        options={{
-          toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
-        }}
+        columns={columns}
         editable={{
           isEditable: rowData => rowData.rent === null,
           // onRowUpdate must be promise based

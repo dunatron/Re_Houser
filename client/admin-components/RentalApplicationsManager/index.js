@@ -12,6 +12,9 @@ import {
   Badge,
   Button,
 } from '@material-ui/core';
+import ConnectionTable, {
+  getEnumLookupList,
+} from '@/Components/SuperiorTable/ConnectionTable';
 import { PROPERTY_APPRAISAL_SUBSCRIPTION } from '../../graphql/subscriptions/PropertyAppraisalSub';
 import moment from 'moment';
 import formatCentsToDollars from '../../lib/formatCentsToDollars';
@@ -115,111 +118,6 @@ const AdminRentalApplicationsTable = ({
 
   if (error) return <Error error={error} />;
 
-  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
-
-  const handleSearchTextChange = e => {
-    setSearchText(e.target.value);
-  };
-
-  const handleGetSubscriptionItems = async () => {
-    await setNetworkOnly(true);
-    dispatch({
-      type: 'updateState',
-      payload: {
-        newRentalApplicationsCount: 0,
-      },
-    });
-    await tableRef.current.onQueryChange();
-    setNetworkOnly(false);
-  };
-
-  const handleSearch = () => {
-    tableRef.current.onQueryChange(); // informs table that we need to refetch remoteData
-  };
-
-  useEffect(() => {
-    if (state.newRentalApplicationsCount > 0) {
-      handleGetSubscriptionItems();
-    }
-  }, [state.newRentalApplicationsCount]);
-
-  const remoteData = query => {
-    return client
-      .query({
-        query: RENTAL_APPLICATIONS_CONNECTION_QUERY,
-        // fetchPolicy: 'network-only', // simply for subscriptions...
-        fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
-        variables: {
-          where: {
-            OR: [
-              { id_contains: searchText },
-              {
-                property: {
-                  location_contains: searchText,
-                },
-              },
-            ],
-            ...where,
-            ...sharedWhere,
-            // OR: [
-            //   {
-            //     location_contains: searchText,
-            //   },
-            //   // {
-            //   //   amount: parseFloat(searchText),
-            //   // },
-            // ],
-          },
-          orderBy: orderBy,
-          skip: query.page * query.pageSize,
-          first: query.pageSize,
-          limit: query.pageSize,
-        },
-      })
-      .then(res => {
-        const {
-          data: {
-            [connectionKey]: { pageInfo, aggregate, edges },
-          },
-        } = res;
-        // immutatble/freezeObject
-        const formattedData = edges.map(edge => ({
-          ...edge.node,
-        }));
-        return {
-          data: formattedData,
-          page: query.page,
-          totalCount: totalItemCount,
-        };
-      })
-      .catch(e => {
-        setTableErr(e);
-      })
-      .finally(() => {
-        setNetworkOnly(false);
-      });
-  };
-
-  const refetchTable = async () => {
-    setNetworkOnly(true);
-    refetch({
-      variables: {
-        where: {
-          ...where,
-        },
-        orderBy: orderBy,
-      },
-    });
-    client.cache.modify({
-      fields: {
-        [connectionKey](existingRef, { readField }) {
-          return existingRef.edges ? {} : existingRef;
-        },
-      },
-    });
-    await tableRef.current.onQueryChange();
-  };
-
   const viewRentalApplication = (e, data) => {
     setCurrItem(data);
     setModalIsOpen(true);
@@ -240,40 +138,32 @@ const AdminRentalApplicationsTable = ({
         close={() => setModalIsOpen(false)}>
         <RentalApplication id={currItem.id} me={me} />
       </Modal>
-      <div className={classes.tableHeader}>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}>
-          <Typography variant="h5">Rental Applications</Typography>
-          <IconButton onClick={refetchTable}>
-            <CachedIcon />
-          </IconButton>
-          <SubscriberBell
-            me={me}
-            variable="rentalApplicationCreatedSub"
-            title="rental applications created subscription"
-          />
-          {/* <div
-            style={{
-              padding: '8px',
-            }}>
-            <NotificationsActiveIcon color="secondary" />
-          </div> */}
-        </div>
-        <div>
-          <Input
-            value={searchText}
-            onChange={handleSearchTextChange}
-            placeholder="id or amount"
-          />
-          <IconButton onClick={handleSearch} aria-label="search-table">
-            <SearchIcon />
-          </IconButton>
-        </div>
-      </div>
       <Error error={tableErr} />
+      <ConnectionTable
+        title="Appraisals"
+        connectionKey="rentalAppraisalsConnection"
+        countQuery={RENTAL_APPLICATIONS_COUNT_QUERY}
+        gqlQuery={RENTAL_APPLICATIONS_CONNECTION_QUERY}
+        searchKeysOR={['property.location_contains', 'id_contains']}
+        orderBy="createdAt_DESC"
+        tableRef={tableRef}
+        columns={columns}
+        editable={{
+          isEditable: rowData => rowData.rent === null,
+          // onRowUpdate must be promise based
+          onRowUpdate: (newData, oldData) =>
+            offerAppraisal({
+              variables: {
+                data: {
+                  rent: parseFloat(newData.rent),
+                },
+                where: {
+                  id: oldData.id,
+                },
+              },
+            }),
+        }}
+      />
       <MaterialTable
         style={{
           marginBottom: '16px',
