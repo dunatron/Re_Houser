@@ -27,6 +27,16 @@ enum PaymentType {
   SYSTEM
 }
 
+enum ChargeReason {
+  RENT
+  BOND
+}
+
+enum PaymentReason {
+  RENT
+  BOND
+}
+
 enum VisibilityLevel {
   PRIVATE
   FRIENDS_ONLY

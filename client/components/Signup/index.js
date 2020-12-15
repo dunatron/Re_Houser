@@ -19,6 +19,7 @@ import ConfinedHeight from '@/Components/ConfinedHeight';
 import SignupTerms from '@/Components/Terms/SignupTerms';
 import PhoneInput from '@/Components/Inputs/PhoneInput';
 import PasswordInput from '@/Components/Inputs/Password';
+import { parseCookies, setCookie, destroyCookie } from 'nookies';
 
 const Signup = props => {
   const recaptchaRef = useRef();
@@ -45,6 +46,15 @@ const Signup = props => {
   };
 
   const handleCompleted = data => {
+    setCookie(null, 'token', data.signup.token, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+    setCookie(null, 'refresh-token', data.signup.refreshToken, {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/',
+    });
+
     toast.info(
       <div>
         <h1>Congrats on signing up</h1>

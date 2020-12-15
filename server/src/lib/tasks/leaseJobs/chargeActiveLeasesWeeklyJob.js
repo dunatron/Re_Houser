@@ -97,6 +97,7 @@ async function chargeLeaseWalletWithRent(lease) {
             charges: {
               create: {
                 amount: lease.rent,
+                reason: "RENT",
                 description: "Weekly rent charge"
               }
             }

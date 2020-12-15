@@ -4,7 +4,9 @@ const mustBeAuthed = require("../../lib/mustBeAuthed");
 const { createActivity } = require("../../lib/createActivity");
 const getBondAmount = require("../../lib/payments/getBondAmount");
 
-const {_assertCanManageProperty} = require("../../lib/_assertCanManageProperty")
+const {
+  _assertCanManageProperty
+} = require("../../lib/_assertCanManageProperty");
 
 // cleanup
 const finaliseLeaseCleanup = require("../../lib/cleanup/finaliseLeaseCleanup");
@@ -18,19 +20,19 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     errorMessage: "You must be logged in to finalise a lease"
   });
 
-  const loggedUserWithData = await ctx.db.query.user({
-    where: {
-      id: reqUserId
-    }
-  }, 
-  `{
+  const loggedUserWithData = await ctx.db.query.user(
+    {
+      where: {
+        id: reqUserId
+      }
+    },
+    `{
     id
     permissions
   }`
   );
 
-  const isAdmin = loggedUserWithData.permissions.includes("ADMIN")
-
+  const isAdmin = loggedUserWithData.permissions.includes("ADMIN");
 
   const leaseId = args.leaseId;
   // 1. get the property lease via the id and all of the data we will need
@@ -84,13 +86,12 @@ async function finalisePropertyLease(parent, args, ctx, info) {
     }`
   );
 
-
   await _assertCanManageProperty({
-    property: lease.property, 
+    property: lease.property,
     ctx: ctx
-  })
+  });
 
-  const isRehouserManaged = lease.property.rehouserManaged
+  const isRehouserManaged = lease.property.rehouserManaged;
 
   // easy accessors
   const lessorUsers = lease.lessors.map(lessor => lessor.user);
@@ -133,14 +134,15 @@ async function finalisePropertyLease(parent, args, ctx, info) {
             charges: {
               create: [
                 {
+                  reason: "RENT",
                   amount: lease.rent,
-                  description:
-                    "We require 1 weeks rent in advance hence a charge"
-                },
-                {
-                  amount: getBondAmount(lease),
-                  description: `We require the bond in advance ${lease.bondType}`
+                  description: "We require 1 weeks rent in advance"
                 }
+                // no longer going to charge to bond when an agent finalises the lease
+                // {
+                //   amount: getBondAmount(lease),
+                //   description: `We require the bond in advance ${lease.bondType}`
+                // }
               ]
             }
           }

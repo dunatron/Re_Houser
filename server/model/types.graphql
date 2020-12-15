@@ -477,6 +477,7 @@ type Charge {
   id: ID! @unique @id
   createdAt: DateTime! @createdAt
   wallet: Wallet @relation(name: "WalletCharges")
+  reason: ChargeReason
   amount: Float
   description: String
 }
@@ -492,6 +493,7 @@ type Payment {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
