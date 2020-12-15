@@ -41,6 +41,7 @@ const ApplicationDetailsStep = ({
   isAnAdmin,
   isOwner,
   isAnApplicant,
+  refetch,
 }) => {
   const { applicants } = rentalApplication;
 
@@ -143,6 +144,11 @@ const ApplicationDetailsStep = ({
     },
   ];
 
+  const refreshTableData = () => {
+    refetch(); // actually refetching the entire rentalApplication...
+    // maybe this is a thing for the actual rentalApplication where we have a button at the top somewhere that allows a refresh
+  };
+
   if (completed) return 'Section is completed';
 
   return (
@@ -164,7 +170,7 @@ const ApplicationDetailsStep = ({
           />
         </>
       )}
-      {isAnApplicant && (
+      {isAnApplicant && !isOwner && (
         <Alert severity="info">
           <AlertTitle>You are an Applicant for this application.</AlertTitle>
           <Typography gutterBottom variant="body2">
@@ -189,6 +195,14 @@ const ApplicationDetailsStep = ({
           // selection: true,
           sorting: true,
         }}
+        actions={[
+          {
+            icon: 'refresh',
+            tooltip: 'Refresh Data',
+            isFreeAction: true,
+            onClick: refreshTableData,
+          },
+        ]}
         // actions={[
         //   {
         //     icon: 'person',

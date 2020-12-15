@@ -53,12 +53,7 @@ const DisplayKeyVals = ({ config, data }) => {
   const classes = useStyles();
   return config.map((item, idx) => {
     return (
-      <div
-        style={
-          {
-            //   padding: '16px',
-          }
-        }>
+      <div>
         {item.fieldProps && (
           <Typography>
             {item.fieldProps.label}
@@ -70,7 +65,7 @@ const DisplayKeyVals = ({ config, data }) => {
         )}
         {item.key && (
           <pre className={classes.val}>
-            {item.key}: {JSON.stringify(data[item.key], null, 2)}
+            {item.key}: {data && JSON.stringify(data[item.key], null, 2)}
           </pre>
         )}
         {item.inners && (

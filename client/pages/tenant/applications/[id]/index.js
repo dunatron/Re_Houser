@@ -8,7 +8,8 @@ import { Typography } from '@material-ui/core';
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
-const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
+const SingleApplicationPage = ({ appData: { currentUser }, query }) => {
+  console.log('Stepping Debug: root query: ', query);
   return (
     <PleaseSignIn
       currentUser={currentUser}
@@ -17,7 +18,7 @@ const SingleApplicationPage = ({ appData: { currentUser }, query: { id } }) => {
           <strong>Please Sign in to view applications</strong>
         </Typography>
       }>
-      <RentalApplication id={id} />
+      <RentalApplication id={query.id} />
     </PleaseSignIn>
   );
 };

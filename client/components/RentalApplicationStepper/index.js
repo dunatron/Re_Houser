@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, NetworkStatus } from '@apollo/client';
 import PropTypes from 'prop-types';
 
 import { Paper } from '@material-ui/core';
@@ -18,14 +18,17 @@ const ConnectedRentalApplicationStepper = ({
   applicationId,
 }) => {
   const rentalApplication = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
+    fetchPolicy: 'network-only',
+    notifyOnNetworkStatusChange: true,
     variables: {
       where: { id: application ? application.id : applicationId },
     },
   });
 
-  const { data, loading, error } = rentalApplication;
+  const { data, loading, error, refetch, networkStatus } = rentalApplication;
 
   if (loading) return <Loader loading={loading} />;
+  if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
   if (error) return <Error error={error} text="Loading Application" />;
 
   if (data.rentalApplication.stage === 'PENDING')
@@ -38,22 +41,30 @@ const ConnectedRentalApplicationStepper = ({
           {data.rentalApplication.leaseId}
         </Typography>
         {data.rentalApplication.leaseId && (
+          // <ChangeRouteButton
+          //   route="/tenant/leases/lease"
+          //   query={{
+          //     id: data.rentalApplication.leaseId,
+          //   }}
+          // />
           <ChangeRouteButton
-            route="/tenant/leases/lease"
-            query={{
-              id: data.rentalApplication.leaseId,
-            }}
+            route={`/tenant/leases/${data.rentalApplication.leaseId}`}
           />
         )}
       </Paper>
     );
 
   return (
-    <RentalApplicationStepper
-      me={me}
-      property={data.rentalApplication.property}
-      rentalApplication={data.rentalApplication}
-    />
+    <>
+      <RentalApplicationStepper
+        me={me}
+        property={data.rentalApplication.property}
+        rentalApplication={data.rentalApplication}
+        refetch={() => {
+          refetch();
+        }}
+      />
+    </>
   );
 };
 

@@ -71,7 +71,7 @@ const RentalApplication = ({ id, me }) => {
           </Typography>,
         ]}
       />
-      <RentalApplicationSub variables={{}} onSubscriptionData={handleSubData} />
+      {/* <RentalApplicationSub variables={{}} onSubscriptionData={handleSubData} /> */}
       {isAnAdmin && (
         <RehouserPaper>
           <Typography gutterBottom>

@@ -160,6 +160,19 @@ const AdminRentalApplicationsTable = ({
           </List>
         ),
       },
+      {
+        field: 'agents',
+        title: 'agents',
+        filtering: false,
+        render: rowData => (
+          <List>
+            {rowData.agents &&
+              rowData.agents.map((agent, idx) => {
+                return <UserDetails key={idx} user={agent} me={me} />;
+              })}
+          </List>
+        ),
+      },
     ],
     [houseTypeLookup, tenancyTypeLookup, titleTypeLookup]
   );

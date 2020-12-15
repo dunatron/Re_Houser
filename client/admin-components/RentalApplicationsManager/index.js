@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect, useMemo } from 'react';
 import { store } from '../../store';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, NetworkStatus } from '@apollo/client';
@@ -93,17 +93,18 @@ const AdminRentalApplicationsTable = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currItem, setCurrItem] = useState({});
 
-  const tableColumnConfig = [
-    { title: 'id', field: 'id', editable: false },
-    { title: 'created', field: 'createdAt', editable: false },
-    { title: 'stage', field: 'stage' },
-    { title: 'visibility', field: 'visibility' },
-    { title: 'property', field: 'property.location', editable: false },
-  ];
+  const tableColumnConfig = [];
 
-  const sharedWhere = {
-    ...where,
-  };
+  const columns = React.useMemo(
+    () => [
+      { title: 'id', field: 'id', editable: false },
+      { title: 'created', field: 'createdAt', editable: false },
+      { title: 'stage', field: 'stage' },
+      { title: 'visibility', field: 'visibility' },
+      { title: 'property', field: 'property.location', editable: false },
+    ],
+    []
+  );
 
   const { data, loading, error, refetch, networkStatus } = useQuery(
     RENTAL_APPLICATIONS_COUNT_QUERY,
@@ -141,39 +142,13 @@ const AdminRentalApplicationsTable = ({
       <Error error={tableErr} />
       <ConnectionTable
         title="Appraisals"
-        connectionKey="rentalAppraisalsConnection"
+        connectionKey="rentalApplicationsConnection"
         countQuery={RENTAL_APPLICATIONS_COUNT_QUERY}
         gqlQuery={RENTAL_APPLICATIONS_CONNECTION_QUERY}
         searchKeysOR={['property.location_contains', 'id_contains']}
         orderBy="createdAt_DESC"
         tableRef={tableRef}
         columns={columns}
-        editable={{
-          isEditable: rowData => rowData.rent === null,
-          // onRowUpdate must be promise based
-          onRowUpdate: (newData, oldData) =>
-            offerAppraisal({
-              variables: {
-                data: {
-                  rent: parseFloat(newData.rent),
-                },
-                where: {
-                  id: oldData.id,
-                },
-              },
-            }),
-        }}
-      />
-      <MaterialTable
-        style={{
-          marginBottom: '16px',
-        }}
-        tableRef={tableRef}
-        columns={tableColumnConfig}
-        data={remoteData}
-        options={{
-          toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
-        }}
         actions={[
           {
             icon: 'pageview',
