@@ -36,7 +36,7 @@ async function getActiveLeases() {
           }
       }`
     )
-    .catch(e => console.log("Catch active leases err => ", e));
+    .catch((e) => console.log("Catch active leases err => ", e));
   return activeLeases;
 }
 
@@ -88,7 +88,7 @@ async function chargeLeaseWalletWithRent(lease) {
   const updatedLease = await db.mutation.updatePropertyLease(
     {
       where: {
-        id: lease.id
+        id: lease.id,
       },
       data: {
         wallet: {
@@ -98,12 +98,12 @@ async function chargeLeaseWalletWithRent(lease) {
               create: {
                 amount: lease.rent,
                 reason: "RENT",
-                description: "Weekly rent charge"
-              }
-            }
-          }
-        }
-      }
+                description: "Weekly rent charge",
+              },
+            },
+          },
+        },
+      },
     },
     `{id,wallet{id,amount}}`
   );
@@ -125,8 +125,16 @@ async function chargeLeaseWalletWithRent(lease) {
 //   });
 // });
 
-const chargeActiveLeasesWeeklyJob = new CronJob("00 10 12 * * 4", function() {
-  getActiveLeases().then(leases => {
+// actually correct time to run
+// const chargeActiveLeasesWeeklyJob = new CronJob("00 10 12 * * 4", function() {
+//   getActiveLeases().then(leases => {
+//     leases.forEach((l, i) => chargeLeaseWalletWithRent(l));
+//     console.log("The active leases to check things on => ", leases);
+//   });
+// });
+
+const chargeActiveLeasesWeeklyJob = new CronJob("0 */30 * * * *", function() {
+  getActiveLeases().then((leases) => {
     leases.forEach((l, i) => chargeLeaseWalletWithRent(l));
     console.log("The active leases to check things on => ", leases);
   });
