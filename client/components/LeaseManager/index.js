@@ -8,6 +8,7 @@ import { SINGLE_LEASE_QUERY } from '@/Gql/queries';
 import LeaseChat from './LeaseChat';
 import { toast } from 'react-toastify';
 
+import DownloadLease from './DownloadLease';
 // stages
 import StageInitializing from './stages/Stage_Initializing';
 import StageSigned from './stages/Stage_Signed';
@@ -116,6 +117,7 @@ const LeaseManager = ({ leaseId }) => {
           </Typography>
         </>
       )}
+      <DownloadLease lease={data.myLease} me={me} />
       {componentstage}
       {/* <LeaseChat leaseId={leaseId} /> */}
     </div>

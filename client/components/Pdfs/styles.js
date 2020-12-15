@@ -11,29 +11,6 @@ import {
 } from '@react-pdf/renderer';
 //https://github.com/diegomura/react-pdf/blob/master/examples/pageWrap/index.js
 
-// Font.register({
-//   family: 'GustanLight',
-//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-//   src: `${__dirname}../../static/fonts/Gustan-Light.woff`,
-// });
-// Font.register({
-//   family: 'GustanMedium',
-//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-//   src: `${__dirname}../../static/fonts/Gustan-Medium.woff`,
-// });
-
-// Font.register({
-//   family: 'GustanBold',
-//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-//   src: `${__dirname}../../static/fonts/Gustan-Bold.woff`,
-// });
-
-// Font.register({
-//   family: 'GustanExtraBlack',
-//   //   src: `${__dirname}/fonts/Roboto-Regular.ttf`,
-//   src: `${__dirname}../../static/fonts/Gustan-Extrablack.woff`,
-// });
-
 Font.register({
   family: 'AzoSansRegular',
   src: `${__dirname}../../static/fonts/azo-sans/AzoSans-Regular.woff`,

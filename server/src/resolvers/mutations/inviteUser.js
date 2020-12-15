@@ -16,6 +16,9 @@ async function inviteUser(parent, { data }, ctx, info) {
     `{ id, firstName, lastName }`
   );
 
+  // lets see if we can first get said user.
+  // if we can then change the invite message etc
+
   const mailRes = await inviteUserToPlatformEmail({
     email: email,
     user: {},
