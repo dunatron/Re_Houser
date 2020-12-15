@@ -1,5 +1,5 @@
 # source: https://rehouser-db-prod-925c297bf3.herokuapp.com/rehouser-prisma/prod
-# timestamp: Wed Oct 21 2020 18:48:24 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Tue Dec 15 2020 16:06:23 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -2312,6 +2312,7 @@ type Charge implements Node {
   id: ID!
   createdAt: DateTime!
   wallet: Wallet
+  reason: ChargeReason
   amount: Float
   description: String
 }
@@ -2328,6 +2329,7 @@ type ChargeConnection {
 
 input ChargeCreateInput {
   id: ID
+  reason: ChargeReason
   amount: Float
   description: String
   wallet: WalletCreateOneWithoutChargesInput
@@ -2340,6 +2342,7 @@ input ChargeCreateManyWithoutWalletInput {
 
 input ChargeCreateWithoutWalletInput {
   id: ID
+  reason: ChargeReason
   amount: Float
   description: String
 }
@@ -2358,6 +2361,8 @@ enum ChargeOrderByInput {
   id_DESC
   createdAt_ASC
   createdAt_DESC
+  reason_ASC
+  reason_DESC
   amount_ASC
   amount_DESC
   description_ASC
@@ -2367,8 +2372,14 @@ enum ChargeOrderByInput {
 type ChargePreviousValues {
   id: ID!
   createdAt: DateTime!
+  reason: ChargeReason
   amount: Float
   description: String
+}
+
+enum ChargeReason {
+  RENT
+  BOND
 }
 
 input ChargeScalarWhereInput {
@@ -2442,6 +2453,16 @@ input ChargeScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  reason: ChargeReason
+
+  """All values that are not equal to given value."""
+  reason_not: ChargeReason
+
+  """All values that are contained in given list."""
+  reason_in: [ChargeReason!]
+
+  """All values that are not contained in given list."""
+  reason_not_in: [ChargeReason!]
   amount: Float
 
   """All values that are not equal to given value."""
@@ -2544,17 +2565,20 @@ input ChargeSubscriptionWhereInput {
 }
 
 input ChargeUpdateInput {
+  reason: ChargeReason
   amount: Float
   description: String
   wallet: WalletUpdateOneWithoutChargesInput
 }
 
 input ChargeUpdateManyDataInput {
+  reason: ChargeReason
   amount: Float
   description: String
 }
 
 input ChargeUpdateManyMutationInput {
+  reason: ChargeReason
   amount: Float
   description: String
 }
@@ -2577,6 +2601,7 @@ input ChargeUpdateManyWithWhereNestedInput {
 }
 
 input ChargeUpdateWithoutWalletDataInput {
+  reason: ChargeReason
   amount: Float
   description: String
 }
@@ -2663,6 +2688,16 @@ input ChargeWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  reason: ChargeReason
+
+  """All values that are not equal to given value."""
+  reason_not: ChargeReason
+
+  """All values that are contained in given list."""
+  reason_in: [ChargeReason!]
+
+  """All values that are not contained in given list."""
+  reason_not_in: [ChargeReason!]
   amount: Float
 
   """All values that are not equal to given value."""
@@ -12694,6 +12729,7 @@ type Payment implements Node {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -12722,6 +12758,7 @@ input PaymentCreateInput {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -12745,6 +12782,7 @@ input PaymentCreateWithoutWalletInput {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -12778,6 +12816,8 @@ enum PaymentOrderByInput {
   bankRef_DESC
   type_ASC
   type_DESC
+  reason_ASC
+  reason_DESC
   leaseId_ASC
   leaseId_DESC
   propertyId_ASC
@@ -12804,6 +12844,7 @@ type PaymentPreviousValues {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -12812,6 +12853,11 @@ type PaymentPreviousValues {
   createdAt: DateTime!
   description: String
   status: String
+}
+
+enum PaymentReason {
+  RENT
+  BOND
 }
 
 input PaymentScalarWhereInput {
@@ -13073,6 +13119,16 @@ input PaymentScalarWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [PaymentType!]
+  reason: PaymentReason
+
+  """All values that are not equal to given value."""
+  reason_not: PaymentReason
+
+  """All values that are contained in given list."""
+  reason_in: [PaymentReason!]
+
+  """All values that are not contained in given list."""
+  reason_not_in: [PaymentReason!]
   leaseId: ID
 
   """All values that are not equal to given value."""
@@ -13368,6 +13424,7 @@ input PaymentUpdateInput {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -13385,6 +13442,7 @@ input PaymentUpdateManyDataInput {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -13401,6 +13459,7 @@ input PaymentUpdateManyMutationInput {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -13434,6 +13493,7 @@ input PaymentUpdateWithoutWalletDataInput {
   bankAccount: String
   bankRef: String
   type: PaymentType
+  reason: PaymentReason
   leaseId: ID
   propertyId: ID
   stripePaymentId: String
@@ -13713,6 +13773,16 @@ input PaymentWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [PaymentType!]
+  reason: PaymentReason
+
+  """All values that are not equal to given value."""
+  reason_not: PaymentReason
+
+  """All values that are contained in given list."""
+  reason_in: [PaymentReason!]
+
+  """All values that are not contained in given list."""
+  reason_not_in: [PaymentReason!]
   leaseId: ID
 
   """All values that are not equal to given value."""
