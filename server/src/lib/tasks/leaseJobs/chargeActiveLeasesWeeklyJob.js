@@ -2,6 +2,13 @@ var CronJob = require("cron").CronJob;
 
 const db = require("../../../db");
 
+function makeNegative(number) {
+  if (number > 0) {
+    return (number = -number);
+  }
+  return number;
+}
+
 async function getActiveLeases() {
   const activeLeases = await db.query
     .propertyLeases(
@@ -36,7 +43,7 @@ async function getActiveLeases() {
           }
       }`
     )
-    .catch((e) => console.log("Catch active leases err => ", e));
+    .catch(e => console.log("Catch active leases err => ", e));
   return activeLeases;
 }
 
@@ -88,7 +95,7 @@ async function chargeLeaseWalletWithRent(lease) {
   const updatedLease = await db.mutation.updatePropertyLease(
     {
       where: {
-        id: lease.id,
+        id: lease.id
       },
       data: {
         wallet: {
@@ -98,12 +105,12 @@ async function chargeLeaseWalletWithRent(lease) {
               create: {
                 amount: lease.rent,
                 reason: "RENT",
-                description: "Weekly rent charge",
-              },
-            },
-          },
-        },
-      },
+                description: "Weekly rent charge"
+              }
+            }
+          }
+        }
+      }
     },
     `{id,wallet{id,amount}}`
   );
@@ -134,7 +141,7 @@ async function chargeLeaseWalletWithRent(lease) {
 // });
 
 const chargeActiveLeasesWeeklyJob = new CronJob("0 */30 * * * *", function() {
-  getActiveLeases().then((leases) => {
+  getActiveLeases().then(leases => {
     leases.forEach((l, i) => chargeLeaseWalletWithRent(l));
     console.log("The active leases to check things on => ", leases);
   });
