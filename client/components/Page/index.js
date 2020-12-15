@@ -85,7 +85,14 @@ const Page = props => {
       <GlobalStyle theme={theme} />
       <CustomToastContainer />
       <ThemeProvider theme={theme}>
-        <FacebookProvider appId={process.env.FACEBOOK_APP_ID} chatSupport>
+        {/* FB Provider is too big */}
+        {/* I want to use it later to share properties to FB etc easily */}
+        {/* Something adding wait param then it will only download when it renders a compknent. i.e if this is true remove it from the fucken footer */}
+        {/* Then just have FB components load in via share this now buttons etc */}
+        <FacebookProvider
+          appId={process.env.FACEBOOK_APP_ID}
+          chatSupport={true}
+          wait={true}>
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <StateProvider>
               <Elements stripe={stripe}>
