@@ -5,6 +5,7 @@ const PropertyLeaseInfoFragment = gql`
   fragment propertyLeaseInfo on PropertyLease {
     id
     stage
+    tenancyType
     updatedAt
     createdAt
     property {
@@ -13,21 +14,25 @@ const PropertyLeaseInfoFragment = gql`
     lessees {
       id
       signed
+      signedAt
       user {
         id
         email
         firstName
         lastName
+        dob
       }
     }
     lessors {
       id
       signed
+      signedAt
       user {
         id
         email
         firstName
         lastName
+        dob
       }
     }
     rooms
@@ -49,6 +54,10 @@ const PropertyLeaseInfoFragment = gql`
       amount
     }
     bondType
+    petsAllowed
+    pets
+    maximumOccupants
+    chattels
   }
   ${PropertyInfoFragment}
 `;

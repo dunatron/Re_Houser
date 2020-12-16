@@ -1,5 +1,12 @@
-const genLessorDetails = lessor => {
-  const user = lessor.user;
+import _bondAmount from '../../_bondAmount';
+import _usersAge from '../../_usersAge';
+import { formatCentsToDollarsVal } from '../../formatCentsToDollars';
+import moment from 'moment';
+import prettyEnumVal from '../../prettyEnumVal';
+
+const genLesseeDetails = lessee => {
+  const user = lessee.user;
+  console.log('GEN DOB FROM USER : ', user);
   return [
     {
       type: 'Text',
@@ -33,13 +40,7 @@ const genLessorDetails = lessor => {
     },
     {
       type: 'Text',
-      value: `Tenant under the age of 18? ${user?.dob}`,
-      fieldProps: { variant: 'body1' },
-      layoutProps: { variant: 'left' },
-    },
-    {
-      type: 'Text',
-      value: `${JSON.stringify(lessor, null, 2)}`,
+      value: `Tenant under the age of 18? ${_usersAge(user?.dob)}`,
       fieldProps: { variant: 'body1' },
       layoutProps: { variant: 'left' },
     },
@@ -55,6 +56,7 @@ const _generateLeasePdfConf = lease => {
   // type and all of it
   console.log('THE LEASE AND ITS DATA: ', lease);
   const lessors = lease.lessors;
+  const lessees = lease.lessees;
   // const lessorDetails = lessors.map((lessor, idx) => {
   //   return [];
   //   return [
@@ -66,7 +68,23 @@ const _generateLeasePdfConf = lease => {
   //     },
   //   ];
   // });
-  const lessorDetails = genLessorDetails(lessors);
+  // const lessorDetails = genLessorDetails(lessors);
+
+  const rentDollarAmount = formatCentsToDollarsVal(lease.rent);
+  const bondDollarAmount = formatCentsToDollarsVal(
+    _bondAmount(lease.bondType, lease.rent)
+  );
+  const tenancyStartFormatted = moment(lease.moveInDate).format(
+    'dddd, MMMM Do YYYY, h:mm:ss a'
+  );
+
+  const isFixedTerm = lease.tenancyType === 'FIXED' ? true : false;
+  const isPeriodicTerm = lease.tenancyType === 'PERIODIC' ? true : false;
+
+  const expiryDateFormatted = moment(lease.expiryDate).format(
+    'dddd, MMMM Do YYYY'
+  );
+
   return [
     {
       type: 'Section',
@@ -1449,7 +1467,7 @@ const _generateLeasePdfConf = lease => {
       ],
     },
     // TENANT DETAILS
-    ...lessors.map((lessor, idx) => ({
+    ...lessees.map((lessee, idx) => ({
       type: 'Section',
       value: '',
       fieldProps: {},
@@ -1457,7 +1475,7 @@ const _generateLeasePdfConf = lease => {
         variant: 'column',
         wrap: true,
       },
-      inners: genLessorDetails(lessor),
+      inners: genLesseeDetails(lessee),
     })),
     // TENANCY MAIN DETAILS
     {
@@ -1489,14 +1507,123 @@ const _generateLeasePdfConf = lease => {
         },
         {
           type: 'Text',
-          value: `Rent: ${lease.rent} to be paid in advance fortnightly`,
+          value: `Rent: ${rentDollarAmount} to be paid in advance fortnightly`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
-        // property.titleType: "UNIT_TITLE"
-        // property.type: "HOUSE"
-        // property.tenancyType: FIXED
-        // TODO: important things arent being copied from the property to the lease or we are not geting with fragment
+        {
+          type: 'Text',
+          value: `Bond amount: ${bondDollarAmount}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Rent to be paid into Bank Trust Bank Account No:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Account Name:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Bank:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Branch:`,
+          fieldProps: { variant: 'body1', gutterBottom: true },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Reference:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `The Landlord and the Tenant agree that:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `the tenancy shall commence on the ${tenancyStartFormatted}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        isFixedTerm && {
+          type: 'Text',
+          value: `Fixed term tenancies automatically become periodic upon expiry of the fixed term unless either party gives the other written notice of their intention not to continue the tenancy. That notice must be given no more than 90 days and no less than 21 days before the end of the fixed term`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        isPeriodicTerm && {
+          type: 'Text',
+          value: `THIS IS A Peridic TERM`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `expiryDateFormatted ${expiryDateFormatted}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+
+        {
+          type: 'Text',
+          value: `Pets permitted ${lease.petsAllowed ? 'YES' : 'NO'}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        lease.petsAllowed && {
+          type: 'Text',
+          value: `the following pets are allowed: ${lease.pets.map(
+            pet => ` ${pet}`
+          )}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Maximum occupants ${lease.maximumOccupants}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Chattels included in Tenancy`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `${lease.chattels.map(
+            chattel => ` ${prettyEnumVal(chattel)}`
+          )}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Body Corporate rules attached if is a Unit Title Premises:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `The landlord and tenant sign here to show that they agree to all the terms and conditions in the tenancy agreement and that each party has read the notes on pages 1, 2, and 3 of this agreement. The Tenant understands that this agreement becomes legally binding on signing this document and all Tenants are jointly and severally liable for any debts arising from this tenancy. The Tenant agrees to pay $XXXX before the Landlord will release the keys.`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
       ],
     },
 

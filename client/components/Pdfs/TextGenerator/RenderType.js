@@ -10,6 +10,7 @@ import LinkItem from './Link';
 
 const RenderType = ({ item }) => {
   const classes = useStyles();
+  if (!item) return null; // making sure items with bool checks that dont pass dont fuck shit up
   const {
     type,
     value,
