@@ -3,6 +3,7 @@ import { Typography } from '@material-ui/core';
 import HandleInners from './HandleInners';
 import useStyles from '../useStyles';
 
+import Section from './Section';
 import List from './List';
 import Li from './Li';
 import LinkItem from './Link';
@@ -23,6 +24,7 @@ const RenderType = ({ item }) => {
   switch (type) {
     case 'Section':
       // return <HandleInners inners={inners} />;
+      return <Section item={item} />;
       return (
         <div className={classes.section}>
           <HandleInners inners={inners} />

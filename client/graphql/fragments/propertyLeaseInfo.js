@@ -48,6 +48,7 @@ const PropertyLeaseInfoFragment = gql`
       id
       amount
     }
+    bondType
   }
   ${PropertyInfoFragment}
 `;

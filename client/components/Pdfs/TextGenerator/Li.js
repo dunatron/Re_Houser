@@ -32,7 +32,7 @@ const Li = ({ item }) => {
           )}
         </Typography>
       )}
-      {value && <Typography>{value}</Typography>}
+      {value && <Typography variant="inherit">{value}</Typography>}
       <HandleInners inners={inners} />
     </Box>
   );

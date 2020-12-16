@@ -84,6 +84,7 @@ const PropertyInfoFragment = gql`
       suffix
     }
     rehouserManaged
+    bondType
   }
   ${FileInfoFragment}
   ${PublicUserInfoFragment}
