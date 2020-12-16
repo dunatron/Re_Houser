@@ -90,7 +90,7 @@ function useServiceWorker() {
       */
 
       // never forget to call register as auto register is turned off in next.config.js
-      wb.register();
+      // wb.register(); // turning off to turn on in next.config.js
     }
   }, []);
 
