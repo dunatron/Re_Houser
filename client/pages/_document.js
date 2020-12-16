@@ -50,6 +50,22 @@ MyDocument.getInitialProps = async ctx => {
 
   const { pathname, query, asPath, req, res, err } = ctx;
 
+  // detect user agent
+  // https://reedbarger.com/how-to-create-a-custom-usedevicedetect-react-hook/
+  // https://medium.com/100-articles-marathon/getting-device-type-in-next-js-e8c3534ca421
+
+  // let isMobileDevice = (ctx.req
+  //   ? ctx.req.headers['user-agent']
+  //   : navigator.userAgent
+  // ).match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i);
+  // let isMobileDevice = req.headers['user-agent'].match(
+  //   /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i
+  // );
+
+  //Returning the isMobileView as a prop to the component for further use.
+  // https://www.npmjs.com/package/react-device-detect
+  // screw that we only actually want to inform the user on Mobile that the @react/pdf-renderer wont work
+
   // Render app and page and get the context of the page with collected side effects.
   const styledComponentSheet = new StyledComponentSheets();
   const materialUiSheets = new MaterialUiServerStyleSheets();

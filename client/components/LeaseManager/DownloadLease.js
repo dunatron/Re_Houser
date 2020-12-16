@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import Modal from '../Modal/index';
 import LeasePdf from '../Pdfs/LeasePdf';
 
+import TextPdfGeneratorCombo from '@/Components/Pdfs/TextPdfGeneratorCombo';
 import _generateLeasePdf from '@/Lib/configs/pdfs/_generateLeasePdf';
 
 // const DownloadLease = ({ lease, me }) => {
