@@ -23,6 +23,7 @@ type User {
   lessorLeases: [Lessor!]! @relation(name: "UserLessorLeases")
   createdProperties: [Property!]! @relation(name: "PropertyCreator")
   photoIdentification: File @relation(name: "UserPhotoId", link: TABLE)
+  photoIdType: PhotoIdType
   profilePhoto: File @relation(name: "UserProfilePhoto", link: TABLE)
   identificationNumber: String
   emergencyContactName: String

@@ -1,5 +1,5 @@
-# source: https://rehouser-db-prod-925c297bf3.herokuapp.com/rehouser-prisma/prod
-# timestamp: Tue Dec 15 2020 16:06:23 GMT+1300 (New Zealand Daylight Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Thu Dec 17 2020 11:48:17 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -14048,6 +14048,11 @@ enum Pet {
   FISH
 }
 
+enum PhotoIdType {
+  DRIVER_LICENSE
+  PASSPORT
+}
+
 type PreTenancyForm implements Node {
   id: ID!
   rentalApplicant: RentalGroupApplicant
@@ -26268,6 +26273,7 @@ type User implements Node {
   lessorLeases(where: LessorWhereInput, orderBy: LessorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Lessor!]
   createdProperties(where: PropertyWhereInput, orderBy: PropertyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Property!]
   photoIdentification: File
+  photoIdType: PhotoIdType
   profilePhoto: File
   identificationNumber: String
   emergencyContactName: String
@@ -26326,6 +26332,7 @@ input UserCreateInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26518,6 +26525,7 @@ input UserCreateWithoutActivityInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26575,6 +26583,7 @@ input UserCreateWithoutAdminSettingsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26632,6 +26641,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26689,6 +26699,7 @@ input UserCreateWithoutBankDetailsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26746,6 +26757,7 @@ input UserCreateWithoutChatsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26803,6 +26815,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26860,6 +26873,7 @@ input UserCreateWithoutCreditCardsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26917,6 +26931,7 @@ input UserCreateWithoutCurrentAddressInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -26974,6 +26989,7 @@ input UserCreateWithoutFriendRequestsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27031,6 +27047,7 @@ input UserCreateWithoutInspectionsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27088,6 +27105,7 @@ input UserCreateWithoutInvolvedActivityInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27145,6 +27163,7 @@ input UserCreateWithoutLesseeLeasesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27202,6 +27221,7 @@ input UserCreateWithoutLessorLeasesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27259,6 +27279,7 @@ input UserCreateWithoutManagedPropertiesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27316,6 +27337,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27373,6 +27395,7 @@ input UserCreateWithoutProfilePhotoInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27430,6 +27453,7 @@ input UserCreateWithoutProofOfAddressInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27487,6 +27511,7 @@ input UserCreateWithoutPropertiesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27544,6 +27569,7 @@ input UserCreateWithoutRecievedMessagesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27601,6 +27627,7 @@ input UserCreateWithoutRefereesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27658,6 +27685,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27715,6 +27743,7 @@ input UserCreateWithoutSentMessagesInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27772,6 +27801,7 @@ input UserCreateWithoutSignatureInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27829,6 +27859,7 @@ input UserCreateWithoutViewingsInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -27911,6 +27942,8 @@ enum UserOrderByInput {
   confirmEmailToken_DESC
   confirmEmailTokenExpiry_ASC
   confirmEmailTokenExpiry_DESC
+  photoIdType_ASC
+  photoIdType_DESC
   identificationNumber_ASC
   identificationNumber_DESC
   emergencyContactName_ASC
@@ -27961,6 +27994,7 @@ type UserPreviousValues {
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
   permissions: [Permission!]!
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -28422,6 +28456,16 @@ input UserScalarWhereInput {
 
   """All values greater than or equal the given value."""
   confirmEmailTokenExpiry_gte: Float
+  photoIdType: PhotoIdType
+
+  """All values that are not equal to given value."""
+  photoIdType_not: PhotoIdType
+
+  """All values that are contained in given list."""
+  photoIdType_in: [PhotoIdType!]
+
+  """All values that are not contained in given list."""
+  photoIdType_not_in: [PhotoIdType!]
   identificationNumber: String
 
   """All values that are not equal to given value."""
@@ -29005,6 +29049,7 @@ input UserUpdateDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29062,6 +29107,7 @@ input UserUpdateInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29119,6 +29165,7 @@ input UserUpdateManyDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29162,6 +29209,7 @@ input UserUpdateManyMutationInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29430,6 +29478,7 @@ input UserUpdateWithoutActivityDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29486,6 +29535,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29542,6 +29592,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29598,6 +29649,7 @@ input UserUpdateWithoutBankDetailsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29654,6 +29706,7 @@ input UserUpdateWithoutChatsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29710,6 +29763,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29766,6 +29820,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29822,6 +29877,7 @@ input UserUpdateWithoutCurrentAddressDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29878,6 +29934,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29934,6 +29991,7 @@ input UserUpdateWithoutInspectionsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -29990,6 +30048,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30046,6 +30105,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30102,6 +30162,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30158,6 +30219,7 @@ input UserUpdateWithoutManagedPropertiesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30214,6 +30276,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30270,6 +30333,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30326,6 +30390,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30382,6 +30447,7 @@ input UserUpdateWithoutPropertiesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30438,6 +30504,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30494,6 +30561,7 @@ input UserUpdateWithoutRefereesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30550,6 +30618,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30606,6 +30675,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30662,6 +30732,7 @@ input UserUpdateWithoutSignatureDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -30718,6 +30789,7 @@ input UserUpdateWithoutViewingsDataInput {
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
@@ -31371,6 +31443,16 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   confirmEmailTokenExpiry_gte: Float
+  photoIdType: PhotoIdType
+
+  """All values that are not equal to given value."""
+  photoIdType_not: PhotoIdType
+
+  """All values that are contained in given list."""
+  photoIdType_in: [PhotoIdType!]
+
+  """All values that are not contained in given list."""
+  photoIdType_not_in: [PhotoIdType!]
   identificationNumber: String
 
   """All values that are not equal to given value."""
