@@ -15,11 +15,11 @@ import moment from 'moment';
 
 Font.register({
   family: 'AzoSansRegular',
-  src: `${__dirname}../../static/fonts/azo-sans/AzoSans-Regular.woff`,
+  src: `${__dirname}../../fonts/azo-sans/AzoSans-Regular.woff`,
 });
 Font.register({
   family: 'AzoSansBold',
-  src: `${__dirname}../../static/fonts/azo-sans/AzoSans-Bold.woff`,
+  src: `${__dirname}../../fonts/azo-sans/AzoSans-Bold.woff`,
 });
 
 // Create styles
