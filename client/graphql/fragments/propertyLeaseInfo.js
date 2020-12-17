@@ -21,6 +21,10 @@ const PropertyLeaseInfoFragment = gql`
         firstName
         lastName
         dob
+        signature {
+          id
+          url
+        }
       }
     }
     lessors {
@@ -33,6 +37,10 @@ const PropertyLeaseInfoFragment = gql`
         firstName
         lastName
         dob
+        signature {
+          id
+          url
+        }
       }
     }
     rooms

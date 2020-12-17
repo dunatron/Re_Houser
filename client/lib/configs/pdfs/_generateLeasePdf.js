@@ -47,6 +47,36 @@ const genLesseeDetails = lessee => {
   ];
 };
 
+const generateSignage = signer => {
+  const user = signer.user;
+  const signatureUrl = user.signature ? user.signature.url : null;
+  console.log('signatureUrl : ', signatureUrl);
+  return [
+    {
+      type: 'Text',
+      value: `Name: ${user.firstName} ${user.lastName}`,
+      fieldProps: { variant: 'h6' },
+      layoutProps: { variant: 'left' },
+    },
+    {
+      type: 'Image',
+      src: signatureUrl,
+      layoutProps: { width: '250px', height: '100px' },
+    },
+    {
+      type: 'Text',
+      value: `Date: they signed ${moment(signer.signedAt).format()}`,
+      fieldProps: { variant: 'h6' },
+      layoutProps: { variant: 'left' },
+    },
+    {
+      type: 'Spacer',
+      value: 2,
+      layoutProps: { variant: 'left' },
+    },
+  ];
+};
+
 const _generateLeasePdfConf = lease => {
   // map the owners
   // lessors
@@ -1586,9 +1616,13 @@ const _generateLeasePdfConf = lease => {
         },
         lease.petsAllowed && {
           type: 'Text',
-          value: `the following pets are allowed: ${lease.pets.map(
-            pet => ` ${pet}`
-          )}`,
+          value: `the following pets are allowed:`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'ChipList',
+          value: lease.pets,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
@@ -1604,11 +1638,17 @@ const _generateLeasePdfConf = lease => {
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
+        // {
+        //   type: 'ChipList',
+        //   value: `${lease.chattels.map(
+        //     chattel => ` ${prettyEnumVal(chattel)}`
+        //   )}`,
+        //   fieldProps: { variant: 'body1' },
+        //   layoutProps: { variant: 'left' },
+        // },
         {
-          type: 'Text',
-          value: `${lease.chattels.map(
-            chattel => ` ${prettyEnumVal(chattel)}`
-          )}`,
+          type: 'ChipList',
+          value: lease.chattels,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
@@ -1624,9 +1664,47 @@ const _generateLeasePdfConf = lease => {
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
+        {
+          type: 'Text',
+          value: `Note: By entering into this agreement you agree that your personal details, photos, any defaults, 14 day notices and an assessment regarding your fulfilment of your Tenant responsibilities may be added to any Tenant checking or credit reporting agency systems accessible by members on subscription basis. A Tenants address details may be added to the site to assist other Landlords in locating former tenants. Under the Privacy Act 1993 you have a right to see the information held about you by any credit reporting or Tenant Database and to correct it in accordance with the Privacy Act. If you wish to review any information TINZ holds about you, please visit: tinz.net.nz for more information.`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+        {
+          type: 'Text',
+          value: `Online authentication has occurred to confirm the parties are who they say they are. The parties consent to this agreement being in electronic form, being signed by either of them electronically and acknowledge that an electronic signature to this agreement is binding and valid.`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
       ],
     },
-
+    // generateSignage
+    ...lessees.map((lessee, idx) => ({
+      type: 'Section',
+      value: '',
+      fieldProps: {},
+      layoutProps: {
+        variant: 'column',
+        wrap: true,
+      },
+      inners: generateSignage(lessee),
+    })),
+    {
+      type: 'Text',
+      value: `Signed on behalf of the Landlord/Property Manager:`,
+      fieldProps: { variant: 'body1' },
+      layoutProps: { variant: 'left' },
+    },
+    ...lessors.map((lessor, idx) => ({
+      type: 'Section',
+      value: '',
+      fieldProps: {},
+      layoutProps: {
+        variant: 'column',
+        wrap: true,
+      },
+      inners: generateSignage(lessor),
+    })),
     // NEXT SECTION
   ];
 };

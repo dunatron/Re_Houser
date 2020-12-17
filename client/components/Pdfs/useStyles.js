@@ -32,6 +32,16 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     textDecoration: 'underline',
   },
+  chipList: {
+    display: 'flex',
+    justifyContent: 'start',
+    flexWrap: 'wrap',
+    marginBottom: '16px',
+    '& > *': {
+      margin: theme.spacing(0.5),
+    },
+  },
+  chip: {},
 }));
 
 export default useStyles;

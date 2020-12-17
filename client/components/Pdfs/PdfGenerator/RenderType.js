@@ -75,6 +75,13 @@ const RenderType = ({ item }) => {
           {item.value}
         </Link>
       );
+    case 'Image':
+      if (!item.src) return <Text>No source set for image</Text>;
+      return (
+        <View>
+          <Image src={item.src} />
+        </View>
+      );
     default:
       return (
         <Text style={{ ...styles.h1, ...styles.center }}>
