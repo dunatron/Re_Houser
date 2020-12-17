@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
 import SignLease from '../SignLease';
 import { Paper, Typography } from '@material-ui/core';
+import RPaper from '@/Styles/RehouserPaper';
 import LeaseWallet from '../../LeaseWallet';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 const StageSigned = ({ lease, me }) => {
   return (
-    <Paper>
-      <Typography variant="h1">Signed stage</Typography>
-      <Alert severity="info">
+    <RPaper>
+      <Typography variant="h1" gutterBottom>
+        Signed stage
+      </Typography>
+      <Alert severity="info" style={{ marginBottom: '16px' }}>
         <AlertTitle>Lease Signed</AlertTitle>
         <Typography>
           Congratulations your lease has now been signed. You now need to supply
@@ -18,7 +21,7 @@ const StageSigned = ({ lease, me }) => {
       <PrePayOneWeekRent />
 
       <LeaseWallet lease={lease} me={me} />
-    </Paper>
+    </RPaper>
   );
 };
 
@@ -28,7 +31,7 @@ const StageSigned = ({ lease, me }) => {
 const PrePayOneWeekRent = () => {
   return (
     <>
-      <Alert severity="info">
+      <Alert severity="info" style={{ marginBottom: '16px' }}>
         <AlertTitle>1 Weeks Rent Requirement</AlertTitle>
         <Typography>
           For this lease to go into full effect we require a total of one weeks

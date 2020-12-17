@@ -81,6 +81,7 @@ const GlobalStyle = createGlobalStyle`
   /* width */
   ::-webkit-scrollbar {
     width: 10px;
+    height: 6px;
     /* display: none;  */
   }
 
@@ -103,6 +104,7 @@ const GlobalStyle = createGlobalStyle`
       p.theme.palette.type === 'dark'
         ? p.theme.palette.secondary.main
         : p.theme.palette.secondary.dark};
+    border-radius: 6px;
   }
 
   .geosuggest {
