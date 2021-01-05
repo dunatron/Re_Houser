@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,115 +9,159 @@ import { Paper } from '@material-ui/core';
 
 import { Portal } from '@/Components/Portal/index';
 import isBrowser from '@/Lib/isBrowser';
+import clsx from 'clsx';
+
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+
+// icons
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  modal: {
     display: 'flex',
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    height: '100%',
-    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 1201,
+    margin: '3%',
   },
-  content: {
+  modalFullscreen: {
+    margin: 0,
+  },
+  modalContent: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    // boxShadow: theme.shadows[5],
+    // padding: theme.spacing(2, 4, 3),
+    height: '800px',
+    maxHeight: '90%',
+    maxWidth: '1000px',
+    overflow: 'scroll',
     position: 'relative',
-    overflow: 'auto',
+  },
+  fullScreen: {
+    maxHeight: '100%',
     height: '100%',
+    maxWidth: '100%',
     width: '100%',
   },
-  modalInner: {
-    borderRadius: 0,
-    maxWidth: '500px',
-    position: 'relative',
-    zIndex: 30,
-    height: 'auto',
-    minHeight: '100%',
-  },
-  modalHeader: {
+  header: {
     display: 'flex',
-    position: 'relative',
-    justifyContent: 'space-between',
     alignItems: 'flex-start',
-    padding: theme.spacing(2),
-    background: theme.palette.background.paper,
-    zIndex: 50,
+    justifyContent: 'space-between',
+    marginRight: '70px', // for the actions
   },
-  modalTitle: {
-    margin: 0,
-    alignSelf: 'center',
-    color: theme.palette.primary.main,
-    fontWeight: 300,
+  headerActions: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    backgroundColor: theme.palette.background.paper,
+    opacity: 0.85,
+    borderBottomLeftRadius: '12px',
+    padding: '3px',
+  },
+  spacer: {
+    height: '3px',
+    width: '64px',
+    backgroundColor: theme.palette.primary.main,
+    marginBottom: '16px',
+    marginLeft: '16px',
+  },
+  title: {
+    margin: theme.spacing(1, 2, 1, 2),
   },
   closeBtn: {},
-
   modalBody: {
-    padding: `0 ${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
-      2
-    )}px`,
-  },
-  backdrop: {
-    pointerEvents: 'none',
-    position: 'fixed',
-    top: 0,
-    background: fade(theme.palette.background.paper, 0.85),
-    height: '100%',
-    width: '100%',
-    zIndex: 10,
+    padding: theme.spacing(0, 2, 2, 2),
   },
 }));
 
-const Modal = props => {
+const ModalComponent = props => {
   const { id, close, title, open, fullScreen, disableBackdrop } = props;
+  const [isfullScreen, setFullscreen] = useState(fullScreen);
   const modalNode = useRef();
   const node = useRef();
   const headerNode = useRef();
-  const classes = useStyles();
+  const classes = useStyles({ isfullScreen });
   // If Open we need to make the body overflow hidden, to save our place and not scroll body when modal is open
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleModalClick);
-    return () => {
-      document.removeEventListener('mousedown', handleModalClick);
-    };
-  }, []);
-
-  const mainDiv = isBrowser() ? document.body : null;
-  const setBodyOverFlowToAuto = () => {
-    mainDiv.style.overflow = 'auto';
-  };
-  const setBodyOverFlowToHidden = () => {
-    mainDiv.style.overflow = 'hidden';
+  const handleClose = () => {
+    close();
   };
 
-  useEffect(() => {
-    if (open) {
-      setBodyOverFlowToHidden();
-    } else {
-      setBodyOverFlowToAuto();
-    }
-    return () => {
-      setBodyOverFlowToAuto();
-    };
-  }, [open]);
+  const toggleFullscreen = () => setFullscreen(!isfullScreen);
 
-  const handleModalClick = e => {
-    if (modalNode.current) {
-      if (modalNode.current.contains(e.target)) {
-        if (node.current.contains(e.target)) {
-          return;
-        } else {
-          if (!disableBackdrop) {
-            props.close();
-          }
-        }
-      }
-    }
-  };
+  const modalClasses = clsx({
+    [classes.modal]: true,
+    [classes.modalFullscreen]: isfullScreen,
+  });
+
+  const modalContentClass = clsx({
+    [classes.modalContent]: true,
+    [classes.fullScreen]: isfullScreen,
+  });
 
   if (!open) return null;
+
+  return (
+    <Modal
+      aria-labelledby={`${id}-transition-modal-title`}
+      aria-describedby={`${id}-transition-modal-description`}
+      className={modalClasses}
+      open={open}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      disableBackdropClick={disableBackdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}>
+      <Fade in={open}>
+        <div className={modalContentClass}>
+          <div className={classes.header}>
+            <h2 className={classes.title} id={`${id}-transition-modal-title`}>
+              {title}
+            </h2>
+          </div>
+          <div
+            style={{ position: 'absolute', top: 0, right: 0, height: '100%' }}>
+            <div className={classes.headerActions}>
+              <IconButton
+                size="small"
+                color={'secondary'}
+                aria-label="Delete"
+                className={classes.closeBtn}
+                onClick={() => toggleFullscreen()}>
+                {!isfullScreen ? (
+                  <FullscreenIcon fontSize="small" />
+                ) : (
+                  <FullscreenExitIcon fontSize="small" />
+                )}
+              </IconButton>
+              <IconButton
+                size="medium"
+                color={'secondary'}
+                aria-label="Delete"
+                className={classes.closeBtn}
+                onClick={() => close()}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </div>
+          </div>
+
+          <div className={classes.spacer}></div>
+          <div
+            id={`${id}-transition-modal-description`}
+            className={classes.modalBody}>
+            {props.children}
+          </div>
+        </div>
+      </Fade>
+    </Modal>
+  );
 
   return (
     open && (
@@ -162,7 +206,7 @@ const Modal = props => {
   );
 };
 
-Modal.propTypes = {
+ModalComponent.propTypes = {
   children: PropTypes.any,
   classes: PropTypes.any,
   close: PropTypes.func.isRequired,
@@ -175,4 +219,4 @@ Modal.propTypes = {
   width: PropTypes.any,
 };
 
-export default Modal;
+export default ModalComponent;

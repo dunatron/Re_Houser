@@ -20,7 +20,11 @@ const LoginModal = props => {
   };
 
   return (
-    <Modal title="Login / Signup / Reset" open={loginModal.open} close={_close}>
+    <Modal
+      title="Login / Signup / Reset"
+      open={loginModal.open}
+      close={_close}
+      disableBackdrop>
       <SuperLogin handleSignedIn={handleSignedIn} />
     </Modal>
   );
