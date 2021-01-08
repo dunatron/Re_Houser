@@ -115,6 +115,7 @@ const MaterialConnectionTable = props => {
     where,
     searchKeysOR,
     actions = [],
+    enableAddressParams,
     ...rest
   } = props;
   const tableRef = useRef();
@@ -241,20 +242,24 @@ const MaterialConnectionTable = props => {
     };
   }, []);
 
+  // only use url params when specifically enabled. So we can use more than one table on a page
   useEffect(() => {
-    Router.replace(
-      Router.pathname,
-      {
-        query: {
-          page: addressParams.page,
-          orderBy: addressParams.orderBy,
-          first: addressParams.first,
-          search: addressParams.searchText,
-          filters: addressParams.filters,
+    if (enableAddressParams) {
+      Router.replace(
+        Router.pathname,
+        {
+          query: {
+            page: addressParams.page,
+            orderBy: addressParams.orderBy,
+            first: addressParams.first,
+            search: addressParams.searchText,
+            filters: addressParams.filters,
+          },
         },
-      },
-      { shallow: true }
-    );
+        { shallow: true }
+      );
+    }
+
     return () => {};
   }, [addressParams]);
 

@@ -29,6 +29,7 @@ const PropertyInfoFragment = gql`
     garageSpaces
     carportSpaces
     offStreetSpaces
+    insulationProof
     insulationForm {
       id
     }

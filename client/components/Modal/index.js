@@ -21,12 +21,15 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
+const tst = '0.5s';
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     margin: '3%',
+    transition: `margin ${tst}`,
   },
   modalFullscreen: {
     margin: 0,
@@ -41,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '1000px',
     overflow: 'scroll',
     position: 'relative',
+    transition: `max-width ${tst}, width ${tst}, max-height ${tst}, height ${tst}, opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important`,
   },
   fullScreen: {
     maxHeight: '100%',

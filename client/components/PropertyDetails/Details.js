@@ -42,6 +42,7 @@ import PropertyImages from './Images';
 
 import DynamicAddUserToList from '@/Components/User/DynamicAddUserToList';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import DisplayJson from '../DisplayJson';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -238,6 +239,12 @@ const Details = props => {
           </Alert>
         </RehouserPaper>
       )}
+      {me.isAgent ||
+        (me.isWizard && (
+          <DisplayJson
+            title="Show property properties"
+            json={property}></DisplayJson>
+        ))}
       {isAgent && (
         <RehouserPaper attrs={{ disablePadding: true }}>
           <Alert severity="info">

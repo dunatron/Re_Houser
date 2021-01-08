@@ -2,28 +2,41 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Image from 'material-ui-image';
 
-import { Typography, Button } from '@material-ui/core';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Typography, ButtonGroup, Button } from '@material-ui/core';
+
 import IconButtonLoader from '@/Components/Loader/IconButtonLoader';
 
-import DownloadIcon from '@material-ui/icons/CloudDownload';
+import RenderType from '@/Components/UploadWidget/RenderType';
 
 import {
   FILE_GENERAL_TYPE_IMAGE,
   FILE_GENERAL_TYPE_DOCUMENT,
   findGenericFileType,
 } from '@/Lib/configs/fileConfigs';
+import TempGenericFileDetails from './TempGenericFileDetails';
 
 import { formatFileSizeUnits } from '@/Lib/formatFileSizeUnits';
 
 import Modal from '@/Components/Modal';
 import dynamic from 'next/dynamic';
+//icons
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import DownloadIcon from '@material-ui/icons/CloudDownload';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const DynamicPdfViewer = dynamic('./PdfViewer', {
   ssr: false,
 });
 
-const FilePreviewer = ({ files, remove, isRemoving, removingIds, flip }) => {
+const FilePreviewer = ({
+  files,
+  remove,
+  isRemoving,
+  removingIds,
+  flip,
+  disableActions,
+}) => {
+  const hasFiles = files.length > 0 ? true : false;
   return (
     <div
       style={{
@@ -31,15 +44,17 @@ const FilePreviewer = ({ files, remove, isRemoving, removingIds, flip }) => {
         display: 'flex',
         flexWrap: 'wrap',
       }}>
-      {files.length ? null : (
-        <Button onClick={flip}>No files attached. Add</Button>
-      )}
+      {hasFiles ? null : <Button onClick={flip}>No files attached. Add</Button>}
+      {disableActions && !hasFiles && <Typography>No Files </Typography>}
       {files.map((f, idx) => (
         <RenderFileType
+          disableActions={disableActions}
           key={idx}
           isRemoving={isRemoving}
           file={f}
-          remove={() => remove(f)}
+          remove={() => {
+            remove(f);
+          }}
           removingIds={removingIds}
         />
       ))}
@@ -54,7 +69,13 @@ FilePreviewer.propTypes = {
   removingIds: PropTypes.any,
 };
 
-const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
+const RenderFileType = ({
+  file,
+  remove,
+  isRemoving,
+  removingIds,
+  disableActions,
+}) => {
   if (!file) return null;
   const genericType = findGenericFileType(file);
 
@@ -84,18 +105,20 @@ const RenderFileType = ({ file, remove, isRemoving, removingIds }) => {
         border: '1px solid pink',
         position: 'relative',
       }}>
-      <IconButtonLoader
-        color="secondary"
-        onClick={remove}
-        loading={isBeingRemoved}
-        style={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          zIndex: 900,
-        }}>
-        <DeleteForeverIcon />
-      </IconButtonLoader>
+      {!disableActions && (
+        <IconButtonLoader
+          color="secondary"
+          onClick={remove}
+          loading={isBeingRemoved}
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            zIndex: 900,
+          }}>
+          <DeleteForeverIcon />
+        </IconButtonLoader>
+      )}
 
       {Componet}
     </div>
@@ -137,34 +160,46 @@ const RenderGenericDocument = ({ file }) => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
+          justifyContent: 'end',
+          flexDirection: 'column-reverse',
           height: '100%',
         }}>
         <Typography gutterBottom>{file.mimetype}</Typography>
         <Typography gutterBottom>{formatFileSizeUnits(file.bytes)}</Typography>
       </div>
-      <Button
-        startIcon={<DownloadIcon />}
-        size="small"
-        onClick={() => setPreview(true)}>
-        Preview
-      </Button>
+
+      <ButtonGroup
+        style={{
+          padding: '16px',
+        }}
+        orientation="vertical"
+        variant="text"
+        color="primary"
+        aria-label="text primary button group">
+        <Button
+          startIcon={<VisibilityIcon />}
+          size="small"
+          onClick={() => setPreview(true)}>
+          Preview
+        </Button>
+
+        <Button
+          href={file.url}
+          target="_blank"
+          startIcon={<DownloadIcon />}
+          size="small">
+          download
+        </Button>
+      </ButtonGroup>
       {preview && (
         <Modal
           open={preview}
           close={() => setPreview(false)}
-          title="PDF Previewer">
-          <DynamicPdfViewer fileUrl={file.url} />
+          title="File Details">
+          {/* <DynamicPdfViewer fileUrl={file.url} /> */}
+          <TempGenericFileDetails file={file} />
         </Modal>
       )}
-      <Button
-        href={file.url}
-        target="_blank"
-        startIcon={<DownloadIcon />}
-        size="small">
-        download
-      </Button>
     </div>
   );
 };

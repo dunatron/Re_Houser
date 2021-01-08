@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import Alert from '@material-ui/lab/Alert';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {
   INSULATION_FORM_QUERY,
@@ -67,6 +68,10 @@ const InsulationStatementForm = ({
 }) => {
   const classes = useStyles();
   const [open, setIsOpen] = useState(false);
+
+  const { insulationStatementFile, insulationProof } = property;
+
+  const requiresRehouser = insulationProof === 'REHOUSER';
 
   const [loadForm, { called, loading, data }] = useLazyQuery(
     INSULATION_FORM_QUERY,
@@ -177,98 +182,135 @@ const InsulationStatementForm = ({
     [classes.buttonSuccess]: false,
   });
 
+  const _hasvalidInsulationStatement = () => {
+    if (insulationFormId) return true;
+    if (insulationStatementFile) return true;
+    return false;
+  };
+
+  const hasvalidInsulationStatement = _hasvalidInsulationStatement();
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'start',
-      }}>
-      <AssignmentIcon
+    <div>
+      {!hasvalidInsulationStatement && (
+        <div>
+          <Typography variant="body1" gutterBottom>
+            You need a valid insulation statement. You can either fill out the
+            form or upload a copy of the landlords insulation statement if they
+            have one
+          </Typography>
+          {requiresRehouser && (
+            <Alert severity="info">
+              <Typography variant="body1">
+                The owner has requested that Rehouser handle the insulation
+                statement
+              </Typography>
+            </Alert>
+          )}
+        </div>
+      )}
+      {hasvalidInsulationStatement && (
+        <Typography variant="body1">
+          Property has a valid insulation statement
+        </Typography>
+      )}
+      <div
         style={{
-          margin: '16px 0 16px 16px',
-        }}
-      />
-      {/* {called && 'Has been called'}
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'start',
+        }}>
+        <AssignmentIcon
+          style={{
+            margin: '16px 0 16px 16px',
+          }}
+        />
+        {/* {called && 'Has been called'}
       {loading && 'Is loading lazy'} */}
-      {/* {!insulationFormId && <AddIcon onClick={() => setIsOpen(true)} />} */}
-      {!insulationFormId && (
-        <div className={classes.wrapper}>
-          <IconButton
-            onClick={() => setIsOpen(true)}
-            className={buttonClassname}
-            color="secondary">
-            <AddIcon />
-          </IconButton>
-          {/* <CircularProgress size={58} className={classes.fabProgress} /> */}
-          {loading && (
-            <CircularProgress size={58} className={classes.fabProgress} />
-          )}
-        </div>
-      )}
-      {insulationFormId && (
-        // <IconButton onClick={() => (called ? setIsOpen(true) : loadForm())}>
+        {/* {!insulationFormId && <AddIcon onClick={() => setIsOpen(true)} />} */}
+        {!insulationFormId && (
+          <div className={classes.wrapper}>
+            <IconButton
+              onClick={() => setIsOpen(true)}
+              className={buttonClassname}
+              color="secondary">
+              <AddIcon />
+            </IconButton>
+            {/* <CircularProgress size={58} className={classes.fabProgress} /> */}
+            {loading && (
+              <CircularProgress size={58} className={classes.fabProgress} />
+            )}
+          </div>
+        )}
+        {insulationFormId && (
+          // <IconButton onClick={() => (called ? setIsOpen(true) : loadForm())}>
 
-        <div className={classes.wrapper}>
-          <IconButton
-            onClick={() => loadForm()}
-            className={buttonClassname}
-            color="secondary">
-            <EditIcon />
-          </IconButton>
-          {/* <CircularProgress size={58} className={classes.fabProgress} /> */}
-          {loading && (
-            <CircularProgress size={58} className={classes.fabProgress} />
-          )}
-        </div>
-      )}
+          <div className={classes.wrapper}>
+            <IconButton
+              onClick={() => loadForm()}
+              className={buttonClassname}
+              color="secondary">
+              <EditIcon />
+            </IconButton>
+            {/* <CircularProgress size={58} className={classes.fabProgress} /> */}
+            {loading && (
+              <CircularProgress size={58} className={classes.fabProgress} />
+            )}
+          </div>
+        )}
 
-      <Typography>Insulation Statement</Typography>
-      {insulationFormId ? (
-        <CheckIcon
-          color={'primary'}
-          style={{
-            margin: '16px',
+        <Typography>Insulation Statement</Typography>
+        {insulationFormId ? (
+          <CheckIcon
+            color={'primary'}
+            style={{
+              margin: '16px',
+            }}
+          />
+        ) : (
+          <CloseIcon
+            color={'secondary'}
+            style={{
+              margin: '16px',
+            }}
+          />
+        )}
+        <Modal
+          disableBackdrop={true}
+          open={open}
+          close={() => setIsOpen(false)}
+          title={`${
+            insulationFormId ? 'Edit' : 'Create'
+          } INSULATION STATEMENT Form`}>
+          <FormCreator
+            forceFormUpdates={true}
+            title="Insulation Form"
+            data={data ? data.insulationForm : null}
+            isNew={propertyId ? false : true}
+            // posting={updateInsulationFormProps.loading}
+            config={INSULATION_STATEMENT_FORM_CONF}
+            // data={{ wallCoverage: null }}
+            onSubmit={handleSubmittedData}
+          />
+          <Error error={createInsulationFormProps.error} />
+          <Error error={updateInsulationFormProps.error} />
+        </Modal>
+        <FileUploader
+          // files={[property.insulationStatementFile]}
+          files={
+            property.insulationStatementFile
+              ? [property.insulationStatementFile]
+              : []
+          }
+          fileParams={{
+            folder: `properties/${placeId}/insulationStatementFile`,
+            type: 'upload',
+            access_mode: 'public',
           }}
+          recieveFile={recieveFile}
         />
-      ) : (
-        <CloseIcon
-          color={'secondary'}
-          style={{
-            margin: '16px',
-          }}
-        />
-      )}
-      <Modal
-        disableBackdrop={true}
-        open={open}
-        close={() => setIsOpen(false)}
-        title={`${
-          insulationFormId ? 'Edit' : 'Create'
-        } INSULATION STATEMENT Form`}>
-        <FormCreator
-          forceFormUpdates={true}
-          title="Insulation Form"
-          data={data ? data.insulationForm : null}
-          isNew={propertyId ? false : true}
-          // posting={updateInsulationFormProps.loading}
-          config={INSULATION_STATEMENT_FORM_CONF}
-          // data={{ wallCoverage: null }}
-          onSubmit={handleSubmittedData}
-        />
-        <Error error={createInsulationFormProps.error} />
-        <Error error={updateInsulationFormProps.error} />
-      </Modal>
-      <FileUploader
-        files={[property.insulationStatementFile]}
-        fileParams={{
-          folder: `properties/${placeId}/insulationStatementFile`,
-          type: 'upload',
-          access_mode: 'public',
-        }}
-        recieveFile={recieveFile}
-      />
+      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import OwnerProperties from '@/Components/OwnerProperties/index';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import ConfirmEmail from '@/Components/ConfirmEmail';
 import PageHeader from '@/Components/PageHeader';

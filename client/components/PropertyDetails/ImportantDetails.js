@@ -34,11 +34,13 @@ const ImportantDetails = ({ property }) => {
         Important Info
       </Typography>
       <Alert
+        style={{ marginBottom: '16px' }}
         severity={onTheMarket ? 'success' : 'info'}
         icon={onTheMarket ? successIcon : badIcon}>
         <Typography>onTheMarket</Typography>
       </Alert>
       <Alert
+        style={{ marginBottom: '16px' }}
         severity={isLeased ? 'success' : 'info'}
         icon={isLeased ? successIcon : badIcon}>
         <Typography>Leased</Typography>
@@ -50,6 +52,7 @@ const ImportantDetails = ({ property }) => {
         )}
       </Alert>
       <Alert
+        style={{ marginBottom: '16px' }}
         severity={leaseId ? 'success' : 'info'}
         icon={leaseId ? successIcon : badIcon}>
         <Typography>current lease id: {leaseId}</Typography>

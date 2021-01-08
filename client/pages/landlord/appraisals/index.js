@@ -7,11 +7,19 @@ import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 const LandLordAppraisalsPage = ({ appData: { currentUser } }) => {
+  const me = currentUser.data ? currentUser.data.me : null;
+  const where = {
+    requestedBy: {
+      id: me.id,
+    },
+  };
+
   return (
     <PleaseSignIn
       currentUser={currentUser}
       message="Please Sign in to view: Landord Appraisals Page">
-      <AppraisalsTable />
+      {/* Let these load after 1st paint. i.e dont get it with serverside props */}
+      <AppraisalsTable where={where} enableAddressParams />
     </PleaseSignIn>
   );
 };

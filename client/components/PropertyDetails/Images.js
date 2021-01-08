@@ -92,9 +92,9 @@ const PropertyImages = ({ property, updateProperty }) => {
           });
         }}
       />
-      <CarouselSlider
+      {/* <CarouselSlider
         slides={property.images.map(imgObj => ({ ...imgObj, img: imgObj.url }))}
-      />
+      /> */}
     </div>
   );
 };

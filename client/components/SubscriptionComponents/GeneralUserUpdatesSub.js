@@ -18,6 +18,7 @@ const GeneralUserUpdatesSub = ({ userId }) => {
     },
 
     onSubscriptionData: ({ client, subscriptionData }) => {
+      if (!client) return;
       console.log('User subscriptionData => ', subscriptionData);
       const subDta = subscriptionData.data.userSub.node;
       // Subs shouldnt handle our private files in the cache
