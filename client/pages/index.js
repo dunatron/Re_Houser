@@ -29,7 +29,7 @@ const HomePageBannerBody = () => {
       <Typography
         variant="h1"
         style={{ marginBottom: '64px', textAlign: 'center' }}>
-        Welcome to Rehouser
+        Rehouser
       </Typography>
       <div
         style={{
