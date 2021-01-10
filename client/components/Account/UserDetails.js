@@ -35,14 +35,21 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     bottom: '16px',
     right: '16px',
-    zIndex: 10,
+    zIndex: 1200,
   },
 }));
 
 const UserDetails = ({ me }) => {
   const classes = useStyles();
   const [updates, setUpdates] = useState({});
-  const [updateUser, { error, loading }] = useMutation(UPDATE_USER_MUTATION);
+
+  const handleUpdateUserCompleted = data => {
+    setUpdates({});
+  };
+
+  const [updateUser, { error, loading }] = useMutation(UPDATE_USER_MUTATION, {
+    onCompleted: handleUpdateUserCompleted,
+  });
 
   const saveToUpdates = (name, val) => {
     setUpdates({ ...updates, [name]: val });

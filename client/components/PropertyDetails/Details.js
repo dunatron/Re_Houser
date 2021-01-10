@@ -44,6 +44,11 @@ import DynamicAddUserToList from '@/Components/User/DynamicAddUserToList';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import DisplayJson from '../DisplayJson';
 
+import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
+import EnumMultiSelectChip from '@/Components/Inputs/EnumMultiSelectChip';
+import { isEmpty } from 'ramda';
+import EditableDisplay from '@/Components/EditableDisplay';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -64,11 +69,19 @@ const useStyles = makeStyles(theme => ({
     marginTop: '16px',
     marginLeft: '16px',
   },
+  saveButtonContainer: {
+    position: 'fixed',
+    bottom: '16px',
+    right: '16px',
+    zIndex: 1200,
+  },
 }));
 
 const Details = props => {
   const { property, isAdmin, me, isOwner, isAgent } = props;
   const classes = useStyles();
+
+  const [updates, setUpdates] = useState({});
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
     mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
@@ -86,6 +99,8 @@ const Details = props => {
   const [updateProperty, updatePropertyPayload] = useMutation(
     PROPERTY_SINGLE_PROPERTY_MUTATION
   );
+
+  const _submitUpdates = () => {};
 
   const handleAddOwner = result =>
     updateProperty({
@@ -197,6 +212,16 @@ const Details = props => {
 
   return (
     <div>
+      {!isEmpty(updates) && (
+        <div className={classes.saveButtonContainer}>
+          <SaveButtonLoader
+            loading={updatePropertyPayload.loading}
+            onClick={() => {
+              _submitUpdates();
+            }}
+          />
+        </div>
+      )}
       {isOwner && (
         <RehouserPaper attrs={{ disablePadding: true }}>
           <Alert>
@@ -325,6 +350,84 @@ const Details = props => {
           }}
         />
       </RehouserPaper>
+      <RehouserPaper>
+        <EditableDisplay
+          item={{
+            type: 'DateTime',
+            key: 'createdAt',
+            value: property.createdAt,
+            label: 'Created At',
+            editable: false,
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'BankAccount',
+            key: 'bankDetails',
+            value: property.bankDetails,
+            label: 'Bank Details',
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'String',
+            key: 'location',
+            value: property.location,
+            label: 'Location',
+            editable: false,
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'Money',
+            key: 'rent',
+            value: property.rent,
+            label: 'Rent',
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'Boolean',
+            key: 'useAdvancedRent',
+            value: property.useAdvancedRent,
+            label: 'Use Advanced Rent',
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'SelectOneEnum',
+            key: 'type',
+            __type: 'PropertyType',
+            value: property.type,
+            label: 'Type',
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'SelectMultipleEnum',
+            key: 'heatSources',
+            __type: 'PropertyType',
+            value: property.heatSources,
+            label: 'Heat Sources',
+            fieldProps: {},
+          }}
+        />
+        <EditableDisplay
+          item={{
+            type: 'Int',
+            key: 'rooms',
+            value: property.rooms,
+            label: 'Rooms',
+            fieldProps: {},
+          }}
+        />
+      </RehouserPaper>
       <DetailItems
         title="Property Variables"
         property={property}
@@ -332,7 +435,7 @@ const Details = props => {
           {
             name: 'rent',
             label: 'Rent',
-            type: 'number',
+            type: 'money',
             icon: <CameraIcon color="default" />,
           },
           {
@@ -353,8 +456,32 @@ const Details = props => {
             type: 'int',
             icon: <CameraIcon color="default" />,
           },
+          {
+            name: 'chattels',
+            label: 'chattels',
+            type: 'enum',
+            fieldProps: {
+              __type: '',
+              variant: 'multi',
+            },
+            icon: <CameraIcon color="default" />,
+          },
         ]}
       />
+
+      <RehouserPaper>
+        <EnumMultiSelectChip
+          label="Chattels"
+          __type="PropertyChattel"
+          values={updates.chattels ? updates.chattels : property.chattels}
+          handleChange={values => {
+            setUpdates({
+              ...updates,
+              chattels: values,
+            });
+          }}
+        />
+      </RehouserPaper>
       <RehouserPaper>
         <LeaseLength
           title="Lease will be for"

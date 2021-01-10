@@ -32,6 +32,9 @@ const renderValue = (value, type) => {
     }
     return 'No';
   }
+  if (type === 'enum') {
+    return <div>ToDo: enum display val variant oneOf(single, multi)</div>;
+  }
   // if (type === 'date') {
   // }
   return value;
