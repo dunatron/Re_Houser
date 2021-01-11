@@ -53,7 +53,7 @@ module.exports = withPWA(
             '@/Components': path.resolve(__dirname, 'components/'),
             '@/AdminComponents': path.resolve(__dirname, 'admin-components/'),
             '@/Containers': path.resolve(__dirname, 'containers/'),
-            '@/Styles': path.resolve(__dirname, 'admin-components/'),
+            '@/Styles': path.resolve(__dirname, 'styles/'),
             '@/Lib': path.resolve(__dirname, 'lib/'),
             '@/Gql': path.resolve(__dirname, 'graphql/'),
             '@/Store': path.resolve(__dirname, 'store/'),

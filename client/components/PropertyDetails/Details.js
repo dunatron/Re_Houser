@@ -47,7 +47,10 @@ import DisplayJson from '../DisplayJson';
 import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
 import EnumMultiSelectChip from '@/Components/Inputs/EnumMultiSelectChip';
 import { isEmpty } from 'ramda';
+import EditableDisplayItems from '@/Components/EditableDisplay/EditableDisplayItems';
 import EditableDisplay from '@/Components/EditableDisplay';
+
+import PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF from '@/Lib/configs/editableDisplays/propertyDetails';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -351,81 +354,11 @@ const Details = props => {
         />
       </RehouserPaper>
       <RehouserPaper>
-        <EditableDisplay
-          item={{
-            type: 'DateTime',
-            key: 'createdAt',
-            value: property.createdAt,
-            label: 'Created At',
-            editable: false,
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'BankAccount',
-            key: 'bankDetails',
-            value: property.bankDetails,
-            label: 'Bank Details',
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'String',
-            key: 'location',
-            value: property.location,
-            label: 'Location',
-            editable: false,
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'Money',
-            key: 'rent',
-            value: property.rent,
-            label: 'Rent',
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'Boolean',
-            key: 'useAdvancedRent',
-            value: property.useAdvancedRent,
-            label: 'Use Advanced Rent',
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'SelectOneEnum',
-            key: 'type',
-            __type: 'PropertyType',
-            value: property.type,
-            label: 'Type',
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'SelectMultipleEnum',
-            key: 'heatSources',
-            __type: 'PropertyType',
-            value: property.heatSources,
-            label: 'Heat Sources',
-            fieldProps: {},
-          }}
-        />
-        <EditableDisplay
-          item={{
-            type: 'Int',
-            key: 'rooms',
-            value: property.rooms,
-            label: 'Rooms',
-            fieldProps: {},
-          }}
+        <EditableDisplayItems
+          __typename="Property"
+          data={property}
+          items={PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF}
+          where={{ id: property.id }}
         />
       </RehouserPaper>
       <DetailItems

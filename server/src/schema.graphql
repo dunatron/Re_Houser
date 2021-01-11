@@ -123,8 +123,10 @@ type Mutation {
     where: RentalAppraisalWhereUniqueInput!
   ): RentalAppraisal
   createProperty(data: PropertyCreateInput!): Property
-  # updateProperty(id: ID!, onTheMarket: Boolean): Property!
-  updateProperty(id: ID!, data: PropertyUpdateInput!): Property!
+  updateProperty(
+    data: PropertyUpdateInput!
+    where: PropertyWhereUniqueInput!
+  ): Property!
   updateInsulationForm(
     data: InsulationFormUpdateInput!
     where: InsulationFormWhereUniqueInput!
