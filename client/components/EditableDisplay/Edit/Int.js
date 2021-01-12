@@ -1,9 +1,9 @@
-import { TextField } from '@material-ui/core';
+import TextInput from '@/Components/Inputs/TextInput';
 
 const IntEdit = ({ item, onChange }) => {
   return (
     <div>
-      <TextField
+      <TextInput
         id={`${item.key}-int-edit-field`}
         type="number"
         label={item.label}

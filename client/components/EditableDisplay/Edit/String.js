@@ -1,9 +1,10 @@
-import { TextField } from '@material-ui/core';
+// import { TextField } from '@material-ui/core';
+import TextInput from '@/Components/Inputs/TextInput';
 
 const StringEdit = ({ item, onChange }) => {
   return (
     <div>
-      <TextField
+      <TextInput
         id={`${item.key}-string-edit-field`}
         label={item.label}
         variant="standard"

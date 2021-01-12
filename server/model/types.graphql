@@ -1,8 +1,10 @@
 type User {
   id: ID! @unique @id
   friends: [User!]!
-  friendRequests: [FriendRequest!]! @relation(name: "PendingFriendRequests")
-  awaitingFriends: [FriendRequest!]! @relation(name: "AwaitingFriendRequests")
+  friendRequests: [FriendRequest!]!
+    @relation(name: "PendingFriendRequests", onDelete: CASCADE)
+  awaitingFriends: [FriendRequest!]!
+    @relation(name: "AwaitingFriendRequests", onDelete: CASCADE)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   dob: DateTime
@@ -10,26 +12,33 @@ type User {
   lastName: String!
   phone: String!
   email: String! @unique
-  emailValidated: Boolean
+  emailValidated: Boolean @default(value: false)
   password: String!
   resetToken: String
   resetTokenExpiry: Float
   confirmEmailToken: String
   confirmEmailTokenExpiry: Float
   permissions: [Permission] @scalarList(strategy: RELATION)
-  properties: [Property!]! @relation(name: "PropertyOwner")
-  managedProperties: [Property!]! @relation(name: "PropertyAgents")
-  lesseeLeases: [Lessee!]! @relation(name: "UserLesseeLeases")
-  lessorLeases: [Lessor!]! @relation(name: "UserLessorLeases")
-  createdProperties: [Property!]! @relation(name: "PropertyCreator")
-  photoIdentification: File @relation(name: "UserPhotoId", link: TABLE)
+  properties: [Property!]! @relation(name: "PropertyOwner", onDelete: SET_NULL)
+  managedProperties: [Property!]!
+    @relation(name: "PropertyAgents", onDelete: SET_NULL)
+  lesseeLeases: [Lessee!]!
+    @relation(name: "UserLesseeLeases", onDelete: SET_NULL)
+  lessorLeases: [Lessor!]!
+    @relation(name: "UserLessorLeases", onDelete: SET_NULL)
+  createdProperties: [Property!]!
+    @relation(name: "PropertyCreator", onDelete: SET_NULL)
+  photoIdentification: File
+    @relation(name: "UserPhotoId", link: TABLE, onDelete: CASCADE)
   photoIdType: PhotoIdType
-  profilePhoto: File @relation(name: "UserProfilePhoto", link: TABLE)
+  profilePhoto: File
+    @relation(name: "UserProfilePhoto", link: TABLE, onDelete: CASCADE)
   identificationNumber: String
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referees: [Referee] @relation(name: "UserReferees", link: TABLE)
+  referees: [Referee]
+    @relation(name: "UserReferees", link: TABLE, onDelete: CASCADE)
   referee1Relationhip: String
   referee1Name: String
   referee1Phone: String
@@ -38,24 +47,33 @@ type User {
   referee2Name: String
   referee2Phone: String
   referee2Email: String
-  creditCards: [CreditCard!]! @relation(name: "UserCreditCards")
+  creditCards: [CreditCard!]!
+    @relation(name: "UserCreditCards", onDelete: CASCADE)
   primaryCreditCard: CreditCard @relation(name: "UserPrimaryCreditCard")
-  chats: [Chat!]! @relation(name: "UserChats")
-  sentMessages: [Message!]! @relation(name: "UserSentMessages")
-  recievedMessages: [Message!]! @relation(name: "UserRecievedMessages")
+  chats: [Chat!]! @relation(name: "UserChats", onDelete: SET_NULL)
+  sentMessages: [Message!]!
+    @relation(name: "UserSentMessages", onDelete: SET_NULL)
+  recievedMessages: [Message!]!
+    @relation(name: "UserRecievedMessages", onDelete: SET_NULL)
   rehouserStamp: Boolean
   signature: File @relation(name: "UserSignature", link: TABLE)
-  activity: [Activity!]! @relation(name: "UserActivity")
-  involvedActivity: [Activity!]! @relation(name: "InvolvedActivity")
+  activity: [Activity!]! @relation(name: "UserActivity", onDelete: SET_NULL)
+  involvedActivity: [Activity!]!
+    @relation(name: "InvolvedActivity", onDelete: SET_NULL)
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
-  currentAddress: Address @relation(name: "CurrentUserAddress", link: TABLE)
-  proofOfAddress: File @relation(name: "UserProofOfAddress", link: TABLE)
+  currentAddress: Address
+    @relation(name: "CurrentUserAddress", link: TABLE, onDelete: CASCADE)
+  proofOfAddress: File
+    @relation(name: "UserProofOfAddress", link: TABLE, onDelete: CASCADE)
   acceptedSignupTerms: Boolean!
-  adminSettings: AdminSetting! @relation(name: "UserAdminSettings", link: TABLE)
-  viewings: [Viewing!]! @relation(name: "HostViewings")
+  adminSettings: AdminSetting!
+    @relation(name: "UserAdminSettings", link: TABLE, onDelete: CASCADE)
+  viewings: [Viewing!]! @relation(name: "HostViewings", onDelete: SET_NULL)
   acceptedTermsOfEngagement: Boolean
-  bankDetails: BankDetail @relation(name: "UserBankDetails", link: TABLE)
-  inspections: [Inspection] @relation(name: "InspectionInspector", link: TABLE)
+  bankDetails: BankDetail
+    @relation(name: "UserBankDetails", link: TABLE, onDelete: CASCADE)
+  inspections: [Inspection]
+    @relation(name: "InspectionInspector", link: TABLE, onDelete: SET_NULL)
   bondLodgementNumber: String
 }
 
@@ -219,6 +237,7 @@ type File {
 
 type Property implements PropertyInfo {
   id: ID! @unique @id # google placesId is too looong look below
+  refId: String @unique
   placeId: String! @unique
   location: String!
   locationLat: Float!
@@ -313,6 +332,7 @@ type PropertyAssist {
 
 type Viewing {
   id: ID! @unique @id
+  refId: String @unique
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   dateTime: DateTime!
@@ -326,6 +346,7 @@ type Viewing {
 
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
+  refId: String @unique
   stage: LeaseStage!
   property: Property! @relation(name: "PropertyLeases")
   placeId: String!

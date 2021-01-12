@@ -7,6 +7,8 @@ async function createPropertyLease(parent, { data }, ctx, info) {
   // just highlohting we need to dp something herte
   const recievedData = data;
 
+  const refId = "";
+
   const newLease = await ctx.db.mutation.createPropertyLease(
     {
       data: {

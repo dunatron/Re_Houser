@@ -8,6 +8,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    margin: theme.spacing(1, 0),
   },
 });
 
@@ -15,6 +16,7 @@ const TextInput = props => {
   const { classes, value, onChange } = props;
   return (
     <TextField
+      className={classes.root}
       id="standard-name"
       label="Name"
       value={value}
