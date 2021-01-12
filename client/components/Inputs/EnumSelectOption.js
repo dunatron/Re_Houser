@@ -37,6 +37,9 @@ const EnumSelectOption = props => {
   if (loading) return null;
   if (error) return null;
 
+  if (!data) return 'No EnumList Returned please contact support';
+  if (!data.__type) return 'No EnumList Returned please contact support';
+
   return (
     <FormControl className={classes.formControl} fullWidth>
       {label && <InputLabel htmlFor={selectID}>{label}</InputLabel>}
@@ -64,7 +67,7 @@ EnumSelectOption.propTypes = {
   __type: PropTypes.any,
   classes: PropTypes.shape({
     formControl: PropTypes.any,
-    selectEmpty: PropTypes.any
+    selectEmpty: PropTypes.any,
   }).isRequired,
   defaultValue: PropTypes.any,
   handleChange: PropTypes.func.isRequired,
@@ -72,7 +75,7 @@ EnumSelectOption.propTypes = {
   label: PropTypes.any,
   name: PropTypes.any,
   selectID: PropTypes.any,
-  value: PropTypes.any
+  value: PropTypes.any,
 };
 
 export default withStyles(styles)(EnumSelectOption);

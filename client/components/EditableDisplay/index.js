@@ -8,13 +8,24 @@
  */
 import { useState, useEffect } from 'react';
 
-import { Collapse, Fade, Typography, IconButton } from '@material-ui/core';
+import {
+  Collapse,
+  Fade,
+  Typography,
+  ButtonGroup,
+  IconButton,
+  Button,
+  Divider,
+} from '@material-ui/core';
 import { useMutation } from '@apollo/client';
+
+import clsx from 'clsx';
 
 // icons
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
+import UndoIcon from '@material-ui/icons/Undo';
 
 import Error from '@/Components/ErrorMessage';
 
@@ -23,6 +34,8 @@ import EditValue from './Edit';
 
 import getMutation from './getMutation';
 import useStyles from './useStyles';
+
+import SaveButtonLoader from '@/Components/Loader/SaveButtonLoader';
 
 const EditableDisplay = ({ item }) => {
   // item props
@@ -74,6 +87,18 @@ const EditableDisplay = ({ item }) => {
 
   const handleOnChange = value => setState({ ...state, updateVal: value });
 
+  const handleReset = () =>
+    setState({ ...state, updateVal: state.originalVal });
+
+  const _canSave = () => {
+    state.updateVal !== null && state.editing;
+    if (state.updateVal === null) return false;
+    if (state.updateVal === state.originalVal) return false;
+    if (state.editing) return true;
+  };
+
+  const canSave = _canSave();
+
   const handleSaveButtonClick = () =>
     save({
       variables: {
@@ -86,26 +111,49 @@ const EditableDisplay = ({ item }) => {
       },
     });
 
+  const editableDisplayClasses = clsx(
+    classes.editableDisplay,
+    state.editing && classes.isEditing
+  );
+
+  const displayHeaderClasses = clsx(
+    classes.displayHeader,
+    state.editing && classes.displayHeaderEditing
+  );
+
+  const headerActionClasses = clsx(
+    classes.headerActions,
+    state.editing && classes.headerActionsEditing
+  );
+
   return (
-    <div className={classes.editableDisplay}>
-      <div className={classes.displayHeader}>
+    <div className={editableDisplayClasses}>
+      <div className={displayHeaderClasses}>
         <Typography variant="body1">{label}</Typography>
-        {saveProps.loading && <div>Saving</div>}
-        {state.updateVal !== null && state.editing && (
-          <IconButton size="small" onClick={handleSaveButtonClick}>
-            <SaveIcon fontSize="small" />
-          </IconButton>
-        )}
-        {!state.editing && editable && (
-          <IconButton size="small" onClick={openEditing}>
-            <EditIcon fontSize="small" />
-          </IconButton>
-        )}
-        {state.editing && (
-          <IconButton size="small" onClick={closeEditng}>
-            <CloseIcon fontSize="small" />
-          </IconButton>
-        )}
+        <div className={headerActionClasses}>
+          {canSave && (
+            <SaveButtonLoader
+              size="small"
+              loading={saveProps.loading}
+              onClick={handleSaveButtonClick}
+            />
+          )}
+          {canSave && (
+            <IconButton size="small" onClick={handleReset}>
+              <UndoIcon fontSize="small" />
+            </IconButton>
+          )}
+          {!state.editing && editable && (
+            <IconButton size="small" onClick={openEditing}>
+              <EditIcon fontSize="small" />
+            </IconButton>
+          )}
+          {state.editing && (
+            <IconButton size="small" onClick={closeEditng}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          )}
+        </div>
       </div>
       <Collapse in={!state.editing}>
         <ViewValue item={item} />
@@ -116,11 +164,19 @@ const EditableDisplay = ({ item }) => {
           editing={state.editing}
           onChange={handleOnChange}
         />
+        <ButtonGroup
+          style={{ marginBottom: '16px' }}
+          disabled={saveProps.loading}
+          color="secondary"
+          aria-label="outlined secondary button group">
+          {canSave && <Button onClick={handleSaveButtonClick}>Save</Button>}
+          {canSave && <Button onClick={handleReset}>Reset</Button>}
+          <Button onClick={closeEditng}>Stop Editing</Button>
+        </ButtonGroup>
       </Collapse>
       <Error error={saveProps.error} />
     </div>
   );
 };
-
 
 export default EditableDisplay;

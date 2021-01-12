@@ -4,10 +4,10 @@ const StringEdit = ({ item, onChange }) => {
   return (
     <div>
       <TextField
-        id="filled-secondary"
-        label="Filled secondary"
-        variant="filled"
-        color="secondary"
+        id={`${item.key}-string-edit-field`}
+        label={item.label}
+        variant="standard"
+        color="primary"
         defaultValue={item.value}
         onChange={e => onChange(e.target.value)}
       />

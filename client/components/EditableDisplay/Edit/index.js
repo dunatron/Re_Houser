@@ -12,6 +12,11 @@ import useEditStyles from './useEditStyles';
 // Edits
 import StringEdit from './String';
 import IntEdit from './Int';
+import DateEdit from './Date';
+import BooleanEdit from './Boolean';
+import MoneyEdit from './Money';
+import SelectOneEnumEdit from './SelectOneEnum';
+import SelectMultipleEnumEdit from './SelectMultipleEnum';
 
 /**
  * case String ✔️
@@ -21,18 +26,18 @@ import IntEdit from './Int';
  * case SelectOneWithText
  * case CheckMultipleWithText
  * case Entity
- * case SelectMultipleEnum ✔️
- * case SelectOneEnum ✔️
+ * case SelectMultipleEnum
+ * case SelectOneEnum
  * case Location
- * case Boolean ✔️
+ * case Boolean
  * case Checkbox
- * case Money ✔️
+ * case Money
  * case BankAccount
  * case Phone
  * case Int ✔️
  * case Float
- * case Date ✔️
- * case DateTime ✔️
+ * case Date
+ * case DateTime
  * case AcceptTerms
  * case Info
  * case File
@@ -49,8 +54,21 @@ const EditableDisplayEdit = ({ item, onChange }) => {
         return <StringEdit item={item} onChange={onChange} />;
       case 'Int':
         return <IntEdit item={item} onChange={onChange} />;
+      case 'Date':
+        return <DateEdit item={item} onChange={onChange} />;
+      case 'DateTime':
+        return <DateEdit item={item} onChange={onChange} />;
+      case 'Boolean':
+        return <BooleanEdit item={item} onChange={onChange} />;
+      case 'Money':
+        return <MoneyEdit item={item} onChange={onChange} />;
+      case 'SelectOneEnum':
+        return <SelectOneEnumEdit item={item} onChange={onChange} />;
+      case 'SelectMultipleEnum':
+        return <SelectMultipleEnumEdit item={item} onChange={onChange} />;
+
       default:
-        return <StringEdit item={item} onChange={onChange} />;
+        return <div>Cannot render type: {type}</div>;
     }
   };
   return <div>{TypeToRender()}</div>;

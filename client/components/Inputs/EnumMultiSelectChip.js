@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,13 +11,15 @@ import LabelIcon from '@material-ui/icons/Label';
 import { useQuery } from '@apollo/client';
 import { GET_ENUM_QUERY } from '@/Gql/queries';
 
+import { is } from 'ramda';
+
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(1, 0),
     minWidth: 220,
     maxWidth: 300,
   },
@@ -47,6 +49,16 @@ const EnumMultiSelectChip = ({
       name: __type,
     },
   });
+
+  const [state, setState] = useState({
+    values: values,
+  });
+
+  useEffect(() => {
+    if (values !== state.values) setState({ ...state, values: values });
+    return () => {};
+  }, [values]);
+
   if (loading) return null;
   if (error) return null;
   const options = data
@@ -55,13 +67,23 @@ const EnumMultiSelectChip = ({
         value: v.name,
       }))
     : [];
+
+  const handleInternalChange = e => {
+    setState({
+      ...state,
+      values: e.target.value,
+    });
+    handleChange(e.target.value);
+  };
+
+  if (!is(Array, state.values)) return <div>You must pass in an array</div>;
   return (
     <FormControl className={classes.formControl}>
       <InputLabel htmlFor={selectID}>{label}</InputLabel>
       <Select
         multiple={true}
-        value={values}
-        onChange={e => handleChange(e.target.value)}
+        value={state.values}
+        onChange={handleInternalChange}
         inputProps={{
           name: selectID,
           id: selectID,
@@ -103,15 +125,15 @@ EnumMultiSelectChip.propTypes = {
   classes: PropTypes.shape({
     chip: PropTypes.any,
     chips: PropTypes.any,
-    formControl: PropTypes.any
+    formControl: PropTypes.any,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   label: PropTypes.shape({
-    name: PropTypes.any
+    name: PropTypes.any,
   }).isRequired,
   removeItem: PropTypes.func.isRequired,
   selectID: PropTypes.any,
-  values: PropTypes.any
+  values: PropTypes.any,
 };
 
 export default withStyles(styles)(EnumMultiSelectChip);

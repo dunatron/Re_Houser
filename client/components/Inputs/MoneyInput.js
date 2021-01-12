@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MaskedInput from 'react-text-mask';
 import NumberFormat from 'react-number-format';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import TextField from '@material-ui/core/TextField';
-import TextInput from '../../Inputs/TextInput';
-import FormControl from '@material-ui/core/FormControl';
+import TextInput from './TextInput';
 
 function TextMaskCustom(props) {
   const { inputRef, ...other } = props;
@@ -71,39 +67,25 @@ NumberFormatCustom.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-const MoneyField = props => {
-  const {
-    config,
-    onChange,
-    register,
-    errors,
-    getValues,
-    setValue,
-    reset,
-    defaultValues,
-    defaultValue,
-    updateCacheOnRemovedFile,
-    fieldError,
-  } = props;
-  const { type, fieldProps, refConf } = config;
+const MoneyInput = props => {
+  const { onChange, defaultValue, value, fieldProps, ...rest } = props;
 
   return (
     <TextInput
-      variant="outlined"
-      defaultValue={defaultValues[fieldProps.name]}
-      inputRef={register ? register(refConf) : null}
+      variant="standard"
+      defaultValue={defaultValue}
       style={{ marginTop: 0 }}
-      {...fieldProps}
-      error={fieldError ? true : false}
-      helperText={fieldError}
       InputProps={{
         inputComponent: NumberFormatCustom,
       }}
+      onChange={onChange}
+      {...rest}
+      {...fieldProps}
     />
   );
 };
 
-MoneyField.propTypes = {
+MoneyInput.propTypes = {
   config: PropTypes.any,
   defaultValue: PropTypes.any,
   defaultValues: PropTypes.any,
@@ -117,4 +99,4 @@ MoneyField.propTypes = {
   updateCacheOnRemovedFile: PropTypes.any,
 };
 
-export default MoneyField;
+export default MoneyInput;

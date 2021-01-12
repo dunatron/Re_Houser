@@ -54,8 +54,8 @@ const RenderBtnText = ({ success, text, successText }) => {
 RenderBtnText.propTypes = {
   success: PropTypes.any,
   successText: PropTypes.any,
-  text: PropTypes.any
-}
+  text: PropTypes.any,
+};
 
 const SaveButtonLoader = ({
   loading,
@@ -64,22 +64,37 @@ const SaveButtonLoader = ({
   text,
   successText,
   disabled,
+  size,
 }) => {
   const classes = useStyles();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
   });
 
+  const _getIconSize = () => {
+    if (size === 'large') return 'large';
+    if (size === 'medium') return 'large';
+    if (size === 'small') return 'small';
+    return 'default';
+  };
+
+  const iconSize = _getIconSize();
+
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
         <Fab
+          size={size ? size : 'large'}
           disabled={disabled}
           aria-label="save"
           color="primary"
           className={buttonClassname}
           onClick={onClick}>
-          {success ? <CheckIcon /> : <SaveIcon />}
+          {success ? (
+            <CheckIcon fontSize={iconSize} />
+          ) : (
+            <SaveIcon fontSize={iconSize} />
+          )}
         </Fab>
         {loading && (
           <CircularProgress size={68} className={classes.fabProgress} />
@@ -95,7 +110,7 @@ SaveButtonLoader.propTypes = {
   onClick: PropTypes.func.isRequired,
   success: PropTypes.bool.isRequired,
   successText: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };
 
 export default SaveButtonLoader;

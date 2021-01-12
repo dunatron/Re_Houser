@@ -1,126 +1,67 @@
-// import PropTypes from 'prop-types';
-// import React from 'react';
-// import { withStyles } from '@material-ui/core/styles';
-// import PasswordField from 'material-ui-password-field';
-
-// // just use valid hml5 => https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types
-// const styles = theme => ({
-//   //   root: {
-//   //     display: 'flex',
-//   //     flexWrap: 'wrap',
-//   //   },
-// });
-
-// const PasswordInput = props => {
-//   const { classes, value, onChange } = props;
-//   return (
-//     <PasswordField
-//       // password props
-//       hintText="At least 8 characters"
-//       floatingLabelText="Enter your password"
-//       errorText="Your password is too short"
-//       value={value}
-//       onChange={onChange}
-//       //   margin="normal"
-//       {...props}
-//     />
-//   );
-// };
-
-// PasswordInput.propTypes = {
-//   classes: PropTypes.any,
-//   onChange: PropTypes.any,
-//   value: PropTypes.any,
-// };
-
-// export default withStyles(styles)(PasswordInput);
-
-import React from 'react';
-import PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { useState } from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-// import ToggleIcon from 'material-ui-toggle-icon';
 
-const styles = {
-  root: {},
-  input: {},
-  iconButton: {},
-  icon: {},
-};
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing(1, 0, 1, 0),
+  },
+}));
 
-class PasswordField extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: props.visible,
-    };
-  }
+export default function PasswordField(props) {
+  const {
+    id,
+    buttonDisabled,
+    visible: visibleProp, // eslint-disable-line
+    ...other
+  } = props;
+  const classes = useStyles();
+  const [values, setValues] = useState({
+    showPassword: false,
+  });
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.visible !== prevState.prevPropVisible) {
-      return { visible: nextProps.visible, prevPropVisible: nextProps.visible };
-    }
-    return null;
-  }
-
-  /**
-   * Toogles the visibility the password.
-   * @public
-   */
-  toggleVisibility = () => {
-    this.setState(({ visible }) => ({
-      visible: !visible,
-    }));
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  handleButtonMouseDown = e => {
-    e.preventDefault();
+  const handleMouseDownPassword = event => {
+    event.preventDefault();
   };
 
-  render() {
-    const {
-      classes,
-      buttonDisabled,
-      visible: visibleProp, // eslint-disable-line
-      ...other
-    } = this.props;
-
-    const { visible } = this.state;
-
-    return (
+  return (
+    <FormControl
+      className={clsx(classes.margin, classes.textField)}
+      fullWidth={true}>
+      <InputLabel htmlFor={`standard-adornment-password-${id}`}>
+        Password
+      </InputLabel>
       <Input
+        fullWidth={true}
         {...other}
-        classes={{ root: classes.root, input: classes.input }}
-        type={this.state.visible ? 'text' : 'password'}
+        id={`standard-adornment-password-${id}`}
+        type={values.showPassword ? 'text' : 'password'}
         endAdornment={
-          <InputAdornment position="end" className={classes.adornment}>
+          <InputAdornment position="end">
             <IconButton
-              className={classes.iconButton}
-              onClick={this.toggleVisibility}
-              onMouseDown={this.handleButtonMouseDown}
-              disabled={other.disabled || buttonDisabled}>
-              {visible ? <Visibility /> : <VisibilityOff />}
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}>
+              {values.showPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
         }
       />
-    );
-  }
+    </FormControl>
+  );
 }
-
-PasswordField.defaultProps = {
-  buttonDisabled: false,
-  visible: false,
-};
-
-PasswordField.propTypes = {
-  ...Input.propTypes,
-  buttonDisabled: PropTypes.bool,
-  visible: PropTypes.bool,
-};
-
-export default withStyles(styles)(PasswordField);

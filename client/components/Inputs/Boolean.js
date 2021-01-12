@@ -39,14 +39,14 @@ const BooleanInput = ({
 
 BooleanInput.propTypes = {
   classes: PropTypes.shape({
-    wrapper: PropTypes.any
+    wrapper: PropTypes.any,
   }).isRequired,
   defaultChecked: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
   handleChange: PropTypes.func.isRequired,
   helperText: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(BooleanInput);

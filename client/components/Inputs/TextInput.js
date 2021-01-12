@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -28,7 +28,7 @@ const TextInput = props => {
 TextInput.propTypes = {
   classes: PropTypes.any,
   onChange: PropTypes.any,
-  value: PropTypes.any
-}
+  value: PropTypes.any,
+};
 
 export default withStyles(styles)(TextInput);
