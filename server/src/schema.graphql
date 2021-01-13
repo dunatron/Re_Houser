@@ -188,6 +188,11 @@ type Mutation {
     where: InspectionWhereUniqueInput!
   ): Inspection
   inviteUser(data: InviteUserParams!): SuccessMessage!
+  addBankTransferToLease(
+    bankRef: String!
+    amount: Float!
+    recievedDate: DateTime
+  ): Payment!
 }
 
 type Subscription {

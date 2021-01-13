@@ -4,6 +4,7 @@ import { PropertyInfoFragment } from '../fragments/propertyInfo';
 const PropertyLeaseInfoFragment = gql`
   fragment propertyLeaseInfo on PropertyLease {
     id
+    bankRef
     stage
     tenancyType
     updatedAt

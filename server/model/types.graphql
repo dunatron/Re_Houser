@@ -252,7 +252,7 @@ type Property implements PropertyInfo {
   maximumOccupants: Int
   rent: Float!
   tenancyType: TenancyType
-  bondType: BondType
+  bondType: BondType @default(value: WEEKS_RENT_2)
   lowestRoomPrice: Float
   highestRoomPrice: Float
   useAdvancedRent: Boolean

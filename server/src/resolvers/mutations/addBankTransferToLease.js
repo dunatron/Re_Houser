@@ -38,6 +38,8 @@ async function addBankTransferToLease(parent, args, ctx, info) {
     throw new Error("You must be logged in!");
   }
 
+  throw new Error("To Complete");
+
   return newViewing;
 }
 

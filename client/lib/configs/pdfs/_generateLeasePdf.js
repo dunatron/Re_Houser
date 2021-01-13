@@ -4,6 +4,20 @@ import { formatCentsToDollarsVal } from '../../formatCentsToDollars';
 import moment from 'moment';
 import prettyEnumVal from '../../prettyEnumVal';
 
+import {
+  COMPANY_BANK_BANKING_NUMBER,
+  COMPANY_BANK_BRANCH_NUMBER,
+  COMPANY_BANK_ACCOUNT_NUMBER,
+  COMPANY_BANK_SUFFIX,
+  COMPANY_BANK_NAME,
+  COMPANY_BANK_ACCOUNT_NAME,
+  COMPANY_BANK_BRANCH_NAME,
+  CEO_EMAIL,
+  CEO_PHONE,
+  COMPANY_LEGAL_NAME,
+  COMPANY_SERVICE_ADDRESS,
+} from '@/Lib/const';
+
 const genLesseeDetails = lessee => {
   const user = lessee.user;
   console.log('GEN DOB FROM USER : ', user);
@@ -1472,25 +1486,25 @@ const _generateLeasePdfConf = lease => {
         },
         {
           type: 'Text',
-          value: 'Property Managers Details: Rehouser Property Management',
+          value: `Property Managers Details: ${COMPANY_LEGAL_NAME}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
         {
           type: 'Text',
-          value: 'Physical Address for Service: 20 Sawtell Place, Christchurch',
+          value: `Physical Address for Service: ${COMPANY_SERVICE_ADDRESS}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
         {
           type: 'Text',
-          value: 'Email Address: admin@rehouser.co.nz',
+          value: `Email Address: ${CEO_EMAIL}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
         {
           type: 'Text',
-          value: 'Phone:',
+          value: `Phone: ${CEO_PHONE}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
@@ -1549,31 +1563,32 @@ const _generateLeasePdfConf = lease => {
         },
         {
           type: 'Text',
-          value: `Rent to be paid into Bank Trust Bank Account No:`,
+          value: `Rent to be paid into Bank Trust. Bank Account No: ${COMPANY_BANK_BANKING_NUMBER}-${COMPANY_BANK_BRANCH_NUMBER}-${COMPANY_BANK_ACCOUNT_NUMBER}-${COMPANY_BANK_SUFFIX}`,
+          fieldProps: { variant: 'body1' },
+          layoutProps: { variant: 'left' },
+        },
+
+        {
+          type: 'Text',
+          value: `Account Name: ${COMPANY_BANK_ACCOUNT_NAME}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
         {
           type: 'Text',
-          value: `Account Name:`,
+          value: `Bank: ${COMPANY_BANK_NAME}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
         {
           type: 'Text',
-          value: `Bank:`,
-          fieldProps: { variant: 'body1' },
-          layoutProps: { variant: 'left' },
-        },
-        {
-          type: 'Text',
-          value: `Branch:`,
+          value: `Branch: ${COMPANY_BANK_BRANCH_NAME}`,
           fieldProps: { variant: 'body1', gutterBottom: true },
           layoutProps: { variant: 'left' },
         },
         {
           type: 'Text',
-          value: `Reference:`,
+          value: `Reference: ${lease.bankRef}`,
           fieldProps: { variant: 'body1' },
           layoutProps: { variant: 'left' },
         },
