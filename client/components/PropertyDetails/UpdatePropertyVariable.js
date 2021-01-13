@@ -95,8 +95,8 @@ const UpdatePropertyVariable = ({
   }, []); // Empty array ensures that effect is only run on mount and unmount
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
-    mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
-      updateProperty(id: $id, data: $data) {
+    mutation UPDATE_PROPERTY_MUTATION($data: PropertyUpdateInput!, $where: PropertyWhereUniqueInput!) {
+      updateProperty(data: $data, where: $where) {
         id
         ${name}
       }
@@ -112,7 +112,9 @@ const UpdatePropertyVariable = ({
     PROPERTY_SINGLE_PROPERTY_MUTATION,
     {
       variables: {
-        id: propertyId,
+        where: {
+          id: propertyId,
+        },
         data: {
           [name]: sanitizeInput(type, propertyValue),
           // sff: "dfsfd", // test error. Need to get error out of network

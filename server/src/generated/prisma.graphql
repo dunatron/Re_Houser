@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Jan 13 2021 10:13:36 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Wed Jan 13 2021 11:29:51 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -15378,7 +15378,6 @@ input PreTenancyFormWhereUniqueInput {
 
 type Property implements Node {
   id: ID!
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -15873,7 +15872,6 @@ input PropertyCreateindoorFeaturesInput {
 
 input PropertyCreateInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16032,7 +16030,6 @@ input PropertyCreatepetsInput {
 
 input PropertyCreateWithoutAccommodationInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16102,7 +16099,6 @@ input PropertyCreateWithoutAccommodationInput {
 
 input PropertyCreateWithoutActivityInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16172,7 +16168,6 @@ input PropertyCreateWithoutActivityInput {
 
 input PropertyCreateWithoutAgentsInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16242,7 +16237,6 @@ input PropertyCreateWithoutAgentsInput {
 
 input PropertyCreateWithoutAppraisalsInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16312,7 +16306,6 @@ input PropertyCreateWithoutAppraisalsInput {
 
 input PropertyCreateWithoutBankDetailsInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16382,7 +16375,6 @@ input PropertyCreateWithoutBankDetailsInput {
 
 input PropertyCreateWithoutCreatorInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16452,7 +16444,6 @@ input PropertyCreateWithoutCreatorInput {
 
 input PropertyCreateWithoutFilesInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16522,7 +16513,6 @@ input PropertyCreateWithoutFilesInput {
 
 input PropertyCreateWithoutImagesInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16592,7 +16582,6 @@ input PropertyCreateWithoutImagesInput {
 
 input PropertyCreateWithoutInspectionsInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16662,7 +16651,6 @@ input PropertyCreateWithoutInspectionsInput {
 
 input PropertyCreateWithoutInsulationStatementFileInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16732,7 +16720,6 @@ input PropertyCreateWithoutInsulationStatementFileInput {
 
 input PropertyCreateWithoutLeasesInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16802,7 +16789,6 @@ input PropertyCreateWithoutLeasesInput {
 
 input PropertyCreateWithoutOwnersInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16872,7 +16858,6 @@ input PropertyCreateWithoutOwnersInput {
 
 input PropertyCreateWithoutProofOfOwnershipInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -16942,7 +16927,6 @@ input PropertyCreateWithoutProofOfOwnershipInput {
 
 input PropertyCreateWithoutRehouserAssistInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -17012,7 +16996,6 @@ input PropertyCreateWithoutRehouserAssistInput {
 
 input PropertyCreateWithoutRentalApplicationsInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -17082,7 +17065,6 @@ input PropertyCreateWithoutRentalApplicationsInput {
 
 input PropertyCreateWithoutViewingsInput {
   id: ID
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -17436,6 +17418,7 @@ input PropertyFilesWhereUniqueInput {
 
 type PropertyLease implements Node {
   id: ID!
+  refId: String
   stage: LeaseStage!
   property: Property!
   placeId: String!
@@ -17495,6 +17478,7 @@ input PropertyLeaseCreateindoorFeaturesInput {
 
 input PropertyLeaseCreateInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17572,6 +17556,7 @@ input PropertyLeaseCreatepetsInput {
 
 input PropertyLeaseCreateWithoutActivityInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17610,6 +17595,7 @@ input PropertyLeaseCreateWithoutActivityInput {
 
 input PropertyLeaseCreateWithoutInspectionsInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17648,6 +17634,7 @@ input PropertyLeaseCreateWithoutInspectionsInput {
 
 input PropertyLeaseCreateWithoutLesseesInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17686,6 +17673,7 @@ input PropertyLeaseCreateWithoutLesseesInput {
 
 input PropertyLeaseCreateWithoutLessorsInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17724,6 +17712,7 @@ input PropertyLeaseCreateWithoutLessorsInput {
 
 input PropertyLeaseCreateWithoutPropertyInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17762,6 +17751,7 @@ input PropertyLeaseCreateWithoutPropertyInput {
 
 input PropertyLeaseCreateWithoutWalletInput {
   id: ID
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17810,6 +17800,8 @@ type PropertyLeaseEdge {
 enum PropertyLeaseOrderByInput {
   id_ASC
   id_DESC
+  refId_ASC
+  refId_DESC
   stage_ASC
   stage_DESC
   placeId_ASC
@@ -17868,6 +17860,7 @@ enum PropertyLeaseOrderByInput {
 
 type PropertyLeasePreviousValues {
   id: ID!
+  refId: String
   stage: LeaseStage!
   placeId: String!
   location: String!
@@ -17950,6 +17943,46 @@ input PropertyLeaseScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  refId: String
+
+  """All values that are not equal to given value."""
+  refId_not: String
+
+  """All values that are contained in given list."""
+  refId_in: [String!]
+
+  """All values that are not contained in given list."""
+  refId_not_in: [String!]
+
+  """All values less than the given value."""
+  refId_lt: String
+
+  """All values less than or equal the given value."""
+  refId_lte: String
+
+  """All values greater than the given value."""
+  refId_gt: String
+
+  """All values greater than or equal the given value."""
+  refId_gte: String
+
+  """All values containing the given string."""
+  refId_contains: String
+
+  """All values not containing the given string."""
+  refId_not_contains: String
+
+  """All values starting with the given string."""
+  refId_starts_with: String
+
+  """All values not starting with the given string."""
+  refId_not_starts_with: String
+
+  """All values ending with the given string."""
+  refId_ends_with: String
+
+  """All values not ending with the given string."""
+  refId_not_ends_with: String
   stage: LeaseStage
 
   """All values that are not equal to given value."""
@@ -18448,6 +18481,7 @@ input PropertyLeaseUpdateindoorFeaturesInput {
 }
 
 input PropertyLeaseUpdateInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18486,6 +18520,7 @@ input PropertyLeaseUpdateInput {
 }
 
 input PropertyLeaseUpdateManyDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18518,6 +18553,7 @@ input PropertyLeaseUpdateManyDataInput {
 }
 
 input PropertyLeaseUpdateManyMutationInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18620,6 +18656,7 @@ input PropertyLeaseUpdatepetsInput {
 }
 
 input PropertyLeaseUpdateWithoutActivityDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18657,6 +18694,7 @@ input PropertyLeaseUpdateWithoutActivityDataInput {
 }
 
 input PropertyLeaseUpdateWithoutInspectionsDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18694,6 +18732,7 @@ input PropertyLeaseUpdateWithoutInspectionsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLesseesDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18731,6 +18770,7 @@ input PropertyLeaseUpdateWithoutLesseesDataInput {
 }
 
 input PropertyLeaseUpdateWithoutLessorsDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18768,6 +18808,7 @@ input PropertyLeaseUpdateWithoutLessorsDataInput {
 }
 
 input PropertyLeaseUpdateWithoutPropertyDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18805,6 +18846,7 @@ input PropertyLeaseUpdateWithoutPropertyDataInput {
 }
 
 input PropertyLeaseUpdateWithoutWalletDataInput {
+  refId: String
   stage: LeaseStage
   placeId: String
   location: String
@@ -18926,6 +18968,46 @@ input PropertyLeaseWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  refId: String
+
+  """All values that are not equal to given value."""
+  refId_not: String
+
+  """All values that are contained in given list."""
+  refId_in: [String!]
+
+  """All values that are not contained in given list."""
+  refId_not_in: [String!]
+
+  """All values less than the given value."""
+  refId_lt: String
+
+  """All values less than or equal the given value."""
+  refId_lte: String
+
+  """All values greater than the given value."""
+  refId_gt: String
+
+  """All values greater than or equal the given value."""
+  refId_gte: String
+
+  """All values containing the given string."""
+  refId_contains: String
+
+  """All values not containing the given string."""
+  refId_not_contains: String
+
+  """All values starting with the given string."""
+  refId_starts_with: String
+
+  """All values not starting with the given string."""
+  refId_not_starts_with: String
+
+  """All values ending with the given string."""
+  refId_ends_with: String
+
+  """All values not ending with the given string."""
+  refId_not_ends_with: String
   stage: LeaseStage
 
   """All values that are not equal to given value."""
@@ -19394,13 +19476,12 @@ input PropertyLeaseWhereInput {
 
 input PropertyLeaseWhereUniqueInput {
   id: ID
+  refId: String
 }
 
 enum PropertyOrderByInput {
   id_ASC
   id_DESC
-  refId_ASC
-  refId_DESC
   placeId_ASC
   placeId_DESC
   location_ASC
@@ -19497,7 +19578,6 @@ enum PropertyOrderByInput {
 
 type PropertyPreviousValues {
   id: ID!
-  refId: ID
   placeId: String!
   location: String!
   locationLat: Float!
@@ -19600,46 +19680,6 @@ input PropertyScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  refId: ID
-
-  """All values that are not equal to given value."""
-  refId_not: ID
-
-  """All values that are contained in given list."""
-  refId_in: [ID!]
-
-  """All values that are not contained in given list."""
-  refId_not_in: [ID!]
-
-  """All values less than the given value."""
-  refId_lt: ID
-
-  """All values less than or equal the given value."""
-  refId_lte: ID
-
-  """All values greater than the given value."""
-  refId_gt: ID
-
-  """All values greater than or equal the given value."""
-  refId_gte: ID
-
-  """All values containing the given string."""
-  refId_contains: ID
-
-  """All values not containing the given string."""
-  refId_not_contains: ID
-
-  """All values starting with the given string."""
-  refId_starts_with: ID
-
-  """All values not starting with the given string."""
-  refId_not_starts_with: ID
-
-  """All values ending with the given string."""
-  refId_ends_with: ID
-
-  """All values not ending with the given string."""
-  refId_not_ends_with: ID
   placeId: String
 
   """All values that are not equal to given value."""
@@ -20436,7 +20476,6 @@ input PropertyUpdateindoorFeaturesInput {
 }
 
 input PropertyUpdateInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -20506,7 +20545,6 @@ input PropertyUpdateInput {
 }
 
 input PropertyUpdateManyDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -20559,7 +20597,6 @@ input PropertyUpdateManyDataInput {
 }
 
 input PropertyUpdateManyMutationInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -20770,7 +20807,6 @@ input PropertyUpdatepetsInput {
 }
 
 input PropertyUpdateWithoutAccommodationDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -20839,7 +20875,6 @@ input PropertyUpdateWithoutAccommodationDataInput {
 }
 
 input PropertyUpdateWithoutActivityDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -20908,7 +20943,6 @@ input PropertyUpdateWithoutActivityDataInput {
 }
 
 input PropertyUpdateWithoutAgentsDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -20977,7 +21011,6 @@ input PropertyUpdateWithoutAgentsDataInput {
 }
 
 input PropertyUpdateWithoutAppraisalsDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21046,7 +21079,6 @@ input PropertyUpdateWithoutAppraisalsDataInput {
 }
 
 input PropertyUpdateWithoutBankDetailsDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21115,7 +21147,6 @@ input PropertyUpdateWithoutBankDetailsDataInput {
 }
 
 input PropertyUpdateWithoutCreatorDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21184,7 +21215,6 @@ input PropertyUpdateWithoutCreatorDataInput {
 }
 
 input PropertyUpdateWithoutFilesDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21253,7 +21283,6 @@ input PropertyUpdateWithoutFilesDataInput {
 }
 
 input PropertyUpdateWithoutImagesDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21322,7 +21351,6 @@ input PropertyUpdateWithoutImagesDataInput {
 }
 
 input PropertyUpdateWithoutInspectionsDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21391,7 +21419,6 @@ input PropertyUpdateWithoutInspectionsDataInput {
 }
 
 input PropertyUpdateWithoutInsulationStatementFileDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21460,7 +21487,6 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21529,7 +21555,6 @@ input PropertyUpdateWithoutLeasesDataInput {
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21598,7 +21623,6 @@ input PropertyUpdateWithoutOwnersDataInput {
 }
 
 input PropertyUpdateWithoutProofOfOwnershipDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21667,7 +21691,6 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
 }
 
 input PropertyUpdateWithoutRehouserAssistDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21736,7 +21759,6 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
 }
 
 input PropertyUpdateWithoutRentalApplicationsDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -21805,7 +21827,6 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
 }
 
 input PropertyUpdateWithoutViewingsDataInput {
-  refId: ID
   placeId: String
   location: String
   locationLat: Float
@@ -22020,46 +22041,6 @@ input PropertyWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  refId: ID
-
-  """All values that are not equal to given value."""
-  refId_not: ID
-
-  """All values that are contained in given list."""
-  refId_in: [ID!]
-
-  """All values that are not contained in given list."""
-  refId_not_in: [ID!]
-
-  """All values less than the given value."""
-  refId_lt: ID
-
-  """All values less than or equal the given value."""
-  refId_lte: ID
-
-  """All values greater than the given value."""
-  refId_gt: ID
-
-  """All values greater than or equal the given value."""
-  refId_gte: ID
-
-  """All values containing the given string."""
-  refId_contains: ID
-
-  """All values not containing the given string."""
-  refId_not_contains: ID
-
-  """All values starting with the given string."""
-  refId_starts_with: ID
-
-  """All values not starting with the given string."""
-  refId_not_starts_with: ID
-
-  """All values ending with the given string."""
-  refId_ends_with: ID
-
-  """All values not ending with the given string."""
-  refId_not_ends_with: ID
   placeId: String
 
   """All values that are not equal to given value."""
@@ -22825,7 +22806,6 @@ input PropertyWhereInput {
 
 input PropertyWhereUniqueInput {
   id: ID
-  refId: ID
   placeId: String
 }
 
@@ -32177,6 +32157,7 @@ input UserWhereUniqueInput {
 
 type Viewing implements Node {
   id: ID!
+  refId: String
   updatedAt: DateTime!
   createdAt: DateTime!
   dateTime: DateTime!
@@ -32200,6 +32181,7 @@ type ViewingConnection {
 
 input ViewingCreateInput {
   id: ID
+  refId: String
   dateTime: DateTime!
   minutesFor: Int!
   onRequest: Boolean
@@ -32221,6 +32203,7 @@ input ViewingCreateManyWithoutPropertyInput {
 
 input ViewingCreateWithoutHostsInput {
   id: ID
+  refId: String
   dateTime: DateTime!
   minutesFor: Int!
   onRequest: Boolean
@@ -32231,6 +32214,7 @@ input ViewingCreateWithoutHostsInput {
 
 input ViewingCreateWithoutPropertyInput {
   id: ID
+  refId: String
   dateTime: DateTime!
   minutesFor: Int!
   onRequest: Boolean
@@ -32251,6 +32235,8 @@ type ViewingEdge {
 enum ViewingOrderByInput {
   id_ASC
   id_DESC
+  refId_ASC
+  refId_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -32269,6 +32255,7 @@ enum ViewingOrderByInput {
 
 type ViewingPreviousValues {
   id: ID!
+  refId: String
   updatedAt: DateTime!
   createdAt: DateTime!
   dateTime: DateTime!
@@ -32327,6 +32314,46 @@ input ViewingScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  refId: String
+
+  """All values that are not equal to given value."""
+  refId_not: String
+
+  """All values that are contained in given list."""
+  refId_in: [String!]
+
+  """All values that are not contained in given list."""
+  refId_not_in: [String!]
+
+  """All values less than the given value."""
+  refId_lt: String
+
+  """All values less than or equal the given value."""
+  refId_lte: String
+
+  """All values greater than the given value."""
+  refId_gt: String
+
+  """All values greater than or equal the given value."""
+  refId_gte: String
+
+  """All values containing the given string."""
+  refId_contains: String
+
+  """All values not containing the given string."""
+  refId_not_contains: String
+
+  """All values starting with the given string."""
+  refId_starts_with: String
+
+  """All values not starting with the given string."""
+  refId_not_starts_with: String
+
+  """All values ending with the given string."""
+  refId_ends_with: String
+
+  """All values not ending with the given string."""
+  refId_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -32509,6 +32536,7 @@ input ViewingSubscriptionWhereInput {
 }
 
 input ViewingUpdateInput {
+  refId: String
   dateTime: DateTime
   minutesFor: Int
   onRequest: Boolean
@@ -32519,6 +32547,7 @@ input ViewingUpdateInput {
 }
 
 input ViewingUpdateManyDataInput {
+  refId: String
   dateTime: DateTime
   minutesFor: Int
   onRequest: Boolean
@@ -32527,6 +32556,7 @@ input ViewingUpdateManyDataInput {
 }
 
 input ViewingUpdateManyMutationInput {
+  refId: String
   dateTime: DateTime
   minutesFor: Int
   onRequest: Boolean
@@ -32564,6 +32594,7 @@ input ViewingUpdateManyWithWhereNestedInput {
 }
 
 input ViewingUpdateWithoutHostsDataInput {
+  refId: String
   dateTime: DateTime
   minutesFor: Int
   onRequest: Boolean
@@ -32573,6 +32604,7 @@ input ViewingUpdateWithoutHostsDataInput {
 }
 
 input ViewingUpdateWithoutPropertyDataInput {
+  refId: String
   dateTime: DateTime
   minutesFor: Int
   onRequest: Boolean
@@ -32652,6 +32684,46 @@ input ViewingWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  refId: String
+
+  """All values that are not equal to given value."""
+  refId_not: String
+
+  """All values that are contained in given list."""
+  refId_in: [String!]
+
+  """All values that are not contained in given list."""
+  refId_not_in: [String!]
+
+  """All values less than the given value."""
+  refId_lt: String
+
+  """All values less than or equal the given value."""
+  refId_lte: String
+
+  """All values greater than the given value."""
+  refId_gt: String
+
+  """All values greater than or equal the given value."""
+  refId_gte: String
+
+  """All values containing the given string."""
+  refId_contains: String
+
+  """All values not containing the given string."""
+  refId_not_contains: String
+
+  """All values starting with the given string."""
+  refId_starts_with: String
+
+  """All values not starting with the given string."""
+  refId_not_starts_with: String
+
+  """All values ending with the given string."""
+  refId_ends_with: String
+
+  """All values not ending with the given string."""
+  refId_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -32802,6 +32874,7 @@ input ViewingWhereInput {
 
 input ViewingWhereUniqueInput {
   id: ID
+  refId: String
 }
 
 enum VisibilityLevel {

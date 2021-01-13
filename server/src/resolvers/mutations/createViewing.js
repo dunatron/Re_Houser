@@ -1,5 +1,7 @@
 const { checkForClashes } = require("../../lib/clashings/clashingsAPI");
 
+const nanoid = require("nanoid");
+
 // ToDo: ensure that when the viewing is destroyed, it leaves the connected
 async function createViewing(parent, args, ctx, info) {
   const loggedInUserId = ctx.request.userId;
@@ -24,6 +26,7 @@ async function createViewing(parent, args, ctx, info) {
   const newViewing = await ctx.db.mutation.createViewing(
     {
       data: {
+        refId: nanoid(7),
         ...data
       }
     },

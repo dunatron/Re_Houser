@@ -87,8 +87,11 @@ const Details = props => {
   const [updates, setUpdates] = useState({});
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
-    mutation UPDATE_PROPERTY_MUTATION($id: ID!, $data: PropertyUpdateInput!) {
-      updateProperty(id: $id, data: $data) {
+    mutation UPDATE_PROPERTY_MUTATION(
+      $data: PropertyUpdateInput!
+      $where: PropertyWhereUniqueInput!
+    ) {
+      updateProperty(data: $data, where: $where) {
         id
         images {
           ...fileInfo
@@ -108,7 +111,9 @@ const Details = props => {
   const handleAddOwner = result =>
     updateProperty({
       variables: {
-        id: property.id,
+        where: {
+          id: property.id,
+        },
         data: {
           owners: {
             connect: {
@@ -158,7 +163,9 @@ const Details = props => {
   const handleAddAgent = result =>
     updateProperty({
       variables: {
-        id: property.id,
+        where: {
+          id: property.id,
+        },
         data: {
           agents: {
             connect: {
@@ -194,7 +201,9 @@ const Details = props => {
   const handleRemoveAgent = result =>
     updateProperty({
       variables: {
-        id: property.id,
+        where: {
+          id: property.id,
+        },
         data: {
           agents: {
             disconnect: {
@@ -340,7 +349,9 @@ const Details = props => {
           recieveFile={file => {
             updateProperty({
               variables: {
-                id: property.id,
+                where: {
+                  id: property.id,
+                },
                 data: {
                   insulationStatementFile: {
                     connect: {

@@ -237,7 +237,6 @@ type File {
 
 type Property implements PropertyInfo {
   id: ID! @unique @id # google placesId is too looong look below
-  refId: String @unique
   placeId: String! @unique
   location: String!
   locationLat: Float!
@@ -332,7 +331,6 @@ type PropertyAssist {
 
 type Viewing {
   id: ID! @unique @id
-  refId: String @unique
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   dateTime: DateTime!
@@ -346,7 +344,7 @@ type Viewing {
 
 type PropertyLease implements PropertyInfo {
   id: ID! @unique @id
-  refId: String @unique
+  bankRef: String @unique
   stage: LeaseStage!
   property: Property! @relation(name: "PropertyLeases")
   placeId: String!
