@@ -1,6 +1,6 @@
 import FormCreator from '@/Components/Forms/FormCreator';
 import { useMutation } from '@apollo/client';
-import { ADD_BANK_TRANSFER_TO_LEASE_MUTATION } from '@/Gql/Mutations';
+import { ADD_BANK_TRANSFER_TO_LEASE_MUTATION } from '@/Gql/mutations';
 
 /**
  * ToDo. Create two new Types in FormCreator. SelectOne, selectMultiple.
