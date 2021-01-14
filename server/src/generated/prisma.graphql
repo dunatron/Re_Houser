@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Jan 13 2021 14:01:18 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Thu Jan 14 2021 16:34:14 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -12725,8 +12725,10 @@ type Payment implements Node {
   wallet: Wallet
   userId: ID!
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -12754,8 +12756,10 @@ input PaymentCreateInput {
   id: ID
   userId: ID!
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -12778,8 +12782,10 @@ input PaymentCreateWithoutWalletInput {
   id: ID
   userId: ID!
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -12808,10 +12814,14 @@ enum PaymentOrderByInput {
   userId_DESC
   bankName_ASC
   bankName_DESC
+  bankNumber_ASC
+  bankNumber_DESC
   bankBranch_ASC
   bankBranch_DESC
   bankAccount_ASC
   bankAccount_DESC
+  bankSuffix_ASC
+  bankSuffix_DESC
   bankRef_ASC
   bankRef_DESC
   type_ASC
@@ -12840,8 +12850,10 @@ type PaymentPreviousValues {
   id: ID!
   userId: ID!
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -12989,6 +13001,46 @@ input PaymentScalarWhereInput {
 
   """All values not ending with the given string."""
   bankName_not_ends_with: String
+  bankNumber: String
+
+  """All values that are not equal to given value."""
+  bankNumber_not: String
+
+  """All values that are contained in given list."""
+  bankNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  bankNumber_lt: String
+
+  """All values less than or equal the given value."""
+  bankNumber_lte: String
+
+  """All values greater than the given value."""
+  bankNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  bankNumber_gte: String
+
+  """All values containing the given string."""
+  bankNumber_contains: String
+
+  """All values not containing the given string."""
+  bankNumber_not_contains: String
+
+  """All values starting with the given string."""
+  bankNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  bankNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  bankNumber_not_ends_with: String
   bankBranch: String
 
   """All values that are not equal to given value."""
@@ -13069,6 +13121,46 @@ input PaymentScalarWhereInput {
 
   """All values not ending with the given string."""
   bankAccount_not_ends_with: String
+  bankSuffix: String
+
+  """All values that are not equal to given value."""
+  bankSuffix_not: String
+
+  """All values that are contained in given list."""
+  bankSuffix_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankSuffix_not_in: [String!]
+
+  """All values less than the given value."""
+  bankSuffix_lt: String
+
+  """All values less than or equal the given value."""
+  bankSuffix_lte: String
+
+  """All values greater than the given value."""
+  bankSuffix_gt: String
+
+  """All values greater than or equal the given value."""
+  bankSuffix_gte: String
+
+  """All values containing the given string."""
+  bankSuffix_contains: String
+
+  """All values not containing the given string."""
+  bankSuffix_not_contains: String
+
+  """All values starting with the given string."""
+  bankSuffix_starts_with: String
+
+  """All values not starting with the given string."""
+  bankSuffix_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankSuffix_ends_with: String
+
+  """All values not ending with the given string."""
+  bankSuffix_not_ends_with: String
   bankRef: String
 
   """All values that are not equal to given value."""
@@ -13415,13 +13507,16 @@ input PaymentSubscriptionWhereInput {
 enum PaymentType {
   STRIPE
   SYSTEM
+  MANUAL_BANK_TRANSFER
 }
 
 input PaymentUpdateInput {
   userId: ID
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -13438,8 +13533,10 @@ input PaymentUpdateInput {
 input PaymentUpdateManyDataInput {
   userId: ID
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -13455,8 +13552,10 @@ input PaymentUpdateManyDataInput {
 input PaymentUpdateManyMutationInput {
   userId: ID
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -13489,8 +13588,10 @@ input PaymentUpdateManyWithWhereNestedInput {
 input PaymentUpdateWithoutWalletDataInput {
   userId: ID
   bankName: String
+  bankNumber: String
   bankBranch: String
   bankAccount: String
+  bankSuffix: String
   bankRef: String
   type: PaymentType
   reason: PaymentReason
@@ -13643,6 +13744,46 @@ input PaymentWhereInput {
 
   """All values not ending with the given string."""
   bankName_not_ends_with: String
+  bankNumber: String
+
+  """All values that are not equal to given value."""
+  bankNumber_not: String
+
+  """All values that are contained in given list."""
+  bankNumber_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankNumber_not_in: [String!]
+
+  """All values less than the given value."""
+  bankNumber_lt: String
+
+  """All values less than or equal the given value."""
+  bankNumber_lte: String
+
+  """All values greater than the given value."""
+  bankNumber_gt: String
+
+  """All values greater than or equal the given value."""
+  bankNumber_gte: String
+
+  """All values containing the given string."""
+  bankNumber_contains: String
+
+  """All values not containing the given string."""
+  bankNumber_not_contains: String
+
+  """All values starting with the given string."""
+  bankNumber_starts_with: String
+
+  """All values not starting with the given string."""
+  bankNumber_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankNumber_ends_with: String
+
+  """All values not ending with the given string."""
+  bankNumber_not_ends_with: String
   bankBranch: String
 
   """All values that are not equal to given value."""
@@ -13723,6 +13864,46 @@ input PaymentWhereInput {
 
   """All values not ending with the given string."""
   bankAccount_not_ends_with: String
+  bankSuffix: String
+
+  """All values that are not equal to given value."""
+  bankSuffix_not: String
+
+  """All values that are contained in given list."""
+  bankSuffix_in: [String!]
+
+  """All values that are not contained in given list."""
+  bankSuffix_not_in: [String!]
+
+  """All values less than the given value."""
+  bankSuffix_lt: String
+
+  """All values less than or equal the given value."""
+  bankSuffix_lte: String
+
+  """All values greater than the given value."""
+  bankSuffix_gt: String
+
+  """All values greater than or equal the given value."""
+  bankSuffix_gte: String
+
+  """All values containing the given string."""
+  bankSuffix_contains: String
+
+  """All values not containing the given string."""
+  bankSuffix_not_contains: String
+
+  """All values starting with the given string."""
+  bankSuffix_starts_with: String
+
+  """All values not starting with the given string."""
+  bankSuffix_not_starts_with: String
+
+  """All values ending with the given string."""
+  bankSuffix_ends_with: String
+
+  """All values not ending with the given string."""
+  bankSuffix_not_ends_with: String
   bankRef: String
 
   """All values that are not equal to given value."""

@@ -22,6 +22,7 @@ import { SINGLE_INSPECTION_QUERY } from './singleInspection';
 import { MESSAGES_QUERY } from './messages';
 import { MESSAGES_CONNECTION_QUERY } from './messagesConnection';
 import chats from './chats.query';
+import { PROPERTY_LEASES_QUERY } from './propertyLeases';
 
 export {
   PROPERTIES_QUERY,
@@ -46,5 +47,6 @@ export {
   VIEWINGS_QUERY,
   SINGLE_RENTAL_APPRAISAL_QUERY,
   SINGLE_INSPECTION_QUERY,
+  PROPERTY_LEASES_QUERY,
   chats,
 };

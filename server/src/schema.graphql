@@ -188,11 +188,7 @@ type Mutation {
     where: InspectionWhereUniqueInput!
   ): Inspection
   inviteUser(data: InviteUserParams!): SuccessMessage!
-  addBankTransferToLease(
-    bankRef: String!
-    amount: Float!
-    recievedDate: DateTime
-  ): Payment!
+  addBankTransferToLease(bankRef: String!, data: PaymentCreateInput!): Payment!
 }
 
 type Subscription {
@@ -396,4 +392,5 @@ type Query {
     last: Int
   ): InspectionConnection!
   inspection(where: InspectionWhereUniqueInput!): Inspection
+  propertyLeases(where: PropertyLeaseWhereInput): [PropertyLease]!
 }

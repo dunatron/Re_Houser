@@ -33,10 +33,10 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
     handlePropertyCreated(data);
   };
 
-  var rent = formData.rent;
+  // var rent = formData.rent;
 
-  const extractRentFloat = Number(rent.replace(/[^0-9.-]+/g, '')); // no useles escape lint
-  const rentVal = extractRentFloat * 100;
+  // const extractRentFloat = Number(rent.replace(/[^0-9.-]+/g, '')); // no useles escape lint
+  // const rentVal = extractRentFloat * 100;
 
   const [createProperty, { loading, error, data }] = useMutation(
     CREATE_PROPERTY_MUTATION,
@@ -53,7 +53,7 @@ const CheckAndSubmit = ({ me, formData, handlePropertyCreated }) => {
     const variables = {
       data: {
         ...formData,
-        rent: rentVal,
+        // rent: rentVal, should now format to integer in cents in form creator
         onTheMarket: false,
         useAdvancedRent: false,
         bankDetails: formData.bankDetails

@@ -23,6 +23,8 @@ import { _preFormatFile, _postFormatFile } from './formatFile';
 
 import { _preFormatLocation, _postFormatLocation } from './formatLocation';
 
+import { _preFormatMoney, _postFormatMoney } from './formatMoney';
+
 import {
   _preFormatBankAccount,
   _postFormatBankAccount,
@@ -73,6 +75,8 @@ const formatValByType = (v, type, mode) => {
         return mode === 'pre' ? _preFormatFile(v) : _postFormatFile(v);
       case 'Location':
         return mode === 'pre' ? _preFormatLocation(v) : _postFormatLocation(v);
+      case 'Money':
+        return mode === 'pre' ? _preFormatMoney(v) : _postFormatMoney(v);
       case 'BankAccount':
         return mode === 'pre'
           ? _preFormatBankAccount(v)

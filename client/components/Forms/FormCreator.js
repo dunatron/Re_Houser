@@ -57,6 +57,7 @@ const FormCreator = props => {
     handleWatchChanges,
     hasCancel,
     cancel,
+    selectOptionTypes,
   } = props;
 
   // awesome we have {me} which now has isAdmin and isWizard

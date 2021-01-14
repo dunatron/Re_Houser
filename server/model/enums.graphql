@@ -30,6 +30,7 @@ enum LeaseStage {
 enum PaymentType {
   STRIPE
   SYSTEM
+  MANUAL_BANK_TRANSFER
 }
 
 enum ChargeReason {

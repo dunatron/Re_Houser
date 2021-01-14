@@ -34,6 +34,7 @@ import { UPDATE_RENTAL_APPRAISAL_MUTATION } from './updateRentalAppraisal';
 import { COMPLETE_INSPECTION_MUTATION } from './completeInspection';
 import { CREATE_FILE_MUTATION } from './createFile';
 import { INVITE_USER_MUTATION } from './inviteUser';
+import { ADD_BANK_TRANSFER_TO_LEASE_MUTATION } from './addBankTransferToLease';
 
 export {
   SIGNUP_MUTATION,
@@ -72,4 +73,5 @@ export {
   COMPLETE_INSPECTION_MUTATION,
   CREATE_FILE_MUTATION,
   INVITE_USER_MUTATION,
+  ADD_BANK_TRANSFER_TO_LEASE_MUTATION,
 };

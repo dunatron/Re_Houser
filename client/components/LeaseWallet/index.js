@@ -28,8 +28,8 @@ import CardPaymentForm from './CardPaymentForm';
 import { WALLET_SUBSCRIPTION } from '@/Gql/subscriptions/WalletSubscription';
 import Loader from '@/Components/Loader';
 import { toast } from 'react-toastify';
-import PaymentsTable from './PaymentsTable';
-import ChargesTable from './ChargesTable';
+import PaymentsTable from '@/Components/Tables/PaymentsTable';
+import ChargesTable from '@/Components/Tables/ChargesTable';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import Error from '@/Components/ErrorMessage';

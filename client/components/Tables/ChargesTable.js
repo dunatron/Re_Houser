@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import React, { useRef, useState } from 'react';
 import gql from 'graphql-tag';
 import { useApolloClient, useQuery, useSubscription } from '@apollo/client';
@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import { Input, Typography, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import Modal from '../Modal/index';
-import SinglePayment from './SinglePayment';
+import Modal from '@/Components/Modal/index';
+import SinglePayment from '@/Components/Payments/SinglePayment';
 import { CHARGE_SUBSCRIPTION } from '../../graphql/subscriptions/ChargeSubscription';
 import moment from 'moment';
 import formatCentsToDollars from '../../lib/formatCentsToDollars';
@@ -235,7 +235,7 @@ const ChargesTable = ({ where, walletId }) => {
 
 ChargesTable.propTypes = {
   walletId: PropTypes.any,
-  where: PropTypes.any
-}
+  where: PropTypes.any,
+};
 
 export default ChargesTable;

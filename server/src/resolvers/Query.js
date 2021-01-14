@@ -32,6 +32,7 @@ const rentalAppraisal = require("./querys/rentalAppraisal");
 const viewings = require("./querys/viewings");
 const inspection = require("./querys/inspection");
 const propertyFiles = require("./querys/propertyFiles");
+const propertyLeases = require("./querys/propertyLeases");
 
 const Query = {
   crashMe,
@@ -64,7 +65,8 @@ const Query = {
   rentalAppraisals,
   rentalAppraisal,
   viewings,
-  inspection
+  inspection,
+  propertyLeases
 };
 
 module.exports = Query;

@@ -38,6 +38,8 @@ import Image from './Image';
 import CaptchaField from './Captcha';
 import Email from './Email';
 import Password from './Password';
+import SelectOne from './SelectOne';
+
 import { path } from 'ramda';
 
 const extractErrorFromErrors = (errors, name) => {
@@ -69,6 +71,7 @@ const InputFieldType = props => {
     defaultValues,
     updateCacheOnRemovedFile,
     clearErrors,
+    selectOptionTypes,
   } = props;
   const { type, fieldProps, refConf } = config;
   const name = fieldProps ? fieldProps.name : null;
@@ -121,6 +124,10 @@ const InputFieldType = props => {
             onChange={() => {}}
             {...props}
           />
+        );
+      case 'SelectOne':
+        return (
+          <SelectOne {...props} options={selectOptionTypes[config.optionKey]} />
         );
       case 'SelectMultipleEnum':
         return (

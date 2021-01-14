@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 import { Input, Typography, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Modal from '@/Components/Modal/index';
-import SinglePayment from './SinglePayment';
+import SinglePayment from '@/Components/Payments/SinglePayment';
 import { PAYMENT_SUBSCRIPTION } from '@/Gql/subscriptions/PaymentSubscription';
 import moment from 'moment';
 import formatCentsToDollars from '@/Lib/formatCentsToDollars';
@@ -257,7 +257,7 @@ const PaymentsTable = ({ where, walletId }) => {
 
 PaymentsTable.propTypes = {
   walletId: PropTypes.any,
-  where: PropTypes.any
+  where: PropTypes.any,
 };
 
 export default PaymentsTable;

@@ -12,3 +12,4 @@ export { default as RentalAppraisalInfoFragment } from './rentalAppraisalInfo';
 export { default as RefereeInfoFragment } from './refereeInfo';
 export { default as InspectionInfoFragment } from './inspectionInfo';
 export { default as SuccessMessageFragment } from './successMessageInfo';
+export { default as PaymentInfoFragment } from './paymentInfo';
