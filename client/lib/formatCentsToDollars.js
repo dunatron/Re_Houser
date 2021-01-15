@@ -37,6 +37,6 @@ const formatCentsToDollarsVal = amount => {
 
   return formattedMoney;
 };
-export { formatCentsToDollarsVal };
+export { formatCentsToDollars, formatCentsToDollarsVal };
 
 export default formatCentsToDollars;

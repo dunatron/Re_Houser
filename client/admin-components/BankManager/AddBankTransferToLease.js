@@ -24,9 +24,14 @@ import DelayedInput from '@/Components/Inputs/DelayedInput';
 import LeaseManager from '@/Components/LeaseManager';
 import ChargesTable from '@/Components/Tables/ChargesTable';
 import PaymentsTable from '@/Components/Tables/PaymentsTable';
+import EditableDisplayItems from '@/Components/EditableDisplay/EditableDisplayItems';
+import PROPERTY_LEASE_DETAILS_EDITABLE_DISPLAY_CONF from '@/Lib/configs/editableDisplays/leaseDetails';
 
 // local components
 import AddManualPayment from './AddManualPayment';
+import ChargeLeaseWallet from './ChargeLeaseWallet';
+import RehouserPaper from '@/Styles/RehouserPaper';
+import { formatCentsToDollarsVal } from '@/Lib/formatCentsToDollars';
 
 /**
  * Make a lazy useLazyQuery call to getLeases where bankRef = searchText.
@@ -83,13 +88,13 @@ const AddBankTransferToLease = () => {
   );
 };
 
-const WalletBalance = ({ wallet }) => {
+const LeaseWalletBalance = ({ wallet }) => {
   return (
-    <div>
-      <Typography>Wallet</Typography>
+    <RehouserPaper>
+      <Typography>Lease Wallet</Typography>
       <Typography>id: {wallet.id}</Typography>
-      <Typography>balance: {wallet.amount}</Typography>
-    </div>
+      <Typography>balance: {formatCentsToDollarsVal(wallet.amount)}</Typography>
+    </RehouserPaper>
   );
 };
 
@@ -128,20 +133,38 @@ const splitBtnOptions = [
   'View Payments',
   'View Charges',
   'Lease Manager',
+  'Lease Details',
+  'Charge Lease Wallet',
 ];
 
 const defaultModalContentIndex = 0;
 
-const getModalContent = ({ index, lease, ...rest }) => {
+const getModalContent = ({ index, lease, closeModal, ...rest }) => {
   switch (index) {
     case 0:
-      return <AddManualPayment lease={lease} />;
+      return (
+        <AddManualPayment lease={lease} onCompleted={data => closeModal()} />
+      );
     case 1:
       return <ViewPayments wallet={lease.wallet} />;
     case 2:
       return <ViewCharges wallet={lease.wallet} />;
     case 3:
       return <LeaseManager leaseId={lease.id} />;
+    case 4:
+      return (
+        <EditableDisplayItems
+          __typename="PropertyLease"
+          data={lease}
+          items={PROPERTY_LEASE_DETAILS_EDITABLE_DISPLAY_CONF}
+          where={{ id: lease.id }}
+          disableEdit={true}
+        />
+      );
+    case 5:
+      return (
+        <ChargeLeaseWallet lease={lease} onCompleted={data => closeModal()} />
+      );
     default:
       return 'Unknown step';
   }
@@ -159,22 +182,29 @@ const LeaseStrip = ({ lease }) => {
   };
 
   return (
-    <>
-      <div>{lease.bankRef}</div>
-
-      <WalletBalance wallet={lease.wallet ? lease.wallet : {}} />
+    <RehouserPaper>
       <SplitButtonGroup
         defaultIndex={defaultModalContentIndex}
         options={splitBtnOptions}
         onClick={handleOpenSplitOption}
       />
+
+      <Typography gutterBottom>ID: {lease.id}</Typography>
+      <Typography gutterBottom>Stage: {lease.stage}</Typography>
+      <Typography gutterBottom>Location: {lease.property.location}</Typography>
+      <LeaseWalletBalance wallet={lease.wallet ? lease.wallet : {}} />
+
       <Modal
         open={modalOpen}
         close={handleCloseModal}
         title={splitBtnOptions[contentIndex]}>
-        {getModalContent({ index: contentIndex, lease: lease })}
+        {getModalContent({
+          index: contentIndex,
+          lease: lease,
+          closeModal: handleCloseModal,
+        })}
       </Modal>
-    </>
+    </RehouserPaper>
   );
 };
 

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Thu Jan 14 2021 16:34:14 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Fri Jan 15 2021 15:06:56 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -2380,6 +2380,7 @@ type ChargePreviousValues {
 enum ChargeReason {
   RENT
   BOND
+  DAMAGES
 }
 
 input ChargeScalarWhereInput {

@@ -1,17 +1,3 @@
-// accommodation: [Accommodation!]! @relation(name: "PropertyAccommodation")
-// bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
-// insulationForm: InsulationForm
-// owners: [User!]! @relation(name: "PropertyOwner")
-// agents: [User!]! @relation(name: "PropertyAgents")
-// creator: User! @relation(name: "PropertyCreator")
-// images: [File!]! @relation(name: "PropertyImages", link: TABLE)
-// rentalApplications: [RentalApplication] @relation(name: "PropertyRentalApplication")
-// leases: [PropertyLease] @relation(name: "PropertyLeases")
-// activity: [Activity!]! @relation(name: "PropertyActivity")
-// appraisals: [RentalAppraisal] @relation(name: "PropertyRentalAppraisals")
-// viewings: [Viewing] @relation(name: "PropertyViewings")
-// rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
-// inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
 const PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF = [
   {
     type: 'String',

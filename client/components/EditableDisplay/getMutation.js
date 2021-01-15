@@ -11,8 +11,15 @@ const getMutation = (type, key) => {
         }
       }
     `;
-    case 'User':
-      return '';
+    case 'PropertyLease':
+      return gql`
+      mutation EDITABLE_DISPLAY_MUTATION($data: PropertyLeaseUpdateInput!, $where: PropertyLeaseWhereUniqueInput!) {
+        updatePropertyLease(data: $data, where: $where) {
+          id
+          ${key}
+        }
+      }
+    `;
     default:
       return '';
   }

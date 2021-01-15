@@ -36,6 +36,7 @@ enum PaymentType {
 enum ChargeReason {
   RENT
   BOND
+  DAMAGES
 }
 
 enum PaymentReason {

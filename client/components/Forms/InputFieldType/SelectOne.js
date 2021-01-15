@@ -43,6 +43,10 @@ export default function SelectOne(props) {
     options,
   } = props;
 
+  const { type, inners, fieldProps, refConf } = config;
+
+  const defaultValue = defaultValues[fieldProps.name];
+
   const formatOptions = options
     ? options.map((o, idx) => ({
         label: o.label,
@@ -50,9 +54,31 @@ export default function SelectOne(props) {
       }))
     : [];
 
-  const { fieldProps } = config;
+  const [currVal, setCurrVal] = useState(
+    is(Array, defaultValue) ? defaultValue : []
+  );
 
-  const handleOnValueChange = () => {};
+  useEffect(() => {
+    register({ name: fieldProps.name }, refConf);
+    if (defaultValue) {
+      // setValue(fieldProps.name, 'TOWNHOUSE');
+      setValue(fieldProps.name, defaultValue);
+    }
+    return () => {
+      clearError(fieldProps.name);
+      unregister(fieldProps.name);
+    };
+  }, [fieldProps, defaultValue]);
+
+  const handleOnValueChange = (event, valueObj, reason) => {
+    if (valueObj) {
+      setCurrVal(valueObj.value);
+      setValue(fieldProps.name, valueObj.value);
+      clearError(fieldProps.name);
+    } else {
+      setValue(fieldProps.name, null);
+    }
+  };
 
   return (
     <>
@@ -72,6 +98,7 @@ export default function SelectOne(props) {
             label={fieldProps.label}
             variant="outlined"
             helperText={fieldError}
+            // inputRef={register ? register(refConf) : null}
           />
         )}
       />

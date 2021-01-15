@@ -35,6 +35,7 @@ import { COMPLETE_INSPECTION_MUTATION } from './completeInspection';
 import { CREATE_FILE_MUTATION } from './createFile';
 import { INVITE_USER_MUTATION } from './inviteUser';
 import { ADD_BANK_TRANSFER_TO_LEASE_MUTATION } from './addBankTransferToLease';
+import { UPDATE_WALLET_MUTATION } from './updateWallet';
 
 export {
   SIGNUP_MUTATION,
@@ -74,4 +75,5 @@ export {
   CREATE_FILE_MUTATION,
   INVITE_USER_MUTATION,
   ADD_BANK_TRANSFER_TO_LEASE_MUTATION,
+  UPDATE_WALLET_MUTATION,
 };
