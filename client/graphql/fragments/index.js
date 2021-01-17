@@ -13,3 +13,4 @@ export { default as RefereeInfoFragment } from './refereeInfo';
 export { default as InspectionInfoFragment } from './inspectionInfo';
 export { default as SuccessMessageFragment } from './successMessageInfo';
 export { default as PaymentInfoFragment } from './paymentInfo';
+export { default as ChargeInfoFragment } from './chargeInfo';

@@ -1,5 +1,4 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
-import Router from 'next/router';
 import { store } from '../../store';
 import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,12 +9,14 @@ import ConnectionTable, {
 
 //components
 import Error from '@/Components/ErrorMessage';
-import UserDetails from '../../components/UserDetails';
-import List from '@material-ui/core/List';
+import { Typograhpy } from '@material-ui/core';
+
+import formatCentsToDollars from '@/Lib/formatCentsToDollars';
+import moment from 'moment';
 
 import {
-  PROPERTIES_CONNECTION_QUERY,
-  PROPERTIES_COUNT_QUERY,
+  CHARGES_CONNECTION_QUERY,
+  CHARGES_COUNT_QUERY,
 } from '../../graphql/connections';
 // mutations
 
@@ -39,32 +40,45 @@ const ChargesTable = ({
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
-  const client = useApolloClient();
   const tableRef = useRef(null);
   const [tableErr, setTableErr] = useState({});
-
-  const houseTypeLookup = getEnumLookupList('PropertyType');
-  const titleTypeLookup = getEnumLookupList('PropertyTitleType');
-  const heatSourceLookup = getEnumLookupList('HeatSource');
-  const tenancyTypeLookup = getEnumLookupList('TenancyType');
 
   const columns = React.useMemo(
     () => [
       {
-        title: 'property',
-        field: 'location',
-        editable: false,
-        searchable: true,
-        filtering: false,
+        title: 'ID',
+        field: 'id',
+      },
+      {
+        title: 'amount',
+        field: 'amount',
+        render: rowData => formatCentsToDollars(rowData.amount, 'charge'),
+      },
+      {
+        title: 'createdAt',
+        field: 'createdAt',
+        render: rowData => {
+          return (
+            <Typography>
+              {moment(rowData.createdAt).format('MM-DD-YYYY')}
+            </Typography>
+          );
+        },
+      },
+      {
+        title: 'reason',
+        field: 'reason',
+      },
+      {
+        title: 'description',
+        field: 'description',
       },
     ],
-    [houseTypeLookup, tenancyTypeLookup, titleTypeLookup]
+    []
   );
 
-  const manageProperty = (e, rowData) =>
-    Router.push({
-      pathname: `/landlord/properties/${rowData.id}`,
-    });
+  const viewSingleCharge = (e, rowData) =>
+    alert('Make modal for a single Charge');
 
   return (
     <div className={classes.root}>
@@ -74,17 +88,17 @@ const ChargesTable = ({
         title="Charges Table"
         connectionKey={connectionKey}
         where={where}
-        countQuery={PROPERTIES_COUNT_QUERY}
-        gqlQuery={PROPERTIES_CONNECTION_QUERY}
-        searchKeysOR={['location_contains', 'id_contains']}
+        countQuery={CHARGES_COUNT_QUERY}
+        gqlQuery={CHARGES_CONNECTION_QUERY}
+        searchKeysOR={['id_contains']}
         orderBy="createdAt_DESC"
         tableRef={tableRef}
         columns={columns}
         actions={[
           {
             icon: 'settings',
-            tooltip: 'Manage property',
-            onClick: manageProperty,
+            tooltip: 'View Payment',
+            onClick: viewSingleCharge,
           },
         ]}
       />

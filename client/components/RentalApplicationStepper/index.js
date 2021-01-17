@@ -28,6 +28,9 @@ const ConnectedRentalApplicationStepper = ({
   const { data, loading, error, refetch, networkStatus } = rentalApplication;
 
   if (loading) return <Loader loading={loading} />;
+  // lets see if instead, we can have the data refetched and it goes to where it needs to
+  // i.e perhaps remove the local values for some things. or keep track of the step?
+  // best approach is to perhaps have loading, and refetching prop. Then have useEffects for changes in the rentalApplication and then do things for the indiviodual components
   if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
   if (error) return <Error error={error} text="Loading Application" />;
 
