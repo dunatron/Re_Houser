@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
@@ -27,7 +28,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AppraisalsTable = ({ where, me, enableAddressParams }) => {
+const AppraisalsTable = ({
+  where,
+  me,
+  enableAddressParams,
+  baseManageLink = '/landlord/properties/',
+}) => {
   const connectionKey = 'rentalAppraisalsConnection'; // e.g inspectionsConnection
   const classes = useStyles();
   const tableRef = useRef(null);
@@ -141,7 +147,6 @@ const AppraisalsTable = ({ where, me, enableAddressParams }) => {
 };
 
 AppraisalsTable.propTypes = {
-  me: mePropTypes,
   where: PropTypes.object,
   orderBy: PropTypes.object,
 };

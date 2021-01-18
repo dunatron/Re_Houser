@@ -1,5 +1,6 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import { store } from '../../store';
 import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,7 +35,10 @@ const PropertiesTable = ({
   me,
   orderBy = 'createdAt_DESC',
   enableAddressParams,
+  baseManageLink = '/landlord/properties/',
 }) => {
+  const router = useRouter();
+
   const connectionKey = 'propertiesConnection'; // e.g inspectionsConnection
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
@@ -124,8 +128,8 @@ const PropertiesTable = ({
   );
 
   const manageProperty = (e, rowData) =>
-    Router.push({
-      pathname: `/landlord/properties/${rowData.id}`,
+    router.push({
+      pathname: `${baseManageLink}${rowData.id}`,
     });
 
   return (
@@ -152,6 +156,15 @@ const PropertiesTable = ({
       />
     </div>
   );
+};
+
+PropertiesTable.propTypes = {
+  where: PropTypes.object,
+  orderBy: PropTypes.object,
+  baseManageLink: PropTypes.oneOf([
+    '/landlord/properties/',
+    '/admin/properties/',
+  ]),
 };
 
 export default PropertiesTable;

@@ -1,7 +1,7 @@
 async function propertyLeasesConnection(parent, args, ctx, info) {
   const result = await ctx.db.query.propertyLeasesConnection(
     {
-      ...args,
+      ...args
     },
     info
   );
@@ -12,7 +12,7 @@ async function propertyLeasesConnection(parent, args, ctx, info) {
     },
     info
   );
-  
+
   return leasesRes;
 }
 

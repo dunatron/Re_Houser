@@ -4,7 +4,9 @@ import { RENTAL_APPLICATIONS_CONNECTION_QUERY } from './rentalApplicationsConnec
 import { PROPERTIES_CONNECTION_QUERY } from './propertiesConnection';
 import { PROPERTIES_COUNT_QUERY } from './propertiesCountQuery';
 import { INSPECTIONS_CONNECTION_QUERY } from './inspectionsConnection';
+import { INSPECTIONS_COUNT_QUERY } from './inspectionsCountQuery';
 import { PROPERTY_LEASES_CONNECTION_QUERY } from './propertyLeasesConnection';
+import { PROPERTY_LEASES_COUNT_QUERY } from './propertyLeasesCountQuery';
 import { CHARGES_COUNT_QUERY } from './chargesCountQuery';
 import { CHARGES_CONNECTION_QUERY } from './chargesConnection';
 import { PAYMENTS_CONNECTION_QUERY } from './paymentsConnection';
@@ -17,7 +19,9 @@ export {
   PROPERTIES_CONNECTION_QUERY,
   PROPERTIES_COUNT_QUERY,
   INSPECTIONS_CONNECTION_QUERY,
+  INSPECTIONS_COUNT_QUERY,
   PROPERTY_LEASES_CONNECTION_QUERY,
+  PROPERTY_LEASES_COUNT_QUERY,
   CHARGES_COUNT_QUERY,
   CHARGES_CONNECTION_QUERY,
   PAYMENTS_CONNECTION_QUERY,

@@ -1,20 +1,32 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { store } from '@/Store/index';
 import gql from 'graphql-tag';
-import { useApolloClient, useQuery, useMutation } from '@apollo/client';
+import moment from 'moment';
+import {
+  useApolloClient,
+  useQuery,
+  useMutation,
+  NetworkStatus,
+} from '@apollo/client';
+
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 import { Button, IconButton } from '@material-ui/core';
 
-import { RENTAL_APPRAISALS_CONNECTION_QUERY } from '@/Gql/connections';
+import { INSPECTIONS_CONNECTION_QUERY } from '@/Gql/connections';
+// mutations
+import { UPDATE_INSPECTION_MUTATION } from '@/Gql/mutations';
+
 import PropTypes from 'prop-types';
 import { mePropTypes, propertyPropTypes } from '../../propTypes';
-import moment from 'moment';
+import { useRouter } from 'next/router';
 
 import CachedIcon from '@material-ui/icons/Cached';
+
+//counts
+import { useInspectionsCount } from '@/Lib/hooks/counts/useInspectionsCount';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -27,35 +39,8 @@ const useStyles = makeStyles(theme => ({
 }));
 //https://medium.com/@harshverma04111989/material-table-with-graphql-remote-data-approach-f05298e1d670
 //https://github.com/harshmons/material-table-with-graphql-using-remote-data-approach
-const APPRAISALS_COUNT_QUERY = gql`
-  query APPRAISALS_COUNT_QUERY(
-    $where: RentalAppraisalWhereInput
-    $orderBy: RentalAppraisalOrderByInput
-    $skip: Int
-    $after: String
-    $before: String
-    $first: Int
-    $last: Int
-  ) {
-    rentalAppraisalsConnection(
-      where: $where
-      orderBy: $orderBy
-      skip: $skip
-      after: $after
-      before: $before
-      first: $first
-      last: $last
-    ) {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
-
-const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
-  const connectionKey = 'rentalAppraisalsConnection'; // e.g inspectionsConnection
-  const connectionQuery = RENTAL_APPRAISALS_CONNECTION_QUERY;
+const InspectionsTable = ({ where, me, orderBy = 'date_ASC' }) => {
+  const connectionKey = 'inspectionsConnection'; // e.g inspectionsConnection
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;
   const classes = useStyles();
@@ -64,44 +49,48 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
   const [searchText, setSearchText] = useState('');
   const [networkOnly, setNetworkOnly] = useState(false);
   const [tableErr, setTableErr] = useState(null);
+  const router = useRouter();
+
+  const totalCount = useInspectionsCount({ where: where });
 
   const tableColumnConfig = [
-    { title: 'location', field: 'location', editable: false },
+    // { title: 'id', field: 'id', editable: true },
+    { title: 'property', field: 'property.location', editable: true },
+    { title: 'date', field: 'date', editable: true },
     {
-      title: 'createdAt',
-      field: 'createdAt',
+      title: 'date',
+      field: 'date',
       render: rowData => {
-        return moment(rowData.createdAt).format('Do MMM YYYY');
+        return moment(rowData.date).format('llll');
       },
     },
-    { title: 'rent', field: 'rent', editable: false },
-    { title: 'hasBeenUsed', field: 'hasBeenUsed', editable: false },
+    {
+      field: 'completed',
+      title: 'completed',
+      editable: false,
+      render: rowData => {
+        return rowData.completed ? 'Yes' : 'No';
+      },
+    },
+    { title: 'notes', field: 'notes' },
   ];
 
   const sharedWhere = {
     ...where,
   };
 
-  const { data, loading, error, refetch } = useQuery(APPRAISALS_COUNT_QUERY, {
-    variables: {
-      where: {
-        ...where,
-      },
-      orderBy: orderBy,
-    },
-  });
+  const [updateInspection, updateInspectionProps] = useMutation(
+    UPDATE_INSPECTION_MUTATION,
+    {
+      onError: err => setTableErr(err),
+      onCompleted: data => {},
+    }
+  );
 
-  if (loading)
-    return <Loader loading={loading} text="Getting total appraisal count" />;
-
-  if (error) return <Error error={error} />;
-
-  const totalItemCount = data ? data[connectionKey].aggregate.count : 0;
-
-  const remoteData = query => {
+  const remoteData = async query => {
     return client
       .query({
-        query: connectionQuery,
+        query: INSPECTIONS_CONNECTION_QUERY,
         fetchPolicy: networkOnly ? 'network-only' : 'cache-first', // who needs a tradeoff when your a god
         variables: {
           where: {
@@ -124,10 +113,11 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
         const formattedData = edges.map(edge => ({
           ...edge.node,
         }));
+
         return {
           data: formattedData,
           page: query.page,
-          totalCount: totalItemCount,
+          totalCount: totalCount.count,
         };
       })
       .catch(e => {
@@ -138,7 +128,22 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
       });
   };
 
+  const manageInspection = (e, rowData) => {
+    router.push({
+      pathname: `/inspection/${rowData.id}`,
+    });
+  };
+
+  const isCompleted = v => {
+    if (v === true) return true;
+    if (v === false) return false;
+    const valAsStr = String(v).toLowerCase();
+    if (valAsStr === 'yes' || valAsStr === 'true') return true;
+    return false;
+  };
+
   const refetchTable = async () => {
+    setNetworkOnly(true);
     client.cache.modify({
       fields: {
         [connectionKey](existingRef, { readField }) {
@@ -146,16 +151,16 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
         },
       },
     });
-    refetch({
-      variables: {
-        where: {
-          ...where,
-        },
-        orderBy: orderBy,
-      },
-    });
     await tableRef.current.onQueryChange();
   };
+
+  useEffect(() => {
+    if (tableRef.current) {
+      refetchTable();
+    }
+  }, [totalCount.count]);
+
+  if (totalCount.loading) return 'Loading count';
 
   return (
     <div className={classes.root}>
@@ -166,6 +171,7 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
       </div>
       <Error error={tableErr} />
       <MaterialTable
+        isLoading={totalCount.loading}
         style={{
           marginBottom: '16px',
         }}
@@ -174,21 +180,39 @@ const BaseTable = ({ where, me, orderBy = 'createdAt_ASC' }) => {
         data={remoteData}
         options={{
           toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
+          filtering: true,
         }}
         actions={[
           {
-            icon: 'pageview',
-            tooltip: 'View appraisal details',
+            icon: 'settings',
+            tooltip: 'Manage Inspection',
+            onClick: manageInspection,
           },
         ]}
+        editable={{
+          isEditable: rowData => rowData.completed === false,
+          onRowUpdate: (newData, oldData) =>
+            updateInspection({
+              variables: {
+                where: {
+                  id: oldData.id,
+                },
+                data: {
+                  completed: isCompleted(newData.completed),
+                  notes: newData.notes,
+                },
+              },
+            }),
+        }}
       />
     </div>
   );
 };
 
-BaseTable.propTypes = {
+InspectionsTable.propTypes = {
+  me: mePropTypes,
   where: PropTypes.object,
   orderBy: PropTypes.object,
 };
 
-export default BaseTable;
+export default InspectionsTable;

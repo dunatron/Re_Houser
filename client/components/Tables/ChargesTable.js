@@ -1,4 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { store } from '../../store';
 import { useApolloClient } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -36,6 +37,7 @@ const ChargesTable = ({
   orderBy = 'createdAt_DESC',
   enableAddressParams,
 }) => {
+  const router = useRouter();
   const connectionKey = 'chargesConnection'; // e.g inspectionsConnection
   const globalStore = useContext(store);
   const { dispatch, state } = globalStore;

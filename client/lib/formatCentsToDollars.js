@@ -14,6 +14,8 @@ const formatCentsToDollars = (amount, type) => {
     return isPositive ? 'green' : 'red';
   };
 
+  // return formattedMoney;
+
   return (
     <span
       style={{

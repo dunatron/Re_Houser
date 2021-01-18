@@ -39,6 +39,17 @@ const ADMIN_DASHBOARD_CONFIG = ({ state }) => [
     ),
   },
   {
+    label: 'Leases',
+    route: '/admin/leases',
+    description: 'View all property leases that exist on the system',
+    color: 'secondary',
+    icon: (
+      <Badge badgeContent={state.newPropertiesCount} color="primary">
+        <HomeWorkIcon />
+      </Badge>
+    ),
+  },
+  {
     label: 'Inspections',
     route: '/admin/inspections',
     description: 'View allinspections on the system',
