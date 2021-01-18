@@ -15,7 +15,6 @@ const LoginModal = props => {
   };
 
   const handleSignedIn = data => {
-    console.log('SIgnedin from Login Modal => ', data);
     _close();
   };
 

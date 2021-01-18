@@ -6,8 +6,6 @@ import {
   RENTAL_APPRAISALS_CONNECTION_QUERY,
   RENTAL_APPRAISALS_COUNT_QUERY,
 } from '@/Gql/connections';
-import PropTypes from 'prop-types';
-import { mePropTypes } from '../../propTypes';
 import { useRouter } from 'next/router';
 
 import Modal from '@/Components/Modal/index';

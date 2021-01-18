@@ -11,7 +11,6 @@ const LegalPage = props => {
   const {
     appData: { currentUser },
   } = props;
-  console.log('props on legal page => ', props);
   const me = currentUser.data ? currentUser.data.me : null;
   return (
     <>

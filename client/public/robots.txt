@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://app.rehouser.co.nz
+
+# Sitemaps
+Sitemap: https://app.rehouser.co.nz/sitemap.xml

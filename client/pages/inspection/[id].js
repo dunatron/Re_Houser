@@ -44,7 +44,6 @@ const InspectionPage = ({ appData: { currentUser } }) => {
 };
 
 export async function getServerSideProps(ctx) {
-  // console.log("WHat is on ctx ? => ", ctx)
   const apolloClient = initializeApollo(null, ctx);
   await apolloClient.query({
     query: CURRENT_USER_QUERY,

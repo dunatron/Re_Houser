@@ -32,7 +32,6 @@ const ChargeLeaseWallet = ({ lease, onCompleted }) => {
   );
 
   const handleFormSubmit = data => {
-    console.log('Form data => ', data);
     updateWallet({
       variables: {
         data: {

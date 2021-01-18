@@ -72,19 +72,22 @@ const PhoneInput = props => {
   const label = fieldProps ? fieldProps.label : null;
 
   const handleChange = e => {
-    console.log('BAnk Account field change => ', e.target.value);
     setValue(fieldProps.name, e.target.value);
   };
 
   // register({ name: fieldProps.name }, refConf);
 
+  // register the field
   useEffect(() => {
     register({ name: fieldProps.name }, refConf);
+  }, []);
+
+  // set the default value if it has one and monitor for its change
+  useEffect(() => {
     if (defaultValue) {
-      console.log('BAnk Account default Value => ', defaultValue);
       setValue(fieldProps.name, defaultValue);
     }
-  }, []);
+  }, [defaultValue]);
 
   return (
     <FormControl variant="outlined" className={classes.formControl}>

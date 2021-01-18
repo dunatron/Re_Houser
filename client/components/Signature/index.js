@@ -71,16 +71,9 @@ const SignatureComponent = () => {
       // refetchQueries: [{ query: CURRENT_USER_QUERY }],
       onCompleted: handleCompleted,
       update: (cache, { data }) => {
-        console.log('The data after sig update => ', data);
         cache.modify({
           fields: {
             me(existingMeRef = {}, { readField }) {
-              console.log('The data for a signin => ', data.data);
-              console.log(
-                'WIll this even work => existingRefs ',
-                existingMeRef
-              );
-              console.log('WIll this even work => readField ', existingMeRef);
               return { ...data.uploadSignature };
             },
           },

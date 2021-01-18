@@ -90,7 +90,6 @@ const HomePageBannerBody = () => {
 };
 
 const HomePage = props => {
-  console.log('Props passed into the home Page => ', props);
   return (
     <div>
       <ParticleBanner

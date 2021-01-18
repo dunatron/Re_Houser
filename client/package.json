@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "next -p 7777",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start -p $PORT",
     "test": "NODE_ENV=test jest --watch",
     "heroku-postbuild": "next build",
@@ -148,6 +149,7 @@
     "jest": "^23.6.0",
     "jest-transform-graphql": "^2.1.0",
     "logrocket": "^1.0.10",
+    "next-sitemap": "^1.4.5",
     "react-proptypes-generate": "^1.6.1",
     "typescript": "^3.6.3"
   }

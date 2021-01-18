@@ -35,8 +35,6 @@ const UserDetailsStep = ({
   const [showUploader, setShowUploader] = useState(!hasPhotoId);
   if (completed) return <Typography>Step is complete</Typography>;
 
-  // console.log("me in user details step => ", me)
-
   return (
     <div>
       {Object.keys(userInfo).map((userVar, i) => {

@@ -1,8 +1,8 @@
 import Head from 'next/head';
 
-const APP_NAME = 'ReHouser PWA';
+const APP_NAME = 'ReHouser Property Management Web App';
 const APP_DESCRIPTION =
-  'Rehouser official progressive web app to manage your properties, applications and leases from anywhere';
+  'Rehouser property management app allows you to look for rental properties on our platform. You can also signup and manage the rental property lease with this app';
 
 const Meta = () => (
   <Head>

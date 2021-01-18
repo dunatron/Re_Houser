@@ -8,8 +8,6 @@ import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 const ContactPage = props => {
-  console.log('props on contact page => ', props);
-
   const { data, loading, error } = useQuery(CURRENT_USER_QUERY);
 
   if (loading) {

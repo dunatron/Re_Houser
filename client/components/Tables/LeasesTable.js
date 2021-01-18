@@ -80,7 +80,6 @@ const LeasesTable = ({
         field: 'wallet',
         render: rowData => {
           const val = formatCentsToDollars(rowData.wallet.amount);
-          console.log('Wallet row val => ', val);
           return <Typography>{val}</Typography>;
         },
       },

@@ -82,13 +82,10 @@ const WidgetWithSaveToDB = ({
   };
 
   const handleUploadToDbCompleted = data => {
-    console.log('Data returned from DB SUCCESS => ', data);
     if (onCompleted) {
       onCompleted(client, data.createFile);
     }
   };
-
-  console.log('files for this widget => ', files);
 
   const [createFile, { data, loading, error }] = useMutation(
     CREATE_FILE_MUTATION,
@@ -98,7 +95,6 @@ const WidgetWithSaveToDB = ({
   );
 
   const handleUploadCompleted = result => {
-    console.log('The result to save to the DB => ', result);
     createFile({
       variables: {
         data: {

@@ -7,7 +7,6 @@ import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 
 const GeneralUserUpdatesSub = ({ userId }) => {
-  console.log('userId in general user updates => ', userId);
   const { loading, data, error } = useSubscription(USER_SUBSCRIPTION, {
     variables: {
       where: {
@@ -19,7 +18,7 @@ const GeneralUserUpdatesSub = ({ userId }) => {
 
     onSubscriptionData: ({ client, subscriptionData }) => {
       if (!client) return;
-      console.log('User subscriptionData => ', subscriptionData);
+
       const subDta = subscriptionData.data.userSub.node;
       // Subs shouldnt handle our private files in the cache
       if (subDta.photoIdentification) delete subDta.photoIdentification;
@@ -30,13 +29,10 @@ const GeneralUserUpdatesSub = ({ userId }) => {
         query: CURRENT_USER_QUERY,
       });
 
-      console.log('Me read from the clent cache after subData => ', me);
-
       const newMe = {
         ...me,
         ...subDta,
       };
-      console.log('Me newMe subData => ', newMe);
 
       // // We will get subs back about Files that we may be able to see but the pushNotifications dont know that and send stock image
       client.writeQuery({
@@ -48,7 +44,6 @@ const GeneralUserUpdatesSub = ({ userId }) => {
     },
   });
 
-  console.log('complete data for user sub => ', data);
   if (loading) return null;
   if (error) {
     return (

@@ -35,7 +35,6 @@ const ApplyToGroup = props => {
       },
       update: (proxy, payload) => {
         const rentalData = payload.data.applyToRentalGroup;
-        console.log('THE RENTAL GROUP DATA => ', rentalData);
         // openRentalAppModal(rentalData);
       },
     }

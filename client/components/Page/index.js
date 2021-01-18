@@ -61,7 +61,6 @@ const SubLoader = () => {
  */
 const Page = props => {
   const [stripe, setStripe] = useState(null);
-  console.log('Page props: ', props);
 
   useServiceWorker();
   useDisableDrop();

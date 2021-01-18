@@ -38,12 +38,6 @@ const Nav = props => {
   const NAV_CONF = navConfig(me, loadingUser, router.pathname);
   const classes = useSideBarStyles();
 
-  useEffect(() => {
-    console.log('render: SideBar useEffect');
-    return () => {
-      console.log('render: SideBar useEffect cleanup');
-    };
-  }, [router.pathname]);
   return (
     <div>
       {NAV_CONF.map((conf, index) => {

@@ -147,7 +147,6 @@ const MaterialConnectionTable = props => {
   };
 
   const remoteData = async query => {
-    console.log('remote query => ', query);
     const page = remoteCalled ? query.page : addressParams.page;
     const skip = remoteCalled
       ? query.page * query.pageSize

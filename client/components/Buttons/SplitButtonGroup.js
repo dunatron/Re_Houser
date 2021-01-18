@@ -20,7 +20,6 @@ export default function SplitButtonGroup({
   const [selectedIndex, setSelectedIndex] = React.useState(defaultIndex);
 
   const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
     onClick(selectedIndex);
   };
 

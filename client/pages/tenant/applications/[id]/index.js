@@ -9,7 +9,6 @@ import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 const SingleApplicationPage = ({ appData: { currentUser }, query }) => {
-  console.log('Stepping Debug: root query: ', query);
   return (
     <PleaseSignIn
       currentUser={currentUser}

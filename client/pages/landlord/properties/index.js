@@ -24,7 +24,6 @@ const PropertiesPage = props => {
   const {
     appData: { currentUser },
   } = props;
-  console.log('props on Properties Page page => ', props);
   const pleaseSignInMessage =
     'You must be signed in to manager your properties';
 

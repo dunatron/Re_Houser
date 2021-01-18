@@ -52,7 +52,6 @@ const RentalApplication = ({ id, me }) => {
   const isAnApplicant = _isRentalApplicant(me.id, applicants);
 
   const handleSubData = ({ client, subscriptionData }) => {
-    console.log('Recieved Sub Data for APplication => ', subscriptionData);
     toast(<div>Rental APplication has been updated</div>);
   };
 

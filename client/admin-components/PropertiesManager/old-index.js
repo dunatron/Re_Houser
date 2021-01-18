@@ -181,9 +181,6 @@ const AdminRentalApplicationsTable = ({
     });
 
   const remoteData = (query, urlParams) => {
-    console.log('MUI Table remote query => ', query);
-    console.log('MUI Table remote urlParams => ', urlParams);
-
     const remotePage = urlParams.page;
 
     return client
@@ -209,7 +206,6 @@ const AdminRentalApplicationsTable = ({
             [connectionKey]: { pageInfo, aggregate, edges },
           },
         } = res;
-        console.log('MUI Table remote result => ', res);
         // immutatble/freezeObject
         const formattedData = edges.map(edge => ({
           ...edge.node,
@@ -279,23 +275,6 @@ const AdminRentalApplicationsTable = ({
         tableRef={tableRef}
         columns={tableColumnConfig}
         data={remoteData}
-        // page={2}
-        // options={{
-        //   toolbar: false, // This will disable the in-built toolbar where search is one of the functionality
-        //   initialPage: 2,
-        // }}
-        // onChangePage={page => {
-        //   Router.push(
-        //     Router.pathname,
-        //     {
-        //       query: {
-        //         page: page,
-        //       },
-        //     },
-        //     { shallow: true }
-        //   );
-        //   console.log('Ummm ok');
-        // }}
         actions={[
           {
             icon: 'settings',
