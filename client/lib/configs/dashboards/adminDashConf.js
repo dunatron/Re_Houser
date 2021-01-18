@@ -86,6 +86,13 @@ const ADMIN_DASHBOARD_CONFIG = ({ state }) => [
     icon: <SettingsIcon />,
   },
   {
+    label: 'Bank Manager',
+    route: '/admin/banking',
+    description: 'This is where you can manage all banking for leases',
+    color: 'secondary',
+    icon: <SettingsIcon />,
+  },
+  {
     label: 'Test Crashes',
     route: '/admin/test/server-crashes',
     description: 'Run server crashes',
