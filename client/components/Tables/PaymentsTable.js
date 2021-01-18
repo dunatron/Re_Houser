@@ -53,6 +53,10 @@ const PaymentsTable = ({
         field: 'id',
       },
       {
+        title: 'bankRef',
+        field: 'bankRef',
+      },
+      {
         title: 'amount',
         field: 'amount',
         render: rowData => formatCentsToDollars(rowData.amount),

@@ -58,6 +58,7 @@ const LeasesTable = ({
   const columns = React.useMemo(
     () => [
       { title: 'location', field: 'location', editable: false },
+      { title: 'bankRef', field: 'bankRef', editable: false },
       { title: 'stage', field: 'stage', editable: false },
       {
         title: 'createdAt',

@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 const RentalApplications = props => {
   const { data, error, loading } = useQuery(RENTAL_APPLICATIONS_QUERY, {
     variables: {
+      fetchPolicy: 'network-only',
       where: {
         property: {
           id: props.property.id,
@@ -68,7 +69,8 @@ const RentalApplications = props => {
           signed.
         </Typography>
         <Typography gutterBottom>
-          If the property is rehouserManaged then admins must sign the lease instead.
+          If the property is rehouserManaged then admins must sign the lease
+          instead.
         </Typography>
       </Paper>
 

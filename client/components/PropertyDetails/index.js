@@ -89,6 +89,7 @@ const RENTAL_APPLICATIONS_CONNECTION = gql`
 const PropertyApplicationsBadgeCount = ({ property }) => {
   const { data, loading, error } = useQuery(RENTAL_APPLICATIONS_CONNECTION, {
     variables: {
+      fetchPolicy: 'network-only',
       where: {
         property: {
           id: property.id,
@@ -149,6 +150,7 @@ const PropertyDetails = ({ id, location, me }) => {
 
   // INITIALIZING, PENDING, SHORTLISTED, DENIED, ACCEPTED
   const rentalApplicationsCount = useRentalApplicationCount({
+    fetchPolicy: 'network-only',
     where: {
       ...countVariables.where,
       stage_in: ['INITIALIZING', 'SHORTLISTED', 'PENDING'],
@@ -156,6 +158,7 @@ const PropertyDetails = ({ id, location, me }) => {
   });
   // INITIALIZING, SIGNED, PAID, COMPLETED
   const leasesCount = useLeasesCount({
+    fetchPolicy: 'network-only',
     where: {
       ...countVariables.where,
       // OR: [
@@ -165,6 +168,7 @@ const PropertyDetails = ({ id, location, me }) => {
     },
   });
   const inspectionsCount = useInspectionsCount({
+    fetchPolicy: 'network-only',
     where: {
       ...countVariables.where,
       completed: false,
