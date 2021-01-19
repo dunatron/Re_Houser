@@ -53,10 +53,11 @@ const LandlordPage = ({ appData: { currentUser } }) => {
             it will be readily available to the Property Owner.
           </Typography>,
         ]}
+        metaKeywords="Rentals, Property, Management, Landlord"
         metaData={{
           title: 'Landlord Portal',
           content:
-            'Manage your property portfolio from rehousers landlord portal. It provides you with the tools and data to manage all of your properties',
+            'Manage your rental properties from the rehouser landlord portal',
         }}
       />
       <PleaseSignIn

@@ -17,9 +17,11 @@ const PropertySearchPage = ({ appData: { currentUser } }) => {
         id="property-search"
         intro="Browse our range of available rental properties from your at-home comforts. 
         We are always working on new listings, so make sure to come back for a visit every once and a while."
+        metaKeywords="Search, Properties, Find, Rentals, Housing, Living, Flat, Flats"
         metaData={{
-          title: 'Look for properties',
-          content: 'Look or search for rental properties available in NZ',
+          title: 'Look for rental properties',
+          content:
+            'Look for rental properties available to rent in New Zealand',
         }}
         children={[
           <Typography key={1} gutterBottom>

@@ -18,6 +18,7 @@ const TenantPage = ({ appData: { currentUser } }) => {
         title="Tenant Portal"
         intro="Welcome to the Tenant Portal. From here you can manage your applications and your lease"
         children={[]}
+        metaKeywords="Rentals, Property, Tenant, Rent Property, House"
         metaData={{
           title: 'Tenant Portal',
           content: 'Tenant portal for the current logged in user',
