@@ -42,7 +42,10 @@ async function createPropertyLease(parent, { data }, ctx, info) {
       title: "Lease Created",
       content: "A new Property lease has been created",
       type: "CREATED_LEASE",
-      bankRef: newLease.bankRef,
+      // bankRef: newLease.bankRef,
+      jsonObj: {
+        bankRef: newLease.bankRef
+      },
       propertyLease: {
         connect: {
           id: newLease.id
