@@ -133,7 +133,7 @@ const getStepContent = ({ stepIdx, completed, ...rest }) => {
 
 const RentalApplicationStepper = props => {
   const router = useRouter();
-  const { me, property, rentalApplication, refetch } = props;
+  const { me, property, rentalApplication, refetch, refetching } = props;
   const { owner, applicants } = rentalApplication;
   const classes = useStyles();
   const [updateApplication, updateApplicationProps] = useMutation(
@@ -301,6 +301,13 @@ const RentalApplicationStepper = props => {
 
   return (
     <div className={classes.root}>
+      {refetching && (
+        <Loader
+          loading={refetching}
+          text="refetching application data"
+          fullScreen
+        />
+      )}
       <Stepper
         nonLinear
         activeStep={activeStep}

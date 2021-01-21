@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MaterialTable from 'material-table';
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
-import { Button, IconButton } from '@material-ui/core';
+import { Typography, Button, IconButton } from '@material-ui/core';
 
 import { RENTAL_APPRAISALS_CONNECTION_QUERY } from '@/Gql/connections';
 import PropTypes from 'prop-types';

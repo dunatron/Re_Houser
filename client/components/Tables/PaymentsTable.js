@@ -10,7 +10,7 @@ import ConnectionTable, {
 
 //components
 import Error from '@/Components/ErrorMessage';
-import { Typograhpy } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import formatCentsToDollars from '@/Lib/formatCentsToDollars';
 import moment from 'moment';
