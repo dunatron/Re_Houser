@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Fri Jan 15 2021 15:06:56 GMT+1300 (New Zealand Daylight Time)
+# source: https://rehouser-db-prod-925c297bf3.herokuapp.com/rehouser-prisma/prod
+# timestamp: Fri Jan 22 2021 16:14:13 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -11277,7 +11277,7 @@ type LesseeConnection {
 
 input LesseeCreateInput {
   id: ID
-  signed: Boolean!
+  signed: Boolean
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
   user: UserCreateOneWithoutLesseeLeasesInput
@@ -11295,14 +11295,14 @@ input LesseeCreateManyWithoutUserInput {
 
 input LesseeCreateWithoutLeaseInput {
   id: ID
-  signed: Boolean!
+  signed: Boolean
   signedAt: DateTime
   user: UserCreateOneWithoutLesseeLeasesInput
 }
 
 input LesseeCreateWithoutUserInput {
   id: ID
-  signed: Boolean!
+  signed: Boolean
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLesseesInput
 }
@@ -11628,7 +11628,7 @@ type LessorConnection {
 
 input LessorCreateInput {
   id: ID
-  signed: Boolean!
+  signed: Boolean
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
   user: UserCreateOneWithoutLessorLeasesInput
@@ -11646,14 +11646,14 @@ input LessorCreateManyWithoutUserInput {
 
 input LessorCreateWithoutLeaseInput {
   id: ID
-  signed: Boolean!
+  signed: Boolean
   signedAt: DateTime
   user: UserCreateOneWithoutLessorLeasesInput
 }
 
 input LessorCreateWithoutUserInput {
   id: ID
-  signed: Boolean!
+  signed: Boolean
   signedAt: DateTime
   lease: PropertyLeaseCreateOneWithoutLessorsInput
 }
@@ -11989,7 +11989,7 @@ type MessageConnection {
 input MessageCreateInput {
   id: ID
   content: String!
-  isMine: Boolean!
+  isMine: Boolean
   lastMessageRel: ChatCreateOneWithoutLastMessageInput
   chat: ChatCreateOneWithoutMessagesInput!
   sender: UserCreateOneWithoutSentMessagesInput
@@ -12019,7 +12019,7 @@ input MessageCreateOneWithoutLastMessageRelInput {
 input MessageCreateWithoutChatInput {
   id: ID
   content: String!
-  isMine: Boolean!
+  isMine: Boolean
   lastMessageRel: ChatCreateOneWithoutLastMessageInput
   sender: UserCreateOneWithoutSentMessagesInput
   recipient: UserCreateOneWithoutRecievedMessagesInput
@@ -12028,7 +12028,7 @@ input MessageCreateWithoutChatInput {
 input MessageCreateWithoutLastMessageRelInput {
   id: ID
   content: String!
-  isMine: Boolean!
+  isMine: Boolean
   chat: ChatCreateOneWithoutMessagesInput!
   sender: UserCreateOneWithoutSentMessagesInput
   recipient: UserCreateOneWithoutRecievedMessagesInput
@@ -12037,7 +12037,7 @@ input MessageCreateWithoutLastMessageRelInput {
 input MessageCreateWithoutRecipientInput {
   id: ID
   content: String!
-  isMine: Boolean!
+  isMine: Boolean
   lastMessageRel: ChatCreateOneWithoutLastMessageInput
   chat: ChatCreateOneWithoutMessagesInput!
   sender: UserCreateOneWithoutSentMessagesInput
@@ -12046,7 +12046,7 @@ input MessageCreateWithoutRecipientInput {
 input MessageCreateWithoutSenderInput {
   id: ID
   content: String!
-  isMine: Boolean!
+  isMine: Boolean
   lastMessageRel: ChatCreateOneWithoutLastMessageInput
   chat: ChatCreateOneWithoutMessagesInput!
   recipient: UserCreateOneWithoutRecievedMessagesInput
@@ -15622,11 +15622,11 @@ type Property implements Node {
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
   viewings(where: ViewingWhereInput, orderBy: ViewingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Viewing!]
-  rehouserHandlesBills: Boolean
-  rehouserAssist: PropertyAssist
   files: PropertyFiles
   inspectionFrequency: InspectionFrequency
   inspections(where: InspectionWhereInput, orderBy: InspectionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inspection!]
+  rehouserHandlesBills: Boolean
+  rehouserAssist: PropertyAssist
   rehouserManaged: Boolean
 }
 
@@ -16078,7 +16078,7 @@ input PropertyCreateInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16095,8 +16095,8 @@ input PropertyCreateInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16117,9 +16117,9 @@ input PropertyCreateInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateManyWithoutAgentsInput {
@@ -16236,7 +16236,7 @@ input PropertyCreateWithoutAccommodationInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16253,8 +16253,8 @@ input PropertyCreateWithoutAccommodationInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16274,9 +16274,9 @@ input PropertyCreateWithoutAccommodationInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutActivityInput {
@@ -16305,7 +16305,7 @@ input PropertyCreateWithoutActivityInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16322,8 +16322,8 @@ input PropertyCreateWithoutActivityInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16343,9 +16343,9 @@ input PropertyCreateWithoutActivityInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutAgentsInput {
@@ -16374,7 +16374,7 @@ input PropertyCreateWithoutAgentsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16391,8 +16391,8 @@ input PropertyCreateWithoutAgentsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16412,9 +16412,9 @@ input PropertyCreateWithoutAgentsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutAppraisalsInput {
@@ -16443,7 +16443,7 @@ input PropertyCreateWithoutAppraisalsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16460,8 +16460,8 @@ input PropertyCreateWithoutAppraisalsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16481,9 +16481,9 @@ input PropertyCreateWithoutAppraisalsInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutBankDetailsInput {
@@ -16512,7 +16512,7 @@ input PropertyCreateWithoutBankDetailsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16529,8 +16529,8 @@ input PropertyCreateWithoutBankDetailsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16550,9 +16550,9 @@ input PropertyCreateWithoutBankDetailsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutCreatorInput {
@@ -16581,7 +16581,7 @@ input PropertyCreateWithoutCreatorInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16598,8 +16598,8 @@ input PropertyCreateWithoutCreatorInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16619,9 +16619,9 @@ input PropertyCreateWithoutCreatorInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutFilesInput {
@@ -16650,7 +16650,7 @@ input PropertyCreateWithoutFilesInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16667,8 +16667,8 @@ input PropertyCreateWithoutFilesInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16689,8 +16689,8 @@ input PropertyCreateWithoutFilesInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutImagesInput {
@@ -16719,7 +16719,7 @@ input PropertyCreateWithoutImagesInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16736,8 +16736,8 @@ input PropertyCreateWithoutImagesInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16757,9 +16757,9 @@ input PropertyCreateWithoutImagesInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutInspectionsInput {
@@ -16788,7 +16788,7 @@ input PropertyCreateWithoutInspectionsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16805,8 +16805,8 @@ input PropertyCreateWithoutInspectionsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16827,8 +16827,8 @@ input PropertyCreateWithoutInspectionsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutInsulationStatementFileInput {
@@ -16857,7 +16857,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16874,8 +16874,8 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16895,9 +16895,9 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutLeasesInput {
@@ -16926,7 +16926,7 @@ input PropertyCreateWithoutLeasesInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -16943,8 +16943,8 @@ input PropertyCreateWithoutLeasesInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -16964,9 +16964,9 @@ input PropertyCreateWithoutLeasesInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutOwnersInput {
@@ -16995,7 +16995,7 @@ input PropertyCreateWithoutOwnersInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -17012,8 +17012,8 @@ input PropertyCreateWithoutOwnersInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -17033,9 +17033,9 @@ input PropertyCreateWithoutOwnersInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutProofOfOwnershipInput {
@@ -17064,7 +17064,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -17081,8 +17081,8 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -17102,9 +17102,9 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutRehouserAssistInput {
@@ -17133,7 +17133,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -17150,8 +17150,8 @@ input PropertyCreateWithoutRehouserAssistInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -17202,7 +17202,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -17219,8 +17219,8 @@ input PropertyCreateWithoutRentalApplicationsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -17240,9 +17240,9 @@ input PropertyCreateWithoutRentalApplicationsInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 input PropertyCreateWithoutViewingsInput {
@@ -17271,7 +17271,7 @@ input PropertyCreateWithoutViewingsInput {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean
   acceptedTerms: Boolean
   isLeased: Boolean
   lastLeaseId: String
@@ -17288,8 +17288,8 @@ input PropertyCreateWithoutViewingsInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyCreateindoorFeaturesInput
   outdoorFeatures: PropertyCreateoutdoorFeaturesInput
@@ -17309,9 +17309,9 @@ input PropertyCreateWithoutViewingsInput {
   leases: PropertyLeaseCreateManyWithoutPropertyInput
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
   files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
 
 """An edge in a connection."""
@@ -19750,10 +19750,10 @@ enum PropertyOrderByInput {
   tenYearPhotoelectricAlarms_DESC
   alarmsEachLevel_ASC
   alarmsEachLevel_DESC
-  rehouserHandlesBills_ASC
-  rehouserHandlesBills_DESC
   inspectionFrequency_ASC
   inspectionFrequency_DESC
+  rehouserHandlesBills_ASC
+  rehouserHandlesBills_DESC
   rehouserManaged_ASC
   rehouserManaged_DESC
 }
@@ -19808,8 +19808,8 @@ type PropertyPreviousValues {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
 }
 
@@ -20568,10 +20568,6 @@ input PropertyScalarWhereInput {
 
   """All values that are not equal to given value."""
   alarmsEachLevel_not: Boolean
-  rehouserHandlesBills: Boolean
-
-  """All values that are not equal to given value."""
-  rehouserHandlesBills_not: Boolean
   inspectionFrequency: InspectionFrequency
 
   """All values that are not equal to given value."""
@@ -20582,6 +20578,10 @@ input PropertyScalarWhereInput {
 
   """All values that are not contained in given list."""
   inspectionFrequency_not_in: [InspectionFrequency!]
+  rehouserHandlesBills: Boolean
+
+  """All values that are not equal to given value."""
+  rehouserHandlesBills_not: Boolean
   rehouserManaged: Boolean
 
   """All values that are not equal to given value."""
@@ -20699,8 +20699,8 @@ input PropertyUpdateInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20721,9 +20721,9 @@ input PropertyUpdateInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateManyDataInput {
@@ -20768,8 +20768,8 @@ input PropertyUpdateManyDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -20820,8 +20820,8 @@ input PropertyUpdateManyMutationInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21030,8 +21030,8 @@ input PropertyUpdateWithoutAccommodationDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21051,9 +21051,9 @@ input PropertyUpdateWithoutAccommodationDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutActivityDataInput {
@@ -21098,8 +21098,8 @@ input PropertyUpdateWithoutActivityDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21119,9 +21119,9 @@ input PropertyUpdateWithoutActivityDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutAgentsDataInput {
@@ -21166,8 +21166,8 @@ input PropertyUpdateWithoutAgentsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21187,9 +21187,9 @@ input PropertyUpdateWithoutAgentsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutAppraisalsDataInput {
@@ -21234,8 +21234,8 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21255,9 +21255,9 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutBankDetailsDataInput {
@@ -21302,8 +21302,8 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21323,9 +21323,9 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutCreatorDataInput {
@@ -21370,8 +21370,8 @@ input PropertyUpdateWithoutCreatorDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21391,9 +21391,9 @@ input PropertyUpdateWithoutCreatorDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutFilesDataInput {
@@ -21438,8 +21438,8 @@ input PropertyUpdateWithoutFilesDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21460,8 +21460,8 @@ input PropertyUpdateWithoutFilesDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutImagesDataInput {
@@ -21506,8 +21506,8 @@ input PropertyUpdateWithoutImagesDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21527,9 +21527,9 @@ input PropertyUpdateWithoutImagesDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutInspectionsDataInput {
@@ -21574,8 +21574,8 @@ input PropertyUpdateWithoutInspectionsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21596,8 +21596,8 @@ input PropertyUpdateWithoutInspectionsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutInsulationStatementFileDataInput {
@@ -21642,8 +21642,8 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21663,9 +21663,9 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutLeasesDataInput {
@@ -21710,8 +21710,8 @@ input PropertyUpdateWithoutLeasesDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21731,9 +21731,9 @@ input PropertyUpdateWithoutLeasesDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutOwnersDataInput {
@@ -21778,8 +21778,8 @@ input PropertyUpdateWithoutOwnersDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21799,9 +21799,9 @@ input PropertyUpdateWithoutOwnersDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutProofOfOwnershipDataInput {
@@ -21846,8 +21846,8 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21867,9 +21867,9 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutRehouserAssistDataInput {
@@ -21914,8 +21914,8 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -21982,8 +21982,8 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -22003,9 +22003,9 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithoutViewingsDataInput {
@@ -22050,8 +22050,8 @@ input PropertyUpdateWithoutViewingsDataInput {
   inHallway3mOfEachBedroom: Boolean
   tenYearPhotoelectricAlarms: Boolean
   alarmsEachLevel: Boolean
-  rehouserHandlesBills: Boolean
   inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
   rehouserManaged: Boolean
   indoorFeatures: PropertyUpdateindoorFeaturesInput
   outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
@@ -22071,9 +22071,9 @@ input PropertyUpdateWithoutViewingsDataInput {
   leases: PropertyLeaseUpdateManyWithoutPropertyInput
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
-  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
   files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
 
 input PropertyUpdateWithWhereUniqueWithoutAgentsInput {
@@ -22929,10 +22929,6 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   alarmsEachLevel_not: Boolean
-  rehouserHandlesBills: Boolean
-
-  """All values that are not equal to given value."""
-  rehouserHandlesBills_not: Boolean
   inspectionFrequency: InspectionFrequency
 
   """All values that are not equal to given value."""
@@ -22943,6 +22939,10 @@ input PropertyWhereInput {
 
   """All values that are not contained in given list."""
   inspectionFrequency_not_in: [InspectionFrequency!]
+  rehouserHandlesBills: Boolean
+
+  """All values that are not equal to given value."""
+  rehouserHandlesBills_not: Boolean
   rehouserManaged: Boolean
 
   """All values that are not equal to given value."""
@@ -22979,11 +22979,11 @@ input PropertyWhereInput {
   viewings_every: ViewingWhereInput
   viewings_some: ViewingWhereInput
   viewings_none: ViewingWhereInput
-  rehouserAssist: PropertyAssistWhereInput
   files: PropertyFilesWhereInput
   inspections_every: InspectionWhereInput
   inspections_some: InspectionWhereInput
   inspections_none: InspectionWhereInput
+  rehouserAssist: PropertyAssistWhereInput
 }
 
 input PropertyWhereUniqueInput {
@@ -24436,7 +24436,7 @@ input RentalAppraisalCreateInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
-  hasBeenUsed: Boolean!
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
   property: PropertyCreateOneWithoutAppraisalsInput
@@ -24464,7 +24464,7 @@ input RentalAppraisalCreateWithoutPropertyInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
-  hasBeenUsed: Boolean!
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
 }
@@ -24481,7 +24481,7 @@ input RentalAppraisalCreateWithoutRequestedByInput {
   rent: Float
   rentValueAccepted: Boolean
   acceptTerms: Boolean
-  hasBeenUsed: Boolean!
+  hasBeenUsed: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
   property: PropertyCreateOneWithoutAppraisalsInput
 }
@@ -25386,7 +25386,7 @@ type RentalGroupApplicantConnection {
 
 input RentalGroupApplicantCreateInput {
   id: ID
-  approved: Boolean!
+  approved: Boolean
   completed: Boolean
   firstName: String
   lastName: String
@@ -25408,7 +25408,7 @@ input RentalGroupApplicantCreateOneWithoutPreTenancyApplicationFormInput {
 
 input RentalGroupApplicantCreateWithoutApplicationInput {
   id: ID
-  approved: Boolean!
+  approved: Boolean
   completed: Boolean
   firstName: String
   lastName: String
@@ -25419,7 +25419,7 @@ input RentalGroupApplicantCreateWithoutApplicationInput {
 
 input RentalGroupApplicantCreateWithoutPreTenancyApplicationFormInput {
   id: ID
-  approved: Boolean!
+  approved: Boolean
   completed: Boolean
   firstName: String
   lastName: String
