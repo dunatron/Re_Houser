@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   Share,
   ShareButton,
@@ -42,8 +42,11 @@ const ApplicationDetailsStep = ({
   isOwner,
   isAnApplicant,
   refetch,
+  refetching,
 }) => {
   const { applicants } = rentalApplication;
+
+  console.log('RENTAL APPLICATION DATA => ', rentalApplication);
 
   // SHould really use hooks ContextProvider as the main index has this
   const [updateApplication, { error, loading }] = useMutation(
@@ -113,7 +116,7 @@ const ApplicationDetailsStep = ({
       title: 'Avatar',
       render: rowData => <UserProfile user={rowData.user} me={me} />,
     },
-    { title: 'firstName', field: 'firstName', editable: false },
+    { title: 'firstName', field: 'user.firstName', editable: false },
     { title: 'completed', field: 'completed', editable: false },
     {
       title: 'hasPreTenancyForm',
@@ -149,7 +152,8 @@ const ApplicationDetailsStep = ({
     // maybe this is a thing for the actual rentalApplication where we have a button at the top somewhere that allows a refresh
   };
 
-  if (completed) return 'Section is completed';
+  if (completed) return <Typography>Section is completed</Typography>;
+  if (refetching) return <Typography>Remaking Table</Typography>; // or the data doesnt get updated
 
   return (
     <div>
@@ -185,6 +189,7 @@ const ApplicationDetailsStep = ({
       <SuperiorTable
         title="Application applicants"
         columns={columns}
+        isLoading={refetching}
         data={formattedApplicants}
         options={{
           search: true,
@@ -203,24 +208,6 @@ const ApplicationDetailsStep = ({
             onClick: refreshTableData,
           },
         ]}
-        // actions={[
-        //   {
-        //     icon: 'person',
-        //     tooltip: 'Manage application',
-        //     onClick: (event, rowData) => {
-        //       // manageApplicationForCurrentUser(rowData, me);
-        //       alert('Hiii');
-        //     },
-        //   },
-        //   {
-        //     icon: 'person',
-        //     tooltip: 'Manage application',
-        //     onClick: (event, rowData) => {
-        //       <UserProfile />;
-        //     },
-        //   },
-        //   ,
-        // ]}
       />
       {/* <CustomChat
         // pageId="123456789"

@@ -98,10 +98,10 @@ type Address {
 type AdminSetting {
   id: ID! @unique @id
   user: User @relation(name: "UserAdminSettings")
-  appraisalCreatedSub: Boolean
-  propertyCreatedSub: Boolean
-  rentalApplicationCreatedSub: Boolean
-  leaseCreatedSub: Boolean
+  appraisalCreatedSub: Boolean @default(value: false)
+  propertyCreatedSub: Boolean @default(value: false)
+  rentalApplicationCreatedSub: Boolean @default(value: false)
+  leaseCreatedSub: Boolean @default(value: false)
 }
 
 type BankDetail {
@@ -136,7 +136,7 @@ type Message {
   chat: Chat! @relation(name: "ChatMessages")
   sender: User @relation(name: "UserSentMessages")
   recipient: User @relation(name: "UserRecievedMessages")
-  isMine: Boolean!
+  isMine: Boolean! @default(value: false)
 }
 
 type Seen {
@@ -255,7 +255,7 @@ type Property implements PropertyInfo {
   bondType: BondType @default(value: WEEKS_RENT_2)
   lowestRoomPrice: Float
   highestRoomPrice: Float
-  useAdvancedRent: Boolean
+  useAdvancedRent: Boolean @default(value: false)
   accommodation: [Accommodation!]! @relation(name: "PropertyAccommodation")
   bathrooms: Int
   garageSpaces: Int!
@@ -271,18 +271,18 @@ type Property implements PropertyInfo {
   moveInDate: DateTime
   expiryDate: DateTime
   leaseLengthInMonths: Int
-  onTheMarket: Boolean!
+  onTheMarket: Boolean! @default(value: false)
   owners: [User!]! @relation(name: "PropertyOwner")
   agents: [User!]! @relation(name: "PropertyAgents")
   creator: User! @relation(name: "PropertyCreator")
   images: [File!]! @relation(name: "PropertyImages", link: TABLE)
   proofOfOwnership: File @relation(name: "ProofOfOwnership", link: TABLE)
-  acceptedTerms: Boolean
+  acceptedTerms: Boolean @default(value: false)
   # floorPlans: File
   rentalApplications: [RentalApplication]
     @relation(name: "PropertyRentalApplication")
   leases: [PropertyLease] @relation(name: "PropertyLeases")
-  isLeased: Boolean
+  isLeased: Boolean @default(value: false)
   lastLeaseId: String
   leaseExpiryDate: DateTime
   rehouserStamp: Boolean
@@ -291,23 +291,23 @@ type Property implements PropertyInfo {
   petsAllowed: Boolean
   pets: [Pet] @scalarList(strategy: RELATION)
   manholeLocation: String
-  gardenToMaintain: Boolean
+  gardenToMaintain: Boolean @default(value: false)
   gardenResponsible: PartyResponsible
   maintenanceResponsible: PartyResponsible
   chattels: [PropertyChattel] @scalarList(strategy: RELATION)
-  landlordProtectionCover: Boolean
-  freeGlassCover: Boolean
-  workingAlarms: Boolean
-  inHallway3mOfEachBedroom: Boolean
-  tenYearPhotoelectricAlarms: Boolean
-  alarmsEachLevel: Boolean
+  landlordProtectionCover: Boolean @default(value: false)
+  freeGlassCover: Boolean @default(value: false)
+  workingAlarms: Boolean @default(value: false)
+  inHallway3mOfEachBedroom: Boolean @default(value: false)
+  tenYearPhotoelectricAlarms: Boolean @default(value: false)
+  alarmsEachLevel: Boolean @default(value: false)
   viewings: [Viewing] @relation(name: "PropertyViewings")
-  rehouserHandlesBills: Boolean
-  rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
   files: PropertyFiles @relation(name: "PropertyFiles", link: TABLE)
   inspectionFrequency: InspectionFrequency
   inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
-  rehouserManaged: Boolean
+  rehouserHandlesBills: Boolean @default(value: false)
+  rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
+  rehouserManaged: Boolean @default(value: true)
 }
 
 type PropertyFiles {
@@ -324,9 +324,9 @@ type PropertyFiles {
 type PropertyAssist {
   id: ID! @unique @id
   property: Property @relation(name: "PropertyAssists")
-  rates: Boolean
-  insurance: Boolean
-  water: Boolean
+  rates: Boolean @default(value: false)
+  insurance: Boolean @default(value: false)
+  water: Boolean @default(value: false)
 }
 
 type Viewing {
@@ -396,6 +396,7 @@ type Inspection {
   completedTime: DateTime
   completed: Boolean! @default(value: false)
   notes: String
+    @default(value: "Enter notes here for before and after inspection")
   inspectionForm: InspectionForm @relation(name: "InspectionForm")
   submittedForms: [InspectionForm] @relation(name: "SubmittedInspectionForms")
   files: [File] @relation(name: "InspectionFiles", link: TABLE)
@@ -418,9 +419,9 @@ type RentalAppraisal {
   heatSources: [HeatSource] @scalarList(strategy: RELATION)
   rent: Float
   rentValueAccepted: Boolean
-  acceptTerms: Boolean
+  acceptTerms: Boolean @default(value: false)
   property: Property @relation(name: "PropertyRentalAppraisals")
-  hasBeenUsed: Boolean!
+  hasBeenUsed: Boolean! @default(value: false)
 }
 
 type Accommodation {
@@ -437,8 +438,8 @@ type RentalGroupApplicant {
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
   user: User!
-  approved: Boolean!
-  completed: Boolean
+  approved: Boolean! @default(value: false)
+  completed: Boolean @default(value: false)
   application: RentalApplication @relation(name: "RentalGroupApplicant")
   preTenancyApplicationForm: PreTenancyForm
     @relation(name: "ApplicantsPreTenancyForm")
@@ -464,7 +465,7 @@ type RentalApplication {
   leaseId: String
   chatId: String
   visibility: VisibilityLevel
-  finalised: Boolean
+  finalised: Boolean @default(value: false)
   property: Property! @relation(name: "PropertyRentalApplication")
   applicants: [RentalGroupApplicant!]! @relation(name: "RentalGroupApplicant")
 }
@@ -473,7 +474,7 @@ type Lessee {
   id: ID! @unique @id
   lease: PropertyLease @relation(name: "LeaseLessees")
   user: User @relation(name: "UserLesseeLeases")
-  signed: Boolean!
+  signed: Boolean! @default(value: false)
   signedAt: DateTime
 }
 
@@ -481,7 +482,7 @@ type Lessor {
   id: ID! @unique @id
   lease: PropertyLease @relation(name: "LeaseLessors")
   user: User @relation(name: "UserLessorLeases")
-  signed: Boolean!
+  signed: Boolean! @default(value: false)
   signedAt: DateTime
 }
 

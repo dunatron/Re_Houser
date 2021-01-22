@@ -21,6 +21,9 @@ import {
 } from '../../graphql/connections';
 // mutations
 
+import SingleCharge from '@/Components/Charges/SingleCharge';
+import Modal from '@/Components/Modal/index';
+
 const useStyles = makeStyles(theme => ({
   root: {},
   tableHeader: {
@@ -44,6 +47,8 @@ const ChargesTable = ({
   const classes = useStyles();
   const tableRef = useRef(null);
   const [tableErr, setTableErr] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalChargeId, setModalChargeId] = useState(null);
 
   const columns = React.useMemo(
     () => [
@@ -62,7 +67,7 @@ const ChargesTable = ({
         render: rowData => {
           return (
             <Typography>
-              {moment(rowData.createdAt).format('MM-DD-YYYY')}
+              {moment(rowData.createdAt).format('Do MMM YYYY')}
             </Typography>
           );
         },
@@ -79,8 +84,12 @@ const ChargesTable = ({
     []
   );
 
-  const viewSingleCharge = (e, rowData) =>
-    alert('Make modal for a single Charge');
+  const handleModalClose = () => setModalIsOpen(false);
+
+  const viewSingleCharge = (e, rowData) => {
+    setModalChargeId(rowData.id);
+    setModalIsOpen(true);
+  };
 
   return (
     <div className={classes.root}>
@@ -104,6 +113,9 @@ const ChargesTable = ({
           },
         ]}
       />
+      <Modal open={modalIsOpen} close={handleModalClose} disableBackdrop={true}>
+        <SingleCharge id={modalChargeId} />
+      </Modal>
     </div>
   );
 };

@@ -396,4 +396,5 @@ type Query {
   ): InspectionConnection!
   inspection(where: InspectionWhereUniqueInput!): Inspection
   propertyLeases(where: PropertyLeaseWhereInput): [PropertyLease]!
+  charge(where: ChargeWhereUniqueInput!): Charge!
 }

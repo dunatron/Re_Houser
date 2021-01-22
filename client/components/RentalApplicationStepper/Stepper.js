@@ -139,6 +139,7 @@ const RentalApplicationStepper = props => {
   const [updateApplication, updateApplicationProps] = useMutation(
     UPDATE_RENTAL_APPLICATION_MUTATION
   );
+  const invited = true;
   // 2. update rental group applicant mutation
   const [updateRentalGroupApplicant] = useMutation(
     UPDATE_RENTAL_GROUP_APPLICANT_MUTATION
@@ -154,6 +155,7 @@ const RentalApplicationStepper = props => {
     isOwner: isOwner,
     isAnApplicant: isAnApplicant,
     refetch: refetch,
+    refetching: refetching,
   };
 
   // an update user Mutation
@@ -372,12 +374,6 @@ const RentalApplicationStepper = props => {
             </Step>
           );
         })}
-        <Button
-          onClick={() => {
-            refetch();
-          }}>
-          REFETCH
-        </Button>
       </Stepper>
       <div>
         {allStepsCompleted() && (

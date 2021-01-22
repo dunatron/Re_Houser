@@ -15,6 +15,9 @@ import { Typography } from '@material-ui/core';
 import formatCentsToDollars from '@/Lib/formatCentsToDollars';
 import moment from 'moment';
 
+import SinglePayment from '@/Components/Payments/SinglePayment';
+import Modal from '@/Components/Modal/index';
+
 import {
   PAYMENTS_CONNECTION_QUERY,
   PAYMENTS_COUNT_QUERY,
@@ -45,6 +48,8 @@ const PaymentsTable = ({
   const classes = useStyles();
   const tableRef = useRef(null);
   const [tableErr, setTableErr] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalPaymentId, setModalPaymentId] = useState(null);
 
   const columns = React.useMemo(
     () => [
@@ -67,7 +72,7 @@ const PaymentsTable = ({
         render: rowData => {
           return (
             <Typography>
-              {moment(rowData.createdAt).format('MM-DD-YYYY')}
+              {moment(rowData.createdAt).format('Do MMM YYYY')}
             </Typography>
           );
         },
@@ -80,8 +85,12 @@ const PaymentsTable = ({
     []
   );
 
-  const viewSinglePayment = (e, rowData) =>
-    alert('Make modal for a single Payment');
+  const handleModalClose = () => setModalIsOpen(false);
+
+  const viewSinglePayment = (e, rowData) => {
+    setModalPaymentId(rowData.id);
+    setModalIsOpen(true);
+  };
 
   return (
     <div className={classes.root}>
@@ -93,7 +102,7 @@ const PaymentsTable = ({
         where={where}
         countQuery={PAYMENTS_COUNT_QUERY}
         gqlQuery={PAYMENTS_CONNECTION_QUERY}
-        searchKeysOR={['id_contains']}
+        searchKeysOR={['id_contains', 'bankRef_contains']}
         orderBy="createdAt_DESC"
         tableRef={tableRef}
         columns={columns}
@@ -105,6 +114,9 @@ const PaymentsTable = ({
           },
         ]}
       />
+      <Modal open={modalIsOpen} close={handleModalClose} disableBackdrop={true}>
+        <SinglePayment paymentId={modalPaymentId} />
+      </Modal>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { SINGLE_RENTAL_APPLICATION_QUERY } from '@/Gql/queries';
 import Error from '@/Components/ErrorMessage';
@@ -15,15 +15,24 @@ import RentalApplicationSub from '@/Components/SubscriptionComponents/RentalAppl
 import { toast } from 'react-toastify';
 
 import ApplyToGroup from './ApplyToGroup';
+import Button from '@/Styles/Button';
 
 import isAdmin from '@/Lib/isAdmin';
 import { _isRentalApplicant } from '@/Lib/_isRentalApplicant';
 import { _isRentalApplicationOwner } from '@/Lib/_isRentalApplicationOwner';
 
+import PropertyFullDetails from '@/Components/Property/FullDetails';
+import ApplicationFullDetails from '@/Components/RentalApplication/FullDetails';
+import Modal from '@/Components/Modal';
+
 /**
  * page is wrapped in a must be loggedIn
  */
-const RentalApplication = ({ id, me }) => {
+const RentalApplication = ({ id, me, invited }) => {
+  // open={isPropertyModalOpen} close={handleClosePropertyModal}
+  const [isPropertyModalOpen, setIsPropertyModalOpen] = useState(false);
+  const [isApplicationModalOpen, setIsApplicationModalOpen] = useState(false);
+
   const { data, loading, error } = useQuery(SINGLE_RENTAL_APPLICATION_QUERY, {
     variables: {
       where: {
@@ -32,8 +41,13 @@ const RentalApplication = ({ id, me }) => {
     },
   });
 
-  // Maybe we could sub into changes for a rentalApplication?
+  const handleClosePropertyModal = () => setIsPropertyModalOpen(false);
+  const handleOpenPropertyModal = () => setIsPropertyModalOpen(true);
 
+  const handleCloseApplicationModal = () => setIsApplicationModalOpen(false);
+  const handleOpenApplicationModal = () => setIsApplicationModalOpen(true);
+
+  // Maybe we could sub into changes for a rentalApplication?
   if (loading) return 'Loading';
   if (error) return <Error error={error} />;
   const {
@@ -48,8 +62,8 @@ const RentalApplication = ({ id, me }) => {
   } = data;
 
   const isAnAdmin = isAdmin(me);
-  const isOwner = _isRentalApplicationOwner(me.id, owner);
-  const isAnApplicant = _isRentalApplicant(me.id, applicants);
+  const isOwner = me ? _isRentalApplicationOwner(me.id, owner) : false;
+  const isAnApplicant = me ? _isRentalApplicant(me.id, applicants) : false;
 
   const handleSubData = ({ client, subscriptionData }) => {
     toast(<div>Rental APplication has been updated</div>);
@@ -68,6 +82,12 @@ const RentalApplication = ({ id, me }) => {
           <Typography key={1} gutterBottom>
             Application ID: {data.rentalApplication.id}
           </Typography>,
+          <Button variant="contained" onClick={handleOpenPropertyModal}>
+            Property Details
+          </Button>,
+          <Button variant="contained" onClick={handleOpenApplicationModal}>
+            Application Details
+          </Button>,
         ]}
       />
       {/* <RentalApplicationSub variables={{}} onSubscriptionData={handleSubData} /> */}
@@ -106,6 +126,22 @@ const RentalApplication = ({ id, me }) => {
             />
           </>
         )}
+        {invited && !isAnApplicant && (
+          <Typography gutterBottom>
+            You have been invited to the application. You will still need to
+            apply with the below button and fill out the details in the form
+          </Typography>
+        )}
+
+        {/* Possibly good idea to show a Property Details Modal. Good idea to make a full details to implememt on search item view */}
+        {!isAnApplicant && (
+          <>
+            <Typography gutterBottom>
+              Click the below Button to apply to the application
+            </Typography>
+            <ApplyToGroup applicationId={data.rentalApplication.id} />
+          </>
+        )}
         {!isOwner && isAnApplicant && (
           <>
             <ApplicantView rentalApplication={data.rentalApplication} me={me} />
@@ -116,13 +152,13 @@ const RentalApplication = ({ id, me }) => {
             />
           </>
         )}
-        {!isAnApplicant && (
-          <>
-            <div>Would you like to apply for this application</div>
-            <ApplyToGroup applicationId={data.rentalApplication.id} />
-          </>
-        )}
       </RehouserPaper>
+      <Modal open={isPropertyModalOpen} close={handleClosePropertyModal}>
+        <PropertyFullDetails />
+      </Modal>
+      <Modal open={isApplicationModalOpen} close={handleCloseApplicationModal}>
+        <ApplicationFullDetails id={data.rentalApplication.id} />
+      </Modal>
     </>
   );
 };
