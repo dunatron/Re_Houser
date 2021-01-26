@@ -104,7 +104,6 @@ const GlobalStyle = createGlobalStyle`
       p.theme.palette.type === 'dark'
         ? p.theme.palette.secondary.main
         : p.theme.palette.secondary.dark};
-    border-radius: 6px;
   }
 
   .geosuggest {

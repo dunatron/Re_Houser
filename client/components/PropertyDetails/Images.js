@@ -62,7 +62,9 @@ const PropertyImages = ({ property, updateProperty }) => {
         updateCacheOnRemovedFile={(cache, result) => {
           updateProperty({
             variables: {
-              id: property.id,
+              where: {
+                id: property.id,
+              },
               data: {
                 images: {
                   disconnect: [
@@ -78,7 +80,9 @@ const PropertyImages = ({ property, updateProperty }) => {
         recieveFile={file => {
           updateProperty({
             variables: {
-              id: property.id,
+              where: {
+                id: property.id,
+              },
               data: {
                 images: {
                   connect: [

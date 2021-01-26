@@ -113,6 +113,7 @@
     "react-particles-js": "^3.3.0",
     "react-pdf": "^5.0.0",
     "react-signature-canvas": "^1.0.3",
+    "react-slick": "^0.28.0",
     "react-stripe-elements": "^6.0.1",
     "react-swipeable-views": "^0.13.9",
     "react-tap-event-plugin": "^3.0.3",
