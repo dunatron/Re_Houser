@@ -57,6 +57,14 @@ const AppraisalsTable = ({
         sorting: true,
       },
       {
+        title: 'Appraised',
+        field: 'rent',
+        render: rowData => {
+          const appraised = rowData.rent ? 'YES' : 'Waiting to be appraised';
+          return appraised;
+        },
+      },
+      {
         title: 'rent',
         field: 'rent',
         editable: false,
@@ -108,11 +116,17 @@ const AppraisalsTable = ({
       </Modal>
 
       <div className={classes.tableHeader}>
-        <Button onClick={addAppraisalRoute} color="secondary">
+        <Button
+          // startIcon={}
+          onClick={addAppraisalRoute}
+          color="secondary"
+          variant="outlined">
           Request new APPRAISAL
         </Button>
       </div>
       <ConnectionTable
+        add={addAppraisalRoute}
+        type="RentalAppraisal"
         enableAddressParams={enableAddressParams}
         title="All Properties"
         connectionKey={connectionKey}

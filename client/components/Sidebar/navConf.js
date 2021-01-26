@@ -95,14 +95,14 @@ const NavigationConfig = (me, loadingUser, pathname) => {
           style: { ...defaultNavItemStyle },
           canRender: () => true,
         },
-        {
-          key: 'about-us',
-          icon: <InfoIcon />,
-          text: 'About Us',
-          route: '/about-us',
-          style: { ...defaultNavItemStyle },
-          canRender: () => true, // set to try just to run it alot on the same account in dev
-        },
+        // {
+        //   key: 'about-us',
+        //   icon: <InfoIcon />,
+        //   text: 'About Us',
+        //   route: '/about-us',
+        //   style: { ...defaultNavItemStyle },
+        //   canRender: () => true, // set to try just to run it alot on the same account in dev
+        // },
         {
           key: 'legal',
           icon: <InfoIcon />,

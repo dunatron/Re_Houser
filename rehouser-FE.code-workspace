@@ -15,6 +15,7 @@
       "titleBar.inactiveForeground": "#000000CC",
       "titleBar.activeBackground": "#673ab7",
       "titleBar.inactiveBackground": "#512da8"
-    }
+    },
+    "files.autoSaveDelay": 5000
   }
 }

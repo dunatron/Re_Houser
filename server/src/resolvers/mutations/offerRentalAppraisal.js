@@ -20,10 +20,19 @@ async function offerRentalAppraisal(parent, args, ctx, info) {
     `{ id requestedBy { id firstName lastName email } }`
   );
 
+  // need to connect the appraiser
+  // appraisedApplications: [RentalAppraisal]
+  //   @relation(name: "UserAppraisalsAppraised")
+  // appraisedBy: User @relation(name: "UserAppraisalsAppraised")
   const updatedRentalAppraisal = await ctx.db.mutation.updateRentalAppraisal(
     {
       data: {
-        ...data
+        ...data,
+        appraisedBy: {
+          connect: {
+            id: loggedInUserId
+          }
+        }
       },
       where: {
         ...where

@@ -29,5 +29,8 @@
     "titleBar.inactiveForeground": "#000000CC",
     "titleBar.activeBackground": "#F3DB04",
     "titleBar.inactiveBackground": "#f3db04bd"
+  },
+  "files.autoSave": {
+    "off": true
   }
 }

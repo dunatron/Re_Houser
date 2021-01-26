@@ -107,6 +107,7 @@ const generateFilters = query => {
 const MaterialConnectionTable = props => {
   const {
     title,
+    type,
     columns,
     options,
     countQuery,
@@ -116,6 +117,7 @@ const MaterialConnectionTable = props => {
     searchKeysOR,
     actions = [],
     enableAddressParams,
+    add,
     ...rest
   } = props;
   const tableRef = useRef();
@@ -299,6 +301,15 @@ const MaterialConnectionTable = props => {
         }
         actions={[
           ...actions,
+          {
+            icon: 'add',
+            tooltip: `Add ${type}`,
+            isFreeAction: true,
+            // disabled: true,
+            hidden: add ? false : true,
+            onClick: () => props.add(),
+          },
+
           {
             icon: 'refresh',
             tooltip: 'Refresh Data',

@@ -6,24 +6,52 @@ import {
   AccordionSummary,
   AccordionDetails,
   Grid,
+  Chip,
+  Button,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import formatMoney from '@/Lib/formatMoney';
+import EmailIcon from '@material-ui/icons/Email';
 
-const RentalAppraisalView = ({
-  rentalAppraisal: {
-    id,
-    placeId,
-    location,
-    rooms,
-    bathrooms,
-    heatSources,
-    requestedBy,
-    rent,
-    hasBeenUsed,
-    property,
-  },
-}) => {
+import PublicUserDetails from '@/Components/User/PublicUserDetails';
+
+import { useQuery } from '@apollo/client';
+import { SINGLE_RENTAL_APPRAISAL_QUERY } from '@/Gql/queries';
+import Loader from '@/Components/Loader';
+import Error from '@/Components/ErrorMessage';
+
+const RentalAppraisalView = ({ id }) => {
+  const { data, loading, error } = useQuery(SINGLE_RENTAL_APPRAISAL_QUERY, {
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      where: {
+        id: id,
+      },
+    },
+  });
+
+  if (loading)
+    return <Loader loading={loading} text="Loading in rental appraisal" />;
+
+  if (error) return <Error error={error} />;
+
+  if (!data) return <div>No Data from rental appraisal</div>;
+
+  const {
+    rentalAppraisal: {
+      placeId,
+      location,
+      rooms,
+      bathrooms,
+      heatSources,
+      requestedBy,
+      appraisedBy,
+      rent,
+      hasBeenUsed,
+      property,
+    },
+  } = data;
+
   return (
     <>
       <Grid container spacing={3}>
@@ -32,9 +60,22 @@ const RentalAppraisalView = ({
             style={{
               flexWrap: 'wrap',
             }}>
-            <Typography variant="h5" color="secondary" gutterBottom>
-              Appraisal
-            </Typography>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+              }}>
+              <Typography variant="h5" color="secondary">
+                Appraisal
+              </Typography>
+              <Chip
+                size="small"
+                style={{ margin: '8px' }}
+                label={rent ? 'Appraised' : 'Waiting to be appraised'}
+              />
+            </div>
+
             <LabelKeyVal label="location" val={location} />
             <LabelKeyVal label="rooms" val={rooms} />
             <LabelKeyVal label="bathrooms" val={bathrooms} />
@@ -45,8 +86,20 @@ const RentalAppraisalView = ({
           <Typography variant="h5" color="secondary" gutterBottom>
             Requested by
           </Typography>
-          <RequestedBy user={requestedBy} />
+          {/* <RequestedBy user={requestedBy} /> */}
+          {requestedBy && <PublicUserDetails id={requestedBy.id} />}
         </Grid>
+        {appraisedBy && (
+          <Grid item xs={12} sm={6}>
+            <Typography variant="h5" color="secondary" gutterBottom>
+              Appraised by
+            </Typography>
+            {appraisedBy && <PublicUserDetails id={appraisedBy.id} />}
+
+            {/* <AppraisedBy user={appraisedBy} /> */}
+          </Grid>
+        )}
+
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" color="default">
             Suggested rent{' '}
@@ -83,6 +136,17 @@ const RentalAppraisalView = ({
   );
 };
 
+const AppraisedBy = ({ user: { id, firstName, lastName, email } }) => {
+  return (
+    <Box>
+      {/* <LabelKeyVal label="id" val={id} /> */}
+      <LabelKeyVal label="firstName" val={firstName} />
+      <LabelKeyVal label="lastName" val={lastName} />
+      <LabelKeyVal label="email" val={email} />
+    </Box>
+  );
+};
+
 const RequestedBy = ({ user: { id, firstName, lastName, email } }) => {
   return (
     <Box>
@@ -90,6 +154,7 @@ const RequestedBy = ({ user: { id, firstName, lastName, email } }) => {
       <LabelKeyVal label="firstName" val={firstName} />
       <LabelKeyVal label="lastName" val={lastName} />
       <LabelKeyVal label="email" val={email} />
+      <Button startIcon={<EmailIcon />}>{email}</Button>
     </Box>
   );
 };

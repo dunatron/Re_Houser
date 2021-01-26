@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import Alert from '@material-ui/lab/Alert';
 import { useMutation } from '@apollo/client';
 import { LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF } from '@/Lib/configs/landlordTermsOfEngagementForm';
 
@@ -24,95 +25,109 @@ const AcceptTermsOfEngagementForm = ({ me }) => {
     }
   );
 
+  const accepted = me.acceptedTermsOfEngagement;
+
   if (me === null)
     return (
       <Typography>Please Signin to accept the terms of engagement</Typography>
     );
 
-  if (me.acceptedTermsOfEngagement)
-    return (
-      <div>
-        <Typography>
-          You have accepted the Terms of engagement! You can now add property to
-          the platform
-        </Typography>
-        <ChangeRouteButton
-          route="/landlord/properties/add"
-          title="Add Property"
-          color="primary"
-          variant="contained"
-          size="large"
-          btnProps={{
-            startIcon: <CloudUploadIcon />,
-          }}
-        />
-        <TextPdfGeneratorCombo
-          config={termsOfEngagementPdfConf}
-          docConf={{
-            title: 'Terms of Engagement',
-            author: 'Dunatron',
-            subject: 'Rehouser Terms of Engagement for Landlords',
-            keywords: 'Terms of engagement, security, files, pdf',
-            creator: 'Heath Dunlop',
-            producer: 'Heath Dunlop',
-          }}
-        />
-      </div>
-    );
-
   return (
-    <>
-      <TextPdfGeneratorCombo
-        config={termsOfEngagementPdfConf}
-        docConf={{
-          title: 'Terms of Engagement',
-          author: 'Dunatron',
-          subject: 'Rehouser Terms of Engagement for Landlords',
-          keywords: 'Terms of engagement, security, files, pdf',
-          creator: 'Heath Dunlop',
-          producer: 'Heath Dunlop',
-        }}
-      />
-      <br />
-      <FormCreator
-        folder={`users/${me.id}`}
-        title="huh"
-        data={{
-          ...me,
-        }}
-        isNew={true}
-        error={error}
-        posting={loading}
-        createText="Submit terms of engagement"
-        config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
-        onSubmit={data => {
-          updateUser({
-            variables: {
-              where: {
-                id: me.id,
-              },
-              data: {
-                ...data,
-                currentAddress: data.currentAddress
-                  ? {
-                      create: {
-                        ...data.currentAddress,
-                      },
-                    }
-                  : {},
-                bankDetails: data.bankDetails
-                  ? {
-                      create: {
-                        ...data.bankDetails,
-                      },
-                    }
-                  : {},
-              },
-            },
-          });
-        }}
-      />
-    </>
+    <div>
+      {accepted && (
+        <>
+          <Typography>
+            You have accepted the Terms of engagement! You can now add property
+            to the platform
+          </Typography>
+          <ChangeRouteButton
+            route="/landlord/properties/add"
+            title="Add Property"
+            color="primary"
+            variant="contained"
+            size="large"
+            btnProps={{
+              startIcon: <CloudUploadIcon />,
+            }}
+          />
+          <TextPdfGeneratorCombo
+            config={termsOfEngagementPdfConf}
+            docConf={{
+              title: 'Terms of Engagement',
+              author: 'Dunatron',
+              subject: 'Rehouser Terms of Engagement for Landlords',
+              keywords: 'Terms of engagement, security, files, pdf',
+              creator: 'Heath Dunlop',
+              producer: 'Heath Dunlop',
+            }}
+          />
+        </>
+      )}
+      {!accepted && (
+        <>
+          <TextPdfGeneratorCombo
+            config={termsOfEngagementPdfConf}
+            docConf={{
+              title: 'Terms of Engagement',
+              author: 'Dunatron',
+              subject: 'Rehouser Terms of Engagement for Landlords',
+              keywords: 'Terms of engagement, security, files, pdf',
+              creator: 'Heath Dunlop',
+              producer: 'Heath Dunlop',
+            }}
+          />
+          <br />
+          <Alert severity="info">
+            <Typography variant="body1" gutterBottom>
+              You have not accepted the Landlord Terms of engagement and
+              therefore you cannot add property to the platform.
+            </Typography>
+            <Typography variant="body1">
+              Once you have completed the below form you will be able to add
+              Property to the platform
+            </Typography>
+          </Alert>
+          <FormCreator
+            folder={`users/${me.id}`}
+            title="huh"
+            data={{
+              ...me,
+            }}
+            isNew={true}
+            error={error}
+            posting={loading}
+            createText="Submit terms of engagement"
+            config={LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF}
+            onSubmit={data => {
+              updateUser({
+                variables: {
+                  where: {
+                    id: me.id,
+                  },
+                  data: {
+                    ...data,
+                    currentAddress: data.currentAddress
+                      ? {
+                          create: {
+                            ...data.currentAddress,
+                          },
+                        }
+                      : {},
+                    bankDetails: data.bankDetails
+                      ? {
+                          create: {
+                            ...data.bankDetails,
+                          },
+                        }
+                      : {},
+                  },
+                },
+              });
+            }}
+          />
+        </>
+      )}
+    </div>
   );
 };
 

@@ -23,6 +23,7 @@ import { MESSAGES_QUERY } from './messages';
 import { MESSAGES_CONNECTION_QUERY } from './messagesConnection';
 import chats from './chats.query';
 import { PROPERTY_LEASES_QUERY } from './propertyLeases';
+import { PUBLIC_USER_QUERY } from './publicUserQuery';
 
 export {
   PROPERTIES_QUERY,
@@ -48,5 +49,6 @@ export {
   SINGLE_RENTAL_APPRAISAL_QUERY,
   SINGLE_INSPECTION_QUERY,
   PROPERTY_LEASES_QUERY,
+  PUBLIC_USER_QUERY,
   chats,
 };

@@ -214,9 +214,9 @@ const SignOutMenuItem = props => {
       onError: error => toast.error(<Error error={error} />),
       onCompleted: data => {
         destroyCookie(null, 'token');
-        destroyCookie(null, 'tron-token-copy');
         client.cache.reset();
         client.resetStore();
+        console.log('SIgnout mutation ran');
         toast.info(data.signout.message);
         props.onClick();
       },
@@ -224,14 +224,14 @@ const SignOutMenuItem = props => {
   );
 
   const handleBtnClick = async () => {
-    await client.resetStore(); // make sure we reset the client as that is what we are doing
+    // await client.resetStore(); // make sure we reset the client as that is what we are doing
     signOut({
-      update: (cache, data) => {
-        // cache.evict({ id: 'User:ckdrorkme3ic60999guamh8x2' });
-        // cache.gc();
-        cache.reset();
-        // client.resetStore();
-      },
+      // update: (cache, data) => {
+      //   // cache.evict({ id: 'User:ckdrorkme3ic60999guamh8x2' });
+      //   // cache.gc();
+      //   cache.reset();
+      //   // client.resetStore();
+      // },
     });
   };
 
@@ -243,7 +243,7 @@ const SignOutMenuItem = props => {
       <ListItemIcon>
         <ExitToAppIcon />
       </ListItemIcon>
-      Logout
+      {loading ? 'Logging Out' : 'Logout'}
     </MenuItem>
   ) : null;
 };

@@ -61,6 +61,8 @@ type User {
   involvedActivity: [Activity!]!
     @relation(name: "InvolvedActivity", onDelete: SET_NULL)
   rentalAppraisals: [RentalAppraisal] @relation(name: "UserRentalAppraisals")
+  appraisedApplications: [RentalAppraisal]
+    @relation(name: "UserAppraisalsAppraised")
   currentAddress: Address
     @relation(name: "CurrentUserAddress", link: TABLE, onDelete: CASCADE)
   proofOfAddress: File
@@ -409,6 +411,7 @@ type RentalAppraisal {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   requestedBy: User! @relation(name: "UserRentalAppraisals")
+  appraisedBy: User @relation(name: "UserAppraisalsAppraised")
   placeId: String! @unique
   location: String!
   locationLat: Float!

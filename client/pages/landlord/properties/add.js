@@ -4,7 +4,7 @@ import CreateProperty from '@/Components/CreateProperty/index';
 import PleaseSignIn from '@/Components/PleaseSignIn';
 import { is } from 'ramda';
 import PageHeader from '@/Components/PageHeader';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 
 // server side props
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
@@ -27,7 +27,18 @@ const AddPropertyPage = ({ appData: { currentUser } }) => {
     <>
       <PageHeader
         title="Add Property"
-        intro=""
+        intro="This is where you can add property to the platform. we estimate that you will need 15-20 minutes to complete the form provided you have the information on hand"
+        children={[
+          <Typography>
+            Some of the key files you will need include the following
+          </Typography>,
+          <Typography component="ul" gutterBottom>
+            <Typography component="li">Proof of Ownership</Typography>
+            <Typography component="li">
+              Decide what should be here...
+            </Typography>
+          </Typography>,
+        ]}
         metaData={{
           title: 'add a property to the platform',
           content: 'Add a property to the platform',

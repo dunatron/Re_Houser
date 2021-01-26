@@ -4,6 +4,7 @@ import RPaper from '@/Styles/RehouserPaper';
 import UserDetails from './UserDetails';
 import useStyles from './useStyles';
 import Image from 'material-ui-image';
+import PublicUserDetails from '@/Components/User/PublicUserDetails';
 
 const UserItem = ({ user, me, isWizard }) => {
   const classes = useStyles();
@@ -11,7 +12,8 @@ const UserItem = ({ user, me, isWizard }) => {
     <RPaper className={classes.root}>
       <Box className={classes.details}>
         <Box className={classes.detailItem}>
-          <Box
+          <PublicUserDetails id={user.id} />
+          {/* <Box
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -28,18 +30,19 @@ const UserItem = ({ user, me, isWizard }) => {
             <Typography variant="body2">
               {user.firstName} {user.lastName}
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
         <Box className={classes.detailItem}>{user.email}</Box>
         <Typography className={classes.detailItem} variant="body2">
           Permissions:{' '}
-          {user.permissions && user.permissions.map((perm, idx) => {
-            return (
-              <Box key={idx} component="span">
-                {perm},{' '}
-              </Box>
-            );
-          })}
+          {user.permissions &&
+            user.permissions.map((perm, idx) => {
+              return (
+                <Box key={idx} component="span">
+                  {perm},{' '}
+                </Box>
+              );
+            })}
         </Typography>
       </Box>
       <UserDetails userId={user.id} me={me} />

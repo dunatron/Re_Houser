@@ -56,7 +56,7 @@ const PageHeader = ({
           )}
 
           {intro && (
-            <Typography gutterBottom={false} hidden={hidden}>
+            <Typography gutterBottom={children ? true : false} hidden={hidden}>
               {intro}
             </Typography>
           )}

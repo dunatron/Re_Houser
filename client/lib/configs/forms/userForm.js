@@ -216,6 +216,17 @@ const USER_FORM_CONF = [
     ],
   },
   {
+    type: 'Boolean',
+    permissions: ['ADMIN', 'WIZARD'],
+    key: 'rehouserStamp',
+    fieldProps: {
+      label: 'Rehouser Approved Stamp',
+      name: 'rehouserStamp',
+      variant: 'standard',
+    },
+    refConf: {},
+  },
+  {
     type: 'SelectMultipleEnum',
     permissions: ['ADMIN', 'WIZARD'],
     key: 'permissions',

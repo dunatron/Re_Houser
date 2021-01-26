@@ -14,6 +14,7 @@ const GeneralSubsContainer = props => {
     );
 
   if (error) return <Error error={error} />;
+  if (!data) return null;
   const me = data.me;
 
   if (!me) return null;

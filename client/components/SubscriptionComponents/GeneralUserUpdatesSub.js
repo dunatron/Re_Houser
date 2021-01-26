@@ -25,9 +25,17 @@ const GeneralUserUpdatesSub = ({ userId }) => {
       if (subDta.proofOfAddress) delete subDta.proofOfAddress;
       if (subDta.signature) delete subDta.signature;
 
-      const { me } = client.readQuery({
+      // const { me } = client.readQuery({
+      //   query: CURRENT_USER_QUERY,
+      // });
+
+      const queriedData = client.readQuery({
         query: CURRENT_USER_QUERY,
       });
+
+      const me = queriedData ? queriedData.me : null;
+
+      if (!me) return;
 
       const newMe = {
         ...me,

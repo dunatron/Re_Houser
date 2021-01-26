@@ -1,5 +1,5 @@
-# source: https://rehouser-db-prod-925c297bf3.herokuapp.com/rehouser-prisma/prod
-# timestamp: Fri Jan 22 2021 16:14:13 GMT+1300 (New Zealand Daylight Time)
+# source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
+# timestamp: Tue Jan 26 2021 10:41:57 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -24395,6 +24395,7 @@ type RentalAppraisal implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   requestedBy: User!
+  appraisedBy: User
   placeId: String!
   location: String!
   locationLat: Float!
@@ -24439,7 +24440,13 @@ input RentalAppraisalCreateInput {
   hasBeenUsed: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
+  appraisedBy: UserCreateOneWithoutAppraisedApplicationsInput
   property: PropertyCreateOneWithoutAppraisalsInput
+}
+
+input RentalAppraisalCreateManyWithoutAppraisedByInput {
+  create: [RentalAppraisalCreateWithoutAppraisedByInput!]
+  connect: [RentalAppraisalWhereUniqueInput!]
 }
 
 input RentalAppraisalCreateManyWithoutPropertyInput {
@@ -24450,6 +24457,24 @@ input RentalAppraisalCreateManyWithoutPropertyInput {
 input RentalAppraisalCreateManyWithoutRequestedByInput {
   create: [RentalAppraisalCreateWithoutRequestedByInput!]
   connect: [RentalAppraisalWhereUniqueInput!]
+}
+
+input RentalAppraisalCreateWithoutAppraisedByInput {
+  id: ID
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  rooms: Int!
+  bathrooms: Int!
+  garageSpaces: Int!
+  rent: Float
+  rentValueAccepted: Boolean
+  acceptTerms: Boolean
+  hasBeenUsed: Boolean
+  heatSources: RentalAppraisalCreateheatSourcesInput
+  requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
+  property: PropertyCreateOneWithoutAppraisalsInput
 }
 
 input RentalAppraisalCreateWithoutPropertyInput {
@@ -24467,6 +24492,7 @@ input RentalAppraisalCreateWithoutPropertyInput {
   hasBeenUsed: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
   requestedBy: UserCreateOneWithoutRentalAppraisalsInput!
+  appraisedBy: UserCreateOneWithoutAppraisedApplicationsInput
 }
 
 input RentalAppraisalCreateWithoutRequestedByInput {
@@ -24483,6 +24509,7 @@ input RentalAppraisalCreateWithoutRequestedByInput {
   acceptTerms: Boolean
   hasBeenUsed: Boolean
   heatSources: RentalAppraisalCreateheatSourcesInput
+  appraisedBy: UserCreateOneWithoutAppraisedApplicationsInput
   property: PropertyCreateOneWithoutAppraisalsInput
 }
 
@@ -24918,6 +24945,7 @@ input RentalAppraisalUpdateInput {
   hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
+  appraisedBy: UserUpdateOneWithoutAppraisedApplicationsInput
   property: PropertyUpdateOneWithoutAppraisalsInput
 }
 
@@ -24951,6 +24979,18 @@ input RentalAppraisalUpdateManyMutationInput {
   heatSources: RentalAppraisalUpdateheatSourcesInput
 }
 
+input RentalAppraisalUpdateManyWithoutAppraisedByInput {
+  create: [RentalAppraisalCreateWithoutAppraisedByInput!]
+  connect: [RentalAppraisalWhereUniqueInput!]
+  set: [RentalAppraisalWhereUniqueInput!]
+  disconnect: [RentalAppraisalWhereUniqueInput!]
+  delete: [RentalAppraisalWhereUniqueInput!]
+  update: [RentalAppraisalUpdateWithWhereUniqueWithoutAppraisedByInput!]
+  updateMany: [RentalAppraisalUpdateManyWithWhereNestedInput!]
+  deleteMany: [RentalAppraisalScalarWhereInput!]
+  upsert: [RentalAppraisalUpsertWithWhereUniqueWithoutAppraisedByInput!]
+}
+
 input RentalAppraisalUpdateManyWithoutPropertyInput {
   create: [RentalAppraisalCreateWithoutPropertyInput!]
   connect: [RentalAppraisalWhereUniqueInput!]
@@ -24980,6 +25020,23 @@ input RentalAppraisalUpdateManyWithWhereNestedInput {
   data: RentalAppraisalUpdateManyDataInput!
 }
 
+input RentalAppraisalUpdateWithoutAppraisedByDataInput {
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
+  rooms: Int
+  bathrooms: Int
+  garageSpaces: Int
+  rent: Float
+  rentValueAccepted: Boolean
+  acceptTerms: Boolean
+  hasBeenUsed: Boolean
+  heatSources: RentalAppraisalUpdateheatSourcesInput
+  requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
+  property: PropertyUpdateOneWithoutAppraisalsInput
+}
+
 input RentalAppraisalUpdateWithoutPropertyDataInput {
   placeId: String
   location: String
@@ -24994,6 +25051,7 @@ input RentalAppraisalUpdateWithoutPropertyDataInput {
   hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
   requestedBy: UserUpdateOneRequiredWithoutRentalAppraisalsInput
+  appraisedBy: UserUpdateOneWithoutAppraisedApplicationsInput
 }
 
 input RentalAppraisalUpdateWithoutRequestedByDataInput {
@@ -25009,7 +25067,13 @@ input RentalAppraisalUpdateWithoutRequestedByDataInput {
   acceptTerms: Boolean
   hasBeenUsed: Boolean
   heatSources: RentalAppraisalUpdateheatSourcesInput
+  appraisedBy: UserUpdateOneWithoutAppraisedApplicationsInput
   property: PropertyUpdateOneWithoutAppraisalsInput
+}
+
+input RentalAppraisalUpdateWithWhereUniqueWithoutAppraisedByInput {
+  where: RentalAppraisalWhereUniqueInput!
+  data: RentalAppraisalUpdateWithoutAppraisedByDataInput!
 }
 
 input RentalAppraisalUpdateWithWhereUniqueWithoutPropertyInput {
@@ -25020,6 +25084,12 @@ input RentalAppraisalUpdateWithWhereUniqueWithoutPropertyInput {
 input RentalAppraisalUpdateWithWhereUniqueWithoutRequestedByInput {
   where: RentalAppraisalWhereUniqueInput!
   data: RentalAppraisalUpdateWithoutRequestedByDataInput!
+}
+
+input RentalAppraisalUpsertWithWhereUniqueWithoutAppraisedByInput {
+  where: RentalAppraisalWhereUniqueInput!
+  update: RentalAppraisalUpdateWithoutAppraisedByDataInput!
+  create: RentalAppraisalCreateWithoutAppraisedByInput!
 }
 
 input RentalAppraisalUpsertWithWhereUniqueWithoutPropertyInput {
@@ -25352,6 +25422,7 @@ input RentalAppraisalWhereInput {
   """All values that are not equal to given value."""
   hasBeenUsed_not: Boolean
   requestedBy: UserWhereInput
+  appraisedBy: UserWhereInput
   property: PropertyWhereInput
 }
 
@@ -26581,6 +26652,7 @@ type User implements Node {
   activity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   involvedActivity(where: ActivityWhereInput, orderBy: ActivityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Activity!]
   rentalAppraisals(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
+  appraisedApplications(where: RentalAppraisalWhereInput, orderBy: RentalAppraisalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [RentalAppraisal!]
   currentAddress: Address
   proofOfAddress: File
   acceptedSignupTerms: Boolean!
@@ -26653,6 +26725,7 @@ input UserCreateInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -26703,6 +26776,11 @@ input UserCreateOneWithoutActivityInput {
 
 input UserCreateOneWithoutAdminSettingsInput {
   create: UserCreateWithoutAdminSettingsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutAppraisedApplicationsInput {
+  create: UserCreateWithoutAppraisedApplicationsInput
   connect: UserWhereUniqueInput
 }
 
@@ -26845,6 +26923,7 @@ input UserCreateWithoutActivityInput {
   signature: FileCreateOneWithoutUserSignatureInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -26904,8 +26983,68 @@ input UserCreateWithoutAdminSettingsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
+}
+
+input UserCreateWithoutAppraisedApplicationsInput {
+  id: ID
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  emailValidated: Boolean
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Relationhip: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Relationhip: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean!
+  acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  managedProperties: PropertyCreateManyWithoutAgentsInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
   bankDetails: BankDetailCreateOneWithoutUserInput
   inspections: InspectionCreateManyWithoutInspectorInput
@@ -26961,6 +27100,7 @@ input UserCreateWithoutAwaitingFriendsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27020,6 +27160,7 @@ input UserCreateWithoutBankDetailsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27077,6 +27218,7 @@ input UserCreateWithoutChatsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27135,6 +27277,7 @@ input UserCreateWithoutCreatedPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27193,6 +27336,7 @@ input UserCreateWithoutCreditCardsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27252,6 +27396,7 @@ input UserCreateWithoutCurrentAddressInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -27309,6 +27454,7 @@ input UserCreateWithoutFriendRequestsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27368,6 +27514,7 @@ input UserCreateWithoutInspectionsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27425,6 +27572,7 @@ input UserCreateWithoutInvolvedActivityInput {
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27483,6 +27631,7 @@ input UserCreateWithoutLesseeLeasesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27541,6 +27690,7 @@ input UserCreateWithoutLessorLeasesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27599,6 +27749,7 @@ input UserCreateWithoutManagedPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27657,6 +27808,7 @@ input UserCreateWithoutPhotoIdentificationInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27715,6 +27867,7 @@ input UserCreateWithoutProfilePhotoInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27774,6 +27927,7 @@ input UserCreateWithoutProofOfAddressInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
   viewings: ViewingCreateManyWithoutHostsInput
@@ -27831,6 +27985,7 @@ input UserCreateWithoutPropertiesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27889,6 +28044,7 @@ input UserCreateWithoutRecievedMessagesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -27947,6 +28103,7 @@ input UserCreateWithoutRefereesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -28005,6 +28162,7 @@ input UserCreateWithoutRentalAppraisalsInput {
   signature: FileCreateOneWithoutUserSignatureInput
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -28063,6 +28221,7 @@ input UserCreateWithoutSentMessagesInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -28121,6 +28280,7 @@ input UserCreateWithoutSignatureInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -28180,6 +28340,7 @@ input UserCreateWithoutViewingsInput {
   activity: ActivityCreateManyWithoutUserInput
   involvedActivity: ActivityCreateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
   currentAddress: AddressCreateOneWithoutUserInput
   proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingCreateOneWithoutUserInput!
@@ -29370,6 +29531,7 @@ input UserUpdateDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -29428,6 +29590,7 @@ input UserUpdateInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -29637,6 +29800,15 @@ input UserUpdateOneWithoutAdminSettingsInput {
   upsert: UserUpsertWithoutAdminSettingsInput
 }
 
+input UserUpdateOneWithoutAppraisedApplicationsInput {
+  create: UserCreateWithoutAppraisedApplicationsInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutAppraisedApplicationsDataInput
+  upsert: UserUpsertWithoutAppraisedApplicationsInput
+}
+
 input UserUpdateOneWithoutBankDetailsInput {
   create: UserCreateWithoutBankDetailsInput
   connect: UserWhereUniqueInput
@@ -29798,6 +29970,7 @@ input UserUpdateWithoutActivityDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -29856,8 +30029,67 @@ input UserUpdateWithoutAdminSettingsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
+}
+
+input UserUpdateWithoutAppraisedApplicationsDataInput {
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  emailValidated: Boolean
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  referee1Relationhip: String
+  referee1Name: String
+  referee1Phone: String
+  referee1Email: String
+  referee2Relationhip: String
+  referee2Name: String
+  referee2Phone: String
+  referee2Email: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean
+  acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  managedProperties: PropertyUpdateManyWithoutAgentsInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
   bankDetails: BankDetailUpdateOneWithoutUserInput
   inspections: InspectionUpdateManyWithoutInspectorInput
@@ -29912,6 +30144,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -29970,6 +30203,7 @@ input UserUpdateWithoutBankDetailsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30026,6 +30260,7 @@ input UserUpdateWithoutChatsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30083,6 +30318,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30140,6 +30376,7 @@ input UserUpdateWithoutCreditCardsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30198,6 +30435,7 @@ input UserUpdateWithoutCurrentAddressDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -30254,6 +30492,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30312,6 +30551,7 @@ input UserUpdateWithoutInspectionsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30368,6 +30608,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30425,6 +30666,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30482,6 +30724,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30539,6 +30782,7 @@ input UserUpdateWithoutManagedPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30596,6 +30840,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30653,6 +30898,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30711,6 +30957,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
   viewings: ViewingUpdateManyWithoutHostsInput
@@ -30767,6 +31014,7 @@ input UserUpdateWithoutPropertiesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30824,6 +31072,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30881,6 +31130,7 @@ input UserUpdateWithoutRefereesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30938,6 +31188,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   signature: FileUpdateOneWithoutUserSignatureInput
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -30995,6 +31246,7 @@ input UserUpdateWithoutSentMessagesDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -31052,6 +31304,7 @@ input UserUpdateWithoutSignatureDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -31110,6 +31363,7 @@ input UserUpdateWithoutViewingsDataInput {
   activity: ActivityUpdateManyWithoutUserInput
   involvedActivity: ActivityUpdateManyWithoutInvolvedInput
   rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
   currentAddress: AddressUpdateOneWithoutUserInput
   proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
   adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
@@ -31160,6 +31414,11 @@ input UserUpsertWithoutActivityInput {
 input UserUpsertWithoutAdminSettingsInput {
   update: UserUpdateWithoutAdminSettingsDataInput!
   create: UserCreateWithoutAdminSettingsInput!
+}
+
+input UserUpsertWithoutAppraisedApplicationsInput {
+  update: UserUpdateWithoutAppraisedApplicationsDataInput!
+  create: UserCreateWithoutAppraisedApplicationsInput!
 }
 
 input UserUpsertWithoutAwaitingFriendsInput {
@@ -32320,6 +32579,9 @@ input UserWhereInput {
   rentalAppraisals_every: RentalAppraisalWhereInput
   rentalAppraisals_some: RentalAppraisalWhereInput
   rentalAppraisals_none: RentalAppraisalWhereInput
+  appraisedApplications_every: RentalAppraisalWhereInput
+  appraisedApplications_some: RentalAppraisalWhereInput
+  appraisedApplications_none: RentalAppraisalWhereInput
   currentAddress: AddressWhereInput
   proofOfAddress: FileWhereInput
   adminSettings: AdminSettingWhereInput

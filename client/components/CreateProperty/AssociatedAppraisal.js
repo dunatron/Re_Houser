@@ -20,7 +20,7 @@ const AssociatedAppraisal = ({ appraisalId, rentalAppraisal }) => {
           <Typography>Appraisal for: {rentalAppraisal.location}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <RentalAppraisal rentalAppraisal={rentalAppraisal} />
+          <RentalAppraisal id={appraisalId} />
         </AccordionDetails>
       </Accordion>
     </div>
