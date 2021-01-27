@@ -113,6 +113,7 @@
     "react-papaparse": "^3.4.0",
     "react-particles-js": "^3.3.0",
     "react-pdf": "^5.0.0",
+    "react-resize-detector": "^6.0.1-rc.5",
     "react-signature-canvas": "^1.0.3",
     "react-slick": "^0.28.0",
     "react-stripe-elements": "^6.0.1",

@@ -33,6 +33,9 @@ async function main() {
     const res = await db.mutation
       .createProperty({
         data: { ...property },
+        // where: {
+        //   id: property.id,
+        // },
       })
       .catch((e) => logger.error("create property seed error", { error: e }));
 

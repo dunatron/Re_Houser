@@ -1,9 +1,15 @@
 import MUIRichTextEditor from 'mui-rte';
+import { is, isEmpty } from 'ramda';
 
 const RichTextEdit = ({ item, onChange }) => {
+  const defaultValue = isEmpty(item.value) ? `` : item.value;
   return (
     <div>
-      <MUIRichTextEditor label="Start typing..." />
+      <MUIRichTextEditor
+        defaultValue={defaultValue}
+        label="Start typing..."
+        onSave={onChange}
+      />
     </div>
   );
 };

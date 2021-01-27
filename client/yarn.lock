@@ -2744,6 +2744,11 @@
     "@types/node" "*"
     safe-buffer "*"
 
+"@types/resize-observer-browser@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@types/resize-observer-browser/-/resize-observer-browser-0.1.5.tgz#36d897708172ac2380cd486da7a3daf1161c1e23"
+  integrity sha512-8k/67Z95Goa6Lznuykxkfhq9YU3l1Qe6LNZmwde1u7802a3x8v44oq0j91DICclxatTr0rNnhXx7+VTIetSrSQ==
+
 "@types/resolve@0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-0.0.8.tgz#f26074d238e02659e323ce1a13d041eee280e194"
@@ -16429,6 +16434,17 @@ react-resize-detector@^4.2.1:
     lodash "^4.17.15"
     lodash-es "^4.17.15"
     prop-types "^15.7.2"
+    raf-schd "^4.0.2"
+    resize-observer-polyfill "^1.5.1"
+
+react-resize-detector@^6.0.1-rc.5:
+  version "6.0.1-rc.5"
+  resolved "https://registry.yarnpkg.com/react-resize-detector/-/react-resize-detector-6.0.1-rc.5.tgz#d1babfac066ded4a428b4fe9606ee21feadaa17b"
+  integrity sha512-gRTPotvjthss70/cYMQj1CB0mQd2ARgrtBcSKOy4ZHM5rmRn5CQHb5lWjO3AnXf7ZgS1voxd+78o0aCA3Dbugw==
+  dependencies:
+    "@types/resize-observer-browser" "^0.1.5"
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
     raf-schd "^4.0.2"
     resize-observer-polyfill "^1.5.1"
 

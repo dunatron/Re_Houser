@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
-import React, { useReducer, useEffect, useRef } from 'react';
+import React, { useState, useReducer, useEffect, useRef } from 'react';
 import Alert from '@reach/alert';
 import VisuallyHidden from '@reach/visually-hidden';
 import { FaPlay, FaPause, FaForward, FaBackward } from 'react-icons/fa';
 import styled from 'styled-components';
 
 import useProgress from '@/Lib/useProgress';
+import { useDebouncedCallback } from 'use-debounce';
+import { useResizeDetector } from 'react-resize-detector';
 
 const CarouselStyles = styled.div`
   position: relative;
@@ -230,7 +232,9 @@ SpacerGif.propTypes = {
   width: PropTypes.any,
 };
 
-const CarouselSlider = ({ slides, height, width }) => {
+const CarouselSlider = ({ slides }) => {
+  const [containerWidth, setContainerWidth] = useState();
+  const { width, height, ref } = useResizeDetector();
   let [state, dispatch] = useReducer(
     (state, action) => {
       switch (action.type) {
@@ -295,90 +299,127 @@ const CarouselSlider = ({ slides, height, width }) => {
     }
   }, [state.takeFocus]);
 
+  // will need to bind to onResizeListner too
+  // useEffect(() => {
+  //   console.log(
+  //     'width',
+  //     containerRef.current ? containerRef.current.offsetWidth : 0
+  //   );
+  //   if (containerRef.current) {
+  //     setContainerWidth(containerRef.current.offsetWidth);
+  //   }
+  // }, [containerRef.current]);
+
+  // useEffect(() => {
+  //   const debouncedHandleResize = debounce(function handleResize() {
+  //     setDimensions({
+  //       height: window.innerHeight,
+  //       width: window.innerWidth,
+  //     });
+  //   }, 1000);
+
+  //   window.addEventListener('resize', debouncedHandleResize);
+
+  //   return () => {
+  //     window.removeEventListener('resize', debouncedHandleResize);
+  //   };
+  // }, []);
+
   if (slides.length === 0) return null;
 
+  // ToDo: height should be calculated based in the dics width keeping an aspect ratio
+  var rat1 = 16;
+  var rat2 = 9;
+
+  var ratio = width / rat1;
+  var calculated_height = width ? ratio * rat2 : '180px';
+
   return (
-    <CarouselStyles
-      style={{
-        height: height ? height : '280px',
-        width: width ? width : '100%',
-      }}>
-      <Carousel aria-label="Images from Space">
-        <Slides>
-          {slides.map((image, index) => (
-            <Slide
-              key={index}
-              id={`image-${index}`}
-              image={image.img}
-              title={image.title}
-              isCurrent={index === state.currentIndex}
-              takeFocus={state.takeFocus}
-              children={image.content}
-            />
-          ))}
-        </Slides>
+    <div ref={ref}>
+      <CarouselStyles
+        style={{
+          // height: height ? height : '280px',
+          height: calculated_height,
+          maxHeight: '100vh',
+          width: containerWidth ? containerWidth : '100%',
+        }}>
+        <Carousel aria-label="Images from Space">
+          <Slides>
+            {slides.map((image, index) => (
+              <Slide
+                key={index}
+                id={`image-${index}`}
+                image={image.img}
+                title={image.title}
+                isCurrent={index === state.currentIndex}
+                takeFocus={state.takeFocus}
+                children={image.content}
+              />
+            ))}
+          </Slides>
 
-        <SlideNav>
-          {slides.map((slide, index) => (
-            <SlideNavItem
-              key={index}
-              isCurrent={index === state.currentIndex}
-              aria-label={`Slide ${index + 1}`}
-              onClick={() => {
-                dispatch({ type: 'GOTO', index });
-              }}
-            />
-          ))}
-        </SlideNav>
+          <SlideNav>
+            {slides.map((slide, index) => (
+              <SlideNavItem
+                key={index}
+                isCurrent={index === state.currentIndex}
+                aria-label={`Slide ${index + 1}`}
+                onClick={() => {
+                  dispatch({ type: 'GOTO', index });
+                }}
+              />
+            ))}
+          </SlideNav>
 
-        <Controls>
-          {state.isPlaying ? (
+          <Controls>
+            {state.isPlaying ? (
+              <IconButton
+                aria-label="Pause"
+                onClick={() => {
+                  dispatch({ type: 'PAUSE' });
+                }}
+                children={<FaPause />}
+              />
+            ) : (
+              <IconButton
+                aria-label="Play"
+                onClick={() => {
+                  dispatch({ type: 'PLAY' });
+                }}
+                children={<FaPlay />}
+              />
+            )}
+            <SpacerGif width="10px" />
             <IconButton
-              aria-label="Pause"
+              aria-label="Previous Slide"
               onClick={() => {
-                dispatch({ type: 'PAUSE' });
+                dispatch({ type: 'PREV' });
               }}
-              children={<FaPause />}
+              children={<FaBackward />}
             />
-          ) : (
             <IconButton
-              aria-label="Play"
+              aria-label="Next Slide"
               onClick={() => {
-                dispatch({ type: 'PLAY' });
+                dispatch({ type: 'NEXT' });
               }}
-              children={<FaPlay />}
+              children={<FaForward />}
             />
-          )}
-          <SpacerGif width="10px" />
-          <IconButton
-            aria-label="Previous Slide"
-            onClick={() => {
-              dispatch({ type: 'PREV' });
-            }}
-            children={<FaBackward />}
-          />
-          <IconButton
-            aria-label="Next Slide"
-            onClick={() => {
-              dispatch({ type: 'NEXT' });
-            }}
-            children={<FaForward />}
-          />
-        </Controls>
+          </Controls>
 
-        <ProgressBar
-          key={state.currentIndex + state.isPlaying}
-          time={SLIDE_DURATION}
-          animate={state.isPlaying}
-        />
+          <ProgressBar
+            key={state.currentIndex + state.isPlaying}
+            time={SLIDE_DURATION}
+            animate={state.isPlaying}
+          />
 
-        <VisuallyHidden>
-          <Alert>
-            Item {state.currentIndex + 1} of {slides.length}
-          </Alert>
-        </VisuallyHidden>
-      </Carousel>
-    </CarouselStyles>
+          <VisuallyHidden>
+            <Alert>
+              Item {state.currentIndex + 1} of {slides.length}
+            </Alert>
+          </VisuallyHidden>
+        </Carousel>
+      </CarouselStyles>
+    </div>
   );
 };
 

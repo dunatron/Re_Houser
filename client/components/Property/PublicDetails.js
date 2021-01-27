@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { SINGLE_PROPERTY_QUERY } from '@/Gql/queries';
 import { PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF } from '@/Lib/configs/editableDisplays/propertyDetails';
 import EditableDisplayItems from '@/Components/EditableDisplay/EditableDisplayItems';
-import SlickCarousel from '@/Components/SlickCarousel/index';
+import CarouselSlider from '@/Components/CarouselSlider';
 
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
@@ -11,10 +11,13 @@ import { Typography, Chip, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // displays
-import { ChipItems, Money, Date, String } from '@/Components/Displays';
-
-// Lib
-import { formatCentsToDollarsVal } from '@/Lib/formatCentsToDollars';
+import {
+  ChipItems,
+  Money,
+  Date,
+  String,
+  RichText,
+} from '@/Components/Displays';
 
 // icons
 import BathtubIcon from '@material-ui/icons/Bathtub';
@@ -84,20 +87,22 @@ const PropertyPublicDetails = ({ id }) => {
 
   const { property } = data;
 
-  const slides = data.property.images
+  const cSlides = data.property.images
     ? property.images.map((img, idx) => ({
-        src: img.url,
-        alt: img.filename,
+        img: img.url,
+        title: img.filename,
       }))
     : [];
 
+  // title src
+
   return (
     <div className={classes.root}>
-      <SlickCarousel slides={slides} />
+      <CarouselSlider slides={cSlides} height="420px" />
       <Typography variant="h3" gutterBottom>
         {property.location}
       </Typography>
-      <String
+      <RichText
         value={property.headline}
         orientation="horizontal"
         valueProps={{ color: 'secondary', variant: 'body1' }}

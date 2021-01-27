@@ -65,7 +65,7 @@ const ViewValue = ({ item }) => {
       case 'SelectMultipleEnum':
         return <SelectMultipleEnumDisplay item={item} />;
       case 'RichText':
-        return <RichTextDisplay />;
+        return <RichTextDisplay item={item} />;
       default:
         return <StringDisplay item={item} />;
     }

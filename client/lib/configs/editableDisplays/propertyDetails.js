@@ -75,12 +75,6 @@ const PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF = [
     fieldProps: {},
   },
   {
-    type: 'String',
-    key: 'headline',
-    label: 'Headline',
-    fieldProps: {},
-  },
-  {
     type: 'SelectOneEnum',
     key: 'bondType',
     __type: 'BondType',

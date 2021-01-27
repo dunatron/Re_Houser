@@ -8,7 +8,8 @@ const propertyFrag = {
   id: "1", // @unique ID
   placeId: "ChIJz73Txq2tLqgRQhEoaEAZ06U", // @unique google placeId
   type: "HOUSE",
-  headline: "A yes there was a headline for a property",
+  // headline: {},
+  headline: "",
   rooms: 2,
   lowestRoomPrice: dollarsToCents(200),
   highestRoomPrice: dollarsToCents(400),
@@ -47,58 +48,58 @@ const propertyFrag = {
   alarmsEachLevel: true,
   rehouserManaged: true,
   indoorFeatures: {
-    set: ["FURNISHED"]
+    set: ["FURNISHED"],
   },
   outdoorFeatures: {
-    set: ["OUTDOOR_ENTERTAINMENT"]
+    set: ["OUTDOOR_ENTERTAINMENT"],
   },
   heatSources: {
-    set: ["ELECTRIC_HEATER", "HEAT_PUMP"]
+    set: ["ELECTRIC_HEATER", "HEAT_PUMP"],
   },
   pets: {
-    set: ["FISH", "CAT"]
+    set: ["FISH", "CAT"],
   },
   chattels: {
-    set: ["DISH_WASHER", "HEAT_PUMP", "WALL_OVEN"]
+    set: ["DISH_WASHER", "HEAT_PUMP", "WALL_OVEN"],
   },
   accommodation: {},
   insulationForm: {
     create: {
-      ...insulationStatementsList[0]
-    }
+      ...insulationStatementsList[0],
+    },
   },
   creator: {
     connect: {
-      email: userList[0].email
-    }
+      email: userList[0].email,
+    },
   },
   owners: {
     connect: [
       {
-        email: userList[0].email
-      }
-    ]
+        email: userList[0].email,
+      },
+    ],
   },
   proofOfOwnership: {
     create: {
-      ...imagesList[0]
-    }
+      ...imagesList[0],
+    },
   },
   images: {
     create: [
       {
-        ...imagesList[0]
+        ...imagesList[0],
       },
       {
-        ...imagesList[1]
+        ...imagesList[1],
       },
       {
-        ...imagesList[2]
-      }
-    ]
+        ...imagesList[2],
+      },
+    ],
   },
   files: {
-    create: {}
+    create: {},
   },
   inspections: {
     create: [
@@ -106,10 +107,10 @@ const propertyFrag = {
         date: moment()
           .add(2, "day")
           .format(),
-        completed: false
-      }
-    ]
-  }
+        completed: false,
+      },
+    ],
+  },
 };
 
 // id: ID! @unique @id
@@ -128,16 +129,16 @@ const propertiesList = [
     ...propertyFrag,
     creator: {
       connect: {
-        email: userList[1].email
-      }
+        email: userList[1].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[1].email
-        }
-      ]
-    }
+          email: userList[1].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -149,19 +150,19 @@ const propertiesList = [
     locationLng: 172.6305258,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
+          email: userList[0].email,
         },
         {
-          email: userList[1].email
-        }
-      ]
-    }
+          email: userList[1].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -174,16 +175,16 @@ const propertiesList = [
     locationLng: 172.6475268,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -195,16 +196,16 @@ const propertiesList = [
     locationLng: 172.6356211,
     creator: {
       connect: {
-        email: userList[1].email
-      }
+        email: userList[1].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[1].email
-        }
-      ]
-    }
+          email: userList[1].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -216,16 +217,16 @@ const propertiesList = [
     locationLng: 172.6361623,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -237,16 +238,16 @@ const propertiesList = [
     locationLng: 172.6342515,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -258,16 +259,16 @@ const propertiesList = [
     locationLng: 172.6337208,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   ,
   {
@@ -280,16 +281,16 @@ const propertiesList = [
     locationLng: 172.6140598,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   ,
   {
@@ -303,16 +304,16 @@ const propertiesList = [
     locationLng: 172.624347,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   ,
   {
@@ -325,16 +326,16 @@ const propertiesList = [
     locationLng: 172.6246964,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   ,
   {
@@ -347,16 +348,16 @@ const propertiesList = [
     locationLng: 172.6253043,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -368,16 +369,16 @@ const propertiesList = [
     locationLng: 172.6293742,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -389,16 +390,16 @@ const propertiesList = [
     locationLng: 172.6216652,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -410,16 +411,16 @@ const propertiesList = [
     locationLng: 172.6256346,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -431,16 +432,16 @@ const propertiesList = [
     locationLng: 172.6283523,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -453,16 +454,16 @@ const propertiesList = [
     locationLng: 172.6154603,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -474,16 +475,16 @@ const propertiesList = [
     locationLng: 172.6150194,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -495,16 +496,16 @@ const propertiesList = [
     locationLng: 172.6021312,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -516,16 +517,16 @@ const propertiesList = [
     locationLng: 172.6094902,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -537,16 +538,16 @@ const propertiesList = [
     locationLng: 172.6082758,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -558,16 +559,16 @@ const propertiesList = [
     locationLng: 172.6068102,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -579,16 +580,16 @@ const propertiesList = [
     locationLng: 172.6015597,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -600,16 +601,16 @@ const propertiesList = [
     locationLng: 174.7775441,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -621,16 +622,16 @@ const propertiesList = [
     locationLng: 174.770189,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -643,16 +644,16 @@ const propertiesList = [
     locationLng: 174.8375263,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
+          email: userList[0].email,
+        },
+      ],
+    },
   },
   {
     ...propertyFrag,
@@ -664,17 +665,17 @@ const propertiesList = [
     locationLng: 174.8351632,
     creator: {
       connect: {
-        email: userList[0].email
-      }
+        email: userList[0].email,
+      },
     },
     owners: {
       connect: [
         {
-          email: userList[0].email
-        }
-      ]
-    }
-  }
+          email: userList[0].email,
+        },
+      ],
+    },
+  },
 ];
 module.exports = process.env.STAGE === "dev" ? propertiesList : [];
 // module.exports = propertiesList;

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Jan 27 2021 17:00:11 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Wed Jan 27 2021 22:02:16 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -15570,7 +15570,7 @@ type Property implements Node {
   bankDetails: BankDetail
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16061,7 +16061,7 @@ input PropertyCreateInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16219,7 +16219,7 @@ input PropertyCreateWithoutAccommodationInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16288,7 +16288,7 @@ input PropertyCreateWithoutActivityInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16357,7 +16357,7 @@ input PropertyCreateWithoutAgentsInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16426,7 +16426,7 @@ input PropertyCreateWithoutAppraisalsInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16495,7 +16495,7 @@ input PropertyCreateWithoutBankDetailsInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16564,7 +16564,7 @@ input PropertyCreateWithoutCreatorInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16633,7 +16633,7 @@ input PropertyCreateWithoutFilesInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16702,7 +16702,7 @@ input PropertyCreateWithoutImagesInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16771,7 +16771,7 @@ input PropertyCreateWithoutInspectionsInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16840,7 +16840,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16909,7 +16909,7 @@ input PropertyCreateWithoutLeasesInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -16978,7 +16978,7 @@ input PropertyCreateWithoutOwnersInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -17047,7 +17047,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -17116,7 +17116,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -17185,7 +17185,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -17254,7 +17254,7 @@ input PropertyCreateWithoutViewingsInput {
   titleType: PropertyTitleType!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -19769,7 +19769,7 @@ type PropertyPreviousValues {
   createdAt: DateTime!
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
@@ -20060,6 +20060,46 @@ input PropertyScalarWhereInput {
 
   """All values that are not contained in given list."""
   fixedLength_not_in: [TenancyFixedLength!]
+  headline: String
+
+  """All values that are not equal to given value."""
+  headline_not: String
+
+  """All values that are contained in given list."""
+  headline_in: [String!]
+
+  """All values that are not contained in given list."""
+  headline_not_in: [String!]
+
+  """All values less than the given value."""
+  headline_lt: String
+
+  """All values less than or equal the given value."""
+  headline_lte: String
+
+  """All values greater than the given value."""
+  headline_gt: String
+
+  """All values greater than or equal the given value."""
+  headline_gte: String
+
+  """All values containing the given string."""
+  headline_contains: String
+
+  """All values not containing the given string."""
+  headline_not_contains: String
+
+  """All values starting with the given string."""
+  headline_starts_with: String
+
+  """All values not starting with the given string."""
+  headline_not_starts_with: String
+
+  """All values ending with the given string."""
+  headline_ends_with: String
+
+  """All values not ending with the given string."""
+  headline_not_ends_with: String
   rooms: Int
 
   """All values that are not equal to given value."""
@@ -20625,7 +20665,7 @@ input PropertyUpdateInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -20694,7 +20734,7 @@ input PropertyUpdateManyDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -20746,7 +20786,7 @@ input PropertyUpdateManyMutationInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -20956,7 +20996,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21024,7 +21064,7 @@ input PropertyUpdateWithoutActivityDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21092,7 +21132,7 @@ input PropertyUpdateWithoutAgentsDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21160,7 +21200,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21228,7 +21268,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21296,7 +21336,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21364,7 +21404,7 @@ input PropertyUpdateWithoutFilesDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21432,7 +21472,7 @@ input PropertyUpdateWithoutImagesDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21500,7 +21540,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21568,7 +21608,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21636,7 +21676,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21704,7 +21744,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21772,7 +21812,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21840,7 +21880,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21908,7 +21948,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -21976,7 +22016,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   titleType: PropertyTitleType
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: Json
+  headline: String
   rooms: Int
   maximumOccupants: Int
   rent: Float
@@ -22381,6 +22421,46 @@ input PropertyWhereInput {
 
   """All values that are not contained in given list."""
   fixedLength_not_in: [TenancyFixedLength!]
+  headline: String
+
+  """All values that are not equal to given value."""
+  headline_not: String
+
+  """All values that are contained in given list."""
+  headline_in: [String!]
+
+  """All values that are not contained in given list."""
+  headline_not_in: [String!]
+
+  """All values less than the given value."""
+  headline_lt: String
+
+  """All values less than or equal the given value."""
+  headline_lte: String
+
+  """All values greater than the given value."""
+  headline_gt: String
+
+  """All values greater than or equal the given value."""
+  headline_gte: String
+
+  """All values containing the given string."""
+  headline_contains: String
+
+  """All values not containing the given string."""
+  headline_not_contains: String
+
+  """All values starting with the given string."""
+  headline_starts_with: String
+
+  """All values not starting with the given string."""
+  headline_not_starts_with: String
+
+  """All values ending with the given string."""
+  headline_ends_with: String
+
+  """All values not ending with the given string."""
+  headline_not_ends_with: String
   rooms: Int
 
   """All values that are not equal to given value."""
