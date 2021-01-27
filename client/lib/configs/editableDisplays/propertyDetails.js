@@ -57,7 +57,7 @@ const PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF = [
     fieldProps: {},
   },
   {
-    type: 'String',
+    type: 'RichText',
     key: 'headline',
     label: 'Headline',
     fieldProps: {},

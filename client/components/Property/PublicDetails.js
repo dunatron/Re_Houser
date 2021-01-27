@@ -6,24 +6,35 @@ import SlickCarousel from '@/Components/SlickCarousel/index';
 
 import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
-import { Typography } from '@material-ui/core';
+import { Typography, Chip, Box } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+// displays
+import { ChipItems, Money, Date, String } from '@/Components/Displays';
+
+// Lib
+import { formatCentsToDollarsVal } from '@/Lib/formatCentsToDollars';
+
+// icons
+import BathtubIcon from '@material-ui/icons/Bathtub';
 
 const useStyles = makeStyles(theme => ({
   root: {
     // color: theme.palette.text.primary,
   },
+  chipItems: {
+    display: 'flex',
+  },
+  chip: {
+    margin: theme.spacing(0, 1, 1, 0),
+  },
 }));
-// id: ID! @unique @id # google placesId is too looong look below
 // placeId: String! @unique
 // location: String!
 // locationLat: Float!
 // locationLng: Float!
 // titleType: PropertyTitleType!
-// updatedAt: DateTime! @updatedAt
-// createdAt: DateTime! @createdAt
-// bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
 // type: PropertyType
 // fixedLength: TenancyFixedLength
 // headline: String
@@ -32,10 +43,6 @@ const useStyles = makeStyles(theme => ({
 // rent: Float!
 // tenancyType: TenancyType
 // bondType: BondType @default(value: WEEKS_RENT_2)
-// lowestRoomPrice: Float
-// highestRoomPrice: Float
-// useAdvancedRent: Boolean @default(value: false)
-// accommodation: [Accommodation!]! @relation(name: "PropertyAccommodation")
 // bathrooms: Int
 // garageSpaces: Int!
 // carportSpaces: Int!
@@ -48,45 +55,13 @@ const useStyles = makeStyles(theme => ({
 // outdoorFeatures: [OutdoorFeature] @scalarList(strategy: RELATION)
 // heatSources: [HeatSource] @scalarList(strategy: RELATION)
 // moveInDate: DateTime
-// expiryDate: DateTime
-// leaseLengthInMonths: Int
-// onTheMarket: Boolean! @default(value: false)
-// owners: [User!]! @relation(name: "PropertyOwner")
 // agents: [User!]! @relation(name: "PropertyAgents")
-// creator: User! @relation(name: "PropertyCreator")
 // images: [File!]! @relation(name: "PropertyImages", link: TABLE)
-// proofOfOwnership: File @relation(name: "ProofOfOwnership", link: TABLE)
-// acceptedTerms: Boolean @default(value: false)
 // # floorPlans: File
-// rentalApplications: [RentalApplication]
-// @relation(name: "PropertyRentalApplication")
-// leases: [PropertyLease] @relation(name: "PropertyLeases")
-// isLeased: Boolean @default(value: false)
-// lastLeaseId: String
-// leaseExpiryDate: DateTime
-// rehouserStamp: Boolean
-// activity: [Activity!]! @relation(name: "PropertyActivity")
-// appraisals: [RentalAppraisal] @relation(name: "PropertyRentalAppraisals")
+// rehouserStamp: Boolean)
 // petsAllowed: Boolean
 // pets: [Pet] @scalarList(strategy: RELATION)
-// manholeLocation: String
-// gardenToMaintain: Boolean @default(value: false)
-// gardenResponsible: PartyResponsible
-// maintenanceResponsible: PartyResponsible
 // chattels: [PropertyChattel] @scalarList(strategy: RELATION)
-// landlordProtectionCover: Boolean @default(value: false)
-// freeGlassCover: Boolean @default(value: false)
-// workingAlarms: Boolean @default(value: false)
-// inHallway3mOfEachBedroom: Boolean @default(value: false)
-// tenYearPhotoelectricAlarms: Boolean @default(value: false)
-// alarmsEachLevel: Boolean @default(value: false)
-// viewings: [Viewing] @relation(name: "PropertyViewings")
-// files: PropertyFiles @relation(name: "PropertyFiles", link: TABLE)
-// inspectionFrequency: InspectionFrequency
-// inspections: [Inspection] @relation(name: "PropertyInspections", link: TABLE)
-// rehouserHandlesBills: Boolean @default(value: false)
-// rehouserAssist: PropertyAssist @relation(name: "PropertyAssists", link: TABLE)
-// rehouserManaged: Boolean @default(value: true)
 const PropertyPublicDetails = ({ id }) => {
   const classes = useStyles();
   const { data, loading, error } = useQuery(SINGLE_PROPERTY_QUERY, {
@@ -107,8 +82,10 @@ const PropertyPublicDetails = ({ id }) => {
 
   if (!data) return <Typography>No Data for Property {id}</Typography>;
 
+  const { property } = data;
+
   const slides = data.property.images
-    ? data.property.images.map((img, idx) => ({
+    ? property.images.map((img, idx) => ({
         src: img.url,
         alt: img.filename,
       }))
@@ -116,9 +93,107 @@ const PropertyPublicDetails = ({ id }) => {
 
   return (
     <div className={classes.root}>
-      Property Public Details
       <SlickCarousel slides={slides} />
-      <EditableDisplayItems
+      <Typography variant="h3" gutterBottom>
+        {property.location}
+      </Typography>
+      <String
+        value={property.headline}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'body1' }}
+      />
+      <Money
+        title="Rent"
+        orientation="horizontal"
+        variant="body2"
+        value={property.rent}
+        valueProps={{ color: 'primary', variant: 'h5' }}
+      />
+      <Date
+        title="Move in date"
+        value={property.moveInDate}
+        format="ShortDateTime"
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="Title type"
+        value={property.titleType}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="Type"
+        value={property.type}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="Fixed Length"
+        value={property.fixedLength}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="Rooms"
+        value={property.rooms}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="Maximum Occupants"
+        value={property.maximumOccupants}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="tenancyType"
+        value={property.tenancyType}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+
+      <String
+        title="bondType"
+        value={property.bondType}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        icon={<BathtubIcon />}
+        title="bathrooms"
+        value={property.bathrooms}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="garageSpaces"
+        value={property.garageSpaces}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="carportSpaces"
+        value={property.carportSpaces}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <String
+        title="offStreetSpaces"
+        value={property.offStreetSpaces}
+        orientation="horizontal"
+        valueProps={{ color: 'secondary', variant: 'h6' }}
+      />
+      <ChipItems
+        title="Chattels"
+        titleProps={{
+          variant: 'h6',
+        }}
+        items={property.chattels}
+        variant="default"
+        color="secondary"
+      />
+      {/* <EditableDisplayItems
         __typename="Property"
         disableEdit={true}
         data={{
@@ -126,7 +201,7 @@ const PropertyPublicDetails = ({ id }) => {
         }}
         items={PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF}
         where={{ id: id }}
-      />
+      /> */}
     </div>
   );
 };

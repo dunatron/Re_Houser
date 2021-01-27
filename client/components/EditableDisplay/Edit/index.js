@@ -17,6 +17,7 @@ import BooleanEdit from './Boolean';
 import MoneyEdit from './Money';
 import SelectOneEnumEdit from './SelectOneEnum';
 import SelectMultipleEnumEdit from './SelectMultipleEnum';
+import RichTextEdit from './RichText';
 
 /**
  * case String ✔️
@@ -66,6 +67,8 @@ const EditableDisplayEdit = ({ item, onChange }) => {
         return <SelectOneEnumEdit item={item} onChange={onChange} />;
       case 'SelectMultipleEnum':
         return <SelectMultipleEnumEdit item={item} onChange={onChange} />;
+      case 'RichText':
+        return <RichTextEdit item={item} onChange={onChange} />;
 
       default:
         return <div>Cannot render type: {type}</div>;

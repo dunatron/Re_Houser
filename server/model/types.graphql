@@ -249,7 +249,7 @@ type Property implements PropertyInfo {
   bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
   type: PropertyType
   fixedLength: TenancyFixedLength
-  headline: String
+  headline: Json
   rooms: Int!
   maximumOccupants: Int
   rent: Float!
