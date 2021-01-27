@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { SINGLE_PROPERTY_QUERY } from '@/Gql/queries';
 
-import Error from '@/Components/Error';
+import Error from '@/Components/ErrorMessage';
 import Loader from '@/Components/Loader';
 import { Typography } from '@material-ui/core';
 
