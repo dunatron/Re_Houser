@@ -178,7 +178,7 @@ const prodSeedList = [
     lastName: CTO_DETAILS.lastname,
     phone: CTO_DETAILS.phone,
     permissions: setWizardPermissions
-  },
+  }
   // {
   //   ...adminFrag,
   //   email: "siaujiun@gmail.com",
@@ -186,13 +186,13 @@ const prodSeedList = [
   //   lastName: "Lim",
   //   permissions: setAdminPermissions
   // },
-  {
-    ...adminFrag,
-    email: "anelsonmisa@gmail.com",
-    firstName: "Adam",
-    lastName: "Nelson-Misa",
-    permissions: setAdminPermissions
-  }
+  // {
+  //   ...adminFrag,
+  //   email: "anelsonmisa@gmail.com",
+  //   firstName: "Adam",
+  //   lastName: "Nelson-Misa",
+  //   permissions: setAdminPermissions
+  // }
 ];
 
 module.exports = process.env.STAGE === "dev" ? userList : prodSeedList;
