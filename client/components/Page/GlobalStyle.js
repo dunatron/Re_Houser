@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
   *, *:before, *:after {
     box-sizing: inherit;
   }
+  
   fieldset{
     padding: 0;
     margin-inline-start: unset;
@@ -182,7 +183,6 @@ const GlobalStyle = createGlobalStyle`
   .geosuggest__item__matched-text {
     font-weight: bold;
   }
-
 `;
 
 export default GlobalStyle;

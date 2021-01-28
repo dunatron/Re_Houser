@@ -7,6 +7,7 @@ export default function StringDisplay({
   value,
   title,
   orientation = 'horizontal',
+  reverse,
   variant = 'body2',
   titleProps,
   valueProps,
@@ -14,7 +15,7 @@ export default function StringDisplay({
   gutterBottom,
   ...rest
 }) {
-  const classes = useStyles({ orientation, gutterBottom });
+  const classes = useStyles({ orientation, gutterBottom, reverse });
   return (
     <Box className={classes.root}>
       {icon && (

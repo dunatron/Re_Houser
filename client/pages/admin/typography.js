@@ -19,6 +19,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import RichTextEditor from '@/Components/RichTextEditor';
+
 // server side props
 import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
@@ -56,6 +58,10 @@ const EXAMPLES_CONF = [
         </a>
       </div>
     ),
+  },
+  {
+    label: 'Rich Text =)',
+    component: <RichTextEditor />,
   },
 ];
 

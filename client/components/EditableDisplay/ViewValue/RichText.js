@@ -1,10 +1,12 @@
 import useViewStyles from './useViewStyles';
 
-import MUIRichTextEditor from 'mui-rte';
+// import MUIRichTextEditor from 'mui-rte';
+import RichTextEditor from '@/Components/RichTextEditor';
 
 const ReadOnly = ({ item }) => {
   return (
-    <MUIRichTextEditor
+    <RichTextEditor
+      viewOnly={true}
       defaultValue={item.value ? item.value : ''}
       readOnly={true}
       controls={[]}

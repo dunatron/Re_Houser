@@ -21,7 +21,7 @@ import isAdmin from '@/Lib/isAdmin';
 import { _isRentalApplicant } from '@/Lib/_isRentalApplicant';
 import { _isRentalApplicationOwner } from '@/Lib/_isRentalApplicationOwner';
 
-import PropertyFullDetails from '@/Components/Property/FullDetails';
+import PropertyPublicDetails from '@/Components/Property/PublicDetails';
 import ApplicationFullDetails from '@/Components/RentalApplication/FullDetails';
 import Modal from '@/Components/Modal';
 
@@ -154,7 +154,7 @@ const RentalApplication = ({ id, me, invited }) => {
         )}
       </RehouserPaper>
       <Modal open={isPropertyModalOpen} close={handleClosePropertyModal}>
-        <PropertyFullDetails />
+        <PropertyPublicDetails />
       </Modal>
       <Modal open={isApplicationModalOpen} close={handleCloseApplicationModal}>
         <ApplicationFullDetails id={data.rentalApplication.id} />

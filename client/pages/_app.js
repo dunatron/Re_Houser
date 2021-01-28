@@ -9,11 +9,6 @@ import Page from '@/Components/Page/index';
 import '../public/css/customToast.css';
 import '../public/css/geosuggest.css';
 import '../public/css/nprogress.css';
-import '../public/css/slick.css';
-
-// has j1uery dependency...
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
 
 function App(props) {
   const { Component, pageProps } = props;

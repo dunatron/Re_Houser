@@ -57,6 +57,16 @@ const theme = {
       },
       alignItemsFlexStart: {},
     },
+    MUIRichTextEditor: {
+      root: {},
+      container: {},
+      editor: {},
+      toolbar: {},
+      placeHolder: {
+        position: 'relative',
+      },
+      anchorLink: {},
+    },
     // MuiDrawer: {
     //   // root: {
     //   //   width: '120px',

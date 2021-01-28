@@ -22,6 +22,9 @@ import PageWithFooter from '../PageWithFooter';
 
 const ExamplePdf = ({ me, lease }) => {
   return (
+    <div>Sorry Load in With Next js Dynamic or not at al. ExamplePdfl</div>
+  );
+  return (
     <PDFViewer width="100%" height="500px">
       <Document>
         <PageWithFooter size="A4" style={styles.page}>

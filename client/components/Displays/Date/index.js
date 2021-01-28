@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Typography, Chip } from '@material-ui/core';
+import { Box, Typography, Chip, Icon } from '@material-ui/core';
 import useStyles from './useStyles';
 import moment from 'moment';
 
@@ -21,16 +21,24 @@ const makeFormatttedValue = (val, format) => {
 export default function DateDisplay({
   title,
   value,
+  icon,
   format,
   orientation = 'horizontal',
+  reverse,
   variant = 'body2',
   titleProps,
   valueProps,
+  iconProps,
 }) {
-  const classes = useStyles({ orientation });
+  const classes = useStyles({ orientation, reverse });
   const formattedValue = makeFormatttedValue(value, format);
   return (
     <Box className={classes.root}>
+      {icon && (
+        <Icon className={classes.icon} {...iconProps}>
+          {icon}
+        </Icon>
+      )}
       {title && (
         <Typography className={classes.title} variant={variant} {...titleProps}>
           {title}

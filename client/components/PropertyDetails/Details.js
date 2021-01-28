@@ -16,6 +16,7 @@ import {
   Switch,
   Typography,
   Paper,
+  ButtonGroup,
 } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
 import Card from '@/Styles/Card';
@@ -33,6 +34,7 @@ import {
 } from '@/Components/LeaseManager/LeaseLengthInfo';
 
 import UserDetails from '@/Components/UserDetails';
+import PropertyPublicDetails from '@/Components/Property/PublicDetails';
 
 import { FileInfoFragment } from '@/Gql/fragments/fileInfo';
 import { PropertyInfoFragment } from '@/Gql/fragments/propertyInfo';
@@ -51,6 +53,7 @@ import EditableDisplayItems from '@/Components/EditableDisplay/EditableDisplayIt
 import EditableDisplay from '@/Components/EditableDisplay';
 
 import PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF from '@/Lib/configs/editableDisplays/propertyDetails';
+import Modal from '@/Components/Modal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,6 +88,13 @@ const Details = props => {
   const classes = useStyles();
 
   const [updates, setUpdates] = useState({});
+  const [publicDetailsModalIsOpen, setPublicDetailsModalIsOpen] = useState(
+    false
+  );
+
+  const handleClosePublicDetailsModal = () =>
+    setPublicDetailsModalIsOpen(false);
+  const handleOpenPublicDetailsModal = () => setPublicDetailsModalIsOpen(true);
 
   const PROPERTY_SINGLE_PROPERTY_MUTATION = gql`
     mutation UPDATE_PROPERTY_MUTATION(
@@ -282,6 +292,24 @@ const Details = props => {
             title="Show property properties"
             json={property}></DisplayJson>
         ))}
+
+      <RehouserPaper>
+        <ButtonGroup
+          variant="text"
+          color="primary"
+          aria-label="text primary button group">
+          <Button onClick={handleOpenPublicDetailsModal}>
+            View Public Details
+          </Button>
+          {isAdmin && (
+            <ChangeRouteButton
+              title="Edit with Original Form"
+              route={`/landlord/properties/${property.id}/edit`}
+            />
+          )}
+        </ButtonGroup>
+      </RehouserPaper>
+
       {isAgent && (
         <RehouserPaper attrs={{ disablePadding: true }}>
           <Alert severity="info">
@@ -294,14 +322,6 @@ const Details = props => {
             </Typography>
           </Alert>
         </RehouserPaper>
-      )}
-      {isAdmin && (
-        <Card>
-          <ChangeRouteButton
-            title="Edit with Original Form"
-            route={`/landlord/properties/${property.id}/edit`}
-          />
-        </Card>
       )}
 
       <ImportantDetails property={property} />
@@ -495,6 +515,11 @@ const Details = props => {
           }}
         />
       </Card>
+      <Modal
+        open={publicDetailsModalIsOpen}
+        close={handleClosePublicDetailsModal}>
+        <PropertyPublicDetails id={property.id} />
+      </Modal>
     </div>
   );
 };

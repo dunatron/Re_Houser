@@ -15,6 +15,11 @@ const useStyles = makeStyles(theme =>
     },
     title: {
       margin: theme.spacing(0, 1, 0, 0),
+      order: props => (props.reverse ? 1 : 0),
+    },
+    value: {
+      margin: theme.spacing(0, 1, 0, 0),
+      order: props => (props.reverse ? 0 : 1),
     },
   })
 );
