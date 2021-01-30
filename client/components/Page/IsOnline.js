@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Snackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import MuiAlert from '@/Components/Alert';
 
 /**
  * Checks and keeps checking if our service worker is connected to the internet

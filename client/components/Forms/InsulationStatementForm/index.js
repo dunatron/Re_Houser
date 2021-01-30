@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import {
   INSULATION_FORM_QUERY,

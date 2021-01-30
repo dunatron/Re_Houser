@@ -11,6 +11,9 @@ import {
   ToolTipExamples,
   RenderInputExamples,
   ExamplePdfExamples,
+  AlertExamples,
+  SectionExamples,
+  ContainerExamples,
 } from '@/Components/StyleExamples';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -26,6 +29,15 @@ import { initializeApollo, addApolloState } from '@/Lib/apolloClient';
 import { CURRENT_USER_QUERY } from '@/Gql/queries';
 
 const EXAMPLES_CONF = [
+  {
+    label: 'COntainer Examples',
+    component: <ContainerExamples />,
+  },
+  {
+    label: 'Section Examples',
+    component: <SectionExamples />,
+  },
+
   {
     label: 'Typography Examples',
     component: <TypographyExamples />,
@@ -45,6 +57,10 @@ const EXAMPLES_CONF = [
   {
     label: 'Pdf Examples',
     component: <ExamplePdfExamples />,
+  },
+  {
+    label: 'Alert Examples',
+    component: <AlertExamples />,
   },
   {
     label: 'Toast/Notifiction',

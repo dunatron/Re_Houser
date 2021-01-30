@@ -4,7 +4,7 @@ import { PUBLIC_USER_QUERY } from '@/Gql/queries';
 import Loader from '@/Components/Loader';
 import Error from '@/Components/ErrorMessage';
 import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 
 import {
   Avatar,

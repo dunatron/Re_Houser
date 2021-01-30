@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 import { useMutation } from '@apollo/client';
 import { LANDLORD_TERMS_OF_ENGAGEMENT_FORM_CONF } from '@/Lib/configs/landlordTermsOfEngagementForm';
 

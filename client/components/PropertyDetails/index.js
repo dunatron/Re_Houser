@@ -8,6 +8,7 @@ import Error from '@/Components/ErrorMessage/index';
 import styled from 'styled-components';
 import Head from 'next/head';
 import { Tabs, Tab } from '@material-ui/core';
+import Section from '@/Components/Section';
 // tabs
 import Details from './Details';
 import Leases from './Leases';
@@ -222,49 +223,50 @@ const PropertyDetails = ({ id, location, me }) => {
       />
       <div>
         {/* <h1 className="location__name"> {property ? property.location : null}</h1> */}
-
-        <Tabs
-          value={tabIndex}
-          onChange={(e, v) => setTabIndex(v)}
-          // indicatorColor="secondary"
-          // textColor="secondary"
-          // wrapped={false}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto">
-          <Tab label="Details" icon={<DetailsIcon />} />
-          <Tab
-            label={
-              <Badge
-                color="secondary"
-                badgeContent={rentalApplicationsCount.count}>
-                Applications
-              </Badge>
-            }
-            icon={<DescriptionIcon />}
-          />
-          <Tab
-            label={
-              <Badge color="secondary" badgeContent={leasesCount.count}>
-                Leases
-              </Badge>
-            }
-            icon={<AssignmentIcon />}
-          />
-          <Tab label="Activity" icon={<EventNoteIcon />} />
-          <Tab label="Viewings" icon={<StreetviewIcon />} />
-          <Tab
-            label={
-              <Badge color="secondary" badgeContent={inspectionsCount.count}>
-                Inspections
-              </Badge>
-            }
-            icon={<EventAvailableIcon />}
-          />
-          <Tab label="Files" icon={<FileCopyIcon />} />
-          <Tab label="Share" icon={<ShareIcon />} />
-        </Tabs>
+        <Section botSpace={1}>
+          <Tabs
+            value={tabIndex}
+            onChange={(e, v) => setTabIndex(v)}
+            // indicatorColor="secondary"
+            // textColor="secondary"
+            // wrapped={false}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto">
+            <Tab label="Details" icon={<DetailsIcon />} />
+            <Tab
+              label={
+                <Badge
+                  color="secondary"
+                  badgeContent={rentalApplicationsCount.count}>
+                  Applications
+                </Badge>
+              }
+              icon={<DescriptionIcon />}
+            />
+            <Tab
+              label={
+                <Badge color="secondary" badgeContent={leasesCount.count}>
+                  Leases
+                </Badge>
+              }
+              icon={<AssignmentIcon />}
+            />
+            <Tab label="Activity" icon={<EventNoteIcon />} />
+            <Tab label="Viewings" icon={<StreetviewIcon />} />
+            <Tab
+              label={
+                <Badge color="secondary" badgeContent={inspectionsCount.count}>
+                  Inspections
+                </Badge>
+              }
+              icon={<EventAvailableIcon />}
+            />
+            <Tab label="Files" icon={<FileCopyIcon />} />
+            <Tab label="Share" icon={<ShareIcon />} />
+          </Tabs>
+        </Section>
 
         {tabIndex === 0 && (
           <TabContainer>

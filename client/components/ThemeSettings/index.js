@@ -8,8 +8,6 @@ import originalMuiTheme from '@/Themes/originalMui';
 // palettes
 import mainPalette from '@/Themes/palettes/mainPalette';
 import darkPalette from '@/Themes/palettes/darkPalette';
-// overrides
-import mainOverrides from '@/Themes/overrides/mainOverride';
 // typographys
 import azoSansTypography from '@/Themes/typographys/azoSansTypography';
 
@@ -38,17 +36,6 @@ const ThemeSettings = () => {
           </Button>
           <Button onClick={() => setThemeObj({ ...themeObj, ...darkPalette })}>
             Apply dark Palette
-          </Button>
-        </ButtonGroup>
-      </RehouserPaper>
-      <RehouserPaper>
-        <Typography variant="h6" gutterBottom>
-          Overrides slices
-        </Typography>
-        <ButtonGroup size="small" orientation="vertical">
-          <Button
-            onClick={() => setThemeObj({ ...themeObj, ...mainOverrides })}>
-            Apply main overrides
           </Button>
         </ButtonGroup>
       </RehouserPaper>

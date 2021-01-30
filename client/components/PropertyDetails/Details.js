@@ -1,6 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 
 import { makeStyles } from '@material-ui/core/styles';
 
