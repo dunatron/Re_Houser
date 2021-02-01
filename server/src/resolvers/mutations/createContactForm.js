@@ -9,6 +9,24 @@ async function createContactForm(parent, args, ctx, info) {
   if (recaptchaIsValid !== true) {
     throw new Error(`Invalid ReCaptcha token`);
   }
+
+  console.log("The submitted args: ", args);
+  // because i am a moron `firstName` is the param recieved but our db key is just `name`
+  const contactSubmission = await ctx.db.mutation.createContactSubmission(
+    {
+      data: {
+        firstName: args.firstName,
+        lastName: args.lastName,
+        phone: args.phone,
+        email: args.email,
+        message: args.message
+      }
+    },
+    info
+  );
+
+  console.log("Cool got a contact submission in the db => ", contactSubmission);
+
   emailCEO({
     ctx: ctx,
     subject: `${args.firstName} submitted contact`,

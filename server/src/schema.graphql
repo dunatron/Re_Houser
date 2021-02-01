@@ -175,6 +175,8 @@ type Mutation {
   ): Inspection
   createContactForm(
     firstName: String!
+    lastName: String
+    phone: String
     email: String!
     message: String!
     captchaToken: String!

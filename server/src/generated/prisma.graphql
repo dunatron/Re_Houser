@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Wed Jan 27 2021 22:02:16 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Mon Feb 01 2021 18:05:35 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1733,6 +1733,10 @@ type AggregateChat {
   count: Int!
 }
 
+type AggregateContactSubmission {
+  count: Int!
+}
+
 type AggregateCreditCard {
   count: Int!
 }
@@ -3346,6 +3350,433 @@ input ChatWhereInput {
 }
 
 input ChatWhereUniqueInput {
+  id: ID
+}
+
+type ContactSubmission implements Node {
+  id: ID!
+  firstName: String!
+  lastName: String
+  phone: String
+  email: String!
+  seen: Boolean
+  notes: String
+  message: String!
+}
+
+"""A connection to a list of items."""
+type ContactSubmissionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ContactSubmissionEdge]!
+  aggregate: AggregateContactSubmission!
+}
+
+input ContactSubmissionCreateInput {
+  id: ID
+  firstName: String!
+  lastName: String
+  phone: String
+  email: String!
+  seen: Boolean
+  notes: String
+  message: String!
+}
+
+"""An edge in a connection."""
+type ContactSubmissionEdge {
+  """The item at the end of the edge."""
+  node: ContactSubmission!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ContactSubmissionOrderByInput {
+  id_ASC
+  id_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  phone_ASC
+  phone_DESC
+  email_ASC
+  email_DESC
+  seen_ASC
+  seen_DESC
+  notes_ASC
+  notes_DESC
+  message_ASC
+  message_DESC
+}
+
+type ContactSubmissionPreviousValues {
+  id: ID!
+  firstName: String!
+  lastName: String
+  phone: String
+  email: String!
+  seen: Boolean
+  notes: String
+  message: String!
+}
+
+type ContactSubmissionSubscriptionPayload {
+  mutation: MutationType!
+  node: ContactSubmission
+  updatedFields: [String!]
+  previousValues: ContactSubmissionPreviousValues
+}
+
+input ContactSubmissionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactSubmissionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactSubmissionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactSubmissionSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ContactSubmissionWhereInput
+}
+
+input ContactSubmissionUpdateInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  seen: Boolean
+  notes: String
+  message: String
+}
+
+input ContactSubmissionUpdateManyMutationInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  seen: Boolean
+  notes: String
+  message: String
+}
+
+input ContactSubmissionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactSubmissionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactSubmissionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactSubmissionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  seen: Boolean
+
+  """All values that are not equal to given value."""
+  seen_not: Boolean
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  message: String
+
+  """All values that are not equal to given value."""
+  message_not: String
+
+  """All values that are contained in given list."""
+  message_in: [String!]
+
+  """All values that are not contained in given list."""
+  message_not_in: [String!]
+
+  """All values less than the given value."""
+  message_lt: String
+
+  """All values less than or equal the given value."""
+  message_lte: String
+
+  """All values greater than the given value."""
+  message_gt: String
+
+  """All values greater than or equal the given value."""
+  message_gte: String
+
+  """All values containing the given string."""
+  message_contains: String
+
+  """All values not containing the given string."""
+  message_not_contains: String
+
+  """All values starting with the given string."""
+  message_starts_with: String
+
+  """All values not starting with the given string."""
+  message_not_starts_with: String
+
+  """All values ending with the given string."""
+  message_ends_with: String
+
+  """All values not ending with the given string."""
+  message_not_ends_with: String
+}
+
+input ContactSubmissionWhereUniqueInput {
   id: ID
 }
 
@@ -12498,6 +12929,7 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createContactSubmission(data: ContactSubmissionCreateInput!): ContactSubmission!
   createReferee(data: RefereeCreateInput!): Referee!
   createAddress(data: AddressCreateInput!): Address!
   createAdminSetting(data: AdminSettingCreateInput!): AdminSetting!
@@ -12529,6 +12961,7 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   createInspectionForm(data: InspectionFormCreateInput!): InspectionForm!
+  updateContactSubmission(data: ContactSubmissionUpdateInput!, where: ContactSubmissionWhereUniqueInput!): ContactSubmission
   updateReferee(data: RefereeUpdateInput!, where: RefereeWhereUniqueInput!): Referee
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateAdminSetting(data: AdminSettingUpdateInput!, where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -12559,6 +12992,7 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   updateInspectionForm(data: InspectionFormUpdateInput!, where: InspectionFormWhereUniqueInput!): InspectionForm
+  deleteContactSubmission(where: ContactSubmissionWhereUniqueInput!): ContactSubmission
   deleteReferee(where: RefereeWhereUniqueInput!): Referee
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteAdminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -12590,6 +13024,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteInspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
+  upsertContactSubmission(where: ContactSubmissionWhereUniqueInput!, create: ContactSubmissionCreateInput!, update: ContactSubmissionUpdateInput!): ContactSubmission!
   upsertReferee(where: RefereeWhereUniqueInput!, create: RefereeCreateInput!, update: RefereeUpdateInput!): Referee!
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   upsertAdminSetting(where: AdminSettingWhereUniqueInput!, create: AdminSettingCreateInput!, update: AdminSettingUpdateInput!): AdminSetting!
@@ -12620,6 +13055,7 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   upsertInspectionForm(where: InspectionFormWhereUniqueInput!, create: InspectionFormCreateInput!, update: InspectionFormUpdateInput!): InspectionForm!
+  updateManyContactSubmissions(data: ContactSubmissionUpdateManyMutationInput!, where: ContactSubmissionWhereInput): BatchPayload!
   updateManyReferees(data: RefereeUpdateManyMutationInput!, where: RefereeWhereInput): BatchPayload!
   updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyAdminSettings(data: AdminSettingUpdateManyMutationInput!, where: AdminSettingWhereInput): BatchPayload!
@@ -12648,6 +13084,7 @@ type Mutation {
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   updateManyInspectionForms(data: InspectionFormUpdateManyMutationInput!, where: InspectionFormWhereInput): BatchPayload!
+  deleteManyContactSubmissions(where: ContactSubmissionWhereInput): BatchPayload!
   deleteManyReferees(where: RefereeWhereInput): BatchPayload!
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   deleteManyAdminSettings(where: AdminSettingWhereInput): BatchPayload!
@@ -22992,6 +23429,7 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  contactSubmissions(where: ContactSubmissionWhereInput, orderBy: ContactSubmissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactSubmission]!
   referees(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Referee]!
   addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
   adminSettings(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminSetting]!
@@ -23023,6 +23461,7 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   inspectionForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm]!
+  contactSubmission(where: ContactSubmissionWhereUniqueInput!): ContactSubmission
   referee(where: RefereeWhereUniqueInput!): Referee
   address(where: AddressWhereUniqueInput!): Address
   adminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -23054,6 +23493,7 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   inspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
+  contactSubmissionsConnection(where: ContactSubmissionWhereInput, orderBy: ContactSubmissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContactSubmissionConnection!
   refereesConnection(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RefereeConnection!
   addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
   adminSettingsConnection(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminSettingConnection!
@@ -26548,6 +26988,7 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  contactSubmission(where: ContactSubmissionSubscriptionWhereInput): ContactSubmissionSubscriptionPayload
   referee(where: RefereeSubscriptionWhereInput): RefereeSubscriptionPayload
   address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
   adminSetting(where: AdminSettingSubscriptionWhereInput): AdminSettingSubscriptionPayload
