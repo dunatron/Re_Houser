@@ -17,7 +17,7 @@ import Modal from '@/Components/Modal';
 import AcceptTermsOfEngagementForm from '@/Components/Forms/AcceptTermsOfEngagementForm';
 import AssociatedAppraisal from './AssociatedAppraisal';
 import RPaper from '@/Styles/RehouserPaper';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 
 const LoadingAppraisal = () => (
   <Loader loading={true} text="Loading in Appraisal" />
@@ -217,6 +217,7 @@ const CreatePropertyComponent = props => {
       </Modal>
       {!me.acceptedTermsOfEngagement && (
         <>
+          {/* <Alert severity="info"> */}
           <Alert severity="info">
             <Typography variant="body1">
               To add Property to our platform you must first accept the terms of

@@ -1,6 +1,6 @@
 // https://in-your-saas.github.io/material-ui-theme-editor/
 //https://react-theming.github.io/create-mui-theme/
-
+import { makefontRgba } from './mainPalette';
 // secondary color dark blue
 export const mainPrimaryColor = '#fff59d';
 export const lightPrimaryColor = '#fff7b0';
@@ -14,7 +14,7 @@ export const lightSecondaryColor = '#a6d4fa';
 export const darkSecondaryColor = '#648dae';
 export const secondaryContrastText = '#000';
 
-import { yellow, purple, teal, blue } from '@material-ui/core/colors';
+const fontRgb = `255, 255, 255`;
 const theme = {
   palette: {
     nProgress: {
@@ -24,14 +24,12 @@ const theme = {
     common: { black: 'rgba(59, 40, 40, 1)', white: 'rgba(255, 255, 255, 1)' },
     background: { paper: '#424242', default: '#303030' },
     primary: {
-      // main: yellow[200], // #fff59d
       light: lightPrimaryColor,
       main: mainPrimaryColor,
       dark: darkPrimaryColor,
       contrastText: primaryContrastText,
     },
     secondary: {
-      // main: blue[200],
       light: lightSecondaryColor,
       main: mainSecondaryColor,
       dark: darkSecondaryColor,
@@ -44,10 +42,15 @@ const theme = {
       contrastText: '#fff',
     },
     text: {
-      primary: 'rgba(255, 255, 255, 0.87)',
-      secondary: 'rgba(255, 255, 255, 0.54)',
-      disabled: 'rgba(255, 255, 255, 0.38)',
-      hint: 'rgba(255, 255, 255, 0.38)',
+      primary: makefontRgba(fontRgb, 0.87),
+      secondary: makefontRgba(fontRgb, 0.54),
+      disabled: makefontRgba(fontRgb, 0.38),
+      hint: makefontRgba(fontRgb, 0.38),
+    },
+  },
+  typography: {
+    h1: {
+      color: makefontRgba(fontRgb, 1),
     },
   },
 };

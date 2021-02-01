@@ -14,6 +14,7 @@ import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 // components
+import Section from '@/Components/Section';
 import Loader from '@/Components/Loader';
 import Error from '@/Components/ErrorMessage';
 
@@ -63,12 +64,7 @@ export default function TabsWrappedLabel() {
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="static"
-        color="transparent"
-        classes={{
-          root: classes.appBarRoot,
-        }}>
+      <Section spacing={1} elevation={1} square>
         <Tabs
           classes={{
             root: classes.tabsRoot,
@@ -76,6 +72,9 @@ export default function TabsWrappedLabel() {
           value={value}
           indicatorColor="primary"
           textColor="primary"
+          // textColor="inherit"
+          // indicatorColor="secondary"
+          // textColor="secondary"
           variant="scrollable"
           scrollButtons="auto"
           onChange={handleChange}
@@ -116,7 +115,7 @@ export default function TabsWrappedLabel() {
             {...a11yProps(tabFourVal)}
           /> */}
         </Tabs>
-      </AppBar>
+      </Section>
       {/* TAB CONTAINERS */}
       <TabContainer value={value} index={tabFourVal}>
         <SettingsTab me={data.me} />

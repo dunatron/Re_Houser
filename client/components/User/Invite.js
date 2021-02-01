@@ -3,7 +3,7 @@ import EmailInput from '@/Components/Inputs/Email';
 import { Button, Typography } from '@material-ui/core';
 import { toast } from 'react-toastify';
 import { uuid } from 'uuidv4';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 import { INVITE_USER_MUTATION } from '@/Gql/mutations';
 import { useMutation } from '@apollo/client';
 

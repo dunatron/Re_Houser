@@ -4,7 +4,7 @@ import InspectionsTable from '@/Components/Tables/InspectionsTable';
 import CreateInspection from '@/Components/Inspections/CreateInspection';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@/Components/Alert';
 import CloseIcon from '@material-ui/icons/Close';
 
 const InspectionsTab = ({ property, me, isAgent }) => {
