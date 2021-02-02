@@ -36,14 +36,6 @@ const UserInfoFragment = gql`
     referees {
       ...refereeInfo
     }
-    referee1Relationhip
-    referee1Name
-    referee1Phone
-    referee1Email
-    referee2Relationhip
-    referee2Name
-    referee2Phone
-    referee2Email
     primaryCreditCard {
       id
     }

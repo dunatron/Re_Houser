@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/heath-dunlop-37e897/rehouser-service/dev
-# timestamp: Mon Feb 01 2021 18:05:35 GMT+1300 (New Zealand Daylight Time)
+# timestamp: Wed Feb 03 2021 00:25:05 GMT+1300 (New Zealand Daylight Time)
 
 type Accommodation implements Node {
   id: ID!
@@ -1737,11 +1737,19 @@ type AggregateContactSubmission {
   count: Int!
 }
 
+type AggregateContactSubmissionReply {
+  count: Int!
+}
+
 type AggregateCreditCard {
   count: Int!
 }
 
 type AggregateFile {
+  count: Int!
+}
+
+type AggregateForeignLink {
   count: Int!
 }
 
@@ -3355,6 +3363,8 @@ input ChatWhereUniqueInput {
 
 type ContactSubmission implements Node {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String
   phone: String
@@ -3362,6 +3372,7 @@ type ContactSubmission implements Node {
   seen: Boolean
   notes: String
   message: String!
+  replies(where: ContactSubmissionReplyWhereInput, orderBy: ContactSubmissionReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactSubmissionReply!]
 }
 
 """A connection to a list of items."""
@@ -3375,6 +3386,23 @@ type ContactSubmissionConnection {
 }
 
 input ContactSubmissionCreateInput {
+  id: ID
+  firstName: String!
+  lastName: String
+  phone: String
+  email: String!
+  seen: Boolean
+  notes: String
+  message: String!
+  replies: ContactSubmissionReplyCreateManyWithoutContactSubmissionInput
+}
+
+input ContactSubmissionCreateOneWithoutRepliesInput {
+  create: ContactSubmissionCreateWithoutRepliesInput
+  connect: ContactSubmissionWhereUniqueInput
+}
+
+input ContactSubmissionCreateWithoutRepliesInput {
   id: ID
   firstName: String!
   lastName: String
@@ -3397,6 +3425,10 @@ type ContactSubmissionEdge {
 enum ContactSubmissionOrderByInput {
   id_ASC
   id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -3415,6 +3447,8 @@ enum ContactSubmissionOrderByInput {
 
 type ContactSubmissionPreviousValues {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   firstName: String!
   lastName: String
   phone: String
@@ -3422,6 +3456,784 @@ type ContactSubmissionPreviousValues {
   seen: Boolean
   notes: String
   message: String!
+}
+
+type ContactSubmissionReply implements Node {
+  id: ID!
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+  contactSubmission: ContactSubmission!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type ContactSubmissionReplyConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ContactSubmissionReplyEdge]!
+  aggregate: AggregateContactSubmissionReply!
+}
+
+input ContactSubmissionReplyCreateInput {
+  id: ID
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+  contactSubmission: ContactSubmissionCreateOneWithoutRepliesInput!
+}
+
+input ContactSubmissionReplyCreateManyWithoutContactSubmissionInput {
+  create: [ContactSubmissionReplyCreateWithoutContactSubmissionInput!]
+  connect: [ContactSubmissionReplyWhereUniqueInput!]
+}
+
+input ContactSubmissionReplyCreateWithoutContactSubmissionInput {
+  id: ID
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+}
+
+"""An edge in a connection."""
+type ContactSubmissionReplyEdge {
+  """The item at the end of the edge."""
+  node: ContactSubmissionReply!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ContactSubmissionReplyOrderByInput {
+  id_ASC
+  id_DESC
+  from_ASC
+  from_DESC
+  to_ASC
+  to_DESC
+  subject_ASC
+  subject_DESC
+  text_ASC
+  text_DESC
+  inReplyToMessage_ASC
+  inReplyToMessage_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ContactSubmissionReplyPreviousValues {
+  id: ID!
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ContactSubmissionReplyScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactSubmissionReplyScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactSubmissionReplyScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactSubmissionReplyScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  from: String
+
+  """All values that are not equal to given value."""
+  from_not: String
+
+  """All values that are contained in given list."""
+  from_in: [String!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [String!]
+
+  """All values less than the given value."""
+  from_lt: String
+
+  """All values less than or equal the given value."""
+  from_lte: String
+
+  """All values greater than the given value."""
+  from_gt: String
+
+  """All values greater than or equal the given value."""
+  from_gte: String
+
+  """All values containing the given string."""
+  from_contains: String
+
+  """All values not containing the given string."""
+  from_not_contains: String
+
+  """All values starting with the given string."""
+  from_starts_with: String
+
+  """All values not starting with the given string."""
+  from_not_starts_with: String
+
+  """All values ending with the given string."""
+  from_ends_with: String
+
+  """All values not ending with the given string."""
+  from_not_ends_with: String
+  to: String
+
+  """All values that are not equal to given value."""
+  to_not: String
+
+  """All values that are contained in given list."""
+  to_in: [String!]
+
+  """All values that are not contained in given list."""
+  to_not_in: [String!]
+
+  """All values less than the given value."""
+  to_lt: String
+
+  """All values less than or equal the given value."""
+  to_lte: String
+
+  """All values greater than the given value."""
+  to_gt: String
+
+  """All values greater than or equal the given value."""
+  to_gte: String
+
+  """All values containing the given string."""
+  to_contains: String
+
+  """All values not containing the given string."""
+  to_not_contains: String
+
+  """All values starting with the given string."""
+  to_starts_with: String
+
+  """All values not starting with the given string."""
+  to_not_starts_with: String
+
+  """All values ending with the given string."""
+  to_ends_with: String
+
+  """All values not ending with the given string."""
+  to_not_ends_with: String
+  subject: String
+
+  """All values that are not equal to given value."""
+  subject_not: String
+
+  """All values that are contained in given list."""
+  subject_in: [String!]
+
+  """All values that are not contained in given list."""
+  subject_not_in: [String!]
+
+  """All values less than the given value."""
+  subject_lt: String
+
+  """All values less than or equal the given value."""
+  subject_lte: String
+
+  """All values greater than the given value."""
+  subject_gt: String
+
+  """All values greater than or equal the given value."""
+  subject_gte: String
+
+  """All values containing the given string."""
+  subject_contains: String
+
+  """All values not containing the given string."""
+  subject_not_contains: String
+
+  """All values starting with the given string."""
+  subject_starts_with: String
+
+  """All values not starting with the given string."""
+  subject_not_starts_with: String
+
+  """All values ending with the given string."""
+  subject_ends_with: String
+
+  """All values not ending with the given string."""
+  subject_not_ends_with: String
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  inReplyToMessage: String
+
+  """All values that are not equal to given value."""
+  inReplyToMessage_not: String
+
+  """All values that are contained in given list."""
+  inReplyToMessage_in: [String!]
+
+  """All values that are not contained in given list."""
+  inReplyToMessage_not_in: [String!]
+
+  """All values less than the given value."""
+  inReplyToMessage_lt: String
+
+  """All values less than or equal the given value."""
+  inReplyToMessage_lte: String
+
+  """All values greater than the given value."""
+  inReplyToMessage_gt: String
+
+  """All values greater than or equal the given value."""
+  inReplyToMessage_gte: String
+
+  """All values containing the given string."""
+  inReplyToMessage_contains: String
+
+  """All values not containing the given string."""
+  inReplyToMessage_not_contains: String
+
+  """All values starting with the given string."""
+  inReplyToMessage_starts_with: String
+
+  """All values not starting with the given string."""
+  inReplyToMessage_not_starts_with: String
+
+  """All values ending with the given string."""
+  inReplyToMessage_ends_with: String
+
+  """All values not ending with the given string."""
+  inReplyToMessage_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+}
+
+type ContactSubmissionReplySubscriptionPayload {
+  mutation: MutationType!
+  node: ContactSubmissionReply
+  updatedFields: [String!]
+  previousValues: ContactSubmissionReplyPreviousValues
+}
+
+input ContactSubmissionReplySubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactSubmissionReplySubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactSubmissionReplySubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactSubmissionReplySubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ContactSubmissionReplyWhereInput
+}
+
+input ContactSubmissionReplyUpdateInput {
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+  contactSubmission: ContactSubmissionUpdateOneRequiredWithoutRepliesInput
+}
+
+input ContactSubmissionReplyUpdateManyDataInput {
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+}
+
+input ContactSubmissionReplyUpdateManyMutationInput {
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+}
+
+input ContactSubmissionReplyUpdateManyWithoutContactSubmissionInput {
+  create: [ContactSubmissionReplyCreateWithoutContactSubmissionInput!]
+  connect: [ContactSubmissionReplyWhereUniqueInput!]
+  set: [ContactSubmissionReplyWhereUniqueInput!]
+  disconnect: [ContactSubmissionReplyWhereUniqueInput!]
+  delete: [ContactSubmissionReplyWhereUniqueInput!]
+  update: [ContactSubmissionReplyUpdateWithWhereUniqueWithoutContactSubmissionInput!]
+  updateMany: [ContactSubmissionReplyUpdateManyWithWhereNestedInput!]
+  deleteMany: [ContactSubmissionReplyScalarWhereInput!]
+  upsert: [ContactSubmissionReplyUpsertWithWhereUniqueWithoutContactSubmissionInput!]
+}
+
+input ContactSubmissionReplyUpdateManyWithWhereNestedInput {
+  where: ContactSubmissionReplyScalarWhereInput!
+  data: ContactSubmissionReplyUpdateManyDataInput!
+}
+
+input ContactSubmissionReplyUpdateWithoutContactSubmissionDataInput {
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+}
+
+input ContactSubmissionReplyUpdateWithWhereUniqueWithoutContactSubmissionInput {
+  where: ContactSubmissionReplyWhereUniqueInput!
+  data: ContactSubmissionReplyUpdateWithoutContactSubmissionDataInput!
+}
+
+input ContactSubmissionReplyUpsertWithWhereUniqueWithoutContactSubmissionInput {
+  where: ContactSubmissionReplyWhereUniqueInput!
+  update: ContactSubmissionReplyUpdateWithoutContactSubmissionDataInput!
+  create: ContactSubmissionReplyCreateWithoutContactSubmissionInput!
+}
+
+input ContactSubmissionReplyWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ContactSubmissionReplyWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ContactSubmissionReplyWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ContactSubmissionReplyWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  from: String
+
+  """All values that are not equal to given value."""
+  from_not: String
+
+  """All values that are contained in given list."""
+  from_in: [String!]
+
+  """All values that are not contained in given list."""
+  from_not_in: [String!]
+
+  """All values less than the given value."""
+  from_lt: String
+
+  """All values less than or equal the given value."""
+  from_lte: String
+
+  """All values greater than the given value."""
+  from_gt: String
+
+  """All values greater than or equal the given value."""
+  from_gte: String
+
+  """All values containing the given string."""
+  from_contains: String
+
+  """All values not containing the given string."""
+  from_not_contains: String
+
+  """All values starting with the given string."""
+  from_starts_with: String
+
+  """All values not starting with the given string."""
+  from_not_starts_with: String
+
+  """All values ending with the given string."""
+  from_ends_with: String
+
+  """All values not ending with the given string."""
+  from_not_ends_with: String
+  to: String
+
+  """All values that are not equal to given value."""
+  to_not: String
+
+  """All values that are contained in given list."""
+  to_in: [String!]
+
+  """All values that are not contained in given list."""
+  to_not_in: [String!]
+
+  """All values less than the given value."""
+  to_lt: String
+
+  """All values less than or equal the given value."""
+  to_lte: String
+
+  """All values greater than the given value."""
+  to_gt: String
+
+  """All values greater than or equal the given value."""
+  to_gte: String
+
+  """All values containing the given string."""
+  to_contains: String
+
+  """All values not containing the given string."""
+  to_not_contains: String
+
+  """All values starting with the given string."""
+  to_starts_with: String
+
+  """All values not starting with the given string."""
+  to_not_starts_with: String
+
+  """All values ending with the given string."""
+  to_ends_with: String
+
+  """All values not ending with the given string."""
+  to_not_ends_with: String
+  subject: String
+
+  """All values that are not equal to given value."""
+  subject_not: String
+
+  """All values that are contained in given list."""
+  subject_in: [String!]
+
+  """All values that are not contained in given list."""
+  subject_not_in: [String!]
+
+  """All values less than the given value."""
+  subject_lt: String
+
+  """All values less than or equal the given value."""
+  subject_lte: String
+
+  """All values greater than the given value."""
+  subject_gt: String
+
+  """All values greater than or equal the given value."""
+  subject_gte: String
+
+  """All values containing the given string."""
+  subject_contains: String
+
+  """All values not containing the given string."""
+  subject_not_contains: String
+
+  """All values starting with the given string."""
+  subject_starts_with: String
+
+  """All values not starting with the given string."""
+  subject_not_starts_with: String
+
+  """All values ending with the given string."""
+  subject_ends_with: String
+
+  """All values not ending with the given string."""
+  subject_not_ends_with: String
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  inReplyToMessage: String
+
+  """All values that are not equal to given value."""
+  inReplyToMessage_not: String
+
+  """All values that are contained in given list."""
+  inReplyToMessage_in: [String!]
+
+  """All values that are not contained in given list."""
+  inReplyToMessage_not_in: [String!]
+
+  """All values less than the given value."""
+  inReplyToMessage_lt: String
+
+  """All values less than or equal the given value."""
+  inReplyToMessage_lte: String
+
+  """All values greater than the given value."""
+  inReplyToMessage_gt: String
+
+  """All values greater than or equal the given value."""
+  inReplyToMessage_gte: String
+
+  """All values containing the given string."""
+  inReplyToMessage_contains: String
+
+  """All values not containing the given string."""
+  inReplyToMessage_not_contains: String
+
+  """All values starting with the given string."""
+  inReplyToMessage_starts_with: String
+
+  """All values not starting with the given string."""
+  inReplyToMessage_not_starts_with: String
+
+  """All values ending with the given string."""
+  inReplyToMessage_ends_with: String
+
+  """All values not ending with the given string."""
+  inReplyToMessage_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  contactSubmission: ContactSubmissionWhereInput
+}
+
+input ContactSubmissionReplyWhereUniqueInput {
+  id: ID
 }
 
 type ContactSubmissionSubscriptionPayload {
@@ -3469,6 +4281,7 @@ input ContactSubmissionUpdateInput {
   seen: Boolean
   notes: String
   message: String
+  replies: ContactSubmissionReplyUpdateManyWithoutContactSubmissionInput
 }
 
 input ContactSubmissionUpdateManyMutationInput {
@@ -3479,6 +4292,28 @@ input ContactSubmissionUpdateManyMutationInput {
   seen: Boolean
   notes: String
   message: String
+}
+
+input ContactSubmissionUpdateOneRequiredWithoutRepliesInput {
+  create: ContactSubmissionCreateWithoutRepliesInput
+  connect: ContactSubmissionWhereUniqueInput
+  update: ContactSubmissionUpdateWithoutRepliesDataInput
+  upsert: ContactSubmissionUpsertWithoutRepliesInput
+}
+
+input ContactSubmissionUpdateWithoutRepliesDataInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  seen: Boolean
+  notes: String
+  message: String
+}
+
+input ContactSubmissionUpsertWithoutRepliesInput {
+  update: ContactSubmissionUpdateWithoutRepliesDataInput!
+  create: ContactSubmissionCreateWithoutRepliesInput!
 }
 
 input ContactSubmissionWhereInput {
@@ -3530,6 +4365,50 @@ input ContactSubmissionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   firstName: String
 
   """All values that are not equal to given value."""
@@ -3774,6 +4653,9 @@ input ContactSubmissionWhereInput {
 
   """All values not ending with the given string."""
   message_not_ends_with: String
+  replies_every: ContactSubmissionReplyWhereInput
+  replies_some: ContactSubmissionReplyWhereInput
+  replies_none: ContactSubmissionReplyWhereInput
 }
 
 input ContactSubmissionWhereUniqueInput {
@@ -9085,6 +9967,557 @@ input FileWhereUniqueInput {
   id: ID
 }
 
+type ForeignLink implements Node {
+  user: User
+  property: Property
+  name: String
+  id: ID!
+  url: String!
+  notes: String
+}
+
+"""A connection to a list of items."""
+type ForeignLinkConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ForeignLinkEdge]!
+  aggregate: AggregateForeignLink!
+}
+
+input ForeignLinkCreateInput {
+  name: String
+  id: ID
+  url: String!
+  notes: String
+  user: UserCreateOneWithoutForeignLinksInput
+  property: PropertyCreateOneWithoutForeignLinksInput
+}
+
+input ForeignLinkCreateManyWithoutPropertyInput {
+  create: [ForeignLinkCreateWithoutPropertyInput!]
+  connect: [ForeignLinkWhereUniqueInput!]
+}
+
+input ForeignLinkCreateManyWithoutUserInput {
+  create: [ForeignLinkCreateWithoutUserInput!]
+  connect: [ForeignLinkWhereUniqueInput!]
+}
+
+input ForeignLinkCreateWithoutPropertyInput {
+  name: String
+  id: ID
+  url: String!
+  notes: String
+  user: UserCreateOneWithoutForeignLinksInput
+}
+
+input ForeignLinkCreateWithoutUserInput {
+  name: String
+  id: ID
+  url: String!
+  notes: String
+  property: PropertyCreateOneWithoutForeignLinksInput
+}
+
+"""An edge in a connection."""
+type ForeignLinkEdge {
+  """The item at the end of the edge."""
+  node: ForeignLink!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ForeignLinkOrderByInput {
+  name_ASC
+  name_DESC
+  id_ASC
+  id_DESC
+  url_ASC
+  url_DESC
+  notes_ASC
+  notes_DESC
+}
+
+type ForeignLinkPreviousValues {
+  name: String
+  id: ID!
+  url: String!
+  notes: String
+}
+
+input ForeignLinkScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ForeignLinkScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ForeignLinkScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ForeignLinkScalarWhereInput!]
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+}
+
+type ForeignLinkSubscriptionPayload {
+  mutation: MutationType!
+  node: ForeignLink
+  updatedFields: [String!]
+  previousValues: ForeignLinkPreviousValues
+}
+
+input ForeignLinkSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ForeignLinkSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ForeignLinkSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ForeignLinkSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ForeignLinkWhereInput
+}
+
+input ForeignLinkUpdateInput {
+  name: String
+  url: String
+  notes: String
+  user: UserUpdateOneWithoutForeignLinksInput
+  property: PropertyUpdateOneWithoutForeignLinksInput
+}
+
+input ForeignLinkUpdateManyDataInput {
+  name: String
+  url: String
+  notes: String
+}
+
+input ForeignLinkUpdateManyMutationInput {
+  name: String
+  url: String
+  notes: String
+}
+
+input ForeignLinkUpdateManyWithoutPropertyInput {
+  create: [ForeignLinkCreateWithoutPropertyInput!]
+  connect: [ForeignLinkWhereUniqueInput!]
+  set: [ForeignLinkWhereUniqueInput!]
+  disconnect: [ForeignLinkWhereUniqueInput!]
+  delete: [ForeignLinkWhereUniqueInput!]
+  update: [ForeignLinkUpdateWithWhereUniqueWithoutPropertyInput!]
+  updateMany: [ForeignLinkUpdateManyWithWhereNestedInput!]
+  deleteMany: [ForeignLinkScalarWhereInput!]
+  upsert: [ForeignLinkUpsertWithWhereUniqueWithoutPropertyInput!]
+}
+
+input ForeignLinkUpdateManyWithoutUserInput {
+  create: [ForeignLinkCreateWithoutUserInput!]
+  connect: [ForeignLinkWhereUniqueInput!]
+  set: [ForeignLinkWhereUniqueInput!]
+  disconnect: [ForeignLinkWhereUniqueInput!]
+  delete: [ForeignLinkWhereUniqueInput!]
+  update: [ForeignLinkUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [ForeignLinkUpdateManyWithWhereNestedInput!]
+  deleteMany: [ForeignLinkScalarWhereInput!]
+  upsert: [ForeignLinkUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input ForeignLinkUpdateManyWithWhereNestedInput {
+  where: ForeignLinkScalarWhereInput!
+  data: ForeignLinkUpdateManyDataInput!
+}
+
+input ForeignLinkUpdateWithoutPropertyDataInput {
+  name: String
+  url: String
+  notes: String
+  user: UserUpdateOneWithoutForeignLinksInput
+}
+
+input ForeignLinkUpdateWithoutUserDataInput {
+  name: String
+  url: String
+  notes: String
+  property: PropertyUpdateOneWithoutForeignLinksInput
+}
+
+input ForeignLinkUpdateWithWhereUniqueWithoutPropertyInput {
+  where: ForeignLinkWhereUniqueInput!
+  data: ForeignLinkUpdateWithoutPropertyDataInput!
+}
+
+input ForeignLinkUpdateWithWhereUniqueWithoutUserInput {
+  where: ForeignLinkWhereUniqueInput!
+  data: ForeignLinkUpdateWithoutUserDataInput!
+}
+
+input ForeignLinkUpsertWithWhereUniqueWithoutPropertyInput {
+  where: ForeignLinkWhereUniqueInput!
+  update: ForeignLinkUpdateWithoutPropertyDataInput!
+  create: ForeignLinkCreateWithoutPropertyInput!
+}
+
+input ForeignLinkUpsertWithWhereUniqueWithoutUserInput {
+  where: ForeignLinkWhereUniqueInput!
+  update: ForeignLinkUpdateWithoutUserDataInput!
+  create: ForeignLinkCreateWithoutUserInput!
+}
+
+input ForeignLinkWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ForeignLinkWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ForeignLinkWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ForeignLinkWhereInput!]
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  user: UserWhereInput
+  property: PropertyWhereInput
+}
+
+input ForeignLinkWhereUniqueInput {
+  id: ID
+}
+
 type FriendRequest implements Node {
   id: ID!
   requestUser: User!
@@ -12929,7 +14362,9 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  createForeignLink(data: ForeignLinkCreateInput!): ForeignLink!
   createContactSubmission(data: ContactSubmissionCreateInput!): ContactSubmission!
+  createContactSubmissionReply(data: ContactSubmissionReplyCreateInput!): ContactSubmissionReply!
   createReferee(data: RefereeCreateInput!): Referee!
   createAddress(data: AddressCreateInput!): Address!
   createAdminSetting(data: AdminSettingCreateInput!): AdminSetting!
@@ -12961,7 +14396,9 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createCreditCard(data: CreditCardCreateInput!): CreditCard!
   createInspectionForm(data: InspectionFormCreateInput!): InspectionForm!
+  updateForeignLink(data: ForeignLinkUpdateInput!, where: ForeignLinkWhereUniqueInput!): ForeignLink
   updateContactSubmission(data: ContactSubmissionUpdateInput!, where: ContactSubmissionWhereUniqueInput!): ContactSubmission
+  updateContactSubmissionReply(data: ContactSubmissionReplyUpdateInput!, where: ContactSubmissionReplyWhereUniqueInput!): ContactSubmissionReply
   updateReferee(data: RefereeUpdateInput!, where: RefereeWhereUniqueInput!): Referee
   updateAddress(data: AddressUpdateInput!, where: AddressWhereUniqueInput!): Address
   updateAdminSetting(data: AdminSettingUpdateInput!, where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -12992,7 +14429,9 @@ type Mutation {
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCreditCard(data: CreditCardUpdateInput!, where: CreditCardWhereUniqueInput!): CreditCard
   updateInspectionForm(data: InspectionFormUpdateInput!, where: InspectionFormWhereUniqueInput!): InspectionForm
+  deleteForeignLink(where: ForeignLinkWhereUniqueInput!): ForeignLink
   deleteContactSubmission(where: ContactSubmissionWhereUniqueInput!): ContactSubmission
+  deleteContactSubmissionReply(where: ContactSubmissionReplyWhereUniqueInput!): ContactSubmissionReply
   deleteReferee(where: RefereeWhereUniqueInput!): Referee
   deleteAddress(where: AddressWhereUniqueInput!): Address
   deleteAdminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -13024,7 +14463,9 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCreditCard(where: CreditCardWhereUniqueInput!): CreditCard
   deleteInspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
+  upsertForeignLink(where: ForeignLinkWhereUniqueInput!, create: ForeignLinkCreateInput!, update: ForeignLinkUpdateInput!): ForeignLink!
   upsertContactSubmission(where: ContactSubmissionWhereUniqueInput!, create: ContactSubmissionCreateInput!, update: ContactSubmissionUpdateInput!): ContactSubmission!
+  upsertContactSubmissionReply(where: ContactSubmissionReplyWhereUniqueInput!, create: ContactSubmissionReplyCreateInput!, update: ContactSubmissionReplyUpdateInput!): ContactSubmissionReply!
   upsertReferee(where: RefereeWhereUniqueInput!, create: RefereeCreateInput!, update: RefereeUpdateInput!): Referee!
   upsertAddress(where: AddressWhereUniqueInput!, create: AddressCreateInput!, update: AddressUpdateInput!): Address!
   upsertAdminSetting(where: AdminSettingWhereUniqueInput!, create: AdminSettingCreateInput!, update: AdminSettingUpdateInput!): AdminSetting!
@@ -13055,7 +14496,9 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCreditCard(where: CreditCardWhereUniqueInput!, create: CreditCardCreateInput!, update: CreditCardUpdateInput!): CreditCard!
   upsertInspectionForm(where: InspectionFormWhereUniqueInput!, create: InspectionFormCreateInput!, update: InspectionFormUpdateInput!): InspectionForm!
+  updateManyForeignLinks(data: ForeignLinkUpdateManyMutationInput!, where: ForeignLinkWhereInput): BatchPayload!
   updateManyContactSubmissions(data: ContactSubmissionUpdateManyMutationInput!, where: ContactSubmissionWhereInput): BatchPayload!
+  updateManyContactSubmissionReplies(data: ContactSubmissionReplyUpdateManyMutationInput!, where: ContactSubmissionReplyWhereInput): BatchPayload!
   updateManyReferees(data: RefereeUpdateManyMutationInput!, where: RefereeWhereInput): BatchPayload!
   updateManyAddresses(data: AddressUpdateManyMutationInput!, where: AddressWhereInput): BatchPayload!
   updateManyAdminSettings(data: AdminSettingUpdateManyMutationInput!, where: AdminSettingWhereInput): BatchPayload!
@@ -13084,7 +14527,9 @@ type Mutation {
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCreditCards(data: CreditCardUpdateManyMutationInput!, where: CreditCardWhereInput): BatchPayload!
   updateManyInspectionForms(data: InspectionFormUpdateManyMutationInput!, where: InspectionFormWhereInput): BatchPayload!
+  deleteManyForeignLinks(where: ForeignLinkWhereInput): BatchPayload!
   deleteManyContactSubmissions(where: ContactSubmissionWhereInput): BatchPayload!
+  deleteManyContactSubmissionReplies(where: ContactSubmissionReplyWhereInput): BatchPayload!
   deleteManyReferees(where: RefereeWhereInput): BatchPayload!
   deleteManyAddresses(where: AddressWhereInput): BatchPayload!
   deleteManyAdminSettings(where: AdminSettingWhereInput): BatchPayload!
@@ -16004,6 +17449,7 @@ type Property implements Node {
   titleType: PropertyTitleType!
   updatedAt: DateTime!
   createdAt: DateTime!
+  foreignLinks(where: ForeignLinkWhereInput, orderBy: ForeignLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ForeignLink!]
   bankDetails: BankDetail
   type: PropertyType
   fixedLength: TenancyFixedLength
@@ -16540,6 +17986,7 @@ input PropertyCreateInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -16596,6 +18043,11 @@ input PropertyCreateOneWithoutBankDetailsInput {
 
 input PropertyCreateOneWithoutFilesInput {
   create: PropertyCreateWithoutFilesInput
+  connect: PropertyWhereUniqueInput
+}
+
+input PropertyCreateOneWithoutForeignLinksInput {
+  create: PropertyCreateWithoutForeignLinksInput
   connect: PropertyWhereUniqueInput
 }
 
@@ -16698,6 +18150,7 @@ input PropertyCreateWithoutAccommodationInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
@@ -16767,6 +18220,7 @@ input PropertyCreateWithoutActivityInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -16836,6 +18290,7 @@ input PropertyCreateWithoutAgentsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -16905,6 +18360,7 @@ input PropertyCreateWithoutAppraisalsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -16974,6 +18430,7 @@ input PropertyCreateWithoutBankDetailsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
   insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
@@ -17043,6 +18500,7 @@ input PropertyCreateWithoutCreatorInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17112,6 +18570,7 @@ input PropertyCreateWithoutFilesInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17126,6 +18585,76 @@ input PropertyCreateWithoutFilesInput {
   activity: ActivityCreateManyWithoutPropertyInput
   appraisals: RentalAppraisalCreateManyWithoutPropertyInput
   viewings: ViewingCreateManyWithoutPropertyInput
+  inspections: InspectionCreateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
+}
+
+input PropertyCreateWithoutForeignLinksInput {
+  id: ID
+  placeId: String!
+  location: String!
+  locationLat: Float!
+  locationLng: Float!
+  titleType: PropertyTitleType!
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int!
+  maximumOccupants: Int
+  rent: Float!
+  tenancyType: TenancyType
+  bondType: BondType
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int!
+  carportSpaces: Int!
+  offStreetSpaces: Int!
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  petsAllowed: Boolean
+  manholeLocation: String
+  gardenToMaintain: Boolean
+  gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
+  rehouserManaged: Boolean
+  indoorFeatures: PropertyCreateindoorFeaturesInput
+  outdoorFeatures: PropertyCreateoutdoorFeaturesInput
+  heatSources: PropertyCreateheatSourcesInput
+  pets: PropertyCreatepetsInput
+  chattels: PropertyCreatechattelsInput
+  bankDetails: BankDetailCreateOneWithoutPropertyInput
+  accommodation: AccommodationCreateManyWithoutPropertyInput
+  insulationForm: InsulationFormCreateOneInput
+  insulationStatementFile: FileCreateOneWithoutPropertyInsulationFileInput
+  owners: UserCreateManyWithoutPropertiesInput
+  agents: UserCreateManyWithoutManagedPropertiesInput
+  creator: UserCreateOneWithoutCreatedPropertiesInput!
+  images: FileCreateManyWithoutPropertyImagesInput
+  proofOfOwnership: FileCreateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationCreateManyWithoutPropertyInput
+  leases: PropertyLeaseCreateManyWithoutPropertyInput
+  activity: ActivityCreateManyWithoutPropertyInput
+  appraisals: RentalAppraisalCreateManyWithoutPropertyInput
+  viewings: ViewingCreateManyWithoutPropertyInput
+  files: PropertyFilesCreateOneWithoutPropertyInput
   inspections: InspectionCreateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistCreateOneWithoutPropertyInput
 }
@@ -17181,6 +18710,7 @@ input PropertyCreateWithoutImagesInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17250,6 +18780,7 @@ input PropertyCreateWithoutInspectionsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17319,6 +18850,7 @@ input PropertyCreateWithoutInsulationStatementFileInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17388,6 +18920,7 @@ input PropertyCreateWithoutLeasesInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17457,6 +18990,7 @@ input PropertyCreateWithoutOwnersInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17526,6 +19060,7 @@ input PropertyCreateWithoutProofOfOwnershipInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17595,6 +19130,7 @@ input PropertyCreateWithoutRehouserAssistInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17664,6 +19200,7 @@ input PropertyCreateWithoutRentalApplicationsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -17733,6 +19270,7 @@ input PropertyCreateWithoutViewingsInput {
   heatSources: PropertyCreateheatSourcesInput
   pets: PropertyCreatepetsInput
   chattels: PropertyCreatechattelsInput
+  foreignLinks: ForeignLinkCreateManyWithoutPropertyInput
   bankDetails: BankDetailCreateOneWithoutPropertyInput
   accommodation: AccommodationCreateManyWithoutPropertyInput
   insulationForm: InsulationFormCreateOneInput
@@ -21144,6 +22682,7 @@ input PropertyUpdateInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -21372,6 +22911,15 @@ input PropertyUpdateOneWithoutFilesInput {
   upsert: PropertyUpsertWithoutFilesInput
 }
 
+input PropertyUpdateOneWithoutForeignLinksInput {
+  create: PropertyCreateWithoutForeignLinksInput
+  connect: PropertyWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: PropertyUpdateWithoutForeignLinksDataInput
+  upsert: PropertyUpsertWithoutForeignLinksInput
+}
+
 input PropertyUpdateOneWithoutImagesInput {
   create: PropertyCreateWithoutImagesInput
   connect: PropertyWhereUniqueInput
@@ -21475,6 +23023,7 @@ input PropertyUpdateWithoutAccommodationDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
@@ -21543,6 +23092,7 @@ input PropertyUpdateWithoutActivityDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -21611,6 +23161,7 @@ input PropertyUpdateWithoutAgentsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -21679,6 +23230,7 @@ input PropertyUpdateWithoutAppraisalsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -21747,6 +23299,7 @@ input PropertyUpdateWithoutBankDetailsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
   insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
@@ -21815,6 +23368,7 @@ input PropertyUpdateWithoutCreatorDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -21883,6 +23437,7 @@ input PropertyUpdateWithoutFilesDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -21897,6 +23452,75 @@ input PropertyUpdateWithoutFilesDataInput {
   activity: ActivityUpdateManyWithoutPropertyInput
   appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
   viewings: ViewingUpdateManyWithoutPropertyInput
+  inspections: InspectionUpdateManyWithoutPropertyInput
+  rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
+}
+
+input PropertyUpdateWithoutForeignLinksDataInput {
+  placeId: String
+  location: String
+  locationLat: Float
+  locationLng: Float
+  titleType: PropertyTitleType
+  type: PropertyType
+  fixedLength: TenancyFixedLength
+  headline: String
+  rooms: Int
+  maximumOccupants: Int
+  rent: Float
+  tenancyType: TenancyType
+  bondType: BondType
+  lowestRoomPrice: Float
+  highestRoomPrice: Float
+  useAdvancedRent: Boolean
+  bathrooms: Int
+  garageSpaces: Int
+  carportSpaces: Int
+  offStreetSpaces: Int
+  insulationProof: InsulationProof
+  moveInDate: DateTime
+  expiryDate: DateTime
+  leaseLengthInMonths: Int
+  onTheMarket: Boolean
+  acceptedTerms: Boolean
+  isLeased: Boolean
+  lastLeaseId: String
+  leaseExpiryDate: DateTime
+  rehouserStamp: Boolean
+  petsAllowed: Boolean
+  manholeLocation: String
+  gardenToMaintain: Boolean
+  gardenResponsible: PartyResponsible
+  maintenanceResponsible: PartyResponsible
+  landlordProtectionCover: Boolean
+  freeGlassCover: Boolean
+  workingAlarms: Boolean
+  inHallway3mOfEachBedroom: Boolean
+  tenYearPhotoelectricAlarms: Boolean
+  alarmsEachLevel: Boolean
+  inspectionFrequency: InspectionFrequency
+  rehouserHandlesBills: Boolean
+  rehouserManaged: Boolean
+  indoorFeatures: PropertyUpdateindoorFeaturesInput
+  outdoorFeatures: PropertyUpdateoutdoorFeaturesInput
+  heatSources: PropertyUpdateheatSourcesInput
+  pets: PropertyUpdatepetsInput
+  chattels: PropertyUpdatechattelsInput
+  bankDetails: BankDetailUpdateOneWithoutPropertyInput
+  accommodation: AccommodationUpdateManyWithoutPropertyInput
+  insulationForm: InsulationFormUpdateOneInput
+  insulationStatementFile: FileUpdateOneWithoutPropertyInsulationFileInput
+  owners: UserUpdateManyWithoutPropertiesInput
+  agents: UserUpdateManyWithoutManagedPropertiesInput
+  creator: UserUpdateOneRequiredWithoutCreatedPropertiesInput
+  images: FileUpdateManyWithoutPropertyImagesInput
+  proofOfOwnership: FileUpdateOneWithoutPropertyOwnershipProofInput
+  rentalApplications: RentalApplicationUpdateManyWithoutPropertyInput
+  leases: PropertyLeaseUpdateManyWithoutPropertyInput
+  activity: ActivityUpdateManyWithoutPropertyInput
+  appraisals: RentalAppraisalUpdateManyWithoutPropertyInput
+  viewings: ViewingUpdateManyWithoutPropertyInput
+  files: PropertyFilesUpdateOneWithoutPropertyInput
   inspections: InspectionUpdateManyWithoutPropertyInput
   rehouserAssist: PropertyAssistUpdateOneWithoutPropertyInput
 }
@@ -21951,6 +23575,7 @@ input PropertyUpdateWithoutImagesDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22019,6 +23644,7 @@ input PropertyUpdateWithoutInspectionsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22087,6 +23713,7 @@ input PropertyUpdateWithoutInsulationStatementFileDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22155,6 +23782,7 @@ input PropertyUpdateWithoutLeasesDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22223,6 +23851,7 @@ input PropertyUpdateWithoutOwnersDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22291,6 +23920,7 @@ input PropertyUpdateWithoutProofOfOwnershipDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22359,6 +23989,7 @@ input PropertyUpdateWithoutRehouserAssistDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22427,6 +24058,7 @@ input PropertyUpdateWithoutRentalApplicationsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22495,6 +24127,7 @@ input PropertyUpdateWithoutViewingsDataInput {
   heatSources: PropertyUpdateheatSourcesInput
   pets: PropertyUpdatepetsInput
   chattels: PropertyUpdatechattelsInput
+  foreignLinks: ForeignLinkUpdateManyWithoutPropertyInput
   bankDetails: BankDetailUpdateOneWithoutPropertyInput
   accommodation: AccommodationUpdateManyWithoutPropertyInput
   insulationForm: InsulationFormUpdateOneInput
@@ -22551,6 +24184,11 @@ input PropertyUpsertWithoutBankDetailsInput {
 input PropertyUpsertWithoutFilesInput {
   update: PropertyUpdateWithoutFilesDataInput!
   create: PropertyCreateWithoutFilesInput!
+}
+
+input PropertyUpsertWithoutForeignLinksInput {
+  update: PropertyUpdateWithoutForeignLinksDataInput!
+  create: PropertyCreateWithoutForeignLinksInput!
 }
 
 input PropertyUpsertWithoutImagesInput {
@@ -23384,6 +25022,9 @@ input PropertyWhereInput {
 
   """All values that are not equal to given value."""
   rehouserManaged_not: Boolean
+  foreignLinks_every: ForeignLinkWhereInput
+  foreignLinks_some: ForeignLinkWhereInput
+  foreignLinks_none: ForeignLinkWhereInput
   bankDetails: BankDetailWhereInput
   accommodation_every: AccommodationWhereInput
   accommodation_some: AccommodationWhereInput
@@ -23429,7 +25070,9 @@ input PropertyWhereUniqueInput {
 }
 
 type Query {
+  foreignLinks(where: ForeignLinkWhereInput, orderBy: ForeignLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ForeignLink]!
   contactSubmissions(where: ContactSubmissionWhereInput, orderBy: ContactSubmissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactSubmission]!
+  contactSubmissionReplies(where: ContactSubmissionReplyWhereInput, orderBy: ContactSubmissionReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ContactSubmissionReply]!
   referees(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Referee]!
   addresses(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Address]!
   adminSettings(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminSetting]!
@@ -23461,7 +25104,9 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard]!
   inspectionForms(where: InspectionFormWhereInput, orderBy: InspectionFormOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [InspectionForm]!
+  foreignLink(where: ForeignLinkWhereUniqueInput!): ForeignLink
   contactSubmission(where: ContactSubmissionWhereUniqueInput!): ContactSubmission
+  contactSubmissionReply(where: ContactSubmissionReplyWhereUniqueInput!): ContactSubmissionReply
   referee(where: RefereeWhereUniqueInput!): Referee
   address(where: AddressWhereUniqueInput!): Address
   adminSetting(where: AdminSettingWhereUniqueInput!): AdminSetting
@@ -23493,7 +25138,9 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   creditCard(where: CreditCardWhereUniqueInput!): CreditCard
   inspectionForm(where: InspectionFormWhereUniqueInput!): InspectionForm
+  foreignLinksConnection(where: ForeignLinkWhereInput, orderBy: ForeignLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ForeignLinkConnection!
   contactSubmissionsConnection(where: ContactSubmissionWhereInput, orderBy: ContactSubmissionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContactSubmissionConnection!
+  contactSubmissionRepliesConnection(where: ContactSubmissionReplyWhereInput, orderBy: ContactSubmissionReplyOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ContactSubmissionReplyConnection!
   refereesConnection(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RefereeConnection!
   addressesConnection(where: AddressWhereInput, orderBy: AddressOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AddressConnection!
   adminSettingsConnection(where: AdminSettingWhereInput, orderBy: AdminSettingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminSettingConnection!
@@ -26988,7 +28635,9 @@ input SeenWhereUniqueInput {
 }
 
 type Subscription {
+  foreignLink(where: ForeignLinkSubscriptionWhereInput): ForeignLinkSubscriptionPayload
   contactSubmission(where: ContactSubmissionSubscriptionWhereInput): ContactSubmissionSubscriptionPayload
+  contactSubmissionReply(where: ContactSubmissionReplySubscriptionWhereInput): ContactSubmissionReplySubscriptionPayload
   referee(where: RefereeSubscriptionWhereInput): RefereeSubscriptionPayload
   address(where: AddressSubscriptionWhereInput): AddressSubscriptionPayload
   adminSetting(where: AdminSettingSubscriptionWhereInput): AdminSettingSubscriptionPayload
@@ -27046,6 +28695,8 @@ enum UnderfloorInsulationTypes {
 type User implements Node {
   id: ID!
   friends(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  notes: String
+  foreignLinks(where: ForeignLinkWhereInput, orderBy: ForeignLinkOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ForeignLink!]
   friendRequests(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest!]
   awaitingFriends(where: FriendRequestWhereInput, orderBy: FriendRequestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FriendRequest!]
   updatedAt: DateTime!
@@ -27075,14 +28726,6 @@ type User implements Node {
   emergencyContactNumber: String
   emergencyContactEmail: String
   referees(where: RefereeWhereInput, orderBy: RefereeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Referee!]
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   creditCards(where: CreditCardWhereInput, orderBy: CreditCardOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CreditCard!]
   primaryCreditCard: CreditCard
   chats(where: ChatWhereInput, orderBy: ChatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chat!]
@@ -27117,6 +28760,7 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27133,20 +28777,13 @@ input UserCreateInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27250,6 +28887,11 @@ input UserCreateOneWithoutCurrentAddressInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutForeignLinksInput {
+  create: UserCreateWithoutForeignLinksInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutFriendRequestsInput {
   create: UserCreateWithoutFriendRequestsInput
   connect: UserWhereUniqueInput
@@ -27316,6 +28958,7 @@ input UserCreatepermissionsInput {
 
 input UserCreateWithoutActivityInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27332,20 +28975,13 @@ input UserCreateWithoutActivityInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27375,6 +29011,7 @@ input UserCreateWithoutActivityInput {
 
 input UserCreateWithoutAdminSettingsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27391,20 +29028,13 @@ input UserCreateWithoutAdminSettingsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27434,6 +29064,7 @@ input UserCreateWithoutAdminSettingsInput {
 
 input UserCreateWithoutAppraisedApplicationsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27450,20 +29081,13 @@ input UserCreateWithoutAppraisedApplicationsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27493,6 +29117,7 @@ input UserCreateWithoutAppraisedApplicationsInput {
 
 input UserCreateWithoutAwaitingFriendsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27509,20 +29134,13 @@ input UserCreateWithoutAwaitingFriendsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   managedProperties: PropertyCreateManyWithoutAgentsInput
@@ -27552,6 +29170,7 @@ input UserCreateWithoutAwaitingFriendsInput {
 
 input UserCreateWithoutBankDetailsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27568,20 +29187,13 @@ input UserCreateWithoutBankDetailsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27611,6 +29223,7 @@ input UserCreateWithoutBankDetailsInput {
 
 input UserCreateWithoutChatsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27627,20 +29240,13 @@ input UserCreateWithoutChatsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27670,6 +29276,7 @@ input UserCreateWithoutChatsInput {
 
 input UserCreateWithoutCreatedPropertiesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27686,20 +29293,13 @@ input UserCreateWithoutCreatedPropertiesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27729,6 +29329,7 @@ input UserCreateWithoutCreatedPropertiesInput {
 
 input UserCreateWithoutCreditCardsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27745,20 +29346,13 @@ input UserCreateWithoutCreditCardsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27788,6 +29382,7 @@ input UserCreateWithoutCreditCardsInput {
 
 input UserCreateWithoutCurrentAddressInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27804,20 +29399,13 @@ input UserCreateWithoutCurrentAddressInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27845,8 +29433,9 @@ input UserCreateWithoutCurrentAddressInput {
   inspections: InspectionCreateManyWithoutInspectorInput
 }
 
-input UserCreateWithoutFriendRequestsInput {
+input UserCreateWithoutForeignLinksInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27863,20 +29452,66 @@ input UserCreateWithoutFriendRequestsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
+  properties: PropertyCreateManyWithoutOwnersInput
+  managedProperties: PropertyCreateManyWithoutAgentsInput
+  lesseeLeases: LesseeCreateManyWithoutUserInput
+  lessorLeases: LessorCreateManyWithoutUserInput
+  createdProperties: PropertyCreateManyWithoutCreatorInput
+  photoIdentification: FileCreateOneWithoutUserPhotoIdInput
+  profilePhoto: FileCreateOneWithoutUserProfilePhotoInput
+  referees: RefereeCreateManyWithoutUserInput
+  creditCards: CreditCardCreateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardCreateOneInput
+  chats: ChatCreateManyWithoutParticipantsInput
+  sentMessages: MessageCreateManyWithoutSenderInput
+  recievedMessages: MessageCreateManyWithoutRecipientInput
+  signature: FileCreateOneWithoutUserSignatureInput
+  activity: ActivityCreateManyWithoutUserInput
+  involvedActivity: ActivityCreateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalCreateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalCreateManyWithoutAppraisedByInput
+  currentAddress: AddressCreateOneWithoutUserInput
+  proofOfAddress: FileCreateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingCreateOneWithoutUserInput!
+  viewings: ViewingCreateManyWithoutHostsInput
+  bankDetails: BankDetailCreateOneWithoutUserInput
+  inspections: InspectionCreateManyWithoutInspectorInput
+}
+
+input UserCreateWithoutFriendRequestsInput {
+  id: ID
+  notes: String
+  dob: DateTime
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  emailValidated: Boolean
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean!
+  acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
+  permissions: UserCreatepermissionsInput
+  friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
   managedProperties: PropertyCreateManyWithoutAgentsInput
@@ -27906,6 +29541,7 @@ input UserCreateWithoutFriendRequestsInput {
 
 input UserCreateWithoutInspectionsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27922,20 +29558,13 @@ input UserCreateWithoutInspectionsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -27965,6 +29594,7 @@ input UserCreateWithoutInspectionsInput {
 
 input UserCreateWithoutInvolvedActivityInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -27981,20 +29611,13 @@ input UserCreateWithoutInvolvedActivityInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28024,6 +29647,7 @@ input UserCreateWithoutInvolvedActivityInput {
 
 input UserCreateWithoutLesseeLeasesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28040,20 +29664,13 @@ input UserCreateWithoutLesseeLeasesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28083,6 +29700,7 @@ input UserCreateWithoutLesseeLeasesInput {
 
 input UserCreateWithoutLessorLeasesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28099,20 +29717,13 @@ input UserCreateWithoutLessorLeasesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28142,6 +29753,7 @@ input UserCreateWithoutLessorLeasesInput {
 
 input UserCreateWithoutManagedPropertiesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28158,20 +29770,13 @@ input UserCreateWithoutManagedPropertiesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28201,6 +29806,7 @@ input UserCreateWithoutManagedPropertiesInput {
 
 input UserCreateWithoutPhotoIdentificationInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28217,20 +29823,13 @@ input UserCreateWithoutPhotoIdentificationInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28260,6 +29859,7 @@ input UserCreateWithoutPhotoIdentificationInput {
 
 input UserCreateWithoutProfilePhotoInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28276,20 +29876,13 @@ input UserCreateWithoutProfilePhotoInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28319,6 +29912,7 @@ input UserCreateWithoutProfilePhotoInput {
 
 input UserCreateWithoutProofOfAddressInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28335,20 +29929,13 @@ input UserCreateWithoutProofOfAddressInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28378,6 +29965,7 @@ input UserCreateWithoutProofOfAddressInput {
 
 input UserCreateWithoutPropertiesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28394,20 +29982,13 @@ input UserCreateWithoutPropertiesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   managedProperties: PropertyCreateManyWithoutAgentsInput
@@ -28437,6 +30018,7 @@ input UserCreateWithoutPropertiesInput {
 
 input UserCreateWithoutRecievedMessagesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28453,20 +30035,13 @@ input UserCreateWithoutRecievedMessagesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28496,6 +30071,7 @@ input UserCreateWithoutRecievedMessagesInput {
 
 input UserCreateWithoutRefereesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28512,20 +30088,13 @@ input UserCreateWithoutRefereesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28555,6 +30124,7 @@ input UserCreateWithoutRefereesInput {
 
 input UserCreateWithoutRentalAppraisalsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28571,20 +30141,13 @@ input UserCreateWithoutRentalAppraisalsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28614,6 +30177,7 @@ input UserCreateWithoutRentalAppraisalsInput {
 
 input UserCreateWithoutSentMessagesInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28630,20 +30194,13 @@ input UserCreateWithoutSentMessagesInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28673,6 +30230,7 @@ input UserCreateWithoutSentMessagesInput {
 
 input UserCreateWithoutSignatureInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28689,20 +30247,13 @@ input UserCreateWithoutSignatureInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28732,6 +30283,7 @@ input UserCreateWithoutSignatureInput {
 
 input UserCreateWithoutViewingsInput {
   id: ID
+  notes: String
   dob: DateTime
   firstName: String!
   lastName: String!
@@ -28748,20 +30300,13 @@ input UserCreateWithoutViewingsInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserCreatepermissionsInput
   friends: UserCreateManyInput
+  foreignLinks: ForeignLinkCreateManyWithoutUserInput
   friendRequests: FriendRequestCreateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestCreateManyWithoutRequestUserInput
   properties: PropertyCreateManyWithoutOwnersInput
@@ -28801,6 +30346,8 @@ type UserEdge {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  notes_ASC
+  notes_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -28837,22 +30384,6 @@ enum UserOrderByInput {
   emergencyContactNumber_DESC
   emergencyContactEmail_ASC
   emergencyContactEmail_DESC
-  referee1Relationhip_ASC
-  referee1Relationhip_DESC
-  referee1Name_ASC
-  referee1Name_DESC
-  referee1Phone_ASC
-  referee1Phone_DESC
-  referee1Email_ASC
-  referee1Email_DESC
-  referee2Relationhip_ASC
-  referee2Relationhip_DESC
-  referee2Name_ASC
-  referee2Name_DESC
-  referee2Phone_ASC
-  referee2Phone_DESC
-  referee2Email_ASC
-  referee2Email_DESC
   rehouserStamp_ASC
   rehouserStamp_DESC
   acceptedSignupTerms_ASC
@@ -28865,6 +30396,7 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  notes: String
   updatedAt: DateTime!
   createdAt: DateTime!
   dob: DateTime
@@ -28884,14 +30416,6 @@ type UserPreviousValues {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean!
   acceptedTermsOfEngagement: Boolean
@@ -28947,6 +30471,46 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -29511,326 +31075,6 @@ input UserScalarWhereInput {
 
   """All values not ending with the given string."""
   emergencyContactEmail_not_ends_with: String
-  referee1Relationhip: String
-
-  """All values that are not equal to given value."""
-  referee1Relationhip_not: String
-
-  """All values that are contained in given list."""
-  referee1Relationhip_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Relationhip_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Relationhip_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Relationhip_lte: String
-
-  """All values greater than the given value."""
-  referee1Relationhip_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Relationhip_gte: String
-
-  """All values containing the given string."""
-  referee1Relationhip_contains: String
-
-  """All values not containing the given string."""
-  referee1Relationhip_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Relationhip_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Relationhip_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Relationhip_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Relationhip_not_ends_with: String
-  referee1Name: String
-
-  """All values that are not equal to given value."""
-  referee1Name_not: String
-
-  """All values that are contained in given list."""
-  referee1Name_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Name_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Name_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Name_lte: String
-
-  """All values greater than the given value."""
-  referee1Name_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Name_gte: String
-
-  """All values containing the given string."""
-  referee1Name_contains: String
-
-  """All values not containing the given string."""
-  referee1Name_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Name_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Name_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Name_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Name_not_ends_with: String
-  referee1Phone: String
-
-  """All values that are not equal to given value."""
-  referee1Phone_not: String
-
-  """All values that are contained in given list."""
-  referee1Phone_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Phone_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Phone_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Phone_lte: String
-
-  """All values greater than the given value."""
-  referee1Phone_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Phone_gte: String
-
-  """All values containing the given string."""
-  referee1Phone_contains: String
-
-  """All values not containing the given string."""
-  referee1Phone_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Phone_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Phone_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Phone_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Phone_not_ends_with: String
-  referee1Email: String
-
-  """All values that are not equal to given value."""
-  referee1Email_not: String
-
-  """All values that are contained in given list."""
-  referee1Email_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Email_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Email_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Email_lte: String
-
-  """All values greater than the given value."""
-  referee1Email_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Email_gte: String
-
-  """All values containing the given string."""
-  referee1Email_contains: String
-
-  """All values not containing the given string."""
-  referee1Email_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Email_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Email_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Email_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Email_not_ends_with: String
-  referee2Relationhip: String
-
-  """All values that are not equal to given value."""
-  referee2Relationhip_not: String
-
-  """All values that are contained in given list."""
-  referee2Relationhip_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Relationhip_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Relationhip_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Relationhip_lte: String
-
-  """All values greater than the given value."""
-  referee2Relationhip_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Relationhip_gte: String
-
-  """All values containing the given string."""
-  referee2Relationhip_contains: String
-
-  """All values not containing the given string."""
-  referee2Relationhip_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Relationhip_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Relationhip_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Relationhip_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Relationhip_not_ends_with: String
-  referee2Name: String
-
-  """All values that are not equal to given value."""
-  referee2Name_not: String
-
-  """All values that are contained in given list."""
-  referee2Name_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Name_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Name_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Name_lte: String
-
-  """All values greater than the given value."""
-  referee2Name_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Name_gte: String
-
-  """All values containing the given string."""
-  referee2Name_contains: String
-
-  """All values not containing the given string."""
-  referee2Name_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Name_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Name_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Name_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Name_not_ends_with: String
-  referee2Phone: String
-
-  """All values that are not equal to given value."""
-  referee2Phone_not: String
-
-  """All values that are contained in given list."""
-  referee2Phone_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Phone_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Phone_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Phone_lte: String
-
-  """All values greater than the given value."""
-  referee2Phone_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Phone_gte: String
-
-  """All values containing the given string."""
-  referee2Phone_contains: String
-
-  """All values not containing the given string."""
-  referee2Phone_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Phone_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Phone_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Phone_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Phone_not_ends_with: String
-  referee2Email: String
-
-  """All values that are not equal to given value."""
-  referee2Email_not: String
-
-  """All values that are contained in given list."""
-  referee2Email_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Email_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Email_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Email_lte: String
-
-  """All values greater than the given value."""
-  referee2Email_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Email_gte: String
-
-  """All values containing the given string."""
-  referee2Email_contains: String
-
-  """All values not containing the given string."""
-  referee2Email_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Email_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Email_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Email_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Email_not_ends_with: String
   rehouserStamp: Boolean
 
   """All values that are not equal to given value."""
@@ -29923,6 +31167,7 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -29939,20 +31184,13 @@ input UserUpdateDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -29982,6 +31220,7 @@ input UserUpdateDataInput {
 }
 
 input UserUpdateInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -29998,20 +31237,13 @@ input UserUpdateInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30041,6 +31273,7 @@ input UserUpdateInput {
 }
 
 input UserUpdateManyDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30057,14 +31290,6 @@ input UserUpdateManyDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
@@ -30085,6 +31310,7 @@ input UserUpdateManyInput {
 }
 
 input UserUpdateManyMutationInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30101,14 +31327,6 @@ input UserUpdateManyMutationInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
@@ -30268,6 +31486,15 @@ input UserUpdateOneWithoutCurrentAddressInput {
   upsert: UserUpsertWithoutCurrentAddressInput
 }
 
+input UserUpdateOneWithoutForeignLinksInput {
+  create: UserCreateWithoutForeignLinksInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutForeignLinksDataInput
+  upsert: UserUpsertWithoutForeignLinksInput
+}
+
 input UserUpdateOneWithoutInspectionsInput {
   create: UserCreateWithoutInspectionsInput
   connect: UserWhereUniqueInput
@@ -30363,6 +31590,7 @@ input UserUpdatepermissionsInput {
 }
 
 input UserUpdateWithoutActivityDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30379,20 +31607,13 @@ input UserUpdateWithoutActivityDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30421,6 +31642,7 @@ input UserUpdateWithoutActivityDataInput {
 }
 
 input UserUpdateWithoutAdminSettingsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30437,20 +31659,13 @@ input UserUpdateWithoutAdminSettingsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30479,6 +31694,7 @@ input UserUpdateWithoutAdminSettingsDataInput {
 }
 
 input UserUpdateWithoutAppraisedApplicationsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30495,20 +31711,13 @@ input UserUpdateWithoutAppraisedApplicationsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30537,6 +31746,7 @@ input UserUpdateWithoutAppraisedApplicationsDataInput {
 }
 
 input UserUpdateWithoutAwaitingFriendsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30553,20 +31763,13 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   managedProperties: PropertyUpdateManyWithoutAgentsInput
@@ -30595,6 +31798,7 @@ input UserUpdateWithoutAwaitingFriendsDataInput {
 }
 
 input UserUpdateWithoutBankDetailsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30611,20 +31815,13 @@ input UserUpdateWithoutBankDetailsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30653,6 +31850,7 @@ input UserUpdateWithoutBankDetailsDataInput {
 }
 
 input UserUpdateWithoutChatsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30669,20 +31867,13 @@ input UserUpdateWithoutChatsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30711,6 +31902,7 @@ input UserUpdateWithoutChatsDataInput {
 }
 
 input UserUpdateWithoutCreatedPropertiesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30727,20 +31919,13 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30769,6 +31954,7 @@ input UserUpdateWithoutCreatedPropertiesDataInput {
 }
 
 input UserUpdateWithoutCreditCardsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30785,20 +31971,13 @@ input UserUpdateWithoutCreditCardsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30827,6 +32006,7 @@ input UserUpdateWithoutCreditCardsDataInput {
 }
 
 input UserUpdateWithoutCurrentAddressDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30843,20 +32023,13 @@ input UserUpdateWithoutCurrentAddressDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -30884,7 +32057,8 @@ input UserUpdateWithoutCurrentAddressDataInput {
   inspections: InspectionUpdateManyWithoutInspectorInput
 }
 
-input UserUpdateWithoutFriendRequestsDataInput {
+input UserUpdateWithoutForeignLinksDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30901,20 +32075,65 @@ input UserUpdateWithoutFriendRequestsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
+  awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
+  properties: PropertyUpdateManyWithoutOwnersInput
+  managedProperties: PropertyUpdateManyWithoutAgentsInput
+  lesseeLeases: LesseeUpdateManyWithoutUserInput
+  lessorLeases: LessorUpdateManyWithoutUserInput
+  createdProperties: PropertyUpdateManyWithoutCreatorInput
+  photoIdentification: FileUpdateOneWithoutUserPhotoIdInput
+  profilePhoto: FileUpdateOneWithoutUserProfilePhotoInput
+  referees: RefereeUpdateManyWithoutUserInput
+  creditCards: CreditCardUpdateManyWithoutCardOwnerInput
+  primaryCreditCard: CreditCardUpdateOneInput
+  chats: ChatUpdateManyWithoutParticipantsInput
+  sentMessages: MessageUpdateManyWithoutSenderInput
+  recievedMessages: MessageUpdateManyWithoutRecipientInput
+  signature: FileUpdateOneWithoutUserSignatureInput
+  activity: ActivityUpdateManyWithoutUserInput
+  involvedActivity: ActivityUpdateManyWithoutInvolvedInput
+  rentalAppraisals: RentalAppraisalUpdateManyWithoutRequestedByInput
+  appraisedApplications: RentalAppraisalUpdateManyWithoutAppraisedByInput
+  currentAddress: AddressUpdateOneWithoutUserInput
+  proofOfAddress: FileUpdateOneWithoutUserProofOfAddressInput
+  adminSettings: AdminSettingUpdateOneRequiredWithoutUserInput
+  viewings: ViewingUpdateManyWithoutHostsInput
+  bankDetails: BankDetailUpdateOneWithoutUserInput
+  inspections: InspectionUpdateManyWithoutInspectorInput
+}
+
+input UserUpdateWithoutFriendRequestsDataInput {
+  notes: String
+  dob: DateTime
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  emailValidated: Boolean
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  confirmEmailToken: String
+  confirmEmailTokenExpiry: Float
+  photoIdType: PhotoIdType
+  identificationNumber: String
+  emergencyContactName: String
+  emergencyContactNumber: String
+  emergencyContactEmail: String
+  rehouserStamp: Boolean
+  acceptedSignupTerms: Boolean
+  acceptedTermsOfEngagement: Boolean
+  bondLodgementNumber: String
+  permissions: UserUpdatepermissionsInput
+  friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
   managedProperties: PropertyUpdateManyWithoutAgentsInput
@@ -30943,6 +32162,7 @@ input UserUpdateWithoutFriendRequestsDataInput {
 }
 
 input UserUpdateWithoutInspectionsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -30959,20 +32179,13 @@ input UserUpdateWithoutInspectionsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31001,6 +32214,7 @@ input UserUpdateWithoutInspectionsDataInput {
 }
 
 input UserUpdateWithoutInvolvedActivityDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31017,20 +32231,13 @@ input UserUpdateWithoutInvolvedActivityDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31059,6 +32266,7 @@ input UserUpdateWithoutInvolvedActivityDataInput {
 }
 
 input UserUpdateWithoutLesseeLeasesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31075,20 +32283,13 @@ input UserUpdateWithoutLesseeLeasesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31117,6 +32318,7 @@ input UserUpdateWithoutLesseeLeasesDataInput {
 }
 
 input UserUpdateWithoutLessorLeasesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31133,20 +32335,13 @@ input UserUpdateWithoutLessorLeasesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31175,6 +32370,7 @@ input UserUpdateWithoutLessorLeasesDataInput {
 }
 
 input UserUpdateWithoutManagedPropertiesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31191,20 +32387,13 @@ input UserUpdateWithoutManagedPropertiesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31233,6 +32422,7 @@ input UserUpdateWithoutManagedPropertiesDataInput {
 }
 
 input UserUpdateWithoutPhotoIdentificationDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31249,20 +32439,13 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31291,6 +32474,7 @@ input UserUpdateWithoutPhotoIdentificationDataInput {
 }
 
 input UserUpdateWithoutProfilePhotoDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31307,20 +32491,13 @@ input UserUpdateWithoutProfilePhotoDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31349,6 +32526,7 @@ input UserUpdateWithoutProfilePhotoDataInput {
 }
 
 input UserUpdateWithoutProofOfAddressDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31365,20 +32543,13 @@ input UserUpdateWithoutProofOfAddressDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31407,6 +32578,7 @@ input UserUpdateWithoutProofOfAddressDataInput {
 }
 
 input UserUpdateWithoutPropertiesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31423,20 +32595,13 @@ input UserUpdateWithoutPropertiesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   managedProperties: PropertyUpdateManyWithoutAgentsInput
@@ -31465,6 +32630,7 @@ input UserUpdateWithoutPropertiesDataInput {
 }
 
 input UserUpdateWithoutRecievedMessagesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31481,20 +32647,13 @@ input UserUpdateWithoutRecievedMessagesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31523,6 +32682,7 @@ input UserUpdateWithoutRecievedMessagesDataInput {
 }
 
 input UserUpdateWithoutRefereesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31539,20 +32699,13 @@ input UserUpdateWithoutRefereesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31581,6 +32734,7 @@ input UserUpdateWithoutRefereesDataInput {
 }
 
 input UserUpdateWithoutRentalAppraisalsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31597,20 +32751,13 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31639,6 +32786,7 @@ input UserUpdateWithoutRentalAppraisalsDataInput {
 }
 
 input UserUpdateWithoutSentMessagesDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31655,20 +32803,13 @@ input UserUpdateWithoutSentMessagesDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31697,6 +32838,7 @@ input UserUpdateWithoutSentMessagesDataInput {
 }
 
 input UserUpdateWithoutSignatureDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31713,20 +32855,13 @@ input UserUpdateWithoutSignatureDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31755,6 +32890,7 @@ input UserUpdateWithoutSignatureDataInput {
 }
 
 input UserUpdateWithoutViewingsDataInput {
+  notes: String
   dob: DateTime
   firstName: String
   lastName: String
@@ -31771,20 +32907,13 @@ input UserUpdateWithoutViewingsDataInput {
   emergencyContactName: String
   emergencyContactNumber: String
   emergencyContactEmail: String
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   rehouserStamp: Boolean
   acceptedSignupTerms: Boolean
   acceptedTermsOfEngagement: Boolean
   bondLodgementNumber: String
   permissions: UserUpdatepermissionsInput
   friends: UserUpdateManyInput
+  foreignLinks: ForeignLinkUpdateManyWithoutUserInput
   friendRequests: FriendRequestUpdateManyWithoutAcceptingUserInput
   awaitingFriends: FriendRequestUpdateManyWithoutRequestUserInput
   properties: PropertyUpdateManyWithoutOwnersInput
@@ -31885,6 +33014,11 @@ input UserUpsertWithoutCreditCardsInput {
 input UserUpsertWithoutCurrentAddressInput {
   update: UserUpdateWithoutCurrentAddressDataInput!
   create: UserCreateWithoutCurrentAddressInput!
+}
+
+input UserUpsertWithoutForeignLinksInput {
+  update: UserUpdateWithoutForeignLinksDataInput!
+  create: UserCreateWithoutForeignLinksInput!
 }
 
 input UserUpsertWithoutFriendRequestsInput {
@@ -32032,6 +33166,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -32596,326 +33770,6 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   emergencyContactEmail_not_ends_with: String
-  referee1Relationhip: String
-
-  """All values that are not equal to given value."""
-  referee1Relationhip_not: String
-
-  """All values that are contained in given list."""
-  referee1Relationhip_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Relationhip_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Relationhip_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Relationhip_lte: String
-
-  """All values greater than the given value."""
-  referee1Relationhip_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Relationhip_gte: String
-
-  """All values containing the given string."""
-  referee1Relationhip_contains: String
-
-  """All values not containing the given string."""
-  referee1Relationhip_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Relationhip_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Relationhip_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Relationhip_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Relationhip_not_ends_with: String
-  referee1Name: String
-
-  """All values that are not equal to given value."""
-  referee1Name_not: String
-
-  """All values that are contained in given list."""
-  referee1Name_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Name_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Name_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Name_lte: String
-
-  """All values greater than the given value."""
-  referee1Name_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Name_gte: String
-
-  """All values containing the given string."""
-  referee1Name_contains: String
-
-  """All values not containing the given string."""
-  referee1Name_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Name_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Name_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Name_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Name_not_ends_with: String
-  referee1Phone: String
-
-  """All values that are not equal to given value."""
-  referee1Phone_not: String
-
-  """All values that are contained in given list."""
-  referee1Phone_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Phone_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Phone_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Phone_lte: String
-
-  """All values greater than the given value."""
-  referee1Phone_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Phone_gte: String
-
-  """All values containing the given string."""
-  referee1Phone_contains: String
-
-  """All values not containing the given string."""
-  referee1Phone_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Phone_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Phone_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Phone_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Phone_not_ends_with: String
-  referee1Email: String
-
-  """All values that are not equal to given value."""
-  referee1Email_not: String
-
-  """All values that are contained in given list."""
-  referee1Email_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee1Email_not_in: [String!]
-
-  """All values less than the given value."""
-  referee1Email_lt: String
-
-  """All values less than or equal the given value."""
-  referee1Email_lte: String
-
-  """All values greater than the given value."""
-  referee1Email_gt: String
-
-  """All values greater than or equal the given value."""
-  referee1Email_gte: String
-
-  """All values containing the given string."""
-  referee1Email_contains: String
-
-  """All values not containing the given string."""
-  referee1Email_not_contains: String
-
-  """All values starting with the given string."""
-  referee1Email_starts_with: String
-
-  """All values not starting with the given string."""
-  referee1Email_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee1Email_ends_with: String
-
-  """All values not ending with the given string."""
-  referee1Email_not_ends_with: String
-  referee2Relationhip: String
-
-  """All values that are not equal to given value."""
-  referee2Relationhip_not: String
-
-  """All values that are contained in given list."""
-  referee2Relationhip_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Relationhip_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Relationhip_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Relationhip_lte: String
-
-  """All values greater than the given value."""
-  referee2Relationhip_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Relationhip_gte: String
-
-  """All values containing the given string."""
-  referee2Relationhip_contains: String
-
-  """All values not containing the given string."""
-  referee2Relationhip_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Relationhip_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Relationhip_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Relationhip_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Relationhip_not_ends_with: String
-  referee2Name: String
-
-  """All values that are not equal to given value."""
-  referee2Name_not: String
-
-  """All values that are contained in given list."""
-  referee2Name_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Name_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Name_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Name_lte: String
-
-  """All values greater than the given value."""
-  referee2Name_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Name_gte: String
-
-  """All values containing the given string."""
-  referee2Name_contains: String
-
-  """All values not containing the given string."""
-  referee2Name_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Name_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Name_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Name_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Name_not_ends_with: String
-  referee2Phone: String
-
-  """All values that are not equal to given value."""
-  referee2Phone_not: String
-
-  """All values that are contained in given list."""
-  referee2Phone_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Phone_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Phone_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Phone_lte: String
-
-  """All values greater than the given value."""
-  referee2Phone_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Phone_gte: String
-
-  """All values containing the given string."""
-  referee2Phone_contains: String
-
-  """All values not containing the given string."""
-  referee2Phone_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Phone_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Phone_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Phone_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Phone_not_ends_with: String
-  referee2Email: String
-
-  """All values that are not equal to given value."""
-  referee2Email_not: String
-
-  """All values that are contained in given list."""
-  referee2Email_in: [String!]
-
-  """All values that are not contained in given list."""
-  referee2Email_not_in: [String!]
-
-  """All values less than the given value."""
-  referee2Email_lt: String
-
-  """All values less than or equal the given value."""
-  referee2Email_lte: String
-
-  """All values greater than the given value."""
-  referee2Email_gt: String
-
-  """All values greater than or equal the given value."""
-  referee2Email_gte: String
-
-  """All values containing the given string."""
-  referee2Email_contains: String
-
-  """All values not containing the given string."""
-  referee2Email_not_contains: String
-
-  """All values starting with the given string."""
-  referee2Email_starts_with: String
-
-  """All values not starting with the given string."""
-  referee2Email_not_starts_with: String
-
-  """All values ending with the given string."""
-  referee2Email_ends_with: String
-
-  """All values not ending with the given string."""
-  referee2Email_not_ends_with: String
   rehouserStamp: Boolean
 
   """All values that are not equal to given value."""
@@ -32971,6 +33825,9 @@ input UserWhereInput {
   friends_every: UserWhereInput
   friends_some: UserWhereInput
   friends_none: UserWhereInput
+  foreignLinks_every: ForeignLinkWhereInput
+  foreignLinks_some: ForeignLinkWhereInput
+  foreignLinks_none: ForeignLinkWhereInput
   friendRequests_every: FriendRequestWhereInput
   friendRequests_some: FriendRequestWhereInput
   friendRequests_none: FriendRequestWhereInput

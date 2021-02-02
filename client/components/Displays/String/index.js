@@ -46,6 +46,7 @@ export default function StringDisplay({
 StringDisplay.propTypes = {
   title: PropTypes.string,
   value: PropTypes.number.isRequired,
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
   iconProps: PropTypes.shape({
     color: PropTypes.oneOf([
       'inherit',

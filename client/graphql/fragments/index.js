@@ -14,3 +14,7 @@ export { default as InspectionInfoFragment } from './inspectionInfo';
 export { default as SuccessMessageFragment } from './successMessageInfo';
 export { default as PaymentInfoFragment } from './paymentInfo';
 export { default as ChargeInfoFragment } from './chargeInfo';
+export { default as ContactSubmissionInfoFragment } from './contactSubmissionInfo';
+export { default as AddressInfoFragment } from './addressInfo';
+export { default as ForeignLinkInfoFragment } from './foreignLinkInfo';
+export { default as BankDetailInfoFragment } from './bankDetailInfo';

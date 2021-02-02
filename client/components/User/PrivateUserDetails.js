@@ -6,6 +6,12 @@ import Error from '@/Components/ErrorMessage';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@/Components/Alert';
 
+import Container from '@/Components/Container';
+import Section from '@/Components/Section';
+
+import PublicDetailsDisplay from './PublicDetailsDisplay';
+import PrivateDetailsDisplay from './PrivateDetailsDisplay';
+
 import {
   Avatar,
   Typography,
@@ -21,7 +27,6 @@ import Modal from '@/Components/Modal';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import PublicDetailsDisplay from './PublicDetailsDisplay';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -68,12 +73,12 @@ export default function PublicUserDetails({ id, email }) {
     return (
       <Loader
         loading={loading}
-        text={`loading in public user details for ${id}`}
+        text={`loading in private user details for ${id}`}
       />
     );
   if (error) return <Error error={error} />;
 
-  if (!data.user) return <div>No Public User data Available</div>;
+  if (!data.user) return <div>No User data Available</div>;
 
   const fullName = `${data.user.firstName} ${data.user.lastName}`;
 
@@ -99,61 +104,56 @@ export default function PublicUserDetails({ id, email }) {
       <Modal
         open={modalOpen}
         close={handleCloseModal}
-        title={`${fullName} public profile`}>
-        <PublicDetailsDisplay user={data.user} />
+        title={`${fullName} profile`}>
+        <FullUserDetails user={data.user} />
       </Modal>
     </>
   );
 }
 
-// const FullPublicDetails = ({ user }) => {
-//   const classes = useModalStyles();
-//   const fullName = `${user.firstName} ${user.lastName}`;
-//   const hasStamp = user.rehouserStamp;
-//   return (
-//     <div className={classes.root}>
-//       <Avatar
-//         className={classes.avatar}
-//         src={user.profilePhoto ? user.profilePhoto.url : null}
-//         alt={`image of ${fullName}`}
-//       />
-//       <Typography className={classes.title}>{fullName}</Typography>
-//       <ButtonGroup orientation="vertical" className={classes.buttons}>
-//         <Button startIcon={<PhoneIcon />} className={classes.phone}>
-//           {user.phone}
-//         </Button>
-//         <Button startIcon={<MailOutlineIcon />} className={classes.email}>
-//           {user.email}
-//         </Button>
-//       </ButtonGroup>
+const useModalStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    maxWidth: '500px',
+    margin: '0 auto',
+  },
+  avatar: {
+    width: theme.spacing(32),
+    height: theme.spacing(32),
+    margin: '0 auto',
+  },
+  title: {
+    flexBasis: '100%',
+    fontSize: '1.8em',
+    margin: theme.spacing(2, 1),
+    textAlign: 'center',
+  },
+  phone: { textAlign: 'center' },
+  email: { textAlign: 'center' },
+  rehouserStamp: {
+    margin: theme.spacing(1),
+  },
+  buttons: {
+    // flexBasis: '100%',
+    margin: '0 auto',
+  },
+}));
 
-//       <div className={classes.rehouserStamp}>
-//         {hasStamp && (
-//           <Alert severity="success">
-//             <Typography className={classes.rehouserStamp}>
-//               This User has been looked over by rehouser and confirmed that they
-//               are who they say they are
-//             </Typography>
-//           </Alert>
-//         )}
-//         {!hasStamp && (
-//           <>
-//             <Alert severity="info">
-//               <Typography className={classes.rehouserStamp} gutterBottom>
-//                 This User is still to recieve the rehouser stamp. This means
-//                 that that they have not yet been validated
-//               </Typography>
-//               <Typography className={classes.rehouserStamp} gutterBottom>
-//                 We usually validate users after a rental application has been
-//                 submitted
-//               </Typography>
-//             </Alert>
-//           </>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
+const FullUserDetails = ({ user }) => {
+  const classes = useModalStyles();
+  const fullName = `${user.firstName} ${user.lastName}`;
+  const hasStamp = user.rehouserStamp;
+  return (
+    <div className={classes.root}>
+      <Container>
+        <PublicDetailsDisplay user={user} />
+        <PrivateDetailsDisplay user={user} />
+      </Container>
+    </div>
+  );
+};
 // firstName
 // lastName
 // phone

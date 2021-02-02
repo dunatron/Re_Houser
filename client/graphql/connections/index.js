@@ -11,6 +11,8 @@ import { CHARGES_COUNT_QUERY } from './chargesCountQuery';
 import { CHARGES_CONNECTION_QUERY } from './chargesConnection';
 import { PAYMENTS_CONNECTION_QUERY } from './paymentsConnection';
 import { PAYMENTS_COUNT_QUERY } from './paymentsCountQuery';
+import { CONTACT_SUBMISSIONS_CONNECTION_QUERY } from './contactSubmissionsConnection';
+import { CONTACT_SUBMISSIONS_COUNT_QUERY } from './contactSubmissionsCount';
 
 export {
   RENTAL_APPRAISALS_CONNECTION_QUERY,
@@ -26,4 +28,6 @@ export {
   CHARGES_CONNECTION_QUERY,
   PAYMENTS_CONNECTION_QUERY,
   PAYMENTS_COUNT_QUERY,
+  CONTACT_SUBMISSIONS_CONNECTION_QUERY,
+  CONTACT_SUBMISSIONS_COUNT_QUERY,
 };

@@ -7,6 +7,7 @@ const rentalAppraisalsConnection = require("./connections/rentalAppraisalsConnec
 const propertiesConnection = require("./connections/propertiesConnection");
 const inspectionsConnection = require("./connections/inspectionsConnection");
 const propertyLeasesConnection = require("./connections/propertyLeasesConnection");
+const contactSubmissionsConnection = require("./connections/contactSubmissionsConnection");
 
 const Connection = {
   rentalApplicationsConnection,
@@ -17,7 +18,8 @@ const Connection = {
   rentalAppraisalsConnection,
   propertiesConnection,
   inspectionsConnection,
-  propertyLeasesConnection
+  propertyLeasesConnection,
+  contactSubmissionsConnection,
 };
 
 module.exports = Connection;

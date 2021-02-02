@@ -1,6 +1,9 @@
 type User {
   id: ID! @unique @id
   friends: [User!]!
+  notes: String
+  foreignLinks: [ForeignLink]
+    @relation(name: "UserForeignLinks", onDelete: CASCADE)
   friendRequests: [FriendRequest!]!
     @relation(name: "PendingFriendRequests", onDelete: CASCADE)
   awaitingFriends: [FriendRequest!]!
@@ -39,14 +42,6 @@ type User {
   emergencyContactEmail: String
   referees: [Referee]
     @relation(name: "UserReferees", link: TABLE, onDelete: CASCADE)
-  referee1Relationhip: String
-  referee1Name: String
-  referee1Phone: String
-  referee1Email: String
-  referee2Relationhip: String
-  referee2Name: String
-  referee2Phone: String
-  referee2Email: String
   creditCards: [CreditCard!]!
     @relation(name: "UserCreditCards", onDelete: CASCADE)
   primaryCreditCard: CreditCard @relation(name: "UserPrimaryCreditCard")
@@ -79,15 +74,41 @@ type User {
   bondLodgementNumber: String
 }
 
+type ForeignLink {
+  user: User @relation(name: "UserForeignLinks")
+  property: Property @relation(name: "PropertyForeignLinks")
+  name: String
+  id: ID! @unique @id
+  url: String!
+  notes: String
+}
+
 type ContactSubmission {
   id: ID! @unique @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   firstName: String!
   lastName: String
   phone: String
   email: String!
-  seen: Boolean
+  seen: Boolean @default(value: false)
   notes: String
   message: String!
+  replies: [ContactSubmissionReply]
+    @relation(name: "ContactSubmissionReplies", link: TABLE, onDelete: CASCADE)
+}
+
+type ContactSubmissionReply {
+  id: ID! @unique @id
+  from: String
+  to: String
+  subject: String
+  text: String
+  inReplyToMessage: String
+  contactSubmission: ContactSubmission!
+    @relation(name: "ContactSubmissionReplies")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Referee {
@@ -257,6 +278,8 @@ type Property implements PropertyInfo {
   titleType: PropertyTitleType!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
+  foreignLinks: [ForeignLink]
+    @relation(name: "PropertyForeignLinks", onDelete: CASCADE)
   bankDetails: BankDetail @relation(name: "PropertyBankDetails", link: TABLE)
   type: PropertyType
   fixedLength: TenancyFixedLength

@@ -23,6 +23,7 @@ input InviteUserParams {
 
 type User {
   id: ID!
+  foreignLinks: [ForeignLink]
   createdAt: DateTime
   updatedAt: DateTime
   firstName: String!
@@ -54,6 +55,7 @@ type User {
   awaitingFriends: [FriendRequest!]
   chats: [Chat!]
   permissions: [Permission]
+  photoIdType: PhotoIdType
   token: String
   refreshToken: String
   rehouserStamp: Boolean
@@ -194,6 +196,10 @@ type Mutation {
     bankRef: String!
     data: PaymentCreateInput!
   ): PropertyLease!
+  updateContactSubmission(
+    data: ContactSubmissionUpdateInput!
+    where: ContactSubmissionWhereUniqueInput!
+  ): ContactSubmission
 }
 
 type Subscription {
@@ -358,6 +364,15 @@ type Query {
     first: Int
     last: Int
   ): ChargeConnection!
+  contactSubmissionsConnection(
+    where: ContactSubmissionWhereInput
+    orderBy: ContactSubmissionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ContactSubmissionConnection!
   findUsers(
     where: UserWhereInput
     orderBy: UserOrderByInput

@@ -12,9 +12,9 @@ const CTO_DETAILS = {
 
 const CEO_DETAILS = {
   id: "rehouser-ceo-id",
-  firstname: "Heath",
-  lastname: "McDonough",
-  email: "admin@rehouser.co.nz",
+  firstname: "Heath dd",
+  lastname: "McDunolop change this const email bac. just making it obvious",
+  email: "heathd@rehouser.co.nz",
   phone: "022 302 5510",
 };
 
