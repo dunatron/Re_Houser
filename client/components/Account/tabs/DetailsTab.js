@@ -3,7 +3,7 @@ import { Typography, TextField } from '@material-ui/core';
 
 // components
 import CompletionRating from '../CompletionRating';
-import UserProfile from '../../UserProfile';
+import PublicUserDetails from '@/Components/User/PublicUserDetails';
 import UserDetails from '../UserDetails';
 import LandLordDetails from '../LandLordDetails';
 import Signature from '@/Components/Signature';
@@ -23,7 +23,7 @@ const DetailsTab = ({ me }) => {
       {/* public profile */}
       <RehouserPaper>
         <Typography variant="h5">View your public profile</Typography>
-        <UserProfile user={me} me={me} />
+        <PublicUserDetails id={me.id} />
       </RehouserPaper>
       {/* user signature */}
       <RehouserPaper>
@@ -43,8 +43,10 @@ const DetailsTab = ({ me }) => {
         <UserDetails me={me} />
       </RehouserPaper>
       <RehouserPaper>
-        <Typography variant="h5">Your Referees</Typography>
-        <Typography variant="subtitle1">
+        <Typography variant="h5" gutterBottom>
+          Your Referees
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom>
           These referee details are used across the system to prefill
           information where needed
         </Typography>

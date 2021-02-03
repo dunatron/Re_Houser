@@ -2,10 +2,11 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useSignatureStyles = makeStyles(theme => ({
   canvas: {
-    border: `2px dashed ${theme.palette.primary.main}`,
+    border: `1px dashed #e0e0e0`,
   },
   notSetWrapper: {
-    borderTop: `2px solid ${theme.palette.primary.main}`,
+    borderTop: `1px dashed #e0e0e0`,
+
     paddingBottom: '8px',
     margin: theme.spacing(2, 0),
     maxWidth: '100%',
@@ -13,6 +14,7 @@ const useSignatureStyles = makeStyles(theme => ({
   },
   innerWrapper: {
     display: 'flex',
+    padding: theme.spacing(1, 0),
     alignItems: 'center',
     flexWrap: 'wrap',
   },

@@ -12,7 +12,7 @@ const Referees = ({ me }) => {
   return (
     <div>
       <RefereeList referees={referees} />
-      <AddReferee />
+      <AddReferee me={me} />
     </div>
   );
 };
