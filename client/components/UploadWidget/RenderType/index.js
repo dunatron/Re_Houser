@@ -6,6 +6,7 @@ import RenderVideo from './RenderVideo';
  * @param {*} param0
  */
 const RenderType = ({ file }) => {
+  if (!file) return null;
   switch (file.resource_type) {
     case 'image':
       return <RenderImage file={file} />;

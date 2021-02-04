@@ -93,6 +93,14 @@ const ADMIN_DASHBOARD_CONFIG = ({ state }) => [
     icon: <SettingsIcon />,
   },
   {
+    label: 'Contact Enquiries',
+    route: '/admin/contact-submissions',
+    description:
+      'Anyone who has submitted an enquiry/contact form, the data will be found here. We should, respond via the system, then enter any replies through emails to trace everything',
+    color: 'secondary',
+    icon: <SettingsIcon />,
+  },
+  {
     label: 'Test Crashes',
     route: '/admin/test/server-crashes',
     description: 'Run server crashes',

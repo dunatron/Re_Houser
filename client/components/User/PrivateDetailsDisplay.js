@@ -21,6 +21,8 @@ import PhoneIcon from '@material-ui/icons/Phone';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { SectionExamples } from '../StyleExamples';
 
+import RenderCloudinaryType from '@/Components/UploadWidget/RenderType';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -30,9 +32,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function GroupedSection({ children }) {
+function GroupedSection({ title, children }) {
   return (
     <div>
+      <Typography gutterBottom variant="caption">
+        {title}
+      </Typography>
       <Section elevation={1} padding={1}>
         {children}
       </Section>
@@ -49,7 +54,7 @@ export default function PrivateDetailsDisplay({ user }) {
   return (
     <div className={classes.root}>
       <Container gap={1}>
-        <GroupedSection>
+        <GroupedSection title="Basic details">
           <String title="Phone" value={user.phone} orientation="vertical" />
           <String title="Email" value={user.email} orientation="vertical" />
           isAdmin
@@ -71,20 +76,63 @@ export default function PrivateDetailsDisplay({ user }) {
           <div>dob: {user.dob}</div>
           <div>dob: {user.dob}</div>
         </GroupedSection>
-        <GroupedSection>
+
+        <GroupedSection title="Permissions">
           <ChipItems title="Permissions" items={user.permissions} />
+        </GroupedSection>
+
+        <GroupedSection title="System validation">
+          <String
+            title="Rehouser stamp"
+            value={user.rehouserStamp ? 'Yes' : 'NO'}
+            orientation="vertical"
+          />
+          <String
+            title="Email validated"
+            value={user.rehouserStamp ? 'Yes' : 'NO'}
+            orientation="vertical"
+          />
+        </GroupedSection>
+        <div>
+          <Typography variant="caption" gutterBottom>
+            Profile photo
+          </Typography>
+          <RenderCloudinaryType file={user.profilePhoto} />
+        </div>
+        <GroupedSection title="Identification">
+          <String
+            title="photoIdType"
+            value={user.photoIdType}
+            orientation="vertical"
+          />
+          <String
+            title="identificationNumber"
+            value={user.identificationNumber}
+            orientation="vertical"
+          />
+          Photo Identification
+          <RenderCloudinaryType file={user.photoIdentification} />
+        </GroupedSection>
+        <GroupedSection title="Emergency Contact">
+          <String
+            title="emergencyContactName"
+            value={user.emergencyContactName}
+          />
+          <String
+            title="emergencyContactNumber"
+            value={user.emergencyContactNumber}
+          />
+          <String
+            title="emergencyContactEmail"
+            value={user.emergencyContactEmail}
+          />
+        </GroupedSection>
+        <GroupedSection title="Foreign Links">
           <div>
-            Foreign Links:{' '}
             {user.foreignLinks && (
               <div>ForeignLinks: Too Map over the links</div>
             )}
           </div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
         </GroupedSection>
       </Container>
     </div>
@@ -95,27 +143,6 @@ export default function PrivateDetailsDisplay({ user }) {
 // foreignLinks {
 //   ...foreignLinkInfo
 // }
-// isAdmin @client
-// isWizard @client
-// firstName
-// lastName
-// phone
-// email
-// rehouserStamp
-// emailValidated
-// permissions
-// profilePhoto {
-//   ...fileInfo
-// }
-// photoIdType
-// photoIdentification {
-//   ...fileInfo
-// }
-// identificationNumber
-// rehouserStamp
-// emergencyContactName
-// emergencyContactNumber
-// emergencyContactEmail
 // referees {
 //   ...refereeInfo
 // }
