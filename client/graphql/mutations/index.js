@@ -38,6 +38,7 @@ import { ADD_BANK_TRANSFER_TO_LEASE_MUTATION } from './addBankTransferToLease';
 import { UPDATE_WALLET_MUTATION } from './updateWallet';
 import { UPDATE_CONTACT_SUBMISSION_MUTATION } from './updateContactSubmission';
 import { CREATE_FOREIGN_LINK_MUTATION } from './createForeignLink';
+import { UPDATE_FOREIGN_LINK_MUTATION } from './updateForeignLink';
 
 export {
   SIGNUP_MUTATION,
@@ -80,4 +81,5 @@ export {
   UPDATE_WALLET_MUTATION,
   UPDATE_CONTACT_SUBMISSION_MUTATION,
   CREATE_FOREIGN_LINK_MUTATION,
+  UPDATE_FOREIGN_LINK_MUTATION,
 };

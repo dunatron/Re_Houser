@@ -201,6 +201,10 @@ type Mutation {
     where: ContactSubmissionWhereUniqueInput!
   ): ContactSubmission
   createForeignLink(data: ForeignLinkCreateInput!): ForeignLink!
+  updateForeignLink(
+    data: ForeignLinkUpdateInput!
+    where: ForeignLinkWhereUniqueInput!
+  ): ForeignLink
 }
 
 type Subscription {

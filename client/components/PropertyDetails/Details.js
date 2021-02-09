@@ -17,6 +17,9 @@ import {
   Typography,
   Paper,
   ButtonGroup,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@material-ui/core';
 import RehouserPaper from '@/Styles/RehouserPaper';
 import Card from '@/Styles/Card';
@@ -54,6 +57,10 @@ import EditableDisplay from '@/Components/EditableDisplay';
 
 import PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF from '@/Lib/configs/editableDisplays/propertyDetails';
 import Modal from '@/Components/Modal';
+import ForeignLinksTable from '@/Components/Tables/ForeignLinksTable';
+
+// icons
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -384,14 +391,25 @@ const Details = props => {
           }}
         />
       </RehouserPaper>
-      <RehouserPaper>
-        <EditableDisplayItems
-          __typename="Property"
-          data={property}
-          items={PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF}
-          where={{ id: property.id }}
-        />
-      </RehouserPaper>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header">
+          <Typography className={classes.heading}>Editable Displays</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <RehouserPaper>
+            <EditableDisplayItems
+              __typename="Property"
+              data={property}
+              items={PROPERTY_DETAILS_EDITABLE_DISPLAY_CONF}
+              where={{ id: property.id }}
+            />
+          </RehouserPaper>
+        </AccordionDetails>
+      </Accordion>
+
       <DetailItems
         title="Property Variables"
         property={property}
@@ -515,6 +533,15 @@ const Details = props => {
           }}
         />
       </Card>
+      <ForeignLinksTable
+        type="property"
+        id={property.id}
+        where={{
+          property: {
+            id: property.id,
+          },
+        }}
+      />
       <Modal
         open={publicDetailsModalIsOpen}
         close={handleClosePublicDetailsModal}>

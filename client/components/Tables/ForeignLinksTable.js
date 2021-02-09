@@ -13,13 +13,14 @@ import ConnectionTable, {
 import Error from '@/Components/ErrorMessage';
 import UserDetails from '../../components/UserDetails';
 import List from '@material-ui/core/List';
+import Modal from '@/Components/Modal';
 
 import {
   FOREIGN_LINKS_CONNECTION_QUERY,
   FOREIGN_LINKS_COUNT_QUERY,
 } from '../../graphql/connections';
-import { UPDATE_INSPECTION_MUTATION } from '@/Gql/mutations';
-// mutations
+import { UPDATE_FOREIGN_LINK_MUTATION } from '@/Gql/mutations';
+import AddForeignLink from '@/Components/ForeignLink/AddForeignLink';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -36,6 +37,8 @@ const ForeignLinksTable = ({
   me,
   orderBy = 'createdAt_DESC',
   enableAddressParams,
+  id,
+  type = 'user',
 }) => {
   const router = useRouter();
 
@@ -47,26 +50,38 @@ const ForeignLinksTable = ({
   const tableRef = useRef(null);
   const [tableErr, setTableErr] = useState({});
 
+  const [addLinkModelOpen, setAddLinkModalOpen] = useState(false);
+
   const columns = React.useMemo(
     () => [
-      { title: 'id', field: 'id', editable: false },
-      { title: 'name', field: 'name', editable: true },
-      { title: 'url', field: 'url', editable: true },
-      { title: 'notes', field: 'notes', editable: true },
+      { title: 'name', field: 'name' },
+      { title: 'url', field: 'url' },
+      { title: 'notes', field: 'notes' },
+      // {
+      //   title: 'Open',
+      //   field: 'url',
+      //   render: rowData => (
+      //     <div>
+      //       <a href={rowData.url}>OPen</a>
+      //     </div>
+      //   ),
+      // },
     ],
     []
   );
 
-  //   const [updateInspection, updateInspectionProps] = useMutation(
-  //     UPDATE_INSPECTION_MUTATION,
-  //     {
-  //       onError: err => setTableErr(err),
-  //       onCompleted: data => {},
-  //     }
-  //   );
+  const [updateLink, { data, loading, error }] = useMutation(
+    UPDATE_FOREIGN_LINK_MUTATION,
+    {
+      onError: err => setTableErr(err),
+      onCompleted: data => {},
+    }
+  );
 
   // launch modal the will do a require AddForeignLink
-  const addForeignLinkBtnClick = event => alert('ToDo: add foreign link');
+  const addForeignLinkBtnClick = event => setAddLinkModalOpen(true);
+
+  const openForeignLink = (event, data) => window?.open(data.url, '_blank');
 
   return (
     <div className={classes.root}>
@@ -78,7 +93,7 @@ const ForeignLinksTable = ({
         where={where}
         countQuery={FOREIGN_LINKS_COUNT_QUERY}
         gqlQuery={FOREIGN_LINKS_CONNECTION_QUERY}
-        searchKeysOR={['name_contains', 'id_contains']}
+        searchKeysOR={['name_contains', 'url_contains']}
         orderBy="createdAt_DESC"
         tableRef={tableRef}
         columns={columns}
@@ -89,24 +104,48 @@ const ForeignLinksTable = ({
             isFreeAction: true,
             onClick: addForeignLinkBtnClick,
           },
+          rowData => ({
+            icon: 'link',
+            tooltip: `Open: ${rowData.url}`,
+            isFreeAction: false,
+            onClick: e => openForeignLink(e, rowData),
+          }),
         ]}
         editable={{
-          isEditable: rowData => rowData.completed === false,
-          onRowUpdate: (newData, oldData) => {
-            // updateInspection({
-            //   variables: {
-            //     where: {
-            //       id: oldData.id,
-            //     },
-            //     data: {
-            //       completed: isCompleted(newData.completed),
-            //       notes: newData.notes,
-            //     },
-            //   },
-            // });
-          },
+          isEditable: rowData => true,
+          onRowUpdate: (newData, oldData) =>
+            updateLink({
+              variables: {
+                where: {
+                  id: oldData.id,
+                },
+                data: {
+                  ...(newData.name !== oldData.name && {
+                    name: newData.name,
+                  }),
+                  ...(newData.url !== oldData.url && {
+                    url: newData.url,
+                  }),
+                  ...(newData.notes !== oldData.notes && {
+                    notes: newData.notes,
+                  }),
+                },
+              },
+            }),
         }}
       />
+      <Modal
+        open={addLinkModelOpen}
+        title="Add Link"
+        close={() => setAddLinkModalOpen(false)}>
+        <AddForeignLink
+          id={id}
+          type={type}
+          onCompleted={d => {
+            setAddLinkModalOpen(false);
+          }}
+        />
+      </Modal>
     </div>
   );
 };

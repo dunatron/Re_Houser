@@ -128,7 +128,15 @@ export default function PrivateDetailsDisplay({ user }) {
           <Typography variant="caption" gutterBottom>
             Foreign Links
           </Typography>
-          <ForeignLinksTable />
+          <ForeignLinksTable
+            type="user"
+            id={user.id}
+            where={{
+              user: {
+                id: user.id,
+              },
+            }}
+          />
         </div>
       </Container>
     </div>

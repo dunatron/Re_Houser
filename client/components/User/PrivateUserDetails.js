@@ -116,7 +116,7 @@ const useModalStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap',
-    maxWidth: '500px',
+    maxWidth: '800px',
     margin: '0 auto',
   },
   avatar: {

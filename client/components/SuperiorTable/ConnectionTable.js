@@ -141,6 +141,7 @@ const MaterialConnectionTable = props => {
   };
 
   const refreshTableData = async () => {
+    // ToDo: first make sure you stop editing the table if in editing state. it breaks the UI
     await client.cache.evict({
       id: 'ROOT_QUERY',
       fieldName: connectionKey,

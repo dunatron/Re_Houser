@@ -213,9 +213,10 @@ const PropertyDetails = ({ id, location, me }) => {
       <PageHeader
         title={property ? property.location : null}
         titleVariant="h4"
-        intro={`this is where you can manage ${
-          property ? property.location : null
-        }. This is where you can review and accept applications, sign and manage leases associated with this property, and change the details before it goes on the market`}
+        // intro={`this is where you can manage ${
+        //   property ? property.location : null
+        // }. This is where you can review and accept applications, sign and manage leases associated with this property, and change the details before it goes on the market`}
+        intro={property.headline}
         metaData={{
           title: `${property ? property.location : null}`,
           content: 'The properties for the current logged in user',

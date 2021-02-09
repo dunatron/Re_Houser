@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 const CREATE_FOREIGN_LINK_MUTATION = gql`
   mutation CREATE_FOREIGN_LINK_MUTATION($data: ForeignLinkCreateInput!) {
-    createMessage(data: $data) {
+    createForeignLink(data: $data) {
       ...foreignLinkInfo
     }
   }

@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     transition: `padding ${ts}, border-color ${ts}, border-width ${ts}`,
   },
   isEditing: {
-    border: `1px dashed ${theme.palette.primary.main}`,
+    border: `4px solid ${theme.palette.primary.main}`,
     padding: '16px',
   },
   displayHeader: {
