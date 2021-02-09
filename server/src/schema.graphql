@@ -200,6 +200,7 @@ type Mutation {
     data: ContactSubmissionUpdateInput!
     where: ContactSubmissionWhereUniqueInput!
   ): ContactSubmission
+  createForeignLink(data: ForeignLinkCreateInput!): ForeignLink!
 }
 
 type Subscription {
@@ -411,6 +412,15 @@ type Query {
     first: Int
     last: Int
   ): InspectionConnection!
+  foreignLinksConnection(
+    where: ForeignLinkWhereInput
+    orderBy: ForeignLinkOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ForeignLinkConnection!
   inspection(where: InspectionWhereUniqueInput!): Inspection
   propertyLeases(where: PropertyLeaseWhereInput): [PropertyLease]!
   charge(where: ChargeWhereUniqueInput!): Charge!

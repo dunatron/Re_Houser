@@ -37,6 +37,7 @@ import { INVITE_USER_MUTATION } from './inviteUser';
 import { ADD_BANK_TRANSFER_TO_LEASE_MUTATION } from './addBankTransferToLease';
 import { UPDATE_WALLET_MUTATION } from './updateWallet';
 import { UPDATE_CONTACT_SUBMISSION_MUTATION } from './updateContactSubmission';
+import { CREATE_FOREIGN_LINK_MUTATION } from './createForeignLink';
 
 export {
   SIGNUP_MUTATION,
@@ -78,4 +79,5 @@ export {
   ADD_BANK_TRANSFER_TO_LEASE_MUTATION,
   UPDATE_WALLET_MUTATION,
   UPDATE_CONTACT_SUBMISSION_MUTATION,
+  CREATE_FOREIGN_LINK_MUTATION,
 };

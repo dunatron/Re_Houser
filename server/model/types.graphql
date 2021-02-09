@@ -76,6 +76,8 @@ type User {
 
 type ForeignLink {
   user: User @relation(name: "UserForeignLinks")
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
   property: Property @relation(name: "PropertyForeignLinks")
   name: String
   id: ID! @unique @id

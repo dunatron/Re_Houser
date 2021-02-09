@@ -13,6 +13,8 @@ import { PAYMENTS_CONNECTION_QUERY } from './paymentsConnection';
 import { PAYMENTS_COUNT_QUERY } from './paymentsCountQuery';
 import { CONTACT_SUBMISSIONS_CONNECTION_QUERY } from './contactSubmissionsConnection';
 import { CONTACT_SUBMISSIONS_COUNT_QUERY } from './contactSubmissionsCount';
+import { FOREIGN_LINKS_CONNECTION_QUERY } from './foreignLinksConnection';
+import { FOREIGN_LINKS_COUNT_QUERY } from './foreignLinksCount';
 
 export {
   RENTAL_APPRAISALS_CONNECTION_QUERY,
@@ -30,4 +32,6 @@ export {
   PAYMENTS_COUNT_QUERY,
   CONTACT_SUBMISSIONS_CONNECTION_QUERY,
   CONTACT_SUBMISSIONS_COUNT_QUERY,
+  FOREIGN_LINKS_CONNECTION_QUERY,
+  FOREIGN_LINKS_COUNT_QUERY,
 };

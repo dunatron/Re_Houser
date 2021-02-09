@@ -54,6 +54,7 @@ const completeInspection = require("./mutations/completeInspection");
 const inviteUser = require("./mutations/inviteUser");
 const addBankTransferToLease = require("./mutations/addBankTransferToLease");
 const updateContactSubmission = require("./mutations/updateContactSubmission");
+const createForeignLink = require("./mutations/createForeignLink");
 
 // a collection of our business logic mutations
 const mutations = {
@@ -112,6 +113,7 @@ const mutations = {
   inviteUser,
   addBankTransferToLease,
   updateContactSubmission,
+  createForeignLink
 };
 
 module.exports = mutations;

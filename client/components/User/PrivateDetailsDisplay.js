@@ -23,6 +23,8 @@ import { SectionExamples } from '../StyleExamples';
 
 import RenderCloudinaryType from '@/Components/UploadWidget/RenderType';
 
+import ForeignLinksTable from '@/Components/Tables/ForeignLinksTable';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -70,11 +72,6 @@ export default function PrivateDetailsDisplay({ user }) {
             format="LongDateTime"
             orientation="vertical"
           />
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
-          <div>dob: {user.dob}</div>
         </GroupedSection>
 
         <GroupedSection title="Permissions">
@@ -127,13 +124,12 @@ export default function PrivateDetailsDisplay({ user }) {
             value={user.emergencyContactEmail}
           />
         </GroupedSection>
-        <GroupedSection title="Foreign Links">
-          <div>
-            {user.foreignLinks && (
-              <div>ForeignLinks: Too Map over the links</div>
-            )}
-          </div>
-        </GroupedSection>
+        <div>
+          <Typography variant="caption" gutterBottom>
+            Foreign Links
+          </Typography>
+          <ForeignLinksTable />
+        </div>
       </Container>
     </div>
   );

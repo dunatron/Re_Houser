@@ -2,6 +2,8 @@ import gql from 'graphql-tag';
 const ForeignLinkInfoFragment = gql`
   fragment foreignLinkInfo on ForeignLink {
     id
+    createdAt
+    updatedAt
     user {
       id
     }
