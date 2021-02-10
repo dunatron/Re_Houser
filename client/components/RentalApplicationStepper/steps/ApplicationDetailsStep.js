@@ -25,7 +25,7 @@ import {
 import { Alert, AlertTitle } from '@material-ui/lab';
 import { useForm } from 'react-hook-form';
 import SuperiorTable from '@/Components/SuperiorTable';
-import UserProfile from '@/Components/UserProfile';
+import PublicUserDetails from '@/Components/User/PublicUserDetails';
 import {
   UPDATE_RENTAL_APPLICATION_MUTATION,
   UPDATE_RENTAL_GROUP_APPLICANT_MUTATION,
@@ -114,7 +114,7 @@ const ApplicationDetailsStep = ({
     {
       field: 'url',
       title: 'Avatar',
-      render: rowData => <UserProfile user={rowData.user} me={me} />,
+      render: rowData => <PublicUserDetails id={rowData.user.id} me={me} />,
     },
     { title: 'firstName', field: 'user.firstName', editable: false },
     { title: 'completed', field: 'completed', editable: false },
