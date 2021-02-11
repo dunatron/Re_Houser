@@ -2,6 +2,8 @@ const cloudinary = require("cloudinary").v2;
 const { extractFileKey } = require("./extractFileKey");
 const { _isAdmin } = require("./permissionsCheck");
 
+const logger = require("../middleware/loggers/logger");
+
 //https://cloudinary.com/documentation/image_upload_api_reference#required_parameters
 
 const cloudinaryConfObj = {
@@ -31,6 +33,10 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     encoding
   } = await upload;
 
+  logger.log("info", `File API Testing: `, {
+    info: info
+  });
+
   cloudinary.config(cloudinaryConfObj);
   let resultObj = {};
   const cloudinaryUpload = async ({ stream }) => {
@@ -57,6 +63,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
         stream.pipe(streamLoad);
       });
     } catch (err) {
+      logger.log("error", `File API error: `, {
+        error: err
+      });
       throw new Error(`Failed to upload item image ! Err:${err.message}`);
     }
   };

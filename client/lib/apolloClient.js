@@ -71,9 +71,7 @@ function createApolloClient(ctx) {
 
     const newHeaders = {
       headers: {
-        accept: '*/*',
         'Access-Control-Allow-Origin': '*',
-        'content-type': 'application/json',
         ...headers,
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
@@ -92,6 +90,9 @@ function createApolloClient(ctx) {
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
     },

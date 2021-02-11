@@ -12,7 +12,7 @@ const addUser = async (req, res, next) => {
   let token = req.cookies.token;
 
   if (!token) {
-    const header = req.headers["authorization"];
+    const header = req.headers["authorization"]; // hmm this might be blocking the cloudinary
     if (typeof header !== "undefined") {
       const bearer = header.split(" ");
       token = bearer[1];
