@@ -7,7 +7,7 @@ const CTO_DETAILS = {
   firstname: "Heath",
   lastname: "Dunlop",
   email: "heathd@rehouser.co.nz",
-  phone: "021 243 9998",
+  phone: "021 243 9998"
 };
 
 const CEO_DETAILS = {
@@ -15,7 +15,7 @@ const CEO_DETAILS = {
   firstname: "Heath dd",
   lastname: "McDunolop change this const email bac. just making it obvious",
   email: "heathd@rehouser.co.nz",
-  phone: "022 302 5510",
+  phone: "022 302 5510"
 };
 
 // const CEO_DETAILS =
@@ -56,12 +56,12 @@ exports.rehouserCookieOpt = () => {
   const envStage = process.env.STAGE;
   //The httpOnly: true setting means that the cookie can’t be read using JavaScript but can still be sent back to the server in HTTP requests.
   // Without this setting, an XSS attack could use document.cookie to get a list of stored cookies and their values
-  if (envStage == "dev")
-    return {
-      maxAge: JWT_TOKEN_MAX_AGE,
-      httpOnly: true,
-      // sameSite: "lax"
-    };
+  // if (envStage == "dev")
+  //   return {
+  //     maxAge: JWT_TOKEN_MAX_AGE,
+  //     httpOnly: true,
+  //     // sameSite: "lax"
+  //   };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
   //   httpOnly: true,
@@ -73,7 +73,7 @@ exports.rehouserCookieOpt = () => {
     httpOnly: true,
     sameSite: "Lax",
     httpOnly: false,
-    secure: false,
+    secure: false
   };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
@@ -108,12 +108,12 @@ exports.rehouserCookieOpt = () => {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "None",
-    secure: false, // false for dev
+    secure: false // false for dev
   };
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "Lax",
-    secure: true,
+    secure: true
   };
 };

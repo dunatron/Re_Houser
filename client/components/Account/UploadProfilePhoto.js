@@ -53,18 +53,18 @@ const UploadProfilePhoto = ({ me }) => {
         files={me.profilePhoto ? [me.profilePhoto] : []}
         refetchQueries={refetchQueries}
         updateCacheOnRemovedFile={(cache, result) => {
-          updateUser({
-            variables: {
-              data: {
-                profilePhoto: {
-                  disconnect: true,
-                },
-              },
-              where: {
-                id: me.id,
-              },
-            },
-          });
+          // updateUser({
+          //   variables: {
+          //     data: {
+          //       profilePhoto: {
+          //         disconnect: true,
+          //       },
+          //     },
+          //     where: {
+          //       id: me.id,
+          //     },
+          //   },
+          // });
         }}
         recieveFile={file => {
           updateUser({

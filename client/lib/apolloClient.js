@@ -60,41 +60,28 @@ function createApolloClient(ctx) {
   const token = cookies.token ? cookies.token : '';
   const refreshToken = cookies['refresh-token'] ? cookies['refresh-token'] : '';
 
-  const allowedResources = ['https://yoga.rehouser.co.nz'];
-
   // set the cookies from nextJs into our Apollo link via setContext
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // return the headers to the context so httpLink can read them
-
-    console.log('Auth link headers => ', headers);
-
-    const newHeaders = {
+    return {
       headers: {
-        'Access-Control-Allow-Origin': '*',
         ...headers,
+        // 'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
+        'Access-Control-Allow-Origin': '*',
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
-    };
-
-    console.log('New headers => ', newHeaders);
-
-    return {
-      ...newHeaders,
-      // headers: {
-      //   ...headers,
-      //   cookie: `token=${token}; refresh-token=${refreshToken};`,
-      // },
     };
   });
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
+      headers: {
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Origin': 'http://naaaa.com',
+      },
     },
   });
 

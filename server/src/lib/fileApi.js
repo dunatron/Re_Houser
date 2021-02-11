@@ -35,6 +35,10 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
 
   cloudinary.config(cloudinaryConfObj);
   let resultObj = {};
+
+  logger.log("info", `Debug: fileApi`, {
+    tron: "MAKING IT TO FILE API"
+  });
   const cloudinaryUpload = async ({ stream }) => {
     try {
       await new Promise((resolve, reject) => {
@@ -55,6 +59,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
               // logger.log("error", `file APi reject err: `, {
               //   message: error
               // });
+              logger.log("info", `Debug: fileApi`, {
+                tron: "error in the resolve for file"
+              });
               reject(error);
             }
           }
@@ -62,9 +69,6 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
         stream.pipe(streamLoad);
       });
     } catch (err) {
-      logger.log("error", `File API error: `, {
-        message: err.message
-      });
       throw new Error(`Failed to upload item image ! Err:${err.message}`);
     }
   };

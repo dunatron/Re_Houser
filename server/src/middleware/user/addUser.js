@@ -5,20 +5,22 @@ const db = require("../../db");
 
 const addUser = async (req, res, next) => {
   res.set({
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "DELETE,GET,PATCH,POST,PUT",
-    "Access-Control-Allow-Headers": "Content-Type,Authorization"
+    "Access-Control-Allow-Origin": "*"
   });
   let token = req.cookies.token;
 
+  // if (!token) {
+  //   const header = req.headers["authorization"]; // hmm this might be blocking the cloudinary
+  //   if (typeof header !== "undefined") {
+  //     const bearer = header.split(" ");
+  //     token = bearer[1];
+  //   } else {
+  //     return next();
+  //   }
+  // }
+
   if (!token) {
-    const header = req.headers["authorization"]; // hmm this might be blocking the cloudinary
-    if (typeof header !== "undefined") {
-      const bearer = header.split(" ");
-      token = bearer[1];
-    } else {
-      return next();
-    }
+    return next();
   }
   try {
     // decode the id and permissions from the token request
