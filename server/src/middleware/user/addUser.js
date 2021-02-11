@@ -4,7 +4,11 @@ const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 const db = require("../../db");
 
 const addUser = async (req, res, next) => {
-  // console.log("WHAT IS ON THE REQUEST +> ", req);
+  res.set({
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "DELETE,GET,PATCH,POST,PUT",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization"
+  });
   let token = req.cookies.token;
 
   if (!token) {
