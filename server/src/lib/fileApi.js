@@ -64,7 +64,7 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
       });
     } catch (err) {
       logger.log("error", `File API error: `, {
-        error: err
+        message: err.message
       });
       throw new Error(`Failed to upload item image ! Err:${err.message}`);
     }
