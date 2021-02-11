@@ -56,6 +56,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
               };
               resolve();
             } else {
+              logger.log("error", `file APi reject err: `, {
+                message: error
+              });
               reject(error);
             }
           }
