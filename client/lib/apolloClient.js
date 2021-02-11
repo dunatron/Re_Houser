@@ -60,15 +60,33 @@ function createApolloClient(ctx) {
   const token = cookies.token ? cookies.token : '';
   const refreshToken = cookies['refresh-token'] ? cookies['refresh-token'] : '';
 
+  const allowedResources = ['https://yoga.rehouser.co.nz'];
+
   // set the cookies from nextJs into our Apollo link via setContext
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // return the headers to the context so httpLink can read them
-    return {
+
+    console.log('Auth link headers => ', headers);
+
+    const newHeaders = {
       headers: {
+        accept: '*/*',
+        'Access-Control-Allow-Origin': '*',
+        'content-type': 'application/json',
         ...headers,
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
+    };
+
+    console.log('New headers => ', newHeaders);
+
+    return {
+      ...newHeaders,
+      // headers: {
+      //   ...headers,
+      //   cookie: `token=${token}; refresh-token=${refreshToken};`,
+      // },
     };
   });
 
