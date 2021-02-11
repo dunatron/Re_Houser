@@ -33,10 +33,6 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     encoding
   } = await upload;
 
-  logger.log("info", `File API Testing: `, {
-    info: info
-  });
-
   cloudinary.config(cloudinaryConfObj);
   let resultObj = {};
   const cloudinaryUpload = async ({ stream }) => {
@@ -56,9 +52,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
               };
               resolve();
             } else {
-              logger.log("error", `file APi reject err: `, {
-                message: error
-              });
+              // logger.log("error", `file APi reject err: `, {
+              //   message: error
+              // });
               reject(error);
             }
           }
