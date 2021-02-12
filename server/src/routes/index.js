@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const postStripeIntent = require("./stripe/intent");
 const postStripeWebhook = require("./stripe/webhook");
 
+const logger = require("./middleware/loggers/logger");
 const cloudinary = require("cloudinary").v2;
 var fs = require("fs");
 var uploads = {};
@@ -18,23 +19,29 @@ const routes = server => {
   server.get("/setup-indexes", setupIndexes);
   server.post("/stripe/intent", postStripeIntent);
   server.get("/test/file-upload", (req, res) => {
-    console.log("The test file request headers: ", req.headers);
-    var upload_stream = cloudinary.uploader.upload_stream(
-      { tags: "basic_sample" },
-      function(err, image) {
-        console.log();
-        console.log("** Stream Upload");
-        if (err) {
-          console.warn(err);
+    try {
+      console.log("The test file request headers: ", req.headers);
+      logger.log("info", `The test file request headers:`, {
+        headers: req.headers
+      });
+      var upload_stream = cloudinary.uploader.upload_stream(
+        { tags: "basic_sample" },
+        function(err, image) {
+          console.log();
+          console.log("** Stream Upload");
+          if (err) {
+            console.warn(err);
+          }
+          console.log("* Same image, uploaded via stream");
+          console.log("* " + image.public_id);
+          console.log("* " + image.url);
+          waitForAllUploads("pizza3", err, image);
         }
-        console.log("* Same image, uploaded via stream");
-        console.log("* " + image.public_id);
-        console.log("* " + image.url);
-        waitForAllUploads("pizza3", err, image);
-      }
-    );
-    fs.createReadStream("./src/pizza.jpg").pipe(upload_stream);
-    res.send("Algolia Indexes Initialized");
+      );
+      fs.createReadStream("./src/pizza.jpg").pipe(upload_stream);
+    } catch (err) {
+      res.send("an error: ", err.message);
+    }
   });
   server.post(
     "/stripe/webhook",
