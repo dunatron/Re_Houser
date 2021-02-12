@@ -67,9 +67,6 @@ function createApolloClient(ctx) {
     return {
       headers: {
         ...headers,
-        // 'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Origin': '*',
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
     };
@@ -77,9 +74,6 @@ function createApolloClient(ctx) {
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
     },

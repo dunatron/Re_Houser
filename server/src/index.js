@@ -80,10 +80,8 @@ routes(server);
 // setup cron jobs
 initialiseTasks();
 
-// ummm lets perhaps put these localhosts in env file or procee.env == dev or something
 const allowedClientOrigins = [
   "http://localhost:7777",
-  "http://localhost:3000",
   "https://rehouser-next-prod.herokuapp.com",
   "http://app.rehouser.co.nz",
   "http://rehouser.co.nz",
@@ -91,10 +89,6 @@ const allowedClientOrigins = [
   "https://rehouser.co.nz",
   "https://yoga.rehouser.co.nz",
   "http://app.uat.rehouser.co.nz",
-  "http://cloudinary.com",
-  "http://res.cloudinary.com",
-  "https://cloudinary.com",
-  "https://res.cloudinary.com",
   process.env.FRONTEND_URL,
 ];
 
@@ -105,7 +99,6 @@ const app = server.start(
     cors: {
       credentials: true,
       origin: allowedClientOrigins,
-      // origin: "*"
     },
     // uploads: {
     //   maxFieldSize: 1000,
@@ -118,37 +111,37 @@ const app = server.start(
     subscriptions: {
       // path: "/subscriptions",
       path: "/",
-      onConnect: (connectionParams, webSocket, context) => {
-        const { isLegacy, socket, request } = context;
-        // console.log("context on connect context => ", context);
-        webSocket.on("error", (error) => {
-          // logger.log("error", `potential ws err onConnect`, {
-          //   error: error
-          //   // webSocket: webSocket,
-          //   // context: context
-          //   // query: req.body.query
-          // });
-        });
-        // logger.log("info", `subscriptions on connect`, {
-        //   connectionParams: connectionParams,
-        //   headers: request.headers
-        //   // webSocket: webSocket,
-        //   // context: context
-        //   // query: req.body.query
-        // });
-      },
-      onDisconnect: (webSocket, context) => {
-        // console.log("context on disconnect context => ", context);
-        // console.log("context on disconnect webSocket => ", webSocket);
-        // logger.log("info", `subscriptions on disconnect`, {
-        //   context: context,
-        // });
-        // webSocket.on("error", (error) => {
-        //   logger.log("error", `potential ws err onDisconnect`, {
-        //     error: error,
-        //   });
-        // });
-      },
+      // onConnect: (connectionParams, webSocket, context) => {
+      //   const { isLegacy, socket, request } = context;
+      //   // console.log("context on connect context => ", context);
+      //   // webSocket.on("error", (error) => {
+      //   //   logger.log("error", `potential ws err onConnect`, {
+      //   //     error: error,
+      //   //     // webSocket: webSocket,
+      //   //     // context: context
+      //   //     // query: req.body.query
+      //   //   });
+      //   // });
+      //   // logger.log("info", `subscriptions on connect`, {
+      //   //   connectionParams: connectionParams,
+      //   //   headers: request.headers,
+      //   //   // webSocket: webSocket,
+      //   //   // context: context
+      //   //   // query: req.body.query
+      //   // });
+      // },
+      // onDisconnect: (webSocket, context) => {
+      //   // console.log("context on disconnect context => ", context);
+      //   // console.log("context on disconnect webSocket => ", webSocket);
+      //   // logger.log("info", `subscriptions on disconnect`, {
+      //   //   context: context,
+      //   // });
+      //   // webSocket.on("error", (error) => {
+      //   //   logger.log("error", `potential ws err onDisconnect`, {
+      //   //     error: error,
+      //   //   });
+      //   // });
+      // },
       keepAlive: 10000, // use 10000 like prisma or false
     },
   },
