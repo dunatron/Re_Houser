@@ -7,7 +7,7 @@ const CTO_DETAILS = {
   firstname: "Heath",
   lastname: "Dunlop",
   email: "heathd@rehouser.co.nz",
-  phone: "021 243 9998"
+  phone: "021 243 9998",
 };
 
 const CEO_DETAILS = {
@@ -15,7 +15,7 @@ const CEO_DETAILS = {
   firstname: "Heath dd",
   lastname: "McDunolop change this const email bac. just making it obvious",
   email: "heathd@rehouser.co.nz",
-  phone: "022 302 5510"
+  phone: "022 302 5510",
 };
 
 // const CEO_DETAILS =
@@ -63,19 +63,19 @@ exports.rehouserCookieOpt = () => {
   //     httpOnly: true,
   //     // sameSite: "lax"
   //   };
-  // return {
-  //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
-  //   httpOnly: true,
-  //   sameSite: "None",
-  //   secure: envStage == "dev" ? false : true // connection needs to be over HTTPS
-  // };
   return {
     maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
     httpOnly: true,
-    sameSite: "Lax",
-    httpOnly: false,
-    secure: false
+    sameSite: "None",
+    secure: envStage == "dev" ? false : true, // connection needs to be over HTTPS
   };
+  // return {
+  //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
+  //   httpOnly: true,
+  //   sameSite: "Lax",
+  //   httpOnly: false,
+  //   secure: false,
+  // };
   // return {
   //   maxAge: JWT_TOKEN_MAX_AGE, // when the cookie expires
   //   httpOnly: true,
@@ -109,12 +109,12 @@ exports.rehouserCookieOpt = () => {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "None",
-    secure: false // false for dev
+    secure: false, // false for dev
   };
   return {
     maxAge: JWT_TOKEN_MAX_AGE,
     httpOnly: true,
     sameSite: "Lax",
-    secure: true
+    secure: true,
   };
 };
