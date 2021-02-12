@@ -39,7 +39,7 @@ const routes = server => {
         }
       );
       fs.createReadStream("./src/pizza.jpg").pipe(upload_stream);
-      res.sed("Probably succeded");
+      res.send("Probably succeded");
     } catch (err) {
       res.send("an error: ", err.message);
     }
