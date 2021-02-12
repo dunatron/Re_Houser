@@ -41,9 +41,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
   // ctx.req.set("Content-Type", "text/html");
   // console.log("headers after mutation => ", ctx.request.headers);
 
-  // logger.log("info", `file API HEADERS`, {
-  //   headers: ctx.request.headers
-  // });
+  logger.log("info", `file API HEADERS`, {
+    headers: ctx.request.headers,
+  });
 
   const cloudinaryUpload = async ({ stream }) => {
     try {
@@ -75,6 +75,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
         stream.pipe(streamLoad);
       });
     } catch (err) {
+      logger.log("info", `File Upload Error`, {
+        message: err.message,
+      });
       throw new Error(`Failed to upload item image ! Err:${err.message}`);
     }
   };
