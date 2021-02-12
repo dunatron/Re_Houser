@@ -102,10 +102,11 @@ const allowedClientOrigins = [
 const app = server.start(
   {
     port: process.env.PORT || 4444,
-    // cors: {
-    //   credentials: true,
-    //   origin: allowedClientOrigins
-    // },
+    cors: {
+      credentials: true,
+      // origin: allowedClientOrigins
+      origin: "*"
+    },
     // uploads: {
     //   maxFieldSize: 1000,
     //   maxFileSize: 500,
