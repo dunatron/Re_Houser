@@ -33,89 +33,97 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     encoding
   } = await upload;
 
-  // cloudinary.config(cloudinaryConfObj);
-  // let resultObj = {};
+  cloudinary.config(cloudinaryConfObj);
+  let resultObj = {};
 
-  // const cloudinaryUpload = async ({ stream }) => {
-  //   try {
-  //     await new Promise((resolve, reject) => {
-  //       const streamLoad = cloudinary.uploader.upload_stream(
-  //         {
-  //           type: data.type ? data.type : "upload",
-  //           access_mode: data.access_mode ? data.access_mode : "authenticated",
-  //           ...data,
-  //           folder: `${process.env.STAGE}/${data.folder}`
-  //         },
-  //         function(error, result) {
-  //           if (result) {
-  //             resultObj = {
-  //               ...result
-  //             };
-  //             resolve();
-  //           } else {
-  //             // logger.log("error", `file APi reject err: `, {
-  //             //   message: error
-  //             // });
-  //             logger.log("info", `Debug: fileApi`, {
-  //               tron: "error in the resolve for file"
-  //             });
-  //             reject(error);
-  //           }
-  //         }
-  //       );
-  //       stream.pipe(streamLoad);
-  //     });
-  //   } catch (err) {
-  //     throw new Error(`Failed to upload item image ! Err:${err.message}`);
-  //   }
-  // };
+  // console.log("SHOW ME THE FILE CTX headers => ", ctx.request.headers);
 
-  // await cloudinaryUpload({ stream });
+  logger.log("info", `file API HEADERS`, {
+    headers: ctx.request.headers
+  });
 
-  // // Sync with Prisma
-  // const combinedFileData = {
-  //   filename,
-  //   mimetype,
-  //   encoding,
-  //   ...resultObj
-  // };
+  const cloudinaryUpload = async ({ stream }) => {
+    try {
+      await new Promise((resolve, reject) => {
+        const streamLoad = cloudinary.uploader.upload_stream(
+          {
+            type: data.type ? data.type : "upload",
+            access_mode: data.access_mode ? data.access_mode : "authenticated",
+            ...data,
+            folder: `${process.env.STAGE}/${data.folder}`
+          },
+          function(error, result) {
+            if (result) {
+              resultObj = {
+                ...result
+              };
+              resolve();
+            } else {
+              // logger.log("error", `file APi reject err: `, {
+              //   message: error
+              // });
+              // logger.log("info", `Debug: fileApi`, {
+              //   tron: "error in the resolve for file"
+              // });
+              reject(error);
+            }
+          }
+        );
+        stream.pipe(streamLoad);
+      });
+    } catch (err) {
+      throw new Error(`Failed to upload item image ! Err:${err.message}`);
+    }
+  };
 
-  // // return file;
-  // const file = await ctx.db.mutation.createFile(
-  //   {
-  //     data: {
-  //       ...combinedFileData,
-  //       uploaderId: ctx.request.userId
-  //     }
-  //   },
-  //   info
-  // );
+  await cloudinaryUpload({ stream });
 
+  // Sync with Prisma
+  const combinedFileData = {
+    filename,
+    mimetype,
+    encoding,
+    ...resultObj
+  };
+
+  // return file;
   const file = await ctx.db.mutation.createFile(
     {
       data: {
-        filename,
-        mimetype,
-        encoding
+        ...combinedFileData,
+        uploaderId: ctx.request.userId
       }
     },
     info
   );
 
+  // const file = await ctx.db.mutation.createFile(
+  //   {
+  //     data: {
+  //       filename,
+  //       mimetype,
+  //       encoding
+  //     }
+  //   },
+  //   info
+  // );
+
   return file;
 };
 
 exports.deleteFile = async ({ url, id, ctx }) => {
-  cloudinary.config(cloudinaryConfObj);
-  const cloudinaryFileKey = extractFileKey(url);
-  await cloudinary.uploader.destroy(
-    cloudinaryFileKey,
-    { invalidate: true },
-    async function(error, result) {
-      if (result.result === "ok") {
-        const where = { id: id };
-        // return await ctx.db.mutation.deleteFile({ where }, `{ id }`);
+  try {
+    cloudinary.config(cloudinaryConfObj);
+    const cloudinaryFileKey = extractFileKey(url);
+    await cloudinary.uploader.destroy(
+      cloudinaryFileKey,
+      { invalidate: true },
+      async function(error, result) {
+        if (result.result === "ok") {
+          const where = { id: id };
+          // return await ctx.db.mutation.deleteFile({ where }, `{ id }`);
+        }
       }
-    }
-  );
+    );
+  } catch (err) {}
 };

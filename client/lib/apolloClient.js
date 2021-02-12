@@ -68,7 +68,7 @@ function createApolloClient(ctx) {
       headers: {
         ...headers,
         // 'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
-        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Origin': '*',
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
     };
@@ -78,10 +78,10 @@ function createApolloClient(ctx) {
     uri: authUri,
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
-      headers: {
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Origin': 'http://naaaa.com',
-      },
+      // headers: {
+      //   // 'Access-Control-Allow-Origin': '*',
+      //   // 'Access-Control-Allow-Origin': 'http://naaaa.com',
+      // },
     },
   });
 

@@ -91,6 +91,10 @@ const allowedClientOrigins = [
   "https://rehouser.co.nz",
   "https://yoga.rehouser.co.nz",
   "http://app.uat.rehouser.co.nz",
+  "http://cloudinary.com",
+  "http://res.cloudinary.com",
+  "https://cloudinary.com",
+  "https://res.cloudinary.com",
   process.env.FRONTEND_URL
 ];
 
