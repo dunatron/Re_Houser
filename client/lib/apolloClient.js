@@ -77,15 +77,11 @@ function createApolloClient(ctx) {
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     fetchOptions: {
       credentials: 'include', // this makes sure we include things like cookies
-      // headers: {
-      //   'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
-      // },
-      // headers: {
-      //   // 'Access-Control-Allow-Origin': '*',
-      //   // 'Access-Control-Allow-Origin': 'http://naaaa.com',
-      // },
     },
   });
 
