@@ -68,7 +68,8 @@ function createApolloClient(ctx) {
       headers: {
         ...headers,
         // 'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
-        'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
     };
