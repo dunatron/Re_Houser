@@ -33,62 +33,70 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
     encoding
   } = await upload;
 
-  cloudinary.config(cloudinaryConfObj);
-  let resultObj = {};
+  // cloudinary.config(cloudinaryConfObj);
+  // let resultObj = {};
 
-  logger.log("info", `Debug: fileApi`, {
-    tron: "MAKING IT TO FILE API"
-  });
-  const cloudinaryUpload = async ({ stream }) => {
-    try {
-      await new Promise((resolve, reject) => {
-        const streamLoad = cloudinary.uploader.upload_stream(
-          {
-            type: data.type ? data.type : "upload",
-            access_mode: data.access_mode ? data.access_mode : "authenticated",
-            ...data,
-            folder: `${process.env.STAGE}/${data.folder}`
-          },
-          function(error, result) {
-            if (result) {
-              resultObj = {
-                ...result
-              };
-              resolve();
-            } else {
-              // logger.log("error", `file APi reject err: `, {
-              //   message: error
-              // });
-              logger.log("info", `Debug: fileApi`, {
-                tron: "error in the resolve for file"
-              });
-              reject(error);
-            }
-          }
-        );
-        stream.pipe(streamLoad);
-      });
-    } catch (err) {
-      throw new Error(`Failed to upload item image ! Err:${err.message}`);
-    }
-  };
+  // const cloudinaryUpload = async ({ stream }) => {
+  //   try {
+  //     await new Promise((resolve, reject) => {
+  //       const streamLoad = cloudinary.uploader.upload_stream(
+  //         {
+  //           type: data.type ? data.type : "upload",
+  //           access_mode: data.access_mode ? data.access_mode : "authenticated",
+  //           ...data,
+  //           folder: `${process.env.STAGE}/${data.folder}`
+  //         },
+  //         function(error, result) {
+  //           if (result) {
+  //             resultObj = {
+  //               ...result
+  //             };
+  //             resolve();
+  //           } else {
+  //             // logger.log("error", `file APi reject err: `, {
+  //             //   message: error
+  //             // });
+  //             logger.log("info", `Debug: fileApi`, {
+  //               tron: "error in the resolve for file"
+  //             });
+  //             reject(error);
+  //           }
+  //         }
+  //       );
+  //       stream.pipe(streamLoad);
+  //     });
+  //   } catch (err) {
+  //     throw new Error(`Failed to upload item image ! Err:${err.message}`);
+  //   }
+  // };
 
-  await cloudinaryUpload({ stream });
+  // await cloudinaryUpload({ stream });
 
-  // Sync with Prisma
-  const combinedFileData = {
-    filename,
-    mimetype,
-    encoding,
-    ...resultObj
-  };
+  // // Sync with Prisma
+  // const combinedFileData = {
+  //   filename,
+  //   mimetype,
+  //   encoding,
+  //   ...resultObj
+  // };
 
-  // return file;
+  // // return file;
+  // const file = await ctx.db.mutation.createFile(
+  //   {
+  //     data: {
+  //       ...combinedFileData,
+  //       uploaderId: ctx.request.userId
+  //     }
+  //   },
+  //   info
+  // );
+
   const file = await ctx.db.mutation.createFile(
     {
       data: {
-        ...combinedFileData,
-        uploaderId: ctx.request.userId
+        filename,
+        mimetype,
+        encoding
       }
     },
     info
