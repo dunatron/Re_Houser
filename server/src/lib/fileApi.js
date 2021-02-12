@@ -51,8 +51,7 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
         const streamLoad = cloudinary.uploader.upload_stream(
           {
             type: data.type ? data.type : "upload",
-            // access_mode: data.access_mode ? data.access_mode : "authenticated",
-            access_mode: "public",
+            access_mode: data.access_mode ? data.access_mode : "authenticated",
             ...data,
             folder: `${process.env.STAGE}/${data.folder}`
           },
