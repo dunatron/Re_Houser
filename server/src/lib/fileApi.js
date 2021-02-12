@@ -37,6 +37,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
   let resultObj = {};
 
   // console.log("SHOW ME THE FILE CTX headers => ", ctx.request.headers);
+  // ctx.request.mode = "no-cors";
+  // ctx.req.set("Content-Type", "text/html");
+  // console.log("headers after mutation => ", ctx.request.headers);
 
   logger.log("info", `file API HEADERS`, {
     headers: ctx.request.headers
@@ -48,7 +51,8 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
         const streamLoad = cloudinary.uploader.upload_stream(
           {
             type: data.type ? data.type : "upload",
-            access_mode: data.access_mode ? data.access_mode : "authenticated",
+            // access_mode: data.access_mode ? data.access_mode : "authenticated",
+            access_mode: "public",
             ...data,
             folder: `${process.env.STAGE}/${data.folder}`
           },
