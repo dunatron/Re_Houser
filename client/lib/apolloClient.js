@@ -75,6 +75,7 @@ function createApolloClient(ctx) {
   const uploadHttpLink = createUploadLink({
     uri: authUri,
     fetchOptions: {
+      mode: 'cors',
       credentials: 'include', // this makes sure we include things like cookies
     },
   });
