@@ -79,7 +79,9 @@ exports.processUpload = async ({ upload, ctx, info, data = {} }) => {
         message: err.message
       });
       throw new Error(
-        `Failed to upload item image ! Err:${err.message} headerson server: ${ctx.request.headers}`
+        `Failed to upload item image ! Err:${
+          err.message
+        } headerson server: ${JSON.stringify(ctx.request.headers, null, 2)}`
       );
     }
   };
