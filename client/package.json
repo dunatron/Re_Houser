@@ -155,5 +155,9 @@
     "next-sitemap": "^1.4.5",
     "react-proptypes-generate": "^1.6.1",
     "typescript": "^3.6.3"
-  }
+  },
+  "cacheDirectories": [
+    "node_modules/",
+    ".next/cache/"
+  ]
 }
