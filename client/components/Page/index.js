@@ -89,23 +89,24 @@ const Page = props => {
         {/* I want to use it later to share properties to FB etc easily */}
         {/* Something adding wait param then it will only download when it renders a compknent. i.e if this is true remove it from the fucken footer */}
         {/* Then just have FB components load in via share this now buttons etc */}
-        <FacebookProvider
+        {/* <FacebookProvider
           appId={process.env.FACEBOOK_APP_ID}
           chatSupport={true}
           wait={true}>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <StateProvider>
-              <Elements stripe={stripe}>
-                <WithUser>
-                  <MaterialPage children={props.children} {...props} />
-                  {/* Admin Alerts straight up break general subs. general subs should be copied */}
-                  {/* <NoSSRAdminAlertsSub /> */}
-                  <NoSSRGeneralSubs />
-                </WithUser>
-              </Elements>
-            </StateProvider>
-          </MuiPickersUtilsProvider>
-        </FacebookProvider>
+          
+        </FacebookProvider> */}
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <StateProvider>
+            <Elements stripe={stripe}>
+              <WithUser>
+                <MaterialPage children={props.children} {...props} />
+                {/* Admin Alerts straight up break general subs. general subs should be copied */}
+                {/* <NoSSRAdminAlertsSub /> */}
+                <NoSSRGeneralSubs />
+              </WithUser>
+            </Elements>
+          </StateProvider>
+        </MuiPickersUtilsProvider>
       </ThemeProvider>
     </MuiThemeProvider>
   );

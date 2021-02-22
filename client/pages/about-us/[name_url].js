@@ -18,18 +18,6 @@ const TeamMemberPage = ({ query: { name_url } }) => {
   return <TeamMember member={member} />;
 };
 
-export async function getServerSideProps(ctx) {
-  const apolloClient = initializeApollo(null, ctx);
-  await apolloClient.query({
-    query: CURRENT_USER_QUERY,
-  });
-  return addApolloState(apolloClient, {
-    props: {
-      query: ctx.query,
-    },
-  });
-}
-
 TeamMemberPage.propTypes = {
   query: PropTypes.shape({
     name: PropTypes.string.isRequired,

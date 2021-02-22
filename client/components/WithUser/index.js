@@ -15,7 +15,7 @@ import Loader from '@/Components/Loader';
  * to avoid Conflicts in local component props, wrap in appData: { me}
  */
 const WithUser = props => {
-  const { data, error, loading } = useCurrentUser();
+  // const { data, error, loading } = useCurrentUser();
   const currentUserProps = useCurrentUser();
 
   if (currentUserProps.loading)

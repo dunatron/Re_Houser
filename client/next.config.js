@@ -35,6 +35,50 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = withPWA(
   withTM({
+    // async rewrites() {
+    //   return [
+    //     {
+    //       source: '/api/:path*',
+    //       destination: 'https://api.example.com/:path*',
+    //     },
+    //   ];
+    // },
+    // https://nextjs.org/docs/api-routes/api-middlewares#micro-support
+    async headers() {
+      return [
+        {
+          source: '/',
+          headers: [
+            {
+              key: 'x-metatron',
+              value: 'dunatron',
+            },
+            // only the las one gets added and probbaly not what we want to be doing here anyway
+            {
+              key: 'Access-Control-Allow-Origin',
+              value: 'dunatron',
+            },
+            {
+              key: 'Access-Control-Allow-Origin',
+              value: 'https://app.rehouser.co.nz',
+            },
+            {
+              key: 'Access-Control-Allow-Origin',
+              value: 'https://yoga.rehouser.co.nz',
+            },
+          ],
+        },
+        {
+          source: '/hello',
+          headers: [
+            {
+              key: 'x-hello',
+              value: 'world',
+            },
+          ],
+        },
+      ];
+    },
     pwa: {
       disable: process.env.NODE_ENV === 'development',
       // disable: false,

@@ -26,14 +26,18 @@ const Signin = props => {
     recaptchaRef.current ? recaptchaRef.current.reset() : null;
 
   const handleCompleted = data => {
-    setCookie(null, 'token', data.signin.token, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    });
-    setCookie(null, 'refresh-token', data.signin.refreshToken, {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/',
-    });
+    // setCookie(null, 'token', data.signin.token, {
+    //   maxAge: 30 * 24 * 60 * 60,
+    //   path: '/',
+    //   // sameSite: 'None',
+    //   // secure: true,
+    // });
+    // setCookie(null, 'refresh-token', data.signin.refreshToken, {
+    //   maxAge: 30 * 24 * 60 * 60,
+    //   path: '/',
+    //   // sameSite: 'None',
+    //   // secure: true,
+    // });
     toast.success(
       <p>
         <strong>

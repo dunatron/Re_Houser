@@ -9,21 +9,13 @@ const APP_SECRET_2 = process.env.APP_SECRET_2;
 // https://medium.com/@anMagpie/next-js-jwt-auth-example-app-4ea4d7f49fa3
 // https://dzone.com/articles/cookies-vs-tokens-the-definitive-guide
 exports.createTokens = async (user, password) => {
-  // because they signed in this token does not need the password
-  // const token = jwt.sign({ userId: user.id }, APP_SECRET);
-  // console.log("TEST USER ON TOKENS => ", user);
-  // throw new Error("TEST USER ON TOKENS =>!");
+  // 1. create jwt signed token
   const token = jwt.sign(
     { userId: user.id, userPermissions: user.permissions },
     APP_SECRET
   );
   // we will attach the password to a refreshToken so we can handle refreshTokens automagically without user input
   const refreshToken = jwt.sign({ userId: user.id }, APP_SECRET_2 + password);
-  // 4. Set the cookie with the token
-
-  // tokens will be sent in the cookies request now.
-  // so just using this function is all you need to do.
-  // I will also send back the tokens as for react-native i cant seem to access the cookies =(
   return {
     token: token,
     refreshToken: refreshToken,

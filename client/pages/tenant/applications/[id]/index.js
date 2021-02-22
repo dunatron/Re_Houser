@@ -45,18 +45,6 @@ const SingleApplicationPage = ({ appData: { currentUser }, query }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const apolloClient = initializeApollo(null, ctx);
-  await apolloClient.query({
-    query: CURRENT_USER_QUERY,
-  });
-  return addApolloState(apolloClient, {
-    props: {
-      query: ctx.query,
-    },
-  });
-}
-
 SingleApplicationPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,

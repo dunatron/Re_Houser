@@ -43,24 +43,6 @@ const InspectionPage = ({ appData: { currentUser } }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const apolloClient = initializeApollo(null, ctx);
-  await apolloClient.query({
-    query: CURRENT_USER_QUERY,
-  });
-  await apolloClient.query({
-    query: SINGLE_INSPECTION_QUERY,
-    variables: {
-      where: {
-        id: ctx.query.id,
-      },
-    },
-  });
-  return addApolloState(apolloClient, {
-    props: {},
-  });
-}
-
 InspectionPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,

@@ -64,9 +64,14 @@ function createApolloClient(ctx) {
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // return the headers to the context so httpLink can read them
+    // note probably not the bets idea to set the token context here as it is on ever request
+    // it should go on the one below as to just add the cookie to the request initially
+    console.log('Headers on every request: ', headers);
     return {
       headers: {
         ...headers,
+        // 'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
+        // 'Access-Control-Allow-Origin': 'http://localhost:4444',
         cookie: `token=${token}; refresh-token=${refreshToken};`,
       },
     };
@@ -74,9 +79,17 @@ function createApolloClient(ctx) {
 
   const uploadHttpLink = createUploadLink({
     uri: authUri,
+    headers: {
+      'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
+    },
+    credentials: 'same-origin', // this makes sure we include things like cookies
     fetchOptions: {
+      headers: {
+        'Access-Control-Allow-Origin': 'https://yoga.rehouser.co.nz',
+      },
+      // mode: 'same-origin',
       mode: 'cors',
-      credentials: 'include', // this makes sure we include things like cookies
+      credentials: 'same-origin', // this makes sure we include things like cookies
     },
   });
 
@@ -133,6 +146,30 @@ function createApolloClient(ctx) {
     link: link,
     cache: createInMemoryCache(),
   });
+  // const httpLink = createHttpLink({
+  //   uri: authUri,
+  // });
+
+  // const authLink = setContext((_, { headers }) => {
+  //   // get the authentication token from local storage if it exists
+  //   // return the headers to the context so httpLink can read them
+  //   console.log('Headers on every request: ', headers);
+  //   return {
+  //     headers: {
+  //       ...headers,
+  //       // authorization: token ? `Bearer ${token}` : '',
+  //       cookie: `token=${token}; refresh-token=${refreshToken};`,
+  //     },
+  //   };
+  // });
+
+  // const client = new ApolloClient({
+  //   ssrMode: typeof window === 'undefined',
+  //   link: authLink.concat(httpLink),
+  //   // cache: createInMemoryCache(),
+  //   cache: new InMemoryCache(),
+  // });
+  // return client;
 }
 
 const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;

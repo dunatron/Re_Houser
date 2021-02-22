@@ -27,7 +27,7 @@ const Footer = () => {
         alignItems: 'center',
         // justifyContent: 'center',
       }}>
-      <ItemWrapper>
+      {/* <ItemWrapper>
         <InstallPWAButton />
       </ItemWrapper>
       <ItemWrapper>
@@ -44,7 +44,7 @@ const Footer = () => {
           showFaces
           share
         />
-      </ItemWrapper>
+      </ItemWrapper> */}
     </Paper>
   );
 };

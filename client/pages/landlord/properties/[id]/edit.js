@@ -43,24 +43,6 @@ const EditPropertyPage = ({ appData: { currentUser }, query: { id } }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const apolloClient = initializeApollo(null, ctx);
-  await apolloClient.query({
-    query: CURRENT_USER_QUERY,
-  });
-  await apolloClient.query({
-    query: SINGLE_OWNER_PROPERTY_QUERY,
-    variables: {
-      id: ctx.query.id,
-    },
-  });
-  return addApolloState(apolloClient, {
-    props: {
-      query: ctx.query,
-    },
-  });
-}
-
 EditPropertyPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,

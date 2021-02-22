@@ -4,9 +4,6 @@ const { JWT_TOKEN_MAX_AGE, rehouserCookieOpt } = require("../../const");
 const db = require("../../db");
 
 const addUser = async (req, res, next) => {
-  // res.set({
-  //   "Access-Control-Allow-Origin": "*"
-  // });
   let token = req.cookies.token;
   const cookieOptions = rehouserCookieOpt();
 
@@ -19,29 +16,6 @@ const addUser = async (req, res, next) => {
   //     return next();
   //   }
   // }
-
-  // req.headers["mode"] = "cors";
-  // req.headers["host"] = "https://app.rehouser.co.nz";
-  // req.headers["sec-fetch-site"] = "cors";
-
-  // req.headers["host"] = "localhost:4444";
-  // req.headers["connection"] = "keep-alive";
-  // req.headers["content-length"] = "98005";
-  // req.headers["access-control-allow-origin"] = "*";
-  // req.headers["accept"] = "*/*";
-  // req.headers["user-agent"] =
-  //   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.96 Safari/537.36";
-  // req.headers["content-type"] =
-  //   "multipart/form-data; boundary=----WebKitFormBoundary7RkdPHHCkW0sBKDX";
-  // req.headers["origin"] = "http://localhost:7777";
-  // req.headers["sec-fetch-site"] = "same-site";
-  // req.headers["sec-fetch-mode"] = "cors";
-  // req.headers["sec-fetch-dest"] = "empty";
-  // req.headers["referer"] = "http://localhost:7777/";
-  // req.headers["accept-encoding"] = "gzip, deflate, br";
-  // req.headers["accept-language"] = "'en-US,en;q=0.9";
-
-  // whats coming from live
 
   if (!token) {
     return next();
@@ -65,10 +39,10 @@ const addUser = async (req, res, next) => {
     // const cookieOptions = rehouserCookieOpt();
     if (newTokens.token && newTokens.refreshToken) {
       res.cookie("token", newTokens.token, {
-        ...cookieOptions
+        ...cookieOptions,
       });
       res.cookie("refresh-token", newTokens.refreshToken, {
-        ...cookieOptions
+        ...cookieOptions,
       });
     }
     req.userId = newTokens.user.id;

@@ -82,23 +82,6 @@ const PropertiesPage = props => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const apolloClient = initializeApollo(null, ctx);
-
-  try {
-    await apolloClient.query({
-      query: CURRENT_USER_QUERY,
-    });
-    await apolloClient.query({
-      query: OWNER_PROPERTIES_QUERY,
-    });
-  } catch (e) {}
-
-  return addApolloState(apolloClient, {
-    props: {},
-  });
-}
-
 PropertiesPage.propTypes = {
   appData: PropTypes.shape({
     currentUser: PropTypes.object.isRequired,
