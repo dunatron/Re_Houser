@@ -47,7 +47,7 @@
     "heroku-logger": "^0.3.3",
     "jsonwebtoken": "8.5.1",
     "jszip": "2",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "logdna-winston": "^3.0.2",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
