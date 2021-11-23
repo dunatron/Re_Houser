@@ -3257,9 +3257,9 @@ algolia-aerial@^1.5.3:
   integrity sha512-LZTpVlYnhqNFd+ru/Spm73omhsagiRQLmjrosa5bJ6/I9OMRp4Sb9pYZkAxcx3RSr+ZNXZqthL7rpXqMFdrnPA==
 
 algoliasearch-helper@^3.1.0:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.3.3.tgz#8f1338790c3b478a8223f14ee447b9bdab4ab68b"
-  integrity sha512-1MKryf/yLQK9qgCaHtM+OBmG+R3qD6wxN8NnZstlCB8LijCZjoX1mgdema3+cBaa/zfmsD2q6/aP9kUKQmH4DQ==
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/algoliasearch-helper/-/algoliasearch-helper-3.6.2.tgz#45e19b12589cfa0c611b573287f65266ea2cc14a"
+  integrity sha512-Xx0NOA6k4ySn+R2l3UMSONAaMkyfmrZ3AP1geEMo32MxDJQJesZABZYsldO9fa6FKQxH91afhi4hO1G0Zc2opg==
   dependencies:
     events "^1.1.1"
 
