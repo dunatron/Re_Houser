@@ -73,7 +73,7 @@
     "material-ui-image": "^3.2.3",
     "material-ui-password-field": "^2.1.2",
     "material-ui-phone-number": "^2.2.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "money": "^0.2.0",
     "mui-rte": "^1.26.2",
     "next": "^9.3.2",
